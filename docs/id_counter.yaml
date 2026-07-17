@@ -1,11 +1,4 @@
-# フィーチャー×TYPE単位で次番号を管理する(DES-007)
-# 例:
-# F001:
-#   REQ: 1
-#   DES: 1
-#   FUN: 1
-#   UT: 1
-#   IT: 1
-#   QT: 1
-#   CHG: 1
-counters: {}
+counters:
+  F001:
+    REQ: 30
+    QT: 20

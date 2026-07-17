@@ -6,3 +6,10 @@ entries:
   agents: 1
   est_tokens: 10000
   note: Webアプリ雛形、要求メモ、private GitHubリポジトリ、registry登録、承認後自動再開設定を整備
+- date: '2026-07-18'
+  phase: requirements
+  task: pf-requirements F001 draft
+  model: GPT-5
+  agents: 4
+  est_tokens: 30000
+  note: 青空文庫・VOICEVOX・ずんだもん・GitHub Pagesの一次情報調査、SRS/QA/QTドラフト作成

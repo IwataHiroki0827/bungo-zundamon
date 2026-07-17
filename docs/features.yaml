@@ -1,1 +1,6 @@
-features: []
+features:
+- id: F001
+  title: 文豪ずんだもん初期公開版
+  branch: feature/F001
+  state: requirements
+  merge_after: []

@@ -1,1 +1,18 @@
-items: []
+items:
+- id: Q-001
+  type: question
+  status: open
+  title: 初期公開の収録範囲
+  body: '対象候補373件を一括処理すると、誤収録・音声容量・公開前レビュー工数が大きくなります。推奨: A'
+  target: docs/qa/QA-F001.md
+  options:
+  - 'A: 代表10作品・各20台詞まで'
+  - 'B: 代表3作品・各30台詞まで'
+  - 'C: 権利条件を満たす全作品を段階追加し、全件完了後に初回公開'
+  answer: null
+  answer_note: null
+  created: '2026-07-18T00:07:00+09:00'
+  source: pf-requirements
+  resume:
+    next: pf-requirements
+  allow_freeform: true
