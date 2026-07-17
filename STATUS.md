@@ -3,7 +3,7 @@ phase: requirements
 feature: null
 updated: 2026-07-17T23:50:00+09:00
 next_actions:
-  - "REQUEST.md の要求メモを確認し /pf-requirements で要求分析を開始する"
+  - "REQUEST.md の要求メモとライセンス調査結果を確認し $pf-requirements で要求分析を開始する"
 blocked_by: []
 ---
 
@@ -20,7 +20,7 @@ blocked_by: []
 
 ## 次のアクション
 
-- `REQUEST.md` を確認し `/pf-requirements` を起動する
+- `REQUEST.md`とライセンス調査結果を確認し、`$pf-requirements`を起動する
 
 ## 未解決事項
 

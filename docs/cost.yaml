@@ -1,1 +1,8 @@
-entries: []
+entries:
+- date: '2026-07-17'
+  phase: initialization
+  task: startNewProject
+  model: GPT-5
+  agents: 1
+  est_tokens: 10000
+  note: Webアプリ雛形、要求メモ、private GitHubリポジトリ、registry登録、承認後自動再開設定を整備
