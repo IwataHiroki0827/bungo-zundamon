@@ -1,0 +1,22 @@
+# 環境変数・シークレット
+.env
+.env.local
+.env.*.local
+
+# Node.js
+node_modules/
+dist/
+build/
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# エディタ・OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 一時ファイル(アトミック書込みの残骸 [DES-041])
+*.tmp.*

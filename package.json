@@ -1,0 +1,13 @@
+{
+  "name": "bungo-zundamon",
+  "version": "0.1.0",
+  "private": true,
+  "description": "青空文庫の台詞をずんだもん音声で楽しむ静的Webアプリ",
+  "scripts": {
+    "dev": "echo \"TODO(/pf-setup): 開発サーバー起動コマンドをここに設定する\" && exit 0",
+    "build": "echo \"TODO(/pf-setup): ビルドコマンドをここに設定する\" && exit 0",
+    "lint": "echo \"TODO(/pf-setup): lintコマンドをここに設定する\" && exit 0",
+    "typecheck": "echo \"TODO(/pf-setup): 型チェックコマンドをここに設定する\" && exit 0",
+    "test": "echo \"TODO(/pf-setup): テストコマンドをここに設定する\" && exit 0"
+  }
+}
