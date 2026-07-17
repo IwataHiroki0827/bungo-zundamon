@@ -1,5 +1,5 @@
 ---
-status: Draft
+status: Approved
 feature: F001
 title: 文豪ずんだもん初期公開版
 ---

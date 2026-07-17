@@ -20,3 +20,17 @@ entries:
   agents: 1
   est_tokens: 8000
   note: 代表3作品・全確認済み台詞の回答をQA/SRS/QTへ反映し承認ゲート①を登録
+- date: '2026-07-18'
+  phase: setup
+  task: pf-resume Q-002反映 / pf-setup
+  model: GPT-5
+  agents: 1
+  est_tokens: 12000
+  note: ブラウザ承認をclosed化し、WBS 11件・実行形態・Vite/TypeScript/Vitest/Playwright/ESLint基盤と検証コマンドを整備
+- date: '2026-07-18'
+  phase: design
+  task: pf-design F001
+  model: GPT-5
+  agents: 4
+  est_tokens: 26000
+  note: FD 19件・DD 40件を作成し、整合性・セキュリティ法務・実現性レビューの指摘を反映して承認ゲート②を登録

@@ -1,38 +1,37 @@
 ---
-phase: requirements
+phase: design
 feature: F001
-updated: 2026-07-18T01:10:49+09:00
+updated: 2026-07-18T03:04:00+09:00
 next_actions:
-  - "docs/srs/SRS-F001.md と docs/tests/qt/QT-F001.md を確認し、Q-002で要求仕様を承認する"
-  - "承認後は approval_resume:auto により $pf-setup へ自動再開する"
-blocked_by:
-  - Q-002
+  - "ブラウザで Q-003 を開き、docs/design/FD-F001.md と docs/design/DD-F001.md の設計承認を回答する"
+  - "Q-003承認後にFD/DDをApprovedへ更新し、$pf-testspecでT-003のUT/IT仕様を作成する"
+blocked_by: [Q-003]
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
 
 ## 現在の状況
 
-- F001のドメイン調査、SRS、QA、QTドラフトを作成済み。
-- 青空文庫は権利条件を満たす芥川原著だけを選定し、VOICEVOX音声は事前生成してGitHub Pagesへ静的配信する方針。
-- Q-001回答「代表作3作品ですべてのセリフ」を反映し、「羅生門」「蜘蛛の糸」「杜子春」の全確認済み発話を初期収録範囲に確定した。
-- 未回答QAは0件。SRS/QTの要求仕様承認ゲート①（Q-002）で明示承認を待っている。
+- Q-002のブラウザ承認を失わずにclosed化し、SRS-F001を`Approved`へ確定した。
+- REQ-F001-001〜030を設計・試験仕様・実装・試験・公開の11タスクへ分解し、Vite + TypeScriptの検証基盤を整備した。
+- `docs/design/FD-F001.md`（DES 19件）と`docs/design/DD-F001.md`（FUN 40件）を作成した。
+- 整合性、セキュリティ・法務、実現性の3観点レビューはすべてHigh 0 / Medium 0でPASSした。
+- Q-003の設計承認待ち。承認後はT-003を再開してUT/IT試験仕様を作成する。
 
 ## 直近の作業(最新5件)
 
-- `bungo-zundamon`としてWebアプリテンプレートを複製
-- `REQUEST.md`へ青空文庫台詞抽出、ずんだもん音声、静的Pages公開の要求を記録
-- 青空文庫、文化庁、VOICEVOX、SSS、坂本アヒル氏配布素材、GitHub Pagesの一次情報を調査
-- `docs/domain/DOMAIN-F001.md`、`docs/srs/SRS-F001.md`、`docs/qa/QA-F001.md`、`docs/tests/qt/QT-F001.md`を作成
-- Q-001のブラウザ回答をQA/SRS/QTへ反映し、Q-001をclosed化
-- 要求仕様承認ゲート①としてQ-002を登録
+- Q-002のブラウザ承認をSRSとキューへ反映してclosed化
+- `tasks.yaml`へF001のWBS 11件とadvisor/orchestration判定を生成
+- Vite/TypeScript/Vitest/Playwright/ESLintと実行可能な検証コマンドを整備
+- FD-F001とDD-F001を作成し、REQ 30件をDES 19件・FUN 40件へ展開
+- 3観点レビュー、型検査、lint、Vitest、Vite build、npm auditをPASS
 
 ## 次のアクション
 
-- `docs/srs/SRS-F001.md`と`docs/tests/qt/QT-F001.md`を確認する
-- ProjectFactoryダッシュボードのQ-002で「承認」を押す
+- Q-003で`docs/design/FD-F001.md`と`docs/design/DD-F001.md`を確認し、設計承認または修正指示を回答する
+- 承認後、`tasks.yaml`のT-003を再開して`docs/tests/ut/UT-F001.md`と`docs/tests/it/IT-F001.md`を作成する
 
 ## 未解決事項
 
-- Q-002: F001要求仕様・適格性試験仕様の明示承認
-- 自動再開は承認を代行せず、承認ボタンで記録した後の`$pf-setup`起動だけを自動化する
+- Q-003（設計承認）待ち。
+- `trace_check`の未接続19件はDES→UT/ITのみで、T-003のテスト仕様作成時に解消する。

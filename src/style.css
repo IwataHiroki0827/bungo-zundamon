@@ -1,0 +1,17 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  color: #f7f1df;
+  background: #171914;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}

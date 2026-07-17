@@ -11,7 +11,9 @@
 ## プロジェクト概要
 
 - 種別: Webアプリ(Node.js)
-- 技術スタック: `/pf-setup` フェーズで確定(このファイルに追記されます)
+- 技術スタック: Vite + TypeScriptのビルドレスに近いVanilla UI、Vitest、Playwright、ESLint
+- 配信方式: GitHub Pagesの`/bungo-zundamon/`配下へ完全静的配信。通常閲覧時は同一オリジン資産のみ使用
+- コンテンツ更新: Node.js/TypeScriptスクリプトで取得・抽出・レビュー・音声生成を通常buildから分離
 
 ## 検証コマンド
 
@@ -21,9 +23,10 @@ npm run typecheck
 npm run lint
 npm test
 npm run build
+npm run test:e2e
 ```
 
-(`/pf-setup` フェーズで実際のコマンドに更新されます)
+通常のコミット前検証は`npm run typecheck && npm run lint && npm test && npm run build`。ブラウザ資産が利用可能な環境では`npm run test:e2e`も実行する。
 
 ## プロジェクト規約
 

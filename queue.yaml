@@ -1,35 +1,56 @@
 items:
-- id: Q-001
-  type: question
-  status: closed
-  title: 初期公開の収録範囲
-  body: '対象候補373件を一括処理すると、誤収録・音声容量・公開前レビュー工数が大きくなります。推奨: A'
-  target: docs/qa/QA-F001.md
-  options:
-  - 'A: 代表10作品・各20台詞まで'
-  - 'B: 代表3作品・各30台詞まで'
-  - 'C: 権利条件を満たす全作品を段階追加し、全件完了後に初回公開'
-  answer: 代表作3作品ですべてのセリフ
-  answer_note: null
-  created: '2026-07-18T00:07:00+09:00'
-  source: pf-requirements
-  resume:
-    next: pf-requirements
-  allow_freeform: true
-- id: Q-002
-  type: approval
-  status: open
-  title: F001 要求仕様・適格性試験仕様の承認
-  body: Q-001回答（代表3作品・全確認済みセリフ）を反映した docs/srs/SRS-F001.md と docs/tests/qt/QT-F001.md
-    を確認し、要求仕様確定を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
-  target: docs/srs/SRS-F001.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  answer: null
-  answer_note: null
-  created: '2026-07-18T01:10:49+09:00'
-  source: pf-requirements
-  resume:
-    next: pf-setup
+  - id: Q-001
+    type: question
+    status: closed
+    title: 初期公開の収録範囲
+    body: '対象候補373件を一括処理すると、誤収録・音声容量・公開前レビュー工数が大きくなります。推奨: A'
+    target: docs/qa/QA-F001.md
+    options:
+      - 'A: 代表10作品・各20台詞まで'
+      - 'B: 代表3作品・各30台詞まで'
+      - 'C: 権利条件を満たす全作品を段階追加し、全件完了後に初回公開'
+    answer: 代表作3作品ですべてのセリフ
+    answer_note: null
+    created: '2026-07-18T00:07:00+09:00'
+    source: pf-requirements
+    resume:
+      next: pf-requirements
+    allow_freeform: true
+  - id: Q-002
+    type: approval
+    status: closed
+    title: F001 要求仕様・適格性試験仕様の承認
+    body: >-
+      Q-001回答（代表3作品・全確認済みセリフ）を反映した docs/srs/SRS-F001.md と
+      docs/tests/qt/QT-F001.md を確認し、要求仕様確定を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/srs/SRS-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: null
+    created: '2026-07-18T01:10:49+09:00'
+    source: pf-requirements
+    resume:
+      next: pf-setup
+  - id: Q-003
+    type: approval
+    status: open
+    title: F001 機能設計・関数設計の承認
+    body: >-
+      3観点レビューでHigh/Medium 0件を確認した docs/design/FD-F001.md と
+      docs/design/DD-F001.md を確認し、設計確定を承認してください。REQ 30件をDES 19件・FUN
+      40件へ展開済みです。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/design/FD-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: null
+    answer_note: null
+    created: '2026-07-18T03:04:00+09:00'
+    source: pf-design
+    resume:
+      task: T-003
+      next: pf-testspec
