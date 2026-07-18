@@ -1,4 +1,4 @@
 id: bungo-zundamon
-phase: design              # 導出値: 全アクティブフィーチャーの最遅フェーズ(表示用)。正は docs/features.yaml の state
+phase: testspec            # 導出値: 全アクティブフィーチャーの最遅フェーズ(表示用)。正は docs/features.yaml の state
 run_mode: auto             # auto(通しモード) | step(フェーズごとに停止)
 retry_limit: 3             # 自動リカバリのリトライ上限

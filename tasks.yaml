@@ -54,12 +54,12 @@ tasks:
   feature: F001
   phase: testspec
   state: blocked
+  blocked_by: [Q-004]
   depends: [T-002]
   tags: *all_reqs
   mode: orchestration
   mode_reason: 抽出・音声・UI・権利・セキュリティ・Pagesの独立試験領域を並列設計できるため
   model: { lead: opus, workers: sonnet }
-  blocked_by: [Q-003]
 - id: T-004
   title: 青空文庫選定・台詞抽出・レビュー・manifest更新パイプラインを実装
   feature: F001

@@ -34,3 +34,10 @@ entries:
   agents: 4
   est_tokens: 26000
   note: FD 19件・DD 40件を作成し、整合性・セキュリティ法務・実現性レビューの指摘を反映して承認ゲート②を登録
+- date: '2026-07-18'
+  phase: testspec
+  task: pf-resume Q-003反映 / pf-testspec F001
+  model: GPT-5
+  agents: 3
+  est_tokens: 36000
+  note: UT 42件・IT 20件の作成、QT補強、CHG-F001-001、網羅性・試験品質レビュー、承認ゲート③登録

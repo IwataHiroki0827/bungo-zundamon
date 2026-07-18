@@ -1,37 +1,37 @@
 ---
-phase: design
+phase: testspec
 feature: F001
-updated: 2026-07-18T03:04:00+09:00
+updated: 2026-07-18T10:43:17+09:00
 next_actions:
-  - "ブラウザで Q-003 を開き、docs/design/FD-F001.md と docs/design/DD-F001.md の設計承認を回答する"
-  - "Q-003承認後にFD/DDをApprovedへ更新し、$pf-testspecでT-003のUT/IT仕様を作成する"
-blocked_by: [Q-003]
+  - "ブラウザでQ-004を開き、UT・IT・QT試験仕様を確認して承認または修正指示を回答する"
+  - "Q-004承認後、T-003を完了して$pf-implementでT-004〜T-008の実装を開始する"
+blocked_by: [Q-004]
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
 
 ## 現在の状況
 
-- Q-002のブラウザ承認を失わずにclosed化し、SRS-F001を`Approved`へ確定した。
-- REQ-F001-001〜030を設計・試験仕様・実装・試験・公開の11タスクへ分解し、Vite + TypeScriptの検証基盤を整備した。
-- `docs/design/FD-F001.md`（DES 19件）と`docs/design/DD-F001.md`（FUN 40件）を作成した。
-- 整合性、セキュリティ・法務、実現性の3観点レビューはすべてHigh 0 / Medium 0でPASSした。
-- Q-003の設計承認待ち。承認後はT-003を再開してUT/IT試験仕様を作成する。
+- Q-003の設計承認を反映し、FD-F001とDD-F001は`Approved`である。
+- `docs/tests/ut/UT-F001.md`（42件）と`docs/tests/it/IT-F001.md`（20件）を作成し、承認済みQT-F001（20件）を実行可能な試験契約へ補強した。
+- テスト仕様レビューは網羅性 High 0 / Medium 0、試験品質 High 0 / Medium 0でPASSした。
+- REQ→QT 30/30、DES→IT 19/19、FUN→UT 42/42を接続し、`trace_check`は対応漏れ0件である。
+- 設計レベル変更`CHG-F001-001`を完了し、試験仕様承認ゲート③のQ-004を登録した。
 
-## 直近の作業(最新5件)
+## 直近の作業（最新5件）
 
-- Q-002のブラウザ承認をSRSとキューへ反映してclosed化
-- `tasks.yaml`へF001のWBS 11件とadvisor/orchestration判定を生成
-- Vite/TypeScript/Vitest/Playwright/ESLintと実行可能な検証コマンドを整備
-- FD-F001とDD-F001を作成し、REQ 30件をDES 19件・FUN 40件へ展開
-- 3観点レビュー、型検査、lint、Vitest、Vite build、npm auditをPASS
+- 承認済み設計と音声失敗時挙動の矛盾、catalog byte検査、SSRF fixture衝突を変更管理へ記録
+- 青空文庫の書誌/XHTML取得をproduction transportで検証するTLS・DNS pin・要求回数契約へ統一
+- VOICEVOX ENGINE版、speaker UUID/name、style ID/nameをruntime応答と照合する試験を追加
+- リリース前の非破壊precheckと、承認後のcommit→artifact→deployment→Pages hash事後証跡を分離
+- 網羅性・試験品質レビューとtrace_checkをPASSし、Q-004を登録
 
 ## 次のアクション
 
-- Q-003で`docs/design/FD-F001.md`と`docs/design/DD-F001.md`を確認し、設計承認または修正指示を回答する
-- 承認後、`tasks.yaml`のT-003を再開して`docs/tests/ut/UT-F001.md`と`docs/tests/it/IT-F001.md`を作成する
+- ブラウザのQ-004でUT・IT・QT試験仕様を確認し、`承認`または`修正指示`を回答する。
+- 承認時は自動再開によりT-003を完了し、`pf-implement`へ進む。
 
 ## 未解決事項
 
-- Q-003（設計承認）待ち。
-- `trace_check`の未接続19件はDES→UT/ITのみで、T-003のテスト仕様作成時に解消する。
+- Q-004（試験仕様承認）待ち。
+- `TM-F001.md`には複数DES経由の同一FUN/UT/ITが重複表示されるが、trace判定と対応範囲には影響しない。

@@ -36,7 +36,7 @@ items:
       next: pf-setup
   - id: Q-003
     type: approval
-    status: open
+    status: closed
     title: F001 機能設計・関数設計の承認
     body: >-
       3観点レビューでHigh/Medium 0件を確認した docs/design/FD-F001.md と
@@ -47,10 +47,30 @@ items:
     options:
       - 承認
       - 修正指示
-    answer: null
+    answer: 承認
     answer_note: null
     created: '2026-07-18T03:04:00+09:00'
     source: pf-design
+    resume:
+      task: T-003
+      next: pf-testspec
+  - id: Q-004
+    type: approval
+    status: open
+    title: F001 UT・IT・QT試験仕様の承認
+    body: >-
+      網羅性レビュー High 0 / Medium 0、試験品質レビュー High 0 / Medium 0、trace_check対応漏れ0件を確認しました。
+      docs/tests/ut/UT-F001.md（42件）、docs/tests/it/IT-F001.md（20件）、docs/tests/qt/QT-F001.md（20件）を確認し、
+      テストファーストゲート③を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/tests/ut/UT-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: null
+    answer_note: null
+    created: '2026-07-18T10:43:17+09:00'
+    source: pf-testspec
     resume:
       task: T-003
       next: pf-testspec
