@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "evidenceId": "QT-F001-Q009-BROWSER-20260719",
+  "candidate": {
+    "commit": "5337d2752e5a288b8d3078c2d1d133ebdef6ed21",
+    "headMatched": true,
+    "branch": "feature/F001",
+    "catalogSha256": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+    "distCatalogMatched": true,
+    "publicCatalogMatched": true,
+    "previewUrl": "http://127.0.0.1:4173/bungo-zundamon/"
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Home",
+    "osVersion": "10.0.26200",
+    "osBuild": "26200",
+    "chrome": "150.0.7871.127",
+    "edge": "150.0.4078.83"
+  },
+  "executions": {
+    "invalidFirstAttempt": {
+      "startedAt": "2026-07-19T19:49:52.892+09:00",
+      "completedAt": "2026-07-19T19:50:58.926+09:00",
+      "result": "INVALID",
+      "reason": "証跡runnerが存在しない.dialogue-text selectorを参照したため。製品FAILではなく、runnerだけをblockquote pへ修正した。既存実装・既存testは変更していない。"
+    },
+    "nativeAudioStableChannels": {
+      "startedAt": "2026-07-19T19:51:30.749+09:00",
+      "completedAt": "2026-07-19T19:51:57.876+09:00",
+      "audioImplementation": "native HTMLAudioElement (test double未使用)",
+      "chrome": {
+        "result": "PASS",
+        "viewports": ["390x844", "844x390", "1440x900"],
+        "navigation": "トップ→作者→作品（羅生門）→台詞（8件）",
+        "stateSequence": ["idle", "playing", "paused", "playing", "stopped", "playing"],
+        "cspViolations": 0,
+        "externalRequests": 0,
+        "failedRequests": 0,
+        "httpErrors": 0,
+        "consoleErrors": 0,
+        "pageErrors": 0,
+        "horizontalOverflow": false
+      },
+      "edge": {
+        "result": "PASS",
+        "viewports": ["390x844", "844x390", "1440x900"],
+        "navigation": "トップ→作者→作品（羅生門）→台詞（8件）",
+        "stateSequence": ["idle", "playing", "paused", "playing", "stopped", "playing"],
+        "cspViolations": 0,
+        "externalRequests": 0,
+        "failedRequests": 0,
+        "httpErrors": 0,
+        "consoleErrors": 0,
+        "pageErrors": 0,
+        "horizontalOverflow": false
+      }
+    },
+    "existingPlaywright": {
+      "chromeAndEdge": {
+        "result": "PASS",
+        "passed": 26,
+        "failed": 0,
+        "projects": ["chrome-stable-pages-preview", "edge-stable-pages-preview"]
+      },
+      "webkitAndPixel7Equivalent": {
+        "result": "PASS",
+        "passed": 26,
+        "failed": 0,
+        "projects": ["webkit-pages-preview", "android-equivalent-pages-preview"],
+        "limitation": "Playwright WebKitおよびPixel 7相当viewportであり、iOS Safari／Android実機証跡ではない。"
+      }
+    }
+  },
+  "screenshots": [
+    { "file": "screenshots/q009/chrome-stable-390x844.png", "bytes": 636435, "sha256": "504e7a1dbe7a36347f721c66441fc267df104670d75680a3cef1f5dd2608ab35" },
+    { "file": "screenshots/q009/chrome-stable-844x390.png", "bytes": 880876, "sha256": "963b3b7d5654fa7d2a27219a56d449639feef06a865ca3c5339222fa01bcc02d" },
+    { "file": "screenshots/q009/chrome-stable-1440x900.png", "bytes": 1174023, "sha256": "195794118a023770dd80274fb941d0055b478c26924baeea57f094bf41ae015f" },
+    { "file": "screenshots/q009/chrome-stable-credits-1440x900.png", "bytes": 732446, "sha256": "ad288903274055b4f22d27d2f1e50953e9ce6f2e5918790c4f31a5076bbe7107" },
+    { "file": "screenshots/q009/edge-stable-390x844.png", "bytes": 636435, "sha256": "504e7a1dbe7a36347f721c66441fc267df104670d75680a3cef1f5dd2608ab35" },
+    { "file": "screenshots/q009/edge-stable-844x390.png", "bytes": 880876, "sha256": "963b3b7d5654fa7d2a27219a56d449639feef06a865ca3c5339222fa01bcc02d" },
+    { "file": "screenshots/q009/edge-stable-1440x900.png", "bytes": 1174023, "sha256": "195794118a023770dd80274fb941d0055b478c26924baeea57f094bf41ae015f" },
+    { "file": "screenshots/q009/edge-stable-credits-1440x900.png", "bytes": 733087, "sha256": "3c253d25a5d3e7e93f131ac585613e7d45b4e972f42cf7a43707a0b34a8e57d2" }
+  ],
+  "iosSafari": {
+    "userAnswer": "PASS / OK",
+    "assessment": "PASS_WITH_OWNER_RISK_ACCEPTANCE",
+    "proved": "ユーザーがiOS Safari項目を確認し、明白な異常なしと自己申告したこと。",
+    "missing": [
+      "端末名",
+      "iOS版",
+      "Safari版",
+      "縦向き・横向きの画像または動画",
+      "操作別結果",
+      "通信結果",
+      "証跡SHA-256"
+    ],
+    "substitution": "WebKit 13/13 PASSとPixel 7相当13/13 PASSは回帰根拠だが、iOS Safari実機の代替にはしない。",
+    "riskAcceptedAt": "2026-07-19T22:15:00+09:00",
+    "riskAcceptedBy": "プロジェクトオーナー",
+    "riskAcceptance": "今回はすべてokにして次に進めてください",
+    "scope": "当該リリース限り。未取得項目を実施済みとは扱わず、リリース承認ゲートへ環境差分として開示する。"
+  },
+  "creditsAndTerms": {
+    "checkedAt": "2026-07-19T19:54:45.7146488+09:00",
+    "localResult": "PASS",
+    "requiredNotices": {
+      "voicevox": true,
+      "artwork": true,
+      "aozora": true,
+      "unofficial": true,
+      "freeNoAdsNoPayments": true,
+      "outsideJapanDisclaimer": true
+    },
+    "manifestTerms": {
+      "checkedAt": "2026-07-18T07:25:00Z",
+      "validUntil": "2026-08-18T07:25:00Z",
+      "reviewer": "ProjectFactory 権利・由来レビュー",
+      "url": "https://zunko.jp/guideline.html"
+    },
+    "officialUrlsReachable": [
+      "https://creativecommons.org/licenses/by/4.0/",
+      "https://www.aozora.gr.jp/guide/kijyunn.html",
+      "https://www.aozora.gr.jp/guide/roudoku.html",
+      "https://voicevox.hiroshiba.jp/term/",
+      "https://voicevox.hiroshiba.jp/product/zundamon/",
+      "https://zunko.jp/guideline.html"
+    ],
+    "linkAssessment": "ローカル表示はCC BY 4.0 canonicalとずんずんPJガイドラインへ直接一致する。青空文庫・VOICEVOXは公式トップへのリンクで、取扱規準・朗読・VOICEVOX規約・製品ページは直接リンクではないが、承認済みREQ-F001-017/DES-F001-012の必須リンク条件には適合する。"
+  },
+  "verdict": {
+    "chrome": "PASS",
+    "edge": "PASS",
+    "iosSafari": "PASS_WITH_OWNER_RISK_ACCEPTANCE",
+    "creditsAndTerms": "PASS",
+    "overall": "READY_FOR_APPROVAL_WITH_ACCEPTED_RISK"
+  }
+}

@@ -54,4 +54,4 @@
 - repository visibility、Pages無効、deploy変数の承認前read-only観測
 - Windows Chrome、Windows Edge、iOS Safariの候補commit一致手動3環境
 
-今回のworking treeは未コミットで、GitHub CLIも未認証である。したがって、ローカル自動4範囲はPASSだが、候補SHA拘束を含む`QT-F001-019/020`全体はPARTIALとする。
+リリース候補は`5337d2752e5a288b8d3078c2d1d133ebdef6ed21`としてprivate `feature/F001`へpush済みである。GitHub CLIは未認証で、hosted/visibility・手動3環境の実証跡は未取得のため、候補SHA拘束を含む`QT-F001-019/020`全体はPARTIALとする。

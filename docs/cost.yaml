@@ -115,3 +115,52 @@ entries:
   est_tokens: 26000
   note: 承認SHA拘束、手動3環境・自動4範囲・リスク時追加実機、hosted/visibility証跡chainを実装。初回受け入れの承認ID偽装Highを修正し、再受け入れHigh/Medium/Low
     0。対象78件・全UT337件・lint・typecheck・buildをPASS
+- date: '2026-07-19'
+  phase: test
+  task: T-010 UT・IT・QT 自動試験と外部証跡待ち
+  model: GPT-5
+  agents: 4
+  est_tokens: 36000
+  note: UT仕様42/42・337件、IT仕様20/20・Playwright 65件、QT仕様20/20・自動4範囲52件をPASS。候補5337d275をprivate
+    feature/F001へpushし、hosted/visibility/手動3環境の7チェックをQ-009へ登録
+- date: '2026-07-19'
+  phase: test
+  task: Q-009 Codex外部証跡補完・再検証
+  model: GPT-5
+  agents: 3
+  est_tokens: 24000
+  note: GitHub APIでprivate/Pages/variables、候補run・artifact digest/catalog hash、制御失敗runを検証。Chrome/Edge実チャンネルと規約・クレジットを画面証跡付きPASS。iOS
+    Safari実機情報だけ不足のためQ-009をpendingへ戻した
+- date: '2026-07-19'
+  phase: test
+  task: Q-009例外受容・T-010完了
+  model: GPT-5
+  agents: 1
+  est_tokens: 6000
+  note: プロジェクトオーナーの直接指示により、iOS Safariとスクリーンリーダーの詳細証跡不足を当該リリース限りの残余リスクとして明示受容。QT 20/20
+    PASS、T-010完了、CHG-F001-005 done、pf-releaseへ移行
+- date: '2026-07-19'
+  phase: release
+  task: T-011 リリース前総点検・ゲート④登録
+  model: GPT-5
+  agents: 1
+  est_tokens: 12000
+  note: 候補SHA固定、typecheck/lint/UT337/E2E78/build66files、TM、変更台帳、production secret
+    scan、hosted/visibilityをPASS。v0.1.0 CHANGELOGとlocal annotated tagを作成し、iOS/スクリーンリーダー差分を開示したQ-010を登録
+- date: '2026-07-19'
+  phase: release
+  task: T-011 attempt 1 rollback・修正版候補作成
+  model: GPT-5
+  agents: 1
+  est_tokens: 18000
+  note: Q-010承認後、旧候補deploy/HTTP/catalog chainはPASSしたが本番Chrome 390px credits overflowを検出。Pages停止・Private化後、CSS折返しと3
+    viewport再発防止E2Eをcommit 2733b5fへ実装。UT337/E2E78/build、Chrome/Edge native、private
+    hosted run 29690629227をPASSしQ-011へ再承認登録
+- date: '2026-07-19'
+  phase: close
+  task: pf-close F001
+  model: GPT-5
+  agents: 1
+  est_tokens: 9000
+  note: v0.1.0 release chainと公開後Chrome/Edge smokeをPASS。retrospectiveを作成し、KB-0007（GCM複数account）・KB-0008（Pages全route
+    browser smoke）を登録。全task/queue完了、registryをarchived化

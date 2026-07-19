@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "releaseVersion": "0.1.0",
+  "approvalId": "Q-011",
+  "approvalStatus": "closed",
+  "approvalAnswer": "承認",
+  "approvalAnswerRaw": "承認（公開）",
+  "approvalTargetCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "approvedAt": "2026-07-19T14:35:49Z",
+  "trustedQueueApprovals": [
+    {
+      "id": "Q-011",
+      "type": "approval",
+      "status": "closed",
+      "answer": "承認",
+      "answerRaw": "承認（公開）",
+      "source": "pf-release",
+      "target_mode": "reference",
+      "target": "F001",
+      "approvalTargetCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+      "approvedAt": "2026-07-19T14:35:49Z"
+    }
+  ],
+  "privateObserved": true,
+  "privateObservedAt": "2026-07-19T14:36:10.130Z",
+  "visibilityAuditEvent": {
+    "id": "ProjectFactory-GitHub-visibility-attempt-2-20260719T143610829Z",
+    "from": "private",
+    "to": "public",
+    "releaseCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+    "occurredAt": "2026-07-19T14:36:10.829Z"
+  },
+  "publicObserved": true,
+  "publicObservedAt": "2026-07-19T14:36:10.829Z",
+  "pagesEnabledAt": "2026-07-19T14:36:11.169Z",
+  "pagesDeployCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "pagesDeployEnabledAt": "2026-07-19T14:36:11.447Z",
+  "pagesDeployDisabledAt": "2026-07-19T14:38:29.763Z",
+  "pagesDeployEnabledAfter": false,
+  "pagesDeployCommitAfter": null,
+  "releaseCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "catalogHash": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "artifactCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "artifactId": "8443611253",
+  "artifactDigest": "sha256:668f9ee1d9da903e6bb83ac48c529d46512956dbd657a38507a3f28b950d31d2",
+  "artifactCatalogHash": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "deploymentCommit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "deploymentId": "5511558405",
+  "deploymentArtifactDigest": "sha256:668f9ee1d9da903e6bb83ac48c529d46512956dbd657a38507a3f28b950d31d2",
+  "deploymentCatalogHash": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "pagesCatalogHash": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "pagesHash": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "repositoryUrl": "https://github.com/IwataHiroki0827/bungo-zundamon",
+  "pagesUrl": "https://iwatahiroki0827.github.io/bungo-zundamon/",
+  "pagesStatus": 200,
+  "actionsRun": {
+    "id": "29691164266",
+    "url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29691164266",
+    "event": "push",
+    "branch": "main",
+    "headSha": "2733b5fd368e847a01708724511f993f5e1b2484",
+    "build": "success",
+    "deploy": "success",
+    "completedAt": "2026-07-19T14:37:11Z"
+  },
+  "browserSmoke": {
+    "checkedBrowsers": ["Chrome stable", "Edge stable"],
+    "viewports": ["390x844", "844x390", "1440x900"],
+    "audioStates": ["playing", "paused", "playing", "stopped"],
+    "creditsHorizontalOverflow": false,
+    "externalRequests": 0,
+    "failedRequests": 0,
+    "consoleOrPageErrors": 0,
+    "result": "PASS"
+  },
+  "remoteTag": {
+    "name": "v0.1.0",
+    "peeledCommit": "2733b5fd368e847a01708724511f993f5e1b2484"
+  }
+}

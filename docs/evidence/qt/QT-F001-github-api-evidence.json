@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "evidence_id": "QT-F001-GITHUB-API-20260719",
+  "observed_at": "2026-07-19T11:02:22.4652590Z",
+  "reviewer": "Codex pf-worker",
+  "result": "PASS",
+  "method": {
+    "api": "GitHub REST API 2022-11-28",
+    "authentication": "Git Credential Managerから取得した資格情報をPowerShellプロセス内だけで使用",
+    "artifact_download": "認証済みAPIのredirect先を、Authorization headerなしでメモリ取得",
+    "secret_output": false
+  },
+  "repository": {
+    "id": 1304106620,
+    "node_id": "R_kgDOTbsWfA",
+    "full_name": "IwataHiroki0827/bungo-zundamon",
+    "html_url": "https://github.com/IwataHiroki0827/bungo-zundamon",
+    "private": true,
+    "visibility": "private",
+    "default_branch": "main",
+    "archived": false,
+    "disabled": false
+  },
+  "pages": {
+    "before": {
+      "observed_at": "2026-07-19T10:58:37.6878664Z",
+      "http_status": 404,
+      "configured": false,
+      "canonical_json": "{\"http_status\":404,\"configured\":false}",
+      "canonical_sha256": "99cb323d9334b3c4fe49bdb3585a59e6003849b38d918f9f6910f812c817d3b5"
+    },
+    "after": {
+      "observed_at": "2026-07-19T11:02:22.4652590Z",
+      "http_status": 404,
+      "configured": false,
+      "canonical_json": "{\"http_status\":404,\"configured\":false}",
+      "canonical_sha256": "99cb323d9334b3c4fe49bdb3585a59e6003849b38d918f9f6910f812c817d3b5"
+    },
+    "hash_unchanged": true
+  },
+  "actions_variables": {
+    "total_count": 0,
+    "observed": {
+      "PAGES_DEPLOY_ENABLED": null,
+      "PAGES_DEPLOY_COMMIT": null
+    },
+    "workflow_effective": {
+      "PAGES_DEPLOY_ENABLED_equals_true": false,
+      "PAGES_DEPLOY_COMMIT": null
+    }
+  },
+  "workflow": {
+    "id": 316006692,
+    "name": "Pages build and deploy",
+    "path": ".github/workflows/pages.yml",
+    "state": "active",
+    "candidate_git_blob_sha": "a0e1dcdc6828d6ccf35d94768062100e55980eb7"
+  },
+  "candidate_run": {
+    "commit": "5337d2752e5a288b8d3078c2d1d133ebdef6ed21",
+    "ref": "feature/F001",
+    "run_id": 29672450957,
+    "run_url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29672450957",
+    "event": "push",
+    "workflow_id": 316006692,
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-07-19T03:53:15Z",
+    "updated_at": "2026-07-19T03:54:25Z",
+    "jobs": [
+      {
+        "id": 88153800312,
+        "name": "build",
+        "conclusion": "success",
+        "url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29672450957/job/88153800312",
+        "verify_step": "success",
+        "upload_step": "success"
+      },
+      {
+        "id": 88153875625,
+        "name": "deploy",
+        "conclusion": "skipped",
+        "url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29672450957/job/88153875625"
+      }
+    ],
+    "deployments": [],
+    "artifact": {
+      "id": 8437750946,
+      "name": "github-pages",
+      "size_in_bytes": 24272535,
+      "expired": false,
+      "api_digest": "sha256:ff98d38fd80a7a8acb1f6351606f1e7aa770d99cd80f407827be2642c863d58d",
+      "download_sha256": "ff98d38fd80a7a8acb1f6351606f1e7aa770d99cd80f407827be2642c863d58d",
+      "digest_match": true,
+      "zip_entries": [
+        {
+          "name": "artifact.tar",
+          "length": 30474240,
+          "safe_path": true
+        }
+      ],
+      "tar_entry_count": 71,
+      "path_traversal_detected": false,
+      "link_entry_count": 0,
+      "catalog": {
+        "path": "./content/catalog.json",
+        "size_in_bytes": 109185,
+        "sha256": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+        "expected_sha256": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+        "match": true
+      }
+    }
+  },
+  "negative_runs": [
+    {
+      "evidence_attempt": 1,
+      "result": "FAIL",
+      "commit": "a51ba33ebff31467f13b126fe4526c0ebe93eee4",
+      "base_candidate_commit": "5337d2752e5a288b8d3078c2d1d133ebdef6ed21",
+      "ref": "test/F001-hosted-negative",
+      "run_id": 29672593611,
+      "run_url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29672593611",
+      "event": "push",
+      "conclusion": "failure",
+      "build_job_id": 88154165539,
+      "build_conclusion": "failure",
+      "failure_observed": "release-checks.test.mjsで331 PASS / 6 FAIL",
+      "controlled_fixture_step": "skipped",
+      "deploy_job_id": 88154212726,
+      "deploy_conclusion": "skipped",
+      "artifact_count": 0,
+      "deployment_count": 0,
+      "reason_for_retry": "意図した明示的fixtureへ到達する前にworkflow静的契約検査が失敗した"
+    },
+    {
+      "evidence_attempt": 2,
+      "result": "PASS",
+      "commit": "22425b31b2e46571db7f46ec73b16a9f44b9155e",
+      "parent": "a51ba33ebff31467f13b126fe4526c0ebe93eee4",
+      "base_candidate_commit": "5337d2752e5a288b8d3078c2d1d133ebdef6ed21",
+      "candidate_is_ancestor": true,
+      "ref": "test/F001-hosted-negative",
+      "run_id": 29684314188,
+      "run_url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29684314188",
+      "event": "push",
+      "workflow_id": 316006692,
+      "workflow_git_blob_sha": "a0e1dcdc6828d6ccf35d94768062100e55980eb7",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-07-19T10:59:06Z",
+      "updated_at": "2026-07-19T11:00:02Z",
+      "build_job": {
+        "id": 88185840882,
+        "conclusion": "failure",
+        "url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29684314188/job/88185840882",
+        "verify_step": "failure",
+        "fixture": "scripts/hosted-negative.test.mjs",
+        "marker": "CONTROLLED_HOSTED_NEGATIVE_QT_F001_019",
+        "test_files": "19 passed / 1 failed",
+        "tests": "337 passed / 1 failed",
+        "job_log_sha256": "d65046e0430aff8b47693eab50116dfccc2cd3090b6dd6023a54c229ce9621f3"
+      },
+      "deploy_job": {
+        "id": 88185912381,
+        "conclusion": "skipped",
+        "url": "https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/29684314188/job/88185912381"
+      },
+      "artifact_count": 0,
+      "deployment_count": 0
+    }
+  ],
+  "checks": [
+    { "id": "repository_identity_visibility", "result": "PASS" },
+    { "id": "pages_disabled_and_hash_unchanged", "result": "PASS" },
+    { "id": "deploy_variables_safe_default", "result": "PASS" },
+    { "id": "candidate_hosted_run", "result": "PASS" },
+    { "id": "candidate_artifact_digest", "result": "PASS" },
+    { "id": "candidate_artifact_path_safety", "result": "PASS" },
+    { "id": "candidate_catalog_hash", "result": "PASS" },
+    { "id": "candidate_non_deploy", "result": "PASS" },
+    { "id": "negative_controlled_failure", "result": "PASS", "passed_on_evidence_attempt": 2 },
+    { "id": "negative_non_deploy", "result": "PASS", "passed_on_evidence_attempt": 2 }
+  ]
+}

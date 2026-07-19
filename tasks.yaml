@@ -204,7 +204,7 @@ tasks:
   title: UT・IT・QTと主要ブラウザ受け入れ試験を実施
   feature: F001
   phase: test
-  state: doing
+  state: done
   depends:
   - T-008
   - T-009
@@ -219,7 +219,7 @@ tasks:
   title: 公開前総点検・GitHub Pagesリリース・公開後スモーク確認
   feature: F001
   phase: release
-  state: todo
+  state: done
   depends:
   - T-010
   tags: *id001
