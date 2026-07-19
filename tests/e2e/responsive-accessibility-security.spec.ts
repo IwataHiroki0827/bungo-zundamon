@@ -35,6 +35,10 @@ for (const viewport of viewports) {
     expect(target!.width).toBeGreaterThanOrEqual(44);
     await page.keyboard.press('Enter');
     await expect(firstWork.locator('.dialogue-card').first()).toHaveAttribute('data-player-state', 'playing');
+
+    await page.getByRole('link', { name: 'クレジット', exact: true }).click();
+    await expect(page.getByRole('heading', { level: 1, name: 'クレジット・出典・利用条件' })).toBeVisible();
+    await assertNoHorizontalOverflow(page);
   });
 }
 

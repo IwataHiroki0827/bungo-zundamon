@@ -240,6 +240,10 @@ p {
   overflow-wrap: anywhere;
 }
 
+.credits-page li {
+  overflow-wrap: anywhere;
+}
+
 .hero h1 {
   margin: 0;
   font-size: clamp(3rem, 9vw, 7.5rem);
