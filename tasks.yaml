@@ -292,3 +292,49 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-015
+  title: F002のドメイン調査・SRS・QA・QT仕様を作成
+  feature: F002
+  phase: requirements
+  state: blocked
+  depends: []
+  tags:
+  - REQ-F002-001
+  - REQ-F002-002
+  - REQ-F002-003
+  - REQ-F002-004
+  - REQ-F002-005
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-011
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-014
+  - REQ-F002-015
+  - REQ-F002-016
+  - REQ-F002-017
+  - REQ-F002-018
+  - REQ-F002-019
+  - REQ-F002-020
+  - QT-F002-001
+  - QT-F002-002
+  - QT-F002-003
+  - QT-F002-004
+  - QT-F002-005
+  - QT-F002-006
+  - QT-F002-007
+  - QT-F002-008
+  - QT-F002-009
+  - QT-F002-010
+  - QT-F002-011
+  - QT-F002-012
+  - QT-F002-013
+  - QT-F002-014
+  mode: orchestration
+  mode_reason: 候補作者比較、権利・容量調査、SRS、QA、QTを独立観点で作成・反証レビューできるため
+  model:
+    lead: opus
+    workers: sonnet

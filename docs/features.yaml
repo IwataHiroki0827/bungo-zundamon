@@ -4,3 +4,9 @@ features:
   branch: feature/F001
   state: closed
   merge_after: []
+- id: F002
+  title: 宮沢賢治追加と継続コンテンツ拡充基盤
+  branch: feature/F002
+  state: requirements
+  merge_after:
+  - F001

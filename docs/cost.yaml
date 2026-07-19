@@ -164,3 +164,11 @@ entries:
   est_tokens: 9000
   note: v0.1.0 release chainと公開後Chrome/Edge smokeをPASS。retrospectiveを作成し、KB-0007（GCM複数account）・KB-0008（Pages全route
     browser smoke）を登録。全task/queue完了、registryをarchived化
+- date: '2026-07-20'
+  phase: requirements
+  task: pf-requirements F002 draft
+  model: GPT-5
+  agents: 3
+  est_tokens: 26000
+  note: red/blue診断後、宮沢賢治3作品をTier大で一次情報調査・反証し、SRS 20件・QA未回答0件・QT 14件・容量100/500/750
+    MiBゲートを作成
