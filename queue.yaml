@@ -563,7 +563,7 @@ items:
   released_at: '2026-07-19T23:42:19+09:00'
 - id: Q-012
   type: approval
-  status: pending
+  status: closed
   title: F002 要求仕様・適格性試験仕様の一括承認
   body: セキュリティ診断PASS後の初回拡充です。宮沢賢治「よだかの星」「どんぐりと山猫」「注文の多い料理店」、全候補レビュー、VOICEVOX差分生成、公開物・Git履歴の容量ゲート、複数作者UIを定義したSRS
     20要求とQT 14件です。独立レビューはHigh 0 / Medium 0でPASS、REQ→QT未追跡0件、未回答QA 0件です。
@@ -578,3 +578,9 @@ items:
   resume:
     task: T-015
     next: pf-setup
+  answer: 承認
+  answer_note: null
+  approved_at: '2026-07-20T06:26:24+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-20T06:26:24+09:00'
+  processed_note: SRS-F002とQT-F002をApprovedへ更新し、T-015を完了、F002をsetupへ移行した。

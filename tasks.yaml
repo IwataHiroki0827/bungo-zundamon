@@ -296,7 +296,7 @@ tasks:
   title: F002のドメイン調査・SRS・QA・QT仕様を作成
   feature: F002
   phase: requirements
-  state: blocked
+  state: done
   depends: []
   tags:
   - REQ-F002-001
@@ -335,6 +335,306 @@ tasks:
   - QT-F002-014
   mode: orchestration
   mode_reason: 候補作者比較、権利・容量調査、SRS、QA、QTを独立観点で作成・反証レビューできるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-016
+  title: 機能設計書(FD-F002)を作成しREQ全20件を複数作者・継続バッチ設計へ展開
+  feature: F002
+  phase: design
+  state: todo
+  depends:
+  - T-015
+  tags: &id002
+  - REQ-F002-001
+  - REQ-F002-002
+  - REQ-F002-003
+  - REQ-F002-004
+  - REQ-F002-005
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-011
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-014
+  - REQ-F002-015
+  - REQ-F002-016
+  - REQ-F002-017
+  - REQ-F002-018
+  - REQ-F002-019
+  - REQ-F002-020
+  mode: advisor
+  mode_reason: 単一FDで複数作者UI・コンテンツ工程・権利・容量・公開境界を一貫して設計するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-017
+  title: 関数設計書(DD-F002)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F002
+  phase: design
+  state: todo
+  depends:
+  - T-016
+  tags: *id002
+  mode: advisor
+  mode_reason: FDを基にcatalog・batch・音声・route・検証契約を逐次整合させるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-018
+  title: UT-F002・IT-F002を作成しQT-F002との網羅性を確認
+  feature: F002
+  phase: testspec
+  state: todo
+  depends:
+  - T-017
+  tags: *id002
+  mode: orchestration
+  mode_reason: content・voice・UI・権利・容量・セキュリティの独立試験領域を並列設計できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-019
+  title: バッチ定義・青空文庫取得・抽出・レビュー基盤を複数作者化
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-018
+  tags:
+  - REQ-F002-002
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-019
+  mode: orchestration
+  mode_reason: source・抽出・正規化・review・schemaの独立サブタスクへ分割できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-020
+  title: catalog・manifest・音声cache/pathを複数作者・差分統合対応
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-019
+  tags:
+  - REQ-F002-001
+  - REQ-F002-002
+  - REQ-F002-011
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-017
+  - REQ-F002-019
+  mode: orchestration
+  mode_reason: catalog・manifest・音声cache・公開asset統合を独立して実装できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-021
+  title: 作者一覧・route・再生UI・クレジットを複数作者化
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-020
+  tags:
+  - REQ-F002-003
+  - REQ-F002-004
+  - REQ-F002-005
+  - REQ-F002-014
+  - REQ-F002-015
+  - REQ-F002-017
+  - REQ-F002-020
+  mode: orchestration
+  mode_reason: route・UI・音声制御・クレジット・アクセシビリティを並列実装できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-022
+  title: F001不変照合・容量・repository・Pages・security preflightを実装
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-019
+  tags:
+  - REQ-F002-001
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-015
+  - REQ-F002-017
+  - REQ-F002-018
+  - REQ-F002-019
+  - REQ-F002-020
+  mode: orchestration
+  mode_reason: F001差分・WAV・Pages artifact・Git object・securityの独立検査領域があるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-023
+  title: 宮沢賢治画像・規約snapshot・権利証跡を整備
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-019
+  tags:
+  - REQ-F002-004
+  - REQ-F002-007
+  - REQ-F002-015
+  - REQ-F002-016
+  mode: advisor
+  mode_reason: 単一asset群の生成由来と4系統の権利判断を一貫して管理するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-024
+  title: 「よだかの星」の全候補レビュー・音声生成・作品単位受入
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-020
+  - T-022
+  - T-023
+  tags:
+  - REQ-F002-005
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-015
+  - REQ-F002-018
+  - REQ-F002-019
+  mode: orchestration
+  mode_reason: 候補全件の文脈確認・読み補正・音声検証を反復処理できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-025
+  title: 「どんぐりと山猫」の全候補レビュー・音声生成・作品単位受入
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-024
+  tags:
+  - REQ-F002-005
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-015
+  - REQ-F002-018
+  - REQ-F002-019
+  mode: orchestration
+  mode_reason: 候補全件の文脈確認・読み補正・音声検証を反復処理できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-026
+  title: 「注文の多い料理店」の全候補レビュー・音声生成・作品単位受入
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-025
+  tags:
+  - REQ-F002-005
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-008
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-015
+  - REQ-F002-018
+  - REQ-F002-019
+  mode: orchestration
+  mode_reason: 候補全件の文脈確認・読み補正・音声検証を反復処理できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-027
+  title: F002最終catalog統合・F001不変・全asset整合を確認
+  feature: F002
+  phase: implement
+  state: todo
+  depends:
+  - T-021
+  - T-022
+  - T-023
+  - T-026
+  tags:
+  - REQ-F002-001
+  - REQ-F002-002
+  - REQ-F002-003
+  - REQ-F002-004
+  - REQ-F002-005
+  - REQ-F002-011
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-014
+  - REQ-F002-015
+  - REQ-F002-016
+  - REQ-F002-017
+  - REQ-F002-018
+  - REQ-F002-020
+  mode: advisor
+  mode_reason: 全作者・作品・音声・権利成果物を順序立てて単一候補へ統合判定するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-028
+  title: UT-F002を実施し失敗を修正・再検証
+  feature: F002
+  phase: test
+  state: todo
+  depends:
+  - T-027
+  tags: *id002
+  mode: orchestration
+  mode_reason: ロジック領域ごとのUTを並列実行・診断できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-029
+  title: IT・QT・実音声・ブラウザ・権利受入を実施
+  feature: F002
+  phase: test
+  state: todo
+  depends:
+  - T-028
+  tags: *id002
+  mode: orchestration
+  mode_reason: 統合・実音声・権利・容量・複数ブラウザ試験を独立して実施できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-030
+  title: リリース前総点検・GitHub Pages公開・公開後全routeスモーク
+  feature: F002
+  phase: release
+  state: todo
+  depends:
+  - T-029
+  tags: *id002
+  mode: advisor
+  mode_reason: ゲート④・版番号・deploy・rollback・公開後判定を逐次管理するため
   model:
     lead: opus
     workers: sonnet

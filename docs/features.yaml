@@ -7,6 +7,6 @@ features:
 - id: F002
   title: 宮沢賢治追加と継続コンテンツ拡充基盤
   branch: feature/F002
-  state: requirements
+  state: design
   merge_after:
   - F001

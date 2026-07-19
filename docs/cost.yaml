@@ -180,3 +180,11 @@ entries:
   est_tokens: 8000
   note: 独立レビュー初回REDO（Medium 2）を受け、容量算入範囲・Git source repository境界・規約2時点証跡・F001基準を補正。再レビューHigh
     0 / Medium 0でPASS
+- date: '2026-07-20'
+  phase: setup
+  task: F002 WBS・検証環境整備
+  model: GPT-5
+  agents: 1
+  est_tokens: 10000
+  note: T-016〜T-030の15タスクへ分解。REQ 20/20実装coverage・依存循環0。Node/npm/VOICEVOX/Playwright/容量を確認し、typecheck・lint・Vitest
+    337件・build 66 filesをPASS

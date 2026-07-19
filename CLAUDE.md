@@ -28,6 +28,14 @@ npm run test:e2e
 
 通常のコミット前検証は`npm run typecheck && npm run lint && npm test && npm run build`。ブラウザ資産が利用可能な環境では`npm run test:e2e`も実行する。
 
+### F002コンテンツ拡充の検証
+
+- 依存関係を固定して再現する場合は`npm ci`を使う。
+- セキュリティ回帰は`npm audit --audit-level=high`を追加する。
+- 現行パイプラインの段階検査は`npm run content:bibliography`、`content:select`、`content:sources`、`content:extract`、`content:normalize`、`content:review:check`、`content:voice:preflight`、`content:voice`、`content:build`の順で行う。
+- `content:voice`は、VOICEVOX ENGINEを`127.0.0.1:50021`だけで起動し、ENGINE版、speaker UUID、style ID、style名を機械照合してから実行する。公開build・ブラウザ実行中はVOICEVOXへ接続しない。
+- T-019/T-022では、後続作者にも使える`--batch <FeatureID> --stage <stage>`形式と、追加WAV・Pages artifact・Git objectを分けた容量preflightを正式なnpm scriptとして実装する。実装完了までは未提供コマンドとして扱う。
+
 ## プロジェクト規約
 
 - ファイル読み書きは `encoding="utf-8"` を明示する(Windows対応、DES-040)
