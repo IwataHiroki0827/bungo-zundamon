@@ -172,3 +172,11 @@ entries:
   est_tokens: 26000
   note: red/blue診断後、宮沢賢治3作品をTier大で一次情報調査・反証し、SRS 20件・QA未回答0件・QT 14件・容量100/500/750
     MiBゲートを作成
+- date: '2026-07-20'
+  phase: requirements
+  task: F002 要求承認前レビュー
+  model: GPT-5
+  agents: 1
+  est_tokens: 8000
+  note: 独立レビュー初回REDO（Medium 2）を受け、容量算入範囲・Git source repository境界・規約2時点証跡・F001基準を補正。再レビューHigh
+    0 / Medium 0でPASS

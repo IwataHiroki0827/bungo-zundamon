@@ -565,8 +565,8 @@ items:
   type: approval
   status: pending
   title: F002 要求仕様・適格性試験仕様の一括承認
-  body: セキュリティ診断PASS後の初回拡充です。宮沢賢治「よだかの星」「どんぐりと山猫」「注文の多い料理店」、全候補レビュー、VOICEVOX差分生成、100/500/750
-    MiB容量ゲート、複数作者UIを定義したSRS 20要求とQT 14件を一括確認してください。未回答QAは0件です。
+  body: セキュリティ診断PASS後の初回拡充です。宮沢賢治「よだかの星」「どんぐりと山猫」「注文の多い料理店」、全候補レビュー、VOICEVOX差分生成、公開物・Git履歴の容量ゲート、複数作者UIを定義したSRS
+    20要求とQT 14件です。独立レビューはHigh 0 / Medium 0でPASS、REQ→QT未追跡0件、未回答QA 0件です。
   target: docs/srs/SRS-F002.md
   target_mode: document
   options:
