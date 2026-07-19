@@ -1,0 +1,4584 @@
+{
+  "author": {
+    "artwork": {
+      "alt": "文豪風の装いで本を持つ、あくたがわずんのすけのイラスト",
+      "path": "artwork/akutagawa-zundamon.png"
+    },
+    "authorId": "000879",
+    "name": "あくたがわずんのすけ",
+    "originalName": "芥川龍之介",
+    "slug": "akutagawa-zunnosuke"
+  },
+  "creditsRef": "content/licenses.json",
+  "futureExpansionPolicy": {
+    "eligibilityCriteria": "著作権保護期間満了・青空文庫公開中・日本語原著・出典metadata完備をすべて満たす作品だけを候補にする",
+    "rightsRecheck": "追加時と公開前に本文・書誌・キャラクター・音声・画像の利用条件を再確認する",
+    "stagedAddition": "候補抽出、全件編集レビュー、音声容量preflight、生成、独立受け入れ試験を作品単位で完了してから追加する"
+  },
+  "review": {
+    "all": [
+      {
+        "candidate": {
+          "candidateId": "xPNCaIBKdeWPZ8HUe3AsA4RKBpYTGrim72yPu8ur7Xo",
+          "contextAfter": "と書いた。しかし、下人は雨がやんでも、格別どうしようと云う当てはない。ふだんなら、勿論、主人の家へ帰る可き筈である。所がその主人",
+          "contextBefore": "、洗いざらした紺の襖の尻を据えて、右の頬に出来た、大きな面皰を気にしながら、ぼんやり、雨のふるのを眺めていた。\n\n　作者はさっき、",
+          "displayText": "「下人が雨やみを待っていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 784,
+            "start": 770
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 784,
+            "startToken": 770
+          },
+          "speechText": "「下人が雨やみを待っていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "xPNCaIBKdeWPZ8HUe3AsA4RKBpYTGrim72yPu8ur7Xo",
+          "note": "直前の地の文で作者自身が「作者はさっき」と述べ、直後に「と書いた」と続く叙述上の引用であり、登場人物が口に出した発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "GV0hdOXn3cmT8B9W1h0d4qGNmU6IIu4w8qn_fTJGfls",
+          "contextAfter": "と云うよりも「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」と云う方が、適当である。その上、今日の空模様も少からず",
+          "contextBefore": "通りならず衰微していた。今この下人が、永年、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから",
+          "displayText": "「下人が雨やみを待っていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 960,
+            "start": 946
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 960,
+            "startToken": 946
+          },
+          "speechText": "「下人が雨やみを待っていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "GV0hdOXn3cmT8B9W1h0d4qGNmU6IIu4w8qn_fTJGfls",
+          "note": "直後の「と云うよりも」が示すとおり、作者が先の説明表現を別の表現と比較するため再掲した引用であり、人物の発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "VAs3UlxMlNX0p7vhIbJWgYikDjQfN2jELWucV40fg_A",
+          "contextAfter": "と云う方が、適当である。その上、今日の空模様も少からず、この平安朝の下人の Sentimentalisme に影響した。申の刻下",
+          "contextBefore": "、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから「下人が雨やみを待っていた」と云うよりも",
+          "displayText": "「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 997,
+            "start": 966
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 997,
+            "startToken": 966
+          },
+          "speechText": "「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "VAs3UlxMlNX0p7vhIbJWgYikDjQfN2jELWucV40fg_A",
+          "note": "前後の「と云うよりも」「と云う方が、適当である」から、作者が叙述の言い換え例として提示した引用であり、登場人物の発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "aqR0UaULAs5wIAU_xPswuccX3qkkH-LN7YxGeZkuRb8",
+          "contextAfter": "は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために",
+          "contextBefore": "うに棄てられてしまうばかりである。選ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 3,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1440,
+            "start": 1435
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1440,
+            "startToken": 1435
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "aqR0UaULAs5wIAU_xPswuccX3qkkH-LN7YxGeZkuRb8",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "lZSAgFIqth2WtAz5kdcq9ic2x3eoEZc044QBZo0Zj2w",
+          "contextAfter": "であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き「盗人になるよ",
+          "contextBefore": "ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの「すれば」は、いつまでたっても、結局",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 4,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1458,
+            "start": 1453
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1458,
+            "startToken": 1453
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "lZSAgFIqth2WtAz5kdcq9ic2x3eoEZc044QBZo0Zj2w",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "vALB10XKA02NAiAJ74n2HGdBlT-Bnm0_4TZqgkNWACo",
+          "contextAfter": "のかたをつけるために、当然、その後に来る可き「盗人になるよりほかに仕方がない」と云う事を、積極的に肯定するだけの、勇気が出ずにいた",
+          "contextBefore": "へ逢着した。しかしこの「すれば」は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 5,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1494,
+            "start": 1489
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1494,
+            "startToken": 1489
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "vALB10XKA02NAiAJ74n2HGdBlT-Bnm0_4TZqgkNWACo",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+          "contextAfter": "と云う事を、積極的に肯定するだけの、勇気が出ずにいたのである。\n\n　下人は、大きな嚔をして、それから、大儀そうに立上った。夕冷えの",
+          "contextBefore": "局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き",
+          "displayText": "「盗人になるよりほかに仕方がない」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 6,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1532,
+            "start": 1516
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1532,
+            "startToken": 1516
+          },
+          "speechText": "「ぬすびとになるよりほかに仕方がない」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "jioGjopwDbhEIZZUmft47ItYd1BcacsUBp-W3pLRB8g",
+          "contextAfter": "ように感じたのである。すると老婆は、松の木片を、床板の間に挿して、それから、今まで眺めていた死骸の首に両手をかけると、丁度、猿の",
+          "contextBefore": "女の死骸であろう。\n\n　下人は、六分の恐怖と四分の好奇心とに動かされて、暫時は呼吸をするのさえ忘れていた。旧記の記者の語を借りれば、",
+          "displayText": "「頭身の毛も太る」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 7,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 2893,
+            "start": 2885
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2893,
+            "startToken": 2885
+          },
+          "speechText": "「とうしんの毛も太る」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "jioGjopwDbhEIZZUmft47ItYd1BcacsUBp-W3pLRB8g",
+          "note": "直前に「旧記の記者の語を借りれば」と明記された既存表現の引用であり、下人や老婆がその場で口に出した発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+          "contextAfter": "\n\n　下人は、老婆が死骸につまずきながら、慌てふためいて逃げようとする行手を塞いで、こう罵った。老婆は、それでも下人をつきのけて",
+          "contextBefore": "の前へ歩みよった。老婆が驚いたのは云うまでもない。\n\n　老婆は、一目下人を見ると、まるで弩にでも弾かれたように、飛び上った。\n\n",
+          "displayText": "「おのれ、どこへ行く。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 8,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 3592,
+            "start": 3580
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3592,
+            "startToken": 3580
+          },
+          "speechText": "「おのれ、どこへ行く。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+          "contextAfter": "\n\n　下人は、老婆をつき放すと、いきなり、太刀の鞘を払って、白い鋼の色をその眼の前へつきつけた。けれども、老婆は黙っている。両手",
+          "contextBefore": "からわかっている。下人はとうとう、老婆の腕をつかんで、無理にそこへ（）じ倒した。丁度、鶏の脚のような、骨と皮ばかりの腕である。\n\n",
+          "displayText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 9,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 3811,
+            "start": 3788
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3811,
+            "startToken": 3788
+          },
+          "speechText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+          "contextAfter": "\n\n　すると、老婆は、見開いていた眼を、一層大きくして、じっとその下人の顔を見守った。（）の赤くなった、肉食鳥のような、鋭い眼で見",
+          "contextBefore": "円満に成就した時の、安らかな得意と満足とがあるばかりである。そこで、下人は、老婆を見下しながら、少し声を柔らげてこう云った。\n\n",
+          "displayText": "「己は検非違使の庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前に縄をかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 10,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4217,
+            "start": 4112
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4217,
+            "startToken": 4112
+          },
+          "speechText": "「おれはけびいしの庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前になわをかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+          "note": "直前に下人が「少し声を柔らげてこう云った」と明記される実発話である。役人ではないことを説明して事情を尋ねる内容で、単独再生時の攻撃・宗教・残虐表現にも当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+          "contextAfter": "\n\n　下人は、老婆の答が存外、平凡なのに失望した。そうして失望すると同時に、また前の憎悪が、冷やかな侮蔑と一しょに、心の中へはいっ",
+          "contextBefore": "かした。細い喉で、尖った喉仏の動いているのが見える。その時、その喉から、鴉の啼くような声が、喘ぎ喘ぎ、下人の耳へ伝わって来た。\n\n",
+          "displayText": "「この髪を抜いてな、この髪を抜いてな、鬘にしようと思うたのじゃ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 11,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4422,
+            "start": 4389
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4422,
+            "startToken": 4389
+          },
+          "speechText": "「この髪を抜いてな、この髪を抜いてな、かずらにしようと思うたのじゃ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+          "contextAfter": "\n\n　老婆は、大体こんな意味の事を云った。\n\n　下人は、太刀を鞘におさめて、その太刀の柄を左の手でおさえながら、冷然として、この",
+          "contextBefore": "う。老婆は、片手に、まだ死骸の頭から奪った長い抜け毛を持ったなり、蟇のつぶやくような声で、口ごもりながら、こんな事を云った。\n\n",
+          "displayText": "「成程な、死人の髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇を四寸ばかりずつに切って干したのを、干魚だと云うて、太刀帯の陣へ売りに往んだわ。疫病にかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさず菜料に買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 12,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4936,
+            "start": 4574
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4936,
+            "startToken": 4574
+          },
+          "speechText": "「成程な、しびとの髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇をしすんばかりずつに切って干したのを、ほしうおだと云うて、たてわきの陣へ売りにいんだわ。えやみにかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさずさいりように買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+          "contextAfter": "\n\n　老婆の話が完ると、下人は嘲るような声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみな",
+          "contextBefore": "ない。その時のこの男の心もちから云えば、饑死などと云う事は、ほとんど、考える事さえ出来ないほど、意識の外に追い出されていた。\n\n",
+          "displayText": "「きっと、そうか。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 13,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 5269,
+            "start": 5259
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5269,
+            "startToken": 5259
+          },
+          "speechText": "「きっと、そうか。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+          "note": "直後に「下人は嘲るような声で念を押した」と明記される実発話である。短い確認の問いであり、本文だけを単独再生しても攻撃・宗教・残虐表現には当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+          "contextAfter": "\n\n　下人は、すばやく、老婆の着物を剥ぎとった。それから、足にしがみつこうとする老婆を、手荒く死骸の上へ蹴倒した。梯子の口までは",
+          "contextBefore": "うな声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみながら、噛みつくようにこう云った。\n\n",
+          "displayText": "「では、己が引剥をしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 14,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 5390,
+            "start": 5351
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5390,
+            "startToken": 5351
+          },
+          "speechText": "「では、おれがひはぎをしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+          "contextAfter": "と、こう急に思い返して、とうとうその蜘蛛を殺さずに助けてやったからでございます。\n\n　御釈迦様は地獄の容子を御覧になりながら、こ",
+          "contextBefore": "深い林の中を通りますと、小さな蜘蛛が一匹、路ばたを這って行くのが見えました。そこで陀多は早速足を挙げて、踏み殺そうと致しましたが、",
+          "displayText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命を無暗にとると云う事は、いくら何でも可哀そうだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 535,
+            "start": 479
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 535,
+            "startToken": 479
+          },
+          "speechText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命をむやみにとると云う事は、いくら何でも可哀そうだ。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+          "contextAfter": "と笑いました。ところがふと気がつきますと、蜘蛛の糸の下の方には、数限もない罪人たちが、自分ののぼった後をつけて、まるで蟻の行列のよ",
+          "contextBefore": "獄からぬけ出すのも、存外わけがないかも知れません。陀多は両手を蜘蛛の糸にからみながら、ここへ来てから何年にも出した事のない声で、",
+          "displayText": "「しめた。しめた。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 1846,
+            "start": 1836
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1846,
+            "startToken": 1836
+          },
+          "speechText": "「しめた。しめた。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+          "note": "直前に「何年にも出した事のない声で」、直後に「と笑いました」とあり、陀多が実際に声に出した短い発話である。単独再生でも攻撃・宗教・残虐表現には当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+          "contextAfter": "と喚きました。\n\n　その途端でございます。今まで何ともなかった蜘蛛の糸が、急に陀多のぶら下っている所から、ぷつりと音を立てて断れ",
+          "contextBefore": "ます。今の中にどうかしなければ、糸はまん中から二つに断れて、落ちてしまうのに違いありません。\n\n　そこで陀多は大きな声を出して、",
+          "displayText": "「こら、罪人ども。この蜘蛛の糸は己のものだぞ。お前たちは一体誰に尋いて、のぼって来た。下りろ。下りろ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 2331,
+            "start": 2279
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2331,
+            "startToken": 2279
+          },
+          "speechText": "「こら、罪人ども。この蜘蛛の糸はおれのものだぞ。お前たちは一体誰にきいて、のぼって来た。下りろ。下りろ。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+          "contextAfter": "\n\n　杜子春はひとりさっきから、こんな取りとめもないことを思いめぐらしていたのです。\n\n　するとどこからやって来たか、突然彼の前",
+          "contextBefore": "ばかり眺めていました。空には、もう細い月が、うらうらと靡いた霞の中に、まるで爪の痕かと思う程、かすかに白く浮んでいるのです。\n\n",
+          "displayText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 448,
+            "start": 358
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 448,
+            "startToken": 358
+          },
+          "speechText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+          "contextAfter": "と、横柄に声をかけました。\n\n「私ですか。私は今夜寝る所もないので、どうしたものかと考えているのです」\n\n　老人の尋ね方が急でし",
+          "contextBefore": "、突然彼の前へ足を止めた、片目眇の老人があります。それが夕日の光を浴びて、大きな影を門へ落すと、じっと杜子春の顔を見ながら、\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 584,
+            "start": 570
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 584,
+            "startToken": 570
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+          "note": "老人が杜子春へ横柄に声をかけた実発話であり、単独再生でも通常の質問として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+          "contextAfter": "\n\n　老人の尋ね方が急でしたから、杜子春はさすがに眼を伏せて、思わず正直な答をしました。\n\n「そうか。それは可哀そうだな」\n\n　",
+          "contextBefore": "日の光を浴びて、大きな影を門へ落すと、じっと杜子春の顔を見ながら、\n\n「お前は何を考えているのだ」と、横柄に声をかけました。\n\n",
+          "displayText": "「私ですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 635,
+            "start": 599
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 635,
+            "startToken": 599
+          },
+          "speechText": "「わたしですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+          "note": "杜子春が老人の問いに正直に答えた実発話であり、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+          "contextAfter": "\n\n　老人は暫く何事か考えているようでしたが、やがて、往来にさしている夕日の光を指さしながら、\n\n「ではおれが好いことを一つ教え",
+          "contextBefore": "、どうしたものかと考えているのです」\n\n　老人の尋ね方が急でしたから、杜子春はさすがに眼を伏せて、思わず正直な答をしました。\n\n",
+          "displayText": "「そうか。それは可哀そうだな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 3,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 696,
+            "start": 681
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 696,
+            "startToken": 681
+          },
+          "speechText": "「そうか。それは可哀そうだな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+          "note": "杜子春の返答を受けた老人の実発話で、相手を気遣う安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+          "contextAfter": "\n\n「ほんとうですか」\n\n　杜子春は驚いて、伏せていた眼を挙げました。ところが更に不思議なことには、あの老人はどこへ行ったか、も",
+          "contextBefore": "「そうか。それは可哀そうだな」\n\n　老人は暫く何事か考えているようでしたが、やがて、往来にさしている夕日の光を指さしながら、\n\n",
+          "displayText": "「ではおれが好いことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所を夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 4,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 830,
+            "start": 745
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 830,
+            "startToken": 745
+          },
+          "speechText": "「ではおれがいいことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所をよなかに掘って見るが好い。きっと車に一ぱいのおうごんがうまっているはずだから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+          "note": "老人が夕日の影を指して黄金の場所を教える実発話で、物語上の助言として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+          "contextAfter": "\n\n　杜子春は驚いて、伏せていた眼を挙げました。ところが更に不思議なことには、あの老人はどこへ行ったか、もうあたりにはそれらしい",
+          "contextBefore": "夕日の中に立って、お前の影が地に映ったら、その頭に当る所を夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」\n\n",
+          "displayText": "「ほんとうですか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 5,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 841,
+            "start": 832
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 841,
+            "startToken": 832
+          },
+          "speechText": "「ほんとうですか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+          "note": "杜子春が驚いて老人へ確認した実発話で、短くても会話として完結している。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+          "contextAfter": "と、声をかけるではありませんか。\n\n　杜子春は老人の顔を見ると、恥しそうに下を向いたまま、暫くは返事もしませんでした。が、老人は",
+          "contextBefore": "へ行って、ぼんやり空を眺めながら、途方に暮れて立っていました。するとやはり昔のように、片目眇の老人が、どこからか姿を現して、\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 6,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 1926,
+            "start": 1912
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1926,
+            "startToken": 1912
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+          "note": "再会した老人が杜子春へ声をかけた実発話で、通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+          "contextAfter": "と、恐る恐る返事をしました。\n\n「そうか。それは可哀そうだな。ではおれが好いことを一つ教えてやろう。今この夕日の中へ立って、お前",
+          "contextBefore": "下を向いたまま、暫くは返事もしませんでした。が、老人はその日も親切そうに、同じ言葉を繰返しますから、こちらも前と同じように、\n\n",
+          "displayText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 7,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2058,
+            "start": 2027
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2058,
+            "startToken": 2027
+          },
+          "speechText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+          "note": "杜子春が老人へ恐る恐る返事をした実発話で、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+          "contextAfter": "\n\n　老人はこう言ったと思うと、今度もまた人ごみの中へ、掻き消すように隠れてしまいました。\n\n　杜子春はその翌日から、忽ち天下第",
+          "contextBefore": "から、こちらも前と同じように、\n\n「私は今夜寝る所もないので、どうしたものかと考えているのです」と、恐る恐る返事をしました。\n\n",
+          "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 8,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2176,
+            "start": 2074
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2176,
+            "startToken": 2074
+          },
+          "speechText": "「そうか。それは可哀そうだな。ではおれがいいことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+          "note": "老人が二度目の黄金の場所を教えた実発話で、物語上の助言として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+          "contextAfter": "\n\n　片目眇の老人は、三度杜子春の前へ来て、同じことを問いかけました。勿論彼はその時も、洛陽の西の門の下に、ほそぼそと霞を破っている三",
+          "contextBefore": "す。\n\n　ですから車に一ぱいにあった、あの夥しい黄金も、又三年ばかり経つ内には、すっかりなくなってしまいました。\n\n\n\n\n\n\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 9,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2413,
+            "start": 2399
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2413,
+            "startToken": 2399
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+          "note": "三度現れた老人が同じ問いを口にした実発話で、通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+          "contextAfter": "\n\n「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る",
+          "contextBefore": "いかけました。勿論彼はその時も、洛陽の西の門の下に、ほそぼそと霞を破っている三日月の光を眺めながら、ぼんやり佇んでいたのです。\n\n",
+          "displayText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 10,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2538,
+            "start": 2503
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2538,
+            "startToken": 2503
+          },
+          "speechText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+          "note": "杜子春が三度目の問いへ答えた実発話で、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+          "contextAfter": "\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n「いや、お金はもういらないのです」\n\n「金は",
+          "contextBefore": "三日月の光を眺めながら、ぼんやり佇んでいたのです。\n\n「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」\n\n",
+          "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 11,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2629,
+            "start": 2540
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2629,
+            "startToken": 2540
+          },
+          "speechText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+          "note": "老人が黄金の話を始め、杜子春に遮られるまでの実発話であり、不完全文も会話上の中断として明確である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+          "contextAfter": "\n\n「金はもういらない？　ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」\n\n　老人は審しそうな眼つきをしながら、じ",
+          "contextBefore": "に掘って見るが好い。きっと車に一ぱいの――」\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n",
+          "displayText": "「いや、お金はもういらないのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 12,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2688,
+            "start": 2671
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2688,
+            "startToken": 2671
+          },
+          "speechText": "「いや、お金はもういらないのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+          "note": "杜子春が老人の話を遮って意思を伝えた実発話で、内容も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+          "contextAfter": "\n\n　老人は審しそうな眼つきをしながら、じっと杜子春の顔を見つめました。\n\n「何、贅沢に飽きたのじゃありません。人間というものに",
+          "contextBefore": "――」\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n「いや、お金はもういらないのです」\n\n",
+          "displayText": "「金はもういらない？　ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 13,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2731,
+            "start": 2690
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2731,
+            "startToken": 2690
+          },
+          "speechText": "「金はもういらない？ ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+          "note": "老人が杜子春の意思を聞き返した実発話で、軽い推測に留まり危険な内容ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+          "contextAfter": "\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n「それは面白いな。どうして又人間に愛想が尽きたのだ？」\n\n「人間は",
+          "contextBefore": "では贅沢をするにはとうとう飽きてしまったと見えるな」\n\n　老人は審しそうな眼つきをしながら、じっと杜子春の顔を見つめました。\n\n",
+          "displayText": "「何、贅沢に飽きたのじゃありません。人間というものに愛想がつきたのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 14,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2804,
+            "start": 2769
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2804,
+            "startToken": 2769
+          },
+          "speechText": "「何、贅沢に飽きたのじゃありません。人間というものにあいそがつきたのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+          "note": "杜子春が人間への失望を老人へ述べた実発話で、個人や集団への攻撃命令ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+          "contextAfter": "\n\n「人間は皆薄情です。私が大金持になった時には、世辞も追従もしますけれど、一旦貧乏になって御覧なさい。柔しい顔さえもして見せはし",
+          "contextBefore": "、贅沢に飽きたのじゃありません。人間というものに愛想がつきたのです」\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n",
+          "displayText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 15,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2862,
+            "start": 2835
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2862,
+            "startToken": 2835
+          },
+          "speechText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+          "note": "老人が杜子春へ理由を尋ねた実発話で、通常の会話として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+          "contextAfter": "\n\n　老人は杜子春の言葉を聞くと、急ににやにや笑い出しました。\n\n「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。",
+          "contextBefore": "のです」\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n「それは面白いな。どうして又人間に愛想が尽きたのだ？」\n\n",
+          "displayText": "「人間は皆薄情です。私が大金持になった時には、世辞も追従もしますけれど、一旦貧乏になって御覧なさい。柔しい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 16,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2978,
+            "start": 2864
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2978,
+            "startToken": 2864
+          },
+          "speechText": "「人間は皆薄情です。私が大金持になった時には、世辞もついしょうもしますけれど、一旦貧乏になって御覧なさい。やさしい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+          "note": "杜子春が自分の経験から人の薄情さを説明した実発話で、特定者への攻撃ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+          "contextAfter": "\n\n　杜子春はちょいとためらいました。が、すぐに思い切った眼を挙げると、訴えるように老人の顔を見ながら、\n\n「それも今の私には出",
+          "contextBefore": "度大金持になったところが、何にもならないような気がするのです」\n\n　老人は杜子春の言葉を聞くと、急ににやにや笑い出しました。\n\n",
+          "displayText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 17,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3070,
+            "start": 3011
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3070,
+            "startToken": 3011
+          },
+          "speechText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+          "note": "老人が杜子春の今後を尋ねた実発話で、通常の会話として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+          "contextAfter": "\n\n　老人は眉をひそめたまま、暫くは黙って、何事か考えているようでしたが、やがて又にっこり笑いながら、\n\n「いかにもおれは峨眉山に棲",
+          "contextBefore": "暮して行くつもりか」\n\n　杜子春はちょいとためらいました。が、すぐに思い切った眼を挙げると、訴えるように老人の顔を見ながら、\n\n",
+          "displayText": "「それも今の私には出来ません。ですから私はあなたの弟子になって、仙術の修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、一夜の内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 18,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3262,
+            "start": 3124
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3262,
+            "startToken": 3124
+          },
+          "speechText": "「それも今の私には出来ません。ですから私はあなたのでしになって、せんじゅつの修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、ひとよの内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+          "contextAfter": "と、快く願を容れてくれました。\n\n　杜子春は喜んだの、喜ばないのではありません。老人の言葉がまだ終らない内に、彼は大地に額をつけ",
+          "contextBefore": "な仙術を教えて下さい」\n\n　老人は眉をひそめたまま、暫くは黙って、何事か考えているようでしたが、やがて又にっこり笑いながら、\n\n",
+          "displayText": "「いかにもおれは峨眉山に棲んでいる、鉄冠子という仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 19,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3413,
+            "start": 3315
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3413,
+            "startToken": 3315
+          },
+          "speechText": "「いかにもおれはがびさんにすんでいる、てっかんしという仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+          "contextAfter": "\n\n　鉄冠子はそこにあった青竹を一本拾い上げると、口の中に咒文を唱えながら、杜子春と一しょにその竹へ、馬にでも乗るように跨りました",
+          "contextBefore": "杜子春は喜んだの、喜ばないのではありません。老人の言葉がまだ終らない内に、彼は大地に額をつけて、何度も鉄冠子に御時宜をしました。\n\n",
+          "displayText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るが好い。おお、幸、ここに竹杖が一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 20,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3637,
+            "start": 3495
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3637,
+            "startToken": 3495
+          },
+          "speechText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るがいい。おお、さいわい、ここにたけづえが一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+          "contextAfter": "と言いました。\n\n「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」\n\n「そうか。それを聞いて、おれも安心",
+          "contextBefore": "曲りくねった一株の松が、こうこうと夜風に鳴る音だけです。\n\n　二人がこの岩の上に来ると、鉄冠子は杜子春を絶壁の下に坐らせて、\n\n",
+          "displayText": "「おれはこれから天上へ行って、西王母に御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているが好い。多分おれがいなくなると、いろいろな魔性が現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もし一言でも口を利いたら、お前は到底仙人にはなれないものだと覚悟をしろ。好いか。天地が裂けても、黙っているのだぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 21,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4353,
+            "start": 4170
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4353,
+            "startToken": 4170
+          },
+          "speechText": "「おれはこれから天上へ行って、せいおうぼに御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているがいい。多分おれがいなくなると、いろいろなましょうが現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もしひとことでも口をきいたら、お前は到底仙人にはなれないものだと覚悟をしろ。いいか。天地が裂けても、黙っているのだぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+          "contextAfter": "\n\n「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」\n\n　老人は杜子春に別れを告げると、又あの竹杖に跨って、夜",
+          "contextBefore": "し一言でも口を利いたら、お前は到底仙人にはなれないものだと覚悟をしろ。好いか。天地が裂けても、黙っているのだぞ」と言いました。\n\n",
+          "displayText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 22,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4398,
+            "start": 4362
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4398,
+            "startToken": 4362
+          },
+          "speechText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+          "contextAfter": "\n\n　老人は杜子春に別れを告げると、又あの竹杖に跨って、夜目にも削ったような山々の空へ、一文字に消えてしまいました。\n\n　杜子春",
+          "contextBefore": "天地が裂けても、黙っているのだぞ」と言いました。\n\n「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」\n\n",
+          "displayText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 23,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4433,
+            "start": 4400
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4433,
+            "startToken": 4400
+          },
+          "speechText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+          "note": "老人が安心して出発を告げた実発話で、単独再生でも通常の別れの言葉として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+          "contextAfter": "と、叱りつけるではありませんか。\n\n　しかし杜子春は仙人の教通り、何とも返事をしずにいました。\n\n　ところが又暫くすると、やはり",
+          "contextBefore": "まま、静に星を眺めていました。するとかれこれ半時ばかり経って、深山の夜気が肌寒く薄い着物に透り出した頃、突然空中に声があって、\n\n",
+          "displayText": "「そこにいるのは何者だ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 24,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4587,
+            "start": 4575
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4587,
+            "startToken": 4575
+          },
+          "speechText": "「そこにいるのは何者だ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+          "note": "空中の声が杜子春へ身元を尋ねた実発話で、文面自体は通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+          "contextAfter": "と、いかめしく嚇しつけるのです。\n\n　杜子春は勿論黙っていました。\n\n　と、どこから登って来たか、爛々と眼を光らせた虎が一匹、忽然と",
+          "contextBefore": "りませんか。\n\n　しかし杜子春は仙人の教通り、何とも返事をしずにいました。\n\n　ところが又暫くすると、やはり同じ声が響いて、\n\n",
+          "displayText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 25,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4688,
+            "start": 4661
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4688,
+            "startToken": 4661
+          },
+          "speechText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+          "contextAfter": "と言うのです。\n\n　しかし杜子春は老人の言葉通り、黙然と口を噤んでいました。\n\n「返事をしないか。――しないな。好し。しなければ、",
+          "contextBefore": "した。神将は手に三叉の戟を持っていましたが、いきなりその戟の切先を杜子春の胸もとへ向けながら、眼を嗔らせて叱りつけるのを聞けば、\n\n",
+          "displayText": "「こら、その方は一体何物だ。この峨眉山という山は、天地開闢の昔から、おれが住居をしている所だぞ。それも憚らずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 26,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 5784,
+            "start": 5678
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5784,
+            "startToken": 5678
+          },
+          "speechText": "「こら、その方は一体何物だ。この峨眉山という山は、天地かいびゃくの昔から、おれがすまいをしている所だぞ。それもはばからずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+          "contextAfter": "\n\n　神将は戟を高く挙げて、向うの山の空を招きました。その途端に闇がさっと裂けると、驚いたことには無数の神兵が、雲の如く空に充満ち",
+          "contextBefore": "るまい。さあ命が惜しかったら、一刻も早く返答しろ」と言うのです。\n\n　しかし杜子春は老人の言葉通り、黙然と口を噤んでいました。\n\n",
+          "displayText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれの眷属たちが、その方をずたずたに斬ってしまうぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 27,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 5887,
+            "start": 5823
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5887,
+            "startToken": 5823
+          },
+          "speechText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれのけんぞくたちが、その方をずたずたにきってしまうぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+          "contextAfter": "\n\n　神将はこう喚くが早いか、三叉の戟を閃かせて、一突きに杜子春を突き殺しました。そうして峨眉山もどよむ程、からからと高く笑いな",
+          "contextBefore": "すぐに又鉄冠子の言葉を思い出して、一生懸命に黙っていました。神将は彼が恐れないのを見ると、怒ったの怒らないのではありません。\n\n",
+          "displayText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 28,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6127,
+            "start": 6092
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6127,
+            "startToken": 6092
+          },
+          "speechText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+          "contextAfter": "\n\n　閻魔大王の声は雷のように、階の上から響きました。杜子春は早速その問に答えようとしましたが、ふと又思い出したのは、「決して口",
+          "contextBefore": "でいます。これは兼ねて噂に聞いた、閻魔大王に違いありません。杜子春はどうなることかと思いながら、恐る恐るそこへ跪いていました。\n\n",
+          "displayText": "「こら、その方は何の為に、峨眉山の上へ坐っていた？」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 29,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6715,
+            "start": 6689
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6715,
+            "startToken": 6689
+          },
+          "speechText": "「こら、その方は何のために、峨眉山の上へ坐っていた？」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "InacVftQCj9oh9K-27f0OYR5U2nJDaiaKBQjzeJOUEU",
+          "contextAfter": "という鉄冠子の戒めの言葉です。そこで唯頭を垂れたまま、唖のように黙っていました。すると閻魔大王は、持っていた鉄の笏を挙げて、顔中",
+          "contextBefore": "ていた？」\n\n　閻魔大王の声は雷のように、階の上から響きました。杜子春は早速その問に答えようとしましたが、ふと又思い出したのは、",
+          "displayText": "「決して口を利くな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 30,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6784,
+            "start": 6774
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6784,
+            "startToken": 6774
+          },
+          "speechText": "「決して口をきくな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "InacVftQCj9oh9K-27f0OYR5U2nJDaiaKBQjzeJOUEU",
+          "note": "直前の鉄冠子の戒めを杜子春が思い出した引用であり、この場面で新たに口に出された発話ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+          "contextAfter": "と、威丈高に罵りました。\n\n　が、杜子春は相変らず唇一つ動かしません。それを見た閻魔大王は、すぐに鬼どもの方を向いて、荒々しく何か言",
+          "contextBefore": "です。そこで唯頭を垂れたまま、唖のように黙っていました。すると閻魔大王は、持っていた鉄の笏を挙げて、顔中の鬚を逆立てながら、\n\n",
+          "displayText": "「その方はここをどこだと思う？　速に返答をすれば好し、さもなければ時を移さず、地獄の呵責に遇わせてくれるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 31,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6913,
+            "start": 6860
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6913,
+            "startToken": 6860
+          },
+          "speechText": "「その方はここをどこだと思う？ すみやかに返答をすれば好し、さもなければ時を移さず、地獄のかしゃくにあわせてくれるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+          "contextAfter": "と、口を揃えて言上しました。\n\n　閻魔大王は眉をひそめて、暫く思案に暮れていましたが、やがて何か思いついたと見えて、\n\n「この男の",
+          "contextBefore": "。もう一度夜のような空を飛んで、森羅殿の前へ帰って来ると、さっきの通り杜子春を階の下に引き据えながら、御殿の上の閻魔大王に、\n\n",
+          "displayText": "「この罪人はどうしても、ものを言う気色がございません」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 32,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7417,
+            "start": 7391
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7417,
+            "startToken": 7391
+          },
+          "speechText": "「この罪人はどうしても、ものを言うけしきがございません」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+          "contextAfter": "と、一匹の鬼に言いつけました。\n\n　鬼は忽ち風に乗って、地獄の空へ舞い上りました。と思うと、又星が流れるように、二匹の獣を駆り立",
+          "contextBefore": "いません」と、口を揃えて言上しました。\n\n　閻魔大王は眉をひそめて、暫く思案に暮れていましたが、やがて何か思いついたと見えて、\n\n",
+          "displayText": "「この男の父母は、畜生道に落ちている筈だから、早速ここへ引き立てて来い」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 33,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7509,
+            "start": 7476
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7509,
+            "startToken": 7476
+          },
+          "speechText": "「この男のちちははは、ちくしょうどうに落ちている筈だから、早速ここへ引き立てて来い」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+          "contextAfter": "\n\n　杜子春はこう嚇されても、やはり返答をしずにいました。\n\n「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好けれ",
+          "contextBefore": "はありません。なぜかといえばそれは二匹とも、形は見すぼらしい痩せ馬でしたが、顔は夢にも忘れない、死んだ父母の通りでしたから。\n\n",
+          "displayText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 34,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7742,
+            "start": 7680
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7742,
+            "startToken": 7680
+          },
+          "speechText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+          "contextAfter": "\n\n　閻魔大王は森羅殿も崩れる程、凄じい声で喚きました。\n\n「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」\n\n　鬼",
+          "contextBefore": "すぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」\n\n　杜子春はこう嚇されても、やはり返答をしずにいました。\n\n",
+          "displayText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、好いと思っているのだな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 35,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7820,
+            "start": 7773
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7820,
+            "startToken": 7773
+          },
+          "speechText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、いいと思っているのだな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+          "contextAfter": "\n\n　鬼どもは一斉に「はっ」と答えながら、鉄の鞭をとって立ち上ると、四方八方から二匹の馬を、未練未釈なく打ちのめしました。鞭はりゅ",
+          "contextBefore": "父母が苦しんでも、その方さえ都合が好ければ、好いと思っているのだな」\n\n　閻魔大王は森羅殿も崩れる程、凄じい声で喚きました。\n\n",
+          "displayText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 36,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7880,
+            "start": 7850
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7880,
+            "startToken": 7850
+          },
+          "speechText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+          "contextAfter": "と答えながら、鉄の鞭をとって立ち上ると、四方八方から二匹の馬を、未練未釈なく打ちのめしました。鞭はりゅうりゅうと風を切って、所嫌わ",
+          "contextBefore": "王は森羅殿も崩れる程、凄じい声で喚きました。\n\n「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」\n\n　鬼どもは一斉に",
+          "displayText": "「はっ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 37,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7894,
+            "start": 7890
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7894,
+            "startToken": 7890
+          },
+          "speechText": "「はっ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+          "note": "鬼たちが命令へ一斉に応答した実発話で、一語でも発話として明確かつ単独表示は安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+          "contextAfter": "\n\n　閻魔大王は鬼どもに、暫く鞭の手をやめさせて、もう一度杜子春の答を促しました。もうその時には二匹の馬も、肉は裂け骨は砕けて、",
+          "contextBefore": "破るのです。馬は、――畜生になった父母は、苦しそうに身を悶えて、眼には血の涙を浮べたまま、見てもいられない程嘶き立てました。\n\n",
+          "displayText": "「どうだ。まだその方は白状しないか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 38,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8054,
+            "start": 8036
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8054,
+            "startToken": 8036
+          },
+          "speechText": "「どうだ。まだその方は白状しないか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+          "contextAfter": "\n\n　それは確に懐しい、母親の声に違いありません。杜子春は思わず、眼をあきました。そうして馬の一匹が、力なく地上に倒れたまま、悲",
+          "contextBefore": "の言葉を思い出しながら、緊く眼をつぶっていました。するとその時彼の耳には、殆声とはいえない位、かすかな声が伝わって来ました。\n\n",
+          "displayText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何と仰っても、言いたくないことは黙って御出で」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 39,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8301,
+            "start": 8222
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8301,
+            "startToken": 8222
+          },
+          "speechText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何とおっしゃっても、言いたくないことは黙っておいで」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+          "note": "母親が杜子春を気遣って語りかけた実発話で、前後は苛烈でも文面は思いやりを示す安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+          "contextAfter": "と一声を叫びました。…………\n\n\n\n\n\n\n\n　その声に気がついて見ると、杜子春はやはり夕日を浴びて、洛陽の西の門の下に、ぼんやり",
+          "contextBefore": "な決心でしょう。杜子春は老人の戒めも忘れて、転ぶようにその側へ走りよると、両手に半死の馬の頸を抱いて、はらはらと涙を落しながら、",
+          "displayText": "「お母さん」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 40,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8571,
+            "start": 8565
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8571,
+            "startToken": 8565
+          },
+          "speechText": "「おっかさん」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+          "note": "杜子春が母を抱いて実際に叫んだ発話で、短くても文脈上明確かつ単独再生も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+          "contextAfter": "\n\n　片目眇の老人は微笑を含みながら言いました。\n\n「なれません。なれませんが、しかし私はなれなかったことも、反って嬉しい気がす",
+          "contextBefore": "ぼんやり佇んでいるのでした。霞んだ空、白い三日月、絶え間ない人や車の波、――すべてがまだ峨眉山へ、行かない前と同じことです。\n\n",
+          "displayText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 41,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8729,
+            "start": 8695
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8729,
+            "startToken": 8695
+          },
+          "speechText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+          "note": "老人が杜子春へ修行の結果を穏やかに問いかけた実発話で、単独再生でも安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+          "contextAfter": "\n\n　杜子春はまだ眼に涙を浮べたまま、思わず老人の手を握りました。\n\n「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、",
+          "contextBefore": "す。\n\n「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」\n\n　片目眇の老人は微笑を含みながら言いました。\n\n",
+          "displayText": "「なれません。なれませんが、しかし私はなれなかったことも、反って嬉しい気がするのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 42,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8798,
+            "start": 8755
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8798,
+            "startToken": 8755
+          },
+          "speechText": "「なれません。なれませんが、しかしわたしはなれなかったことも、かえって嬉しい気がするのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+          "note": "杜子春が仙人になれなかった心境を老人へ答えた実発話で、他者への勧誘や攻撃ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+          "contextAfter": "\n\n「もしお前が黙っていたら――」と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n「もしお前が黙っていたら、おれは",
+          "contextBefore": "しかし私はなれなかったことも、反って嬉しい気がするのです」\n\n　杜子春はまだ眼に涙を浮べたまま、思わず老人の手を握りました。\n\n",
+          "displayText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 43,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8890,
+            "start": 8833
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8890,
+            "startToken": 8833
+          },
+          "speechText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+          "contextAfter": "と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思",
+          "contextBefore": "した。\n\n「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」\n\n",
+          "displayText": "「もしお前が黙っていたら――」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 44,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8907,
+            "start": 8892
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8907,
+            "startToken": 8892
+          },
+          "speechText": "「もしお前が黙っていたら――」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+          "note": "直後に「と鉄冠子は」と発話者が明記された、途中で区切られた実発話である。抽出artifactではないためCHG-F001-003で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+          "contextAfter": "\n\n「何になっても、人間らしい、正直な暮しをするつもりです」\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n",
+          "contextBefore": "は、黙っている訳には行きません」\n\n「もしお前が黙っていたら――」と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n",
+          "displayText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいという望も持っていまい。大金持になることは、元より愛想がつきた筈だ。ではお前はこれから後、何になったら好いと思うな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 45,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9050,
+            "start": 8938
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9050,
+            "startToken": 8938
+          },
+          "speechText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいというのぞみも持っていまい。大金持になることは、元より愛想がつきたはずだ。ではお前はこれから後、何になったらいいと思うな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+          "contextAfter": "\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n\n「その言葉を忘れるなよ。ではおれは今日限り、二度とお前には",
+          "contextBefore": "なりたいという望も持っていまい。大金持になることは、元より愛想がつきた筈だ。ではお前はこれから後、何になったら好いと思うな」\n\n",
+          "displayText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 46,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9080,
+            "start": 9052
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9080,
+            "startToken": 9052
+          },
+          "speechText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+          "note": "杜子春が正直に暮らす決意を述べた実発話で、前向きかつ安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+          "contextAfter": "\n\n　鉄冠子はこう言う内に、もう歩き出していましたが、急に又足を止めて、杜子春の方を振り返ると、\n\n「おお、幸、今思い出したが、",
+          "contextBefore": "\n「何になっても、人間らしい、正直な暮しをするつもりです」\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n\n",
+          "displayText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前には遇わないから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 47,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9151,
+            "start": 9115
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9151,
+            "startToken": 9115
+          },
+          "speechText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前にはあわないから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+          "note": "老人が杜子春へ決意を忘れないよう告げて別れた実発話で、内容も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+          "contextAfter": "と、さも愉快そうにつけ加えました。\n\n\n\n\n\n\n\n",
+          "contextBefore": "二度とお前には遇わないから」\n\n　鉄冠子はこう言う内に、もう歩き出していましたが、急に又足を止めて、杜子春の方を振り返ると、\n\n",
+          "displayText": "「おお、幸、今思い出したが、おれは泰山の南の麓に一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 48,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9290,
+            "start": 9201
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9290,
+            "startToken": 9201
+          },
+          "speechText": "「おお、さいわい、今思い出したが、おれはたいざんの南のふもとに一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+          "note": "老人が家と畑を譲ると穏やかに申し出た実発話で、物語の結びとして安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      }
+    ],
+    "approved": [
+      {
+        "candidate": {
+          "candidateId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+          "contextAfter": "と云う事を、積極的に肯定するだけの、勇気が出ずにいたのである。\n\n　下人は、大きな嚔をして、それから、大儀そうに立上った。夕冷えの",
+          "contextBefore": "局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き",
+          "displayText": "「盗人になるよりほかに仕方がない」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 6,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1532,
+            "start": 1516
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1532,
+            "startToken": 1516
+          },
+          "speechText": "「ぬすびとになるよりほかに仕方がない」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+          "contextAfter": "\n\n　下人は、老婆が死骸につまずきながら、慌てふためいて逃げようとする行手を塞いで、こう罵った。老婆は、それでも下人をつきのけて",
+          "contextBefore": "の前へ歩みよった。老婆が驚いたのは云うまでもない。\n\n　老婆は、一目下人を見ると、まるで弩にでも弾かれたように、飛び上った。\n\n",
+          "displayText": "「おのれ、どこへ行く。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 8,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 3592,
+            "start": 3580
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3592,
+            "startToken": 3580
+          },
+          "speechText": "「おのれ、どこへ行く。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+          "contextAfter": "\n\n　下人は、老婆をつき放すと、いきなり、太刀の鞘を払って、白い鋼の色をその眼の前へつきつけた。けれども、老婆は黙っている。両手",
+          "contextBefore": "からわかっている。下人はとうとう、老婆の腕をつかんで、無理にそこへ（）じ倒した。丁度、鶏の脚のような、骨と皮ばかりの腕である。\n\n",
+          "displayText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 9,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 3811,
+            "start": 3788
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3811,
+            "startToken": 3788
+          },
+          "speechText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+          "contextAfter": "\n\n　すると、老婆は、見開いていた眼を、一層大きくして、じっとその下人の顔を見守った。（）の赤くなった、肉食鳥のような、鋭い眼で見",
+          "contextBefore": "円満に成就した時の、安らかな得意と満足とがあるばかりである。そこで、下人は、老婆を見下しながら、少し声を柔らげてこう云った。\n\n",
+          "displayText": "「己は検非違使の庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前に縄をかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 10,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4217,
+            "start": 4112
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4217,
+            "startToken": 4112
+          },
+          "speechText": "「おれはけびいしの庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前になわをかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+          "note": "直前に下人が「少し声を柔らげてこう云った」と明記される実発話である。役人ではないことを説明して事情を尋ねる内容で、単独再生時の攻撃・宗教・残虐表現にも当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+          "contextAfter": "\n\n　下人は、老婆の答が存外、平凡なのに失望した。そうして失望すると同時に、また前の憎悪が、冷やかな侮蔑と一しょに、心の中へはいっ",
+          "contextBefore": "かした。細い喉で、尖った喉仏の動いているのが見える。その時、その喉から、鴉の啼くような声が、喘ぎ喘ぎ、下人の耳へ伝わって来た。\n\n",
+          "displayText": "「この髪を抜いてな、この髪を抜いてな、鬘にしようと思うたのじゃ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 11,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4422,
+            "start": 4389
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4422,
+            "startToken": 4389
+          },
+          "speechText": "「この髪を抜いてな、この髪を抜いてな、かずらにしようと思うたのじゃ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+          "contextAfter": "\n\n　老婆は、大体こんな意味の事を云った。\n\n　下人は、太刀を鞘におさめて、その太刀の柄を左の手でおさえながら、冷然として、この",
+          "contextBefore": "う。老婆は、片手に、まだ死骸の頭から奪った長い抜け毛を持ったなり、蟇のつぶやくような声で、口ごもりながら、こんな事を云った。\n\n",
+          "displayText": "「成程な、死人の髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇を四寸ばかりずつに切って干したのを、干魚だと云うて、太刀帯の陣へ売りに往んだわ。疫病にかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさず菜料に買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 12,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 4936,
+            "start": 4574
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4936,
+            "startToken": 4574
+          },
+          "speechText": "「成程な、しびとの髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇をしすんばかりずつに切って干したのを、ほしうおだと云うて、たてわきの陣へ売りにいんだわ。えやみにかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさずさいりように買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+          "contextAfter": "\n\n　老婆の話が完ると、下人は嘲るような声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみな",
+          "contextBefore": "ない。その時のこの男の心もちから云えば、饑死などと云う事は、ほとんど、考える事さえ出来ないほど、意識の外に追い出されていた。\n\n",
+          "displayText": "「きっと、そうか。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 13,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 5269,
+            "start": 5259
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5269,
+            "startToken": 5259
+          },
+          "speechText": "「きっと、そうか。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+          "note": "直後に「下人は嘲るような声で念を押した」と明記される実発話である。短い確認の問いであり、本文だけを単独再生しても攻撃・宗教・残虐表現には当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+          "contextAfter": "\n\n　下人は、すばやく、老婆の着物を剥ぎとった。それから、足にしがみつこうとする老婆を、手荒く死骸の上へ蹴倒した。梯子の口までは",
+          "contextBefore": "うな声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみながら、噛みつくようにこう云った。\n\n",
+          "displayText": "「では、己が引剥をしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 14,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 5390,
+            "start": 5351
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5390,
+            "startToken": 5351
+          },
+          "speechText": "「では、おれがひはぎをしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+          "contextAfter": "と、こう急に思い返して、とうとうその蜘蛛を殺さずに助けてやったからでございます。\n\n　御釈迦様は地獄の容子を御覧になりながら、こ",
+          "contextBefore": "深い林の中を通りますと、小さな蜘蛛が一匹、路ばたを這って行くのが見えました。そこで陀多は早速足を挙げて、踏み殺そうと致しましたが、",
+          "displayText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命を無暗にとると云う事は、いくら何でも可哀そうだ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 535,
+            "start": 479
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 535,
+            "startToken": 479
+          },
+          "speechText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命をむやみにとると云う事は、いくら何でも可哀そうだ。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+          "contextAfter": "と笑いました。ところがふと気がつきますと、蜘蛛の糸の下の方には、数限もない罪人たちが、自分ののぼった後をつけて、まるで蟻の行列のよ",
+          "contextBefore": "獄からぬけ出すのも、存外わけがないかも知れません。陀多は両手を蜘蛛の糸にからみながら、ここへ来てから何年にも出した事のない声で、",
+          "displayText": "「しめた。しめた。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 1846,
+            "start": 1836
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1846,
+            "startToken": 1836
+          },
+          "speechText": "「しめた。しめた。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+          "note": "直前に「何年にも出した事のない声で」、直後に「と笑いました」とあり、陀多が実際に声に出した短い発話である。単独再生でも攻撃・宗教・残虐表現には当たらない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+          "contextAfter": "と喚きました。\n\n　その途端でございます。今まで何ともなかった蜘蛛の糸が、急に陀多のぶら下っている所から、ぷつりと音を立てて断れ",
+          "contextBefore": "ます。今の中にどうかしなければ、糸はまん中から二つに断れて、落ちてしまうのに違いありません。\n\n　そこで陀多は大きな声を出して、",
+          "displayText": "「こら、罪人ども。この蜘蛛の糸は己のものだぞ。お前たちは一体誰に尋いて、のぼって来た。下りろ。下りろ。」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "rawTokenRange": {
+            "end": 2331,
+            "start": 2279
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2331,
+            "startToken": 2279
+          },
+          "speechText": "「こら、罪人ども。この蜘蛛の糸はおれのものだぞ。お前たちは一体誰にきいて、のぼって来た。下りろ。下りろ。」",
+          "workId": "000092"
+        },
+        "review": {
+          "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+          "contextAfter": "\n\n　杜子春はひとりさっきから、こんな取りとめもないことを思いめぐらしていたのです。\n\n　するとどこからやって来たか、突然彼の前",
+          "contextBefore": "ばかり眺めていました。空には、もう細い月が、うらうらと靡いた霞の中に、まるで爪の痕かと思う程、かすかに白く浮んでいるのです。\n\n",
+          "displayText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 448,
+            "start": 358
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 448,
+            "startToken": 358
+          },
+          "speechText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+          "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "INNER_MONOLOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+          "contextAfter": "と、横柄に声をかけました。\n\n「私ですか。私は今夜寝る所もないので、どうしたものかと考えているのです」\n\n　老人の尋ね方が急でし",
+          "contextBefore": "、突然彼の前へ足を止めた、片目眇の老人があります。それが夕日の光を浴びて、大きな影を門へ落すと、じっと杜子春の顔を見ながら、\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 584,
+            "start": 570
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 584,
+            "startToken": 570
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+          "note": "老人が杜子春へ横柄に声をかけた実発話であり、単独再生でも通常の質問として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+          "contextAfter": "\n\n　老人の尋ね方が急でしたから、杜子春はさすがに眼を伏せて、思わず正直な答をしました。\n\n「そうか。それは可哀そうだな」\n\n　",
+          "contextBefore": "日の光を浴びて、大きな影を門へ落すと、じっと杜子春の顔を見ながら、\n\n「お前は何を考えているのだ」と、横柄に声をかけました。\n\n",
+          "displayText": "「私ですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 635,
+            "start": 599
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 635,
+            "startToken": 599
+          },
+          "speechText": "「わたしですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+          "note": "杜子春が老人の問いに正直に答えた実発話であり、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+          "contextAfter": "\n\n　老人は暫く何事か考えているようでしたが、やがて、往来にさしている夕日の光を指さしながら、\n\n「ではおれが好いことを一つ教え",
+          "contextBefore": "、どうしたものかと考えているのです」\n\n　老人の尋ね方が急でしたから、杜子春はさすがに眼を伏せて、思わず正直な答をしました。\n\n",
+          "displayText": "「そうか。それは可哀そうだな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 3,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 696,
+            "start": 681
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 696,
+            "startToken": 681
+          },
+          "speechText": "「そうか。それは可哀そうだな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+          "note": "杜子春の返答を受けた老人の実発話で、相手を気遣う安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+          "contextAfter": "\n\n「ほんとうですか」\n\n　杜子春は驚いて、伏せていた眼を挙げました。ところが更に不思議なことには、あの老人はどこへ行ったか、も",
+          "contextBefore": "「そうか。それは可哀そうだな」\n\n　老人は暫く何事か考えているようでしたが、やがて、往来にさしている夕日の光を指さしながら、\n\n",
+          "displayText": "「ではおれが好いことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所を夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 4,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 830,
+            "start": 745
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 830,
+            "startToken": 745
+          },
+          "speechText": "「ではおれがいいことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所をよなかに掘って見るが好い。きっと車に一ぱいのおうごんがうまっているはずだから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+          "note": "老人が夕日の影を指して黄金の場所を教える実発話で、物語上の助言として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+          "contextAfter": "\n\n　杜子春は驚いて、伏せていた眼を挙げました。ところが更に不思議なことには、あの老人はどこへ行ったか、もうあたりにはそれらしい",
+          "contextBefore": "夕日の中に立って、お前の影が地に映ったら、その頭に当る所を夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」\n\n",
+          "displayText": "「ほんとうですか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 5,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 841,
+            "start": 832
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 841,
+            "startToken": 832
+          },
+          "speechText": "「ほんとうですか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+          "note": "杜子春が驚いて老人へ確認した実発話で、短くても会話として完結している。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+          "contextAfter": "と、声をかけるではありませんか。\n\n　杜子春は老人の顔を見ると、恥しそうに下を向いたまま、暫くは返事もしませんでした。が、老人は",
+          "contextBefore": "へ行って、ぼんやり空を眺めながら、途方に暮れて立っていました。するとやはり昔のように、片目眇の老人が、どこからか姿を現して、\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 6,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 1926,
+            "start": 1912
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1926,
+            "startToken": 1912
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+          "note": "再会した老人が杜子春へ声をかけた実発話で、通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+          "contextAfter": "と、恐る恐る返事をしました。\n\n「そうか。それは可哀そうだな。ではおれが好いことを一つ教えてやろう。今この夕日の中へ立って、お前",
+          "contextBefore": "下を向いたまま、暫くは返事もしませんでした。が、老人はその日も親切そうに、同じ言葉を繰返しますから、こちらも前と同じように、\n\n",
+          "displayText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 7,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2058,
+            "start": 2027
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2058,
+            "startToken": 2027
+          },
+          "speechText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+          "note": "杜子春が老人へ恐る恐る返事をした実発話で、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+          "contextAfter": "\n\n　老人はこう言ったと思うと、今度もまた人ごみの中へ、掻き消すように隠れてしまいました。\n\n　杜子春はその翌日から、忽ち天下第",
+          "contextBefore": "から、こちらも前と同じように、\n\n「私は今夜寝る所もないので、どうしたものかと考えているのです」と、恐る恐る返事をしました。\n\n",
+          "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 8,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2176,
+            "start": 2074
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2176,
+            "startToken": 2074
+          },
+          "speechText": "「そうか。それは可哀そうだな。ではおれがいいことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+          "note": "老人が二度目の黄金の場所を教えた実発話で、物語上の助言として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+          "contextAfter": "\n\n　片目眇の老人は、三度杜子春の前へ来て、同じことを問いかけました。勿論彼はその時も、洛陽の西の門の下に、ほそぼそと霞を破っている三",
+          "contextBefore": "す。\n\n　ですから車に一ぱいにあった、あの夥しい黄金も、又三年ばかり経つ内には、すっかりなくなってしまいました。\n\n\n\n\n\n\n\n",
+          "displayText": "「お前は何を考えているのだ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 9,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2413,
+            "start": 2399
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2413,
+            "startToken": 2399
+          },
+          "speechText": "「お前は何を考えているのだ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+          "note": "三度現れた老人が同じ問いを口にした実発話で、通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+          "contextAfter": "\n\n「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る",
+          "contextBefore": "いかけました。勿論彼はその時も、洛陽の西の門の下に、ほそぼそと霞を破っている三日月の光を眺めながら、ぼんやり佇んでいたのです。\n\n",
+          "displayText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 10,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2538,
+            "start": 2503
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2538,
+            "startToken": 2503
+          },
+          "speechText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+          "note": "杜子春が三度目の問いへ答えた実発話で、危険な表現を含まない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+          "contextAfter": "\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n「いや、お金はもういらないのです」\n\n「金は",
+          "contextBefore": "三日月の光を眺めながら、ぼんやり佇んでいたのです。\n\n「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」\n\n",
+          "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 11,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2629,
+            "start": 2540
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2629,
+            "startToken": 2540
+          },
+          "speechText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+          "note": "老人が黄金の話を始め、杜子春に遮られるまでの実発話であり、不完全文も会話上の中断として明確である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+          "contextAfter": "\n\n「金はもういらない？　ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」\n\n　老人は審しそうな眼つきをしながら、じ",
+          "contextBefore": "に掘って見るが好い。きっと車に一ぱいの――」\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n",
+          "displayText": "「いや、お金はもういらないのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 12,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2688,
+            "start": 2671
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2688,
+            "startToken": 2671
+          },
+          "speechText": "「いや、お金はもういらないのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+          "note": "杜子春が老人の話を遮って意思を伝えた実発話で、内容も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+          "contextAfter": "\n\n　老人は審しそうな眼つきをしながら、じっと杜子春の顔を見つめました。\n\n「何、贅沢に飽きたのじゃありません。人間というものに",
+          "contextBefore": "――」\n\n　老人がここまで言いかけると、杜子春は急に手を挙げて、その言葉を遮りました。\n\n「いや、お金はもういらないのです」\n\n",
+          "displayText": "「金はもういらない？　ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 13,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2731,
+            "start": 2690
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2731,
+            "startToken": 2690
+          },
+          "speechText": "「金はもういらない？ ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+          "note": "老人が杜子春の意思を聞き返した実発話で、軽い推測に留まり危険な内容ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+          "contextAfter": "\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n「それは面白いな。どうして又人間に愛想が尽きたのだ？」\n\n「人間は",
+          "contextBefore": "では贅沢をするにはとうとう飽きてしまったと見えるな」\n\n　老人は審しそうな眼つきをしながら、じっと杜子春の顔を見つめました。\n\n",
+          "displayText": "「何、贅沢に飽きたのじゃありません。人間というものに愛想がつきたのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 14,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2804,
+            "start": 2769
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2804,
+            "startToken": 2769
+          },
+          "speechText": "「何、贅沢に飽きたのじゃありません。人間というものにあいそがつきたのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+          "note": "杜子春が人間への失望を老人へ述べた実発話で、個人や集団への攻撃命令ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+          "contextAfter": "\n\n「人間は皆薄情です。私が大金持になった時には、世辞も追従もしますけれど、一旦貧乏になって御覧なさい。柔しい顔さえもして見せはし",
+          "contextBefore": "、贅沢に飽きたのじゃありません。人間というものに愛想がつきたのです」\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n",
+          "displayText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 15,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2862,
+            "start": 2835
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2862,
+            "startToken": 2835
+          },
+          "speechText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+          "note": "老人が杜子春へ理由を尋ねた実発話で、通常の会話として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+          "contextAfter": "\n\n　老人は杜子春の言葉を聞くと、急ににやにや笑い出しました。\n\n「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。",
+          "contextBefore": "のです」\n\n　杜子春は不平そうな顔をしながら、突慳貪にこう言いました。\n\n「それは面白いな。どうして又人間に愛想が尽きたのだ？」\n\n",
+          "displayText": "「人間は皆薄情です。私が大金持になった時には、世辞も追従もしますけれど、一旦貧乏になって御覧なさい。柔しい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 16,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 2978,
+            "start": 2864
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2978,
+            "startToken": 2864
+          },
+          "speechText": "「人間は皆薄情です。私が大金持になった時には、世辞もついしょうもしますけれど、一旦貧乏になって御覧なさい。やさしい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+          "note": "杜子春が自分の経験から人の薄情さを説明した実発話で、特定者への攻撃ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+          "contextAfter": "\n\n　杜子春はちょいとためらいました。が、すぐに思い切った眼を挙げると、訴えるように老人の顔を見ながら、\n\n「それも今の私には出",
+          "contextBefore": "度大金持になったところが、何にもならないような気がするのです」\n\n　老人は杜子春の言葉を聞くと、急ににやにや笑い出しました。\n\n",
+          "displayText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 17,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3070,
+            "start": 3011
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3070,
+            "startToken": 3011
+          },
+          "speechText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+          "note": "老人が杜子春の今後を尋ねた実発話で、通常の会話として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+          "contextAfter": "\n\n　老人は眉をひそめたまま、暫くは黙って、何事か考えているようでしたが、やがて又にっこり笑いながら、\n\n「いかにもおれは峨眉山に棲",
+          "contextBefore": "暮して行くつもりか」\n\n　杜子春はちょいとためらいました。が、すぐに思い切った眼を挙げると、訴えるように老人の顔を見ながら、\n\n",
+          "displayText": "「それも今の私には出来ません。ですから私はあなたの弟子になって、仙術の修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、一夜の内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 18,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3262,
+            "start": 3124
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3262,
+            "startToken": 3124
+          },
+          "speechText": "「それも今の私には出来ません。ですから私はあなたのでしになって、せんじゅつの修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、ひとよの内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+          "contextAfter": "と、快く願を容れてくれました。\n\n　杜子春は喜んだの、喜ばないのではありません。老人の言葉がまだ終らない内に、彼は大地に額をつけ",
+          "contextBefore": "な仙術を教えて下さい」\n\n　老人は眉をひそめたまま、暫くは黙って、何事か考えているようでしたが、やがて又にっこり笑いながら、\n\n",
+          "displayText": "「いかにもおれは峨眉山に棲んでいる、鉄冠子という仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 19,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3413,
+            "start": 3315
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3413,
+            "startToken": 3315
+          },
+          "speechText": "「いかにもおれはがびさんにすんでいる、てっかんしという仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+          "contextAfter": "\n\n　鉄冠子はそこにあった青竹を一本拾い上げると、口の中に咒文を唱えながら、杜子春と一しょにその竹へ、馬にでも乗るように跨りました",
+          "contextBefore": "杜子春は喜んだの、喜ばないのではありません。老人の言葉がまだ終らない内に、彼は大地に額をつけて、何度も鉄冠子に御時宜をしました。\n\n",
+          "displayText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るが好い。おお、幸、ここに竹杖が一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 20,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 3637,
+            "start": 3495
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 3637,
+            "startToken": 3495
+          },
+          "speechText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るがいい。おお、さいわい、ここにたけづえが一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+          "contextAfter": "と言いました。\n\n「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」\n\n「そうか。それを聞いて、おれも安心",
+          "contextBefore": "曲りくねった一株の松が、こうこうと夜風に鳴る音だけです。\n\n　二人がこの岩の上に来ると、鉄冠子は杜子春を絶壁の下に坐らせて、\n\n",
+          "displayText": "「おれはこれから天上へ行って、西王母に御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているが好い。多分おれがいなくなると、いろいろな魔性が現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もし一言でも口を利いたら、お前は到底仙人にはなれないものだと覚悟をしろ。好いか。天地が裂けても、黙っているのだぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 21,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4353,
+            "start": 4170
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4353,
+            "startToken": 4170
+          },
+          "speechText": "「おれはこれから天上へ行って、せいおうぼに御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているがいい。多分おれがいなくなると、いろいろなましょうが現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もしひとことでも口をきいたら、お前は到底仙人にはなれないものだと覚悟をしろ。いいか。天地が裂けても、黙っているのだぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+          "contextAfter": "\n\n「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」\n\n　老人は杜子春に別れを告げると、又あの竹杖に跨って、夜",
+          "contextBefore": "し一言でも口を利いたら、お前は到底仙人にはなれないものだと覚悟をしろ。好いか。天地が裂けても、黙っているのだぞ」と言いました。\n\n",
+          "displayText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 22,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4398,
+            "start": 4362
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4398,
+            "startToken": 4362
+          },
+          "speechText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+          "contextAfter": "\n\n　老人は杜子春に別れを告げると、又あの竹杖に跨って、夜目にも削ったような山々の空へ、一文字に消えてしまいました。\n\n　杜子春",
+          "contextBefore": "天地が裂けても、黙っているのだぞ」と言いました。\n\n「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」\n\n",
+          "displayText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 23,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4433,
+            "start": 4400
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4433,
+            "startToken": 4400
+          },
+          "speechText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+          "note": "老人が安心して出発を告げた実発話で、単独再生でも通常の別れの言葉として成立する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+          "contextAfter": "と、叱りつけるではありませんか。\n\n　しかし杜子春は仙人の教通り、何とも返事をしずにいました。\n\n　ところが又暫くすると、やはり",
+          "contextBefore": "まま、静に星を眺めていました。するとかれこれ半時ばかり経って、深山の夜気が肌寒く薄い着物に透り出した頃、突然空中に声があって、\n\n",
+          "displayText": "「そこにいるのは何者だ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 24,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4587,
+            "start": 4575
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4587,
+            "startToken": 4575
+          },
+          "speechText": "「そこにいるのは何者だ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+          "note": "空中の声が杜子春へ身元を尋ねた実発話で、文面自体は通常の質問として安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+          "contextAfter": "と、いかめしく嚇しつけるのです。\n\n　杜子春は勿論黙っていました。\n\n　と、どこから登って来たか、爛々と眼を光らせた虎が一匹、忽然と",
+          "contextBefore": "りませんか。\n\n　しかし杜子春は仙人の教通り、何とも返事をしずにいました。\n\n　ところが又暫くすると、やはり同じ声が響いて、\n\n",
+          "displayText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 25,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 4688,
+            "start": 4661
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 4688,
+            "startToken": 4661
+          },
+          "speechText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+          "contextAfter": "と言うのです。\n\n　しかし杜子春は老人の言葉通り、黙然と口を噤んでいました。\n\n「返事をしないか。――しないな。好し。しなければ、",
+          "contextBefore": "した。神将は手に三叉の戟を持っていましたが、いきなりその戟の切先を杜子春の胸もとへ向けながら、眼を嗔らせて叱りつけるのを聞けば、\n\n",
+          "displayText": "「こら、その方は一体何物だ。この峨眉山という山は、天地開闢の昔から、おれが住居をしている所だぞ。それも憚らずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 26,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 5784,
+            "start": 5678
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5784,
+            "startToken": 5678
+          },
+          "speechText": "「こら、その方は一体何物だ。この峨眉山という山は、天地かいびゃくの昔から、おれがすまいをしている所だぞ。それもはばからずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+          "contextAfter": "\n\n　神将は戟を高く挙げて、向うの山の空を招きました。その途端に闇がさっと裂けると、驚いたことには無数の神兵が、雲の如く空に充満ち",
+          "contextBefore": "るまい。さあ命が惜しかったら、一刻も早く返答しろ」と言うのです。\n\n　しかし杜子春は老人の言葉通り、黙然と口を噤んでいました。\n\n",
+          "displayText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれの眷属たちが、その方をずたずたに斬ってしまうぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 27,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 5887,
+            "start": 5823
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 5887,
+            "startToken": 5823
+          },
+          "speechText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれのけんぞくたちが、その方をずたずたにきってしまうぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+          "contextAfter": "\n\n　神将はこう喚くが早いか、三叉の戟を閃かせて、一突きに杜子春を突き殺しました。そうして峨眉山もどよむ程、からからと高く笑いな",
+          "contextBefore": "すぐに又鉄冠子の言葉を思い出して、一生懸命に黙っていました。神将は彼が恐れないのを見ると、怒ったの怒らないのではありません。\n\n",
+          "displayText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 28,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6127,
+            "start": 6092
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6127,
+            "startToken": 6092
+          },
+          "speechText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+          "contextAfter": "\n\n　閻魔大王の声は雷のように、階の上から響きました。杜子春は早速その問に答えようとしましたが、ふと又思い出したのは、「決して口",
+          "contextBefore": "でいます。これは兼ねて噂に聞いた、閻魔大王に違いありません。杜子春はどうなることかと思いながら、恐る恐るそこへ跪いていました。\n\n",
+          "displayText": "「こら、その方は何の為に、峨眉山の上へ坐っていた？」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 29,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6715,
+            "start": 6689
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6715,
+            "startToken": 6689
+          },
+          "speechText": "「こら、その方は何のために、峨眉山の上へ坐っていた？」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+          "contextAfter": "と、威丈高に罵りました。\n\n　が、杜子春は相変らず唇一つ動かしません。それを見た閻魔大王は、すぐに鬼どもの方を向いて、荒々しく何か言",
+          "contextBefore": "です。そこで唯頭を垂れたまま、唖のように黙っていました。すると閻魔大王は、持っていた鉄の笏を挙げて、顔中の鬚を逆立てながら、\n\n",
+          "displayText": "「その方はここをどこだと思う？　速に返答をすれば好し、さもなければ時を移さず、地獄の呵責に遇わせてくれるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 31,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6913,
+            "start": 6860
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6913,
+            "startToken": 6860
+          },
+          "speechText": "「その方はここをどこだと思う？ すみやかに返答をすれば好し、さもなければ時を移さず、地獄のかしゃくにあわせてくれるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+          "contextAfter": "と、口を揃えて言上しました。\n\n　閻魔大王は眉をひそめて、暫く思案に暮れていましたが、やがて何か思いついたと見えて、\n\n「この男の",
+          "contextBefore": "。もう一度夜のような空を飛んで、森羅殿の前へ帰って来ると、さっきの通り杜子春を階の下に引き据えながら、御殿の上の閻魔大王に、\n\n",
+          "displayText": "「この罪人はどうしても、ものを言う気色がございません」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 32,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7417,
+            "start": 7391
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7417,
+            "startToken": 7391
+          },
+          "speechText": "「この罪人はどうしても、ものを言うけしきがございません」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+          "contextAfter": "と、一匹の鬼に言いつけました。\n\n　鬼は忽ち風に乗って、地獄の空へ舞い上りました。と思うと、又星が流れるように、二匹の獣を駆り立",
+          "contextBefore": "いません」と、口を揃えて言上しました。\n\n　閻魔大王は眉をひそめて、暫く思案に暮れていましたが、やがて何か思いついたと見えて、\n\n",
+          "displayText": "「この男の父母は、畜生道に落ちている筈だから、早速ここへ引き立てて来い」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 33,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7509,
+            "start": 7476
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7509,
+            "startToken": 7476
+          },
+          "speechText": "「この男のちちははは、ちくしょうどうに落ちている筈だから、早速ここへ引き立てて来い」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+          "contextAfter": "\n\n　杜子春はこう嚇されても、やはり返答をしずにいました。\n\n「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好けれ",
+          "contextBefore": "はありません。なぜかといえばそれは二匹とも、形は見すぼらしい痩せ馬でしたが、顔は夢にも忘れない、死んだ父母の通りでしたから。\n\n",
+          "displayText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 34,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7742,
+            "start": 7680
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7742,
+            "startToken": 7680
+          },
+          "speechText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+          "contextAfter": "\n\n　閻魔大王は森羅殿も崩れる程、凄じい声で喚きました。\n\n「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」\n\n　鬼",
+          "contextBefore": "すぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」\n\n　杜子春はこう嚇されても、やはり返答をしずにいました。\n\n",
+          "displayText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、好いと思っているのだな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 35,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7820,
+            "start": 7773
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7820,
+            "startToken": 7773
+          },
+          "speechText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、いいと思っているのだな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+          "contextAfter": "\n\n　鬼どもは一斉に「はっ」と答えながら、鉄の鞭をとって立ち上ると、四方八方から二匹の馬を、未練未釈なく打ちのめしました。鞭はりゅ",
+          "contextBefore": "父母が苦しんでも、その方さえ都合が好ければ、好いと思っているのだな」\n\n　閻魔大王は森羅殿も崩れる程、凄じい声で喚きました。\n\n",
+          "displayText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 36,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7880,
+            "start": 7850
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7880,
+            "startToken": 7850
+          },
+          "speechText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+          "contextAfter": "と答えながら、鉄の鞭をとって立ち上ると、四方八方から二匹の馬を、未練未釈なく打ちのめしました。鞭はりゅうりゅうと風を切って、所嫌わ",
+          "contextBefore": "王は森羅殿も崩れる程、凄じい声で喚きました。\n\n「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」\n\n　鬼どもは一斉に",
+          "displayText": "「はっ」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 37,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 7894,
+            "start": 7890
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 7894,
+            "startToken": 7890
+          },
+          "speechText": "「はっ」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+          "note": "鬼たちが命令へ一斉に応答した実発話で、一語でも発話として明確かつ単独表示は安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+          "contextAfter": "\n\n　閻魔大王は鬼どもに、暫く鞭の手をやめさせて、もう一度杜子春の答を促しました。もうその時には二匹の馬も、肉は裂け骨は砕けて、",
+          "contextBefore": "破るのです。馬は、――畜生になった父母は、苦しそうに身を悶えて、眼には血の涙を浮べたまま、見てもいられない程嘶き立てました。\n\n",
+          "displayText": "「どうだ。まだその方は白状しないか」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 38,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8054,
+            "start": 8036
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8054,
+            "startToken": 8036
+          },
+          "speechText": "「どうだ。まだその方は白状しないか」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+          "contextAfter": "\n\n　それは確に懐しい、母親の声に違いありません。杜子春は思わず、眼をあきました。そうして馬の一匹が、力なく地上に倒れたまま、悲",
+          "contextBefore": "の言葉を思い出しながら、緊く眼をつぶっていました。するとその時彼の耳には、殆声とはいえない位、かすかな声が伝わって来ました。\n\n",
+          "displayText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何と仰っても、言いたくないことは黙って御出で」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 39,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8301,
+            "start": 8222
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8301,
+            "startToken": 8222
+          },
+          "speechText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何とおっしゃっても、言いたくないことは黙っておいで」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+          "note": "母親が杜子春を気遣って語りかけた実発話で、前後は苛烈でも文面は思いやりを示す安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+          "contextAfter": "と一声を叫びました。…………\n\n\n\n\n\n\n\n　その声に気がついて見ると、杜子春はやはり夕日を浴びて、洛陽の西の門の下に、ぼんやり",
+          "contextBefore": "な決心でしょう。杜子春は老人の戒めも忘れて、転ぶようにその側へ走りよると、両手に半死の馬の頸を抱いて、はらはらと涙を落しながら、",
+          "displayText": "「お母さん」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 40,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8571,
+            "start": 8565
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8571,
+            "startToken": 8565
+          },
+          "speechText": "「おっかさん」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+          "note": "杜子春が母を抱いて実際に叫んだ発話で、短くても文脈上明確かつ単独再生も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+          "contextAfter": "\n\n　片目眇の老人は微笑を含みながら言いました。\n\n「なれません。なれませんが、しかし私はなれなかったことも、反って嬉しい気がす",
+          "contextBefore": "ぼんやり佇んでいるのでした。霞んだ空、白い三日月、絶え間ない人や車の波、――すべてがまだ峨眉山へ、行かない前と同じことです。\n\n",
+          "displayText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 41,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8729,
+            "start": 8695
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8729,
+            "startToken": 8695
+          },
+          "speechText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+          "note": "老人が杜子春へ修行の結果を穏やかに問いかけた実発話で、単独再生でも安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+          "contextAfter": "\n\n　杜子春はまだ眼に涙を浮べたまま、思わず老人の手を握りました。\n\n「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、",
+          "contextBefore": "す。\n\n「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」\n\n　片目眇の老人は微笑を含みながら言いました。\n\n",
+          "displayText": "「なれません。なれませんが、しかし私はなれなかったことも、反って嬉しい気がするのです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 42,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8798,
+            "start": 8755
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8798,
+            "startToken": 8755
+          },
+          "speechText": "「なれません。なれませんが、しかしわたしはなれなかったことも、かえって嬉しい気がするのです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+          "note": "杜子春が仙人になれなかった心境を老人へ答えた実発話で、他者への勧誘や攻撃ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+          "contextAfter": "\n\n「もしお前が黙っていたら――」と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n「もしお前が黙っていたら、おれは",
+          "contextBefore": "しかし私はなれなかったことも、反って嬉しい気がするのです」\n\n　杜子春はまだ眼に涙を浮べたまま、思わず老人の手を握りました。\n\n",
+          "displayText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 43,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8890,
+            "start": 8833
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8890,
+            "startToken": 8833
+          },
+          "speechText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+          "contextAfter": "と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思",
+          "contextBefore": "した。\n\n「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」\n\n",
+          "displayText": "「もしお前が黙っていたら――」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 44,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 8907,
+            "start": 8892
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 8907,
+            "startToken": 8892
+          },
+          "speechText": "「もしお前が黙っていたら――」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+          "note": "直後に「と鉄冠子は」と発話者が明記された、途中で区切られた実発話である。抽出artifactではないためCHG-F001-003で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+          "contextAfter": "\n\n「何になっても、人間らしい、正直な暮しをするつもりです」\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n",
+          "contextBefore": "は、黙っている訳には行きません」\n\n「もしお前が黙っていたら――」と鉄冠子は急に厳な顔になって、じっと杜子春を見つめました。\n\n",
+          "displayText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいという望も持っていまい。大金持になることは、元より愛想がつきた筈だ。ではお前はこれから後、何になったら好いと思うな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 45,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9050,
+            "start": 8938
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9050,
+            "startToken": 8938
+          },
+          "speechText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいというのぞみも持っていまい。大金持になることは、元より愛想がつきたはずだ。ではお前はこれから後、何になったらいいと思うな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+          "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+          "contextAfter": "\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n\n「その言葉を忘れるなよ。ではおれは今日限り、二度とお前には",
+          "contextBefore": "なりたいという望も持っていまい。大金持になることは、元より愛想がつきた筈だ。ではお前はこれから後、何になったら好いと思うな」\n\n",
+          "displayText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 46,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9080,
+            "start": 9052
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9080,
+            "startToken": 9052
+          },
+          "speechText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+          "note": "杜子春が正直に暮らす決意を述べた実発話で、前向きかつ安全な内容である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+          "contextAfter": "\n\n　鉄冠子はこう言う内に、もう歩き出していましたが、急に又足を止めて、杜子春の方を振り返ると、\n\n「おお、幸、今思い出したが、",
+          "contextBefore": "\n「何になっても、人間らしい、正直な暮しをするつもりです」\n\n　杜子春の声には今までにない晴れ晴れした調子が罩っていました。\n\n",
+          "displayText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前には遇わないから」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 47,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9151,
+            "start": 9115
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9151,
+            "startToken": 9115
+          },
+          "speechText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前にはあわないから」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+          "note": "老人が杜子春へ決意を忘れないよう告げて別れた実発話で、内容も安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+          "contextAfter": "と、さも愉快そうにつけ加えました。\n\n\n\n\n\n\n\n",
+          "contextBefore": "二度とお前には遇わないから」\n\n　鉄冠子はこう言う内に、もう歩き出していましたが、急に又足を止めて、杜子春の方を振り返ると、\n\n",
+          "displayText": "「おお、幸、今思い出したが、おれは泰山の南の麓に一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 48,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 9290,
+            "start": 9201
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 9290,
+            "startToken": 9201
+          },
+          "speechText": "「おお、さいわい、今思い出したが、おれはたいざんの南のふもとに一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+          "note": "老人が家と畑を譲ると穏やかに申し出た実発話で、物語の結びとして安全である。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "SPOKEN_DIALOGUE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "approved"
+        }
+      }
+    ],
+    "counts": {
+      "approved": 59,
+      "pending": 0,
+      "rejected": 8
+    },
+    "pending": [],
+    "reasonCounts": {
+      "EXPRESSION_EXAMPLE": 3,
+      "INNER_MONOLOGUE": 3,
+      "QUOTED_MATERIAL": 5,
+      "SPOKEN_DIALOGUE": 56
+    },
+    "rejected": [
+      {
+        "candidate": {
+          "candidateId": "xPNCaIBKdeWPZ8HUe3AsA4RKBpYTGrim72yPu8ur7Xo",
+          "contextAfter": "と書いた。しかし、下人は雨がやんでも、格別どうしようと云う当てはない。ふだんなら、勿論、主人の家へ帰る可き筈である。所がその主人",
+          "contextBefore": "、洗いざらした紺の襖の尻を据えて、右の頬に出来た、大きな面皰を気にしながら、ぼんやり、雨のふるのを眺めていた。\n\n　作者はさっき、",
+          "displayText": "「下人が雨やみを待っていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 0,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 784,
+            "start": 770
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 784,
+            "startToken": 770
+          },
+          "speechText": "「下人が雨やみを待っていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "xPNCaIBKdeWPZ8HUe3AsA4RKBpYTGrim72yPu8ur7Xo",
+          "note": "直前の地の文で作者自身が「作者はさっき」と述べ、直後に「と書いた」と続く叙述上の引用であり、登場人物が口に出した発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "GV0hdOXn3cmT8B9W1h0d4qGNmU6IIu4w8qn_fTJGfls",
+          "contextAfter": "と云うよりも「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」と云う方が、適当である。その上、今日の空模様も少からず",
+          "contextBefore": "通りならず衰微していた。今この下人が、永年、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから",
+          "displayText": "「下人が雨やみを待っていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 1,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 960,
+            "start": 946
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 960,
+            "startToken": 946
+          },
+          "speechText": "「下人が雨やみを待っていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "GV0hdOXn3cmT8B9W1h0d4qGNmU6IIu4w8qn_fTJGfls",
+          "note": "直後の「と云うよりも」が示すとおり、作者が先の説明表現を別の表現と比較するため再掲した引用であり、人物の発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "VAs3UlxMlNX0p7vhIbJWgYikDjQfN2jELWucV40fg_A",
+          "contextAfter": "と云う方が、適当である。その上、今日の空模様も少からず、この平安朝の下人の Sentimentalisme に影響した。申の刻下",
+          "contextBefore": "、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから「下人が雨やみを待っていた」と云うよりも",
+          "displayText": "「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 2,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 997,
+            "start": 966
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 997,
+            "startToken": 966
+          },
+          "speechText": "「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "VAs3UlxMlNX0p7vhIbJWgYikDjQfN2jELWucV40fg_A",
+          "note": "前後の「と云うよりも」「と云う方が、適当である」から、作者が叙述の言い換え例として提示した引用であり、登場人物の発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "aqR0UaULAs5wIAU_xPswuccX3qkkH-LN7YxGeZkuRb8",
+          "contextAfter": "は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために",
+          "contextBefore": "うに棄てられてしまうばかりである。選ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 3,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1440,
+            "start": 1435
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1440,
+            "startToken": 1435
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "aqR0UaULAs5wIAU_xPswuccX3qkkH-LN7YxGeZkuRb8",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "lZSAgFIqth2WtAz5kdcq9ic2x3eoEZc044QBZo0Zj2w",
+          "contextAfter": "であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き「盗人になるよ",
+          "contextBefore": "ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの「すれば」は、いつまでたっても、結局",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 4,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1458,
+            "start": 1453
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1458,
+            "startToken": 1453
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "lZSAgFIqth2WtAz5kdcq9ic2x3eoEZc044QBZo0Zj2w",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "vALB10XKA02NAiAJ74n2HGdBlT-Bnm0_4TZqgkNWACo",
+          "contextAfter": "のかたをつけるために、当然、その後に来る可き「盗人になるよりほかに仕方がない」と云う事を、積極的に肯定するだけの、勇気が出ずにいた",
+          "contextBefore": "へ逢着した。しかしこの「すれば」は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この",
+          "displayText": "「すれば」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 5,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 1494,
+            "start": 1489
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 1494,
+            "startToken": 1489
+          },
+          "speechText": "「すれば」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "vALB10XKA02NAiAJ74n2HGdBlT-Bnm0_4TZqgkNWACo",
+          "note": "下人の思考過程を説明するため反復された単独の条件語で、文としてまとまりのある内心ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "EXPRESSION_EXAMPLE",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "jioGjopwDbhEIZZUmft47ItYd1BcacsUBp-W3pLRB8g",
+          "contextAfter": "ように感じたのである。すると老婆は、松の木片を、床板の間に挿して、それから、今まで眺めていた死骸の首に両手をかけると、丁度、猿の",
+          "contextBefore": "女の死骸であろう。\n\n　下人は、六分の恐怖と四分の好奇心とに動かされて、暫時は呼吸をするのさえ忘れていた。旧記の記者の語を借りれば、",
+          "displayText": "「頭身の毛も太る」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 7,
+          "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "rawTokenRange": {
+            "end": 2893,
+            "start": 2885
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 2893,
+            "startToken": 2885
+          },
+          "speechText": "「とうしんの毛も太る」",
+          "workId": "000127"
+        },
+        "review": {
+          "candidateId": "jioGjopwDbhEIZZUmft47ItYd1BcacsUBp-W3pLRB8g",
+          "note": "直前に「旧記の記者の語を借りれば」と明記された既存表現の引用であり、下人や老婆がその場で口に出した発話ではないため除外する。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      },
+      {
+        "candidate": {
+          "candidateId": "InacVftQCj9oh9K-27f0OYR5U2nJDaiaKBQjzeJOUEU",
+          "contextAfter": "という鉄冠子の戒めの言葉です。そこで唯頭を垂れたまま、唖のように黙っていました。すると閻魔大王は、持っていた鉄の笏を挙げて、顔中",
+          "contextBefore": "ていた？」\n\n　閻魔大王の声は雷のように、階の上から響きました。杜子春は早速その問に答えようとしましたが、ふと又思い出したのは、",
+          "displayText": "「決して口を利くな」",
+          "extractorVersion": "1.0.0",
+          "normalizerVersion": "1.0.0",
+          "order": 30,
+          "rawSourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "rawTokenRange": {
+            "end": 6784,
+            "start": 6774
+          },
+          "sourceAnchor": {
+            "bodySelector": ".main_text",
+            "endToken": 6784,
+            "startToken": 6774
+          },
+          "speechText": "「決して口をきくな」",
+          "workId": "043015"
+        },
+        "review": {
+          "candidateId": "InacVftQCj9oh9K-27f0OYR5U2nJDaiaKBQjzeJOUEU",
+          "note": "直前の鉄冠子の戒めを杜子春が思い出した引用であり、この場面で新たに口に出された発話ではない。",
+          "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+          "reasonCode": "QUOTED_MATERIAL",
+          "reviewedAt": "2026-07-18T23:45:00+09:00",
+          "reviewer": "pf-change-editorial-CHG-F001-003",
+          "revision": 2,
+          "status": "rejected"
+        }
+      }
+    ]
+  },
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "candidateIds": [
+        "xPNCaIBKdeWPZ8HUe3AsA4RKBpYTGrim72yPu8ur7Xo",
+        "GV0hdOXn3cmT8B9W1h0d4qGNmU6IIu4w8qn_fTJGfls",
+        "VAs3UlxMlNX0p7vhIbJWgYikDjQfN2jELWucV40fg_A",
+        "aqR0UaULAs5wIAU_xPswuccX3qkkH-LN7YxGeZkuRb8",
+        "lZSAgFIqth2WtAz5kdcq9ic2x3eoEZc044QBZo0Zj2w",
+        "vALB10XKA02NAiAJ74n2HGdBlT-Bnm0_4TZqgkNWACo",
+        "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+        "jioGjopwDbhEIZZUmft47ItYd1BcacsUBp-W3pLRB8g",
+        "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+        "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+        "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+        "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+        "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+        "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+        "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418"
+      ],
+      "cardLink": "https://www.aozora.gr.jp/cards/000879/card127.html",
+      "source": {
+        "attribution": "青空文庫『羅生門』（芥川龍之介）",
+        "baseEdition": "芥川龍之介全集1",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000879/card127.html",
+        "fetchedAt": "2026-07-18T10:48:05.289Z",
+        "inputter": "野口英司、平山誠",
+        "proofreader": "もりみつじゅんじ",
+        "sourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+        "textUrl": "https://www.aozora.gr.jp/cards/000879/files/127_15260.html",
+        "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+      },
+      "title": "羅生門",
+      "workId": "000127"
+    },
+    {
+      "candidateIds": [
+        "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+        "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+        "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs"
+      ],
+      "cardLink": "https://www.aozora.gr.jp/cards/000879/card92.html",
+      "source": {
+        "attribution": "青空文庫『蜘蛛の糸』（芥川龍之介）",
+        "baseEdition": "芥川龍之介全集2",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000879/card92.html",
+        "fetchedAt": "2026-07-18T10:48:05.332Z",
+        "inputter": "野口英司、平山誠",
+        "proofreader": "もりみつじゅんじ",
+        "sourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+        "textUrl": "https://www.aozora.gr.jp/cards/000879/files/92_14545.html",
+        "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+      },
+      "title": "蜘蛛の糸",
+      "workId": "000092"
+    },
+    {
+      "candidateIds": [
+        "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+        "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+        "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+        "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+        "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+        "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+        "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+        "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+        "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+        "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+        "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+        "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+        "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+        "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+        "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+        "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+        "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+        "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+        "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+        "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+        "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+        "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+        "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+        "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+        "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+        "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+        "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+        "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+        "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+        "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+        "InacVftQCj9oh9K-27f0OYR5U2nJDaiaKBQjzeJOUEU",
+        "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+        "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+        "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+        "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+        "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+        "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+        "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+        "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+        "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+        "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+        "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+        "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+        "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+        "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+        "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+        "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+        "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+        "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo"
+      ],
+      "cardLink": "https://www.aozora.gr.jp/cards/000879/card43015.html",
+      "source": {
+        "attribution": "青空文庫『杜子春』（芥川龍之介）",
+        "baseEdition": "蜘蛛の糸・杜子春",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000879/card43015.html",
+        "fetchedAt": "2026-07-18T10:48:05.385Z",
+        "inputter": "蒋龍",
+        "proofreader": "noriko saito",
+        "sourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+        "textUrl": "https://www.aozora.gr.jp/cards/000879/files/43015_17432.html",
+        "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+      },
+      "title": "杜子春",
+      "workId": "043015"
+    }
+  ]
+}

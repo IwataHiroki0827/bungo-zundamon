@@ -1,0 +1,12 @@
+2026-07-19T01:10:52+09:00
+scope: QT automated stable revalidation
+result: PASS
+
+- Vitest: 19 files / 302 tests PASS。
+- typecheck: PASS。
+- lint: PASS。E2E生成物が残る状態での再実行もPASS。
+- production build: 66 files / 30,403,006 bytes、PASS。
+- Playwright: Chromium / Firefox / WebKit / Chrome stable / Edge stable、各13件、合計65/65件PASS。
+- Playwright実行時間: 1.8分、exit code 0。
+
+完全なPlaywright出力: `docs/evidence/it/IT-F001-attempt-4.log`

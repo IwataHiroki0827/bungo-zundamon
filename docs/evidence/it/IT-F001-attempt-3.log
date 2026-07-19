@@ -1,0 +1,28 @@
+2026-07-19T00:50:00+09:00
+command: npm run build && npm run test:e2e
+overall: FAIL / ENVIRONMENT BLOCKED
+
+build:
+- PASS
+- 66 files
+- initial output: 30,402,118 bytes
+- test recovery output: 30,403,006 bytes
+
+Playwright initial matrix:
+- Chromium: 13/13 PASS
+- Firefox: 0/13（browserContext.newPage内部例外。アプリ試験へ未到達）
+- WebKit: 7/13 PASS、6/13 FAIL（ネイティブmedia eventがtest doubleへ混入）
+- Chrome stable: 13/13 PASS
+- Edge stable: 13/13 PASS
+- runnerは65ケース実行後の終了待ちで180秒timeout
+
+recovery:
+- tests/e2e/fixtures.tsのAudio test doubleをNativeAudio依存からEventTargetベースへ変更。
+- responsive-accessibility-security.spec.tsにも決定的Audio adapterを適用。
+- PLAYWRIGHT_PORTで試験serverを分離可能にした。
+- WebKit分離再実行: 13/13 PASS。runner終了待ちだけが120秒timeout。
+- Firefox分離再実行: 0/13。全件でTypeError: browserContext.newPage: Cannot read properties of undefined (reading '_page')を再現。
+
+判定:
+- アプリ実装回帰は確認されない。
+- FirefoxはPlaywright runner/実行環境障害のためIT全体はPASSにしない。

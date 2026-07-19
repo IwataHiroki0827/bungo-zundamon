@@ -1,0 +1,65 @@
+[
+  {
+    "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+    "contextAfter": "と、こう急に思い返して、とうとうその蜘蛛を殺さずに助けてやったからでございます。\n\n　御釈迦様は地獄の容子を御覧になりながら、こ",
+    "contextBefore": "深い林の中を通りますと、小さな蜘蛛が一匹、路ばたを這って行くのが見えました。そこで陀多は早速足を挙げて、踏み殺そうと致しましたが、",
+    "displayText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命を無暗にとると云う事は、いくら何でも可哀そうだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 535,
+      "start": 479
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 535,
+      "startToken": 479
+    },
+    "speechText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命をむやみにとると云う事は、いくら何でも可哀そうだ。」",
+    "workId": "000092"
+  },
+  {
+    "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+    "contextAfter": "と笑いました。ところがふと気がつきますと、蜘蛛の糸の下の方には、数限もない罪人たちが、自分ののぼった後をつけて、まるで蟻の行列のよ",
+    "contextBefore": "獄からぬけ出すのも、存外わけがないかも知れません。陀多は両手を蜘蛛の糸にからみながら、ここへ来てから何年にも出した事のない声で、",
+    "displayText": "「しめた。しめた。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 1846,
+      "start": 1836
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1846,
+      "startToken": 1836
+    },
+    "speechText": "「しめた。しめた。」",
+    "workId": "000092"
+  },
+  {
+    "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+    "contextAfter": "と喚きました。\n\n　その途端でございます。今まで何ともなかった蜘蛛の糸が、急に陀多のぶら下っている所から、ぷつりと音を立てて断れ",
+    "contextBefore": "ます。今の中にどうかしなければ、糸はまん中から二つに断れて、落ちてしまうのに違いありません。\n\n　そこで陀多は大きな声を出して、",
+    "displayText": "「こら、罪人ども。この蜘蛛の糸は己のものだぞ。お前たちは一体誰に尋いて、のぼって来た。下りろ。下りろ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 2331,
+      "start": 2279
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2331,
+      "startToken": 2279
+    },
+    "speechText": "「こら、罪人ども。この蜘蛛の糸はおれのものだぞ。お前たちは一体誰にきいて、のぼって来た。下りろ。下りろ。」",
+    "workId": "000092"
+  }
+]

@@ -1,0 +1,77 @@
+
+> bungo-zundamon@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon
+
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+
+ Test Files  19 passed (19)
+      Tests  297 passed (297)
+   Start at  22:09:11
+   Duration  4.16s (transform 1.15s, setup 0ms, import 1.97s, tests 4.19s, environment 42.46s)
+
+
+> bungo-zundamon@0.1.0 build
+> node scripts/build-offline.mjs
+
+[36mvite v8.1.5 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.04 kB │ gzip:  0.60 kB
+dist/assets/index-Ch5FQg87.css  11.09 kB │ gzip:  3.46 kB
+dist/assets/index-C32XNKYs.js   42.92 kB │ gzip: 13.75 kB
+
+[32m✓ built in 63ms[39m
+build verification passed: 37 files / 12785187 bytes
+
+Running 39 tests using 1 worker
+
+[1/39] [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する
+[2/39] [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する
+[3/39] [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する
+[4/39] [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する
+[5/39] [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する
+[6/39] [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す
+[7/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす
+[8/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす
+[9/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす
+[10/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:38:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない
+[11/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:55:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する
+[12/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:73:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である
+[13/39] [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:102:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する
+[14/39] [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する
+[15/39] [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する
+[16/39] [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する
+[17/39] [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する
+[18/39] [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する
+[19/39] [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す
+[20/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす
+[21/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす
+[22/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす
+[23/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:38:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない
+[24/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:55:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する
+[25/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:73:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である
+[26/39] [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:102:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する
+[27/39] [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する
+[28/39] [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する
+[29/39] [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する
+[30/39] [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する
+[31/39] [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する
+[32/39] [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す
+[33/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす
+[34/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす
+[35/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす
+[36/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:38:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない
+[37/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:55:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する
+[38/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:73:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である
+[39/39] [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:102:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する
+  39 passed (1.2m)

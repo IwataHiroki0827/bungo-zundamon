@@ -1,0 +1,7 @@
+2026-07-19T00:49:33+09:00
+command: npm test
+result: PASS
+test files: 19 passed / 19
+tests: 301 passed / 301
+duration: 5.37s
+note: jsdomのHTMLMediaElement.pause未実装警告6件は既知の非失敗出力。

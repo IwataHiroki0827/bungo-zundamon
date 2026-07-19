@@ -5,7 +5,7 @@ tasks:
   phase: design
   state: done
   depends: []
-  tags: &all_reqs
+  tags: &id001
   - REQ-F001-001
   - REQ-F001-002
   - REQ-F001-003
@@ -38,105 +38,257 @@ tasks:
   - REQ-F001-030
   mode: advisor
   mode_reason: 単一FDで権利・静的配信・音声UX・コンテンツ工程の境界を一貫して設計するため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-002
   title: '関数設計書(DD-F001)作成: DESをモジュール・データ・関数契約へ展開'
   feature: F001
   phase: design
   state: done
-  depends: [T-001]
-  tags: *all_reqs
+  depends:
+  - T-001
+  tags: *id001
   mode: advisor
   mode_reason: FDを基にデータ契約と状態遷移を単一DDへ逐次整合させるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-003
   title: UT/IT試験仕様書を作成しQTとの網羅性を確認
   feature: F001
   phase: testspec
-  state: blocked
-  blocked_by: [Q-004]
-  depends: [T-002]
-  tags: *all_reqs
+  state: done
+  depends:
+  - T-002
+  tags: *id001
   mode: orchestration
   mode_reason: 抽出・音声・UI・権利・セキュリティ・Pagesの独立試験領域を並列設計できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-004
   title: 青空文庫選定・台詞抽出・レビュー・manifest更新パイプラインを実装
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-003]
-  tags: [REQ-F001-005, REQ-F001-006, REQ-F001-007, REQ-F001-008, REQ-F001-009, REQ-F001-010, REQ-F001-011, REQ-F001-016, REQ-F001-029]
+  state: done
+  depends:
+  - T-003
+  tags:
+  - REQ-F001-005
+  - REQ-F001-006
+  - REQ-F001-007
+  - REQ-F001-008
+  - REQ-F001-009
+  - REQ-F001-010
+  - REQ-F001-011
+  - REQ-F001-016
+  - REQ-F001-029
   mode: orchestration
   mode_reason: 作品選定・DOM抽出・正規化・レビュー・schema検証を独立サブタスクへ分割できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-005
   title: VOICEVOX音声生成・差分キャッシュ・静的音声資産管理を実装
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-003]
-  tags: [REQ-F001-010, REQ-F001-011, REQ-F001-012, REQ-F001-013, REQ-F001-023, REQ-F001-024, REQ-F001-029]
+  state: done
+  depends:
+  - T-003
+  tags:
+  - REQ-F001-010
+  - REQ-F001-011
+  - REQ-F001-012
+  - REQ-F001-013
+  - REQ-F001-023
+  - REQ-F001-024
+  - REQ-F001-029
   mode: advisor
   mode_reason: 音声ID・生成設定・容量予算を一つの再現可能な契約として整合させるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-006
   title: トップ・作者・作品台詞一覧と単一音声プレイヤーを実装
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-003]
-  tags: [REQ-F001-001, REQ-F001-002, REQ-F001-003, REQ-F001-004, REQ-F001-013, REQ-F001-014, REQ-F001-015, REQ-F001-020, REQ-F001-021, REQ-F001-022]
+  state: done
+  depends:
+  - T-003
+  tags:
+  - REQ-F001-001
+  - REQ-F001-002
+  - REQ-F001-003
+  - REQ-F001-004
+  - REQ-F001-013
+  - REQ-F001-014
+  - REQ-F001-015
+  - REQ-F001-020
+  - REQ-F001-021
+  - REQ-F001-022
   mode: orchestration
   mode_reason: 画面階層・音声制御・レスポンシブ・アクセシビリティ・演出を並列実装できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-007
   title: サムネイル・出典・クレジット・非公式/プライバシー表示を実装
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-003]
-  tags: [REQ-F001-016, REQ-F001-017, REQ-F001-018, REQ-F001-019, REQ-F001-028, REQ-F001-030]
+  state: done
+  depends:
+  - T-003
+  tags:
+  - REQ-F001-016
+  - REQ-F001-017
+  - REQ-F001-018
+  - REQ-F001-019
+  - REQ-F001-028
+  - REQ-F001-030
   mode: advisor
   mode_reason: 権利条件と表示文言を少数成果物へ一貫して反映する必要があるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-008
   title: CSP・容量検査・オフライン静的build・GitHub Pages Actionsを実装
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-003]
-  tags: [REQ-F001-023, REQ-F001-024, REQ-F001-025, REQ-F001-026, REQ-F001-027, REQ-F001-028, REQ-F001-030]
+  state: done
+  depends:
+  - T-003
+  tags:
+  - REQ-F001-023
+  - REQ-F001-024
+  - REQ-F001-025
+  - REQ-F001-026
+  - REQ-F001-027
+  - REQ-F001-028
+  - REQ-F001-030
   mode: orchestration
   mode_reason: build、CSP、CI権限、Pages配信、ブラウザ検証を独立サブタスクへ分割できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-009
   title: 代表3作品の全候補をレビューし公開データ・音声・画面へ統合
   feature: F001
   phase: implement
-  state: todo
-  depends: [T-004, T-005, T-006, T-007]
-  tags: [REQ-F001-004, REQ-F001-005, REQ-F001-006, REQ-F001-008, REQ-F001-009, REQ-F001-010, REQ-F001-011, REQ-F001-012, REQ-F001-016, REQ-F001-017, REQ-F001-018, REQ-F001-023, REQ-F001-029]
+  state: done
+  depends:
+  - T-004
+  - T-005
+  - T-006
+  - T-007
+  tags:
+  - REQ-F001-004
+  - REQ-F001-005
+  - REQ-F001-006
+  - REQ-F001-008
+  - REQ-F001-009
+  - REQ-F001-010
+  - REQ-F001-011
+  - REQ-F001-012
+  - REQ-F001-016
+  - REQ-F001-017
+  - REQ-F001-018
+  - REQ-F001-023
+  - REQ-F001-029
   mode: orchestration
   mode_reason: 3作品の抽出候補確認・音声生成・由来照合を作品単位で並列実行できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-010
   title: UT・IT・QTと主要ブラウザ受け入れ試験を実施
   feature: F001
   phase: test
-  state: todo
-  depends: [T-008, T-009]
-  tags: *all_reqs
+  state: doing
+  depends:
+  - T-008
+  - T-009
+  - T-014
+  tags: *id001
   mode: orchestration
   mode_reason: ロジック・UI・ネットワーク・権利・複数ブラウザの独立試験を並列実行できるため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-011
   title: 公開前総点検・GitHub Pagesリリース・公開後スモーク確認
   feature: F001
   phase: release
   state: todo
-  depends: [T-010]
-  tags: *all_reqs
+  depends:
+  - T-010
+  tags: *id001
   mode: advisor
   mode_reason: 権利確認・版番号・公開判定・Pages反映を逐次ゲート管理するため
-  model: { lead: opus, workers: sonnet }
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-012
+  title: CHG-F001-003の台詞公開基準・表示修正と影響試験を再実施
+  feature: F001
+  phase: test
+  state: done
+  depends:
+  - T-009
+  tags:
+  - REQ-F001-004
+  - REQ-F001-005
+  - REQ-F001-008
+  - REQ-F001-009
+  - REQ-F001-010
+  mode: advisor
+  mode_reason: 抽出完全性、全候補レビュー、音声生成、UI表示、公開catalogを変更単位で一貫して再検証するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-013
+  title: CHG-F001-004の演出低減状態・効果説明を明確化して再試験
+  feature: F001
+  phase: test
+  state: done
+  depends:
+  - T-009
+  tags:
+  - REQ-F001-022
+  - DES-F001-011
+  - FUN-F001-025
+  - UT-F001-025
+  - IT-F001-011
+  - QT-F001-015
+  mode: advisor
+  mode_reason: 単一の設定UIと既存演出低減契約を原因から受け入れまで一貫して修正するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-014
+  title: CHG-F001-005のworkflow・リリース判定を手動3環境・自動4範囲・SHA拘束hosted証跡へ更新
+  feature: F001
+  phase: implement
+  state: done
+  depends:
+  - T-009
+  tags:
+  - REQ-F001-026
+  - REQ-F001-030
+  - DES-F001-016
+  - DES-F001-018
+  - FUN-F001-032
+  - FUN-F001-035
+  - FUN-F001-042
+  - UT-F001-032
+  - UT-F001-035
+  - UT-F001-042
+  - IT-F001-016
+  - IT-F001-017
+  - QT-F001-019
+  - QT-F001-020
+  mode: advisor
+  mode_reason: リリース判定関数と対応試験を単一の要求変更単位で整合させるため
+  model:
+    lead: opus
+    workers: sonnet

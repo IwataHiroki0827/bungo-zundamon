@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0.0",
+  "notices": {
+    "voicevox": "VOICEVOX:ずんだもん",
+    "unofficial": "東北ずん子・ずんだもんプロジェクトの非公式ファンサイトです",
+    "service": "本サイトは無料で利用でき、広告・課金はありません。",
+    "privacy": "入力フォーム、Cookie、アクセス解析などによる追跡は行いません。",
+    "jurisdiction": "収録作品は日本法を基準に権利状態を確認しており、日本国外での権利状態を一律に保証しません。",
+    "contactPolicy": "問い合わせ方法は公開リポジトリの案内に掲載し、サイト内の入力フォームは設置しません。"
+  },
+  "bibliographyLicense": {
+    "name": "CC BY 4.0",
+    "scope": "bibliography-only",
+    "attribution": "青空文庫の書誌データを利用しています。",
+    "changeNotice": "人物ID 000879から初期公開3作品を選定し、公開表示用に項目を整形しました。",
+    "bodyCovered": false,
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "externalLinks": [
+    {
+      "label": "青空文庫",
+      "purpose": "aozora",
+      "url": "https://www.aozora.gr.jp/"
+    },
+    {
+      "label": "VOICEVOX",
+      "purpose": "voicevox",
+      "url": "https://voicevox.hiroshiba.jp/"
+    },
+    {
+      "label": "キャラクター利用ガイドライン",
+      "purpose": "sss",
+      "url": "https://zunko.jp/guideline.html"
+    },
+    {
+      "label": "立ち絵：坂本アヒル",
+      "purpose": "artwork",
+      "url": "https://seiga.nicovideo.jp/seiga/im11206626"
+    }
+  ],
+  "materials": {
+    "readmeVersion": "2026-07-18.2",
+    "readmeSha256": "42d597f6502e4d7f130ded894272533eaac722124821e871bcf854c30e02ab05",
+    "originalPsdIncluded": false,
+    "artworkProvenance": {
+      "manifestId": "artwork-F001-002",
+      "outputSha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b",
+      "creationMethod": "authorized-source-edit",
+      "specificAkutagawaPhotographUsed": false,
+      "usesSakamotoArtworkAsInput": true,
+      "artistStyleImitated": false,
+      "reviewer": "ProjectFactory 権利・由来レビュー",
+      "reviewedAt": "2026-07-18T07:25:00Z"
+    }
+  },
+  "dependencies": [
+    {
+      "name": "Vite",
+      "notice": "MIT License",
+      "link": {
+        "label": "Vite",
+        "purpose": "dependency",
+        "url": "https://vite.dev/"
+      }
+    },
+    {
+      "name": "TypeScript",
+      "notice": "Apache License 2.0",
+      "link": {
+        "label": "TypeScript",
+        "purpose": "dependency",
+        "url": "https://www.typescriptlang.org/"
+      }
+    }
+  ],
+  "commercial": {
+    "free": true,
+    "advertising": false,
+    "payments": false,
+    "tracking": false,
+    "forms": false
+  },
+  "jurisdictionBasis": "JP",
+  "terms": {
+    "url": "https://zunko.jp/guideline.html",
+    "checkedAt": "2026-07-18T07:25:00Z",
+    "validUntil": "2026-08-18T07:25:00Z",
+    "reviewer": "ProjectFactory 権利・由来レビュー"
+  }
+}

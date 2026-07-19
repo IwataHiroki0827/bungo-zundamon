@@ -41,3 +41,77 @@ entries:
   agents: 3
   est_tokens: 36000
   note: UT 42件・IT 20件の作成、QT補強、CHG-F001-001、網羅性・試験品質レビュー、承認ゲート③登録
+- date: '2026-07-18'
+  phase: testspec
+  task: pf-testspec Q-004承認反映
+  model: GPT-5
+  agents: 1
+  est_tokens: 6000
+  note: UT・IT・QTをApprovedへ統一し、Q-004をclosed化、T-003完了、F001をimplementへ遷移
+- date: '2026-07-18'
+  phase: implement
+  task: pf-resume / pf-implement T-009
+  model: GPT-5
+  agents: 5
+  est_tokens: 30000
+  note: 3作品67候補の独立レビュー、30台詞/28音声のVOICEVOX生成、推定profile校正、公開tree統合、全276テストと独立受け入れを完了
+- date: '2026-07-18'
+  phase: test
+  task: pf-test T-010（自動範囲）
+  model: GPT-5
+  agents: 4
+  est_tokens: 28000
+  note: UT42/42・IT20/20を照合し297テスト、オフラインbuild、Playwright 3エンジン39件、Chrome/Edge stable
+    26件をPASS。手動・hosted QTをQ-005へ登録
+- date: '2026-07-18'
+  phase: test
+  task: pf-resume Q-005再開条件確認
+  model: GPT-5
+  agents: 1
+  est_tokens: 2000
+  note: 全visibleプロジェクトを再走査。Q-005はpending、実機6環境はNOT RUNのためT-010のblockedを継続
+- date: '2026-07-19'
+  phase: test
+  task: CHG-F001-003 台詞公開基準・表示修正
+  model: GPT-5
+  agents: 2
+  est_tokens: 30000
+  note: 原典67候補の全件再レビュー、59台詞・57音声資産の再生成、二重括弧修正、301テスト・5ブラウザ65 E2E・独立レビューを実施
+- date: '2026-07-19'
+  phase: test
+  task: pf-test Q-005回答検証・自動回帰再開
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: Q-005の10件を証跡不十分として再質問化。仕様ID82件を再照合し、UT301件・build・Chromium/Chrome/Edge39件・WebKit13件を確認。Firefox
+    runner環境障害を記録
+- date: '2026-07-19'
+  phase: test
+  task: CHG-F001-004 演出低減効果説明・Q-005意味監査
+  model: GPT-5
+  agents: 2
+  est_tokens: 24000
+  note: Q-005回答の意味監査、演出状態・停止対象・OS優先説明、E2E後lint修正、302テスト・5ブラウザ65 E2E・独立再受け入れを完了。要求範囲判断をQ-007へ分離
+- date: '2026-07-19'
+  phase: test
+  task: pf-test Q-008回答反映
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: Q-008の目視PASSをQT-F001-015へ反映し、演出切替廃止・常時標準・クレジット遷移統一の意向を未実装の変更候補として分離。Q-007が残るためT-010はblockedを維持。仕様ID照合は未対応0、trace_checkはPython起動制約で未実行
+- date: '2026-07-19'
+  phase: change
+  task: pf-change Q-007 / CHG-F001-005
+  model: GPT-5
+  agents: 2
+  est_tokens: 26000
+  note: Q-007承認を反映し、tm.jsonから影響範囲を抽出。手動3環境・自動4範囲・候補push後hosted証跡・ゲート④SHA拘束をSRS/FD/DD/UT/IT/QTへ反映し、T-014を生成。pf-reviewer差し戻しを解消しtrace_check
+    PASS
+- date: '2026-07-19'
+  phase: implement
+  task: T-014 CHG-F001-005 workflow・リリース判定実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 26000
+  note: 承認SHA拘束、手動3環境・自動4範囲・リスク時追加実機、hosted/visibility証跡chainを実装。初回受け入れの承認ID偽装Highを修正し、再受け入れHigh/Medium/Low
+    0。対象78件・全UT337件・lint・typecheck・buildをPASS

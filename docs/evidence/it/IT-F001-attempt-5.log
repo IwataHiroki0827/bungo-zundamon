@@ -1,0 +1,116 @@
+
+> bungo-zundamon@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon
+
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+Not implemented: HTMLMediaElement's pause() method
+
+ Test Files  19 passed (19)
+      Tests  337 passed (337)
+   Start at  12:36:35
+   Duration  3.71s (transform 3.15s, setup 0ms, import 3.97s, tests 3.85s, environment 30.99s)
+
+
+> bungo-zundamon@0.1.0 typecheck
+> tsc --noEmit
+
+
+> bungo-zundamon@0.1.0 lint
+> eslint . --max-warnings 0
+
+
+> bungo-zundamon@0.1.0 build
+> node scripts/build-offline.mjs
+
+[36mvite v8.1.5 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.04 kB │ gzip:  0.60 kB
+dist/assets/index-DjWBWhRU.css  11.44 kB │ gzip:  3.56 kB
+dist/assets/index-CN6YVDUP.js   43.45 kB │ gzip: 13.90 kB
+
+[32m✓ built in 84ms[39m
+build verification passed: 66 files / 30403006 bytes
+
+> bungo-zundamon@0.1.0 test:e2e
+> playwright test
+
+
+Running 65 tests using 1 worker
+
+  ✓   1 [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する (2.6s)
+  ✓   2 [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する (3.7s)
+  ✓   3 [chromium-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する (3.7s)
+  ✓   4 [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する (545ms)
+  ✓   5 [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する (198ms)
+  ✓   6 [chromium-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す (720ms)
+  ✓   7 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす (401ms)
+  ✓   8 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす (454ms)
+  ✓   9 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす (452ms)
+  ✓  10 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:42:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない (463ms)
+  ✓  11 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:59:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する (554ms)
+  ✓  12 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:81:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である (550ms)
+  ✓  13 [chromium-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:110:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する (3.7s)
+  ✓  14 [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する (3.4s)
+  ✓  15 [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する (1.6s)
+  ✓  16 [firefox-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する (6.1s)
+  ✓  17 [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する (1.2s)
+  ✓  18 [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する (496ms)
+  ✓  19 [firefox-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す (630ms)
+  ✓  20 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす (599ms)
+  ✓  21 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす (677ms)
+  ✓  22 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす (721ms)
+  ✓  23 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:42:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない (1.2s)
+  ✓  24 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:59:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する (1.2s)
+  ✓  25 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:81:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である (755ms)
+  ✓  26 [firefox-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:110:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する (2.2s)
+  ✓  27 [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する (7.0s)
+  ✓  28 [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する (5.9s)
+  ✓  29 [webkit-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する (5.4s)
+  ✓  30 [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する (861ms)
+  ✓  31 [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する (537ms)
+  ✓  32 [webkit-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す (862ms)
+  ✓  33 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす (655ms)
+  ✓  34 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす (622ms)
+  ✓  35 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす (915ms)
+  ✓  36 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:42:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない (753ms)
+  ✓  37 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:59:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する (1.7s)
+  ✓  38 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:81:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である (1.1s)
+  ✓  39 [webkit-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:110:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する (4.4s)
+  ✓  40 [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する (1.6s)
+  ✓  41 [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する (1.4s)
+  ✓  42 [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する (3.8s)
+  ✓  43 [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する (550ms)
+  ✓  44 [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する (228ms)
+  ✓  45 [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す (724ms)
+  ✓  46 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす (468ms)
+  ✓  47 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす (463ms)
+  ✓  48 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす (541ms)
+  ✓  49 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:42:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない (547ms)
+  ✓  50 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:59:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する (591ms)
+  ✓  51 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:81:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である (603ms)
+  ✓  52 [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:110:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する (3.9s)
+  ✓  53 [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する (1.7s)
+  ✓  54 [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する (1.5s)
+  ✓  55 [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する (3.7s)
+  ✓  56 [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する (622ms)
+  ✓  57 [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する (282ms)
+  ✓  58 [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す (770ms)
+  ✓  59 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす (487ms)
+  ✓  60 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす (495ms)
+  ✓  61 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:16:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす (560ms)
+  ✓  62 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:42:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない (597ms)
+  ✓  63 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:59:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する (598ms)
+  ✓  64 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:81:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である (631ms)
+  ✓  65 [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:110:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する (3.7s)
+
+  65 passed (1.8m)

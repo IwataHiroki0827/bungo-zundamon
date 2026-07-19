@@ -1,0 +1,16 @@
+{
+  "approvedCharacters": 3342,
+  "approvedCount": 59,
+  "candidateCount": 67,
+  "pendingCount": 0,
+  "reasonCounts": {
+    "EXPRESSION_EXAMPLE": 3,
+    "INNER_MONOLOGUE": 3,
+    "QUOTED_MATERIAL": 5,
+    "SPOKEN_DIALOGUE": 56
+  },
+  "rejectedCount": 8,
+  "reviewedAt": "2026-07-18T23:45:00+09:00",
+  "reviewedContentSha256": "d187fafa7dc7ece25f272dda1e7341c1da0dbb25656dd26527ce7f67b6cb18be",
+  "schemaVersion": "1.0.0"
+}

@@ -1,0 +1,534 @@
+[
+  {
+    "contextAfter": "と、こう急に思い返して、とうとうその蜘蛛を殺さずに助けてやったからでございます。\n\n　御釈迦様は地獄の容子を御覧になりながら、こ",
+    "contextBefore": "深い林の中を通りますと、小さな蜘蛛が一匹、路ばたを這って行くのが見えました。そこで陀多は早速足を挙げて、踏み殺そうと致しましたが、",
+    "extractorVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 535,
+      "start": 479
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 535,
+      "startToken": 479
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "小"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "命"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "違"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "命"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "base": "無暗",
+        "reading": "むやみ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "可"
+      },
+      {
+        "type": "text",
+        "value": "哀"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000092"
+  },
+  {
+    "contextAfter": "と笑いました。ところがふと気がつきますと、蜘蛛の糸の下の方には、数限もない罪人たちが、自分ののぼった後をつけて、まるで蟻の行列のよ",
+    "contextBefore": "獄からぬけ出すのも、存外わけがないかも知れません。陀多は両手を蜘蛛の糸にからみながら、ここへ来てから何年にも出した事のない声で、",
+    "extractorVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 1846,
+      "start": 1836
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1846,
+      "startToken": 1836
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000092"
+  },
+  {
+    "contextAfter": "と喚きました。\n\n　その途端でございます。今まで何ともなかった蜘蛛の糸が、急に陀多のぶら下っている所から、ぷつりと音を立てて断れ",
+    "contextBefore": "ます。今の中にどうかしなければ、糸はまん中から二つに断れて、落ちてしまうのに違いありません。\n\n　そこで陀多は大きな声を出して、",
+    "extractorVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "rawTokenRange": {
+      "end": 2331,
+      "start": 2279
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2331,
+      "startToken": 2279
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "罪"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "蜘"
+      },
+      {
+        "type": "text",
+        "value": "蛛"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "糸"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "base": "己",
+        "reading": "おれ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ぞ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "前"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "一"
+      },
+      {
+        "type": "text",
+        "value": "体"
+      },
+      {
+        "type": "text",
+        "value": "誰"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "base": "尋",
+        "reading": "き",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000092"
+  }
+]

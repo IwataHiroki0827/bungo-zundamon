@@ -1,0 +1,27 @@
+{
+  "approvedCharacters": 3342,
+  "candidateCount": 59,
+  "canGenerate": true,
+  "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+  "estimatedBytes": 33496550,
+  "estimatedSeconds": 697.792526,
+  "hardLimitBytes": 750000000,
+  "inputDigest": "1a12f53ebfe9a962a09f34a433df86fb1d8042cd4b4efc9458a518ae699dc6a4",
+  "profile": {
+    "bitDepth": 16,
+    "channels": 1,
+    "maxRelativeError": 0.2,
+    "outputSamplingRate": 24000,
+    "safetyFactor": 1,
+    "secondsPerCharacter": 0.210559,
+    "wavHeaderBytes": 44
+  },
+  "profileUpdateRequired": false,
+  "reasonCodes": [],
+  "schemaVersion": "1.0.0",
+  "status": "ok",
+  "totalCharacters": 3314,
+  "uniqueAudioCount": 57,
+  "warning": false,
+  "warningThresholdBytes": 500000000
+}

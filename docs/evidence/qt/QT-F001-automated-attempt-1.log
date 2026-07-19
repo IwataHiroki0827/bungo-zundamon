@@ -1,0 +1,30 @@
+
+Running 26 tests using 1 worker
+
+[1/26] [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する
+[2/26] [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する
+[3/26] [chrome-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する
+[4/26] [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する
+[5/26] [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する
+[6/26] [chrome-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す
+[7/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす
+[8/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす
+[9/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす
+[10/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:38:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない
+[11/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:55:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する
+[12/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:73:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である
+[13/26] [chrome-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:102:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する
+[14/26] [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:9:1 › 明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する
+[15/26] [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:58:1 › 音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する
+[16/26] [edge-stable-pages-preview] › tests\e2e\audio-and-isolation.spec.ts:92:1 › 画像404でも主要navigation・音声・クレジット・戻る操作を維持する
+[17/26] [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:5:1 › Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する
+[18/26] [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:30:1 › catalog異常を再試行可能な全体エラーへ隔離する
+[19/26] [edge-stable-pages-preview] › tests\e2e\navigation-and-delivery.spec.ts:41:1 › production buildの全公開assetがPages base配下で200を返す
+[20/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす
+[21/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす
+[22/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:12:3 › desktopで3操作以内・overflowなし・keyboard/44px targetを満たす
+[23/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:38:1 › 主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない
+[24/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:55:1 › OS設定とサイト内設定でreduced motionを有効化し情報を保持する
+[25/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:73:1 › footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である
+[26/26] [edge-stable-pages-preview] › tests\e2e\responsive-accessibility-security.spec.ts:102:1 › 外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する
+  26 passed (33.3s)

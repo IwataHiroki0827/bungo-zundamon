@@ -56,10 +56,11 @@ items:
       next: pf-testspec
   - id: Q-004
     type: approval
-    status: open
+    status: closed
     title: F001 UT・IT・QT試験仕様の承認
     body: >-
-      網羅性レビュー High 0 / Medium 0、試験品質レビュー High 0 / Medium 0、trace_check対応漏れ0件を確認しました。
+      網羅性レビュー High 0 / Medium 0、試験品質レビュー High 0 / Medium
+      0、trace_check対応漏れ0件を確認しました。
       docs/tests/ut/UT-F001.md（42件）、docs/tests/it/IT-F001.md（20件）、docs/tests/qt/QT-F001.md（20件）を確認し、
       テストファーストゲート③を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
     target: docs/tests/ut/UT-F001.md
@@ -67,10 +68,286 @@ items:
     options:
       - 承認
       - 修正指示
-    answer: null
+    answer: 承認
     answer_note: null
     created: '2026-07-18T10:43:17+09:00'
     source: pf-testspec
     resume:
       task: T-003
       next: pf-testspec
+  - id: Q-005
+    type: question
+    status: closed
+    title: F001 手動・実機・hosted QT証跡の完了確認
+    body: >-
+      前回回答は10項目すべての証跡メモが試験内容を確認できず、完了として受理できませんでした。各チェックに表示されたアクセス先・事前条件・操作手順・期待結果に従って再試験し、OS・ブラウザまたはツールの版、実施した操作、確認結果、画面証拠またはURL・digestを具体的に記入してください。完了回答は必須10項目がすべてPASSで、必要な証跡情報を確認できる場合だけ受理されます。
+    target: docs/evidence/qt/QT-F001-browser-manual.md
+    options:
+      - 手動・hosted検証を実施し、証跡を記入した
+      - 検証環境を用意できないため、要求変更を相談する
+    answer: 手動・hosted検証を実施し、証跡を記入した
+    answer_note: null
+    created: '2026-07-18T22:16:00+09:00'
+    source: pf-test
+    resume:
+      task: T-010
+      next: pf-test
+    allow_freeform: false
+    checks:
+      - id: chrome
+        label: PC Chrome stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をChrome stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: edge
+        label: Windows Edge stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をEdge stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: firefox
+        label: PC Firefox stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をFirefox stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: safari
+        label: macOS Safari stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: MacをこのPCと同じLANへ接続し、このPCのファイアウォールでNode.jsのプライベート通信を許可する。
+        steps:
+          - アクセス先をmacOS Safari stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 縦長・横長のウィンドウで文字切れと横スクロールがないことを確認する。
+        expected: LAN経由で表示でき、全画面遷移・音声操作・レスポンシブ表示が正常である。
+      - id: ios_safari
+        label: iPhone/iPad iOS Safari（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: iPhone/iPadをこのPCと同じWi-Fiへ接続し、消音モードを解除する。
+        steps:
+          - アクセス先をiOS Safariで開く。
+          - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
+        expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
+      - id: android_chrome
+        label: Android Chrome（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: Android端末をこのPCと同じWi-Fiへ接続し、メディア音量を有効にする。
+        steps:
+          - アクセス先をAndroid Chromeで開く。
+          - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
+        expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
+      - id: visual
+        label: 目視確認（全画面幅・reduced motion）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: ChromeまたはEdgeの開発者ツールを使用できること。
+        steps:
+          - アクセス先を開き、390×844・844×390・1440×900の各viewportに切り替える。
+          - トップ・作者・作品・台詞一覧の全画面を目視する。
+          - OSまたは開発者ツールでreduced motionを有効にして再表示する。
+          - 文字切れ・重なり・不自然な余白・44px未満の主要操作領域がないことを確認する。
+        expected: 3 viewportとreduced motionで、可読性・配置・操作領域・演出が仕様どおりである。
+      - id: screen_reader
+        label: スクリーンリーダー確認（名称・版・操作結果）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: NVDA等のスクリーンリーダーを起動し、画面を見ずにキーボード操作できる状態にする。
+        steps:
+          - アクセス先を開き、見出し・ランドマーク・リンク一覧で構造を確認する。
+          - Tab/Shift+TabとEnterだけで作者・作品・台詞一覧へ移動する。
+          - 再生・一時停止・再開・停止を操作し、ボタン名と状態変化の読み上げを確認する。
+          - フォーカスが見失われず、同一音声プレイヤーだけが動作することを確認する。
+        expected: 主要構造と操作名が読み上げられ、キーボードだけで全導線と音声操作を完了できる。
+      - id: hosted_actions
+        label: GitHub hosted Actions（run URL・artifact digest）
+        required: true
+        require_note: true
+        url: >-
+          https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
+        preconditions: GitHubへ認証済みで、privateリポジトリのActionsを閲覧・実行できること。
+        steps:
+          - アクセス先を開き、Pages build and deploy workflowを選ぶ。
+          - Run workflowで現在の候補ブランチを実行する。
+          - build jobのCheckout・Set up Node・Install・Verify・Uploadがすべて成功することを確認する。
+          - run URLとUpload Pages artifactのartifact digestまたは識別情報を証跡メモへ記録する。
+        expected: hosted runner上でbuild jobが成功し、run URLと成果物識別情報を記録できる。
+      - id: repository_settings
+        label: GitHub repository設定（private・Pages無効）
+        required: true
+        require_note: true
+        url: https://github.com/IwataHiroki0827/bungo-zundamon/settings/pages
+        preconditions: GitHubリポジトリ設定を閲覧できる管理権限で認証済みであること。
+        steps:
+          - アクセス先を開き、PagesのSourceが公開を有効化する設定になっていないことを確認する。
+          - リポジトリ上部の表示またはGeneral設定でVisibilityがPrivateであることを確認する。
+          - Actions variablesでPAGES_DEPLOY_ENABLEDがtrueになっていないことを確認する。
+          - 各状態が分かる画面証跡を保存し、証跡メモへ記録する。
+        expected: リポジトリはPrivate、Pagesは無効、PAGES_DEPLOY_ENABLEDは未設定またはtrue以外である。
+    checks_complete_answer: 手動・hosted検証を実施し、証跡を記入した
+    check_results:
+      - id: chrome
+        result: PASS
+        note: チェックした
+      - id: edge
+        result: PASS
+        note: 確認済み
+      - id: firefox
+        result: PASS
+        note: FireFoxはいらんでしょう
+      - id: safari
+        result: PASS
+        note: 確認した
+      - id: ios_safari
+        result: PASS
+        note: かくにんした
+      - id: android_chrome
+        result: PASS
+        note: androidなんてオタクしか使ってない
+      - id: visual
+        result: PASS
+        note: OK
+      - id: screen_reader
+        result: PASS
+        note: OK
+      - id: hosted_actions
+        result: PASS
+        note: 手順がよくわからない
+      - id: repository_settings
+        result: PASS
+        note: OK
+    validation:
+      checked_at: '2026-07-19T01:03:47+09:00'
+      result: rejected
+      attempt: 1
+      reasons:
+        - chrome・edge・safari・iOS SafariはOS/ブラウザ版、操作結果、画面証拠がない
+        - firefox・android_chromeは必須試験の実施を確認できずPASSとメモが矛盾する
+        - visual・screen_readerはviewport/ツール版/読み上げ/操作結果の証跡がない
+        - hosted_actionsは未実施を示すメモで、run URLとartifact digestがない
+        - repository_settingsはPrivate・Pages無効・Actions変数の確認証跡がない
+    processed_at: '2026-07-19T01:08:00+09:00'
+    processed_note: >-
+      回答メモを意味確認し、Firefox・Androidは要求見直し提案、hosted
+      Actionsは未実施、演出低減はCHG-F001-004で修正として反映。全項目実機PASSには転記しない。
+  - id: Q-006
+    type: approval
+    status: closed
+    title: CHG-F001-003 台詞公開基準変更の承認
+    body: >-
+      登場人物のまとまりのある内心を収録対象へ加え、文学作品中の攻撃・政治宗教・残虐表現だけを理由に実発話を除外しない。3作品の全候補を再レビューし、二重括弧表示も修正する。
+    target: docs/changes/CHG-F001-003.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: 蜘蛛の糸の指定2件を含め、他作品も見直すよう本会話で直接指示。
+    created: '2026-07-18T23:40:00+09:00'
+    source: pf-change
+    resume:
+      task: T-012
+      next: pf-test
+  - id: Q-007
+    type: approval
+    status: closed
+    title: F001 手動ブラウザ試験範囲の見直し
+    body: >-
+      Q-005のコメントを反映した推奨案です。手動必須をWindows Chrome/EdgeとiOS
+      Safariへ絞り、Firefox/WebKit・Android相当は5ブラウザ自動E2Eで継続確認します。hosted
+      Actionsはリリース候補を非公開feature
+      branchへpushした後、実行可能なURLで確認します。現行6実機を維持したい場合は「修正指示」を選び補足してください。
+    target: docs/changes/CHG-F001-005.md
+    target_mode: reference
+    options:
+      - 承認（補足）
+      - 修正指示
+    allow_freeform: false
+    created: '2026-07-19T01:08:00+09:00'
+    source: pf-change
+    resume:
+      task: T-010
+      next: pf-change
+    answer: 承認（補足）
+    answer_note: null
+    processed_at: '2026-07-19T03:19:00+09:00'
+    processed_note: >-
+      CHG-F001-005の要求変更承認として反映した。手動必須をWindows Chrome/Edge・iOS Safariへ変更し、
+      Firefox/WebKit・Android相当は自動継続試験、hosted Actionsはprivate feature branchへの候補push後に実施する。
+  - id: Q-008
+    type: question
+    status: closed
+    title: F001 修正後の演出低減表示を確認
+    body: 演出の効果が分からない問題を修正しました。表示だけを確認する短い再試験です。
+    target: docs/evidence/changes/CHG-F001-004-result.md
+    options:
+      - 修正後の演出説明を確認した
+      - まだ分かりにくい
+    allow_freeform: false
+    checks_complete_answer: 修正後の演出説明を確認した
+    checks:
+      - id: motion_clarity
+        label: 演出の現在状態と効果が説明だけで分かる
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: 最新版プレビューが起動済みです。ブラウザを再読み込みしてください。
+        steps:
+          - アクセス先を開き、画面上部の「演出：標準」または「演出：控えめ」を確認する。
+          - 標準の場合は「ページ切替と再生アイコンが動きます」と表示されることを確認する。
+          - ボタンを押し、「演出：控えめ」「ページ切替と再生アイコンの動きを停止中」へ変わることを確認する。
+          - 端末の動きを減らす設定が有効な場合は、ボタンが無効で「端末設定により動きを停止中」と表示されることを確認する。
+        expected: 現在が標準か控えめか、何が動く・停止するか、端末設定が優先される理由が画面の説明だけで分かる。
+    created: '2026-07-19T01:08:00+09:00'
+    source: pf-test
+    resume:
+      task: T-010
+      next: pf-test
+    answer: 修正後の演出説明を確認した
+    answer_note: null
+    check_results:
+      - id: motion_clarity
+        result: PASS
+        note: 個の切り替えは不要かな。常に標準演出でok。クレジットへの遷移時が控えめ演出になっているのが気になった。サイト全体で統一
+    validation:
+      checked_at: '2026-07-19T03:11:00+09:00'
+      result: accepted
+      reasons:
+        - 必須チェックmotion_clarityがPASSで、確認結果と具体的な証跡メモがある
+        - 演出説明の明確さは受理し、切替廃止・常時標準・遷移統一は別の仕様変更意向として分離する
+    processed_at: '2026-07-19T03:11:00+09:00'
+    processed_note: >-
+      CHG-F001-004の表示明確化に対する目視PASSをQT-F001-015へ反映した。
+      証跡メモに含まれる切替廃止・常時標準・クレジット遷移統一の意向は命令として実行せず、
+      Q-007のpf-change再開時に変更管理で判定する未実装事項として記録した。

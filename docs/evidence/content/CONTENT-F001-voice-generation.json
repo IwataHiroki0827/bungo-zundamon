@@ -1,0 +1,27 @@
+{
+  "attempted": 57,
+  "calibration": {
+    "actualBytes": 27955660,
+    "actualDurationMs": 582359,
+    "actualSeconds": 582.359,
+    "byteRelativeError": 0.1654167369475364,
+    "durationRelativeError": 0.1654267159634208,
+    "estimatedBytes": 33496550,
+    "estimatedSeconds": 697.792526,
+    "maxAllowedRelativeError": 0.2,
+    "maximumRelativeError": 0.1654267159634208,
+    "recommendedSecondsPerCharacter": 0.210872,
+    "safetyMargin": 1.2,
+    "status": "ok",
+    "uniqueCharacters": 3314
+  },
+  "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+  "durationMs": 582359,
+  "failed": 0,
+  "failures": [],
+  "generationSha256": "5089322a8c7971e1943898559075fe498e5a10d42474fc3b4ef9884461fbe969",
+  "inputDigest": "1a12f53ebfe9a962a09f34a433df86fb1d8042cd4b4efc9458a518ae699dc6a4",
+  "schemaVersion": "1.0.0",
+  "succeeded": 57,
+  "wavBytes": 27955660
+}

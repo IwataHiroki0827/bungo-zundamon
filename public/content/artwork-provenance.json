@@ -1,0 +1,39 @@
+{
+  "artistStyleImitated": false,
+  "creationMethod": "authorized-source-edit",
+  "editorSource": "sakamoto-ahiru-zundamon-v3.2-base",
+  "inputAllowlist": [
+    "sakamoto-ahiru-zundamon-v3.2-base"
+  ],
+  "inputs": [
+    {
+      "archiveEntry": "ずんだもん立ち絵素材V3.2/ずんだもん立ち絵素材V3.2_基本版.psd",
+      "archiveSha256": "41358f8b4d050fadc4be7073f2939fafa043caef6086bc8c6549f49c6b78f488",
+      "bundledReadmeSha256": "04ef18dbb7d80114c517ebec602c225c251d4a676d2db45c6313796458678026",
+      "distributionUrl": "https://ux.getuploader.com/s_ahiru/download/59",
+      "distributionVersion": "V3.2",
+      "downloadedAt": "2026-07-18T07:25:00Z",
+      "id": "sakamoto-ahiru-zundamon-v3.2-base",
+      "sha256": "0eacd1ca6d7a3e66a9544d1c37b229ab522886a8aa9d954e86ed515188bd88f4",
+      "sourcePage": "https://seiga.nicovideo.jp/seiga/im11206626"
+    }
+  ],
+  "manifestId": "artwork-F001-002",
+  "output": {
+    "path": "artwork/akutagawa-zundamon.png",
+    "sha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b"
+  },
+  "reviewedAt": "2026-07-18T07:25:00Z",
+  "reviewer": "ProjectFactory 権利・由来レビュー",
+  "schemaVersion": "1.1.0",
+  "specificAkutagawaPhotographUsed": false,
+  "transformations": [
+    "V3.2基本版PSDの合成表示をPNG化",
+    "ずんだもんの顔・枝豆髪飾り・緑髪・比率を保持",
+    "文豪風の羽織・着物・丸眼鏡・えんじ色のリボン・本を追加",
+    "和紙と墨円の背景を追加して正方形へ構成",
+    "特定の芥川龍之介写真・実在人物の顔貌を入力または参照しないよう画像編集へ指定",
+    "ロゴ・文字・透かし・署名がないことを目視確認"
+  ],
+  "usesSakamotoArtworkAsInput": true
+}

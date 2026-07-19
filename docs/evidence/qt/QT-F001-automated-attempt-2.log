@@ -1,0 +1,13 @@
+2026-07-19T00:50:00+09:00
+scope: QT automated revalidation
+result: PARTIAL / ENVIRONMENT BLOCKED
+
+- QT仕様ID: 20/20をspec-matchへ対応、未対応0。
+- UT補助: 301/301 PASS。
+- production build: PASS。
+- Chromium / Chrome stable / Edge stable: 39/39 PASS。
+- WebKit: test double修正後13/13 PASS。
+- Firefox: 13/13がpage生成前のPlaywright内部例外で未実施。
+- runner終了処理がsandbox環境でtimeoutするため、正常終了コードは取得できなかった。
+
+詳細: docs/evidence/it/IT-F001-attempt-3.log

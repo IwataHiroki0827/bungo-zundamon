@@ -1,0 +1,106 @@
+attempts:
+- date: '2026-07-18T21:39:32+09:00'
+  feature: F001
+  scope: UT
+  attempt: 1
+  command: npm test
+  result: pass
+  failures: 0
+  recovery: none
+  log: docs/evidence/ut/UT-F001-attempt-1.log
+- date: '2026-07-18T22:06:09+09:00'
+  feature: F001
+  scope: IT
+  attempt: 1
+  command: npm test && npm run build && npx playwright test
+  result: fail
+  failures: 2
+  cause: Firefoxの暗黙favicon要求とWebKit実audio時刻補正を試験fixtureが吸収していなかった
+  recovery: Pages base配下faviconを明示し、決定的audio adapterでcurrentTimeを独立管理
+  log: docs/evidence/it/IT-F001-attempt-1.log
+- date: '2026-07-18T22:09:11+09:00'
+  feature: F001
+  scope: IT
+  attempt: 2
+  command: npm test && npm run build && npx playwright test
+  result: pass
+  failures: 0
+  recovery: attempt 1の試験環境差を修正
+  log: docs/evidence/it/IT-F001-attempt-2.log
+- date: '2026-07-18T22:12:00+09:00'
+  feature: F001
+  scope: QT-automated
+  attempt: 1
+  command: Playwright Chromium/Firefox/WebKit + Chrome stable/Edge stable
+  result: pass
+  failures: 0
+  recovery: none
+  log: docs/evidence/qt/QT-F001-automated-attempt-1.log
+- date: '2026-07-19T00:00:00+09:00'
+  feature: F001
+  scope: CHG-F001-003-E2E
+  attempt: 1
+  command: npx playwright test
+  result: fail
+  failures: 1
+  cause: 新規採用した内心台詞のorder=0をbrowser側catalog validatorが正整数限定で拒否した
+  recovery: catalog-loaderのorder検証を0以上の整数へ修正し、境界値回帰試験を追加
+  log: docs/evidence/changes/CHG-F001-003-result.md
+- date: '2026-07-19T00:10:00+09:00'
+  feature: F001
+  scope: CHG-F001-003-E2E
+  attempt: 2
+  command: Playwright Chromium/Firefox/WebKit + Chrome stable/Edge stable
+  result: pass
+  failures: 0
+  recovery: attempt 1のcatalog schema不一致を修正
+  log: docs/evidence/changes/CHG-F001-003-result.md
+- date: '2026-07-19T00:49:33+09:00'
+  feature: F001
+  scope: UT
+  attempt: 2
+  command: npm test
+  result: pass
+  failures: 0
+  recovery: none
+  log: docs/evidence/ut/UT-F001-attempt-2.log
+- date: '2026-07-19T00:50:00+09:00'
+  feature: F001
+  scope: IT
+  attempt: 3
+  command: npm run build && npm run test:e2e
+  result: fail
+  failures: 13
+  cause: Firefox Playwright runnerが全ケースでbrowserContext.newPage内部例外となり、アプリ試験開始前に失敗した
+  recovery: WebKitのネイティブmedia event混入は純粋test doubleへ修正し13/13件PASS。Firefoxは分離再実行でも同じrunner例外のため環境blocked
+  log: docs/evidence/it/IT-F001-attempt-3.log
+- date: '2026-07-19T01:03:47+09:00'
+  feature: F001
+  scope: QT-manual
+  attempt: 1
+  command: Q-005 check_results validation
+  result: fail
+  failures: 10
+  cause: 全10項目の証跡メモに版・操作結果・画面証拠またはhosted URL/digestがなく、一部はPASS判定とメモが矛盾した
+  recovery: Q-005をclosed化し、要求範囲の選択をQ-007、修正後の演出目視確認をQ-008へ分離
+  log: docs/evidence/qt/QT-F001-browser-manual.md
+- date: '2026-07-19T01:10:52+09:00'
+  feature: F001
+  scope: IT-stable-revalidation
+  attempt: 4
+  command: npm test && npm run typecheck && npm run lint && npm run build && npx playwright
+    test && npm run lint
+  result: pass
+  failures: 0
+  recovery: 重複自動再開ジョブを停止してPlaywrightを逐次実行し、E2E生成物をESLint global ignoresへ追加
+  log: docs/evidence/it/IT-F001-attempt-4.log
+- date: '2026-07-19T12:36:35+09:00'
+  feature: F001
+  scope: IT-CHG-F001-005-impact
+  attempt: 5
+  command: npm test && npm run typecheck && npm run lint && npm run build && npm run test:e2e
+  result: pass
+  failures: 0
+  cause: none
+  recovery: none（native出力を欠落した最初の証跡取得のみ同一attemptで再取得）
+  log: docs/evidence/it/IT-F001-attempt-5.log

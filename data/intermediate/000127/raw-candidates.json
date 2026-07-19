@@ -1,0 +1,3030 @@
+[
+  {
+    "contextAfter": "と書いた。しかし、下人は雨がやんでも、格別どうしようと云う当てはない。ふだんなら、勿論、主人の家へ帰る可き筈である。所がその主人",
+    "contextBefore": "、洗いざらした紺の襖の尻を据えて、右の頬に出来た、大きな面皰を気にしながら、ぼんやり、雨のふるのを眺めていた。\n\n　作者はさっき、",
+    "extractorVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 784,
+      "start": 770
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 784,
+      "startToken": 770
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "雨"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "待"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "と云うよりも「雨にふりこめられた下人が、行き所がなくて、途方にくれていた」と云う方が、適当である。その上、今日の空模様も少からず",
+    "contextBefore": "通りならず衰微していた。今この下人が、永年、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから",
+    "extractorVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 960,
+      "start": 946
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 960,
+      "startToken": 946
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "雨"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "待"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "と云う方が、適当である。その上、今日の空模様も少からず、この平安朝の下人の Sentimentalisme に影響した。申の刻下",
+    "contextBefore": "、使われていた主人から、暇を出されたのも、実はこの衰微の小さな余波にほかならない。だから「下人が雨やみを待っていた」と云うよりも",
+    "extractorVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 997,
+      "start": 966
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 997,
+      "startToken": 966
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "雨"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "ふ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "所"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "途"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために",
+    "contextBefore": "うに棄てられてしまうばかりである。選ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの",
+    "extractorVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 1440,
+      "start": 1435
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1440,
+      "startToken": 1435
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き「盗人になるよ",
+    "contextBefore": "ばないとすれば――下人の考えは、何度も同じ道を低徊した揚句に、やっとこの局所へ逢着した。しかしこの「すれば」は、いつまでたっても、結局",
+    "extractorVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 1458,
+      "start": 1453
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1458,
+      "startToken": 1453
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "のかたをつけるために、当然、その後に来る可き「盗人になるよりほかに仕方がない」と云う事を、積極的に肯定するだけの、勇気が出ずにいた",
+    "contextBefore": "へ逢着した。しかしこの「すれば」は、いつまでたっても、結局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この",
+    "extractorVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 1494,
+      "start": 1489
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1494,
+      "startToken": 1489
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "と云う事を、積極的に肯定するだけの、勇気が出ずにいたのである。\n\n　下人は、大きな嚔をして、それから、大儀そうに立上った。夕冷えの",
+    "contextBefore": "局「すれば」であった。下人は、手段を選ばないという事を肯定しながらも、この「すれば」のかたをつけるために、当然、その後に来る可き",
+    "extractorVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 1532,
+      "start": 1516
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1532,
+      "startToken": 1516
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "盗人",
+        "reading": "ぬすびと",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "仕"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "ように感じたのである。すると老婆は、松の木片を、床板の間に挿して、それから、今まで眺めていた死骸の首に両手をかけると、丁度、猿の",
+    "contextBefore": "女の死骸であろう。\n\n　下人は、六分の恐怖と四分の好奇心とに動かされて、暫時は呼吸をするのさえ忘れていた。旧記の記者の語を借りれば、",
+    "extractorVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 2893,
+      "start": 2885
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2893,
+      "startToken": 2885
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "頭身",
+        "reading": "とうしん",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "毛"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "太"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　下人は、老婆が死骸につまずきながら、慌てふためいて逃げようとする行手を塞いで、こう罵った。老婆は、それでも下人をつきのけて",
+    "contextBefore": "の前へ歩みよった。老婆が驚いたのは云うまでもない。\n\n　老婆は、一目下人を見ると、まるで弩にでも弾かれたように、飛び上った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 3592,
+      "start": 3580
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3592,
+      "startToken": 3580
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　下人は、老婆をつき放すと、いきなり、太刀の鞘を払って、白い鋼の色をその眼の前へつきつけた。けれども、老婆は黙っている。両手",
+    "contextBefore": "からわかっている。下人はとうとう、老婆の腕をつかんで、無理にそこへ（）じ倒した。丁度、鶏の脚のような、骨と皮ばかりの腕である。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 3811,
+      "start": 3788
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3811,
+      "startToken": 3788
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "ぬ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ぞ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　すると、老婆は、見開いていた眼を、一層大きくして、じっとその下人の顔を見守った。（）の赤くなった、肉食鳥のような、鋭い眼で見",
+    "contextBefore": "円満に成就した時の、安らかな得意と満足とがあるばかりである。そこで、下人は、老婆を見下しながら、少し声を柔らげてこう云った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 4217,
+      "start": 4112
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4217,
+      "startToken": 4112
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "己",
+        "reading": "おれ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "base": "検非違使",
+        "reading": "けびいし",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "庁"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "役"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "門"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "通"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "旅"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "者"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "前"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "base": "縄",
+        "reading": "なわ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "時"
+      },
+      {
+        "type": "text",
+        "value": "分"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "門"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "上"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "己"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "話"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　下人は、老婆の答が存外、平凡なのに失望した。そうして失望すると同時に、また前の憎悪が、冷やかな侮蔑と一しょに、心の中へはいっ",
+    "contextBefore": "かした。細い喉で、尖った喉仏の動いているのが見える。その時、その喉から、鴉の啼くような声が、喘ぎ喘ぎ、下人の耳へ伝わって来た。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 4422,
+      "start": 4389
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4422,
+      "startToken": 4389
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "髪"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "抜"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "髪"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "抜"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "鬘",
+        "reading": "かずら",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "思"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　老婆は、大体こんな意味の事を云った。\n\n　下人は、太刀を鞘におさめて、その太刀の柄を左の手でおさえながら、冷然として、この",
+    "contextBefore": "う。老婆は、片手に、まだ死骸の頭から奪った長い抜け毛を持ったなり、蟇のつぶやくような声で、口ごもりながら、こんな事を云った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 4936,
+      "start": 4574
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4936,
+      "startToken": 4574
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "成"
+      },
+      {
+        "type": "text",
+        "value": "程"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "死人",
+        "reading": "しびと",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "髪"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "毛"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "抜"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "悪"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "知"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ぬ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "皆"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "間"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ぞ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "現"
+      },
+      {
+        "type": "text",
+        "value": "在"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "髪"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "抜"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "蛇"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "base": "四寸",
+        "reading": "しすん",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "切"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "干"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "干魚",
+        "reading": "ほしうお",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "太刀帯",
+        "reading": "たてわき",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "陣"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "売"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "base": "往",
+        "reading": "い",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "base": "疫病",
+        "reading": "えやみ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "売"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "往"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "売"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "干"
+      },
+      {
+        "type": "text",
+        "value": "魚"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "味"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "云"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "太"
+      },
+      {
+        "type": "text",
+        "value": "刀"
+      },
+      {
+        "type": "text",
+        "value": "帯"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "欠"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "base": "菜料",
+        "reading": "さいりよう",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "買"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "悪"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "思"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ぬ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "饑"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "仕"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "悪"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "思"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "ぬ"
+      },
+      {
+        "type": "text",
+        "value": "ぞ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "饑"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "仕"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "仕"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "知"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "方"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "事"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "目"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　老婆の話が完ると、下人は嘲るような声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみな",
+    "contextBefore": "ない。その時のこの男の心もちから云えば、饑死などと云う事は、ほとんど、考える事さえ出来ないほど、意識の外に追い出されていた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 5269,
+      "start": 5259
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5269,
+      "startToken": 5259
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  },
+  {
+    "contextAfter": "\n\n　下人は、すばやく、老婆の着物を剥ぎとった。それから、足にしがみつこうとする老婆を、手荒く死骸の上へ蹴倒した。梯子の口までは",
+    "contextBefore": "うな声で念を押した。そうして、一足前へ出ると、不意に右の手を面皰から離して、老婆の襟上をつかみながら、噛みつくようにこう云った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "rawTokenRange": {
+      "end": 5390,
+      "start": 5351
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5390,
+      "startToken": 5351
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "己",
+        "reading": "おれ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "base": "引剥",
+        "reading": "ひはぎ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "恨"
+      },
+      {
+        "type": "text",
+        "value": "む"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "己"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "饑"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "体"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000127"
+  }
+]

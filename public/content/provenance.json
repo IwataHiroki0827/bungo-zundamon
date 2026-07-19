@@ -1,0 +1,96 @@
+{
+  "bibliography": {
+    "archiveBytes": 2092030,
+    "archiveSha256": "069280a4aa17ac2d382605dc4d189d1bde8762973324cd832e4ddf391dc82af0",
+    "csvBytes": 17153006,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "28d37d3d5f94e4d3c8f7838944b076ff854c47f8cb29c533fd69ada7cd2920a0",
+    "schemaVersion": "e2eee6da997acefd",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "generatedAt": "2026-07-18T10:48:04.758Z",
+  "schemaVersion": "1.0.0",
+  "sourceHashes": {
+    "000092": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+    "000127": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+    "043015": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16"
+  },
+  "toolVersions": {
+    "contentPipeline": "0.1.0",
+    "extractor": "1.0.0",
+    "normalizer": "1.0.0"
+  },
+  "transformations": [
+    "decode-declared-charset",
+    "extract-japanese-dialogue-brackets",
+    "normalize-display-and-speech"
+  ],
+  "works": [
+    {
+      "baseEdition": "芥川龍之介全集1",
+      "bibliography": {
+        "archiveBytes": 2092030,
+        "archiveSha256": "069280a4aa17ac2d382605dc4d189d1bde8762973324cd832e4ddf391dc82af0",
+        "csvBytes": 17153006,
+        "csvEntry": "list_person_all_extended_utf8.csv",
+        "csvSha256": "28d37d3d5f94e4d3c8f7838944b076ff854c47f8cb29c533fd69ada7cd2920a0",
+        "schemaVersion": "e2eee6da997acefd",
+        "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+      },
+      "changeNotice": "書誌metadata（CC BY 4.0）の由来を保持し、本文は青空文庫の利用条件に従って加工内容を表示",
+      "fetchedAt": "2026-07-18T10:48:05.289Z",
+      "inputter": "野口英司、平山誠",
+      "proofreader": "もりみつじゅんじ",
+      "sourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000879/files/127_15260.html",
+      "stableCardUrl": "https://www.aozora.gr.jp/cards/000879/card127.html",
+      "toolVersion": "bungo-zundamon-content/0.1.0",
+      "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化",
+      "workId": "000127"
+    },
+    {
+      "baseEdition": "芥川龍之介全集2",
+      "bibliography": {
+        "archiveBytes": 2092030,
+        "archiveSha256": "069280a4aa17ac2d382605dc4d189d1bde8762973324cd832e4ddf391dc82af0",
+        "csvBytes": 17153006,
+        "csvEntry": "list_person_all_extended_utf8.csv",
+        "csvSha256": "28d37d3d5f94e4d3c8f7838944b076ff854c47f8cb29c533fd69ada7cd2920a0",
+        "schemaVersion": "e2eee6da997acefd",
+        "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+      },
+      "changeNotice": "書誌metadata（CC BY 4.0）の由来を保持し、本文は青空文庫の利用条件に従って加工内容を表示",
+      "fetchedAt": "2026-07-18T10:48:05.332Z",
+      "inputter": "野口英司、平山誠",
+      "proofreader": "もりみつじゅんじ",
+      "sourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000879/files/92_14545.html",
+      "stableCardUrl": "https://www.aozora.gr.jp/cards/000879/card92.html",
+      "toolVersion": "bungo-zundamon-content/0.1.0",
+      "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化",
+      "workId": "000092"
+    },
+    {
+      "baseEdition": "蜘蛛の糸・杜子春",
+      "bibliography": {
+        "archiveBytes": 2092030,
+        "archiveSha256": "069280a4aa17ac2d382605dc4d189d1bde8762973324cd832e4ddf391dc82af0",
+        "csvBytes": 17153006,
+        "csvEntry": "list_person_all_extended_utf8.csv",
+        "csvSha256": "28d37d3d5f94e4d3c8f7838944b076ff854c47f8cb29c533fd69ada7cd2920a0",
+        "schemaVersion": "e2eee6da997acefd",
+        "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+      },
+      "changeNotice": "書誌metadata（CC BY 4.0）の由来を保持し、本文は青空文庫の利用条件に従って加工内容を表示",
+      "fetchedAt": "2026-07-18T10:48:05.385Z",
+      "inputter": "蒋龍",
+      "proofreader": "noriko saito",
+      "sourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000879/files/43015_17432.html",
+      "stableCardUrl": "https://www.aozora.gr.jp/cards/000879/card43015.html",
+      "toolVersion": "bungo-zundamon-content/0.1.0",
+      "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化",
+      "workId": "043015"
+    }
+  ]
+}
