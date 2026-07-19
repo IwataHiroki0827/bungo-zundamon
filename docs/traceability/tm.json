@@ -101,6 +101,488 @@
       "defined_in": "docs/srs/SRS-F002.md",
       "refs": []
     },
+    "FUN-F002-001": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-014"
+      ]
+    },
+    "FUN-F002-002": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-003": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-004": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-001",
+        "DES-F002-006",
+        "DES-F002-012"
+      ]
+    },
+    "FUN-F002-005": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-003",
+        "DES-F002-006",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-006": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-004",
+        "DES-F002-009"
+      ]
+    },
+    "FUN-F002-007": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-004",
+        "DES-F002-014",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-008": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-004"
+      ]
+    },
+    "FUN-F002-009": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-004",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-010": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-009",
+        "DES-F002-012"
+      ]
+    },
+    "FUN-F002-011": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-009",
+        "DES-F002-015",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-012": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-010",
+        "DES-F002-012"
+      ]
+    },
+    "FUN-F002-013": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005"
+      ]
+    },
+    "FUN-F002-014": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005",
+        "DES-F002-011"
+      ]
+    },
+    "FUN-F002-015": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005",
+        "DES-F002-012",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-016": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-017": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-011",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-018": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-001",
+        "DES-F002-003",
+        "DES-F002-006",
+        "DES-F002-009",
+        "DES-F002-010"
+      ]
+    },
+    "FUN-F002-019": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-006",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-020": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-007",
+        "DES-F002-012"
+      ]
+    },
+    "FUN-F002-021": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-007",
+        "DES-F002-008"
+      ]
+    },
+    "FUN-F002-022": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-007",
+        "DES-F002-013"
+      ]
+    },
+    "FUN-F002-023": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-007",
+        "DES-F002-008",
+        "DES-F002-013"
+      ]
+    },
+    "FUN-F002-024": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-008",
+        "DES-F002-013"
+      ]
+    },
+    "FUN-F002-025": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-009",
+        "DES-F002-010",
+        "DES-F002-012",
+        "DES-F002-013"
+      ]
+    },
+    "FUN-F002-026": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-006",
+        "DES-F002-012"
+      ]
+    },
+    "FUN-F002-027": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-014",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-028": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-014"
+      ]
+    },
+    "FUN-F002-029": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-012",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-030": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-003",
+        "DES-F002-005",
+        "DES-F002-009",
+        "DES-F002-011",
+        "DES-F002-013",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-031": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-014",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-032": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005",
+        "DES-F002-011",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-033": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-005",
+        "DES-F002-006",
+        "DES-F002-011",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-034": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-001",
+        "DES-F002-002",
+        "DES-F002-006",
+        "DES-F002-014",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-035": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-009",
+        "DES-F002-012",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-036": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-004",
+        "DES-F002-009",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-037": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-002",
+        "DES-F002-015",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-038": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-003",
+        "DES-F002-006",
+        "DES-F002-016"
+      ]
+    },
+    "FUN-F002-039": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-006",
+        "DES-F002-011",
+        "DES-F002-015"
+      ]
+    },
+    "FUN-F002-040": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F002.md",
+      "refs": [
+        "DES-F002-003",
+        "DES-F002-006",
+        "DES-F002-011",
+        "DES-F002-015",
+        "DES-F002-016"
+      ]
+    },
+    "DES-F002-001": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-002",
+        "REQ-F002-011"
+      ]
+    },
+    "DES-F002-002": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-005",
+        "REQ-F002-019"
+      ]
+    },
+    "DES-F002-003": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-001"
+      ]
+    },
+    "DES-F002-004": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-005",
+        "REQ-F002-006",
+        "REQ-F002-007",
+        "REQ-F002-008",
+        "REQ-F002-009",
+        "REQ-F002-010"
+      ]
+    },
+    "DES-F002-005": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-012",
+        "REQ-F002-013"
+      ]
+    },
+    "DES-F002-006": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-001",
+        "REQ-F002-011"
+      ]
+    },
+    "DES-F002-007": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-003",
+        "REQ-F002-004",
+        "REQ-F002-005",
+        "REQ-F002-020"
+      ]
+    },
+    "DES-F002-008": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-014",
+        "REQ-F002-020"
+      ]
+    },
+    "DES-F002-009": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-006",
+        "REQ-F002-007",
+        "REQ-F002-015"
+      ]
+    },
+    "DES-F002-010": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-016"
+      ]
+    },
+    "DES-F002-011": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-018"
+      ]
+    },
+    "DES-F002-012": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-017"
+      ]
+    },
+    "DES-F002-013": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-020"
+      ]
+    },
+    "DES-F002-014": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-019"
+      ]
+    },
+    "DES-F002-015": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-001",
+        "REQ-F002-009",
+        "REQ-F002-013",
+        "REQ-F002-015",
+        "REQ-F002-018"
+      ]
+    },
+    "DES-F002-016": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F002.md",
+      "refs": [
+        "REQ-F002-001",
+        "REQ-F002-017",
+        "REQ-F002-018",
+        "REQ-F002-020"
+      ]
+    },
     "QT-F002-001": {
       "type": "QT",
       "defined_in": "docs/tests/qt/QT-F002.md",
@@ -208,105 +690,85 @@
   },
   "gaps": [
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-001",
-      "detail": "REQ-F002-001 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-001",
+      "detail": "DES-F002-001 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-002",
-      "detail": "REQ-F002-002 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-002",
+      "detail": "DES-F002-002 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-003",
-      "detail": "REQ-F002-003 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-003",
+      "detail": "DES-F002-003 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-004",
-      "detail": "REQ-F002-004 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-004",
+      "detail": "DES-F002-004 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-005",
-      "detail": "REQ-F002-005 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-005",
+      "detail": "DES-F002-005 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-006",
-      "detail": "REQ-F002-006 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-006",
+      "detail": "DES-F002-006 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-007",
-      "detail": "REQ-F002-007 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-007",
+      "detail": "DES-F002-007 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-008",
-      "detail": "REQ-F002-008 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-008",
+      "detail": "DES-F002-008 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-009",
-      "detail": "REQ-F002-009 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-009",
+      "detail": "DES-F002-009 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-010",
-      "detail": "REQ-F002-010 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-010",
+      "detail": "DES-F002-010 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-011",
-      "detail": "REQ-F002-011 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-011",
+      "detail": "DES-F002-011 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-012",
-      "detail": "REQ-F002-012 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-012",
+      "detail": "DES-F002-012 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-013",
-      "detail": "REQ-F002-013 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-013",
+      "detail": "DES-F002-013 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-014",
-      "detail": "REQ-F002-014 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-014",
+      "detail": "DES-F002-014 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-015",
-      "detail": "REQ-F002-015 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-015",
+      "detail": "DES-F002-015 に対応するUTまたはITがありません"
     },
     {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-016",
-      "detail": "REQ-F002-016 に対応するDESがありません"
-    },
-    {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-017",
-      "detail": "REQ-F002-017 に対応するDESがありません"
-    },
-    {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-018",
-      "detail": "REQ-F002-018 に対応するDESがありません"
-    },
-    {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-019",
-      "detail": "REQ-F002-019 に対応するDESがありません"
-    },
-    {
-      "rule": "REQ→DES",
-      "tag": "REQ-F002-020",
-      "detail": "REQ-F002-020 に対応するDESがありません"
+      "rule": "DES→UT/IT",
+      "tag": "DES-F002-016",
+      "detail": "DES-F002-016 に対応するUTまたはITがありません"
     }
   ],
-  "coverage_percent": 41.2
+  "coverage_percent": 82.2
 }

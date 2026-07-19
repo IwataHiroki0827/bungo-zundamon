@@ -188,3 +188,12 @@ entries:
   est_tokens: 10000
   note: T-016〜T-030の15タスクへ分解。REQ 20/20実装coverage・依存循環0。Node/npm/VOICEVOX/Playwright/容量を確認し、typecheck・lint・Vitest
     337件・build 66 filesをPASS
+- date: '2026-07-20'
+  phase: design
+  task: F002 FD/DD作成・3観点反復レビュー
+  model: GPT-5
+  agents: 4
+  est_tokens: 36000
+  note: REQ 20件をDES 16件・FUN 40件へ展開。work単位atomic音声受入、accepted-audio正本、sourceCommit→public
+    commit→clean release-verify、F001 content/dist不変、未承認batch排除を設計。整合性・実現可能性・セキュリティ最終High/Medium/Low
+    0。

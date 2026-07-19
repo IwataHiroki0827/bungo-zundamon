@@ -342,7 +342,7 @@ tasks:
   title: 機能設計書(FD-F002)を作成しREQ全20件を複数作者・継続バッチ設計へ展開
   feature: F002
   phase: design
-  state: todo
+  state: done
   depends:
   - T-015
   tags: &id002
@@ -375,7 +375,7 @@ tasks:
   title: 関数設計書(DD-F002)を作成しデータ・関数・状態遷移契約へ展開
   feature: F002
   phase: design
-  state: todo
+  state: done
   depends:
   - T-016
   tags: *id002
@@ -388,7 +388,7 @@ tasks:
   title: UT-F002・IT-F002を作成しQT-F002との網羅性を確認
   feature: F002
   phase: testspec
-  state: todo
+  state: blocked
   depends:
   - T-017
   tags: *id002
@@ -397,6 +397,8 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  blocked_by:
+  - Q-013
 - id: T-019
   title: バッチ定義・青空文庫取得・抽出・レビュー基盤を複数作者化
   feature: F002

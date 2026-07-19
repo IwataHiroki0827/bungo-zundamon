@@ -584,3 +584,20 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-20T06:26:24+09:00'
   processed_note: SRS-F002とQT-F002をApprovedへ更新し、T-015を完了、F002をsetupへ移行した。
+- id: Q-013
+  type: approval
+  status: pending
+  title: F002 機能設計・関数設計の承認
+  body: 複数作者・継続batch・VOICEVOX差分生成・作品単位atomic受入・clean checkout再現・権利/容量/公開境界を、DES 16件・FUN
+    40件へ展開しました。整合性・実現可能性・セキュリティの独立レビューはすべてHigh 0 / Medium 0 / Low 0でPASSです。REQ→DESとDES→FUNの未追跡は0件、DES→UT/ITの16件は次工程T-018で作成します。FD-F002.mdとDD-F002.mdを確認し、設計確定を承認してください。
+  target: docs/design/FD-F002.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  created: '2026-07-20T07:28:00+09:00'
+  source: pf-design
+  resume:
+    task: T-018
+    next: pf-testspec
