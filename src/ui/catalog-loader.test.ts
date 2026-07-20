@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { loadCatalog, publicBaseUrl, resolvePublicAsset, validateCatalog } from './catalog-loader';
+import { loadCatalog, publicBaseUrl, resolvePublicAsset, validateCatalog, validateCatalogV2 } from './catalog-loader';
 import { parseRoute, resolveMotionPreference } from './routes';
 
 function rawCatalog(): Record<string, unknown> {
@@ -72,6 +72,99 @@ function rawCatalog(): Record<string, unknown> {
     },
     creditsRef: 'content/licenses.json',
     futureExpansionPolicy: { eligibilityCriteria: '確認', rightsRecheck: '再確認', stagedAddition: '段階追加' },
+  };
+}
+
+function rawCatalogV2(includeSecondAuthor = true): Record<string, unknown> {
+  const definitions = [
+    { batchId: 'F001', authorId: '000879', slug: 'akutagawa-zunnosuke', name: 'あくたがわずんのすけ', originalName: '芥川龍之介', workId: '000127', title: '羅生門' },
+    ...(includeSecondAuthor
+      ? [{ batchId: 'F002', authorId: '000081', slug: 'miyazawa-zunji', name: 'みやざわずんじ', originalName: '宮沢賢治', workId: '000473', title: 'よだかの星' }]
+      : []),
+  ];
+  const batches = definitions.map((item) => ({
+    batchId: item.batchId,
+    feature: item.batchId,
+    status: 'published',
+    authorId: item.authorId,
+    workIds: [item.workId],
+    acceptedAt: '2026-07-20T00:00:00Z',
+    publishedAt: '2026-07-20T01:00:00Z',
+    evidenceSha256: 'e'.repeat(64),
+  }));
+  const authors = definitions.map((item) => ({
+    authorId: item.authorId,
+    name: item.name,
+    originalName: item.originalName,
+    slug: item.slug,
+    artwork: { path: `artwork/${item.slug}.png`, alt: `${item.name}のイラスト`, sha256: 'f'.repeat(64) },
+    introducedByBatchId: item.batchId,
+    identitySha256: 'd'.repeat(64),
+  }));
+  const works = definitions.map((item, index) => {
+    const numericWorkId = item.workId.replace(/^0+/u, '');
+    const cardUrl = `https://www.aozora.gr.jp/cards/${item.authorId}/card${numericWorkId}.html`;
+    return {
+      workId: item.workId,
+      authorId: item.authorId,
+      batchId: item.batchId,
+      title: item.title,
+      cardLink: cardUrl,
+      source: {
+        cardUrl,
+        textUrl: `https://www.aozora.gr.jp/cards/${item.authorId}/files/${numericWorkId}_fixture.html`,
+        attribution: `青空文庫『${item.title}』（${item.originalName}）`,
+        baseEdition: '底本',
+        inputter: '入力者',
+        proofreader: '校正者',
+        fetchedAt: '2026-07-20T00:00:00Z',
+        transformation: '原典から決定的に変換',
+        sourceSha256: `${index + 1}`.repeat(64),
+        provenancePath: `content/provenance/${item.batchId}/${item.workId}.json`,
+        provenanceSha256: 'c'.repeat(64),
+      },
+      dialogues: [{
+        dialogueId: `dialogue-${index + 1}`,
+        workId: item.workId,
+        order: 0,
+        displayText: `${item.title}の台詞`,
+        speechText: `${item.title}の台詞`,
+        audioId: 'shared-audio',
+        sourceAnchor: { bodySelector: '.main_text', startToken: 1, endToken: 2 },
+        review: {
+          candidateId: `dialogue-${index + 1}`,
+          workId: item.workId,
+          revision: 1,
+          status: 'approved',
+          reasonCode: 'SPOKEN_DIALOGUE',
+          reviewer: 'reviewer',
+          reviewedAt: '2026-07-20T00:00:00Z',
+          policyCheckedAt: '2026-07-20T00:00:00Z',
+          policyDecision: 'allowed',
+        },
+      }],
+    };
+  });
+  const byBatch = Object.fromEntries(definitions.map((item) => [item.batchId, {
+    total: 1, published: 1, editorialExcluded: 0, audioExcluded: 0,
+  }]));
+  return {
+    schemaVersion: '2.0.0',
+    authors,
+    works,
+    audioAssets: [{
+      audioId: 'shared-audio', batchId: 'F001', path: 'audio/F001/shared.wav', sha256: 'a'.repeat(64),
+      bytes: 100, durationMs: 1000, configHash: 'b'.repeat(64),
+    }],
+    batches,
+    candidateCounts: {
+      total: definitions.length,
+      published: definitions.length,
+      editorialExcluded: 0,
+      audioExcluded: 0,
+      byBatch,
+    },
+    creditsRef: 'content/licenses.json',
   };
 }
 
@@ -270,5 +363,95 @@ describe('routeとcatalog境界', () => {
     expect(resolveMotionPreference({ matches: false })).toBe('full');
     expect(resolveMotionPreference({ matches: true }, 'full')).toBe('reduced');
     expect(resolveMotionPreference({ matches: false }, 'reduced')).toBe('reduced');
+  });
+});
+
+describe('FUN-F002-004 CatalogV2検証 [DES-F002-001][DES-F002-006][DES-F002-012][UT-F002-004]', () => {
+  it('固定作者条件なしで複数作者・共有audio・batch参照を受理する', () => {
+    const result = validateCatalogV2(rawCatalogV2(), 8_388_608);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.authors.map((author) => author.slug)).toEqual(['akutagawa-zunnosuke', 'miyazawa-zunji']);
+    expect(result.value.works).toHaveLength(2);
+    expect(result.value.audioAssets).toHaveLength(1);
+    expect(validateCatalog(rawCatalogV2(), 4096).works).toHaveLength(2);
+  });
+
+  it('作者・作品各1件の最小catalogと上限ちょうどを受理し、byte上限+1を拒否する', () => {
+    expect(validateCatalogV2(rawCatalogV2(false), 8_388_608).ok).toBe(true);
+    expect(validateCatalogV2(rawCatalogV2(false), 8_388_609)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_RESOURCE_LIMIT' },
+    });
+  });
+
+  it('32,768 scalarと深さ64を受理し、各+1をresource limitとして拒否する', () => {
+    const stringAtLimit = rawCatalogV2(false);
+    stringAtLimit.extra = 'あ'.repeat(32_768);
+    expect(validateCatalogV2(stringAtLimit, 4096).ok).toBe(true);
+
+    const stringOver = rawCatalogV2(false);
+    stringOver.extra = 'あ'.repeat(32_769);
+    expect(validateCatalogV2(stringOver, 4096)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_RESOURCE_LIMIT' },
+    });
+
+    const depthAtLimit = rawCatalogV2(false);
+    let nested: unknown = 'leaf';
+    for (let index = 0; index < 62; index += 1) nested = { nested };
+    depthAtLimit.extra = nested;
+    expect(validateCatalogV2(depthAtLimit, 4096).ok).toBe(true);
+
+    const depthOver = rawCatalogV2(false);
+    nested = 'leaf';
+    for (let index = 0; index < 63; index += 1) nested = { nested };
+    depthOver.extra = nested;
+    expect(validateCatalogV2(depthOver, 4096)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_RESOURCE_LIMIT' },
+    });
+  });
+
+  it.each([
+    ['slug重複', (catalog: Record<string, unknown>) => {
+      const authors = catalog.authors as Array<Record<string, unknown>>;
+      authors[1]!.slug = authors[0]!.slug;
+    }, 'CATALOG_DUPLICATE_ID'],
+    ['audio ID重複', (catalog: Record<string, unknown>) => {
+      const audio = (catalog.audioAssets as Array<Record<string, unknown>>)[0]!;
+      (catalog.audioAssets as unknown[]).push(structuredClone(audio));
+    }, 'CATALOG_DUPLICATE_ID'],
+    ['孤立audio参照', (catalog: Record<string, unknown>) => {
+      const work = (catalog.works as Array<Record<string, unknown>>)[0]!;
+      ((work.dialogues as Array<Record<string, unknown>>)[0]!).audioId = 'missing-audio';
+    }, 'CATALOG_ORPHAN_REFERENCE'],
+    ['authorとbatch混線', (catalog: Record<string, unknown>) => {
+      (catalog.works as Array<Record<string, unknown>>)[1]!.authorId = '000879';
+    }, 'CATALOG_AUTHOR_MIXED'],
+    ['dialogue work混線', (catalog: Record<string, unknown>) => {
+      const work = (catalog.works as Array<Record<string, unknown>>)[1]!;
+      ((work.dialogues as Array<Record<string, unknown>>)[0]!).workId = '000127';
+    }, 'CATALOG_AUTHOR_MIXED'],
+    ['危険asset path', (catalog: Record<string, unknown>) => {
+      (catalog.audioAssets as Array<Record<string, unknown>>)[0]!.path = '../outside.wav';
+    }, 'CATALOG_PATH_UNSAFE'],
+    ['危険provenance path', (catalog: Record<string, unknown>) => {
+      const work = (catalog.works as Array<Record<string, unknown>>)[0]!;
+      (work.source as Record<string, unknown>).provenancePath = 'https://evil.example/p.json';
+    }, 'CATALOG_PATH_UNSAFE'],
+    ['別作者source URL', (catalog: Record<string, unknown>) => {
+      const work = (catalog.works as Array<Record<string, unknown>>)[1]!;
+      (work.source as Record<string, unknown>).textUrl = 'https://www.aozora.gr.jp/cards/000879/files/473_fixture.html';
+    }, 'CATALOG_PATH_UNSAFE'],
+    ['全体件数不一致', (catalog: Record<string, unknown>) => {
+      (catalog.candidateCounts as Record<string, unknown>).published = 1;
+    }, 'CATALOG_COUNT_MISMATCH'],
+    ['batch別件数不一致', (catalog: Record<string, unknown>) => {
+      const byBatch = (catalog.candidateCounts as Record<string, unknown>).byBatch as Record<string, Record<string, unknown>>;
+      byBatch.F002!.published = 0;
+      byBatch.F002!.total = 0;
+    }, 'CATALOG_COUNT_MISMATCH'],
+  ])('%sを指定codeで全体拒否する', (_label, mutate, code) => {
+    const catalog = rawCatalogV2();
+    mutate(catalog);
+    expect(validateCatalogV2(catalog, 4096)).toMatchObject({ ok: false, error: { code } });
   });
 });

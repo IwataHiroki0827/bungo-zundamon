@@ -382,6 +382,7 @@ export async function runBatchCommand(
       manifest = execution.manifest === undefined ? manifest : checkedManifest(execution.manifest, manifest.batchId);
       return result('accept', manifest, execution, parsed.workId);
     } catch (error) {
+      if (error instanceof BatchCommandError) throw error;
       throw new BatchCommandError('BATCH_DEPENDENCY_FAILED', 7, error instanceof Error ? error.message : 'accept transactionが失敗しました', 'accept');
     }
   }
@@ -401,6 +402,7 @@ export async function runBatchCommand(
         : await dependencies.verifyRelease(request);
       return result(parsed.stage, manifest, execution, undefined, { commit: parsed.commit });
     } catch (error) {
+      if (error instanceof BatchCommandError) throw error;
       throw new BatchCommandError('BATCH_DEPENDENCY_FAILED', 8, error instanceof Error ? error.message : 'build dependencyが失敗しました', parsed.stage);
     }
   }

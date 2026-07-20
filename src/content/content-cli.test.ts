@@ -11,7 +11,11 @@ const workspace = resolve('.');
 const batchDirectory = join(workspace, 'content', 'batches', 'F998');
 
 afterEach(async () => {
-  await rm(batchDirectory, { recursive: true, force: true });
+  await Promise.all([
+    rm(batchDirectory, { recursive: true, force: true }),
+    rm(join(workspace, '.cache', 'batch-review', 'F998'), { recursive: true, force: true }),
+    rm(join(workspace, '.cache', 'batch-release', 'F998'), { recursive: true, force: true }),
+  ]);
 });
 
 describe('content CLI exit code [DES-F001-017][DES-F001-019]', () => {
@@ -64,6 +68,55 @@ describe('batch CLI production adapter [DES-F002-002][DES-F002-014][DES-F002-015
     expect(stderr).toBe('');
     expect(stdout.split('\n')).toHaveLength(2);
     expect(JSON.parse(stdout.trim())).toMatchObject({ code: 0, status: 'awaiting_manual_gate', gate: 'review' });
+    expect(await readFile(target, 'utf8')).toBe(before);
+  });
+
+  it('実CLIのvoice production handlerはunavailableへ逃げず欠落artifactでfail-closedに停止する', async () => {
+    const hashA = 'a'.repeat(64);
+    const hashB = 'b'.repeat(64);
+    const completedAt = '2026-07-20T00:00:00Z';
+    const manifest = {
+      batchId: 'F998',
+      feature: 'F998',
+      schemaVersion: '1.0.0',
+      status: 'draft',
+      author: { authorId: '999998', name: '著者', originalName: '著者', slug: 'author-998', identitySha256: hashA },
+      workIds: ['990001', '990002', '990003'],
+      workProgress: [
+        {
+          workId: '990001', status: 'budget-approved', forecastRef: 'content/batches/F998/capacity-forecast/990001.json',
+          stageRecords: [
+            { stage: 'reviewed', inputHashes: [hashA], outputHashes: [hashB], toolVersion: 'fixture/1.0.0', count: 1, completedAt },
+            { stage: 'budget-approved', inputHashes: [hashB], outputHashes: [hashA], toolVersion: 'fixture/1.0.0', count: 1, completedAt },
+          ],
+        },
+        { workId: '990002', status: 'pending', stageRecords: [] },
+        { workId: '990003', status: 'pending', stageRecords: [] },
+      ],
+      inputPaths: [],
+      outputPaths: [],
+      stageRecords: [],
+      rightsSnapshotIds: [],
+      voiceConfigRef: 'content/batches/F998/voice-config.json',
+      artworkProvenanceRef: 'content/batches/F998/artwork.json',
+    };
+    await mkdir(batchDirectory, { recursive: true });
+    const target = join(batchDirectory, 'batch.json');
+    const before = canonicalJson(manifest);
+    await writeFile(target, before, 'utf8');
+
+    const error = await execFile(process.execPath, [
+      '--experimental-transform-types',
+      join(workspace, 'scripts', 'content-cli.ts'),
+      '--batch', 'F998', '--work', '990001', '--stage', 'voice',
+    ], { cwd: workspace, encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_NO_WARNINGS: '1' } }).catch((reason: unknown) => reason as {
+      code: number; stdout: string; stderr: string;
+    }) as { code: number; stdout: string; stderr: string };
+
+    expect(error.code).toBe(6);
+    expect(error.stdout).toBe('');
+    expect(JSON.parse(error.stderr.trim())).toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE', stage: 'voice' });
+    expect(error.stderr).not.toContain('後続タスクで接続');
     expect(await readFile(target, 'utf8')).toBe(before);
   });
 });

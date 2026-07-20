@@ -84,6 +84,84 @@ export function createVoiceCacheKey(text: string, config: VoiceConfig): string {
   return createHash('sha256').update(canonical, 'utf8').digest('hex');
 }
 
+export const VOICE_CACHE_SCHEMA_V2 = '2' as const;
+
+export interface VoiceConfigV2 extends VoiceConfig {
+  /** 省略時もv2として扱う。将来版を誤ってv2 keyへ混入させないため、指定時は2のみ許可する。 */
+  cacheSchemaVersion?: string;
+}
+
+function v2Error(code: string, message: string): never {
+  throw new VoiceContractError(code, message);
+}
+
+function requiredV2(value: unknown, name: string): string {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return v2Error('VOICE_CONFIG_INCOMPLETE', `${name}がありません`);
+  }
+  return value;
+}
+
+function numericV2(value: unknown, minimum: number, maximum: number, name: string): number {
+  if (typeof value !== 'number') return v2Error('VOICE_CONFIG_INCOMPLETE', `${name}がありません`);
+  if (!Number.isFinite(value) || value < minimum || value > maximum) {
+    return v2Error('VOICE_CONFIG_RANGE_INVALID', `${name}は${minimum}..${maximum}で指定してください`);
+  }
+  return value;
+}
+
+/** @des DD-F002 @fun FUN-F002-013 */
+export function canonicalVoiceConfigV2(config: VoiceConfigV2): string {
+  if (!config || typeof config !== 'object') return v2Error('VOICE_CONFIG_INCOMPLETE', 'VoiceConfigがありません');
+  if (config.cacheSchemaVersion !== undefined && config.cacheSchemaVersion !== VOICE_CACHE_SCHEMA_V2) {
+    return v2Error('VOICE_CACHE_SCHEMA_UNSUPPORTED', '未対応のvoice cache schemaです');
+  }
+  const engineVersion = requiredV2(config.engineVersion, 'engineVersion');
+  const speakerUuid = requiredV2(config.speakerUuid, 'speakerUuid').toLowerCase();
+  const speakerName = requiredV2(config.speakerName, 'speakerName');
+  const styleName = requiredV2(config.styleName, 'styleName');
+  const presetVersion = requiredV2(config.presetVersion, 'presetVersion');
+  if (!Number.isSafeInteger(config.styleId) || config.styleId < 0) {
+    if (config.styleId === undefined || config.styleId === null) return v2Error('VOICE_CONFIG_INCOMPLETE', 'styleIdがありません');
+    return v2Error('VOICE_CONFIG_RANGE_INVALID', 'styleIdは0以上の整数で指定してください');
+  }
+  const outputSamplingRate = numericV2(config.outputSamplingRate, 24_000, 48_000, 'outputSamplingRate');
+  if (outputSamplingRate !== 24_000 && outputSamplingRate !== 48_000) {
+    return v2Error('VOICE_CONFIG_RANGE_INVALID', 'outputSamplingRateは24000または48000で指定してください');
+  }
+  return JSON.stringify({
+    schemaVersion: VOICE_CACHE_SCHEMA_V2,
+    engineVersion,
+    speakerUuid,
+    speakerName,
+    styleId: config.styleId,
+    styleName,
+    speedScale: numericV2(config.speedScale, 0.5, 2, 'speedScale'),
+    pitchScale: numericV2(config.pitchScale, -0.15, 0.15, 'pitchScale'),
+    intonationScale: numericV2(config.intonationScale, 0, 2, 'intonationScale'),
+    volumeScale: numericV2(config.volumeScale, 0, 2, 'volumeScale'),
+    outputSamplingRate,
+    presetVersion,
+  });
+}
+
+export function voiceConfigHashV2(config: VoiceConfigV2): string {
+  return createHash('sha256').update(canonicalVoiceConfigV2(config), 'utf8').digest('hex');
+}
+
+/** @des DD-F002 @fun FUN-F002-013 */
+export function createVoiceCacheKeyV2(text: string, config: VoiceConfigV2): string {
+  if (typeof text !== 'string' || text.trim() === '' || text.includes('\0') || /[\uD800-\uDFFF]/u.test(text)) {
+    return v2Error('VOICE_TEXT_INVALID', '読み上げ文が不正です');
+  }
+  const canonical = JSON.stringify({
+    schemaVersion: VOICE_CACHE_SCHEMA_V2,
+    text: text.normalize('NFC'),
+    config: JSON.parse(canonicalVoiceConfigV2(config)) as unknown,
+  });
+  return createHash('sha256').update(canonical, 'utf8').digest('hex');
+}
+
 export interface VoiceFileSystem {
   prepareCache(cacheDir: string, workspaceRoot: string): Promise<string>;
   read(filePath: string): Promise<Uint8Array | null>;

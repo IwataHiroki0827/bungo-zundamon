@@ -181,6 +181,29 @@ describe('batch command adapter [DES-F002-002][DES-F002-014][DES-F002-015]', () 
   });
 
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
+  it('production dependencyの前提不足codeをaccept/releaseで保持する', async () => {
+    const acceptDeps = dependencies(manifest(['voiced', 'pending', 'pending']));
+    vi.mocked(acceptDeps.acceptWork).mockRejectedValue(
+      new BatchCommandError('BATCH_STAGE_PREREQUISITE', 7, 'accept artifactが不足しています', 'accept'),
+    );
+    await expect(runBatchCommand(
+      ['--batch', 'F002', '--work', '000473', '--stage', 'accept'],
+      'C:/workspace',
+      acceptDeps,
+    )).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE', exitCode: 7 });
+
+    const releaseDeps = dependencies(manifest(['accepted', 'accepted', 'accepted']));
+    vi.mocked(releaseDeps.prepareRelease).mockRejectedValue(
+      new BatchCommandError('BATCH_STAGE_PREREQUISITE', 8, 'release artifactが不足しています', 'prepare-release'),
+    );
+    await expect(runBatchCommand(
+      ['--batch', 'F002', '--stage', 'prepare-release', '--commit', 'c'.repeat(40)],
+      'C:/workspace',
+      releaseDeps,
+    )).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE', exitCode: 8 });
+  });
+
+  // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
   it('未知引数とmanifest外workをexit 1で拒否する', async () => {
     const deps = dependencies(manifest());
     await expect(runBatchCommand(['--batch', 'F002', '--unknown', 'x', '--stage', 'rights'], 'C:/workspace', deps)).rejects.toBeInstanceOf(BatchCommandError);

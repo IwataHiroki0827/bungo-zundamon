@@ -1,15 +1,21 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { execFile as execFileCallback } from 'node:child_process';
+import { createReadStream } from 'node:fs';
 import { promisify } from 'node:util';
-import { lstat, readFile, readdir, realpath } from 'node:fs/promises';
+import { lstat, mkdir, readFile, readdir, realpath, rm } from 'node:fs/promises';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { canonicalJson, writeJsonArtifactAtomic } from './artifacts.ts';
 import {
   type BatchManifest,
+  type BatchId,
+  type ReleaseBuildContext,
+  type ReleasePreparationContext,
   type Sha256,
   type StageEvidence,
   type WorkId,
+  type WorkspaceRelativePath,
   hashBatchManifest,
+  loadAcceptedBatches,
   transitionWorkState,
   validateBatchManifest,
   writeBatchManifestAtomic,
@@ -24,7 +30,7 @@ import {
   type BatchSourceDependencies,
   runBatchSourceStages,
 } from './batch-production.ts';
-import { applyWorkReviews, extractDialogueCandidates, type Candidate, type ReviewRecord } from './processing.ts';
+import { applyWorkReviews, extractDialogueCandidates, type Candidate, type ReviewRecord, type WorkReviewResult } from './processing.ts';
 import {
   AOZORA_BIBLIOGRAPHY_URL,
   AOZORA_ORIGIN,
@@ -38,6 +44,32 @@ import {
   type BatchSelectionManifest,
   type SourceRecord,
 } from './source.ts';
+import { ProductionVoicevoxClient } from '../voice/client.ts';
+import { canonicalVoiceConfigV2, type VoiceConfigV2 } from '../voice/cache.ts';
+import {
+  authorizeVoiceDiffPlan,
+  generateVoiceDiff,
+  planVoiceDiff,
+  verifyVoiceCompleteness,
+  type VoiceCapacityAuthorization,
+  type VoiceCompletenessReport,
+  type VoiceDiffGenerationResult,
+  type VoiceDiffPlan,
+} from '../voice/generation.ts';
+import {
+  promoteVerifiedWorkArtifacts,
+  type ActualCapacityReport,
+  type DistPreview,
+  type F001DistInvariantReport,
+} from './batch-acceptance.ts';
+import {
+  buildIntegratedPublicTree,
+  promoteIntegratedTree,
+  type BatchCatalogFragment,
+  type F001BaselineBundle,
+  type F001ContentInvariantReport,
+  type IntegratedBuild,
+} from './batch-public.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -322,13 +354,569 @@ async function executeReview(workspace: string, manifest: BatchManifest, workId:
   return { nextManifest, inputHashes, outputHashes, count: reviewed.all.length };
 }
 
+type RuntimeArtifactStage = 'voice' | 'accept' | 'prepare-release' | 'release-verify';
+
+const RUNTIME_EXIT_CODE: Readonly<Record<RuntimeArtifactStage, 6 | 7 | 8>> = {
+  voice: 6,
+  accept: 7,
+  'prepare-release': 8,
+  'release-verify': 8,
+};
+
+function prerequisite(stage: RuntimeArtifactStage, message: string): BatchCommandError {
+  return new BatchCommandError('BATCH_STAGE_PREREQUISITE', RUNTIME_EXIT_CODE[stage], message, stage);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function exactKeys(value: Record<string, unknown>, expected: readonly string[]): boolean {
+  return canonicalJson(Object.keys(value).sort()) === canonicalJson([...expected].sort());
+}
+
+function isSha256(value: unknown): value is Sha256 {
+  return typeof value === 'string' && /^[0-9a-f]{64}$/u.test(value);
+}
+
+function digestArtifact(value: unknown): Sha256 {
+  return sha256(canonicalJson(value));
+}
+
+async function readCanonicalRuntimeArtifact<T>(
+  workspace: string,
+  path: string,
+  label: string,
+  stage: RuntimeArtifactStage,
+): Promise<T> {
+  const root = resolve(workspace);
+  const target = isAbsolute(path) ? resolve(path) : join(root, ...path.split('/'));
+  const relation = relative(root, target);
+  if (!relation || relation === '..' || relation.startsWith(`..${sep}`) || isAbsolute(relation)) {
+    throw prerequisite(stage, `${label}がworkspace外です`);
+  }
+  let cursor = root;
+  for (const part of relation.split(sep)) {
+    cursor = join(cursor, part);
+    let info;
+    try {
+      info = await lstat(cursor);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw prerequisite(stage, `${label}がありません`);
+      throw error;
+    }
+    if (info.isSymbolicLink()) throw prerequisite(stage, `${label} pathにlink/reparseがあります`);
+  }
+  const info = await lstat(target);
+  if (!info.isFile() || info.isSymbolicLink() || info.size <= 0 || info.size > 16_777_216 || await realpath(target) !== target) {
+    throw prerequisite(stage, `${label}実体が不正です`);
+  }
+  const text = await readFile(target, 'utf8');
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch (error) {
+    throw prerequisite(stage, `${label} JSONが不正です: ${error instanceof Error ? error.message : 'parse error'}`);
+  }
+  if (canonicalJson(value) !== text) throw prerequisite(stage, `${label}がcanonical JSONではありません`);
+  return value as T;
+}
+
+export interface VoiceAuthorizationArtifact {
+  readonly schemaVersion: '1.0.0';
+  readonly kind: 'voice-capacity-authorization';
+  readonly batchId: BatchId;
+  readonly workId: WorkId;
+  readonly expectedManifestSha: Sha256;
+  readonly preTreeDigest: Sha256;
+  readonly reviewSha256: Sha256;
+  readonly configSha256: Sha256;
+  readonly plan: VoiceDiffPlan;
+  readonly authorization: VoiceCapacityAuthorization;
+}
+
+export interface VoiceGenerationRuntimeArtifact {
+  readonly schemaVersion: '1.0.0';
+  readonly kind: 'voice-generation-runtime';
+  readonly batchId: BatchId;
+  readonly workId: WorkId;
+  readonly preVoiceManifestSha: Sha256;
+  readonly voicedManifestSha: Sha256;
+  readonly generationSha256: Sha256;
+  readonly generation: VoiceDiffGenerationResult;
+}
+
+function validateReviewArtifact(value: unknown, manifest: BatchManifest, workId: WorkId): WorkReviewResult {
+  if (!isRecord(value) || value.workId !== workId || !Array.isArray(value.approved) || value.approved.length === 0 ||
+    !Array.isArray(value.rejected) || !Array.isArray(value.pending) || value.pending.length !== 0 || !Array.isArray(value.all) ||
+    value.all.length !== value.approved.length + value.rejected.length ||
+    value.all.some((item) => !isRecord(item) || !isRecord(item.candidate) || item.candidate.workId !== workId ||
+      !isRecord(item.review) || item.review.workId !== workId)) {
+    throw prerequisite('voice', 'review result schema/tupleが不正です');
+  }
+  const work = manifest.workProgress[manifest.workIds.indexOf(workId)];
+  const reviewed = work?.stageRecords.findLast((record) => record.stage === 'reviewed');
+  const reviewSha = digestArtifact(value);
+  if (!reviewed || !reviewed.outputHashes.includes(reviewSha)) {
+    throw prerequisite('voice', 'review result hashがmanifest evidenceと一致しません');
+  }
+  return value as unknown as WorkReviewResult;
+}
+
+function validateVoiceAuthorization(
+  value: unknown,
+  manifest: BatchManifest,
+  workId: WorkId,
+  review: WorkReviewResult,
+  config: VoiceConfigV2,
+): VoiceAuthorizationArtifact {
+  if (!isRecord(value) || !exactKeys(value, [
+    'schemaVersion', 'kind', 'batchId', 'workId', 'expectedManifestSha', 'preTreeDigest',
+    'reviewSha256', 'configSha256', 'plan', 'authorization',
+  ]) || value.schemaVersion !== '1.0.0' || value.kind !== 'voice-capacity-authorization' ||
+    value.batchId !== manifest.batchId || value.workId !== workId || value.expectedManifestSha !== hashBatchManifest(manifest) ||
+    !isSha256(value.preTreeDigest) || value.reviewSha256 !== digestArtifact(review) ||
+    value.configSha256 !== digestArtifact(config) || !isRecord(value.plan) || !isRecord(value.authorization)) {
+    throw prerequisite('voice', 'capacity authorization schema/tuple/hashが不正です');
+  }
+  const artifact = value as unknown as VoiceAuthorizationArtifact;
+  if (artifact.plan.batchId !== manifest.batchId || artifact.plan.workId !== workId ||
+    artifact.plan.expectedManifestSha !== artifact.expectedManifestSha || artifact.plan.preTreeDigest !== artifact.preTreeDigest ||
+    artifact.authorization.planDigest !== artifact.plan.planDigest ||
+    !['pass', 'pass_with_warning'].includes(artifact.authorization.result)) {
+    throw prerequisite('voice', 'voice plan/capacity authorization tupleが不正です');
+  }
+  return artifact;
+}
+
+export interface ProductionBatchRuntimeOperations {
+  readonly planVoice: typeof planVoiceDiff;
+  readonly authorizeVoice: typeof authorizeVoiceDiffPlan;
+  readonly generateVoice: typeof generateVoiceDiff;
+  readonly verifyVoice: typeof verifyVoiceCompleteness;
+  readonly createVoiceClient: (workspace: string, config: VoiceConfigV2) => ProductionVoicevoxClient;
+  readonly promoteWork: typeof promoteVerifiedWorkArtifacts;
+  readonly loadBatches: typeof loadAcceptedBatches;
+  readonly buildTree: typeof buildIntegratedPublicTree;
+  readonly promoteTree: typeof promoteIntegratedTree;
+}
+
+const DEFAULT_RUNTIME_OPERATIONS: ProductionBatchRuntimeOperations = {
+  planVoice: planVoiceDiff,
+  authorizeVoice: authorizeVoiceDiffPlan,
+  generateVoice: generateVoiceDiff,
+  verifyVoice: verifyVoiceCompleteness,
+  createVoiceClient: (workspace, config) => new ProductionVoicevoxClient({
+    baseUrl: 'http://127.0.0.1:50021', config, workspaceRoot: workspace, timeoutMs: 60_000, proxy: false,
+  }),
+  promoteWork: promoteVerifiedWorkArtifacts,
+  loadBatches: loadAcceptedBatches,
+  buildTree: buildIntegratedPublicTree,
+  promoteTree: promoteIntegratedTree,
+};
+
+async function executeVoice(
+  workspace: string,
+  manifest: BatchManifest,
+  workId: WorkId,
+  operations: ProductionBatchRuntimeOperations,
+): Promise<BatchStageExecution> {
+  const index = manifest.workIds.indexOf(workId);
+  const work = manifest.workProgress[index];
+  if (!work?.forecastRef) throw prerequisite('voice', 'voiceにはcapacity authorization artifactが必要です');
+  const reviewUnknown = await readCanonicalRuntimeArtifact<unknown>(
+    workspace, `.cache/batch-review/${manifest.batchId}/${workId}/review-result.json`, 'review result', 'voice',
+  );
+  const review = validateReviewArtifact(reviewUnknown, manifest, workId);
+  const config = await readCanonicalRuntimeArtifact<VoiceConfigV2>(workspace, manifest.voiceConfigRef, 'voice config', 'voice');
+  try {
+    canonicalVoiceConfigV2(config);
+  } catch (error) {
+    throw prerequisite('voice', `voice config schemaが不正です: ${error instanceof Error ? error.message : 'invalid'}`);
+  }
+  const authorizationUnknown = await readCanonicalRuntimeArtifact<unknown>(workspace, work.forecastRef, 'voice capacity authorization', 'voice');
+  const authorization = validateVoiceAuthorization(authorizationUnknown, manifest, workId, review, config);
+  const items = review.approved.map(({ candidate }) => ({
+    candidateId: candidate.candidateId,
+    workId,
+    speechText: candidate.speechText,
+    approved: true,
+  }));
+  const reconstructed = await operations.planVoice(items, config, join(workspace, '.cache', 'voice'), {
+    batchId: manifest.batchId,
+    workId,
+    expectedManifestSha: authorization.expectedManifestSha,
+    preTreeDigest: authorization.preTreeDigest,
+  });
+  if (reconstructed.planDigest !== authorization.plan.planDigest ||
+    canonicalJson(reconstructed) !== canonicalJson(authorization.plan)) {
+    throw prerequisite('voice', 'voice planがreview/config/cacheの現在値と一致しません');
+  }
+  let authorized: VoiceDiffPlan;
+  try {
+    authorized = operations.authorizeVoice(reconstructed, authorization.authorization);
+  } catch (error) {
+    throw prerequisite('voice', `capacity authorizationがplanと一致しません: ${error instanceof Error ? error.message : 'invalid'}`);
+  }
+  const staging = join(workspace, '.cache', `.voice-stage-${randomUUID()}-${workId}`);
+  const generation = await operations.generateVoice(authorized, operations.createVoiceClient(workspace, config), staging);
+  const candidateAudio = Object.fromEntries(
+    generation.assets.flatMap((asset) => asset.candidateIds.map((candidateId) => [candidateId, asset.audioId])),
+  );
+  const completeness = await operations.verifyVoice(
+    { batchId: manifest.batchId, workId, approved: review.approved, pending: review.pending },
+    generation,
+    { assets: generation.assets, candidateAudio },
+    { allowedRoots: [generation.stagingRoot, join(workspace, '.cache', 'voice')] },
+  );
+  const voiceEvidenceRef = `content/batches/${manifest.batchId}/voice-evidence/${workId}.json` as WorkspaceRelativePath;
+  const priorOutputHashes = work.stageRecords.at(-1)?.outputHashes ?? [];
+  const inputHashes = [...new Set([
+    authorization.expectedManifestSha,
+    ...priorOutputHashes,
+    generation.planDigest as Sha256,
+    generation.authorizationDigest as Sha256,
+  ])];
+  const outputHashes = [generation.generationDigest as Sha256, completeness.completenessDigest as Sha256];
+  const evidence: StageEvidence = {
+    kind: 'stage',
+    expectedManifestSha: authorization.expectedManifestSha,
+    workId,
+    stage: 'voiced',
+    inputHashes,
+    outputHashes,
+    toolVersion: 'batch-runtime-voice/1.0.0',
+    count: generation.assets.length,
+    completedAt: new Date().toISOString(),
+    result: 'pass',
+    voiceEvidenceRef,
+  };
+  const nextManifest = transitionWorkState(manifest, workId, 'voiced', evidence);
+  const voicedManifestSha = hashBatchManifest(nextManifest);
+  const generationArtifact: VoiceGenerationRuntimeArtifact = {
+    schemaVersion: '1.0.0',
+    kind: 'voice-generation-runtime',
+    batchId: manifest.batchId,
+    workId,
+    preVoiceManifestSha: authorization.expectedManifestSha,
+    voicedManifestSha,
+    generationSha256: digestArtifact(generation),
+    generation,
+  };
+  const acceptanceRoot = join(workspace, '.cache', 'batch-accept', manifest.batchId, workId);
+  await Promise.all([
+    writeJsonArtifactAtomic(workspace, join(acceptanceRoot, 'voice-generation.json'), generationArtifact),
+    writeJsonArtifactAtomic(workspace, join(acceptanceRoot, 'voice-completeness.json'), completeness),
+    writeJsonArtifactAtomic(workspace, join(workspace, ...voiceEvidenceRef.split('/')), {
+      schemaVersion: '1.0.0',
+      batchId: manifest.batchId,
+      workId,
+      preVoiceManifestSha: authorization.expectedManifestSha,
+      voicedManifestSha,
+      planDigest: generation.planDigest,
+      authorizationDigest: generation.authorizationDigest,
+      generationDigest: generation.generationDigest,
+      completenessDigest: completeness.completenessDigest,
+    }),
+  ]);
+  return {
+    nextManifest,
+    inputHashes,
+    outputHashes,
+    count: generation.assets.length,
+  };
+}
+
+interface AcceptanceArtifacts {
+  readonly generationArtifact: VoiceGenerationRuntimeArtifact;
+  readonly generation: VoiceDiffGenerationResult;
+  readonly completeness: VoiceCompletenessReport;
+  readonly actual: ActualCapacityReport;
+  readonly preview: IntegratedBuild;
+  readonly pages: DistPreview;
+  readonly contentInvariant: F001ContentInvariantReport;
+  readonly distInvariant: F001DistInvariantReport;
+}
+
+function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: BatchManifest, workId: WorkId): void {
+  const voicedManifestSha = hashBatchManifest(manifest);
+  const { generationArtifact, generation, completeness, actual, preview, pages, contentInvariant, distInvariant } = value;
+  const voicedEvidence = manifest.workProgress[manifest.workIds.indexOf(workId)]?.stageRecords.at(-1);
+  if (!isRecord(generationArtifact) || !exactKeys(generationArtifact, [
+    'schemaVersion', 'kind', 'batchId', 'workId', 'preVoiceManifestSha', 'voicedManifestSha', 'generationSha256', 'generation',
+  ]) || generationArtifact.schemaVersion !== '1.0.0' || generationArtifact.kind !== 'voice-generation-runtime' ||
+    generationArtifact.batchId !== manifest.batchId || generationArtifact.workId !== workId ||
+    generationArtifact.voicedManifestSha !== voicedManifestSha || generationArtifact.generationSha256 !== digestArtifact(generation) ||
+    !isRecord(generation) || generation.schemaVersion !== '2' || generation.batchId !== manifest.batchId ||
+    generation.workId !== workId || generation.expectedManifestSha !== generationArtifact.preVoiceManifestSha ||
+    !isSha256(generation.generationDigest) || !voicedEvidence || voicedEvidence.stage !== 'voiced' ||
+    !voicedEvidence.inputHashes.some((value) => value === generationArtifact.preVoiceManifestSha) ||
+    !voicedEvidence.outputHashes.some((value) => value === generation.generationDigest) ||
+    !isRecord(completeness) || completeness.batchId !== manifest.batchId || completeness.workId !== workId ||
+    completeness.expectedManifestSha !== generationArtifact.preVoiceManifestSha || completeness.result !== 'pass' ||
+    !isSha256(completeness.completenessDigest) ||
+    !voicedEvidence.outputHashes.some((value) => value === completeness.completenessDigest) ||
+    !isRecord(actual) || actual.batchId !== manifest.batchId || actual.workId !== workId ||
+    !['pass', 'pass_with_warning'].includes(actual.result) || !isRecord(preview) || preview.mode !== 'work-preview' ||
+    preview.activeBatchId !== manifest.batchId || preview.activeWorkId !== workId || !isSha256(preview.buildSha256) ||
+    !isRecord(pages) || pages.batchId !== manifest.batchId || pages.workId !== workId || !isSha256(pages.distSha256) ||
+    !isRecord(contentInvariant) || contentInvariant.result !== 'pass' || !isRecord(distInvariant) || distInvariant.result !== 'pass') {
+    throw prerequisite('accept', 'accept artifact schema/tuple/PASSが不正です');
+  }
+  if (actual.contentBuildSha256 !== preview.buildSha256 || pages.contentBuildSha256 !== preview.buildSha256 ||
+    actual.distSha256 !== pages.distSha256 || contentInvariant.buildSha256 !== preview.buildSha256 ||
+    contentInvariant.stagingSha256 !== preview.buildSha256 || distInvariant.contentBuildSha256 !== preview.buildSha256 ||
+    distInvariant.distSha256 !== pages.distSha256 || actual.generationDigest !== generation.generationDigest ||
+    actual.completenessDigest !== completeness.completenessDigest || actual.planDigest !== generation.planDigest ||
+    actual.authorizationDigest !== generation.authorizationDigest) {
+    throw prerequisite('accept', 'accept artifact hash chainが一致しません');
+  }
+}
+
+async function acceptWorkFromArtifacts(
+  workspace: string,
+  manifest: BatchManifest,
+  workId: WorkId,
+  operations: ProductionBatchRuntimeOperations,
+) {
+  const root = `.cache/batch-accept/${manifest.batchId}/${workId}`;
+  const [generationArtifact, completeness, actual, preview, pages, contentInvariant, distInvariant] = await Promise.all([
+    readCanonicalRuntimeArtifact<VoiceGenerationRuntimeArtifact>(workspace, `${root}/voice-generation.json`, 'voice generation', 'accept'),
+    readCanonicalRuntimeArtifact<VoiceCompletenessReport>(workspace, `${root}/voice-completeness.json`, 'voice completeness', 'accept'),
+    readCanonicalRuntimeArtifact<ActualCapacityReport>(workspace, `content/batches/${manifest.batchId}/capacity-actual/${workId}.json`, 'actual capacity', 'accept'),
+    readCanonicalRuntimeArtifact<IntegratedBuild>(workspace, `${root}/content-preview.json`, 'content preview', 'accept'),
+    readCanonicalRuntimeArtifact<DistPreview>(workspace, `${root}/dist-preview.json`, 'dist preview', 'accept'),
+    readCanonicalRuntimeArtifact<F001ContentInvariantReport>(workspace, `${root}/f001-content-invariant.json`, 'F001 content invariant', 'accept'),
+    readCanonicalRuntimeArtifact<F001DistInvariantReport>(workspace, `${root}/f001-dist-invariant.json`, 'F001 dist invariant', 'accept'),
+  ]);
+  const generation = generationArtifact.generation;
+  const artifacts = { generationArtifact, generation, completeness, actual, preview, pages, contentInvariant, distInvariant };
+  validateAcceptanceArtifacts(artifacts, manifest, workId);
+  const evidence = await operations.promoteWork(
+    workspace, manifest.batchId, workId, generation, completeness, actual, preview, pages, contentInvariant, distInvariant,
+  );
+  const next = await loadManifest(workspace, manifest.batchId);
+  return {
+    manifest: next,
+    inputHashes: [evidence.expectedManifestSha, evidence.contentBuildSha, evidence.distSha],
+    outputHashes: [evidence.postTreeDigest, hashBatchManifest(next)],
+    count: evidence.acceptedSources.length,
+    actualCapacityResult: actual.result,
+  } as const;
+}
+
+interface ReleaseRuntimePayload {
+  readonly context: ReleasePreparationContext | ReleaseBuildContext;
+  readonly f001: F001BaselineBundle;
+  readonly batchCatalogs: Readonly<Record<string, BatchCatalogFragment>>;
+  readonly expectedCurrentPublicSha256?: Sha256;
+  readonly contentInvariant?: F001ContentInvariantReport;
+  readonly candidate?: ReleaseCandidateArtifactBinding;
+  readonly candidateArtifactPath?: WorkspaceRelativePath;
+}
+
+export interface ReleaseCandidateArtifactBinding {
+  readonly releaseCandidateBatchId: BatchId;
+  readonly feature: string;
+  readonly releaseCommit: string;
+  readonly contentBuildSha256: Sha256;
+  readonly distSha256: Sha256;
+  readonly artifactDigest: Sha256;
+  readonly evidenceSha256: Sha256;
+}
+
+export interface ReleaseRuntimeArtifact extends ReleaseRuntimePayload {
+  readonly schemaVersion: '1.0.0';
+  readonly kind: 'prepare-release-inputs' | 'release-verify-inputs';
+  readonly batchId: BatchId;
+  readonly expectedManifestSha: Sha256;
+  readonly payloadSha256: Sha256;
+}
+
+function validateContext(
+  value: unknown,
+  mode: 'prepare-release' | 'release-verify',
+  manifest: BatchManifest,
+  commit: string,
+): ReleasePreparationContext | ReleaseBuildContext {
+  if (!isRecord(value)) throw prerequisite(mode, 'release contextがobjectではありません');
+  const preparation = mode === 'prepare-release';
+  const keys = preparation
+    ? ['releaseCandidateBatchId', 'feature', 'sourceCommit']
+    : ['releaseCandidateBatchId', 'feature', 'releaseCommit', 'distSha256', 'artifactDigest'];
+  if (!exactKeys(value, keys) || value.releaseCandidateBatchId !== manifest.batchId || value.feature !== manifest.feature ||
+    value[preparation ? 'sourceCommit' : 'releaseCommit'] !== commit ||
+    (!preparation && (!isSha256(value.distSha256) || !isSha256(value.artifactDigest)))) {
+    throw prerequisite(mode, 'release context schema/candidate tupleがCLI/manifestと一致しません');
+  }
+  return value as unknown as ReleasePreparationContext | ReleaseBuildContext;
+}
+
+async function hashRuntimeCandidateArtifact(
+  workspace: string,
+  path: WorkspaceRelativePath,
+): Promise<Sha256> {
+  const root = resolve(workspace);
+  const target = join(root, ...path.split('/'));
+  const relation = relative(root, target);
+  if (!relation || relation === '..' || relation.startsWith(`..${sep}`) || isAbsolute(relation)) {
+    throw prerequisite('release-verify', 'candidate artifactがworkspace外です');
+  }
+  let cursor = root;
+  for (const part of relation.split(sep)) {
+    cursor = join(cursor, part);
+    let info;
+    try {
+      info = await lstat(cursor);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw prerequisite('release-verify', 'candidate artifactがありません');
+      throw error;
+    }
+    if (info.isSymbolicLink()) throw prerequisite('release-verify', 'candidate artifact pathにlink/reparseがあります');
+  }
+  const info = await lstat(target);
+  if (!info.isFile() || info.isSymbolicLink() || info.size <= 0 || await realpath(target) !== target) {
+    throw prerequisite('release-verify', 'candidate artifact実体が不正です');
+  }
+  const digest = createHash('sha256');
+  for await (const chunk of createReadStream(target)) digest.update(chunk as Uint8Array);
+  return digest.digest('hex') as Sha256;
+}
+
+function validateReleaseCandidateBinding(
+  value: unknown,
+  context: ReleaseBuildContext,
+): ReleaseCandidateArtifactBinding {
+  if (!isRecord(value) || !exactKeys(value, [
+    'releaseCandidateBatchId', 'feature', 'releaseCommit', 'contentBuildSha256', 'distSha256', 'artifactDigest', 'evidenceSha256',
+  ])) {
+    throw prerequisite('release-verify', 'release candidate binding schemaが不正です');
+  }
+  const { evidenceSha256, ...core } = value;
+  if (value.releaseCandidateBatchId !== context.releaseCandidateBatchId || value.feature !== context.feature ||
+    value.releaseCommit !== context.releaseCommit || value.distSha256 !== context.distSha256 ||
+    value.artifactDigest !== context.artifactDigest || !isSha256(value.contentBuildSha256) ||
+    !isSha256(evidenceSha256) || evidenceSha256 !== digestArtifact(core)) {
+    throw prerequisite('release-verify', 'release candidate bindingのtuple/hashがcontextと一致しません');
+  }
+  return value as unknown as ReleaseCandidateArtifactBinding;
+}
+
+async function loadReleaseRuntimeArtifact(
+  workspace: string,
+  manifest: BatchManifest,
+  commit: string,
+  mode: 'prepare-release' | 'release-verify',
+): Promise<ReleaseRuntimeArtifact> {
+  const path = `.cache/batch-release/${manifest.batchId}/${mode}-inputs.json`;
+  const unknown = await readCanonicalRuntimeArtifact<unknown>(workspace, path, `${mode} inputs`, mode);
+  const preparation = mode === 'prepare-release';
+  const expectedKeys = [
+    'schemaVersion', 'kind', 'batchId', 'expectedManifestSha', 'payloadSha256', 'context', 'f001', 'batchCatalogs',
+    ...(preparation ? ['expectedCurrentPublicSha256', 'contentInvariant'] : ['candidate', 'candidateArtifactPath']),
+  ];
+  if (!isRecord(unknown) || !exactKeys(unknown, expectedKeys) || unknown.schemaVersion !== '1.0.0' ||
+    unknown.kind !== `${mode}-inputs` || unknown.batchId !== manifest.batchId ||
+    unknown.expectedManifestSha !== hashBatchManifest(manifest) || !isSha256(unknown.payloadSha256) ||
+    !isRecord(unknown.f001) || !isRecord(unknown.batchCatalogs)) {
+    throw prerequisite(mode, `${mode} inputs schema/manifest tupleが不正です`);
+  }
+  const context = validateContext(unknown.context, mode, manifest, commit);
+  const payload: ReleaseRuntimePayload = {
+    context,
+    f001: unknown.f001 as unknown as F001BaselineBundle,
+    batchCatalogs: unknown.batchCatalogs as Readonly<Record<string, BatchCatalogFragment>>,
+    ...(preparation ? {
+      expectedCurrentPublicSha256: unknown.expectedCurrentPublicSha256 as Sha256,
+      contentInvariant: unknown.contentInvariant as F001ContentInvariantReport,
+    } : {
+      candidate: validateReleaseCandidateBinding(unknown.candidate, context as ReleaseBuildContext),
+      candidateArtifactPath: unknown.candidateArtifactPath as WorkspaceRelativePath,
+    }),
+  };
+  if (unknown.payloadSha256 !== digestArtifact(payload) || !isSha256(payload.f001.baselineSha256) ||
+    !isAbsolute(payload.f001.sourceRoot) || !Array.isArray(payload.f001.files) || !isRecord(payload.f001.catalog) ||
+    !isRecord(payload.f001.syntheticBatch) || payload.f001.syntheticBatch.batchId !== 'F001' ||
+    (preparation && (!isSha256(payload.expectedCurrentPublicSha256) || !isRecord(payload.contentInvariant) ||
+      payload.contentInvariant.result !== 'pass')) || (!preparation &&
+      (typeof payload.candidateArtifactPath !== 'string' || !isRecord(payload.candidate)))) {
+    throw prerequisite(mode, `${mode} baseline/fragment/context hash chainが不正です`);
+  }
+  if (!preparation) {
+    const candidatePath = payload.candidateArtifactPath as string;
+    if (candidatePath.startsWith('/') || candidatePath.includes('\\') || candidatePath.includes(':') ||
+      candidatePath.split('/').some((part) => part === '' || part === '.' || part === '..')) {
+      throw prerequisite('release-verify', 'candidate artifact pathが安全なworkspace相対pathではありません');
+    }
+    const actualArtifactDigest = await hashRuntimeCandidateArtifact(workspace, payload.candidateArtifactPath as WorkspaceRelativePath);
+    if (actualArtifactDigest !== (context as ReleaseBuildContext).artifactDigest) {
+      throw prerequisite('release-verify', 'candidate artifact実体digestがrelease contextと一致しません');
+    }
+  }
+  return unknown as unknown as ReleaseRuntimeArtifact;
+}
+
+async function executeReleaseBuild(
+  workspace: string,
+  manifest: BatchManifest,
+  commit: string,
+  mode: 'prepare-release' | 'release-verify',
+  operations: ProductionBatchRuntimeOperations,
+) {
+  const artifact = await loadReleaseRuntimeArtifact(workspace, manifest, commit, mode);
+  const preparation = mode === 'prepare-release' ? artifact.context as ReleasePreparationContext : undefined;
+  const release = mode === 'release-verify' ? artifact.context as ReleaseBuildContext : undefined;
+  const batches = await operations.loadBatches(workspace, preparation ? { preparation } : { release });
+  const expectedBatchIds = batches.map((batch) => batch.manifest.batchId).sort((left, right) => left.localeCompare(right, 'en'));
+  const fragmentIds = Object.keys(artifact.batchCatalogs).sort((left, right) => left.localeCompare(right, 'en'));
+  if (canonicalJson(expectedBatchIds) !== canonicalJson(fragmentIds)) {
+    throw prerequisite(mode, 'batch fragments集合がloadAcceptedBatches結果と一致しません');
+  }
+  const staging = join(workspace, '.cache', `.public-stage-${randomUUID()}`);
+  await mkdir(staging, { recursive: false });
+  let promoted = false;
+  try {
+    const build = await operations.buildTree(batches, artifact.f001, staging, {
+      mode,
+      workspaceRoot: workspace,
+      batchCatalogs: artifact.batchCatalogs,
+      ...(release ? { trackedPublicRoot: join(workspace, 'public') } : {}),
+    }, undefined, preparation, release);
+    if (release && artifact.candidate?.contentBuildSha256 !== build.buildSha256) {
+      throw prerequisite('release-verify', '再生成content build SHAがcandidate bindingと一致しません');
+    }
+    if (preparation) {
+      const invariant = artifact.contentInvariant as F001ContentInvariantReport;
+      if (invariant.result !== 'pass' || invariant.buildSha256 !== build.buildSha256 || invariant.stagingSha256 !== build.buildSha256) {
+        throw prerequisite(mode, 'F001 content invariantがprepare buildと一致しません');
+      }
+      await operations.promoteTree(
+        workspace,
+        staging,
+        build.buildSha256,
+        artifact.expectedCurrentPublicSha256 as Sha256,
+        invariant,
+        preparation,
+      );
+      promoted = true;
+    }
+    return {
+      inputHashes: [artifact.expectedManifestSha, artifact.payloadSha256, artifact.f001.baselineSha256],
+      outputHashes: [build.buildSha256],
+      count: build.files.length,
+    } as const;
+  } finally {
+    if (!promoted) await rm(staging, { recursive: true, force: true });
+  }
+}
+
 /** @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 production CLI dependency */
-export function createProductionBatchDependencies(): BatchDependencies {
+export function createProductionBatchDependencies(
+  overrides: Partial<ProductionBatchRuntimeOperations> = {},
+): BatchDependencies {
   const transport = new ProductionAozoraTransport();
   const sourceDependencies = createSourceDependencies(transport);
-  const unavailable = async (): Promise<never> => {
-    throw new BatchCommandError('BATCH_DEPENDENCY_FAILED', 8, 'このstageのproduction実装は後続タスクで接続されます');
-  };
+  const operations: ProductionBatchRuntimeOperations = { ...DEFAULT_RUNTIME_OPERATIONS, ...overrides };
   return {
     loadManifest: (workspace, batchId) => loadManifest(workspace, batchId),
     async executeStage(request) {
@@ -351,6 +939,9 @@ export function createProductionBatchDependencies(): BatchDependencies {
         };
       }
       if (request.stage === 'review' && request.workId) return executeReview(request.workspace, request.manifest, request.workId);
+      if (request.stage === 'voice' && request.workId) {
+        return executeVoice(request.workspace, request.manifest, request.workId, operations);
+      }
       throw new BatchCommandError(
         'BATCH_DEPENDENCY_FAILED',
         request.stage === 'rights' ? 2 : 3,
@@ -360,9 +951,11 @@ export function createProductionBatchDependencies(): BatchDependencies {
     },
     persistManifest: ({ workspace, manifestPath, next, expectedSha256 }) =>
       writeBatchManifestAtomic(workspace, manifestPath, next, expectedSha256),
-    acceptWork: unavailable,
-    prepareRelease: unavailable,
-    verifyRelease: unavailable,
+    acceptWork: ({ workspace, manifest, workId }) => acceptWorkFromArtifacts(workspace, manifest, workId, operations),
+    prepareRelease: ({ workspace, manifest, commit }) =>
+      executeReleaseBuild(workspace, manifest, commit, 'prepare-release', operations),
+    verifyRelease: ({ workspace, manifest, commit }) =>
+      executeReleaseBuild(workspace, manifest, commit, 'release-verify', operations),
     async verifyCommit({ workspace, commit }) {
       const [{ stdout: head }, { stdout: status }] = await Promise.all([
         execFile('git', ['rev-parse', 'HEAD'], { cwd: workspace, encoding: 'utf8' }),

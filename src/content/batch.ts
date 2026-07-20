@@ -1,6 +1,8 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { lstat, mkdir, open, readFile, realpath, rename, rm } from 'node:fs/promises';
+import { execFile as execFileCallback } from 'node:child_process';
+import { lstat, mkdir, open, readFile, readdir, realpath, rename, rm } from 'node:fs/promises';
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { promisify } from 'node:util';
 import {
   ArtifactWriteError,
   canonicalJson,
@@ -192,6 +194,47 @@ export interface BatchManifestWriteOptions {
   readonly afterPhase?: (phase: BatchManifestJournalPhase) => void | Promise<void>;
 }
 
+export interface ReleasePreparationContext {
+  readonly releaseCandidateBatchId: BatchId;
+  readonly feature: string;
+  readonly sourceCommit: string;
+}
+
+export interface ReleaseBuildContext {
+  readonly releaseCandidateBatchId: BatchId;
+  readonly feature: string;
+  readonly releaseCommit: string;
+  readonly distSha256: Sha256;
+  readonly artifactDigest: Sha256;
+}
+
+export interface PublishableBatch {
+  readonly manifest: BatchManifest;
+  readonly manifestPath: WorkspaceRelativePath;
+  readonly manifestSha256: Sha256;
+  readonly acceptedAudioSources: readonly AcceptedAudioSource[];
+  readonly candidate: boolean;
+}
+
+export interface LoadAcceptedBatchOptions {
+  readonly excludeActiveBatchId?: BatchId;
+  readonly preparation?: ReleasePreparationContext;
+  readonly release?: ReleaseBuildContext;
+}
+
+export type BatchDiscoveryCode =
+  | 'BATCH_DISCOVERY_PATH_UNSAFE'
+  | 'BATCH_MANIFEST_NONCANONICAL'
+  | 'BATCH_HASH_CHAIN_INVALID'
+  | 'BATCH_RELEASE_CANDIDATE_MISSING'
+  | 'BATCH_RELEASE_CANDIDATE_DUPLICATE'
+  | 'BATCH_RELEASE_CANDIDATE_MISMATCH'
+  | 'BATCH_RELEASE_CHECKOUT_DIRTY'
+  | 'BATCH_ACCEPTED_AUDIO_MISSING'
+  | 'BATCH_ACCEPTED_AUDIO_HASH_MISMATCH'
+  | 'BATCH_AUTHOR_CONFLICT'
+  | 'BATCH_ARTIFACT_MISSING';
+
 export interface ValidationIssue {
   readonly code: BatchValidationCode;
   readonly message: string;
@@ -204,7 +247,7 @@ export type ValidationResult<T> =
 
 export class BatchOperationError extends Error {
   constructor(
-    public readonly code: BatchValidationCode | BatchTransitionCode | WorkTransitionCode | BatchWriteCode | NextBatchCode,
+    public readonly code: BatchValidationCode | BatchTransitionCode | WorkTransitionCode | BatchWriteCode | NextBatchCode | BatchDiscoveryCode,
     message: string,
   ) {
     super(message);
@@ -226,6 +269,7 @@ const BATCH_STATUSES: readonly BatchStatus[] = [
 const WORK_STATUSES: readonly WorkStatus[] = ['pending', 'extracted', 'reviewed', 'budget-approved', 'voiced', 'accepted'];
 const F002_WORK_IDS = ['000473', '043752', '043754'] as const;
 const validatedManifests = new WeakSet<object>();
+const execFile = promisify(execFileCallback);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -306,10 +350,14 @@ function validateStageChain(records: readonly StageRecord[]): boolean {
   return true;
 }
 
-function validateAcceptedSource(value: unknown, batchId: string, workId: string): value is AcceptedAudioSource {
+function validateAcceptedSource(value: unknown, batchId: string): value is AcceptedAudioSource {
   if (!isRecord(value) || !isSafePath(value.path) || !isSha(value.sha256) || !isSha(value.configHash) ||
     !Number.isSafeInteger(value.bytes) || (value.bytes as number) <= 0) return false;
-  return value.path.startsWith(`content/batches/${batchId}/accepted-audio/${workId}/`) && value.path.endsWith('.wav');
+  const prefix = `content/batches/${batchId}/accepted-audio/`;
+  const rest = value.path.slice(prefix.length);
+  const [ownerWorkId, fileName, ...extra] = rest.split('/');
+  return value.path.startsWith(prefix) && /^\d{6}$/u.test(ownerWorkId ?? '') && extra.length === 0 &&
+    /^[A-Za-z0-9_-]+\.wav$/u.test(fileName ?? '');
 }
 
 function validateWorkProgress(value: unknown, batchId: string, expectedWorkId: string): value is WorkProgress {
@@ -320,7 +368,7 @@ function validateWorkProgress(value: unknown, batchId: string, expectedWorkId: s
     if (value[optionalPath] !== undefined && !isSafePath(value[optionalPath])) return false;
   }
   if (value.acceptedAudioSources !== undefined && (!Array.isArray(value.acceptedAudioSources) ||
-    !value.acceptedAudioSources.every((source) => validateAcceptedSource(source, batchId, expectedWorkId)))) return false;
+    !value.acceptedAudioSources.every((source) => validateAcceptedSource(source, batchId)))) return false;
   const accepted = value.status === 'accepted';
   if (accepted !== (isInstant(value.acceptedAt) && isText(value.acceptedBy) &&
     Array.isArray(value.acceptedAudioSources) && value.acceptedAudioSources.length > 0)) return false;
@@ -530,7 +578,7 @@ function validatePreparedEvidence(evidence: PreparedWorkAcceptanceEvidence, mani
   if (evidence.kind !== 'accepted' || evidence.batchId !== manifest.batchId || evidence.workId !== workId ||
     !hashes.every(isSha) || !isText(evidence.journalId) || !isInstant(evidence.acceptedAt) || !isText(evidence.acceptedBy) ||
     !Array.isArray(evidence.acceptedSources) || evidence.acceptedSources.length === 0 ||
-    !evidence.acceptedSources.every((source) => validateAcceptedSource(source, manifest.batchId, workId)) ||
+    !evidence.acceptedSources.every((source) => validateAcceptedSource(source, manifest.batchId)) ||
     new Set(evidence.acceptedSources.map((source) => source.path)).size !== evidence.acceptedSources.length) {
     throw new BatchOperationError('WORK_GATE_INCOMPLETE', 'prepared acceptance evidenceが不完全です');
   }
@@ -872,4 +920,152 @@ export async function writeBatchManifestAtomic(
     await rm(temporary, { force: true });
   }
   return nextSha;
+}
+
+function discoveryError(code: BatchDiscoveryCode, message: string): never {
+  throw new BatchOperationError(code, message);
+}
+
+async function verifyGitCheckout(workspace: string, commit: string): Promise<void> {
+  if (!/^[0-9a-f]{40}$/.test(commit)) discoveryError('BATCH_RELEASE_CANDIDATE_MISMATCH', 'candidate commitが40桁SHAではありません');
+  try {
+    const [{ stdout: head }, { stdout: status }] = await Promise.all([
+      execFile('git', ['rev-parse', 'HEAD'], { cwd: workspace, encoding: 'utf8' }),
+      execFile('git', ['status', '--porcelain=v1', '--untracked-files=all'], { cwd: workspace, encoding: 'utf8' }),
+    ]);
+    if (head.trim() !== commit || status.trim() !== '') {
+      discoveryError('BATCH_RELEASE_CHECKOUT_DIRTY', 'workspaceがexact clean candidate commitではありません');
+    }
+  } catch (error) {
+    if (error instanceof BatchOperationError) throw error;
+    discoveryError('BATCH_RELEASE_CHECKOUT_DIRTY', error instanceof Error ? error.message : 'Git checkoutを検証できません');
+  }
+}
+
+async function verifyTracked(workspace: string, paths: readonly string[]): Promise<void> {
+  for (const path of paths) {
+    try {
+      await execFile('git', ['ls-files', '--error-unmatch', '--', path], { cwd: workspace, encoding: 'utf8' });
+    } catch {
+      discoveryError('BATCH_ARTIFACT_MISSING', `candidate commitに追跡されていないartifactがあります: ${path}`);
+    }
+  }
+}
+
+async function verifyAcceptedSource(workspace: string, source: AcceptedAudioSource): Promise<void> {
+  const target = join(workspace, ...source.path.split('/'));
+  try {
+    await assertManifestBoundary(workspace, target);
+    const info = await lstat(target);
+    if (!info.isFile() || info.isSymbolicLink() || info.size !== source.bytes) {
+      discoveryError('BATCH_ACCEPTED_AUDIO_MISSING', `accepted audio実体がありません: ${source.path}`);
+    }
+    if (await fileSha(target) !== source.sha256) {
+      discoveryError('BATCH_ACCEPTED_AUDIO_HASH_MISMATCH', `accepted audio SHAが一致しません: ${source.path}`);
+    }
+  } catch (error) {
+    if (error instanceof BatchOperationError) throw error;
+    discoveryError('BATCH_ACCEPTED_AUDIO_MISSING', `accepted audioを検証できません: ${source.path}`);
+  }
+}
+
+/** @des DES-F002-001 DES-F002-002 DES-F002-006 DES-F002-014 DES-F002-015 @fun FUN-F002-034 */
+export async function loadAcceptedBatches(
+  workspace: string,
+  options: LoadAcceptedBatchOptions = {},
+): Promise<readonly PublishableBatch[]> {
+  if (options.preparation && options.release) {
+    discoveryError('BATCH_RELEASE_CANDIDATE_MISMATCH', 'preparationとreleaseは同時指定できません');
+  }
+  const root = resolve(workspace);
+  await assertManifestBoundary(root, join(root, 'content'));
+  const context = options.preparation ?? options.release;
+  const expectedCommit = options.preparation?.sourceCommit ?? options.release?.releaseCommit;
+  if (context && expectedCommit) await verifyGitCheckout(root, expectedCommit);
+  const batchesRoot = join(root, 'content', 'batches');
+  let names: string[];
+  try {
+    const rootInfo = await lstat(batchesRoot);
+    if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()) discoveryError('BATCH_DISCOVERY_PATH_UNSAFE', 'content/batches実体が不正です');
+    names = await readdir(batchesRoot);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return [];
+    if (error instanceof BatchOperationError) throw error;
+    discoveryError('BATCH_DISCOVERY_PATH_UNSAFE', 'content/batchesを列挙できません');
+  }
+  const discovered: PublishableBatch[] = [];
+  const candidateMatches: PublishableBatch[] = [];
+  const authorIdentities = new Map<string, string>();
+  for (const name of names.sort((left, right) => left.localeCompare(right, 'en'))) {
+    if (!BATCH_ID.test(name) || name < 'F002') discoveryError('BATCH_DISCOVERY_PATH_UNSAFE', `未知batch directoryがあります: ${name}`);
+    const directory = join(batchesRoot, name);
+    const manifestFile = join(directory, 'batch.json');
+    const directoryInfo = await lstat(directory);
+    const manifestInfo = await lstat(manifestFile);
+    if (!directoryInfo.isDirectory() || directoryInfo.isSymbolicLink() || !manifestInfo.isFile() || manifestInfo.isSymbolicLink()) {
+      discoveryError('BATCH_DISCOVERY_PATH_UNSAFE', `batch path実体が不正です: ${name}`);
+    }
+    await assertManifestBoundary(root, manifestFile);
+    const bytes = await readFile(manifestFile, 'utf8');
+    let unknown: unknown;
+    try {
+      unknown = JSON.parse(bytes) as unknown;
+    } catch {
+      discoveryError('BATCH_MANIFEST_NONCANONICAL', `${name} manifest JSONが不正です`);
+    }
+    const validated = validateBatchManifest(unknown);
+    if (!validated.ok || validated.value.batchId !== name) {
+      discoveryError('BATCH_HASH_CHAIN_INVALID', `${name} manifest schema/hash chainが不正です`);
+    }
+    const manifest = validated.value;
+    if (bytes !== canonicalJson(manifest)) discoveryError('BATCH_MANIFEST_NONCANONICAL', `${name} manifestがcanonical JSONではありません`);
+    if (options.excludeActiveBatchId === manifest.batchId) continue;
+    const isCandidate = context?.releaseCandidateBatchId === manifest.batchId;
+    if (isCandidate && manifest.status !== 'accepted') {
+      discoveryError('BATCH_RELEASE_CANDIDATE_MISMATCH', 'release candidateはaccepted未publishedである必要があります');
+    }
+    const eligible = manifest.status === 'published' || (isCandidate && manifest.status === 'accepted');
+    if (!eligible) continue;
+    if (isCandidate && context?.feature !== manifest.feature) {
+      discoveryError('BATCH_RELEASE_CANDIDATE_MISMATCH', 'candidate batch/feature tupleが一致しません');
+    }
+    if (manifest.rightsSnapshotIds.length === 0 || manifest.workProgress.some((work) =>
+      work.status !== 'accepted' || !work.forecastRef || !work.actualCapacityRef || !work.voiceEvidenceRef)) {
+      discoveryError('BATCH_ARTIFACT_MISSING', `${name}の権利・容量・音声証跡が不足しています`);
+    }
+    const priorIdentity = authorIdentities.get(manifest.author.authorId);
+    if (priorIdentity && priorIdentity !== manifest.author.identitySha256) {
+      discoveryError('BATCH_AUTHOR_CONFLICT', `author identityがbatch間で競合しています: ${manifest.author.authorId}`);
+    }
+    authorIdentities.set(manifest.author.authorId, manifest.author.identitySha256);
+    const byPath = new Map<string, AcceptedAudioSource>();
+    for (const work of manifest.workProgress) {
+      for (const source of work.acceptedAudioSources ?? []) {
+        const existing = byPath.get(source.path);
+        if (existing && canonicalJson(existing) !== canonicalJson(source)) {
+          discoveryError('BATCH_ACCEPTED_AUDIO_HASH_MISMATCH', `共有accepted audio定義が競合しています: ${source.path}`);
+        }
+        byPath.set(source.path, source);
+      }
+    }
+    const sources = [...byPath.values()].sort((left, right) => left.path.localeCompare(right.path, 'en'));
+    if (sources.length === 0) discoveryError('BATCH_ACCEPTED_AUDIO_MISSING', `${name} accepted audioが0件です`);
+    await Promise.all(sources.map((source) => verifyAcceptedSource(root, source)));
+    const item: PublishableBatch = Object.freeze({
+      manifest,
+      manifestPath: `content/batches/${name}/batch.json` as WorkspaceRelativePath,
+      manifestSha256: sha256(bytes),
+      acceptedAudioSources: Object.freeze(sources),
+      candidate: isCandidate,
+    });
+    discovered.push(item);
+    if (isCandidate) candidateMatches.push(item);
+  }
+  if (context) {
+    if (candidateMatches.length === 0) discoveryError('BATCH_RELEASE_CANDIDATE_MISSING', 'accepted release candidateがありません');
+    if (candidateMatches.length !== 1) discoveryError('BATCH_RELEASE_CANDIDATE_DUPLICATE', 'release candidateが複数あります');
+    const tracked = discovered.flatMap((item) => [item.manifestPath, ...item.acceptedAudioSources.map((source) => source.path)]);
+    await verifyTracked(root, tracked);
+  }
+  return Object.freeze(discovered.sort((left, right) => left.manifest.batchId.localeCompare(right.manifest.batchId, 'en')));
 }

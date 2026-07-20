@@ -2,8 +2,11 @@ import type {
   AudioAsset,
   Catalog,
   CatalogAuthor,
+  CatalogAuthorV2,
   CatalogDialogue,
+  CatalogV2,
   CatalogWork,
+  CatalogWorkV2,
 } from '../content/processing';
 
 export type { AudioAsset, CatalogDialogue, CatalogWork };
@@ -29,6 +32,14 @@ export type DisplayAuthor = CatalogAuthor;
 export type UICatalog = Omit<Catalog, 'author' | 'works'> & {
   readonly author: DisplayAuthor;
   readonly works: DisplayWork[];
+};
+
+export type DisplayAuthorV2 = CatalogAuthorV2;
+export type DisplayWorkV2 = CatalogWorkV2;
+
+export type UICatalogV2 = Omit<CatalogV2, 'authors' | 'works'> & {
+  readonly authors: DisplayAuthorV2[];
+  readonly works: DisplayWorkV2[];
 };
 
 export type DialogueCard = HTMLElement;

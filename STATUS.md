@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F002
-updated: 2026-07-20T13:04:00+09:00
+updated: 2026-07-20T14:20:54+09:00
 next_actions:
-  - "T-020でsrc/contentのcatalog・manifest・音声cache・公開asset統合を複数作者化する [REQ-F002-001/002/011/012/013/017/019]"
+  - "T-021で作者一覧・route・再生UI・クレジットを複数作者化する [REQ-F002-003/004/005/014/015/017/020]"
   - "T-022でF001不変照合・容量・repository・Pages・security preflightを実装する [REQ-F002-001/012/013/015/017/018/019/020]"
   - "T-023で宮沢賢治画像・規約snapshot・権利証跡を整備する [REQ-F002-004/007/015/016]"
 blocked_by: []
@@ -15,26 +15,26 @@ blocked_by: []
 
 - F001はv0.1.0として公開・クローズ済み。
 - F002のSRS・FD・DD・UT・IT・QTはすべてApproved、traceability対応漏れ0件。
-- F002はimplementフェーズ。T-019のbatch・source・review基盤を実装し、独立受け入れPASSで完了した。
-- `content:batch`実CLI、作品単位atomic昇格、実process停止回復、第三者改変隔離、review完全性検査を利用できる。
+- F002はimplementフェーズ。T-019とT-020を独立受け入れPASSで完了した。
+- 複数作者batch、CatalogV2、音声差分・完全性、accepted/public atomic統合、production `content:batch`を利用できる。
 
 ## 直近の作業（最新5件）
 
-- `src/content/batch.ts`へmanifest schema、状態遷移、journal付きatomic保存を実装
-- `src/content/batch-production.ts`へ書誌・原典・抽出・正規化の作品単位atomic処理を実装
-- `src/content/processing.ts`へwork隔離・policy判断付き全件review gateを実装
-- `scripts/content-cli.ts`と`src/content/batch-runtime.ts`へ`content:batch` production adapterを接続
-- 型・lint・424 tests・build・npm audit・secret scanをPASSし、`docs/evidence/implement/IMPLEMENT-T-019.md`へ証跡化
+- T-020を独立受け入れPASSで完了（全482テスト、型、lint、build、npm audit 0件）
+- voice artifactをpre-voice/voiced manifestとstage recordへ結合し、正規voice→accept連結試験を追加
+- release-verifyをcandidate tuple、実artifact SHA、再生成build SHA、tracked public byte一致へ結合
+- 共有音声、累積preview、実SIGKILL/stale lock、orphan・未知owner隔離を実装
+- CatalogV2と複数batch公開tree、F001互換・不変照合基盤を実装
 
 ## 次のアクション
 
-- `src/content/`のcatalog、accepted manifest、音声cache、公開asset treeをT-020で複数作者対応する（REQ-F002-001/002/011/012/013/017/019）。
-- T-020と並行可能な`src/content/`の容量・repository・Pages・security検査をT-022で実装する（REQ-F002-018等）。
-- `content/batches/F002/`の宮沢賢治画像provenanceと4系統の規約snapshotをT-023で整備する（REQ-F002-015/016）。
+- T-021で作者一覧・route・再生UI・クレジットを複数作者対応する。
+- T-022で容量・repository・Pages・security preflightを実装する。
+- T-023で宮沢賢治の画像provenance、規約snapshot、作品権利証跡を整備する。
 
 ## 未解決事項
 
-- T-020〜T-027の実装タスクが未完了。
-- capacity・voice・accept・buildのproduction adapterは後続タスク完了までfail-closedで停止する。
+- T-021〜T-027の実装タスクが未完了。
+- 実コンテンツ音声生成はT-024、最終受け入れ・公開判定はT-027以降で実施する。
 - VOICEVOX ENGINEは作品音声生成T-024前にloopback限定で起動・版照合する。
 - iOS Safari物理端末とスクリーンリーダー詳細証跡はF002リリース条件として継続する。

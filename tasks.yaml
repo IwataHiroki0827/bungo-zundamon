@@ -421,7 +421,7 @@ tasks:
   title: catalog・manifest・音声cache/pathを複数作者・差分統合対応
   feature: F002
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-019
   tags:

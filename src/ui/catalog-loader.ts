@@ -1,5 +1,5 @@
-import type { AudioAsset, CatalogDialogue, DisplayWork, UICatalog } from './types';
-import { hasAnyControlCharacter, hasUnsafeTextControl } from './text-safety';
+import type { AudioAsset, CatalogDialogue, DisplayWork, UICatalog, UICatalogV2 } from './types';
+import { hasAnyControlCharacter, hasUnsafeTextControl } from './text-safety.ts';
 
 export const MAX_CATALOG_BYTES = 8_388_608;
 export const MAX_JSON_DEPTH = 64;
@@ -280,8 +280,310 @@ function validateReasonCounts(value: unknown, expected: number, code: string): v
   if (total !== expected) throw new CatalogLoadError(code);
 }
 
+export type CatalogV2ErrorCode =
+  | 'CATALOG_RESOURCE_LIMIT'
+  | 'CATALOG_DUPLICATE_ID'
+  | 'CATALOG_ORPHAN_REFERENCE'
+  | 'CATALOG_AUTHOR_MIXED'
+  | 'CATALOG_PATH_UNSAFE'
+  | 'CATALOG_COUNT_MISMATCH';
+
+export type CatalogV2ValidationResult =
+  | { readonly ok: true; readonly success: true; readonly value: UICatalogV2; readonly issues: readonly [] }
+  | { readonly ok: false; readonly success: false; readonly error: Readonly<{ code: CatalogV2ErrorCode }>; readonly issues: readonly [{ code: CatalogV2ErrorCode }] };
+
+function failV2(code: CatalogV2ErrorCode): never {
+  throw new CatalogLoadError(code);
+}
+
+function v2Record(value: unknown): asserts value is Record<string, unknown> {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) failV2('CATALOG_ORPHAN_REFERENCE');
+}
+
+function v2String(value: unknown): string {
+  if (typeof value !== 'string' || value.trim() === '' || Array.from(value).length > MAX_STRING_SCALARS || hasUnsafeTextControl(value)) {
+    failV2('CATALOG_ORPHAN_REFERENCE');
+  }
+  return value;
+}
+
+function v2Id(value: unknown): string {
+  const id = v2String(value);
+  if (!SAFE_ID.test(id)) failV2('CATALOG_ORPHAN_REFERENCE');
+  return id;
+}
+
+function v2Hash(value: unknown): string {
+  const hash = v2String(value);
+  if (!SHA256.test(hash)) failV2('CATALOG_ORPHAN_REFERENCE');
+  return hash;
+}
+
+function v2Integer(value: unknown, positive = false): number {
+  if (!Number.isSafeInteger(value) || (value as number) < (positive ? 1 : 0)) failV2('CATALOG_COUNT_MISMATCH');
+  return value as number;
+}
+
+function v2Instant(value: unknown): string {
+  const instant = v2String(value);
+  if (!RFC3339.test(instant) || !Number.isFinite(Date.parse(instant))) failV2('CATALOG_ORPHAN_REFERENCE');
+  return instant;
+}
+
+function v2Path(value: unknown): string {
+  const path = v2String(value);
+  if (
+    path.startsWith('/') || path.startsWith('\\') || path.includes('\\') || path.includes('?') || path.includes('#') ||
+    /^(?:[a-z][a-z\d+.-]*:|\/\/)/iu.test(path) || /%(?:2e|2f|5c|0[0-9a-f]|1[0-9a-f]|7f)/iu.test(path) ||
+    path.split('/').some((segment) => segment === '' || segment === '.' || segment === '..')
+  ) {
+    failV2('CATALOG_PATH_UNSAFE');
+  }
+  try {
+    resolvePublicAsset(new URL('https://catalog.invalid/bungo-zundamon/'), path);
+  } catch {
+    failV2('CATALOG_PATH_UNSAFE');
+  }
+  return path;
+}
+
+function v2AozoraUrl(value: unknown, authorId: string, workId: string, kind: 'card' | 'text'): string {
+  const raw = v2String(value);
+  let url: URL;
+  try {
+    url = new URL(raw);
+  } catch {
+    return failV2('CATALOG_PATH_UNSAFE');
+  }
+  const numericWorkId = workId.replace(/^0+/u, '') || '0';
+  const cardPattern = new RegExp(`^/cards/${authorId}/card0*${numericWorkId}\\.html$`, 'u');
+  const textPattern = new RegExp(`^/cards/${authorId}/files/0*${numericWorkId}(?:_|\\.)[^/]*\\.html$`, 'u');
+  if (
+    raw !== url.href || url.protocol !== 'https:' || url.hostname !== 'www.aozora.gr.jp' || url.username || url.password ||
+    url.port || url.search || url.hash || /%2e|%2f|%5c/iu.test(url.pathname) || url.pathname.includes('\\') ||
+    (kind === 'card' ? !cardPattern.test(url.pathname) : !textPattern.test(url.pathname))
+  ) {
+    failV2('CATALOG_PATH_UNSAFE');
+  }
+  return url.href;
+}
+
+interface ParsedCounts {
+  readonly total: number;
+  readonly published: number;
+  readonly editorialExcluded: number;
+  readonly audioExcluded: number;
+}
+
+function v2Counts(value: unknown): ParsedCounts {
+  v2Record(value);
+  const result = {
+    total: v2Integer(value.total),
+    published: v2Integer(value.published),
+    editorialExcluded: v2Integer(value.editorialExcluded),
+    audioExcluded: v2Integer(value.audioExcluded),
+  };
+  if (result.total !== result.published + result.editorialExcluded + result.audioExcluded) {
+    failV2('CATALOG_COUNT_MISMATCH');
+  }
+  if (value.editorialReasons !== undefined) validateReasonCounts(value.editorialReasons, result.editorialExcluded, 'CATALOG_COUNT_MISMATCH');
+  if (value.audioFailureReasons !== undefined) validateReasonCounts(value.audioFailureReasons, result.audioExcluded, 'CATALOG_COUNT_MISMATCH');
+  return result;
+}
+
+function parseCatalogV2(value: unknown): UICatalogV2 {
+  v2Record(value);
+  if (value.schemaVersion !== '2.0.0' || !Array.isArray(value.batches) || value.batches.length === 0) {
+    failV2('CATALOG_ORPHAN_REFERENCE');
+  }
+
+  const batchIds = new Set<string>();
+  const listedWorkIds = new Set<string>();
+  const batchAuthors = new Map<string, string>();
+  const expectedWorksByBatch = new Map<string, Set<string>>();
+  for (const batch of value.batches) {
+    v2Record(batch);
+    const batchId = v2Id(batch.batchId);
+    if (!/^F[0-9]{3}$/u.test(batchId) || batchIds.has(batchId)) failV2('CATALOG_DUPLICATE_ID');
+    batchIds.add(batchId);
+    v2Id(batch.feature);
+    if (batch.status !== 'accepted' && batch.status !== 'published') failV2('CATALOG_ORPHAN_REFERENCE');
+    const authorId = v2Id(batch.authorId);
+    if (!/^[0-9]{6}$/u.test(authorId)) failV2('CATALOG_ORPHAN_REFERENCE');
+    batchAuthors.set(batchId, authorId);
+    if (!Array.isArray(batch.workIds) || batch.workIds.length === 0) failV2('CATALOG_ORPHAN_REFERENCE');
+    const workIds = new Set<string>();
+    for (const workIdValue of batch.workIds) {
+      const workId = v2Id(workIdValue);
+      if (!/^[0-9]{6}$/u.test(workId)) failV2('CATALOG_ORPHAN_REFERENCE');
+      if (workIds.has(workId) || listedWorkIds.has(workId)) failV2('CATALOG_DUPLICATE_ID');
+      workIds.add(workId);
+      listedWorkIds.add(workId);
+    }
+    expectedWorksByBatch.set(batchId, workIds);
+    v2Instant(batch.acceptedAt);
+    if (batch.status === 'published') v2Instant(batch.publishedAt);
+    else if (batch.publishedAt !== undefined) failV2('CATALOG_ORPHAN_REFERENCE');
+    v2Hash(batch.evidenceSha256);
+  }
+
+  if (!Array.isArray(value.authors) || value.authors.length === 0) failV2('CATALOG_ORPHAN_REFERENCE');
+  const authorIds = new Set<string>();
+  const authorSlugs = new Set<string>();
+  for (const author of value.authors) {
+    v2Record(author);
+    const authorId = v2Id(author.authorId);
+    if (!/^[0-9]{6}$/u.test(authorId)) failV2('CATALOG_ORPHAN_REFERENCE');
+    const slug = v2String(author.slug);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(slug)) failV2('CATALOG_ORPHAN_REFERENCE');
+    if (authorIds.has(authorId) || authorSlugs.has(slug)) failV2('CATALOG_DUPLICATE_ID');
+    authorIds.add(authorId);
+    authorSlugs.add(slug);
+    v2String(author.name);
+    v2String(author.originalName);
+    v2Hash(author.identitySha256);
+    const introducedBy = v2Id(author.introducedByBatchId);
+    if (!batchIds.has(introducedBy)) failV2('CATALOG_ORPHAN_REFERENCE');
+    if (batchAuthors.get(introducedBy) !== authorId) failV2('CATALOG_AUTHOR_MIXED');
+    v2Record(author.artwork);
+    v2Path(author.artwork.path);
+    v2String(author.artwork.alt);
+    v2Hash(author.artwork.sha256);
+  }
+  for (const authorId of batchAuthors.values()) if (!authorIds.has(authorId)) failV2('CATALOG_ORPHAN_REFERENCE');
+
+  if (!Array.isArray(value.audioAssets)) failV2('CATALOG_ORPHAN_REFERENCE');
+  const audioIds = new Set<string>();
+  for (const audio of value.audioAssets) {
+    v2Record(audio);
+    const audioId = v2Id(audio.audioId);
+    if (audioIds.has(audioId)) failV2('CATALOG_DUPLICATE_ID');
+    audioIds.add(audioId);
+    if (!batchIds.has(v2Id(audio.batchId))) failV2('CATALOG_ORPHAN_REFERENCE');
+    v2Path(audio.path);
+    v2Hash(audio.sha256);
+    v2Hash(audio.configHash);
+    v2Integer(audio.bytes, true);
+    if (typeof audio.durationMs !== 'number' || !Number.isFinite(audio.durationMs) || audio.durationMs <= 0) {
+      failV2('CATALOG_COUNT_MISMATCH');
+    }
+  }
+
+  if (!Array.isArray(value.works) || value.works.length === 0) failV2('CATALOG_ORPHAN_REFERENCE');
+  const workIds = new Set<string>();
+  const dialogueIds = new Set<string>();
+  const referencedAudio = new Set<string>();
+  const actualWorksByBatch = new Map<string, Set<string>>();
+  const workCountsByAuthor = new Map<string, number>();
+  const dialogueCountsByBatch = new Map<string, number>();
+  for (const work of value.works) {
+    v2Record(work);
+    const workId = v2Id(work.workId);
+    if (!/^[0-9]{6}$/u.test(workId)) failV2('CATALOG_ORPHAN_REFERENCE');
+    if (workIds.has(workId)) failV2('CATALOG_DUPLICATE_ID');
+    workIds.add(workId);
+    const authorId = v2Id(work.authorId);
+    const batchId = v2Id(work.batchId);
+    if (!authorIds.has(authorId) || !batchIds.has(batchId)) failV2('CATALOG_ORPHAN_REFERENCE');
+    if (batchAuthors.get(batchId) !== authorId) failV2('CATALOG_AUTHOR_MIXED');
+    if (!expectedWorksByBatch.get(batchId)?.has(workId)) failV2('CATALOG_ORPHAN_REFERENCE');
+    const actualBatchWorks = actualWorksByBatch.get(batchId) ?? new Set<string>();
+    actualBatchWorks.add(workId);
+    actualWorksByBatch.set(batchId, actualBatchWorks);
+    workCountsByAuthor.set(authorId, (workCountsByAuthor.get(authorId) ?? 0) + 1);
+    v2String(work.title);
+    const cardLink = v2AozoraUrl(work.cardLink, authorId, workId, 'card');
+    v2Record(work.source);
+    if (v2AozoraUrl(work.source.cardUrl, authorId, workId, 'card') !== cardLink) failV2('CATALOG_PATH_UNSAFE');
+    v2AozoraUrl(work.source.textUrl, authorId, workId, 'text');
+    for (const field of ['attribution', 'baseEdition', 'inputter', 'proofreader', 'transformation'] as const) v2String(work.source[field]);
+    v2Instant(work.source.fetchedAt);
+    v2Hash(work.source.sourceSha256);
+    v2Path(work.source.provenancePath);
+    v2Hash(work.source.provenanceSha256);
+    if (!Array.isArray(work.dialogues)) failV2('CATALOG_ORPHAN_REFERENCE');
+    const orders = new Set<number>();
+    for (const dialogue of work.dialogues) {
+      v2Record(dialogue);
+      const dialogueId = v2Id(dialogue.dialogueId);
+      if (dialogueIds.has(dialogueId)) failV2('CATALOG_DUPLICATE_ID');
+      dialogueIds.add(dialogueId);
+      if (v2Id(dialogue.workId) !== workId) failV2('CATALOG_AUTHOR_MIXED');
+      const order = v2Integer(dialogue.order);
+      if (orders.has(order)) failV2('CATALOG_DUPLICATE_ID');
+      orders.add(order);
+      v2String(dialogue.displayText);
+      v2String(dialogue.speechText);
+      const audioId = v2Id(dialogue.audioId);
+      if (!audioIds.has(audioId)) failV2('CATALOG_ORPHAN_REFERENCE');
+      referencedAudio.add(audioId);
+      v2Record(dialogue.sourceAnchor);
+      v2String(dialogue.sourceAnchor.bodySelector);
+      const start = v2Integer(dialogue.sourceAnchor.startToken);
+      const end = v2Integer(dialogue.sourceAnchor.endToken);
+      if (end <= start) failV2('CATALOG_ORPHAN_REFERENCE');
+      v2Record(dialogue.review);
+      if (v2Id(dialogue.review.candidateId) !== dialogueId || dialogue.review.status !== 'approved') failV2('CATALOG_ORPHAN_REFERENCE');
+      if (dialogue.review.workId !== undefined && v2Id(dialogue.review.workId) !== workId) failV2('CATALOG_AUTHOR_MIXED');
+      if (dialogue.review.policyDecision !== undefined && dialogue.review.policyDecision !== 'allowed') failV2('CATALOG_ORPHAN_REFERENCE');
+      v2Integer(dialogue.review.revision, true);
+      v2String(dialogue.review.reasonCode);
+      v2String(dialogue.review.reviewer);
+      v2Instant(dialogue.review.reviewedAt);
+      v2Instant(dialogue.review.policyCheckedAt);
+      dialogueCountsByBatch.set(batchId, (dialogueCountsByBatch.get(batchId) ?? 0) + 1);
+    }
+  }
+  for (const authorId of authorIds) if ((workCountsByAuthor.get(authorId) ?? 0) === 0) failV2('CATALOG_AUTHOR_MIXED');
+  for (const batchId of batchIds) {
+    const expected = expectedWorksByBatch.get(batchId) as Set<string>;
+    const actual = actualWorksByBatch.get(batchId) ?? new Set<string>();
+    if (expected.size !== actual.size || [...expected].some((workId) => !actual.has(workId))) failV2('CATALOG_ORPHAN_REFERENCE');
+  }
+  if (audioIds.size !== referencedAudio.size) failV2('CATALOG_ORPHAN_REFERENCE');
+
+  v2Record(value.candidateCounts);
+  const totalCounts = v2Counts(value.candidateCounts);
+  if (totalCounts.published !== dialogueIds.size) failV2('CATALOG_COUNT_MISMATCH');
+  v2Record(value.candidateCounts.byBatch);
+  const byBatchEntries = Object.entries(value.candidateCounts.byBatch);
+  if (byBatchEntries.length !== batchIds.size) failV2('CATALOG_COUNT_MISMATCH');
+  const summed = { total: 0, published: 0, editorialExcluded: 0, audioExcluded: 0 };
+  for (const [batchId, countsValue] of byBatchEntries) {
+    if (!batchIds.has(batchId)) failV2('CATALOG_COUNT_MISMATCH');
+    const counts = v2Counts(countsValue);
+    if (counts.published !== (dialogueCountsByBatch.get(batchId) ?? 0)) failV2('CATALOG_COUNT_MISMATCH');
+    for (const key of Object.keys(summed) as Array<keyof ParsedCounts>) summed[key] += counts[key];
+  }
+  if ((Object.keys(summed) as Array<keyof ParsedCounts>).some((key) => summed[key] !== totalCounts[key])) {
+    failV2('CATALOG_COUNT_MISMATCH');
+  }
+  v2Path(value.creditsRef);
+  return value as unknown as UICatalogV2;
+}
+
+/** @des DES-F002-001,DES-F002-006,DES-F002-012 @fun FUN-F002-004 */
+export function validateCatalogV2(value: unknown, sourceByteLength: number): CatalogV2ValidationResult {
+  try {
+    if (!Number.isSafeInteger(sourceByteLength) || sourceByteLength < 0 || sourceByteLength > MAX_CATALOG_BYTES) {
+      failV2('CATALOG_RESOURCE_LIMIT');
+    }
+    try {
+      validateJsonResourceLimits(value);
+    } catch {
+      failV2('CATALOG_RESOURCE_LIMIT');
+    }
+    return { ok: true, success: true, value: parseCatalogV2(value), issues: [] };
+  } catch (error) {
+    const code = error instanceof CatalogLoadError && (error.code as CatalogV2ErrorCode).startsWith('CATALOG_')
+      ? error.code as CatalogV2ErrorCode
+      : 'CATALOG_ORPHAN_REFERENCE';
+    return { ok: false, success: false, error: { code }, issues: [{ code }] };
+  }
+}
+
 /** @des DES-F001-002 DES-F001-013 @fun FUN-F001-004 */
-export function validateCatalog(value: unknown, sourceByteLength: number): UICatalog {
+function validateCatalogV1(value: unknown, sourceByteLength: number): UICatalog {
   if (!Number.isSafeInteger(sourceByteLength) || sourceByteLength < 0) {
     throw new CatalogLoadError('catalog-byte-length-invalid');
   }
@@ -341,6 +643,18 @@ export function validateCatalog(value: unknown, sourceByteLength: number): UICat
   requiredString(value.futureExpansionPolicy.rightsRecheck, 'future-rights-invalid');
   requiredString(value.futureExpansionPolicy.stagedAddition, 'future-staged-invalid');
   return { ...(value as unknown as UICatalog), works };
+}
+
+/** @des DES-F001-002,DES-F001-013,DES-F002-001,DES-F002-006,DES-F002-012 @fun FUN-F001-004,FUN-F002-004 */
+export function validateCatalog(value: unknown, sourceByteLength: number): UICatalog {
+  if (value !== null && typeof value === 'object' && !Array.isArray(value) &&
+    (value as Record<string, unknown>).schemaVersion === '2.0.0') {
+    const result = validateCatalogV2(value, sourceByteLength);
+    if (!result.ok) throw new CatalogLoadError(result.error.code);
+    // FUN-F002-020〜023の複数作者UI移行までは、既存F001 renderer向けに先頭作者の読み取り専用aliasを返す。
+    return { ...result.value, author: result.value.authors[0] } as unknown as UICatalog;
+  }
+  return validateCatalogV1(value, sourceByteLength);
 }
 
 async function readResponse(response: Response): Promise<Uint8Array> {

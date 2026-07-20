@@ -723,3 +723,22 @@ export function createCompleteProductionStageRunner(): StageRunner {
     return frontRunner(stage, context);
   };
 }
+
+export { buildIntegratedPublicTree, promoteIntegratedTree } from './batch-public.ts';
+export { promoteVerifiedWorkArtifacts } from './batch-acceptance.ts';
+export type {
+  ActiveBatchPreview,
+  BatchCatalogFragment,
+  F001BaselineBundle,
+  F001ContentInvariantReport,
+  IntegratedBuild,
+  IntegratedBuildOptions,
+} from './batch-public.ts';
+export type {
+  ActualCapacityReport,
+  DistPreview,
+  F001DistInvariantReport,
+  VoiceCompletenessReport,
+  WorkAcceptanceEvidence,
+  WorkPromotionOptions,
+} from './batch-acceptance.ts';

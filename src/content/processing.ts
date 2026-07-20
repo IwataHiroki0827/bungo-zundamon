@@ -309,6 +309,66 @@ export interface Catalog {
   futureExpansionPolicy: FutureExpansionPolicy;
 }
 
+export interface CatalogAuthorV2 extends CatalogAuthor {
+  artwork: CatalogAuthor['artwork'] & { sha256: string };
+  introducedByBatchId: string;
+  identitySha256: string;
+}
+
+export interface CatalogSourceV2 extends CatalogSource {
+  provenancePath: string;
+  provenanceSha256: string;
+}
+
+export interface CatalogDialogueV2 extends CatalogDialogue {
+  workId: string;
+}
+
+export interface CatalogWorkV2 extends Omit<CatalogWork, 'source' | 'dialogues'> {
+  authorId: string;
+  batchId: string;
+  source: CatalogSourceV2;
+  dialogues: CatalogDialogueV2[];
+}
+
+export interface CatalogAudioAssetV2 extends AudioAsset {
+  batchId: string;
+}
+
+export interface CatalogBatchV2 {
+  batchId: string;
+  feature: string;
+  status: 'accepted' | 'published';
+  authorId: string;
+  workIds: string[];
+  acceptedAt: string;
+  publishedAt?: string;
+  evidenceSha256: string;
+}
+
+export interface CatalogCandidateCountV2 {
+  total: number;
+  published: number;
+  editorialExcluded: number;
+  audioExcluded: number;
+  editorialReasons?: Record<string, number>;
+  audioFailureReasons?: Record<string, number>;
+}
+
+export interface CandidateCountsV2 extends CatalogCandidateCountV2 {
+  byBatch: Record<string, CatalogCandidateCountV2>;
+}
+
+export interface CatalogV2 {
+  schemaVersion: '2.0.0';
+  authors: CatalogAuthorV2[];
+  works: CatalogWorkV2[];
+  audioAssets: CatalogAudioAssetV2[];
+  batches: CatalogBatchV2[];
+  candidateCounts: CandidateCountsV2;
+  creditsRef: string;
+}
+
 export class ProcessingError extends Error {
   constructor(
     public readonly code: string,
