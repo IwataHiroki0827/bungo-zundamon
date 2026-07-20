@@ -1,18 +1,20 @@
 import './style.css';
 
-import { isValidatedLicenseManifest, loadReleaseNoticeBundle, renderCredits } from './notices';
+import { isValidatedLicenseManifest, loadReleaseNoticeBundle, renderCredits, renderCreditsV2 } from './notices';
 import type { ValidatedNoticeBundle } from './notices';
 import { AudioController } from './ui/audio-controller';
 import { loadCatalog, publicBaseUrl } from './ui/catalog-loader';
 import { cleanupRenderedTree, renderRoute, setSafeText } from './ui/render';
-import { parseRoute, resolveMotionPreference } from './ui/routes';
-import type { AudioFactory, MotionChoice, UICatalog } from './ui/types';
+import { parseRoute, parseRouteV2, resolveMotionPreference, resolveRoute } from './ui/routes';
+import type { AudioFactory, MotionChoice, Route, UICatalog, UICatalogV2 } from './ui/types';
+
+export type ApplicationCatalog = UICatalog | UICatalogV2;
 
 export interface ApplicationOptions {
-  readonly catalog: UICatalog;
+  readonly catalog: ApplicationCatalog;
   readonly baseUrl?: URL;
   readonly audioFactory?: AudioFactory;
-  readonly creditsRenderer?: (catalog: UICatalog) => HTMLElement;
+  readonly creditsRenderer?: (catalog: ApplicationCatalog) => HTMLElement;
   readonly mediaQuery?: Pick<MediaQueryList, 'matches'>;
 }
 
@@ -21,7 +23,7 @@ export interface ApplicationHandle {
   dispose(): void;
 }
 
-export type CatalogLoader = (baseUrl: URL, signal?: AbortSignal) => Promise<UICatalog>;
+export type CatalogLoader = (baseUrl: URL, signal?: AbortSignal) => Promise<ApplicationCatalog>;
 export type NoticeLoader = (baseUrl: URL, signal?: AbortSignal) => Promise<ValidatedNoticeBundle>;
 
 interface StartupState {
@@ -34,6 +36,42 @@ const STARTUPS = new WeakMap<HTMLElement, StartupState>();
 
 function defaultBaseUrl(): URL {
   return publicBaseUrl(location, import.meta.env.BASE_URL);
+}
+
+function isCatalogV2(catalog: ApplicationCatalog): catalog is UICatalogV2 {
+  return catalog.schemaVersion === '2.0.0' && 'authors' in catalog && Array.isArray(catalog.authors);
+}
+
+function applicationRoute(hash: string, catalog: ApplicationCatalog): Route {
+  // parseRouteV2自体は既知構文だけを受理する。ブラウザでbase URLを直接開いた
+  // 場合の空hashは、application境界でcanonicalなhome routeへ正規化する。
+  const applicationHash = hash === '' || hash === '#' ? '#/' : hash;
+  return isCatalogV2(catalog) ? resolveRoute(parseRouteV2(applicationHash), catalog) : parseRoute(hash);
+}
+
+interface RouteLifecycleController {
+  onRouteChange?: (next: Route) => unknown;
+  stop: (reason?: string) => unknown;
+}
+
+/** route通知のAudio例外をnavigationへ伝播させず、描画より先に停止を1回だけ試行する。 */
+export function notifyRouteChange(controller: RouteLifecycleController, next: Route): void {
+  try {
+    if (typeof controller.onRouteChange === 'function') controller.onRouteChange(next);
+    else controller.stop('route-change');
+  } catch {
+    // Audio停止失敗は対象controllerが内部診断し、route描画は継続する。
+  }
+}
+
+/** route変更通知を描画より先に完了させる。 */
+export function renderAfterRouteChange(
+  controller: RouteLifecycleController,
+  next: Route,
+  render: () => void,
+): void {
+  notifyRouteChange(controller, next);
+  render();
 }
 
 /** @des DES-F001-001 DES-F001-009 DES-F001-010 @fun FUN-F001-002 */
@@ -49,24 +87,31 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
   let disposed = false;
 
   root.classList.add('app-root');
-  const paint = (): void => {
+  const paint = (routeChanged: boolean): void => {
     if (disposed) return;
     const motion = resolveMotionPreference(media, sessionChoice);
-    renderRoute(root, parseRoute(location.hash), options.catalog, {
-      controller,
-      baseUrl,
-      motion,
-      motionLockedByOs: media.matches,
-      creditsRenderer: options.creditsRenderer,
-      onMotionToggle: () => {
-        sessionChoice = motion === 'reduced' ? 'full' : 'reduced';
-        paint();
-      },
-    });
+    const route = applicationRoute(location.hash, options.catalog);
+    const render = (): void => {
+      const context = {
+        controller,
+        baseUrl,
+        motion,
+        motionLockedByOs: media.matches,
+        creditsRenderer: options.creditsRenderer,
+        onMotionToggle: () => {
+          sessionChoice = motion === 'reduced' ? 'full' : 'reduced';
+          paint(false);
+        },
+      };
+      if (isCatalogV2(options.catalog)) renderRoute(root, route, options.catalog, context);
+      else renderRoute(root, route, options.catalog, context);
+    };
+    if (routeChanged) renderAfterRouteChange(controller as unknown as RouteLifecycleController, route, render);
+    else render();
   };
-  const onHashChange = (): void => paint();
+  const onHashChange = (): void => paint(true);
   window.addEventListener('hashchange', onHashChange);
-  paint();
+  paint(true);
 
   return {
     controller,
@@ -135,7 +180,11 @@ export async function startBungoZundamon(
     const mounted = mountBungoZundamon(root, {
       catalog,
       baseUrl,
-      creditsRenderer: (creditsCatalog) => renderCredits(creditsCatalog, notices.license),
+      creditsRenderer: (creditsCatalog) => (
+        isCatalogV2(creditsCatalog)
+          ? renderCreditsV2(creditsCatalog, notices)
+          : renderCredits(creditsCatalog, notices.license)
+      ),
     });
     const handle: ApplicationHandle = {
       controller: mounted.controller,

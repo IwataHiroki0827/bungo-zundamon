@@ -441,7 +441,7 @@ tasks:
   title: 作者一覧・route・再生UI・クレジットを複数作者化
   feature: F002
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-020
   tags:

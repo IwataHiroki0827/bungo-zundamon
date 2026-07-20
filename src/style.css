@@ -336,6 +336,23 @@ p {
   padding: clamp(1.2rem, 4vw, 3rem);
 }
 
+.author-list {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.author-list > li,
+.author-list .author-card {
+  min-width: 0;
+}
+
+.author-list .author-card {
+  width: 100%;
+}
+
 .author-artwork {
   position: relative;
   display: grid;
@@ -491,6 +508,13 @@ p {
 .work-intro {
   padding: 0 1.25rem 1rem;
   text-align: right;
+}
+
+.source-attribution,
+.source-contributors {
+  margin: 0.25rem 0;
+  color: #485043;
+  overflow-wrap: anywhere;
 }
 
 .source-link {

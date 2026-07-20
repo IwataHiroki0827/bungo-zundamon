@@ -1,6 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { loadCatalog, publicBaseUrl, resolvePublicAsset, validateCatalog, validateCatalogV2 } from './catalog-loader';
+import {
+  loadCatalog,
+  publicBaseUrl,
+  resolvePublicAsset,
+  resolvePublicAssetV2,
+  validateCatalog,
+  validateCatalogV2,
+} from './catalog-loader';
 import { parseRoute, resolveMotionPreference } from './routes';
 
 function rawCatalog(): Record<string, unknown> {
@@ -172,7 +179,9 @@ describe('routeとcatalog境界', () => {
   /** @des DES-F001-001 @ut UT-F001-001 */
   it('固定hashだけをrouteとして受理する', () => {
     expect(parseRoute('#/')).toEqual({ kind: 'home' });
-    expect(parseRoute('#/authors/akutagawa-zunnosuke')).toEqual({ kind: 'author', slug: 'akutagawa-zunnosuke' });
+    expect(parseRoute('#/authors/akutagawa-zunnosuke')).toEqual({
+      kind: 'author', authorId: '000879', slug: 'akutagawa-zunnosuke',
+    });
     expect(parseRoute('#/credits')).toEqual({ kind: 'credits' });
     expect(parseRoute('#/authors/evil')).toEqual({ kind: 'notFound' });
     expect(parseRoute('#/%ZZ')).toEqual({ kind: 'notFound' });
@@ -186,6 +195,51 @@ describe('routeとcatalog境界', () => {
     for (const path of ['https://evil.example/a.wav', '//evil.example/a.wav', '/a.wav', '../a.wav', 'audio\\a.wav']) {
       expect(() => resolvePublicAsset(base, path)).toThrow();
     }
+  });
+
+  /** @des DES-F002-006 DES-F002-012 @fun FUN-F002-026 @ut UT-F002-026 */
+  it.each([
+    'audio/F002/a.wav',
+    'artwork/miyazawa-zundamon.png',
+    'content/catalog.json',
+    'a',
+  ])('生成された公開root相対pathを加工せずbase配下へ解決する: %s', (path) => {
+    const base = new URL('https://example.test/bungo-zundamon/');
+    expect(resolvePublicAssetV2(base, path).href).toBe(`${base.href}${path}`);
+  });
+
+  /** @des DES-F002-006 DES-F002-012 @fun FUN-F002-026 @ut UT-F002-026 */
+  it.each([
+    '/audio/a.wav',
+    'audio//a.wav',
+    'audio/',
+    './audio.wav',
+    'audio/./a.wav',
+    '../audio.wav',
+    'audio/../a.wav',
+    'audio\\a.wav',
+    'https://evil.example/a.wav',
+    '//evil.example/a.wav',
+    'audio/a.wav?download=1',
+    'audio/a.wav#fragment',
+    'audio/\u0000a.wav',
+    'audio/%2fa.wav',
+    'audio/%5Ca.wav',
+    'audio/%2e%2e/a.wav',
+  ])('危険な公開pathをASSET_PATH_UNSAFEで拒否する: %s', (path) => {
+    expect(() => resolvePublicAssetV2(new URL('https://example.test/bungo-zundamon/'), path))
+      .toThrow(expect.objectContaining({ code: 'ASSET_PATH_UNSAFE' }));
+  });
+
+  /** @des DES-F002-006 DES-F002-012 @fun FUN-F002-026 @ut UT-F002-026 */
+  it.each([
+    'https://example.test/bungo-zundamon',
+    'https://user:pass@example.test/bungo-zundamon/',
+    'https://example.test/bungo-zundamon/?q=1',
+    'ftp://example.test/bungo-zundamon/',
+  ])('不正なbaseをASSET_BASE_INVALIDで拒否する: %s', (base) => {
+    expect(() => resolvePublicAssetV2(new URL(base), 'audio/a.wav'))
+      .toThrow(expect.objectContaining({ code: 'ASSET_BASE_INVALID' }));
   });
 
   /** @des DES-F001-002 DES-F001-013 @ut UT-F001-004 */

@@ -10,6 +10,9 @@ class FakeAudio implements AudioPort {
   play = vi.fn<() => Promise<void>>(async () => undefined);
   pause = vi.fn();
   load = vi.fn();
+  removeAttribute = vi.fn((name: 'src') => {
+    if (name === 'src') this.src = '';
+  });
   readonly listeners = new Map<string, Set<EventListener>>();
 
   addEventListener(type: 'ended' | 'error', listener: EventListener): void {
@@ -187,5 +190,73 @@ describe('AudioController', () => {
     resolvePlay?.();
     await firstPlay;
     expect(controller.state.status).toBe('paused');
+  });
+
+  /** @des DES-F002-008 DES-F002-013 @fun FUN-F002-024 @ut UT-F002-024 */
+  it.each(['playing', 'paused', 'error', 'stopped'] as const)(
+    'route変更時に%sから停止・src解除し、旧listenerをcleanupする',
+    async (status) => {
+      const order: string[] = [];
+      let storedCurrentTime = 8;
+      let storedSrc = 'http://localhost/bungo-zundamon/audio/a1.wav';
+      Object.defineProperty(audio, 'currentTime', {
+        configurable: true,
+        get: () => storedCurrentTime,
+        set: (value: number) => { order.push(`currentTime:${value}`); storedCurrentTime = value; },
+      });
+      Object.defineProperty(audio, 'src', {
+        configurable: true,
+        get: () => storedSrc,
+        set: (value: string) => { order.push(`src:${value}`); storedSrc = value; },
+      });
+      audio.pause.mockImplementation(() => { order.push('pause'); });
+      const notifications: string[] = [];
+      controller.subscribe((state) => {
+        notifications.push(state.status);
+        if (state.status === 'stopped') order.push('stopped');
+      });
+
+      if (status !== 'stopped') {
+        await controller.play(first!, trigger('d1'));
+        if (status === 'paused') controller.control('toggle', 'd1');
+        if (status === 'error') audio.emit('error');
+      }
+      order.length = 0;
+      notifications.length = 0;
+      const loadCalls = audio.load.mock.calls.length;
+      const playCalls = audio.play.mock.calls.length;
+
+      expect(controller.onRouteChange({ kind: 'home' })).toMatchObject({ status: 'stopped' });
+      expect(order).toEqual(['pause', 'currentTime:0', 'src:', 'stopped']);
+      expect(audio.removeAttribute).toHaveBeenCalledWith('src');
+      expect(audio.load).toHaveBeenCalledTimes(loadCalls);
+      expect(audio.play).toHaveBeenCalledTimes(playCalls);
+      expect(notifications).toEqual(['stopped']);
+
+      audio.emit('ended');
+      audio.emit('error');
+      expect(notifications).toEqual(['stopped']);
+    },
+  );
+
+  /** @des DES-F002-008 DES-F002-013 @fun FUN-F002-024 @ut UT-F002-024 */
+  it('browser Audio例外を内部codeへ隔離しroute停止とlistener cleanupを完遂する', async () => {
+    await controller.play(first!, trigger('d1'));
+    audio.pause.mockImplementation(() => { throw new DOMException('secret failure'); });
+    Object.defineProperty(audio, 'currentTime', {
+      configurable: true,
+      get: () => 9,
+      set: () => { throw new DOMException('secret seek failure'); },
+    });
+    const listener = vi.fn();
+    controller.subscribe(listener);
+    listener.mockClear();
+
+    expect(() => controller.onRouteChange({ kind: 'credits' })).not.toThrow();
+    expect(controller.state.status).toBe('stopped');
+    expect(controller.lastDiagnosticCode).toBe('AUDIO_ROUTE_STOP_FAILED');
+    expect(listener).toHaveBeenCalledTimes(1);
+    audio.emit('error');
+    expect(listener).toHaveBeenCalledTimes(1);
   });
 });

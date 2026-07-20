@@ -1,26 +1,45 @@
 import { AudioController } from './audio-controller';
-import { resolvePublicAsset } from './catalog-loader';
+import { resolvePublicAsset, resolvePublicAssetV2 } from './catalog-loader';
 import { observeAudioLazyLoading } from './lazy-loading';
 import { hasUnsafeTextControl } from './text-safety';
 import type {
   CatalogDialogue,
   DisplayAuthor,
+  DisplayAuthorV2,
   DisplayWork,
+  DisplayWorkV2,
   MotionMode,
   PlayerState,
   Route,
   UICatalog,
+  UICatalogV2,
 } from './types';
 
 const CLEANUP = new WeakMap<Node, () => void>();
 
-export interface RenderContext {
+export type UIRenderErrorCode =
+  | 'UI_AUTHOR_REFERENCE_INVALID'
+  | 'UI_AUTHOR_NOT_FOUND'
+  | 'UI_WORK_AUTHOR_MISMATCH'
+  | 'UI_DIALOGUE_REFERENCE_INVALID';
+
+export class UIRenderError extends Error {
+  constructor(public readonly code: UIRenderErrorCode, message: string, options?: ErrorOptions) {
+    super(message, options);
+    this.name = 'UIRenderError';
+  }
+}
+
+interface RenderChromeContext {
   readonly controller: AudioController;
   readonly baseUrl: URL;
   readonly motion: MotionMode;
   readonly motionLockedByOs: boolean;
   readonly onMotionToggle: () => void;
-  readonly creditsRenderer?: (catalog: UICatalog) => HTMLElement;
+}
+
+export interface RenderContext<CatalogType extends UICatalog | UICatalogV2 = UICatalogV2> extends RenderChromeContext {
+  readonly creditsRenderer?: (catalog: CatalogType) => HTMLElement;
 }
 
 /** @des DES-F001-013 @fun FUN-F001-027 */
@@ -29,6 +48,10 @@ export function setSafeText(element: HTMLElement, value: string): void {
     throw new TypeError('unsafe-display-text');
   }
   element.textContent = value;
+}
+
+function assertSafeDisplayAttribute(value: string): void {
+  if (hasUnsafeTextControl(value) || Array.from(value).length > 32_768) throw new TypeError('unsafe-display-text');
 }
 
 function textElement<K extends keyof HTMLElementTagNameMap>(
@@ -70,6 +93,34 @@ function aozoraLink(label: string, href: string): HTMLAnchorElement {
   return anchor;
 }
 
+function aozoraLinkV2(label: string, href: string, authorId: string): HTMLAnchorElement {
+  let url: URL;
+  try {
+    url = new URL(href);
+  } catch (error) {
+    throw new UIRenderError('UI_WORK_AUTHOR_MISMATCH', '作品出典URLを解決できません', { cause: error });
+  }
+  if (
+    !/^\d{6}$/u.test(authorId) ||
+    url.protocol !== 'https:' ||
+    url.hostname !== 'www.aozora.gr.jp' ||
+    url.username !== '' ||
+    url.password !== '' ||
+    url.port !== '' ||
+    !url.pathname.startsWith(`/cards/${authorId}/`) ||
+    url.search !== '' ||
+    url.hash !== ''
+  ) {
+    throw new UIRenderError('UI_WORK_AUTHOR_MISMATCH', '作品出典URLが作者のcanonical HTTPS範囲外です');
+  }
+  const anchor = document.createElement('a');
+  anchor.href = url.href;
+  anchor.target = '_blank';
+  anchor.rel = 'noopener noreferrer';
+  setSafeText(anchor, label);
+  return anchor;
+}
+
 function artwork(author: DisplayAuthor, baseUrl: URL): HTMLElement {
   const frame = document.createElement('div');
   frame.className = 'author-artwork';
@@ -89,6 +140,123 @@ function artwork(author: DisplayAuthor, baseUrl: URL): HTMLElement {
   monogram.setAttribute('aria-hidden', 'true');
   frame.append(monogram);
   return frame;
+}
+
+function artworkV2(author: DisplayAuthorV2, baseUrl: URL): HTMLElement {
+  const frame = document.createElement('div');
+  frame.className = 'author-artwork';
+  const image = document.createElement('img');
+  try {
+    assertSafeDisplayAttribute(author.artwork.alt);
+    image.src = resolvePublicAssetV2(baseUrl, author.artwork.path).href;
+  } catch (error) {
+    throw new UIRenderError('UI_AUTHOR_REFERENCE_INVALID', `作者画像を安全に解決できません: ${author.authorId}`, { cause: error });
+  }
+  image.alt = author.artwork.alt;
+  image.loading = 'eager';
+  image.decoding = 'async';
+  frame.append(image);
+  return frame;
+}
+
+function authorRouteLink(label: string, slug: string): HTMLAnchorElement {
+  assertSafeDisplayAttribute(slug);
+  let encodedSlug: string;
+  try {
+    encodedSlug = encodeURIComponent(slug);
+  } catch (error) {
+    throw new UIRenderError('UI_AUTHOR_REFERENCE_INVALID', '作者slugをencodeできません', { cause: error });
+  }
+  const anchor = document.createElement('a');
+  anchor.className = 'route-link';
+  anchor.href = `#/authors/${encodedSlug}`;
+  setSafeText(anchor, label);
+  return anchor;
+}
+
+function assertAuthorRelations(
+  catalog: UICatalogV2,
+  errorCode: UIRenderErrorCode,
+  dialogueErrorCode: UIRenderErrorCode = errorCode,
+): void {
+  const authorIds = new Set<string>();
+  const workIds = new Set<string>();
+  const batchById = new Map(catalog.batches.map((batch) => [batch.batchId, batch]));
+  const audioById = new Map<string, UICatalogV2['audioAssets']>();
+  for (const asset of catalog.audioAssets) {
+    const values = audioById.get(asset.audioId) ?? [];
+    audioById.set(asset.audioId, [...values, asset]);
+  }
+  for (const author of catalog.authors) {
+    if (authorIds.has(author.authorId)) throw new UIRenderError(errorCode, `作者IDが重複しています: ${author.authorId}`);
+    authorIds.add(author.authorId);
+  }
+  for (const work of catalog.works) {
+    if (workIds.has(work.workId) || !authorIds.has(work.authorId)) {
+      throw new UIRenderError(errorCode, `作品の作者参照が不正です: ${work.workId}`);
+    }
+    workIds.add(work.workId);
+    const batch = batchById.get(work.batchId);
+    if (!batch || batch.authorId !== work.authorId || !batch.workIds.includes(work.workId)) {
+      throw new UIRenderError(errorCode, `作品とbatchの作者参照が一致しません: ${work.workId}`);
+    }
+    for (const dialogue of work.dialogues) {
+      const assets = audioById.get(dialogue.audioId);
+      if (dialogue.workId !== work.workId || assets?.length !== 1 || assets[0]!.batchId !== work.batchId) {
+        throw new UIRenderError(dialogueErrorCode, `台詞参照が作品と一致しません: ${dialogue.dialogueId}`);
+      }
+    }
+  }
+  if (catalog.authors.length === 0 || catalog.authors.some((author) => !catalog.works.some((work) => work.authorId === author.authorId))) {
+    throw new UIRenderError(errorCode, '作品を持たない作者があります');
+  }
+}
+
+function isUICatalogV2(catalog: UICatalog | UICatalogV2): catalog is UICatalogV2 {
+  return catalog.schemaVersion === '2.0.0' && 'authors' in catalog && Array.isArray(catalog.authors);
+}
+
+function authorCardV2(author: DisplayAuthorV2, works: readonly DisplayWorkV2[], baseUrl: URL): HTMLElement {
+  const card = document.createElement('article');
+  card.className = 'author-card paper-card';
+  card.append(artworkV2(author, baseUrl));
+  const copy = document.createElement('div');
+  copy.className = 'author-card-copy';
+  const dialogueCount = works.reduce((total, work) => total + work.dialogues.length, 0);
+  copy.append(
+    textElement('p', '青空文庫 × ずんだもん', 'eyebrow'),
+    textElement('h2', author.name),
+    textElement('p', `原著者: ${author.originalName}`, 'original-author'),
+    textElement('p', `${works.length}作品・${dialogueCount}台詞`, 'collection-count'),
+    authorRouteLink('作品と台詞を聴く', author.slug),
+  );
+  card.append(copy);
+  return card;
+}
+
+/** @des DES-F002-007 DES-F002-013 @fun FUN-F002-022 */
+export function renderAuthorIndex(catalog: UICatalogV2, baseUrl = new URL(document.baseURI)): HTMLElement {
+  assertAuthorRelations(catalog, 'UI_AUTHOR_REFERENCE_INVALID');
+  const page = document.createElement('article');
+  page.className = 'home-page page';
+  page.dataset.page = 'home';
+  page.append(textElement('h1', '文豪ずんだもん'));
+
+  const section = document.createElement('section');
+  section.className = 'authors-section';
+  section.setAttribute('aria-labelledby', 'authors-v2-title');
+  const title = textElement('h2', '作者一覧');
+  title.id = 'authors-v2-title';
+  const list = document.createElement('ul');
+  list.className = 'author-list';
+  for (const author of catalog.authors) {
+    const item = document.createElement('li');
+    item.append(authorCardV2(author, catalog.works.filter((work) => work.authorId === author.authorId), baseUrl));
+    list.append(item);
+  }
+  section.append(title, list);
+  page.append(section);
+  return page;
 }
 
 function authorCard(catalog: UICatalog, baseUrl: URL): HTMLElement {
@@ -243,7 +411,7 @@ export function renderDialogueCard(
   return card;
 }
 
-function renderWork(work: DisplayWork, controller: AudioController, expanded: boolean): HTMLElement {
+function renderWork(work: DisplayWork, controller: AudioController, expanded: boolean, authorId?: string): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
   details.open = expanded;
@@ -253,17 +421,27 @@ function renderWork(work: DisplayWork, controller: AudioController, expanded: bo
   const count = textElement('span', `${work.dialogues.length}台詞`, 'work-count');
   summary.append(heading, count);
 
-  const source = aozoraLink('青空文庫の図書カード', work.cardLink);
+  const source = authorId
+    ? aozoraLinkV2('青空文庫の図書カード', work.cardLink, authorId)
+    : aozoraLink('青空文庫の図書カード', work.cardLink);
   source.className = 'source-link';
   const intro = document.createElement('div');
   intro.className = 'work-intro';
+  if (authorId) {
+    intro.append(
+      textElement('p', `出典: ${work.source.attribution}（${work.source.baseEdition}）`, 'source-attribution'),
+      textElement('p', `入力: ${work.source.inputter}・校正: ${work.source.proofreader}`, 'source-contributors'),
+    );
+  }
   intro.append(source);
 
   const list = document.createElement('ol');
   list.className = 'dialogue-list';
   for (const dialogue of work.dialogues) {
     const item = document.createElement('li');
-    const dialogueSource = aozoraLink('この台詞の作品出典', work.cardLink);
+    const dialogueSource = authorId
+      ? aozoraLinkV2('この台詞の作品出典', work.cardLink, authorId)
+      : aozoraLink('この台詞の作品出典', work.cardLink);
     dialogueSource.className = 'dialogue-source-link';
     item.append(renderDialogueCard(dialogue, controller, dialogueSource));
     list.append(item);
@@ -315,6 +493,65 @@ export function renderAuthorPage(
   return page;
 }
 
+/** @des DES-F002-007 DES-F002-008 DES-F002-013 @fun FUN-F002-023 */
+export function renderAuthorPageV2(
+  authorId: string,
+  catalog: UICatalogV2,
+  controller: AudioController,
+  baseUrl = new URL(document.baseURI),
+): HTMLElement {
+  const matchingAuthors = catalog.authors.filter((author) => author.authorId === authorId);
+  if (matchingAuthors.length !== 1) throw new UIRenderError('UI_AUTHOR_NOT_FOUND', `作者を一意に解決できません: ${authorId}`);
+  assertAuthorRelations(catalog, 'UI_WORK_AUTHOR_MISMATCH', 'UI_DIALOGUE_REFERENCE_INVALID');
+  const author = matchingAuthors[0]!;
+  const works = catalog.works.filter((work) => work.authorId === authorId);
+  if (works.length === 0) throw new UIRenderError('UI_WORK_AUTHOR_MISMATCH', `作者に公開作品がありません: ${authorId}`);
+  for (const work of works) {
+    for (const dialogue of work.dialogues) {
+      if (dialogue.workId !== work.workId) {
+        throw new UIRenderError('UI_DIALOGUE_REFERENCE_INVALID', `台詞の作品参照が一致しません: ${dialogue.dialogueId}`);
+      }
+      const assets = catalog.audioAssets.filter((asset) => asset.audioId === dialogue.audioId);
+      if (assets.length !== 1 || assets[0]!.batchId !== work.batchId) {
+        throw new UIRenderError('UI_DIALOGUE_REFERENCE_INVALID', `台詞の音声参照が一致しません: ${dialogue.dialogueId}`);
+      }
+    }
+  }
+
+  const page = document.createElement('article');
+  page.className = 'author-page page';
+  page.dataset.page = 'author';
+  page.dataset.authorId = authorId;
+  const header = document.createElement('header');
+  header.className = 'author-hero';
+  header.append(artworkV2(author, baseUrl));
+  const copy = document.createElement('div');
+  copy.append(
+    textElement('p', '文豪ずんだもん', 'eyebrow'),
+    textElement('h1', author.name),
+    textElement('p', `原著者: ${author.originalName}`, 'original-author'),
+    textElement('p', '作品名をひらき、気になる台詞の再生ボタンを押してください。', 'author-intro'),
+  );
+  header.append(copy);
+
+  const worksSection = document.createElement('section');
+  worksSection.className = 'works-section';
+  worksSection.setAttribute('aria-labelledby', 'works-v2-title');
+  const title = textElement('h2', '収録作品');
+  title.id = 'works-v2-title';
+  const workList = document.createElement('div');
+  workList.className = 'work-list';
+  works.forEach((work, index) => workList.append(renderWork(work, controller, index === 0, authorId)));
+  const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
+  worksSection.append(title, workList);
+  page.append(header, worksSection);
+  CLEANUP.set(page, () => {
+    lazyPlan.disconnect();
+    cleanupRenderedTree(workList);
+  });
+  return page;
+}
+
 function renderCreditsFallback(): HTMLElement {
   const page = document.createElement('article');
   page.className = 'credits-page page narrow-page';
@@ -342,19 +579,18 @@ function renderNotFound(): HTMLElement {
   return page;
 }
 
-function siteHeader(route: Route, context: RenderContext): HTMLElement {
+function siteHeader(route: Route, context: RenderChromeContext, fallbackAuthorSlug: string): HTMLElement {
   const header = document.createElement('header');
   header.className = 'site-header';
   const brand = routeLink('文豪ずんだもん', '#/');
   brand.classList.add('site-brand');
   const nav = document.createElement('nav');
   nav.setAttribute('aria-label', 'メインナビゲーション');
-  const links = [
-    routeLink('トップ', '#/'),
-    routeLink('作者', '#/authors/akutagawa-zunnosuke'),
-    routeLink('クレジット', '#/credits'),
-  ];
-  const currentHref = route.kind === 'author' ? '#/authors/akutagawa-zunnosuke' : route.kind === 'credits' ? '#/credits' : '#/';
+  const authorSlug = route.kind === 'author' ? route.slug : fallbackAuthorSlug;
+  const links = [routeLink('トップ', '#/'), authorRouteLink('作者', authorSlug), routeLink('クレジット', '#/credits')];
+  const currentHref = route.kind === 'author'
+    ? `#/authors/${encodeURIComponent(route.slug)}`
+    : route.kind === 'credits' ? '#/credits' : '#/';
   for (const link of links) if (link.getAttribute('href') === currentHref) link.setAttribute('aria-current', 'page');
   nav.append(...links);
 
@@ -409,25 +645,55 @@ function siteFooter(): HTMLElement {
 export function renderRoute(
   root: HTMLElement,
   route: Route,
+  catalog: UICatalogV2,
+  context: RenderContext<UICatalogV2>,
+): void;
+export function renderRoute(
+  root: HTMLElement,
+  route: Route,
   catalog: UICatalog,
-  context: RenderContext,
+  context: RenderContext<UICatalog>,
+): void;
+export function renderRoute(
+  root: HTMLElement,
+  route: Route,
+  catalog: UICatalog | UICatalogV2,
+  context: RenderContext<UICatalog | UICatalogV2>,
+): void;
+export function renderRoute(
+  root: HTMLElement,
+  route: Route,
+  catalog: UICatalog | UICatalogV2,
+  context: RenderContext<UICatalog> | RenderContext<UICatalogV2>,
 ): void {
   cleanupRenderedTree(root);
-  context.controller.stop();
   root.dataset.motion = context.motion;
   root.setAttribute('aria-busy', 'false');
 
-  const skip = routeLink('本文へ移動', route.kind === 'author' ? '#/authors/akutagawa-zunnosuke' : '#/');
+  const v2 = isUICatalogV2(catalog);
+  const fallbackAuthorSlug = v2 ? catalog.authors[0]?.slug ?? '' : catalog.author.slug;
+  const skip = route.kind === 'author'
+    ? authorRouteLink('本文へ移動', route.slug)
+    : routeLink('本文へ移動', '#/');
   skip.className = 'skip-link';
   skip.addEventListener('click', () => root.querySelector<HTMLElement>('.page h1')?.focus());
 
   let page: HTMLElement;
   try {
-    if (route.kind === 'home') page = renderHome(catalog, context.baseUrl);
-    else if (route.kind === 'author') {
-      page = renderAuthorPage(catalog.author, catalog.works, context.controller, context.baseUrl);
-    } else if (route.kind === 'credits') {
-      page = context.creditsRenderer?.(catalog) ?? renderCreditsFallback();
+    if (v2) {
+      if (route.kind === 'home') page = renderAuthorIndex(catalog, context.baseUrl);
+      else if (route.kind === 'author') {
+        if (!('authorId' in route) || typeof route.authorId !== 'string') {
+          throw new UIRenderError('UI_AUTHOR_NOT_FOUND', 'author routeが解決済みではありません');
+        }
+        page = renderAuthorPageV2(route.authorId, catalog, context.controller, context.baseUrl);
+      } else if (route.kind === 'credits') {
+        page = (context as RenderContext<UICatalogV2>).creditsRenderer?.(catalog) ?? renderCreditsFallback();
+      } else page = renderNotFound();
+    } else if (route.kind === 'home') page = renderHome(catalog, context.baseUrl);
+    else if (route.kind === 'author') page = renderAuthorPage(catalog.author, catalog.works, context.controller, context.baseUrl);
+    else if (route.kind === 'credits') {
+      page = (context as RenderContext<UICatalog>).creditsRenderer?.(catalog) ?? renderCreditsFallback();
     } else page = renderNotFound();
   } catch {
     page = document.createElement('article');
@@ -441,7 +707,7 @@ export function renderRoute(
 
   const heading = page.querySelector<HTMLElement>('h1');
   if (heading) heading.tabIndex = -1;
-  root.replaceChildren(skip, siteHeader(route, context), page, siteFooter());
+  root.replaceChildren(skip, siteHeader(route, context, fallbackAuthorSlug), page, siteFooter());
   CLEANUP.set(root, () => {
     cleanupRenderedTree(page);
     cleanupRenderedTree(root.querySelector('.site-header'));

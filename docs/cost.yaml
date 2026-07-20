@@ -230,3 +230,12 @@ entries:
   note: CatalogV2、音声差分・完全性、accepted/public atomic統合、production CLIを実装。voice→acceptのmanifest
     hash chain、release candidate実体digest、実SIGKILL回復、共有音声、未知owner隔離を補強し独立受入PASS。型・lint・482
     tests・build・npm audit 0件を確認
+- date: '2026-07-20'
+  phase: implement
+  task: T-021 複数作者route・UI・音声・クレジット
+  model: GPT-5
+  agents: 4
+  est_tokens: 32000
+  note: CatalogV2 route解決、作者一覧/作者別台詞、route音声停止、全作品credits、安全asset resolverを実装。空hash
+    home、removeAttribute src解除、作者間参照隔離を補強し独立受入PASS。型・lint・552 tests・build・npm audit
+    0件を確認

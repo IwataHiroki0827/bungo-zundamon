@@ -50,9 +50,15 @@ export interface LazyLoadPlan {
   disconnect(): void;
 }
 
+export type ParsedRoute =
+  | { readonly kind: 'home' }
+  | { readonly kind: 'authorSlug'; readonly slug: string }
+  | { readonly kind: 'credits' }
+  | { readonly kind: 'notFound' };
+
 export type Route =
   | { readonly kind: 'home' }
-  | { readonly kind: 'author'; readonly slug: 'akutagawa-zunnosuke' }
+  | { readonly kind: 'author'; readonly authorId: string; readonly slug: string }
   | { readonly kind: 'credits' }
   | { readonly kind: 'notFound' };
 
@@ -78,6 +84,7 @@ export interface AudioPort {
   src: string;
   currentTime: number;
   preload: string;
+  removeAttribute?(name: 'src'): void;
   play(): Promise<void>;
   pause(): void;
   load(): void;

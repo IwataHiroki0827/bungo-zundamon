@@ -1,4 +1,4 @@
-export { renderCredits } from './credits';
+export { CreditsRenderError, renderCredits, renderCreditsV2 } from './credits';
 export { loadReleaseNoticeBundle } from './manifest-loader';
 export { isValidatedLicenseManifest, validateReleaseNotices } from './release-notices';
 export { resolveTrustedExternalLink } from './trusted-links';

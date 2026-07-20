@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mountBungoZundamon, startBungoZundamon } from './main';
+import { mountBungoZundamon, renderAfterRouteChange, startBungoZundamon } from './main';
 import type { ApplicationHandle } from './main';
 import { REQUIRED_NOTICE_TEXT, validateReleaseNotices } from './notices';
 import type { ArtworkProvenanceManifest, LicenseManifest, ValidatedNoticeBundle } from './notices';
-import type { AudioPort, UICatalog } from './ui/types';
+import type { AudioPort, UICatalog, UICatalogV2 } from './ui/types';
 
 class QuietAudio implements AudioPort {
   src = '';
@@ -16,6 +16,34 @@ class QuietAudio implements AudioPort {
   addEventListener = vi.fn();
   removeEventListener = vi.fn();
 }
+
+describe('UT-F002-021 route lifecycle', () => {
+  it('route変更通知を描画より前にちょうど1回実行する', () => {
+    const events: string[] = [];
+    const controller = {
+      onRouteChange: vi.fn(() => events.push('stop')),
+      stop: vi.fn(),
+    };
+
+    renderAfterRouteChange(controller, { kind: 'credits' }, () => events.push('render'));
+
+    expect(events).toEqual(['stop', 'render']);
+    expect(controller.onRouteChange).toHaveBeenCalledOnce();
+    expect(controller.stop).not.toHaveBeenCalled();
+  });
+
+  it('音声停止例外をroute描画へ伝播させない', () => {
+    const render = vi.fn();
+    const controller = {
+      onRouteChange: vi.fn(() => { throw new Error('audio-stop-failed'); }),
+      stop: vi.fn(),
+    };
+
+    expect(() => renderAfterRouteChange(controller, { kind: 'notFound' }, render)).not.toThrow();
+    expect(controller.onRouteChange).toHaveBeenCalledOnce();
+    expect(render).toHaveBeenCalledOnce();
+  });
+});
 
 function fixtureCatalog(authorName = 'あくたがわずんのすけ'): UICatalog {
   const works = [
@@ -91,6 +119,50 @@ function fixtureCatalog(authorName = 'あくたがわずんのすけ'): UICatalo
       rightsRecheck: '追加時に再確認する',
       stagedAddition: '段階的に追加する',
     },
+  };
+}
+
+function fixtureCatalogV2(): UICatalogV2 {
+  const legacy = fixtureCatalog();
+  const work = legacy.works[0]!;
+  const audio = legacy.audioAssets[0]!;
+  return {
+    schemaVersion: '2.0.0',
+    authors: [{
+      authorId: '000081',
+      name: 'みやざわずんじ',
+      originalName: '宮沢賢治',
+      slug: 'miyazawa-zunji',
+      artwork: { path: 'artwork/miyazawa.png', alt: '宮沢の画像', sha256: 'a'.repeat(64) },
+      introducedByBatchId: 'F002',
+      identitySha256: 'b'.repeat(64),
+    }],
+    works: [{
+      ...work,
+      workId: '000473',
+      authorId: '000081',
+      batchId: 'F002',
+      title: 'よだかの星',
+      cardLink: 'https://www.aozora.gr.jp/cards/000081/card473.html',
+      source: {
+        ...work.source,
+        cardUrl: 'https://www.aozora.gr.jp/cards/000081/card473.html',
+        textUrl: 'https://www.aozora.gr.jp/cards/000081/files/473_42318.html',
+        provenancePath: 'content/provenance/F002/000473.json',
+        provenanceSha256: 'c'.repeat(64),
+      },
+      dialogues: [{ ...work.dialogues[0]!, workId: '000473', audioId: 'audio-miyazawa' }],
+    }],
+    audioAssets: [{ ...audio, audioId: 'audio-miyazawa', batchId: 'F002', path: 'audio/F002/audio-miyazawa.wav' }],
+    batches: [{
+      batchId: 'F002', feature: 'F002', status: 'accepted', authorId: '000081', workIds: ['000473'],
+      acceptedAt: '2026-07-20T00:00:00.000Z', evidenceSha256: 'd'.repeat(64),
+    }],
+    candidateCounts: {
+      total: 1, published: 1, editorialExcluded: 0, audioExcluded: 0,
+      byBatch: { F002: { total: 1, published: 1, editorialExcluded: 0, audioExcluded: 0 } },
+    },
+    creditsRef: 'content/licenses.json',
   };
 }
 
@@ -238,6 +310,40 @@ describe('文豪ずんだもんの画面', () => {
     expect(root.querySelector('.play-button')?.getAttribute('aria-label')).toContain('再生：');
     expect(root.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]')).toHaveLength(6);
     expect(root.querySelectorAll('.dialogue-source-link')).toHaveLength(3);
+  });
+
+  /** @des DES-F002-007 DES-F002-008 DES-F002-013 @ut UT-F002-021 @it IT-F002-010 */
+  it('CatalogV2のslugをauthorIdへ解決して該当作者だけを描画する', () => {
+    location.hash = '#/authors/miyazawa-zunji';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalogV2(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+    });
+
+    expect(root.querySelector('[data-page="author"]')?.getAttribute('data-author-id')).toBe('000081');
+    expect(root.querySelector('h1')?.textContent).toBe('みやざわずんじ');
+    expect(root.textContent).toContain('よだかの星');
+
+    location.hash = '#/authors/unknown';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
+  });
+
+  it('CatalogV2でもbase URLの空hashをhomeとして描画する', () => {
+    history.replaceState(null, '', `${location.pathname}${location.search}`);
+    const root = document.createElement('main');
+    const handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalogV2(),
+      baseUrl: new URL('https://example.test/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+    });
+
+    expect(location.hash).toBe('');
+    expect(root.querySelector('[data-page="home"]')).not.toBeNull();
+    handle.dispose();
   });
 
   /** @des DES-F001-001 @ut UT-F001-001 UT-F001-002 */

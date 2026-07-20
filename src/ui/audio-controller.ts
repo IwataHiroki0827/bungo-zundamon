@@ -1,10 +1,12 @@
-import { resolvePublicAsset } from './catalog-loader';
+import { resolvePublicAssetV2 } from './catalog-loader';
 import type {
   AudioFactory,
   AudioPort,
   CatalogDialogue,
   PlayerState,
+  Route,
   UICatalog,
+  UICatalogV2,
 } from './types';
 
 type StateListener = (state: PlayerState) => void;
@@ -53,9 +55,16 @@ export class AudioController {
   #state: PlayerState = INITIAL_STATE;
   #requestVersion = 0;
   #disposed = false;
+  #routeTransitioning = false;
+  #lastDiagnosticCode: 'AUDIO_ROUTE_STOP_FAILED' | null = null;
 
   readonly #handleEnded = (): void => {
-    if (!this.#state.dialogueId || this.#disposed) return;
+    if (
+      !this.#state.dialogueId ||
+      this.#disposed ||
+      this.#routeTransitioning ||
+      !['loading', 'playing'].includes(this.#state.status)
+    ) return;
     this.#publish({
       status: 'ended',
       dialogueId: this.#state.dialogueId,
@@ -64,11 +73,16 @@ export class AudioController {
   };
 
   readonly #handleError = (): void => {
-    if (!this.#state.dialogueId || this.#disposed) return;
+    if (
+      !this.#state.dialogueId ||
+      this.#disposed ||
+      this.#routeTransitioning ||
+      !['loading', 'playing'].includes(this.#state.status)
+    ) return;
     presentAudioError(this.#state.dialogueId, new Error('media-error'), (state) => this.#publish(state));
   };
 
-  constructor(catalog: UICatalog, baseUrl: URL, audioFactory: AudioFactory = browserAudioFactory) {
+  constructor(catalog: UICatalog | UICatalogV2, baseUrl: URL, audioFactory: AudioFactory = browserAudioFactory) {
     this.#baseUrl = new URL(baseUrl.href.endsWith('/') ? baseUrl.href : `${baseUrl.href}/`);
     this.#assetById = new Map(catalog.audioAssets.map((asset) => [asset.audioId, asset]));
     this.#dialogueById = new Map(
@@ -82,6 +96,10 @@ export class AudioController {
 
   get state(): PlayerState {
     return this.#state;
+  }
+
+  get lastDiagnosticCode(): 'AUDIO_ROUTE_STOP_FAILED' | null {
+    return this.#lastDiagnosticCode;
   }
 
   subscribe(listener: StateListener): () => void {
@@ -119,7 +137,7 @@ export class AudioController {
         return presentAudioError(item.dialogueId, new Error('asset-missing'), (state) => this.#publish(state));
       }
       try {
-        this.#audio.src = resolvePublicAsset(this.#baseUrl, asset.path).href;
+        this.#audio.src = resolvePublicAssetV2(this.#baseUrl, asset.path).href;
         this.#audio.load();
       } catch (error) {
         return presentAudioError(item.dialogueId, error, (state) => this.#publish(state));
@@ -185,8 +203,15 @@ export class AudioController {
     return this.#state;
   }
 
-  stop(): PlayerState {
+  stop(reason?: 'route-change'): PlayerState {
+    if (reason === 'route-change') return this.#stopForRouteChange();
     return this.control('stop');
+  }
+
+  /** @des DES-F002-008 DES-F002-013 @fun FUN-F002-024 */
+  onRouteChange(next: Route): PlayerState {
+    void next;
+    return this.stop('route-change');
   }
 
   dispose(): void {
@@ -204,5 +229,48 @@ export class AudioController {
     this.#state = Object.freeze({ ...next });
     for (const listener of this.#listeners) listener(this.#state);
     return this.#state;
+  }
+
+  #stopForRouteChange(): PlayerState {
+    if (this.#disposed) return this.#state;
+    this.#requestVersion += 1;
+    this.#routeTransitioning = true;
+    this.#lastDiagnosticCode = null;
+    let failed = false;
+    const attempt = (operation: () => void): void => {
+      try {
+        operation();
+      } catch {
+        failed = true;
+      }
+    };
+
+    // 順序はroute lifecycleの契約。途中のbrowser例外でも後続cleanupを必ず行う。
+    attempt(() => this.#audio.pause());
+    attempt(() => { this.#audio.currentTime = 0; });
+    attempt(() => {
+      // HTMLMediaElementでは空文字の代入が現在文書へのrequestになる実装があるため、
+      // productionでは属性自体を外す。軽量test adapterだけ後方互換の代入を使う。
+      if (typeof this.#audio.removeAttribute === 'function') this.#audio.removeAttribute('src');
+      else this.#audio.src = '';
+    });
+
+    const stopped: PlayerState = Object.freeze({
+      status: 'stopped',
+      dialogueId: this.#state.dialogueId,
+      message: '画面の切り替えに伴い、読み上げを停止しました。',
+    });
+    this.#state = stopped;
+    for (const listener of this.#listeners) {
+      try {
+        listener(stopped);
+      } catch {
+        // 古い画面側の例外をnavigationへ伝播させない。
+      }
+    }
+    this.#listeners.clear();
+    this.#routeTransitioning = false;
+    if (failed) this.#lastDiagnosticCode = 'AUDIO_ROUTE_STOP_FAILED';
+    return stopped;
   }
 }

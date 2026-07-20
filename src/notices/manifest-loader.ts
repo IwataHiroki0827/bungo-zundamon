@@ -7,6 +7,8 @@ const JSON_MEDIA_TYPE = /^application\/json(?:\s*;|$)/i;
 export interface ValidatedNoticeBundle {
   readonly license: LicenseManifest;
   readonly artwork: ArtworkProvenanceManifest;
+  /** CatalogV2用。旧bundleは`artwork` 1件を暗黙の配列として扱う。 */
+  readonly artworks?: readonly ArtworkProvenanceManifest[];
 }
 
 async function readBoundedBytes(response: Response): Promise<Uint8Array> {
@@ -105,5 +107,10 @@ export async function loadReleaseNoticeBundle(
   ]);
   const validated = validateReleaseNotices(license, artwork, now);
   if (!validated.ok) throw new Error('notice-validation-error');
-  return Object.freeze({ license: validated.value, artwork: freezeDeep(artwork) });
+  const frozenArtwork = freezeDeep(artwork);
+  return Object.freeze({
+    license: validated.value,
+    artwork: frozenArtwork,
+    artworks: Object.freeze([frozenArtwork]),
+  });
 }

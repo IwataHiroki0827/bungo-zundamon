@@ -39,6 +39,73 @@ export class CatalogLoadError extends Error {
   }
 }
 
+declare const PUBLIC_ROOT_RELATIVE_PATH: unique symbol;
+
+/** 公開treeのrootからの相対POSIX pathであることを示すbrand。 */
+export type PublicRootRelativePath = string & {
+  readonly [PUBLIC_ROOT_RELATIVE_PATH]: true;
+};
+
+function assetError(code: 'ASSET_PATH_UNSAFE' | 'ASSET_BASE_INVALID' | 'ASSET_BASE_ESCAPE'): never {
+  throw new CatalogLoadError(code);
+}
+
+/** @des DES-F002-006 DES-F002-012 @fun FUN-F002-026 */
+export function asPublicRootRelativePath(path: string): PublicRootRelativePath {
+  if (
+    typeof path !== 'string' ||
+    path.length === 0 ||
+    path.startsWith('/') ||
+    path.startsWith('//') ||
+    path.includes('\\') ||
+    path.includes('?') ||
+    path.includes('#') ||
+    path.includes(':') ||
+    hasAnyControlCharacter(path) ||
+    /%(?:2e|2f|5c)/iu.test(path)
+  ) {
+    return assetError('ASSET_PATH_UNSAFE');
+  }
+  const segments = path.split('/');
+  if (segments.some((segment) => segment === '' || segment === '.' || segment === '..')) {
+    return assetError('ASSET_PATH_UNSAFE');
+  }
+  return path as PublicRootRelativePath;
+}
+
+/** @des DES-F002-006 DES-F002-012 @fun FUN-F002-026 */
+export function resolvePublicAssetV2(base: URL, relativePath: string): URL {
+  if (
+    !(base instanceof URL) ||
+    !['http:', 'https:'].includes(base.protocol) ||
+    base.username !== '' ||
+    base.password !== '' ||
+    base.search !== '' ||
+    base.hash !== '' ||
+    !base.pathname.startsWith('/') ||
+    !base.pathname.endsWith('/')
+  ) {
+    return assetError('ASSET_BASE_INVALID');
+  }
+
+  const safePath = asPublicRootRelativePath(relativePath);
+  let resolved: URL;
+  try {
+    resolved = new URL(safePath, base);
+  } catch {
+    return assetError('ASSET_PATH_UNSAFE');
+  }
+  if (
+    resolved.origin !== base.origin ||
+    !resolved.pathname.startsWith(base.pathname) ||
+    resolved.search !== '' ||
+    resolved.hash !== ''
+  ) {
+    return assetError('ASSET_BASE_ESCAPE');
+  }
+  return resolved;
+}
+
 /** @des DES-F001-015 @fun FUN-F001-030 */
 export function publicBaseUrl(currentLocation: Pick<Location, 'origin'>, viteBase: string): URL {
   if (viteBase !== '/bungo-zundamon/') throw new CatalogLoadError('public-base-invalid');
