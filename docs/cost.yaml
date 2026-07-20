@@ -197,3 +197,18 @@ entries:
   note: REQ 20件をDES 16件・FUN 40件へ展開。work単位atomic音声受入、accepted-audio正本、sourceCommit→public
     commit→clean release-verify、F001 content/dist不変、未承認batch排除を設計。整合性・実現可能性・セキュリティ最終High/Medium/Low
     0。
+- date: '2026-07-20'
+  phase: testspec
+  task: Q-013反映 / T-018 UT・IT作成 / CHG-F002-001 / ゲート③登録
+  model: GPT-5
+  agents: 5
+  est_tokens: 48000
+  note: UT 40件・IT 18件を作成しQT 14件を補強。candidate tuple、atomic crash oracle、具体境界、release容量再実測、Windows実transaction、transport別SSRF、Actions
+    SHA pinをCHG-F002-001で整合。2観点最終レビューHigh/Medium/Low 0、trace_check対応漏れ0。
+- date: '2026-07-20'
+  phase: testspec
+  task: Q-014承認反映・テスト仕様ゲート③完了
+  model: GPT-5
+  agents: 1
+  est_tokens: 4000
+  note: Q-014の承認をUT/IT/QTへ反映し、T-018をdone、F002とfactoryをimplementへ遷移。trace_checkは対応漏れなし。許可フェーズ境界によりpf-implement実行前で停止。

@@ -1,4 +1,51 @@
 changes:
+- id: CHG-F002-001
+  date: '2026-07-20'
+  trigger: F002テスト仕様レビューパネルでcandidate証跡結合、atomic crash oracle、境界定数、release再実測、CI pin、published永続化の不足を検出
+  level: design
+  affected:
+  - DES-F002-002
+  - DES-F002-005
+  - DES-F002-006
+  - DES-F002-009
+  - DES-F002-011
+  - DES-F002-012
+  - DES-F002-015
+  - DES-F002-016
+  - FUN-F002-003
+  - FUN-F002-013
+  - FUN-F002-015
+  - FUN-F002-017
+  - FUN-F002-029
+  - FUN-F002-030
+  - FUN-F002-032
+  - FUN-F002-035
+  - FUN-F002-036
+  - FUN-F002-037
+  - UT-F002-003
+  - UT-F002-013
+  - UT-F002-015
+  - UT-F002-017
+  - UT-F002-029
+  - UT-F002-030
+  - UT-F002-032
+  - UT-F002-035
+  - UT-F002-036
+  - UT-F002-037
+  - IT-F002-009
+  - IT-F002-015
+  - IT-F002-016
+  - IT-F002-018
+  - QT-F002-001
+  - QT-F002-003
+  - QT-F002-009
+  - QT-F002-011
+  - QT-F002-012
+  - QT-F002-014
+  - T-018
+  - T-031
+  status: done
+  approved_by: design-level existing requirements
 - id: CHG-F001-004
   date: '2026-07-19'
   trigger: ユーザー試験で演出を控えめにする効果が分からないと指摘

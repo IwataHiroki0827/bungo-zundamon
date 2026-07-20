@@ -388,7 +388,7 @@ tasks:
   title: UT-F002・IT-F002を作成しQT-F002との網羅性を確認
   feature: F002
   phase: testspec
-  state: blocked
+  state: done
   depends:
   - T-017
   tags: *id002
@@ -397,8 +397,6 @@ tasks:
   model:
     lead: opus
     workers: sonnet
-  blocked_by:
-  - Q-013
 - id: T-019
   title: バッチ定義・青空文庫取得・抽出・レビュー基盤を複数作者化
   feature: F002
@@ -637,6 +635,27 @@ tasks:
   tags: *id002
   mode: advisor
   mode_reason: ゲート④・版番号・deploy・rollback・公開後判定を逐次管理するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-031
+  title: CHG-F002-001の設計・試験仕様補強とレビューパネル再実施
+  feature: F002
+  phase: testspec
+  state: done
+  depends:
+  - T-017
+  tags:
+  - DES-F002-002
+  - DES-F002-005
+  - DES-F002-006
+  - DES-F002-009
+  - DES-F002-011
+  - DES-F002-012
+  - DES-F002-015
+  - DES-F002-016
+  mode: advisor
+  mode_reason: テスト仕様レビューで検出した設計境界と試験oracleを単一変更として整合させるため
   model:
     lead: opus
     workers: sonnet
