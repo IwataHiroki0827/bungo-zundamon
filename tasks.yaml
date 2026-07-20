@@ -401,7 +401,7 @@ tasks:
   title: バッチ定義・青空文庫取得・抽出・レビュー基盤を複数作者化
   feature: F002
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-018
   tags:

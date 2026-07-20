@@ -20,6 +20,7 @@
     "preview": "vite preview --host 127.0.0.1 --strictPort",
     "preview:pages": "npm run build && vite preview --host 127.0.0.1 --strictPort",
     "content:update": "node --experimental-transform-types scripts/content-cli.ts all",
+    "content:batch": "node --experimental-transform-types scripts/content-cli.ts",
     "content:bibliography": "node --experimental-transform-types scripts/content-cli.ts bibliography",
     "content:select": "node --experimental-transform-types scripts/content-cli.ts select",
     "content:sources": "node --experimental-transform-types scripts/content-cli.ts sources",

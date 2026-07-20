@@ -7,6 +7,7 @@ import {
   NormalizationError,
   ReviewError,
   applyEditorialReview,
+  applyWorkReviews,
   buildPublicCatalog,
   createCandidateId,
   extractDialogueCandidates,
@@ -51,6 +52,19 @@ function review(candidateId: string, status: ReviewRecord['status'], revision = 
     reviewer: 'editor',
     reviewedAt: WHEN,
     policyCheckedAt: WHEN,
+  };
+}
+
+function workReview(
+  workId: string,
+  candidateId: string,
+  status: ReviewRecord['status'],
+  revision = 1,
+): ReviewRecord {
+  return {
+    ...review(candidateId, status, revision),
+    workId,
+    policyDecision: status === 'pending' ? 'pending' : 'allowed',
   };
 }
 
@@ -250,6 +264,63 @@ describe('FUN-F001-014 編集レビュー [DES-F001-007][UT-F001-014]', () => {
     () => applyEditorialReview([candidate('c1'), candidate('c1')], [review('c1', 'approved')]),
   ])('孤立・競合・pending・理由なし・重複をfail-closedにする', (run) => {
     expect(run).toThrow(ReviewError);
+  });
+});
+
+// @des DES-F002-004,DES-F002-015 @fun FUN-F002-009
+describe('FUN-F002-009 作品別編集レビュー [UT-F002-009]', () => {
+  const workId = '000473';
+
+  it('単一workの全候補を最新revisionで厳密に分類し、理由を集計する', () => {
+    const candidates = [candidate('c1', workId, 0), candidate('c2', workId, 1)];
+    const result = applyWorkReviews(workId, candidates, [
+      workReview(workId, 'c1', 'rejected', 1),
+      workReview(workId, 'c1', 'approved', 2),
+      workReview(workId, 'c2', 'rejected', 1),
+    ]);
+
+    expect(result.workId).toBe(workId);
+    expect(result.counts).toEqual({ approved: 1, rejected: 1, pending: 0 });
+    expect(result.approved[0]?.review.revision).toBe(2);
+    expect(result.approved[0]?.review.policyDecision).toBe('allowed');
+    expect(result.reasonCounts).toEqual({ SPOKEN_DIALOGUE: 1, NON_SPEECH: 1 });
+    expect(result.all).toHaveLength(candidates.length);
+  });
+
+  it('後続workのpending状態を入力に要求せず、対象workだけを完結できる', () => {
+    const nextWorkCandidates = [candidate('next-c1', '043752', 0)];
+    const nextWorkReviews = [workReview('043752', 'next-c1', 'pending')];
+
+    const result = applyWorkReviews(
+      workId,
+      [candidate('c1', workId, 0)],
+      [workReview(workId, 'c1', 'approved')],
+    );
+
+    expect(result.counts.pending).toBe(0);
+    expect(nextWorkCandidates).toHaveLength(1);
+    expect(nextWorkReviews[0]?.status).toBe('pending');
+  });
+
+  it.each([
+    ['候補work混線', () => applyWorkReviews(workId, [candidate('c1', '043752')], [workReview(workId, 'c1', 'approved')]), 'REVIEW_WORK_MISMATCH'],
+    ['review work混線', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview('043752', 'c1', 'approved')]), 'REVIEW_WORK_MISMATCH'],
+    ['候補重複', () => applyWorkReviews(workId, [candidate('c1', workId), candidate('c1', workId)], [workReview(workId, 'c1', 'approved')]), 'REVIEW_DUPLICATE'],
+    ['review欠落', () => applyWorkReviews(workId, [candidate('c1', workId)], []), 'REVIEW_MISSING'],
+    ['孤立review', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview(workId, 'orphan', 'approved')]), 'REVIEW_ORPHAN'],
+    ['revision競合', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview(workId, 'c1', 'approved'), workReview(workId, 'c1', 'rejected')]), 'REVIEW_REVISION_CONFLICT'],
+    ['不正revision', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview(workId, 'c1', 'approved', 0)]), 'REVIEW_REVISION_CONFLICT'],
+    ['revision gap', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview(workId, 'c1', 'rejected', 1), workReview(workId, 'c1', 'approved', 3)]), 'REVIEW_REVISION_CONFLICT'],
+    ['不正理由', () => applyWorkReviews(workId, [candidate('c1', workId)], [{ ...workReview(workId, 'c1', 'approved'), reasonCode: 'NON_SPEECH' }]), 'REVIEW_REASON_INVALID'],
+    ['policy判断欠落', () => {
+      const withoutPolicyDecision = workReview(workId, 'c1', 'approved');
+      delete withoutPolicyDecision.policyDecision;
+      return applyWorkReviews(workId, [candidate('c1', workId)], [withoutPolicyDecision]);
+    }, 'REVIEW_REASON_INVALID'],
+    ['policy判断不一致', () => applyWorkReviews(workId, [candidate('c1', workId)], [{ ...workReview(workId, 'c1', 'approved'), policyDecision: 'excluded' }]), 'REVIEW_REASON_INVALID'],
+    ['pending', () => applyWorkReviews(workId, [candidate('c1', workId)], [workReview(workId, 'c1', 'pending')]), 'REVIEW_PENDING'],
+  ])('%sを指定codeでfail-closedにする', (_label, run, code) => {
+    expect(run).toThrow(expect.objectContaining({ code }));
   });
 });
 

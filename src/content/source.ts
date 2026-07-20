@@ -6,6 +6,7 @@ import { BlockList, isIP } from 'node:net';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { checkServerIdentity } from 'node:tls';
 import { inflateRawSync } from 'node:zlib';
+import { validateBatchManifest, type BatchManifest } from './batch.ts';
 
 export const MAX_SOURCE_BYTES = 8_388_608;
 export const AOZORA_TIMEOUT_MS = 15_000;
@@ -41,6 +42,7 @@ export const AOZORA_BIBLIOGRAPHY_REQUIRED_COLUMNS = Object.freeze([
   '作品著作権フラグ',
   '図書カードURL',
   '人物ID',
+  '人物著作権フラグ',
   '役割フラグ',
   '底本名1',
   '入力者',
@@ -67,6 +69,10 @@ export interface BibliographyRow {
   inputter?: string;
   proofreader?: string;
   edition?: string;
+  /** 公式拡充CSVの人物著作権フラグ。F002 batch選定では必須。 */
+  personCopyright?: string;
+  /** 公式拡充CSVの文字遣い種別。F002 batch選定では新字新仮名だけを許可する。 */
+  orthography?: string;
 }
 
 export interface SelectionDiagnostic {
@@ -81,15 +87,61 @@ export interface WorkCandidate extends BibliographyRow {
 }
 
 export interface EditionRule {
-  title: (typeof TARGET_TITLES)[number];
+  title: string;
   preferredWorkId: string;
-  fallbackWorkIds?: string[];
-  allowedWorkIds: string[];
+  fallbackWorkIds?: readonly string[];
+  allowedWorkIds: readonly string[];
   reason: string;
 }
 
 export interface SelectedWork extends WorkCandidate {
   selectionReason: string;
+}
+
+export interface BatchSelectionManifest extends BatchManifest {
+  readonly editionRules: readonly EditionRule[];
+}
+
+export interface BibliographyObservationInput {
+  readonly sha256?: string;
+  readonly fetchedAt?: string;
+}
+
+export interface WorkRightsEntry {
+  readonly workId: string;
+  readonly title: string;
+  readonly personId: string;
+  readonly personCopyright: string;
+  readonly workCopyright: string;
+  readonly role: string;
+  readonly translatorPresent: false;
+  readonly status: string;
+  readonly orthography: string;
+  readonly cardUrl: string;
+  readonly sourceUrl: string;
+}
+
+export interface WorkRightsObservation {
+  readonly phase: 'selection' | 'predeploy';
+  readonly bibliographySha256: string;
+  readonly observedAt: string;
+  readonly releaseCommit?: string;
+  readonly runId?: string;
+  readonly works: readonly WorkRightsEntry[];
+}
+
+export interface SelectedWorkResult {
+  readonly works: readonly SelectedWork[];
+  readonly observation: WorkRightsObservation;
+}
+
+export interface WorkRightsDecision {
+  readonly result: 'unchanged' | 'blocked';
+  readonly releaseCommit: string;
+  readonly runId: string;
+  readonly selection: WorkRightsObservation;
+  readonly predeploy?: WorkRightsObservation;
+  readonly reasons: readonly string[];
 }
 
 export interface SourceRecord {
@@ -215,6 +267,13 @@ export interface ArtifactOptions {
 
 export interface SourceFetchOptions extends ArtifactOptions {
   transport: ProductionAozoraTransport;
+  /** 省略時はF001固定3作品。F002以降は検証済みmanifest/selectionから明示供給する。 */
+  allowlist?: WorkSourceAllowlist;
+}
+
+export interface WorkSourceAllowlist {
+  readonly authorId: string;
+  readonly works: Readonly<Record<string, Readonly<{ sourceUrl: string; cardUrl: string }>>>;
 }
 
 export interface BibliographyFetchOptions extends ArtifactOptions {
@@ -241,6 +300,7 @@ const KNOWN_STATUS = new Set([...ELIGIBLE_STATUS, '非公開', 'unpublished', 'w
 const ELIGIBLE_LANGUAGE = new Set(['日本語原著', 'japanese-original']);
 const KNOWN_LANGUAGE = new Set([...ELIGIBLE_LANGUAGE, '翻訳', 'translation']);
 const INITIAL_WORK_ID_SET = new Set<string>(INITIAL_WORK_IDS);
+const SHA256_HEX = /^[a-f0-9]{64}$/u;
 const NON_PUBLIC_IPV6 = new BlockList();
 
 // IPv4-compatible/mapped、変換用、IETF予約、ULA、link-local、multicastを
@@ -416,6 +476,313 @@ export function resolveEdition(
   return selected;
 }
 
+function assertRfc3339(value: string, code: string): void {
+  if (!nonBlank(value) || !Number.isFinite(Date.parse(value))) {
+    throw new SourcePipelineError(code, '観測時刻は有効なRFC 3339日時で指定してください');
+  }
+}
+
+function assertBatchWorkUrl(row: BibliographyRow, authorId: string): void {
+  if (!nonBlank(row.cardUrl)) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `図書カードURLがありません: ${row.workId}`);
+  }
+  let source: URL;
+  let card: URL;
+  try {
+    source = new URL(row.sourceUrl);
+    card = new URL(row.cardUrl);
+  } catch {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `作品URLが不正です: ${row.workId}`);
+  }
+  validateAozoraUrl(source, `/cards/${authorId}/files/`);
+  validateAozoraUrl(card, `/cards/${authorId}/`);
+  const numericId = row.workId.replace(/^0+/u, '') || '0';
+  const escapedId = numericId.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+  if (
+    !new RegExp(`^/cards/${authorId}/card0*${escapedId}\\.html$`, 'u').test(card.pathname) ||
+    !new RegExp(`^/cards/${authorId}/files/0*${escapedId}(?:_|\\.)`, 'u').test(source.pathname)
+  ) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `作品IDと公式URLが一致しません: ${row.workId}`);
+  }
+}
+
+function canonicalRightsRows(rows: readonly BibliographyRow[]): Uint8Array {
+  const normalized = rows.map((row) => ({
+    workId: row.workId,
+    title: row.title,
+    personId: row.personId,
+    personCopyright: row.personCopyright ?? '',
+    role: row.role,
+    copyright: row.copyright,
+    status: row.status,
+    language: row.language,
+    orthography: row.orthography ?? '',
+    sourceUrl: row.sourceUrl,
+    cardUrl: row.cardUrl ?? '',
+    charset: row.charset,
+    edition: row.edition ?? '',
+  }));
+  return new TextEncoder().encode(JSON.stringify(normalized));
+}
+
+/**
+ * BatchManifestのauthor/work/edition ruleだけをallowlistとして公式書誌を選定する。
+ * 固定titleや暗黙のF001 allowlistへfallbackしない。
+ * @des DES-F002-004 DES-F002-009 @fun FUN-F002-006
+ */
+export function selectBatchWorks(
+  rows: readonly BibliographyRow[],
+  manifest: BatchSelectionManifest,
+  observedAt: Date,
+  bibliography: BibliographyObservationInput = {},
+): SelectedWorkResult {
+  const manifestValidation = validateBatchManifest(manifest);
+  if (!manifestValidation.ok) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `検証済みBatchManifestが必要です: ${manifestValidation.error.code}`);
+  }
+  const authorId = manifest.author?.authorId;
+  if (!nonBlank(authorId) || !/^[0-9]{6}$/u.test(authorId)) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', 'manifestのauthor IDが不正です');
+  }
+  if (
+    manifest.workIds.length !== 3 ||
+    new Set(manifest.workIds).size !== manifest.workIds.length ||
+    manifest.workIds.some((id) => !/^[0-9]{6}$/u.test(id))
+  ) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', 'manifestには一意な6桁作品IDを3件指定してください');
+  }
+  if (manifest.editionRules.length !== manifest.workIds.length) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', 'manifestの作品と版規則の件数が一致しません');
+  }
+  if (!Number.isFinite(observedAt.getTime())) {
+    throw new SourcePipelineError('WORK_RIGHTS_OBSERVATION_STALE', '観測時刻が不正です');
+  }
+  const observedAtIso = observedAt.toISOString();
+  assertRfc3339(observedAtIso, 'WORK_RIGHTS_OBSERVATION_STALE');
+
+  const allowedIds = new Set<string>(manifest.workIds);
+  const ruleIds = new Set<string>();
+  for (const rule of manifest.editionRules) {
+    const orderedIds = [rule.preferredWorkId, ...(rule.fallbackWorkIds ?? [])];
+    if (
+      !nonBlank(rule.title) || !nonBlank(rule.reason) || rule.allowedWorkIds.length === 0 ||
+      !rule.allowedWorkIds.includes(rule.preferredWorkId) ||
+      new Set(rule.allowedWorkIds).size !== rule.allowedWorkIds.length ||
+      new Set(orderedIds).size !== orderedIds.length ||
+      orderedIds.some((id) => !rule.allowedWorkIds.includes(id)) ||
+      rule.allowedWorkIds.some((id) => !allowedIds.has(id))
+    ) {
+      throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `manifestの版規則が不正です: ${rule.title}`);
+    }
+    for (const id of rule.allowedWorkIds) {
+      if (ruleIds.has(id)) {
+        throw new SourcePipelineError('WORK_EDITION_AMBIGUOUS', `作品IDが複数の版規則に含まれます: ${id}`);
+      }
+      ruleIds.add(id);
+    }
+  }
+  if (ruleIds.size !== allowedIds.size || [...allowedIds].some((id) => !ruleIds.has(id))) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', 'manifest作品allowlistと版規則が一致しません');
+  }
+
+  const selected: SelectedWork[] = [];
+  const rights: WorkRightsEntry[] = [];
+  for (const workId of manifest.workIds) {
+    const rule = manifest.editionRules.find((item) => item.allowedWorkIds.includes(workId));
+    if (!rule) throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `版規則がありません: ${workId}`);
+    const workRows = rows.filter((row) => row.workId === workId);
+    if (workRows.length === 0) {
+      throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `公式書誌にmanifest作品がありません: ${workId}`);
+    }
+    if (workRows.some((row) => ['翻訳者', 'translator'].includes(normalizeEnum(row.role)))) {
+      throw new SourcePipelineError('WORK_TRANSLATOR_PRESENT', `翻訳者を持つ作品は選定できません: ${workId}`);
+    }
+    const authorRows = workRows.filter((row) => row.personId === authorId);
+    if (workRows.some((row) => ELIGIBLE_ROLE.has(normalizeEnum(row.role)) && row.personId !== authorId)) {
+      throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `同一作品IDにmanifest外作者の著者行があります: ${workId}`);
+    }
+    if (authorRows.length === 0) {
+      throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `manifest作者と書誌人物IDが一致しません: ${workId}`);
+    }
+    if (authorRows.some((row) => !ELIGIBLE_ROLE.has(normalizeEnum(row.role)))) {
+      throw new SourcePipelineError('WORK_ROLE_INVALID', `著者以外の役割を含みます: ${workId}`);
+    }
+    if (authorRows.length !== 1) {
+      throw new SourcePipelineError('WORK_EDITION_AMBIGUOUS', `同順位の版が複数あります: ${workId}`);
+    }
+    const row = authorRows[0];
+    if (!row) throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `書誌行がありません: ${workId}`);
+    if (row.title !== rule.title) {
+      throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', `作品IDと版規則のtitleが一致しません: ${workId}`);
+    }
+    if (
+      !nonBlank(row.personCopyright) || !ELIGIBLE_COPYRIGHT.has(normalizeEnum(row.personCopyright)) ||
+      !ELIGIBLE_COPYRIGHT.has(normalizeEnum(row.copyright)) ||
+      !ELIGIBLE_STATUS.has(normalizeEnum(row.status)) ||
+      !ELIGIBLE_LANGUAGE.has(normalizeEnum(row.language)) ||
+      row.orthography?.trim() !== '新字新仮名'
+    ) {
+      throw new SourcePipelineError('WORK_RIGHTS_INELIGIBLE', `作品の権利・公開・文字遣い条件を満たしません: ${workId}`);
+    }
+    assertBatchWorkUrl(row, authorId);
+    let charset: Charset | null;
+    try {
+      charset = normalizeCharset(row.charset);
+    } catch {
+      throw new SourcePipelineError('WORK_RIGHTS_INELIGIBLE', `作品のcharsetが不正です: ${workId}`);
+    }
+    const selectedWork: SelectedWork = { ...row, charset, selectionReason: rule.reason.trim() };
+    selected.push(selectedWork);
+    rights.push(Object.freeze({
+      workId,
+      title: row.title,
+      personId: authorId,
+      personCopyright: row.personCopyright.trim(),
+      workCopyright: row.copyright.trim(),
+      role: row.role.trim(),
+      translatorPresent: false,
+      status: row.status.trim(),
+      orthography: row.orthography.trim(),
+      cardUrl: row.cardUrl!.trim(),
+      sourceUrl: row.sourceUrl.trim(),
+    }));
+  }
+  const bibliographySha256 = bibliography.sha256 ?? sha256(canonicalRightsRows(rows));
+  if (!/^[a-f0-9]{64}$/u.test(bibliographySha256)) {
+    throw new SourcePipelineError('WORK_ALLOWLIST_MISMATCH', '公式書誌SHA-256が不正です');
+  }
+  return Object.freeze({
+    works: Object.freeze(selected),
+    observation: Object.freeze({
+      phase: 'selection' as const,
+      bibliographySha256,
+      observedAt: observedAtIso,
+      works: Object.freeze(rights),
+    }),
+  });
+}
+
+function rightsComparable(observation: WorkRightsObservation): string {
+  return JSON.stringify({ bibliographySha256: observation.bibliographySha256, works: observation.works });
+}
+
+function validSelectionObservation(selection: WorkRightsObservation, manifest: BatchSelectionManifest): boolean {
+  if (
+    selection.phase !== 'selection' || selection.releaseCommit !== undefined || selection.runId !== undefined ||
+    !SHA256_HEX.test(selection.bibliographySha256) || !Number.isFinite(Date.parse(selection.observedAt)) ||
+    selection.works.length !== manifest.workIds.length
+  ) return false;
+  return selection.works.every((work, index) => {
+    const expectedId = manifest.workIds[index];
+    if (
+      work.workId !== expectedId || work.personId !== manifest.author.authorId || !work.title.trim() ||
+      !ELIGIBLE_COPYRIGHT.has(normalizeEnum(work.personCopyright)) ||
+      !ELIGIBLE_COPYRIGHT.has(normalizeEnum(work.workCopyright)) ||
+      !ELIGIBLE_ROLE.has(normalizeEnum(work.role)) || work.translatorPresent !== false ||
+      !ELIGIBLE_STATUS.has(normalizeEnum(work.status)) || work.orthography !== '新字新仮名'
+    ) return false;
+    try {
+      assertBatchWorkUrl({
+        workId: work.workId, title: work.title, personId: work.personId, role: work.role,
+        copyright: work.workCopyright, personCopyright: work.personCopyright, status: work.status,
+        language: '日本語原著', orthography: work.orthography, sourceUrl: work.sourceUrl,
+        cardUrl: work.cardUrl, charset: 'UTF-8',
+      }, manifest.author.authorId);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+}
+
+/** @des DES-F002-004 DES-F002-009 DES-F002-016 @fun FUN-F002-036 */
+export async function revalidateWorkRights(
+  manifest: BatchSelectionManifest,
+  releaseCommit: string,
+  runId: string,
+  transport: ProductionAozoraTransport,
+  selection: WorkRightsObservation,
+): Promise<WorkRightsDecision> {
+  if (!/^[a-f0-9]{40}$/u.test(releaseCommit)) {
+    throw new SourcePipelineError('WORK_RIGHTS_COMMIT_MISMATCH', 'release commitがありません');
+  }
+  if (!/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/u.test(runId)) {
+    throw new SourcePipelineError('WORK_RIGHTS_OBSERVATION_STALE', 'release判定run IDがありません');
+  }
+  if (!(transport instanceof ProductionAozoraTransport)) {
+    throw new SourcePipelineError('WORK_RIGHTS_PREDEPLOY_MISSING', 'deploy直前再検査にはProductionAozoraTransportが必要です');
+  }
+  if (!selection || selection.phase !== 'selection') {
+    throw new SourcePipelineError('WORK_RIGHTS_SELECTION_MISSING', '選定時の作品権利観測がありません');
+  }
+  if (selection.releaseCommit !== undefined || selection.runId !== undefined) {
+    return Object.freeze({
+      result: 'blocked', releaseCommit, runId, selection,
+      reasons: Object.freeze(['WORK_RIGHTS_OBSERVATION_STALE']),
+    });
+  }
+  if (!validSelectionObservation(selection, manifest)) {
+    return Object.freeze({
+      result: 'blocked', releaseCommit, runId, selection,
+      reasons: Object.freeze(['WORK_RIGHTS_SELECTION_MISSING']),
+    });
+  }
+
+  let response: TransportResponse;
+  let csv: Uint8Array;
+  try {
+    const policy: TransportPolicy = {
+      pathPrefix: '/index_pages/',
+      allowedMediaTypes: ['application/zip'],
+      maxBytes: MAX_BIBLIOGRAPHY_ARCHIVE_BYTES,
+      timeoutMs: AOZORA_TIMEOUT_MS,
+    };
+    response = await transport.request(new URL(AOZORA_BIBLIOGRAPHY_URL), policy);
+    if (response.elapsedMs !== undefined && response.elapsedMs >= AOZORA_TIMEOUT_MS) {
+      throw new SourcePipelineError('FETCH_TIMEOUT', '取得がtimeoutしました');
+    }
+    validateResponse(response, policy);
+    csv = extractVerifiedBibliographyCsv(response.body);
+  } catch (error) {
+    throw new SourcePipelineError('WORK_RIGHTS_PREDEPLOY_MISSING', 'deploy直前の公式書誌を取得・検証できません', {
+      causeCode: error instanceof SourcePipelineError ? error.code : 'UNKNOWN',
+    });
+  }
+  const observedAt = response.fetchedAt ? new Date(response.fetchedAt) : new Date();
+  if (!Number.isFinite(observedAt.getTime())) {
+    throw new SourcePipelineError('WORK_RIGHTS_PREDEPLOY_MISSING', 'deploy直前観測時刻が不正です');
+  }
+  let selected: SelectedWorkResult;
+  try {
+    selected = selectBatchWorks(parseAozoraBibliography(csv), manifest, observedAt, { sha256: sha256(csv) });
+  } catch (error) {
+    if (error instanceof SourcePipelineError) {
+      return Object.freeze({
+        result: 'blocked', releaseCommit, runId, selection,
+        reasons: Object.freeze(['WORK_RIGHTS_CHANGED']),
+      });
+    }
+    throw error;
+  }
+  const predeploy: WorkRightsObservation = Object.freeze({
+    ...selected.observation,
+    phase: 'predeploy',
+    releaseCommit,
+    runId,
+  });
+  const reasons = rightsComparable(selection) === rightsComparable(predeploy)
+    ? []
+    : ['WORK_RIGHTS_CHANGED'];
+  return Object.freeze({
+    result: reasons.length === 0 ? 'unchanged' : 'blocked',
+    releaseCommit,
+    runId,
+    selection,
+    predeploy,
+    reasons: Object.freeze(reasons),
+  });
+}
+
 function isPublicIpv4(address: string): boolean {
   const parts = address.split('.').map(Number);
   if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) return false;
@@ -485,6 +852,24 @@ export function assertInitialWorkSource(work: Pick<SelectedWork, 'workId' | 'sou
   if (work.cardUrl !== expectedCard) {
     throw new SourcePipelineError('CARD_URL_MISMATCH', `作品IDに対応する固定図書カードURLではありません: ${work.workId}`);
   }
+}
+
+/** @des DES-F002-004 DES-F002-014 @fun FUN-F002-007 */
+export function assertAllowedWorkSource(
+  work: Pick<SelectedWork, 'workId' | 'sourceUrl' | 'cardUrl'>,
+  allowlist: WorkSourceAllowlist,
+): void {
+  if (!/^[0-9]{6}$/u.test(work.workId) || !/^[0-9]{6}$/u.test(allowlist.authorId)) {
+    throw new SourcePipelineError('WORK_NOT_ALLOWED', 'author/work IDは6桁で指定してください');
+  }
+  const expected = allowlist.works[work.workId];
+  if (!expected || work.sourceUrl !== expected.sourceUrl || work.cardUrl !== expected.cardUrl) {
+    throw new SourcePipelineError('WORK_NOT_ALLOWED', `manifest由来allowlistと作品URLが一致しません: ${work.workId}`);
+  }
+  assertBatchWorkUrl({
+    workId: work.workId, title: '', personId: allowlist.authorId, role: '著者', copyright: 'なし',
+    status: '公開中', language: '日本語原著', sourceUrl: work.sourceUrl, cardUrl: work.cardUrl, charset: 'UTF-8',
+  }, allowlist.authorId);
 }
 
 function mediaTypeOf(headers: TransportResponse['headers']): string {
@@ -726,22 +1111,28 @@ export async function fetchAozoraSources(
   const records: SourceRecord[] = [];
   const bodies: Uint8Array[] = [];
   const seen = new Set<string>();
+  const allowlist: WorkSourceAllowlist = options.allowlist ?? {
+    authorId: TARGET_PERSON_ID,
+    works: Object.fromEntries(INITIAL_WORK_IDS.map((workId) => [workId, {
+      sourceUrl: INITIAL_WORK_SOURCE_URLS[workId], cardUrl: INITIAL_WORK_CARD_URLS[workId],
+    }])),
+  };
 
   for (const work of works) {
-    assertInitialWorkId(work.workId);
-    assertInitialWorkSource(work);
+    if (options.allowlist) assertAllowedWorkSource(work, options.allowlist);
+    else assertInitialWorkSource(work);
     if (seen.has(work.workId)) throw new SourcePipelineError('DUPLICATE_WORK_ID', `作品IDが重複しています: ${work.workId}`);
     seen.add(work.workId);
     const url = new URL(work.sourceUrl);
-    validateAozoraUrl(url, `/cards/${TARGET_PERSON_ID}/files/`);
+    validateAozoraUrl(url, `/cards/${allowlist.authorId}/files/`);
     const response = await options.transport.request(url, {
-      pathPrefix: `/cards/${TARGET_PERSON_ID}/files/`,
+      pathPrefix: `/cards/${allowlist.authorId}/files/`,
       allowedMediaTypes: ['application/xhtml+xml', 'text/html'],
       maxBytes: MAX_SOURCE_BYTES,
       timeoutMs: AOZORA_TIMEOUT_MS,
     });
     const mediaType = validateResponse(response, {
-      pathPrefix: `/cards/${TARGET_PERSON_ID}/files/`,
+      pathPrefix: `/cards/${allowlist.authorId}/files/`,
       allowedMediaTypes: ['application/xhtml+xml', 'text/html'],
       maxBytes: MAX_SOURCE_BYTES,
       timeoutMs: AOZORA_TIMEOUT_MS,
@@ -1179,6 +1570,8 @@ export function parseAozoraBibliography(raw: Uint8Array): BibliographyRow[] {
       inputter: value(record, '入力者'),
       proofreader: value(record, '校正者'),
       edition: value(record, '底本名1'),
+      personCopyright: value(record, '人物著作権フラグ'),
+      orthography: value(record, '文字遣い種別'),
     };
   });
 }

@@ -6,6 +6,8 @@ import {
   COMPLETE_PRODUCTION_CONTENT_STAGES,
   createCompleteProductionStageRunner,
 } from '../src/content/production-final.ts';
+import { BatchCommandError, runBatchCommand, serializeBatchCommandResult } from '../src/content/batch-command.ts';
+import { createProductionBatchDependencies } from '../src/content/batch-runtime.ts';
 
 const EXIT_CODES: Readonly<Record<(typeof COMPLETE_PRODUCTION_CONTENT_STAGES)[number], number>> = Object.freeze({
   bibliography: 2,
@@ -21,7 +23,7 @@ const EXIT_CODES: Readonly<Record<(typeof COMPLETE_PRODUCTION_CONTENT_STAGES)[nu
   build: 12,
 });
 
-function requestedStages(argument: string | undefined): readonly UpdateStage[] {
+export function requestedStages(argument: string | undefined): readonly UpdateStage[] {
   if (argument === undefined || argument === 'all') return COMPLETE_PRODUCTION_CONTENT_STAGES;
   if ((COMPLETE_PRODUCTION_CONTENT_STAGES as readonly string[]).includes(argument)) return [argument as UpdateStage];
   throw new Error('CLI_ARGUMENT_INVALID');
@@ -37,7 +39,22 @@ export function exitCodeForDiagnostic(value: unknown): number {
 
 async function main(): Promise<void> {
   const workspace = await realpath(fileURLToPath(new URL('..', import.meta.url)));
-  const stages = requestedStages(process.argv[2]);
+  const arguments_ = process.argv.slice(2);
+  // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027
+  if (arguments_.includes('--batch')) {
+    try {
+      const result = await runBatchCommand(arguments_, workspace, createProductionBatchDependencies());
+      process.stdout.write(serializeBatchCommandResult(result));
+    } catch (error) {
+      const diagnostic = error instanceof BatchCommandError
+        ? { ok: false, code: error.code, stage: error.stage, message: error.message }
+        : { ok: false, code: 'BATCH_RUNTIME_FAILURE', message: error instanceof Error ? error.message : 'unknown error' };
+      process.stderr.write(`${JSON.stringify(diagnostic)}\n`);
+      process.exitCode = error instanceof BatchCommandError ? error.exitCode : 1;
+    }
+    return;
+  }
+  const stages = requestedStages(arguments_[0]);
   try {
     const summary = await runContentUpdate({
       workspace,

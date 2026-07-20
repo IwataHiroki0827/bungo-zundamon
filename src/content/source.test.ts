@@ -23,7 +23,10 @@ import {
   isPublicAddress,
   parseAozoraBibliography,
   resolveEdition,
+  revalidateWorkRights,
+  selectBatchWorks,
   selectEligibleWorks,
+  type BatchSelectionManifest,
   type BibliographyRow,
   type BibliographySnapshot,
   type EditionRule,
@@ -31,6 +34,7 @@ import {
   type SelectedWork,
   type SourceRecord,
   type TransportResponse,
+  type WorkRightsObservation,
 } from './source';
 
 const temporaryDirectories: string[] = [];
@@ -182,6 +186,76 @@ function selected(overrides: Partial<SelectedWork> = {}): SelectedWork {
   };
 }
 
+const MIYAZAWA_MANIFEST: BatchSelectionManifest = Object.freeze({
+  batchId: 'F002',
+  feature: 'F002',
+  schemaVersion: '1.0.0',
+  status: 'draft',
+  author: Object.freeze({
+    authorId: '000081', name: 'みやざわずんじ', originalName: '宮沢賢治', slug: 'miyazawa-zunji',
+    identitySha256: 'a'.repeat(64),
+  }),
+  workIds: Object.freeze(['000473', '043752', '043754']),
+  workProgress: Object.freeze([
+    Object.freeze({ workId: '000473', status: 'pending', stageRecords: Object.freeze([]) }),
+    Object.freeze({ workId: '043752', status: 'pending', stageRecords: Object.freeze([]) }),
+    Object.freeze({ workId: '043754', status: 'pending', stageRecords: Object.freeze([]) }),
+  ]),
+  inputPaths: Object.freeze(['data/batches/F002/selected-works.json']),
+  outputPaths: Object.freeze(['content/batches/F002/provenance.json']),
+  stageRecords: Object.freeze([]),
+  rightsSnapshotIds: Object.freeze(['aozora-selection-2026-07-20']),
+  voiceConfigRef: 'content/batches/F002/voice-config.json',
+  artworkProvenanceRef: 'content/batches/F002/artwork-provenance.json',
+  editionRules: Object.freeze([
+    Object.freeze({ title: 'よだかの星', preferredWorkId: '000473', allowedWorkIds: Object.freeze(['000473']), reason: '承認済み代表作' }),
+    Object.freeze({ title: 'どんぐりと山猫', preferredWorkId: '043752', allowedWorkIds: Object.freeze(['043752']), reason: '承認済み代表作' }),
+    Object.freeze({ title: '注文の多い料理店', preferredWorkId: '043754', allowedWorkIds: Object.freeze(['043754']), reason: '承認済み代表作' }),
+  ]),
+} as unknown as BatchSelectionManifest);
+
+function miyazawaRows(): BibliographyRow[] {
+  return [
+    ['000473', 'よだかの星', '473_00001.html'],
+    ['043752', 'どんぐりと山猫', '43752_00001.html'],
+    ['043754', '注文の多い料理店', '43754_00001.html'],
+  ].map(([workId = '', title = '', file = '']) => ({
+    workId,
+    title,
+    personId: '000081',
+    personCopyright: 'なし',
+    role: '著者',
+    copyright: 'なし',
+    status: '公開中',
+    language: '日本語原著',
+    orthography: '新字新仮名',
+    sourceUrl: `https://www.aozora.gr.jp/cards/000081/files/${file}`,
+    cardUrl: `https://www.aozora.gr.jp/cards/000081/card${Number(workId)}.html`,
+    charset: 'UTF-8',
+    edition: '新字新仮名版',
+  }));
+}
+
+function bibliographyCsv(rows: readonly BibliographyRow[]): Uint8Array {
+  const records = rows.map((item) => AOZORA_BIBLIOGRAPHY_REQUIRED_COLUMNS.map((column) => ({
+    作品ID: String(Number(item.workId)),
+    作品名: item.title,
+    文字遣い種別: item.orthography ?? '',
+    作品著作権フラグ: item.copyright,
+    図書カードURL: item.cardUrl ?? '',
+    人物ID: String(Number(item.personId)),
+    人物著作権フラグ: item.personCopyright ?? '',
+    役割フラグ: item.role,
+    底本名1: item.edition ?? '',
+    入力者: item.inputter ?? '入力者',
+    校正者: item.proofreader ?? '校正者',
+    'XHTML/HTMLファイルURL': item.sourceUrl,
+    'XHTML/HTMLファイル符号化方式': item.charset ?? '',
+    'XHTML/HTMLファイル文字集合': item.charset ?? '',
+  } as Record<string, string>)[column] ?? '').join(','));
+  return new TextEncoder().encode(`${AOZORA_BIBLIOGRAPHY_REQUIRED_COLUMNS.join(',')}\n${records.join('\n')}\n`);
+}
+
 function productionTransport(response: TransportResponse | Error): {
   transport: ProductionAozoraTransport;
   socket: ReturnType<typeof vi.fn<(request: PinnedRequest) => Promise<TransportResponse>>>;
@@ -245,6 +319,128 @@ describe('原典選定・取得・由来', () => {
     expect(() => resolveEdition(candidates, [
       { ...rules[0]!, allowedWorkIds: ['000127', '099999'] }, rules[1]!, rules[2]!,
     ])).toThrowError(expect.objectContaining({ code: 'WORK_NOT_ALLOWED' }));
+  });
+
+  /** @des DES-F002-004 DES-F002-009 @fun FUN-F002-006 @test UT-F002-006 */
+  it('manifestの宮沢作者・3作品allowlist順で選定しselection権利観測へ固定する', () => {
+    const rows = miyazawaRows();
+    const raw = bibliographyCsv(rows);
+    const result = selectBatchWorks(rows.toReversed(), MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
+      sha256: hash(raw),
+    });
+
+    expect(result.works.map(({ workId }) => workId)).toEqual(['000473', '043752', '043754']);
+    expect(result.observation).toMatchObject({
+      phase: 'selection',
+      bibliographySha256: hash(raw),
+      observedAt: '2026-07-20T01:00:00.000Z',
+      works: [
+        { workId: '000473', personId: '000081', translatorPresent: false, orthography: '新字新仮名' },
+        { workId: '043752', personId: '000081', translatorPresent: false, orthography: '新字新仮名' },
+        { workId: '043754', personId: '000081', translatorPresent: false, orthography: '新字新仮名' },
+      ],
+    });
+    expect(result.observation).not.toHaveProperty('releaseCommit');
+    expect(result.observation).not.toHaveProperty('runId');
+  });
+
+  /** @des DES-F002-004 DES-F002-009 @fun FUN-F002-006 @test UT-F002-006 */
+  it.each([
+    ['別人物', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, personId: '000879' }; }, 'WORK_ALLOWLIST_MISMATCH'],
+    ['別作者著者行混入', (rows: BibliographyRow[]) => { rows.push({ ...rows[0]!, personId: '000879' }); }, 'WORK_ALLOWLIST_MISMATCH'],
+    ['役割違い', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, role: '編者' }; }, 'WORK_ROLE_INVALID'],
+    ['翻訳者あり', (rows: BibliographyRow[]) => { rows.push({ ...rows[0]!, role: '翻訳者', personId: '000999' }); }, 'WORK_TRANSLATOR_PRESENT'],
+    ['作品著作権あり', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, copyright: 'あり' }; }, 'WORK_RIGHTS_INELIGIBLE'],
+    ['人物著作権あり', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, personCopyright: 'あり' }; }, 'WORK_RIGHTS_INELIGIBLE'],
+    ['非公開', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, status: '非公開' }; }, 'WORK_RIGHTS_INELIGIBLE'],
+    ['旧字旧仮名', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, orthography: '旧字旧仮名' }; }, 'WORK_RIGHTS_INELIGIBLE'],
+    ['同順位複数版', (rows: BibliographyRow[]) => { rows.push({ ...rows[0]! }); }, 'WORK_EDITION_AMBIGUOUS'],
+    ['URLとID混線', (rows: BibliographyRow[]) => { rows[0] = { ...rows[0]!, sourceUrl: rows[1]!.sourceUrl }; }, 'WORK_ALLOWLIST_MISMATCH'],
+  ])('%sを全体停止する', (_label, mutate, code) => {
+    const rows = miyazawaRows();
+    mutate(rows);
+    expect(() => selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z')))
+      .toThrowError(expect.objectContaining({ code }));
+  });
+
+  /** @des DES-F002-004 DES-F002-009 DES-F002-016 @fun FUN-F002-036 @test UT-F002-036 */
+  it('deploy直前に公式書誌を再取得しselectionと同じrelease commit/runへ結合する', async () => {
+    const rows = miyazawaRows();
+    const raw = bibliographyCsv(rows);
+    const selection = selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
+      sha256: hash(raw),
+    }).observation;
+    const { transport, socket } = productionTransport({
+      status: 200,
+      headers: { 'content-type': 'application/zip' },
+      body: zipFixture(raw),
+      elapsedMs: AOZORA_TIMEOUT_MS - 1,
+      fetchedAt: '2026-07-20T02:00:00.000Z',
+    });
+
+    const decision = await revalidateWorkRights(MIYAZAWA_MANIFEST, 'a'.repeat(40), 'release-F002-1', transport, selection);
+    expect(decision).toMatchObject({
+      result: 'unchanged',
+      releaseCommit: 'a'.repeat(40),
+      runId: 'release-F002-1',
+      reasons: [],
+      predeploy: {
+        phase: 'predeploy', releaseCommit: 'a'.repeat(40), runId: 'release-F002-1',
+        observedAt: '2026-07-20T02:00:00.000Z',
+      },
+    });
+    expect(socket).toHaveBeenCalledTimes(1);
+  });
+
+  /** @des DES-F002-004 DES-F002-014 @fun FUN-F002-007 @test UT-F002-007 */
+  it('manifest由来allowlistでF002作品を既存安全transportから取得する', async () => {
+    const workspace = await temporaryWorkspace();
+    const work = selectBatchWorks(miyazawaRows(), MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00Z')).works[0]!;
+    const { transport, socket } = productionTransport({
+      status: 200, headers: { 'content-type': 'application/xhtml+xml; charset=UTF-8' },
+      body: new TextEncoder().encode('<html>よだか</html>'), fetchedAt: '2026-07-20T01:00:00Z',
+    });
+    const records = await fetchAozoraSources([work], join(workspace, 'sources'), {
+      transport, workspaceRoot: workspace,
+      allowlist: {
+        authorId: '000081',
+        works: { '000473': { sourceUrl: work.sourceUrl, cardUrl: work.cardUrl! } },
+      },
+    });
+    expect(records[0]).toMatchObject({ workId: '000473', sourceUrl: work.sourceUrl });
+    expect(socket).toHaveBeenCalledWith(expect.objectContaining({ url: new URL(work.sourceUrl) }));
+  });
+
+  /** @des DES-F002-004 DES-F002-009 DES-F002-016 @fun FUN-F002-036 @test UT-F002-036 */
+  it('権利条件変更とselection観測のpredeploy再利用をblockedにする', async () => {
+    const rows = miyazawaRows();
+    const raw = bibliographyCsv(rows);
+    const selection = selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
+      sha256: hash(raw),
+    }).observation;
+    const changedRows = miyazawaRows();
+    changedRows[0] = { ...changedRows[0]!, copyright: 'あり' };
+    const changedRaw = bibliographyCsv(changedRows);
+    const { transport } = productionTransport({
+      status: 200,
+      headers: { 'content-type': 'application/zip' },
+      body: zipFixture(changedRaw),
+      fetchedAt: '2026-07-20T02:00:00.000Z',
+    });
+    await expect(revalidateWorkRights(MIYAZAWA_MANIFEST, 'b'.repeat(40), 'release-F002-2', transport, selection))
+      .resolves.toMatchObject({ result: 'blocked', reasons: ['WORK_RIGHTS_CHANGED'] });
+
+    const stale = { ...selection, releaseCommit: 'b'.repeat(40), runId: 'old-run' } satisfies WorkRightsObservation;
+    await expect(revalidateWorkRights(MIYAZAWA_MANIFEST, 'b'.repeat(40), 'release-F002-2', transport, stale))
+      .resolves.toMatchObject({ result: 'blocked', reasons: ['WORK_RIGHTS_OBSERVATION_STALE'] });
+
+    const malformed = { ...selection, bibliographySha256: 'short' } satisfies WorkRightsObservation;
+    await expect(revalidateWorkRights(MIYAZAWA_MANIFEST, 'b'.repeat(40), 'release-F002-2', transport, malformed))
+      .resolves.toMatchObject({ result: 'blocked', reasons: ['WORK_RIGHTS_SELECTION_MISSING'] });
+    await expect(revalidateWorkRights(MIYAZAWA_MANIFEST, 'not-a-sha', 'release-F002-2', transport, selection))
+      .rejects.toMatchObject({ code: 'WORK_RIGHTS_COMMIT_MISMATCH' });
+    await expect(revalidateWorkRights(MIYAZAWA_MANIFEST, 'b'.repeat(40), '../unsafe run', transport, selection))
+      .rejects.toMatchObject({ code: 'WORK_RIGHTS_OBSERVATION_STALE' });
   });
 
   /** @des DES-F001-004 DES-F001-017 DES-F001-019 @fun FUN-F001-007 @test UT-F001-007 */

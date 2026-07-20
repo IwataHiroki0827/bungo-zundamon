@@ -212,3 +212,12 @@ entries:
   agents: 1
   est_tokens: 4000
   note: Q-014の承認をUT/IT/QTへ反映し、T-018をdone、F002とfactoryをimplementへ遷移。trace_checkは対応漏れなし。許可フェーズ境界によりpf-implement実行前で停止。
+- date: '2026-07-20'
+  phase: implement
+  task: T-019 複数作者batch・source・review基盤
+  model: GPT-5
+  agents: 4
+  est_tokens: 42000
+  note: batch manifest、青空文庫書誌・原典・抽出・正規化・全件review、content:batch実CLIを実装。journal path
+    traversal、実SIGKILL回復、第三者改変隔離、tree/candidate完全性を補強し、独立受入PASS。型・lint・424 tests・build・npm
+    audit 0件を確認

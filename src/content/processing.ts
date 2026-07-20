@@ -133,6 +133,7 @@ export interface Candidate {
 }
 
 export type ReviewStatus = 'approved' | 'rejected' | 'pending';
+export type PolicyReviewDecision = 'allowed' | 'excluded' | 'pending';
 
 export const APPROVED_REVIEW_REASON = 'SPOKEN_DIALOGUE' as const;
 export const APPROVED_REVIEW_REASONS = Object.freeze([
@@ -151,6 +152,10 @@ const REJECTED_REVIEW_REASON_SET = new Set<string>(REJECTED_REVIEW_REASONS);
 
 export interface ReviewRecord {
   candidateId: string;
+  /** F002の作品別review artifactでは必須。F001 artifactとの後方互換のため型上は任意。 */
+  workId?: string;
+  /** F002では候補ごとの規約判断を明示する。F001 artifactとの後方互換のため型上は任意。 */
+  policyDecision?: PolicyReviewDecision;
   revision: number;
   status: ReviewStatus;
   reasonCode: string;
@@ -172,6 +177,23 @@ export interface ReviewResult {
   all: ReviewedCandidate[];
   counts: Record<ReviewStatus, number>;
   reasonCounts: Record<string, number>;
+}
+
+export interface WorkReviewRecord extends ReviewRecord {
+  workId: string;
+  policyDecision: PolicyReviewDecision;
+}
+
+export interface WorkReviewedCandidate extends ReviewedCandidate {
+  review: WorkReviewRecord;
+}
+
+export interface WorkReviewResult extends ReviewResult {
+  workId: string;
+  approved: WorkReviewedCandidate[];
+  rejected: WorkReviewedCandidate[];
+  pending: WorkReviewedCandidate[];
+  all: WorkReviewedCandidate[];
 }
 
 export interface CatalogAuthor {
@@ -318,8 +340,8 @@ export class CatalogBuildError extends ProcessingError {
   }
 }
 
-function assertAllowedWorkId(workId: string): void {
-  if (!ALLOWED_WORK_IDS.has(workId)) {
+function assertAllowedWorkId(workId: string, allowedWorkIds: ReadonlySet<string> = ALLOWED_WORK_IDS): void {
+  if (!allowedWorkIds.has(workId)) {
     throw new ProcessingError('work-id-not-allowed', `allowlist外の作品IDです: ${workId}`);
   }
 }
@@ -497,9 +519,13 @@ function parseInertXhtml(text: string): Document {
 }
 
 /** @des DES-F001-005,DES-F001-019 @fun FUN-F001-009 */
-export function extractDialogueCandidates(source: DecodedSource, workId: string): ExtractionResult {
+export function extractDialogueCandidates(
+  source: DecodedSource,
+  workId: string,
+  allowedWorkIds: ReadonlySet<string> = ALLOWED_WORK_IDS,
+): ExtractionResult {
   try {
-    assertAllowedWorkId(workId);
+    assertAllowedWorkId(workId, allowedWorkIds);
     if (source.workId !== workId) throw new ProcessingError('work-id-mismatch', 'sourceと引数の作品IDが一致しません');
     if (!SHA256.test(source.rawSha256)) throw new ProcessingError('invalid-source-hash', 'raw source hashが不正です');
     const document = parseInertXhtml(source.text);
@@ -617,8 +643,9 @@ export function createCandidateId(
   extractorVersion: string,
   normalizerVersion: string,
   normalizedTextHash: string,
+  allowedWorkIds: ReadonlySet<string> = ALLOWED_WORK_IDS,
 ): string {
-  assertAllowedWorkId(workId);
+  assertAllowedWorkId(workId, allowedWorkIds);
   if (!SHA256.test(rawSourceSha256) || !SHA256.test(normalizedTextHash)) {
     throw new ProcessingError('invalid-sha256', 'SHA-256は64桁hexで指定してください');
   }
@@ -719,6 +746,107 @@ export function applyEditorialReview(candidates: Candidate[], reviews: ReviewRec
   }
   if (result.pending.length > 0) {
     throw new ReviewError('pending-review', `${result.pending.length}件のpendingレビューが残っています`);
+  }
+  return result;
+}
+
+function validateWorkReview(review: ReviewRecord): asserts review is WorkReviewRecord {
+  try {
+    validateReview(review);
+  } catch (error) {
+    if (error instanceof ReviewError && error.code === 'invalid-revision') {
+      throw new ReviewError('REVIEW_REVISION_CONFLICT', error.message);
+    }
+    if (error instanceof ReviewError) {
+      throw new ReviewError('REVIEW_REASON_INVALID', error.message);
+    }
+    throw error;
+  }
+  const expectedPolicyDecision: PolicyReviewDecision = review.status === 'pending'
+    ? 'pending'
+    : review.status === 'rejected' && review.reasonCode === 'POLICY_EXCLUDED'
+      ? 'excluded'
+      : 'allowed';
+  if (review.policyDecision !== expectedPolicyDecision) {
+    throw new ReviewError(
+      'REVIEW_REASON_INVALID',
+      'policyDecisionが欠落しているかstatus・reasonCodeと一致しません',
+    );
+  }
+}
+
+/** @des DES-F002-004,DES-F002-015 @fun FUN-F002-009 */
+export function applyWorkReviews(
+  workId: string,
+  candidates: readonly Candidate[],
+  reviews: readonly ReviewRecord[],
+): WorkReviewResult {
+  if (!workId.trim()) {
+    throw new ReviewError('REVIEW_WORK_MISMATCH', '対象workIdが必要です');
+  }
+
+  const candidateById = new Map<string, Candidate>();
+  for (const candidate of candidates) {
+    if (candidate.workId !== workId) {
+      throw new ReviewError('REVIEW_WORK_MISMATCH', `候補が対象外workに属しています: ${candidate.candidateId}`);
+    }
+    if (candidateById.has(candidate.candidateId)) {
+      throw new ReviewError('REVIEW_DUPLICATE', `候補IDが重複しています: ${candidate.candidateId}`);
+    }
+    candidateById.set(candidate.candidateId, candidate);
+  }
+
+  const histories = new Map<string, Map<number, WorkReviewRecord>>();
+  for (const review of reviews) {
+    if (review.workId !== workId) {
+      throw new ReviewError('REVIEW_WORK_MISMATCH', `レビューが対象外workに属しています: ${review.candidateId}`);
+    }
+    validateWorkReview(review);
+    if (!candidateById.has(review.candidateId)) {
+      throw new ReviewError('REVIEW_ORPHAN', `対象workに存在しない候補のレビューです: ${review.candidateId}`);
+    }
+    const revisions = histories.get(review.candidateId) ?? new Map<number, WorkReviewRecord>();
+    if (revisions.has(review.revision)) {
+      throw new ReviewError('REVIEW_REVISION_CONFLICT', `同じrevisionのレビューが競合しています: ${review.candidateId}`);
+    }
+    revisions.set(review.revision, review);
+    histories.set(review.candidateId, revisions);
+  }
+
+  const result: WorkReviewResult = {
+    workId,
+    approved: [],
+    rejected: [],
+    pending: [],
+    all: [],
+    counts: { approved: 0, rejected: 0, pending: 0 },
+    reasonCounts: {},
+  };
+  for (const candidate of candidates) {
+    const revisions = histories.get(candidate.candidateId);
+    if (!revisions?.size) {
+      throw new ReviewError('REVIEW_MISSING', `候補にレビューがありません: ${candidate.candidateId}`);
+    }
+    const orderedRevisions = [...revisions.keys()].sort((left, right) => left - right);
+    if (orderedRevisions.some((revision, index) => revision !== index + 1)) {
+      throw new ReviewError(
+        'REVIEW_REVISION_CONFLICT',
+        `review revisionは1から連続している必要があります: ${candidate.candidateId}`,
+      );
+    }
+    const latestRevision = Math.max(...revisions.keys());
+    const review = revisions.get(latestRevision);
+    if (!review) {
+      throw new ReviewError('REVIEW_MISSING', `候補に最新レビューがありません: ${candidate.candidateId}`);
+    }
+    const reviewed = { candidate, review };
+    result[review.status].push(reviewed);
+    result.all.push(reviewed);
+    result.counts[review.status] += 1;
+    increment(result.reasonCounts, review.reasonCode);
+  }
+  if (result.pending.length > 0) {
+    throw new ReviewError('REVIEW_PENDING', `${result.pending.length}件のpendingレビューが残っています`);
   }
   return result;
 }
