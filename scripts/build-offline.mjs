@@ -15,9 +15,9 @@ const environment = {
 };
 
 // @des DES-F001-017 @fun FUN-F001-033
-function runNode(relativeEntry, args = []) {
+function runNode(relativeEntry, args = [], nodeArgs = []) {
   const entry = path.join(projectRoot, ...relativeEntry.split('/'));
-  const result = spawnSync(process.execPath, [entry, ...args], {
+  const result = spawnSync(process.execPath, [...nodeArgs, entry, ...args], {
     cwd: projectRoot,
     env: environment,
     stdio: 'inherit',
@@ -32,4 +32,4 @@ function runNode(relativeEntry, args = []) {
 
 runNode('node_modules/typescript/bin/tsc', ['--noEmit']);
 runNode('node_modules/vite/bin/vite.js', ['build']);
-runNode('scripts/verify-project.mjs');
+runNode('scripts/verify-project.mjs', [], ['--experimental-transform-types']);

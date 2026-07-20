@@ -1,0 +1,2488 @@
+{
+  "baselineSha256": "722b88affbc84a3e1250bcc1e2e6d538957a02d94483b706bb55609483b9fbc9",
+  "catalog": {
+    "audioAssets": [
+      {
+        "audioId": "d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726",
+        "batchId": "F001",
+        "bytes": 132140,
+        "candidateIds": [
+          "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2752,
+        "path": "audio/F001/d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726.wav",
+        "sha256": "8e3f8f8b6df73caaaec1491ffacb188944601f6604c49c883e9bb7ce46fd2326"
+      },
+      {
+        "audioId": "64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678",
+        "batchId": "F001",
+        "bytes": 86060,
+        "candidateIds": [
+          "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 1792,
+        "path": "audio/F001/64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678.wav",
+        "sha256": "2b49ba01c0ba348f3f09b3b5b848d4263b2db68c6a4632145e2d6b5b569e9cba"
+      },
+      {
+        "audioId": "b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2",
+        "batchId": "F001",
+        "bytes": 226348,
+        "candidateIds": [
+          "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 4715,
+        "path": "audio/F001/b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2.wav",
+        "sha256": "fc414e01d0e7bbd2a01618fa887a5b2b33dee786b7ffd076582dcc00efe6678a"
+      },
+      {
+        "audioId": "acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c",
+        "batchId": "F001",
+        "bytes": 934956,
+        "candidateIds": [
+          "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 19477,
+        "path": "audio/F001/acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c.wav",
+        "sha256": "4cfe72e85f5d52a3332fc962bbdc25e4d642deaf60623dd0f5fda987a6286ebc"
+      },
+      {
+        "audioId": "956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1",
+        "batchId": "F001",
+        "bytes": 267820,
+        "candidateIds": [
+          "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5579,
+        "path": "audio/F001/956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1.wav",
+        "sha256": "1e598ce70e7cd31bb82967f2685f03ff47729aa1bea623aefeba096930c9f646"
+      },
+      {
+        "audioId": "2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c",
+        "batchId": "F001",
+        "bytes": 3249708,
+        "candidateIds": [
+          "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 67701,
+        "path": "audio/F001/2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c.wav",
+        "sha256": "0a739b8b649af61314e3242b56a0c298a61dc67d906efef00d2483e5f405ddda"
+      },
+      {
+        "audioId": "dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728",
+        "batchId": "F001",
+        "bytes": 79916,
+        "candidateIds": [
+          "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 1664,
+        "path": "audio/F001/dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728.wav",
+        "sha256": "91a824acb11cecf320158d9ee9e59469db83a73677f73a7649dfa30b5c8f337e"
+      },
+      {
+        "audioId": "34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a",
+        "batchId": "F001",
+        "bytes": 370220,
+        "candidateIds": [
+          "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 7712,
+        "path": "audio/F001/34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a.wav",
+        "sha256": "e25458a0461fa8e0d9dbaca922cc886ae9c2b0fb577da3a83169db130c96e383"
+      },
+      {
+        "audioId": "98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201",
+        "batchId": "F001",
+        "bytes": 524844,
+        "candidateIds": [
+          "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 10933,
+        "path": "audio/F001/98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201.wav",
+        "sha256": "1630bc7568ba752087eb57356a0048b6ba241a989518d8e68e5a4c288e78b18f"
+      },
+      {
+        "audioId": "ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c",
+        "batchId": "F001",
+        "bytes": 79916,
+        "candidateIds": [
+          "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 1664,
+        "path": "audio/F001/ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c.wav",
+        "sha256": "b802c95da3a5be4c209fcb4b6c950461c9f7199006986672806f403c60ab397a"
+      },
+      {
+        "audioId": "bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226",
+        "batchId": "F001",
+        "bytes": 463916,
+        "candidateIds": [
+          "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 9664,
+        "path": "audio/F001/bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226.wav",
+        "sha256": "ab0e0a469595a1d4e7cebcb16b939b5b167547338206b785b2111291c77cb349"
+      },
+      {
+        "audioId": "572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951",
+        "batchId": "F001",
+        "bytes": 708140,
+        "candidateIds": [
+          "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 14752,
+        "path": "audio/F001/572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951.wav",
+        "sha256": "b57e0b58807ec6fbecd26fc2b2dda84dbb8ab8c663dad6a8f1998b785dfc6b94"
+      },
+      {
+        "audioId": "4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781",
+        "batchId": "F001",
+        "bytes": 119852,
+        "candidateIds": [
+          "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+          "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+          "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2496,
+        "path": "audio/F001/4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781.wav",
+        "sha256": "3b03377418e0edcafa130ccc07c1552092f02d73f2eefef967adfd107411599c"
+      },
+      {
+        "audioId": "fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da",
+        "batchId": "F001",
+        "bytes": 322092,
+        "candidateIds": [
+          "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6709,
+        "path": "audio/F001/fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da.wav",
+        "sha256": "3a07df50ff0f4689c8abf9b0eea5ca74f80ccab97309c7fe1d9d22b059be0c6e"
+      },
+      {
+        "audioId": "91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9",
+        "batchId": "F001",
+        "bytes": 119852,
+        "candidateIds": [
+          "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2496,
+        "path": "audio/F001/91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9.wav",
+        "sha256": "39be8dd3f8ee00ad4d55e4803cd46197d637f7adc482dc6fa1e7b1170d82a06e"
+      },
+      {
+        "audioId": "9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45",
+        "batchId": "F001",
+        "bytes": 741932,
+        "candidateIds": [
+          "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 15456,
+        "path": "audio/F001/9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45.wav",
+        "sha256": "35a672d301380047a316a91d7a50072f217953785fd00300ad05944c01690779"
+      },
+      {
+        "audioId": "03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a",
+        "batchId": "F001",
+        "bytes": 60460,
+        "candidateIds": [
+          "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 1259,
+        "path": "audio/F001/03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a.wav",
+        "sha256": "1cc035dc0f4893b24a9424729e8b7923a8a70f8748269b915884426ce4adf7ce"
+      },
+      {
+        "audioId": "0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa",
+        "batchId": "F001",
+        "bytes": 258092,
+        "candidateIds": [
+          "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5376,
+        "path": "audio/F001/0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa.wav",
+        "sha256": "c949257ec8ac4f840d06c1a32dedbcecab8fc292ecca42b44ebd386bf51e99a6"
+      },
+      {
+        "audioId": "01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4",
+        "batchId": "F001",
+        "bytes": 877612,
+        "candidateIds": [
+          "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 18283,
+        "path": "audio/F001/01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4.wav",
+        "sha256": "f5bb4edeb4a6e73028b6577e4fe1d2a1eece7bd7832fe7b8aecbef4432d71d7b"
+      },
+      {
+        "audioId": "3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556",
+        "batchId": "F001",
+        "bytes": 306732,
+        "candidateIds": [
+          "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6389,
+        "path": "audio/F001/3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556.wav",
+        "sha256": "38cf582f474e825f33b256029587a1899da505da36c662a88f736b5043a071db"
+      },
+      {
+        "audioId": "090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3",
+        "batchId": "F001",
+        "bytes": 763948,
+        "candidateIds": [
+          "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 15915,
+        "path": "audio/F001/090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3.wav",
+        "sha256": "af5160482ce8f13a2d76f9eb33369cf4afac7b4d36ab19e1f06e914659cc8c89"
+      },
+      {
+        "audioId": "c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50",
+        "batchId": "F001",
+        "bytes": 138796,
+        "candidateIds": [
+          "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2891,
+        "path": "audio/F001/c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50.wav",
+        "sha256": "09c8c48b14ae37d28afb49ee62844c67a9cf017f299bd7a71d0f0de7395befe1"
+      },
+      {
+        "audioId": "3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6",
+        "batchId": "F001",
+        "bytes": 329260,
+        "candidateIds": [
+          "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6859,
+        "path": "audio/F001/3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6.wav",
+        "sha256": "1b74da5307cb72bfcd2753091893e7c800b71fbf1d86f8951318d80b7b95ab5a"
+      },
+      {
+        "audioId": "ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac",
+        "batchId": "F001",
+        "bytes": 306220,
+        "candidateIds": [
+          "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6379,
+        "path": "audio/F001/ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac.wav",
+        "sha256": "c5343b8506c857657fbee378708096d845385ac5af3f63571882423391968a42"
+      },
+      {
+        "audioId": "89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce",
+        "batchId": "F001",
+        "bytes": 226348,
+        "candidateIds": [
+          "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 4715,
+        "path": "audio/F001/89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce.wav",
+        "sha256": "edcd1fb63fe974857286dda5627a39158fff61441f382e70cca5b8b9a502a6b1"
+      },
+      {
+        "audioId": "cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e",
+        "batchId": "F001",
+        "bytes": 1030700,
+        "candidateIds": [
+          "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 21472,
+        "path": "audio/F001/cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e.wav",
+        "sha256": "a245f6bbd8317911b95f3cff3a37764c267ad6a9b5e078dba4262cc110d46519"
+      },
+      {
+        "audioId": "6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b",
+        "batchId": "F001",
+        "bytes": 561196,
+        "candidateIds": [
+          "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 11691,
+        "path": "audio/F001/6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b.wav",
+        "sha256": "083bb8d5ef14f9d81589d81c60532786da83e88ab682f009e075b3218e379ca2"
+      },
+      {
+        "audioId": "88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d",
+        "batchId": "F001",
+        "bytes": 1294380,
+        "candidateIds": [
+          "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 26965,
+        "path": "audio/F001/88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d.wav",
+        "sha256": "0810b5d6f99f2c1149842f8fc2fb5ecba2d93a0db8b84d1fad4e891c93a08ede"
+      },
+      {
+        "audioId": "e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7",
+        "batchId": "F001",
+        "bytes": 835628,
+        "candidateIds": [
+          "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 17408,
+        "path": "audio/F001/e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7.wav",
+        "sha256": "587df94a7d17ef5351cf484ba86ffaee8cdeecfc604fbffbd28385e84f22a87f"
+      },
+      {
+        "audioId": "0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b",
+        "batchId": "F001",
+        "bytes": 1236012,
+        "candidateIds": [
+          "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 25749,
+        "path": "audio/F001/0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b.wav",
+        "sha256": "16d199487b459307f8dc37c512d9f215411812f9df709c966b0725c46d3e8d33"
+      },
+      {
+        "audioId": "21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617",
+        "batchId": "F001",
+        "bytes": 1569324,
+        "candidateIds": [
+          "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 32693,
+        "path": "audio/F001/21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617.wav",
+        "sha256": "c62bc17427fcfffb5f493cc0b84496e9c3ff65adae1668ab1694a143341e23c5"
+      },
+      {
+        "audioId": "166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338",
+        "batchId": "F001",
+        "bytes": 332332,
+        "candidateIds": [
+          "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6923,
+        "path": "audio/F001/166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338.wav",
+        "sha256": "3e528577c1b1ca23e61e03b6c929b66d9907442a8d12d381398d464ea76deea2"
+      },
+      {
+        "audioId": "056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9",
+        "batchId": "F001",
+        "bytes": 261676,
+        "candidateIds": [
+          "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5451,
+        "path": "audio/F001/056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9.wav",
+        "sha256": "908618a78992852427f5031816a8cc642e507eea445ed35d30980f1d322114cf"
+      },
+      {
+        "audioId": "ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae",
+        "batchId": "F001",
+        "bytes": 97324,
+        "candidateIds": [
+          "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2027,
+        "path": "audio/F001/ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae.wav",
+        "sha256": "029e280668cb68c5a34bf1e647dee05309f84e5a6dfbf5587710338841ffa7af"
+      },
+      {
+        "audioId": "15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23",
+        "batchId": "F001",
+        "bytes": 226860,
+        "candidateIds": [
+          "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 4725,
+        "path": "audio/F001/15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23.wav",
+        "sha256": "d07dbb66d48be67838cdb914902f04410e95a7d0b1f8bcf902d2d968dc504903"
+      },
+      {
+        "audioId": "f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a",
+        "batchId": "F001",
+        "bytes": 1005100,
+        "candidateIds": [
+          "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 20939,
+        "path": "audio/F001/f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a.wav",
+        "sha256": "8d45683d09c932bec11264a49122dba2ee53d7bfab6047b4d16f9952f16a2061"
+      },
+      {
+        "audioId": "fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2",
+        "batchId": "F001",
+        "bytes": 549420,
+        "candidateIds": [
+          "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 11445,
+        "path": "audio/F001/fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2.wav",
+        "sha256": "b6205d24f043fb7ae7db7557d657eea5a88a39f62b1ec6eec1a7bcbce99091f0"
+      },
+      {
+        "audioId": "bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31",
+        "batchId": "F001",
+        "bytes": 311340,
+        "candidateIds": [
+          "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6485,
+        "path": "audio/F001/bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31.wav",
+        "sha256": "8c38aa38988b01a6ff676e247bc40bdb30f8e210a790fd84f1061fbc3b4a4599"
+      },
+      {
+        "audioId": "e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566",
+        "batchId": "F001",
+        "bytes": 240172,
+        "candidateIds": [
+          "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5003,
+        "path": "audio/F001/e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566.wav",
+        "sha256": "e3573b21591cb03d241a14eeb59122f27560776564ecb933a997200033d7ab68"
+      },
+      {
+        "audioId": "1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9",
+        "batchId": "F001",
+        "bytes": 495660,
+        "candidateIds": [
+          "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 10325,
+        "path": "audio/F001/1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9.wav",
+        "sha256": "520569efcd1229a67912a68b7c2c35de9b864f3d23dc5392cc5f98039b572ab0"
+      },
+      {
+        "audioId": "c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9",
+        "batchId": "F001",
+        "bytes": 207916,
+        "candidateIds": [
+          "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 4331,
+        "path": "audio/F001/c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9.wav",
+        "sha256": "d84efc501f77733e2b781d2c9a6bc91bbafe3b23860be1ffaa196daceaa2ecf0"
+      },
+      {
+        "audioId": "edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375",
+        "batchId": "F001",
+        "bytes": 320044,
+        "candidateIds": [
+          "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6667,
+        "path": "audio/F001/edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375.wav",
+        "sha256": "ae4e85ab9e99d1249461c212133a907961196339b16bde713b67c0f2a62908d0"
+      },
+      {
+        "audioId": "c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53",
+        "batchId": "F001",
+        "bytes": 548908,
+        "candidateIds": [
+          "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 11435,
+        "path": "audio/F001/c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53.wav",
+        "sha256": "76386d0c3a49e1edaf5333bb925d48fd7540a0fbb1938f3667d250ce64b084c3"
+      },
+      {
+        "audioId": "f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a",
+        "batchId": "F001",
+        "bytes": 403500,
+        "candidateIds": [
+          "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 8405,
+        "path": "audio/F001/f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a.wav",
+        "sha256": "de02aebab5cb36a6ce180ea01a837d3e0c1d270e7f626dbb85d329d1952fd98e"
+      },
+      {
+        "audioId": "6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820",
+        "batchId": "F001",
+        "bytes": 283180,
+        "candidateIds": [
+          "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5899,
+        "path": "audio/F001/6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820.wav",
+        "sha256": "998e37983dafbe9fe371cfa144b05bd9fc8a42fdb7dbf494465aa49d098d5766"
+      },
+      {
+        "audioId": "ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e",
+        "batchId": "F001",
+        "bytes": 25132,
+        "candidateIds": [
+          "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 523,
+        "path": "audio/F001/ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e.wav",
+        "sha256": "97f7a4876709b74141a62f8600b05e44373c5feb2002527a1099e43d9570b830"
+      },
+      {
+        "audioId": "77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf",
+        "batchId": "F001",
+        "bytes": 152108,
+        "candidateIds": [
+          "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 3168,
+        "path": "audio/F001/77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf.wav",
+        "sha256": "3b4db6ca4c335757acd2a8a56967218d2adea787cd57a02966222a38923a664a"
+      },
+      {
+        "audioId": "dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c",
+        "batchId": "F001",
+        "bytes": 677420,
+        "candidateIds": [
+          "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 14112,
+        "path": "audio/F001/dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c.wav",
+        "sha256": "cc72687ddaeb5c15d4323d1cb31782cb4860943516b49eda7670f685f42adc8d"
+      },
+      {
+        "audioId": "c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7",
+        "batchId": "F001",
+        "bytes": 47660,
+        "candidateIds": [
+          "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 992,
+        "path": "audio/F001/c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7.wav",
+        "sha256": "c3da6a0416b05112cb6fbba15bf41976b9453ac23252d06918342a635c9c9e65"
+      },
+      {
+        "audioId": "e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863",
+        "batchId": "F001",
+        "bytes": 256044,
+        "candidateIds": [
+          "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5333,
+        "path": "audio/F001/e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863.wav",
+        "sha256": "a1027ab29779c107dc32f9fce1d4e98efaf4c9c170ad8ddc4e7523be1c8b216a"
+      },
+      {
+        "audioId": "b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea",
+        "batchId": "F001",
+        "bytes": 349228,
+        "candidateIds": [
+          "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 7275,
+        "path": "audio/F001/b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea.wav",
+        "sha256": "9f9f4e7140c7dcfa323d943cf7c50d046dae2ad86955009970fa5bd914592156"
+      },
+      {
+        "audioId": "f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5",
+        "batchId": "F001",
+        "bytes": 497196,
+        "candidateIds": [
+          "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 10357,
+        "path": "audio/F001/f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5.wav",
+        "sha256": "0fa0c19543b93f944fdca26251856c7599f48dc55a25af6cb368d1bc6890be32"
+      },
+      {
+        "audioId": "ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79",
+        "batchId": "F001",
+        "bytes": 98860,
+        "candidateIds": [
+          "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 2059,
+        "path": "audio/F001/ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79.wav",
+        "sha256": "7f3a81579721612af53769c60266005d8c4d77d5c5e8efd146885a396e84430d"
+      },
+      {
+        "audioId": "620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad",
+        "batchId": "F001",
+        "bytes": 924204,
+        "candidateIds": [
+          "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 19253,
+        "path": "audio/F001/620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad.wav",
+        "sha256": "df4855ae9f3ec48d6637ad1a8fe4e1e1e175172a9f04c9bd1a7456f701ce18c9"
+      },
+      {
+        "audioId": "4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5",
+        "batchId": "F001",
+        "bytes": 247340,
+        "candidateIds": [
+          "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 5152,
+        "path": "audio/F001/4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5.wav",
+        "sha256": "d44f73adcb101de7669e7e5198e9fb98e3a9d2818cda1b3d33f5688d44d6b1ac"
+      },
+      {
+        "audioId": "a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2",
+        "batchId": "F001",
+        "bytes": 298028,
+        "candidateIds": [
+          "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 6208,
+        "path": "audio/F001/a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2.wav",
+        "sha256": "1a358c081ef8bc83ef8c3bff88796434edd97856b0a840ef94cb7ef627e58805"
+      },
+      {
+        "audioId": "2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318",
+        "batchId": "F001",
+        "bytes": 876588,
+        "candidateIds": [
+          "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo"
+        ],
+        "configHash": "2d8b011b54a0769c1f3344a2eb78ae80f1db3b020fe355650b87026e74fd72b9",
+        "durationMs": 18261,
+        "path": "audio/F001/2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318.wav",
+        "sha256": "b4485afbc76ca5bd565de60e06a14f3b2b6d967902ef3fb218ae01300aa69ff2"
+      }
+    ],
+    "authors": [
+      {
+        "artwork": {
+          "alt": "文豪風の装いで本を持つ、あくたがわずんのすけのイラスト",
+          "path": "artwork/akutagawa-zundamon.png",
+          "sha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b"
+        },
+        "authorId": "000879",
+        "identitySha256": "e027f76fb2541f2d99113ac2cf43d90f277658199dba19dc9c5a4e2f68907a52",
+        "introducedByBatchId": "F001",
+        "name": "あくたがわずんのすけ",
+        "originalName": "芥川龍之介",
+        "slug": "akutagawa-zunnosuke"
+      }
+    ],
+    "candidateCounts": {
+      "audioExcluded": 0,
+      "audioFailureReasons": {},
+      "byBatch": {
+        "F001": {
+          "audioExcluded": 0,
+          "audioFailureReasons": {},
+          "editorialExcluded": 8,
+          "editorialReasons": {
+            "EXPRESSION_EXAMPLE": 3,
+            "QUOTED_MATERIAL": 5
+          },
+          "published": 59,
+          "total": 67
+        }
+      },
+      "editorialExcluded": 8,
+      "editorialReasons": {
+        "EXPRESSION_EXAMPLE": 3,
+        "QUOTED_MATERIAL": 5
+      },
+      "published": 59,
+      "total": 67
+    },
+    "creditsRef": "content/licenses.json",
+    "works": [
+      {
+        "authorId": "000879",
+        "batchId": "F001",
+        "cardLink": "https://www.aozora.gr.jp/cards/000879/card127.html",
+        "dialogues": [
+          {
+            "audioId": "d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726",
+            "dialogueId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+            "displayText": "「盗人になるよりほかに仕方がない」",
+            "order": 6,
+            "review": {
+              "candidateId": "wQdGJRMaESXTUc6MupVbOlJlIx4mVcnWANBThk3z8_U",
+              "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "INNER_MONOLOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 1532,
+              "startToken": 1516
+            },
+            "speechText": "「ぬすびとになるよりほかに仕方がない」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678",
+            "dialogueId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+            "displayText": "「おのれ、どこへ行く。」",
+            "order": 8,
+            "review": {
+              "candidateId": "7XbQ31bn_57xGf7S3gY4ObrX-crBYrndch2xYs7pPzk",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3592,
+              "startToken": 3580
+            },
+            "speechText": "「おのれ、どこへ行く。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2",
+            "dialogueId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+            "displayText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+            "order": 9,
+            "review": {
+              "candidateId": "CHaUoyPOGe7hLqBYQkbof_xyynQJe_xiE3KrXuNWXJA",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3811,
+              "startToken": 3788
+            },
+            "speechText": "「何をしていた。云え。云わぬと、これだぞよ。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c",
+            "dialogueId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+            "displayText": "「己は検非違使の庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前に縄をかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+            "order": 10,
+            "review": {
+              "candidateId": "iXfs7QArYYXestb0y0W10ZJXadnnrcQPa0AK5KwbeWc",
+              "note": "直前に下人が「少し声を柔らげてこう云った」と明記される実発話である。役人ではないことを説明して事情を尋ねる内容で、単独再生時の攻撃・宗教・残虐表現にも当たらない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4217,
+              "startToken": 4112
+            },
+            "speechText": "「おれはけびいしの庁の役人などではない。今し方この門の下を通りかかった旅の者だ。だからお前になわをかけて、どうしようと云うような事はない。ただ、今時分この門の上で、何をして居たのだか、それを己に話しさえすればいいのだ。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1",
+            "dialogueId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+            "displayText": "「この髪を抜いてな、この髪を抜いてな、鬘にしようと思うたのじゃ。」",
+            "order": 11,
+            "review": {
+              "candidateId": "3yf7fuo0PY0tnOxJpzzgpWNmDrSZw2w6fcYYH9fIWFw",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4422,
+              "startToken": 4389
+            },
+            "speechText": "「この髪を抜いてな、この髪を抜いてな、かずらにしようと思うたのじゃ。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c",
+            "dialogueId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+            "displayText": "「成程な、死人の髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇を四寸ばかりずつに切って干したのを、干魚だと云うて、太刀帯の陣へ売りに往んだわ。疫病にかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさず菜料に買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+            "order": 12,
+            "review": {
+              "candidateId": "tDNQOKp2dsCAzq7Ul4Pl00hRwA0gbKmlMr06dyoY_TU",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4936,
+              "startToken": 4574
+            },
+            "speechText": "「成程な、しびとの髪の毛を抜くと云う事は、何ぼう悪い事かも知れぬ。じゃが、ここにいる死人どもは、皆、そのくらいな事を、されてもいい人間ばかりだぞよ。現在、わしが今、髪を抜いた女などはな、蛇をしすんばかりずつに切って干したのを、ほしうおだと云うて、たてわきの陣へ売りにいんだわ。えやみにかかって死ななんだら、今でも売りに往んでいた事であろ。それもよ、この女の売る干魚は、味がよいと云うて、太刀帯どもが、欠かさずさいりように買っていたそうな。わしは、この女のした事が悪いとは思うていぬ。せねば、饑死をするのじゃて、仕方がなくした事であろ。されば、今また、わしのしていた事も悪い事とは思わぬぞよ。これとてもやはりせねば、饑死をするじゃて、仕方がなくする事じゃわいの。じゃて、その仕方がない事を、よく知っていたこの女は、大方わしのする事も大目に見てくれるであろ。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728",
+            "dialogueId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+            "displayText": "「きっと、そうか。」",
+            "order": 13,
+            "review": {
+              "candidateId": "z57Gl6JL5F7AmGwzxNLpN-oVsXkG-MRJiKBkzKd3wQs",
+              "note": "直後に「下人は嘲るような声で念を押した」と明記される実発話である。短い確認の問いであり、本文だけを単独再生しても攻撃・宗教・残虐表現には当たらない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 5269,
+              "startToken": 5259
+            },
+            "speechText": "「きっと、そうか。」",
+            "workId": "000127"
+          },
+          {
+            "audioId": "34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a",
+            "dialogueId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+            "displayText": "「では、己が引剥をしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+            "order": 14,
+            "review": {
+              "candidateId": "70qOzVDY_NoSu97i3U1wqI-R21gRQsVqZgfo2jhN418",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 5390,
+              "startToken": 5351
+            },
+            "speechText": "「では、おれがひはぎをしようと恨むまいな。己もそうしなければ、饑死をする体なのだ。」",
+            "workId": "000127"
+          }
+        ],
+        "source": {
+          "attribution": "青空文庫『羅生門』（芥川龍之介）",
+          "baseEdition": "芥川龍之介全集1",
+          "cardUrl": "https://www.aozora.gr.jp/cards/000879/card127.html",
+          "fetchedAt": "2026-07-18T10:48:05.289Z",
+          "inputter": "野口英司、平山誠",
+          "proofreader": "もりみつじゅんじ",
+          "provenancePath": "content/provenance.json",
+          "provenanceSha256": "0132fd7bd4a313d0ee89587838c6e16daf9def8b96cda5ade25c8d244a8255df",
+          "sourceSha256": "96aa53761067394c36b615f964dd7f8af563f09aebcc6ee0c2b3c46b6038d832",
+          "textUrl": "https://www.aozora.gr.jp/cards/000879/files/127_15260.html",
+          "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+        },
+        "title": "羅生門",
+        "workId": "000127"
+      },
+      {
+        "authorId": "000879",
+        "batchId": "F001",
+        "cardLink": "https://www.aozora.gr.jp/cards/000879/card92.html",
+        "dialogues": [
+          {
+            "audioId": "98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201",
+            "dialogueId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+            "displayText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命を無暗にとると云う事は、いくら何でも可哀そうだ。」",
+            "order": 0,
+            "review": {
+              "candidateId": "xo3g2qmoBFXyeDwX7pCx3MQxTJUraNUzybQuIbh5A7Q",
+              "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "INNER_MONOLOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 535,
+              "startToken": 479
+            },
+            "speechText": "「いや、いや、これも小さいながら、命のあるものに違いない。その命をむやみにとると云う事は、いくら何でも可哀そうだ。」",
+            "workId": "000092"
+          },
+          {
+            "audioId": "ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c",
+            "dialogueId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+            "displayText": "「しめた。しめた。」",
+            "order": 1,
+            "review": {
+              "candidateId": "3lDJdYohgcKc4kbYupsX7zThNYs0Gy0uZoXLOT9YgDg",
+              "note": "直前に「何年にも出した事のない声で」、直後に「と笑いました」とあり、陀多が実際に声に出した短い発話である。単独再生でも攻撃・宗教・残虐表現には当たらない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 1846,
+              "startToken": 1836
+            },
+            "speechText": "「しめた。しめた。」",
+            "workId": "000092"
+          },
+          {
+            "audioId": "bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226",
+            "dialogueId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+            "displayText": "「こら、罪人ども。この蜘蛛の糸は己のものだぞ。お前たちは一体誰に尋いて、のぼって来た。下りろ。下りろ。」",
+            "order": 2,
+            "review": {
+              "candidateId": "h6DZWhcCI11Rywcaamj2bbRYaGKyFMuDW5w2bKLXNUs",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2331,
+              "startToken": 2279
+            },
+            "speechText": "「こら、罪人ども。この蜘蛛の糸はおれのものだぞ。お前たちは一体誰にきいて、のぼって来た。下りろ。下りろ。」",
+            "workId": "000092"
+          }
+        ],
+        "source": {
+          "attribution": "青空文庫『蜘蛛の糸』（芥川龍之介）",
+          "baseEdition": "芥川龍之介全集2",
+          "cardUrl": "https://www.aozora.gr.jp/cards/000879/card92.html",
+          "fetchedAt": "2026-07-18T10:48:05.332Z",
+          "inputter": "野口英司、平山誠",
+          "proofreader": "もりみつじゅんじ",
+          "provenancePath": "content/provenance.json",
+          "provenanceSha256": "0132fd7bd4a313d0ee89587838c6e16daf9def8b96cda5ade25c8d244a8255df",
+          "sourceSha256": "47cdc4b16202cc9556107e0b7bf86fc7c831e140dd8894ce93fa7425eadce419",
+          "textUrl": "https://www.aozora.gr.jp/cards/000879/files/92_14545.html",
+          "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+        },
+        "title": "蜘蛛の糸",
+        "workId": "000092"
+      },
+      {
+        "authorId": "000879",
+        "batchId": "F001",
+        "cardLink": "https://www.aozora.gr.jp/cards/000879/card43015.html",
+        "dialogues": [
+          {
+            "audioId": "572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951",
+            "dialogueId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+            "displayText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+            "order": 0,
+            "review": {
+              "candidateId": "EVSYjDllkcV3lve0ihQ4YqPTrzocl9iup6AU3rWfDr0",
+              "note": "原典中の登場人物による、文としてまとまりのある内心である。CHG-F001-003の公開基準に基づき台詞として再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "INNER_MONOLOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 448,
+              "startToken": 358
+            },
+            "speechText": "「日は暮れるし、腹は減るし、その上もうどこへ行っても、泊めてくれる所はなさそうだし――こんな思いをして生きている位なら、一そ川へでも身を投げて、死んでしまった方がましかも知れない」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781",
+            "dialogueId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+            "displayText": "「お前は何を考えているのだ」",
+            "order": 1,
+            "review": {
+              "candidateId": "vFbfbkVC3bH4Jvbmqg0MC4dHwCWXGWotWCviRdJ8Hq0",
+              "note": "老人が杜子春へ横柄に声をかけた実発話であり、単独再生でも通常の質問として成立する。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 584,
+              "startToken": 570
+            },
+            "speechText": "「お前は何を考えているのだ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da",
+            "dialogueId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+            "displayText": "「私ですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+            "order": 2,
+            "review": {
+              "candidateId": "cwTWCz-b68tR7UGqI57otlwtUDJJAfVxoO09rb3L5u0",
+              "note": "杜子春が老人の問いに正直に答えた実発話であり、危険な表現を含まない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 635,
+              "startToken": 599
+            },
+            "speechText": "「わたしですか。私は今夜寝る所もないので、どうしたものかと考えているのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9",
+            "dialogueId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+            "displayText": "「そうか。それは可哀そうだな」",
+            "order": 3,
+            "review": {
+              "candidateId": "_dKHUAefWzGIHoTf0q-fEaAX3kODc5hhrLMTg8M6JXk",
+              "note": "杜子春の返答を受けた老人の実発話で、相手を気遣う安全な内容である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 696,
+              "startToken": 681
+            },
+            "speechText": "「そうか。それは可哀そうだな」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45",
+            "dialogueId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+            "displayText": "「ではおれが好いことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所を夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+            "order": 4,
+            "review": {
+              "candidateId": "17clYRHhZ-MBSRZDrL-Ngbd1_XsjroNaupThtyFzqkc",
+              "note": "老人が夕日の影を指して黄金の場所を教える実発話で、物語上の助言として成立する。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 830,
+              "startToken": 745
+            },
+            "speechText": "「ではおれがいいことを一つ教えてやろう。今この夕日の中に立って、お前の影が地に映ったら、その頭に当る所をよなかに掘って見るが好い。きっと車に一ぱいのおうごんがうまっているはずだから」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a",
+            "dialogueId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+            "displayText": "「ほんとうですか」",
+            "order": 5,
+            "review": {
+              "candidateId": "pKlpXo924-vPw-KGqxzJP5jxG7K6QhqgJXVGBBigOv0",
+              "note": "杜子春が驚いて老人へ確認した実発話で、短くても会話として完結している。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 841,
+              "startToken": 832
+            },
+            "speechText": "「ほんとうですか」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781",
+            "dialogueId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+            "displayText": "「お前は何を考えているのだ」",
+            "order": 6,
+            "review": {
+              "candidateId": "Iw6BFRvkCxESYGnYihcUTTOi9kqzdQdsnkYaCelO-MM",
+              "note": "再会した老人が杜子春へ声をかけた実発話で、通常の質問として安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 1926,
+              "startToken": 1912
+            },
+            "speechText": "「お前は何を考えているのだ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa",
+            "dialogueId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+            "displayText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+            "order": 7,
+            "review": {
+              "candidateId": "3Lxi--iZr9bsoLiOAo_qrzhrhhwKWHWMoL6LNVRpizI",
+              "note": "杜子春が老人へ恐る恐る返事をした実発話で、危険な表現を含まない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2058,
+              "startToken": 2027
+            },
+            "speechText": "「私は今夜寝る所もないので、どうしたものかと考えているのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4",
+            "dialogueId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+            "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+            "order": 8,
+            "review": {
+              "candidateId": "c4QaFUXNLTOyzeNvUz5jPwzh6tEwsFxrpJzTw8Hv_Vw",
+              "note": "老人が二度目の黄金の場所を教えた実発話で、物語上の助言として成立する。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2176,
+              "startToken": 2074
+            },
+            "speechText": "「そうか。それは可哀そうだな。ではおれがいいことを一つ教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その胸に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの黄金が埋まっている筈だから」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781",
+            "dialogueId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+            "displayText": "「お前は何を考えているのだ」",
+            "order": 9,
+            "review": {
+              "candidateId": "9dA-H-Ww0-3eJXYjthdp0LVPiFXvUzzbG8V1xCnBJ_s",
+              "note": "三度現れた老人が同じ問いを口にした実発話で、通常の質問として安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2413,
+              "startToken": 2399
+            },
+            "speechText": "「お前は何を考えているのだ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556",
+            "dialogueId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+            "displayText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+            "order": 10,
+            "review": {
+              "candidateId": "olfyhoB2nafFW1dEH2F6pQ_MTIGmDB5SOJLMPwl2UNY",
+              "note": "杜子春が三度目の問いへ答えた実発話で、危険な表現を含まない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2538,
+              "startToken": 2503
+            },
+            "speechText": "「私ですか。私は今夜寝る所もないので、どうしようかと思っているのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3",
+            "dialogueId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+            "displayText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+            "order": 11,
+            "review": {
+              "candidateId": "epR6_WMe9gpZ52f55GXg_ZT9u9quMmoDzaReMt9_uPs",
+              "note": "老人が黄金の話を始め、杜子春に遮られるまでの実発話であり、不完全文も会話上の中断として明確である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2629,
+              "startToken": 2540
+            },
+            "speechText": "「そうか。それは可哀そうだな。ではおれが好いことを教えてやろう。今この夕日の中へ立って、お前の影が地に映ったら、その腹に当る所を、夜中に掘って見るが好い。きっと車に一ぱいの――」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50",
+            "dialogueId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+            "displayText": "「いや、お金はもういらないのです」",
+            "order": 12,
+            "review": {
+              "candidateId": "fRd1enNzmKC7nn7HUOUM7qtrTQe1Z5TSK_uyfHtoaW0",
+              "note": "杜子春が老人の話を遮って意思を伝えた実発話で、内容も安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2688,
+              "startToken": 2671
+            },
+            "speechText": "「いや、お金はもういらないのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6",
+            "dialogueId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+            "displayText": "「金はもういらない？　ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+            "order": 13,
+            "review": {
+              "candidateId": "dZsVirr7I7pEQZXzguHhWlF5-TLM0PNttSHaf3wqsDk",
+              "note": "老人が杜子春の意思を聞き返した実発話で、軽い推測に留まり危険な内容ではない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2731,
+              "startToken": 2690
+            },
+            "speechText": "「金はもういらない？ ははあ、では贅沢をするにはとうとう飽きてしまったと見えるな」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac",
+            "dialogueId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+            "displayText": "「何、贅沢に飽きたのじゃありません。人間というものに愛想がつきたのです」",
+            "order": 14,
+            "review": {
+              "candidateId": "XClkXclVtTOHiRK2xRtS_ryKXJt-kNNOu1F5oK6E_2o",
+              "note": "杜子春が人間への失望を老人へ述べた実発話で、個人や集団への攻撃命令ではない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2804,
+              "startToken": 2769
+            },
+            "speechText": "「何、贅沢に飽きたのじゃありません。人間というものにあいそがつきたのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce",
+            "dialogueId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+            "displayText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+            "order": 15,
+            "review": {
+              "candidateId": "YZkqde2pRbmxc3RH-RwnPMWCkxA69nGTReL_SlgF5Ho",
+              "note": "老人が杜子春へ理由を尋ねた実発話で、通常の会話として安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2862,
+              "startToken": 2835
+            },
+            "speechText": "「それは面白いな。どうして又人間に愛想が尽きたのだ？」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e",
+            "dialogueId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+            "displayText": "「人間は皆薄情です。私が大金持になった時には、世辞も追従もしますけれど、一旦貧乏になって御覧なさい。柔しい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+            "order": 16,
+            "review": {
+              "candidateId": "9JjZ2iZEnxpTleGfiWI-NkOClORU7n8ifca7ZQ8qrMc",
+              "note": "杜子春が自分の経験から人の薄情さを説明した実発話で、特定者への攻撃ではない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 2978,
+              "startToken": 2864
+            },
+            "speechText": "「人間は皆薄情です。私が大金持になった時には、世辞もついしょうもしますけれど、一旦貧乏になって御覧なさい。やさしい顔さえもして見せはしません。そんなことを考えると、たといもう一度大金持になったところが、何にもならないような気がするのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b",
+            "dialogueId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+            "displayText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+            "order": 17,
+            "review": {
+              "candidateId": "_-RtW6-MeDlYdyaJj77UYtqn7us6AUpXvtERwzukibQ",
+              "note": "老人が杜子春の今後を尋ねた実発話で、通常の会話として安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3070,
+              "startToken": 3011
+            },
+            "speechText": "「そうか。いや、お前は若い者に似合わず、感心に物のわかる男だ。ではこれからは貧乏をしても、安らかに暮して行くつもりか」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d",
+            "dialogueId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+            "displayText": "「それも今の私には出来ません。ですから私はあなたの弟子になって、仙術の修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、一夜の内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+            "order": 18,
+            "review": {
+              "candidateId": "HD5by1WHE66uUx_Vqa6n0j7wuCNNZHTtdMgVe2NhBCM",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3262,
+              "startToken": 3124
+            },
+            "speechText": "「それも今の私には出来ません。ですから私はあなたのでしになって、せんじゅつの修業をしたいと思うのです。いいえ、隠してはいけません。あなたは道徳の高い仙人でしょう。仙人でなければ、ひとよの内に私を天下第一の大金持にすることは出来ない筈です。どうか私の先生になって、不思議な仙術を教えて下さい」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7",
+            "dialogueId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+            "displayText": "「いかにもおれは峨眉山に棲んでいる、鉄冠子という仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+            "order": 19,
+            "review": {
+              "candidateId": "Y7b4EnEOnctzOFALPnNKIeczARU1gDjHcB8K_oFrm4E",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3413,
+              "startToken": 3315
+            },
+            "speechText": "「いかにもおれはがびさんにすんでいる、てっかんしという仙人だ。始めお前の顔を見た時、どこか物わかりが好さそうだったから、二度まで大金持にしてやったのだが、それ程仙人になりたければ、おれの弟子にとり立ててやろう」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b",
+            "dialogueId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+            "displayText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るが好い。おお、幸、ここに竹杖が一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+            "order": 20,
+            "review": {
+              "candidateId": "JFjLSFDFF2Bdaxqu_riz2ZRe-UNd88P0qi5Pi1Tk8OU",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 3637,
+              "startToken": 3495
+            },
+            "speechText": "「いや、そう御礼などは言って貰うまい。いくらおれの弟子にしたところが、立派な仙人になれるかなれないかは、お前次第で決まることだからな。――が、ともかくもまずおれと一しょに、峨眉山の奥へ来て見るがいい。おお、さいわい、ここにたけづえが一本落ちている。では早速これへ乗って、一飛びに空を渡るとしよう」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617",
+            "dialogueId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+            "displayText": "「おれはこれから天上へ行って、西王母に御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているが好い。多分おれがいなくなると、いろいろな魔性が現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もし一言でも口を利いたら、お前は到底仙人にはなれないものだと覚悟をしろ。好いか。天地が裂けても、黙っているのだぞ」",
+            "order": 21,
+            "review": {
+              "candidateId": "b645_OFetJgYdvp76aRCTNyT7ALykb3tqEMxmp5hQxs",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4353,
+              "startToken": 4170
+            },
+            "speechText": "「おれはこれから天上へ行って、せいおうぼに御眼にかかって来るから、お前はその間ここに坐って、おれの帰るのを待っているがいい。多分おれがいなくなると、いろいろなましょうが現れて、お前をたぶらかそうとするだろうが、たといどんなことが起ろうとも、決して声を出すのではないぞ。もしひとことでも口をきいたら、お前は到底仙人にはなれないものだと覚悟をしろ。いいか。天地が裂けても、黙っているのだぞ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338",
+            "dialogueId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+            "displayText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+            "order": 22,
+            "review": {
+              "candidateId": "dG-B8kbOJXWI4gtVWmLNEw1qI72XRDT96kngQHNUqII",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4398,
+              "startToken": 4362
+            },
+            "speechText": "「大丈夫です。決して声なぞは出しません。命がなくなっても、黙っています」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9",
+            "dialogueId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+            "displayText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+            "order": 23,
+            "review": {
+              "candidateId": "9ghzw2pVJJRxOcNAWj94YGoyHJxQj-K8AQbAg9qlr2Y",
+              "note": "老人が安心して出発を告げた実発話で、単独再生でも通常の別れの言葉として成立する。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4433,
+              "startToken": 4400
+            },
+            "speechText": "「そうか。それを聞いて、おれも安心した。ではおれは行って来るから」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae",
+            "dialogueId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+            "displayText": "「そこにいるのは何者だ」",
+            "order": 24,
+            "review": {
+              "candidateId": "ziOXFYh5xKVxOWTa7aFuii4hTPBqdHZnDFgXfQyTdjs",
+              "note": "空中の声が杜子春へ身元を尋ねた実発話で、文面自体は通常の質問として安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4587,
+              "startToken": 4575
+            },
+            "speechText": "「そこにいるのは何者だ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23",
+            "dialogueId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+            "displayText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+            "order": 25,
+            "review": {
+              "candidateId": "ZYpIC7fXMM1EAPdoFuQ4exoHOVLmz0S1NOJ6cFjr9B4",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 4688,
+              "startToken": 4661
+            },
+            "speechText": "「返事をしないと立ちどころに、命はないものと覚悟しろ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a",
+            "dialogueId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+            "displayText": "「こら、その方は一体何物だ。この峨眉山という山は、天地開闢の昔から、おれが住居をしている所だぞ。それも憚らずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+            "order": 26,
+            "review": {
+              "candidateId": "C3o7tc8qo0iLI9HOn5HVq8K8JD88hfQtOZUa-f0pBWU",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 5784,
+              "startToken": 5678
+            },
+            "speechText": "「こら、その方は一体何物だ。この峨眉山という山は、天地かいびゃくの昔から、おれがすまいをしている所だぞ。それもはばからずたった一人、ここへ足を踏み入れるとは、よもや唯の人間ではあるまい。さあ命が惜しかったら、一刻も早く返答しろ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2",
+            "dialogueId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+            "displayText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれの眷属たちが、その方をずたずたに斬ってしまうぞ」",
+            "order": 27,
+            "review": {
+              "candidateId": "F54x3WkRTdciimJrk4JK8rLNYCK7E50U5coHQOxlpZw",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 5887,
+              "startToken": 5823
+            },
+            "speechText": "「返事をしないか。――しないな。好し。しなければ、しないで勝手にしろ。その代りおれのけんぞくたちが、その方をずたずたにきってしまうぞ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31",
+            "dialogueId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+            "displayText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+            "order": 28,
+            "review": {
+              "candidateId": "GeynH8g1qRwYlW60O0nZQf0pKW5AGKH3o5MFaDOssD8",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 6127,
+              "startToken": 6092
+            },
+            "speechText": "「この剛情者め。どうしても返事をしなければ、約束通り命はとってやるぞ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566",
+            "dialogueId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+            "displayText": "「こら、その方は何の為に、峨眉山の上へ坐っていた？」",
+            "order": 29,
+            "review": {
+              "candidateId": "YiNVu7xLR2Ulj6YGtDo8YHg-XO_e54lzEiHocPsntiY",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 6715,
+              "startToken": 6689
+            },
+            "speechText": "「こら、その方は何のために、峨眉山の上へ坐っていた？」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9",
+            "dialogueId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+            "displayText": "「その方はここをどこだと思う？　速に返答をすれば好し、さもなければ時を移さず、地獄の呵責に遇わせてくれるぞ」",
+            "order": 31,
+            "review": {
+              "candidateId": "1Fzmo-FdJGeXreAzHjrNBvvpCWuhVF-K-lWQ9q3cvWo",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 6913,
+              "startToken": 6860
+            },
+            "speechText": "「その方はここをどこだと思う？ すみやかに返答をすれば好し、さもなければ時を移さず、地獄のかしゃくにあわせてくれるぞ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9",
+            "dialogueId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+            "displayText": "「この罪人はどうしても、ものを言う気色がございません」",
+            "order": 32,
+            "review": {
+              "candidateId": "OZzMO-DNwbEyTRcPdhlVQYE34YxYfFWzRXju2QpcGzI",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7417,
+              "startToken": 7391
+            },
+            "speechText": "「この罪人はどうしても、ものを言うけしきがございません」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375",
+            "dialogueId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+            "displayText": "「この男の父母は、畜生道に落ちている筈だから、早速ここへ引き立てて来い」",
+            "order": 33,
+            "review": {
+              "candidateId": "0ENUIpYPgkBxLlNZXrcORC9aBjZwB_ka6Q4dYzRaLtI",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7509,
+              "startToken": 7476
+            },
+            "speechText": "「この男のちちははは、ちくしょうどうに落ちている筈だから、早速ここへ引き立てて来い」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53",
+            "dialogueId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+            "displayText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+            "order": 34,
+            "review": {
+              "candidateId": "jOT1SxvBVaLqa-53PFSHXN-jVWh1rBiwp_t9rBigluM",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7742,
+              "startToken": 7680
+            },
+            "speechText": "「こら、その方は何のために、峨眉山の上に坐っていたか、まっすぐに白状しなければ、今度はその方の父母に痛い思いをさせてやるぞ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a",
+            "dialogueId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+            "displayText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、好いと思っているのだな」",
+            "order": 35,
+            "review": {
+              "candidateId": "gpP7_7IjwFcQAfKN5ZeaaXD3qxladA8SeqGjxOy7JlQ",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7820,
+              "startToken": 7773
+            },
+            "speechText": "「この不孝者めが。その方は父母が苦しんでも、その方さえ都合が好ければ、いいと思っているのだな」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820",
+            "dialogueId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+            "displayText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+            "order": 36,
+            "review": {
+              "candidateId": "gktCT5YZp6bvNKXXRFEAr3D7M5w0nrhmjnQxMk9wW8E",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7880,
+              "startToken": 7850
+            },
+            "speechText": "「打て。鬼ども。その二匹の畜生を、肉も骨も打ち砕いてしまえ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e",
+            "dialogueId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+            "displayText": "「はっ」",
+            "order": 37,
+            "review": {
+              "candidateId": "Enr3muXtZysgk4dL87-Iz_F8cy8whL8LE8EZxgkJdbQ",
+              "note": "鬼たちが命令へ一斉に応答した実発話で、一語でも発話として明確かつ単独表示は安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 7894,
+              "startToken": 7890
+            },
+            "speechText": "「はっ」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf",
+            "dialogueId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+            "displayText": "「どうだ。まだその方は白状しないか」",
+            "order": 38,
+            "review": {
+              "candidateId": "p2dZuxNKSstWvA0lvjpRQO9ZiW-i69uzosEqj2c6Bvg",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8054,
+              "startToken": 8036
+            },
+            "speechText": "「どうだ。まだその方は白状しないか」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c",
+            "dialogueId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+            "displayText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何と仰っても、言いたくないことは黙って御出で」",
+            "order": 39,
+            "review": {
+              "candidateId": "XkONzapURY_vLbtiLVa9pr5QTzgridrJP1K6aTWHaEs",
+              "note": "母親が杜子春を気遣って語りかけた実発話で、前後は苛烈でも文面は思いやりを示す安全な内容である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8301,
+              "startToken": 8222
+            },
+            "speechText": "「心配をおしでない。私たちはどうなっても、お前さえ仕合せになれるのなら、それより結構なことはないのだからね。大王が何とおっしゃっても、言いたくないことは黙っておいで」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7",
+            "dialogueId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+            "displayText": "「お母さん」",
+            "order": 40,
+            "review": {
+              "candidateId": "-2u8abw9H8zpwdsxQePc8B36uVayLy0K6HlAREocjjU",
+              "note": "杜子春が母を抱いて実際に叫んだ発話で、短くても文脈上明確かつ単独再生も安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8571,
+              "startToken": 8565
+            },
+            "speechText": "「おっかさん」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863",
+            "dialogueId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+            "displayText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+            "order": 41,
+            "review": {
+              "candidateId": "_H34T0ruzZS9lt3yFEaDdrD4UrA5LYTVV0tPXOgcb40",
+              "note": "老人が杜子春へ修行の結果を穏やかに問いかけた実発話で、単独再生でも安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8729,
+              "startToken": 8695
+            },
+            "speechText": "「どうだな。おれの弟子になったところが、とても仙人にはなれはすまい」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea",
+            "dialogueId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+            "displayText": "「なれません。なれませんが、しかし私はなれなかったことも、反って嬉しい気がするのです」",
+            "order": 42,
+            "review": {
+              "candidateId": "oVV-gdDfxsk8r_JDDTTW2bropQqhKILaw7_Yw_HO-0Y",
+              "note": "杜子春が仙人になれなかった心境を老人へ答えた実発話で、他者への勧誘や攻撃ではない。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8798,
+              "startToken": 8755
+            },
+            "speechText": "「なれません。なれませんが、しかしわたしはなれなかったことも、かえって嬉しい気がするのです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5",
+            "dialogueId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+            "displayText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+            "order": 43,
+            "review": {
+              "candidateId": "HWY7HrFXl3WnjT0mKXwT04nDqIyi9MPQLbQ_6EbP9hY",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8890,
+              "startToken": 8833
+            },
+            "speechText": "「いくら仙人になれたところが、私はあの地獄の森羅殿の前に、鞭を受けている父母を見ては、黙っている訳には行きません」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79",
+            "dialogueId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+            "displayText": "「もしお前が黙っていたら――」",
+            "order": 44,
+            "review": {
+              "candidateId": "A5opq2iTPvnvV2Q9-EjIRaX9_ZKCv6CHh2U3loNDv8k",
+              "note": "直後に「と鉄冠子は」と発話者が明記された、途中で区切られた実発話である。抽出artifactではないためCHG-F001-003で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 8907,
+              "startToken": 8892
+            },
+            "speechText": "「もしお前が黙っていたら――」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad",
+            "dialogueId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+            "displayText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいという望も持っていまい。大金持になることは、元より愛想がつきた筈だ。ではお前はこれから後、何になったら好いと思うな」",
+            "order": 45,
+            "review": {
+              "candidateId": "cgZObeOJNX_V2ALyKtAPF1qKKDT3h6mXNsQKDjBAN8I",
+              "note": "原典中の登場人物による実発話である。CHG-F001-003により、文学作品中の表現内容だけを理由に除外しない公開基準で再承認した。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 9050,
+              "startToken": 8938
+            },
+            "speechText": "「もしお前が黙っていたら、おれは即座にお前の命を絶ってしまおうと思っていたのだ。――お前はもう仙人になりたいというのぞみも持っていまい。大金持になることは、元より愛想がつきたはずだ。ではお前はこれから後、何になったらいいと思うな」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5",
+            "dialogueId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+            "displayText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+            "order": 46,
+            "review": {
+              "candidateId": "_bOvaRCcB2vXyw3Kz4UbvRhLCXiPtZzZAZr5egYxrZg",
+              "note": "杜子春が正直に暮らす決意を述べた実発話で、前向きかつ安全な内容である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 9080,
+              "startToken": 9052
+            },
+            "speechText": "「何になっても、人間らしい、正直な暮しをするつもりです」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2",
+            "dialogueId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+            "displayText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前には遇わないから」",
+            "order": 47,
+            "review": {
+              "candidateId": "wfCD_xspomwp75lYzycr9CXRLyKj4W_2_coOGkuH93Q",
+              "note": "老人が杜子春へ決意を忘れないよう告げて別れた実発話で、内容も安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 9151,
+              "startToken": 9115
+            },
+            "speechText": "「その言葉を忘れるなよ。ではおれは今日限り、二度とお前にはあわないから」",
+            "workId": "043015"
+          },
+          {
+            "audioId": "2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318",
+            "dialogueId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+            "displayText": "「おお、幸、今思い出したが、おれは泰山の南の麓に一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+            "order": 48,
+            "review": {
+              "candidateId": "zm0cZoiZey4QRL6GmiFsrpbSZRoWyMxKxsb3T-KdQzo",
+              "note": "老人が家と畑を譲ると穏やかに申し出た実発話で、物語の結びとして安全である。",
+              "policyCheckedAt": "2026-07-18T23:45:00+09:00",
+              "reasonCode": "SPOKEN_DIALOGUE",
+              "reviewedAt": "2026-07-18T23:45:00+09:00",
+              "reviewer": "pf-change-editorial-CHG-F001-003",
+              "revision": 2,
+              "status": "approved"
+            },
+            "sourceAnchor": {
+              "bodySelector": ".main_text",
+              "endToken": 9290,
+              "startToken": 9201
+            },
+            "speechText": "「おお、さいわい、今思い出したが、おれはたいざんの南のふもとに一軒の家を持っている。その家を畑ごとお前にやるから、早速行って住まうが好い。今頃は丁度家のまわりに、桃の花が一面に咲いているだろう」",
+            "workId": "043015"
+          }
+        ],
+        "source": {
+          "attribution": "青空文庫『杜子春』（芥川龍之介）",
+          "baseEdition": "蜘蛛の糸・杜子春",
+          "cardUrl": "https://www.aozora.gr.jp/cards/000879/card43015.html",
+          "fetchedAt": "2026-07-18T10:48:05.385Z",
+          "inputter": "蒋龍",
+          "proofreader": "noriko saito",
+          "provenancePath": "content/provenance.json",
+          "provenanceSha256": "0132fd7bd4a313d0ee89587838c6e16daf9def8b96cda5ade25c8d244a8255df",
+          "sourceSha256": "0821579c417019050305c6c80753b2ccdac5cb3a9ef9c0228aff903c0af52b16",
+          "textUrl": "https://www.aozora.gr.jp/cards/000879/files/43015_17432.html",
+          "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+        },
+        "title": "杜子春",
+        "workId": "043015"
+      }
+    ]
+  },
+  "catalogSha256": "5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1",
+  "commit": "2733b5fd368e847a01708724511f993f5e1b2484",
+  "files": [
+    {
+      "bytes": 1,
+      "path": ".nojekyll",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "bytes": 2272462,
+      "path": "artwork/akutagawa-zundamon.png",
+      "sha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b"
+    },
+    {
+      "bytes": 877612,
+      "path": "audio/F001/01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4.wav",
+      "sha256": "f5bb4edeb4a6e73028b6577e4fe1d2a1eece7bd7832fe7b8aecbef4432d71d7b"
+    },
+    {
+      "bytes": 60460,
+      "path": "audio/F001/03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a.wav",
+      "sha256": "1cc035dc0f4893b24a9424729e8b7923a8a70f8748269b915884426ce4adf7ce"
+    },
+    {
+      "bytes": 261676,
+      "path": "audio/F001/056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9.wav",
+      "sha256": "908618a78992852427f5031816a8cc642e507eea445ed35d30980f1d322114cf"
+    },
+    {
+      "bytes": 763948,
+      "path": "audio/F001/090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3.wav",
+      "sha256": "af5160482ce8f13a2d76f9eb33369cf4afac7b4d36ab19e1f06e914659cc8c89"
+    },
+    {
+      "bytes": 1236012,
+      "path": "audio/F001/0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b.wav",
+      "sha256": "16d199487b459307f8dc37c512d9f215411812f9df709c966b0725c46d3e8d33"
+    },
+    {
+      "bytes": 258092,
+      "path": "audio/F001/0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa.wav",
+      "sha256": "c949257ec8ac4f840d06c1a32dedbcecab8fc292ecca42b44ebd386bf51e99a6"
+    },
+    {
+      "bytes": 226860,
+      "path": "audio/F001/15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23.wav",
+      "sha256": "d07dbb66d48be67838cdb914902f04410e95a7d0b1f8bcf902d2d968dc504903"
+    },
+    {
+      "bytes": 332332,
+      "path": "audio/F001/166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338.wav",
+      "sha256": "3e528577c1b1ca23e61e03b6c929b66d9907442a8d12d381398d464ea76deea2"
+    },
+    {
+      "bytes": 495660,
+      "path": "audio/F001/1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9.wav",
+      "sha256": "520569efcd1229a67912a68b7c2c35de9b864f3d23dc5392cc5f98039b572ab0"
+    },
+    {
+      "bytes": 1569324,
+      "path": "audio/F001/21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617.wav",
+      "sha256": "c62bc17427fcfffb5f493cc0b84496e9c3ff65adae1668ab1694a143341e23c5"
+    },
+    {
+      "bytes": 876588,
+      "path": "audio/F001/2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318.wav",
+      "sha256": "b4485afbc76ca5bd565de60e06a14f3b2b6d967902ef3fb218ae01300aa69ff2"
+    },
+    {
+      "bytes": 3249708,
+      "path": "audio/F001/2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c.wav",
+      "sha256": "0a739b8b649af61314e3242b56a0c298a61dc67d906efef00d2483e5f405ddda"
+    },
+    {
+      "bytes": 306732,
+      "path": "audio/F001/3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556.wav",
+      "sha256": "38cf582f474e825f33b256029587a1899da505da36c662a88f736b5043a071db"
+    },
+    {
+      "bytes": 370220,
+      "path": "audio/F001/34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a.wav",
+      "sha256": "e25458a0461fa8e0d9dbaca922cc886ae9c2b0fb577da3a83169db130c96e383"
+    },
+    {
+      "bytes": 329260,
+      "path": "audio/F001/3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6.wav",
+      "sha256": "1b74da5307cb72bfcd2753091893e7c800b71fbf1d86f8951318d80b7b95ab5a"
+    },
+    {
+      "bytes": 247340,
+      "path": "audio/F001/4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5.wav",
+      "sha256": "d44f73adcb101de7669e7e5198e9fb98e3a9d2818cda1b3d33f5688d44d6b1ac"
+    },
+    {
+      "bytes": 119852,
+      "path": "audio/F001/4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781.wav",
+      "sha256": "3b03377418e0edcafa130ccc07c1552092f02d73f2eefef967adfd107411599c"
+    },
+    {
+      "bytes": 708140,
+      "path": "audio/F001/572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951.wav",
+      "sha256": "b57e0b58807ec6fbecd26fc2b2dda84dbb8ab8c663dad6a8f1998b785dfc6b94"
+    },
+    {
+      "bytes": 561196,
+      "path": "audio/F001/6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b.wav",
+      "sha256": "083bb8d5ef14f9d81589d81c60532786da83e88ab682f009e075b3218e379ca2"
+    },
+    {
+      "bytes": 924204,
+      "path": "audio/F001/620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad.wav",
+      "sha256": "df4855ae9f3ec48d6637ad1a8fe4e1e1e175172a9f04c9bd1a7456f701ce18c9"
+    },
+    {
+      "bytes": 86060,
+      "path": "audio/F001/64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678.wav",
+      "sha256": "2b49ba01c0ba348f3f09b3b5b848d4263b2db68c6a4632145e2d6b5b569e9cba"
+    },
+    {
+      "bytes": 283180,
+      "path": "audio/F001/6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820.wav",
+      "sha256": "998e37983dafbe9fe371cfa144b05bd9fc8a42fdb7dbf494465aa49d098d5766"
+    },
+    {
+      "bytes": 152108,
+      "path": "audio/F001/77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf.wav",
+      "sha256": "3b4db6ca4c335757acd2a8a56967218d2adea787cd57a02966222a38923a664a"
+    },
+    {
+      "bytes": 1294380,
+      "path": "audio/F001/88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d.wav",
+      "sha256": "0810b5d6f99f2c1149842f8fc2fb5ecba2d93a0db8b84d1fad4e891c93a08ede"
+    },
+    {
+      "bytes": 226348,
+      "path": "audio/F001/89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce.wav",
+      "sha256": "edcd1fb63fe974857286dda5627a39158fff61441f382e70cca5b8b9a502a6b1"
+    },
+    {
+      "bytes": 119852,
+      "path": "audio/F001/91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9.wav",
+      "sha256": "39be8dd3f8ee00ad4d55e4803cd46197d637f7adc482dc6fa1e7b1170d82a06e"
+    },
+    {
+      "bytes": 267820,
+      "path": "audio/F001/956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1.wav",
+      "sha256": "1e598ce70e7cd31bb82967f2685f03ff47729aa1bea623aefeba096930c9f646"
+    },
+    {
+      "bytes": 524844,
+      "path": "audio/F001/98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201.wav",
+      "sha256": "1630bc7568ba752087eb57356a0048b6ba241a989518d8e68e5a4c288e78b18f"
+    },
+    {
+      "bytes": 741932,
+      "path": "audio/F001/9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45.wav",
+      "sha256": "35a672d301380047a316a91d7a50072f217953785fd00300ad05944c01690779"
+    },
+    {
+      "bytes": 298028,
+      "path": "audio/F001/a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2.wav",
+      "sha256": "1a358c081ef8bc83ef8c3bff88796434edd97856b0a840ef94cb7ef627e58805"
+    },
+    {
+      "bytes": 934956,
+      "path": "audio/F001/acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c.wav",
+      "sha256": "4cfe72e85f5d52a3332fc962bbdc25e4d642deaf60623dd0f5fda987a6286ebc"
+    },
+    {
+      "bytes": 79916,
+      "path": "audio/F001/ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c.wav",
+      "sha256": "b802c95da3a5be4c209fcb4b6c950461c9f7199006986672806f403c60ab397a"
+    },
+    {
+      "bytes": 349228,
+      "path": "audio/F001/b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea.wav",
+      "sha256": "9f9f4e7140c7dcfa323d943cf7c50d046dae2ad86955009970fa5bd914592156"
+    },
+    {
+      "bytes": 226348,
+      "path": "audio/F001/b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2.wav",
+      "sha256": "fc414e01d0e7bbd2a01618fa887a5b2b33dee786b7ffd076582dcc00efe6678a"
+    },
+    {
+      "bytes": 306220,
+      "path": "audio/F001/ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac.wav",
+      "sha256": "c5343b8506c857657fbee378708096d845385ac5af3f63571882423391968a42"
+    },
+    {
+      "bytes": 311340,
+      "path": "audio/F001/bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31.wav",
+      "sha256": "8c38aa38988b01a6ff676e247bc40bdb30f8e210a790fd84f1061fbc3b4a4599"
+    },
+    {
+      "bytes": 463916,
+      "path": "audio/F001/bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226.wav",
+      "sha256": "ab0e0a469595a1d4e7cebcb16b939b5b167547338206b785b2111291c77cb349"
+    },
+    {
+      "bytes": 138796,
+      "path": "audio/F001/c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50.wav",
+      "sha256": "09c8c48b14ae37d28afb49ee62844c67a9cf017f299bd7a71d0f0de7395befe1"
+    },
+    {
+      "bytes": 207916,
+      "path": "audio/F001/c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9.wav",
+      "sha256": "d84efc501f77733e2b781d2c9a6bc91bbafe3b23860be1ffaa196daceaa2ecf0"
+    },
+    {
+      "bytes": 548908,
+      "path": "audio/F001/c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53.wav",
+      "sha256": "76386d0c3a49e1edaf5333bb925d48fd7540a0fbb1938f3667d250ce64b084c3"
+    },
+    {
+      "bytes": 47660,
+      "path": "audio/F001/c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7.wav",
+      "sha256": "c3da6a0416b05112cb6fbba15bf41976b9453ac23252d06918342a635c9c9e65"
+    },
+    {
+      "bytes": 97324,
+      "path": "audio/F001/ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae.wav",
+      "sha256": "029e280668cb68c5a34bf1e647dee05309f84e5a6dfbf5587710338841ffa7af"
+    },
+    {
+      "bytes": 1030700,
+      "path": "audio/F001/cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e.wav",
+      "sha256": "a245f6bbd8317911b95f3cff3a37764c267ad6a9b5e078dba4262cc110d46519"
+    },
+    {
+      "bytes": 25132,
+      "path": "audio/F001/ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e.wav",
+      "sha256": "97f7a4876709b74141a62f8600b05e44373c5feb2002527a1099e43d9570b830"
+    },
+    {
+      "bytes": 132140,
+      "path": "audio/F001/d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726.wav",
+      "sha256": "8e3f8f8b6df73caaaec1491ffacb188944601f6604c49c883e9bb7ce46fd2326"
+    },
+    {
+      "bytes": 79916,
+      "path": "audio/F001/dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728.wav",
+      "sha256": "91a824acb11cecf320158d9ee9e59469db83a73677f73a7649dfa30b5c8f337e"
+    },
+    {
+      "bytes": 677420,
+      "path": "audio/F001/dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c.wav",
+      "sha256": "cc72687ddaeb5c15d4323d1cb31782cb4860943516b49eda7670f685f42adc8d"
+    },
+    {
+      "bytes": 835628,
+      "path": "audio/F001/e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7.wav",
+      "sha256": "587df94a7d17ef5351cf484ba86ffaee8cdeecfc604fbffbd28385e84f22a87f"
+    },
+    {
+      "bytes": 256044,
+      "path": "audio/F001/e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863.wav",
+      "sha256": "a1027ab29779c107dc32f9fce1d4e98efaf4c9c170ad8ddc4e7523be1c8b216a"
+    },
+    {
+      "bytes": 240172,
+      "path": "audio/F001/e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566.wav",
+      "sha256": "e3573b21591cb03d241a14eeb59122f27560776564ecb933a997200033d7ab68"
+    },
+    {
+      "bytes": 320044,
+      "path": "audio/F001/edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375.wav",
+      "sha256": "ae4e85ab9e99d1249461c212133a907961196339b16bde713b67c0f2a62908d0"
+    },
+    {
+      "bytes": 98860,
+      "path": "audio/F001/ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79.wav",
+      "sha256": "7f3a81579721612af53769c60266005d8c4d77d5c5e8efd146885a396e84430d"
+    },
+    {
+      "bytes": 403500,
+      "path": "audio/F001/f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a.wav",
+      "sha256": "de02aebab5cb36a6ce180ea01a837d3e0c1d270e7f626dbb85d329d1952fd98e"
+    },
+    {
+      "bytes": 1005100,
+      "path": "audio/F001/f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a.wav",
+      "sha256": "8d45683d09c932bec11264a49122dba2ee53d7bfab6047b4d16f9952f16a2061"
+    },
+    {
+      "bytes": 497196,
+      "path": "audio/F001/f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5.wav",
+      "sha256": "0fa0c19543b93f944fdca26251856c7599f48dc55a25af6cb368d1bc6890be32"
+    },
+    {
+      "bytes": 322092,
+      "path": "audio/F001/fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da.wav",
+      "sha256": "3a07df50ff0f4689c8abf9b0eea5ca74f80ccab97309c7fe1d9d22b059be0c6e"
+    },
+    {
+      "bytes": 549420,
+      "path": "audio/F001/fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2.wav",
+      "sha256": "b6205d24f043fb7ae7db7557d657eea5a88a39f62b1ec6eec1a7bcbce99091f0"
+    },
+    {
+      "bytes": 1779,
+      "path": "content/artwork-provenance.json",
+      "sha256": "c8164e97c77d3c0d56e5858a27d0973404e7b2e93c45125bd020fa6dcb286c8c"
+    },
+    {
+      "bytes": 3060,
+      "path": "content/licenses.json",
+      "sha256": "a2f4c52e32d2747e39ca4ec543e099c9f418179f2dddcb69273539410800c4f6"
+    },
+    {
+      "bytes": 4914,
+      "path": "content/provenance.json",
+      "sha256": "0132fd7bd4a313d0ee89587838c6e16daf9def8b96cda5ade25c8d244a8255df"
+    }
+  ],
+  "release": "v0.1.0",
+  "schemaVersion": "1.0.0",
+  "syntheticBatch": {
+    "acceptedAt": "2026-07-19T23:19:54+09:00",
+    "authorId": "000879",
+    "batchId": "F001",
+    "evidenceSha256": "b1a06647bef14d452e3bf7b0a285765338cf188a5fa2675145a4e6be1777708d",
+    "feature": "F001",
+    "publishedAt": "2026-07-19T23:19:54+09:00",
+    "status": "published",
+    "workIds": [
+      "000127",
+      "000092",
+      "043015"
+    ]
+  }
+}

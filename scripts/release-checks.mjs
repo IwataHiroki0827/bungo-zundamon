@@ -4,6 +4,9 @@ import { lstat, readFile, readdir, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import { TextDecoder } from 'node:util';
 import { parseDocument } from 'yaml';
+import { runF002SecurityChecks } from './f002-security.mjs';
+
+export { runF002SecurityChecks, runF002StaticSecurityChecks } from './f002-security.mjs';
 
 export const PAGES_BASE = '/bungo-zundamon/';
 export const WARNING_TOTAL_BYTES = 500_000_000;
@@ -24,6 +27,9 @@ const REQUIRED_CSP = Object.freeze({
 });
 
 const SHA40 = /^[a-f0-9]{40}$/;
+const FEATURE_ID = /^F\d{3}$/;
+const REMOTE_ACTION = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_./-]+)?$/;
+const LOCAL_ACTION = /^\.\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/;
 const SHA256 = /^[a-f0-9]{64}$/;
 const MIME_BY_EXTENSION = Object.freeze({
   '.css': 'text/css',
@@ -155,9 +161,15 @@ export function verifyWorkflowPermissions(workflow, options = {}) {
   const references = [...buildSteps, ...deploySteps].map(actionReference).filter(Boolean);
   if (references.length === 0) errors.push('ACTION_REFERENCE_MISSING');
   for (const [action, reference] of references) {
-    if (!action.startsWith('./') && !SHA40.test(reference)) {
+    if (action.startsWith('./')) {
+      if (!LOCAL_ACTION.test(action) || reference !== '') errors.push(`ACTION_LOCAL_INVALID:${action}`);
+    } else if (!REMOTE_ACTION.test(action) || !SHA40.test(reference)) {
       errors.push(`ACTION_NOT_PINNED:${action}`);
     }
+  }
+  const checkoutSteps = buildSteps.filter((step) => actionReference(step)?.[0] === 'actions/checkout');
+  if (checkoutSteps.length !== 1 || !hasExactObject(checkoutSteps[0]?.with, { 'persist-credentials': false })) {
+    errors.push('CHECKOUT_CREDENTIALS_PERSISTED');
   }
 
   if (!hasExactRunStep(buildSteps, 'npm ci')) errors.push('NPM_CI_MISSING');
@@ -476,6 +488,8 @@ function githubRepositoryPath(repositoryUrl) {
 // @des DES-F001-016 @des DES-F001-018 @fun FUN-F001-035
 export async function runReleaseChecks(context) {
   const blockers = [];
+  const feature = context?.feature;
+  if (!FEATURE_ID.test(feature ?? '')) blockers.push('INVALID_FEATURE');
   const now = parseRfc3339Instant(context?.now);
   if (now === null) blockers.push('INVALID_CHECK_TIME');
   if (!SHA40.test(context?.releaseCommit ?? '')) blockers.push('INVALID_RELEASE_COMMIT');
@@ -562,7 +576,7 @@ export async function runReleaseChecks(context) {
     : null;
   if (!positiveIdentifier(hosted?.repositoryId)
     || expectedRunUrl === null || hosted?.runUrl !== expectedRunUrl
-    || hosted?.event !== 'push' || hosted?.ref !== 'refs/heads/feature/F001'
+    || hosted?.event !== 'push' || hosted?.ref !== `refs/heads/feature/${feature}`
     || hosted?.headSha !== context?.releaseCommit
     || hosted?.workflowPath !== '.github/workflows/pages.yml' || hosted?.workflowSha !== context?.releaseCommit
     || hosted?.conclusion !== 'success'
@@ -598,6 +612,13 @@ export async function runReleaseChecks(context) {
       || checkedAt === null || validUntil === null || now === null || checkedAt > now || validUntil < now || validUntil < checkedAt;
   })) blockers.push('POLICY_EVIDENCE_INVALID');
 
+  if (feature === 'F002' && context?.securityContext === undefined) {
+    blockers.push('SECURITY_CHECK_FAILED');
+  } else if (context?.securityContext !== undefined) {
+    const security = await runF002SecurityChecks(context.securityContext);
+    if (security.status !== 'pass') blockers.push('SECURITY_CHECK_FAILED');
+  }
+
   if (blockers.length > 0) return { status: 'blocked', blockers: [...new Set(blockers)] };
   return {
     status: 'ready_for_approval',
@@ -614,6 +635,8 @@ export async function runReleaseChecks(context) {
 // @des DES-F001-016 @fun FUN-F001-042
 export function validateReleaseVisibilityEvidence(evidence) {
   const blockers = [];
+  const feature = evidence?.feature;
+  if (!FEATURE_ID.test(feature ?? '')) blockers.push('RELEASE_FEATURE_INVALID');
   const commit = evidence?.releaseCommit;
   if (!SHA40.test(commit ?? '')) blockers.push('RELEASE_COMMIT_INVALID');
   const trustedApprovals = Array.isArray(evidence?.trustedQueueApprovals) ? evidence.trustedQueueApprovals : [];
@@ -634,7 +657,7 @@ export function validateReleaseVisibilityEvidence(evidence) {
     || approval?.type !== 'approval' || approval?.status !== evidence?.approvalStatus
     || approval?.answer !== evidence?.approvalAnswer) blockers.push('APPROVAL_INVALID');
   if (approval?.source !== 'pf-release' || approval?.target_mode !== 'reference'
-    || approval?.target !== 'F001' || approval?.approvalTargetCommit !== evidence?.approvalTargetCommit
+    || approval?.target !== feature || approval?.approvalTargetCommit !== evidence?.approvalTargetCommit
     || approval?.approvalTargetCommit !== commit || approval?.approvedAt !== evidence?.approvedAt) {
     blockers.push('APPROVAL_GATE_MISMATCH');
   }

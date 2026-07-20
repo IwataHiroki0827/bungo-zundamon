@@ -461,7 +461,7 @@ tasks:
   title: F001不変照合・容量・repository・Pages・security preflightを実装
   feature: F002
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-019
   tags:
@@ -482,7 +482,7 @@ tasks:
   title: 宮沢賢治画像・規約snapshot・権利証跡を整備
   feature: F002
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-019
   tags:

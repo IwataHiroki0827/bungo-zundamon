@@ -239,3 +239,12 @@ entries:
   note: CatalogV2 route解決、作者一覧/作者別台詞、route音声停止、全作品credits、安全asset resolverを実装。空hash
     home、removeAttribute src解除、作者間参照隔離を補強し独立受入PASS。型・lint・552 tests・build・npm audit
     0件を確認
+- date: '2026-07-20'
+  phase: implement
+  task: T-022 F001不変・容量・Pages・security preflight
+  model: GPT-5
+  agents: 4
+  est_tokens: 52000
+  note: 固定raw Catalog v1と外部固定baseline SHA、F001 content/dist不変、offline Pages、実Git/repository/statfs容量、static/full
+    security、release full chainを実装。4件の差戻しを解消し独立受入PASS。型・lint・621 tests・build・npm audit
+    0件を確認

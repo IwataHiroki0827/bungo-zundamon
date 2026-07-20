@@ -1,9 +1,11 @@
 import { createHash } from 'node:crypto';
-import { mkdtemp, mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { cp, mkdtemp, mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { canonicalJson } from './artifacts.ts';
+import { loadAndVerifyF001Baseline } from './baseline.ts';
 import { createProductionBatchDependencies } from './batch-runtime.ts';
 import { runBatchCommand } from './batch-command.ts';
 import {
@@ -18,6 +20,7 @@ import {
 } from './batch.ts';
 import { applyWorkReviews, type Candidate, type ReviewRecord } from './processing.ts';
 import type { VoiceDiffGenerationResult, VoiceDiffPlan } from '../voice/generation.ts';
+import type { ActualCapacityInput, CapacityForecastInput } from '../voice/budget.ts';
 
 const HASH = 'a'.repeat(64) as Sha256;
 const temporaryDirectories: string[] = [];
@@ -250,6 +253,219 @@ describe('production review input結合 [DES-F002-002][DES-F002-014][DES-F002-01
 });
 
 describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F002-014][DES-F002-015]', () => {
+  it('reviewed workを現在planと実forecastへ結合しauthorization artifactを保存する', async () => {
+    const input = await fixture();
+    await mkdir(join(input.workspace, 'public'), { recursive: true });
+    await writeFile(join(input.workspace, 'public', 'index.html'), 'public');
+    execFileSync('git', ['init', '--quiet'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.email', 'test@example.test'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.name', 'Runtime Test'], { cwd: input.workspace });
+    execFileSync('git', ['add', '.'], { cwd: input.workspace });
+    execFileSync('git', ['commit', '--quiet', '-m', 'fixture'], { cwd: input.workspace });
+    const reviewedResult = await executeReview(input) as { nextManifest: BatchManifest };
+    const manifest = reviewedResult.nextManifest;
+    const workId = manifest.workIds[0];
+    const config = {
+      engineVersion: '0.25.2', speakerUuid: '388f246b-8c41-4ac1-8e2d-5d79f3ff56d9', speakerName: 'ずんだもん',
+      styleId: 3, styleName: 'ノーマル', speedScale: 1, pitchScale: 0, intonationScale: 1, volumeScale: 1,
+      outputSamplingRate: 24_000, presetVersion: '2.0.0',
+    };
+    const configPath = join(input.workspace, ...manifest.voiceConfigRef.split('/'));
+    await mkdir(dirname(configPath), { recursive: true });
+    await writeFile(configPath, canonicalJson(config));
+    const forecastInputs = {
+      schemaVersion: '1.0.0', kind: 'capacity-forecast-inputs', batchId: manifest.batchId, workId,
+      expectedManifestSha: hashBatchManifest(manifest), plannedPagesBytes: 1, repositoryCandidateFiles: [],
+      liveWriteUpperBounds: 0, rollbackBackupBytes: 0,
+    };
+    const inputsPath = join(input.workspace, '.cache', 'batch-capacity', manifest.batchId, workId, 'forecast-inputs.json');
+    await mkdir(dirname(inputsPath), { recursive: true });
+    await writeFile(inputsPath, canonicalJson(forecastInputs));
+    const plan = {
+      schemaVersion: '2' as const, batchId: manifest.batchId, workId,
+      expectedManifestSha: forecastInputs.expectedManifestSha, preTreeDigest: hash(''), config, configHash: hash('config'),
+      cacheRoot: join(input.workspace, '.cache', 'voice'), entries: [], candidateCount: 1, uniqueAudioCount: 1,
+      hitCount: 0, missCount: 1, invalidCount: 0, estimatedMissBytes: 46,
+      existingUniqueAudioCount: 0, existingUniqueBytes: 0, planDigest: hash('plan'),
+    } satisfies VoiceDiffPlan;
+    const section = { measuredBytes: 1, thresholdBytes: 100, status: 'pass' as const, includedPaths: [], deduplicatedHashes: [], reasons: [] };
+    const report = {
+      evidenceKind: 'forecast' as const, actualCapacitySatisfied: false as const, result: 'pass' as const, canGenerate: true,
+      batchId: manifest.batchId, workId, expectedManifestSha: forecastInputs.expectedManifestSha,
+      preTreeDigest: hash(''), planDigest: plan.planDigest, remainingResponseBytes: 46, minimumFreeBytesAfterWrite: 0,
+      additionalAudio: section, pagesArtifact: section, sourceRepository: section, singleGitObjects: section,
+      workDrive: section, reasons: [],
+    };
+    const dependencies = createProductionBatchDependencies({
+      planVoice: vi.fn(async () => plan),
+      forecastCapacity: vi.fn(async (capacityInput: CapacityForecastInput) => {
+        expect(capacityInput.currentPagesBytes).toBe(Buffer.byteLength('public'));
+        expect(capacityInput.repositoryNonObjectBytes).toBeGreaterThan(0);
+        expect(capacityInput.gitObjects.length).toBeGreaterThan(0);
+        expect(capacityInput.disk.freeBytes).toBeGreaterThan(0);
+        return report;
+      }),
+      authorizeVoice: vi.fn((value) => value),
+    });
+
+    const result = await dependencies.executeStage({
+      workspace: input.workspace, batchId: manifest.batchId, manifest, stage: 'capacity-forecast', workId,
+    });
+    expect(result.nextManifest?.workProgress[0].status).toBe('budget-approved');
+    expect(result.nextManifest?.workProgress[0].forecastRef).toBe(`content/batches/F002/capacity-forecast/${workId}.json`);
+    const artifact = JSON.parse(await readFile(join(
+      input.workspace, 'content', 'batches', 'F002', 'capacity-forecast', `${workId}.json`,
+    ), 'utf8')) as { plan: VoiceDiffPlan; authorization: { result: string } };
+    expect(artifact.plan.planDigest).toBe(plan.planDigest);
+    expect(artifact.authorization.result).toBe('pass');
+
+    const blockedDependencies = createProductionBatchDependencies({
+      planVoice: vi.fn(async () => plan),
+      forecastCapacity: vi.fn(async () => ({ ...report, result: 'blocked' as const, canGenerate: false })),
+      authorizeVoice: vi.fn((value) => value),
+    });
+    await expect(blockedDependencies.executeStage({
+      workspace: input.workspace, batchId: manifest.batchId, manifest, stage: 'capacity-forecast', workId,
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+
+    await writeFile(inputsPath, canonicalJson({
+      ...forecastInputs,
+      currentPagesBytes: 0,
+      repositoryNonObjectBytes: 0,
+      gitObjects: [],
+      freeBytes: Number.MAX_SAFE_INTEGER,
+    }));
+    await expect(dependencies.executeStage({
+      workspace: input.workspace, batchId: manifest.batchId, manifest, stage: 'capacity-forecast', workId,
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+  });
+
+  it('voiced workの実preview/invariant/capacityをactual artifactへ結合して状態を据え置く', async () => {
+    const input = await fixture();
+    execFileSync('git', ['init', '--quiet'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.email', 'test@example.test'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.name', 'Runtime Test'], { cwd: input.workspace });
+    execFileSync('git', ['add', '.'], { cwd: input.workspace });
+    execFileSync('git', ['commit', '--quiet', '-m', 'fixture'], { cwd: input.workspace });
+    const reviewed = (await executeReview(input) as { nextManifest: BatchManifest }).nextManifest;
+    const workId = reviewed.workIds[0];
+    const forecastRef = `content/batches/F002/capacity-forecast/${workId}.json` as WorkspaceRelativePath;
+    const budgeted = transitionWorkState(reviewed, workId, 'budget-approved', {
+      kind: 'stage', expectedManifestSha: hashBatchManifest(reviewed), workId, stage: 'budget-approved',
+      inputHashes: [hashBatchManifest(reviewed), ...reviewed.workProgress[0].stageRecords.at(-1)!.outputHashes],
+      outputHashes: [hash('forecast')], toolVersion: 'test/1', count: 1,
+      completedAt: '2026-07-20T00:01:00Z', result: 'pass', forecastRef,
+    });
+    const voiceEvidenceRef = `content/batches/F002/voice-evidence/${workId}.json` as WorkspaceRelativePath;
+    const voiced = transitionWorkState(budgeted, workId, 'voiced', {
+      kind: 'stage', expectedManifestSha: hashBatchManifest(budgeted), workId, stage: 'voiced',
+      inputHashes: [hashBatchManifest(budgeted), ...budgeted.workProgress[0].stageRecords.at(-1)!.outputHashes],
+      outputHashes: [hash('generation'), hash('completeness')],
+      toolVersion: 'test/1', count: 1, completedAt: '2026-07-20T00:02:00Z', result: 'pass', voiceEvidenceRef,
+    });
+    const acceptRoot = join(input.workspace, '.cache', 'batch-accept', 'F002', workId);
+    const stagingRoot = join(input.workspace, '.cache', 'content-preview');
+    const generationSource = join(input.workspace, '.cache', 'voice-stage', 'audio.wav');
+    await mkdir(join(stagingRoot, 'content'), { recursive: true });
+    await mkdir(dirname(generationSource), { recursive: true });
+    await writeFile(generationSource, 'actual-audio');
+    await writeFile(join(stagingRoot, 'content', 'catalog.json'), canonicalJson({ schemaVersion: '2.0.0' }));
+    const generation = {
+      schemaVersion: '2', batchId: 'F002', workId, expectedManifestSha: hash('pre-voice'), preTreeDigest: HASH,
+      planDigest: hash('plan'), authorizationDigest: hash('authorization'), generationDigest: hash('generation'),
+      configHash: hash('config'), assets: [{
+        audioId: 'audio-actual', path: 'audio/F002/audio-actual.wav', sha256: hash('actual-audio'), bytes: 12,
+        durationMs: 1, configHash: hash('config'), candidateIds: ['candidate-1'], source: 'staging',
+        sourcePath: generationSource, workIds: [workId],
+      }], failures: [], attempted: 1, succeeded: 1, failed: 0,
+      stagedBytes: 12, stagingRoot: dirname(generationSource),
+    } as VoiceDiffGenerationResult;
+    const completeness = {
+      result: 'pass', batchId: 'F002', workId, expectedManifestSha: generation.expectedManifestSha,
+      preTreeDigest: HASH, planDigest: generation.planDigest, authorizationDigest: generation.authorizationDigest,
+      generationDigest: generation.generationDigest, completenessDigest: hash('completeness'),
+      approvedCount: 0, uniqueAudioCount: 0, candidateAudio: {},
+    };
+    const generationArtifact = {
+      schemaVersion: '1.0.0', kind: 'voice-generation-runtime', batchId: 'F002', workId,
+      preVoiceManifestSha: generation.expectedManifestSha, voicedManifestSha: hashBatchManifest(voiced),
+      generationSha256: hash(canonicalJson(generation)), generation,
+    };
+    const preview = {
+      mode: 'work-preview', stagingRoot, buildSha256: hash('content-build'), files: [],
+      activeBatchId: 'F002', activeWorkId: workId,
+    };
+    const actualInputs = {
+      schemaVersion: '1.0.0', kind: 'capacity-actual-inputs', batchId: 'F002', workId,
+      voicedManifestSha: hashBatchManifest(voiced),
+      liveWriteUpperBounds: 0, rollbackBackupBytes: 0,
+    };
+    await mkdir(acceptRoot, { recursive: true });
+    await Promise.all([
+      writeFile(join(acceptRoot, 'voice-generation.json'), canonicalJson(generationArtifact)),
+      writeFile(join(acceptRoot, 'voice-completeness.json'), canonicalJson(completeness)),
+      writeFile(join(acceptRoot, 'content-preview.json'), canonicalJson(preview)),
+      writeFile(join(acceptRoot, 'capacity-actual-inputs.json'), canonicalJson(actualInputs)),
+    ]);
+    const section = { measuredBytes: 0, thresholdBytes: 1, status: 'pass' as const, includedPaths: [], deduplicatedHashes: [], reasons: [] };
+    const pages = {
+      distSha256: hash('dist'), contentBuildSha256: preview.buildSha256, outputRoot: join(input.workspace, '.cache', 'runtime-pages'),
+      files: [], inputHashes: {
+        contentTreeSha256: preview.buildSha256, appSourceSha256: HASH, lockfileSha256: HASH, toolSha256: HASH,
+      }, batchId: voiced.batchId, workId,
+    };
+    const contentInvariant = { result: 'pass' as const, buildSha256: preview.buildSha256, stagingSha256: preview.buildSha256, baselineSha256: HASH };
+    const distInvariant = { result: 'pass' as const, distSha256: pages.distSha256, contentBuildSha256: preview.buildSha256, baselineSha256: HASH, reportSha256: hash('dist-report') };
+    const actual = {
+      evidenceKind: 'actual' as const, phase: 'work-preview' as const, result: 'pass' as const,
+      batchId: voiced.batchId, workId, expectedManifestSha: generation.expectedManifestSha, preTreeDigest: HASH,
+      contentBuildSha256: preview.buildSha256, contentStagingSha256: preview.buildSha256, distSha256: pages.distSha256,
+      voiceConfigHash: generation.configHash, planDigest: generation.planDigest,
+      authorizationDigest: generation.authorizationDigest, generationDigest: generation.generationDigest,
+      completenessDigest: completeness.completenessDigest,
+      additionalAudio: section, pagesArtifact: section, sourceRepository: section, singleGitObjects: section, workDrive: section, reasons: [],
+    };
+    const buildPagesPreview = vi.fn(async (_preview, appSource: string, outputRoot: string, offline: boolean) => {
+      expect(appSource).toBe(input.workspace);
+      expect(outputRoot.startsWith(join(input.workspace, '.cache'))).toBe(true);
+      expect(offline).toBe(true);
+      return { ...pages, outputRoot } as never;
+    });
+    const dependencies = createProductionBatchDependencies({
+      loadBaseline: vi.fn(async () => ({ sourceRoot: join(input.workspace, 'public'), files: [], catalog: {}, syntheticBatch: {}, baselineSha256: HASH } as never)),
+      validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
+      verifyF001Invariant: vi.fn(async () => contentInvariant),
+      buildPagesPreview,
+      verifyF001DistInvariant: vi.fn(async () => distInvariant),
+      verifyActualCapacity: vi.fn(async (capacityInput: ActualCapacityInput) => {
+        expect(capacityInput.additionalAudioFiles).toContain(generationSource);
+        expect(capacityInput.gitObjects?.some((item) => item.path?.endsWith('.cache/voice-stage/audio.wav'))).toBe(true);
+        return actual as never;
+      }),
+    });
+
+    const externalRoot = await mkdtemp(join(tmpdir(), 'capacity-actual-external-'));
+    temporaryDirectories.push(externalRoot);
+    await writeFile(join(acceptRoot, 'capacity-actual-inputs.json'), canonicalJson({
+      ...actualInputs, appSource: externalRoot, outputRoot: join(externalRoot, 'written'),
+    }));
+    await expect(dependencies.executeStage({
+      workspace: input.workspace, batchId: voiced.batchId, manifest: voiced, stage: 'capacity-actual', workId,
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+    expect(buildPagesPreview).not.toHaveBeenCalled();
+    await expect(readFile(join(externalRoot, 'written'))).rejects.toMatchObject({ code: 'ENOENT' });
+    await writeFile(join(acceptRoot, 'capacity-actual-inputs.json'), canonicalJson(actualInputs));
+
+    const result = await dependencies.executeStage({
+      workspace: input.workspace, batchId: voiced.batchId, manifest: voiced, stage: 'capacity-actual', workId,
+    });
+    expect(result.nextManifest?.workProgress[0].status).toBe('voiced');
+    expect(result.nextManifest?.workProgress[0].actualCapacityRef).toBe(`content/batches/F002/capacity-actual/${workId}.json`);
+    expect(JSON.parse(await readFile(join(
+      input.workspace, 'content', 'batches', 'F002', 'capacity-actual', `${workId}.json`,
+    ), 'utf8'))).toMatchObject({ result: 'pass', generationDigest: generation.generationDigest });
+  });
+
   it('voice/accept/prepare/releaseはunavailableではなく欠落artifactをprerequisiteで停止する', async () => {
     const input = await fixture();
     const reviewed = {
@@ -409,9 +625,26 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     expect(hashBatchManifest(voiced)).not.toBe(preVoiceManifestSha);
   });
 
-  it('release-verifyはbuild検証だけを呼びpublic昇格とmanifest保存を行わない', async () => {
+  it('release-verifyはclean commitからF001/Pages/release容量chainを実行しpublicを昇格しない', async () => {
     const input = await fixture();
-    const commit = 'b'.repeat(40);
+    await writeFile(join(input.workspace, '.gitignore'), '.cache/\nartifacts/\n');
+    await cp(join(process.cwd(), 'public'), join(input.workspace, 'public'), { recursive: true });
+    const baselinePath = join(input.workspace, 'content', 'baselines', 'F001-v0.1.0.json');
+    const rawCatalogPath = join(input.workspace, 'content', 'baselines', 'F001-v0.1.0-catalog.json');
+    await mkdir(dirname(baselinePath), { recursive: true });
+    await Promise.all([
+      cp(join(process.cwd(), 'content', 'baselines', 'F001-v0.1.0.json'), baselinePath),
+      cp(join(process.cwd(), 'content', 'baselines', 'F001-v0.1.0-catalog.json'), rawCatalogPath),
+    ]);
+    await writeFile(join(input.workspace, 'public', 'content', 'catalog.json'), canonicalJson({
+      schemaVersion: '2.0.0', authors: [], works: [], audioAssets: [], batches: [],
+    }));
+    execFileSync('git', ['init', '--quiet'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.email', 'test@example.test'], { cwd: input.workspace });
+    execFileSync('git', ['config', 'user.name', 'Release Test'], { cwd: input.workspace });
+    execFileSync('git', ['add', '.'], { cwd: input.workspace });
+    execFileSync('git', ['commit', '--quiet', '-m', 'release fixture'], { cwd: input.workspace });
+    const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: input.workspace, encoding: 'utf8' }).trim();
     const candidateBytes = new TextEncoder().encode('candidate-artifact');
     const candidateArtifactPath = 'artifacts/F002-pages.tar.gz' as WorkspaceRelativePath;
     const candidateFile = join(input.workspace, ...candidateArtifactPath.split('/'));
@@ -424,13 +657,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       distSha256: HASH,
       artifactDigest: hash(candidateBytes),
     };
-    const f001 = {
-      sourceRoot: input.workspace,
-      files: [],
-      catalog: {},
-      syntheticBatch: { batchId: 'F001' },
-      baselineSha256: HASH,
-    };
+    const f001 = await loadAndVerifyF001Baseline(join(input.workspace, 'public'), baselinePath, rawCatalogPath);
     const candidateCore = {
       releaseCandidateBatchId: input.manifest.batchId,
       feature: input.manifest.feature,
@@ -440,7 +667,10 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       artifactDigest: context.artifactDigest,
     };
     const candidate = { ...candidateCore, evidenceSha256: hash(canonicalJson(candidateCore)) };
-    const payload = { context, f001, batchCatalogs: {}, candidate, candidateArtifactPath };
+    const capacity = {
+      repositoryCandidateFiles: [], liveWriteUpperBounds: 0, rollbackBackupBytes: 0,
+    };
+    const payload = { context, f001, batchCatalogs: {}, candidate, candidateArtifactPath, capacity };
     const artifact = {
       schemaVersion: '1.0.0',
       kind: 'release-verify-inputs',
@@ -452,19 +682,49 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const artifactPath = join(input.workspace, '.cache', 'batch-release', input.manifest.batchId, 'release-verify-inputs.json');
     await mkdir(dirname(artifactPath), { recursive: true });
     await writeFile(artifactPath, canonicalJson(artifact), 'utf8');
-    const buildTree = vi.fn(async (_batches, _baseline, stagingRoot: string) => ({
-      mode: 'release-verify' as const,
-      stagingRoot,
-      buildSha256: HASH,
-      files: [],
-      releaseCandidateBatchId: input.manifest.batchId,
-      releaseCommit: commit,
-    }));
+    const buildTree = vi.fn(async (_batches, _baseline, stagingRoot: string) => {
+      await mkdir(join(stagingRoot, 'content'), { recursive: true });
+      await writeFile(join(stagingRoot, 'content', 'catalog.json'), canonicalJson({ schemaVersion: '2.0.0' }));
+      return {
+        mode: 'release-verify' as const, stagingRoot, buildSha256: HASH, files: [],
+        releaseCandidateBatchId: input.manifest.batchId, releaseCommit: commit,
+      };
+    });
     const promoteTree = vi.fn();
+    const loadBaseline = vi.fn(loadAndVerifyF001Baseline);
+    const verifyF001Invariant = vi.fn(async () => ({ result: 'pass' as const, buildSha256: HASH, stagingSha256: HASH, baselineSha256: f001.baselineSha256 }));
+    const pages = {
+      distSha256: context.distSha256, contentBuildSha256: HASH, outputRoot: join(input.workspace, '.cache', 'runtime-pages'), files: [],
+      inputHashes: { contentTreeSha256: HASH, appSourceSha256: HASH, lockfileSha256: HASH, toolSha256: HASH },
+    };
+    const buildPagesPreview = vi.fn(async (_build, appSource: string, outputRoot: string, offline: boolean) => {
+      expect(appSource).toBe(input.workspace);
+      expect(outputRoot.startsWith(join(input.workspace, '.cache'))).toBe(true);
+      expect(offline).toBe(true);
+      return { ...pages, outputRoot } as never;
+    });
+    const distInvariant = { result: 'pass' as const, distSha256: context.distSha256, contentBuildSha256: HASH, baselineSha256: HASH, reportSha256: hash('dist-report') };
+    const verifyF001DistInvariant = vi.fn(async () => distInvariant);
+    const section = { measuredBytes: 0, thresholdBytes: 1, status: 'pass' as const, includedPaths: [], deduplicatedHashes: [], reasons: [] };
+    const releaseActual = {
+      evidenceKind: 'actual' as const, phase: 'release' as const, result: 'pass' as const,
+      releaseCandidateBatchId: input.manifest.batchId, feature: input.manifest.feature, releaseCommit: commit,
+      artifactDigest: context.artifactDigest, contentBuildSha256: HASH, contentStagingSha256: HASH,
+      distSha256: context.distSha256, additionalAudio: section, pagesArtifact: section, sourceRepository: section,
+      singleGitObjects: section, workDrive: section, reasons: [],
+    };
+    const verifyActualCapacity = vi.fn(async (capacityInput: ActualCapacityInput) => {
+      expect(capacityInput).toMatchObject({
+        phase: 'release', releaseCandidateBatchId: input.manifest.batchId, releaseCommit: commit,
+        artifactDigest: context.artifactDigest, contentBuildSha256: HASH,
+      });
+      return releaseActual as never;
+    });
     const dependencies = createProductionBatchDependencies({
       loadBatches: vi.fn(async () => []),
-      buildTree,
-      promoteTree,
+      buildTree, promoteTree, loadBaseline,
+      validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
+      verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant, verifyActualCapacity,
     });
 
     const result = await dependencies.verifyRelease({
@@ -475,9 +735,35 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       mode: 'release',
     });
 
-    expect(result.outputHashes).toEqual([HASH]);
+    expect(result.outputHashes).toHaveLength(5);
+    expect(result.outputHashes).toContain(HASH);
+    expect(result.outputHashes).toContain(context.distSha256);
     expect(buildTree).toHaveBeenCalledTimes(1);
+    expect(loadBaseline).toHaveBeenCalledTimes(1);
+    expect(loadBaseline).toHaveBeenCalledWith(join(input.workspace, 'public'), baselinePath, rawCatalogPath);
+    expect(verifyF001Invariant).toHaveBeenCalledTimes(1);
+    expect(buildPagesPreview).toHaveBeenCalledTimes(1);
+    expect(verifyF001DistInvariant).toHaveBeenCalledTimes(1);
+    expect(verifyActualCapacity).toHaveBeenCalledTimes(1);
     expect(promoteTree).not.toHaveBeenCalled();
+
+    const externalRoot = await mkdtemp(join(tmpdir(), 'release-pages-external-'));
+    temporaryDirectories.push(externalRoot);
+    const invalidCapacity = {
+      ...capacity, appSource: externalRoot, outputRoot: join(externalRoot, 'written'),
+    };
+    const invalidPayload = { ...payload, capacity: invalidCapacity };
+    await writeFile(artifactPath, canonicalJson({
+      ...artifact, ...invalidPayload, payloadSha256: hash(canonicalJson(invalidPayload)),
+    }));
+    await expect(dependencies.verifyRelease({
+      workspace: input.workspace, batchId: input.manifest.batchId, manifest: input.manifest,
+      commit, mode: 'release',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+    expect(buildTree).toHaveBeenCalledTimes(1);
+    expect(buildPagesPreview).toHaveBeenCalledTimes(1);
+    await expect(readFile(join(externalRoot, 'written'))).rejects.toMatchObject({ code: 'ENOENT' });
+    await writeFile(artifactPath, canonicalJson(artifact), 'utf8');
 
     await writeFile(candidateFile, 'tampered-artifact');
     await expect(dependencies.verifyRelease({
@@ -489,22 +775,41 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
 
     await writeFile(candidateFile, candidateBytes);
-    const changedBuild = createProductionBatchDependencies({
-      loadBatches: vi.fn(async () => []),
-      buildTree: vi.fn(async (_batches, _baseline, stagingRoot: string) => ({
-        mode: 'release-verify' as const,
-        stagingRoot,
-        buildSha256: hash('different-build'),
-        files: [],
-      })),
-      promoteTree,
+    const blocked = createProductionBatchDependencies({
+      loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
+      verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant,
+      verifyActualCapacity: vi.fn(async () => ({ ...releaseActual, result: 'blocked' as const } as never)),
     });
-    await expect(changedBuild.verifyRelease({
+    await expect(blocked.verifyRelease({
       workspace: input.workspace,
       batchId: input.manifest.batchId,
       manifest: input.manifest,
       commit,
       mode: 'release',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+
+    const workReportReuse = createProductionBatchDependencies({
+      loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
+      verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant,
+      verifyActualCapacity: vi.fn(async () => ({ ...releaseActual, phase: 'work-preview' as const } as never)),
+    });
+    await expect(workReportReuse.verifyRelease({
+      workspace: input.workspace, batchId: input.manifest.batchId, manifest: input.manifest,
+      commit, mode: 'release',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+
+    const otherDist = createProductionBatchDependencies({
+      loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
+      verifyF001Invariant,
+      buildPagesPreview: vi.fn(async () => ({ ...pages, distSha256: hash('other-dist') } as never)),
+      verifyF001DistInvariant, verifyActualCapacity,
+    });
+    await expect(otherDist.verifyRelease({
+      workspace: input.workspace, batchId: input.manifest.batchId, manifest: input.manifest,
+      commit, mode: 'release',
     })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
   });
 });

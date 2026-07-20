@@ -726,6 +726,8 @@ export function createCompleteProductionStageRunner(): StageRunner {
 
 export { buildIntegratedPublicTree, promoteIntegratedTree } from './batch-public.ts';
 export { promoteVerifiedWorkArtifacts } from './batch-acceptance.ts';
+export { loadAndVerifyF001Baseline, verifyF001DistInvariant, verifyF001Invariant } from './baseline.ts';
+export { buildPagesPreview } from './pages-preview.ts';
 export type {
   ActiveBatchPreview,
   BatchCatalogFragment,
@@ -742,3 +744,5 @@ export type {
   WorkAcceptanceEvidence,
   WorkPromotionOptions,
 } from './batch-acceptance.ts';
+export type { F001Baseline, F001BaselineDocument, VerifiedF001DistInvariantReport } from './baseline.ts';
+export type { PagesBuildAdapter, PagesDistPreview, PagesPreviewInputHashes, PagesPreviewOptions } from './pages-preview.ts';

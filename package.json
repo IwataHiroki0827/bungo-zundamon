@@ -16,7 +16,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "verify": "npm run lint && npm test && npm run build",
-    "verify:build": "node scripts/verify-project.mjs",
+    "verify:build": "node --experimental-transform-types scripts/verify-project.mjs",
     "preview": "vite preview --host 127.0.0.1 --strictPort",
     "preview:pages": "npm run build && vite preview --host 127.0.0.1 --strictPort",
     "content:update": "node --experimental-transform-types scripts/content-cli.ts all",

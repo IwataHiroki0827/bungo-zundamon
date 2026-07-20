@@ -374,7 +374,9 @@ function validateWorkProgress(value: unknown, batchId: string, expectedWorkId: s
     Array.isArray(value.acceptedAudioSources) && value.acceptedAudioSources.length > 0)) return false;
   if (!accepted && (value.acceptedAt !== undefined || value.acceptedBy !== undefined || value.acceptedAudioSources !== undefined)) return false;
   if (value.status === 'pending' && value.stageRecords.length !== 0) return false;
-  if (value.status !== 'pending' && value.stageRecords.at(-1)?.stage !== value.status) return false;
+  if (value.status === 'voiced' && value.stageRecords.at(-1)?.stage === 'capacity-actual') {
+    if (value.stageRecords.at(-2)?.stage !== 'voiced' || value.actualCapacityRef === undefined) return false;
+  } else if (value.status !== 'pending' && value.stageRecords.at(-1)?.stage !== value.status) return false;
   return true;
 }
 

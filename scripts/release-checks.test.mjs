@@ -9,6 +9,7 @@ import {
   HARD_TOTAL_BYTES,
   PAGES_BASE,
   WARNING_TOTAL_BYTES,
+  runF002StaticSecurityChecks,
   runReleaseChecks,
   validateReleaseVisibilityEvidence,
   verifyAssetBudget,
@@ -215,6 +216,7 @@ function releaseContext() {
     catalogHash: HASH,
   });
   return {
+    feature: 'F001',
     now: '2026-07-18T06:00:00.000Z',
     releaseCommit: SHA,
     catalogHash: HASH,
@@ -339,10 +341,52 @@ describe('FUN-F001-035 承認前リリース判定 [UT-F001-035]', () => {
     });
     await expect(runReleaseChecks(context)).resolves.toMatchObject({ status: 'ready_for_approval' });
   });
+
+  it('feature/hosted branch固定をF002へparameter化しsecurity preflightを接続する', async () => {
+    const context = releaseContext();
+    context.feature = 'F002';
+    context.hostedBuild.ref = 'refs/heads/feature/F002';
+    context.securityContext = { dependencyAudit: { status: 'unknown' } };
+    await expect(runReleaseChecks(context)).resolves.toMatchObject({
+      status: 'blocked', blockers: expect.arrayContaining(['SECURITY_CHECK_FAILED']),
+    });
+    const workflow = await readFile(path.join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8');
+    const csp = `<meta http-equiv="Content-Security-Policy" content="${CSP}">`;
+    context.securityContext = {
+      applicationOrigin: 'https://example.test',
+      publicBasePath: '/bungo-zundamon/',
+      expectedRoutes: ['#/', '#/credits'],
+      distRoutes: [{ route: '#/', csp }, { route: '#/credits', csp }],
+      requestLog: {
+        status: 'passed', source: 'browser-observer',
+        observedRoutes: ['#/', '#/credits'], requests: [],
+      },
+      domSinkScan: { status: 'passed', unsafeSinkCount: 0 },
+      privacyScan: { status: 'passed', cookieAccessCount: 0, localStorageCount: 0, sessionStorageCount: 0, indexedDbCount: 0, formCount: 0 },
+      secretScan: { status: 'passed', matches: 0 },
+      dependencyAudit: { status: 'passed', source: 'npm-audit', audited: true, high: 0, critical: 0 },
+      catalogFixtures: { status: 'passed', source: 'malicious-fixture-suite', caseCount: 1, unsafeAccepted: 0 },
+      workflow,
+    };
+    await expect(runReleaseChecks(context)).resolves.toMatchObject({ status: 'ready_for_approval' });
+
+    context.securityContext = await runF002StaticSecurityChecks({
+      expectedRoutes: ['#/', '#/credits'],
+      distRoutes: [{ route: '#/', csp }, { route: '#/credits', csp }],
+      domSinkScan: { status: 'passed', unsafeSinkCount: 0 },
+      privacyScan: { status: 'passed', cookieAccessCount: 0, localStorageCount: 0, sessionStorageCount: 0, indexedDbCount: 0, formCount: 0 },
+      secretScan: { status: 'passed', matches: 0 },
+      workflow,
+    });
+    await expect(runReleaseChecks(context)).resolves.toMatchObject({
+      status: 'blocked', blockers: expect.arrayContaining(['SECURITY_CHECK_FAILED']),
+    });
+  });
 });
 
 function visibilityEvidence() {
   return {
+    feature: 'F001',
     approvalId: 'Q-009',
     approvalStatus: 'closed',
     approvalAnswer: '承認',
@@ -439,6 +483,13 @@ describe('FUN-F001-042 承認後release chain [UT-F001-042]', () => {
     const evidence = visibilityEvidence();
     evidence.pagesDeployEnabledAt = evidence.pagesEnabledAt;
     evidence.pagesDeployDisabledAt = evidence.pagesDeployEnabledAt;
+    expect(validateReleaseVisibilityEvidence(evidence)).toMatchObject({ status: 'released' });
+  });
+
+  it('承認targetをfeature引数F002へparameter化する', () => {
+    const evidence = visibilityEvidence();
+    evidence.feature = 'F002';
+    evidence.trustedQueueApprovals[1].target = 'F002';
     expect(validateReleaseVisibilityEvidence(evidence)).toMatchObject({ status: 'released' });
   });
 });
