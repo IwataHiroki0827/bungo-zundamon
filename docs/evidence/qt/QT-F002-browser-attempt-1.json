@@ -1,0 +1,3061 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium-pages-preview",
+      "--project=firefox-pages-preview",
+      "--project=webkit-pages-preview",
+      "--project=android-equivalent-pages-preview"
+    ],
+    "configFile": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\playwright.config.ts",
+    "rootDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-pages-preview",
+        "name": "chromium-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-pages-preview",
+        "name": "firefox-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-pages-preview",
+        "name": "webkit-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-equivalent-pages-preview",
+        "name": "android-equivalent-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-stable-pages-preview",
+        "name": "chrome-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge-stable-pages-preview",
+        "name": "edge-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/evidence/qt/QT-F002-browser-attempt-1.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm exec -- vite build && npm run preview -- --port 4187",
+      "url": "http://127.0.0.1:4187/bungo-zundamon/",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "audio-and-isolation.spec.ts",
+      "file": "audio-and-isolation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1263,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:00.139Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-46b30ce5aea24bde1c00",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:02.120Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-dab24f6ec9b5464cf646",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3093,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:06.772Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-105c7092abc87569ceee",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7076,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:29.116Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-c1022c3d6feb68ccb5a1",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3582,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:36.760Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-5a9d8f8daa83e7775805",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3335,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:40.350Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-cbe9efb582cc7ce45c61",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6361,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:06.843Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-3c8d47881b564ad351aa",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5170,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:13.598Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-b5fbd008560424600278",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3446,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:18.774Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-806f2bcdd78fa5cd27c0",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5062,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:57.986Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-82e957468de34a4c0fe6",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4828,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:03.112Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-877bf1db763e54ecec67",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3249,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:07.946Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-294bc0ede3041f150e0f",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "f002-multi-author.spec.ts",
+      "file": "f002-multi-author.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川との往復を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3573,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:09.885Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-d3b2b47172f36927af3c",
+          "file": "f002-multi-author.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3929,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:13.463Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-ffe4bdb48dbe62c2ce21",
+          "file": "f002-multi-author.spec.ts",
+          "line": 53,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 480,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:17.398Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-c189e747eec456594e31",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 469,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:17.884Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-5267f06cca0b2ae859a9",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 503,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:18.359Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-6fca9a61b7bd8eda4ecb",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 467,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:18.867Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b995ea95940c3f67d23e",
+          "file": "f002-multi-author.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 550,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:19.339Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-a12520317555c33cade4",
+          "file": "f002-multi-author.spec.ts",
+          "line": 131,
+          "column": 1
+        },
+        {
+          "title": "2作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 495,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:19.895Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-c69f2eec13d6df1bb046",
+          "file": "f002-multi-author.spec.ts",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川との往復を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2861,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:43.700Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b89bf720d4a87e4e9d90",
+          "file": "f002-multi-author.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3624,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:46.566Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-8c9d156e534ba5bbaab6",
+          "file": "f002-multi-author.spec.ts",
+          "line": 53,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 678,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:50.196Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-d8004af7b854ecc81f36",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 715,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:50.881Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-a5988ea640612158595f",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:51.601Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-7f6e685a698f30b618f8",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 703,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:52.333Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-a359efd9c6365be554df",
+          "file": "f002-multi-author.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:53.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-cd38f229a53899b367e1",
+          "file": "f002-multi-author.spec.ts",
+          "line": 131,
+          "column": 1
+        },
+        {
+          "title": "2作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 652,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:54.157Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-252b11f4c464f35429f3",
+          "file": "f002-multi-author.spec.ts",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川との往復を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5332,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:22.237Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-77a2d66b9a4ab9a8626e",
+          "file": "f002-multi-author.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:27.574Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-8b1f598e46bf160ed2e2",
+          "file": "f002-multi-author.spec.ts",
+          "line": 53,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 962,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:36.690Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b9afce7ffa4673c86cac",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1029,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:37.658Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-bbf04def26a4bd47b341",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1380,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:38.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-3a536160ea44d89efed1",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:40.079Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-fa5a82ccd0b8e0779615",
+          "file": "f002-multi-author.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1028,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:41.333Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-509c9d2da559cb862daa",
+          "file": "f002-multi-author.spec.ts",
+          "line": 131,
+          "column": 1
+        },
+        {
+          "title": "2作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 702,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:42.366Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-6c6fbca764fdc2c0a5b4",
+          "file": "f002-multi-author.spec.ts",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川との往復を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3752,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:11.215Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-292a9fad5fbfc80a1ca6",
+          "file": "f002-multi-author.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4126,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:14.973Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b14b67677fb00c161abb",
+          "file": "f002-multi-author.spec.ts",
+          "line": 53,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 664,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:19.105Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-209c02c241a2fb58509d",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:19.774Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-96fa45d2af93869996ba",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 887,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:20.329Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-f0b83dc6c2986ad3135d",
+          "file": "f002-multi-author.spec.ts",
+          "line": 93,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 542,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:21.221Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-5d03fd0d66b82e18f55f",
+          "file": "f002-multi-author.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 715,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:21.769Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-c426cfee35332d79ee96",
+          "file": "f002-multi-author.spec.ts",
+          "line": 131,
+          "column": 1
+        },
+        {
+          "title": "2作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 722,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:22.489Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-aa8ca935ff4c5255e164",
+          "file": "f002-multi-author.spec.ts",
+          "line": 158,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "navigation-and-delivery.spec.ts",
+      "file": "navigation-and-delivery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 570,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:20.411Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-0f70333e85aad0abd47f",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 210,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:20.988Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-26d66372de501dbd170c",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1116,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:21.203Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-cc9d8544616aaab49b3c",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1087,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:54.824Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-b4332859919875fe9aeb",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:55.915Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-43972638ece99f51e93f",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1252,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:56.346Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-f7adc78e98869ed167b9",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 952,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:43.091Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-89222ebbf168bcbbea8f",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 381,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:44.047Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-3164a43833acd5ab66a8",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1377,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:44.433Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-aa3c721567dadd1eaf52",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 768,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:23.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-8bd6353c3c81a96a4cc5",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 262,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:23.998Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-4ec05893c1965764ae00",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1458,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:24.265Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-8c4d7e65b97346fb5a81",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 41,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "responsive-accessibility-security.spec.ts",
+      "file": "responsive-accessibility-security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 504,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:22.330Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-569817e24bd9bd593617",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 495,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:22.838Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-f6eeb3c4678e3e9d0dee",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 604,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:23.339Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-407cf8b4bc7848f81531",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:23.947Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-05fe64a24d56c71d644c",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 540,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:24.458Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-1748d88554e93470214d",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:25.003Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-fe62674ea2535c8157cc",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3056,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:25.599Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-ad81262aad48a3fe48c8",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:57.624Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-5e428a48026029cc92fe",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 726,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:58.354Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-1977f6c25eb416fa647c",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 743,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:59.086Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-4070cdfb4a14a303cb18",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 683,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:11:59.834Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-0c8b96b81e086c923a83",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:00.522Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-1343ba95399d056cf79f",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1376,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:01.526Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-95399927f0853b552587",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-pages-preview",
+              "projectName": "firefox-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3179,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:02.909Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-7245b5c77932e759808f",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 865,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:45.828Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-c02f54cbe77b39dea125",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 899,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:46.698Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-0ccd332fb3a9b26cc62c",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1702,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:47.602Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-57dd7aedabdf6d1c56e4",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 767,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:49.311Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-ca4b953105d490c74da5",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:50.083Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-51d8966a748aed2965b3",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 942,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:51.510Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-477b730912921ea2aa04",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5097,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:12:52.457Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-287a6e47999e32574377",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 717,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:25.749Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-87bcf9bba9d647e70b7b",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 737,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:26.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-2cd96fa2ffa6105310d3",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1082,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:27.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-c747d8a83936e9eb5847",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 691,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:28.309Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-fe9683874089abdb0e81",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 795,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:29.007Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-b2f7c2d4cddfaefc3a55",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 789,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:29.807Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-73c897be49be2dd8a5f5",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3182,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-25T17:13:30.600Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-01fcaf62b931b5e257bd",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 116,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-25T17:10:57.827Z",
+    "duration": 156445.626,
+    "expected": 84,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
