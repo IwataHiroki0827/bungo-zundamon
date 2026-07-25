@@ -1,0 +1,125 @@
+{
+  "batchId": "F002",
+  "bibliographySnapshot": {
+    "archiveBytes": 2092313,
+    "archivePath": "list_person_all_extended_utf8.zip",
+    "archiveSha256": "6a48866f9e172a547c5e53be8deadfa5d3abee55d57006f07878798cdb0b2e58",
+    "csvBytes": 17155886,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvPath": "list_person_all_extended_utf8.csv",
+    "csvSha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
+    "fetchedAt": "2026-07-25T11:47:02.232Z",
+    "mediaType": "application/zip",
+    "schemaVersion": "e2eee6da997acefd",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "kind": "work-rights-selection",
+  "schemaVersion": "1.0.0",
+  "selection": {
+    "observation": {
+      "bibliographySha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
+      "observedAt": "2026-07-25T11:47:02.232Z",
+      "phase": "selection",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card473.html",
+          "orthography": "新字新仮名",
+          "personCopyright": "なし",
+          "personId": "000081",
+          "role": "著者",
+          "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/473_42318.html",
+          "status": "公開中",
+          "title": "よだかの星",
+          "translatorPresent": false,
+          "workCopyright": "なし",
+          "workId": "000473"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43752.html",
+          "orthography": "新字新仮名",
+          "personCopyright": "なし",
+          "personId": "000081",
+          "role": "著者",
+          "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/43752_17657.html",
+          "status": "公開中",
+          "title": "どんぐりと山猫",
+          "translatorPresent": false,
+          "workCopyright": "なし",
+          "workId": "043752"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43754.html",
+          "orthography": "新字新仮名",
+          "personCopyright": "なし",
+          "personId": "000081",
+          "role": "著者",
+          "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/43754_17659.html",
+          "status": "公開中",
+          "title": "注文の多い料理店",
+          "translatorPresent": false,
+          "workCopyright": "なし",
+          "workId": "043754"
+        }
+      ]
+    },
+    "works": [
+      {
+        "baseEdition": "新編　銀河鉄道の夜",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card473.html",
+        "charset": "Shift_JIS",
+        "copyright": "なし",
+        "edition": "新編　銀河鉄道の夜",
+        "inputter": "佐々木美香",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "proofreader": "野口英司",
+        "role": "著者",
+        "selectionReason": "承認済み代表作",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/473_42318.html",
+        "status": "公開中",
+        "title": "よだかの星",
+        "workId": "000473"
+      },
+      {
+        "baseEdition": "注文の多い料理店",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43752.html",
+        "charset": "Shift_JIS",
+        "copyright": "なし",
+        "edition": "注文の多い料理店",
+        "inputter": "土屋隆",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "proofreader": "noriko saito",
+        "role": "著者",
+        "selectionReason": "承認済み代表作",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/43752_17657.html",
+        "status": "公開中",
+        "title": "どんぐりと山猫",
+        "workId": "043752"
+      },
+      {
+        "baseEdition": "注文の多い料理店",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43754.html",
+        "charset": "Shift_JIS",
+        "copyright": "なし",
+        "edition": "注文の多い料理店",
+        "inputter": "土屋隆",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "proofreader": "noriko saito",
+        "role": "著者",
+        "selectionReason": "承認済み代表作",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/43754_17659.html",
+        "status": "公開中",
+        "title": "注文の多い料理店",
+        "workId": "043754"
+      }
+    ]
+  }
+}

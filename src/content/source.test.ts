@@ -21,6 +21,7 @@ import {
   fetchAozoraBibliography,
   fetchAozoraSources,
   isPublicAddress,
+  normalizeCharset,
   parseAozoraBibliography,
   resolveEdition,
   revalidateWorkRights,
@@ -342,6 +343,20 @@ describe('原典選定・取得・由来', () => {
     });
     expect(result.observation).not.toHaveProperty('releaseCommit');
     expect(result.observation).not.toHaveProperty('runId');
+  });
+
+  /** @des DES-F002-004 DES-F002-009 @fun FUN-F002-006 @test UT-F002-006 */
+  it('公式書誌の許可済みcharset表記だけをcanonical化し未知・曖昧表記を拒否する', () => {
+    expect(normalizeCharset('ShiftJIS')).toBe('Shift_JIS');
+    expect(normalizeCharset('shift_jis')).toBe('Shift_JIS');
+    expect(normalizeCharset('windows-31j')).toBe('Shift_JIS');
+    expect(normalizeCharset('utf8')).toBe('UTF-8');
+    expect(() => normalizeCharset('Shift_JIS / UTF-8')).toThrowError(
+      expect.objectContaining({ code: 'CHARSET_NOT_ALLOWED' }),
+    );
+    expect(() => normalizeCharset('ISO-2022-JP')).toThrowError(
+      expect.objectContaining({ code: 'CHARSET_NOT_ALLOWED' }),
+    );
   });
 
   /** @des DES-F002-004 DES-F002-009 @fun FUN-F002-006 @test UT-F002-006 */

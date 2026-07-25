@@ -292,12 +292,29 @@ function assertInputs(
   }
   const work = manifest.workProgress[manifest.workIds.indexOf(workId)];
   if (!work || work.status !== 'voiced') throw new WorkPromotionError('WORK_PROMOTION_INPUT_STALE', '対象workはvoicedではありません');
-  const voicedEvidence = work.stageRecords.at(-1);
-  if (!voicedEvidence || voicedEvidence.stage !== 'voiced' ||
+  const voicedEvidence = work.stageRecords.findLast((record) => record.stage === 'voiced');
+  const capacityEvidence = work.stageRecords.at(-1);
+  const voicedProgress = manifest.workProgress.map((item) => {
+    if (item.workId !== workId) return item;
+    const withoutActual = { ...item };
+    delete withoutActual.actualCapacityRef;
+    return { ...withoutActual, stageRecords: item.stageRecords.slice(0, -1) };
+  }) as unknown as BatchManifest['workProgress'];
+  const voicedManifestSha = hashBatchManifest({ ...manifest, workProgress: voicedProgress });
+  if (!voicedEvidence ||
     !voicedEvidence.inputHashes.some((value) => value === stagedVoice.expectedManifestSha) ||
     !voicedEvidence.outputHashes.some((value) => value === stagedVoice.generationDigest) ||
-    !voicedEvidence.outputHashes.some((value) => value === completeness.completenessDigest)) {
-    throw new WorkPromotionError('WORK_PROMOTION_INPUT_STALE', 'voice artifactがpre-voice manifestと現voiced manifestのstage evidenceへ結合されていません');
+    !voicedEvidence.outputHashes.some((value) => value === completeness.completenessDigest) ||
+    !capacityEvidence || capacityEvidence.stage !== 'capacity-actual' ||
+    !capacityEvidence.inputHashes.some((value) => value === voicedManifestSha) ||
+    !capacityEvidence.inputHashes.some((value) => value === stagedVoice.generationDigest) ||
+    !capacityEvidence.inputHashes.some((value) => value === completeness.completenessDigest) ||
+    !capacityEvidence.inputHashes.some((value) => value === preview.buildSha256) ||
+    !capacityEvidence.outputHashes.some((value) => value === reportHash(actual)) ||
+    !capacityEvidence.outputHashes.some((value) => value === pages.distSha256) ||
+    !capacityEvidence.outputHashes.some((value) => value === reportHash(contentInvariant)) ||
+    !capacityEvidence.outputHashes.some((value) => value === reportHash(distInvariant))) {
+    throw new WorkPromotionError('WORK_PROMOTION_INPUT_STALE', 'voice/capacity artifactがmanifest stage evidenceへ結合されていません');
   }
   if (stagedVoice.failed !== 0 || stagedVoice.failures.length !== 0 || completeness.result !== 'pass' ||
     completeness.uniqueAudioCount !== stagedVoice.assets.length || completeness.approvedCount <= 0 ||

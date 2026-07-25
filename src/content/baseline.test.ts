@@ -30,7 +30,9 @@ async function digest(root: string): Promise<Sha256> {
   };
   await walk(root, '');
   const value = createHash('sha256');
-  for (const file of files) value.update(file.path).update('\0').update(String(file.bytes.byteLength)).update('\0').update(file.bytes);
+  for (const file of files.sort((left, right) => left.path.localeCompare(right.path, 'en'))) {
+    value.update(file.path).update('\0').update(String(file.bytes.byteLength)).update('\0').update(file.bytes);
+  }
   return value.digest('hex') as Sha256;
 }
 
@@ -100,6 +102,13 @@ async function fixture(): Promise<{ root: string; catalog: CatalogV2; baseline: 
 }
 
 describe('FUN-F002-038/040 F001 invariants', () => {
+  it('directory DFS順ではなくflat path順で統合build digestを固定する', async () => {
+    const value = await fixture();
+    await writeFile(join(value.root, 'content', 'provenance.json'), '{}');
+    const report = await verifyF001Invariant(value.catalog, value.root, value.baseline);
+    expect(report.buildSha256).toBe(await digest(value.root));
+  });
+
   it('F002追加を比較外とし、F001 3作品59台詞と全実体を固定する', async () => {
     const value = await fixture();
     const extended = { ...value.catalog, authors: [...value.catalog.authors, { ...value.catalog.authors[0]!, authorId: '000081', introducedByBatchId: 'F002' }] };

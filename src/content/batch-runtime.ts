@@ -2,7 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { execFile as execFileCallback } from 'node:child_process';
 import { createReadStream } from 'node:fs';
 import { promisify } from 'node:util';
-import { lstat, mkdir, readFile, readdir, realpath, rm, statfs } from 'node:fs/promises';
+import { lstat, mkdir, mkdtemp, readFile, readdir, realpath, rm, statfs } from 'node:fs/promises';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { canonicalJson, writeJsonArtifactAtomic } from './artifacts.ts';
 import {
@@ -16,6 +16,7 @@ import {
   type WorkspaceRelativePath,
   hashBatchManifest,
   loadAcceptedBatches,
+  transitionBatchState,
   transitionWorkState,
   validateBatchManifest,
   writeBatchManifestAtomic,
@@ -27,6 +28,7 @@ import {
 } from './batch-command.ts';
 import {
   DEFAULT_BATCH_SPEECH_RULES,
+  type BatchContext,
   type BatchSourceDependencies,
   runBatchSourceStages,
 } from './batch-production.ts';
@@ -79,6 +81,11 @@ import {
 import { buildPagesPreview, type PagesDistPreview } from './pages-preview.ts';
 import { loadAndVerifyF001Baseline, verifyF001DistInvariant, verifyF001Invariant, type F001Baseline } from './baseline.ts';
 import { validateCatalogV2 } from '../ui/catalog-loader.ts';
+import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/artwork-provenance.ts';
+import {
+  validateSelectionPolicySnapshots,
+  type PolicyObservation,
+} from '../notices/policy-snapshots.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -126,7 +133,7 @@ function createSourceDependencies(transport: ProductionAozoraTransport): BatchSo
       return selectBatchWorks(
         bibliography.rows as ReturnType<typeof parseAozoraBibliography>,
         requireEditionRules(context.manifest),
-        context.clock(),
+        new Date(bibliography.snapshot.fetchedAt),
         { sha256: bibliography.snapshot.csvSha256, fetchedAt: bibliography.snapshot.fetchedAt },
       );
     },
@@ -363,9 +370,10 @@ async function executeReview(workspace: string, manifest: BatchManifest, workId:
   return { nextManifest, inputHashes, outputHashes, count: reviewed.all.length };
 }
 
-type RuntimeArtifactStage = 'capacity-forecast' | 'voice' | 'capacity-actual' | 'accept' | 'prepare-release' | 'release-verify';
+type RuntimeArtifactStage = 'rights' | 'capacity-forecast' | 'voice' | 'capacity-actual' | 'accept' | 'prepare-release' | 'release-verify';
 
-const RUNTIME_EXIT_CODE: Readonly<Record<RuntimeArtifactStage, 6 | 7 | 8>> = {
+const RUNTIME_EXIT_CODE: Readonly<Record<RuntimeArtifactStage, 2 | 6 | 7 | 8>> = {
+  rights: 2,
   'capacity-forecast': 6,
   voice: 6,
   'capacity-actual': 7,
@@ -431,6 +439,120 @@ async function readCanonicalRuntimeArtifact<T>(
   }
   if (canonicalJson(value) !== text) throw prerequisite(stage, `${label}がcanonical JSONではありません`);
   return value as T;
+}
+
+/** @des DES-F002-002 DES-F002-009 DES-F002-010 DES-F002-015 @fun FUN-F002-010 FUN-F002-012 FUN-F002-027 */
+async function executeRights(
+  workspace: string,
+  manifest: BatchManifest,
+  sourceDependencies: BatchSourceDependencies,
+): Promise<BatchStageExecution> {
+  const policyPath = `content/batches/${manifest.batchId}/policy-observations.json` as WorkspaceRelativePath;
+  const artworkPath = manifest.artworkProvenanceRef;
+  const [policyUnknown, artworkUnknown] = await Promise.all([
+    readCanonicalRuntimeArtifact<unknown>(workspace, policyPath, 'selection policy observations', 'rights'),
+    readCanonicalRuntimeArtifact<unknown>(workspace, artworkPath, 'artwork provenance', 'rights'),
+  ]);
+  if (!isRecord(policyUnknown) || !exactKeys(policyUnknown, ['schemaVersion', 'batchId', 'phase', 'observations']) ||
+    policyUnknown.schemaVersion !== '1.0.0' || policyUnknown.batchId !== manifest.batchId ||
+    policyUnknown.phase !== 'selection' || !Array.isArray(policyUnknown.observations)) {
+    throw prerequisite('rights', 'selection policy observations schema/batch/phaseが不正です');
+  }
+  let observations: readonly PolicyObservation[];
+  let artworkDecision;
+  try {
+    observations = validateSelectionPolicySnapshots(
+      policyUnknown.observations as PolicyObservation[],
+      manifest.batchId,
+    );
+    artworkDecision = await validateArtworkProvenance(artworkUnknown as ArtworkProvenanceV2, workspace);
+  } catch (error) {
+    throw prerequisite('rights', `rights artifact検証に失敗しました: ${error instanceof Error ? error.message : 'invalid'}`);
+  }
+  if (artworkDecision.result !== 'pass' || artworkDecision.authorId !== manifest.author.authorId) {
+    throw prerequisite('rights', 'artwork provenanceがmanifest authorと一致しません');
+  }
+  const scratchParent = join(workspace, '.cache', 'batch-rights');
+  await mkdir(scratchParent, { recursive: true });
+  const scratchRoot = await mkdtemp(join(scratchParent, `.${manifest.batchId}-selection-`));
+  const clock = () => new Date();
+  const context: BatchContext = {
+    workspace,
+    manifest,
+    workId: manifest.workIds[0],
+    speechRules: DEFAULT_BATCH_SPEECH_RULES,
+    toolVersion: 'batch-runtime-rights/1.0.0',
+    clock,
+    dependencies: sourceDependencies,
+  };
+  let bibliography;
+  let selection;
+  try {
+    bibliography = await sourceDependencies.loadBibliography(context, { root: scratchRoot });
+    selection = await sourceDependencies.selectWorks(bibliography, context, { root: scratchRoot });
+  } catch (error) {
+    throw prerequisite('rights', `公式書誌rights観測に失敗しました: ${error instanceof Error ? error.message : 'invalid'}`);
+  } finally {
+    await rm(scratchRoot, { recursive: true, force: true });
+  }
+  if (selection.works.length !== manifest.workIds.length ||
+    selection.works.some((work, index) => work.workId !== manifest.workIds[index]) ||
+    selection.observation.works.length !== manifest.workIds.length ||
+    selection.observation.works.some((work, index) =>
+      work.workId !== manifest.workIds[index] || work.personId !== manifest.author.authorId ||
+      work.translatorPresent !== false || work.status !== '公開中' || work.orthography !== '新字新仮名')) {
+    throw prerequisite('rights', '公式書誌rights観測がmanifest exact 3作品と一致しません');
+  }
+  const rightsArtifactPath = `content/batches/${manifest.batchId}/rights-selection.json` as WorkspaceRelativePath;
+  const rightsArtifact = {
+    schemaVersion: '1.0.0',
+    kind: 'work-rights-selection',
+    batchId: manifest.batchId,
+    bibliographySnapshot: bibliography.snapshot,
+    selection,
+  };
+  await writeJsonArtifactAtomic(workspace, join(workspace, ...rightsArtifactPath.split('/')), rightsArtifact);
+  const expectedManifestSha = hashBatchManifest(manifest);
+  const inputHashes = [expectedManifestSha, digestArtifact(policyUnknown), digestArtifact(artworkUnknown)];
+  const outputHashes = [
+    digestArtifact(rightsArtifact),
+    digestArtifact(observations),
+    digestArtifact(artworkDecision),
+    artworkDecision.outputSha256 as Sha256,
+  ];
+  const completedAt = new Date(Math.max(...[
+    ...observations.map((item) => item.observedAt),
+    bibliography.snapshot.fetchedAt,
+    selection.observation.observedAt,
+    isRecord(artworkUnknown) && isRecord(artworkUnknown.humanReview) &&
+      typeof artworkUnknown.humanReview.reviewedAt === 'string'
+      ? artworkUnknown.humanReview.reviewedAt
+      : '',
+  ].filter(Boolean).map((value) => Date.parse(value)))).toISOString();
+  const evidence: StageEvidence = {
+    kind: 'stage',
+    expectedManifestSha,
+    stage: 'rights-verified',
+    inputHashes,
+    outputHashes,
+    toolVersion: 'batch-runtime-rights/1.0.0',
+    count: observations.length + selection.observation.works.length + 1,
+    completedAt,
+    result: 'pass',
+  };
+  const transitioned = transitionBatchState(manifest, 'rights-verified', evidence);
+  const candidate = {
+    ...transitioned,
+    inputPaths: [...new Set([...transitioned.inputPaths, policyPath, artworkPath])],
+    outputPaths: [...new Set([...transitioned.outputPaths, rightsArtifactPath])],
+    rightsSnapshotIds: [
+      `aozora-selection:${selection.observation.bibliographySha256}`,
+      ...observations.map((item) => `${item.policyId}:${item.contentSha256}`),
+    ],
+  };
+  const checked = validateBatchManifest(candidate);
+  if (!checked.ok) throw prerequisite('rights', `rights manifestが不正です: ${checked.error.code}`);
+  return { nextManifest: checked.value, inputHashes, outputHashes, count: evidence.count };
 }
 
 export interface VoiceAuthorizationArtifact {
@@ -697,16 +819,21 @@ function validateVoiceAuthorization(
     'schemaVersion', 'kind', 'batchId', 'workId', 'expectedManifestSha', 'preTreeDigest',
     'reviewSha256', 'configSha256', 'plan', 'authorization',
   ]) || value.schemaVersion !== '1.0.0' || value.kind !== 'voice-capacity-authorization' ||
-    value.batchId !== manifest.batchId || value.workId !== workId || value.expectedManifestSha !== hashBatchManifest(manifest) ||
+    value.batchId !== manifest.batchId || value.workId !== workId ||
     !isSha256(value.preTreeDigest) || value.reviewSha256 !== digestArtifact(review) ||
     value.configSha256 !== digestArtifact(config) || !isRecord(value.plan) || !isRecord(value.authorization)) {
     throw prerequisite('voice', 'capacity authorization schema/tuple/hashが不正です');
   }
   const artifact = value as unknown as VoiceAuthorizationArtifact;
+  const work = manifest.workProgress[manifest.workIds.indexOf(workId)];
+  const budgetEvidence = work?.stageRecords.at(-1);
   if (artifact.plan.batchId !== manifest.batchId || artifact.plan.workId !== workId ||
     artifact.plan.expectedManifestSha !== artifact.expectedManifestSha || artifact.plan.preTreeDigest !== artifact.preTreeDigest ||
     artifact.authorization.planDigest !== artifact.plan.planDigest ||
-    !['pass', 'pass_with_warning'].includes(artifact.authorization.result)) {
+    !['pass', 'pass_with_warning'].includes(artifact.authorization.result) ||
+    budgetEvidence?.stage !== 'budget-approved' ||
+    !budgetEvidence.inputHashes.includes(artifact.expectedManifestSha) ||
+    !budgetEvidence.outputHashes.includes(digestArtifact(artifact))) {
     throw prerequisite('voice', 'voice plan/capacity authorization tupleが不正です');
   }
   return artifact;
@@ -808,7 +935,9 @@ async function executeVoice(
   );
   const voiceEvidenceRef = `content/batches/${manifest.batchId}/voice-evidence/${workId}.json` as WorkspaceRelativePath;
   const priorOutputHashes = work.stageRecords.at(-1)?.outputHashes ?? [];
+  const currentManifestSha = hashBatchManifest(manifest);
   const inputHashes = [...new Set([
+    currentManifestSha,
     authorization.expectedManifestSha,
     ...priorOutputHashes,
     generation.planDigest as Sha256,
@@ -817,7 +946,7 @@ async function executeVoice(
   const outputHashes = [generation.generationDigest as Sha256, completeness.completenessDigest as Sha256];
   const evidence: StageEvidence = {
     kind: 'stage',
-    expectedManifestSha: authorization.expectedManifestSha,
+    expectedManifestSha: currentManifestSha,
     workId,
     stage: 'voiced',
     inputHashes,
@@ -1037,16 +1166,17 @@ interface AcceptanceArtifacts {
 }
 
 function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: BatchManifest, workId: WorkId): void {
-  const voicedManifestSha = hashBatchManifest(manifest);
   const { generationArtifact, generation, completeness, actual, preview, pages, contentInvariant, distInvariant } = value;
-  const voicedEvidence = manifest.workProgress[manifest.workIds.indexOf(workId)]?.stageRecords.findLast(
+  const work = manifest.workProgress[manifest.workIds.indexOf(workId)];
+  const voicedEvidence = work?.stageRecords.findLast(
     (record) => record.stage === 'voiced',
   );
+  const capacityEvidence = work?.stageRecords.at(-1);
   if (!isRecord(generationArtifact) || !exactKeys(generationArtifact, [
     'schemaVersion', 'kind', 'batchId', 'workId', 'preVoiceManifestSha', 'voicedManifestSha', 'generationSha256', 'generation',
   ]) || generationArtifact.schemaVersion !== '1.0.0' || generationArtifact.kind !== 'voice-generation-runtime' ||
     generationArtifact.batchId !== manifest.batchId || generationArtifact.workId !== workId ||
-    generationArtifact.voicedManifestSha !== voicedManifestSha || generationArtifact.generationSha256 !== digestArtifact(generation) ||
+    !isSha256(generationArtifact.voicedManifestSha) || generationArtifact.generationSha256 !== digestArtifact(generation) ||
     !isRecord(generation) || generation.schemaVersion !== '2' || generation.batchId !== manifest.batchId ||
     generation.workId !== workId || generation.expectedManifestSha !== generationArtifact.preVoiceManifestSha ||
     !isSha256(generation.generationDigest) || !voicedEvidence || voicedEvidence.stage !== 'voiced' ||
@@ -1060,7 +1190,16 @@ function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: Batch
     !['pass', 'pass_with_warning'].includes(actual.result) || !isRecord(preview) || preview.mode !== 'work-preview' ||
     preview.activeBatchId !== manifest.batchId || preview.activeWorkId !== workId || !isSha256(preview.buildSha256) ||
     !isRecord(pages) || pages.batchId !== manifest.batchId || pages.workId !== workId || !isSha256(pages.distSha256) ||
-    !isRecord(contentInvariant) || contentInvariant.result !== 'pass' || !isRecord(distInvariant) || distInvariant.result !== 'pass') {
+    !isRecord(contentInvariant) || contentInvariant.result !== 'pass' || !isRecord(distInvariant) || distInvariant.result !== 'pass' ||
+    !capacityEvidence || capacityEvidence.stage !== 'capacity-actual' ||
+    !capacityEvidence.inputHashes.some((value) => value === generationArtifact.voicedManifestSha) ||
+    !capacityEvidence.inputHashes.some((value) => value === generation.generationDigest) ||
+    !capacityEvidence.inputHashes.some((value) => value === completeness.completenessDigest) ||
+    !capacityEvidence.inputHashes.some((value) => value === preview.buildSha256) ||
+    !capacityEvidence.outputHashes.some((value) => value === digestArtifact(actual)) ||
+    !capacityEvidence.outputHashes.some((value) => value === pages.distSha256) ||
+    !capacityEvidence.outputHashes.some((value) => value === digestArtifact(contentInvariant)) ||
+    !capacityEvidence.outputHashes.some((value) => value === digestArtifact(distInvariant))) {
     throw prerequisite('accept', 'accept artifact schema/tuple/PASSが不正です');
   }
   if (actual.contentBuildSha256 !== preview.buildSha256 || pages.contentBuildSha256 !== preview.buildSha256 ||
@@ -1410,13 +1549,15 @@ async function executeReleaseBuild(
 /** @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 production CLI dependency */
 export function createProductionBatchDependencies(
   overrides: Partial<ProductionBatchRuntimeOperations> = {},
+  sourceDependenciesOverride?: BatchSourceDependencies,
 ): BatchDependencies {
   const transport = new ProductionAozoraTransport();
-  const sourceDependencies = createSourceDependencies(transport);
+  const sourceDependencies = sourceDependenciesOverride ?? createSourceDependencies(transport);
   const operations: ProductionBatchRuntimeOperations = { ...DEFAULT_RUNTIME_OPERATIONS, ...overrides };
   return {
     loadManifest: (workspace, batchId) => loadManifest(workspace, batchId),
     async executeStage(request) {
+      if (request.stage === 'rights') return executeRights(request.workspace, request.manifest, sourceDependencies);
       if (request.stage === 'normalize') {
         if (!request.workId) throw new BatchCommandError('BATCH_WORK_REQUIRED', 1, 'normalizeには--workが必要です', 'normalize');
         const source = await runBatchSourceStages({
@@ -1447,7 +1588,7 @@ export function createProductionBatchDependencies(
       }
       throw new BatchCommandError(
         'BATCH_DEPENDENCY_FAILED',
-        request.stage === 'rights' ? 2 : 3,
+        3,
         'production sourceはnormalize compositeで実行します。架空のsubstage evidenceは生成しません',
         request.stage,
       );

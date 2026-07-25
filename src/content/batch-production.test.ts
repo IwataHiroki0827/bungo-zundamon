@@ -4,6 +4,7 @@ import { mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from 'node:
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
+import { canonicalJson } from './artifacts.ts';
 import {
   DEFAULT_BATCH_SPEECH_RULES,
   BatchProductionError,
@@ -16,7 +17,7 @@ import {
   type SpeechRevision,
 } from './batch-production.ts';
 import { type BatchManifest, type Sha256, type WorkId, type WorkspaceRelativePath } from './batch.ts';
-import { EXTRACTOR_VERSION, type RawCandidate } from './processing.ts';
+import { EXTRACTOR_VERSION, createCandidateId, type RawCandidate } from './processing.ts';
 import {
   AOZORA_BIBLIOGRAPHY_ENTRY,
   AOZORA_BIBLIOGRAPHY_REQUIRED_COLUMNS,
@@ -162,6 +163,52 @@ async function context(overrides: Partial<BatchContext> = {}): Promise<BatchCont
   };
 }
 
+async function speechRevisionArtifact(
+  value: BatchContext,
+  mutate: (artifact: Record<string, unknown>) => Record<string, unknown> = (artifact) => artifact,
+): Promise<void> {
+  const rawSha256 = createHash('sha256').update('<html>fixture</html>').digest('hex');
+  const raw = rawCandidate({ rawSourceSha256: rawSha256 });
+  const base = normalizeBatchCandidate(raw, DEFAULT_BATCH_SPEECH_RULES);
+  const after = base.speechText.replace('ほし', 'ほし');
+  const corrected = `${after.slice(0, -1)}、です」`;
+  const textHash = createHash('sha256')
+    .update(JSON.stringify([base.displayText, corrected]), 'utf8')
+    .digest('hex');
+  const candidateId = createCandidateId(
+    raw.workId,
+    raw.rawSourceSha256,
+    raw.rawTokenRange,
+    raw.extractorVersion,
+    DEFAULT_BATCH_SPEECH_RULES.version,
+    textHash,
+    new Set([raw.workId]),
+  );
+  const artifact = mutate({
+    schemaVersion: '1.0.0',
+    batchId: 'F002',
+    workId: '000473',
+    bindings: [{
+      order: 0,
+      rawSourceSha256: raw.rawSourceSha256,
+      rawTokenRange: raw.rawTokenRange,
+      baseCandidateId: base.candidateId,
+      revisions: [{
+        candidateId,
+        revision: 1,
+        before: base.speechText,
+        after: corrected,
+        reason: '読み補正',
+        reviewer: 'reviewer',
+        reviewedAt: '2026-07-20T00:00:00Z',
+      }],
+    }],
+  });
+  const target = join(value.workspace, 'content', 'batches', 'F002', 'speech-revisions', '000473.json');
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, canonicalJson(artifact), 'utf8');
+}
+
 describe('batch source stage [DES-F002-004][DES-F002-014][DES-F002-015]', () => {
   /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 @test UT-F002-007 */
   it('同一入力を作品単位でatomic昇格し決定的な候補・evidenceを返す', async () => {
@@ -177,6 +224,66 @@ describe('batch source stage [DES-F002-004][DES-F002-014][DES-F002-015]', () => 
     );
     const persistedCsv = await readFile(join(firstContext.workspace, ...first.artifactPaths.bibliographyCsv.split('/')));
     expect(createHash('sha256').update(persistedCsv).digest('hex')).toBe(first.evidence.inputHashes[1]);
+  });
+
+  /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 FUN-F002-008 @test UT-F002-007 UT-F002-008 */
+  it('tracked speech revisionをbase candidate/orderへexact結合して正規normalizeとevidenceへ含める', async () => {
+    const value = await context();
+    await speechRevisionArtifact(value);
+    const result = await runBatchSourceStages(value, 'normalize');
+    expect(result.candidates[0]).toMatchObject({
+      speechText: '「よだかはほしです、です」',
+      revisions: [{ revision: 1, before: '「よだかはほしです」', after: '「よだかはほしです、です」' }],
+    });
+    expect(result.evidence.inputHashes).toHaveLength(4);
+    expect(result.manifest.inputPaths).toContain('content/batches/F002/speech-revisions/000473.json');
+  });
+
+  /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 FUN-F002-008 @test UT-F002-007 UT-F002-008 */
+  it('speech revisionのorphan・duplicate・旧ID・chain改変をatomic promotion前に拒否する', async () => {
+    const mutations: Array<(artifact: Record<string, unknown>) => Record<string, unknown>> = [
+      (artifact) => ({
+        ...artifact,
+        bindings: (artifact.bindings as Array<Record<string, unknown>>).map((binding) => ({ ...binding, order: 99 })),
+      }),
+      (artifact) => ({
+        ...artifact,
+        bindings: [
+          ...(artifact.bindings as Array<Record<string, unknown>>),
+          ...(artifact.bindings as Array<Record<string, unknown>>),
+        ],
+      }),
+      (artifact) => ({
+        ...artifact,
+        bindings: (artifact.bindings as Array<Record<string, unknown>>).map((binding) => ({
+          ...binding,
+          revisions: (binding.revisions as Array<Record<string, unknown>>).map((revision) => ({
+            ...revision,
+            candidateId: 'old-candidate-id',
+          })),
+        })),
+      }),
+      (artifact) => ({
+        ...artifact,
+        bindings: (artifact.bindings as Array<Record<string, unknown>>).map((binding) => ({
+          ...binding,
+          revisions: (binding.revisions as Array<Record<string, unknown>>).map((revision) => ({
+            ...revision,
+            before: '改変before',
+          })),
+        })),
+      }),
+    ];
+    for (const mutate of mutations) {
+      const value = await context();
+      await speechRevisionArtifact(value, mutate);
+      await expect(runBatchSourceStages(value, 'normalize')).rejects.toMatchObject({
+        code: 'SPEECH_REVISION_MISMATCH',
+      });
+      await expect(readFile(
+        join(value.workspace, 'data', 'batches', 'F002', 'work-artifacts', '000473'),
+      )).rejects.toBeInstanceOf(Error);
+    }
   });
 
   /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 @test UT-F002-007 */
@@ -232,6 +339,77 @@ describe('batch source stage [DES-F002-004][DES-F002-014][DES-F002-015]', () => 
       const value = await context({ dependencies: injected });
       await expect(runBatchSourceStages(value, 'normalize')).rejects.toBeInstanceOf(BatchProductionError);
     }
+  });
+
+  /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 @test UT-F002-007 */
+  it('書誌charsetの許可済み別表記だけを共有規則でcanonical比較する', async () => {
+    const withCharset = (rowCharset: string, selectedCharset: SelectedWork['charset']): BatchSourceDependencies => {
+      const base = dependencies();
+      const sourceRows = rows().map((row) => ({ ...row, charset: rowCharset }));
+      const csv = bibliographyCsv(sourceRows);
+      const parsed = parseAozoraBibliography(csv);
+      const csvSha = createHash('sha256').update(csv).digest('hex');
+      const works = parsed.map((row) => ({ ...row, charset: selectedCharset, selectionReason: 'manifest版' }));
+      const selection: SelectedWorkResult = {
+        works,
+        observation: {
+          phase: 'selection',
+          bibliographySha256: csvSha,
+          observedAt: '2026-07-20T00:00:00Z',
+          works: works.map((work) => ({
+            workId: work.workId,
+            title: work.title,
+            personId: work.personId,
+            personCopyright: work.personCopyright!,
+            workCopyright: work.copyright,
+            role: work.role,
+            translatorPresent: false,
+            status: work.status,
+            orthography: work.orthography!,
+            cardUrl: work.cardUrl!,
+            sourceUrl: work.sourceUrl,
+          })),
+        },
+      };
+      return {
+        ...base,
+        loadBibliography: async () => ({
+          snapshot: {
+            sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+            archivePath: 'list.zip',
+            archiveSha256: 'c'.repeat(64),
+            archiveBytes: 10,
+            csvPath: AOZORA_BIBLIOGRAPHY_ENTRY,
+            csvEntry: AOZORA_BIBLIOGRAPHY_ENTRY,
+            csvSha256: csvSha,
+            csvBytes: csv.byteLength,
+            mediaType: 'application/zip',
+            fetchedAt: '2026-07-20T00:00:00Z',
+            schemaVersion: '1',
+          },
+          csv,
+          rows: parsed,
+        }),
+        selectWorks: async () => selection,
+        fetchSource: async (work, value, scratch) => {
+          const fetched = await base.fetchSource(work, value, scratch);
+          return {
+            ...fetched,
+            record: { ...fetched.record, bibliographyCharset: selectedCharset },
+          };
+        },
+      };
+    };
+
+    const allowed = await context({ dependencies: withCharset('ShiftJIS', 'Shift_JIS') });
+    await expect(runBatchSourceStages(allowed, 'normalize')).resolves.toMatchObject({
+      evidence: { stage: 'extracted', count: 1 },
+    });
+
+    const ambiguous = await context({ dependencies: withCharset('Shift_JIS / UTF-8', 'Shift_JIS') });
+    await expect(runBatchSourceStages(ambiguous, 'normalize')).rejects.toMatchObject({
+      code: 'CHARSET_NOT_ALLOWED',
+    });
   });
 
   /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 @test UT-F002-007 */

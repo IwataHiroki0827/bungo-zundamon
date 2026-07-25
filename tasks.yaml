@@ -499,7 +499,7 @@ tasks:
   title: 「よだかの星」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-020
   - T-022
@@ -525,7 +525,7 @@ tasks:
   title: 「どんぐりと山猫」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-024
   tags:

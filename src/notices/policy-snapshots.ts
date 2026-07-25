@@ -503,6 +503,26 @@ function uniqueByPolicy(
   return values;
 }
 
+/** @des DES-F002-009 DES-F002-015 @fun FUN-F002-010 */
+export function validateSelectionPolicySnapshots(
+  observations: readonly PolicyObservation[],
+  batchId = 'F002',
+): readonly PolicyObservation[] {
+  if (!BATCH_ID.test(batchId)) {
+    throw new PolicySnapshotError('POLICY_OBSERVATION_INVALID', 'selection規約観測のbatch IDが不正です');
+  }
+  const values = uniqueByPolicy(observations, 'selection', {
+    releaseCommit: '',
+    runId: '',
+    batchId,
+  });
+  const policyIds = Object.keys(POLICY_ALLOWLIST) as PolicyId[];
+  if (!values || values.size !== policyIds.length) {
+    throw new PolicySnapshotError('POLICY_OBSERVATION_INVALID', 'selection規約観測が欠損・重複・改変しています');
+  }
+  return Object.freeze(policyIds.map((policyId) => Object.freeze({ ...values.get(policyId)! })));
+}
+
 function validImpactReview(
   value: unknown,
   policyId: PolicyId,

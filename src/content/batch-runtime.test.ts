@@ -19,6 +19,8 @@ import {
   type WorkspaceRelativePath,
 } from './batch.ts';
 import { applyWorkReviews, type Candidate, type ReviewRecord } from './processing.ts';
+import type { BatchSourceDependencies } from './batch-production.ts';
+import type { SelectedWork } from './source.ts';
 import type { VoiceDiffGenerationResult, VoiceDiffPlan } from '../voice/generation.ts';
 import type { ActualCapacityInput, CapacityForecastInput } from '../voice/budget.ts';
 
@@ -181,6 +183,152 @@ async function executeReview(input: Fixture): Promise<unknown> {
     workId: input.manifest.workIds[0],
   });
 }
+
+async function rightsFixture(): Promise<{ workspace: string; manifest: BatchManifest }> {
+  const input = await fixture();
+  const batchRoot = join(input.workspace, 'content', 'batches', 'F002');
+  const sourceRoot = join(process.cwd(), 'content', 'batches', 'F002');
+  await mkdir(join(batchRoot, 'public-files', 'artwork'), { recursive: true });
+  await Promise.all([
+    cp(join(sourceRoot, 'policy-observations.json'), join(batchRoot, 'policy-observations.json')),
+    cp(join(sourceRoot, 'artwork-provenance.json'), join(batchRoot, 'artwork-provenance.json')),
+    cp(
+      join(sourceRoot, 'public-files', 'artwork', 'miyazawa-zundamon.png'),
+      join(batchRoot, 'public-files', 'artwork', 'miyazawa-zundamon.png'),
+    ),
+  ]);
+  const candidate = {
+    ...input.manifest,
+    artworkProvenanceRef: 'content/batches/F002/artwork-provenance.json' as WorkspaceRelativePath,
+  };
+  const checked = validateBatchManifest(candidate);
+  if (!checked.ok) throw new Error(checked.error.message);
+  return { workspace: input.workspace, manifest: checked.value };
+}
+
+function rightsSourceDependencies(): BatchSourceDependencies {
+  const fetchedAt = '2026-07-25T11:00:00.000Z';
+  const works: SelectedWork[] = [
+    ['000473', 'よだかの星', '473_42318.html'],
+    ['043752', 'どんぐりと山猫', '43752_17657.html'],
+    ['043754', '注文の多い料理店', '43754_17659.html'],
+  ].map(([workId = '', title = '', file = '']) => ({
+    workId,
+    title,
+    personId: '000081',
+    role: '著者',
+    copyright: 'なし',
+    personCopyright: 'なし',
+    status: '公開中',
+    language: '日本語原著',
+    orthography: '新字新仮名',
+    sourceUrl: `https://www.aozora.gr.jp/cards/000081/files/${file}`,
+    cardUrl: `https://www.aozora.gr.jp/cards/000081/card${Number(workId)}.html`,
+    charset: 'Shift_JIS',
+    baseEdition: '底本',
+    inputter: '入力者',
+    proofreader: '校正者',
+    selectionReason: '承認済み代表作',
+  }));
+  return {
+    loadBibliography: async () => ({
+      snapshot: {
+        sourceUrl: 'https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip',
+        archivePath: 'list_person_all_extended_utf8.zip',
+        archiveSha256: 'b'.repeat(64),
+        archiveBytes: 10,
+        csvPath: 'list_person_all_extended_utf8.csv',
+        csvEntry: 'list_person_all_extended_utf8.csv',
+        csvSha256: 'c'.repeat(64),
+        csvBytes: 10,
+        mediaType: 'application/zip',
+        fetchedAt,
+        schemaVersion: 'fixture',
+      },
+      csv: new TextEncoder().encode('fixture-csv'),
+      rows: [],
+    }),
+    selectWorks: async () => ({
+      works,
+      observation: {
+        phase: 'selection',
+        bibliographySha256: 'c'.repeat(64),
+        observedAt: fetchedAt,
+        works: works.map((work) => ({
+          workId: work.workId,
+          title: work.title,
+          personId: work.personId,
+          personCopyright: work.personCopyright!,
+          workCopyright: work.copyright,
+          role: work.role,
+          translatorPresent: false,
+          status: work.status,
+          orthography: work.orthography!,
+          cardUrl: work.cardUrl!,
+          sourceUrl: work.sourceUrl,
+        })),
+      },
+    }),
+    fetchSource: async () => { throw new Error('rights stage must not fetch source'); },
+    decodeSource: () => { throw new Error('rights stage must not decode source'); },
+    extractCandidates: () => { throw new Error('rights stage must not extract candidates'); },
+  };
+}
+
+describe('production rights入力結合 [DES-F002-002][DES-F002-009][DES-F002-012][DES-F002-015]', () => {
+  it('policy全5件・artwork PNG・公式書誌3作品を検証し最新観測時刻でrights-verifiedへ進める', async () => {
+    const input = await rightsFixture();
+    const result = await createProductionBatchDependencies({}, rightsSourceDependencies()).executeStage({
+      workspace: input.workspace,
+      batchId: input.manifest.batchId,
+      manifest: input.manifest,
+      stage: 'rights',
+    });
+    expect(result.nextManifest).toMatchObject({
+      status: 'rights-verified',
+      stageRecords: [{ stage: 'rights-verified', completedAt: '2026-07-25T11:00:00.000Z', count: 9 }],
+    });
+    expect(result.nextManifest.rightsSnapshotIds).toHaveLength(6);
+  });
+
+  it('policy欠損・extra schemaとartwork PNG改変を遷移前に拒否する', async () => {
+    const dependencies = createProductionBatchDependencies({}, rightsSourceDependencies());
+    const missing = await rightsFixture();
+    const missingPath = join(missing.workspace, 'content', 'batches', 'F002', 'policy-observations.json');
+    const policy = JSON.parse(await readFile(missingPath, 'utf8')) as { observations: unknown[] };
+    await writeFile(missingPath, canonicalJson({ ...policy, observations: policy.observations.slice(1) }), 'utf8');
+    await expect(dependencies.executeStage({
+      workspace: missing.workspace,
+      batchId: missing.manifest.batchId,
+      manifest: missing.manifest,
+      stage: 'rights',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+
+    const extra = await rightsFixture();
+    const extraPath = join(extra.workspace, 'content', 'batches', 'F002', 'policy-observations.json');
+    const extraPolicy = JSON.parse(await readFile(extraPath, 'utf8')) as Record<string, unknown>;
+    await writeFile(extraPath, canonicalJson({ ...extraPolicy, unexpected: true }), 'utf8');
+    await expect(dependencies.executeStage({
+      workspace: extra.workspace,
+      batchId: extra.manifest.batchId,
+      manifest: extra.manifest,
+      stage: 'rights',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+
+    const artwork = await rightsFixture();
+    await writeFile(
+      join(artwork.workspace, 'content', 'batches', 'F002', 'public-files', 'artwork', 'miyazawa-zundamon.png'),
+      'tampered',
+      'utf8',
+    );
+    await expect(dependencies.executeStage({
+      workspace: artwork.workspace,
+      batchId: artwork.manifest.batchId,
+      manifest: artwork.manifest,
+      stage: 'rights',
+    })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+  });
+});
 
 describe('production review input結合 [DES-F002-002][DES-F002-014][DES-F002-015]', () => {
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
@@ -505,36 +653,22 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       stage: 'reviewed', inputHashes: [extracted.outputHashes[0]!], outputHashes: [reviewSha],
       toolVersion: 'fixture/1.0.0', count: 1, completedAt: '2026-07-20T00:01:00Z',
     };
-    const forecastOutput = hash('forecast-output');
-    const budgetRecord = {
-      stage: 'budget-approved', inputHashes: [reviewSha], outputHashes: [forecastOutput],
-      toolVersion: 'fixture/1.0.0', count: 1, completedAt: '2026-07-20T00:02:00Z',
-    };
     const forecastRef = 'content/batches/F002/capacity-forecast/000473.json' as WorkspaceRelativePath;
-    const budgetManifest = {
+    const reviewedManifest = {
       ...input.manifest,
       workProgress: [{
-        ...input.manifest.workProgress[0], status: 'budget-approved' as const,
-        stageRecords: [...input.manifest.workProgress[0].stageRecords, reviewedRecord, budgetRecord], forecastRef,
+        ...input.manifest.workProgress[0], status: 'reviewed' as const,
+        stageRecords: [...input.manifest.workProgress[0].stageRecords, reviewedRecord],
       }, input.manifest.workProgress[1], input.manifest.workProgress[2]],
     } as BatchManifest;
-    const manifestPath = join(input.workspace, 'content', 'batches', 'F002', 'batch.json');
-    await mkdir(dirname(manifestPath), { recursive: true });
-    await writeFile(manifestPath, canonicalJson(budgetManifest));
-    const reviewArtifactPath = join(input.workspace, '.cache', 'batch-review', 'F002', workId, 'review-result.json');
-    await mkdir(dirname(reviewArtifactPath), { recursive: true });
-    await writeFile(reviewArtifactPath, canonicalJson(reviewed));
     const config = {
       engineVersion: '0.25.2', speakerUuid: '388f246b-8c41-4ac1-8e2d-5d79f3ff56d9', speakerName: 'ずんだもん',
       styleId: 3, styleName: 'ノーマル', speedScale: 1, pitchScale: 0, intonationScale: 1, volumeScale: 1,
       outputSamplingRate: 24_000, presetVersion: '2.0.0',
     };
-    const configPath = join(input.workspace, ...budgetManifest.voiceConfigRef.split('/'));
-    await mkdir(dirname(configPath), { recursive: true });
-    await writeFile(configPath, canonicalJson(config));
-    const preVoiceManifestSha = hashBatchManifest(budgetManifest);
+    const planManifestSha = hashBatchManifest(reviewedManifest);
     const plan: VoiceDiffPlan = {
-      schemaVersion: '2', batchId: 'F002', workId, expectedManifestSha: preVoiceManifestSha, preTreeDigest: HASH,
+      schemaVersion: '2', batchId: 'F002', workId, expectedManifestSha: planManifestSha, preTreeDigest: HASH,
       config, configHash: hash('config'), cacheRoot: join(input.workspace, '.cache', 'voice'), entries: [],
       candidateCount: 1, uniqueAudioCount: 1, hitCount: 0, missCount: 1, invalidCount: 0, estimatedMissBytes: 46,
       existingUniqueAudioCount: 0, existingUniqueBytes: 0, planDigest: hash('plan'),
@@ -542,14 +676,35 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const authorization = { result: 'pass' as const, planDigest: plan.planDigest, remainingResponseBytes: 46, minimumFreeBytesAfterWrite: 0 };
     const authorizationArtifact = {
       schemaVersion: '1.0.0', kind: 'voice-capacity-authorization', batchId: 'F002', workId,
-      expectedManifestSha: preVoiceManifestSha, preTreeDigest: HASH, reviewSha256: reviewSha,
+      expectedManifestSha: planManifestSha, preTreeDigest: HASH, reviewSha256: reviewSha,
       configSha256: hash(canonicalJson(config)), plan, authorization,
     };
+    const forecastOutput = hash(canonicalJson(authorizationArtifact));
+    const budgetRecord = {
+      stage: 'budget-approved', inputHashes: [planManifestSha, reviewSha], outputHashes: [forecastOutput],
+      toolVersion: 'fixture/1.0.0', count: 1, completedAt: '2026-07-20T00:02:00Z',
+    };
+    const budgetManifest = {
+      ...reviewedManifest,
+      workProgress: [{
+        ...reviewedManifest.workProgress[0], status: 'budget-approved' as const,
+        stageRecords: [...reviewedManifest.workProgress[0]!.stageRecords, budgetRecord], forecastRef,
+      }, reviewedManifest.workProgress[1], reviewedManifest.workProgress[2]],
+    } as BatchManifest;
+    const manifestPath = join(input.workspace, 'content', 'batches', 'F002', 'batch.json');
+    await mkdir(dirname(manifestPath), { recursive: true });
+    await writeFile(manifestPath, canonicalJson(budgetManifest));
+    const reviewArtifactPath = join(input.workspace, '.cache', 'batch-review', 'F002', workId, 'review-result.json');
+    await mkdir(dirname(reviewArtifactPath), { recursive: true });
+    await writeFile(reviewArtifactPath, canonicalJson(reviewed));
+    const configPath = join(input.workspace, ...budgetManifest.voiceConfigRef.split('/'));
+    await mkdir(dirname(configPath), { recursive: true });
+    await writeFile(configPath, canonicalJson(config));
     const forecastPath = join(input.workspace, ...forecastRef.split('/'));
     await mkdir(dirname(forecastPath), { recursive: true });
     await writeFile(forecastPath, canonicalJson(authorizationArtifact));
     const generation: VoiceDiffGenerationResult = {
-      schemaVersion: '2', batchId: 'F002', workId, expectedManifestSha: preVoiceManifestSha, preTreeDigest: HASH,
+      schemaVersion: '2', batchId: 'F002', workId, expectedManifestSha: planManifestSha, preTreeDigest: HASH,
       planDigest: plan.planDigest, authorizationDigest: hash('authorization'), generationDigest: hash('generation'), configHash: hash('config'),
       assets: [{
         audioId: 'audio-1', path: 'audio/F002/audio-1.wav', sha256: hash('wav'), bytes: 46, durationMs: 1,
@@ -560,7 +715,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       stagingRoot: join(input.workspace, '.cache', '.voice-stage-fixture'),
     };
     const completeness = {
-      result: 'pass' as const, batchId: 'F002', workId, expectedManifestSha: preVoiceManifestSha, preTreeDigest: HASH,
+      result: 'pass' as const, batchId: 'F002', workId, expectedManifestSha: planManifestSha, preTreeDigest: HASH,
       planDigest: plan.planDigest, authorizationDigest: generation.authorizationDigest, generationDigest: generation.generationDigest,
       completenessDigest: hash('completeness'), approvedCount: 1, uniqueAudioCount: 1,
       candidateAudio: { 'candidate-1': 'audio-1' },
@@ -574,8 +729,8 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       promoteWork: vi.fn(async (workspace, _batchId, targetWorkId, stagedVoice) => {
         const voiced = JSON.parse(await readFile(manifestPath, 'utf8')) as BatchManifest;
         promotedPreVoiceSha = stagedVoice.expectedManifestSha;
-        expect(promotedPreVoiceSha).toBe(preVoiceManifestSha);
-        expect(hashBatchManifest(voiced)).not.toBe(preVoiceManifestSha);
+        expect(promotedPreVoiceSha).toBe(planManifestSha);
+        expect(hashBatchManifest(voiced)).not.toBe(planManifestSha);
         const acceptedSource = {
           path: `content/batches/F002/accepted-audio/${targetWorkId}/audio-1.wav` as WorkspaceRelativePath,
           sha256: hash('wav'), bytes: 46, configHash: hash('config'),
@@ -594,35 +749,82 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       }),
     });
 
+    const unboundBudgetManifest = {
+      ...budgetManifest,
+      workProgress: [{
+        ...budgetManifest.workProgress[0]!,
+        stageRecords: budgetManifest.workProgress[0]!.stageRecords.map((record, index, records) =>
+          index === records.length - 1 ? { ...record, outputHashes: [hash('unbound-authorization')] } : record),
+      }, budgetManifest.workProgress[1], budgetManifest.workProgress[2]],
+    };
+    await writeFile(manifestPath, canonicalJson(unboundBudgetManifest));
+    await expect(runBatchCommand(
+      ['--batch', 'F002', '--work', workId, '--stage', 'voice'],
+      input.workspace,
+      dependencies,
+    )).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+    await writeFile(manifestPath, canonicalJson(budgetManifest));
+
     const voiceResult = await runBatchCommand(['--batch', 'F002', '--work', workId, '--stage', 'voice'], input.workspace, dependencies);
     expect(voiceResult.workStatus).toBe('voiced');
     const voiced = JSON.parse(await readFile(manifestPath, 'utf8')) as BatchManifest;
     const acceptRoot = join(input.workspace, '.cache', 'batch-accept', 'F002', workId);
     const contentSha = hash('content');
     const distSha = hash('dist');
+    const contentInvariant = {
+      result: 'pass' as const, buildSha256: contentSha, stagingSha256: contentSha, baselineSha256: HASH,
+    };
+    const distInvariant = { result: 'pass' as const, distSha256: distSha, contentBuildSha256: contentSha };
+    const actual = {
+      result: 'pass' as const, batchId: 'F002', workId, contentBuildSha256: contentSha, distSha256: distSha,
+      voiceConfigHash: generation.configHash, planDigest: generation.planDigest, authorizationDigest: generation.authorizationDigest,
+      generationDigest: generation.generationDigest, completenessDigest: completeness.completenessDigest,
+    };
     await Promise.all([
       writeFile(join(acceptRoot, 'content-preview.json'), canonicalJson({
         mode: 'work-preview', stagingRoot: join(input.workspace, '.cache', 'preview'), buildSha256: contentSha, files: [],
         activeBatchId: 'F002', activeWorkId: workId,
       })),
       writeFile(join(acceptRoot, 'dist-preview.json'), canonicalJson({ distSha256: distSha, contentBuildSha256: contentSha, batchId: 'F002', workId })),
-      writeFile(join(acceptRoot, 'f001-content-invariant.json'), canonicalJson({
-        result: 'pass', buildSha256: contentSha, stagingSha256: contentSha, baselineSha256: HASH,
-      })),
-      writeFile(join(acceptRoot, 'f001-dist-invariant.json'), canonicalJson({ result: 'pass', distSha256: distSha, contentBuildSha256: contentSha })),
+      writeFile(join(acceptRoot, 'f001-content-invariant.json'), canonicalJson(contentInvariant)),
+      writeFile(join(acceptRoot, 'f001-dist-invariant.json'), canonicalJson(distInvariant)),
     ]);
     const actualPath = join(input.workspace, 'content', 'batches', 'F002', 'capacity-actual', `${workId}.json`);
     await mkdir(dirname(actualPath), { recursive: true });
-    await writeFile(actualPath, canonicalJson({
-      result: 'pass', batchId: 'F002', workId, contentBuildSha256: contentSha, distSha256: distSha,
-      voiceConfigHash: generation.configHash, planDigest: generation.planDigest, authorizationDigest: generation.authorizationDigest,
-      generationDigest: generation.generationDigest, completenessDigest: completeness.completenessDigest,
-    }));
+    await writeFile(actualPath, canonicalJson(actual));
+    const capacityRecord = {
+      stage: 'capacity-actual' as const,
+      inputHashes: [hashBatchManifest(voiced), generation.generationDigest, completeness.completenessDigest, contentSha, hash('actual-inputs')],
+      outputHashes: [hash(canonicalJson(actual)), distSha, hash(canonicalJson(contentInvariant)), hash(canonicalJson(distInvariant))],
+      toolVersion: 'fixture/1.0.0', count: 1, completedAt: '2026-07-20T00:04:00Z',
+    };
+    const capacityManifest = {
+      ...voiced,
+      workProgress: [{
+        ...voiced.workProgress[0]!, actualCapacityRef: `content/batches/F002/capacity-actual/${workId}.json` as WorkspaceRelativePath,
+        stageRecords: [...voiced.workProgress[0]!.stageRecords, capacityRecord],
+      }, voiced.workProgress[1], voiced.workProgress[2]],
+    } as BatchManifest;
+    const unboundCapacityManifest = {
+      ...capacityManifest,
+      workProgress: [{
+        ...capacityManifest.workProgress[0]!,
+        stageRecords: capacityManifest.workProgress[0]!.stageRecords.map((record, index, records) =>
+          index === records.length - 1 ? { ...record, inputHashes: [hash('unbound-voiced-manifest'), ...record.inputHashes.slice(1)] } : record),
+      }, capacityManifest.workProgress[1], capacityManifest.workProgress[2]],
+    } as BatchManifest;
+    await writeFile(manifestPath, canonicalJson(unboundCapacityManifest));
+    await expect(runBatchCommand(
+      ['--batch', 'F002', '--work', workId, '--stage', 'accept'],
+      input.workspace,
+      dependencies,
+    )).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
+    await writeFile(manifestPath, canonicalJson(capacityManifest));
 
     const acceptResult = await runBatchCommand(['--batch', 'F002', '--work', workId, '--stage', 'accept'], input.workspace, dependencies);
     expect(acceptResult.workStatus).toBe('accepted');
-    expect(promotedPreVoiceSha).toBe(preVoiceManifestSha);
-    expect(hashBatchManifest(voiced)).not.toBe(preVoiceManifestSha);
+    expect(promotedPreVoiceSha).toBe(planManifestSha);
+    expect(hashBatchManifest(voiced)).not.toBe(planManifestSha);
   });
 
   it('release-verifyはclean commitからF001/Pages/release容量chainを実行しpublicを昇格しない', async () => {

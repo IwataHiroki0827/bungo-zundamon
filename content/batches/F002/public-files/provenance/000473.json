@@ -1,0 +1,35 @@
+{
+  "authorId": "000081",
+  "batchId": "F002",
+  "editorialReview": {
+    "approved": 26,
+    "path": "content/batches/F002/reviews/000473.json",
+    "pending": 0,
+    "rejected": 0,
+    "resultSha256": "22084cd213e99ba2bab4908c630d56f4100439795c7a6cb785bae781273c5b02",
+    "sha256": "cfca02a197ece175f49188a1ae4f5f4c994c6314d24d14069ba37ec575e7f582"
+  },
+  "processing": {
+    "candidateCount": 26,
+    "sourceTreeSha256": "8f5821fa0b2aa87c1e55a59fdd41ecdafb7cf85e4f04298dcba62d365caa8ef3",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "新編　銀河鉄道の夜",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000081/card473.html",
+    "fetchedAt": "2026-07-25T11:47:04.462Z",
+    "inputter": "佐々木美香",
+    "proofreader": "野口英司",
+    "rawSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "textUrl": "https://www.aozora.gr.jp/cards/000081/files/473_42318.html"
+  },
+  "speechRevisions": {
+    "count": 22,
+    "path": "content/batches/F002/speech-revisions/000473.json",
+    "sha256": "2d519f33979512c58627a7ced4c38867be0acc5c8d758c09d05423b35611c507"
+  },
+  "title": "よだかの星",
+  "workId": "000473"
+}

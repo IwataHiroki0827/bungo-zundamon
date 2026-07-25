@@ -12,6 +12,7 @@ import {
   comparePolicySnapshots,
   createPolicyDefinitions,
   fetchPolicyObservation,
+  validateSelectionPolicySnapshots,
   type FetchedPolicyResponse,
   type ImpactReview,
   type PolicyDefinition,
@@ -305,6 +306,29 @@ describe('UT-F002-010 規約観測contextとraw非公開', () => {
 });
 
 describe('UT-F002-011 2時点snapshot比較とchange review gate', () => {
+  it('selection rights入力はallowlist全5件のexact schemaだけを受理する', async () => {
+    const workspace = await mkdtemp(join(tmpdir(), 'policy-selection-validation-'));
+    const selection = createPolicyDefinitions(workspace, workspace)
+      .map((item) => observation(item, 'selection'));
+    expect(validateSelectionPolicySnapshots(selection, 'F002')).toHaveLength(5);
+
+    const variants: readonly (readonly PolicyObservation[])[] = [
+      selection.slice(1),
+      [...selection, selection[0]!],
+      selection.map((item, index) => index === 0
+        ? { ...item, contentSha256: 'not-a-hash' }
+        : item) as PolicyObservation[],
+      selection.map((item, index) => index === 0
+        ? { ...item, unexpected: true } as unknown as PolicyObservation
+        : item),
+    ];
+    for (const variant of variants) {
+      expect(() => validateSelectionPolicySnapshots(variant, 'F002')).toThrowError(
+        expect.objectContaining({ code: 'POLICY_OBSERVATION_INVALID' }),
+      );
+    }
+  });
+
   it('同hashをunchanged、完全な変更reviewをchanged-reviewedとする', async () => {
     const workspace = await mkdtemp(join(tmpdir(), 'policy-compare-'));
     const definitions = createPolicyDefinitions(workspace, workspace);

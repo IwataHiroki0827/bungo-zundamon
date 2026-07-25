@@ -62,6 +62,38 @@ function bindVoicedManifest(
   return { ...current, workProgress: progress };
 }
 
+function bindCapacityManifest(
+  current: BatchManifest,
+  targetWorkId: WorkId,
+  stagedVoice: { readonly generationDigest: string },
+  completeness: { readonly completenessDigest: string },
+  actual: unknown,
+  preview: { readonly buildSha256: Sha256 },
+  pages: { readonly distSha256: Sha256 },
+  contentInvariant: unknown,
+  distInvariant: unknown,
+): BatchManifest {
+  const index = current.workIds.indexOf(targetWorkId);
+  const work = current.workProgress[index];
+  if (!work || work.stageRecords.at(-1)?.stage !== 'voiced') throw new Error('capacity fixtureのvoiced状態が不正です');
+  const capacityRecord = {
+    stage: 'capacity-actual',
+    inputHashes: [
+      hashBatchManifest(current), stagedVoice.generationDigest as Sha256,
+      completeness.completenessDigest as Sha256, preview.buildSha256,
+    ],
+    outputHashes: [HASH(canonicalJson(actual)), pages.distSha256, HASH(canonicalJson(contentInvariant)), HASH(canonicalJson(distInvariant))],
+    toolVersion: 'test/1.0.0', count: 1, completedAt: '2026-07-20T00:30:00.000Z',
+  };
+  const progress = [...current.workProgress] as [BatchManifest['workProgress'][number], BatchManifest['workProgress'][number], BatchManifest['workProgress'][number]];
+  progress[index] = {
+    ...work,
+    actualCapacityRef: `content/batches/F002/capacity-actual/${targetWorkId}.json` as WorkspaceRelativePath,
+    stageRecords: [...work.stageRecords, capacityRecord],
+  };
+  return { ...current, workProgress: progress };
+}
+
 function voiceTuple(root: string, current: BatchManifest, targetWorkId: WorkId, preTreeDigest: Sha256, sourcePath: string, bytes: Uint8Array) {
   const generationCore = {
     schemaVersion: '2' as const, batchId, workId: targetWorkId, expectedManifestSha: hashBatchManifest(current), preTreeDigest,
@@ -81,24 +113,25 @@ function voiceTuple(root: string, current: BatchManifest, targetWorkId: WorkId, 
     approvedCount: 1, uniqueAudioCount: 1, candidateAudio: { 'candidate-1': 'audio-1' },
   };
   const completeness = { ...completenessCore, completenessDigest: computeVoiceCompletenessDigest(completenessCore) };
-  const boundManifest = bindVoicedManifest(
+  const voicedManifest = bindVoicedManifest(
     current, targetWorkId, generationCore.expectedManifestSha, generationDigest, completeness.completenessDigest,
   );
   const preview: IntegratedBuild = {
     mode: 'work-preview', stagingRoot: join(root, '.cache', 'preview'), buildSha256: HASH('content'), files: [],
     activeBatchId: batchId, activeWorkId: targetWorkId,
   };
-  return {
-    stagedVoice, completeness, preview, boundManifest,
-    actual: {
-      result: 'pass' as const, batchId, workId: targetWorkId, contentBuildSha256: HASH('content'), distSha256: HASH('dist'),
-      voiceConfigHash: HASH('config'), planDigest: HASH('plan'), authorizationDigest: HASH('authorization'),
-      generationDigest: generationDigest as Sha256, completenessDigest: completeness.completenessDigest as Sha256,
-    },
-    pages: { distSha256: HASH('dist'), contentBuildSha256: HASH('content'), batchId, workId: targetWorkId },
-    contentInvariant: { result: 'pass' as const, buildSha256: HASH('content'), stagingSha256: HASH('content'), baselineSha256: HASH('baseline') },
-    distInvariant: { result: 'pass' as const, distSha256: HASH('dist'), contentBuildSha256: HASH('content') },
+  const actual = {
+    result: 'pass' as const, batchId, workId: targetWorkId, contentBuildSha256: HASH('content'), distSha256: HASH('dist'),
+    voiceConfigHash: HASH('config'), planDigest: HASH('plan'), authorizationDigest: HASH('authorization'),
+    generationDigest: generationDigest as Sha256, completenessDigest: completeness.completenessDigest as Sha256,
   };
+  const pages = { distSha256: HASH('dist'), contentBuildSha256: HASH('content'), batchId, workId: targetWorkId };
+  const contentInvariant = { result: 'pass' as const, buildSha256: HASH('content'), stagingSha256: HASH('content'), baselineSha256: HASH('baseline') };
+  const distInvariant = { result: 'pass' as const, distSha256: HASH('dist'), contentBuildSha256: HASH('content') };
+  const boundManifest = bindCapacityManifest(
+    voicedManifest, targetWorkId, stagedVoice, completeness, actual, preview, pages, contentInvariant, distInvariant,
+  );
+  return { stagedVoice, completeness, preview, boundManifest, actual, pages, contentInvariant, distInvariant };
 }
 
 describe('FUN-F002-033 accepted work transaction', () => {
@@ -130,10 +163,9 @@ describe('FUN-F002-033 accepted work transaction', () => {
       approvedCount: 1, uniqueAudioCount: 1, candidateAudio: { 'candidate-1': 'audio-1' },
     };
     const completeness = { ...completenessCore, completenessDigest: computeVoiceCompletenessDigest(completenessCore) };
-    const boundManifest = bindVoicedManifest(
+    const voicedManifest = bindVoicedManifest(
       currentManifest, workId, generationCore.expectedManifestSha, generationDigest, completeness.completenessDigest,
     );
-    await writeFile(manifestPath, canonicalJson(boundManifest));
     const preview: IntegratedBuild = {
       mode: 'work-preview', stagingRoot: join(root, '.cache', 'preview'), buildSha256: HASH('content'), files: [], activeBatchId: batchId, activeWorkId: workId,
     };
@@ -149,6 +181,10 @@ describe('FUN-F002-033 accepted work transaction', () => {
       { result: 'pass' as const, buildSha256: HASH('content'), stagingSha256: HASH('content'), baselineSha256: HASH('baseline') },
       { result: 'pass' as const, distSha256: HASH('dist'), contentBuildSha256: HASH('content') },
     ] as const;
+    const boundManifest = bindCapacityManifest(
+      voicedManifest, workId, stagedVoice, completeness, args[5], preview, args[7], args[8], args[9],
+    );
+    await writeFile(manifestPath, canonicalJson(boundManifest));
 
     const moduleUrl = pathToFileURL(join(process.cwd(), 'src', 'content', 'batch-acceptance.ts')).href;
     const source = [

@@ -329,7 +329,7 @@ function normalizeEnum(value: string): string {
   return value.trim().toLowerCase();
 }
 
-function normalizeCharset(value: string | null | undefined): Charset | null {
+export function normalizeCharset(value: string | null | undefined): Charset | null {
   if (value === null || value === undefined || value.trim() === '') return null;
   const normalized = value.trim().toLowerCase().replaceAll('_', '-');
   if (normalized === 'utf-8' || normalized === 'utf8') return 'UTF-8';

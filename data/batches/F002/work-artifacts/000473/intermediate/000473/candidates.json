@@ -1,0 +1,816 @@
+[
+  {
+    "candidateId": "_YOYTlb2MbHLnU6mR4gfRfbG9vU7s6sVi63x9vWCszk",
+    "contextAfter": "\n\n「ね、まあ、あのくちのおおきいことさ。きっと、かえるの親類か何かなんだよ。」\n\n　こんな調子です。おお、よだかでないただのた",
+    "contextBefore": "をつぶりながら、首をそっ方へ向けるのでした。もっとちいさなおしゃべりの鳥などは、いつでもよだかのまっこうから悪口をしました。\n\n",
+    "displayText": "「ヘン。又出て来たね。まあ、あのざまをごらん。ほんとうに、鳥の仲間のつらよごしだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 320,
+      "start": 277
+    },
+    "revisions": [],
+    "sha256": "0fff1c08c06bbc438bb215b8a6b122304c70c72fc313bebc56290136fc87a394",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 320,
+      "startToken": 277
+    },
+    "speechText": "「ヘン。また出て来たね。まあ、あのざまをごらん。ほんとうに、鳥の仲間のつらよごしだよ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "gdIfc4V5K_rx44J5effLfP1HhG5K6jvzM2aF3ysyWP4",
+    "contextAfter": "\n\n　こんな調子です。おお、よだかでないただのたかならば、こんな生はんかのちいさい鳥は、もう名前を聞いただけでも、ぶるぶるふるえ",
+    "contextBefore": "だかのまっこうから悪口をしました。\n\n「ヘン。又出て来たね。まあ、あのざまをごらん。ほんとうに、鳥の仲間のつらよごしだよ。」\n\n",
+    "displayText": "「ね、まあ、あのくちのおおきいことさ。きっと、かえるの親類か何かなんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 360,
+      "start": 322
+    },
+    "revisions": [],
+    "sha256": "355f7c00e11cba0179d86512774fbae8d4663f975e40f8c06531d7888b87919c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 360,
+      "startToken": 322
+    },
+    "speechText": "「ね、まあ、あのくちのおおきいことさ。きっと、かえるの親類か何かなんだよ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "L704plavA-NKvnwV-XkjRRzlng2EM7i_pTeNsWr_NsU",
+    "contextAfter": "\n\n「鷹さん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまから下さったのです。」\n\n「いいや。おれ",
+    "contextBefore": "せて、早く名前をあらためろ、名前をあらためろと、いうのでした。\n\n　ある夕方、とうとう、鷹がよだかのうちへやって参りました。\n\n",
+    "displayText": "「おい。居るかい。まだお前は名前をかえないのか。ずいぶんお前も恥知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、曇ってうすぐらい日か、夜でなくちゃ、出て来ない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべて見るがいい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1024,
+      "start": 870
+    },
+    "revisions": [
+      {
+        "after": "「おい。いるかい。まだお前は名前をかえないのか。ずいぶんお前もはじ知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、くもってうすぐらい日か、夜でなくちゃ、出てこない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべてみるがいい。」",
+        "before": "「おい。居るかい。まだお前は名前をかえないのか。ずいぶんお前もはじ知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、くもってうすぐらい日か、夜でなくちゃ、出て来ない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべて見るがいい。」",
+        "candidateId": "L704plavA-NKvnwV-XkjRRzlng2EM7i_pTeNsWr_NsU",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "47374010c5dc363c1160a0d1284aa0ad7e85e4e1d8ee23160b66c111264b1b80",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1024,
+      "startToken": 870
+    },
+    "speechText": "「おい。いるかい。まだお前は名前をかえないのか。ずいぶんお前もはじ知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、くもってうすぐらい日か、夜でなくちゃ、出てこない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべてみるがいい。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "bRC0sZ2zhjgq9yAhRrTa9-LDTknuchdeOrlE74ouUgQ",
+    "contextAfter": "\n\n「いいや。おれの名なら、神さまから貰ったのだと云ってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ",
+    "contextBefore": "てうすぐらい日か、夜でなくちゃ、出て来ない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべて見るがいい。」\n\n",
+    "displayText": "「鷹さん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまから下さったのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1079,
+      "start": 1026
+    },
+    "revisions": [
+      {
+        "after": "「たかさん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまからくださったのです。」",
+        "before": "「鷹さん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまから下さったのです。」",
+        "candidateId": "bRC0sZ2zhjgq9yAhRrTa9-LDTknuchdeOrlE74ouUgQ",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "e9b660518fd4882bc9f6d45c7bb893050a80c82363ac465d24bca43cc7b2ef64",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1079,
+      "startToken": 1026
+    },
+    "speechText": "「たかさん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまからくださったのです。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "411ndy8k0kIm74rfD3DwQ1rB5dy5JvV96w4A_Mna7S8",
+    "contextAfter": "\n\n「鷹さん。それは無理です。」\n\n「無理じゃない。おれがいい名を教えてやろう。市蔵というんだ。市蔵とな。いい名だろう。そこで、名",
+    "contextBefore": "見るがいい。」\n\n「鷹さん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまから下さったのです。」\n\n",
+    "displayText": "「いいや。おれの名なら、神さまから貰ったのだと云ってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1147,
+      "start": 1081
+    },
+    "revisions": [
+      {
+        "after": "「いいや。おれの名なら、神さまからもらったのだといってもよかろうが、お前のは、いわば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+        "before": "「いいや。おれの名なら、神さまからもらったのだといってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+        "candidateId": "411ndy8k0kIm74rfD3DwQ1rB5dy5JvV96w4A_Mna7S8",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "be9050c6573729aa79e1c9054fbea3cfb887149fc8b05962107b22a48c735dcc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1147,
+      "startToken": 1081
+    },
+    "speechText": "「いいや。おれの名なら、神さまからもらったのだといってもよかろうが、お前のは、いわば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "Q_aI4FZIHGCkC_g3sU6YF6JwU_uFpR_OyMASbJr3-7M",
+    "contextAfter": "\n\n「無理じゃない。おれがいい名を教えてやろう。市蔵というんだ。市蔵とな。いい名だろう。そこで、名前を変えるには、改名の披露というも",
+    "contextBefore": "。おれの名なら、神さまから貰ったのだと云ってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ返せ。」\n\n",
+    "displayText": "「鷹さん。それは無理です。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1163,
+      "start": 1149
+    },
+    "revisions": [],
+    "sha256": "d0b437989cce792d64750216b410d7b4b1843c63d83061ca299781fbc369253f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1163,
+      "startToken": 1149
+    },
+    "speechText": "「鷹さん。それは無理です。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "TfgyhB2PD4NEMi4yZnenITmsMchumqRMMmIXtbQfDRA",
+    "contextAfter": "\n\n「そんなことはとても出来ません。」\n\n「いいや。出来る。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、",
+    "contextBefore": "のだと云ってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ返せ。」\n\n「鷹さん。それは無理です。」\n\n",
+    "displayText": "「無理じゃない。おれがいい名を教えてやろう。市蔵というんだ。市蔵とな。いい名だろう。そこで、名前を変えるには、改名の披露というものをしないといけない。いいか。それはな、首へ市蔵と書いたふだをぶらさげて、私は以来市蔵と申しますと、口上を云って、みんなの所をおじぎしてまわるのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1301,
+      "start": 1165
+    },
+    "revisions": [
+      {
+        "after": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。いちぞうとな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+        "before": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。市蔵とな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へ市蔵と書いたふだをぶらさげて、私は以来市蔵と申しますと、こうじょうを云って、みんなの所をおじぎしてまわるのだ。」",
+        "candidateId": "TfgyhB2PD4NEMi4yZnenITmsMchumqRMMmIXtbQfDRA",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      },
+      {
+        "after": "「無理じゃない。おれがいいなを教えてやろう。いちぞうというんだ。いちぞうとな。いいなだろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+        "before": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。いちぞうとな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+        "candidateId": "TfgyhB2PD4NEMi4yZnenITmsMchumqRMMmIXtbQfDRA",
+        "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+        "reviewedAt": "2026-07-25T11:46:47.822Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 2
+      }
+    ],
+    "sha256": "8c92a2d1e2d63914706c5c2cbcd0dc8212e43bb59db7239d138e7641af36f778",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1301,
+      "startToken": 1165
+    },
+    "speechText": "「無理じゃない。おれがいいなを教えてやろう。いちぞうというんだ。いちぞうとな。いいなだろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "Puyo0L3rS1K5jNFiABZDkjBIq1PwlJz3Men_VJkBTHA",
+    "contextAfter": "\n\n「いいや。出来る。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、",
+    "contextBefore": "いか。それはな、首へ市蔵と書いたふだをぶらさげて、私は以来市蔵と申しますと、口上を云って、みんなの所をおじぎしてまわるのだ。」\n\n",
+    "displayText": "「そんなことはとても出来ません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1320,
+      "start": 1303
+    },
+    "revisions": [
+      {
+        "after": "「そんなことはとてもできません。」",
+        "before": "「そんなことはとても出来ません。」",
+        "candidateId": "Puyo0L3rS1K5jNFiABZDkjBIq1PwlJz3Men_VJkBTHA",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "11cee17190558eb0c407aef266e84bcbbcc8f1ea59d015e683cb2181d21ae5a9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1320,
+      "startToken": 1303
+    },
+    "speechText": "「そんなことはとてもできません。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "0o4TKHecjUQ3_QYl6cN8gFoVv8RBh1zrH1RBMOyWgQw",
+    "contextAfter": "\n\n「だってそれはあんまり無理じゃありませんか。そんなことをする位なら、私はもう死んだ方がましです。今すぐ殺して下さい。」\n\n「",
+    "contextBefore": "ぶらさげて、私は以来市蔵と申しますと、口上を云って、みんなの所をおじぎしてまわるのだ。」\n\n「そんなことはとても出来ません。」\n\n",
+    "displayText": "「いいや。出来る。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちを一軒ずつまわって、お前が来たかどうかを聞いてあるく。一軒でも来なかったという家があったら、もう貴様もその時がおしまいだぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1468,
+      "start": 1322
+    },
+    "revisions": [
+      {
+        "after": "「いいや。できる。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちをいっけんずつまわって、お前が来たかどうかを聞いてあるく。いっけんでも来なかったという家があったら、もうきさまもその時がおしまいだぞ。」",
+        "before": "「いいや。出来る。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちを一けんずつまわって、お前が来たかどうかを聞いてあるく。一軒でも来なかったという家があったら、もう貴様もその時がおしまいだぞ。」",
+        "candidateId": "0o4TKHecjUQ3_QYl6cN8gFoVv8RBh1zrH1RBMOyWgQw",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "979360a8d665d511274e9d1ea82a28063f5400bdb3272986d19c1313184b610a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1468,
+      "startToken": 1322
+    },
+    "speechText": "「いいや。できる。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちをいっけんずつまわって、お前が来たかどうかを聞いてあるく。いっけんでも来なかったという家があったら、もうきさまもその時がおしまいだぞ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "9pKcmN1_vUcQZ5r53wjAixk3uKxkzR-YKhgEvwbQD24",
+    "contextAfter": "\n\n「まあ、よく、あとで考えてごらん。市蔵なんてそんなにわるい名じゃないよ。」鷹は大きなはねを一杯にひろげて、自分の巣の方へ飛んで",
+    "contextBefore": "一軒ずつまわって、お前が来たかどうかを聞いてあるく。一軒でも来なかったという家があったら、もう貴様もその時がおしまいだぞ。」\n\n",
+    "displayText": "「だってそれはあんまり無理じゃありませんか。そんなことをする位なら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1529,
+      "start": 1470
+    },
+    "revisions": [
+      {
+        "after": "「だってそれはあんまり無理じゃありませんか。そんなことをするくらいなら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+        "before": "「だってそれはあんまり無理じゃありませんか。そんなことをする位なら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+        "candidateId": "9pKcmN1_vUcQZ5r53wjAixk3uKxkzR-YKhgEvwbQD24",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "3c36e4611205bcea08659d658b0a61b7ff1969f309f7c0b7323284d88994e6c8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1529,
+      "startToken": 1470
+    },
+    "speechText": "「だってそれはあんまり無理じゃありませんか。そんなことをするくらいなら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "PVwu9WjrJIUysiMg-GKqhANbKJHCQoE-dXo-vdN4j1Y",
+    "contextAfter": "鷹は大きなはねを一杯にひろげて、自分の巣の方へ飛んで帰って行きました。\n\n　よだかは、じっと目をつぶって考えました。\n\n（一たい僕",
+    "contextBefore": "」\n\n「だってそれはあんまり無理じゃありませんか。そんなことをする位なら、私はもう死んだ方がましです。今すぐ殺して下さい。」\n\n",
+    "displayText": "「まあ、よく、あとで考えてごらん。市蔵なんてそんなにわるい名じゃないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 1568,
+      "start": 1531
+    },
+    "revisions": [
+      {
+        "after": "「まあ、よく、あとで考えてごらん。いちぞうなんてそんなにわるい名じゃないよ。」",
+        "before": "「まあ、よく、あとで考えてごらん。市蔵なんてそんなにわるい名じゃないよ。」",
+        "candidateId": "PVwu9WjrJIUysiMg-GKqhANbKJHCQoE-dXo-vdN4j1Y",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "7ef2aa1133dbb946c80edae642fc27e3d0cc9ebf9b2067e636a26761657e4210",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1568,
+      "startToken": 1531
+    },
+    "speechText": "「まあ、よく、あとで考えてごらん。いちぞうなんてそんなにわるい名じゃないよ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "we9jgrYQOPpXTZh0Peb4-ZUoxu9_0yCA5jC7ROI8Ag4",
+    "contextAfter": "\n\n「いいや、僕は今度遠い所へ行くからね、その前一寸お前に遭いに来たよ。」\n\n「兄さん。行っちゃいけませんよ。蜂雀もあんな遠くにいる",
+    "contextBefore": "へ飛んで行きました。きれいな川せみも、丁度起きて遠くの山火事を見ていた所でした。そしてよだかの降りて来たのを見て云いました。\n\n",
+    "displayText": "「兄さん。今晩は。何か急のご用ですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2681,
+      "start": 2661
+    },
+    "revisions": [
+      {
+        "after": "「兄さん。こんばんは。何か急のご用ですか。」",
+        "before": "「兄さん。今晩は。何か急のご用ですか。」",
+        "candidateId": "we9jgrYQOPpXTZh0Peb4-ZUoxu9_0yCA5jC7ROI8Ag4",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "e916e6f88d796eea2206d3d1cb8edb9d0a85ec16279897c5c82130c202e92067",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2681,
+      "startToken": 2661
+    },
+    "speechText": "「兄さん。こんばんは。何か急のご用ですか。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "b4xdiHO2zUyrWm2VeS9g0KQem1nahVaOUvax5WfG0ag",
+    "contextAfter": "\n\n「兄さん。行っちゃいけませんよ。蜂雀もあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」\n\n「それはね",
+    "contextBefore": "きて遠くの山火事を見ていた所でした。そしてよだかの降りて来たのを見て云いました。\n\n「兄さん。今晩は。何か急のご用ですか。」\n\n",
+    "displayText": "「いいや、僕は今度遠い所へ行くからね、その前一寸お前に遭いに来たよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2717,
+      "start": 2683
+    },
+    "revisions": [],
+    "sha256": "3813ad83aafe6c792fc78deb14251ad3362e757eb035fb24fa5e028829c09e37",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2717,
+      "startToken": 2683
+    },
+    "speechText": "「いいや、僕は今度遠い所へ行くからね、その前ちょっとお前にあいに来たよ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "NSOYvxBDbgwhQtOlAAaOWmZ9oXcxjR9U5trReDh2gjQ",
+    "contextAfter": "\n\n「それはね。どうも仕方ないのだ。もう今日は何も云わないで呉れ。そしてお前もね、どうしてもとらなければならない時のほかはいたず",
+    "contextBefore": "ました。\n\n「兄さん。今晩は。何か急のご用ですか。」\n\n「いいや、僕は今度遠い所へ行くからね、その前一寸お前に遭いに来たよ。」\n\n",
+    "displayText": "「兄さん。行っちゃいけませんよ。蜂雀もあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2774,
+      "start": 2719
+    },
+    "revisions": [
+      {
+        "after": "「兄さん。行っちゃいけませんよ。ハチスズメもあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+        "before": "「兄さん。行っちゃいけませんよ。はちすずめもあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+        "candidateId": "NSOYvxBDbgwhQtOlAAaOWmZ9oXcxjR9U5trReDh2gjQ",
+        "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+        "reviewedAt": "2026-07-25T11:46:47.822Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "f57582307934d6e9b158f002245a3353009fc39e0ac2f8a33d1fbbf8a119ba47",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2774,
+      "startToken": 2719
+    },
+    "speechText": "「兄さん。行っちゃいけませんよ。ハチスズメもあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "PpGOivcawBkj9VVtpP-7aNginzRek2Q0sQM0P0L1OCU",
+    "contextAfter": "\n\n「兄さん。どうしたんです。まあもう一寸お待ちなさい。」\n\n「いや、いつまで居てもおんなじだ。はちすずめへ、あとでよろしく云っ",
+    "contextBefore": "来たよ。」\n\n「兄さん。行っちゃいけませんよ。蜂雀もあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」\n\n",
+    "displayText": "「それはね。どうも仕方ないのだ。もう今日は何も云わないで呉れ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにして呉れ。ね、さよなら。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2866,
+      "start": 2776
+    },
+    "revisions": [
+      {
+        "after": "「それはね。どうも仕方ないのだ。もう今日は何もいわないでくれ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにしてくれ。ね、さよなら。」",
+        "before": "「それはね。どうも仕方ないのだ。もう今日は何も云わないでくれ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにして呉れ。ね、さよなら。」",
+        "candidateId": "PpGOivcawBkj9VVtpP-7aNginzRek2Q0sQM0P0L1OCU",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "de8adef5aae57496a4ab81014c2e3d5ffe838e13357d67725d1897a07b5f0c8c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2866,
+      "startToken": 2776
+    },
+    "speechText": "「それはね。どうも仕方ないのだ。もう今日は何もいわないでくれ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにしてくれ。ね、さよなら。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "3gElGXBgsd6UKKuZGkNF8RaJolWb818Vq2X42gL5QIY",
+    "contextAfter": "\n\n「いや、いつまで居てもおんなじだ。はちすずめへ、あとでよろしく云ってやって呉れ。さよなら。もうあわないよ。さよなら。」\n\n　",
+    "contextBefore": "呉れ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにして呉れ。ね、さよなら。」\n\n",
+    "displayText": "「兄さん。どうしたんです。まあもう一寸お待ちなさい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2895,
+      "start": 2868
+    },
+    "revisions": [
+      {
+        "after": "「兄さん。どうしたんです。まあもうちょっとお待ちなさい。」",
+        "before": "「兄さん。どうしたんです。まあもう一寸お待ちなさい。」",
+        "candidateId": "3gElGXBgsd6UKKuZGkNF8RaJolWb818Vq2X42gL5QIY",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "828e9ff37f2b9bee4a1f6b76a6e2472cb3c9527b0c275e488b3e8fa1aa62d165",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2895,
+      "startToken": 2868
+    },
+    "speechText": "「兄さん。どうしたんです。まあもうちょっとお待ちなさい。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "19hylarY8jBqagX5s9x5eYeT67g_fIvj8K3N9o9-KUc",
+    "contextAfter": "\n\n　よだかは泣きながら自分のお家へ帰って参りました。みじかい夏の夜はもうあけかかっていました。\n\n　羊歯の葉は、よあけの霧を吸っ",
+    "contextBefore": "かはいたずらにお魚を取ったりしないようにして呉れ。ね、さよなら。」\n\n「兄さん。どうしたんです。まあもう一寸お待ちなさい。」\n\n",
+    "displayText": "「いや、いつまで居てもおんなじだ。はちすずめへ、あとでよろしく云ってやって呉れ。さよなら。もうあわないよ。さよなら。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 2956,
+      "start": 2897
+    },
+    "revisions": [
+      {
+        "after": "「いや、いつまでいてもおんなじだ。はちすずめへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+        "before": "「いや、いつまで居てもおんなじだ。はちすずめへ、あとでよろしく云ってやって呉れ。さよなら。もうあわないよ。さよなら。」",
+        "candidateId": "19hylarY8jBqagX5s9x5eYeT67g_fIvj8K3N9o9-KUc",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      },
+      {
+        "after": "「いや、いつまでいてもおんなじだ。ハチスズメへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+        "before": "「いや、いつまでいてもおんなじだ。はちすずめへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+        "candidateId": "19hylarY8jBqagX5s9x5eYeT67g_fIvj8K3N9o9-KUc",
+        "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+        "reviewedAt": "2026-07-25T11:46:47.822Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 2
+      }
+    ],
+    "sha256": "3fcceb83d8ccd9214ec971c735ba352212842e7034ab491bc6f7becfd3b29578",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2956,
+      "startToken": 2897
+    },
+    "speechText": "「いや、いつまでいてもおんなじだ。ハチスズメへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "OQ2y8GjVYHz-wZEGsMvPCkLMp2uf0yHD9dMWf4Jsqt4",
+    "contextAfter": "\n\n　行っても行っても、お日さまは近くなりませんでした。かえってだんだん小さく遠くなりながらお日さまが云いました。\n\n「お前はよ",
+    "contextBefore": "れて、お日さまが丁度東からのぼりました。夜だかはぐらぐらするほどまぶしいのをこらえて、矢のように、そっちへ飛んで行きました。\n\n",
+    "displayText": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。灼けて死んでもかまいません。私のようなみにくいからだでも灼けるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 3266,
+      "start": 3171
+    },
+    "revisions": [
+      {
+        "after": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+        "before": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでも灼けるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+        "candidateId": "OQ2y8GjVYHz-wZEGsMvPCkLMp2uf0yHD9dMWf4Jsqt4",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      },
+      {
+        "after": "「おひさん、おひさん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+        "before": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+        "candidateId": "OQ2y8GjVYHz-wZEGsMvPCkLMp2uf0yHD9dMWf4Jsqt4",
+        "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+        "reviewedAt": "2026-07-25T11:46:47.822Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 2
+      }
+    ],
+    "sha256": "a1a0d0af04030d4702477f6629f012286cc2a5679e6bca57ad65ae74a1190891",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3266,
+      "startToken": 3171
+    },
+    "speechText": "「おひさん、おひさん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "jA0A4r-y7xPzU4lVioBc6lywxfTl_vXwPgl06eWTHyw",
+    "contextAfter": "\n\n　夜だかはおじぎを一つしたと思いましたが、急にぐらぐらしてとうとう野原の草の上に落ちてしまいました。そしてまるで夢を見ている",
+    "contextBefore": "下さい。」\n\n　行っても行っても、お日さまは近くなりませんでした。かえってだんだん小さく遠くなりながらお日さまが云いました。\n\n",
+    "displayText": "「お前はよだかだな。なるほど、ずいぶんつらかろう。今夜そらを飛んで、星にそうたのんでごらん。お前はひるの鳥ではないのだからな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 3389,
+      "start": 3325
+    },
+    "revisions": [],
+    "sha256": "59b3623e58e153b3a12e7159d3ea32bb92b3e99eccb45db20625950d360fa464",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3389,
+      "startToken": 3325
+    },
+    "speechText": "「お前はよだかだな。なるほど、ずいぶんつらかろう。今夜そらを飛んで、星にそうたのんでごらん。お前はひるの鳥ではないのだからな。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "4QXphexup6vh1NcIIuQ61YXYsPGb_FRNP2Ff-OsuvzI",
+    "contextAfter": "\n\n　オリオンは勇ましい歌をつづけながらよだかなどはてんで相手にしませんでした。よだかは泣きそうになって、よろよろと落ちて、それ",
+    "contextBefore": "それからもう一ぺん飛びめぐりました。そして思い切って西のそらのあの美しいオリオンの星の方に、まっすぐに飛びながら叫びました。\n\n",
+    "displayText": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。灼けて死んでもかまいません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 3801,
+      "start": 3747
+    },
+    "revisions": [
+      {
+        "after": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。やけて死んでもかまいません。」",
+        "before": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。灼けて死んでもかまいません。」",
+        "candidateId": "4QXphexup6vh1NcIIuQ61YXYsPGb_FRNP2Ff-OsuvzI",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "63468f0f714b8b068b74c7ae398b9a55e7d17ed1afb9e25c9d44cea18fe46651",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3801,
+      "startToken": 3747
+    },
+    "speechText": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。やけて死んでもかまいません。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "52YlXbVaaPMBb3GZmGOHQ6m25fco16pvgf4x-vpZKrU",
+    "contextAfter": "\n\n　大犬は青や紫や黄やうつくしくせわしくまたたきながら云いました。\n\n「馬鹿を云うな。おまえなんか一体どんなものだい。たかが鳥",
+    "contextBefore": "と落ちて、それからやっとふみとまって、もう一ぺんとびめぐりました。それから、南の大犬座の方へまっすぐに飛びながら叫びました。\n\n",
+    "displayText": "「お星さん。南の青いお星さん。どうか私をあなたの所へつれてって下さい。やけて死んでもかまいません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 3972,
+      "start": 3922
+    },
+    "revisions": [],
+    "sha256": "88de0942561636a51f47a212725883ca050382009337d95499cbe1978f87b597",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3972,
+      "startToken": 3922
+    },
+    "speechText": "「お星さん。南の青いお星さん。どうか私をあなたの所へつれてって下さい。やけて死んでもかまいません。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "2Lky9w4lAy4cf2ag5KO0woV4Fd3wpZYQlRPHWhbyVIY",
+    "contextAfter": "そしてまた別の方を向きました。\n\n　よだかはがっかりして、よろよろ落ちて、それから又二へん飛びめぐりました。それから又思い切って",
+    "contextBefore": "たの所へつれてって下さい。やけて死んでもかまいません。」\n\n　大犬は青や紫や黄やうつくしくせわしくまたたきながら云いました。\n\n",
+    "displayText": "「馬鹿を云うな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、億年兆年億兆年だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 4068,
+      "start": 4008
+    },
+    "revisions": [
+      {
+        "after": "「馬鹿をいうな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、おくねんちょうねんおくちょうねんだ。」",
+        "before": "「馬鹿を云うな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、億年兆年億兆年だ。」",
+        "candidateId": "2Lky9w4lAy4cf2ag5KO0woV4Fd3wpZYQlRPHWhbyVIY",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "5536e6b959732d4aa208edd4cf1002b741885c353ddcade9ac72d8cf6496d55d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4068,
+      "startToken": 4008
+    },
+    "speechText": "「馬鹿をいうな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、おくねんちょうねんおくちょうねんだ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "6ddMVwbmfWBS0jtJ5T8Y_LAWKKgvSCIe0xmhYlQfaCw",
+    "contextAfter": "\n\n　大熊星はしずかに云いました。\n\n「余計なことを考えるものではない。少し頭をひやして来なさい。そう云うときは、氷山の浮いてい",
+    "contextBefore": "かりして、よろよろ落ちて、それから又二へん飛びめぐりました。それから又思い切って北の大熊星の方へまっすぐに飛びながら叫びました。\n\n",
+    "displayText": "「北の青いお星さま、あなたの所へどうか私を連れてって下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 4187,
+      "start": 4156
+    },
+    "revisions": [],
+    "sha256": "082ebab2d5525270c62098b5bb482944149bdf3dde54ef8e877d662ce2bb316f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4187,
+      "startToken": 4156
+    },
+    "speechText": "「北の青いお星さま、あなたの所へどうか私を連れてって下さい。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "UwC71cWu1B3VyVcZ312aa58vu7747wju5kK_rfjN7PA",
+    "contextAfter": "\n\n　よだかはがっかりして、よろよろ落ちて、それから又、四へんそらをめぐりました。そしてもう一度、東から今のぼった天の川の向う岸",
+    "contextBefore": "に飛びながら叫びました。\n\n「北の青いお星さま、あなたの所へどうか私を連れてって下さい。」\n\n　大熊星はしずかに云いました。\n\n",
+    "displayText": "「余計なことを考えるものではない。少し頭をひやして来なさい。そう云うときは、氷山の浮いている海の中へ飛び込むか、近くに海がなかったら、氷をうかべたコップの水の中へ飛び込むのが一等だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 4298,
+      "start": 4206
+    },
+    "revisions": [
+      {
+        "after": "「余計なことを考えるものではない。少し頭をひやして来なさい。そういうときは、氷山のういている海の中へとびこむか、近くに海がなかったら、氷をうかべたコップの水の中へとびこむのがいっとうだ。」",
+        "before": "「余計なことを考えるものではない。少し頭をひやして来なさい。そう云うときは、氷山のういている海の中へ飛びこむか、近くに海がなかったら、氷をうかべたコップの水の中へ飛び込むのが一等だ。」",
+        "candidateId": "UwC71cWu1B3VyVcZ312aa58vu7747wju5kK_rfjN7PA",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "0ae1a4dc91aff80e726f363ed385dbcb68171248ccf974c81e106860232ceeab",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4298,
+      "startToken": 4206
+    },
+    "speechText": "「余計なことを考えるものではない。少し頭をひやして来なさい。そういうときは、氷山のういている海の中へとびこむか、近くに海がなかったら、氷をうかべたコップの水の中へとびこむのがいっとうだ。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "kMicYcrPaP-Y2ngA-LWZ4HXjDNiHC9Vxn63UWeB4T7Q",
+    "contextAfter": "\n\n　鷲は大風に云いました。\n\n「いいや、とてもとても、話にも何にもならん。星になるには、それ相応の身分でなくちゃいかん。又よほど",
+    "contextBefore": "、よろよろ落ちて、それから又、四へんそらをめぐりました。そしてもう一度、東から今のぼった天の川の向う岸の鷲の星に叫びました。\n\n",
+    "displayText": "「東の白いお星さま、どうか私をあなたの所へ連れてって下さい。やけて死んでもかまいません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 4420,
+      "start": 4375
+    },
+    "revisions": [],
+    "sha256": "41e46a7b295fc309e9f060f9815458e6393b66e356dcfedda1bf61c8301091a5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4420,
+      "startToken": 4375
+    },
+    "speechText": "「東の白いお星さま、どうか私をあなたの所へ連れてって下さい。やけて死んでもかまいません。」",
+    "workId": "000473"
+  },
+  {
+    "candidateId": "4gBRCYobnrgw5cRCK2iOX-FndgzT9GxZHRH2XAkpUEo",
+    "contextAfter": "\n\n　よだかはもうすっかり力を落してしまって、はねを閉じて、地に落ちて行きました。そしてもう一尺で地面にその弱い足がつくというと",
+    "contextBefore": "た。\n\n「東の白いお星さま、どうか私をあなたの所へ連れてって下さい。やけて死んでもかまいません。」\n\n　鷲は大風に云いました。\n\n",
+    "displayText": "「いいや、とてもとても、話にも何にもならん。星になるには、それ相応の身分でなくちゃいかん。又よほど金もいるのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+    "rawTokenRange": {
+      "end": 4492,
+      "start": 4435
+    },
+    "revisions": [
+      {
+        "after": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほど金もいるのだ。」",
+        "before": "「いいや、とてもとても、話にも何にもならん。星になるには、それ相応の身分でなくちゃいかん。又よほど金もいるのだ。」",
+        "candidateId": "4gBRCYobnrgw5cRCK2iOX-FndgzT9GxZHRH2XAkpUEo",
+        "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+        "reviewedAt": "2026-07-25T11:41:30.115Z",
+        "reviewer": "Codex編集レビュー",
+        "revision": 1
+      },
+      {
+        "after": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほどかねもいるのだ。」",
+        "before": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほど金もいるのだ。」",
+        "candidateId": "4gBRCYobnrgw5cRCK2iOX-FndgzT9GxZHRH2XAkpUEo",
+        "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+        "reviewedAt": "2026-07-25T11:46:47.822Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 2
+      }
+    ],
+    "sha256": "c4f88c5bc1a646a3612ec93f9986c09c6718bc656f867033c403e465c9c64b84",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4492,
+      "startToken": 4435
+    },
+    "speechText": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほどかねもいるのだ。」",
+    "workId": "000473"
+  }
+]

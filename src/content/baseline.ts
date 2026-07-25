@@ -263,7 +263,9 @@ async function treeDigest(root: string, unsafeCode: string): Promise<Sha256> {
   };
   await walk(root, '');
   const digest = createHash('sha256');
-  for (const file of files) digest.update(file.path).update('\0').update(String(file.bytes.byteLength)).update('\0').update(file.bytes);
+  for (const file of files.sort((left, right) => left.path.localeCompare(right.path, 'en'))) {
+    digest.update(file.path).update('\0').update(String(file.bytes.byteLength)).update('\0').update(file.bytes);
+  }
   return digest.digest('hex') as Sha256;
 }
 

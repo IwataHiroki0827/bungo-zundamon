@@ -5,6 +5,7 @@ import { canonicalJson } from './artifacts.ts';
 import {
   hashBatchManifest,
   transitionWorkState,
+  validateBatchManifest,
   type BatchManifest,
   type Sha256,
   type StageEvidence,
@@ -25,6 +26,7 @@ import {
   MAX_SOURCE_BYTES,
   AOZORA_BIBLIOGRAPHY_ENTRY,
   AOZORA_BIBLIOGRAPHY_URL,
+  normalizeCharset,
   parseAozoraBibliography,
   type BibliographyRow,
   type BibliographySnapshot,
@@ -51,6 +53,21 @@ export interface SpeechRevision {
   readonly reason: string;
   readonly reviewer: string;
   readonly reviewedAt: string;
+}
+
+export interface SpeechRevisionBinding {
+  readonly order: number;
+  readonly rawSourceSha256: Sha256;
+  readonly rawTokenRange: RawCandidate['rawTokenRange'];
+  readonly baseCandidateId: string;
+  readonly revisions: readonly SpeechRevision[];
+}
+
+export interface SpeechRevisionArtifact {
+  readonly schemaVersion: '1.0.0';
+  readonly batchId: string;
+  readonly workId: string;
+  readonly bindings: readonly SpeechRevisionBinding[];
 }
 
 export interface CandidateWithRevisions extends Candidate {
@@ -189,6 +206,80 @@ function assertRevisionText(value: string, field: string): void {
   if (!value.trim() || [...value].length > 32_768 || hasControl || /[\uD800-\uDFFF]/u.test(value)) {
     throw new BatchProductionError('SPEECH_REVISION_MISMATCH', `${field}が不正です`);
   }
+}
+
+function hasExactKeys(value: object, expected: readonly string[]): boolean {
+  const keys = Object.keys(value).sort((left, right) => left.localeCompare(right, 'en'));
+  return keys.length === expected.length &&
+    keys.every((key, index) => key === [...expected].sort((left, right) => left.localeCompare(right, 'en'))[index]);
+}
+
+async function loadSpeechRevisionBindings(
+  root: string,
+  context: BatchContext,
+  rawCandidates: readonly RawCandidate[],
+): Promise<{
+  readonly path: WorkspaceRelativePath;
+  readonly sha256: Sha256 | null;
+  readonly revisions: ReadonlyMap<number, readonly SpeechRevision[]>;
+}> {
+  const relativePath = `content/batches/${context.manifest.batchId}/speech-revisions/${context.workId}.json` as WorkspaceRelativePath;
+  const target = join(root, ...relativePath.split('/'));
+  await assertNoLinks(root, target);
+  let text: string;
+  try {
+    const info = await lstat(target);
+    if (!info.isFile() || info.isSymbolicLink()) {
+      throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision artifactはregular fileである必要があります');
+    }
+    text = await readFile(target, 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return { path: relativePath, sha256: null, revisions: new Map() };
+    }
+    throw error;
+  }
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch {
+    throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision artifact JSONが不正です');
+  }
+  if (canonicalJson(value) !== text || value === null || typeof value !== 'object' ||
+    !hasExactKeys(value, ['schemaVersion', 'batchId', 'workId', 'bindings'])) {
+    throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision artifactはcanonical exact schemaが必要です');
+  }
+  const artifact = value as Partial<SpeechRevisionArtifact>;
+  if (artifact.schemaVersion !== '1.0.0' || artifact.batchId !== context.manifest.batchId ||
+    artifact.workId !== context.workId || !Array.isArray(artifact.bindings) || artifact.bindings.length === 0) {
+    throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision artifactのbatch/work/bindingsが不正です');
+  }
+  const revisions = new Map<number, readonly SpeechRevision[]>();
+  for (const binding of artifact.bindings) {
+    if (!binding || typeof binding !== 'object' ||
+      !hasExactKeys(binding, ['order', 'rawSourceSha256', 'rawTokenRange', 'baseCandidateId', 'revisions']) ||
+      !Number.isSafeInteger(binding.order) || binding.order < 0 || binding.order >= rawCandidates.length ||
+      revisions.has(binding.order) || !Array.isArray(binding.revisions) || binding.revisions.length === 0) {
+      throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision bindingが欠損・重複・orphanです');
+    }
+    const raw = rawCandidates[binding.order];
+    const base = raw ? normalizeBatchCandidate(raw, context.speechRules) : null;
+    if (!raw || !base || binding.rawSourceSha256 !== raw.rawSourceSha256 ||
+      canonicalJson(binding.rawTokenRange) !== canonicalJson(raw.rawTokenRange) ||
+      binding.baseCandidateId !== base.candidateId) {
+      throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revision bindingがbase candidate/orderと一致しません');
+    }
+    for (const revision of binding.revisions) {
+      if (!revision || typeof revision !== 'object' ||
+        !hasExactKeys(revision, ['candidateId', 'revision', 'before', 'after', 'reason', 'reviewer', 'reviewedAt'])) {
+        throw new BatchProductionError('SPEECH_REVISION_MISMATCH', 'speech revisionがexact schemaではありません');
+      }
+    }
+    // chain、連番、旧candidate ID、最終IDを正規API自身に再検証させる。
+    normalizeBatchCandidate(raw, context.speechRules, binding.revisions);
+    revisions.set(binding.order, binding.revisions);
+  }
+  return { path: relativePath, sha256: sha256(text), revisions };
 }
 
 /** @des DES-F002-004 @fun FUN-F002-008 */
@@ -653,7 +744,8 @@ function assertSelectionContract(
       selected.title !== row.title || selected.personId !== row.personId || selected.role !== row.role ||
       selected.copyright !== row.copyright || selected.personCopyright !== row.personCopyright ||
       selected.status !== row.status || selected.language !== row.language || selected.orthography !== row.orthography ||
-      selected.sourceUrl !== row.sourceUrl || selected.cardUrl !== row.cardUrl || selected.charset !== row.charset ||
+      selected.sourceUrl !== row.sourceUrl || selected.cardUrl !== row.cardUrl ||
+      selected.charset !== normalizeCharset(row.charset) ||
       selected.baseEdition !== row.baseEdition || selected.inputter !== row.inputter || selected.proofreader !== row.proofreader ||
       observed.title !== row.title || observed.personId !== row.personId || observed.personCopyright !== row.personCopyright ||
       observed.workCopyright !== row.copyright || observed.role !== row.role || observed.translatorPresent !== false ||
@@ -710,7 +802,9 @@ export async function runBatchSourceStages(context: BatchContext, through: 'norm
   }
   const rawCandidates = await context.dependencies.extractCandidates(decoded, context.workId, context, scratch);
   validateRawCandidates(rawCandidates, context.workId, fetched.record.rawSha256);
-  const candidates = rawCandidates.map((raw) => normalizeBatchCandidate(raw, context.speechRules));
+  const speechRevisions = await loadSpeechRevisionBindings(root, context, rawCandidates);
+  const candidates = rawCandidates.map((raw, index) =>
+    normalizeBatchCandidate(raw, context.speechRules, speechRevisions.revisions.get(index) ?? []));
   const base = `data/batches/${context.manifest.batchId}/work-artifacts/${context.workId}`;
   const paths = Object.freeze({
     bibliography: posix(base, 'bibliography', 'source.json'),
@@ -742,13 +836,29 @@ export async function runBatchSourceStages(context: BatchContext, through: 'norm
     expectedManifestSha: hashBatchManifest(context.manifest),
     workId: context.workId,
     stage: 'extracted',
-    inputHashes: [hashBatchManifest(context.manifest), bibliography.snapshot.csvSha256 as Sha256, fetched.record.rawSha256 as Sha256],
+    inputHashes: [
+      hashBatchManifest(context.manifest),
+      bibliography.snapshot.csvSha256 as Sha256,
+      fetched.record.rawSha256 as Sha256,
+      ...(speechRevisions.sha256 === null ? [] : [speechRevisions.sha256]),
+    ],
     toolVersion: context.toolVersion,
     outputHashes: [artifactSha256, ...candidates.map((candidate) => candidate.sha256)],
     count: candidates.length,
     completedAt,
   });
-  const manifest = transitionWorkState(context.manifest, context.workId, 'extracted', evidence);
+  const transitioned = transitionWorkState(context.manifest, context.workId, 'extracted', evidence);
+  const manifestCandidate = speechRevisions.sha256 === null
+    ? transitioned
+    : {
+        ...transitioned,
+        inputPaths: [...new Set([...transitioned.inputPaths, speechRevisions.path])],
+      };
+  const checkedManifest = validateBatchManifest(manifestCandidate);
+  if (!checkedManifest.ok) {
+    throw new BatchProductionError('SPEECH_REVISION_MISMATCH', `speech revision manifest結合に失敗しました: ${checkedManifest.error.code}`);
+  }
+  const manifest = checkedManifest.value;
   await promoteBatchSourceArtifactTree(
     root,
     base as WorkspaceRelativePath,

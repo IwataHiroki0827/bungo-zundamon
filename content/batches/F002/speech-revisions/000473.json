@@ -1,0 +1,403 @@
+{
+  "batchId": "F002",
+  "bindings": [
+    {
+      "baseCandidateId": "mepeZh1NpsNuC3GKnYGSBzMmnHd1uqULcqEjqbK-P8E",
+      "order": 2,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1024,
+        "start": 870
+      },
+      "revisions": [
+        {
+          "after": "「おい。いるかい。まだお前は名前をかえないのか。ずいぶんお前もはじ知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、くもってうすぐらい日か、夜でなくちゃ、出てこない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべてみるがいい。」",
+          "before": "「おい。居るかい。まだお前は名前をかえないのか。ずいぶんお前もはじ知らずだな。お前とおれでは、よっぽど人格がちがうんだよ。たとえばおれは、青いそらをどこまででも飛んで行く。おまえは、くもってうすぐらい日か、夜でなくちゃ、出て来ない。それから、おれのくちばしやつめを見ろ。そして、よくお前のとくらべて見るがいい。」",
+          "candidateId": "L704plavA-NKvnwV-XkjRRzlng2EM7i_pTeNsWr_NsU",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "CO-cIdUV20awXSScG_VKgO2ZX06-fscp0dJWZSNospc",
+      "order": 3,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1079,
+        "start": 1026
+      },
+      "revisions": [
+        {
+          "after": "「たかさん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまからくださったのです。」",
+          "before": "「鷹さん。それはあんまり無理です。私の名前は私が勝手につけたのではありません。神さまから下さったのです。」",
+          "candidateId": "bRC0sZ2zhjgq9yAhRrTa9-LDTknuchdeOrlE74ouUgQ",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "XUwjW5R-L6KWk9DgMCeEbdMKNFZ1-ymoKCxmePlyOUo",
+      "order": 4,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1147,
+        "start": 1081
+      },
+      "revisions": [
+        {
+          "after": "「いいや。おれの名なら、神さまからもらったのだといってもよかろうが、お前のは、いわば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+          "before": "「いいや。おれの名なら、神さまからもらったのだといってもよかろうが、お前のは、云わば、おれと夜と、両方から借りてあるんだ。さあ返せ。」",
+          "candidateId": "411ndy8k0kIm74rfD3DwQ1rB5dy5JvV96w4A_Mna7S8",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "FN0mkv6iySVhIgkZWayrD0pwTPxrXXqDPL0G93Kwrbs",
+      "order": 6,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1301,
+        "start": 1165
+      },
+      "revisions": [
+        {
+          "after": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。いちぞうとな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+          "before": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。市蔵とな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へ市蔵と書いたふだをぶらさげて、私は以来市蔵と申しますと、こうじょうを云って、みんなの所をおじぎしてまわるのだ。」",
+          "candidateId": "TfgyhB2PD4NEMi4yZnenITmsMchumqRMMmIXtbQfDRA",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        },
+        {
+          "after": "「無理じゃない。おれがいいなを教えてやろう。いちぞうというんだ。いちぞうとな。いいなだろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+          "before": "「無理じゃない。おれがいい名を教えてやろう。いちぞうというんだ。いちぞうとな。いい名だろう。そこで、名前を変えるには、改名のひろうというものをしないといけない。いいか。それはな、首へいちぞうと書いたふだをぶらさげて、私は以来いちぞうと申しますと、こうじょうをいって、みんなの所をおじぎしてまわるのだ。」",
+          "candidateId": "TfgyhB2PD4NEMi4yZnenITmsMchumqRMMmIXtbQfDRA",
+          "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+          "reviewedAt": "2026-07-25T11:46:47.822Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 2
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "Uoz7zB5ydS5AFLrDlA75L3heLPINhF0AD4DPHPZpBfw",
+      "order": 7,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1320,
+        "start": 1303
+      },
+      "revisions": [
+        {
+          "after": "「そんなことはとてもできません。」",
+          "before": "「そんなことはとても出来ません。」",
+          "candidateId": "Puyo0L3rS1K5jNFiABZDkjBIq1PwlJz3Men_VJkBTHA",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "usEoqaDl3f6T3wPpvjEinjwTKP8X3jMm74KggA3waWE",
+      "order": 8,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1468,
+        "start": 1322
+      },
+      "revisions": [
+        {
+          "after": "「いいや。できる。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちをいっけんずつまわって、お前が来たかどうかを聞いてあるく。いっけんでも来なかったという家があったら、もうきさまもその時がおしまいだぞ。」",
+          "before": "「いいや。出来る。そうしろ。もしあさっての朝までに、お前がそうしなかったら、もうすぐ、つかみ殺すぞ。つかみ殺してしまうから、そう思え。おれはあさっての朝早く、鳥のうちを一けんずつまわって、お前が来たかどうかを聞いてあるく。一軒でも来なかったという家があったら、もう貴様もその時がおしまいだぞ。」",
+          "candidateId": "0o4TKHecjUQ3_QYl6cN8gFoVv8RBh1zrH1RBMOyWgQw",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "metB_oJl4KbhaosISeuc_8dz0OjHUiaAxd3LNXJkKPk",
+      "order": 9,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1529,
+        "start": 1470
+      },
+      "revisions": [
+        {
+          "after": "「だってそれはあんまり無理じゃありませんか。そんなことをするくらいなら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+          "before": "「だってそれはあんまり無理じゃありませんか。そんなことをする位なら、私はもう死んだ方がましです。今すぐ殺して下さい。」",
+          "candidateId": "9pKcmN1_vUcQZ5r53wjAixk3uKxkzR-YKhgEvwbQD24",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "fMjO2AVAbXCJvasrHrUYCERgcoo8AlTN3EwPMHTUX5Y",
+      "order": 10,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 1568,
+        "start": 1531
+      },
+      "revisions": [
+        {
+          "after": "「まあ、よく、あとで考えてごらん。いちぞうなんてそんなにわるい名じゃないよ。」",
+          "before": "「まあ、よく、あとで考えてごらん。市蔵なんてそんなにわるい名じゃないよ。」",
+          "candidateId": "PVwu9WjrJIUysiMg-GKqhANbKJHCQoE-dXo-vdN4j1Y",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "9vbHNK9MVXADC_dz4Bkud4kXO7JrgGhw1qHLKrjdTQY",
+      "order": 11,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 2681,
+        "start": 2661
+      },
+      "revisions": [
+        {
+          "after": "「兄さん。こんばんは。何か急のご用ですか。」",
+          "before": "「兄さん。今晩は。何か急のご用ですか。」",
+          "candidateId": "we9jgrYQOPpXTZh0Peb4-ZUoxu9_0yCA5jC7ROI8Ag4",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "8zDMGS9YrVAObtji4MmTwrvq29i1GU1nmrgN8W8ldqA",
+      "order": 13,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 2774,
+        "start": 2719
+      },
+      "revisions": [
+        {
+          "after": "「兄さん。行っちゃいけませんよ。ハチスズメもあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+          "before": "「兄さん。行っちゃいけませんよ。はちすずめもあんな遠くにいるんですし、僕ひとりぼっちになってしまうじゃありませんか。」",
+          "candidateId": "NSOYvxBDbgwhQtOlAAaOWmZ9oXcxjR9U5trReDh2gjQ",
+          "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+          "reviewedAt": "2026-07-25T11:46:47.822Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "i9KS8GKhnSDGpZdM8pxy-k2DDWmUst42n9ArIQQNc3g",
+      "order": 14,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 2866,
+        "start": 2776
+      },
+      "revisions": [
+        {
+          "after": "「それはね。どうも仕方ないのだ。もう今日は何もいわないでくれ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにしてくれ。ね、さよなら。」",
+          "before": "「それはね。どうも仕方ないのだ。もう今日は何も云わないでくれ。そしてお前もね、どうしてもとらなければならない時のほかはいたずらにお魚を取ったりしないようにして呉れ。ね、さよなら。」",
+          "candidateId": "PpGOivcawBkj9VVtpP-7aNginzRek2Q0sQM0P0L1OCU",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "d690FyZHh1pA38bV-mFzbprEkksWJZyA6BsCKuWnzCM",
+      "order": 15,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 2895,
+        "start": 2868
+      },
+      "revisions": [
+        {
+          "after": "「兄さん。どうしたんです。まあもうちょっとお待ちなさい。」",
+          "before": "「兄さん。どうしたんです。まあもう一寸お待ちなさい。」",
+          "candidateId": "3gElGXBgsd6UKKuZGkNF8RaJolWb818Vq2X42gL5QIY",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "R-eApJSOZYv4aJPxvqA35FizC6Hf44-luEzpOI0xXpI",
+      "order": 16,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 2956,
+        "start": 2897
+      },
+      "revisions": [
+        {
+          "after": "「いや、いつまでいてもおんなじだ。はちすずめへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+          "before": "「いや、いつまで居てもおんなじだ。はちすずめへ、あとでよろしく云ってやって呉れ。さよなら。もうあわないよ。さよなら。」",
+          "candidateId": "19hylarY8jBqagX5s9x5eYeT67g_fIvj8K3N9o9-KUc",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        },
+        {
+          "after": "「いや、いつまでいてもおんなじだ。ハチスズメへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+          "before": "「いや、いつまでいてもおんなじだ。はちすずめへ、あとでよろしくいってやってくれ。さよなら。もうあわないよ。さよなら。」",
+          "candidateId": "19hylarY8jBqagX5s9x5eYeT67g_fIvj8K3N9o9-KUc",
+          "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+          "reviewedAt": "2026-07-25T11:46:47.822Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 2
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "VCsT7E467DyZkQm6CIxemYTBpLHQpLr0FCA5gYDSUfM",
+      "order": 17,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 3266,
+        "start": 3171
+      },
+      "revisions": [
+        {
+          "after": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+          "before": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでも灼けるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+          "candidateId": "OQ2y8GjVYHz-wZEGsMvPCkLMp2uf0yHD9dMWf4Jsqt4",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        },
+        {
+          "after": "「おひさん、おひさん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+          "before": "「お日さん、お日さん。どうぞ私をあなたの所へ連れてって下さい。やけて死んでもかまいません。私のようなみにくいからだでもやけるときには小さなひかりを出すでしょう。どうか私を連れてって下さい。」",
+          "candidateId": "OQ2y8GjVYHz-wZEGsMvPCkLMp2uf0yHD9dMWf4Jsqt4",
+          "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+          "reviewedAt": "2026-07-25T11:46:47.822Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 2
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "MNdqxHDl9Bs5gY7uf7CxFnReOYUCX1W3Dq1uxEdUWC4",
+      "order": 19,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 3801,
+        "start": 3747
+      },
+      "revisions": [
+        {
+          "after": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。やけて死んでもかまいません。」",
+          "before": "「お星さん。西の青じろいお星さん。どうか私をあなたのところへ連れてって下さい。灼けて死んでもかまいません。」",
+          "candidateId": "4QXphexup6vh1NcIIuQ61YXYsPGb_FRNP2Ff-OsuvzI",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "r45AqdTJtebpO-SQP9n-2yI8L_2A8arP3h3gwSbvG9M",
+      "order": 21,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 4068,
+        "start": 4008
+      },
+      "revisions": [
+        {
+          "after": "「馬鹿をいうな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、おくねんちょうねんおくちょうねんだ。」",
+          "before": "「馬鹿を云うな。おまえなんか一体どんなものだい。たかが鳥じゃないか。おまえのはねでここまで来るには、億年兆年億兆年だ。」",
+          "candidateId": "2Lky9w4lAy4cf2ag5KO0woV4Fd3wpZYQlRPHWhbyVIY",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "rbzxT91Sz1FZp431SJwWwk_-EssuNtaugGWTIbhjsMo",
+      "order": 23,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 4298,
+        "start": 4206
+      },
+      "revisions": [
+        {
+          "after": "「余計なことを考えるものではない。少し頭をひやして来なさい。そういうときは、氷山のういている海の中へとびこむか、近くに海がなかったら、氷をうかべたコップの水の中へとびこむのがいっとうだ。」",
+          "before": "「余計なことを考えるものではない。少し頭をひやして来なさい。そう云うときは、氷山のういている海の中へ飛びこむか、近くに海がなかったら、氷をうかべたコップの水の中へ飛び込むのが一等だ。」",
+          "candidateId": "UwC71cWu1B3VyVcZ312aa58vu7747wju5kK_rfjN7PA",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "N0fR4fUa6aaF-QMqE3hAsWB5MpFw7L06Vv34o3aFN8k",
+      "order": 25,
+      "rawSourceSha256": "879e7aef2da3bf7dee8c6794c50ef8357252b0fa8822b8af0516fd1b54ffe680",
+      "rawTokenRange": {
+        "end": 4492,
+        "start": 4435
+      },
+      "revisions": [
+        {
+          "after": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほど金もいるのだ。」",
+          "before": "「いいや、とてもとても、話にも何にもならん。星になるには、それ相応の身分でなくちゃいかん。又よほど金もいるのだ。」",
+          "candidateId": "4gBRCYobnrgw5cRCK2iOX-FndgzT9GxZHRH2XAkpUEo",
+          "reason": "VOICEVOXでの誤読を避けるため、原典の表示本文を変えず読みだけをひらがなへ補正",
+          "reviewedAt": "2026-07-25T11:41:30.115Z",
+          "reviewer": "Codex編集レビュー",
+          "revision": 1
+        },
+        {
+          "after": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほどかねもいるのだ。」",
+          "before": "「いいや、とてもとても、話にも何にもならん。星になるには、それそうおうの身分でなくちゃいかん。またよほど金もいるのだ。」",
+          "candidateId": "4gBRCYobnrgw5cRCK2iOX-FndgzT9GxZHRH2XAkpUEo",
+          "reason": "voice preflightのaudio_queryで確認した誤読を避けるため、displayTextを変えず読みを補正",
+          "reviewedAt": "2026-07-25T11:46:47.822Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 2
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "workId": "000473"
+}
