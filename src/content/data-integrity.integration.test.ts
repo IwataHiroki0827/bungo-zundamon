@@ -445,9 +445,12 @@ describe('F001全件照合とF002 CatalogV2統合 [IT-F001-018][IT-F002-007]', (
       workIds: expectedWorkIds,
     });
     expect(f002Manifest).toMatchObject({
-      status: 'accepted',
+      status: 'published',
       author: { authorId: '000081' },
       workIds: expectedWorkIds,
+      releaseVersion: '0.2.0',
+      deploymentEvidenceRef: 'docs/evidence/release/F002-deployment.json',
+      smokeEvidenceRef: 'docs/evidence/release/F002-smoke.json',
     });
     expect(f002Works.map((work) => ({
       workId: work.workId,
