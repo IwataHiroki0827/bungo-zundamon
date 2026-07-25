@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { createHash } from 'node:crypto';
-import { assertNoHorizontalOverflow, installDeterministicAudio, PAGES_PATH } from './fixtures';
+import { assertNoHorizontalOverflow, installDeterministicAudio, PAGES_PATH, waitForRouteReady } from './fixtures';
 
 test.beforeEach(async ({ page }) => {
   // native codec・autoplay・実音声品質ではなく、アプリのAudioPortと遅延取得だけを検査する。
@@ -12,6 +12,7 @@ async function openAuthorFromHome(page: import('@playwright/test').Page, name: s
   const card = page.locator('.author-card').filter({ hasText: name });
   await expect(card).toHaveCount(1);
   await card.getByRole('link', { name: '作品と台詞を聴く' }).click();
+  await waitForRouteReady(page);
 }
 
 // @it IT-F002-010 @it IT-F002-012 @qt QT-F002-002 @qt QT-F002-014
@@ -65,8 +66,10 @@ test('作者route変更で音声を停止し、遅延eventを新しい作者DOM�
   await page.evaluate(() => { window.__audioInstances[0]!.currentTime = 9; });
 
   await page.getByRole('link', { name: 'トップ', exact: true }).click();
+  await waitForRouteReady(page);
   const akutagawa = page.locator('.author-card').filter({ hasText: 'あくたがわずんのすけ' });
   await akutagawa.getByRole('link', { name: '作品と台詞を聴く' }).click();
+  await waitForRouteReady(page);
   await expect(page.locator('[data-page="author"]')).toHaveAttribute('data-author-id', '000879');
   expect(await page.evaluate(() => ({
     count: window.__audioInstances.length,
