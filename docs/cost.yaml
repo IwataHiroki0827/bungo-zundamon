@@ -280,3 +280,12 @@ entries:
   est_tokens: 50000
   note: 78候補を全件レビューし65発話を承認、扉・看板13件を除外、12件の読み補正を実施。VOICEVOX 0.25.2で64 unique WAVを生成・受入。repository
     814,330,905 bytesの警告を記録しつつ1GB停止未満を確認。独立受入PASS、全648 tests、型・lint・build・audit 0件、先行作品・F001・public不変を確認
+- date: '2026-07-25'
+  phase: implement
+  task: T-027 F002最終CatalogV2統合・clean release-verify
+  model: GPT-5
+  agents: 4
+  est_tokens: 70000
+  note: F001と宮沢賢治3作品を2作者・6作品・213台詞・208音声の公開treeへ統合。accepted
+    152音声をSHA単位で151 WAVへ正規化し、review/revision/provenanceを公開。Pages tupleとGit容量計測のproduction契約不整合を回帰試験付きで修正し、exact
+    clean release-verify、容量5区分、全651 tests、独立受入をPASS

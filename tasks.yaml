@@ -573,7 +573,7 @@ tasks:
   title: F002最終catalog統合・F001不変・全asset整合を確認
   feature: F002
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-021
   - T-022
@@ -603,7 +603,7 @@ tasks:
   title: UT-F002を実施し失敗を修正・再検証
   feature: F002
   phase: test
-  state: todo
+  state: doing
   depends:
   - T-027
   tags: *id002
