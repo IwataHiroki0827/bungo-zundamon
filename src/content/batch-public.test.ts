@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { execFile as execFileCallback } from 'node:child_process';
 import { spawn } from 'node:child_process';
-import { copyFile, mkdir, mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp, readFile, readdir, rename as renameFs, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -332,6 +332,64 @@ async function promotionFixture(publicAudioOwners: readonly string[]): Promise<{
 
 // Direct trace tags: IT-F002-009 QT-F002-006 QT-F002-014
 describe('UT-F002-018/UT-F002-019 batch public integration', () => {
+  it.each(['EBUSY', 'EPERM'] as const)('%sを0/100/250/500 ms境界でretryしてpublic昇格を完了する', async (code) => {
+    const prepared = await promotionFixture(['F001', 'F002']);
+    const delays: number[] = [];
+    let attempts = 0;
+
+    await promoteIntegratedTree(
+      prepared.value.root,
+      prepared.staging,
+      prepared.buildSha256,
+      prepared.currentSha256,
+      prepared.invariant,
+      prepared.preparation,
+      {
+        rename: async (source, target) => {
+          attempts += 1;
+          if (attempts <= 3) throw Object.assign(new Error(`injected ${code}`), { code });
+          await renameFs(source, target);
+        },
+        delay: async (milliseconds) => { delays.push(milliseconds); },
+      },
+    );
+
+    expect(delays).toEqual([100, 250, 500]);
+    expect(attempts).toBe(5);
+    expect(await treeDigest(join(prepared.value.root, 'public'))).toBe(prepared.buildSha256);
+  });
+
+  it('新public renameのretry超過時は検証済み旧publicをrollbackして維持する', async () => {
+    const prepared = await promotionFixture(['F001', 'F002']);
+    const publicRoot = join(prepared.value.root, 'public');
+    const delays: number[] = [];
+    let newTreeAttempts = 0;
+
+    await expect(promoteIntegratedTree(
+      prepared.value.root,
+      prepared.staging,
+      prepared.buildSha256,
+      prepared.currentSha256,
+      prepared.invariant,
+      prepared.preparation,
+      {
+        rename: async (source, target) => {
+          if (source === prepared.staging && target === publicRoot) {
+            newTreeAttempts += 1;
+            throw Object.assign(new Error('injected EBUSY'), { code: 'EBUSY' });
+          }
+          await renameFs(source, target);
+        },
+        delay: async (milliseconds) => { delays.push(milliseconds); },
+      },
+    )).rejects.toMatchObject({ code: 'EBUSY' });
+
+    expect(newTreeAttempts).toBe(4);
+    expect(delays).toEqual([100, 250, 500]);
+    expect(await treeDigest(publicRoot)).toBe(prepared.currentSha256);
+    expect(await treeDigest(prepared.staging)).toBe(prepared.buildSha256);
+  });
+
   it('画像provenanceのsourcePathを同じCatalogFragmentから公開pathへ統合する', async () => {
     const value = await fixture();
     const publicFile = value.batchCatalogs.F002!.publicFiles![0]!;

@@ -100,6 +100,8 @@ export class PublicIntegrationError extends Error {
 
 export interface PublicPromotionOptions {
   readonly afterPhase?: (phase: 'prepared' | 'old-moved' | 'new-moved' | 'verified') => void | Promise<void>;
+  readonly rename?: (source: string, target: string) => Promise<void>;
+  readonly delay?: (milliseconds: number) => Promise<void>;
 }
 
 function hash(bytes: Uint8Array | string): Sha256 {
@@ -882,13 +884,20 @@ async function syncDirectory(path: string): Promise<void> {
   }
 }
 
-async function renameRetry(source: string, target: string): Promise<void> {
+async function renameRetry(
+  source: string,
+  target: string,
+  options: Pick<PublicPromotionOptions, 'rename' | 'delay'> = {},
+): Promise<void> {
   const delays = [0, 100, 250, 500];
+  const renameOperation = options.rename ?? rename;
+  const delayOperation = options.delay ?? ((milliseconds: number) =>
+    new Promise<void>((resolveDelay) => setTimeout(resolveDelay, milliseconds)));
   let last: unknown;
   for (const delay of delays) {
-    if (delay) await new Promise((resolveDelay) => setTimeout(resolveDelay, delay));
+    if (delay) await delayOperation(delay);
     try {
-      await rename(source, target);
+      await renameOperation(source, target);
       return;
     } catch (error) {
       last = error;
@@ -1194,7 +1203,7 @@ export async function promoteIntegratedTree(
     if (phase === 'prepared') {
       if (await digestTree(stage) !== expectedBuildSha) throw new PublicIntegrationError('PUBLIC_STAGING_HASH_CHANGED', 'staging digestが変化しています');
       if (await digestTree(publicRoot) !== expectedCurrentPublicSha) throw new PublicIntegrationError('PUBLIC_CURRENT_HASH_CHANGED', 'current public digestが変化しています');
-      await renameRetry(publicRoot, backup);
+      await renameRetry(publicRoot, backup, options);
       await syncDirectory(root);
       oldMoved = true;
       await writeJournal('old-moved');
@@ -1205,7 +1214,7 @@ export async function promoteIntegratedTree(
         throw new PublicIntegrationError('PUBLIC_PROMOTION_CONFLICT', 'old-moved recovery treeが一致しません');
       }
       oldMoved = true;
-      await renameRetry(stage, publicRoot);
+      await renameRetry(stage, publicRoot, options);
       await Promise.all([syncDirectory(root), syncDirectory(dirname(stage))]);
       newMoved = true;
       await writeJournal('new-moved');
@@ -1227,7 +1236,7 @@ export async function promoteIntegratedTree(
   } catch (error) {
     if (oldMoved && !newMoved) {
       try {
-        await renameRetry(backup, publicRoot);
+        await renameRetry(backup, publicRoot, options);
         await syncDirectory(root);
         await rm(journalPath, { force: true });
         await syncDirectory(dirname(journalPath));
