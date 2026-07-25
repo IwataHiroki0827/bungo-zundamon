@@ -4,10 +4,31 @@ import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { extractDialogueCandidates, normalizeDisplayText, type DecodedSource } from './processing';
+import {
+  loadAndVerifyF001Baseline,
+  verifyF001Invariant,
+  type F001Baseline,
+} from './baseline';
+import {
+  validateBatchManifest,
+  type AcceptedAudioSource,
+  type BatchManifest,
+} from './batch';
+import {
+  extractDialogueCandidates,
+  normalizeDisplayText,
+  type CatalogV2,
+  type DecodedSource,
+} from './processing';
+import { validateCatalogV2 } from '../ui/catalog-loader';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const WORK_IDS = ['000127', '000092', '043015'] as const;
+const F002_WORKS = [
+  { workId: '000473', dialogues: 26, acceptedAudio: 26 },
+  { workId: '043752', dialogues: 63, acceptedAudio: 62 },
+  { workId: '043754', dialogues: 65, acceptedAudio: 64 },
+] as const;
 
 interface Candidate {
   candidateId: string;
@@ -47,6 +68,8 @@ interface CatalogSource {
   textUrl: string;
   cardUrl: string;
   fetchedAt: string;
+  provenancePath?: string;
+  provenanceSha256?: string;
 }
 
 interface CatalogDialogue {
@@ -55,6 +78,7 @@ interface CatalogDialogue {
   displayText: string;
   speechText: string;
   review: ReviewRecord;
+  workId?: string;
 }
 
 interface AudioAsset {
@@ -64,17 +88,22 @@ interface AudioAsset {
   bytes: number;
   sha256: string;
   configHash: string;
+  batchId?: string;
+}
+
+interface CandidateCounts {
+  total: number;
+  published: number;
+  editorialExcluded: number;
+  audioExcluded: number;
+  editorialReasons?: Record<string, number>;
+  audioFailureReasons?: Record<string, number>;
 }
 
 interface Catalog {
   works: Array<{ workId: string; source: CatalogSource; dialogues: CatalogDialogue[] }>;
   audioAssets: AudioAsset[];
-  candidateCounts: {
-    total: number;
-    published: number;
-    editorialExcluded: number;
-    audioExcluded: number;
-  };
+  candidateCounts: CandidateCounts;
 }
 
 interface VoiceGeneration {
@@ -129,6 +158,9 @@ interface IntegrityDataset {
   provenance: Provenance;
   sources: SourceRecord[];
   publicAudio: Record<string, PublicAudio>;
+  publicCatalog: CatalogV2;
+  publicCatalogBytes: number;
+  f002Manifest: BatchManifest;
 }
 
 async function json<T>(path: string): Promise<T> {
@@ -152,21 +184,42 @@ async function loadDataset(): Promise<IntegrityDataset> {
       sha256: createHash('sha256').update(bytes).digest('hex'),
     };
   }
+  const publicCatalogText = await readFile(join(projectRoot, 'public/content/catalog.json'), 'utf8');
+  const publicCatalog = JSON.parse(publicCatalogText) as CatalogV2;
+  const manifestValidation = validateBatchManifest(await json<unknown>('content/batches/F002/batch.json'));
+  if (!manifestValidation.ok) {
+    throw new Error(`F002 batch manifestが不正です: ${manifestValidation.error.code}`);
+  }
+  const f001Counts = publicCatalog.candidateCounts.byBatch.F001;
+  if (!f001Counts) throw new Error('CatalogV2にF001 candidateCountsがありません');
   return {
     candidates,
     reviews,
     reviewed: await json<ReviewedContent>('content/reviewed-content.json'),
-    catalog: await json<Catalog>('public/content/catalog.json'),
+    catalog: {
+      works: publicCatalog.works.filter((work) => work.batchId === 'F001'),
+      audioAssets: publicCatalog.audioAssets
+        .filter((asset) => asset.batchId === 'F001')
+        .map((asset) => ({ ...asset, batchId: undefined, candidateIds: asset.candidateIds ?? [] })),
+      candidateCounts: f001Counts,
+    },
     generation: await json<VoiceGeneration>('content/voice-generation.json'),
     assetManifest: await json<AssetManifest>('content/asset-manifest.json'),
     provenance: await json<Provenance>('content/provenance.json'),
     sources,
     publicAudio,
+    publicCatalog,
+    publicCatalogBytes: Buffer.byteLength(publicCatalogText, 'utf8'),
+    f002Manifest: manifestValidation.value,
   };
 }
 
 function sameJson(left: unknown, right: unknown): boolean {
   return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function sha256(bytes: Uint8Array): string {
+  return createHash('sha256').update(bytes).digest('hex');
 }
 
 function addIf(issues: Set<string>, condition: boolean, code: string): void {
@@ -324,7 +377,7 @@ beforeAll(async () => {
   productionDataset = await loadDataset();
 });
 
-describe('初期公開3作品の全候補・公開件数照合 [IT-F001-018]', () => {
+describe('F001全件照合とF002 CatalogV2統合 [IT-F001-018][IT-F002-007]', () => {
   /** @des DES-F001-005 DES-F001-006 @test IT-F001-002 IT-F001-018 */
   it('取得済み3作品の原典から67件を欠落なく再抽出できる', async () => {
     const expectedCounts = new Map<string, number>([
@@ -355,6 +408,127 @@ describe('初期公開3作品の全候補・公開件数照合 [IT-F001-018]', (
   it('実data/content/publicをcandidate・review・catalog・audio・provenanceで全件joinできる', () => {
     expect(contentIntegrityIssues(productionDataset)).toEqual([]);
     expect(productionDataset.reviewed.review.counts).toEqual({ approved: 59, rejected: 8, pending: 0 });
+  });
+
+  /** @des DES-F002-001 DES-F002-003 DES-F002-006 @test IT-F002-007 */
+  it('CatalogV2はF001 baselineを保持しF002の承認済み3作品・参照実体を統合する', async () => {
+    const { publicCatalog: catalog, f002Manifest } = productionDataset;
+    const validation = validateCatalogV2(catalog, productionDataset.publicCatalogBytes);
+    expect(validation).toMatchObject({ ok: true });
+
+    const publicRoot = join(projectRoot, 'public');
+    const verifiedF001 = await loadAndVerifyF001Baseline(
+      publicRoot,
+      join(projectRoot, 'content/baselines/F001-v0.1.0.json'),
+      join(projectRoot, 'content/baselines/F001-v0.1.0-catalog.json'),
+    );
+    const f001Baseline = {
+      baselineSha256: verifiedF001.baselineSha256,
+      files: verifiedF001.files,
+      catalog: verifiedF001.catalog,
+    } as F001Baseline;
+    await expect(verifyF001Invariant(catalog, publicRoot, f001Baseline)).resolves.toMatchObject({
+      result: 'pass',
+      baselineSha256: f001Baseline.baselineSha256,
+    });
+
+    const expectedWorkIds = F002_WORKS.map((work) => work.workId);
+    const f002Author = catalog.authors.find((author) => author.introducedByBatchId === 'F002');
+    const f002Batch = catalog.batches.find((batch) => batch.batchId === 'F002');
+    const f002Works = catalog.works.filter((work) => work.batchId === 'F002');
+    const f002Audio = catalog.audioAssets.filter((asset) => asset.batchId === 'F002');
+    expect(f002Author?.authorId).toBe('000081');
+    expect(f002Batch).toMatchObject({
+      feature: 'F002',
+      status: 'accepted',
+      authorId: '000081',
+      workIds: expectedWorkIds,
+    });
+    expect(f002Manifest).toMatchObject({
+      status: 'accepted',
+      author: { authorId: '000081' },
+      workIds: expectedWorkIds,
+    });
+    expect(f002Works.map((work) => ({
+      workId: work.workId,
+      dialogues: work.dialogues.length,
+    }))).toEqual(F002_WORKS.map(({ workId, dialogues }) => ({ workId, dialogues })));
+    expect(f002Manifest.workProgress.map((work) => ({
+      workId: work.workId,
+      status: work.status,
+      acceptedAudio: work.acceptedAudioSources?.length ?? 0,
+    }))).toEqual(F002_WORKS.map(({ workId, acceptedAudio }) => ({
+      workId,
+      status: 'accepted',
+      acceptedAudio,
+    })));
+
+    const acceptedAudioBySha = new Map<string, AcceptedAudioSource[]>();
+    for (const source of f002Manifest.workProgress.flatMap((work) => work.acceptedAudioSources ?? [])) {
+      const group = acceptedAudioBySha.get(source.sha256) ?? [];
+      group.push(source);
+      acceptedAudioBySha.set(source.sha256, group);
+    }
+    expect(acceptedAudioBySha.size).toBe(f002Audio.length);
+    expect((await readdir(join(projectRoot, 'public/audio/F002'))).sort((left, right) => left.localeCompare(right, 'en')))
+      .toEqual(f002Audio.map((asset) => `${asset.audioId}.wav`).sort((left, right) => left.localeCompare(right, 'en')));
+    for (const asset of f002Audio) {
+      const acceptedGroup = acceptedAudioBySha.get(asset.sha256);
+      expect(acceptedGroup?.length).toBeGreaterThan(0);
+      const canonicalAudioId = acceptedGroup!
+        .map((source) => source.path.split('/').at(-1)!.replace(/\.wav$/u, ''))
+        .sort((left, right) => left.localeCompare(right, 'en'))[0];
+      expect(asset.audioId).toBe(canonicalAudioId);
+      for (const accepted of acceptedGroup!) {
+        expect(accepted).toMatchObject({
+          sha256: asset.sha256,
+          bytes: asset.bytes,
+          configHash: asset.configHash,
+        });
+        const acceptedBytes = await readFile(join(projectRoot, ...accepted.path.split('/')));
+        expect({ bytes: acceptedBytes.byteLength, sha256: sha256(acceptedBytes) }).toEqual({
+          bytes: asset.bytes, sha256: asset.sha256,
+        });
+      }
+      const publicBytes = await readFile(join(projectRoot, 'public', ...asset.path.split('/')));
+      expect({ bytes: publicBytes.byteLength, sha256: sha256(publicBytes) }).toEqual({
+        bytes: asset.bytes, sha256: asset.sha256,
+      });
+    }
+
+    const dialogueIds = new Set<string>();
+    const f002AudioIds = new Set(f002Audio.map((asset) => asset.audioId));
+    for (const work of f002Works) {
+      expect(work).toMatchObject({ authorId: '000081', batchId: 'F002' });
+      expect(work.source.provenancePath).toBe(`content/provenance/F002/${work.workId}.json`);
+      const [sourceProvenance, publicProvenance] = await Promise.all([
+        readFile(join(projectRoot, 'content', 'batches', 'F002', 'public-files', 'provenance', `${work.workId}.json`)),
+        readFile(join(projectRoot, 'public', ...work.source.provenancePath!.split('/'))),
+      ]);
+      expect(sha256(sourceProvenance)).toBe(work.source.provenanceSha256);
+      expect(sha256(publicProvenance)).toBe(work.source.provenanceSha256);
+      for (const dialogue of work.dialogues) {
+        expect(dialogue.workId).toBe(work.workId);
+        expect(f002AudioIds.has(dialogue.audioId)).toBe(true);
+        expect(dialogueIds.has(dialogue.dialogueId)).toBe(false);
+        dialogueIds.add(dialogue.dialogueId);
+      }
+    }
+
+    const f002Counts = catalog.candidateCounts.byBatch.F002!;
+    expect(f002Counts.published).toBe(dialogueIds.size);
+    expect(f002Counts.total).toBe(f002Counts.published + f002Counts.editorialExcluded + f002Counts.audioExcluded);
+    expect(f002Counts).toMatchObject({ total: 167, published: 154, editorialExcluded: 13, audioExcluded: 0 });
+
+    const [sourceArtwork, publicArtwork, credits] = await Promise.all([
+      readFile(join(projectRoot, 'content/batches/F002/public-files/artwork/miyazawa-zundamon.png')),
+      readFile(join(projectRoot, 'public', ...f002Author!.artwork.path.split('/'))),
+      readFile(join(projectRoot, 'public', ...catalog.creditsRef.split('/'))),
+    ]);
+    expect(f002Author!.artwork.path).toBe('artwork/miyazawa-zundamon.png');
+    expect(sha256(sourceArtwork)).toBe(f002Author!.artwork.sha256);
+    expect(sha256(publicArtwork)).toBe(f002Author!.artwork.sha256);
+    expect(credits.byteLength).toBeGreaterThan(0);
   });
 
   /** @des DES-F001-002 DES-F001-007 DES-F001-012 @test IT-F001-018 */

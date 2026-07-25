@@ -194,6 +194,123 @@ async function assertCleanTrackedBuildInputs(
   }
 }
 
+interface NormalizedBatchCatalog {
+  readonly fragment: BatchCatalogFragment;
+  readonly audioAliases: ReadonlyMap<string, string>;
+}
+
+interface ReferencedPublicEvidence {
+  readonly source: WorkspaceRelativePath;
+  readonly publicPath: WorkspaceRelativePath;
+  readonly sha256: Sha256;
+  readonly bytes: number;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function normalizeBatchAudio(batchId: string, fragment: BatchCatalogFragment): NormalizedBatchCatalog {
+  const canonicalBySha = new Map<string, CatalogV2['audioAssets'][number]>();
+  const aliases = new Map<string, string>();
+  for (const asset of [...fragment.audioAssets].sort((left, right) => left.audioId.localeCompare(right.audioId, 'en'))) {
+    const canonical = canonicalBySha.get(asset.sha256);
+    if (!canonical) {
+      canonicalBySha.set(asset.sha256, {
+        ...asset,
+        ...(asset.candidateIds ? { candidateIds: [...asset.candidateIds].sort((left, right) => left.localeCompare(right, 'en')) } : {}),
+      });
+      aliases.set(asset.audioId, asset.audioId);
+      continue;
+    }
+    if (asset.batchId !== batchId || canonical.batchId !== batchId || asset.bytes !== canonical.bytes ||
+      asset.durationMs !== canonical.durationMs || asset.configHash !== canonical.configHash) {
+      throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_HASH_MISMATCH', `同一WAV hashのmetadataが競合しています: ${asset.audioId}`);
+    }
+    aliases.set(asset.audioId, canonical.audioId);
+    if (asset.candidateIds) {
+      canonical.candidateIds = [...new Set([...(canonical.candidateIds ?? []), ...asset.candidateIds])]
+        .sort((left, right) => left.localeCompare(right, 'en'));
+    }
+  }
+  const works = fragment.works.map((work) => ({
+    ...work,
+    dialogues: work.dialogues.map((dialogue) => ({
+      ...dialogue,
+      audioId: aliases.get(dialogue.audioId) ?? dialogue.audioId,
+    })),
+  }));
+  return {
+    fragment: {
+      ...fragment,
+      works,
+      audioAssets: [...canonicalBySha.values()],
+    },
+    audioAliases: aliases,
+  };
+}
+
+async function referencedPublicEvidence(
+  workspace: string,
+  batchId: string,
+  fragment: BatchCatalogFragment,
+): Promise<readonly ReferencedPublicEvidence[]> {
+  const result: ReferencedPublicEvidence[] = [];
+  for (const work of fragment.works) {
+    const provenance = fragment.publicFiles?.find((file) => file.publicPath === work.source.provenancePath);
+    if (!provenance) continue;
+    const source = join(workspace, ...provenance.source.split('/'));
+    await assertDescendant(workspace, source);
+    const info = await lstat(source);
+    if (!info.isFile() || info.isSymbolicLink() || await realpath(source) !== source) {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenance source実体が不正です: ${work.workId}`);
+    }
+    const bytes = await readFile(source);
+    if (bytes.byteLength !== provenance.bytes || hash(bytes) !== provenance.sha256 ||
+      provenance.sha256 !== work.source.provenanceSha256) {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenance source hashが一致しません: ${work.workId}`);
+    }
+    let document: unknown;
+    try {
+      document = JSON.parse(bytes.toString('utf8'));
+    } catch {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenance JSONが不正です: ${work.workId}`);
+    }
+    if (!isRecord(document) || canonicalJson(document) !== bytes.toString('utf8')) {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenance JSONがcanonicalではありません: ${work.workId}`);
+    }
+    const references = [
+      ['editorialReview', `content/batches/${batchId}/reviews/${work.workId}.json`],
+      ['speechRevisions', `content/batches/${batchId}/speech-revisions/${work.workId}.json`],
+    ] as const;
+    for (const [key, expectedPath] of references) {
+      const value = document[key];
+      if (value === undefined) continue;
+      if (!isRecord(value) || value.path !== expectedPath || typeof value.sha256 !== 'string' ||
+        !/^[a-f0-9]{64}$/u.test(value.sha256) || !safeRelativePath(expectedPath)) {
+        throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenance ${key}参照が不正です: ${work.workId}`);
+      }
+      const evidencePath = join(workspace, ...expectedPath.split('/'));
+      await assertDescendant(workspace, evidencePath);
+      const evidenceInfo = await lstat(evidencePath);
+      if (!evidenceInfo.isFile() || evidenceInfo.isSymbolicLink() || await realpath(evidencePath) !== evidencePath) {
+        throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `公開証跡source実体が不正です: ${expectedPath}`);
+      }
+      const evidenceBytes = await readFile(evidencePath);
+      if (hash(evidenceBytes) !== value.sha256) {
+        throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `公開証跡source hashが一致しません: ${expectedPath}`);
+      }
+      result.push({
+        source: expectedPath as WorkspaceRelativePath,
+        publicPath: expectedPath as WorkspaceRelativePath,
+        sha256: value.sha256 as Sha256,
+        bytes: evidenceBytes.byteLength,
+      });
+    }
+  }
+  return Object.freeze(result);
+}
+
 function catalogFor(
   batches: readonly PublishableBatch[],
   f001: F001BaselineBundle,
@@ -321,38 +438,60 @@ export async function buildIntegratedPublicTree(
   const staging = await verifiedRoot(stagingRoot);
   const workspace = await verifiedRoot(options.workspaceRoot);
   await assertDescendant(workspace, staging);
+  const normalizedCatalogs = Object.fromEntries(
+    Object.entries(options.batchCatalogs ?? {}).map(([batchId, fragment]) => [batchId, normalizeBatchAudio(batchId, fragment)]),
+  );
+  const normalizedActiveCatalog = active ? normalizeBatchAudio(active.manifest.batchId, active.catalogFragment) : undefined;
+  const effectiveActive = active && normalizedActiveCatalog
+    ? { ...active, catalogFragment: normalizedActiveCatalog.fragment }
+    : undefined;
+  const fragments = Object.fromEntries(
+    Object.entries(normalizedCatalogs).map(([batchId, value]) => [batchId, value.fragment]),
+  );
+  const evidenceByBatch = new Map<string, readonly ReferencedPublicEvidence[]>();
+  for (const batch of batches) {
+    const fragment = fragments[batch.manifest.batchId];
+    if (fragment) evidenceByBatch.set(batch.manifest.batchId, await referencedPublicEvidence(workspace, batch.manifest.batchId, fragment));
+  }
+  if (effectiveActive) {
+    evidenceByBatch.set(
+      effectiveActive.manifest.batchId,
+      await referencedPublicEvidence(workspace, effectiveActive.manifest.batchId, effectiveActive.catalogFragment),
+    );
+  }
   if ((await readdir(staging)).length !== 0) throw new PublicIntegrationError('PUBLIC_REPRODUCIBILITY_MISMATCH', 'stagingは空である必要があります');
-  if (options.mode === 'work-preview' && (!active || preparation || release)) throw new PublicIntegrationError('PUBLIC_UNAPPROVED_BATCH_INCLUDED', 'work-preview contextが不正です');
-  if (options.mode === 'prepare-release' && (!preparation || active || release)) throw new PublicIntegrationError('PUBLIC_RELEASE_CANDIDATE_MISSING', 'prepare contextが不正です');
-  if (options.mode === 'release-verify' && (!release || active || preparation || !options.trackedPublicRoot)) {
+  if (options.mode === 'work-preview' && (!effectiveActive || preparation || release)) throw new PublicIntegrationError('PUBLIC_UNAPPROVED_BATCH_INCLUDED', 'work-preview contextが不正です');
+  if (options.mode === 'prepare-release' && (!preparation || effectiveActive || release)) throw new PublicIntegrationError('PUBLIC_RELEASE_CANDIDATE_MISSING', 'prepare contextが不正です');
+  if (options.mode === 'release-verify' && (!release || effectiveActive || preparation || !options.trackedPublicRoot)) {
     throw new PublicIntegrationError('PUBLIC_RELEASE_CANDIDATE_MISSING', 'release contextが不正です');
   }
   let activePriorSources: PublishableBatch['acceptedAudioSources'] = [];
-  if (active) {
-    const activeIndex = active.manifest.workIds.indexOf(active.workId as BatchManifest['workIds'][number]);
-    if (activeIndex < 0 || active.manifest.workProgress[activeIndex]?.status !== 'voiced' ||
-      active.manifest.workProgress.slice(0, activeIndex).some((work) => work.status !== 'accepted')) {
+  if (effectiveActive) {
+    const activeIndex = effectiveActive.manifest.workIds.indexOf(effectiveActive.workId as BatchManifest['workIds'][number]);
+    if (activeIndex < 0 || effectiveActive.manifest.workProgress[activeIndex]?.status !== 'voiced' ||
+      effectiveActive.manifest.workProgress.slice(0, activeIndex).some((work) => work.status !== 'accepted')) {
       throw new PublicIntegrationError('PUBLIC_BATCH_NOT_ACCEPTED', 'active workまたは先行accepted順序が不正です');
     }
-    const expectedWorkIds = active.manifest.workIds.slice(0, activeIndex + 1);
-    if (canonicalJson(active.catalogBatch.workIds) !== canonicalJson(expectedWorkIds) || active.catalogBatch.status !== 'accepted' ||
-      active.catalogBatch.batchId !== active.manifest.batchId || active.catalogBatch.feature !== active.manifest.feature ||
-      active.catalogBatch.authorId !== active.manifest.author.authorId) {
+    const expectedWorkIds = effectiveActive.manifest.workIds.slice(0, activeIndex + 1);
+    if (canonicalJson(effectiveActive.catalogBatch.workIds) !== canonicalJson(expectedWorkIds) || effectiveActive.catalogBatch.status !== 'accepted' ||
+      effectiveActive.catalogBatch.batchId !== effectiveActive.manifest.batchId || effectiveActive.catalogBatch.feature !== effectiveActive.manifest.feature ||
+      effectiveActive.catalogBatch.authorId !== effectiveActive.manifest.author.authorId) {
       throw new PublicIntegrationError('PUBLIC_RELEASE_CANDIDATE_MISMATCH', 'active catalogBatchがmanifest累積範囲と一致しません');
     }
-    const fragmentWorkIds = active.catalogFragment.works.map((work) => work.workId);
+    const fragmentWorkIds = effectiveActive.catalogFragment.works.map((work) => work.workId);
     if (canonicalJson(fragmentWorkIds) !== canonicalJson(expectedWorkIds) ||
-      active.catalogFragment.works.some((work) => work.batchId !== active.manifest.batchId || work.authorId !== active.manifest.author.authorId)) {
+      effectiveActive.catalogFragment.works.some((work) => work.batchId !== effectiveActive.manifest.batchId || work.authorId !== effectiveActive.manifest.author.authorId)) {
       throw new PublicIntegrationError('PUBLIC_CROSS_AUTHOR_REFERENCE', 'active fragmentに後続・欠落・作者混線があります');
     }
-    activePriorSources = active.manifest.workProgress.slice(0, activeIndex)
+    activePriorSources = effectiveActive.manifest.workProgress.slice(0, activeIndex)
       .flatMap((work) => work.acceptedAudioSources ?? []);
   }
   if (preparation || release) {
     const tracked = batches.flatMap((batch) => [
       batch.manifestPath,
       ...batch.acceptedAudioSources.map((source) => source.path),
-      ...(options.batchCatalogs?.[batch.manifest.batchId]?.publicFiles ?? []).map((file) => file.source),
+      ...(fragments[batch.manifest.batchId]?.publicFiles ?? []).map((file) => file.source),
+      ...(evidenceByBatch.get(batch.manifest.batchId) ?? []).map((file) => file.source),
     ]);
     await assertCleanTrackedBuildInputs(workspace, preparation?.sourceCommit ?? release!.releaseCommit, tracked);
   }
@@ -380,7 +519,7 @@ export async function buildIntegratedPublicTree(
     if (batch.manifest.status !== 'published' && !(batch.candidate && batch.manifest.batchId === candidate)) {
       throw new PublicIntegrationError('PUBLIC_UNAPPROVED_BATCH_INCLUDED', `公開不可batchです: ${batch.manifest.batchId}`);
     }
-    const fragment = options.batchCatalogs?.[batch.manifest.batchId];
+    const fragment = fragments[batch.manifest.batchId];
     if (!fragment) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `batch catalog fragmentがありません: ${batch.manifest.batchId}`);
     for (const file of fragment.publicFiles ?? []) {
       const allowedPaths = new Set([
@@ -406,33 +545,65 @@ export async function buildIntegratedPublicTree(
     if ([...requiredPublicFiles].some((path) => !destinations.has(path))) {
       throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `batchのprovenance/artwork実体がありません: ${batch.manifest.batchId}`);
     }
+    for (const file of evidenceByBatch.get(batch.manifest.batchId) ?? []) {
+      if (destinations.has(file.publicPath)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `公開証跡pathが重複しています: ${file.publicPath}`);
+      destinations.add(file.publicPath);
+      await copyVerified(
+        join(workspace, ...file.source.split('/')),
+        join(staging, ...file.publicPath.split('/')),
+        file.sha256,
+        file.bytes,
+      );
+    }
     const expectedAudio = new Map(fragment.audioAssets.map((asset) => [asset.path, asset]));
+    const remainingAudio = new Set(expectedAudio.keys());
+    const aliases = normalizedCatalogs[batch.manifest.batchId]?.audioAliases ?? new Map<string, string>();
+    const copiedAudio = new Set<string>();
     for (const source of batch.acceptedAudioSources) {
       const audioId = basename(source.path, '.wav');
-      const publicPath = `audio/${batch.manifest.batchId}/${audioId}.wav`;
+      const canonicalAudioId = aliases.get(audioId) ?? audioId;
+      const publicPath = `audio/${batch.manifest.batchId}/${canonicalAudioId}.wav`;
       const catalogAudio = expectedAudio.get(publicPath);
-      if (!catalogAudio || catalogAudio.batchId !== batch.manifest.batchId || catalogAudio.sha256 !== source.sha256 ||
-        catalogAudio.bytes !== source.bytes || catalogAudio.configHash !== source.configHash) {
-        throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `accepted audioとcatalog参照が一致しません: ${publicPath}`);
+      const mismatches = !catalogAudio ? ['missing'] : [
+        ...(catalogAudio.batchId !== batch.manifest.batchId ? ['batchId'] : []),
+        ...(catalogAudio.sha256 !== source.sha256 ? ['sha256'] : []),
+        ...(catalogAudio.bytes !== source.bytes ? ['bytes'] : []),
+        ...(catalogAudio.configHash !== source.configHash ? ['configHash'] : []),
+      ];
+      if (mismatches.length > 0) {
+        throw new PublicIntegrationError(
+          'PUBLIC_REFERENCE_MISSING',
+          `accepted audioとcatalog参照が一致しません: ${publicPath} (${mismatches.join(',')})`,
+        );
       }
-      expectedAudio.delete(publicPath);
-      if (destinations.has(publicPath)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `public pathが重複しています: ${publicPath}`);
-      destinations.add(publicPath);
       if (!safeRelativePath(source.path)) throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_MISSING', 'accepted audio pathが不正です');
       const sourcePath = join(workspace, ...source.path.split('/'));
       await assertDescendant(workspace, sourcePath);
+      if (copiedAudio.has(publicPath)) {
+        const sourceInfo = await lstat(sourcePath);
+        if (!sourceInfo.isFile() || sourceInfo.isSymbolicLink() || sourceInfo.size !== source.bytes ||
+          hash(await readFile(sourcePath)) !== source.sha256) {
+          throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_HASH_MISMATCH', `dedup sourceがmanifestと一致しません: ${source.path}`);
+        }
+        continue;
+      }
+      remainingAudio.delete(publicPath);
+      if (destinations.has(publicPath)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `public pathが重複しています: ${publicPath}`);
+      destinations.add(publicPath);
+      copiedAudio.add(publicPath);
       await copyVerified(sourcePath, join(staging, ...publicPath.split('/')), source.sha256, source.bytes);
     }
-    if (expectedAudio.size !== 0) throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_MISSING', `catalog音声にaccepted sourceがありません: ${batch.manifest.batchId}`);
+    if (remainingAudio.size !== 0) throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_MISSING', `catalog音声にaccepted sourceがありません: ${batch.manifest.batchId}`);
   }
-  if (active) {
-    const activeStageRoot = await verifiedRoot(active.stagingRoot);
+  if (effectiveActive && active && normalizedActiveCatalog) {
+    const activeStageRoot = await verifiedRoot(effectiveActive.stagingRoot);
     await assertDescendant(workspace, activeStageRoot);
     const priorPublicPaths = new Set<string>();
     for (const source of activePriorSources) {
       const audioId = basename(source.path, '.wav');
-      const publicPath = `audio/${active.manifest.batchId}/${audioId}.wav`;
-      const catalogAudio = active.catalogFragment.audioAssets.find((asset) => asset.path === publicPath);
+      const canonicalAudioId = normalizedActiveCatalog.audioAliases.get(audioId) ?? audioId;
+      const publicPath = `audio/${effectiveActive.manifest.batchId}/${canonicalAudioId}.wav`;
+      const catalogAudio = effectiveActive.catalogFragment.audioAssets.find((asset) => asset.path === publicPath);
       if (!catalogAudio || catalogAudio.sha256 !== source.sha256 || catalogAudio.bytes !== source.bytes || catalogAudio.configHash !== source.configHash) {
         throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `先行accepted audioがactive catalogと一致しません: ${publicPath}`);
       }
@@ -446,37 +617,58 @@ export async function buildIntegratedPublicTree(
       }
     }
     const expectedFiles = new Map<string, { sha256: string; bytes: number }>([
-      ...active.catalogFragment.audioAssets.filter((asset) => !priorPublicPaths.has(asset.path))
+      ...effectiveActive.catalogFragment.audioAssets.filter((asset) => !priorPublicPaths.has(asset.path))
         .map((asset) => [asset.path, { sha256: asset.sha256, bytes: asset.bytes }] as const),
-      ...(active.catalogFragment.publicFiles ?? []).map((file) => [file.publicPath, { sha256: file.sha256, bytes: file.bytes }] as const),
+      ...(effectiveActive.catalogFragment.publicFiles ?? []).map((file) => [file.publicPath, { sha256: file.sha256, bytes: file.bytes }] as const),
     ]);
-    const expectedFileCount = active.catalogFragment.audioAssets.filter((asset) => !priorPublicPaths.has(asset.path)).length +
-      (active.catalogFragment.publicFiles?.length ?? 0);
-    if (expectedFiles.size !== expectedFileCount ||
-      active.stagedFiles.length !== expectedFiles.size) {
+    const expectedFileCount = effectiveActive.catalogFragment.audioAssets.filter((asset) => !priorPublicPaths.has(asset.path)).length +
+      (effectiveActive.catalogFragment.publicFiles?.length ?? 0);
+    if (expectedFiles.size !== expectedFileCount) {
       throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'preview expected file集合に重複・欠損があります');
     }
     for (const file of active.stagedFiles) {
-      const allowedPaths = new Set([
-        ...active.catalogFragment.audioAssets.map((asset) => asset.path),
-        ...(active.catalogFragment.publicFiles ?? []).map((item) => item.publicPath),
-      ]);
-      if (!safeRelativePath(file.publicPath) || !allowedPaths.has(file.publicPath) || destinations.has(file.publicPath) || !isAbsolute(file.source)) {
+      const originalAudio = active.catalogFragment.audioAssets.find((asset) => asset.path === file.publicPath);
+      const declaredPublic = active.catalogFragment.publicFiles?.find((item) => item.publicPath === file.publicPath);
+      const canonicalAudioId = originalAudio
+        ? normalizedActiveCatalog.audioAliases.get(originalAudio.audioId) ?? originalAudio.audioId
+        : undefined;
+      const targetPath = canonicalAudioId
+        ? `audio/${effectiveActive.manifest.batchId}/${canonicalAudioId}.wav`
+        : file.publicPath;
+      if (!safeRelativePath(file.publicPath) || (!originalAudio && !declaredPublic) || !safeRelativePath(targetPath) || !isAbsolute(file.source)) {
         throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `preview pathが未参照・不正・重複です: ${file.publicPath}`);
       }
-      const expected = expectedFiles.get(file.publicPath);
+      const expected = expectedFiles.get(targetPath);
       if (!expected || expected.sha256 !== file.sha256 || expected.bytes !== file.bytes) {
         throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_HASH_MISMATCH', `preview metadataがcatalogと一致しません: ${file.publicPath}`);
       }
-      expectedFiles.delete(file.publicPath);
       if (!insidePath(activeStageRoot, resolve(file.source))) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'preview sourceがactive staging外です');
       await assertDescendant(workspace, resolve(file.source));
-      destinations.add(file.publicPath);
-      await copyVerified(file.source, join(staging, ...file.publicPath.split('/')), file.sha256, file.bytes);
+      if (destinations.has(targetPath)) {
+        const sourceInfo = await lstat(file.source);
+        if (!sourceInfo.isFile() || sourceInfo.isSymbolicLink() || sourceInfo.size !== file.bytes ||
+          hash(await readFile(file.source)) !== file.sha256) {
+          throw new PublicIntegrationError('PUBLIC_ACCEPTED_AUDIO_HASH_MISMATCH', `preview dedup sourceが不正です: ${file.publicPath}`);
+        }
+        continue;
+      }
+      expectedFiles.delete(targetPath);
+      destinations.add(targetPath);
+      await copyVerified(file.source, join(staging, ...targetPath.split('/')), file.sha256, file.bytes);
     }
     if (expectedFiles.size !== 0) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'preview expected fileが欠損しています');
+    for (const file of evidenceByBatch.get(effectiveActive.manifest.batchId) ?? []) {
+      if (destinations.has(file.publicPath)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `公開証跡pathが重複しています: ${file.publicPath}`);
+      destinations.add(file.publicPath);
+      await copyVerified(
+        join(workspace, ...file.source.split('/')),
+        join(staging, ...file.publicPath.split('/')),
+        file.sha256,
+        file.bytes,
+      );
+    }
   }
-  const catalog = catalogFor(batches, f001, options.batchCatalogs ?? {}, active);
+  const catalog = catalogFor(batches, f001, fragments, effectiveActive);
   const catalogBytes = canonicalJson(catalog);
   const validation = validateCatalogV2(catalog, Buffer.byteLength(catalogBytes, 'utf8'));
   if (!validation.ok) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `CatalogV2 validationに失敗しました: ${validation.error.code}`);

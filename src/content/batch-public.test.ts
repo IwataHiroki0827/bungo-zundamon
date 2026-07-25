@@ -79,11 +79,23 @@ async function fixture(): Promise<{
   await mkdir(join(root, 'content', 'batches', 'F002', 'accepted-audio', '000473'), { recursive: true });
   await writeFile(join(root, ...acceptedPath.split('/')), audio);
   const f002Artwork = pngFixture();
-  const f002Provenance = new TextEncoder().encode('{"source":"f002"}\n');
+  const reviewPath = 'content/batches/F002/reviews/000473.json';
+  const speechRevisionPath = 'content/batches/F002/speech-revisions/000473.json';
+  const review = new TextEncoder().encode(canonicalJson({ workId: '000473', reviews: [] }));
+  const speechRevision = new TextEncoder().encode(canonicalJson({ workId: '000473', revisions: [] }));
+  const f002Provenance = new TextEncoder().encode(canonicalJson({
+    editorialReview: { path: reviewPath, sha256: sha(review) },
+    source: 'f002',
+    speechRevisions: { path: speechRevisionPath, sha256: sha(speechRevision) },
+  }));
   await mkdir(join(root, 'content', 'batches', 'F002', 'public-files'), { recursive: true });
   await mkdir(join(root, 'content', 'batches', 'F002', 'public-files', 'artwork'), { recursive: true });
+  await mkdir(join(root, 'content', 'batches', 'F002', 'reviews'), { recursive: true });
+  await mkdir(join(root, 'content', 'batches', 'F002', 'speech-revisions'), { recursive: true });
   await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'artwork', 'miyazawa-zundamon.png'), f002Artwork);
   await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'provenance.json'), f002Provenance);
+  await writeFile(join(root, ...reviewPath.split('/')), review);
+  await writeFile(join(root, ...speechRevisionPath.split('/')), speechRevision);
   const manifest = {
     batchId: 'F002', feature: 'feature-2', status: 'accepted', workIds: ['000473'],
     author: {
@@ -346,7 +358,76 @@ describe('batch public integration', () => {
     expect(catalog.authors.map((author) => author.authorId)).toEqual(['000879', '000081']);
     expect(catalog.works.find((work) => work.source.provenancePath.includes('/F002/'))?.source.provenancePath)
       .toBe('content/provenance/F002/000473.json');
+    await expect(readFile(join(staging, 'content', 'batches', 'F002', 'reviews', '000473.json')))
+      .resolves.toEqual(await readFile(join(value.root, 'content', 'batches', 'F002', 'reviews', '000473.json')));
+    await expect(readFile(join(staging, 'content', 'batches', 'F002', 'speech-revisions', '000473.json')))
+      .resolves.toEqual(await readFile(join(value.root, 'content', 'batches', 'F002', 'speech-revisions', '000473.json')));
     expect(result.buildSha256).toBe(await treeDigest(staging));
+  });
+
+  it('同一WAV hashのaccepted sourceを1 assetへ統合し全dialogueを共有参照へ結ぶ', async () => {
+    const value = await fixture();
+    const fragment = value.batchCatalogs.F002!;
+    const source = value.batches[0]!.acceptedAudioSources[0]!;
+    const duplicatePath = 'content/batches/F002/accepted-audio/000473/audio-2.wav' as WorkspaceRelativePath;
+    await copyFile(join(value.root, ...source.path.split('/')), join(value.root, ...duplicatePath.split('/')));
+    (value.batches[0] as { acceptedAudioSources: typeof value.batches[0]['acceptedAudioSources'] }).acceptedAudioSources = [
+      source,
+      { ...source, path: duplicatePath },
+    ];
+    const work = fragment.works[0]!;
+    (value.batchCatalogs as Record<string, BatchCatalogFragment>).F002 = {
+      ...fragment,
+      works: [{
+        ...work,
+        dialogues: [
+          work.dialogues[0]!,
+          {
+            ...work.dialogues[0]!,
+            dialogueId: 'dialogue-2',
+            order: 1,
+            audioId: 'audio-2',
+            review: { ...work.dialogues[0]!.review, candidateId: 'dialogue-2' },
+          },
+        ],
+      }],
+      audioAssets: [
+        { ...fragment.audioAssets[0]!, candidateIds: ['dialogue-1'] },
+        {
+          ...fragment.audioAssets[0]!,
+          audioId: 'audio-2',
+          path: 'audio/F002/audio-2.wav',
+          candidateIds: ['dialogue-2'],
+        },
+      ],
+      candidateCounts: { total: 2, published: 2, editorialExcluded: 0, audioExcluded: 0 },
+    };
+    await execFile('git', ['init'], { cwd: value.root });
+    await execFile('git', ['config', 'user.name', 'Test'], { cwd: value.root });
+    await execFile('git', ['config', 'user.email', 'test@example.invalid'], { cwd: value.root });
+    await execFile('git', ['add', '.'], { cwd: value.root });
+    await execFile('git', ['commit', '-m', 'fixture'], { cwd: value.root });
+    const { stdout } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: value.root, encoding: 'utf8' });
+    const staging = join(value.root, '.cache', 'deduplicated-audio');
+    await mkdir(staging, { recursive: true });
+
+    await buildIntegratedPublicTree(value.batches, value.f001, staging, {
+      mode: 'prepare-release',
+      workspaceRoot: value.root,
+      batchCatalogs: value.batchCatalogs,
+    }, undefined, { ...value.preparation, sourceCommit: stdout.trim() });
+
+    expect(await readdir(join(staging, 'audio', 'F002'))).toEqual(['audio-1.wav']);
+    const catalog = JSON.parse(await readFile(join(staging, 'content', 'catalog.json'), 'utf8')) as {
+      works: Array<{ batchId: string; dialogues: Array<{ audioId: string }> }>;
+      audioAssets: Array<{ batchId: string; audioId: string; candidateIds?: string[] }>;
+    };
+    expect(catalog.works.find((item) => item.batchId === 'F002')?.dialogues.map((dialogue) => dialogue.audioId))
+      .toEqual(['audio-1', 'audio-1']);
+    expect(catalog.audioAssets.find((asset) => asset.batchId === 'F002')).toMatchObject({
+      audioId: 'audio-1',
+      candidateIds: ['dialogue-1', 'dialogue-2'],
+    });
   });
 
   it.each(['old-moved', 'new-moved'] as const)('%s実process停止後にstale lockを回収し二重swapなしで完了する', async (faultPhase) => {
@@ -544,13 +625,14 @@ describe('batch public integration', () => {
     const baseFragment = value.batchCatalogs.F002!;
     const baseWork = baseFragment.works[0]!;
     const currentBytes = new TextEncoder().encode('current-wave');
-    const currentProvenance = new TextEncoder().encode('{"source":"current"}\n');
+    const currentProvenance = new TextEncoder().encode(canonicalJson({ source: 'current' }));
     const activeRoot = join(value.root, '.cache', 'cumulative-input');
     await mkdir(activeRoot, { recursive: true });
     const currentAudioPath = join(activeRoot, 'audio-2.wav');
     const currentProvenancePath = join(activeRoot, 'current-provenance.json');
     await writeFile(currentAudioPath, currentBytes);
     await writeFile(currentProvenancePath, currentProvenance);
+    await writeFile(join(value.root, 'content', 'batches', 'F002', 'public-files', 'current-provenance.json'), currentProvenance);
     const stagedFiles = [] as Array<{ source: string; publicPath: WorkspaceRelativePath; sha256: Sha256; bytes: number }>;
     for (const file of baseFragment.publicFiles ?? []) {
       const source = join(activeRoot, `base-${file.publicPath.replaceAll('/', '-')}`);
