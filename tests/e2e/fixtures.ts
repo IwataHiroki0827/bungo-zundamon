@@ -82,6 +82,12 @@ export async function openAuthor(page: Page): Promise<void> {
   const akutagawaCard = page.locator('.author-card').filter({ hasText: '原著者: 芥川龍之介' });
   await akutagawaCard.getByRole('link', { name: '作品と台詞を聴く' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
+  // WebKitではhashchange後の描画と最初の操作が同じframeへ重なることがある。
+  // 2 frame完了を待ち、旧AudioControllerのdisposeと新routeの購読確立を確定させる。
+  await page.evaluate(() => new Promise<void>((resolveReady) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolveReady()));
+  }));
+  await expect(page.locator('.dialogue-card').first()).toHaveAttribute('data-player-state', 'idle');
 }
 
 export async function assertNoHorizontalOverflow(page: Page): Promise<void> {
