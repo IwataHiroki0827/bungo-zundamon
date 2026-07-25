@@ -382,7 +382,10 @@ describe('UT-F002-018/UT-F002-019 batch public integration', () => {
         },
         delay: async (milliseconds) => { delays.push(milliseconds); },
       },
-    )).rejects.toMatchObject({ code: 'EBUSY' });
+    )).rejects.toMatchObject({
+      code: 'PUBLIC_PROMOTION_FAILED',
+      cause: expect.objectContaining({ code: 'EBUSY' }),
+    });
 
     expect(newTreeAttempts).toBe(4);
     expect(delays).toEqual([100, 250, 500]);

@@ -1244,7 +1244,12 @@ export async function promoteIntegratedTree(
         throw new PublicIntegrationError('PUBLIC_ROLLBACK_FAILED', '旧publicを復元できません');
       }
     }
-    throw error;
+    if (error instanceof PublicIntegrationError) throw error;
+    throw new PublicIntegrationError(
+      'PUBLIC_PROMOTION_FAILED',
+      error instanceof Error ? `public昇格に失敗しました: ${error.message}` : 'public昇格に失敗しました',
+      { cause: error },
+    );
   } finally {
     await lock.handle.close();
     const current = await readFile(lockPath, 'utf8').then((text) => JSON.parse(text) as PublicLockOwner).catch(() => undefined);
