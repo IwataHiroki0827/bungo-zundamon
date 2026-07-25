@@ -525,7 +525,7 @@ tasks:
   title: 「どんぐりと山猫」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-024
   tags:
@@ -549,7 +549,7 @@ tasks:
   title: 「注文の多い料理店」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-025
   tags:

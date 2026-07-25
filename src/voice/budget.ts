@@ -801,7 +801,7 @@ export async function measureGitRepository(repositoryRoot: string, candidateFile
     const measured = await safeFile(root, candidate);
     let oid: string;
     try {
-      ({ stdout: oid } = await execFileAsync('git', ['-C', root, 'hash-object', candidate], { encoding: 'utf8' }));
+      ({ stdout: oid } = await execFileAsync('git', ['-C', root, 'hash-object', '--no-filters', candidate], { encoding: 'utf8' }));
     } catch (error) {
       throw capacityError('CAPACITY_GIT_SCAN_FAILED', '候補blobのOIDを計算できません', error);
     }

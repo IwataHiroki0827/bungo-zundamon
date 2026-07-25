@@ -264,3 +264,11 @@ entries:
   est_tokens: 54000
   note: 青空文庫公式書誌から宮沢賢治3作品の権利・版を固定し、よだかの星26候補を全件レビュー。18候補22履歴の読み補正、VOICEVOX 0.25.2の26音声、容量5区分、F001/public不変を実物検査し独立受入PASS。全647
     tests、型・lint・build・audit 0件を確認
+- date: '2026-07-25'
+  phase: implement
+  task: T-025 どんぐりと山猫 作品単位受入
+  model: GPT-5
+  agents: 4
+  est_tokens: 48000
+  note: 63候補を全件レビューし3件の読み補正、VOICEVOX 0.25.2で62 unique WAVを生成・作品単位受入。容量5区分、F001・先行作品・public不変を実物検査し独立受入PASS。CRLF候補のGit
+    raw OID測定を修正し、全648 tests、型・lint・build・audit 0件を確認

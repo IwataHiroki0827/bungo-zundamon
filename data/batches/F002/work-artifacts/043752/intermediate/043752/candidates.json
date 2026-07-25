@@ -1,0 +1,1481 @@
+[
+  {
+    "candidateId": "MzfvZ-wtacvnzdn3mXPBZ_JINKYpk_zpnqc1ypsUOrE",
+    "contextAfter": "とききました。栗の木はちょっとしずかになって、\n\n「やまねこなら、けさはやく、馬車でひがしの方へ飛んで行きましたよ。」と答えまし",
+    "contextBefore": "の方へのぼって行きました。\n\n　すきとおった風がざあっと吹くと、栗の木はばらばらと実をおとしました。一郎は栗の木をみあげて、\n\n",
+    "displayText": "「栗の木、栗の木、やまねこがここを通らなかったかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 542,
+      "start": 515
+    },
+    "revisions": [],
+    "sha256": "d071e625c5249b4f7445df6b71cebcece5cccc42e9f2f17d0c671820c3bcee0c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 542,
+      "startToken": 515
+    },
+    "speechText": "「栗の木、栗の木、やまねこがここを通らなかったかい。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "kDNv9sBtkagtXQxh5TOPjrDR0pDG-nxLABiznvgpvCQ",
+    "contextAfter": "と答えました。\n\n「東ならぼくのいく方だねえ、おかしいな、とにかくもっといってみよう。栗の木ありがとう。」\n\n　栗の木はだまって",
+    "contextBefore": "は栗の木をみあげて、\n\n「栗の木、栗の木、やまねこがここを通らなかったかい。」とききました。栗の木はちょっとしずかになって、\n\n",
+    "displayText": "「やまねこなら、けさはやく、馬車でひがしの方へ飛んで行きましたよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 601,
+      "start": 567
+    },
+    "revisions": [],
+    "sha256": "15dcebe2af8e04da38912a738f3a3da7a553963c48b8838ff2b2ca606e352953",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 601,
+      "startToken": 567
+    },
+    "speechText": "「やまねこなら、けさはやく、馬車でひがしの方へ飛んで行きましたよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "5lA3PKTb24Q15dWeizDYZADKxZjI_Y9aVGZWEJ66E4E",
+    "contextAfter": "\n\n　栗の木はだまってまた実をばらばらとおとしました。\n\n　一郎がすこし行きますと、そこはもう笛ふきの滝でした。笛ふきの滝という",
+    "contextBefore": "した。栗の木はちょっとしずかになって、\n\n「やまねこなら、けさはやく、馬車でひがしの方へ飛んで行きましたよ。」と答えました。\n\n",
+    "displayText": "「東ならぼくのいく方だねえ、おかしいな、とにかくもっといってみよう。栗の木ありがとう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 654,
+      "start": 610
+    },
+    "revisions": [],
+    "sha256": "855660c6eac3c139ab001c53dedb1bed49eb86098841b169824501ea86c336d6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 654,
+      "startToken": 610
+    },
+    "speechText": "「東ならぼくのいく方だねえ、おかしいな、とにかくもっといってみよう。栗の木ありがとう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "WkjsVkcO_GQ3VMbf-NAYXwAf_FHiOrYByYfZLrLCjEU",
+    "contextAfter": "\n\n　滝がぴーぴー答えました。\n\n「やまねこは、さっき、馬車で西の方へ飛んで行きましたよ。」\n\n「おかしいな、西ならぼくのうちの",
+    "contextBefore": "から水が笛のように鳴って飛び出し、すぐ滝になって、ごうごう谷におちているのをいうのでした。\n\n　一郎は滝に向いて叫びました。\n\n",
+    "displayText": "「おいおい、笛ふき、やまねこがここを通らなかったかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 840,
+      "start": 812
+    },
+    "revisions": [],
+    "sha256": "e16494d8941ccb4bc3515fe38fe7e2ec4f2afb81a300c148d3cb8681ec9de228",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 840,
+      "startToken": 812
+    },
+    "speechText": "「おいおい、笛ふき、やまねこがここを通らなかったかい。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "N2OUcjUg_A_DT4Ky7T905CUBupoUThCgV7XQlH2J2IM",
+    "contextAfter": "\n\n「おかしいな、西ならぼくのうちの方だ。けれども、まあも少し行ってみよう。ふえふき、ありがとう。」\n\n　滝はまたもとのように笛",
+    "contextBefore": "\n\n　一郎は滝に向いて叫びました。\n\n「おいおい、笛ふき、やまねこがここを通らなかったかい。」\n\n　滝がぴーぴー答えました。\n\n",
+    "displayText": "「やまねこは、さっき、馬車で西の方へ飛んで行きましたよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 886,
+      "start": 857
+    },
+    "revisions": [],
+    "sha256": "3119a2727f0d28f918443e327ea720564e2a2e4a928dc5b24f4c6c341bd01665",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 886,
+      "startToken": 857
+    },
+    "speechText": "「やまねこは、さっき、馬車で西の方へ飛んで行きましたよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "PIgaBaaS9289h-d9TuHu2xWPNlQwRNVtufGm_6AUcrw",
+    "contextAfter": "\n\n　滝はまたもとのように笛を吹きつづけました。\n\n　一郎がまたすこし行きますと、一本のぶなの木のしたに、たくさんの白いきのこが",
+    "contextBefore": "ねこがここを通らなかったかい。」\n\n　滝がぴーぴー答えました。\n\n「やまねこは、さっき、馬車で西の方へ飛んで行きましたよ。」\n\n",
+    "displayText": "「おかしいな、西ならぼくのうちの方だ。けれども、まあも少し行ってみよう。ふえふき、ありがとう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 936,
+      "start": 888
+    },
+    "revisions": [],
+    "sha256": "eb392dce9e2108eefd1866bdf894cbdfdcba778fe359c372b821ce53af04db12",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 936,
+      "startToken": 888
+    },
+    "speechText": "「おかしいな、西ならぼくのうちの方だ。けれども、まあも少し行ってみよう。ふえふき、ありがとう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "z8uVs-EsDDqib0YohBvm_ca3eClfQZpdNrc3dVvKHBs",
+    "contextAfter": "\n\nとききました。するときのこは\n\n「やまねこなら、けさはやく、馬車で南の方へ飛んで行きましたよ。」とこたえました。一郎は首をひ",
+    "contextBefore": "なの木のしたに、たくさんの白いきのこが、どってこどってこどってこと、変な楽隊をやっていました。\n\n　一郎はからだをかがめて、\n\n",
+    "displayText": "「おい、きのこ、やまねこが、ここを通らなかったかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1072,
+      "start": 1045
+    },
+    "revisions": [],
+    "sha256": "d04380c0909b01b021c9639cbacfaa565e4d6811c6fa4f5957e73c02c8bbed4c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1072,
+      "startToken": 1045
+    },
+    "speechText": "「おい、きのこ、やまねこが、ここを通らなかったかい。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "bUKTlXjOE4yIdvHKYLZvcDg_Y4QL-VMdBtfRUbe7Q6I",
+    "contextAfter": "とこたえました。一郎は首をひねりました。\n\n「みなみならあっちの山のなかだ。おかしいな。まあもすこし行ってみよう。きのこ、ありが",
+    "contextBefore": "た。\n\n　一郎はからだをかがめて、\n\n「おい、きのこ、やまねこが、ここを通らなかったかい。」\n\nとききました。するときのこは\n\n",
+    "displayText": "「やまねこなら、けさはやく、馬車で南の方へ飛んで行きましたよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1122,
+      "start": 1090
+    },
+    "revisions": [],
+    "sha256": "915fda177a1ebdaec0f3bea0e2497f0596b44ed6509e1fd818562ac534e68c9a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1122,
+      "startToken": 1090
+    },
+    "speechText": "「やまねこなら、けさはやく、馬車で南の方へ飛んで行きましたよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "YSRV1-HtF03Lcj0r-V76nLd9IogzxU2dgz4pRMLqxWI",
+    "contextAfter": "\n\n　きのこはみんないそがしそうに、どってこどってこと、あのへんな楽隊をつづけました。\n\n　一郎はまたすこし行きました。すると一",
+    "contextBefore": "。するときのこは\n\n「やまねこなら、けさはやく、馬車で南の方へ飛んで行きましたよ。」とこたえました。一郎は首をひねりました。\n\n",
+    "displayText": "「みなみならあっちの山のなかだ。おかしいな。まあもすこし行ってみよう。きのこ、ありがとう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1190,
+      "start": 1144
+    },
+    "revisions": [],
+    "sha256": "b68405ff895a3c925c51cd1344361d650994b53892e902c5c1b62e581fd7eb90",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1190,
+      "startToken": 1144
+    },
+    "speechText": "「みなみならあっちの山のなかだ。おかしいな。まあもすこし行ってみよう。きのこ、ありがとう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "4vTiRf85QrORY2QBq3XtN8h6gEYUuxA3gNCdM6p09VE",
+    "contextAfter": "とたずねました。するとりすは、木の上から、額に手をかざして、一郎を見ながらこたえました。\n\n「やまねこなら、けさまだくらいうちに",
+    "contextBefore": "　一郎はまたすこし行きました。すると一本のくるみの木の梢を、栗鼠がぴょんととんでいました。一郎はすぐ手まねぎしてそれをとめて、\n\n",
+    "displayText": "「おい、りす、やまねこがここを通らなかったかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1324,
+      "start": 1299
+    },
+    "revisions": [],
+    "sha256": "e0bd41c98cd12fd7f8ead7f9c99086a12a6cab308227884fc26158f3d3b37824",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1324,
+      "startToken": 1299
+    },
+    "speechText": "「おい、りす、やまねこがここを通らなかったかい。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "FuRzvK8x1evxMLfh3VsommzSQlyo-kA5yw4znmKBmdE",
+    "contextAfter": "\n\n「みなみへ行ったなんて、二とこでそんなことを言うのはおかしいなあ。けれどもまあもすこし行ってみよう。りす、ありがとう。」りす",
+    "contextBefore": "やまねこがここを通らなかったかい。」とたずねました。するとりすは、木の上から、額に手をかざして、一郎を見ながらこたえました。\n\n",
+    "displayText": "「やまねこなら、けさまだくらいうちに馬車でみなみの方へ飛んで行きましたよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1408,
+      "start": 1370
+    },
+    "revisions": [],
+    "sha256": "7d3a135345e9cec79f7dfe4181ce91e2d86c23d6486c3943615aa9850a2dee8d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1408,
+      "startToken": 1370
+    },
+    "speechText": "「やまねこなら、けさまだくらいうちに馬車でみなみの方へ飛んで行きましたよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Q3qSWfN3i7ZrDj1a9SKa_cDVSHwyaNT4m863xwTYlLg",
+    "contextAfter": "りすはもう居ませんでした。ただくるみのいちばん上の枝がゆれ、となりのぶなの葉がちらっとひかっただけでした。\n\n　一郎がすこし行き",
+    "contextBefore": "に手をかざして、一郎を見ながらこたえました。\n\n「やまねこなら、けさまだくらいうちに馬車でみなみの方へ飛んで行きましたよ。」\n\n",
+    "displayText": "「みなみへ行ったなんて、二とこでそんなことを言うのはおかしいなあ。けれどもまあもすこし行ってみよう。りす、ありがとう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 1470,
+      "start": 1410
+    },
+    "revisions": [],
+    "sha256": "8259213f95daea97fdbf2bc2174b18d9ac458b4854683223005065cdf0cceb24",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1470,
+      "startToken": 1410
+    },
+    "speechText": "「みなみへ行ったなんて、ふたとこでそんなことを言うのはおかしいなあ。けれどもまあもすこし行ってみよう。りす、ありがとう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "vOpZ2BG8Xie0iRjwRSUW9g12YNJBeQf8GdNVnBE79Z8",
+    "contextAfter": "\n\n　するとその男は、横眼で一郎の顔を見て、口をまげてにやっとわらって言いました。\n\n「山ねこさまはいますぐに、ここに戻ってお出",
+    "contextBefore": "にそのあしさきときたら、ごはんをもるへらのかたちだったのです。一郎は気味が悪かったのですが、なるべく落ちついてたずねました。\n\n",
+    "displayText": "「あなたは山猫をしりませんか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2032,
+      "start": 2016
+    },
+    "revisions": [],
+    "sha256": "ccf9395a3938b558dacc6bd5fb485dfb35f32ffc0874b09b869643d71a83c875",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2032,
+      "startToken": 2016
+    },
+    "speechText": "「あなたは山猫をしりませんか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "ViWXjZvQSWvt0rO_mMFq54HHktxVmSOjfZPhG4wiXLQ",
+    "contextAfter": "\n\n　一郎はぎょっとして、一あしうしろにさがって、\n\n「え、ぼく一郎です。けれども、どうしてそれを知ってますか。」と言いました。",
+    "contextBefore": "した。\n\n「あなたは山猫をしりませんか。」\n\n　するとその男は、横眼で一郎の顔を見て、口をまげてにやっとわらって言いました。\n\n",
+    "displayText": "「山ねこさまはいますぐに、ここに戻ってお出やるよ。おまえは一郎さんだな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2112,
+      "start": 2075
+    },
+    "revisions": [],
+    "sha256": "1904af0f3600d5d5cfab1df2cb8a8fb000f3ef0fbb21588e16c64a3320c20196",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2112,
+      "startToken": 2075
+    },
+    "speechText": "「山ねこさまはいますぐに、ここにもどっておでやるよ。おまえは一郎さんだな。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "IwxGp_t14GOwqf2wguGyXjYgyg0I1QEJdwskdsmWP7U",
+    "contextAfter": "と言いました。するとその奇体な男はいよいよにやにやしてしまいました。\n\n「そんだら、はがき見だべ。」\n\n「見ました。それで来たんで",
+    "contextBefore": "「山ねこさまはいますぐに、ここに戻ってお出やるよ。おまえは一郎さんだな。」\n\n　一郎はぎょっとして、一あしうしろにさがって、\n\n",
+    "displayText": "「え、ぼく一郎です。けれども、どうしてそれを知ってますか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2169,
+      "start": 2139
+    },
+    "revisions": [],
+    "sha256": "c329127008ef5b9f368827a6643a7c2f9ee1a33826a233d8b9f894792d27f44c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2169,
+      "startToken": 2139
+    },
+    "speechText": "「え、ぼく一郎です。けれども、どうしてそれを知ってますか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "KQa5IVyW7KGiomJJbIT34LcpzZR4qiJjm9Y2iVuU9Q0",
+    "contextAfter": "\n\n「見ました。それで来たんです。」\n\n「あのぶんしょうは、ずいぶん下手だべ。」と男は下をむいてかなしそうに言いました。一郎はき",
+    "contextBefore": "え、ぼく一郎です。けれども、どうしてそれを知ってますか。」と言いました。するとその奇体な男はいよいよにやにやしてしまいました。\n\n",
+    "displayText": "「そんだら、はがき見だべ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2218,
+      "start": 2204
+    },
+    "revisions": [],
+    "sha256": "02feae8988bce17ce921d60ab8f47aa1456c0139f97cf47c83d5bca879b49b8a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2218,
+      "startToken": 2204
+    },
+    "speechText": "「そんだら、はがき見だべ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "8SbAlrfptx516qTLM8QihcCHalNHIaFRPzGoMkJgygQ",
+    "contextAfter": "\n\n「あのぶんしょうは、ずいぶん下手だべ。」と男は下をむいてかなしそうに言いました。一郎はきのどくになって、\n\n「さあ、なかなか",
+    "contextBefore": "してそれを知ってますか。」と言いました。するとその奇体な男はいよいよにやにやしてしまいました。\n\n「そんだら、はがき見だべ。」\n\n",
+    "displayText": "「見ました。それで来たんです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2236,
+      "start": 2220
+    },
+    "revisions": [],
+    "sha256": "f2c702b47079bbf9fb4aca6c7dc3f6c59723e062061a6a1f73174c5524d808b3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2236,
+      "startToken": 2220
+    },
+    "speechText": "「見ました。それで来たんです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "6dtPqlXB0bh43tMhfVNxzVyBjg_9zygYiRY6_xDDHNg",
+    "contextAfter": "と男は下をむいてかなしそうに言いました。一郎はきのどくになって、\n\n「さあ、なかなか、ぶんしょうがうまいようでしたよ。」\n\nと言",
+    "contextBefore": "た。するとその奇体な男はいよいよにやにやしてしまいました。\n\n「そんだら、はがき見だべ。」\n\n「見ました。それで来たんです。」\n\n",
+    "displayText": "「あのぶんしょうは、ずいぶん下手だべ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2258,
+      "start": 2238
+    },
+    "revisions": [],
+    "sha256": "d4452ebec33e14eb9c61ee0064d5415deb5b008e391a86fbb6554fa420f5bd2d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2258,
+      "startToken": 2238
+    },
+    "speechText": "「あのぶんしょうは、ずいぶん下手だべ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "5X15LTI1kpGDV4GKw4exdXHpToSKyXyoPvG756XbI5E",
+    "contextAfter": "\n\nと言いますと、男はよろこんで、息をはあはあして、耳のあたりまでまっ赤になり、きもののえりをひろげて、風をからだに入れながら、",
+    "contextBefore": "で来たんです。」\n\n「あのぶんしょうは、ずいぶん下手だべ。」と男は下をむいてかなしそうに言いました。一郎はきのどくになって、\n\n",
+    "displayText": "「さあ、なかなか、ぶんしょうがうまいようでしたよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2318,
+      "start": 2292
+    },
+    "revisions": [],
+    "sha256": "965eb65f540274c3c5c5301e5a824178cc0a09113223c63bfb1f9793fbc3a89b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2318,
+      "startToken": 2292
+    },
+    "speechText": "「さあ、なかなか、ぶんしょうがうまいようでしたよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "USxYwL1ir5Z1UIDKoceigcWT02QN1zAMkW8wNYvXaEY",
+    "contextAfter": "とききました。一郎は、おもわず笑いだしながら、へんじしました。\n\n「うまいですね。五年生だってあのくらいには書けないでしょう。」",
+    "contextBefore": "と言いますと、男はよろこんで、息をはあはあして、耳のあたりまでまっ赤になり、きもののえりをひろげて、風をからだに入れながら、\n\n",
+    "displayText": "「あの字もなかなかうまいか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2399,
+      "start": 2384
+    },
+    "revisions": [],
+    "sha256": "65f975df89575c87cd8171f58a3e2c185812392f71a0a052ba1e1d5d043c06d2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2399,
+      "startToken": 2384
+    },
+    "speechText": "「あの字もなかなかうまいか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Rls__6iAxNCPBUpxZHoU1HdAdQZyh8s5GKCKUvVYCmU",
+    "contextAfter": "\n\n　すると男は、急にまたいやな顔をしました。\n\n「五年生っていうのは、尋常五年生だべ。」その声が、あんまり力なくあわれに聞えまし",
+    "contextBefore": "て、風をからだに入れながら、\n\n「あの字もなかなかうまいか。」とききました。一郎は、おもわず笑いだしながら、へんじしました。\n\n",
+    "displayText": "「うまいですね。五年生だってあのくらいには書けないでしょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2463,
+      "start": 2432
+    },
+    "revisions": [],
+    "sha256": "47874c143f8cf8e4e96fdf35a9c3ba48dc671d2082a22fa7e921dc36e984cff6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2463,
+      "startToken": 2432
+    },
+    "speechText": "「うまいですね。五年生だってあのくらいには書けないでしょう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "kgGqjLRkgQ4OkPr89U-pvjhZrMklsOGE0Pw209NAmDM",
+    "contextAfter": "その声が、あんまり力なくあわれに聞えましたので、一郎はあわてて言いました。\n\n「いいえ、大学校の五年生ですよ。」\n\n　すると、男",
+    "contextBefore": "じしました。\n\n「うまいですね。五年生だってあのくらいには書けないでしょう。」\n\n　すると男は、急にまたいやな顔をしました。\n\n",
+    "displayText": "「五年生っていうのは、尋常五年生だべ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2507,
+      "start": 2488
+    },
+    "revisions": [],
+    "sha256": "351c6d5d2c7d33cb96e88dc40ecc2f8a34387c87d98e7af103b5600a05614d28",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2507,
+      "startToken": 2488
+    },
+    "speechText": "「五年生っていうのは、じんじょう五年生だべ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "CbFkDC7E9YaPCpyytA8Sd2BrpAT42rgR0FM6t3mx1jo",
+    "contextAfter": "\n\n　すると、男はまたよろこんで、まるで、顔じゅう口のようにして、にたにたにたにた笑って叫びました。\n\n「あのはがきはわしが書い",
+    "contextBefore": "ました。\n\n「五年生っていうのは、尋常五年生だべ。」その声が、あんまり力なくあわれに聞えましたので、一郎はあわてて言いました。\n\n",
+    "displayText": "「いいえ、大学校の五年生ですよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2563,
+      "start": 2546
+    },
+    "revisions": [],
+    "sha256": "ee80eb6ac47671d09a5ed67a83942e8aca8fd3de4c4944cc1b77e7b5696b7320",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2563,
+      "startToken": 2546
+    },
+    "speechText": "「いいえ、大学校の五年生ですよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "pgwD6BIiJAj3fF2VQ-GFGjGnl2hwbr8vGKRN2PYWfDU",
+    "contextAfter": "\n\n　一郎はおかしいのをこらえて、\n\n「ぜんたいあなたはなにですか。」とたずねますと、男は急にまじめになって、\n\n「わしは山ねこ",
+    "contextBefore": "大学校の五年生ですよ。」\n\n　すると、男はまたよろこんで、まるで、顔じゅう口のようにして、にたにたにたにた笑って叫びました。\n\n",
+    "displayText": "「あのはがきはわしが書いたのだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2633,
+      "start": 2615
+    },
+    "revisions": [],
+    "sha256": "5179b403a6f8b8ad790c0573863e5c7e0cbbbce4d94225d9e4caba0791adb373",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2633,
+      "startToken": 2615
+    },
+    "speechText": "「あのはがきはわしが書いたのだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "RYF-Hb9JCAnHvIMk_PoemTDvjeimr07MAoahWLQmXF4",
+    "contextAfter": "とたずねますと、男は急にまじめになって、\n\n「わしは山ねこさまの馬車別当だよ。」と言いました。\n\n　そのとき、風がどうと吹いてきて",
+    "contextBefore": "口のようにして、にたにたにたにた笑って叫びました。\n\n「あのはがきはわしが書いたのだよ。」\n\n　一郎はおかしいのをこらえて、\n\n",
+    "displayText": "「ぜんたいあなたはなにですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2668,
+      "start": 2652
+    },
+    "revisions": [],
+    "sha256": "43d2983b43d2f7b4923ef8080e03f459c1feaff0e96f86d6ea647d02cba569ef",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2668,
+      "startToken": 2652
+    },
+    "speechText": "「ぜんたいあなたはなにですか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "VTn65ktRk247K8Lic7qoBxS_WnR5QdiddQXpJv4TPBY",
+    "contextAfter": "と言いました。\n\n　そのとき、風がどうと吹いてきて、草はいちめん波だち、別当は、急にていねいなおじぎをしました。\n\n　一郎はおか",
+    "contextBefore": "いたのだよ。」\n\n　一郎はおかしいのをこらえて、\n\n「ぜんたいあなたはなにですか。」とたずねますと、男は急にまじめになって、\n\n",
+    "displayText": "「わしは山ねこさまの馬車別当だよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2707,
+      "start": 2690
+    },
+    "revisions": [],
+    "sha256": "fe653acaf7bfdbb6a72bc1d0949123f90e3fe5898f779355638897934ae6d8be",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2707,
+      "startToken": 2690
+    },
+    "speechText": "「わしは山ねこさまの馬車べっとうだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "txvC-fUD9SsKNKax_Pgeje5Me5yR8jAWpSh8TsTZDp8",
+    "contextAfter": "\n\n　山猫はひげをぴんとひっぱって、腹をつき出して言いました。\n\n「こんにちは、よくいらっしゃいました。じつはおとといから、めん",
+    "contextBefore": "ぱり山猫の耳は、立って尖っているなと、一郎がおもいましたら、山ねこはぴょこっとおじぎをしました。一郎もていねいに挨拶しました。\n\n",
+    "displayText": "「いや、こんにちは、きのうははがきをありがとう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 2923,
+      "start": 2898
+    },
+    "revisions": [],
+    "sha256": "3c521118970b5be8f76f23cc2c9e90bae477c07034daf4f3da0338c01c4c1b20",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2923,
+      "startToken": 2898
+    },
+    "speechText": "「いや、こんにちは、きのうははがきをありがとう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "ZzuhIxoyLCH4yorMw65qPKuJVerc6_e-TN5BSpl2aHk",
+    "contextAfter": "山ねこは、ふところから、巻煙草の箱を出して、じぶんが一本くわえ、\n\n「いかがですか。」と一郎に出しました。一郎はびっくりして、\n\n「",
+    "contextBefore": "ました。\n\n「いや、こんにちは、きのうははがきをありがとう。」\n\n　山猫はひげをぴんとひっぱって、腹をつき出して言いました。\n\n",
+    "displayText": "「こんにちは、よくいらっしゃいました。じつはおとといから、めんどうなあらそいがおこって、ちょっと裁判にこまりましたので、あなたのお考えを、うかがいたいとおもいましたのです。まあ、ゆっくり、おやすみください。じき、どんぐりどもがまいりましょう。どうもまい年、この裁判でくるしみます。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3097,
+      "start": 2956
+    },
+    "revisions": [],
+    "sha256": "e7eb1635af7922d74694dbd8b67dea60e6c84388ae297fe6ffa3114f4166a08f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3097,
+      "startToken": 2956
+    },
+    "speechText": "「こんにちは、よくいらっしゃいました。じつはおとといから、めんどうなあらそいがおこって、ちょっと裁判にこまりましたので、あなたのお考えを、うかがいたいとおもいましたのです。まあ、ゆっくり、おやすみください。じき、どんぐりどもがまいりましょう。どうもまいとし、この裁判でくるしみます。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "ipJAy9ZWYxNoPVqwJ4TWQ3ZhyLfLmBoMNHZJXxXM1kM",
+    "contextAfter": "と一郎に出しました。一郎はびっくりして、\n\n「いいえ。」と言いましたら、山ねこはおおようにわらって、\n\n「ふふん、まだお若いから",
+    "contextBefore": "りどもがまいりましょう。どうもまい年、この裁判でくるしみます。」山ねこは、ふところから、巻煙草の箱を出して、じぶんが一本くわえ、\n\n",
+    "displayText": "「いかがですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3138,
+      "start": 3129
+    },
+    "revisions": [],
+    "sha256": "fe5b46c55b79ceb0e0b908bf072b11fac15f359d8c913243ba8579543b83d1f7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3138,
+      "startToken": 3129
+    },
+    "speechText": "「いかがですか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "IWWLO8hhRaYIk1oFHbgRSAursQMaeCn2AHLpdQPRL_k",
+    "contextAfter": "と言いましたら、山ねこはおおようにわらって、\n\n「ふふん、まだお若いから、」と言いながら、マッチをしゅっと擦って、わざと顔をしか",
+    "contextBefore": "」山ねこは、ふところから、巻煙草の箱を出して、じぶんが一本くわえ、\n\n「いかがですか。」と一郎に出しました。一郎はびっくりして、\n\n",
+    "displayText": "「いいえ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3166,
+      "start": 3160
+    },
+    "revisions": [],
+    "sha256": "b5776a5397f2088fe8c2ebbaa8b5c73a1ee685f936970608c1e1ef85594717db",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3166,
+      "startToken": 3160
+    },
+    "speechText": "「いいえ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "RWSdDFSwkWhVkIJz2rSvQfE6KmaXDxCFVAbrWXqsrN8",
+    "contextAfter": "と言いながら、マッチをしゅっと擦って、わざと顔をしかめて、青いけむりをふうと吐きました。山ねこの馬車別当は、気を付けの姿勢で、し",
+    "contextBefore": "、\n\n「いかがですか。」と一郎に出しました。一郎はびっくりして、\n\n「いいえ。」と言いましたら、山ねこはおおようにわらって、\n\n",
+    "displayText": "「ふふん、まだお若いから、」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3204,
+      "start": 3190
+    },
+    "revisions": [],
+    "sha256": "5bd8005c83dfb4f650407df2b5ef8e6a7d32643eb2fc83e6f009e9a95609a32b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3204,
+      "startToken": 3190
+    },
+    "speechText": "「ふふん、まだお若いから、」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "iADPqPdWImMxXOZuahsXL1rdb8NHo9vi5c8r1mKuOPo",
+    "contextAfter": "やまねこは巻たばこを投げすてて、大いそぎで馬車別当にいいつけました。馬車別当もたいへんあわてて、腰から大きな鎌をとりだして、ざっ",
+    "contextBefore": "いずぼんをはいたどんぐりで、もうその数ときたら、三百でも利かないようでした。わあわあわあわあ、みんななにか云っているのです。\n\n",
+    "displayText": "「あ、来たな。蟻のようにやってくる。おい、さあ、早くベルを鳴らせ。今日はそこが日当りがいいから、そこのとこの草を刈れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3552,
+      "start": 3492
+    },
+    "revisions": [],
+    "sha256": "6bdf4915291db8e5eddb80bd340bea736125620d9c4d87b61eeeb584bc9f2efc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3552,
+      "startToken": 3492
+    },
+    "speechText": "「あ、来たな。ありのようにやってくる。おい、さあ、早くベルを鳴らせ。今日はそこが日当りがいいから、そこのとこの草をかれ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "1lxRtSe7n_qNR-hP1oFCtPfplrEhijkVAQdT0-v6xpE",
+    "contextAfter": "山ねこが、すこし心配そうに、それでもむりに威張って言いますと、どんぐりどもは口々に叫びました。\n\n「いえいえ、だめです、なんといっ",
+    "contextBefore": "を二三べん、ひゅうぱちっ、ひゅう、ぱちっと鳴らしました。\n\n　空が青くすみわたり、どんぐりはぴかぴかしてじつにきれいでした。\n\n",
+    "displayText": "「裁判ももう今日で三日目だぞ、いい加減になかなおりをしたらどうだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 3965,
+      "start": 3931
+    },
+    "revisions": [],
+    "sha256": "92bc331fa8525a4e2c8e2bccaf7e312d7a4f34a2acf24bbec1fc0426fa16ad08",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3965,
+      "startToken": 3931
+    },
+    "speechText": "「裁判ももう今日で三日目だぞ、いい加減になかなおりをしたらどうだ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "j1WERBKTvrvgnFJY1P4Uci8qVw3H_kPX0R2WrccDY-Y",
+    "contextAfter": "\n\n「いいえ、ちがいます。まるいのがえらいのです。いちばんまるいのはわたしです。」\n\n「大きなことだよ。大きなのがいちばんえらい",
+    "contextBefore": "減になかなおりをしたらどうだ。」山ねこが、すこし心配そうに、それでもむりに威張って言いますと、どんぐりどもは口々に叫びました。\n\n",
+    "displayText": "「いえいえ、だめです、なんといったって頭のとがってるのがいちばんえらいんです。そしてわたしがいちばんとがっています。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4072,
+      "start": 4013
+    },
+    "revisions": [],
+    "sha256": "d1f0eb2e7fc355de67c8f8ddb62da6eda15b3a5e9ea00a5d70937d6b665b43a3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4072,
+      "startToken": 4013
+    },
+    "speechText": "「いえいえ、だめです、なんといったって頭のとがってるのがいちばんえらいんです。そしてわたしがいちばんとがっています。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "xu_NOYoIODRO2iukzqRzfI1DarhgsjWAdU3ftx21MuI",
+    "contextAfter": "\n\n「大きなことだよ。大きなのがいちばんえらいんだよ。わたしがいちばん大きいからわたしがえらいんだよ。」\n\n「そうでないよ。わた",
+    "contextBefore": "。\n\n「いえいえ、だめです、なんといったって頭のとがってるのがいちばんえらいんです。そしてわたしがいちばんとがっています。」\n\n",
+    "displayText": "「いいえ、ちがいます。まるいのがえらいのです。いちばんまるいのはわたしです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4113,
+      "start": 4074
+    },
+    "revisions": [],
+    "sha256": "55407f08dd13a30a328790d0760acbde64ec52a140105e48e6b1f0d9768e1af0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4113,
+      "startToken": 4074
+    },
+    "speechText": "「いいえ、ちがいます。まるいのがえらいのです。いちばんまるいのはわたしです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "YXVxs6q4dEpQaqqegTNRDhjQ0nURrBw2ihcvd30QeFI",
+    "contextAfter": "\n\n「そうでないよ。わたしのほうがよほど大きいと、きのうも判事さんがおっしゃったじゃないか。」\n\n「だめだい、そんなこと。せいの",
+    "contextBefore": "。そしてわたしがいちばんとがっています。」\n\n「いいえ、ちがいます。まるいのがえらいのです。いちばんまるいのはわたしです。」\n\n",
+    "displayText": "「大きなことだよ。大きなのがいちばんえらいんだよ。わたしがいちばん大きいからわたしがえらいんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4165,
+      "start": 4115
+    },
+    "revisions": [],
+    "sha256": "2c3cbb9ea45ef601ded59f279ac51e9b8b0158e693a78986f342c800e846ce31",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4165,
+      "startToken": 4115
+    },
+    "speechText": "「大きなことだよ。大きなのがいちばんえらいんだよ。わたしがいちばん大きいからわたしがえらいんだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "FeqVM_HibqPzdyYxjYHH0riSUB0L5STMgwfU91_Z-eI",
+    "contextAfter": "\n\n「だめだい、そんなこと。せいの高いのだよ。せいの高いことなんだよ。」\n\n「押しっこのえらいひとだよ。押しっこをしてきめるんだ",
+    "contextBefore": "いのはわたしです。」\n\n「大きなことだよ。大きなのがいちばんえらいんだよ。わたしがいちばん大きいからわたしがえらいんだよ。」\n\n",
+    "displayText": "「そうでないよ。わたしのほうがよほど大きいと、きのうも判事さんがおっしゃったじゃないか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4212,
+      "start": 4167
+    },
+    "revisions": [],
+    "sha256": "781ef9c81fb80159775310c432a5575cb802f8baa87afc9777d86707db2f943f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4212,
+      "startToken": 4167
+    },
+    "speechText": "「そうでないよ。わたしのほうがよほど大きいと、きのうも判事さんがおっしゃったじゃないか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "C61LnLI3LcUhiD58tL-W0Kx1fBuRN7Qb6mEz_Gb2BP0",
+    "contextAfter": "\n\n「押しっこのえらいひとだよ。押しっこをしてきめるんだよ。」もうみんな、がやがやがやがや言って、なにがなんだか、まるで蜂の巣を",
+    "contextBefore": "いからわたしがえらいんだよ。」\n\n「そうでないよ。わたしのほうがよほど大きいと、きのうも判事さんがおっしゃったじゃないか。」\n\n",
+    "displayText": "「だめだい、そんなこと。せいの高いのだよ。せいの高いことなんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4248,
+      "start": 4214
+    },
+    "revisions": [],
+    "sha256": "d13e685ae3b70ad25ec1ac259000f04da824cf96bbea1ac08ecf07d720ebe62f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4248,
+      "startToken": 4214
+    },
+    "speechText": "「だめだい、そんなこと。せいの高いのだよ。せいの高いことなんだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "fLNx3c2QMdlfagEFg8ryRGdqZycHeAT59DGTBXUIIyg",
+    "contextAfter": "もうみんな、がやがやがやがや言って、なにがなんだか、まるで蜂の巣をつっついたようで、わけがわからなくなりました。そこでやまねこが",
+    "contextBefore": "きいと、きのうも判事さんがおっしゃったじゃないか。」\n\n「だめだい、そんなこと。せいの高いのだよ。せいの高いことなんだよ。」\n\n",
+    "displayText": "「押しっこのえらいひとだよ。押しっこをしてきめるんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4279,
+      "start": 4250
+    },
+    "revisions": [
+      {
+        "after": "「おしっこのえらいひとだよ。おしっこをしてきめるんだよ。」",
+        "before": "「おしっこのえらいひとだよ。押しっこをしてきめるんだよ。」",
+        "candidateId": "fLNx3c2QMdlfagEFg8ryRGdqZycHeAT59DGTBXUIIyg",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:23:14.876Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "e85d4035769948a8268c69dfd97d5c64284badf21ef684da933fb9aaa60a7473",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4279,
+      "startToken": 4250
+    },
+    "speechText": "「おしっこのえらいひとだよ。おしっこをしてきめるんだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "aKLVkbkCvwOT5i6vFJjIDKt68K8Nb2cFkDNMLOieVk4",
+    "contextAfter": "\n\n　別当がむちをひゅうぱちっとならしましたのでどんぐりどもは、やっとしずまりました。やまねこは、ぴんとひげをひねって言いました",
+    "contextBefore": "がやがやがや言って、なにがなんだか、まるで蜂の巣をつっついたようで、わけがわからなくなりました。そこでやまねこが叫びました。\n\n",
+    "displayText": "「やかましい。ここをなんとこころえる。しずまれ、しずまれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4381,
+      "start": 4351
+    },
+    "revisions": [],
+    "sha256": "83eba1daa6832cc5ace6b3f2deb593202031c5da4840ff45b5c7378fe17b33bb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4381,
+      "startToken": 4351
+    },
+    "speechText": "「やかましい。ここをなんとこころえる。しずまれ、しずまれ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "qEYqSuKQENR3IUIvyS02ZWaUETVMbm3IW88weZXcX24",
+    "contextAfter": "\n\n　すると、もうどんぐりどもが、くちぐちに云いました。\n\n「いえいえ、だめです。なんといったって、頭のとがっているのがいちばん",
+    "contextBefore": "別当がむちをひゅうぱちっとならしましたのでどんぐりどもは、やっとしずまりました。やまねこは、ぴんとひげをひねって言いました。\n\n",
+    "displayText": "「裁判ももうきょうで三日目だぞ。いい加減に仲なおりしたらどうだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4481,
+      "start": 4448
+    },
+    "revisions": [],
+    "sha256": "d9f3f7239e79e3aca75bc5e681c2691d53faca2277671d5d2cb2448bd4d08397",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4481,
+      "startToken": 4448
+    },
+    "speechText": "「裁判ももうきょうで三日目だぞ。いい加減に仲なおりしたらどうだ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Q1QsUMa-QcrGV5La65lYlbR9ITg8qvB1o-JBW1zdXic",
+    "contextAfter": "\n\n「いいえ、ちがいます。まるいのがえらいのです。」\n\n「そうでないよ。大きなことだよ。」がやがやがやがや、もうなにがなんだかわ",
+    "contextBefore": "\n「裁判ももうきょうで三日目だぞ。いい加減に仲なおりしたらどうだ。」\n\n　すると、もうどんぐりどもが、くちぐちに云いました。\n\n",
+    "displayText": "「いえいえ、だめです。なんといったって、頭のとがっているのがいちばんえらいのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4553,
+      "start": 4511
+    },
+    "revisions": [],
+    "sha256": "ab7c33e3333d9c11903b62a7bcf7bb2aaa516bcbdaf9bf5045e2eb069f1d34eb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4553,
+      "startToken": 4511
+    },
+    "speechText": "「いえいえ、だめです。なんといったって、頭のとがっているのがいちばんえらいのです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "mQNsQi5h82ovrz0UZUG2POw0ayWn4UAdDp8t9ivX7HY",
+    "contextAfter": "\n\n「そうでないよ。大きなことだよ。」がやがやがやがや、もうなにがなんだかわからなくなりました。山猫が叫びました。\n\n「だまれ、",
+    "contextBefore": "んぐりどもが、くちぐちに云いました。\n\n「いえいえ、だめです。なんといったって、頭のとがっているのがいちばんえらいのです。」\n\n",
+    "displayText": "「いいえ、ちがいます。まるいのがえらいのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4579,
+      "start": 4555
+    },
+    "revisions": [],
+    "sha256": "1780cbcbbf21c4360a9b5a04098c9d478d0ba77e69bbf91de3b62e2c65ebd0de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4579,
+      "startToken": 4555
+    },
+    "speechText": "「いいえ、ちがいます。まるいのがえらいのです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "LypxjpRhlY_LYwFa0DlE6JUUm6WLih2E9ACWFJq-ioY",
+    "contextAfter": "がやがやがやがや、もうなにがなんだかわからなくなりました。山猫が叫びました。\n\n「だまれ、やかましい。ここをなんと心得る。しずま",
+    "contextBefore": "だめです。なんといったって、頭のとがっているのがいちばんえらいのです。」\n\n「いいえ、ちがいます。まるいのがえらいのです。」\n\n",
+    "displayText": "「そうでないよ。大きなことだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4598,
+      "start": 4581
+    },
+    "revisions": [],
+    "sha256": "611f8e527ed8e92317c292acfcddf9048292e84952438b3f08766b363707600a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4598,
+      "startToken": 4581
+    },
+    "speechText": "「そうでないよ。大きなことだよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "UOAPam4hsCV2y-0hJHm1fLz2MTkhD0QQjEMdOVU-5Lo",
+    "contextAfter": "\n\n　別当が、むちをひゅうぱちっと鳴らしました。山猫がひげをぴんとひねって言いました。\n\n「裁判ももうきょうで三日目だぞ。いい加",
+    "contextBefore": "のです。」\n\n「そうでないよ。大きなことだよ。」がやがやがやがや、もうなにがなんだかわからなくなりました。山猫が叫びました。\n\n",
+    "displayText": "「だまれ、やかましい。ここをなんと心得る。しずまれしずまれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4669,
+      "start": 4638
+    },
+    "revisions": [],
+    "sha256": "1478540f3a7d653f6f479e509f25c0da43c05cfbd6b5af1f7d495043b88b5c2e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4669,
+      "startToken": 4638
+    },
+    "speechText": "「だまれ、やかましい。ここをなんと心得る。しずまれしずまれ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "a--9ysghC0A5UddE7khpJBAZ91BLGXTzsMVMpWKy-mI",
+    "contextAfter": "\n\n「いえ、いえ、だめです。あたまのとがったものが……。」がやがやがやがや。\n\n　山ねこが叫びました。\n\n「やかましい。ここをな",
+    "contextBefore": "こをなんと心得る。しずまれしずまれ。」\n\n　別当が、むちをひゅうぱちっと鳴らしました。山猫がひげをぴんとひねって言いました。\n\n",
+    "displayText": "「裁判ももうきょうで三日目だぞ。いい加減になかなおりをしたらどうだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4749,
+      "start": 4714
+    },
+    "revisions": [],
+    "sha256": "91f37f1a2eaa7f54114155c79f4165fc13cce6f104d39bb01e8f2e22c12821c2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4749,
+      "startToken": 4714
+    },
+    "speechText": "「裁判ももうきょうで三日目だぞ。いい加減になかなおりをしたらどうだ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "mvCQ4rUXJfABP-rBDWMhuLQAWGkoDmEtDAqjNiOdVH8",
+    "contextAfter": "がやがやがやがや。\n\n　山ねこが叫びました。\n\n「やかましい。ここをなんとこころえる。しずまれ、しずまれ。」\n\n　別当が、むちを",
+    "contextBefore": "らしました。山猫がひげをぴんとひねって言いました。\n\n「裁判ももうきょうで三日目だぞ。いい加減になかなおりをしたらどうだ。」\n\n",
+    "displayText": "「いえ、いえ、だめです。あたまのとがったものが……。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4778,
+      "start": 4751
+    },
+    "revisions": [],
+    "sha256": "6bab58fc6818f66923caf4d165c5911016a96df5436e979e2f0544630986338e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4778,
+      "startToken": 4751
+    },
+    "speechText": "「いえ、いえ、だめです。あたまのとがったものが……。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Jc7677L03AYfVogZ4seyVKdRTlTaUDjI2TluHHSsmP8",
+    "contextAfter": "\n\n　別当が、むちをひゅうぱちっと鳴らし、どんぐりはみんなしずまりました。山猫が一郎にそっと申しました。\n\n「このとおりです。ど",
+    "contextBefore": "おりをしたらどうだ。」\n\n「いえ、いえ、だめです。あたまのとがったものが……。」がやがやがやがや。\n\n　山ねこが叫びました。\n\n",
+    "displayText": "「やかましい。ここをなんとこころえる。しずまれ、しずまれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4832,
+      "start": 4802
+    },
+    "revisions": [],
+    "sha256": "31708cd651c74bd41dc2882b04e320680454afd3401d3b315c1a68c041144552",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4832,
+      "startToken": 4802
+    },
+    "speechText": "「やかましい。ここをなんとこころえる。しずまれ、しずまれ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "pUvHqCmRMEc3jjMr88YHZscLujZvvx6jwrXYpat3m4o",
+    "contextAfter": "\n\n　一郎はわらってこたえました。\n\n「そんなら、こう言いわたしたらいいでしょう。このなかでいちばんばかで、めちゃくちゃで、まる",
+    "contextBefore": "ずまれ、しずまれ。」\n\n　別当が、むちをひゅうぱちっと鳴らし、どんぐりはみんなしずまりました。山猫が一郎にそっと申しました。\n\n",
+    "displayText": "「このとおりです。どうしたらいいでしょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 48,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 4908,
+      "start": 4886
+    },
+    "revisions": [],
+    "sha256": "5ec4ce3b5e8017f6a3ef4a21cdbc5231a347cdd50c8220ba84c1dd67d9579169",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4908,
+      "startToken": 4886
+    },
+    "speechText": "「このとおりです。どうしたらいいでしょう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "cBj2wPXmnUa5uMxlgHFu_rKR1t8ixDmGMJGlPjbe6aY",
+    "contextAfter": "\n\n　山猫はなるほどというふうにうなずいて、それからいかにも気取って、繻子のきものの胸を開いて、黄いろの陣羽織をちょっと出してどんぐ",
+    "contextBefore": "まりました。山猫が一郎にそっと申しました。\n\n「このとおりです。どうしたらいいでしょう。」\n\n　一郎はわらってこたえました。\n\n",
+    "displayText": "「そんなら、こう言いわたしたらいいでしょう。このなかでいちばんばかで、めちゃくちゃで、まるでなっていないようなのが、いちばんえらいとね。ぼくお説教できいたんです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5009,
+      "start": 4927
+    },
+    "revisions": [],
+    "sha256": "b9864f7ea1b3999d89696c49bcc572df9276d93daa4720f0a1eea935be0bd3de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5009,
+      "startToken": 4927
+    },
+    "speechText": "「そんなら、こう言いわたしたらいいでしょう。このなかでいちばんばかで、めちゃくちゃで、まるでなっていないようなのが、いちばんえらいとね。ぼくお説教できいたんです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "XkVtCu7u3YFy6WjzZHLAIF487BUJOmC1zaPCsX06KwM",
+    "contextAfter": "\n\n　どんぐりは、しいんとしてしまいました。それはそれはしいんとして、堅まってしまいました。\n\n　そこで山猫は、黒い繻子の服をぬ",
+    "contextBefore": "うなずいて、それからいかにも気取って、繻子のきものの胸を開いて、黄いろの陣羽織をちょっと出してどんぐりどもに申しわたしました。\n\n",
+    "displayText": "「よろしい。しずかにしろ。申しわたしだ。このなかで、いちばんえらくなくて、ばかで、めちゃくちゃで、てんでなっていなくて、あたまのつぶれたようなやつが、いちばんえらいのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5174,
+      "start": 5088
+    },
+    "revisions": [],
+    "sha256": "9318cfbe383ad16819af7a9ce1690151aaeee6c4ee48057a83ee9344c89809f7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5174,
+      "startToken": 5088
+    },
+    "speechText": "「よろしい。しずかにしろ。申しわたしだ。このなかで、いちばんえらくなくて、ばかで、めちゃくちゃで、てんでなっていなくて、あたまのつぶれたようなやつが、いちばんえらいのだ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "gjMQTVEk6_C27atvNk_n9yuhPuOjTE0irnxeaE9GU9g",
+    "contextAfter": "\n\n「承知しました。お礼なんかいりませんよ。」\n\n「いいえ、お礼はどうかとってください。わたしのじんかくにかかわりますから。そし",
+    "contextBefore": "した。別当も大よろこびで、五六ぺん、鞭をひゅうぱちっ、ひゅうぱちっ、ひゅうひゅうぱちっと鳴らしました。やまねこが言いました。\n\n",
+    "displayText": "「どうもありがとうございました。これほどのひどい裁判を、まるで一分半でかたづけてくださいました。どうかこれからわたしの裁判所の、名誉判事になってください。これからも、葉書が行ったら、どうか来てくださいませんか。そのたびにお礼はいたします。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5443,
+      "start": 5324
+    },
+    "revisions": [],
+    "sha256": "cbaf1371487018a6fda719dc03616919bd9a6eb29cb493ffd365742b0deeb11e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5443,
+      "startToken": 5324
+    },
+    "speechText": "「どうもありがとうございました。これほどのひどい裁判を、まるで一分半でかたづけてくださいました。どうかこれからわたしの裁判所の、めいよ判事になってください。これからも、葉書が行ったら、どうか来てくださいませんか。そのたびにお礼はいたします。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Zjq-aGZadslHiP_GR3TkMCKSiGmotMTNz3bp-Sxh9Ek",
+    "contextAfter": "\n\n「いいえ、お礼はどうかとってください。わたしのじんかくにかかわりますから。そしてこれからは、葉書にかねた一郎どのと書いて、こ",
+    "contextBefore": "しの裁判所の、名誉判事になってください。これからも、葉書が行ったら、どうか来てくださいませんか。そのたびにお礼はいたします。」\n\n",
+    "displayText": "「承知しました。お礼なんかいりませんよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5466,
+      "start": 5445
+    },
+    "revisions": [],
+    "sha256": "5442e5e79a1a7d0a8df57e78288821743d805d353ec3838413fe01c0b711084c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5466,
+      "startToken": 5445
+    },
+    "speechText": "「承知しました。お礼なんかいりませんよ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "tjql1yKd8P5iqyHbVMq2Sy2w8rfeKJ3JASaLuN87Sn0",
+    "contextAfter": "\n\n　一郎が「ええ、かまいません。」と申しますと、やまねこはまだなにか言いたそうに、しばらくひげをひねって、眼をぱちぱちさせてい",
+    "contextBefore": "も、葉書が行ったら、どうか来てくださいませんか。そのたびにお礼はいたします。」\n\n「承知しました。お礼なんかいりませんよ。」\n\n",
+    "displayText": "「いいえ、お礼はどうかとってください。わたしのじんかくにかかわりますから。そしてこれからは、葉書にかねた一郎どのと書いて、こちらを裁判所としますが、ようございますか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5552,
+      "start": 5468
+    },
+    "revisions": [],
+    "sha256": "166a3fa1bc4e7a2686445d54f802dcac2768505478a91a19811c99effac1f5a0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5552,
+      "startToken": 5468
+    },
+    "speechText": "「いいえ、お礼はどうかとってください。わたしのじんかくにかかわりますから。そしてこれからは、葉書にかねた一郎どのと書いて、こちらを裁判所としますが、ようございますか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "EH-7xFMfI-1JwUawe1nDR26X2uSFB1FEzElS5Awu-co",
+    "contextAfter": "と申しますと、やまねこはまだなにか言いたそうに、しばらくひげをひねって、眼をぱちぱちさせていましたが、とうとう決心したらしく言い",
+    "contextBefore": "くにかかわりますから。そしてこれからは、葉書にかねた一郎どのと書いて、こちらを裁判所としますが、ようございますか。」\n\n　一郎が",
+    "displayText": "「ええ、かまいません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5570,
+      "start": 5558
+    },
+    "revisions": [],
+    "sha256": "d3c8cd7be1254b89c684d5e2b55d410d91ee055901e4d21e774cecb78d739381",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5570,
+      "startToken": 5558
+    },
+    "speechText": "「ええ、かまいません。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "bGj1M3he8LGfM3j5sLyWI1FCrIZ34r5KpOIhieQfL04",
+    "contextAfter": "\n\n　一郎はわらって言いました。\n\n「さあ、なんだか変ですね。そいつだけはやめた方がいいでしょう。」\n\n　山猫は、どうも言いよう",
+    "contextBefore": "まねこはまだなにか言いたそうに、しばらくひげをひねって、眼をぱちぱちさせていましたが、とうとう決心したらしく言い出しました。\n\n",
+    "displayText": "「それから、はがきの文句ですが、これからは、用事これありに付き、明日出頭すべしと書いてどうでしょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5692,
+      "start": 5642
+    },
+    "revisions": [
+      {
+        "after": "「それから、はがきの文句ですが、これからは、用事これありに付き、ミョウニチ出頭すべしと書いてどうでしょう。」",
+        "before": "「それから、はがきの文句ですが、これからは、用事これありに付き、みょうにち出頭すべしと書いてどうでしょう。」",
+        "candidateId": "bGj1M3he8LGfM3j5sLyWI1FCrIZ34r5KpOIhieQfL04",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:23:14.876Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "09f6ea0606d1bcefe3aa7d3669da53940c93bd2d4b269805c654688154109c3c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5692,
+      "startToken": 5642
+    },
+    "speechText": "「それから、はがきの文句ですが、これからは、用事これありに付き、ミョウニチ出頭すべしと書いてどうでしょう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "fVO_o4SdGBwvh8x3bSTgwSmwH3EPCECahKwI0pJvnwQ",
+    "contextAfter": "\n\n　山猫は、どうも言いようがまずかった、いかにも残念だというふうに、しばらくひげをひねったまま、下を向いていましたが、やっとあ",
+    "contextBefore": "ら、はがきの文句ですが、これからは、用事これありに付き、明日出頭すべしと書いてどうでしょう。」\n\n　一郎はわらって言いました。\n\n",
+    "displayText": "「さあ、なんだか変ですね。そいつだけはやめた方がいいでしょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5742,
+      "start": 5710
+    },
+    "revisions": [],
+    "sha256": "4f55181549fdfa3407ea713e9b5f37c902fdd3484e851493936c5004a3cd04c2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5742,
+      "startToken": 5710
+    },
+    "speechText": "「さあ、なんだか変ですね。そいつだけはやめた方がいいでしょう。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "mJOp2OlU1fLyyfsyc7n-2UDx_hANQbRlp63NQbnY_MQ",
+    "contextAfter": "\n\n「黄金のどんぐりがすきです。」\n\n　山猫は、鮭の頭でなくて、まあよかったというように、口早に馬車別当に云いました。\n\n「どん",
+    "contextBefore": "ようがまずかった、いかにも残念だというふうに、しばらくひげをひねったまま、下を向いていましたが、やっとあきらめて言いました。\n\n",
+    "displayText": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたは黄金のどんぐり一升と、塩鮭のあたまと、どっちをおすきですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5887,
+      "start": 5818
+    },
+    "revisions": [
+      {
+        "after": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたはきんのどんぐり、いっしょうと、しおざけのあたまと、どっちをおすきですか。」",
+        "before": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたはきんのどんぐり一しょうと、しおざけのあたまと、どっちをおすきですか。」",
+        "candidateId": "mJOp2OlU1fLyyfsyc7n-2UDx_hANQbRlp63NQbnY_MQ",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:23:14.876Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "52da5026c9023949961f2491d1155131a85eb7937d277678e8d4f6c919ffa5e0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5887,
+      "startToken": 5818
+    },
+    "speechText": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたはきんのどんぐり、いっしょうと、しおざけのあたまと、どっちをおすきですか。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "6QeNCUyhhUrdz6vDWBAfd3Nbw2FK4ae8zS4D9HphRkc",
+    "contextAfter": "\n\n　山猫は、鮭の頭でなくて、まあよかったというように、口早に馬車別当に云いました。\n\n「どんぐりを一升早くもってこい。一升にた",
+    "contextBefore": "句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたは黄金のどんぐり一升と、塩鮭のあたまと、どっちをおすきですか。」\n\n",
+    "displayText": "「黄金のどんぐりがすきです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5904,
+      "start": 5889
+    },
+    "revisions": [],
+    "sha256": "edc7600dc4aa146933c158d0848aba55bf8de4d181785ad9f507cb9def65a45e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5904,
+      "startToken": 5889
+    },
+    "speechText": "「黄金のどんぐりがすきです。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "lzx9GNb29M8I-B1hiPBFvEoQ3zpzlAqtIBYZ_q8TB8s",
+    "contextAfter": "\n\n　別当は、さっきのどんぐりをますに入れて、はかって叫びました。\n\n「ちょうど一升あります。」\n\n　山ねこの陣羽織が風にばたば",
+    "contextBefore": "か。」\n\n「黄金のどんぐりがすきです。」\n\n　山猫は、鮭の頭でなくて、まあよかったというように、口早に馬車別当に云いました。\n\n",
+    "displayText": "「どんぐりを一升早くもってこい。一升にたりなかったら、めっきのどんぐりもまぜてこい。はやく。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 5995,
+      "start": 5948
+    },
+    "revisions": [],
+    "sha256": "362070dd817d27aa7620829e7a5fb62f376dfefcb73d2ecb1a29f03c8f67ae65",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5995,
+      "startToken": 5948
+    },
+    "speechText": "「どんぐりを一升早くもってこい。一升にたりなかったら、めっきのどんぐりもまぜてこい。はやく。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "5pbZJvbAwCoIwrH_DD_2fTOeo4Sf_KZO7qf28WLfpFU",
+    "contextAfter": "\n\n　山ねこの陣羽織が風にばたばた鳴りました。そこで山ねこは、大きく延びあがって、めをつぶって、半分あくびをしながら言いました。",
+    "contextBefore": "にたりなかったら、めっきのどんぐりもまぜてこい。はやく。」\n\n　別当は、さっきのどんぐりをますに入れて、はかって叫びました。\n\n",
+    "displayText": "「ちょうど一升あります。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 6043,
+      "start": 6030
+    },
+    "revisions": [],
+    "sha256": "7e5f45edb4464afb32e6a22ff9e893031e9908536f261fee8103303f1c45f6cb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6043,
+      "startToken": 6030
+    },
+    "speechText": "「ちょうど一升あります。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "TzxsP_py4suX1LCmb9pXIWDDVvC4CD4DiOzRRwZAGec",
+    "contextAfter": "白い大きなきのこでこしらえた馬車が、ひっぱりだされました。そしてなんだかねずみいろの、おかしな形の馬がついています。\n\n「さあ、",
+    "contextBefore": "　山ねこの陣羽織が風にばたばた鳴りました。そこで山ねこは、大きく延びあがって、めをつぶって、半分あくびをしながら言いました。\n\n",
+    "displayText": "「よし、はやく馬車のしたくをしろ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 6127,
+      "start": 6109
+    },
+    "revisions": [],
+    "sha256": "f504341aff9739ceebc378e924467dab3cbe00e028bb92450cd62ef02949aa1f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6127,
+      "startToken": 6109
+    },
+    "speechText": "「よし、はやく馬車のしたくをしろ。」",
+    "workId": "043752"
+  },
+  {
+    "candidateId": "Nm2tjW7dFHLVFexX8Cdo8KbtqcXXKSRhXBnHneTrZ4U",
+    "contextAfter": "山猫が言いました。二人は馬車にのり別当は、どんぐりのますを馬車のなかに入れました。\n\n　ひゅう、ぱちっ。\n\n　馬車は草地をはなれ",
+    "contextBefore": "しろ。」白い大きなきのこでこしらえた馬車が、ひっぱりだされました。そしてなんだかねずみいろの、おかしな形の馬がついています。\n\n",
+    "displayText": "「さあ、おうちへお送りいたしましょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 62,
+    "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "rawTokenRange": {
+      "end": 6207,
+      "start": 6187
+    },
+    "revisions": [],
+    "sha256": "6724debbbdb81a6a3e12e9b711884087c60969e24eb99414ac2c70b82d2f4cb3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6207,
+      "startToken": 6187
+    },
+    "speechText": "「さあ、おうちへお送りいたしましょう。」",
+    "workId": "043752"
+  }
+]

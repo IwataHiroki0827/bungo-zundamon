@@ -16,6 +16,7 @@ import {
   PAGES_WARN_BYTES,
   REPOSITORY_WARN_BYTES,
   forecastCapacity,
+  measureGitRepository,
   requiredFreeBytes,
   verifyActualCapacity,
   type ActualCapacityInput,
@@ -211,6 +212,30 @@ describe('FUN-F002-017 actual capacity', () => {
     expect(report.generationDigest).toBe(tuple.generationDigest);
     expect(report.completenessDigest).toBe(completeness.completenessDigest);
     expect(report.sourceRepository.deduplicatedHashes.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('CRLF候補はclean filter後OIDと実体bytesを混在させずraw blobとして保守計測する', async () => {
+    const repository = await mkdtemp(join(tmpdir(), 'capacity-crlf-'));
+    roots.push(repository);
+    await exec('git', ['init', '--quiet'], { cwd: repository });
+    await exec('git', ['config', 'user.email', 'test@example.test'], { cwd: repository });
+    await exec('git', ['config', 'user.name', 'Capacity Test'], { cwd: repository });
+    await exec('git', ['config', 'core.autocrlf', 'true'], { cwd: repository });
+    await writeFile(join(repository, 'tracked.txt'), 'same\n');
+    await exec('git', ['add', 'tracked.txt'], { cwd: repository });
+    await exec('git', ['commit', '--quiet', '-m', 'fixture'], { cwd: repository });
+    const candidate = join(repository, 'candidate.txt');
+    await writeFile(candidate, 'same\r\n');
+
+    const objects = await measureGitRepository(repository, [candidate]);
+    const measured = objects.find((entry) => entry.source === 'new' && entry.path === 'candidate.txt');
+    const trackedOid = (await exec('git', ['rev-parse', 'HEAD:tracked.txt'], { cwd: repository })).stdout.trim();
+
+    expect(measured).toMatchObject({ logicalBytes: 6, storedBytes: 6, objectized: false });
+    expect(measured?.oid).not.toBe(trackedOid);
+    await expect(forecastCapacity(forecastInput({ gitObjects: objects }))).resolves.toMatchObject({
+      sourceRepository: { status: 'pass' },
+    });
   });
 
   it('不完全DistPreviewをactual PASSとして受理しない', async () => {

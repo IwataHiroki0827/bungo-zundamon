@@ -1,0 +1,67 @@
+{
+  "batchId": "F002",
+  "bindings": [
+    {
+      "baseCandidateId": "HVOG0mtiPUS4GEaFbS0p5y__c7WIZlYuNIcLMtYot2c",
+      "order": 38,
+      "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+      "rawTokenRange": {
+        "end": 4279,
+        "start": 4250
+      },
+      "revisions": [
+        {
+          "after": "「おしっこのえらいひとだよ。おしっこをしてきめるんだよ。」",
+          "before": "「おしっこのえらいひとだよ。押しっこをしてきめるんだよ。」",
+          "candidateId": "fLNx3c2QMdlfagEFg8ryRGdqZycHeAT59DGTBXUIIyg",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:23:14.876Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "zVYLkeEqYn7pIMtHVWUCJ8hai71-jQ13FnMM9j_g6tQ",
+      "order": 55,
+      "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+      "rawTokenRange": {
+        "end": 5692,
+        "start": 5642
+      },
+      "revisions": [
+        {
+          "after": "「それから、はがきの文句ですが、これからは、用事これありに付き、ミョウニチ出頭すべしと書いてどうでしょう。」",
+          "before": "「それから、はがきの文句ですが、これからは、用事これありに付き、みょうにち出頭すべしと書いてどうでしょう。」",
+          "candidateId": "bGj1M3he8LGfM3j5sLyWI1FCrIZ34r5KpOIhieQfL04",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:23:14.876Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "9VL7m12kTnBjB2lgTB-K10CXl25vSyriwM_b5pztI5g",
+      "order": 57,
+      "rawSourceSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+      "rawTokenRange": {
+        "end": 5887,
+        "start": 5818
+      },
+      "revisions": [
+        {
+          "after": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたはきんのどんぐり、いっしょうと、しおざけのあたまと、どっちをおすきですか。」",
+          "before": "「それでは、文句はいままでのとおりにしましょう。そこで今日のお礼ですが、あなたはきんのどんぐり一しょうと、しおざけのあたまと、どっちをおすきですか。」",
+          "candidateId": "mJOp2OlU1fLyyfsyc7n-2UDx_hANQbRlp63NQbnY_MQ",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:23:14.876Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "workId": "043752"
+}
