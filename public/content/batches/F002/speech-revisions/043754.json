@@ -1,0 +1,247 @@
+{
+  "batchId": "F002",
+  "bindings": [
+    {
+      "baseCandidateId": "GNOEpDiVIBi66DwtaUekk_qmCQ34JEOAWtYCAUVtIIY",
+      "order": 1,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 238,
+        "start": 173
+      },
+      "revisions": [
+        {
+          "after": "「しかの黄いろな横っ腹なんぞに、にさんぱつおみまいもうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっとたおれるだろうねえ。」",
+          "before": "「しかの黄いろな横っ腹なんぞに、二三発おみまいもうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっとたおれるだろうねえ。」",
+          "candidateId": "B8znJWB6CJO03Up-NoBq3Pz3dhiGyVSg8tA3XEtlcnc",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "pdbq5te-2_izDRBddWSmpFfXIzf1hMPwcE51QinzM5o",
+      "order": 5,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 574,
+        "start": 539
+      },
+      "revisions": [
+        {
+          "after": "「さあ、ぼくもちょうど寒くはなったし、腹はすいてきたし戻ろうとおもう。」",
+          "before": "「さあ、ぼくもちょうど寒くはなったし腹はすいてきたし戻ろうとおもう。」",
+          "candidateId": "IN5xXy6WJBNSx-Fzl-H2q_izFJ2SG6eaG6k_JlFklK4",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "-brKe4ySiusZ8xIdIFEilV9KXHjA4SubeisQ70610fA",
+      "order": 8,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 786,
+        "start": 755
+      },
+      "revisions": [
+        {
+          "after": "「どうも腹がすいた。さっきから横っ腹が痛くてたまらないんだ。」",
+          "before": "「どうも腹が空いた。さっきから横っ腹が痛くてたまらないんだ。」",
+          "candidateId": "H9_2yiUevjhkUuX7Deg1Ioz9MlHKXKrD727ep4gLPy4",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "769KIw8DR75vA500AKfxQ4uOzff1RzGrJapoL1II5KQ",
+      "order": 12,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 1028,
+        "start": 992
+      },
+      "revisions": [
+        {
+          "after": "「君、ちょうどいい。ここはこれでなかなかひらけてるんだ。入ろうじゃないか」",
+          "before": "「君、ちょうどいい。ここはこれでなかなか開けてるんだ。入ろうじゃないか」",
+          "candidateId": "wX3D90zPU8-5z3uxZST96ihDToUVP4eKE8xW0EOHVQ8",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "uVCoJRwJY9NED7KqO2MjxHf4skEV2dMllFEPYFfzrps",
+      "order": 42,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 2855,
+        "start": 2798
+      },
+      "revisions": [
+        {
+          "after": "「ハハア、何かの料理に電気をつかうと見えるね。かなけのものはあぶない。ことに尖ったものはあぶないとこう云うんだろう。」",
+          "before": "「ははあ、何かの料理に電気をつかうと見えるね。かなけのものはあぶない。ことに尖ったものはあぶないとこう云うんだろう。」",
+          "candidateId": "qIu8Gfub-XoQQWjUpHuvpZJt4RfeFYEmjMKaKbomSZI",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "r2e4g9qacTLCjJSjkUEncv0qq4j4w7LLeyQEnEFqbvg",
+      "order": 48,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 3203,
+        "start": 3101
+      },
+      "revisions": [
+        {
+          "after": "「これわね、外がひじょうに寒いだろう。へやのなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+          "before": "「これはね、外がひじょうに寒いだろう。へやのなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+          "candidateId": "U1sJjhf2MpDNoTdGN6LN39maaU46GdIJoZVw-qcZF_s",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "xCB8GmLFnnh53D4hdaZmOrTrvWvsefq8_I_dHXdR9uo",
+      "order": 51,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 3502,
+        "start": 3443
+      },
+      "revisions": [
+        {
+          "after": "「ああ、細かいとこまでよく、気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+          "before": "「ああ、細かいとこまでよく気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+          "candidateId": "kWRq3FtJmwtG4tnTm2oa1s-ZcGvvSfOqnjrUBFM-tuc",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "4N_Lq7OVP-Rccs0s5xANiy6MYrreGPn6q9-T7-7c-MU",
+      "order": 66,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 4595,
+        "start": 4522
+      },
+      "revisions": [
+        {
+          "after": "「あたりまえさ。親分のかきようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、まぬけたことを書いたもんだ。」",
+          "before": "「あたりまえさ。親分の書きようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、まぬけたことを書いたもんだ。」",
+          "candidateId": "MAGdwQ69IrQCN53kT5f_7Oy5c0zXKCXYaVko087Ge7Q",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "GcUK5N7l7opkN5ofdkHPQeQwKFutP-lC3qWa7V6-rtc",
+      "order": 69,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 4804,
+        "start": 4681
+      },
+      "revisions": [
+        {
+          "after": "「呼ぼうか、呼ぼう。おい、お客さんがた、早くいらっしゃい。いらっしゃい。いらっしゃい。おさらも洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+          "before": "「呼ぼうか、呼ぼう。おい、お客さん方、早くいらっしゃい。いらっしゃい。いらっしゃい。おさらも洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+          "candidateId": "VvIAPqYhc13UF4ieQBIZ3iv9cwd8K-quZO2a_7y2qfo",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "flnz7AabYEXLhp_y5N-dmD0Tbqsn5PfarxtTYD2O2_c",
+      "order": 72,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 5107,
+        "start": 5051
+      },
+      "revisions": [
+        {
+          "after": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さまがたを待っていられます。」",
+          "before": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さま方を待っていられます。」",
+          "candidateId": "22fg68JO-pjgJJJCrtLPcgxzOzo__HLuuZUjVeBFVTE",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "xBgnxtyWTAWET8S4IerQ8dW86KAsGCoyO_RDkeGN264",
+      "order": 73,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 5162,
+        "start": 5150
+      },
+      "revisions": [
+        {
+          "after": "「わん、わん、グワア。」",
+          "before": "「わん、わん、ぐゎあ。」",
+          "candidateId": "gOSDEuqByyJVmZ5NfJMN6zO3Lzc8BIvDF5nX9xIfasI",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "baseCandidateId": "9bOzKK9ze5zZCNW3iOTMMrsk8mGEwxwCTgeDXp2YVOU",
+      "order": 75,
+      "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+      "rawTokenRange": {
+        "end": 5355,
+        "start": 5339
+      },
+      "revisions": [
+        {
+          "after": "「にゃあお、クワア、ごろごろ。」",
+          "before": "「にゃあお、くゎあ、ごろごろ。」",
+          "candidateId": "JV7E49HGaKGnqsbIPJnqTyXdBnTQMKBH9v4d0z7gSJ8",
+          "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+          "reviewedAt": "2026-07-25T12:56:30.021Z",
+          "reviewer": "Codex音声プリフライトレビュー",
+          "revision": 1
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "workId": "043754"
+}

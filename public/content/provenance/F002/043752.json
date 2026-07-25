@@ -1,0 +1,35 @@
+{
+  "authorId": "000081",
+  "batchId": "F002",
+  "editorialReview": {
+    "approved": 63,
+    "path": "content/batches/F002/reviews/043752.json",
+    "pending": 0,
+    "rejected": 0,
+    "resultSha256": "079a0433707f8fbcb2c8e150cb4e74058a55061e32f6b3b9feee7835d21236d8",
+    "sha256": "d3557cdbebc80dd9e9079032c4a621ca9437939d7066f39f04e29e391de6ab18"
+  },
+  "processing": {
+    "candidateCount": 63,
+    "sourceTreeSha256": "f74393388ca3d8c8d91560decdca815bfdb67eea7c1188a966a890ed9e4c8183",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "注文の多い料理店",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43752.html",
+    "fetchedAt": "2026-07-25T12:23:23.482Z",
+    "inputter": "土屋隆",
+    "proofreader": "noriko saito",
+    "rawSha256": "a75b6b6f3367f1a96af1aa1c56fb163efeca5e5bce79f7a53bc1a9b9b50d3a01",
+    "textUrl": "https://www.aozora.gr.jp/cards/000081/files/43752_17657.html"
+  },
+  "speechRevisions": {
+    "count": 3,
+    "path": "content/batches/F002/speech-revisions/043752.json",
+    "sha256": "d30477b3f317cb6ee31433fd596405c599b59c21ff9d1ab6976c9c8ddd0d1c50"
+  },
+  "title": "どんぐりと山猫",
+  "workId": "043752"
+}
