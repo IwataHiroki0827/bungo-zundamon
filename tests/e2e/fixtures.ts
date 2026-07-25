@@ -79,7 +79,8 @@ export async function installDeterministicAudio(page: Page): Promise<void> {
 export async function openAuthor(page: Page): Promise<void> {
   await page.goto('#/');
   await expect(page.getByRole('heading', { level: 1, name: '文豪ずんだもん' })).toBeVisible();
-  await page.getByRole('link', { name: '作品と台詞を聴く' }).click();
+  const akutagawaCard = page.locator('.author-card').filter({ hasText: '原著者: 芥川龍之介' });
+  await akutagawaCard.getByRole('link', { name: '作品と台詞を聴く' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
 }
 

@@ -135,13 +135,13 @@ describe('batch command adapter [DES-F002-002][DES-F002-014][DES-F002-015]', () 
   });
 
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
-  it('allは完了hash chainを再実行せずreview manual gateで正常停止する', async () => {
+  it('allは完了hash chainを再実行せずreview evidence gateで正常停止する', async () => {
     const before = manifest(['extracted', 'pending', 'pending']);
     const checked = validateBatchManifest({ ...before, status: 'rights-verified', stageRecords: [record('rights-verified')] });
     if (!checked.ok) throw new Error(checked.error.message);
     const deps = dependencies(checked.value);
     const result = await runBatchCommand(['--batch', 'F002', '--work', '000473', '--stage', 'all'], 'C:/workspace', deps);
-    expect(result).toMatchObject({ code: 0, status: 'awaiting_manual_gate', gate: 'review' });
+    expect(result).toMatchObject({ code: 0, status: 'awaiting_evidence_gate', gate: 'review' });
     expect(deps.executeStage).not.toHaveBeenCalled();
     expect(deps.persistManifest).not.toHaveBeenCalled();
   });

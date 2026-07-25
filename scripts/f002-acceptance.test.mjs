@@ -86,8 +86,7 @@ function acceptanceContext() {
     browser: {
       status: 'passed',
       viewports: ['390x844', '844x390', '1440x900'],
-      accessibility: ['keyboard', 'screen-reader', 'reduced-motion'],
-      manualBrowsers: ['Windows Chrome', 'Windows Edge', 'iOS Safari'],
+      accessibility: ['keyboard', 'semantic-aria', 'reduced-motion'],
       automatedBrowsers: ['chromium', 'firefox', 'webkit', 'android-viewport'],
       candidate: candidate(),
     },
@@ -117,6 +116,12 @@ describe('FUN-F002-030 F002受入・証跡hash chain [UT-F002-030]', () => {
     const before = JSON.parse(JSON.stringify(context));
     await expect(acceptF002Release(context)).resolves.toMatchObject({ status: 'ready_for_approval' });
     expect(context).toEqual(before);
+  });
+
+  it('手動・実機・目視・聴取証跡を要求せず自動証跡だけを受理する', async () => {
+    const context = acceptanceContext();
+    expect(context.browser).not.toHaveProperty('manualBrowsers');
+    await expect(acceptF002Release(context)).resolves.toMatchObject({ status: 'ready_for_approval' });
   });
 
   it.each([

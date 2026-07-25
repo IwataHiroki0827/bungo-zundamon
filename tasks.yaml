@@ -613,15 +613,16 @@ tasks:
     lead: opus
     workers: sonnet
 - id: T-029
-  title: IT・QT・実音声・ブラウザ・権利受入を実施
+  title: IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F002
   phase: test
   state: doing
   depends:
   - T-028
+  - T-032
   tags: *id002
   mode: orchestration
-  mode_reason: 統合・実音声・権利・容量・複数ブラウザ試験を独立して実施できるため
+  mode_reason: 統合・権利・容量・自動ブラウザ試験を独立して実施し同一candidateへ結合できるため
   model:
     lead: opus
     workers: sonnet
@@ -659,3 +660,30 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-032
+  title: CHG-F002-002 自動化専用受入への変更と影響試験
+  feature: F002
+  phase: test
+  state: done
+  depends:
+  - T-028
+  tags:
+  - REQ-F002-006
+  - REQ-F002-007
+  - REQ-F002-009
+  - REQ-F002-010
+  - REQ-F002-011
+  - REQ-F002-012
+  - REQ-F002-013
+  - REQ-F002-014
+  - REQ-F002-015
+  - REQ-F002-016
+  - REQ-F002-019
+  - REQ-F002-020
+  mode: advisor
+  mode_reason: 手動確認廃止を要求・設計・試験・受入実装へ一貫して反映し、F001非回帰を確認するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-26T01:31:00+09:00'
+  result: CHG-F002-002を要求・設計・試験・受入実装へ反映し、独立再レビューACCEPT、全影響試験PASS

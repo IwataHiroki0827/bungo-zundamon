@@ -96,7 +96,7 @@ export interface BatchCommandResult {
   readonly ok: true;
   readonly code: 0;
   readonly stage: BatchCommandStage;
-  readonly status: 'completed' | 'awaiting_manual_gate';
+  readonly status: 'completed' | 'awaiting_evidence_gate';
   readonly batchId: BatchId;
   readonly workId?: WorkId;
   readonly gate?: 'review' | 'accept';
@@ -355,9 +355,9 @@ async function executeNormal(
   }
 }
 
-function manualGate(manifest: BatchManifest, workId: WorkId | undefined, gate: 'review' | 'accept'): BatchCommandResult {
+function evidenceGate(manifest: BatchManifest, workId: WorkId | undefined, gate: 'review' | 'accept'): BatchCommandResult {
   return result('all', manifest, { inputHashes: [], outputHashes: [], count: 0 }, workId, {
-    status: 'awaiting_manual_gate',
+    status: 'awaiting_evidence_gate',
     gate,
   });
 }
@@ -421,7 +421,7 @@ export async function runBatchCommand(
   if (parsed.workId === undefined) throw new BatchCommandError('BATCH_WORK_REQUIRED', 1, 'allには--workが必要です', 'all');
   const refreshedIndex = workIndex(manifest, parsed.workId);
   const work = manifest.workProgress[refreshedIndex];
-  if (!work || work.status === 'pending' || work.status === 'extracted') return manualGate(manifest, parsed.workId, 'review');
+  if (!work || work.status === 'pending' || work.status === 'extracted') return evidenceGate(manifest, parsed.workId, 'review');
   if (work.status === 'accepted') return result('all', manifest, { inputHashes: [], outputHashes: [], count: 0 }, parsed.workId);
   for (const stage of ['capacity-forecast', 'voice', 'capacity-actual'] as const) {
     const currentIndex = workIndex(manifest, parsed.workId);
@@ -429,7 +429,7 @@ export async function runBatchCommand(
     const executed = await executeNormal(workspace, manifest, stage, parsed.workId, dependencies);
     manifest = executed.manifest;
   }
-  return manualGate(manifest, parsed.workId, 'accept');
+  return evidenceGate(manifest, parsed.workId, 'accept');
 }
 
 export function serializeBatchCommandResult(value: BatchCommandResult): string {

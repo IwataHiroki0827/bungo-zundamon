@@ -33,7 +33,7 @@ describe('content CLI exit code [DES-F001-017][DES-F001-019]', () => {
 
 describe('batch CLI production adapter [DES-F002-002][DES-F002-014][DES-F002-015]', () => {
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
-  it('実CLI processがallのmanual review gateをJSON厳密1行で返しmanifestを書き換えない', async () => {
+  it('実CLI processがallのreview evidence gateをJSON厳密1行で返しmanifestを書き換えない', async () => {
     const hashA = 'a'.repeat(64);
     const hashB = 'b'.repeat(64);
     const completedAt = '2026-07-20T00:00:00Z';
@@ -67,7 +67,7 @@ describe('batch CLI production adapter [DES-F002-002][DES-F002-014][DES-F002-015
     ], { cwd: workspace, encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_NO_WARNINGS: '1' } });
     expect(stderr).toBe('');
     expect(stdout.split('\n')).toHaveLength(2);
-    expect(JSON.parse(stdout.trim())).toMatchObject({ code: 0, status: 'awaiting_manual_gate', gate: 'review' });
+    expect(JSON.parse(stdout.trim())).toMatchObject({ code: 0, status: 'awaiting_evidence_gate', gate: 'review' });
     expect(await readFile(target, 'utf8')).toBe(before);
   });
 

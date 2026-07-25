@@ -334,8 +334,7 @@ function f002AcceptanceContext() {
     browser: tagged({
       status: 'passed',
       viewports: ['390x844', '844x390', '1440x900'],
-      accessibility: ['keyboard', 'screen-reader', 'reduced-motion'],
-      manualBrowsers: ['Windows Chrome', 'Windows Edge', 'iOS Safari'],
+      accessibility: ['keyboard', 'semantic-aria', 'reduced-motion'],
       automatedBrowsers: ['chromium', 'firefox', 'webkit', 'android-viewport'],
     }),
     qtEvidence: Array.from({ length: 14 }, (_, index) => ({
@@ -361,6 +360,7 @@ describe('FUN-F001-035 承認前リリース判定 [UT-F001-035]', () => {
     ['deploy commit設定済み', (context) => { context.visibilityPlan.pagesDeployCommit = SHA; }, 'VISIBILITY_PLAN_UNSAFE'],
     ['手動browser非実機', (context) => { context.manualBrowsers[0].installed = false; }, 'MANUAL_BROWSER_EVIDENCE:Windows Chrome'],
     ['手動browser証跡重複', (context) => { context.manualBrowsers[1].name = 'Windows Chrome'; }, 'MANUAL_BROWSER_SET_INVALID'],
+    ['F001自動browser reviewer欠落', (context) => { delete context.automatedBrowsers[0].reviewer; }, 'AUTOMATED_BROWSER_EVIDENCE:chromium'],
     ['自動browser Partial', (context) => { context.automatedBrowsers[1].status = 'partial'; }, 'AUTOMATED_BROWSER_EVIDENCE:firefox'],
     ['自動browser commit不一致', (context) => { context.automatedBrowsers[2].releaseCommit = 'c'.repeat(40); }, 'AUTOMATED_BROWSER_EVIDENCE:webkit'],
     ['risk欠落', (context) => { context.browserRisks.pop(); }, 'BROWSER_RISK_SET_INVALID'],
@@ -448,6 +448,18 @@ describe('FUN-F001-035 承認前リリース判定 [UT-F001-035]', () => {
     context.releaseCandidateBatchId = 'F002';
     context.distSha256 = HASH;
     context.f002Acceptance = f002AcceptanceContext();
+    delete context.manualBrowsers;
+    delete context.deviceTests;
+    delete context.hostedBuild.reviewer;
+    delete context.hostedBuild.authorizedReviewer;
+    for (const evidence of context.automatedBrowsers) {
+      delete evidence.reviewer;
+      delete evidence.authorizedReviewer;
+    }
+    for (const risk of context.browserRisks) {
+      delete risk.reviewer;
+      delete risk.authorizedReviewer;
+    }
     await expect(runReleaseChecks(context)).resolves.toMatchObject({
       status: 'ready_for_approval',
       releaseCandidateBatchId: 'F002',

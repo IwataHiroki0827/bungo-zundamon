@@ -629,3 +629,25 @@ items:
   answer_note: null
   processed_at: '2026-07-20T10:04:04+09:00'
   processed_note: 承認をUT-F002・IT-F002・QT-F002へ反映し、T-018のQ-014ブロックを解除してテスト仕様承認ゲート③を通過した。
+- id: Q-015
+  type: approval
+  status: closed
+  title: F002 手動確認必須条件の廃止
+  body: F002の適格性・リリース判定を自動試験と機械検証可能な既存判断artifactだけで完結させます。物理実機、目視、聴取、手動スクリーンリーダーは必須証跡から外し、未実施PASSにはしません。ProjectFactoryの4承認ゲートは維持します。
+  target: docs/changes/CHG-F002-002.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナー直接指示: 手動確認は今回のプロジェクトでは不要にして。'
+  created: '2026-07-26T01:17:53+09:00'
+  source: pf-change
+  resume:
+    task: T-029
+    next: pf-test
+  approved_at: '2026-07-26T01:17:53+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T01:17:53+09:00'
+  processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新する。

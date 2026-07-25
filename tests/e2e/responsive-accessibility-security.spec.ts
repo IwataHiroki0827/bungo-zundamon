@@ -18,7 +18,9 @@ for (const viewport of viewports) {
     await page.goto('#/');
     await assertNoHorizontalOverflow(page);
 
-    const authorLink = page.getByRole('link', { name: '作品と台詞を聴く' });
+    const authorLink = page.locator('.author-card')
+      .filter({ hasText: '原著者: 芥川龍之介' })
+      .getByRole('link', { name: '作品と台詞を聴く' });
     await authorLink.focus();
     await page.keyboard.press('Enter');
     await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
@@ -42,7 +44,7 @@ for (const viewport of viewports) {
   });
 }
 
-// IT-F001-010 / QT-F001-014（axe相当の構造検査。実スクリーンリーダーは手動項目）
+// IT-F001-010 / QT-F001-014（semantic/ARIA契約の自動構造検査）
 test('主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない', async ({ page }) => {
   for (const route of ['#/', '#/authors/akutagawa-zunnosuke', '#/credits']) {
     await page.goto(route);
@@ -95,7 +97,7 @@ test('footer・クレジット・出典・外部link属性とプライバシー�
     'CC BY 4.0',
     'キャラクター利用ガイドライン',
     '立ち絵：坂本アヒル',
-    '広告・課金はありません',
+    '本サイトに広告・スポンサー・課金はありません',
     '入力フォーム、Cookie、アクセス解析などによる追跡は行いません',
     '日本国外での権利状態を一律に保証しません',
     '問い合わせ方法',
@@ -124,7 +126,10 @@ test('外部request・Cookie・storage・form・CSP違反が0件で主要操作�
     if (url.hostname !== '127.0.0.1') externalRequests.push(request.url());
   });
   await page.goto('#/');
-  await page.getByRole('link', { name: '作品と台詞を聴く' }).click();
+  await page.locator('.author-card')
+    .filter({ hasText: '原著者: 芥川龍之介' })
+    .getByRole('link', { name: '作品と台詞を聴く' })
+    .click();
   const first = page.locator('.dialogue-card').first();
   await first.getByRole('button', { name: /^再生：/ }).click();
   await expect(first).toHaveAttribute('data-player-state', 'playing');

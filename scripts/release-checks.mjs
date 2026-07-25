@@ -65,7 +65,7 @@ const REQUIRED_F002_QT_IDS = Object.freeze(
 );
 const REQUIRED_F002_WORK_IDS = Object.freeze(['000473', '043752', '043754']);
 const REQUIRED_F002_VIEWPORTS = new Set(['390x844', '844x390', '1440x900']);
-const REQUIRED_F002_ACCESSIBILITY = new Set(['keyboard', 'screen-reader', 'reduced-motion']);
+const REQUIRED_F002_ACCESSIBILITY = new Set(['keyboard', 'semantic-aria', 'reduced-motion']);
 const DEPLOY_CONDITION = "github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_DEPLOY_ENABLED == 'true' && vars.PAGES_DEPLOY_COMMIT == github.sha";
 
 function report(errors, warnings = []) {
@@ -462,13 +462,12 @@ function exactEvidenceSet(items, required, key) {
   return { byKey, invalid };
 }
 
-function browserEvidenceValid(item, context, now, { installed }) {
+function browserEvidenceValid(item, context, now, { installed, requireReviewer = true }) {
   const checkedAt = parseRfc3339Instant(item?.checkedAt);
   return isRecord(item)
     && item.status === 'passed'
     && (!installed || item.installed === true)
-    && item.authorizedReviewer === true
-    && nonBlankEvidence(item.reviewer)
+    && (!requireReviewer || (item.authorizedReviewer === true && nonBlankEvidence(item.reviewer)))
     && nonBlankEvidence(item.browserVersion)
     && nonBlankEvidence(item.osVersion)
     && nonBlankEvidence(item.evidence)
@@ -664,7 +663,6 @@ export async function acceptF002Release(context) {
   if (!isRecord(browser) || browser.status !== 'passed' || Object.hasOwn(browser, 'result')
     || !exactStringSet(browser.viewports, REQUIRED_F002_VIEWPORTS)
     || !exactStringSet(browser.accessibility, REQUIRED_F002_ACCESSIBILITY)
-    || !exactStringSet(browser.manualBrowsers, REQUIRED_MANUAL_BROWSERS)
     || !exactStringSet(browser.automatedBrowsers, REQUIRED_AUTOMATED_BROWSER_SCOPES)
     || !isRecord(regression) || regression.status !== 'passed' || Object.hasOwn(regression, 'result')
     || !Number.isInteger(regression.unitTests) || regression.unitTests < 337
@@ -729,18 +727,23 @@ export async function runReleaseChecks(context) {
   }
   if (REQUIRED_AUTOMATED_CHECKS.some((id) => !automatedById.has(id)) || automatedInvalid) blockers.push('AUTOMATED_CHECK_INCOMPLETE');
 
-  const manual = exactEvidenceSet(context?.manualBrowsers, REQUIRED_MANUAL_BROWSERS, 'name');
-  if (manual.invalid) blockers.push('MANUAL_BROWSER_SET_INVALID');
-  for (const name of REQUIRED_MANUAL_BROWSERS) {
-    if (!browserEvidenceValid(manual.byKey.get(name), context, now, { installed: true })) {
-      blockers.push(`MANUAL_BROWSER_EVIDENCE:${name}`);
+  if (feature !== 'F002') {
+    const manual = exactEvidenceSet(context?.manualBrowsers, REQUIRED_MANUAL_BROWSERS, 'name');
+    if (manual.invalid) blockers.push('MANUAL_BROWSER_SET_INVALID');
+    for (const name of REQUIRED_MANUAL_BROWSERS) {
+      if (!browserEvidenceValid(manual.byKey.get(name), context, now, { installed: true })) {
+        blockers.push(`MANUAL_BROWSER_EVIDENCE:${name}`);
+      }
     }
   }
 
   const automatedBrowsers = exactEvidenceSet(context?.automatedBrowsers, REQUIRED_AUTOMATED_BROWSER_SCOPES, 'scope');
   if (automatedBrowsers.invalid) blockers.push('AUTOMATED_BROWSER_SET_INVALID');
   for (const scope of REQUIRED_AUTOMATED_BROWSER_SCOPES) {
-    if (!browserEvidenceValid(automatedBrowsers.byKey.get(scope), context, now, { installed: false })) {
+    if (!browserEvidenceValid(automatedBrowsers.byKey.get(scope), context, now, {
+      installed: false,
+      requireReviewer: feature !== 'F002',
+    })) {
       blockers.push(`AUTOMATED_BROWSER_EVIDENCE:${scope}`);
     }
   }
@@ -749,7 +752,7 @@ export async function runReleaseChecks(context) {
   if (risks.invalid) blockers.push('BROWSER_RISK_SET_INVALID');
   const deviceTests = Array.isArray(context?.deviceTests) ? context.deviceTests : [];
   const deviceTestsByScope = new Map();
-  if (!Array.isArray(context?.deviceTests)) blockers.push('DEVICE_TEST_SET_INVALID');
+  if (feature !== 'F002' && !Array.isArray(context?.deviceTests)) blockers.push('DEVICE_TEST_SET_INVALID');
   for (const deviceTest of deviceTests) {
     if (!REQUIRED_BROWSER_RISK_SCOPES.has(deviceTest?.scope) || deviceTestsByScope.has(deviceTest?.scope)) {
       blockers.push('DEVICE_TEST_SET_INVALID');
@@ -767,14 +770,16 @@ export async function runReleaseChecks(context) {
     const riskInvalid = !isRecord(risk)
       || triggers.length !== uniqueTriggers.size
       || triggers.some((trigger) => !BROWSER_RISK_TRIGGERS.has(trigger))
-      || risk.requiresDeviceTest !== triggered
-      || risk.authorizedReviewer !== true
+      || risk.requiresDeviceTest !== (feature === 'F002' ? false : triggered)
+      || (feature !== 'F002' && risk.authorizedReviewer !== true)
       || !nonBlankEvidence(risk.rationale)
-      || !nonBlankEvidence(risk.reviewer)
+      || (feature !== 'F002' && !nonBlankEvidence(risk.reviewer))
       || assessedAt === null || now === null || assessedAt > now
       || (triggered && (resolvedAt === null || resolvedAt < assessedAt || resolvedAt > now));
     if (riskInvalid) blockers.push(`BROWSER_RISK_INVALID:${scope}`);
-    if (triggered) {
+    if (triggered && feature === 'F002') {
+      blockers.push(`AUTOMATED_BROWSER_RISK_UNRESOLVED:${scope}`);
+    } else if (triggered) {
       const automatedCheckedAt = parseRfc3339Instant(automatedBrowsers.byKey.get(scope)?.checkedAt);
       const deviceTest = deviceTestsByScope.get(scope);
       const deviceCheckedAt = parseRfc3339Instant(deviceTest?.checkedAt);
@@ -801,7 +806,7 @@ export async function runReleaseChecks(context) {
     || hosted?.conclusion !== 'success'
     || !positiveIdentifier(hosted?.artifactId) || hosted?.artifactName !== 'github-pages'
     || !SHA256.test((hosted?.artifactDigest ?? '').replace(/^sha256:/, ''))
-    || !nonBlankEvidence(hosted?.reviewer) || hosted?.authorizedReviewer !== true
+    || (feature !== 'F002' && (!nonBlankEvidence(hosted?.reviewer) || hosted?.authorizedReviewer !== true))
     || hosted?.deploymentAbsent !== true
     || hostedObservedAt === null || now === null || hostedObservedAt > now) blockers.push('HOSTED_BUILD_EVIDENCE');
   if (hosted?.artifactCatalogHash !== context?.catalogHash) blockers.push('HOSTED_BUILD_HASH_MISMATCH');
