@@ -1,0 +1,61 @@
+{
+  "authorId": "000081",
+  "batchId": "F002",
+  "characterGuideline": {
+    "contentSha256": "d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d",
+    "decision": "allowed-original-fan-art",
+    "decisionSummary": "入力画像0件の独自生成ファンアートとして使用し、非公式であることとcreditを表示する。第三者配布素材や公式画像の再利用はない。",
+    "fetchedAt": "2026-07-25T10:50:10.493Z",
+    "policyId": "zundamon-character-guideline",
+    "url": "https://zunko.jp/guideline.html"
+  },
+  "creationMethod": "original-generation",
+  "credit": "宮沢賢治ずんだもん：OpenAI built-in image_genによる独自生成（入力画像なし）",
+  "generatedOn": "2026-07-20",
+  "generation": {
+    "inputImageCount": 0,
+    "model": "not exposed by built-in tool",
+    "modelVersion": "not exposed by built-in tool",
+    "prompt": "Use case: illustration-story\nAsset type: square author card illustration for a Japanese literature web app\nPrimary request: Create an original chibi illustration of a cheerful green bean-themed mascot reimagined as a gentle early-20th-century Japanese poet and naturalist, evoking the atmosphere of Kenji Miyazawa without copying any real photograph or identifiable face.\nScene/backdrop: warm aged washi-paper texture with a loose circular ink-wash halo; subtle tiny star and wildflower motifs, no landscape.\nSubject: one fictional mascot character only; bright leaf-green hair with two rounded bean-pod buns; large amber eyes; modest dark navy travel coat over a cream shirt, small burgundy bow tie, simple dark hat held under one arm, and a slim book in the other hand.\nStyle/medium: polished hand-drawn anime chibi illustration, soft watercolor and colored-pencil texture, clean dark outlines, visually compatible with a literary character card.\nComposition/framing: centered three-quarter portrait from knees upward, generous padding, square composition.\nLighting/mood: soft warm diffuse light, kind, curious, literary, whimsical.\nColor palette: parchment beige, leaf green, navy, cream, burgundy, muted gray ink.\nConstraints: entirely original generated image; no input or reference image; no depiction or tracing of Kenji Miyazawa or any real person; no copyrighted third-party character costume or logo; no text; no signature; no watermark.\nAvoid: photorealism, exact human likeness, military insignia, recognizable brand marks, extra people, distorted hands, extra fingers, cropped head, neon background.",
+    "promptSha256": "192126ca1d846cc2268109b1e4b0949b0dfa070a973af79ca55244eb33ad7a05",
+    "provider": "OpenAI",
+    "providerTerms": {
+      "contentSha256": "043449f1a2b1c49d3fd644449e895ce8971469b45eefbca38771195854288496",
+      "decisionSummary": "built-in image_genによる入力画像なし生成物の利用に関するprovider termsを選定時確認した。",
+      "fetchedAt": "2026-07-25T10:50:10.610Z",
+      "policyId": "openai-terms",
+      "url": "https://openai.com/policies/terms-of-use/"
+    },
+    "recipe": "Generated with OpenAI built-in image_gen using the prompt above and zero input/reference images; no post-generation image edit, compositing, inpainting, third-party asset insertion, text, logo, or watermark; the generated PNG was copied byte-for-byte to the F002 tracked public-files source.",
+    "recipeSha256": "02740b2118c90829320f844d701e09453349653ddeeff03b12e8f1d1993462f8",
+    "tool": "built-in image_gen"
+  },
+  "humanReview": {
+    "decision": "approved",
+    "handsNatural": true,
+    "noRealPhotographOrIdentifiableFace": true,
+    "noTextSignatureOrWatermark": true,
+    "noThirdPartyDerivative": true,
+    "noThirdPartyMaterial": true,
+    "noTrademarkOrLogo": true,
+    "promptConformance": true,
+    "reviewedAt": "2026-07-25T19:50:32.7049823+09:00",
+    "reviewer": "Project owner blanket approval (2026-07-20) / Codex visual inspection (2026-07-25)",
+    "summary": "画像は前セッションで会話に表示され、プロジェクトオーナーは作業全体を包括承認した。2026-07-25のCodex実物目視では、1人の架空chibi、豆さや髪、紺コート、帽子、本、和紙・星・草花を確認し、文字、署名、watermark、logo、写真風の実在人物顔、第三者素材由来の識別要素は見当たらず、手指も自然だった。個別の人手による画像確認はT-029/QTで再確認する。"
+  },
+  "inputAllowlist": [],
+  "inputs": [],
+  "manifestId": "artwork-F002-000081-v1",
+  "output": {
+    "bitDepth": 8,
+    "bytes": 3118359,
+    "colorType": "RGB",
+    "height": 1254,
+    "mediaType": "image/png",
+    "publicPath": "artwork/miyazawa-zundamon.png",
+    "sha256": "6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087",
+    "sourcePath": "content/batches/F002/public-files/artwork/miyazawa-zundamon.png",
+    "width": 1254
+  },
+  "schemaVersion": "2.0.0"
+}

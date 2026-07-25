@@ -728,6 +728,14 @@ export { buildIntegratedPublicTree, promoteIntegratedTree } from './batch-public
 export { promoteVerifiedWorkArtifacts } from './batch-acceptance.ts';
 export { loadAndVerifyF001Baseline, verifyF001DistInvariant, verifyF001Invariant } from './baseline.ts';
 export { buildPagesPreview } from './pages-preview.ts';
+export {
+  ProductionPolicyTransport,
+  capturePolicyObservation,
+  comparePolicySnapshots,
+  createPolicyDefinitions,
+  fetchPolicyObservation,
+} from '../notices/policy-snapshots.ts';
+export { validateArtworkProvenance } from '../notices/artwork-provenance.ts';
 export type {
   ActiveBatchPreview,
   BatchCatalogFragment,
@@ -746,3 +754,15 @@ export type {
 } from './batch-acceptance.ts';
 export type { F001Baseline, F001BaselineDocument, VerifiedF001DistInvariantReport } from './baseline.ts';
 export type { PagesBuildAdapter, PagesDistPreview, PagesPreviewInputHashes, PagesPreviewOptions } from './pages-preview.ts';
+export type {
+  ArtworkDecision,
+  ArtworkProvenanceV2,
+} from '../notices/artwork-provenance.ts';
+export type {
+  FetchedPolicyResponse,
+  ImpactReview,
+  PolicyDecision,
+  PolicyDefinition,
+  PolicyObservation,
+  SafePolicyTransport,
+} from '../notices/policy-snapshots.ts';

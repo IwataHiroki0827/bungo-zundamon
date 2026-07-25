@@ -9,6 +9,7 @@ import { promisify } from 'node:util';
 import { describe, expect, it } from 'vitest';
 
 import { canonicalJson } from './artifacts.ts';
+import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/artwork-provenance.ts';
 import type { BatchId, BatchManifest, PublishableBatch, ReleasePreparationContext, Sha256, WorkspaceRelativePath } from './batch.ts';
 import {
   buildIntegratedPublicTree,
@@ -22,6 +23,17 @@ const execFile = promisify(execFileCallback);
 
 function sha(bytes: Uint8Array | string): Sha256 {
   return createHash('sha256').update(bytes).digest('hex') as Sha256;
+}
+
+function pngFixture(): Uint8Array {
+  const bytes = new Uint8Array(26);
+  bytes.set([137, 80, 78, 71, 13, 10, 26, 10], 0);
+  bytes.set(new TextEncoder().encode('IHDR'), 12);
+  new DataView(bytes.buffer).setUint32(16, 1254);
+  new DataView(bytes.buffer).setUint32(20, 1254);
+  bytes[24] = 8;
+  bytes[25] = 2;
+  return bytes;
 }
 
 async function treeDigest(root: string): Promise<Sha256> {
@@ -66,10 +78,11 @@ async function fixture(): Promise<{
   const acceptedPath = 'content/batches/F002/accepted-audio/000473/audio-1.wav';
   await mkdir(join(root, 'content', 'batches', 'F002', 'accepted-audio', '000473'), { recursive: true });
   await writeFile(join(root, ...acceptedPath.split('/')), audio);
-  const f002Artwork = new TextEncoder().encode('f002-artwork');
+  const f002Artwork = pngFixture();
   const f002Provenance = new TextEncoder().encode('{"source":"f002"}\n');
   await mkdir(join(root, 'content', 'batches', 'F002', 'public-files'), { recursive: true });
-  await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'artwork.png'), f002Artwork);
+  await mkdir(join(root, 'content', 'batches', 'F002', 'public-files', 'artwork'), { recursive: true });
+  await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'artwork', 'miyazawa-zundamon.png'), f002Artwork);
   await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'provenance.json'), f002Provenance);
   const manifest = {
     batchId: 'F002', feature: 'feature-2', status: 'accepted', workIds: ['000473'],
@@ -135,7 +148,7 @@ async function fixture(): Promise<{
       F002: {
         authors: [{
           ...manifest.author,
-          artwork: { path: 'artwork/f002.png', alt: 'F002', sha256: sha(f002Artwork) },
+          artwork: { path: 'artwork/miyazawa-zundamon.png', alt: 'F002', sha256: sha(f002Artwork) },
           introducedByBatchId: 'F002',
         }],
         works: [{
@@ -162,8 +175,8 @@ async function fixture(): Promise<{
         candidateCounts: { total: 1, published: 1, editorialExcluded: 0, audioExcluded: 0 },
         publicFiles: [
           {
-            source: 'content/batches/F002/public-files/artwork.png' as WorkspaceRelativePath,
-            publicPath: 'artwork/f002.png' as WorkspaceRelativePath, sha256: sha(f002Artwork), bytes: f002Artwork.byteLength,
+            source: 'content/batches/F002/public-files/artwork/miyazawa-zundamon.png' as WorkspaceRelativePath,
+            publicPath: 'artwork/miyazawa-zundamon.png' as WorkspaceRelativePath, sha256: sha(f002Artwork), bytes: f002Artwork.byteLength,
           },
           {
             source: 'content/batches/F002/public-files/provenance.json' as WorkspaceRelativePath,
@@ -216,6 +229,93 @@ async function promotionFixture(publicAudioOwners: readonly string[]): Promise<{
 }
 
 describe('batch public integration', () => {
+  it('画像provenanceのsourcePathを同じCatalogFragmentから公開pathへ統合する', async () => {
+    const value = await fixture();
+    const publicFile = value.batchCatalogs.F002!.publicFiles![0]!;
+    const manifest: ArtworkProvenanceV2 = {
+      schemaVersion: '2.0.0',
+      manifestId: 'artwork-F002-000081-v1',
+      batchId: 'F002',
+      authorId: '000081',
+      creationMethod: 'original-generation',
+      generatedOn: '2026-07-20',
+      generation: {
+        provider: 'OpenAI',
+        tool: 'built-in image_gen',
+        model: 'not exposed by built-in tool',
+        modelVersion: 'not exposed by built-in tool',
+        inputImageCount: 0,
+        prompt: 'original prompt',
+        promptSha256: sha('original prompt'),
+        recipe: 'no edit; use generated output as-is',
+        recipeSha256: sha('no edit; use generated output as-is'),
+        providerTerms: {
+          policyId: 'openai-terms',
+          url: 'https://openai.com/policies/terms-of-use/',
+          contentSha256: 'a'.repeat(64),
+          fetchedAt: '2026-07-25T00:00:00.000Z',
+          decisionSummary: '生成物の利用条件を確認',
+        },
+      },
+      inputAllowlist: [],
+      inputs: [],
+      output: {
+        sourcePath: publicFile.source,
+        publicPath: publicFile.publicPath,
+        sha256: publicFile.sha256,
+        bytes: publicFile.bytes,
+        mediaType: 'image/png',
+        width: 1254,
+        height: 1254,
+        bitDepth: 8,
+        colorType: 'RGB',
+      },
+      characterGuideline: {
+        policyId: 'zundamon-character-guideline',
+        url: 'https://zunko.jp/guideline.html',
+        contentSha256: 'b'.repeat(64),
+        fetchedAt: '2026-07-25T00:00:00.000Z',
+        decisionSummary: '非公式ファンアートとして表示条件を確認',
+        decision: 'allowed-original-fan-art',
+      },
+      humanReview: {
+        reviewer: 'test reviewer',
+        reviewedAt: '2026-07-25T00:00:00.000Z',
+        promptConformance: true,
+        noRealPhotographOrIdentifiableFace: true,
+        noThirdPartyMaterial: true,
+        noThirdPartyDerivative: true,
+        noTrademarkOrLogo: true,
+        noTextSignatureOrWatermark: true,
+        handsNatural: true,
+        decision: 'approved',
+        summary: '入力画像0件の独自生成物を目視確認',
+      },
+      credit: 'OpenAI built-in image_genによる独自生成（入力画像なし）',
+    };
+    await expect(validateArtworkProvenance(manifest, value.root)).resolves.toMatchObject({
+      result: 'pass',
+      outputPath: publicFile.publicPath,
+      outputSha256: publicFile.sha256,
+    });
+    await execFile('git', ['init'], { cwd: value.root });
+    await execFile('git', ['config', 'user.name', 'Test'], { cwd: value.root });
+    await execFile('git', ['config', 'user.email', 'test@example.invalid'], { cwd: value.root });
+    await execFile('git', ['add', '.'], { cwd: value.root });
+    await execFile('git', ['commit', '-m', 'fixture'], { cwd: value.root });
+    const { stdout } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: value.root, encoding: 'utf8' });
+    const staging = join(value.root, '.cache', 'provenance-integration');
+    await mkdir(staging, { recursive: true });
+    await buildIntegratedPublicTree(value.batches, value.f001, staging, {
+      mode: 'prepare-release',
+      workspaceRoot: value.root,
+      batchCatalogs: value.batchCatalogs,
+    }, undefined, { ...value.preparation, sourceCommit: stdout.trim() });
+    expect(await readFile(join(staging, ...publicFile.publicPath.split('/')))).toEqual(
+      await readFile(join(value.root, ...publicFile.source.split('/'))),
+    );
+  });
+
   it('F001を1回だけ含め、accepted sourceからprepare treeを構築する', async () => {
     const value = await fixture();
     const fragment = value.batchCatalogs.F002!;

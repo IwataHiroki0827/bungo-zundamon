@@ -248,3 +248,11 @@ entries:
   note: 固定raw Catalog v1と外部固定baseline SHA、F001 content/dist不変、offline Pages、実Git/repository/statfs容量、static/full
     security、release full chainを実装。4件の差戻しを解消し独立受入PASS。型・lint・621 tests・build・npm audit
     0件を確認
+- date: '2026-07-25'
+  phase: implement
+  task: T-023 規約snapshot・画像由来証跡
+  model: GPT-5
+  agents: 3
+  est_tokens: 38000
+  note: 公式規約5件の安全取得・2時点変更gate、宮沢賢治ずんだもん画像provenanceと公開tree結合を実装。偽造観測とpublic/content配下raw書込みの2件を差し戻し修正し、独立受入PASS。全639
+    tests、型・lint・build・audit 0件を確認

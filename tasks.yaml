@@ -482,7 +482,7 @@ tasks:
   title: 宮沢賢治画像・規約snapshot・権利証跡を整備
   feature: F002
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-019
   tags:
@@ -499,7 +499,7 @@ tasks:
   title: 「よだかの星」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-020
   - T-022
