@@ -50,3 +50,40 @@ ITでは、workflow本体の静的契約、event/deploy条件、承認前後のr
 - リリース判定ゲート④承認後のprivate→public、Pages有効化、承認SHA限定deploy、変数無効化の実監査chain
 
 したがって、`IT-F001-016/017`のローカル自動契約は対応済みであり、hosted・visibilityの実証跡取得状況はQT結果で別途判定する。
+# F002 結合試験仕様ID機械照合
+
+## T-029 実行前照合（2026-07-26）
+
+- 対象仕様: `docs/tests/it/IT-F002.md`
+- 対象テスト: `src/**/*.test.ts`、`scripts/*.test.mjs`、`tests/e2e/*.spec.ts`
+- 仕様ID: `IT-F002-001`〜`IT-F002-018`（18件）
+- 初回直接照合: 11/18件、直接タグ不足7件
+- 初回不足: `001`、`003`、`004`、`005`、`006`、`009`、`013`
+- 対応: 既存の対応試験suiteへ直接トレースタグを追加した。試験ロジック、fixture、期待値は変更していない。
+- 補完後の直接照合: **18/18件対応、未対応0件、余剰0件**
+- 判定: IT実行前の仕様ID機械照合ゲートをPASSした。
+
+| IT ID | 対応する主なテストファイル |
+|---|---|
+| IT-F002-001 | `src/content/batch-production.test.ts` |
+| IT-F002-002 | `src/content/f002-clean-release.integration.test.ts` |
+| IT-F002-003 | `src/content/batch-acceptance.test.ts` |
+| IT-F002-004 | `src/voice/voice-v2.test.ts` |
+| IT-F002-005 | `src/content/batch-acceptance.test.ts` |
+| IT-F002-006 | `src/content/batch-command.test.ts` |
+| IT-F002-007 | `src/content/data-integrity.integration.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
+| IT-F002-008 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
+| IT-F002-009 | `src/content/pages-preview.test.ts` |
+| IT-F002-010 | `src/main.test.ts`、`tests/e2e/f002-multi-author.spec.ts` |
+| IT-F002-011 | `tests/e2e/f002-multi-author.spec.ts` |
+| IT-F002-012 | `tests/e2e/f002-multi-author.spec.ts` |
+| IT-F002-013 | `src/notices/policy-snapshots.test.ts` |
+| IT-F002-014 | `tests/e2e/f002-multi-author.spec.ts` |
+| IT-F002-015 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
+| IT-F002-016 | `scripts/f002-security.test.mjs` |
+| IT-F002-017 | `scripts/f002-security.test.mjs` |
+| IT-F002-018 | `src/content/f002-clean-release.integration.test.ts` |
+
+仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。PASS/FAILは`IT-F002-result.md`とattempt生ログで判定する。
+
+---

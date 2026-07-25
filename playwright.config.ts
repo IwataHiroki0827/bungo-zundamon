@@ -16,6 +16,9 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ...(process.env.F002_QT_EVIDENCE === '1'
+      ? [['json', { outputFile: 'docs/evidence/qt/QT-F002-browser-attempt-1.json' }] as const]
+      : []),
   ],
   use: {
     baseURL: pagesUrl,

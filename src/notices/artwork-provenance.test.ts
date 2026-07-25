@@ -98,6 +98,7 @@ async function fixture(): Promise<{ workspace: string; bytes: Uint8Array; manife
   };
 }
 
+// Direct trace tags: QT-F002-010
 describe('UT-F002-012 作者別ArtworkProvenanceV2', () => {
   it('F002 committed provenanceがtracked public-files正本と一致する', async () => {
     const workspace = process.cwd();

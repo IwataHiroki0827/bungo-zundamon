@@ -330,6 +330,7 @@ async function promotionFixture(publicAudioOwners: readonly string[]): Promise<{
   };
 }
 
+// Direct trace tags: QT-F002-006
 describe('UT-F002-018/UT-F002-019 batch public integration', () => {
   it('画像provenanceのsourcePathを同じCatalogFragmentから公開pathへ統合する', async () => {
     const value = await fixture();

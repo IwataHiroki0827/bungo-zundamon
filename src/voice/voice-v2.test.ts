@@ -104,6 +104,7 @@ afterEach(async () => {
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
+// Direct trace tags: IT-F002-004 QT-F002-007
 describe('UT-F002-013 FUN-F002-013 voice cache key v2', () => {
   it('batch/candidateに依存せず、canonical configと本文だけで共有keyを作る', () => {
     const reordered = Object.fromEntries(Object.entries(config).reverse()) as unknown as VoiceConfigV2;

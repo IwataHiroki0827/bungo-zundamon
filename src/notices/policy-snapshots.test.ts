@@ -79,6 +79,7 @@ function observation(
   };
 }
 
+// Direct trace tags: IT-F002-013 QT-F002-009
 describe('UT-F002-035 規約取得のexact allowlistと安全transport', () => {
   it('5件のcanonical HTTPSだけを1回取得し、8 MiB/14,999 ms境界を許可する', async () => {
     const workspace = await mkdtemp(join(tmpdir(), 'policy-allowlist-'));

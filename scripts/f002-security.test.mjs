@@ -38,6 +38,7 @@ async function fixture() {
   };
 }
 
+// Direct trace tags: QT-F002-011
 describe('FUN-F002-029 security集約 [DES-F002-012][DES-F002-016][UT-F002-029][IT-F002-016][IT-F002-017]', () => {
   it('self-only runtime・安全DOM・最小workflow・問題0のscanだけをPASSにする', async () => {
     await expect(runF002SecurityChecks(await fixture())).resolves.toEqual({

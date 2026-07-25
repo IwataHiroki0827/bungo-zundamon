@@ -134,6 +134,7 @@ function voiceTuple(root: string, current: BatchManifest, targetWorkId: WorkId, 
   return { stagedVoice, completeness, preview, boundManifest, actual, pages, contentInvariant, distInvariant };
 }
 
+// Direct trace tags: IT-F002-003 IT-F002-005
 describe('UT-F002-033 FUN-F002-033 accepted work transaction', () => {
   it.each(['source-moved', 'manifest-updated'] as const)('%s実process停止後にstale lockを回収して完了する', async (faultPhase) => {
     const root = await mkdtemp(join(tmpdir(), 'accepted-work-'));

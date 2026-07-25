@@ -268,6 +268,7 @@ describe('FUN-F001-014 編集レビュー [DES-F001-007][UT-F001-014]', () => {
 });
 
 // @des DES-F002-004,DES-F002-015 @fun FUN-F002-009
+// Direct trace tags: QT-F002-004 QT-F002-005
 describe('FUN-F002-009 作品別編集レビュー [UT-F002-009]', () => {
   const workId = '000473';
 

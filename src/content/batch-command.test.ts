@@ -98,6 +98,7 @@ function dependencies(initial: BatchManifest): BatchDependencies & {
   };
 }
 
+// Direct trace tags: IT-F002-006 QT-F002-013
 describe('batch command adapter [DES-F002-002][DES-F002-014][DES-F002-015]', () => {
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
   it('review stageをwork付きで実行しmanifestを1回だけ保存する', async () => {

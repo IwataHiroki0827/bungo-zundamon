@@ -55,3 +55,36 @@
 - Windows Chrome、Windows Edge、iOS Safariの候補commit一致手動3環境
 
 リリース候補は`5337d2752e5a288b8d3078c2d1d133ebdef6ed21`としてprivate `feature/F001`へpush済みである。GitHub CLIは未認証で、hosted/visibility・手動3環境の実証跡は未取得のため、候補SHA拘束を含む`QT-F001-019/020`全体はPARTIALとする。
+# F002 適格性試験仕様ID機械照合
+
+## T-029 実行前照合（2026-07-26）
+
+- 対象仕様: `docs/tests/qt/QT-F002.md`
+- 対象テスト: `src/**/*.test.ts`、`scripts/*.test.mjs`、`tests/e2e/*.spec.ts`
+- 仕様ID: `QT-F002-001`〜`QT-F002-014`（14件）
+- 初回直接照合: 5/14件、直接タグ不足9件
+- 初回不足: `003`、`004`、`005`、`006`、`007`、`009`、`010`、`011`、`013`
+- 対応: 既存の対応試験suiteへ直接トレースタグを追加した。試験ロジック、fixture、期待値は変更していない。
+- 補完後の直接照合: **14/14件対応、未対応0件、余剰0件**
+- 判定: QT実行前の仕様ID機械照合ゲートをPASSした。
+
+| QT ID | 対応する主な自動試験 |
+|---|---|
+| QT-F002-001 | `src/content/f002-clean-release.integration.test.ts` |
+| QT-F002-002 | `tests/e2e/f002-multi-author.spec.ts` |
+| QT-F002-003 | `src/content/batch-production.test.ts` |
+| QT-F002-004 | `src/content/processing.test.ts` |
+| QT-F002-005 | `src/content/processing.test.ts` |
+| QT-F002-006 | `src/content/batch-public.test.ts` |
+| QT-F002-007 | `src/voice/voice-v2.test.ts` |
+| QT-F002-008 | `tests/e2e/f002-multi-author.spec.ts` |
+| QT-F002-009 | `src/notices/policy-snapshots.test.ts` |
+| QT-F002-010 | `src/notices/artwork-provenance.test.ts` |
+| QT-F002-011 | `scripts/f002-security.test.mjs` |
+| QT-F002-012 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
+| QT-F002-013 | `src/content/batch-command.test.ts` |
+| QT-F002-014 | `tests/e2e/f002-multi-author.spec.ts` |
+
+仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。PASS/FAILは`QT-F002-result.md`とattempt生ログで判定する。
+
+---
