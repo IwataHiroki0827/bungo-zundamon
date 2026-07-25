@@ -648,7 +648,8 @@ async function measuredFreeBytes(workspace: string): Promise<number> {
 }
 
 async function deriveRepositoryMeasurements(workspace: string, candidates: readonly string[]) {
-  const fixed = await measureRuntimeTree(workspace, false, join(workspace, '.git', 'objects'));
+  const gitRoot = join(workspace, '.git');
+  const fixed = await measureRuntimeTree(gitRoot, false, join(gitRoot, 'objects'));
   const objects = await measureGitRepository(workspace, candidates);
   return { repositoryNonObjectBytes: fixed.bytes, gitObjects: objects };
 }

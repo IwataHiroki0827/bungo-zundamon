@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { cp, mkdtemp, mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { cp, lstat, mkdtemp, mkdir, readFile, readdir, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -41,6 +41,23 @@ function treeDigest(entries: readonly { readonly path: string; readonly bytes: U
     digest.update(entry.path, 'utf8').update('\0').update(String(entry.bytes.byteLength), 'ascii').update('\0').update(entry.bytes);
   }
   return digest.digest('hex') as Sha256;
+}
+
+async function gitNonObjectBytes(workspace: string): Promise<number> {
+  const gitRoot = join(workspace, '.git');
+  const objectsRoot = join(gitRoot, 'objects');
+  let bytes = 0;
+  const walk = async (directory: string): Promise<void> => {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const target = join(directory, entry.name);
+      if (target === objectsRoot) continue;
+      if (entry.isDirectory()) await walk(target);
+      else if (entry.isFile() && !entry.isSymbolicLink()) bytes += (await lstat(target)).size;
+      else throw new Error(`Git metadataにregular file以外があります: ${target}`);
+    }
+  };
+  await walk(gitRoot);
+  return bytes;
 }
 
 function candidate(candidateId = 'candidate-1', displayText = '「表示」'): Candidate {
@@ -884,6 +901,9 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const artifactPath = join(input.workspace, '.cache', 'batch-release', input.manifest.batchId, 'release-verify-inputs.json');
     await mkdir(dirname(artifactPath), { recursive: true });
     await writeFile(artifactPath, canonicalJson(artifact), 'utf8');
+    const ignoredWorkspaceFile = join(input.workspace, '.cache', 'ignored-workspace.bin');
+    await writeFile(ignoredWorkspaceFile, Buffer.alloc(8 * 1024 * 1024));
+    const expectedRepositoryNonObjectBytes = await gitNonObjectBytes(input.workspace);
     const buildTree = vi.fn(async (_batches, _baseline, stagingRoot: string) => {
       await mkdir(join(stagingRoot, 'content'), { recursive: true });
       await writeFile(join(stagingRoot, 'content', 'catalog.json'), canonicalJson({ schemaVersion: '2.0.0' }));
@@ -920,6 +940,8 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
         phase: 'release', releaseCandidateBatchId: input.manifest.batchId, releaseCommit: commit,
         artifactDigest: context.artifactDigest, contentBuildSha256: HASH,
       });
+      expect(capacityInput.repositoryNonObjectBytes).toBe(expectedRepositoryNonObjectBytes);
+      expect(capacityInput.repositoryNonObjectBytes).toBeLessThan((await lstat(ignoredWorkspaceFile)).size);
       return releaseActual as never;
     });
     const dependencies = createProductionBatchDependencies({
