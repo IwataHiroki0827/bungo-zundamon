@@ -1,0 +1,1916 @@
+[
+  {
+    "candidateId": "YKiXNlY4K3vJm4gi26rUNyPaLuMWiJywds0--vHGZA4",
+    "contextAfter": "\n\n「鹿の黄いろな横っ腹なんぞに、二三発お見舞もうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっと倒れるだろうね",
+    "contextBefore": "鉄砲をかついで、白熊のような犬を二疋つれて、だいぶ山奥の、木の葉のかさかさしたとこを、こんなことを云いながら、あるいておりました。\n\n",
+    "displayText": "「ぜんたい、ここらの山は怪しからんね。鳥も獣も一疋も居やがらん。なんでも構わないから、早くタンタアーンと、やって見たいもんだなあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 171,
+      "start": 105
+    },
+    "revisions": [],
+    "sha256": "df354217abd0173fdc1488f9802e84a7c1d14fd85c8fd7f14536d4d3bb42066d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 171,
+      "startToken": 105
+    },
+    "speechText": "「ぜんたい、ここらの山はけしからんね。鳥もけものも一疋も居やがらん。なんでも構わないから、早くタンタアーンと、やって見たいもんだなあ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "B8znJWB6CJO03Up-NoBq3Pz3dhiGyVSg8tA3XEtlcnc",
+    "contextAfter": "\n\n　それはだいぶの山奥でした。案内してきた専門の鉄砲打ちも、ちょっとまごついて、どこかへ行ってしまったくらいの山奥でした。\n\n",
+    "contextBefore": "い、ここらの山は怪しからんね。鳥も獣も一疋も居やがらん。なんでも構わないから、早くタンタアーンと、やって見たいもんだなあ。」\n\n",
+    "displayText": "「鹿の黄いろな横っ腹なんぞに、二三発お見舞もうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっと倒れるだろうねえ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 238,
+      "start": 173
+    },
+    "revisions": [
+      {
+        "after": "「しかの黄いろな横っ腹なんぞに、にさんぱつおみまいもうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっとたおれるだろうねえ。」",
+        "before": "「しかの黄いろな横っ腹なんぞに、二三発おみまいもうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっとたおれるだろうねえ。」",
+        "candidateId": "B8znJWB6CJO03Up-NoBq3Pz3dhiGyVSg8tA3XEtlcnc",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "1fb5d213cf11709e48a467d80ce1b6620ab1018e169524d7c754c889ff66767c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 238,
+      "startToken": 173
+    },
+    "speechText": "「しかの黄いろな横っ腹なんぞに、にさんぱつおみまいもうしたら、ずいぶん痛快だろうねえ。くるくるまわって、それからどたっとたおれるだろうねえ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "kXfvOU5lrkqdSvGDQ1gLo6_c7aqDky7bQosijfxXsiE",
+    "contextAfter": "と一人の紳士が、その犬の眼ぶたを、ちょっとかえしてみて言いました。\n\n「ぼくは二千八百円の損害だ。」と、もひとりが、くやしそうに",
+    "contextBefore": "り山が物凄いので、その白熊のような犬が、二疋いっしょにめまいを起こして、しばらく吠って、それから泡を吐いて死んでしまいました。\n\n",
+    "displayText": "「じつにぼくは、二千四百円の損害だ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 392,
+      "start": 374
+    },
+    "revisions": [],
+    "sha256": "3dfcf6adbc7e3db1d9021dad7d1f9a8fa44da0cb457d29a76be10bea39bcf348",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 392,
+      "startToken": 374
+    },
+    "speechText": "「じつにぼくは、二千四百円の損害だ」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "N-Cj74gXxVW5G8pJ9nGjvbZR7xSuzNHrkFAksf4x89E",
+    "contextAfter": "と、もひとりが、くやしそうに、あたまをまげて言いました。\n\n　はじめの紳士は、すこし顔いろを悪くして、じっと、もひとりの紳士の、",
+    "contextBefore": "んでしまいました。\n\n「じつにぼくは、二千四百円の損害だ」と一人の紳士が、その犬の眼ぶたを、ちょっとかえしてみて言いました。\n\n",
+    "displayText": "「ぼくは二千八百円の損害だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 442,
+      "start": 427
+    },
+    "revisions": [],
+    "sha256": "4b1719eb13fef6770591da19b26014e4a7aa7db794d42bf3dc6b61b8782fd425",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 442,
+      "startToken": 427
+    },
+    "speechText": "「ぼくは二千八百円の損害だ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "Z63U5baMWu-7H9LNN1B8NL-7TCofXD2JIWrRH9p7pqo",
+    "contextAfter": "\n\n「さあ、ぼくもちょうど寒くはなったし腹は空いてきたし戻ろうとおもう。」\n\n「そいじゃ、これで切りあげよう。なあに戻りに、昨日の",
+    "contextBefore": "たまをまげて言いました。\n\n　はじめの紳士は、すこし顔いろを悪くして、じっと、もひとりの紳士の、顔つきを見ながら云いました。\n\n",
+    "displayText": "「ぼくはもう戻ろうとおもう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 537,
+      "start": 522
+    },
+    "revisions": [],
+    "sha256": "78b17bbcc40c8b7a4a7203c326555bb16dcbc0e091efb2c3f2f038bb3ee1a528",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 537,
+      "startToken": 522
+    },
+    "speechText": "「ぼくはもうもどろうとおもう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "IN5xXy6WJBNSx-Fzl-H2q_izFJ2SG6eaG6k_JlFklK4",
+    "contextAfter": "\n\n「そいじゃ、これで切りあげよう。なあに戻りに、昨日の宿屋で、山鳥を拾円も買って帰ればいい。」\n\n「兎もでていたねえ。そうすれば結",
+    "contextBefore": "めの紳士は、すこし顔いろを悪くして、じっと、もひとりの紳士の、顔つきを見ながら云いました。\n\n「ぼくはもう戻ろうとおもう。」\n\n",
+    "displayText": "「さあ、ぼくもちょうど寒くはなったし腹は空いてきたし戻ろうとおもう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 574,
+      "start": 539
+    },
+    "revisions": [
+      {
+        "after": "「さあ、ぼくもちょうど寒くはなったし、腹はすいてきたし戻ろうとおもう。」",
+        "before": "「さあ、ぼくもちょうど寒くはなったし腹はすいてきたし戻ろうとおもう。」",
+        "candidateId": "IN5xXy6WJBNSx-Fzl-H2q_izFJ2SG6eaG6k_JlFklK4",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "8d589a4e8f8f520ccbf7621f64a9e91d6e9b79b552bae0462bcb4b7d609f0739",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 574,
+      "startToken": 539
+    },
+    "speechText": "「さあ、ぼくもちょうど寒くはなったし、腹はすいてきたし戻ろうとおもう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "BAKFBP465Bkwaa3PWTWb6MTOsxSNikFxgdFubQrzOyo",
+    "contextAfter": "\n\n「兎もでていたねえ。そうすれば結局おんなじこった。では帰ろうじゃないか」\n\n　ところがどうも困ったことは、どっちへ行けば戻れ",
+    "contextBefore": "がら云いました。\n\n「ぼくはもう戻ろうとおもう。」\n\n「さあ、ぼくもちょうど寒くはなったし腹は空いてきたし戻ろうとおもう。」\n\n",
+    "displayText": "「そいじゃ、これで切りあげよう。なあに戻りに、昨日の宿屋で、山鳥を拾円も買って帰ればいい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 620,
+      "start": 576
+    },
+    "revisions": [],
+    "sha256": "35b2dc288634236faed59e77d474c15398d0015112ec4afc52cd24320b013a29",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 620,
+      "startToken": 576
+    },
+    "speechText": "「そいじゃ、これで切りあげよう。なあに戻りに、きのうの宿屋で、山鳥をじゅうえんも買って帰ればいい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "pXa7PSwOY3p7A-4lfREovcXs-6KGJiGE__PAN0yEJrA",
+    "contextAfter": "\n\n　ところがどうも困ったことは、どっちへ行けば戻れるのか、いっこうに見当がつかなくなっていました。\n\n　風がどうと吹いてきて、",
+    "contextBefore": "は空いてきたし戻ろうとおもう。」\n\n「そいじゃ、これで切りあげよう。なあに戻りに、昨日の宿屋で、山鳥を拾円も買って帰ればいい。」\n\n",
+    "displayText": "「兎もでていたねえ。そうすれば結局おんなじこった。では帰ろうじゃないか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 658,
+      "start": 622
+    },
+    "revisions": [],
+    "sha256": "5d3ff086b96f4f2074a7916ea9c3054295d37f4cd940e794145b6549418d4427",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 658,
+      "startToken": 622
+    },
+    "speechText": "「うさぎもでていたねえ。そうすれば結局おんなじこった。では帰ろうじゃないか」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "H9_2yiUevjhkUuX7Deg1Ioz9MlHKXKrD727ep4gLPy4",
+    "contextAfter": "\n\n「ぼくもそうだ。もうあんまりあるきたくないな。」\n\n「あるきたくないよ。ああ困ったなあ、何かたべたいなあ。」\n\n「喰べたいも",
+    "contextBefore": "うに見当がつかなくなっていました。\n\n　風がどうと吹いてきて、草はざわざわ、木の葉はかさかさ、木はごとんごとんと鳴りました。\n\n",
+    "displayText": "「どうも腹が空いた。さっきから横っ腹が痛くてたまらないんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 786,
+      "start": 755
+    },
+    "revisions": [
+      {
+        "after": "「どうも腹がすいた。さっきから横っ腹が痛くてたまらないんだ。」",
+        "before": "「どうも腹が空いた。さっきから横っ腹が痛くてたまらないんだ。」",
+        "candidateId": "H9_2yiUevjhkUuX7Deg1Ioz9MlHKXKrD727ep4gLPy4",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "a81bc70c942dc51f4e08b22530b3e131b3f8a2f9dd102f0d6080d66822aac378",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 786,
+      "startToken": 755
+    },
+    "speechText": "「どうも腹がすいた。さっきから横っ腹が痛くてたまらないんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "JYZa0CAnPw6v77p-ko6dN1RgcPhdvjCCLxxJfMZeW70",
+    "contextAfter": "\n\n「あるきたくないよ。ああ困ったなあ、何かたべたいなあ。」\n\n「喰べたいもんだなあ」\n\n　二人の紳士は、ざわざわ鳴るすすきの中",
+    "contextBefore": "ざわざわ、木の葉はかさかさ、木はごとんごとんと鳴りました。\n\n「どうも腹が空いた。さっきから横っ腹が痛くてたまらないんだ。」\n\n",
+    "displayText": "「ぼくもそうだ。もうあんまりあるきたくないな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 812,
+      "start": 788
+    },
+    "revisions": [],
+    "sha256": "a8f1c5d626125df96e22acbb5651e535642d09561ea0b54472560b07594dd13b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 812,
+      "startToken": 788
+    },
+    "speechText": "「ぼくもそうだ。もうあんまりあるきたくないな。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "bC2hGOvIpj8ivmqtDAKBcbnF01U6NCmWyp5ijE728i0",
+    "contextAfter": "\n\n「喰べたいもんだなあ」\n\n　二人の紳士は、ざわざわ鳴るすすきの中で、こんなことを云いました。\n\n　その時ふとうしろを見ますと",
+    "contextBefore": "した。\n\n「どうも腹が空いた。さっきから横っ腹が痛くてたまらないんだ。」\n\n「ぼくもそうだ。もうあんまりあるきたくないな。」\n\n",
+    "displayText": "「あるきたくないよ。ああ困ったなあ、何かたべたいなあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 842,
+      "start": 814
+    },
+    "revisions": [],
+    "sha256": "c18d360ed8c6e2f16c9fe7d1680e39331c6cd6aae8a433b5b9e9e48d9c194825",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 842,
+      "startToken": 814
+    },
+    "speechText": "「あるきたくないよ。ああ困ったなあ、何かたべたいなあ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "DM0zbvR6EXn_9t759NJcHhfIBl18TTAZr-sf8Cu95tA",
+    "contextAfter": "\n\n　二人の紳士は、ざわざわ鳴るすすきの中で、こんなことを云いました。\n\n　その時ふとうしろを見ますと、立派な一軒の西洋造りの家が",
+    "contextBefore": "ないんだ。」\n\n「ぼくもそうだ。もうあんまりあるきたくないな。」\n\n「あるきたくないよ。ああ困ったなあ、何かたべたいなあ。」\n\n",
+    "displayText": "「喰べたいもんだなあ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 855,
+      "start": 844
+    },
+    "revisions": [],
+    "sha256": "539174ddcca45b8e4a4ce5712a1e51f3e369a9974ac730b8365f6d2f9ef7a07e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 855,
+      "startToken": 844
+    },
+    "speechText": "「たべたいもんだなあ」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "wX3D90zPU8-5z3uxZST96ihDToUVP4eKE8xW0EOHVQ8",
+    "contextAfter": "\n\n「おや、こんなとこにおかしいね。しかしとにかく何か食事ができるんだろう」\n\n「もちろんできるさ。看板にそう書いてあるじゃない",
+    "contextBefore": "そして玄関には\n\n\nRESTAURANT\n\n西洋料理店\n\nWILDCAT HOUSE\n\n山猫軒\n\n\n\nという札がでていました。\n\n",
+    "displayText": "「君、ちょうどいい。ここはこれでなかなか開けてるんだ。入ろうじゃないか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1028,
+      "start": 992
+    },
+    "revisions": [
+      {
+        "after": "「君、ちょうどいい。ここはこれでなかなかひらけてるんだ。入ろうじゃないか」",
+        "before": "「君、ちょうどいい。ここはこれでなかなか開けてるんだ。入ろうじゃないか」",
+        "candidateId": "wX3D90zPU8-5z3uxZST96ihDToUVP4eKE8xW0EOHVQ8",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "48e86729a271c73a68197bb6f7eefb89b3b5f682fc1e73c9ecdd53ccf3ef1193",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1028,
+      "startToken": 992
+    },
+    "speechText": "「君、ちょうどいい。ここはこれでなかなかひらけてるんだ。入ろうじゃないか」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "uAPfj4kgmcR56hGg0q1limCzqJPhRkVRjAXzHg8-Om8",
+    "contextAfter": "\n\n「もちろんできるさ。看板にそう書いてあるじゃないか」\n\n「はいろうじゃないか。ぼくはもう何か喰べたくて倒れそうなんだ。」\n\n",
+    "contextBefore": "USE\n\n山猫軒\n\n\n\nという札がでていました。\n\n「君、ちょうどいい。ここはこれでなかなか開けてるんだ。入ろうじゃないか」\n\n",
+    "displayText": "「おや、こんなとこにおかしいね。しかしとにかく何か食事ができるんだろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1066,
+      "start": 1030
+    },
+    "revisions": [],
+    "sha256": "40de1056d83b2de18ae70429d7291b663abe5a3f5a6de09bff7035563067972c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1066,
+      "startToken": 1030
+    },
+    "speechText": "「おや、こんなとこにおかしいね。しかしとにかく何か食事ができるんだろう」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "r1NoCdR5zDRZrHgnt0H03AOeSoGN97t77rEJy1NZthc",
+    "contextAfter": "\n\n「はいろうじゃないか。ぼくはもう何か喰べたくて倒れそうなんだ。」\n\n　二人は玄関に立ちました。玄関は白い瀬戸の煉瓦で組んで、実に",
+    "contextBefore": "はこれでなかなか開けてるんだ。入ろうじゃないか」\n\n「おや、こんなとこにおかしいね。しかしとにかく何か食事ができるんだろう」\n\n",
+    "displayText": "「もちろんできるさ。看板にそう書いてあるじゃないか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1094,
+      "start": 1068
+    },
+    "revisions": [],
+    "sha256": "d405a7c481c45f84132751c9bad91835d3b6003c32040ae81db74bf7d5a428ea",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1094,
+      "startToken": 1068
+    },
+    "speechText": "「もちろんできるさ。看板にそう書いてあるじゃないか」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "cWQ-B5wYMiC-dJTxi7-zRtgPHLUnUpbrWkGsRjZGUVw",
+    "contextAfter": "\n\n　二人は玄関に立ちました。玄関は白い瀬戸の煉瓦で組んで、実に立派なもんです。\n\n　そして硝子の開き戸がたって、そこに金文字でこう書",
+    "contextBefore": "や、こんなとこにおかしいね。しかしとにかく何か食事ができるんだろう」\n\n「もちろんできるさ。看板にそう書いてあるじゃないか」\n\n",
+    "displayText": "「はいろうじゃないか。ぼくはもう何か喰べたくて倒れそうなんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1128,
+      "start": 1096
+    },
+    "revisions": [],
+    "sha256": "793abf2f7c7e20c75b1545c019e6ba4644822af68b0e187d15253fda229db0fc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1128,
+      "startToken": 1096
+    },
+    "speechText": "「はいろうじゃないか。ぼくはもう何か喰べたくて倒れそうなんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "LtYzCaHxCH_Z7N_Kj4ifQwaOgiNFrZx-SqBh4BDzgs8",
+    "contextAfter": "\n\n\n\n　二人はそこで、ひどくよろこんで言いました。\n\n「こいつはどうだ、やっぱり世の中はうまくできてるねえ、きょう一日なんぎし",
+    "contextBefore": "ました。玄関は白い瀬戸の煉瓦で組んで、実に立派なもんです。\n\n　そして硝子の開き戸がたって、そこに金文字でこう書いてありました。\n\n\n",
+    "displayText": "「どなたもどうかお入りください。決してご遠慮はありません」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1231,
+      "start": 1203
+    },
+    "revisions": [],
+    "sha256": "b8cab91f7f7fa6c987fdcd145e9d557094dc45d4175884248b70feeadb70b5dd",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1231,
+      "startToken": 1203
+    },
+    "speechText": "「どなたもどうかお入りください。決してごえんりょはありません」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "XrgrVHOBxqSAweV9C9SILpTEt9tP961OO-ci0EHgqIU",
+    "contextAfter": "\n\n「どうもそうらしい。決してご遠慮はありませんというのはその意味だ。」\n\n　二人は戸を押して、なかへ入りました。そこはすぐ廊下に",
+    "contextBefore": "りました。\n\n\n「どなたもどうかお入りください。決してご遠慮はありません」\n\n\n\n　二人はそこで、ひどくよろこんで言いました。\n\n",
+    "displayText": "「こいつはどうだ、やっぱり世の中はうまくできてるねえ、きょう一日なんぎしたけれど、こんどはこんないいこともある。このうちは料理店だけれどもただでご馳走するんだぜ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1340,
+      "start": 1259
+    },
+    "revisions": [],
+    "sha256": "b667b9b9a51f561331a757d00cf3b1efb5027bd0d0554bf9f3a2be431e97e0c1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1340,
+      "startToken": 1259
+    },
+    "speechText": "「こいつはどうだ、やっぱり世の中はうまくできてるねえ、きょう一日なんぎしたけれど、こんどはこんないいこともある。このうちは料理店だけれどもただでごちそうするんだぜ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "xenuYJJprdEprHY4gAP36yiMvWzEr6V93GRxOuawBQ0",
+    "contextAfter": "\n\n　二人は戸を押して、なかへ入りました。そこはすぐ廊下になっていました。その硝子戸の裏側には、金文字でこうなっていました。\n\n\n",
+    "contextBefore": "くできてるねえ、きょう一日なんぎしたけれど、こんどはこんないいこともある。このうちは料理店だけれどもただでご馳走するんだぜ。」\n\n",
+    "displayText": "「どうもそうらしい。決してご遠慮はありませんというのはその意味だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1376,
+      "start": 1342
+    },
+    "revisions": [],
+    "sha256": "b5f8f5f7c637938caf67fafd92776da6be4202849741904532ece7ebb55e36de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1376,
+      "startToken": 1342
+    },
+    "speechText": "「どうもそうらしい。決してご遠慮はありませんというのはその意味だ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "wOkvOc6UCK1TYgruqqr8lFQWXsSp31NproehxTUp2hQ",
+    "contextAfter": "\n\n\n\n　二人は大歓迎というので、もう大よろこびです。\n\n「君、ぼくらは大歓迎にあたっているのだ。」\n\n「ぼくらは両方兼ねてるか",
+    "contextBefore": "\n\n　二人は戸を押して、なかへ入りました。そこはすぐ廊下になっていました。その硝子戸の裏側には、金文字でこうなっていました。\n\n\n",
+    "displayText": "「ことに肥ったお方や若いお方は、大歓迎いたします」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1463,
+      "start": 1440
+    },
+    "revisions": [],
+    "sha256": "6b56e96471c608a321cf42deed5b646c962aaf8c3e7a025b388e780ed9ce0521",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1463,
+      "startToken": 1440
+    },
+    "speechText": "「ことにふとったお方や若いお方は、だいかんげいいたします」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "a2_cpKFfapuQ7S2VDCOQapC5Ze4jcknsocn5h8nGlb8",
+    "contextAfter": "\n\n「ぼくらは両方兼ねてるから」\n\n　ずんずん廊下を進んで行きますと、こんどは水いろのペンキ塗りの扉がありました。\n\n「どうも変",
+    "contextBefore": "うなっていました。\n\n\n「ことに肥ったお方や若いお方は、大歓迎いたします」\n\n\n\n　二人は大歓迎というので、もう大よろこびです。\n\n",
+    "displayText": "「君、ぼくらは大歓迎にあたっているのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1513,
+      "start": 1492
+    },
+    "revisions": [],
+    "sha256": "43c47e646b77bfd679fab9a526c80366d2d49b735be853b1f368532917537506",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1513,
+      "startToken": 1492
+    },
+    "speechText": "「君、ぼくらは大歓迎にあたっているのだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "pSgc5bmmlYGOXCkJOWU8gR_8N4DMfHCK8BVUpNQxEFo",
+    "contextAfter": "\n\n　ずんずん廊下を進んで行きますと、こんどは水いろのペンキ塗りの扉がありました。\n\n「どうも変な家だ。どうしてこんなにたくさん",
+    "contextBefore": "いお方は、大歓迎いたします」\n\n\n\n　二人は大歓迎というので、もう大よろこびです。\n\n「君、ぼくらは大歓迎にあたっているのだ。」\n\n",
+    "displayText": "「ぼくらは両方兼ねてるから」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1529,
+      "start": 1515
+    },
+    "revisions": [],
+    "sha256": "f79a955597d298873a852d8026e08ba0b9d6a2c147bcf77bc22248948a3adc39",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1529,
+      "startToken": 1515
+    },
+    "speechText": "「ぼくらは両方兼ねてるから」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "GUiQYB5gpcCMY3_zjHhl7HYkb-fn2barFihf4QuUxgw",
+    "contextAfter": "\n\n「これはロシア式だ。寒いとこや山の中はみんなこうさ。」\n\n　そして二人はその扉をあけようとしますと、上に黄いろな字でこう書い",
+    "contextBefore": "るのだ。」\n\n「ぼくらは両方兼ねてるから」\n\n　ずんずん廊下を進んで行きますと、こんどは水いろのペンキ塗りの扉がありました。\n\n",
+    "displayText": "「どうも変な家だ。どうしてこんなにたくさん戸があるのだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1603,
+      "start": 1572
+    },
+    "revisions": [],
+    "sha256": "f838bb415ed197bce234e950cd0e885bcf496fffa8d2e105e15f9e83510b808d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1603,
+      "startToken": 1572
+    },
+    "speechText": "「どうも変なうちだ。どうしてこんなにたくさん戸があるのだろう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "sSer3rE3ql3a5NPuSKaKyRJX6p7i92nsdySswhIZx_I",
+    "contextAfter": "\n\n　そして二人はその扉をあけようとしますと、上に黄いろな字でこう書いてありました。\n\n\n「当軒は注文の多い料理店ですからどうか",
+    "contextBefore": "で行きますと、こんどは水いろのペンキ塗りの扉がありました。\n\n「どうも変な家だ。どうしてこんなにたくさん戸があるのだろう。」\n\n",
+    "displayText": "「これはロシア式だ。寒いとこや山の中はみんなこうさ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1632,
+      "start": 1605
+    },
+    "revisions": [],
+    "sha256": "e549fbf72db914ef7926a05b2b5ac9116d9ff42b932c2ccd54e4be5f074d4927",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1632,
+      "startToken": 1605
+    },
+    "speechText": "「これはロシア式だ。寒いとこや山の中はみんなこうさ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "xCMXlqapf0Xfrf2H7CjRB6qpThQpD7Cv664CFCJe3qU",
+    "contextAfter": "\n\n\n\n「なかなかはやってるんだ。こんな山の中で。」\n\n「それあそうだ。見たまえ、東京の大きな料理屋だって大通りにはすくないだろ",
+    "contextBefore": "だ。寒いとこや山の中はみんなこうさ。」\n\n　そして二人はその扉をあけようとしますと、上に黄いろな字でこう書いてありました。\n\n\n",
+    "displayText": "「当軒は注文の多い料理店ですからどうかそこはご承知ください」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1707,
+      "start": 1677
+    },
+    "revisions": [],
+    "sha256": "6e322cbc1376ca26ddb55aab125ddf997f1a9591e0e05be50813d4375451905d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1707,
+      "startToken": 1677
+    },
+    "speechText": "「当軒は注文の多い料理店ですからどうかそこはご承知ください」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "8EWRA7HZNZlbapb533HT_epO9Tk_azO19tvhkSst4JM",
+    "contextAfter": "\n\n「それあそうだ。見たまえ、東京の大きな料理屋だって大通りにはすくないだろう」\n\n　二人は云いながら、その扉をあけました。する",
+    "contextBefore": "ようとしますと、上に黄いろな字でこう書いてありました。\n\n\n「当軒は注文の多い料理店ですからどうかそこはご承知ください」\n\n\n\n",
+    "displayText": "「なかなかはやってるんだ。こんな山の中で。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1733,
+      "start": 1711
+    },
+    "revisions": [],
+    "sha256": "faed880146671f6f224cf6eb9fb2133b065b997a93e166ace26e093f0be1e200",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1733,
+      "startToken": 1711
+    },
+    "speechText": "「なかなかはやってるんだ。こんな山の中で。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "I26TVG51HaD20hEYej0ZvUmAI8rxYYBEfdTJEdM_3C4",
+    "contextAfter": "\n\n　二人は云いながら、その扉をあけました。するとその裏側に、\n\n\n「注文はずいぶん多いでしょうがどうか一々こらえて下さい。」\n",
+    "contextBefore": "した。\n\n\n「当軒は注文の多い料理店ですからどうかそこはご承知ください」\n\n\n\n「なかなかはやってるんだ。こんな山の中で。」\n\n",
+    "displayText": "「それあそうだ。見たまえ、東京の大きな料理屋だって大通りにはすくないだろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1773,
+      "start": 1735
+    },
+    "revisions": [],
+    "sha256": "4ee54bb9c29c0fb1751a15fcdac3276f77b8a6724e179dbccf1831bacbe9f2ee",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1773,
+      "startToken": 1735
+    },
+    "speechText": "「それあそうだ。見たまえ、東京の大きな料理屋だって大通りにはすくないだろう」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "r5ieC-MTtzMF80icIbP_coZ_Pul6s3KfS5IFfDdO4fk",
+    "contextAfter": "\n\n\n\n「これはぜんたいどういうんだ。」ひとりの紳士は顔をしかめました。\n\n「うん、これはきっと注文があまり多くて支度が手間取るけ",
+    "contextBefore": "見たまえ、東京の大きな料理屋だって大通りにはすくないだろう」\n\n　二人は云いながら、その扉をあけました。するとその裏側に、\n\n\n",
+    "displayText": "「注文はずいぶん多いでしょうがどうか一々こらえて下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1836,
+      "start": 1807
+    },
+    "revisions": [],
+    "sha256": "78a831e7b0ba9b6e02381c55c458dcbdeb60cd45eb37ba1896d6c48e4d61341c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1836,
+      "startToken": 1807
+    },
+    "speechText": "「注文はずいぶん多いでしょうがどうか一々こらえて下さい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "8I56vzMmm2Emw6L-RP1ob7mGhmP6TtBbkYm5SpY_QhE",
+    "contextAfter": "ひとりの紳士は顔をしかめました。\n\n「うん、これはきっと注文があまり多くて支度が手間取るけれどもごめん下さいと斯ういうことだ。」\n",
+    "contextBefore": "二人は云いながら、その扉をあけました。するとその裏側に、\n\n\n「注文はずいぶん多いでしょうがどうか一々こらえて下さい。」\n\n\n\n",
+    "displayText": "「これはぜんたいどういうんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1856,
+      "start": 1840
+    },
+    "revisions": [],
+    "sha256": "d84ffa3172ddf1ffbc54fd657d844feeb486adb4fe9c5a0b0eeff30528edf527",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1856,
+      "startToken": 1840
+    },
+    "speechText": "「これはぜんたいどういうんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "1NY2zRhaftpXq7OZE_dM364aO1BC8e8KTa_SZcPkTZk",
+    "contextAfter": "\n\n「そうだろう。早くどこか室の中にはいりたいもんだな。」\n\n「そしてテーブルに座りたいもんだな。」\n\n　ところがどうもうるさい",
+    "contextBefore": "はずいぶん多いでしょうがどうか一々こらえて下さい。」\n\n\n\n「これはぜんたいどういうんだ。」ひとりの紳士は顔をしかめました。\n\n",
+    "displayText": "「うん、これはきっと注文があまり多くて支度が手間取るけれどもごめん下さいと斯ういうことだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1919,
+      "start": 1874
+    },
+    "revisions": [],
+    "sha256": "e9f47186bb9bd3e45b9596efe1bde5cbb987f7e7a96d83b3f000dcf21825c89f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1919,
+      "startToken": 1874
+    },
+    "speechText": "「うん、これはきっと注文があまり多くてしたくが手間取るけれどもごめん下さいとこういうことだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "tUNO8eXjLocOsqqdERkc6ChSVKQGgtSJddQn3Ua2az8",
+    "contextAfter": "\n\n「そしてテーブルに座りたいもんだな。」\n\n　ところがどうもうるさいことは、また扉が一つありました。そしてそのわきに鏡がかかっ",
+    "contextBefore": "とりの紳士は顔をしかめました。\n\n「うん、これはきっと注文があまり多くて支度が手間取るけれどもごめん下さいと斯ういうことだ。」\n\n",
+    "displayText": "「そうだろう。早くどこか室の中にはいりたいもんだな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1948,
+      "start": 1921
+    },
+    "revisions": [],
+    "sha256": "a0fca98b56517726cd31f1bebbbff24bfe55b2e04ec4955b4e25e5d6ff106e32",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1948,
+      "startToken": 1921
+    },
+    "speechText": "「そうだろう。早くどこかへやの中にはいりたいもんだな。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "sYWkOTHXSXBu7LDCbtjj5ag60eAW2kVGKSEOSUF1pxA",
+    "contextAfter": "\n\n　ところがどうもうるさいことは、また扉が一つありました。そしてそのわきに鏡がかかって、その下には長い柄のついたブラシが置いて",
+    "contextBefore": "があまり多くて支度が手間取るけれどもごめん下さいと斯ういうことだ。」\n\n「そうだろう。早くどこか室の中にはいりたいもんだな。」\n\n",
+    "displayText": "「そしてテーブルに座りたいもんだな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 1969,
+      "start": 1950
+    },
+    "revisions": [],
+    "sha256": "cad293f90afb4cd1bfc115b67774e2c49123b3bb7a74421d9c7c25cf0db122f4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1969,
+      "startToken": 1950
+    },
+    "speechText": "「そしてテーブルにすわりたいもんだな。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "XxFLSJdvedJiL5dhFL5Br--A9p8IPowU-WwmEaNzM5E",
+    "contextAfter": "\n\n\n\nと書いてありました。\n\n「これはどうも尤もだ。僕もさっき玄関で、山のなかだとおもって見くびったんだよ」\n\n「作法の厳しい",
+    "contextBefore": "が一つありました。そしてそのわきに鏡がかかって、その下には長い柄のついたブラシが置いてあったのです。\n\n　扉には赤い字で、\n\n\n",
+    "displayText": "「お客さまがた、ここで髪をきちんとして、それからはきもの\n\n　の泥を落してください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2097,
+      "start": 2054
+    },
+    "revisions": [],
+    "sha256": "3f1b33dee6104727c3675dbe66276b249436f8cc26def975d2f1295d1ae4f8c0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2097,
+      "startToken": 2054
+    },
+    "speechText": "「お客さまがた、ここでかみをきちんとして、それからはきもの のどろを落してください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "0_rVc72ZOqo07dT-PcIVdLvCADqy7hRj6SLnH4B9H10",
+    "contextAfter": "\n\n「作法の厳しい家だ。きっとよほど偉い人たちが、たびたび来るんだ。」\n\n　そこで二人は、きれいに髪をけずって、靴の泥を落しまし",
+    "contextBefore": "で、\n\n\n「お客さまがた、ここで髪をきちんとして、それからはきもの\n\n　の泥を落してください。」\n\n\n\nと書いてありました。\n\n",
+    "displayText": "「これはどうも尤もだ。僕もさっき玄関で、山のなかだとおもって見くびったんだよ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2152,
+      "start": 2113
+    },
+    "revisions": [],
+    "sha256": "560ee6a4c6132f1a0d57603262f0f144e82bd15a78456e9696d36e201b182b0c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2152,
+      "startToken": 2113
+    },
+    "speechText": "「これはどうももっともだ。僕もさっき玄関で、山のなかだとおもって見くびったんだよ」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "acAPdG0CfAxPPk5ynY5PBn9QLmA8s3pMD3ThcE9oP7k",
+    "contextAfter": "\n\n　そこで二人は、きれいに髪をけずって、靴の泥を落しました。\n\n　そしたら、どうです。ブラシを板の上に置くや否や、そいつがぼう",
+    "contextBefore": "てください。」\n\n\n\nと書いてありました。\n\n「これはどうも尤もだ。僕もさっき玄関で、山のなかだとおもって見くびったんだよ」\n\n",
+    "displayText": "「作法の厳しい家だ。きっとよほど偉い人たちが、たびたび来るんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2187,
+      "start": 2154
+    },
+    "revisions": [],
+    "sha256": "871f7ab8b66c44d335795a760f65bf900865ac58178f71c629db25b2cf12c2aa",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2187,
+      "startToken": 2154
+    },
+    "speechText": "「作法の厳しい家だ。きっとよほどえらい人たちが、たびたび来るんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "XwmFhvsxg6aIjpuRDPvhnDiYaOuWqd4GVdcw1TmCDjM",
+    "contextAfter": "\n\n\n\n　見るとすぐ横に黒い台がありました。\n\n「なるほど、鉄砲を持ってものを食うという法はない。」\n\n「いや、よほど偉いひとが",
+    "contextBefore": "て置かないと、もう途方もないことになってしまうと、二人とも思ったのでした。\n\n　扉の内側に、また変なことが書いてありました。\n\n\n",
+    "displayText": "「鉄砲と弾丸をここへ置いてください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2426,
+      "start": 2408
+    },
+    "revisions": [],
+    "sha256": "9355edc7af46dba7814515c9fd6a0af879ce3ec679cf6a28a055273e7e5ca478",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2426,
+      "startToken": 2408
+    },
+    "speechText": "「鉄砲とたまをここへ置いてください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "IMjXb5rJETMHne4YgF7GivmMifqfI2GaS-hys3Xd2mw",
+    "contextAfter": "\n\n「いや、よほど偉いひとが始終来ているんだ。」\n\n　二人は鉄砲をはずし、帯皮を解いて、それを台の上に置きました。\n\n　また黒い",
+    "contextBefore": "側に、また変なことが書いてありました。\n\n\n「鉄砲と弾丸をここへ置いてください。」\n\n\n\n　見るとすぐ横に黒い台がありました。\n\n",
+    "displayText": "「なるほど、鉄砲を持ってものを食うという法はない。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2476,
+      "start": 2450
+    },
+    "revisions": [],
+    "sha256": "4e3c5b57439056a0d811ca55ca630ca1194da4dfc7c004f6355fb7a77949e9d1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2476,
+      "startToken": 2450
+    },
+    "speechText": "「なるほど、鉄砲を持ってものを食うという法はない。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "ydt8kZo4Qf4vDaj_D1xhPzcKCtXjYKXeU8i0G2ER5YM",
+    "contextAfter": "\n\n　二人は鉄砲をはずし、帯皮を解いて、それを台の上に置きました。\n\n　また黒い扉がありました。\n\n\n「どうか帽子と外套と靴をおとり",
+    "contextBefore": "ここへ置いてください。」\n\n\n\n　見るとすぐ横に黒い台がありました。\n\n「なるほど、鉄砲を持ってものを食うという法はない。」\n\n",
+    "displayText": "「いや、よほど偉いひとが始終来ているんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2500,
+      "start": 2478
+    },
+    "revisions": [],
+    "sha256": "99dfe6caa8d017f6bc4ca3dbc58f5fa5783793a6fd414ffcb5d05b3d75ee7cc8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2500,
+      "startToken": 2478
+    },
+    "speechText": "「いや、よほど偉いひとが始終来ているんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "h1ASiqdzKXsgWNNMTgqVDvMqGuRMVA8eXNmkBJhfJOM",
+    "contextAfter": "\n\n\n\n「どうだ、とるか。」\n\n「仕方ない、とろう。たしかによっぽどえらいひとなんだ。奥に来ているのは」\n\n　二人は帽子とオーバ",
+    "contextBefore": "ひとが始終来ているんだ。」\n\n　二人は鉄砲をはずし、帯皮を解いて、それを台の上に置きました。\n\n　また黒い扉がありました。\n\n\n",
+    "displayText": "「どうか帽子と外套と靴をおとり下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2569,
+      "start": 2551
+    },
+    "revisions": [],
+    "sha256": "d4237f6ad18586a646d36b90ab410ba8a5b472565ad7f5a0ec6b9ac4b3cecb70",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2569,
+      "startToken": 2551
+    },
+    "speechText": "「どうかぼうしとがいとうと靴をおとり下さい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "-TEuKrLhwi-MTjjjL2LxhI3dB3HQ2-i3xXl90kkywlk",
+    "contextAfter": "\n\n「仕方ない、とろう。たしかによっぽどえらいひとなんだ。奥に来ているのは」\n\n　二人は帽子とオーバーコートを釘にかけ、靴をぬい",
+    "contextBefore": "はずし、帯皮を解いて、それを台の上に置きました。\n\n　また黒い扉がありました。\n\n\n「どうか帽子と外套と靴をおとり下さい。」\n\n\n\n",
+    "displayText": "「どうだ、とるか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2583,
+      "start": 2573
+    },
+    "revisions": [],
+    "sha256": "495607b393cc1480b26458be93e8a0d4d8e0c45a258a53f0dcd695b68e2d911d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2583,
+      "startToken": 2573
+    },
+    "speechText": "「どうだ、とるか。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "dZ5NmZ_3WM-KSR7J-7Oh1uvgMVdnNQgVruxwJJeFpf8",
+    "contextAfter": "\n\n　二人は帽子とオーバーコートを釘にかけ、靴をぬいでぺたぺたあるいて扉の中にはいりました。\n\n　扉の裏側には、\n\n\n「ネクタイ",
+    "contextBefore": "れを台の上に置きました。\n\n　また黒い扉がありました。\n\n\n「どうか帽子と外套と靴をおとり下さい。」\n\n\n\n「どうだ、とるか。」\n\n",
+    "displayText": "「仕方ない、とろう。たしかによっぽどえらいひとなんだ。奥に来ているのは」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2621,
+      "start": 2585
+    },
+    "revisions": [],
+    "sha256": "31aebe150e2bc58885c2140577844d078b16b032499ca5a4208afeb74c44217a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2621,
+      "startToken": 2585
+    },
+    "speechText": "「仕方ない、とろう。たしかによっぽどえらいひとなんだ。奥に来ているのは」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "SoB4Sy-pVBPChIJ7CMXi-0B5mU_egmZVCNpH48ESy-0",
+    "contextAfter": "\n\n\n\nと書いてありました。扉のすぐ横には黒塗りの立派な金庫も、ちゃんと口を開けて置いてありました。鍵まで添えてあったのです。\n",
+    "contextBefore": "いるのは」\n\n　二人は帽子とオーバーコートを釘にかけ、靴をぬいでぺたぺたあるいて扉の中にはいりました。\n\n　扉の裏側には、\n\n\n",
+    "displayText": "「ネクタイピン、カフスボタン、眼鏡、財布、その他金物類、\n\n　ことに尖ったものは、みんなここに置いてください」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2733,
+      "start": 2680
+    },
+    "revisions": [],
+    "sha256": "283a926f5309b4c62c0fbcacdac26234670684de2768128ac9d52409b88a7864",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2733,
+      "startToken": 2680
+    },
+    "speechText": "「ネクタイピン、カフスボタン、めがね、さいふ、その他金物類、 ことにとがったものは、みんなここに置いてください」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "qIu8Gfub-XoQQWjUpHuvpZJt4RfeFYEmjMKaKbomSZI",
+    "contextAfter": "\n\n「そうだろう。して見ると勘定は帰りにここで払うのだろうか。」\n\n「どうもそうらしい。」\n\n「そうだ。きっと。」\n\n　二人はめが",
+    "contextBefore": "\n\n\nと書いてありました。扉のすぐ横には黒塗りの立派な金庫も、ちゃんと口を開けて置いてありました。鍵まで添えてあったのです。\n\n",
+    "displayText": "「ははあ、何かの料理に電気をつかうと見えるね。金気のものはあぶない。ことに尖ったものはあぶないと斯う云うんだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2855,
+      "start": 2798
+    },
+    "revisions": [
+      {
+        "after": "「ハハア、何かの料理に電気をつかうと見えるね。かなけのものはあぶない。ことに尖ったものはあぶないとこう云うんだろう。」",
+        "before": "「ははあ、何かの料理に電気をつかうと見えるね。かなけのものはあぶない。ことに尖ったものはあぶないとこう云うんだろう。」",
+        "candidateId": "qIu8Gfub-XoQQWjUpHuvpZJt4RfeFYEmjMKaKbomSZI",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "c62f1e396d4a4e07096a40b4d4126458dc2e17f5c96cc64fa838a0bc62c6147f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2855,
+      "startToken": 2798
+    },
+    "speechText": "「ハハア、何かの料理に電気をつかうと見えるね。かなけのものはあぶない。ことに尖ったものはあぶないとこう云うんだろう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "Vea3iyEJAC95e0cQWMbPedCD1vas3-vgzVH-GCDRsnE",
+    "contextAfter": "\n\n「どうもそうらしい。」\n\n「そうだ。きっと。」\n\n　二人はめがねをはずしたり、カフスボタンをとったり、みんな金庫のなかに入れ",
+    "contextBefore": "です。\n\n「ははあ、何かの料理に電気をつかうと見えるね。金気のものはあぶない。ことに尖ったものはあぶないと斯う云うんだろう。」\n\n",
+    "displayText": "「そうだろう。して見ると勘定は帰りにここで払うのだろうか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2886,
+      "start": 2857
+    },
+    "revisions": [],
+    "sha256": "243b5b804cc718cef5f19e34bd12f6401abb4a12ef4b3bc3993ff2cb53450056",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2886,
+      "startToken": 2857
+    },
+    "speechText": "「そうだろう。して見るとかんじょうは帰りにここではらうのだろうか。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "EuWzbj5OcoTtNPsY4DiuGW32pcdyc82vjuvKv87eZqw",
+    "contextAfter": "\n\n「そうだ。きっと。」\n\n　二人はめがねをはずしたり、カフスボタンをとったり、みんな金庫のなかに入れて、ぱちんと錠をかけました",
+    "contextBefore": "のはあぶない。ことに尖ったものはあぶないと斯う云うんだろう。」\n\n「そうだろう。して見ると勘定は帰りにここで払うのだろうか。」\n\n",
+    "displayText": "「どうもそうらしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2899,
+      "start": 2888
+    },
+    "revisions": [],
+    "sha256": "20007eea2df5c6a953f7288075afe719b9aae3f3814dd5fe0d0128aac36f8f86",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2899,
+      "startToken": 2888
+    },
+    "speechText": "「どうもそうらしい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "tb51a94MQikKKSWeLeFJZe2RpGzhzz28U2K6_fF0NwE",
+    "contextAfter": "\n\n　二人はめがねをはずしたり、カフスボタンをとったり、みんな金庫のなかに入れて、ぱちんと錠をかけました。\n\n　すこし行きますと",
+    "contextBefore": "ものはあぶないと斯う云うんだろう。」\n\n「そうだろう。して見ると勘定は帰りにここで払うのだろうか。」\n\n「どうもそうらしい。」\n\n",
+    "displayText": "「そうだ。きっと。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 2911,
+      "start": 2901
+    },
+    "revisions": [],
+    "sha256": "20491a5379997d568a21332950456a584f5c2709665cc95c70096fd08b345c73",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2911,
+      "startToken": 2901
+    },
+    "speechText": "「そうだ。きっと。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "E9_aw6K3LIAZWpS9Btz8rdpQN56I5GYwl32mSgdi9Ek",
+    "contextAfter": "\n\n\n\n　みるとたしかに壺のなかのものは牛乳のクリームでした。\n\n「クリームをぬれというのはどういうんだ。」\n\n「これはね、外が",
+    "contextBefore": "ぱちんと錠をかけました。\n\n　すこし行きますとまた扉があって、その前に硝子の壺が一つありました。扉には斯う書いてありました。\n\n\n",
+    "displayText": "「壺のなかのクリームを顔や手足にすっかり塗ってください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3045,
+      "start": 3016
+    },
+    "revisions": [],
+    "sha256": "7cd842b7efb19c512017d8ba0a696bc9fd23017c256b9ad0b51bb87323a225c2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3045,
+      "startToken": 3016
+    },
+    "speechText": "「壺のなかのクリームを顔や手足にすっかり塗ってください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "QMnZSigy1p_fn2tRyPNdWO2YhY28k0JAv_Zpraf0PzI",
+    "contextAfter": "\n\n「これはね、外がひじょうに寒いだろう。室のなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひ",
+    "contextBefore": "\n\n「壺のなかのクリームを顔や手足にすっかり塗ってください。」\n\n\n\n　みるとたしかに壺のなかのものは牛乳のクリームでした。\n\n",
+    "displayText": "「クリームをぬれというのはどういうんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3099,
+      "start": 3078
+    },
+    "revisions": [],
+    "sha256": "a321dfb15167f753f339db4ecb2d34d1b5552d375bf29ac05c0feaaae3b223b0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3099,
+      "startToken": 3078
+    },
+    "speechText": "「クリームをぬれというのはどういうんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "U1sJjhf2MpDNoTdGN6LN39maaU46GdIJoZVw-qcZF_s",
+    "contextAfter": "\n\n　二人は壺のクリームを、顔に塗って手に塗ってそれから靴下をぬいで足に塗りました。それでもまだ残っていましたから、それは二人と",
+    "contextBefore": "ってください。」\n\n\n\n　みるとたしかに壺のなかのものは牛乳のクリームでした。\n\n「クリームをぬれというのはどういうんだ。」\n\n",
+    "displayText": "「これはね、外がひじょうに寒いだろう。室のなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 48,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3203,
+      "start": 3101
+    },
+    "revisions": [
+      {
+        "after": "「これわね、外がひじょうに寒いだろう。へやのなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+        "before": "「これはね、外がひじょうに寒いだろう。へやのなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+        "candidateId": "U1sJjhf2MpDNoTdGN6LN39maaU46GdIJoZVw-qcZF_s",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "138d486b51cfff298c6073b5b25f886fd4e6e76f9eb37c6a802737a45643514c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3203,
+      "startToken": 3101
+    },
+    "speechText": "「これわね、外がひじょうに寒いだろう。へやのなかがあんまり暖いとひびがきれるから、その予防なんだ。どうも奥には、よほどえらいひとがきている。こんなとこで、案外ぼくらは、貴族とちかづきになるかも知れないよ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "jv91CcqDRcEpFmokwfsVDQGFg4kIaYWeqSy1n0Ht3hg",
+    "contextAfter": "\n\n\n\nと書いてあって、ちいさなクリームの壺がここにも置いてありました。\n\n「そうそう、ぼくは耳には塗らなかった。あぶなく耳にひ",
+    "contextBefore": "から、それは二人ともめいめいこっそり顔へ塗るふりをしながら喰べました。\n\n　それから大急ぎで扉をあけますと、その裏側には、\n\n\n",
+    "displayText": "「クリームをよく塗りましたか、耳にもよく塗りましたか、」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3350,
+      "start": 3322
+    },
+    "revisions": [],
+    "sha256": "ad43bd1b4e8eb509d9aacb40b7b7724b5077a950da7eedde44d9385737d4ccd4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3350,
+      "startToken": 3322
+    },
+    "speechText": "「クリームをよく塗りましたか、耳にもよく塗りましたか、」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "LZgkqD9wyxB7nTNgdgosoftMMd5fuDKZRyKfQTAz1Z8",
+    "contextAfter": "\n\n「ああ、細かいとこまでよく気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」\n\n　",
+    "contextBefore": "リームをよく塗りましたか、耳にもよく塗りましたか、」\n\n\n\nと書いてあって、ちいさなクリームの壺がここにも置いてありました。\n\n",
+    "displayText": "「そうそう、ぼくは耳には塗らなかった。あぶなく耳にひびを切らすとこだった。ここの主人はじつに用意周到だね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3441,
+      "start": 3388
+    },
+    "revisions": [],
+    "sha256": "3b35473011ed8aa40772e4d126e930444ac382c203a1ccb5a5aae3d840169820",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3441,
+      "startToken": 3388
+    },
+    "speechText": "「そうそう、ぼくは耳には塗らなかった。あぶなく耳にひびを切らすとこだった。ここの主人はじつに用意しゅうとうだね。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "kWRq3FtJmwtG4tnTm2oa1s-ZcGvvSfOqnjrUBFM-tuc",
+    "contextAfter": "\n\n　するとすぐその前に次の戸がありました。\n\n\n「料理はもうすぐできます。\n\n　十五分とお待たせはいたしません。\n\n　すぐたべ",
+    "contextBefore": "てありました。\n\n「そうそう、ぼくは耳には塗らなかった。あぶなく耳にひびを切らすとこだった。ここの主人はじつに用意周到だね。」\n\n",
+    "displayText": "「ああ、細かいとこまでよく気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3502,
+      "start": 3443
+    },
+    "revisions": [
+      {
+        "after": "「ああ、細かいとこまでよく、気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+        "before": "「ああ、細かいとこまでよく気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+        "candidateId": "kWRq3FtJmwtG4tnTm2oa1s-ZcGvvSfOqnjrUBFM-tuc",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "c302cfc2a7b32f6670e05c787738a20f0a42945eb1cb58465095ccfab349fda4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3502,
+      "startToken": 3443
+    },
+    "speechText": "「ああ、細かいとこまでよく、気がつくよ。ところでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "EOkFAEMo-Yu4z2zz5Rh9mAlu82eFaE6dhfROwm1hKhs",
+    "contextAfter": "\n\n\n\n　そして戸の前には金ピカの香水の瓶が置いてありました。\n\n　二人はその香水を、頭へぱちゃぱちゃ振りかけました。\n\n　とこ",
+    "contextBefore": "ころでぼくは早く何か喰べたいんだが、どうも斯うどこまでも廊下じゃ仕方ないね。」\n\n　するとすぐその前に次の戸がありました。\n\n\n",
+    "displayText": "「料理はもうすぐできます。\n\n　十五分とお待たせはいたしません。\n\n　すぐたべられます。\n\n　早くあなたの頭に瓶の中の香水をよく振りかけてください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3602,
+      "start": 3527
+    },
+    "revisions": [],
+    "sha256": "1749a82fd10e38e37aa2afa1ff16d9e435aa5c5a2842aa6bba47dda6965399d8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3602,
+      "startToken": 3527
+    },
+    "speechText": "「料理はもうすぐできます。 十五分とお待たせはいたしません。 すぐたべられます。 早くあなたの頭にびんの中の香水をよくふりかけてください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "qJlEED3dHJc82XmzXXZJ0OCcbwU3U1t-X4MvWpuRzNM",
+    "contextAfter": "\n\n「まちがえたんだ。下女が風邪でも引いてまちがえて入れたんだ。」\n\n　二人は扉をあけて中にはいりました。\n\n　扉の裏側には、大き",
+    "contextBefore": "ました。\n\n　二人はその香水を、頭へぱちゃぱちゃ振りかけました。\n\n　ところがその香水は、どうも酢のような匂がするのでした。\n\n",
+    "displayText": "「この香水はへんに酢くさい。どうしたんだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3717,
+      "start": 3693
+    },
+    "revisions": [],
+    "sha256": "700242ac9807be4b7e266af5b3c14b32e45ea8c6995f34d923508c8b83e2d1ae",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3717,
+      "startToken": 3693
+    },
+    "speechText": "「この香水はへんに酢くさい。どうしたんだろう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "yEFWwCYHTiFXoLOFY6VUOG28XmIpmVzJ4FQKzctM6PE",
+    "contextAfter": "\n\n　二人は扉をあけて中にはいりました。\n\n　扉の裏側には、大きな字で斯う書いてありました。\n\n\n「いろいろ注文が多くてうるさか",
+    "contextBefore": "かけました。\n\n　ところがその香水は、どうも酢のような匂がするのでした。\n\n「この香水はへんに酢くさい。どうしたんだろう。」\n\n",
+    "displayText": "「まちがえたんだ。下女が風邪でも引いてまちがえて入れたんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3749,
+      "start": 3719
+    },
+    "revisions": [],
+    "sha256": "c5e69f1157704e83023983815ca5171e89c0a7194e1d39cad8990ef791f8f918",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3749,
+      "startToken": 3719
+    },
+    "speechText": "「まちがえたんだ。下女がかぜでも引いてまちがえて入れたんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "o50TNYCJuPGkKzTJpjuqjOItYe98DcKMMu_yYbqubyI",
+    "contextAfter": "\n\n\n\n　なるほど立派な青い瀬戸の塩壺は置いてありましたが、こんどというこんどは二人ともぎょっとしてお互にクリームをたくさん塗っ",
+    "contextBefore": "引いてまちがえて入れたんだ。」\n\n　二人は扉をあけて中にはいりました。\n\n　扉の裏側には、大きな字で斯う書いてありました。\n\n\n",
+    "displayText": "「いろいろ注文が多くてうるさかったでしょう。お気の毒でした。\n\n　もうこれだけです。どうかからだ中に、壺の中の塩をたくさん\n\n　よくもみ込んでください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3875,
+      "start": 3798
+    },
+    "revisions": [],
+    "sha256": "f288fba8f71d76771b0973f6f6c6269ff19399ec20efe53df43b02fbe40dfda4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3875,
+      "startToken": 3798
+    },
+    "speechText": "「いろいろ注文が多くてうるさかったでしょう。お気の毒でした。 もうこれだけです。どうかからだ中に、壺の中の塩をたくさん よくもみ込んでください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "zBKHdXQyshPhvItY9XBjtdOXxCTybICnFRaxPeRrrfQ",
+    "contextAfter": "\n\n「ぼくもおかしいとおもう。」\n\n「沢山の注文というのは、向うがこっちへ注文してるんだよ。」\n\n「だからさ、西洋料理店というのは",
+    "contextBefore": "青い瀬戸の塩壺は置いてありましたが、こんどというこんどは二人ともぎょっとしてお互にクリームをたくさん塗った顔を見合せました。\n\n",
+    "displayText": "「どうもおかしいぜ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3962,
+      "start": 3951
+    },
+    "revisions": [],
+    "sha256": "4ed3db0c0ed7333413928ad45d0ec177c8ad5cec6f164dbfd9e856fc6668aa10",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3962,
+      "startToken": 3951
+    },
+    "speechText": "「どうもおかしいぜ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "WZUt0UgvBtvKPBJohlefuws4ilU-7tauyzDSbFe19fw",
+    "contextAfter": "\n\n「沢山の注文というのは、向うがこっちへ注文してるんだよ。」\n\n「だからさ、西洋料理店というのは、ぼくの考えるところでは、西洋料",
+    "contextBefore": "ましたが、こんどというこんどは二人ともぎょっとしてお互にクリームをたくさん塗った顔を見合せました。\n\n「どうもおかしいぜ。」\n\n",
+    "displayText": "「ぼくもおかしいとおもう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 3978,
+      "start": 3964
+    },
+    "revisions": [],
+    "sha256": "0f1fa1d94ee188bfb158aac173708d6d38e3b9778317bf0455022a4b6a443543",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3978,
+      "startToken": 3964
+    },
+    "speechText": "「ぼくもおかしいとおもう。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "GapfoXIooCLX0I92lmRoSZV6ZFKVps07c_bK3gtEZAk",
+    "contextAfter": "\n\n「だからさ、西洋料理店というのは、ぼくの考えるところでは、西洋料理を、来た人にたべさせるのではなくて、来た人を西洋料理にして",
+    "contextBefore": "人ともぎょっとしてお互にクリームをたくさん塗った顔を見合せました。\n\n「どうもおかしいぜ。」\n\n「ぼくもおかしいとおもう。」\n\n",
+    "displayText": "「沢山の注文というのは、向うがこっちへ注文してるんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4008,
+      "start": 3980
+    },
+    "revisions": [],
+    "sha256": "c55e3524d4294967d8facf744c3701696ff8a11401c477ae198ee552ee2fced9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4008,
+      "startToken": 3980
+    },
+    "speechText": "「たくさんの注文というのは、向うがこっちへ注文してるんだよ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "6EcrVHENesb-lrVdf-AmO1e9KRsPT5SP2bUbgqsvvp4",
+    "contextAfter": "がたがたがたがた、ふるえだしてもうものが言えませんでした。\n\n「その、ぼ、ぼくらが、……うわあ。」がたがたがたがたふるえだして、",
+    "contextBefore": "した。\n\n「どうもおかしいぜ。」\n\n「ぼくもおかしいとおもう。」\n\n「沢山の注文というのは、向うがこっちへ注文してるんだよ。」\n\n",
+    "displayText": "「だからさ、西洋料理店というのは、ぼくの考えるところでは、西洋料理を、来た人にたべさせるのではなくて、来た人を西洋料理にして、食べてやる家とこういうことなんだ。これは、その、つ、つ、つ、つまり、ぼ、ぼ、ぼくらが……。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4119,
+      "start": 4010
+    },
+    "revisions": [],
+    "sha256": "71ebe6c38a265a168aba438367cced7cef28ef3541e048ca15a2052a33ae2b2d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4119,
+      "startToken": 4010
+    },
+    "speechText": "「だからさ、西洋料理店というのは、ぼくの考えるところでは、西洋料理を、来た人にたべさせるのではなくて、来た人を西洋料理にして、食べてやるうちとこういうことなんだ。これは、その、つ、つ、つ、つまり、ぼ、ぼ、ぼくらが……。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "oUilzNY4vj8G5Q7NvK-ltQrb0gf8JZJhWH3eqsVoMa0",
+    "contextAfter": "がたがたがたがたふるえだして、もうものが言えませんでした。\n\n「遁げ……。」がたがたしながら一人の紳士はうしろの戸を押そうとしま",
+    "contextBefore": "なんだ。これは、その、つ、つ、つ、つまり、ぼ、ぼ、ぼくらが……。」がたがたがたがた、ふるえだしてもうものが言えませんでした。\n\n",
+    "displayText": "「その、ぼ、ぼくらが、……うわあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4168,
+      "start": 4150
+    },
+    "revisions": [],
+    "sha256": "9bc3c09e79606c8a99d511340f6eb8c140beb422cb5d3c2f9eb0d1b16d9b2fff",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4168,
+      "startToken": 4150
+    },
+    "speechText": "「その、ぼ、ぼくらが、……うわあ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "uPAj2uCE5eVqV5q4dmODJcrYAcG7tiNSYdCRXoX43SI",
+    "contextAfter": "がたがたしながら一人の紳士はうしろの戸を押そうとしましたが、どうです、戸はもう一分も動きませんでした。\n\n　奥の方にはまだ一枚扉が",
+    "contextBefore": "うものが言えませんでした。\n\n「その、ぼ、ぼくらが、……うわあ。」がたがたがたがたふるえだして、もうものが言えませんでした。\n\n",
+    "displayText": "「遁げ……。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4206,
+      "start": 4199
+    },
+    "revisions": [],
+    "sha256": "fe559889ff50b087c9764733757464cefc150cf9c75ae6d2bfa185007d809d20",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4206,
+      "startToken": 4199
+    },
+    "speechText": "「にげ……。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "sG0IANGSRc3MGzU8GbqvBx-FDmdRISuwz74wszx4I8I",
+    "contextAfter": "\n\n\n\nと書いてありました。おまけにかぎ穴からはきょろきょろ二つの青い眼玉がこっちをのぞいています。\n\n「うわあ。」がたがたがたが",
+    "contextBefore": "きませんでした。\n\n　奥の方にはまだ一枚扉があって、大きなかぎ穴が二つつき、銀いろのホークとナイフの形が切りだしてあって、\n\n\n",
+    "displayText": "「いや、わざわざご苦労です。\n\n　大へん結構にできました。\n\n　さあさあおなかにおはいりください。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 62,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4362,
+      "start": 4312
+    },
+    "revisions": [],
+    "sha256": "e297bc965869319e9d99d30ac3a12b2973d3f2a0a57d1f4c8b6bcc689e7c8c6f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4362,
+      "startToken": 4312
+    },
+    "speechText": "「いや、わざわざご苦労です。 大へん結構にできました。 さあさあおなかにおはいりください。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "gt1MtiYfgTI6VLow1FMJD3B-nKFu_fxSCzj9WgrC3EI",
+    "contextAfter": "がたがたがたがた。\n\n「うわあ。」がたがたがたがた。\n\n　ふたりは泣き出しました。\n\n　すると戸の中では、こそこそこんなことを云",
+    "contextBefore": "なかにおはいりください。」\n\n\n\nと書いてありました。おまけにかぎ穴からはきょろきょろ二つの青い眼玉がこっちをのぞいています。\n\n",
+    "displayText": "「うわあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 63,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4419,
+      "start": 4413
+    },
+    "revisions": [],
+    "sha256": "53620a6de40b076d13d277482db64983dbe506387bdaba659823b7976e65d58a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4419,
+      "startToken": 4413
+    },
+    "speechText": "「うわあ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "FbRawPxIIq08pc7AeKnwwrLqoViybBjsaBuWNI5a1zs",
+    "contextAfter": "がたがたがたがた。\n\n　ふたりは泣き出しました。\n\n　すると戸の中では、こそこそこんなことを云っています。\n\n「だめだよ。もう気",
+    "contextBefore": "と書いてありました。おまけにかぎ穴からはきょろきょろ二つの青い眼玉がこっちをのぞいています。\n\n「うわあ。」がたがたがたがた。\n\n",
+    "displayText": "「うわあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 64,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4436,
+      "start": 4430
+    },
+    "revisions": [],
+    "sha256": "4d615994158f3406b3c67de04ae6bafb38c6b176a5ed42f272ca8013ad6de45d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4436,
+      "startToken": 4430
+    },
+    "speechText": "「うわあ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "RGoNeGYTwNQKYiY1JX_Qw2RiedN5zqfzOpTsi1BD3A4",
+    "contextAfter": "\n\n「あたりまえさ。親分の書きようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、間抜けた",
+    "contextBefore": "。\n\n「うわあ。」がたがたがたがた。\n\n　ふたりは泣き出しました。\n\n　すると戸の中では、こそこそこんなことを云っています。\n\n",
+    "displayText": "「だめだよ。もう気がついたよ。塩をもみこまないようだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 65,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4520,
+      "start": 4491
+    },
+    "revisions": [],
+    "sha256": "69c8398447316fa295b284036d48d85d634ba50231cf0223902e670fc1f3c248",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4520,
+      "startToken": 4491
+    },
+    "speechText": "「だめだよ。もう気がついたよ。塩をもみこまないようだよ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "MAGdwQ69IrQCN53kT5f_7Oy5c0zXKCXYaVko087Ge7Q",
+    "contextAfter": "\n\n「どっちでもいいよ。どうせぼくらには、骨も分けて呉れやしないんだ。」\n\n「それはそうだ。けれどももしここへあいつらがはいって",
+    "contextBefore": "た。\n\n　すると戸の中では、こそこそこんなことを云っています。\n\n「だめだよ。もう気がついたよ。塩をもみこまないようだよ。」\n\n",
+    "displayText": "「あたりまえさ。親分の書きようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、間抜けたことを書いたもんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 66,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4595,
+      "start": 4522
+    },
+    "revisions": [
+      {
+        "after": "「あたりまえさ。親分のかきようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、まぬけたことを書いたもんだ。」",
+        "before": "「あたりまえさ。親分の書きようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、まぬけたことを書いたもんだ。」",
+        "candidateId": "MAGdwQ69IrQCN53kT5f_7Oy5c0zXKCXYaVko087Ge7Q",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "73abbc7de61b72dfdd69adcdbb93df272e286a6523697a2854f8ff2b8ccc945f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4595,
+      "startToken": 4522
+    },
+    "speechText": "「あたりまえさ。親分のかきようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、まぬけたことを書いたもんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "hkJhmsn--muUq2Wy7nUs5bq2vD9hFOv7bJ-8h3ZK8kY",
+    "contextAfter": "\n\n「それはそうだ。けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。」\n\n「呼ぼうか、呼ぼう。おい、お",
+    "contextBefore": "書きようがまずいんだ。あすこへ、いろいろ注文が多くてうるさかったでしょう、お気の毒でしたなんて、間抜けたことを書いたもんだ。」\n\n",
+    "displayText": "「どっちでもいいよ。どうせぼくらには、骨も分けて呉れやしないんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 67,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4631,
+      "start": 4597
+    },
+    "revisions": [],
+    "sha256": "80419fa57e090ad3116a1ea9e5f1421f38fcef6b17066307d2d6a8dc2673076e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4631,
+      "startToken": 4597
+    },
+    "speechText": "「どっちでもいいよ。どうせぼくらには、骨も分けてくれやしないんだ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "Gc7ASuQGg0g_vhdOPFvndrn-DiKLIVrK_Byu1tRFpVs",
+    "contextAfter": "\n\n「呼ぼうか、呼ぼう。おい、お客さん方、早くいらっしゃい。いらっしゃい。いらっしゃい。お皿も洗ってありますし、菜っ葉ももうよく",
+    "contextBefore": "、お気の毒でしたなんて、間抜けたことを書いたもんだ。」\n\n「どっちでもいいよ。どうせぼくらには、骨も分けて呉れやしないんだ。」\n\n",
+    "displayText": "「それはそうだ。けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 68,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4679,
+      "start": 4633
+    },
+    "revisions": [],
+    "sha256": "b336f223888a826aefdddb552155b209b6c2c3068df76bdc52acbf26fea79162",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4679,
+      "startToken": 4633
+    },
+    "speechText": "「それはそうだ。けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "VvIAPqYhc13UF4ieQBIZ3iv9cwd8K-quZO2a_7y2qfo",
+    "contextAfter": "\n\n「へい、いらっしゃい、いらっしゃい。それともサラドはお嫌いですか。そんならこれから火を起してフライにしてあげましょうか。とに",
+    "contextBefore": "も分けて呉れやしないんだ。」\n\n「それはそうだ。けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。」\n\n",
+    "displayText": "「呼ぼうか、呼ぼう。おい、お客さん方、早くいらっしゃい。いらっしゃい。いらっしゃい。お皿も洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 69,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4804,
+      "start": 4681
+    },
+    "revisions": [
+      {
+        "after": "「呼ぼうか、呼ぼう。おい、お客さんがた、早くいらっしゃい。いらっしゃい。いらっしゃい。おさらも洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+        "before": "「呼ぼうか、呼ぼう。おい、お客さん方、早くいらっしゃい。いらっしゃい。いらっしゃい。おさらも洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+        "candidateId": "VvIAPqYhc13UF4ieQBIZ3iv9cwd8K-quZO2a_7y2qfo",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "1224794ab7c5568a410f474f8b6feeb8236b8204bb66d00fe8759cd947d8e5f0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4804,
+      "startToken": 4681
+    },
+    "speechText": "「呼ぼうか、呼ぼう。おい、お客さんがた、早くいらっしゃい。いらっしゃい。いらっしゃい。おさらも洗ってありますし、菜っ葉ももうよく塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "SgObT9ExTpOq0P0TIeTnsZoq9vHMtLdcsVPb7eZ6u_o",
+    "contextAfter": "\n\n　二人はあんまり心を痛めたために、顔がまるでくしゃくしゃの紙屑のようになり、お互にその顔を見合せ、ぶるぶるふるえ、声もなく泣き",
+    "contextBefore": "く塩でもんで置きました。あとはあなたがたと、菜っ葉をうまくとりあわせて、まっ白なお皿にのせるだけです。はやくいらっしゃい。」\n\n",
+    "displayText": "「へい、いらっしゃい、いらっしゃい。それともサラドはお嫌いですか。そんならこれから火を起してフライにしてあげましょうか。とにかくはやくいらっしゃい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 70,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 4881,
+      "start": 4806
+    },
+    "revisions": [],
+    "sha256": "5851cec97adbf0dd522646ea251620643c02a9d57ffbc012a5a8c9b06dfae850",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4881,
+      "startToken": 4806
+    },
+    "speechText": "「へい、いらっしゃい、いらっしゃい。それともサラドはおきらいですか。そんならこれから火を起してフライにしてあげましょうか。とにかくはやくいらっしゃい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "20TyIPNkoXdYO37kX1UFjzd78EiifGDUulLKLN46wiU",
+    "contextAfter": "\n\n「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さま方を待っていられます。」\n\n　二人は",
+    "contextBefore": "の紙屑のようになり、お互にその顔を見合せ、ぶるぶるふるえ、声もなく泣きました。\n\n　中ではふっふっとわらってまた叫んでいます。\n\n",
+    "displayText": "「いらっしゃい、いらっしゃい。そんなに泣いては折角のクリームが流れるじゃありませんか。へい、ただいま。じきもってまいります。さあ、早くいらっしゃい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 71,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5049,
+      "start": 4975
+    },
+    "revisions": [],
+    "sha256": "45c0ddbf0baa0ae2af632f8c687436a72811a18d84422943c07ae130b43cc119",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5049,
+      "startToken": 4975
+    },
+    "speechText": "「いらっしゃい、いらっしゃい。そんなに泣いてはせっかくのクリームが流れるじゃありませんか。へい、ただいま。じきもってまいります。さあ、早くいらっしゃい。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "22fg68JO-pjgJJJCrtLPcgxzOzo__HLuuZUjVeBFVTE",
+    "contextAfter": "\n\n　二人は泣いて泣いて泣いて泣いて泣きました。\n\n　そのときうしろからいきなり、\n\n「わん、わん、ぐゎあ。」という声がして、あ",
+    "contextBefore": "ゃい。そんなに泣いては折角のクリームが流れるじゃありませんか。へい、ただいま。じきもってまいります。さあ、早くいらっしゃい。」\n\n",
+    "displayText": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さま方を待っていられます。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 72,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5107,
+      "start": 5051
+    },
+    "revisions": [
+      {
+        "after": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さまがたを待っていられます。」",
+        "before": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さま方を待っていられます。」",
+        "candidateId": "22fg68JO-pjgJJJCrtLPcgxzOzo__HLuuZUjVeBFVTE",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "b2fc81744cfc132640110977a18d7de7890c1155d305372cef0b09fb08e050d4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5107,
+      "startToken": 5051
+    },
+    "speechText": "「早くいらっしゃい。親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さまがたを待っていられます。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "gOSDEuqByyJVmZ5NfJMN6zO3Lzc8BIvDF5nX9xIfasI",
+    "contextAfter": "という声がして、あの白熊のような犬が二疋、扉をつきやぶって室の中に飛び込んできました。鍵穴の眼玉はたちまちなくなり、犬どもはううとう",
+    "contextBefore": "ずりして、お客さま方を待っていられます。」\n\n　二人は泣いて泣いて泣いて泣いて泣きました。\n\n　そのときうしろからいきなり、\n\n",
+    "displayText": "「わん、わん、ぐゎあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 73,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5162,
+      "start": 5150
+    },
+    "revisions": [
+      {
+        "after": "「わん、わん、グワア。」",
+        "before": "「わん、わん、ぐゎあ。」",
+        "candidateId": "gOSDEuqByyJVmZ5NfJMN6zO3Lzc8BIvDF5nX9xIfasI",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "00320924161959ca0535eb2e9bc4be586f620603fbb962d715ec01aaa7ff5700",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5162,
+      "startToken": 5150
+    },
+    "speechText": "「わん、わん、グワア。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "IlciygPA4NHQVbO99UjSUbcQf9iyBj9q-YgY1oNcMo0",
+    "contextAfter": "と高く吠えて、いきなり次の扉に飛びつきました。戸はがたりとひらき、犬どもは吸い込まれるように飛んで行きました。\n\n　その扉の向う",
+    "contextBefore": "中に飛び込んできました。鍵穴の眼玉はたちまちなくなり、犬どもはううとうなってしばらく室の中をくるくる廻っていましたが、また一声\n\n",
+    "displayText": "「わん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 74,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5261,
+      "start": 5256
+    },
+    "revisions": [],
+    "sha256": "f29efcc552bd12e9ce89b43825916d998f930ca6c7b6a0c8bed659957d2699eb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5261,
+      "startToken": 5256
+    },
+    "speechText": "「わん。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "JV7E49HGaKGnqsbIPJnqTyXdBnTQMKBH9v4d0z7gSJ8",
+    "contextAfter": "という声がして、それからがさがさ鳴りました。\n\n　室はけむりのように消え、二人は寒さにぶるぶるふるえて、草の中に立っていました。",
+    "contextBefore": "に飛びつきました。戸はがたりとひらき、犬どもは吸い込まれるように飛んで行きました。\n\n　その扉の向うのまっくらやみのなかで、\n\n",
+    "displayText": "「にゃあお、くゎあ、ごろごろ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 75,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5355,
+      "start": 5339
+    },
+    "revisions": [
+      {
+        "after": "「にゃあお、クワア、ごろごろ。」",
+        "before": "「にゃあお、くゎあ、ごろごろ。」",
+        "candidateId": "JV7E49HGaKGnqsbIPJnqTyXdBnTQMKBH9v4d0z7gSJ8",
+        "reason": "VOICEVOX 0.25.2 style 3のaudio_query全候補確認で検出した明確な誤読を、displayTextを変えず補正",
+        "reviewedAt": "2026-07-25T12:56:30.021Z",
+        "reviewer": "Codex音声プリフライトレビュー",
+        "revision": 1
+      }
+    ],
+    "sha256": "d481c16de5ec442e52ae0fc2c8279e68536c79eca9c734ae92351ec86c39cbda",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5355,
+      "startToken": 5339
+    },
+    "speechText": "「にゃあお、クワア、ごろごろ。」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "LMa1G_s5DpDXd2bOuo21Hi-s_iAGOSBTpy-FUSLbFo4",
+    "contextAfter": "と叫ぶものがあります。\n\n　二人は俄かに元気がついて\n\n「おおい、おおい、ここだぞ、早く来い。」と叫びました。\n\n　簔帽子をかぶった",
+    "contextBefore": "ざわざわ、木の葉はかさかさ、木はごとんごとんと鳴りました。\n\n　犬がふうとうなって戻ってきました。\n\n　そしてうしろからは、\n\n",
+    "displayText": "「旦那あ、旦那あ、」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 76,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5561,
+      "start": 5552
+    },
+    "revisions": [],
+    "sha256": "69a7a7ddf0820b3caa43a78a1aefa0590a1b99bc4eda565a2ee5a78528192ca0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5561,
+      "startToken": 5552
+    },
+    "speechText": "「だんなあ、旦那あ、」",
+    "workId": "043754"
+  },
+  {
+    "candidateId": "zHgE8eOpHyjnWyA4ZnnOfKW7-B1xSmThwzmuVNQzXa0",
+    "contextAfter": "と叫びました。\n\n　簔帽子をかぶった専門の猟師が、草をざわざわ分けてやってきました。\n\n　そこで二人はやっと安心しました。\n\n　そして",
+    "contextBefore": "うなって戻ってきました。\n\n　そしてうしろからは、\n\n「旦那あ、旦那あ、」と叫ぶものがあります。\n\n　二人は俄かに元気がついて\n\n",
+    "displayText": "「おおい、おおい、ここだぞ、早く来い。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 77,
+    "rawSourceSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "rawTokenRange": {
+      "end": 5609,
+      "start": 5589
+    },
+    "revisions": [],
+    "sha256": "5bc7dbfd4246718b1f9461eb623730a12ce1221c8361446c53981a8c1dd75c3d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5609,
+      "startToken": 5589
+    },
+    "speechText": "「おおい、おおい、ここだぞ、早く来い。」",
+    "workId": "043754"
+  }
+]

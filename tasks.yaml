@@ -549,7 +549,7 @@ tasks:
   title: 「注文の多い料理店」の全候補レビュー・音声生成・作品単位受入
   feature: F002
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-025
   tags:
@@ -573,7 +573,7 @@ tasks:
   title: F002最終catalog統合・F001不変・全asset整合を確認
   feature: F002
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-021
   - T-022

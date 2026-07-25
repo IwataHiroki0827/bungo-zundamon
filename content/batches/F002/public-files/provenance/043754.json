@@ -1,0 +1,35 @@
+{
+  "authorId": "000081",
+  "batchId": "F002",
+  "editorialReview": {
+    "approved": 65,
+    "path": "content/batches/F002/reviews/043754.json",
+    "pending": 0,
+    "rejected": 13,
+    "resultSha256": "5f5235ef63070f33aaccf238ef47f6e0c44d40d100af05652d462f4ed7df368c",
+    "sha256": "56ba9b643ca1cd6b27b87b2c4802c599d8da4fcc3549388d20264768a69dbdb7"
+  },
+  "processing": {
+    "candidateCount": 78,
+    "sourceTreeSha256": "fe25cec8e663b5b4977faebe377fd24c049d380a4813240c374bcb94dcc7ed86",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "注文の多い料理店",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000081/card43754.html",
+    "fetchedAt": "2026-07-25T12:56:47.993Z",
+    "inputter": "土屋隆",
+    "proofreader": "noriko saito",
+    "rawSha256": "bdcd423d8e0702fa49d9e9a14d9d2e7970e4e4dec87692ad1fab4e41d8ed88a7",
+    "textUrl": "https://www.aozora.gr.jp/cards/000081/files/43754_17659.html"
+  },
+  "speechRevisions": {
+    "count": 12,
+    "path": "content/batches/F002/speech-revisions/043754.json",
+    "sha256": "9998b36e312c5bfd364b5cb2eb121fa7c9ac2146f8f50a451ebe0000bf69440d"
+  },
+  "title": "注文の多い料理店",
+  "workId": "043754"
+}
