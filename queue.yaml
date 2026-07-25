@@ -651,3 +651,30 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-26T01:17:53+09:00'
   processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新する。
+- id: Q-016
+  type: approval
+  status: closed
+  title: F002 v0.2.0 リリース判定（公開）
+  body: commit 84c985fのVitest 737件、Playwright 84件、typecheck、lint、build、依存監査、hosted artifact、exact release-verify、権利・容量・securityを同一candidateへ結合してPASSしました。公開済みGitHub Pagesへ段階デプロイします。
+  target: F002
+  target_mode: reference
+  options:
+  - 承認（公開）
+  - 修正指示
+  allow_freeform: false
+  release_version: 0.2.0
+  approval_target_commit: 84c985f382910216e381a96901f6fd569165a27e
+  precheck: docs/evidence/release/RELEASE-F002.md
+  answer: 承認（公開）
+  answer_note: 'プロジェクトオーナー直接指示: 段階的にデプロイし、公開サイトで問題なければ次の作業へ進む。'
+  created: '2026-07-26T02:48:00+09:00'
+  source: pf-release
+  resume:
+    task: T-030
+    next: pf-release
+  approved_at: '2026-07-26T02:48:00+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T03:01:00+09:00'
+  processed_note: commit 84c985fをmainへfast-forward。Actions run 30168689551、Pages全route/catalog/audio smoke、deploy変数無効化、remote v0.2.0 tag、published manifest記録を完了。
+  release_result: released
+  released_at: '2026-07-26T03:01:00+09:00'

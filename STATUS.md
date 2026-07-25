@@ -1,10 +1,10 @@
 ---
-phase: test
-feature: F002
-updated: 2026-07-26T01:31:00+09:00
+phase: requirements
+feature: F003
+updated: 2026-07-26T03:05:00+09:00
 next_actions:
-  - "T-029で自動IT・QT・ブラウザ・権利・容量証跡を同一candidateへ結合する [REQ-F002-001〜020]"
-  - "T-030でリリース前総点検・ゲート④・GitHub Pages公開を実施する [REQ-F002-001〜020]"
+  - "T-033でF003の次回作者・代表3作品・権利・台詞量・容量を調査する"
+  - "既存方針の宮沢賢治「雪渡り」と次作者候補・太宰治を比較し、1作者・代表3作品のF003範囲を決定する"
 blocked_by: []
 ---
 
@@ -13,27 +13,25 @@ blocked_by: []
 ## 現在の状況
 
 - F001はv0.1.0として公開・クローズ済み。
-- F002のSRS・FD・DD・UT・IT・QTはすべてApproved、traceability対応漏れ0件。
-- F002はtestフェーズ。T-019〜T-028とCHG-F002-002影響試験T-032を完了し、T-029の自動IT・QT・ブラウザ・権利・容量受入へ進む。
-- 宮沢賢治の3作品はすべて作品単位accepted。F002公開対象は154台詞・accepted音声152件、SHA重複排除後の公開WAV151件、編集除外13件である。
-- exact commit `00fed9a8e3f63534bde2ce427a0593e4b99bb73a`のrelease-verifyは独立再実行を含めPASSした。
+- F002はv0.2.0として公開・クローズ済み。公開サイトは2作者・6作品・213台詞である。
+- 宮沢賢治3作品は154台詞、accepted音声152件、SHA重複排除後の公開WAV151件、編集除外13件で公開した。
+- exact commit `84c985f382910216e381a96901f6fd569165a27e`のrelease-verify、GitHub Actions build/deploy、公開後スモークはすべてPASSした。
+- F003のrequirementsフェーズを開始し、次作者候補・太宰治と宮沢賢治「雪渡り」を起点に次回収録範囲を調査中。
 
 ## 直近の作業（最新5件）
 
-- CHG-F002-002で手動・実機・目視・聴取・手動スクリーンリーダーをF002必須条件から除外し、自動証跡専用へ変更
-- 独立再レビューHigh/Medium/Low 0、対象152 tests、全Vitest 734 tests、Playwright必須4系統84 testsをPASS
-- UT-F002 40/40件をテストコードへ直接照合し、正式attempt 3で37ファイル・719/719 testsをPASS
-- 欠落していたF002最終受入判定とpublished atomic transactionを実装し、release経路へ接続
-- 証跡型・accepted音声path・実体hash・canonical route・再起動journal recoveryのfail-openを修正し、独立受入ACCEPT（指摘0）
+- v0.2.0をcommit `84c985f`からGitHub Pagesへ段階デプロイ
+- feature CI、hosted artifact digest、exact release-verify、容量判定を同一candidateへ結合してPASS
+- 公開4 route、2作者・6作品・213台詞、クレジット、F002 WAV Range取得を実サイトで確認
+- デプロイ変数を公開直後に無効化し、remote tag `v0.2.0`を発行
+- `recordPublishedBatch`でF002 manifestをatomicに`published`へ遷移
 
 ## 次のアクション
 
-- T-029でIT-F002 18件、QT-F002 14件、自動ブラウザ・権利・容量証跡を同一candidateへ結合する。
-- F002の判定は自動試験と機械検証可能な既存判断artifactだけで完結させ、手動入力を待たない。
-- T-029完了後、T-030のリリース前総点検・ゲート④・GitHub Pages公開へ進む。
+- T-033でF003のTier大ドメイン調査、候補比較、SRS・QA・QTドラフトを作成する。
+- 手入力を要求せず、既存方針・青空文庫実データ・権利・容量から推奨範囲を先に固める。
 
 ## 未解決事項
 
-- T-029のIT・QT・ブラウザ・権利・容量の自動受入証跡結合が未完了。
-- source repositoryはGit実体再計測145,406,059 bytesで警告・停止閾値未満。
-- C:は35.5GB空きだが空き率3.8%のため容量警告域。今回のbuild 81,723,316 bytesは安全に完了した。
+- C:は空き率が低い警告域にあるため、F003音声生成前にdisk-guardを再実行する。
+- F003の最終収録範囲は要求分析・自動レビュー後に確定する。
