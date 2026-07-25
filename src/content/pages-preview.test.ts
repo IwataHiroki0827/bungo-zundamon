@@ -71,7 +71,6 @@ async function fixture(): Promise<{ app: string; content: string; output: string
   return { app, content, output, tree, adapter };
 }
 
-// Direct trace tags: IT-F002-009
 describe('UT-F002-039 FUN-F002-039 offline Pages preview', () => {
   it('明示入力だけから完全distと全file/input hashを返す', async () => {
     const value = await fixture();

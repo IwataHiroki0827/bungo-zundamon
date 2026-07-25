@@ -4,7 +4,7 @@
 - attempt: 1
 - 実行対象: `956b8bd4fcd028ad32dbd227875eda0517e61f1d`と同一の実装・試験内容（commit直前に実行し、commit差分はメタデータのみ）
 - 仕様ID照合: `IT-F002-001`〜`IT-F002-018`の18/18件をテストコードへ直接対応、未対応0件、余剰0件
-- 結果: **PASS（18/18仕様ID、FAIL 0件）**
+- 現在判定: **source段階の実装・fixture試験PASS／exact release candidate結合は未確定**
 
 ## 自動試験結果
 
@@ -18,10 +18,13 @@
 
 - Vitest生ログ: `docs/evidence/it/IT-F002-attempt-1.json`
 - 生ログSHA-256: `d7a14c481997b3127adadd0a163c7c862a994d9d6d44cc5cd69f07a474e4cbb1`
+- 付帯検証生ログ: `docs/evidence/qt/QT-F002-auxiliary-attempt-1.json`
+- 付帯検証SHA-256: `076567b40e7f12f802fbf28df093fd4871f5446ab4250319cc301d41083cb88c`
+- 実行環境: Windows `10.0.26200` x64、Node.js `v24.11.0`、npm `11.6.1`
 - 仕様対応表: `docs/evidence/it/spec-match.md`
 
 ## 判定
 
-IT-F002-001〜018を直接参照する試験を含む全Vitest回帰がPASSした。jsdomの`HTMLMediaElement.pause()`未実装診断とGitのLF/CRLF警告は試験失敗ではなく、実ブラウザ音声結合はQTのPlaywright 4範囲で別途PASSしている。
+IT-F002-001〜018を直接参照する実装・fixture試験を含む全Vitest回帰がPASSした。jsdomの`HTMLMediaElement.pause()`未実装診断とGitのLF/CRLF警告は試験失敗ではなく、実ブラウザ音声結合はQTのPlaywright 4範囲で別途PASSしている。
 
-exact release commit、最終dist digest、deploy先の一致はITの外部境界であり、`QT-F002-result.md`およびリリース証跡で同一candidateへ結合する。
+ただし、IT-F002-008/012/013/015/018が要求するexact release commit、predeploy観測、release容量、最終dist/artifact digest、candidate tupleはまだ固定前である。したがって18/18の正式PASSは記録せず、clean candidate上の再実行・機械証跡と`QT-F002-result.md`を同一tupleへ結合した後に確定する。

@@ -64,7 +64,7 @@
 - 仕様ID: `QT-F002-001`〜`QT-F002-014`（14件）
 - 初回直接照合: 5/14件、直接タグ不足9件
 - 初回不足: `003`、`004`、`005`、`006`、`007`、`009`、`010`、`011`、`013`
-- 対応: 既存の対応試験suiteへ直接トレースタグを追加した。試験ロジック、fixture、期待値は変更していない。
+- 対応: 既存の対応試験suiteへ直接トレースタグを追加した。さらに正規表現によるID存在確認だけでなく、各仕様の手順・期待結果と実oracleを照合した。試験ロジック、fixture、期待値は変更していない。
 - 補完後の直接照合: **14/14件対応、未対応0件、余剰0件**
 - 判定: QT実行前の仕様ID機械照合ゲートをPASSした。
 
@@ -83,8 +83,8 @@
 | QT-F002-011 | `scripts/f002-security.test.mjs` |
 | QT-F002-012 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
 | QT-F002-013 | `src/content/batch-command.test.ts` |
-| QT-F002-014 | `tests/e2e/f002-multi-author.spec.ts` |
+| QT-F002-014 | `tests/e2e/f002-multi-author.spec.ts`（4 browser・3 viewport・keyboard・semantic/ARIA・reduced motion）、`src/content/batch.test.ts`（FUN-003/037 transaction）、`src/content/batch-public.test.ts`（FUN-019 transaction）、`src/content/batch-acceptance.test.ts`（FUN-033 transaction）、`src/content/batch-production.test.ts`と`src/content/batch-runtime.test.ts`（Windows実junction/path安全性） |
 
-仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。PASS/FAILは`QT-F002-result.md`とattempt生ログで判定する。
+仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。その後、IDごとに仕様の主要手順と期待結果を上表の実oracleへ意味的に照合した。正式PASS/FAILは`QT-F002-result.md`とexact candidate固定後のattempt生ログで判定する。
 
 ---

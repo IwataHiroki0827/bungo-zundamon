@@ -23,6 +23,9 @@
 - 生ログSHA-256: `b86840c799ceaec6289967798aab379dc61405f0a459b1ac424e0bb291290833`
 - 仕様対応表: `docs/evidence/qt/spec-match.md`
 - 付帯回帰: Vitest 734/734、typecheck、lint、production build、依存脆弱性検査をすべてPASS
+- 付帯検証生ログ: `docs/evidence/qt/QT-F002-auxiliary-attempt-1.json`
+- 付帯検証SHA-256: `076567b40e7f12f802fbf28df093fd4871f5446ab4250319cc301d41083cb88c`
+- 実行環境: Windows `10.0.26200` x64、Node.js `v24.11.0`、npm `11.6.1`
 
 ## 残る自動処理
 

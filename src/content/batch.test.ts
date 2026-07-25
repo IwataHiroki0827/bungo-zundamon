@@ -385,6 +385,7 @@ describe('単方向状態遷移 [DES-F002-002][DES-F002-015]', () => {
   });
 });
 
+// Direct transaction trace: IT-F002-009 QT-F002-014
 describe('expected SHA付きmanifest atomic write [DES-F002-002][DES-F002-015]', () => {
   // @des DES-F002-002 DES-F002-015 @fun FUN-F002-003 @test UT-F002-003
   it('canonical bytesへ置換し、保存後SHAを返す', async () => {
@@ -523,6 +524,7 @@ describe('expected SHA付きmanifest atomic write [DES-F002-002][DES-F002-015]',
   });
 });
 
+// Direct transaction trace: IT-F002-009 QT-F002-014
 describe('published遷移transaction [DES-F002-002][DES-F002-015][DES-F002-016]', () => {
   // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
   it('同一candidateのapproval/deploy/smokeだけをcanonical published manifestへ一度だけ記録する', async () => {

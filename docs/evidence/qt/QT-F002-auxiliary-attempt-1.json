@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "F002-auxiliary-test-evidence",
+  "capturedAt": "2026-07-25T17:23:34.385Z",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200",
+    "node": "v24.11.0",
+    "npm": "11.6.1"
+  },
+  "results": [
+    {
+      "id": "typecheck",
+      "file": "C:\\WINDOWS\\system32\\cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "npm run typecheck"
+      ],
+      "startedAt": "2026-07-25T17:23:24.384Z",
+      "endedAt": "2026-07-25T17:23:27.407Z",
+      "exitCode": 0,
+      "stdout": "\n> bungo-zundamon@0.1.0 typecheck\n> tsc --noEmit\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "lint",
+      "file": "C:\\WINDOWS\\system32\\cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "npm run lint"
+      ],
+      "startedAt": "2026-07-25T17:23:27.407Z",
+      "endedAt": "2026-07-25T17:23:29.926Z",
+      "exitCode": 0,
+      "stdout": "\n> bungo-zundamon@0.1.0 lint\n> eslint . --max-warnings 0\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "build",
+      "file": "C:\\WINDOWS\\system32\\cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "npm run build"
+      ],
+      "startedAt": "2026-07-25T17:23:29.926Z",
+      "endedAt": "2026-07-25T17:23:33.807Z",
+      "exitCode": 0,
+      "stdout": "\n> bungo-zundamon@0.1.0 build\n> node scripts/build-offline.mjs\n\n\u001b[36mvite v8.1.5 \u001b[32mbuilding client environment for production...\u001b[36m\u001b[39m\n\u001b[2K\rtransforming...✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  1.04 kB │ gzip:  0.60 kB\ndist/assets/index-BGq69bFs.css  11.73 kB │ gzip:  3.63 kB\ndist/assets/index-LDs5_VKp.js   67.22 kB │ gzip: 19.89 kB\n\n\u001b[32m✓ built in 195ms\u001b[39m\nbuild verification passed: 229 files / 81723316 bytes\n",
+      "stderr": "(node:52400) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "id": "audit-production",
+      "file": "C:\\WINDOWS\\system32\\cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "npm audit --audit-level=high --omit=dev"
+      ],
+      "startedAt": "2026-07-25T17:23:33.807Z",
+      "endedAt": "2026-07-25T17:23:34.385Z",
+      "exitCode": 0,
+      "stdout": "found 0 vulnerabilities\n",
+      "stderr": ""
+    }
+  ]
+}

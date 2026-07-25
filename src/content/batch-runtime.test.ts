@@ -347,6 +347,7 @@ describe('production rights入力結合 [DES-F002-002][DES-F002-009][DES-F002-01
   });
 });
 
+// Direct Windows path-safety trace: IT-F002-009 QT-F002-014
 describe('production review input結合 [DES-F002-002][DES-F002-014][DES-F002-015]', () => {
   // @des DES-F002-002 DES-F002-014 DES-F002-015 @fun FUN-F002-027 @test UT-F002-027
   it('canonical tree digestとcandidate SHAがextracted evidenceへ完全一致した場合だけreviewする', async () => {

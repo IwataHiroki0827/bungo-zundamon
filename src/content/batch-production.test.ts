@@ -209,7 +209,7 @@ async function speechRevisionArtifact(
   await writeFile(target, canonicalJson(artifact), 'utf8');
 }
 
-// Direct trace tags: IT-F002-001 QT-F002-003
+// Direct trace tags: IT-F002-001 IT-F002-009 QT-F002-003 QT-F002-014
 describe('batch source stage [DES-F002-004][DES-F002-014][DES-F002-015]', () => {
   /** @des DES-F002-004 DES-F002-014 DES-F002-015 @fun FUN-F002-007 @test UT-F002-007 */
   it('同一入力を作品単位でatomic昇格し決定的な候補・evidenceを返す', async () => {
