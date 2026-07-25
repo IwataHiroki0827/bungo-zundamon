@@ -1,0 +1,35 @@
+{
+  "approvalItemSha256": "5d55a5ce84893b38b8dd786b7d6fa0c90c1040baf1852bb18e9639bb92c43d9d",
+  "approvalProjectionFields": [
+    "id",
+    "type",
+    "status",
+    "target",
+    "target_mode",
+    "answer",
+    "approved_at"
+  ],
+  "changes": [
+    {
+      "id": "CHG-F003-001",
+      "level": "testspec",
+      "status": "done"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/srs/SRS-F003.md",
+      "sha256": "e8be75189b8741fc928608fcf9dfd027eb64772f3517b760440bfe8e59e6b7df"
+    },
+    {
+      "path": "docs/tests/qt/QT-F003.md",
+      "sha256": "f3a471f613abefe8e674718396a3a8e928bae9099eee3831a161ddae0ae57dfc"
+    }
+  ],
+  "feature": "F003",
+  "migratedAt": "2026-07-26T04:02:29+09:00",
+  "queueId": "Q-017",
+  "queuePath": "queue.yaml",
+  "queueSha256AtMigration": "5e6b2ca01a41752140876c1f53f621b36ee0fee2b683c8319d32d631690ab2d2",
+  "schemaVersion": "1.0.0"
+}

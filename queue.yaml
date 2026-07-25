@@ -700,3 +700,25 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-26T03:28:20+09:00'
   processed_note: SRS-F003とQT-F003をApprovedへ更新し、T-033を完了。F003をsetup経由でdesignへ移行した。
+- id: Q-018
+  type: approval
+  status: closed
+  title: F003 機能設計・関数設計の承認
+  body: 太宰治3作品の追加をDES 12件・FUN 29件へ展開しました。固定v0.2.0 baseline、F002固定分岐の汎用化、独立編集authorization、Catalog 2.1 notice、単一候補・容量、作品単位atomic受入、exact releaseを定義しています。整合性・実現性・セキュリティの独立レビューはHigh/Medium/Low 0、REQ→DES→FUN欠落0です。
+  target: docs/design/FD-F003.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。手動確認は不要。'
+  created: '2026-07-26T04:06:23+09:00'
+  source: pf-design
+  resume:
+    task: T-036
+    next: pf-testspec
+  approved_at: '2026-07-26T04:06:23+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T04:06:23+09:00'
+  processed_note: FD-F003/DD-F003をApprovedへ更新し、T-034/T-035を完了。F003をtestspecへ移行した。

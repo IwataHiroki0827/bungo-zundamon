@@ -397,3 +397,33 @@ changes:
   approved_by: 既存要求・設計を変更しないtestspec責務分担の是正
   completed_at: '2026-07-26T02:35:00+09:00'
   result: 4 transactionのjournal回復と共通Windows filesystem境界を分離し、手動条件を追加せず自動試験で検証
+- id: CHG-F003-001
+  date: '2026-07-26'
+  trigger: F003設計整合性レビューでQT-F003-009の境界別oracleが「許可または警告」と曖昧であることを検出
+  level: testspec
+  affected:
+  - REQ-F003-008
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-013
+  - REQ-F003-014
+  - QT-F003-005
+  - QT-F003-007
+  - QT-F003-009
+  - QT-F003-012
+  - DES-F003-005
+  - DES-F003-006
+  - DES-F003-007
+  - DES-F003-009
+  - FUN-F003-009
+  - FUN-F003-010
+  - FUN-F003-013
+  - FUN-F003-016
+  - FUN-F003-017
+  - FUN-F003-023
+  - FUN-F003-024
+  - T-036
+  status: done
+  approved_by: 既存要求の閾値・範囲を変更しないtestspec oracleの明確化
+  completed_at: '2026-07-26T04:02:29+09:00'
+  result: QT 4件とFD/DDを更新し、3観点の最終独立再レビューHigh/Medium/Low 0。既存試験なし、新規fixtureはT-036へ引継ぎ

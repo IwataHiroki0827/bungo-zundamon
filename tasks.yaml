@@ -728,7 +728,7 @@ tasks:
   title: F003機能設計書を作成しREQ全18件を既存継続バッチへ展開
   feature: F003
   phase: design
-  state: todo
+  state: done
   depends:
   - T-033
   tags: &f003_requirements
@@ -755,11 +755,14 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T04:06:23+09:00'
+  result: FD-F003 DES 12件を作成し、3観点独立レビューHigh/Medium/Low 0でApproved
+
 - id: T-035
   title: F003関数設計書を作成しデータ・検証・状態遷移契約へ展開
   feature: F003
   phase: design
-  state: todo
+  state: done
   depends:
   - T-034
   tags: *f003_requirements
@@ -768,11 +771,14 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T04:06:23+09:00'
+  result: DD-F003 FUN 29件を作成し、既存F002汎用化・信頼境界・exact release契約をApproved
+
 - id: T-036
   title: UT-F003・IT-F003を作成しQT-F003との網羅性を確認
   feature: F003
   phase: testspec
-  state: todo
+  state: doing
   depends:
   - T-035
   tags: *f003_requirements

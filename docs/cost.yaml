@@ -325,3 +325,10 @@ entries:
   agents: 1
   est_tokens: 6000
   note: T-034〜T-044へ設計・試験仕様・3作品atomic受入・統合・試験・段階公開を分解。既存npm/Playwright CLIを再利用し、追加MCP不要と判定
+- date: '2026-07-26'
+  phase: design
+  task: T-034/T-035 F003機能・関数設計
+  model: GPT-5
+  agents: 4
+  est_tokens: 30000
+  note: DES 12件・FUN 29件を作成。固定baseline、F002汎用化、独立編集authorization、Catalog notice、machine画像review、atomic/release境界を3観点で反復レビューし最終High/Medium/Low 0

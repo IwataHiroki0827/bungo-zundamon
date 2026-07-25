@@ -13,6 +13,6 @@ features:
 - id: F003
   title: 太宰治3作品のコンテンツ追加
   branch: feature/F003
-  state: design
+  state: testspec
   merge_after:
   - F002
