@@ -54,7 +54,7 @@ function object(bytes: number, overrides: Partial<GitObjectMeasurement> = {}): G
   return { oid: OID, storedBytes: bytes, logicalBytes: bytes, source: 'pack', objectized: true, ...overrides };
 }
 
-describe('FUN-F002-032 capacity forecast', () => {
+describe('UT-F002-032 FUN-F002-032 capacity forecast', () => {
   it.each([
     [ADDED_AUDIO_MAX_BYTES, 'pass'],
     [ADDED_AUDIO_MAX_BYTES + 1, 'blocked'],
@@ -141,7 +141,7 @@ describe('FUN-F002-032 capacity forecast', () => {
   });
 });
 
-describe('FUN-F002-017 actual capacity', () => {
+describe('UT-F002-017 FUN-F002-017 actual capacity', () => {
   const roots: string[] = [];
   afterEach(async () => {
     await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));

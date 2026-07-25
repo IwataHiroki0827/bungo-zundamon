@@ -286,6 +286,14 @@ entries:
   model: GPT-5
   agents: 4
   est_tokens: 70000
-  note: F001と宮沢賢治3作品を2作者・6作品・213台詞・208音声の公開treeへ統合。accepted
-    152音声をSHA単位で151 WAVへ正規化し、review/revision/provenanceを公開。Pages tupleとGit容量計測のproduction契約不整合を回帰試験付きで修正し、exact
-    clean release-verify、容量5区分、全651 tests、独立受入をPASS
+  note: F001と宮沢賢治3作品を2作者・6作品・213台詞・208音声の公開treeへ統合。accepted 152音声をSHA単位で151 WAVへ正規化し、review/revision/provenanceを公開。Pages
+    tupleとGit容量計測のproduction契約不整合を回帰試験付きで修正し、exact clean release-verify、容量5区分、全651
+    tests、独立受入をPASS
+- date: '2026-07-26'
+  phase: test
+  task: T-028 UT-F002実施・fail-open修正
+  model: GPT-5
+  agents: 4
+  est_tokens: 42000
+  note: UT仕様ID40/40を機械照合。欠落していたF002受入判定とpublished atomic transactionを実装し、独立受入のHigh
+    3/Medium 1と追加fail-open候補を修正。最終719 tests、型・lint、独立受入ACCEPT（指摘0）を確認

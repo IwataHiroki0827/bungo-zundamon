@@ -104,7 +104,7 @@ afterEach(async () => {
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
-describe('FUN-F002-013 voice cache key v2', () => {
+describe('UT-F002-013 FUN-F002-013 voice cache key v2', () => {
   it('batch/candidateに依存せず、canonical configと本文だけで共有keyを作る', () => {
     const reordered = Object.fromEntries(Object.entries(config).reverse()) as unknown as VoiceConfigV2;
     expect(createVoiceCacheKeyV2('同じ台詞', reordered)).toBe(createVoiceCacheKeyV2('同じ台詞', config));
@@ -143,7 +143,7 @@ describe('FUN-F002-013 voice cache key v2', () => {
   });
 });
 
-describe('FUN-F002-014 voice diff', () => {
+describe('UT-F002-014 FUN-F002-014 voice diff', () => {
   it('manifest/tree tupleをplan digestへ結合し、別work候補を拒否する', async () => {
     const { cache } = await fixture();
     const item = [{ workId: 'w1', candidateId: 'c1', speechText: '台詞', approved: true }];
@@ -219,7 +219,7 @@ describe('FUN-F002-014 voice diff', () => {
   });
 });
 
-describe('FUN-F002-015 voice generation diff', () => {
+describe('UT-F002-015 FUN-F002-015 voice generation diff', () => {
   it('missだけを1回ずつ生成してstagingへ置き、cacheは更新しない', async () => {
     const { cache, stage } = await fixture();
     const plan = authorized(await planVoiceDiff([{ workId: 'w1', candidateId: 'c1', speechText: '生成', approved: true }], config, cache, binding));
@@ -291,7 +291,7 @@ describe('FUN-F002-015 voice generation diff', () => {
   });
 });
 
-describe('FUN-F002-016 voice completeness', () => {
+describe('UT-F002-016 FUN-F002-016 voice completeness', () => {
   it('approved→audio→assetの共有参照とWAV実体を検証する', async () => {
     const { cache, stage } = await fixture();
     const plan = authorized(await planVoiceDiff([

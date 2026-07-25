@@ -1,7 +1,8 @@
 import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import { canonicalJson } from './artifacts.ts';
@@ -9,7 +10,12 @@ import {
   BatchOperationError,
   type BatchCandidate,
   type BatchManifest,
+  type DeploymentEvidence,
   type PreparedWorkAcceptanceEvidence,
+  type PublicSmokeEvidence,
+  type PublishBatchJournalPhase,
+  type ReleaseApproval,
+  type ReleaseBuildContext,
   type Sha256,
   type StageEvidence,
   type WorkId,
@@ -17,6 +23,7 @@ import {
   type WorkspaceRelativePath,
   hashBatchManifest,
   createNextBatchTemplate,
+  recordPublishedBatch,
   transitionBatchState,
   transitionWorkState,
   validateBatchManifest,
@@ -34,6 +41,36 @@ afterEach(async () => {
 
 function path(value: string): WorkspaceRelativePath {
   return value as WorkspaceRelativePath;
+}
+
+function canonicalSha(value: unknown): Sha256 {
+  return createHash('sha256').update(canonicalJson(value)).digest('hex') as Sha256;
+}
+
+function evidenceCore(evidence: ReleaseApproval | DeploymentEvidence | PublicSmokeEvidence): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(evidence).filter(([key]) => key !== 'evidenceRef' && key !== 'evidenceSha256'),
+  );
+}
+
+async function writeEvidenceArtifact(
+  root: string,
+  evidenceRef: WorkspaceRelativePath,
+  core: Record<string, unknown>,
+): Promise<Sha256> {
+  const target = join(root, ...evidenceRef.split('/'));
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, canonicalJson(core), 'utf8');
+  return canonicalSha(core);
+}
+
+async function rewriteEvidenceArtifact(
+  root: string,
+  evidence: ReleaseApproval | DeploymentEvidence | PublicSmokeEvidence,
+  core: Record<string, unknown> = evidenceCore(evidence),
+): Promise<void> {
+  const evidenceSha256 = await writeEvidenceArtifact(root, evidence.evidenceRef, core);
+  Object.assign(evidence, { evidenceSha256 });
 }
 
 function fixture(): BatchManifest {
@@ -68,6 +105,108 @@ function validated(value: BatchManifest = fixture()): BatchManifest {
   const result = validateBatchManifest(value);
   if (!result.ok) throw new Error(`${result.error.code}: ${result.error.message}`);
   return result.value;
+}
+
+function acceptedFixture(): BatchManifest {
+  const manifest = fixture();
+  const acceptedAt = '2026-07-20T00:00:00Z';
+  return validated({
+    ...manifest,
+    status: 'accepted',
+    workProgress: manifest.workIds.map((workId, index) => ({
+      workId,
+      status: 'accepted',
+      stageRecords: [{
+        stage: 'accepted',
+        inputHashes: [HASH_A],
+        toolVersion: 'accepted-audio-transaction-v1',
+        outputHashes: [HASH_B],
+        count: 1,
+        completedAt: acceptedAt,
+      }],
+      acceptedAudioSources: [{
+        path: path(`content/batches/F002/accepted-audio/${workId}/audio-${index}.wav`),
+        sha256: HASH_B,
+        bytes: 44,
+        configHash: HASH_C,
+      }],
+      acceptedAt,
+      acceptedBy: 'acceptor',
+    })) as unknown as BatchManifest['workProgress'],
+    acceptedAt,
+    acceptedBy: 'acceptor',
+  });
+}
+
+async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
+  release: ReleaseBuildContext;
+  approval: ReleaseApproval;
+  deployment: DeploymentEvidence;
+  smoke: PublicSmokeEvidence;
+}> {
+  const release: ReleaseBuildContext = {
+    releaseCandidateBatchId: manifest.batchId,
+    feature: manifest.feature,
+    releaseCommit: 'd'.repeat(40),
+    distSha256: HASH_A,
+    artifactDigest: HASH_B,
+  };
+  const approval = {
+    ...release,
+    result: 'approved' as const,
+    approvedAt: '2026-07-20T01:00:00Z',
+    releaseVersion: '0.2.0',
+    evidenceRef: path('docs/evidence/release/F002-approval.json'),
+    evidenceSha256: HASH_A,
+  };
+  const deployment = {
+    ...release,
+    result: 'success' as const,
+    deployedAt: '2026-07-20T01:01:00Z',
+    evidenceRef: path('docs/evidence/release/F002-deployment.json'),
+    evidenceSha256: HASH_A,
+    deployFlagDisabled: true,
+  };
+  const expectedRoutes = ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'];
+  const smoke = {
+    ...release,
+    result: 'pass' as const,
+    checkedAt: '2026-07-20T01:02:00Z',
+    evidenceRef: path('docs/evidence/release/F002-smoke.json'),
+    evidenceSha256: HASH_A,
+    allRoutesCovered: true,
+    expectedRoutes,
+    routes: [...expectedRoutes],
+  };
+  await rewriteEvidenceArtifact(root, approval);
+  await rewriteEvidenceArtifact(root, deployment);
+  await rewriteEvidenceArtifact(root, smoke);
+  return { release, approval, deployment, smoke };
+}
+
+async function publishFixture() {
+  const root = await mkdtemp(join(tmpdir(), 'bungo-publish-'));
+  temporaryDirectories.push(root);
+  const manifestPath = path('content/batches/F002/batch.json');
+  const target = join(root, ...manifestPath.split('/'));
+  const manifest = acceptedFixture();
+  await mkdir(join(root, 'content', 'batches', 'F002'), { recursive: true });
+  await writeFile(target, canonicalJson(manifest), 'utf8');
+  const evidence = await publishEvidence(root, manifest);
+  return {
+    root,
+    manifestPath,
+    target,
+    manifest,
+    expectedSha: hashBatchManifest(manifest),
+    ...evidence,
+  };
+}
+
+async function readValidatedManifest(target: string): Promise<BatchManifest> {
+  const parsed = validateBatchManifest(JSON.parse(await readFile(target, 'utf8')) as unknown);
+  if (!parsed.ok) throw new Error(`test manifest validation failed: ${parsed.error.code}`);
+  return parsed.value;
 }
 
 function stage(
@@ -381,6 +520,396 @@ describe('expected SHA付きmanifest atomic write [DES-F002-002][DES-F002-015]',
       code: 'BATCH_WRITE_CONFLICT',
     });
     expect(await readFile(target, 'utf8')).toBe(canonicalJson(manifest));
+  });
+});
+
+describe('published遷移transaction [DES-F002-002][DES-F002-015][DES-F002-016]', () => {
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it('同一candidateのapproval/deploy/smokeだけをcanonical published manifestへ一度だけ記録する', async () => {
+    const input = await publishFixture();
+    const result = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(result.manifest).toMatchObject({
+      status: 'published',
+      acceptedAt: input.manifest.acceptedAt,
+      acceptedBy: input.manifest.acceptedBy,
+      publishedAt: input.smoke.checkedAt,
+      releaseVersion: input.approval.releaseVersion,
+      deploymentEvidenceRef: input.deployment.evidenceRef,
+      smokeEvidenceRef: input.smoke.evidenceRef,
+    });
+    expect(result.sha256).toBe(hashBatchManifest(result.manifest));
+    const manifestBytes = await readFile(input.target, 'utf8');
+    const releaseJournalPath = join(input.root, '.cache', 'transactions', 'release-publish', 'F002.json');
+    const releaseJournal = await readFile(releaseJournalPath, 'utf8');
+    expect(manifestBytes).toBe(canonicalJson(result.manifest));
+    expect(releaseJournal).toContain('"phase": "published-verified"');
+    expect(await readFile(join(input.root, '.cache', 'transactions', 'batch-manifest', 'F002.json'), 'utf8'))
+      .toContain('"phase": "verified"');
+
+    const resumed = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      await readValidatedManifest(input.target),
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(resumed).toEqual(result);
+    expect(await readFile(input.target, 'utf8')).toBe(manifestBytes);
+    expect(await readFile(releaseJournalPath, 'utf8')).toBe(releaseJournal);
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it.each([
+    ['candidate tuple', (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.release, { feature: 'F003' });
+    }, 'PUBLISH_CANDIDATE_MISMATCH'],
+    ['approval tuple', (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.approval, { releaseCommit: 'e'.repeat(40) });
+    }, 'PUBLISH_APPROVAL_MISMATCH'],
+    ['deployment失敗', (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.deployment, { result: 'failed' });
+    }, 'PUBLISH_DEPLOYMENT_MISMATCH'],
+    ['deploy flag有効', (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.deployment, { deployFlagDisabled: false });
+    }, 'PUBLISH_DEPLOY_FLAG_ACTIVE'],
+    ['route smoke欠落', (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.smoke, { routes: [] });
+    }, 'PUBLISH_SMOKE_FAILED'],
+  ] as const)('%sを拒否してaccepted manifestをbyte不変で維持する', async (_label, mutate, code) => {
+    const input = await publishFixture();
+    const before = await readFile(input.target, 'utf8');
+    mutate(input);
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toEqual(expect.objectContaining<Partial<BatchOperationError>>({ code }));
+    expect(await readFile(input.target, 'utf8')).toBe(before);
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it.each([
+    ['存在しないapproval証跡', async (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      await rm(join(input.root, ...input.approval.evidenceRef.split('/')));
+    }, 'PUBLISH_APPROVAL_MISMATCH'],
+    ['candidate tupleが変わったapproval証跡', async (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      await rewriteEvidenceArtifact(input.root, input.approval, {
+        ...evidenceCore(input.approval),
+        releaseCommit: 'e'.repeat(40),
+      });
+    }, 'PUBLISH_APPROVAL_MISMATCH'],
+    ['入力SHAと一致しないdeployment証跡', async (input: Awaited<ReturnType<typeof publishFixture>>) => {
+      Object.assign(input.deployment, { evidenceSha256: HASH_C });
+    }, 'PUBLISH_DEPLOYMENT_MISMATCH'],
+  ] as const)('%sを実体検証で拒否する', async (_label, mutate, code) => {
+    const input = await publishFixture();
+    const before = await readFile(input.target, 'utf8');
+    await mutate(input);
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toMatchObject({ code });
+    expect(await readFile(input.target, 'utf8')).toBe(before);
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it.each([
+    ['自己申告subset', {
+      expectedRoutes: ['#/', '#/credits'],
+      routes: ['#/', '#/credits'],
+    }],
+    ['別author', {
+      expectedRoutes: ['#/', '#/authors/dazai-osamu', '#/authors/natsume-soseki', '#/credits'],
+      routes: ['#/', '#/authors/dazai-osamu', '#/authors/natsume-soseki', '#/credits'],
+    }],
+    ['余剰route', {
+      expectedRoutes: [
+        '#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits', '#/about',
+      ],
+      routes: [
+        '#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits', '#/about',
+      ],
+    }],
+    ['duplicate', {
+      expectedRoutes: ['#/', '#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'],
+      routes: ['#/', '#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'],
+    }],
+  ] as const)('smoke routeの%sを証跡ファイルと入力が一致していても拒否する', async (_label, routeUpdate) => {
+    const input = await publishFixture();
+    Object.assign(input.smoke, routeUpdate);
+    await rewriteEvidenceArtifact(input.root, input.smoke);
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toMatchObject({ code: 'PUBLISH_SMOKE_FAILED' });
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it.each([
+    'deploy-verified',
+    'manifest-prepared',
+    'manifest-written',
+    'published-verified',
+  ] as const)('%s journal直後の停止からdeployなしでpublishedへ収束する', async (faultPhase) => {
+    const input = await publishFixture();
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+      {
+        afterPhase: (phase: PublishBatchJournalPhase) => {
+          if (phase === faultPhase) throw new Error(`fault:${phase}`);
+        },
+      },
+    )).rejects.toThrow(`fault:${faultPhase}`);
+    const afterFault = await readValidatedManifest(input.target);
+    expect(['accepted', 'published']).toContain(afterFault.status);
+    const resumed = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      afterFault,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(resumed.manifest.status).toBe('published');
+    expect(await readFile(join(input.root, '.cache', 'transactions', 'release-publish', 'F002.json'), 'utf8'))
+      .toContain('"phase": "published-verified"');
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it('manifest-written停止後に証跡が変化した場合はdisk上publishedからの再開をfail-closedにする', async () => {
+    const input = await publishFixture();
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+      {
+        afterPhase: (phase) => {
+          if (phase === 'manifest-written') throw new Error('fault:manifest-written');
+        },
+      },
+    )).rejects.toThrow('fault:manifest-written');
+    const published = await readValidatedManifest(input.target);
+    await writeFile(
+      join(input.root, ...input.smoke.evidenceRef.split('/')),
+      canonicalJson({ ...evidenceCore(input.smoke), checkedAt: '2026-07-20T01:03:00Z' }),
+      'utf8',
+    );
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      published,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toMatchObject({ code: 'PUBLISH_SMOKE_FAILED' });
+    expect(await readFile(join(input.root, '.cache', 'transactions', 'release-publish', 'F002.json'), 'utf8'))
+      .toContain('"phase": "manifest-written"');
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it('published manifest再読込後にも全証跡を再検証する', async () => {
+    const input = await publishFixture();
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+      {
+        afterPhase: async (phase) => {
+          if (phase !== 'manifest-written') return;
+          await writeFile(
+            join(input.root, ...input.deployment.evidenceRef.split('/')),
+            canonicalJson({ ...evidenceCore(input.deployment), deployedAt: '2026-07-20T01:01:30Z' }),
+            'utf8',
+          );
+        },
+      },
+    )).rejects.toMatchObject({ code: 'PUBLISH_DEPLOYMENT_MISMATCH' });
+    expect((await readValidatedManifest(input.target)).status).toBe('published');
+    expect(await readFile(join(input.root, '.cache', 'transactions', 'release-publish', 'F002.json'), 'utf8'))
+      .toContain('"phase": "manifest-written"');
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it.each(['prepared', 'replaced'] as const)('FUN-003の%s停止から同じevidenceで再開する', async (faultPhase) => {
+    const input = await publishFixture();
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+      {
+        manifestWriteOptions: {
+          afterPhase: (phase) => {
+            if (phase === faultPhase) throw new Error(`manifest-fault:${phase}`);
+          },
+        },
+      },
+    )).rejects.toThrow(`manifest-fault:${faultPhase}`);
+    const resumed = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      await readValidatedManifest(input.target),
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(resumed.manifest.status).toBe('published');
+    expect(await readFile(join(input.root, '.cache', 'transactions', 'batch-manifest', 'F002.json'), 'utf8'))
+      .toContain('"phase": "verified"');
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it('expected SHA競合・第三者manifest・published入力を上書きしない', async () => {
+    const stale = await publishFixture();
+    const acceptedBytes = await readFile(stale.target, 'utf8');
+    await expect(recordPublishedBatch(
+      stale.root,
+      stale.manifestPath,
+      stale.manifest,
+      HASH_C,
+      stale.release,
+      stale.approval,
+      stale.deployment,
+      stale.smoke,
+    )).rejects.toMatchObject({ code: 'BATCH_WRITE_CONFLICT' });
+    expect(await readFile(stale.target, 'utf8')).toBe(acceptedBytes);
+
+    const thirdParty = await publishFixture();
+    await expect(recordPublishedBatch(
+      thirdParty.root,
+      thirdParty.manifestPath,
+      thirdParty.manifest,
+      thirdParty.expectedSha,
+      thirdParty.release,
+      thirdParty.approval,
+      thirdParty.deployment,
+      thirdParty.smoke,
+      {
+        afterPhase: (phase) => {
+          if (phase === 'manifest-prepared') throw new Error('stop-before-manifest');
+        },
+      },
+    )).rejects.toThrow('stop-before-manifest');
+    const thirdPartyBytes = '{"owner":"third-party"}\n';
+    await writeFile(thirdParty.target, thirdPartyBytes, 'utf8');
+    await expect(recordPublishedBatch(
+      thirdParty.root,
+      thirdParty.manifestPath,
+      thirdParty.manifest,
+      thirdParty.expectedSha,
+      thirdParty.release,
+      thirdParty.approval,
+      thirdParty.deployment,
+      thirdParty.smoke,
+    )).rejects.toMatchObject({ code: 'BATCH_WRITE_CONFLICT' });
+    expect(await readFile(thirdParty.target, 'utf8')).toBe(thirdPartyBytes);
+
+    const publishedInput = await publishFixture();
+    const result = await recordPublishedBatch(
+      publishedInput.root,
+      publishedInput.manifestPath,
+      publishedInput.manifest,
+      publishedInput.expectedSha,
+      publishedInput.release,
+      publishedInput.approval,
+      publishedInput.deployment,
+      publishedInput.smoke,
+    );
+    await rm(join(publishedInput.root, '.cache', 'transactions', 'release-publish', 'F002.json'));
+    await expect(recordPublishedBatch(
+      publishedInput.root,
+      publishedInput.manifestPath,
+      result.manifest,
+      publishedInput.expectedSha,
+      publishedInput.release,
+      publishedInput.approval,
+      publishedInput.deployment,
+      publishedInput.smoke,
+    )).rejects.toMatchObject({ code: 'PUBLISH_NOT_ACCEPTED' });
+  });
+
+  // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037
+  it('完了journalは同一evidenceだけを冪等許可し、別evidenceを拒否する', async () => {
+    const input = await publishFixture();
+    const result = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    Object.assign(input.approval, { approvedAt: '2026-07-20T00:59:00Z' });
+    await rewriteEvidenceArtifact(input.root, input.approval);
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      result.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toMatchObject({ code: 'BATCH_WRITE_CONFLICT' });
+    expect(await readFile(input.target, 'utf8')).toBe(canonicalJson(result.manifest));
   });
 });
 

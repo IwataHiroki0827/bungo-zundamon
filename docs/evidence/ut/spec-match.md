@@ -98,3 +98,64 @@ npm test
 ## 未対応
 
 未対応の仕様IDはない。
+
+---
+
+# F002 単体試験仕様ID機械照合
+
+## T-028 実行前照合（2026-07-25）
+
+- 対象仕様: `docs/tests/ut/UT-F002.md`
+- 対象テスト: `src/**/*.test.ts`、`scripts/*.test.mjs`
+- 仕様ID: `UT-F002-001`〜`UT-F002-040`（40件）
+- 初回直接照合: 22/40件、直接タグ不足18件
+- 初回不足: `005`、`013`〜`020`、`022`、`023`、`030`、`032`、`033`、`037`〜`040`
+- 調査結果: 16件は既存試験suiteへの直接タグ不足だったため追記した。`UT-F002-030`と`UT-F002-037`は対応実装・試験が欠落していたため、試験attempt開始前に実装へフローバックした。
+- 補完後の直接照合: **40/40件対応、未対応0件、余剰0件**
+- 判定: UT実行前の仕様ID機械照合ゲートをPASSした。
+
+「対応」は、仕様IDが対象テストへ直接記載され、次表の試験ファイルへ追跡できることを示す。PASS/FAILは`UT-F002-result.md`とattempt生ログで判定する。
+
+| UT ID | 対応するテストファイル |
+|---|---|
+| UT-F002-001〜003 | `src/content/batch.test.ts` |
+| UT-F002-004 | `src/ui/catalog-loader.test.ts` |
+| UT-F002-005 | `src/content/baseline.test.ts` |
+| UT-F002-006 | `src/content/source.test.ts` |
+| UT-F002-007 | `src/content/batch-production.test.ts`、`src/content/source.test.ts` |
+| UT-F002-008 | `src/content/batch-production.test.ts` |
+| UT-F002-009 | `src/content/processing.test.ts` |
+| UT-F002-010〜011 | `src/notices/policy-snapshots.test.ts` |
+| UT-F002-012 | `src/notices/artwork-provenance.test.ts` |
+| UT-F002-013〜016 | `src/voice/voice-v2.test.ts` |
+| UT-F002-017 | `src/voice/capacity-v2.test.ts` |
+| UT-F002-018〜019 | `src/content/batch-public.test.ts` |
+| UT-F002-020 | `src/ui/routes.test.ts` |
+| UT-F002-021 | `src/main.test.ts` |
+| UT-F002-022〜023 | `src/ui/render-v2.test.ts` |
+| UT-F002-024 | `src/ui/audio-controller.test.ts` |
+| UT-F002-025 | `src/notices/notices.test.ts` |
+| UT-F002-026 | `src/ui/catalog-loader.test.ts` |
+| UT-F002-027 | `src/content/batch-command.test.ts`、`src/content/batch-runtime.test.ts`、`src/content/content-cli.test.ts` |
+| UT-F002-028、031、037 | `src/content/batch.test.ts` |
+| UT-F002-029 | `scripts/f002-security.test.mjs` |
+| UT-F002-030 | `scripts/f002-acceptance.test.mjs` |
+| UT-F002-032 | `src/voice/capacity-v2.test.ts` |
+| UT-F002-033 | `src/content/batch-acceptance.test.ts` |
+| UT-F002-034 | `src/content/batch-discovery.test.ts` |
+| UT-F002-035 | `src/notices/policy-snapshots.test.ts` |
+| UT-F002-036 | `src/content/source.test.ts` |
+| UT-F002-038、040 | `src/content/baseline.test.ts` |
+| UT-F002-039 | `src/content/pages-preview.test.ts` |
+
+## 照合コマンド
+
+```powershell
+$spec = rg -o --no-filename "UT-F002-[0-9]{3}" docs/tests/ut/UT-F002.md | Sort-Object -Unique
+$code = rg -o --no-filename "UT-F002-[0-9]{3}" src scripts --glob "*.test.ts" --glob "*.test.mjs" | Sort-Object -Unique
+Compare-Object $spec $code
+```
+
+## 未対応
+
+未対応の仕様IDはない。

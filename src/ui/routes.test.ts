@@ -22,7 +22,7 @@ function catalog(authors: Array<{ authorId: string; slug: string }>): UICatalogV
   } as UICatalogV2;
 }
 
-describe('FUN-F002-020 parseRouteV2', () => {
+describe('UT-F002-020 FUN-F002-020 parseRouteV2', () => {
   it.each([
     ['#/', { kind: 'home' }],
     ['#/credits', { kind: 'credits' }],

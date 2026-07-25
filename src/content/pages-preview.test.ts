@@ -71,7 +71,7 @@ async function fixture(): Promise<{ app: string; content: string; output: string
   return { app, content, output, tree, adapter };
 }
 
-describe('FUN-F002-039 offline Pages preview', () => {
+describe('UT-F002-039 FUN-F002-039 offline Pages preview', () => {
   it('明示入力だけから完全distと全file/input hashを返す', async () => {
     const value = await fixture();
     const runtimeOutput = join(value.app, '.cache', 'runtime-pages');

@@ -104,3 +104,33 @@ attempts:
   cause: none
   recovery: none（native出力を欠落した最初の証跡取得のみ同一attemptで再取得）
   log: docs/evidence/it/IT-F001-attempt-5.log
+- date: '2026-07-26T00:06:45+09:00'
+  feature: F002
+  scope: UT
+  attempt: 1
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F002-attempt-1.log
+  result: fail
+  failures: 4
+  cause: 自動試験689件はPASSしたが、独立受入で証跡型・accepted音声path・publish証跡実体・disk再読込recoveryのfail-openを検出
+  recovery: 種類別証跡とcanonical pathを厳密化し、証跡実体hash・全route集合・実process再起動相当のjournal recoveryを追加してattempt 2を実施
+  log: docs/evidence/ut/UT-F002-attempt-1.log
+- date: '2026-07-26T00:20:10+09:00'
+  feature: F002
+  scope: UT
+  attempt: 2
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F002-attempt-2.log
+  result: fail
+  failures: 2
+  cause: 自動試験710件はPASSしたが、再審査でsmoke期待routeの自己申告と判定status/result矛盾のfail-open候補を検出
+  recovery: F002 canonical 4 routeへ固定し、全判定型の矛盾discriminantを領域別blockedへ変更して否定UTを追加
+  log: docs/evidence/ut/UT-F002-attempt-2.log
+- date: '2026-07-26T00:26:33+09:00'
+  feature: F002
+  scope: UT
+  attempt: 3
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F002-attempt-3.log
+  result: pass
+  failures: 0
+  cause: none
+  recovery: attempt 1・2のfail-open修正後、独立受入ACCEPT（High/Medium/Low 0件）
+  log: docs/evidence/ut/UT-F002-attempt-3.log

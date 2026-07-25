@@ -187,7 +187,20 @@ export type NextBatchCode =
   | 'NEXT_BATCH_FEATURE_COLLISION'
   | 'NEXT_BATCH_WORKS_INCOMPLETE';
 
+export type PublishBatchCode =
+  | 'PUBLISH_NOT_ACCEPTED'
+  | 'PUBLISH_CANDIDATE_MISMATCH'
+  | 'PUBLISH_APPROVAL_MISMATCH'
+  | 'PUBLISH_DEPLOYMENT_MISMATCH'
+  | 'PUBLISH_SMOKE_FAILED'
+  | 'PUBLISH_DEPLOY_FLAG_ACTIVE';
+
 export type BatchManifestJournalPhase = 'prepared' | 'replaced' | 'verified';
+export type PublishBatchJournalPhase =
+  | 'deploy-verified'
+  | 'manifest-prepared'
+  | 'manifest-written'
+  | 'published-verified';
 
 export interface BatchManifestWriteOptions {
   /** UT専用fault境界。phaseのjournalをdurable化した直後に呼ぶ。 */
@@ -206,6 +219,39 @@ export interface ReleaseBuildContext {
   readonly releaseCommit: string;
   readonly distSha256: Sha256;
   readonly artifactDigest: Sha256;
+}
+
+export interface ReleaseApproval extends ReleaseBuildContext {
+  readonly result: 'approved';
+  readonly approvedAt: string;
+  readonly releaseVersion: string;
+  readonly evidenceRef: WorkspaceRelativePath;
+  readonly evidenceSha256: Sha256;
+}
+
+export interface DeploymentEvidence extends ReleaseBuildContext {
+  readonly result: 'success';
+  readonly deployedAt: string;
+  readonly evidenceRef: WorkspaceRelativePath;
+  readonly evidenceSha256: Sha256;
+  readonly deployFlagDisabled: boolean;
+}
+
+export interface PublicSmokeEvidence extends ReleaseBuildContext {
+  readonly result: 'pass';
+  readonly checkedAt: string;
+  readonly evidenceRef: WorkspaceRelativePath;
+  readonly evidenceSha256: Sha256;
+  readonly allRoutesCovered: boolean;
+  readonly expectedRoutes: readonly string[];
+  readonly routes: readonly string[];
+}
+
+export interface PublishBatchOptions {
+  /** UT専用fault境界。publish phaseのjournalをdurable化した直後に呼ぶ。 */
+  readonly afterPhase?: (phase: PublishBatchJournalPhase) => void | Promise<void>;
+  /** UT専用fault境界。内側のFUN-F002-003へそのまま渡す。 */
+  readonly manifestWriteOptions?: BatchManifestWriteOptions;
 }
 
 export interface PublishableBatch {
@@ -247,7 +293,8 @@ export type ValidationResult<T> =
 
 export class BatchOperationError extends Error {
   constructor(
-    public readonly code: BatchValidationCode | BatchTransitionCode | WorkTransitionCode | BatchWriteCode | NextBatchCode | BatchDiscoveryCode,
+    public readonly code: BatchValidationCode | BatchTransitionCode | WorkTransitionCode | BatchWriteCode | NextBatchCode |
+      BatchDiscoveryCode | PublishBatchCode,
     message: string,
   ) {
     super(message);
@@ -922,6 +969,355 @@ export async function writeBatchManifestAtomic(
     await rm(temporary, { force: true });
   }
   return nextSha;
+}
+
+const RELEASE_TUPLE_KEYS = [
+  'releaseCandidateBatchId',
+  'feature',
+  'releaseCommit',
+  'distSha256',
+  'artifactDigest',
+] as const;
+const PUBLISH_PHASES: readonly PublishBatchJournalPhase[] = [
+  'deploy-verified',
+  'manifest-prepared',
+  'manifest-written',
+  'published-verified',
+];
+const F002_PUBLIC_ROUTES = [
+  '#/',
+  '#/authors/akutagawa-zunnosuke',
+  '#/authors/miyazawa-zunji',
+  '#/credits',
+] as const;
+
+interface PublishBatchJournal {
+  readonly schemaVersion: '1.0.0';
+  readonly phase: PublishBatchJournalPhase;
+  readonly manifestPath: WorkspaceRelativePath;
+  readonly expectedManifestSha: Sha256;
+  readonly publishedManifestSha: Sha256;
+  readonly releaseSha256: Sha256;
+  readonly approvalSha256: Sha256;
+  readonly deploymentSha256: Sha256;
+  readonly smokeSha256: Sha256;
+}
+
+function exactKeys(value: Record<string, unknown>, keys: readonly string[]): boolean {
+  const actual = Object.keys(value).sort((left, right) => left.localeCompare(right, 'en'));
+  const expected = [...keys].sort((left, right) => left.localeCompare(right, 'en'));
+  return canonicalJson(actual) === canonicalJson(expected);
+}
+
+function releaseTuple(value: unknown): value is ReleaseBuildContext {
+  return isRecord(value) && exactKeys(value, RELEASE_TUPLE_KEYS) &&
+    typeof value.releaseCandidateBatchId === 'string' && BATCH_ID.test(value.releaseCandidateBatchId) &&
+    typeof value.feature === 'string' && FEATURE_ID.test(value.feature) &&
+    typeof value.releaseCommit === 'string' && /^[0-9a-f]{40}$/u.test(value.releaseCommit) &&
+    isSha(value.distSha256) && isSha(value.artifactDigest);
+}
+
+function sameReleaseTuple(left: ReleaseBuildContext, right: ReleaseBuildContext): boolean {
+  return RELEASE_TUPLE_KEYS.every((key) => left[key] === right[key]);
+}
+
+function approvalEvidence(value: unknown, release: ReleaseBuildContext): value is ReleaseApproval {
+  if (!isRecord(value) || !exactKeys(value, [
+    ...RELEASE_TUPLE_KEYS, 'result', 'approvedAt', 'releaseVersion', 'evidenceRef', 'evidenceSha256',
+  ])) return false;
+  return sameReleaseTuple(value as unknown as ReleaseBuildContext, release) && value.result === 'approved' &&
+    isInstant(value.approvedAt) && typeof value.releaseVersion === 'string' && SEMVER.test(value.releaseVersion) &&
+    isSafePath(value.evidenceRef) && isSha(value.evidenceSha256);
+}
+
+function deploymentEvidence(value: unknown, release: ReleaseBuildContext): value is DeploymentEvidence {
+  if (!isRecord(value) || !exactKeys(value, [
+    ...RELEASE_TUPLE_KEYS, 'result', 'deployedAt', 'evidenceRef', 'evidenceSha256', 'deployFlagDisabled',
+  ])) return false;
+  return sameReleaseTuple(value as unknown as ReleaseBuildContext, release) && value.result === 'success' &&
+    isInstant(value.deployedAt) && isSafePath(value.evidenceRef) && isSha(value.evidenceSha256) &&
+    typeof value.deployFlagDisabled === 'boolean';
+}
+
+function validPublicRoute(value: unknown): value is string {
+  return typeof value === 'string' && value.startsWith('#/') &&
+    [...value].every((character) => character.charCodeAt(0) > 31 && character.charCodeAt(0) !== 127);
+}
+
+function exactRouteSet(routes: readonly string[], expectedRoutes: readonly string[]): boolean {
+  const sortRoutes = (values: readonly string[]) => [...values].sort((left, right) => left.localeCompare(right, 'en'));
+  return canonicalJson(sortRoutes(routes)) === canonicalJson(sortRoutes(expectedRoutes));
+}
+
+function smokeEvidence(value: unknown, release: ReleaseBuildContext): value is PublicSmokeEvidence {
+  if (!isRecord(value) || !exactKeys(value, [
+    ...RELEASE_TUPLE_KEYS, 'result', 'checkedAt', 'evidenceRef', 'evidenceSha256',
+    'allRoutesCovered', 'expectedRoutes', 'routes',
+  ])) return false;
+  if (!sameReleaseTuple(value as unknown as ReleaseBuildContext, release) || value.result !== 'pass' ||
+    !isInstant(value.checkedAt) || !isSafePath(value.evidenceRef) || !isSha(value.evidenceSha256) ||
+    value.allRoutesCovered !== true || !Array.isArray(value.routes) || !Array.isArray(value.expectedRoutes)) return false;
+  const routes = value.routes as unknown[];
+  const expectedRoutes = value.expectedRoutes as unknown[];
+  if (!routes.every(validPublicRoute) || !expectedRoutes.every(validPublicRoute) ||
+    new Set(routes).size !== routes.length || new Set(expectedRoutes).size !== expectedRoutes.length) return false;
+  const expected = expectedRoutes as string[];
+  return exactRouteSet(expected, F002_PUBLIC_ROUTES) &&
+    exactRouteSet(routes as string[], F002_PUBLIC_ROUTES);
+}
+
+function publishDigest(value: unknown): Sha256 {
+  return sha256(canonicalJson(value));
+}
+
+type PublishEvidence = ReleaseApproval | DeploymentEvidence | PublicSmokeEvidence;
+
+function publishEvidenceCore(evidence: PublishEvidence): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(evidence).filter(([key]) => key !== 'evidenceRef' && key !== 'evidenceSha256'),
+  );
+}
+
+async function verifyPublishEvidenceFile(
+  workspace: string,
+  evidence: PublishEvidence,
+  failureCode: 'PUBLISH_APPROVAL_MISMATCH' | 'PUBLISH_DEPLOYMENT_MISMATCH' | 'PUBLISH_SMOKE_FAILED',
+): Promise<void> {
+  const fail = (message: string): never => {
+    throw new BatchOperationError(failureCode, message);
+  };
+  if (!isSafePath(evidence.evidenceRef) || !isSha(evidence.evidenceSha256)) fail('証跡pathまたはSHAが不正です');
+  const target = join(workspace, ...evidence.evidenceRef.split('/'));
+  try {
+    const root = await assertManifestBoundary(workspace, target);
+    const info = await lstat(target);
+    if (!info.isFile() || info.isSymbolicLink() || await realpath(target) !== target ||
+      relative(root, target).startsWith(`..${sep}`)) fail('証跡がworkspace内の通常ファイルではありません');
+    const raw = await readFile(target);
+    if (sha256(raw) !== evidence.evidenceSha256) fail('証跡SHAが入力と一致しません');
+    const text = raw.toString('utf8');
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(text) as unknown;
+    } catch {
+      fail('証跡JSONが不正です');
+    }
+    if (!isRecord(parsed) || text !== canonicalJson(parsed) ||
+      text !== canonicalJson(publishEvidenceCore(evidence))) {
+      fail('証跡のcandidate tupleまたは結果が入力と一致しません');
+    }
+  } catch (error) {
+    if (error instanceof BatchOperationError && error.code === failureCode) throw error;
+    fail(error instanceof Error ? `証跡を検証できません: ${error.message}` : '証跡を検証できません');
+  }
+}
+
+async function verifyPublishEvidenceFiles(
+  workspace: string,
+  approval: ReleaseApproval,
+  deployment: DeploymentEvidence,
+  smoke: PublicSmokeEvidence,
+): Promise<void> {
+  await verifyPublishEvidenceFile(workspace, approval, 'PUBLISH_APPROVAL_MISMATCH');
+  await verifyPublishEvidenceFile(workspace, deployment, 'PUBLISH_DEPLOYMENT_MISMATCH');
+  await verifyPublishEvidenceFile(workspace, smoke, 'PUBLISH_SMOKE_FAILED');
+}
+
+async function readPublishJournal(path: string): Promise<PublishBatchJournal | null> {
+  let raw: string;
+  try {
+    raw = await readFile(path, 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'release journalを読めません');
+  }
+  let value: unknown;
+  try {
+    value = JSON.parse(raw) as unknown;
+  } catch {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'release journal JSONが不正です');
+  }
+  const keys = [
+    'schemaVersion', 'phase', 'manifestPath', 'expectedManifestSha', 'publishedManifestSha',
+    'releaseSha256', 'approvalSha256', 'deploymentSha256', 'smokeSha256',
+  ];
+  if (!isRecord(value) || !exactKeys(value, keys) || raw !== canonicalJson(value) ||
+    value.schemaVersion !== '1.0.0' || !PUBLISH_PHASES.includes(value.phase as PublishBatchJournalPhase) ||
+    !isSafePath(value.manifestPath) || !isSha(value.expectedManifestSha) || !isSha(value.publishedManifestSha) ||
+    !isSha(value.releaseSha256) || !isSha(value.approvalSha256) || !isSha(value.deploymentSha256) ||
+    !isSha(value.smokeSha256)) {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'release journalの内容が不正です');
+  }
+  return value as unknown as PublishBatchJournal;
+}
+
+async function writePublishJournal(
+  workspace: string,
+  path: string,
+  journal: PublishBatchJournal,
+): Promise<void> {
+  try {
+    await writeManifestJournal(workspace, path, { ...journal });
+  } catch (error) {
+    throw mapArtifactError(error);
+  }
+}
+
+function publishJournalMatches(left: PublishBatchJournal, right: PublishBatchJournal): boolean {
+  const leftCore = Object.fromEntries(Object.entries(left).filter(([key]) => key !== 'phase'));
+  const rightCore = Object.fromEntries(Object.entries(right).filter(([key]) => key !== 'phase'));
+  return canonicalJson(leftCore) === canonicalJson(rightCore);
+}
+
+async function verifyPublishedManifest(
+  target: string,
+  expected: BatchManifest,
+  expectedSha: Sha256,
+): Promise<BatchManifest> {
+  let raw: string;
+  try {
+    raw = await readFile(target, 'utf8');
+  } catch (error) {
+    throw new BatchOperationError(
+      'BATCH_POSTWRITE_MISMATCH',
+      error instanceof Error ? `published manifestを再読込できません: ${error.message}` : 'published manifestを再読込できません',
+    );
+  }
+  if (sha256(raw) !== expectedSha || raw !== canonicalJson(expected)) {
+    throw new BatchOperationError('BATCH_POSTWRITE_MISMATCH', 'published manifestのcanonical SHAが一致しません');
+  }
+  const parsed = validateBatchManifest(JSON.parse(raw) as unknown);
+  if (!parsed.ok || parsed.value.status !== 'published') {
+    throw new BatchOperationError('BATCH_POSTWRITE_MISMATCH', 'published manifestの再検証に失敗しました');
+  }
+  return parsed.value;
+}
+
+function acceptedManifestForPublish(manifest: BatchManifest): BatchManifest {
+  if (manifest.status === 'accepted') return manifest;
+  if (manifest.status !== 'published') {
+    throw new BatchOperationError('PUBLISH_NOT_ACCEPTED', 'accepted manifestだけをpublishedへ遷移できます');
+  }
+  const accepted = cloneJson(manifest) as unknown as Record<string, unknown>;
+  accepted.status = 'accepted';
+  delete accepted.publishedAt;
+  delete accepted.releaseVersion;
+  delete accepted.deploymentEvidenceRef;
+  delete accepted.smokeEvidenceRef;
+  return finalizeManifest(accepted as unknown as BatchManifest);
+}
+
+/** @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 */
+export async function recordPublishedBatch(
+  workspace: string,
+  manifestPath: WorkspaceRelativePath,
+  manifestValue: BatchManifest,
+  expectedManifestSha: Sha256,
+  release: ReleaseBuildContext,
+  approval: ReleaseApproval,
+  deployment: DeploymentEvidence,
+  smoke: PublicSmokeEvidence,
+  options: PublishBatchOptions = {},
+): Promise<{ readonly manifest: BatchManifest; readonly sha256: Sha256 }> {
+  const suppliedManifest = requireManifest(manifestValue);
+  const suppliedPublished = suppliedManifest.status === 'published';
+  const manifest = acceptedManifestForPublish(suppliedManifest);
+  if (!isSha(expectedManifestSha) || expectedManifestSha !== hashBatchManifest(manifest)) {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'expected manifest SHAがaccepted manifestと一致しません');
+  }
+  if (!releaseTuple(release) || release.releaseCandidateBatchId !== manifest.batchId ||
+    release.feature !== manifest.feature) {
+    throw new BatchOperationError('PUBLISH_CANDIDATE_MISMATCH', 'release candidate tupleがmanifestと一致しません');
+  }
+  if (!approvalEvidence(approval, release)) {
+    throw new BatchOperationError('PUBLISH_APPROVAL_MISMATCH', 'release approvalがcandidate tupleと一致しません');
+  }
+  if (!deploymentEvidence(deployment, release)) {
+    throw new BatchOperationError('PUBLISH_DEPLOYMENT_MISMATCH', 'deployment evidenceがcandidate tupleと一致しません');
+  }
+  if (deployment.deployFlagDisabled !== true) {
+    throw new BatchOperationError('PUBLISH_DEPLOY_FLAG_ACTIVE', 'deploy変数の無効化を確認できません');
+  }
+  if (!smokeEvidence(smoke, release)) {
+    throw new BatchOperationError('PUBLISH_SMOKE_FAILED', '公開後の全route smokeがPASSしていません');
+  }
+  if (Date.parse(approval.approvedAt) > Date.parse(deployment.deployedAt)) {
+    throw new BatchOperationError('PUBLISH_DEPLOYMENT_MISMATCH', 'deploymentがrelease approvalより前です');
+  }
+  if (Date.parse(deployment.deployedAt) > Date.parse(smoke.checkedAt)) {
+    throw new BatchOperationError('PUBLISH_SMOKE_FAILED', 'public smokeがdeploymentより前です');
+  }
+  if (!isAbsolute(workspace) || !isSafePath(manifestPath) ||
+    manifestPath !== `content/batches/${manifest.batchId}/batch.json`) {
+    throw new BatchOperationError('BATCH_WORKSPACE_BOUNDARY', 'manifest pathはbatchのcanonical workspace相対pathが必要です');
+  }
+  const target = join(workspace, ...manifestPath.split('/'));
+  const root = await assertManifestBoundary(workspace, target);
+  const published = finalizeManifest({
+    ...manifest,
+    status: 'published',
+    publishedAt: smoke.checkedAt,
+    releaseVersion: approval.releaseVersion,
+    deploymentEvidenceRef: deployment.evidenceRef,
+    smokeEvidenceRef: smoke.evidenceRef,
+  });
+  const publishedSha = hashBatchManifest(published);
+  if (suppliedPublished && canonicalJson(suppliedManifest) !== canonicalJson(published)) {
+    throw new BatchOperationError('PUBLISH_NOT_ACCEPTED', 'published manifestが同一candidate/evidenceの期待値と一致しません');
+  }
+  const journalPath = join(root, '.cache', 'transactions', 'release-publish', `${manifest.batchId}.json`);
+  const journalCore = {
+    schemaVersion: '1.0.0',
+    manifestPath,
+    expectedManifestSha,
+    publishedManifestSha: publishedSha,
+    releaseSha256: publishDigest(release),
+    approvalSha256: publishDigest(approval),
+    deploymentSha256: publishDigest(deployment),
+    smokeSha256: publishDigest(smoke),
+  } as const;
+  let journal = await readPublishJournal(journalPath);
+  if (suppliedPublished && !journal) {
+    throw new BatchOperationError('PUBLISH_NOT_ACCEPTED', '所有するrelease journalがないpublished manifestは再開できません');
+  }
+  const expectedJournal: PublishBatchJournal = { ...journalCore, phase: journal?.phase ?? 'deploy-verified' };
+  if (journal && !publishJournalMatches(journal, expectedJournal)) {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', '別candidateのrelease journalが存在します');
+  }
+  await verifyPublishEvidenceFiles(root, approval, deployment, smoke);
+  let targetSha: Sha256;
+  try {
+    targetSha = await fileSha(target);
+  } catch (error) {
+    throw mapArtifactError(error);
+  }
+  if ((!journal && targetSha !== expectedManifestSha) ||
+    (journal && targetSha !== expectedManifestSha && targetSha !== publishedSha) ||
+    (journal && PUBLISH_PHASES.indexOf(journal.phase) >= PUBLISH_PHASES.indexOf('manifest-written') &&
+      targetSha !== publishedSha)) {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'manifestがrelease journalのaccepted/published SHAと一致しません');
+  }
+  const advance = async (phase: PublishBatchJournalPhase): Promise<void> => {
+    if (journal && PUBLISH_PHASES.indexOf(journal.phase) >= PUBLISH_PHASES.indexOf(phase)) return;
+    const nextJournal: PublishBatchJournal = { ...journalCore, phase };
+    await writePublishJournal(root, journalPath, nextJournal);
+    journal = nextJournal;
+    await options.afterPhase?.(phase);
+  };
+  await advance('deploy-verified');
+  await advance('manifest-prepared');
+  targetSha = await fileSha(target);
+  if (journal && PUBLISH_PHASES.indexOf(journal.phase) < PUBLISH_PHASES.indexOf('manifest-written') &&
+    (targetSha === expectedManifestSha || targetSha === publishedSha)) {
+    await writeBatchManifestAtomic(root, manifestPath, published, expectedManifestSha, options.manifestWriteOptions);
+  } else if (targetSha !== publishedSha) {
+    throw new BatchOperationError('BATCH_WRITE_CONFLICT', 'manifest書込み前に第三者変更を検出しました');
+  }
+  await advance('manifest-written');
+  const verified = await verifyPublishedManifest(target, published, publishedSha);
+  await verifyPublishEvidenceFiles(root, approval, deployment, smoke);
+  await advance('published-verified');
+  return Object.freeze({ manifest: verified, sha256: publishedSha });
 }
 
 function discoveryError(code: BatchDiscoveryCode, message: string): never {

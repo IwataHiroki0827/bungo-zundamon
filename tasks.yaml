@@ -603,7 +603,7 @@ tasks:
   title: UT-F002を実施し失敗を修正・再検証
   feature: F002
   phase: test
-  state: doing
+  state: done
   depends:
   - T-027
   tags: *id002
@@ -616,7 +616,7 @@ tasks:
   title: IT・QT・実音声・ブラウザ・権利受入を実施
   feature: F002
   phase: test
-  state: todo
+  state: doing
   depends:
   - T-028
   tags: *id002

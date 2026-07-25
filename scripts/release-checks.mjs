@@ -60,6 +60,12 @@ const REQUIRED_AUTOMATED_CHECKS = Object.freeze([
   'asset-budget',
   'same-origin',
 ]);
+const REQUIRED_F002_QT_IDS = Object.freeze(
+  Array.from({ length: 14 }, (_, index) => `QT-F002-${String(index + 1).padStart(3, '0')}`),
+);
+const REQUIRED_F002_WORK_IDS = Object.freeze(['000473', '043752', '043754']);
+const REQUIRED_F002_VIEWPORTS = new Set(['390x844', '844x390', '1440x900']);
+const REQUIRED_F002_ACCESSIBILITY = new Set(['keyboard', 'screen-reader', 'reduced-motion']);
 const DEPLOY_CONDITION = "github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_DEPLOY_ENABLED == 'true' && vars.PAGES_DEPLOY_COMMIT == github.sha";
 
 function report(errors, warnings = []) {
@@ -485,6 +491,219 @@ function githubRepositoryPath(repositoryUrl) {
   }
 }
 
+function candidateTuple(value) {
+  const nested = isRecord(value?.candidate);
+  const tuple = nested ? value.candidate : value;
+  if (!isRecord(tuple)) return null;
+  const expectedKeys = ['releaseCandidateBatchId', 'feature', 'releaseCommit', 'distSha256', 'artifactDigest'];
+  if (nested && (Object.keys(tuple).length !== expectedKeys.length
+    || expectedKeys.some((key) => !Object.hasOwn(tuple, key)))) return null;
+  if (!FEATURE_ID.test(tuple.releaseCandidateBatchId ?? '') || tuple.feature !== tuple.releaseCandidateBatchId
+    || !SHA40.test(tuple.releaseCommit ?? '') || !SHA256.test(tuple.distSha256 ?? '')
+    || !SHA256.test(tuple.artifactDigest ?? '')) return null;
+  return Object.fromEntries(expectedKeys.map((key) => [key, tuple[key]]));
+}
+
+function candidateMatches(value, expected) {
+  const actual = candidateTuple(value);
+  return actual !== null && Object.entries(expected).every(([key, expectedValue]) => actual[key] === expectedValue);
+}
+
+function exactStringSet(value, expected) {
+  return Array.isArray(value) && value.length === expected.size
+    && new Set(value).size === expected.size && value.every((item) => expected.has(item));
+}
+
+function isCanonicalWorkspaceRelativePath(value) {
+  if (typeof value !== 'string' || value.length === 0 || value.includes('\\') || value.includes(':')
+    || value.startsWith('/') || value.endsWith('/')) return false;
+  for (const character of value) {
+    const codePoint = character.codePointAt(0);
+    if (codePoint <= 0x1f || codePoint === 0x7f) return false;
+  }
+  return value.split('/').every((segment) => segment !== '' && segment !== '.' && segment !== '..');
+}
+
+function isAcceptedAudioPath(value, workId) {
+  if (!isCanonicalWorkspaceRelativePath(value)) return false;
+  const parts = value.split('/');
+  return parts.length === 6
+    && parts[0] === 'content'
+    && parts[1] === 'batches'
+    && parts[2] === 'F002'
+    && parts[3] === 'accepted-audio'
+    && parts[4] === workId
+    && /^[a-f0-9]{64}\.wav$/u.test(parts[5]);
+}
+
+/**
+ * F002の全証跡をcanonical CandidateEvidence tupleへ束ねるread-only受入判定。
+ * 欠落・失敗は領域別code、別build/commitの証跡混入はACCEPT_COMMIT_MISMATCHへfail-closedにする。
+ *
+ * @des DES-F002-003 @des DES-F002-005 @des DES-F002-009
+ * @des DES-F002-011 @des DES-F002-013 @des DES-F002-016
+ * @fun FUN-F002-030
+ */
+export async function acceptF002Release(context) {
+  const blockers = [];
+  const candidate = candidateTuple(context?.releaseBuild);
+  const releaseBuildKeys = ['releaseCandidateBatchId', 'feature', 'releaseCommit', 'distSha256', 'artifactDigest'];
+  if (candidate === null || candidate.feature !== 'F002'
+    || !isRecord(context?.releaseBuild)
+    || Object.keys(context.releaseBuild).length !== releaseBuildKeys.length
+    || releaseBuildKeys.some((key) => !Object.hasOwn(context.releaseBuild, key))) {
+    blockers.push('ACCEPT_COMMIT_MISMATCH');
+  }
+  const expected = candidate ?? {
+    releaseCandidateBatchId: 'F002',
+    feature: 'F002',
+    releaseCommit: '',
+    distSha256: '',
+    artifactDigest: '',
+  };
+  const now = parseRfc3339Instant(context?.now);
+
+  const checkout = context?.checkout;
+  if (!isRecord(checkout) || checkout.status !== 'clean' || checkout.releaseVerifyStatus !== 'completed'
+    || checkout.headSha !== expected.releaseCommit || checkout.releaseCommit !== expected.releaseCommit) {
+    blockers.push('ACCEPT_COMMIT_MISMATCH');
+  }
+
+  const works = Array.isArray(context?.works) ? context.works : [];
+  const workIds = new Set();
+  const acceptedAudioPaths = new Set();
+  const acceptedAudioFileNames = new Set();
+  const acceptedAudioTuples = new Set();
+  let workInvalid = works.length !== 3;
+  for (const [index, work] of works.entries()) {
+    if (!isRecord(work) || typeof work.workId !== 'string' || work.workId.length === 0 || workIds.has(work.workId)
+      || work.workId !== REQUIRED_F002_WORK_IDS[index]
+      || work.status !== 'accepted' || work.pendingCount !== 0
+      || !Array.isArray(work.acceptedAudioSources) || work.acceptedAudioSources.length === 0
+      || work.acceptedAudioSources.some((source) => !isRecord(source)
+        || !isAcceptedAudioPath(source.path, work.workId) || !SHA256.test(source.sha256 ?? '')
+        || !Number.isInteger(source.bytes) || source.bytes <= 0 || !SHA256.test(source.configHash ?? ''))) {
+      workInvalid = true;
+    } else {
+      workIds.add(work.workId);
+      for (const source of work.acceptedAudioSources) {
+        const fileName = source.path.split('/').at(-1);
+        const tuple = `${source.path}\u0000${source.sha256}\u0000${source.configHash}`;
+        if (acceptedAudioPaths.has(source.path) || acceptedAudioFileNames.has(fileName)
+          || acceptedAudioTuples.has(tuple)) {
+          workInvalid = true;
+        }
+        acceptedAudioPaths.add(source.path);
+        acceptedAudioFileNames.add(fileName);
+        acceptedAudioTuples.add(tuple);
+      }
+    }
+  }
+  const batches = Array.isArray(context?.batches) ? context.batches : [];
+  const candidateBatches = batches.filter((batch) => batch?.batchId === expected.releaseCandidateBatchId);
+  if (candidateBatches.length !== 1 || candidateBatches[0]?.feature !== expected.feature
+    || candidateBatches[0]?.status !== 'accepted'
+    || batches.some((batch) => batch?.batchId !== expected.releaseCandidateBatchId && batch?.status !== 'published')) {
+    workInvalid = true;
+  }
+  const authors = Array.isArray(context?.authors) ? context.authors : [];
+  if (new Set(authors.map((author) => author?.authorId).filter((id) => typeof id === 'string' && id.length > 0)).size < 2) {
+    workInvalid = true;
+  }
+  if (workInvalid) blockers.push('ACCEPT_WORK_INCOMPLETE');
+
+  const voices = Array.isArray(context?.voiceEvidence) ? context.voiceEvidence : [];
+  if (voices.length !== 3 || voices.some((voice) => voice?.result !== 'pass' || Object.hasOwn(voice ?? {}, 'status')
+    || !workIds.has(voice?.workId) || !Number.isInteger(voice?.acceptedAudioCount)
+    || voice.acceptedAudioCount !== works.find((work) => work?.workId === voice?.workId)?.acceptedAudioSources?.length)
+    || new Set(voices.map((voice) => voice?.workId)).size !== 3) {
+    blockers.push('ACCEPT_VOICE_INCOMPLETE');
+  }
+  if (voices.some((voice) => !candidateMatches(voice, expected))) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  const f001 = context?.f001;
+  const f001Items = [f001?.baseline, f001?.contentInvariant, f001?.distInvariant];
+  if (!isRecord(f001) || f001Items.some((item) => item?.result !== 'pass' || Object.hasOwn(item ?? {}, 'status'))
+    || f001?.distInvariant?.distSha256 !== expected.distSha256
+    || f001?.distInvariant?.artifactDigest !== expected.artifactDigest) {
+    blockers.push('ACCEPT_F001_REGRESSION');
+  }
+  if (f001Items.some((item) => !candidateMatches(item, expected))) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  // WorkRightsDecision/PolicyDecision/ArtworkDecision自体はselection時点ではrelease tupleを持たない。
+  // release adapterが不変の判断結果を{ result|status, candidate }へ包み、ここでcandidateを結合する。
+  const workRightsItems = [context?.rights?.selection, context?.rights?.predeploy];
+  const policyItems = [context?.policy?.selection, context?.policy?.predeploy];
+  const artwork = context?.artwork;
+  if (workRightsItems.some((item) => !isRecord(item) || item.result !== 'unchanged'
+      || Object.hasOwn(item, 'status'))
+    || policyItems.some((item) => !isRecord(item) || !['unchanged', 'changed-reviewed'].includes(item.status)
+      || Object.hasOwn(item, 'result'))
+    || !isRecord(artwork) || artwork.result !== 'pass' || Object.hasOwn(artwork, 'status')) {
+    blockers.push('ACCEPT_RIGHTS_BLOCKED');
+  }
+  const rightsItems = [...workRightsItems, ...policyItems, artwork];
+  if (rightsItems.some((item) => !candidateMatches(item, expected))) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  const capacity = context?.capacity;
+  if (!isRecord(capacity) || Object.hasOwn(capacity, 'status')
+    || capacity.evidenceKind !== 'actual' || capacity.phase !== 'release'
+    || !['pass', 'pass_with_warning'].includes(capacity.result)) {
+    blockers.push('ACCEPT_CAPACITY_BLOCKED');
+  }
+  if (!candidateMatches(capacity, expected)) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  const security = context?.security;
+  if (!isRecord(security) || security.status !== 'pass' || Object.hasOwn(security, 'result')) {
+    blockers.push('ACCEPT_SECURITY_BLOCKED');
+  }
+  if (!candidateMatches(security, expected)) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  const browser = context?.browser;
+  const regression = context?.regression;
+  if (!isRecord(browser) || browser.status !== 'passed' || Object.hasOwn(browser, 'result')
+    || !exactStringSet(browser.viewports, REQUIRED_F002_VIEWPORTS)
+    || !exactStringSet(browser.accessibility, REQUIRED_F002_ACCESSIBILITY)
+    || !exactStringSet(browser.manualBrowsers, REQUIRED_MANUAL_BROWSERS)
+    || !exactStringSet(browser.automatedBrowsers, REQUIRED_AUTOMATED_BROWSER_SCOPES)
+    || !isRecord(regression) || regression.status !== 'passed' || Object.hasOwn(regression, 'result')
+    || !Number.isInteger(regression.unitTests) || regression.unitTests < 337
+    || !Number.isInteger(regression.browserTests) || regression.browserTests < 78
+    || regression.f002Tests !== 'passed') {
+    blockers.push('ACCEPT_BROWSER_INCOMPLETE');
+  }
+  if (!candidateMatches(browser, expected) || !candidateMatches(regression, expected)) {
+    blockers.push('ACCEPT_COMMIT_MISMATCH');
+  }
+
+  const qtEvidence = Array.isArray(context?.qtEvidence) ? context.qtEvidence : [];
+  const qtById = new Map();
+  let qtInvalid = qtEvidence.length !== REQUIRED_F002_QT_IDS.length;
+  let qtTupleInvalid = false;
+  for (const evidence of qtEvidence) {
+    const executedAt = parseRfc3339Instant(evidence?.executedAt);
+    if (!isRecord(evidence) || typeof evidence.id !== 'string' || qtById.has(evidence.id)
+      || evidence.status !== 'passed' || Object.hasOwn(evidence, 'result')
+      || executedAt === null || now === null || executedAt > now
+      || !Array.isArray(evidence.evidenceRefs) || evidence.evidenceRefs.length === 0
+      || evidence.evidenceRefs.some((ref) => !isCanonicalWorkspaceRelativePath(ref))) {
+      qtInvalid = true;
+    } else {
+      qtById.set(evidence.id, evidence);
+    }
+    if (!candidateMatches(evidence, expected)) qtTupleInvalid = true;
+  }
+  if (REQUIRED_F002_QT_IDS.some((id) => !qtById.has(id))) qtInvalid = true;
+  if (qtInvalid) blockers.push('ACCEPT_BROWSER_INCOMPLETE');
+  if (qtTupleInvalid) blockers.push('ACCEPT_COMMIT_MISMATCH');
+
+  if (blockers.length > 0) return { status: 'blocked', blockers: [...new Set(blockers)] };
+  return {
+    status: 'ready_for_approval',
+    ...expected,
+  };
+}
+
 // @des DES-F001-016 @des DES-F001-018 @fun FUN-F001-035
 export async function runReleaseChecks(context) {
   const blockers = [];
@@ -619,11 +838,31 @@ export async function runReleaseChecks(context) {
     if (security.status !== 'pass') blockers.push('SECURITY_CHECK_FAILED');
   }
 
+  let f002Acceptance;
+  if (feature === 'F002') {
+    f002Acceptance = await acceptF002Release(context?.f002Acceptance);
+    if (f002Acceptance.status === 'blocked') blockers.push(...f002Acceptance.blockers);
+    const hostedArtifactDigest = (hosted?.artifactDigest ?? '').replace(/^sha256:/, '');
+    if (f002Acceptance.status === 'ready_for_approval'
+      && (f002Acceptance.releaseCandidateBatchId !== context?.releaseCandidateBatchId
+        || f002Acceptance.feature !== feature
+        || f002Acceptance.releaseCommit !== context?.releaseCommit
+        || f002Acceptance.distSha256 !== context?.distSha256
+        || f002Acceptance.artifactDigest !== hostedArtifactDigest)) {
+      blockers.push('ACCEPT_COMMIT_MISMATCH');
+    }
+  }
+
   if (blockers.length > 0) return { status: 'blocked', blockers: [...new Set(blockers)] };
   return {
     status: 'ready_for_approval',
     releaseCommit: context.releaseCommit,
     catalogHash: context.catalogHash,
+    ...(f002Acceptance?.status === 'ready_for_approval' ? {
+      releaseCandidateBatchId: f002Acceptance.releaseCandidateBatchId,
+      distSha256: f002Acceptance.distSha256,
+      artifactDigest: f002Acceptance.artifactDigest,
+    } : {}),
     evidence: {
       hostedRunUrl: hosted.runUrl,
       artifactDigest: hosted.artifactDigest,

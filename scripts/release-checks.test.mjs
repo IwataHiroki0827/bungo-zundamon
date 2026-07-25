@@ -277,6 +277,77 @@ function releaseContext() {
   };
 }
 
+function f002AcceptanceContext() {
+  const candidate = {
+    releaseCandidateBatchId: 'F002',
+    feature: 'F002',
+    releaseCommit: SHA,
+    distSha256: HASH,
+    artifactDigest: HASH,
+  };
+  const tagged = (value) => ({ ...value, candidate: { ...candidate } });
+  return {
+    now: '2026-07-18T06:00:00.000Z',
+    releaseBuild: { ...candidate },
+    checkout: { status: 'clean', releaseVerifyStatus: 'completed', headSha: SHA, releaseCommit: SHA },
+    authors: [{ authorId: '000879' }, { authorId: '000081' }],
+    batches: [
+      { batchId: 'F001', feature: 'F001', status: 'published' },
+      { batchId: 'F002', feature: 'F002', status: 'accepted' },
+    ],
+    works: ['000473', '043752', '043754'].map((workId, index) => ({
+      workId,
+      status: 'accepted',
+      pendingCount: 0,
+      acceptedAudioSources: [{
+        path: `content/batches/F002/accepted-audio/${workId}/${String(index + 1).repeat(64)}.wav`,
+        sha256: 'c'.repeat(64),
+        bytes: 44,
+        configHash: 'd'.repeat(64),
+      }],
+    })),
+    voiceEvidence: ['000473', '043752', '043754'].map((workId) => tagged({
+      result: 'pass', workId, acceptedAudioCount: 1,
+    })),
+    f001: {
+      baseline: tagged({ result: 'pass' }),
+      contentInvariant: tagged({ result: 'pass' }),
+      distInvariant: tagged({ result: 'pass', distSha256: HASH, artifactDigest: HASH }),
+    },
+    // selection/predeployのcontext-less判断は、release adapterがcandidate付きwrapperへ変換する。
+    rights: {
+      selection: tagged({ result: 'unchanged' }),
+      predeploy: tagged({ result: 'unchanged' }),
+    },
+    policy: {
+      selection: tagged({ status: 'unchanged' }),
+      predeploy: tagged({ status: 'changed-reviewed' }),
+    },
+    artwork: tagged({ result: 'pass' }),
+    capacity: {
+      ...candidate, evidenceKind: 'actual', phase: 'release', result: 'pass',
+    },
+    security: tagged({ status: 'pass' }),
+    regression: tagged({
+      status: 'passed', unitTests: 337, browserTests: 78, f002Tests: 'passed',
+    }),
+    browser: tagged({
+      status: 'passed',
+      viewports: ['390x844', '844x390', '1440x900'],
+      accessibility: ['keyboard', 'screen-reader', 'reduced-motion'],
+      manualBrowsers: ['Windows Chrome', 'Windows Edge', 'iOS Safari'],
+      automatedBrowsers: ['chromium', 'firefox', 'webkit', 'android-viewport'],
+    }),
+    qtEvidence: Array.from({ length: 14 }, (_, index) => ({
+      id: `QT-F002-${String(index + 1).padStart(3, '0')}`,
+      status: 'passed',
+      ...candidate,
+      executedAt: '2026-07-18T06:00:00.000Z',
+      evidenceRefs: [`docs/evidence/qt/QT-F002-${index + 1}.json`],
+    })),
+  };
+}
+
 // IT-F001-017: browser・hosted build・権利証跡を束ねる承認前判定を追跡する。
 describe('FUN-F001-035 承認前リリース判定 [UT-F001-035]', () => {
   it('全条件を満たすread-only証跡だけをreadyにする', async () => {
@@ -368,7 +439,22 @@ describe('FUN-F001-035 承認前リリース判定 [UT-F001-035]', () => {
       catalogFixtures: { status: 'passed', source: 'malicious-fixture-suite', caseCount: 1, unsafeAccepted: 0 },
       workflow,
     };
-    await expect(runReleaseChecks(context)).resolves.toMatchObject({ status: 'ready_for_approval' });
+    const acceptancePending = await runReleaseChecks(context);
+    expect(acceptancePending).toMatchObject({
+      status: 'blocked', blockers: expect.arrayContaining(['ACCEPT_WORK_INCOMPLETE']),
+    });
+    expect(acceptancePending.blockers).not.toContain('SECURITY_CHECK_FAILED');
+
+    context.releaseCandidateBatchId = 'F002';
+    context.distSha256 = HASH;
+    context.f002Acceptance = f002AcceptanceContext();
+    await expect(runReleaseChecks(context)).resolves.toMatchObject({
+      status: 'ready_for_approval',
+      releaseCandidateBatchId: 'F002',
+      releaseCommit: SHA,
+      distSha256: HASH,
+      artifactDigest: HASH,
+    });
 
     context.securityContext = await runF002StaticSecurityChecks({
       expectedRoutes: ['#/', '#/credits'],

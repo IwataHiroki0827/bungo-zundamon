@@ -101,7 +101,7 @@ async function fixture(): Promise<{ root: string; catalog: CatalogV2; baseline: 
   return { root, catalog, baseline: { baselineSha256: hash('baseline'), catalog: { authors: [author], works, audioAssets }, files } };
 }
 
-describe('FUN-F002-038/040 F001 invariants', () => {
+describe('UT-F002-038/UT-F002-040 FUN-F002-038/040 F001 invariants', () => {
   it('directory DFS順ではなくflat path順で統合build digestを固定する', async () => {
     const value = await fixture();
     await writeFile(join(value.root, 'content', 'provenance.json'), '{}');
@@ -138,7 +138,7 @@ describe('FUN-F002-038/040 F001 invariants', () => {
   });
 });
 
-describe('FUN-F002-005 loadAndVerifyF001Baseline', () => {
+describe('UT-F002-005 FUN-F002-005 loadAndVerifyF001Baseline', () => {
   const baselinePath = join(process.cwd(), 'content', 'baselines', 'F001-v0.1.0.json');
   const rawCatalogSnapshot = join(process.cwd(), 'content', 'baselines', 'F001-v0.1.0-catalog.json');
   const publicRoot = join(process.cwd(), 'public');

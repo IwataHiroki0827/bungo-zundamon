@@ -97,7 +97,7 @@ function catalogFixture(): UICatalogV2 {
   };
 }
 
-describe('FUN-F002-022 renderAuthorIndex', () => {
+describe('UT-F002-022 FUN-F002-022 renderAuthorIndex', () => {
   it('全作者をsemantic listへ安全なtext、件数、画像、encoded slugで描画する', () => {
     const catalog = catalogFixture();
     const page = renderAuthorIndex(catalog, new URL('https://example.test/bungo-zundamon/'));
@@ -122,7 +122,7 @@ describe('FUN-F002-022 renderAuthorIndex', () => {
   });
 });
 
-describe('FUN-F002-023 renderAuthorPageV2', () => {
+describe('UT-F002-023 FUN-F002-023 renderAuthorPageV2', () => {
   it('指定作者の作品・台詞・出典だけを共有controllerへ結び、描画時に再生しない', () => {
     const catalog = catalogFixture();
     const { controller, play, control } = controllerFixture();
