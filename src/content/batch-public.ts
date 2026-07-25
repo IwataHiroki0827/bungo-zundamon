@@ -15,6 +15,13 @@ import type {
 } from './batch.ts';
 import type { CatalogV2 } from './processing.ts';
 import { validateCatalogV2 } from '../ui/catalog-loader.ts';
+import {
+  assertArtworkProvenanceMatches,
+  artworkCreditFromProvenance,
+  validateArtworkProvenanceBundle,
+  type ArtworkCreditManifest,
+} from '../notices/artwork-bundle.ts';
+import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/artwork-provenance.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -97,6 +104,160 @@ export interface PublicPromotionOptions {
 
 function hash(bytes: Uint8Array | string): Sha256 {
   return createHash('sha256').update(bytes).digest('hex') as Sha256;
+}
+
+function parseBoundedJson(bytes: Uint8Array, label: string): unknown {
+  if (bytes.byteLength === 0 || bytes.byteLength > 262_144) {
+    throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `${label}のsizeが不正です`);
+  }
+  try {
+    return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as unknown;
+  } catch {
+    throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `${label}が正しいUTF-8 JSONではありません`);
+  }
+}
+
+async function integrateArtworkProvenances(
+  catalog: CatalogV2,
+  batches: readonly PublishableBatch[],
+  active: ActiveBatchPreview | undefined,
+  f001: F001BaselineBundle,
+  workspace: string,
+  staging: string,
+  destinations: Set<string>,
+): Promise<void> {
+  const legacyRef = 'content/artwork-provenance.json' as WorkspaceRelativePath;
+  const legacyFile = f001.files.find((file) => file.path === legacyRef);
+  if (!legacyFile || !destinations.has(legacyRef)) {
+    throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'F001画像provenanceがbaselineにありません');
+  }
+  const legacyBytes = new Uint8Array(await readFile(join(staging, ...legacyRef.split('/'))));
+  if (legacyBytes.byteLength !== legacyFile.bytes || hash(legacyBytes) !== legacyFile.sha256) {
+    throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'F001画像provenanceがbaseline metadataと一致しません');
+  }
+  const sources = new Map<string, { manifest: BatchManifest; source: string }>();
+  for (const batch of batches) {
+    sources.set(batch.manifest.batchId, {
+      manifest: batch.manifest,
+      source: join(workspace, ...batch.manifest.artworkProvenanceRef.split('/')),
+    });
+  }
+  if (active) {
+    if (sources.has(active.manifest.batchId)) {
+      throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `画像provenance batchが重複しています: ${active.manifest.batchId}`);
+    }
+    sources.set(active.manifest.batchId, {
+      manifest: active.manifest,
+      source: join(workspace, ...active.manifest.artworkProvenanceRef.split('/')),
+    });
+  }
+
+  const entries: ArtworkCreditManifest[] = [];
+  for (const author of catalog.authors) {
+    if (author.introducedByBatchId === 'F001') {
+      const raw = parseBoundedJson(legacyBytes, legacyRef);
+      if (!isRecord(raw) || typeof raw.manifestId !== 'string') {
+        throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', 'F001画像provenance identityが不正です');
+      }
+      const entry: ArtworkCreditManifest = {
+        authorId: author.authorId,
+        batchId: 'F001',
+        manifestId: raw.manifestId,
+        provenanceRef: legacyRef,
+        provenanceSha256: hash(legacyBytes),
+        output: { path: author.artwork.path, sha256: author.artwork.sha256 },
+      };
+      try {
+        assertArtworkProvenanceMatches(entry, raw);
+        artworkCreditFromProvenance(entry, raw);
+      } catch (error) {
+        throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', 'F001画像provenanceがcatalogと一致しません', { cause: error });
+      }
+      entries.push(entry);
+      continue;
+    }
+
+    const source = sources.get(author.introducedByBatchId);
+    if (!source || source.manifest.author.authorId !== author.authorId ||
+      !safeRelativePath(source.manifest.artworkProvenanceRef)) {
+      throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', `作者画像provenanceのbatch/authorが不一致です: ${author.authorId}`);
+    }
+    await assertDescendant(workspace, source.source);
+    const info = await lstat(source.source);
+    if (!info.isFile() || info.isSymbolicLink()) {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `作者画像provenanceが通常fileではありません: ${author.authorId}`);
+    }
+    const bytes = new Uint8Array(await readFile(source.source));
+    const raw = parseBoundedJson(bytes, source.manifest.artworkProvenanceRef);
+    if (!isRecord(raw) || typeof raw.manifestId !== 'string') {
+      throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `作者画像provenance identityが不正です: ${author.authorId}`);
+    }
+    if (author.introducedByBatchId !== 'F002') {
+      throw new PublicIntegrationError(
+        'PUBLIC_REFERENCE_MISSING',
+        `作者画像provenance schema validatorが未登録です: ${author.introducedByBatchId}`,
+      );
+    }
+    try {
+      const decision = await validateArtworkProvenance(raw as unknown as ArtworkProvenanceV2, workspace);
+      if (decision.authorId !== author.authorId || decision.outputPath !== author.artwork.path ||
+        decision.outputSha256 !== author.artwork.sha256) {
+        throw new Error('artwork-decision-catalog-mismatch');
+      }
+    } catch (error) {
+      throw new PublicIntegrationError(
+        'PUBLIC_ARTWORK_PROVENANCE_INVALID',
+        `作者画像provenance完全検証に失敗しました: ${author.authorId}`,
+        { cause: error },
+      );
+    }
+    const provenanceRef = `content/artwork-provenance/${author.introducedByBatchId}.json` as WorkspaceRelativePath;
+    const sourceEntry: ArtworkCreditManifest = {
+      authorId: author.authorId,
+      batchId: author.introducedByBatchId,
+      manifestId: raw.manifestId,
+      provenanceRef,
+      provenanceSha256: hash(bytes),
+      output: { path: author.artwork.path, sha256: author.artwork.sha256 },
+    };
+    let credit: string | undefined;
+    try {
+      assertArtworkProvenanceMatches(sourceEntry, raw);
+      credit = artworkCreditFromProvenance(sourceEntry, raw);
+    } catch (error) {
+      throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', `作者画像provenanceがcatalogと一致しません: ${author.authorId}`, { cause: error });
+    }
+    const publicManifestBytes = new TextEncoder().encode(canonicalJson({
+      schemaVersion: '1.0.0',
+      authorId: sourceEntry.authorId,
+      batchId: sourceEntry.batchId,
+      manifestId: sourceEntry.manifestId,
+      credit,
+      sourceManifestSha256: hash(bytes),
+      output: sourceEntry.output,
+    }));
+    const entry: ArtworkCreditManifest = {
+      ...sourceEntry,
+      provenanceSha256: hash(publicManifestBytes),
+    };
+    if (destinations.has(provenanceRef)) {
+      throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `作者画像provenance公開pathが重複しています: ${provenanceRef}`);
+    }
+    destinations.add(provenanceRef);
+    await mkdir(dirname(join(staging, ...provenanceRef.split('/'))), { recursive: true });
+    await writeFile(join(staging, ...provenanceRef.split('/')), publicManifestBytes);
+    entries.push(entry);
+  }
+  let bundle;
+  try {
+    bundle = validateArtworkProvenanceBundle({ schemaVersion: '1.0.0', artworks: entries });
+  } catch (error) {
+    throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', '作者画像provenance集約が不正です', { cause: error });
+  }
+  const bundlePath = 'content/artwork-provenances.json';
+  if (destinations.has(bundlePath)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `${bundlePath}が既に存在します`);
+  destinations.add(bundlePath);
+  await writeFile(join(staging, ...bundlePath.split('/')), canonicalJson(bundle), 'utf8');
 }
 
 function safeRelativePath(value: string): value is WorkspaceRelativePath {
@@ -489,6 +650,7 @@ export async function buildIntegratedPublicTree(
   if (preparation || release) {
     const tracked = batches.flatMap((batch) => [
       batch.manifestPath,
+      batch.manifest.artworkProvenanceRef,
       ...batch.acceptedAudioSources.map((source) => source.path),
       ...(fragments[batch.manifest.batchId]?.publicFiles ?? []).map((file) => file.source),
       ...(evidenceByBatch.get(batch.manifest.batchId) ?? []).map((file) => file.source),
@@ -673,6 +835,7 @@ export async function buildIntegratedPublicTree(
   const validation = validateCatalogV2(catalog, Buffer.byteLength(catalogBytes, 'utf8'));
   if (!validation.ok) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `CatalogV2 validationに失敗しました: ${validation.error.code}`);
   await mkdir(join(staging, 'content'), { recursive: true });
+  await integrateArtworkProvenances(catalog, batches, effectiveActive, f001, workspace, staging, destinations);
   await writeFile(join(staging, 'content', 'catalog.json'), catalogBytes, 'utf8');
   const files = await treeFiles(staging);
   const buildSha256 = treeHash(files);

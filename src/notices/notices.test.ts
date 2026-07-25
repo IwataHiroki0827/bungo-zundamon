@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { createHash } from 'node:crypto';
 
 import {
   REQUIRED_NOTICE_TEXT,
@@ -8,6 +9,7 @@ import {
   resolveTrustedExternalLink,
   validateReleaseNotices,
   type ArtworkProvenanceManifest,
+  type ArtworkCreditManifest,
   type LicenseManifest,
 } from './index';
 import type { UICatalogV2 } from '../ui/types';
@@ -16,6 +18,18 @@ const HASH_A = 'a'.repeat(64);
 const HASH_B = 'b'.repeat(64);
 const CHECKED_AT = '2026-07-01T00:00:00Z';
 const VALID_UNTIL = '2026-08-01T00:00:00Z';
+
+interface MutableArtworkBundleFixture {
+  schemaVersion: string;
+  artworks: Array<{
+    authorId: string;
+    batchId: string;
+    manifestId: string;
+    provenanceRef: string;
+    provenanceSha256: string;
+    output: { path: string; sha256: string };
+  }>;
+}
 
 function fixture(): { manifest: LicenseManifest; artwork: ArtworkProvenanceManifest } {
   const artwork: ArtworkProvenanceManifest = {
@@ -148,6 +162,10 @@ function jsonWithExactBytes(value: unknown, bytes: number): string {
   return `${json}${' '.repeat(bytes - length)}`;
 }
 
+function shaText(value: string): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
 function expectDeepFrozen(value: unknown): void {
   if (!value || typeof value !== 'object') return;
   expect(Object.isFrozen(value)).toBe(true);
@@ -240,6 +258,9 @@ describe('FUN-F001-026 notice bundle読込 [DES-F001-012][DES-F001-013][DES-F001
     const fetcher = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
       seenSignals.push(init?.signal);
       seenOptions.push(init ?? {});
+      if (String(input).endsWith('/artwork-provenances.json')) {
+        return new Response('', { status: 404, headers: { 'Content-Type': 'application/json' } });
+      }
       const value = String(input).endsWith('/licenses.json') ? manifest : artwork;
       return new Response(JSON.stringify(value), {
         status: 200,
@@ -254,7 +275,7 @@ describe('FUN-F001-026 notice bundle読込 [DES-F001-012][DES-F001-013][DES-F001
       signal,
     );
 
-    expect(seenSignals).toEqual([signal, signal]);
+    expect(seenSignals).toEqual([signal, signal, signal]);
     expect(seenOptions.every((options) => options.redirect === 'error')).toBe(true);
     expect(seenOptions.every((options) => options.credentials === 'same-origin')).toBe(true);
     expectDeepFrozen(bundle.license);
@@ -288,6 +309,94 @@ describe('FUN-F001-026 notice bundle読込 [DES-F001-012][DES-F001-013][DES-F001
     )).rejects.toThrow('notice-load-aborted');
   });
 
+  it('全作者の集約manifestと参照元provenanceをSHA・author・pathまで検証する', async () => {
+    const { manifest, artwork } = fixture();
+    const legacyText = JSON.stringify(artwork);
+    const second = {
+      schemaVersion: '2.0.0',
+      manifestId: 'artwork-F002-000081-v1',
+      batchId: 'F002',
+      authorId: '000081',
+      credit: '宮沢賢治ずんだもん：独自生成',
+      output: { publicPath: 'artwork/miyazawa-zundamon.png', sha256: 'c'.repeat(64) },
+    };
+    const secondText = JSON.stringify(second);
+    const bundle = {
+      schemaVersion: '1.0.0',
+      artworks: [
+        {
+          authorId: '000879', batchId: 'F001', manifestId: artwork.manifestId,
+          provenanceRef: 'content/artwork-provenance.json', provenanceSha256: shaText(legacyText),
+          output: artwork.output,
+        },
+        {
+          authorId: '000081', batchId: 'F002', manifestId: second.manifestId,
+          provenanceRef: 'content/artwork-provenance/F002.json', provenanceSha256: shaText(secondText),
+          output: { path: second.output.publicPath, sha256: second.output.sha256 },
+        },
+      ],
+    };
+    const fetcher = async (input: RequestInfo | URL): Promise<Response> => {
+      const path = new URL(String(input)).pathname;
+      const text = path.endsWith('/licenses.json') ? JSON.stringify(manifest)
+        : path.endsWith('/artwork-provenances.json') ? JSON.stringify(bundle)
+        : path.endsWith('/artwork-provenance/F002.json') ? secondText
+        : legacyText;
+      return new Response(text, { headers: { 'Content-Type': 'application/json' } });
+    };
+    const loaded = await loadReleaseNoticeBundle(
+      new URL('/bungo-zundamon/', location.origin),
+      new Date(CHECKED_AT),
+      fetcher as typeof fetch,
+    );
+    expect(loaded.artworks?.map((entry) => entry.authorId)).toEqual(['000879', '000081']);
+    expectDeepFrozen(loaded.artworks);
+  });
+
+  it.each([
+    ['author不一致', (bundle: MutableArtworkBundleFixture) => { bundle.artworks[1]!.authorId = '000999'; }],
+    ['危険path', (bundle: MutableArtworkBundleFixture) => { bundle.artworks[1]!.provenanceRef = '../F002.json'; }],
+    ['作者重複', (bundle: MutableArtworkBundleFixture) => { bundle.artworks[1]!.authorId = '000879'; }],
+    ['参照SHA不一致', (bundle: MutableArtworkBundleFixture) => { bundle.artworks[1]!.provenanceSha256 = 'f'.repeat(64); }],
+  ])('集約画像provenanceの%sを部分採用せず拒否する', async (_label, mutate) => {
+    const { manifest, artwork } = fixture();
+    const legacyText = JSON.stringify(artwork);
+    const second = {
+      schemaVersion: '2.0.0', manifestId: 'artwork-F002-000081-v1', batchId: 'F002', authorId: '000081',
+      credit: '宮沢賢治ずんだもん：独自生成',
+      output: { publicPath: 'artwork/miyazawa-zundamon.png', sha256: 'c'.repeat(64) },
+    };
+    const secondText = JSON.stringify(second);
+    const bundle: MutableArtworkBundleFixture = {
+      schemaVersion: '1.0.0',
+      artworks: [
+        {
+          authorId: '000879', batchId: 'F001', manifestId: artwork.manifestId,
+          provenanceRef: 'content/artwork-provenance.json', provenanceSha256: shaText(legacyText), output: artwork.output,
+        },
+        {
+          authorId: '000081', batchId: 'F002', manifestId: second.manifestId,
+          provenanceRef: 'content/artwork-provenance/F002.json', provenanceSha256: shaText(secondText),
+          output: { path: second.output.publicPath, sha256: second.output.sha256 },
+        },
+      ],
+    };
+    mutate(bundle);
+    const fetcher = async (input: RequestInfo | URL): Promise<Response> => {
+      const path = new URL(String(input)).pathname;
+      const text = path.endsWith('/licenses.json') ? JSON.stringify(manifest)
+        : path.endsWith('/artwork-provenances.json') ? JSON.stringify(bundle)
+        : path.endsWith('/artwork-provenance/F002.json') ? secondText
+        : legacyText;
+      return new Response(text, { headers: { 'Content-Type': 'application/json' } });
+    };
+    await expect(loadReleaseNoticeBundle(
+      new URL('/bungo-zundamon/', location.origin),
+      new Date(CHECKED_AT),
+      fetcher as typeof fetch,
+    )).rejects.toThrow(/^notice-artwork-/);
+  });
+
   it('size上限超過とschema不正を部分採用せず拒否する', async () => {
     const tooLargeFetcher = async (): Promise<Response> => new Response(`{"padding":"${'a'.repeat(262_145)}"}`, {
       status: 200,
@@ -313,6 +422,9 @@ describe('FUN-F001-026 notice bundle読込 [DES-F001-012][DES-F001-013][DES-F001
   it('256KiBちょうどを受理し、1 byte超過を拒否する', async () => {
     const { manifest, artwork } = fixture();
     const exactFetcher = async (input: RequestInfo | URL): Promise<Response> => {
+      if (String(input).endsWith('/artwork-provenances.json')) {
+        return new Response('', { status: 404, headers: { 'Content-Type': 'application/json' } });
+      }
       const value = String(input).endsWith('/licenses.json') ? manifest : artwork;
       return new Response(jsonWithExactBytes(value, 262_144), {
         status: 200,
@@ -431,12 +543,21 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
   function validatedBundle(validUntil = VALID_UNTIL) {
     const { manifest, artwork } = fixture();
     manifest.terms.validUntil = validUntil;
-    const secondArtwork = structuredClone(artwork);
-    secondArtwork.manifestId = 'artwork-F002-001';
-    secondArtwork.output = { path: 'artwork/miyazawa-zundamon.png', sha256: 'c'.repeat(64) };
+    const artworks: ArtworkCreditManifest[] = [
+      {
+        authorId: '000879', batchId: 'F001', manifestId: artwork.manifestId,
+        provenanceRef: 'content/artwork-provenance.json', provenanceSha256: '9'.repeat(64),
+        output: artwork.output,
+      },
+      {
+        authorId: '000081', batchId: 'F002', manifestId: 'artwork-F002-001',
+        provenanceRef: 'content/artwork-provenance/F002.json', provenanceSha256: '8'.repeat(64),
+        output: { path: 'artwork/miyazawa-zundamon.png', sha256: 'c'.repeat(64) },
+      },
+    ];
     const validated = validateReleaseNotices(manifest, artwork, new Date(CHECKED_AT));
     if (!validated.ok) throw new Error('fixture-validation-failed');
-    return { license: validated.value, artwork, artworks: [artwork, secondArtwork] } as const;
+    return { license: validated.value, artwork, artworks } as const;
   }
 
   it('全作者・全作品・由来・規約・必須免責を安全なDOMへ描画する', () => {
@@ -464,7 +585,7 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
     catalog.batches.splice(1);
     delete catalog.candidateCounts.byBatch.F002;
     const bundle = validatedBundle();
-    const page = renderCreditsV2(catalog, { ...bundle, artworks: [bundle.artwork] });
+    const page = renderCreditsV2(catalog, { ...bundle, artworks: [bundle.artworks[0]!] });
     expect(page.textContent).toContain('羅生門<script>alert(1)</script>');
   });
 

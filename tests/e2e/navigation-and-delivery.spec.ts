@@ -6,7 +6,7 @@ test('Pages subpathでhash routeの直開き・再読込・履歴・キーボー
   await page.goto('#/authors/akutagawa-zunnosuke');
   await expect(page).toHaveURL(new RegExp(`${PAGES_PATH.replaceAll('/', '\\/')}#/authors/akutagawa-zunnosuke$`));
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
-  await expect(page.getByText('原著者：芥川龍之介').first()).toBeVisible();
+  await expect(page.getByText('原著者: 芥川龍之介').first()).toBeVisible();
   await expect(page.locator('.work-panel')).toHaveCount(3);
 
   await page.reload();
@@ -50,14 +50,20 @@ test('production buildの全公開assetがPages base配下で200を返す', asyn
   expect(catalogResponse.status()).toBe(200);
   const catalog = await catalogResponse.json() as {
     audioAssets: Array<{ path: string }>;
-    author: { artwork?: { path: string } };
+    authors?: Array<{ artwork?: { path: string } }>;
+    author?: { artwork?: { path: string } };
   };
+  const artworkPaths = catalog.authors
+    ? catalog.authors.flatMap((author) => author.artwork ? [author.artwork.path] : [])
+    : catalog.author?.artwork ? [catalog.author.artwork.path] : [];
   const paths = [
     'content/catalog.json',
     'content/licenses.json',
     'content/provenance.json',
     'content/artwork-provenance.json',
-    ...(catalog.author.artwork ? [catalog.author.artwork.path] : []),
+    'content/artwork-provenances.json',
+    'content/artwork-provenance/F002.json',
+    ...artworkPaths,
     ...catalog.audioAssets.map((asset) => asset.path),
   ];
   expect(paths.length).toBeGreaterThan(5);

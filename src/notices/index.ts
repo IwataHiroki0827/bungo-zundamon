@@ -1,5 +1,12 @@
 export { CreditsRenderError, renderCredits, renderCreditsV2 } from './credits';
 export { loadReleaseNoticeBundle } from './manifest-loader';
+export {
+  assertArtworkProvenanceMatches,
+  artworkCreditFromProvenance,
+  validateArtworkProvenanceBundle,
+  type ArtworkCreditManifest,
+  type ArtworkProvenanceBundle,
+} from './artwork-bundle';
 export { isValidatedLicenseManifest, validateReleaseNotices } from './release-notices';
 export { resolveTrustedExternalLink } from './trusted-links';
 export { REQUIRED_NOTICE_TEXT } from './types';

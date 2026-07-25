@@ -212,17 +212,23 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
     notices.license.commercial.advertising !== false
   ) throw new CreditsRenderError('CREDITS_POLICY_STALE');
 
-  const artworkManifests = notices.artworks ?? [notices.artwork];
-  if (!Array.isArray(artworkManifests) || artworkManifests.length === 0 || artworkManifests.some((entry) =>
-    !entry || typeof entry !== 'object' || !entry.output ||
-    typeof entry.output.path !== 'string' || typeof entry.output.sha256 !== 'string' ||
-    !SHA256.test(entry.output.sha256))) {
-    throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
+  if (!Array.isArray(notices.artworks)) {
+    // F001旧treeの単一manifest互換。複数作者では集約manifestを必須にする。
+    if (catalog.authors.length !== 1 || !notices.artwork?.output ||
+      notices.artwork.output.path !== catalog.authors[0]!.artwork.path ||
+      notices.artwork.output.sha256 !== catalog.authors[0]!.artwork.sha256) {
+      throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
+    }
+    return;
   }
-  const artworkByPath = new Map(artworkManifests.map((artwork) => [artwork.output.path, artwork.output.sha256]));
-  if (artworkByPath.size !== catalog.authors.length) throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
+  if (notices.artworks.length !== catalog.authors.length) throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
+  const artworkByAuthor = new Map(notices.artworks.map((entry) => [entry.authorId, entry]));
+  if (artworkByAuthor.size !== notices.artworks.length) throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
   for (const author of catalog.authors) {
-    if (!SHA256.test(author.artwork.sha256) || artworkByPath.get(author.artwork.path) !== author.artwork.sha256) {
+    const entry = artworkByAuthor.get(author.authorId);
+    if (!entry || entry.batchId !== author.introducedByBatchId ||
+      !SHA256.test(author.artwork.sha256) ||
+      entry.output.path !== author.artwork.path || entry.output.sha256 !== author.artwork.sha256) {
       throw new CreditsRenderError('CREDITS_ARTWORK_MISMATCH');
     }
   }
@@ -286,7 +292,10 @@ export function renderCreditsV2(catalog: UICatalogV2, notices: ValidatedNoticeBu
   artwork.append(textElement('h2', '作者画像の由来'));
   const artworkList = document.createElement('ul');
   for (const author of catalog.authors) {
-    artworkList.append(listItem(`${author.name}: ${author.artwork.path}／SHA-256: ${author.artwork.sha256}`));
+    const credit = notices.artworks?.find((entry) => entry.authorId === author.authorId)?.credit;
+    artworkList.append(listItem(
+      `${author.name}: ${credit ? `${credit}／` : ''}${author.artwork.path}／SHA-256: ${author.artwork.sha256}`,
+    ));
   }
   artwork.append(artworkList);
 

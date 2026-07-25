@@ -1,0 +1,27 @@
+{
+  "artworks": [
+    {
+      "authorId": "000879",
+      "batchId": "F001",
+      "manifestId": "artwork-F001-002",
+      "output": {
+        "path": "artwork/akutagawa-zundamon.png",
+        "sha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b"
+      },
+      "provenanceRef": "content/artwork-provenance.json",
+      "provenanceSha256": "c8164e97c77d3c0d56e5858a27d0973404e7b2e93c45125bd020fa6dcb286c8c"
+    },
+    {
+      "authorId": "000081",
+      "batchId": "F002",
+      "manifestId": "artwork-F002-000081-v1",
+      "output": {
+        "path": "artwork/miyazawa-zundamon.png",
+        "sha256": "6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087"
+      },
+      "provenanceRef": "content/artwork-provenance/F002.json",
+      "provenanceSha256": "304f035c2e3f477b900740ac6aaf400182dffc08aad3bef442b5f237a0cffb12"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

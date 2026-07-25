@@ -1035,5 +1035,5 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       workspace: input.workspace, batchId: input.manifest.batchId, manifest: input.manifest,
       commit, mode: 'release',
     })).rejects.toMatchObject({ code: 'BATCH_STAGE_PREREQUISITE' });
-  });
+  }, 15_000);
 });

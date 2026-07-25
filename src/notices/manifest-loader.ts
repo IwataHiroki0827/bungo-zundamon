@@ -1,4 +1,10 @@
 import { validateReleaseNotices } from './release-notices';
+import {
+  assertArtworkProvenanceMatches,
+  artworkCreditFromProvenance,
+  validateArtworkProvenanceBundle,
+  type ArtworkCreditManifest,
+} from './artwork-bundle';
 import type { ArtworkProvenanceManifest, LicenseManifest } from './types';
 
 const MAX_NOTICE_BYTES = 262_144;
@@ -8,7 +14,7 @@ export interface ValidatedNoticeBundle {
   readonly license: LicenseManifest;
   readonly artwork: ArtworkProvenanceManifest;
   /** CatalogV2用。旧bundleは`artwork` 1件を暗黙の配列として扱う。 */
-  readonly artworks?: readonly ArtworkProvenanceManifest[];
+  readonly artworks?: readonly ArtworkCreditManifest[];
 }
 
 async function readBoundedBytes(response: Response): Promise<Uint8Array> {
@@ -51,17 +57,23 @@ async function readBoundedBytes(response: Response): Promise<Uint8Array> {
   return bytes;
 }
 
-async function readJson<T>(response: Response): Promise<T> {
+async function readJson<T>(response: Response): Promise<{ readonly value: T; readonly bytes: Uint8Array }> {
   if (!response.ok) throw new Error('notice-load-http-error');
   if (!JSON_MEDIA_TYPE.test(response.headers.get('Content-Type') ?? '')) {
     throw new Error('notice-load-media-type-error');
   }
   const bytes = await readBoundedBytes(response);
   try {
-    return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as T;
+    return { value: JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as T, bytes };
   } catch {
     throw new Error('notice-load-format-error');
   }
+}
+
+async function sha256(bytes: Uint8Array): Promise<string> {
+  if (!globalThis.crypto?.subtle) throw new Error('notice-load-crypto-error');
+  const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes as Uint8Array<ArrayBuffer>);
+  return Array.from(new Uint8Array(digest), (value) => value.toString(16).padStart(2, '0')).join('');
 }
 
 function freezeDeep<T>(value: T): T {
@@ -83,34 +95,60 @@ export async function loadReleaseNoticeBundle(
   if (typeof location !== 'undefined' && base.origin !== location.origin) {
     throw new Error('notice-load-origin-error');
   }
-  const request = async <T>(path: string): Promise<T> => {
+  const request = async <T>(
+    path: string,
+    allowMissing = false,
+  ): Promise<{ readonly value: T; readonly bytes: Uint8Array } | undefined> => {
     const url = new URL(path, base);
     if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) {
       throw new Error('notice-load-path-error');
     }
     try {
-      return await readJson<T>(await fetcher(url, {
+      const response = await fetcher(url, {
         signal,
         credentials: 'same-origin',
         redirect: 'error',
         headers: { Accept: 'application/json' },
-      }));
+      });
+      if (allowMissing && response.status === 404) return undefined;
+      return await readJson<T>(response);
     } catch (error) {
       if (error instanceof Error && error.message.startsWith('notice-load-')) throw error;
       throw new Error(signal?.aborted ? 'notice-load-aborted' : 'notice-load-network-error', { cause: error });
     }
   };
 
-  const [license, artwork] = await Promise.all([
+  const [licensePayload, artworkPayload] = await Promise.all([
     request<LicenseManifest>('content/licenses.json'),
     request<ArtworkProvenanceManifest>('content/artwork-provenance.json'),
   ]);
+  if (!licensePayload || !artworkPayload) throw new Error('notice-load-http-error');
+  const license = licensePayload.value;
+  const artwork = artworkPayload.value;
   const validated = validateReleaseNotices(license, artwork, now);
   if (!validated.ok) throw new Error('notice-validation-error');
   const frozenArtwork = freezeDeep(artwork);
+  const bundlePayload = await request<unknown>('content/artwork-provenances.json', true);
+  let artworks: readonly ArtworkCreditManifest[] | undefined;
+  if (bundlePayload) {
+    const bundle = validateArtworkProvenanceBundle(bundlePayload.value);
+    const resolved = await Promise.all(bundle.artworks.map(async (entry) => {
+      const provenancePayload = entry.provenanceRef === 'content/artwork-provenance.json'
+        ? artworkPayload
+        : await request<unknown>(entry.provenanceRef);
+      if (!provenancePayload) throw new Error('notice-load-http-error');
+      if (await sha256(provenancePayload.bytes) !== entry.provenanceSha256) {
+        throw new Error('notice-artwork-provenance-hash-error');
+      }
+      assertArtworkProvenanceMatches(entry, provenancePayload.value);
+      const credit = artworkCreditFromProvenance(entry, provenancePayload.value);
+      return credit ? { ...entry, credit } : entry;
+    }));
+    artworks = Object.freeze(resolved.map((entry) => freezeDeep(entry)));
+  }
   return Object.freeze({
     license: validated.value,
     artwork: frozenArtwork,
-    artworks: Object.freeze([frozenArtwork]),
+    ...(artworks ? { artworks } : {}),
   });
 }

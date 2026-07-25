@@ -36,6 +36,75 @@ function pngFixture(): Uint8Array {
   return bytes;
 }
 
+function artworkManifestFixture(output: {
+  readonly source: string;
+  readonly publicPath: string;
+  readonly sha256: string;
+  readonly bytes: number;
+}): ArtworkProvenanceV2 {
+  return {
+    schemaVersion: '2.0.0',
+    manifestId: 'artwork-F002-000081-v1',
+    batchId: 'F002',
+    authorId: '000081',
+    creationMethod: 'original-generation',
+    generatedOn: '2026-07-20',
+    generation: {
+      provider: 'OpenAI',
+      tool: 'built-in image_gen',
+      model: 'not exposed by built-in tool',
+      modelVersion: 'not exposed by built-in tool',
+      inputImageCount: 0,
+      prompt: 'original prompt',
+      promptSha256: sha('original prompt'),
+      recipe: 'no edit; use generated output as-is',
+      recipeSha256: sha('no edit; use generated output as-is'),
+      providerTerms: {
+        policyId: 'openai-terms',
+        url: 'https://openai.com/policies/terms-of-use/',
+        contentSha256: 'a'.repeat(64),
+        fetchedAt: '2026-07-25T00:00:00.000Z',
+        decisionSummary: '生成物の利用条件を確認',
+      },
+    },
+    inputAllowlist: [],
+    inputs: [],
+    output: {
+      sourcePath: output.source,
+      publicPath: output.publicPath,
+      sha256: output.sha256,
+      bytes: output.bytes,
+      mediaType: 'image/png',
+      width: 1254,
+      height: 1254,
+      bitDepth: 8,
+      colorType: 'RGB',
+    },
+    characterGuideline: {
+      policyId: 'zundamon-character-guideline',
+      url: 'https://zunko.jp/guideline.html',
+      contentSha256: 'b'.repeat(64),
+      fetchedAt: '2026-07-25T00:00:00.000Z',
+      decisionSummary: '非公式ファンアートとして表示条件を確認',
+      decision: 'allowed-original-fan-art',
+    },
+    humanReview: {
+      reviewer: 'test reviewer',
+      reviewedAt: '2026-07-25T00:00:00.000Z',
+      promptConformance: true,
+      noRealPhotographOrIdentifiableFace: true,
+      noThirdPartyMaterial: true,
+      noThirdPartyDerivative: true,
+      noTrademarkOrLogo: true,
+      noTextSignatureOrWatermark: true,
+      handsNatural: true,
+      decision: 'approved',
+      summary: '入力画像0件の独自生成物を目視確認',
+    },
+    credit: 'OpenAI built-in image_genによる独自生成（入力画像なし）',
+  };
+}
+
 async function treeDigest(root: string): Promise<Sha256> {
   const files: Array<{ path: string; bytes: Uint8Array }> = [];
   const walk = async (path: string, logical: string): Promise<void> => {
@@ -69,11 +138,17 @@ async function fixture(): Promise<{
   const f001Audio = new TextEncoder().encode('f001-audio');
   const f001Provenance = new TextEncoder().encode('{"source":"f001"}\n');
   const licenses = new TextEncoder().encode('{"licenses":[]}\n');
+  const f001ArtworkManifest = new TextEncoder().encode(canonicalJson({
+    schemaVersion: '1.0.0',
+    manifestId: 'artwork-F001-test',
+    output: { path: 'artwork/f001.png', sha256: sha(artwork) },
+  }));
   await mkdir(join(baseline, 'audio', 'F001'), { recursive: true });
   await mkdir(join(baseline, 'content', 'provenance', 'F001'), { recursive: true });
   await writeFile(join(baseline, 'audio', 'F001', 'f001-audio.wav'), f001Audio);
   await writeFile(join(baseline, 'content', 'provenance', 'F001', '000127.json'), f001Provenance);
   await writeFile(join(baseline, 'content', 'licenses.json'), licenses);
+  await writeFile(join(baseline, 'content', 'artwork-provenance.json'), f001ArtworkManifest);
   const audio = new TextEncoder().encode('accepted-wave');
   const acceptedPath = 'content/batches/F002/accepted-audio/000473/audio-1.wav';
   await mkdir(join(root, 'content', 'batches', 'F002', 'accepted-audio', '000473'), { recursive: true });
@@ -96,11 +171,21 @@ async function fixture(): Promise<{
   await writeFile(join(root, 'content', 'batches', 'F002', 'public-files', 'provenance.json'), f002Provenance);
   await writeFile(join(root, ...reviewPath.split('/')), review);
   await writeFile(join(root, ...speechRevisionPath.split('/')), speechRevision);
+  await writeFile(
+    join(root, 'content', 'batches', 'F002', 'artwork-provenance.json'),
+    canonicalJson(artworkManifestFixture({
+      source: 'content/batches/F002/public-files/artwork/miyazawa-zundamon.png',
+      publicPath: 'artwork/miyazawa-zundamon.png',
+      sha256: sha(f002Artwork),
+      bytes: f002Artwork.byteLength,
+    })),
+  );
   const manifest = {
     batchId: 'F002', feature: 'feature-2', status: 'accepted', workIds: ['000473'],
     author: {
       authorId: '000081', name: 'みやざわずんじ', originalName: '宮沢賢治', slug: 'miyazawa-zunji', identitySha256: sha('author-2'),
     }, acceptedAt: '2026-07-20T00:00:00.000Z',
+    artworkProvenanceRef: 'content/batches/F002/artwork-provenance.json',
   } as unknown as BatchManifest;
   await writeFile(join(root, 'content', 'batches', 'F002', 'batch.json'), canonicalJson(manifest));
   await writeFile(join(root, '.gitignore'), '.cache/\n');
@@ -113,6 +198,11 @@ async function fixture(): Promise<{
         { path: 'audio/F001/f001-audio.wav' as WorkspaceRelativePath, sha256: sha(f001Audio), bytes: f001Audio.byteLength },
         { path: 'content/provenance/F001/000127.json' as WorkspaceRelativePath, sha256: sha(f001Provenance), bytes: f001Provenance.byteLength },
         { path: 'content/licenses.json' as WorkspaceRelativePath, sha256: sha(licenses), bytes: licenses.byteLength },
+        {
+          path: 'content/artwork-provenance.json' as WorkspaceRelativePath,
+          sha256: sha(f001ArtworkManifest),
+          bytes: f001ArtworkManifest.byteLength,
+        },
       ],
       catalog: {
         schemaVersion: '2.0.0',
@@ -328,6 +418,46 @@ describe('UT-F002-018/UT-F002-019 batch public integration', () => {
     );
   });
 
+  // @it IT-F002-008 IT-F002-015 @qt QT-F002-012
+  it.each([
+    ['humanReview', (manifest: ArtworkProvenanceV2) => ({
+      ...manifest,
+      humanReview: { ...manifest.humanReview, handsNatural: false },
+    })],
+    ['character guideline', (manifest: ArtworkProvenanceV2) => ({
+      ...manifest,
+      characterGuideline: { ...manifest.characterGuideline, decision: 'rejected' },
+    })],
+    ['output bytes', (manifest: ArtworkProvenanceV2) => ({
+      ...manifest,
+      output: { ...manifest.output, bytes: manifest.output.bytes + 1 },
+    })],
+    ['PNG metadata', (manifest: ArtworkProvenanceV2) => ({
+      ...manifest,
+      output: { ...manifest.output, width: manifest.output.width + 1 },
+    })],
+  ] as const)('%s欠落・改変を公開tree生成前に完全検証で拒否する', async (_label, mutate) => {
+    const value = await fixture();
+    const provenancePath = join(value.root, 'content', 'batches', 'F002', 'artwork-provenance.json');
+    const manifest = JSON.parse(await readFile(provenancePath, 'utf8')) as ArtworkProvenanceV2;
+    await writeFile(provenancePath, canonicalJson(mutate(manifest)));
+    await execFile('git', ['init'], { cwd: value.root });
+    await execFile('git', ['config', 'user.name', 'Test'], { cwd: value.root });
+    await execFile('git', ['config', 'user.email', 'test@example.invalid'], { cwd: value.root });
+    await execFile('git', ['add', '.'], { cwd: value.root });
+    await execFile('git', ['commit', '-m', 'invalid-artwork-fixture'], { cwd: value.root });
+    const { stdout } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: value.root, encoding: 'utf8' });
+    const staging = join(value.root, '.cache', `invalid-${_label.replaceAll(' ', '-')}`);
+    await mkdir(staging, { recursive: true });
+    await expect(buildIntegratedPublicTree(value.batches, value.f001, staging, {
+      mode: 'prepare-release',
+      workspaceRoot: value.root,
+      batchCatalogs: value.batchCatalogs,
+    }, undefined, { ...value.preparation, sourceCommit: stdout.trim() })).rejects.toMatchObject({
+      code: 'PUBLIC_ARTWORK_PROVENANCE_INVALID',
+    });
+  });
+
   it('F001を1回だけ含め、accepted sourceからprepare treeを構築する', async () => {
     const value = await fixture();
     const fragment = value.batchCatalogs.F002!;
@@ -362,6 +492,22 @@ describe('UT-F002-018/UT-F002-019 batch public integration', () => {
       .resolves.toEqual(await readFile(join(value.root, 'content', 'batches', 'F002', 'reviews', '000473.json')));
     await expect(readFile(join(staging, 'content', 'batches', 'F002', 'speech-revisions', '000473.json')))
       .resolves.toEqual(await readFile(join(value.root, 'content', 'batches', 'F002', 'speech-revisions', '000473.json')));
+    const artworkBundle = JSON.parse(
+      await readFile(join(staging, 'content', 'artwork-provenances.json'), 'utf8'),
+    ) as { artworks: Array<{ authorId: string; batchId: string; provenanceRef: string; provenanceSha256: string }> };
+    expect(artworkBundle.artworks.map((entry) => [entry.authorId, entry.batchId])).toEqual([
+      ['000879', 'F001'],
+      ['000081', 'F002'],
+    ]);
+    const publishedArtworkProvenance = await readFile(join(staging, 'content', 'artwork-provenance', 'F002.json'));
+    const sourceArtworkProvenance = await readFile(join(value.root, 'content', 'batches', 'F002', 'artwork-provenance.json'));
+    expect(JSON.parse(new TextDecoder().decode(publishedArtworkProvenance))).toMatchObject({
+      authorId: '000081',
+      batchId: 'F002',
+      output: { path: 'artwork/miyazawa-zundamon.png' },
+      sourceManifestSha256: sha(sourceArtworkProvenance),
+    });
+    expect(artworkBundle.artworks[1]!.provenanceSha256).toBe(sha(publishedArtworkProvenance));
     expect(result.buildSha256).toBe(await treeDigest(staging));
   });
 
