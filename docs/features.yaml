@@ -7,6 +7,12 @@ features:
 - id: F002
   title: 宮沢賢治追加と継続コンテンツ拡充基盤
   branch: feature/F002
-  state: implement
+  state: closed
   merge_after:
   - F001
+- id: F003
+  title: 太宰治3作品のコンテンツ追加
+  branch: feature/F003
+  state: design
+  merge_after:
+  - F002

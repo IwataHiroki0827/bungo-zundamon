@@ -297,3 +297,31 @@ entries:
   est_tokens: 42000
   note: UT仕様ID40/40を機械照合。欠落していたF002受入判定とpublished atomic transactionを実装し、独立受入のHigh
     3/Medium 1と追加fail-open候補を修正。最終719 tests、型・lint、独立受入ACCEPT（指摘0）を確認
+- date: '2026-07-26'
+  phase: test
+  task: T-029 F002 IT・QT・自動ブラウザ受入
+  model: GPT-5
+  agents: 2
+  est_tokens: 28000
+  note: exact candidate 84c985fへVitest 737件、Playwright 84件、typecheck、lint、build、hosted artifact digest、release-verifyを結合してPASS
+- date: '2026-07-26'
+  phase: release
+  task: T-030 F002 v0.2.0段階公開
+  model: GPT-5
+  agents: 1
+  est_tokens: 18000
+  note: GitHub Pagesへ段階デプロイし、公開4 route・2作者・6作品・213台詞・音声Rangeをスモーク確認。deploy変数無効化とpublished遷移を完了
+- date: '2026-07-26'
+  phase: requirements
+  task: T-033 F003要求分析
+  model: GPT-5
+  agents: 3
+  est_tokens: 22000
+  note: Tier大調査と反証評価から太宰治3作品を確定。REQ 18件、QT 15件、QA未回答0、独立再レビューHigh/Medium/Low 0、ゲート①承認を完了
+- date: '2026-07-26'
+  phase: setup
+  task: F003 WBS・実行形態・検証環境整備
+  model: GPT-5
+  agents: 1
+  est_tokens: 6000
+  note: T-034〜T-044へ設計・試験仕様・3作品atomic受入・統合・試験・段階公開を分解。既存npm/Playwright CLIを再利用し、追加MCP不要と判定

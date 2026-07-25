@@ -695,12 +695,228 @@ tasks:
   title: F003の次回作者・代表3作品・要求・QT仕様を確定
   feature: F003
   phase: requirements
-  state: doing
+  state: done
   depends:
   - T-030
-  tags: []
+  tags:
+  - REQ-F003-001
+  - REQ-F003-002
+  - REQ-F003-003
+  - REQ-F003-004
+  - REQ-F003-005
+  - REQ-F003-006
+  - REQ-F003-007
+  - REQ-F003-008
+  - REQ-F003-009
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-012
+  - REQ-F003-013
+  - REQ-F003-014
+  - REQ-F003-015
+  - REQ-F003-016
+  - REQ-F003-017
+  - REQ-F003-018
   mode: orchestration
-  mode_reason: 太宰治候補と宮沢賢治「雪渡り」を含む次回範囲、権利、台詞量、音声・repository容量を独立調査して比較できるため
+  mode_reason: 候補比較、権利、台詞量、音声・repository容量を独立調査し反証レビューできるため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-26T03:28:20+09:00'
+  result: 太宰治の女生徒・走れメロス・グッド・バイを確定。REQ 18件とQT 15件、独立レビューHigh/Medium/Low 0、ゲート①承認を完了
+- id: T-034
+  title: F003機能設計書を作成しREQ全18件を既存継続バッチへ展開
+  feature: F003
+  phase: design
+  state: todo
+  depends:
+  - T-033
+  tags: &f003_requirements
+  - REQ-F003-001
+  - REQ-F003-002
+  - REQ-F003-003
+  - REQ-F003-004
+  - REQ-F003-005
+  - REQ-F003-006
+  - REQ-F003-007
+  - REQ-F003-008
+  - REQ-F003-009
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-012
+  - REQ-F003-013
+  - REQ-F003-014
+  - REQ-F003-015
+  - REQ-F003-016
+  - REQ-F003-017
+  - REQ-F003-018
+  mode: advisor
+  mode_reason: F002の再利用境界とF003固有データを単一FDで一貫して設計するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-035
+  title: F003関数設計書を作成しデータ・検証・状態遷移契約へ展開
+  feature: F003
+  phase: design
+  state: todo
+  depends:
+  - T-034
+  tags: *f003_requirements
+  mode: advisor
+  mode_reason: FDから候補・二重レビュー・容量・atomic受入の関数契約を逐次導出するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-036
+  title: UT-F003・IT-F003を作成しQT-F003との網羅性を確認
+  feature: F003
+  phase: testspec
+  state: todo
+  depends:
+  - T-035
+  tags: *f003_requirements
+  mode: orchestration
+  mode_reason: content・review・voice・UI・容量・securityの試験領域を独立設計できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-037
+  title: F003候補manifest・権利原典・独立二重レビュー契約を整備
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-036
+  tags:
+  - REQ-F003-002
+  - REQ-F003-005
+  - REQ-F003-006
+  - REQ-F003-007
+  - REQ-F003-008
+  - REQ-F003-009
+  mode: orchestration
+  mode_reason: 3作品の原典固定と独立判定artifactを反復処理し、共通契約を並列検証できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-038
+  title: 太宰治画像・未完/公式注意・権利表示を整備
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-037
+  tags:
+  - REQ-F003-003
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-017
+  mode: advisor
+  mode_reason: 単一作者の画像由来と注意・クレジット表示を一つの証跡chainで整合させるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-039
+  title: 女生徒の全候補レビュー・音声生成・作品単位受入
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-037
+  - T-038
+  tags: &f003_work
+  - REQ-F003-005
+  - REQ-F003-006
+  - REQ-F003-007
+  - REQ-F003-008
+  - REQ-F003-009
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-012
+  - REQ-F003-013
+  - REQ-F003-014
+  - REQ-F003-015
+  mode: orchestration
+  mode_reason: 全候補の二重判定・読み補正・音声・容量を定型反復し独立受入できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-040
+  title: 走れメロスの全候補レビュー・音声生成・作品単位受入
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-039
+  tags: *f003_work
+  mode: orchestration
+  mode_reason: 全候補の二重判定・読み補正・音声・容量を定型反復し独立受入できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-041
+  title: グッド・バイの全候補レビュー・音声生成・作品単位受入
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-040
+  tags: *f003_work
+  mode: orchestration
+  mode_reason: 未完表示を含む全候補の二重判定・音声・容量を定型反復し独立受入できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-042
+  title: F003最終Catalog統合・既存不変・データ駆動route・全asset整合を確認
+  feature: F003
+  phase: implement
+  state: todo
+  depends:
+  - T-038
+  - T-041
+  tags:
+  - REQ-F003-001
+  - REQ-F003-002
+  - REQ-F003-003
+  - REQ-F003-004
+  - REQ-F003-010
+  - REQ-F003-011
+  - REQ-F003-012
+  - REQ-F003-014
+  - REQ-F003-016
+  - REQ-F003-017
+  - REQ-F003-018
+  mode: advisor
+  mode_reason: 全作者・作品・音声・由来とexact candidateを単一統合点で逐次判定するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-043
+  title: F003 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
+  feature: F003
+  phase: test
+  state: todo
+  depends:
+  - T-036
+  - T-042
+  tags: *f003_requirements
+  mode: orchestration
+  mode_reason: 統合・権利・容量・セキュリティ・4ブラウザ試験を独立実施して同一candidateへ結合できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-044
+  title: F003リリース前総点検・GitHub Pages段階公開・公開5 routeスモーク
+  feature: F003
+  phase: release
+  state: todo
+  depends:
+  - T-043
+  tags: *f003_requirements
+  mode: advisor
+  mode_reason: ゲート④・版番号・exact deploy・rollback・公開後判定を逐次管理するため
   model:
     lead: opus
     workers: sonnet

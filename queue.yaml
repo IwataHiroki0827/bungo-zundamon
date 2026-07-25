@@ -678,3 +678,25 @@ items:
   processed_note: commit 84c985fをmainへfast-forward。Actions run 30168689551、Pages全route/catalog/audio smoke、deploy変数無効化、remote v0.2.0 tag、published manifest記録を完了。
   release_result: released
   released_at: '2026-07-26T03:01:00+09:00'
+- id: Q-017
+  type: approval
+  status: closed
+  title: F003 要求仕様・適格性試験仕様の一括承認
+  body: 太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加するREQ 18件・QT 15件です。グッド・バイの未完表示、全候補の独立二重判定、長台詞と容量の数値停止境界、作者固有application codeを増やさないデータ駆動再利用を含みます。独立レビューHigh/Medium/Low 0、REQ→QT未追跡0、QA未回答0です。
+  target: docs/srs/SRS-F003.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。今回のプロジェクトでは手動確認不要。'
+  created: '2026-07-26T03:28:20+09:00'
+  source: pf-requirements
+  resume:
+    task: T-033
+    next: pf-setup
+  approved_at: '2026-07-26T03:28:20+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T03:28:20+09:00'
+  processed_note: SRS-F003とQT-F003をApprovedへ更新し、T-033を完了。F003をsetup経由でdesignへ移行した。
