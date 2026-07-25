@@ -83,7 +83,7 @@
 | QT-F002-011 | `scripts/f002-security.test.mjs` |
 | QT-F002-012 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
 | QT-F002-013 | `src/content/batch-command.test.ts` |
-| QT-F002-014 | `tests/e2e/f002-multi-author.spec.ts`（4 browser・3 viewport・keyboard・semantic/ARIA・reduced motion）、`src/content/batch.test.ts`（FUN-003/037 transaction）、`src/content/batch-public.test.ts`（FUN-019 transaction）、`src/content/batch-acceptance.test.ts`（FUN-033 transaction）、`src/content/batch-production.test.ts`と`src/content/batch-runtime.test.ts`（Windows実junction/path安全性） |
+| QT-F002-014 | `tests/e2e/f002-multi-author.spec.ts`（4 browser・3 viewport・keyboard・semantic/ARIA・reduced motion）、`src/content/batch.test.ts`（FUN-003/037 journal回復）、`src/content/batch-public.test.ts`（FUN-019別process回復・public retry/rollback境界）、`src/content/batch-acceptance.test.ts`（FUN-033別process回復）、`src/content/batch-production.test.ts`と`src/content/batch-runtime.test.ts`（共通filesystem境界のWindows実junction/path安全性）、`src/content/pipeline.test.ts`と`src/content/pipeline.integration.test.ts`（共有違反相当`EBUSY`・rename fault） |
 
 仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。その後、IDごとに仕様の主要手順と期待結果を上表の実oracleへ意味的に照合した。正式PASS/FAILは`QT-F002-result.md`とexact candidate固定後のattempt生ログで判定する。
 

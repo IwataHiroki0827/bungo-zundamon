@@ -380,3 +380,20 @@ changes:
   completed_at: '2026-07-26T01:31:00+09:00'
   result: 独立再レビューHigh/Medium/Low 0、全Vitest 734件、Playwright必須4系統84件、typecheck/lint/build/trace_check
     PASS
+- id: CHG-F002-003
+  date: '2026-07-26'
+  trigger: T-029独立受入でWindows 4 transactionへの同一fault重複要求を検出し、共通filesystem境界と各journal回復へ責務を是正
+  level: testspec
+  affected:
+  - DES-F002-015
+  - FUN-F002-003
+  - FUN-F002-019
+  - FUN-F002-033
+  - FUN-F002-037
+  - IT-F002-009
+  - QT-F002-014
+  - T-029
+  status: done
+  approved_by: 既存要求・設計を変更しないtestspec責務分担の是正
+  completed_at: '2026-07-26T02:35:00+09:00'
+  result: 4 transactionのjournal回復と共通Windows filesystem境界を分離し、手動条件を追加せず自動試験で検証

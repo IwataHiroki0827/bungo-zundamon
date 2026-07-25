@@ -73,7 +73,7 @@ ITでは、workflow本体の静的契約、event/deploy条件、承認前後のr
 | IT-F002-006 | `src/content/batch-command.test.ts` |
 | IT-F002-007 | `src/content/data-integrity.integration.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
 | IT-F002-008 | `src/content/batch-public.test.ts`、`src/content/f002-clean-release.integration.test.ts` |
-| IT-F002-009 | `src/content/batch.test.ts`（FUN-003/037のjournal・強制終了再起動・競合）、`src/content/batch-public.test.ts`（FUN-019のstale lock・実process停止・二重swap防止）、`src/content/batch-acceptance.test.ts`（FUN-033の実process停止・stale lock・冪等受入）、`src/content/batch-production.test.ts`と`src/content/batch-runtime.test.ts`（実junction・journal path安全性） |
+| IT-F002-009 | `src/content/batch.test.ts`（FUN-003/037の全journal phase回復・FUN-003別process再起動・競合）、`src/content/batch-public.test.ts`（FUN-019のstale lock・別process停止・二重swap防止・public retry/rollback実装境界）、`src/content/batch-acceptance.test.ts`（FUN-033の別process停止・stale lock・冪等受入）、`src/content/batch-production.test.ts`と`src/content/batch-runtime.test.ts`（共通filesystem境界の実junction・journal path安全性）、`src/content/pipeline.test.ts`と`src/content/pipeline.integration.test.ts`（`EBUSY`・rename fault） |
 | IT-F002-010 | `src/main.test.ts`、`tests/e2e/f002-multi-author.spec.ts` |
 | IT-F002-011 | `tests/e2e/f002-multi-author.spec.ts` |
 | IT-F002-012 | `tests/e2e/f002-multi-author.spec.ts` |
