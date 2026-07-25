@@ -208,7 +208,7 @@ export async function buildPagesPreview(
     return Object.freeze({
       distSha256: treeSha(outputFiles), contentBuildSha256: tree.buildSha256, outputRoot: output,
       files: Object.freeze(files), inputHashes: Object.freeze(inputs),
-      ...(tree.activeBatchId ? { batchId: tree.activeBatchId } : tree.releaseCandidateBatchId ? { batchId: tree.releaseCandidateBatchId } : {}),
+      ...(tree.activeBatchId ? { batchId: tree.activeBatchId } : {}),
       ...(tree.activeWorkId ? { workId: tree.activeWorkId } : {}),
     });
   } catch (error) {

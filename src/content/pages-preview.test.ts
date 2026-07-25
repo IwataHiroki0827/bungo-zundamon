@@ -85,6 +85,31 @@ describe('FUN-F002-039 offline Pages preview', () => {
     expect(result.distSha256).toBe(treeHash(await scan(runtimeOutput)));
   });
 
+  it('release-verify distはwork-preview用batchId/workId別名を返さない', async () => {
+    const value = await fixture();
+    const releaseTree: IntegratedBuild = {
+      mode: 'release-verify',
+      stagingRoot: value.tree.stagingRoot,
+      buildSha256: value.tree.buildSha256,
+      files: value.tree.files,
+      releaseCandidateBatchId: 'F002' as never,
+      feature: 'F002',
+      releaseCommit: 'a'.repeat(40),
+    };
+    const result = await buildPagesPreview(
+      releaseTree,
+      value.app,
+      value.output,
+      true,
+      { adapter: value.adapter },
+    );
+
+    expect(result).not.toHaveProperty('batchId');
+    expect(result).not.toHaveProperty('workId');
+    expect(result.contentBuildSha256).toBe(releaseTree.buildSha256);
+    expect(result.distSha256).toBe(treeHash(await scan(value.output)));
+  });
+
   it('offline違反・stale入力・build失敗はoutputを破棄する', async () => {
     const offline = await fixture();
     await expect(buildPagesPreview(offline.tree, offline.app, offline.output, false as true, { adapter: offline.adapter }))
