@@ -991,7 +991,7 @@ tasks:
   title: Actions固定baseline履歴取得とhosted回帰
   feature: F003
   phase: release
-  state: doing
+  state: done
   depends:
   - T-043
   tags: *id003
@@ -1000,3 +1000,5 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T22:15:30+09:00'
+  result: CHG-F003-003を実装し、全855試験・独立レビューHigh/Medium/Low 0・Actions run 30203430053・hosted artifact catalog hash一致をPASS

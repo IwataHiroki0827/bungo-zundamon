@@ -773,3 +773,29 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-26T15:34:44+09:00'
   processed_note: UT/ITをApprovedへ更新。独立再レビュー2観点High/Medium/Low 0、trace_check対応漏れ0を確認し、F003をimplementへ移行した。
+- id: Q-021
+  type: approval
+  status: closed
+  title: F003 v0.3.0 リリース判定（公開）
+  body: >-
+    commit 79d12825b83459b92da58e14a32f853bae6d92d9のVitest 855件、Chromium・Firefox・WebKit・Android相当81実行、typecheck、lint、build、依存監査、固定published baseline、hosted artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・9作品・472台詞・463音声です。5 routeの初期作品open件数は全て0です。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
+  target: F003
+  target_mode: reference
+  options:
+  - 承認（公開）
+  - 修正指示
+  allow_freeform: false
+  release_version: 0.3.0
+  approval_target_commit: 79d12825b83459b92da58e14a32f853bae6d92d9
+  precheck: docs/evidence/release/RELEASE-F003-precheck.md
+  answer: 承認（公開）
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
+  created: '2026-07-26T22:15:30+09:00'
+  source: pf-release
+  resume:
+    task: T-044
+    next: pf-release
+  approved_at: '2026-07-26T22:15:30+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T22:15:30+09:00'
+  processed_note: 本会話の包括承認を候補commitへ結合し、同じSHAだけの段階公開を許可した。

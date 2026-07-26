@@ -500,4 +500,7 @@ changes:
   - scripts/release-checks.test.mjs
   - T-044
   - T-047
-  status: in-review
+  status: done
+  approved_by: 既存要求を変更しないhosted checkout設計補完・独立レビューHigh/Medium/Low 0
+  completed_at: '2026-07-26T22:15:30+09:00'
+  result: 全855試験とActions run 30203430053をPASSし、artifact内catalog hash一致・feature deploy skipを確認
