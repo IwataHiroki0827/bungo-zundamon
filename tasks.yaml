@@ -1086,7 +1086,7 @@ tasks:
   - REQ-F004-015
   mode: advisor
   mode_reason: 固定baselineと同一作者mergeの設計判断を単一FDで一貫させるため
-  model: &id004
+  model: &model_f004
     lead: opus
     workers: sonnet
 - id: T-052
@@ -1109,7 +1109,7 @@ tasks:
   - REQ-F004-017
   mode: advisor
   mode_reason: 既存関数の再利用境界とF004固有入力を関数単位で確定するため
-  model: *id004
+  model: *model_f004
 - id: T-053
   title: F004 UT・IT仕様を作成しQTとの網羅性を確認
   feature: F004
@@ -1137,7 +1137,7 @@ tasks:
   - REQ-F004-017
   mode: advisor
   mode_reason: 設計と全REQの失敗境界をUT/ITへ一貫して割り当てるため
-  model: *id004
+  model: *model_f004
 - id: T-054
   title: F004候補manifest・固定v0.3.0 baseline・権利原典を整備
   feature: F004
@@ -1152,7 +1152,7 @@ tasks:
   - REQ-F004-006
   mode: advisor
   mode_reason: 候補承認bindingと固定公開baselineを先に閉じる逐次作業のため
-  model: *id004
+  model: *model_f004
 - id: T-055
   title: 同一作者merge・既存画像再利用・F004共通pipelineを実装
   feature: F004
@@ -1168,7 +1168,7 @@ tasks:
   - REQ-F004-016
   mode: advisor
   mode_reason: 共通Catalog境界を3作品処理より先に確定するため
-  model: *id004
+  model: *model_f004
 - id: T-056
   title: オツベルと象を抽出・二重レビュー・音声化・atomic受入
   feature: F004
@@ -1186,7 +1186,7 @@ tasks:
   - REQ-F004-013
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
-  model: *id004
+  model: *model_f004
 - id: T-057
   title: 雪渡りを抽出・二重レビュー・音声化・atomic受入
   feature: F004
@@ -1204,7 +1204,7 @@ tasks:
   - REQ-F004-013
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
-  model: *id004
+  model: *model_f004
 - id: T-058
   title: カイロ団長を抽出・二重レビュー・音声化・atomic受入
   feature: F004
@@ -1222,7 +1222,7 @@ tasks:
   - REQ-F004-013
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
-  model: *id004
+  model: *model_f004
 - id: T-059
   title: F004最終Catalog統合・既存不変・全asset整合を確認
   feature: F004
@@ -1239,7 +1239,7 @@ tasks:
   - REQ-F004-016
   mode: advisor
   mode_reason: 固定baselineと追記結果を単一candidateへ統合するため
-  model: *id004
+  model: *model_f004
 - id: T-060
   title: F004 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F004
@@ -1267,7 +1267,7 @@ tasks:
   - REQ-F004-017
   mode: orchestration
   mode_reason: UT/IT/QT/4ブラウザ/権利/容量を独立実行して統合判定できるため
-  model: *id004
+  model: *model_f004
 - id: T-061
   title: F004リリース前総点検・GitHub Pages段階公開・公開5 routeスモーク
   feature: F004
@@ -1279,4 +1279,4 @@ tasks:
   - REQ-F004-017
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
-  model: *id004
+  model: *model_f004
