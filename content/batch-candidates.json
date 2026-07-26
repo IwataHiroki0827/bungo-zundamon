@@ -1,0 +1,55 @@
+{
+  "candidates": [
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "5d55a5ce84893b38b8dd786b7d6fa0c90c1040baf1852bb18e9639bb92c43d9d",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F003.md",
+            "sha256": "87e28268c2ea3660aa95b11588cd2c028ad7f932a54ba4e1899d0a39c06f33e1"
+          },
+          {
+            "path": "docs/tests/qt/QT-F003.md",
+            "sha256": "32e842b80e7af43e9a47a4cbd4802f36b410bf30f5b4001c8dc8909cb6a043c5"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F003-approval-binding.json",
+        "evidenceSha256": "4c2b096c1271b99b3e2640d875775ae2f2317a253e1f633afb59c1405a28348b",
+        "queueId": "Q-017"
+      },
+      "author": {
+        "authorId": "000035",
+        "identitySha256": "a586e623b68ef53a8259a0e6ac7b57e6ec88b56c280e1997421c860ee13ca1c8",
+        "name": "だざいおさむ",
+        "originalName": "太宰治",
+        "slug": "dazai-osamu"
+      },
+      "batchId": "F003",
+      "feature": "F003",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+          "order": 1,
+          "title": "女生徒",
+          "workId": "000275",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/275_20169.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+          "order": 2,
+          "title": "走れメロス",
+          "workId": "001567",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/1567_14913.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+          "order": 3,
+          "title": "グッド・バイ",
+          "workId": "000258",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

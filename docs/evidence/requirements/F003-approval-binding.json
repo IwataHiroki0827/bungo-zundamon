@@ -19,17 +19,17 @@
   "documents": [
     {
       "path": "docs/srs/SRS-F003.md",
-      "sha256": "e8be75189b8741fc928608fcf9dfd027eb64772f3517b760440bfe8e59e6b7df"
+      "sha256": "87e28268c2ea3660aa95b11588cd2c028ad7f932a54ba4e1899d0a39c06f33e1"
     },
     {
       "path": "docs/tests/qt/QT-F003.md",
-      "sha256": "f3a471f613abefe8e674718396a3a8e928bae9099eee3831a161ddae0ae57dfc"
+      "sha256": "32e842b80e7af43e9a47a4cbd4802f36b410bf30f5b4001c8dc8909cb6a043c5"
     }
   ],
   "feature": "F003",
-  "migratedAt": "2026-07-26T04:02:29+09:00",
+  "migratedAt": "2026-07-26T15:35:00+09:00",
   "queueId": "Q-017",
   "queuePath": "queue.yaml",
-  "queueSha256AtMigration": "5e6b2ca01a41752140876c1f53f621b36ee0fee2b683c8319d32d631690ab2d2",
+  "queueSha256AtMigration": "923aec014b8a80089a6317ba2c7faadef655451d6688a3fcc390bb55647f292f",
   "schemaVersion": "1.0.0"
 }

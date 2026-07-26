@@ -1,0 +1,1818 @@
+{
+  "catalogSha256": "1d001aac1d9b5e9d9d244037936048a5caae1ff2972980cc423ec3e980fe4aab",
+  "commit": "84c985f382910216e381a96901f6fd569165a27e",
+  "contentBuildSha256": "09652af7de82eb32569d280566897c8fcf0c7e033b94d607becb42172f2b02d4",
+  "counts": {
+    "audioAssets": 208,
+    "authors": 2,
+    "dialogues": 213,
+    "files": 226,
+    "works": 6
+  },
+  "descriptorSha256": "305ab8e6984eff15887bd8a0ac50d9ab8619abeeb0b5c3e3dea3ff6d8b5730b6",
+  "distSha256": "c60431bd4da3b1ba43ac71e299089f4dc8cbad563a58f3df3d2424fd952d9fde",
+  "files": [
+    {
+      "bytes": 1,
+      "gitOid": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "mode": "100644",
+      "path": ".nojekyll",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "bytes": 2272462,
+      "gitOid": "9c5a2552dd1437882108c3c98d36ae8199ea204d",
+      "mode": "100644",
+      "path": "artwork/akutagawa-zundamon.png",
+      "sha256": "b027cb556087f7fbcbbe19aecc69f8500ce038461f97cfc1753da62e2b057c4b"
+    },
+    {
+      "bytes": 3118359,
+      "gitOid": "7cf98d9186eacc9a071ac6032008ffe35b9fdaca",
+      "mode": "100644",
+      "path": "artwork/miyazawa-zundamon.png",
+      "sha256": "6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087"
+    },
+    {
+      "bytes": 877612,
+      "gitOid": "4c412079c1f5ddf3c841db9d9830b087c3bfe923",
+      "mode": "100644",
+      "path": "audio/F001/01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4.wav",
+      "sha256": "f5bb4edeb4a6e73028b6577e4fe1d2a1eece7bd7832fe7b8aecbef4432d71d7b"
+    },
+    {
+      "bytes": 60460,
+      "gitOid": "a9b845869ab1a1adb3e3a58a47e9c49fc87cf402",
+      "mode": "100644",
+      "path": "audio/F001/03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a.wav",
+      "sha256": "1cc035dc0f4893b24a9424729e8b7923a8a70f8748269b915884426ce4adf7ce"
+    },
+    {
+      "bytes": 261676,
+      "gitOid": "a5e86722450450470a89f2a36243d6e233c1211e",
+      "mode": "100644",
+      "path": "audio/F001/056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9.wav",
+      "sha256": "908618a78992852427f5031816a8cc642e507eea445ed35d30980f1d322114cf"
+    },
+    {
+      "bytes": 763948,
+      "gitOid": "629bf985f7743b93b7bae4091fd148a14c018980",
+      "mode": "100644",
+      "path": "audio/F001/090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3.wav",
+      "sha256": "af5160482ce8f13a2d76f9eb33369cf4afac7b4d36ab19e1f06e914659cc8c89"
+    },
+    {
+      "bytes": 1236012,
+      "gitOid": "bde4c78ded357a9f903f8160a302f04d6802c5f2",
+      "mode": "100644",
+      "path": "audio/F001/0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b.wav",
+      "sha256": "16d199487b459307f8dc37c512d9f215411812f9df709c966b0725c46d3e8d33"
+    },
+    {
+      "bytes": 258092,
+      "gitOid": "7e7ee23ba6f4a30fb9097c416ca11997a61537f0",
+      "mode": "100644",
+      "path": "audio/F001/0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa.wav",
+      "sha256": "c949257ec8ac4f840d06c1a32dedbcecab8fc292ecca42b44ebd386bf51e99a6"
+    },
+    {
+      "bytes": 226860,
+      "gitOid": "61b0f0ada031019692f851b11a56ff7c8133c2b0",
+      "mode": "100644",
+      "path": "audio/F001/15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23.wav",
+      "sha256": "d07dbb66d48be67838cdb914902f04410e95a7d0b1f8bcf902d2d968dc504903"
+    },
+    {
+      "bytes": 332332,
+      "gitOid": "11418513475b7f7b5639250837c4604694db1c35",
+      "mode": "100644",
+      "path": "audio/F001/166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338.wav",
+      "sha256": "3e528577c1b1ca23e61e03b6c929b66d9907442a8d12d381398d464ea76deea2"
+    },
+    {
+      "bytes": 495660,
+      "gitOid": "7f5cf0fe29916b5fe4b70bc02aa2e641c67b02d3",
+      "mode": "100644",
+      "path": "audio/F001/1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9.wav",
+      "sha256": "520569efcd1229a67912a68b7c2c35de9b864f3d23dc5392cc5f98039b572ab0"
+    },
+    {
+      "bytes": 1569324,
+      "gitOid": "72b9c04c5f3aadae7564473c93223368e95432d8",
+      "mode": "100644",
+      "path": "audio/F001/21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617.wav",
+      "sha256": "c62bc17427fcfffb5f493cc0b84496e9c3ff65adae1668ab1694a143341e23c5"
+    },
+    {
+      "bytes": 876588,
+      "gitOid": "f891edf58b1f675e8f837fbeb8c8e3e19f0f70e6",
+      "mode": "100644",
+      "path": "audio/F001/2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318.wav",
+      "sha256": "b4485afbc76ca5bd565de60e06a14f3b2b6d967902ef3fb218ae01300aa69ff2"
+    },
+    {
+      "bytes": 3249708,
+      "gitOid": "d7f6ae03c9ee672fcde888da5ad5921bc09bd57e",
+      "mode": "100644",
+      "path": "audio/F001/2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c.wav",
+      "sha256": "0a739b8b649af61314e3242b56a0c298a61dc67d906efef00d2483e5f405ddda"
+    },
+    {
+      "bytes": 306732,
+      "gitOid": "d2453fc049ae06f1855017d75b72c1594853a2f1",
+      "mode": "100644",
+      "path": "audio/F001/3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556.wav",
+      "sha256": "38cf582f474e825f33b256029587a1899da505da36c662a88f736b5043a071db"
+    },
+    {
+      "bytes": 370220,
+      "gitOid": "9615d7e69813594617e27fbd2b204fce1f3b75c3",
+      "mode": "100644",
+      "path": "audio/F001/34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a.wav",
+      "sha256": "e25458a0461fa8e0d9dbaca922cc886ae9c2b0fb577da3a83169db130c96e383"
+    },
+    {
+      "bytes": 329260,
+      "gitOid": "29c867dba5dc3f32aee07e9aad50915c012a0ca1",
+      "mode": "100644",
+      "path": "audio/F001/3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6.wav",
+      "sha256": "1b74da5307cb72bfcd2753091893e7c800b71fbf1d86f8951318d80b7b95ab5a"
+    },
+    {
+      "bytes": 247340,
+      "gitOid": "96ea1d4b7cfe9e52b104a07935ae30897439e72b",
+      "mode": "100644",
+      "path": "audio/F001/4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5.wav",
+      "sha256": "d44f73adcb101de7669e7e5198e9fb98e3a9d2818cda1b3d33f5688d44d6b1ac"
+    },
+    {
+      "bytes": 119852,
+      "gitOid": "caffc9a813115a9d809c1f1ce13d722ad2ca97b2",
+      "mode": "100644",
+      "path": "audio/F001/4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781.wav",
+      "sha256": "3b03377418e0edcafa130ccc07c1552092f02d73f2eefef967adfd107411599c"
+    },
+    {
+      "bytes": 708140,
+      "gitOid": "81457a758a035c52b475d169706aba601fba2659",
+      "mode": "100644",
+      "path": "audio/F001/572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951.wav",
+      "sha256": "b57e0b58807ec6fbecd26fc2b2dda84dbb8ab8c663dad6a8f1998b785dfc6b94"
+    },
+    {
+      "bytes": 561196,
+      "gitOid": "43774f7850e53a4a61756df58403ef3c20d9a36f",
+      "mode": "100644",
+      "path": "audio/F001/6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b.wav",
+      "sha256": "083bb8d5ef14f9d81589d81c60532786da83e88ab682f009e075b3218e379ca2"
+    },
+    {
+      "bytes": 924204,
+      "gitOid": "e18ecd9c7a98ea3615f9ded879d5a0a571b56528",
+      "mode": "100644",
+      "path": "audio/F001/620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad.wav",
+      "sha256": "df4855ae9f3ec48d6637ad1a8fe4e1e1e175172a9f04c9bd1a7456f701ce18c9"
+    },
+    {
+      "bytes": 86060,
+      "gitOid": "e03dd84fdc7c2f94a4a5d4786982eb8f99821302",
+      "mode": "100644",
+      "path": "audio/F001/64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678.wav",
+      "sha256": "2b49ba01c0ba348f3f09b3b5b848d4263b2db68c6a4632145e2d6b5b569e9cba"
+    },
+    {
+      "bytes": 283180,
+      "gitOid": "7c54fc136cfc1c3d805ac1c9e62cf7fbd627e60b",
+      "mode": "100644",
+      "path": "audio/F001/6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820.wav",
+      "sha256": "998e37983dafbe9fe371cfa144b05bd9fc8a42fdb7dbf494465aa49d098d5766"
+    },
+    {
+      "bytes": 152108,
+      "gitOid": "5c85f4b1e4aae8df1d8e2a2be963cf82348a58b6",
+      "mode": "100644",
+      "path": "audio/F001/77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf.wav",
+      "sha256": "3b4db6ca4c335757acd2a8a56967218d2adea787cd57a02966222a38923a664a"
+    },
+    {
+      "bytes": 1294380,
+      "gitOid": "a10bb9b2fd6772ba5e1bc20c6a8b308694f51c0a",
+      "mode": "100644",
+      "path": "audio/F001/88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d.wav",
+      "sha256": "0810b5d6f99f2c1149842f8fc2fb5ecba2d93a0db8b84d1fad4e891c93a08ede"
+    },
+    {
+      "bytes": 226348,
+      "gitOid": "6f6765d8551b8ca17ecbd01a718a311b68c12f67",
+      "mode": "100644",
+      "path": "audio/F001/89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce.wav",
+      "sha256": "edcd1fb63fe974857286dda5627a39158fff61441f382e70cca5b8b9a502a6b1"
+    },
+    {
+      "bytes": 119852,
+      "gitOid": "c397277d27eb50732d9328162ba6be583f04962b",
+      "mode": "100644",
+      "path": "audio/F001/91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9.wav",
+      "sha256": "39be8dd3f8ee00ad4d55e4803cd46197d637f7adc482dc6fa1e7b1170d82a06e"
+    },
+    {
+      "bytes": 267820,
+      "gitOid": "f2034e41ed6cd2507c0a9606b45e7a8b5ef715cb",
+      "mode": "100644",
+      "path": "audio/F001/956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1.wav",
+      "sha256": "1e598ce70e7cd31bb82967f2685f03ff47729aa1bea623aefeba096930c9f646"
+    },
+    {
+      "bytes": 524844,
+      "gitOid": "327ee51e7e9c63d64d3ee8e381ed5fe8779c0915",
+      "mode": "100644",
+      "path": "audio/F001/98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201.wav",
+      "sha256": "1630bc7568ba752087eb57356a0048b6ba241a989518d8e68e5a4c288e78b18f"
+    },
+    {
+      "bytes": 741932,
+      "gitOid": "7060a77d71484fb7e7ecd57a0188cfd7e2b4aeea",
+      "mode": "100644",
+      "path": "audio/F001/9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45.wav",
+      "sha256": "35a672d301380047a316a91d7a50072f217953785fd00300ad05944c01690779"
+    },
+    {
+      "bytes": 298028,
+      "gitOid": "b2dac5285542d579d7c1da15ea16430d2b51f2be",
+      "mode": "100644",
+      "path": "audio/F001/a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2.wav",
+      "sha256": "1a358c081ef8bc83ef8c3bff88796434edd97856b0a840ef94cb7ef627e58805"
+    },
+    {
+      "bytes": 934956,
+      "gitOid": "18fde62c6dba73590c7e51693f4f285d898842a9",
+      "mode": "100644",
+      "path": "audio/F001/acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c.wav",
+      "sha256": "4cfe72e85f5d52a3332fc962bbdc25e4d642deaf60623dd0f5fda987a6286ebc"
+    },
+    {
+      "bytes": 79916,
+      "gitOid": "b1d686c306104dad7b10f1fa57b9e3d225988fdf",
+      "mode": "100644",
+      "path": "audio/F001/ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c.wav",
+      "sha256": "b802c95da3a5be4c209fcb4b6c950461c9f7199006986672806f403c60ab397a"
+    },
+    {
+      "bytes": 349228,
+      "gitOid": "371ec3a00d81237f2b3e7f4e3ca702c22b654d68",
+      "mode": "100644",
+      "path": "audio/F001/b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea.wav",
+      "sha256": "9f9f4e7140c7dcfa323d943cf7c50d046dae2ad86955009970fa5bd914592156"
+    },
+    {
+      "bytes": 226348,
+      "gitOid": "7030aef9aaba20f4de0d319d24e0dbe97f0e65da",
+      "mode": "100644",
+      "path": "audio/F001/b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2.wav",
+      "sha256": "fc414e01d0e7bbd2a01618fa887a5b2b33dee786b7ffd076582dcc00efe6678a"
+    },
+    {
+      "bytes": 306220,
+      "gitOid": "4eb3c2733a726e89c8a6b6d4e3a459776ca33828",
+      "mode": "100644",
+      "path": "audio/F001/ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac.wav",
+      "sha256": "c5343b8506c857657fbee378708096d845385ac5af3f63571882423391968a42"
+    },
+    {
+      "bytes": 311340,
+      "gitOid": "dc01aab4c8b87cd3bc6acd611cde99760310d4ea",
+      "mode": "100644",
+      "path": "audio/F001/bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31.wav",
+      "sha256": "8c38aa38988b01a6ff676e247bc40bdb30f8e210a790fd84f1061fbc3b4a4599"
+    },
+    {
+      "bytes": 463916,
+      "gitOid": "6302f3263a0a95d000f4697287d652779079364c",
+      "mode": "100644",
+      "path": "audio/F001/bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226.wav",
+      "sha256": "ab0e0a469595a1d4e7cebcb16b939b5b167547338206b785b2111291c77cb349"
+    },
+    {
+      "bytes": 138796,
+      "gitOid": "936a80d8b89c2651c0c17c0b3af65874b482b245",
+      "mode": "100644",
+      "path": "audio/F001/c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50.wav",
+      "sha256": "09c8c48b14ae37d28afb49ee62844c67a9cf017f299bd7a71d0f0de7395befe1"
+    },
+    {
+      "bytes": 207916,
+      "gitOid": "8438c3f90c4fc98017658419db5685aa2a3191e2",
+      "mode": "100644",
+      "path": "audio/F001/c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9.wav",
+      "sha256": "d84efc501f77733e2b781d2c9a6bc91bbafe3b23860be1ffaa196daceaa2ecf0"
+    },
+    {
+      "bytes": 548908,
+      "gitOid": "2cdba807905389ab80448e0951c2ec5f960a8136",
+      "mode": "100644",
+      "path": "audio/F001/c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53.wav",
+      "sha256": "76386d0c3a49e1edaf5333bb925d48fd7540a0fbb1938f3667d250ce64b084c3"
+    },
+    {
+      "bytes": 47660,
+      "gitOid": "15a3a3ffc1061c25c5f4ef9c745ed4b6e426e038",
+      "mode": "100644",
+      "path": "audio/F001/c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7.wav",
+      "sha256": "c3da6a0416b05112cb6fbba15bf41976b9453ac23252d06918342a635c9c9e65"
+    },
+    {
+      "bytes": 97324,
+      "gitOid": "7a79e762d6221164c77d99e7837b0a2de076fb01",
+      "mode": "100644",
+      "path": "audio/F001/ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae.wav",
+      "sha256": "029e280668cb68c5a34bf1e647dee05309f84e5a6dfbf5587710338841ffa7af"
+    },
+    {
+      "bytes": 1030700,
+      "gitOid": "4fb01ded0f60345fb2dc652d61493142e3175000",
+      "mode": "100644",
+      "path": "audio/F001/cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e.wav",
+      "sha256": "a245f6bbd8317911b95f3cff3a37764c267ad6a9b5e078dba4262cc110d46519"
+    },
+    {
+      "bytes": 25132,
+      "gitOid": "c548c3d8998eee6fb88ab75f18916810e9c114bf",
+      "mode": "100644",
+      "path": "audio/F001/ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e.wav",
+      "sha256": "97f7a4876709b74141a62f8600b05e44373c5feb2002527a1099e43d9570b830"
+    },
+    {
+      "bytes": 132140,
+      "gitOid": "ac1b5f42b74a8ed34c2213e13b75aa956f5f2def",
+      "mode": "100644",
+      "path": "audio/F001/d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726.wav",
+      "sha256": "8e3f8f8b6df73caaaec1491ffacb188944601f6604c49c883e9bb7ce46fd2326"
+    },
+    {
+      "bytes": 79916,
+      "gitOid": "77887aa9da4592f6cbdaa32ef1c5a6ead1a03ef3",
+      "mode": "100644",
+      "path": "audio/F001/dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728.wav",
+      "sha256": "91a824acb11cecf320158d9ee9e59469db83a73677f73a7649dfa30b5c8f337e"
+    },
+    {
+      "bytes": 677420,
+      "gitOid": "501864b221359fc0f6334666dfa7722dcf2f3a6c",
+      "mode": "100644",
+      "path": "audio/F001/dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c.wav",
+      "sha256": "cc72687ddaeb5c15d4323d1cb31782cb4860943516b49eda7670f685f42adc8d"
+    },
+    {
+      "bytes": 835628,
+      "gitOid": "1af09fa0c5222be36f114d4ee8c21a3e3a9dad70",
+      "mode": "100644",
+      "path": "audio/F001/e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7.wav",
+      "sha256": "587df94a7d17ef5351cf484ba86ffaee8cdeecfc604fbffbd28385e84f22a87f"
+    },
+    {
+      "bytes": 256044,
+      "gitOid": "39d217d6546af69f85af530c223c7f7eca21f2a2",
+      "mode": "100644",
+      "path": "audio/F001/e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863.wav",
+      "sha256": "a1027ab29779c107dc32f9fce1d4e98efaf4c9c170ad8ddc4e7523be1c8b216a"
+    },
+    {
+      "bytes": 240172,
+      "gitOid": "bc3b2d9bde8f827da1fb2bcebd4a0a37a9e17cc0",
+      "mode": "100644",
+      "path": "audio/F001/e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566.wav",
+      "sha256": "e3573b21591cb03d241a14eeb59122f27560776564ecb933a997200033d7ab68"
+    },
+    {
+      "bytes": 320044,
+      "gitOid": "6fb8cf69ec5181afbd644c34ad6776034180f273",
+      "mode": "100644",
+      "path": "audio/F001/edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375.wav",
+      "sha256": "ae4e85ab9e99d1249461c212133a907961196339b16bde713b67c0f2a62908d0"
+    },
+    {
+      "bytes": 98860,
+      "gitOid": "cc3be46c0000e5051329f133e8ff337409d4f093",
+      "mode": "100644",
+      "path": "audio/F001/ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79.wav",
+      "sha256": "7f3a81579721612af53769c60266005d8c4d77d5c5e8efd146885a396e84430d"
+    },
+    {
+      "bytes": 403500,
+      "gitOid": "dc1b94d866a66b3342b6f1a8f24268f586c61ce1",
+      "mode": "100644",
+      "path": "audio/F001/f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a.wav",
+      "sha256": "de02aebab5cb36a6ce180ea01a837d3e0c1d270e7f626dbb85d329d1952fd98e"
+    },
+    {
+      "bytes": 1005100,
+      "gitOid": "bc4c7df47fbc68b24a8a41d825cf1a74b9c02992",
+      "mode": "100644",
+      "path": "audio/F001/f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a.wav",
+      "sha256": "8d45683d09c932bec11264a49122dba2ee53d7bfab6047b4d16f9952f16a2061"
+    },
+    {
+      "bytes": 497196,
+      "gitOid": "a11bfe193fc5658b220309f2722f8f556b417961",
+      "mode": "100644",
+      "path": "audio/F001/f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5.wav",
+      "sha256": "0fa0c19543b93f944fdca26251856c7599f48dc55a25af6cb368d1bc6890be32"
+    },
+    {
+      "bytes": 322092,
+      "gitOid": "bb0731b6f5938c792d0bf3f226860991b1ec86b4",
+      "mode": "100644",
+      "path": "audio/F001/fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da.wav",
+      "sha256": "3a07df50ff0f4689c8abf9b0eea5ca74f80ccab97309c7fe1d9d22b059be0c6e"
+    },
+    {
+      "bytes": 549420,
+      "gitOid": "93392b23bd6ee86207feb6b4ecfba1f908c09726",
+      "mode": "100644",
+      "path": "audio/F001/fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2.wav",
+      "sha256": "b6205d24f043fb7ae7db7557d657eea5a88a39f62b1ec6eec1a7bcbce99091f0"
+    },
+    {
+      "bytes": 610860,
+      "gitOid": "de1a4586f081219450fbf26d73d5828b31bcfba6",
+      "mode": "100644",
+      "path": "audio/F002/01c4e64931c192c687a8e13f4bb070e011b043371a8e6b43457c0fc9361bceb9.wav",
+      "sha256": "9e945568e32226c7e0c1033d5b6249c6352cd95fc6103086dce9aaa7d00a98a8"
+    },
+    {
+      "bytes": 247340,
+      "gitOid": "12ffb977b6e1ed69519d2716561c5d0b4677f4f4",
+      "mode": "100644",
+      "path": "audio/F002/032494ac8544bee1b87e187e0d2baec8b3693045686e9108d69602c3d5112aa9.wav",
+      "sha256": "b26bc92f26f71a08a2ec6f3575b70aed20d19fdbdbc70b461047769710cb5c7b"
+    },
+    {
+      "bytes": 668716,
+      "gitOid": "eeacd837dc26db0e91b19f4ee54bf7405a6a42fe",
+      "mode": "100644",
+      "path": "audio/F002/0c3ace80032796da1031c9eedb6f2bd52bfc52048b8ee87f49777de766e47844.wav",
+      "sha256": "27d8175d2ec505f63d55d7cbd629f0005a5d7d8540c8dedc59e33c20b5b94d4e"
+    },
+    {
+      "bytes": 38444,
+      "gitOid": "1eb2e72769edd16b51e9a7845a10c23880e1d744",
+      "mode": "100644",
+      "path": "audio/F002/0d8f257fce99254587ad667d6add0014eaf969ab341d75dec8c21cfd9bcb5ee9.wav",
+      "sha256": "820f5322b562b27df114b2f3b59a9d4a9358ad648941d15c3a0f2d40fce7e96c"
+    },
+    {
+      "bytes": 255020,
+      "gitOid": "b058dfea8eddb0aad2229ccd6d198aede44f396b",
+      "mode": "100644",
+      "path": "audio/F002/124ba4b863c19ac32671f952d70f090057b198c295642e1d8aec7843c77c6e20.wav",
+      "sha256": "ad409f2ec0ffc3277aeed772aa3413344c81f459cf55f499b64933b7994eb71d"
+    },
+    {
+      "bytes": 240172,
+      "gitOid": "52279f1b6919861c1c20867b815dc94d3bed5e49",
+      "mode": "100644",
+      "path": "audio/F002/148a22afce1537b46d5ef93c8cb21b421bc5ba75ab5e9dc50151b52ef1fcc840.wav",
+      "sha256": "1a957954931a8d3109297f3a80a45caa2c0c03ae6c2f1617ba8092a440e12ceb"
+    },
+    {
+      "bytes": 219180,
+      "gitOid": "3c8307eb9425dc409e27f22bbc54d5d4381c483a",
+      "mode": "100644",
+      "path": "audio/F002/16588e793b8ac9570f220a9326d9792dd1863878eca44b659e52d1f5ce5a0d25.wav",
+      "sha256": "fd7a00c04d72b62023d743e3c370a6a010431a1627c9f051c1cf6fc0806d2230"
+    },
+    {
+      "bytes": 230956,
+      "gitOid": "7327489f166045d466bf39410a962c25efcd93a5",
+      "mode": "100644",
+      "path": "audio/F002/1a761ca7dbc8b81edb30a89f795e7998fac7e473feebc220741b9b97cbec4f39.wav",
+      "sha256": "aa5c1b442d47fef019af18936720fc48b09fa048d06c24fa404b06814545d00a"
+    },
+    {
+      "bytes": 54316,
+      "gitOid": "3fa8ab38e7a6b6fd0e1bf5e4b15f66775f71a5b8",
+      "mode": "100644",
+      "path": "audio/F002/1b5c132a02c948059923ef8dea4dee880ea1bcc723e98799813d6ad86f2946cb.wav",
+      "sha256": "5102b97bac707e5909e5d1d4a0ffae72dff0b6b752bf71cacf04cf84718e03e3"
+    },
+    {
+      "bytes": 171052,
+      "gitOid": "3b13b46533f8cce25b11a0002c0309f80d89d3ab",
+      "mode": "100644",
+      "path": "audio/F002/1e9a394e7ec763a7d9a56bd77b9a77b753e33163fa33799ace4c4a970fdf3c51.wav",
+      "sha256": "889c79cef47a4f865f1ceaef543120e075f629ad1b3f2aadc423b675c585521e"
+    },
+    {
+      "bytes": 123948,
+      "gitOid": "680103d2718499907eb0376af3d3b0c6eabf86c7",
+      "mode": "100644",
+      "path": "audio/F002/1fd1336330ce3985369dc9bfc31004eedb476156d487c2ca6c466b7f4b24492a.wav",
+      "sha256": "7a073378c296f1b58a8c3d149c9486dba9ac4e21182ef54f521eb05bc82d5ab0"
+    },
+    {
+      "bytes": 38444,
+      "gitOid": "5215d72d61ed1eac2192eda793da45a3a000481b",
+      "mode": "100644",
+      "path": "audio/F002/21cd8bb995cfbc72d8f7c14c19f5644aecd24242fd413192011466aada76594c.wav",
+      "sha256": "7e627eb1cccec100fa533d441cd848cfd90128ceb73b6cf92ff288e8b9b6af4d"
+    },
+    {
+      "bytes": 1221676,
+      "gitOid": "9b454c5037b0a830fff79b4109fa600663e57568",
+      "mode": "100644",
+      "path": "audio/F002/233e4b6520d6c36c66635daa363c6be030e0f73b106f6822c526d1651c40ad06.wav",
+      "sha256": "3fb793be87cfb52e798f3ffafc1970d63d2837773d944100c77ac9f7504438e1"
+    },
+    {
+      "bytes": 217644,
+      "gitOid": "662d45800e59a0b35cd1fecad3e10e4f605ee238",
+      "mode": "100644",
+      "path": "audio/F002/2715659546de8aa7de2f1fa198d6b81df908c38a6051c36e1c47db3a121f3beb.wav",
+      "sha256": "95d70a148621b9142c1bdad1fc23b95920be8fe83467505f61786eacffacb982"
+    },
+    {
+      "bytes": 186412,
+      "gitOid": "25df416e97ff112e76d7ce498dab624459a2bce3",
+      "mode": "100644",
+      "path": "audio/F002/27839dc7a9d33a44fe72c7d5f71936413aff218a23e2fb82ad92d2851c4acb64.wav",
+      "sha256": "ef67f5076512cc816098cb80f2e5aab8137bae398181782002300efee91841b0"
+    },
+    {
+      "bytes": 102444,
+      "gitOid": "d5c9d07ecf29636dfad98fbbb23346a63d79e5bf",
+      "mode": "100644",
+      "path": "audio/F002/28c638d5b0a2cd5f345d241b626921c8deb36a646d72563b96c9eba87edeebcd.wav",
+      "sha256": "957715af77ead0121f35c39f5afebf2025735e837054bbf1cde3d0b797fab208"
+    },
+    {
+      "bytes": 770604,
+      "gitOid": "8c12510053b14fac948390aa341d50bd345a21c1",
+      "mode": "100644",
+      "path": "audio/F002/2961315ea4636a9a5a4cdbd7163df9172b490a0d266916cf165da35a16ee62a7.wav",
+      "sha256": "1e6aa994187b18a24b7a6c8b03b1c71d6268386fdf58eba128d8deec799272cf"
+    },
+    {
+      "bytes": 922156,
+      "gitOid": "3d69050313bf27a83f2aea0c5793333a7f4eec0c",
+      "mode": "100644",
+      "path": "audio/F002/2aea386752646ccd73abf8fa3569fb5dc90fe33da6a4122a70ac8972803c1217.wav",
+      "sha256": "461911fbdccde07c28a16cfcac791f76210a62951ceceffa355275fce914bb4b"
+    },
+    {
+      "bytes": 279596,
+      "gitOid": "4881c5238fea4a68954e506591d391b7d9a99109",
+      "mode": "100644",
+      "path": "audio/F002/2c731db2c9b26233bacd1e0dd7cd1f7d1bfc6ed76c593db7ca24d0127695f370.wav",
+      "sha256": "e4cc2ef0d5431e941dc19dc64af3f5e9a4dd5276880b4ef925b5785d69d8fa84"
+    },
+    {
+      "bytes": 383532,
+      "gitOid": "2f86ddce75eeae40765977e0dd8077a3d369b240",
+      "mode": "100644",
+      "path": "audio/F002/2d27af444be27ad9e1be2946170cba4fd7698fe39513636363230c7668911347.wav",
+      "sha256": "c95d21bae441df698921e28eaa331003572d1ae379735d17a7dd5f06b0e0a094"
+    },
+    {
+      "bytes": 190508,
+      "gitOid": "cadf2070f1774e1c897561a9f2e966103be41b13",
+      "mode": "100644",
+      "path": "audio/F002/2dff21f8980c1b84c3666572a174aa7e53ceea9e91d9a93d78db4447be2b95a7.wav",
+      "sha256": "d8fededbee68b07ccb4c97537fab67a604bfbb90269f979c6a221288775c4d2b"
+    },
+    {
+      "bytes": 170028,
+      "gitOid": "b8e786ba5c1475fabad681313b8461906f51ae1c",
+      "mode": "100644",
+      "path": "audio/F002/3262c70fd5ef71553d262a308545c2746cb456d8e8aa33d4bcd74f1def6627a6.wav",
+      "sha256": "694223323afbcdde0e20bacbec63d2cc6da047016fc9172b2f4e6b3ecbdc5d65"
+    },
+    {
+      "bytes": 137772,
+      "gitOid": "cefad96e2207bb0afc3541eec2ff72aebc6e2614",
+      "mode": "100644",
+      "path": "audio/F002/34b2ba0580adcc7a5c8e87f4195db03b4f01f8cfc14f71e5a04a421a79bf33ec.wav",
+      "sha256": "78c99a1f2124bfa2111265e58cfaebd8cd9b4d12ef728ede935c3ca7da9e498a"
+    },
+    {
+      "bytes": 574508,
+      "gitOid": "a58bd03a0158f5b740b01b90753db3601b4ae935",
+      "mode": "100644",
+      "path": "audio/F002/374d55964bd5d5d2a5cce6f240592d3ff339d7b832bcca2eab95ebe924aeab15.wav",
+      "sha256": "e5787e234e53e825675d4bea7f6a06800773a400a27d6d263aa8708dececb12e"
+    },
+    {
+      "bytes": 390700,
+      "gitOid": "2ce2cc0ac05f0126fbd2704835abae14f01e587f",
+      "mode": "100644",
+      "path": "audio/F002/391a4bf75c36d187222c1cdbe11ce08b15c3c93af72495105454d746cb3ade1a.wav",
+      "sha256": "bc9b4047b110222d9f9aba97b06b35ec12ed241bfa8a328b51a0b6b52d94f124"
+    },
+    {
+      "bytes": 450604,
+      "gitOid": "884b4bd3a7773ec1bdab40bd926726fc1c29f2be",
+      "mode": "100644",
+      "path": "audio/F002/3a67594390ea9455c40b8d73b88cd91c890be694bc71018d30cfe5b9b140ee1b.wav",
+      "sha256": "5ff52eac8cb66bd7cd63e587bc8987418765eee36153c4a516efba9f91724456"
+    },
+    {
+      "bytes": 247340,
+      "gitOid": "80f0af556d365929af90fe720ad1b7c1b348510b",
+      "mode": "100644",
+      "path": "audio/F002/3d272499ba5434087af405b8d59c6b1b3b5205450bfddde4770ef77fc5771300.wav",
+      "sha256": "24d20d484e786758077b1b8d6dbfc6e2182ec7e50fcfec797ac1a7ff5674f25b"
+    },
+    {
+      "bytes": 157228,
+      "gitOid": "516dbef91126636f3c48ee3d06f1b8303d4374e5",
+      "mode": "100644",
+      "path": "audio/F002/3d6aff3f0027b4ebfc96ee0155ee3d8268aee7b5fe2bd1bec901274b788f3984.wav",
+      "sha256": "8a985203ded28d735fc2c21e89d078338a6f2e69a5424a7f67221cfc8a07b8a5"
+    },
+    {
+      "bytes": 69676,
+      "gitOid": "b051e0df084cf40200e2365decba4d3c752811c8",
+      "mode": "100644",
+      "path": "audio/F002/400f614bd0680bd1fb8cf127ccf5a25298935b917db5465ad05bcab6a10ea4cb.wav",
+      "sha256": "8562bc8f7b702994c53b2d34a2027709a6b9e934be73bb16f0b8e72fdf0b7e42"
+    },
+    {
+      "bytes": 1005612,
+      "gitOid": "048102a62617d34ab6926a4b455b87dd398368eb",
+      "mode": "100644",
+      "path": "audio/F002/45f4dfc3dc48ea31caa02b8068a92ee8b9ba638a31ca368aa5b6cf0b40749271.wav",
+      "sha256": "db1dcf11de9eaf65acf2bc08fdc1c8a2fa1ef04a42c18f30249242731a636024"
+    },
+    {
+      "bytes": 497708,
+      "gitOid": "b6f6038a03c5bf0e8bd3f3239a22af9ba8da8fc4",
+      "mode": "100644",
+      "path": "audio/F002/46adb7efb18c11efe22821a8e0bd2686b77faea228d626c30147dbf3657be3c0.wav",
+      "sha256": "5bea6d0b839adf09f08b175bf121d5e9c0051097f836cea371904c382622a417"
+    },
+    {
+      "bytes": 198188,
+      "gitOid": "9428a8fca857899a488c100711e904ac2ca6a842",
+      "mode": "100644",
+      "path": "audio/F002/478f5594c08a150d02955fbab4af158d1e8ee492f52f23f4ebba9237e2f1a4db.wav",
+      "sha256": "c07ba5ad256cc8a44e97f43eebfb8040b680bfbdc594a6ef34d98c22ae37c32b"
+    },
+    {
+      "bytes": 400940,
+      "gitOid": "24f6584d69806747ea6abff736062648e745bd0b",
+      "mode": "100644",
+      "path": "audio/F002/47afaf1c2486b8c25faeecf99894bb4d0ce62038715399c5d5dfaba9d928de2b.wav",
+      "sha256": "c03c686d4f328ebb0d8057151990fbe89f87193c9ff2ea138d3ce189beeb81e3"
+    },
+    {
+      "bytes": 235564,
+      "gitOid": "4fadf03e3a4c9188879a6a420757db5e3cc2db63",
+      "mode": "100644",
+      "path": "audio/F002/498130d1a3bbac07fc903c6b5bd9afae503f188f947faa1c67812382c7839968.wav",
+      "sha256": "5f17c6597da83bc341f45c16a10e2d0a76e5d971f9be1313f984c4bc5f9bc141"
+    },
+    {
+      "bytes": 203308,
+      "gitOid": "858b3d051484eadbe99719f456ca16c3ae91fc46",
+      "mode": "100644",
+      "path": "audio/F002/49c844880a0fe5ab6f921d6da7ebe4e97cfc9b871db592b945ddddac4a1a766d.wav",
+      "sha256": "1f6aea55972b2bb954c46e7a1ae24f7598e1dc12db65ad4c653f30928592ee79"
+    },
+    {
+      "bytes": 134700,
+      "gitOid": "6c51d5766279fa5cea07b35c405f01b9612d15c3",
+      "mode": "100644",
+      "path": "audio/F002/4d0b6fea1ba687299ec1998ef3134b0ab41d42f832d36bda79c76962d0cf18c4.wav",
+      "sha256": "0078f73c508a89fc525de3a0a8db28d38ad169a983c82cebeed2a12b01407c3a"
+    },
+    {
+      "bytes": 239148,
+      "gitOid": "4717797d4818ee2ab2dba1254635dc8f606c2391",
+      "mode": "100644",
+      "path": "audio/F002/4da502a751d0a7448e97d208b27140659215de3efb0e69db0ccc122737feb17d.wav",
+      "sha256": "871150755bff41af7eb46d7ff2adb13a959287220cc1e273bc839a02d2c6c5b6"
+    },
+    {
+      "bytes": 324652,
+      "gitOid": "8dc21a411c6e5044c95c2a0fea32edc2daf198e6",
+      "mode": "100644",
+      "path": "audio/F002/4fd32d9f64b8177690beeb73e2ca68c9dcc4113772de18b5f67b8d9af9d50d5a.wav",
+      "sha256": "736923efe965109d17381b664892193ae0316a054625620340addb86064ea369"
+    },
+    {
+      "bytes": 194092,
+      "gitOid": "95d6bbb2225514a57d2ca5491e4134f857f78948",
+      "mode": "100644",
+      "path": "audio/F002/5059bdfd7c71954c2349772ce27ae2c8494826958b773e28fc512c7d2778f6e1.wav",
+      "sha256": "2179e9cecd18607ff77c7687dec13d6ff34297ef58057872bff97ab965e8ec71"
+    },
+    {
+      "bytes": 102444,
+      "gitOid": "2ddb2cb37502c6b876ed33af07400061af51d2c6",
+      "mode": "100644",
+      "path": "audio/F002/52a241aecb457bd30f2c9867eb00414aefee7ad310b5ddf67621d751d95c74ff.wav",
+      "sha256": "90b5bccdff4b9ae3fef88cd04d9dfa66ff426166ca4c2d100b4c044cc754c4d4"
+    },
+    {
+      "bytes": 88108,
+      "gitOid": "f61093266ca94283606b5469cff22497345b2080",
+      "mode": "100644",
+      "path": "audio/F002/5334dfa42752f4ed4f936f1f775676df29789b273f498ae215b5b1729e7670be.wav",
+      "sha256": "ed05f211a814cd2042739c3633698afb1a00942f9ee20b01a2f6fca06cea0754"
+    },
+    {
+      "bytes": 1115180,
+      "gitOid": "a54a75da9067478f02ecea90d638ba18ae81116e",
+      "mode": "100644",
+      "path": "audio/F002/56b6c55daa0f39aff2a9c45735470a93b154ffba993b59ad5d2ad567e88f7f06.wav",
+      "sha256": "1eb7ceb1dfeb40e48b98198f39a677b79138f6bcbb554028c4e3acdbd40b509e"
+    },
+    {
+      "bytes": 259628,
+      "gitOid": "fe2025f23f9c9524e8be510b00094385764ccc54",
+      "mode": "100644",
+      "path": "audio/F002/5b34a37203f2695904222b380cedf51abbb87de4e30cc904593c87d1db665ab4.wav",
+      "sha256": "ad2fac60699c3ab2a0278d0f447ef636ac97be6f7a50394517334c743133d597"
+    },
+    {
+      "bytes": 247852,
+      "gitOid": "a9a629f42ea2d75bc6e13490531655f282d0dc37",
+      "mode": "100644",
+      "path": "audio/F002/5c10cba8f7661d8eed0d02c489c357466f9569ff87e143a1ba7f459a6e60d68b.wav",
+      "sha256": "1c15be5fc1f0b09c2582848da63f1175798e32ea83244a89e3c61d929891621f"
+    },
+    {
+      "bytes": 195116,
+      "gitOid": "7e00dd8840f78e1576b35abd53f6f4c934a3ca0a",
+      "mode": "100644",
+      "path": "audio/F002/5ff3d733f6f6e57161a922b9db1394b5ac92c82055f5314c5d2a9b943f4bfbf7.wav",
+      "sha256": "cf83019e3542b9164001a316e63972d0ecedd0fef4bce67d7a6d6d988ae15f31"
+    },
+    {
+      "bytes": 527916,
+      "gitOid": "4b5d2225650e9a53cc945fdcf09a5de8399bee76",
+      "mode": "100644",
+      "path": "audio/F002/60430eab510988425d2b02b98de9f804a18ec25f52054203271915e16a830841.wav",
+      "sha256": "b3b0d28e18f945c254e9988d6d9428d168d7226ce64330145feb45c306db4459"
+    },
+    {
+      "bytes": 410156,
+      "gitOid": "78e2f8ab0be66e4523e9b1e9263dcbc94fa5eb77",
+      "mode": "100644",
+      "path": "audio/F002/642e2fb5b2c4f91b49ece84d685d0b04b3b76afe163a0b7f4dca6733a1e99ce7.wav",
+      "sha256": "d4061992a690f800fbe4fdadae52a4720e06206a5b4f0b3d535ea6063c5dbd9b"
+    },
+    {
+      "bytes": 282156,
+      "gitOid": "65390b5f1371eeedff27531ec81e0bd335cdffcf",
+      "mode": "100644",
+      "path": "audio/F002/64da9d3936284bc0a1fec8c996b7e0c938d3bf6c4e9b7fab6eadfda1fc3db045.wav",
+      "sha256": "ffb66182f97a1b20e9e1c41a52d0f4ce0b873651514bc39bd6dde8a8fe96a442"
+    },
+    {
+      "bytes": 316972,
+      "gitOid": "cb762a4cc42fc43198d025cffab4875738faf157",
+      "mode": "100644",
+      "path": "audio/F002/658d820dd77b9eb06011ed92fc9a5129fdc6671ff7e1aea9bcb19052a9adbff1.wav",
+      "sha256": "21f3cd2069980883e0941932137a47407c258690cbfa4d7fcea39caa922d83f9"
+    },
+    {
+      "bytes": 154156,
+      "gitOid": "56f6522191c694cec116167f5a5a0d4f92325cc7",
+      "mode": "100644",
+      "path": "audio/F002/65b829f22495b32b2a068599db86ee09d348705127ebe182decb73d0c211dca0.wav",
+      "sha256": "efe44f845d95a5d7c8f4215e7678a8e6c4ab051ae275cab57efa5ca182157c6f"
+    },
+    {
+      "bytes": 108076,
+      "gitOid": "32daa439d80fee17f9c9e0f20c221a989b39f0a5",
+      "mode": "100644",
+      "path": "audio/F002/69399fa812d7c65f848522d556a7a464eddd1de7a41784da340c23986fdb0d25.wav",
+      "sha256": "eb2b02c725fa2d9028d02d221d008670bc3b336f61f66389a72f1b1901ed89bd"
+    },
+    {
+      "bytes": 327724,
+      "gitOid": "e01aed0c0030b0dc0b9c7e21d421e7dac4fed191",
+      "mode": "100644",
+      "path": "audio/F002/6a4133840b50ec88aa28a4a50f06771c571e08bf35172ed071b165a142ee1378.wav",
+      "sha256": "c9453f5a59150b545f3757b2cf0d07ce3554f053824f85038e7846b56b89886b"
+    },
+    {
+      "bytes": 220716,
+      "gitOid": "6ff97dcf84d33ae34fbd338b8bdbaf704cbf68c9",
+      "mode": "100644",
+      "path": "audio/F002/6c50d3404a7585962a22246c7be28d776c2832feb9d0a3a46a32886f16752557.wav",
+      "sha256": "e24722f7feb2a89a82e96aae2705ab570fe6a368aa7e20abf04a73723e862f04"
+    },
+    {
+      "bytes": 612396,
+      "gitOid": "9fe26aa568d1d7a99ae585562a14d45882e6822d",
+      "mode": "100644",
+      "path": "audio/F002/6cc8ca128315a707aa92439367ee232001c2bc4c646e48a2605a1dbc3d080efd.wav",
+      "sha256": "d35cc395680f657951acc71f4fe0a7038b431cfa7776c3f1005a1d23eac265c2"
+    },
+    {
+      "bytes": 235052,
+      "gitOid": "e6efbeb092b0317009feb64145cbde1df79914e6",
+      "mode": "100644",
+      "path": "audio/F002/6cdcedae5a779931d669dd62539e3958601147dac46b21901c720dbe8735d899.wav",
+      "sha256": "6b0809cb2a8b8d31047b7fd5091a88832321d835d75d0506bb5f49dd78da827f"
+    },
+    {
+      "bytes": 201772,
+      "gitOid": "9ade47d12899059b724bcc0052c46c81bb41a3df",
+      "mode": "100644",
+      "path": "audio/F002/6dc132efde62e2cbed3cb6b0ecba3bfd9ed220ac593857cbf035da05a3384101.wav",
+      "sha256": "db6a3718a9e448e4116b45aefb6caf115454dae20040493a99302401ce9c9e3f"
+    },
+    {
+      "bytes": 86060,
+      "gitOid": "002b33455de977429ad7991e00317e8f2a84286a",
+      "mode": "100644",
+      "path": "audio/F002/6dfb6ffd150ab7cb73f9b92617dc8bb095b38c8731d3642d0abad0e94b1695b4.wav",
+      "sha256": "af0d395c25b297df6399cf3f2fc0b3e225a3bf3af7425eb6ec68fbdb61d33992"
+    },
+    {
+      "bytes": 312876,
+      "gitOid": "b8b3d7c6efeb179654db37e686c5001a40af111c",
+      "mode": "100644",
+      "path": "audio/F002/701416c0c5518b272b7a01dadf7761bc3aef3d7572f81497e417646f2f6db925.wav",
+      "sha256": "f950d6aa44ccdd770d1f1360756bfe4ca752a7e45897b7e7fdf1196a6bed1d4e"
+    },
+    {
+      "bytes": 79916,
+      "gitOid": "bc72a714f8977175bc217da02dcaa937dda7bdf5",
+      "mode": "100644",
+      "path": "audio/F002/704371c5b06a4cd7acfaf9a6df33fe20d02623c21136467222bca00f3c753637.wav",
+      "sha256": "7fdab45dd03e09223ee985057aa4d2e8d143491845df5a7cc01c6bac791e98f4"
+    },
+    {
+      "bytes": 137772,
+      "gitOid": "3e67df2d397b26ffd87d37866d2b438b53fd2641",
+      "mode": "100644",
+      "path": "audio/F002/7077d20678cca10a2939d9a291a8dd1d6816d1e16e8407fce58068f0fe861e6a.wav",
+      "sha256": "9b3383e16a76fdf0a0c5ee4518aa69529a7dae431aa05074e289016d8203df6d"
+    },
+    {
+      "bytes": 579116,
+      "gitOid": "304f21d3c1b421bd920adfe294a7a5697b01a1fe",
+      "mode": "100644",
+      "path": "audio/F002/72c36480c959c3d3c7252e8ea6035310dcbe938ba99f2097e0f9f38ce0ec760a.wav",
+      "sha256": "94439e042901dc8bd5f706c6d0f56f689b5aab41b8e1ae636fb1231b79280f7e"
+    },
+    {
+      "bytes": 242732,
+      "gitOid": "ea4b235e0f7ae5b0011ec1de748e6dfeba83ac8b",
+      "mode": "100644",
+      "path": "audio/F002/758d8e0996af7b4ea4e71e53f8401e017a65882504702ac98d3f4c618029c054.wav",
+      "sha256": "638a4a75109ff4ad2840faf6e72059a1a44b596693cfcfe8ee5dc5396e7727ab"
+    },
+    {
+      "bytes": 697900,
+      "gitOid": "b275325fbdd054935633322fcd1889a6553bf55e",
+      "mode": "100644",
+      "path": "audio/F002/759be9dcbe497e575b91db6f2d015c7afa4a6a81d5db406ac58cae6b07fd72c1.wav",
+      "sha256": "1be808ab71abfe90a974d627c56771b88046e532c4a9c8a9b82bf548f38df70a"
+    },
+    {
+      "bytes": 197164,
+      "gitOid": "d38d0dbbc8a1bb29d52ea4aeb62419d4cd7b68a9",
+      "mode": "100644",
+      "path": "audio/F002/75c47854751324870d5f453faca3602fff5245a5a8debd1e7a41993c3676c0ce.wav",
+      "sha256": "32f98c51ff6b2ee3ba228599d9dc09189f6b614a9963c8ba294e0466b2cd5ef4"
+    },
+    {
+      "bytes": 32300,
+      "gitOid": "d8c62d7364bd96245ff55ef15e0823ab565e6d64",
+      "mode": "100644",
+      "path": "audio/F002/766f0e0a9b73407ea23d1f9755111fce1b3016e6b52ea49b5b721cfd2dbdf3b8.wav",
+      "sha256": "50f594daf31312eb5ea4f56e98187dc70a05e8eeba7d03a092efc977f6b0bbb8"
+    },
+    {
+      "bytes": 485420,
+      "gitOid": "a70b8fce9b4ee79e2cc8715fc78082168a88d363",
+      "mode": "100644",
+      "path": "audio/F002/787c55a44b30eb561d220fc667d4395cf96b1cff601761544d33be6e31d997a9.wav",
+      "sha256": "fd59d4824c99b56c2f5fb1fcbf4c15d3e59436781884e54cd59a0d4fefbe751d"
+    },
+    {
+      "bytes": 356396,
+      "gitOid": "531d60a99518fc7ce3dfee13b902dd9c5c787064",
+      "mode": "100644",
+      "path": "audio/F002/7cd4b492f29c14fe47f9b8ea8809f6ff76e99bef0b3a2b7f4a63500163f87909.wav",
+      "sha256": "7471baae6bc3fe37e738f9ad9370a373ac1f7a3138da871da30ac1098744138c"
+    },
+    {
+      "bytes": 29228,
+      "gitOid": "e74077970f65e2f099ade060b0d4aa0c79003b9b",
+      "mode": "100644",
+      "path": "audio/F002/81a9a61413a6bb7ba9f59534d01e8cb2c1369a19f1449d13855c26b64682348b.wav",
+      "sha256": "98492a22acc276528a67c1b7480acb817d5ffe3baa90cbd3b122557e4411aaa3"
+    },
+    {
+      "bytes": 580652,
+      "gitOid": "7ff5276a07e86e7b831a35aed49fb5b7db53a4c5",
+      "mode": "100644",
+      "path": "audio/F002/8628f2e380e9084e4ca6be11a5f11ea9277757bd679d30a9704e3b94c6314ad8.wav",
+      "sha256": "4a65727e86883f5d0bf7ecc0ed8e6f3f5f1c38fb6e1542740159a4c1cb979b64"
+    },
+    {
+      "bytes": 339500,
+      "gitOid": "30bb8acd2688212bf4973dbe38cb070e58da18fc",
+      "mode": "100644",
+      "path": "audio/F002/876cfb52850f48b5e889cbb845b7cf867759d70af1e063b551af719d2afd39d6.wav",
+      "sha256": "03c4abbae8806d930c63445e5f2f151bcfcd232b4de1612ad93fc510fb2122dc"
+    },
+    {
+      "bytes": 255532,
+      "gitOid": "1f6a68ffd91c7c919a69da95046d2b396959a8e7",
+      "mode": "100644",
+      "path": "audio/F002/8acded2b1898776584c70d41b6b5c8dd5c71ec17d5e24d6ab5236e1004bbb6ad.wav",
+      "sha256": "4c553ece2ae53f51d8a609c6c42350fbe78b2555455a24aeed1a38ddf9863032"
+    },
+    {
+      "bytes": 1222700,
+      "gitOid": "009dcf1465597dbc6aa39eb1e12e379599e7d914",
+      "mode": "100644",
+      "path": "audio/F002/8b3aac5be36e1f0276643001cdd2bbf9cd90a7e96c61b1b155e99dc9219ff90f.wav",
+      "sha256": "81d7dad4b6001f5669a38724bc53504e48c7ce5d22442588cef5d3d6bfada9cc"
+    },
+    {
+      "bytes": 352812,
+      "gitOid": "12f9f84bb8f1ef904d4d5c48d0fd73c2a2c9c754",
+      "mode": "100644",
+      "path": "audio/F002/8b3b6fbc651f00940fb288c738b5155e68d454b7cd71c07835d670779aff217a.wav",
+      "sha256": "c7aebdaaab1ec19c1a8bb6b37fd8f6a006f6edf13baf8414f9cabb5faf3de4e8"
+    },
+    {
+      "bytes": 255532,
+      "gitOid": "01958cc6143695368edcbf89ca24b1c2da3e6269",
+      "mode": "100644",
+      "path": "audio/F002/8fc9c5999efe731fe45ee1b735493b28dc66225f7702657f8634c7d83d31a380.wav",
+      "sha256": "8df3925708ec44fd4731ccf633eb6a134f10f2a86bc897775d13dff8a7530141"
+    },
+    {
+      "bytes": 471596,
+      "gitOid": "87a4583a70af3ae026dba9c1d8581429a40308c6",
+      "mode": "100644",
+      "path": "audio/F002/91e210eb8708f9e8c03384d2b012a7829ad92dc6c0477fdf05abde8a8900f3ef.wav",
+      "sha256": "224db83de5f187192fd1ba38f27c15e28258812c2c9e943468910dd5b0c11615"
+    },
+    {
+      "bytes": 164908,
+      "gitOid": "f4a04fe6c0f033a91721742e21cd36c67f8ea3c8",
+      "mode": "100644",
+      "path": "audio/F002/92474f047a8c567b582630d1601aea3a193e34a991f32f3e6ece75822934911e.wav",
+      "sha256": "09d5aa11c6f03d0e592c5166a32131925feb6556982bf17374d0f1a0c9b4960e"
+    },
+    {
+      "bytes": 275500,
+      "gitOid": "8f44d63ef97605ae76f71865c47c6e22e84da4c0",
+      "mode": "100644",
+      "path": "audio/F002/948ce15df1d33f2a43a603c241754dcec0bd15631dd0098273474e2e73ce9c50.wav",
+      "sha256": "203ea0b3ef6a733f20816549b8bc5cf59ca88c7aabe455581349d2bd73d67952"
+    },
+    {
+      "bytes": 161324,
+      "gitOid": "bfbec784df753f31c4f730736c15f62ddee71f03",
+      "mode": "100644",
+      "path": "audio/F002/985ef09279e2177ab943a8d7caa3942b951724bbc2d1f624a794d652a822ea8b.wav",
+      "sha256": "1a09c28463aff8a9b247eec221391dee82a897841f86bca39ba0154805f77a65"
+    },
+    {
+      "bytes": 439340,
+      "gitOid": "0a91128e4fda237ddfb215585695ee64679e0e51",
+      "mode": "100644",
+      "path": "audio/F002/9c09f2be989dc12cd0e096ad750c446b987a4cf0314d375601dcb80ed8f83449.wav",
+      "sha256": "bb9a5a1a0c3dc9414beaab7dc428862da49dcd020aa62a9d768d7662d3e1079e"
+    },
+    {
+      "bytes": 141868,
+      "gitOid": "9ab46e3e3a1c74c6335f4b354b3c0c0d5dde84cb",
+      "mode": "100644",
+      "path": "audio/F002/9c5eabdf36f67b614200816e565c040019d2a66bfb6843508458efffc3b4a6eb.wav",
+      "sha256": "c46229ce87ff6ba6930452db55b7ad372bc427a44cf7ed51b65a42e8afaeb8bd"
+    },
+    {
+      "bytes": 416812,
+      "gitOid": "6b26b6fdddc7643e635aab401b2be0f6bab3eadc",
+      "mode": "100644",
+      "path": "audio/F002/9db142e1bcc3eebcdadd88d93da1a06d198eba88232f1fb1c8d5e13c0addd7d9.wav",
+      "sha256": "bb466120960dc5c7632a98685a12ff462c7de4e59a6a102c8582ce1a2e8a21db"
+    },
+    {
+      "bytes": 469036,
+      "gitOid": "7605b50c2042f10d2992ee152270ca72c6778835",
+      "mode": "100644",
+      "path": "audio/F002/9dca93e8f8231bfeba586c66f96f940b570815993f89b0c023f5c459426e2a5b.wav",
+      "sha256": "5d6b675e96fb5f9769f19d7f1b748e198d078bb7e8c30faec80141f811b3db1d"
+    },
+    {
+      "bytes": 342572,
+      "gitOid": "a328db9d49a2ad684230fd405875e01088d6b3ab",
+      "mode": "100644",
+      "path": "audio/F002/a0ad261afbff96a115bb08db379c88d0595da8bbe81c7133e967d6efb09eef30.wav",
+      "sha256": "cc3904bad446428d5dbf27426840f863046601413e7e74800b803fcccb97c882"
+    },
+    {
+      "bytes": 1293868,
+      "gitOid": "97b1da68a375a09f99a9f60b3ea353f2e051d42e",
+      "mode": "100644",
+      "path": "audio/F002/a592d76f799f71fa4d359f7f36ecd662e892fd1b7f803783d9d64a42b66985c4.wav",
+      "sha256": "da1e6fc889de2be1b9ba044b6f54c86cf741c955e26d803286d53ca5c21f8c48"
+    },
+    {
+      "bytes": 219692,
+      "gitOid": "427357c8aca5af7fbdcff7e3a9505d63f7ca9d56",
+      "mode": "100644",
+      "path": "audio/F002/a82a8930de4cd0a77ed7b7bbd3d8b86b3b5550c967520477933b8f3346526e2d.wav",
+      "sha256": "4f1ddd386e2c55efad7d0fb64a7acaa9143e86b2ace8b446a7ff367f5d9906b1"
+    },
+    {
+      "bytes": 256556,
+      "gitOid": "235a130c379bdd1c874991c36039233abf06a9c8",
+      "mode": "100644",
+      "path": "audio/F002/aa645862157075f671fcf7f8cd3b4d748b125bcc0699566bb9a1c14ae3026bef.wav",
+      "sha256": "8ab3528b1227f6e162fe9c9e98c1b9e0b54b9f9092fc3d0bccc2174aff0301a5"
+    },
+    {
+      "bytes": 239660,
+      "gitOid": "35e8a02fb442df30500d0014a6216571bdaa8e2a",
+      "mode": "100644",
+      "path": "audio/F002/aab0956ba89f0c92713167b0a4f40465a10042bed5499b569533d2448ff073bf.wav",
+      "sha256": "0982fc3c61e8b8309c267a9f1dd7451c5a905aae75925212a7097226ca164474"
+    },
+    {
+      "bytes": 302124,
+      "gitOid": "b69768ef580d9a5c99002f498ad98e1f13e2e93e",
+      "mode": "100644",
+      "path": "audio/F002/aad8627460663fc9d642545389256e54ee6e1c267fb21a7d5035c1eac7f7bd8d.wav",
+      "sha256": "df8e56afe2dab3d5c59b96628d339ef318706a7ab62bbb7535e95dbe9121ec1a"
+    },
+    {
+      "bytes": 269868,
+      "gitOid": "e3fbc961a4a5154b90c63a7e128708130656f070",
+      "mode": "100644",
+      "path": "audio/F002/ac81454d2840a28a873e6b0144b6e7f0c3a959fc2e1937af14eed1a6d5b82a22.wav",
+      "sha256": "ef3a1b46309c0fdc563c21216ca83b54729cf9179e7369dd3a5c9e4197dc5d8e"
+    },
+    {
+      "bytes": 399916,
+      "gitOid": "a21d97ff0a85925737883f8bb68c00c25de26043",
+      "mode": "100644",
+      "path": "audio/F002/ad1ad00a1d56c1c44b506520a4dfb69de22615e3d9b76a5b52b8b66f3dbbec75.wav",
+      "sha256": "8353ae84d2a763c97e19cde75f3f47538ee76de2e519a65ee24c412becbb93bc"
+    },
+    {
+      "bytes": 237100,
+      "gitOid": "7071c22c717d075740d56a3244890b6d9feea341",
+      "mode": "100644",
+      "path": "audio/F002/b495d2920766f671da32b93f7bd933b7ec65e81a6507e8356e369109fd5daf9f.wav",
+      "sha256": "d9f2996618881beac61703166da8b1ca540e701eb30a61244b1651b0b667db4e"
+    },
+    {
+      "bytes": 65068,
+      "gitOid": "b7f4f5b994673ac93d1591cc46e030907de7a2a7",
+      "mode": "100644",
+      "path": "audio/F002/b58f1f37db83aaa1f7e94eb9de3be83b1c6f775a56dc5e1828ccafebd4c961e1.wav",
+      "sha256": "0147e38b8c0259e82c9f01cf73c39415afd9b81d4033eb3d2da393fa102afe54"
+    },
+    {
+      "bytes": 207916,
+      "gitOid": "44c8895fe6afd0f3ab88a5440ba5d4ffa6b8e884",
+      "mode": "100644",
+      "path": "audio/F002/b598e3c6b7d450ba4854e488fc6a2d137366855ba0cb774e1ba3a4ed5e3236aa.wav",
+      "sha256": "50d8214293645ea91c0d1e84ee01aa55661d5a061060fc94796c518c6b9f477c"
+    },
+    {
+      "bytes": 95788,
+      "gitOid": "b896296c0898b49261c12f5f3039890d636bb58f",
+      "mode": "100644",
+      "path": "audio/F002/b66eeac590a082ce256760d2a9cce2d1ca9073f4fbd565f56c306ace8c34d877.wav",
+      "sha256": "e7b6132d79c0c11ef3733a87191dcb7fab6df9747e247b44a0d1946ed263b41b"
+    },
+    {
+      "bytes": 306220,
+      "gitOid": "bfb2db16ac460f58fe3387d2de23281cfc2508bf",
+      "mode": "100644",
+      "path": "audio/F002/b723f85a2464c9d74aaabc16e95227685f6dc8e7b4c6c12aa76993e47890daee.wav",
+      "sha256": "fde2e9737224ead80e6b96caa170f6ea6eb39828435c8c6a9a2b9e323269d087"
+    },
+    {
+      "bytes": 369196,
+      "gitOid": "dfa5a10c9a37cc1579cb8f66e47e25d041beaf81",
+      "mode": "100644",
+      "path": "audio/F002/b913f03294002cfc100b4353210efe92cc7a7a39d0c057dbe654a2dbbb08f8bf.wav",
+      "sha256": "fb15e620a1692438535ce11f313120897d0d091d469f726cdb5c7f2cf1941cfa"
+    },
+    {
+      "bytes": 77356,
+      "gitOid": "9e2f2aa24ab63737aecdf9a90c4a90296a059d3a",
+      "mode": "100644",
+      "path": "audio/F002/b97f0a96916f0cb9806c4e3cae3d83c7618dfc56d9a221d748a033c2216f4594.wav",
+      "sha256": "e2ff5c5649fb24d60755337ebd501fa857a75d58cf7a77e080c732b7121a602c"
+    },
+    {
+      "bytes": 108588,
+      "gitOid": "2df0dd89d8d764ed4f683c5376dadd3a09faba31",
+      "mode": "100644",
+      "path": "audio/F002/b9b752f609ce31f29962d23ea5271d04804f97530e1c30cf48bbdb8bfb18b203.wav",
+      "sha256": "fb167394c50f08fc5beca94db25031939c24c4f1705b613cad7e9e8601887541"
+    },
+    {
+      "bytes": 283692,
+      "gitOid": "279dc935b5c45cd1a254f72b9320c88eed2d56f4",
+      "mode": "100644",
+      "path": "audio/F002/ba0258edf2ea3aa71da48538569c4c6e2915c51c91e176e5c050196e75b370da.wav",
+      "sha256": "b6df8349c77b11cef8f129fdaa8f804201b71777781841e01ed10fdf06c061ca"
+    },
+    {
+      "bytes": 289836,
+      "gitOid": "09a8bc48ba928541c600a6d8783da4e743b29645",
+      "mode": "100644",
+      "path": "audio/F002/bb5d154c8dcf58641d6d7382925f172c674fefa359d2a85d621566c99831e1e0.wav",
+      "sha256": "d65e33084032a16c6a33361f8ca3ccd1fe3cc27fb393ff395c1302d10fd9cba2"
+    },
+    {
+      "bytes": 567340,
+      "gitOid": "18a40cdf50215a2158ef0be3d5e31de7e7075638",
+      "mode": "100644",
+      "path": "audio/F002/bbcf44b47860823118d46a512b9869f218cb0d7b7e515a374197b9b721b2a07f.wav",
+      "sha256": "dc9e2e8939c894cadbb306fce07dc5e51458222656b8236f198c3f60180eb51d"
+    },
+    {
+      "bytes": 105004,
+      "gitOid": "dfd7bd759d0d76ed0c51f1c9ed09cb9563467e2c",
+      "mode": "100644",
+      "path": "audio/F002/bc1091f40466168fb5c0985eeae77ef0b60f491dc83b3ec76c3797a2209d25c2.wav",
+      "sha256": "b5c3bacf73316d5cd794976f245f952b2476955f156cea35774fd227a56fba93"
+    },
+    {
+      "bytes": 101420,
+      "gitOid": "d7fa1a2b0d9932cd9d5ee927d4367e5a53e16c76",
+      "mode": "100644",
+      "path": "audio/F002/bc8c3714973a217795ace06729ccd5a8bc7b28f2ed84c49d778103ca641949a0.wav",
+      "sha256": "34b7683d3c9417432600ad1eee3a9985c28f894f7bf7068e7c636951d4d5d711"
+    },
+    {
+      "bytes": 73772,
+      "gitOid": "237d8cd310eee9e6e5c51054c55cc085417d1f3c",
+      "mode": "100644",
+      "path": "audio/F002/bc8f3743fbc8fa16dbcbcf3ade039911941570ab81fd07c0dd92e930d8583bb5.wav",
+      "sha256": "b401c482411723e30da6575bdc4da7ba9a921e76df7c7c9decf287fc5a723e9f"
+    },
+    {
+      "bytes": 212012,
+      "gitOid": "2320ede6d7413b290a0b2fec27423e73c382c69f",
+      "mode": "100644",
+      "path": "audio/F002/be6427222f7745730faae3c596e549389b98d1605b4d1d1febc85c0e419ff2ca.wav",
+      "sha256": "f2b7db2d518f4b1b27925ca59d81171a0432e17ab98d186ed5fcf2d23d641e72"
+    },
+    {
+      "bytes": 216108,
+      "gitOid": "9bb7bbe38358c3fcfddd28e41a72ef12bd145590",
+      "mode": "100644",
+      "path": "audio/F002/be7dac45b8307e17f30c1b54450e8ad1c690ad941edebef38992fbffbda3e84c.wav",
+      "sha256": "d9a33b4b0ad29e602a51d34de42e624e5e097bd3edfdfd86337f3cafbbb98f13"
+    },
+    {
+      "bytes": 219692,
+      "gitOid": "2b3e8acc55055886af6b4270e43272dd0b62e278",
+      "mode": "100644",
+      "path": "audio/F002/bf3c5f199e8de3cf502a5a66fdbce17aa455d769e57beb98b408fdb20268aa2e.wav",
+      "sha256": "be388bc7e63cbfb777881cf48db25d5d63eb9d912185ebc47ccbe3e18502490d"
+    },
+    {
+      "bytes": 128044,
+      "gitOid": "7269fe1649c21e5842dc15eea3f6cca858fa1b70",
+      "mode": "100644",
+      "path": "audio/F002/c1e2b01cfda1d83e770a37cee6f3e1640235166e9f8d38bf0c084e38a3807c12.wav",
+      "sha256": "2f1b16c79e6fadd1cccc8055dc9317cf2d6f5921f1b6b4f30922457a490ada1c"
+    },
+    {
+      "bytes": 448044,
+      "gitOid": "7f5b7770cf3963b797b41201c6a8fce00705555c",
+      "mode": "100644",
+      "path": "audio/F002/c47f8cbfabb72c2cfb7a11d90c82c9ec7e30f7de92a995ea0d0293a9d3a13bd0.wav",
+      "sha256": "0ab610b55fc1515747460a43a504a586396d2e735440e0e655f49eb993ac5e25"
+    },
+    {
+      "bytes": 173612,
+      "gitOid": "f9e41baaa0c715c4f87df17f7902d61f0a5f1d50",
+      "mode": "100644",
+      "path": "audio/F002/c5742591e0ce53e5cd869373ea8079968bd8c6a58530ccb15c95fc76f3fa6350.wav",
+      "sha256": "9baccf96391b591a2fe77be1645b7ccd5209fa97ecce8ac1544c7ca5a7795739"
+    },
+    {
+      "bytes": 224812,
+      "gitOid": "a67a3bbec32175e5b970a73d15ddb835e46030bc",
+      "mode": "100644",
+      "path": "audio/F002/c6462210868933d80b99d448d9ec6c085b3e1af1cff9ed4e505b6d158b5b20be.wav",
+      "sha256": "4ba9ec782be6295ff9d523fac9caf759a1ad97722b0b3531784995411ba4d627"
+    },
+    {
+      "bytes": 436268,
+      "gitOid": "61ddd15fe3db4a713cc92d9efd71015e81c5887f",
+      "mode": "100644",
+      "path": "audio/F002/c6f78e8660531715f4b4deffc6203683af4b6730453ccca54548c52c990e37a4.wav",
+      "sha256": "ddee6b4854b87caea3c39041c28bdafbc2d98f6d68e11ee1b1bfee1c90b80b51"
+    },
+    {
+      "bytes": 821804,
+      "gitOid": "433097f78162552e777d2364379967c01c23ef73",
+      "mode": "100644",
+      "path": "audio/F002/caac40b4c4c6dc09dd435d1bff34eaeb063ec9933d99f870966f54fcc1885af7.wav",
+      "sha256": "145d51d592787bc3f41e6be78c0f6740d6e2a6f78c74329455caac8d0dec6290"
+    },
+    {
+      "bytes": 582700,
+      "gitOid": "3c8fa3a09f35642b51f97570bd7b3c9d5903b2e3",
+      "mode": "100644",
+      "path": "audio/F002/cada24859b1f94a0852ba8bee2436c7947f78d1ebb3f6407377fea5a51a4bd5f.wav",
+      "sha256": "04cfc456d19157f6405ac345fcdeb86a1a31fa4de07e44979f55dc8df8b891e0"
+    },
+    {
+      "bytes": 190508,
+      "gitOid": "cb166fe9dc4d573da635258d5e95e906d9a318e2",
+      "mode": "100644",
+      "path": "audio/F002/cccbf75f1137cea8040d41dcb855cb9556fdfac120c9e892104527af6b3118fb.wav",
+      "sha256": "b6c8c9841c65b08ba34fa067df73251cf82d8db132d2c84ecf280a8a2048b7a2"
+    },
+    {
+      "bytes": 244268,
+      "gitOid": "6aa28b005c3d7659787ee5b1f5611b0c88143339",
+      "mode": "100644",
+      "path": "audio/F002/cd260557f724831710a25a8526b1ff76e693b8282695bbd6b60087b70438bf2c.wav",
+      "sha256": "f4a9230cdd960806d43ecb243de72170ce713b8b667d972176b8a31b99950ba4"
+    },
+    {
+      "bytes": 743980,
+      "gitOid": "292a3ef84ea61d886183f4d6671437bfbdce08c2",
+      "mode": "100644",
+      "path": "audio/F002/ceb7b56fc0dc13bb7150e68e96545904868283bea005e7fc0a69ed7aefff6d91.wav",
+      "sha256": "91cfff7d2dbfb4dafd3e7052bfc9f7055f2fc27bf99c51230eb381be521512cb"
+    },
+    {
+      "bytes": 668204,
+      "gitOid": "4579c75d583150db755aae8e6eb1645d02352b18",
+      "mode": "100644",
+      "path": "audio/F002/d03d8aaf34c3b237c67564e0cae8705aedab22c4dfbc2338c5f3d73f47f98ddb.wav",
+      "sha256": "87da8cfefda9041223603c49a7d2371f26bbcdc4f1a03e2124cb596dcd601cdd"
+    },
+    {
+      "bytes": 116780,
+      "gitOid": "ba19ac838dacd5b288aa21505dabab6021d7afc3",
+      "mode": "100644",
+      "path": "audio/F002/d0e1be5f93c165f8e40c465c4492b21816cd2a034c57d580cea1e083b5574fda.wav",
+      "sha256": "c2a23249a1c5808f41a6c3c8f34be4fa563fc7797da8fd1e0ffe7469787cc9a3"
+    },
+    {
+      "bytes": 142380,
+      "gitOid": "3b7ddd0416df711d19915988c04b0831cb43412d",
+      "mode": "100644",
+      "path": "audio/F002/d2c3cfc3388128fd02536c7b43b6d1d0ddf6a8f3267a53a7a2bd915587994144.wav",
+      "sha256": "114d18dcb7323de72c9f36ae4ee8856f7b479c03dafb575977ffcef0af5d6811"
+    },
+    {
+      "bytes": 430636,
+      "gitOid": "4e2540ae3c13c8111052325b8a39d529457a1779",
+      "mode": "100644",
+      "path": "audio/F002/d776e7bf24da11f3ccaa92f7b39f175533d846c5189c21fc8318dfa376766879.wav",
+      "sha256": "fdd8b38c9f3d82b259037a9fdac8a71d2b39e362b93f4fd530fe433f93b755fa"
+    },
+    {
+      "bytes": 102956,
+      "gitOid": "b5cdcb4185077b2ed3b0c1f99b79e56657dc07ca",
+      "mode": "100644",
+      "path": "audio/F002/d8f2ad3a40cd8398e5198616054f6d1f6cca9f145fb332149d3ef9c956cbc211.wav",
+      "sha256": "7fb9d4a54bb445be771a1d55cc6e1ab0ce14b899e4ff5da7f88b3aa4513af638"
+    },
+    {
+      "bytes": 296492,
+      "gitOid": "f6f9844dad4079438bd7cff0118d74891e415b40",
+      "mode": "100644",
+      "path": "audio/F002/dae87d9d52808a18e1f30d64464e6983d76b9251fd8751669313dd6e91b8f568.wav",
+      "sha256": "f7156fee29012adcab67929815af4a3eb6c1c05ba4356884093a764cf45cf3dc"
+    },
+    {
+      "bytes": 433196,
+      "gitOid": "a54c133100934fd098b5921b5f8d3a575d2d9778",
+      "mode": "100644",
+      "path": "audio/F002/ddc97eabc8059794b01a628a72d2601e66794b3796fb6fae7911610f2e5eec8e.wav",
+      "sha256": "d29d36d8ba61ed758b7c8555715334632a86baafdf1918bd052c55f661543818"
+    },
+    {
+      "bytes": 196140,
+      "gitOid": "e3b8d14c9bc9350e5f30f45e77356c88af5fe30a",
+      "mode": "100644",
+      "path": "audio/F002/dde2341b40442d20bc37af61366b729d6b31d61295fce5810f0c6eca448c2e30.wav",
+      "sha256": "df21f6af3e1a238206ebfb0155124f51ef86e5ce9bbe129e09cf21fe8eecb6a9"
+    },
+    {
+      "bytes": 273964,
+      "gitOid": "6f146740dfdcaafd2f183e936206ad92fe4dc69d",
+      "mode": "100644",
+      "path": "audio/F002/df330d6bc6e4d57956a4c5442556a4e11aafe971c2dec9a9e547b6fe48bb0cc2.wav",
+      "sha256": "c8cb7dc9654ac1e9e89f891fd5a0f6186939c5be5b90aa9fd8bdf2f93bc2a721"
+    },
+    {
+      "bytes": 333356,
+      "gitOid": "b2ef0f0342a8d04a4cfc4d509a953f9a866dd433",
+      "mode": "100644",
+      "path": "audio/F002/e0a0b807024fe92ec297376c24dd090f0113fe9b994a8d2aef453b96ec30957b.wav",
+      "sha256": "d1348993ea417dd7a910e806d0406af587880e74ab537e69a5e195e1724d7034"
+    },
+    {
+      "bytes": 173612,
+      "gitOid": "93709dea83290e2e8aa68f286f606d4415c87d45",
+      "mode": "100644",
+      "path": "audio/F002/e1d1e978585da0d693b1599fe71d9ed848cc318e9e4ed664b49d74055764751d.wav",
+      "sha256": "da2a64acf8fd3c8ee3a3ccfa4bc95e830dfe40c91483500a83b38c30c1c59e83"
+    },
+    {
+      "bytes": 361004,
+      "gitOid": "d4abb685f737b7817596d9cd72b19414f5e0114f",
+      "mode": "100644",
+      "path": "audio/F002/e2330db8114a647ed96b86e9c6e18f3fdc86f1a687579de156dc7364a4e24f82.wav",
+      "sha256": "25e5741e2acc7fa9ddf428788d1e32af5c3a31d14fe52ac11c743fd17c0860b7"
+    },
+    {
+      "bytes": 474668,
+      "gitOid": "91dc25b2af6a9a2201b1e0a2b1eec4d18e3e6b59",
+      "mode": "100644",
+      "path": "audio/F002/e3c3ec378bf8b3123febb8909dd1ed570fd425475e964673de8f9e7a4da984b1.wav",
+      "sha256": "2ddf8e378505392b72661bd0a9537098793a798b3d575b837e1356ad51fe9f40"
+    },
+    {
+      "bytes": 555564,
+      "gitOid": "0b593f42f4909c465fb74dd632ad4c3f8e94e26d",
+      "mode": "100644",
+      "path": "audio/F002/e3fd09924889adc92edd17ef9c1231acdce2ccde361fd8f3358007a53db36cef.wav",
+      "sha256": "9ef81a7ee8ac1254ecb89fa890aefca62096d405d67eff71e15c707f78468f7d"
+    },
+    {
+      "bytes": 514092,
+      "gitOid": "c56bb3fabc4deb4714a5b53d43cbfc3e788bd5bf",
+      "mode": "100644",
+      "path": "audio/F002/e77dacb8caa470778908e65a7b9785f41898b67f54e418e1ca0afa6ab8946800.wav",
+      "sha256": "f8b4b25a0c2ad1ee3401983527a10a6d6635e7597de0956a1e0a165edb46c963"
+    },
+    {
+      "bytes": 98348,
+      "gitOid": "d14368e4139c4f787e2d807e5b141be7f6d669a9",
+      "mode": "100644",
+      "path": "audio/F002/e8bb8e414e1f2bfaff4475fbb2c1f4d13b6cd7ff8011f3473332b81a7f89e2f4.wav",
+      "sha256": "951d77fa382a0743ff6e9b4def2b0e6f3cb9030124b009f9eba20b3a8995369d"
+    },
+    {
+      "bytes": 129580,
+      "gitOid": "0f84093f9023936eeb0067eae98557395a420c31",
+      "mode": "100644",
+      "path": "audio/F002/e8d83ec035b86be9865cce636a32a15383c2573680910d9b8d985cfcfd50d940.wav",
+      "sha256": "249b3fff68624119e7fd5f7c58c2cb14924c092e479722d7736d1b5e592a2954"
+    },
+    {
+      "bytes": 298540,
+      "gitOid": "03bd9887b49489cb292a1ffb724109ca721e8f8a",
+      "mode": "100644",
+      "path": "audio/F002/e969712824157951636cec262d97c0ef922c270471b10eedfedc6fc3d2a940c2.wav",
+      "sha256": "fcde4472fd188dbd597ac95eeb0865f82a4152af7150da867a539716432e5b76"
+    },
+    {
+      "bytes": 132140,
+      "gitOid": "89a93a97e86bb46822263430cddfeaa88da46129",
+      "mode": "100644",
+      "path": "audio/F002/e9ce7d424296592c78cc6939bae6ff65ca2238dea3af49991919abfb909d83bb.wav",
+      "sha256": "7eb689c2ae05969c37cfc7f2997fc979c8a3eeb725a510413077cd03160aa157"
+    },
+    {
+      "bytes": 114220,
+      "gitOid": "25617a5e94437c487398db541ab73b90fab919cf",
+      "mode": "100644",
+      "path": "audio/F002/ea225a64956490a69db7f59f139b65025224d552ebfa959dd899fab2c12f86fb.wav",
+      "sha256": "3bc24f34bd7ba663602546e86b861ae5eedd37e550e4e7164f50555349171212"
+    },
+    {
+      "bytes": 159788,
+      "gitOid": "014bafa320da9cd4850c5968012ed4272a569326",
+      "mode": "100644",
+      "path": "audio/F002/ecb5f3a0ab68d330434320933d403341340272ad45950a982de149298da6bf74.wav",
+      "sha256": "67ae5d67f6c92ea5aa246a143694377f032708c725b42e9daa22ab11bad57db6"
+    },
+    {
+      "bytes": 255532,
+      "gitOid": "cd18ff9b987780be977427dcfcebf08c8c79a53c",
+      "mode": "100644",
+      "path": "audio/F002/ecdbd3aabf2706ab5042890ce0ac3a86ba495856ee8002f459dd75037f9e458d.wav",
+      "sha256": "1d3135dcad28162ac21e195e67dbd01cffc2c46901b94956db6c4e560b2a1501"
+    },
+    {
+      "bytes": 168492,
+      "gitOid": "0bae73b2b02cac172e450eefb119bb758b474ed5",
+      "mode": "100644",
+      "path": "audio/F002/ef01d161d458b8e054f4d5a9d3b09c5d009629cb3ea7e2a2ef3b97017169ec37.wav",
+      "sha256": "871f295d203f03981e3794f337024198a5f7aa047b09ee033aa1d7415df18f6a"
+    },
+    {
+      "bytes": 1068076,
+      "gitOid": "830c9cff668e5e073c22657684c9497230ad84e8",
+      "mode": "100644",
+      "path": "audio/F002/f111d6ee729a703fc10b7ffcf6b10c30935f34092b176a907e92ebede4b88baf.wav",
+      "sha256": "89f392611d7587e14536f5ff34a25c4ce7b5867063b1d7f58e826ad421d465ce"
+    },
+    {
+      "bytes": 106540,
+      "gitOid": "ef0eb6d62b4ecc2183c688fd54d2f347bcfa583e",
+      "mode": "100644",
+      "path": "audio/F002/f1cd4b3acc7018d197f793cc6c2204f21a2acbc26dad7c0e4e94290c112f9a6b.wav",
+      "sha256": "5908c5c0d4a87c6fc4628334f23d12c62f62c6b7689894d684e3986fc55ad38f"
+    },
+    {
+      "bytes": 134188,
+      "gitOid": "118b75b94244e13d47adcbebed4e1f5519c6a27c",
+      "mode": "100644",
+      "path": "audio/F002/f22b1a1d46f6a96833c205dce0c3d5f3f3157c722520db041b3d12f2285ff381.wav",
+      "sha256": "154d9c22cddc8cffa297cb3a58d777667e9bfeba9d00d18073315b68dbf87aa6"
+    },
+    {
+      "bytes": 260140,
+      "gitOid": "ed52578d102c8f3c2f273faeb8f71cbe4999b888",
+      "mode": "100644",
+      "path": "audio/F002/f5c7d639c3f61400a2bff2e6f64b697c20aa51d2a0a380d4559e3189ccb72356.wav",
+      "sha256": "2fbd61ac1da9ef88bec8aed0d3114a7548de4e7a7f72ad226941ab82ba500573"
+    },
+    {
+      "bytes": 99372,
+      "gitOid": "919ebb45a584a6cae1e65d9ab488d966d1241b7b",
+      "mode": "100644",
+      "path": "audio/F002/f641dd2515fbd592a5450d5ecc01cddebe1db455fa7f274735922e49eb85b6dd.wav",
+      "sha256": "743704817a2b4a15fe4755cca79081b6da310ff0a4658e36001c1d0f7c26d031"
+    },
+    {
+      "bytes": 550444,
+      "gitOid": "c927d237df0d62630b000daf56fafad8eed855e2",
+      "mode": "100644",
+      "path": "audio/F002/f642d31f73ba58816dc59f9b4c64bf7c2b7a06f17cbcdbcf2caa1cc821068043.wav",
+      "sha256": "c70c2da8be628c6efc0919980c8afbf2043647acff75582c961b669d1c5778dc"
+    },
+    {
+      "bytes": 72748,
+      "gitOid": "1ac9f7dee689d9986191199dc0f65eece138074e",
+      "mode": "100644",
+      "path": "audio/F002/f71733b06e3b84c370a0b72b65c2f7d09fbf7343f22421aa6b3eb2093afb96f4.wav",
+      "sha256": "07161852aa251e280b17dd2ac1670c0528207996a44e11fd9c7ab40bca13f76d"
+    },
+    {
+      "bytes": 455212,
+      "gitOid": "23a38aa804e64795093d82e3b910b483a89c4260",
+      "mode": "100644",
+      "path": "audio/F002/f7779ff19fc4486ee04b64ae17ee98b4a142edd335bb61eeac01ce5c9f41084a.wav",
+      "sha256": "606143a81b8599621aad3aff20a644871341ff092276593b789e7e8528a4ca10"
+    },
+    {
+      "bytes": 118828,
+      "gitOid": "92818863b8bdf62132567de3d0a8fac6d6f9641e",
+      "mode": "100644",
+      "path": "audio/F002/fca60d74df24aac82736a0299619587f851848cd8be15ee1dc44ce04d856fec8.wav",
+      "sha256": "40235b44c4ba892c3724fb7ebb9dbf49372add2fc1a0811f047ee8ceeb3d4fa6"
+    },
+    {
+      "bytes": 176684,
+      "gitOid": "fb9b45f00b88b4fcb84cf8f580b98014f08a3d06",
+      "mode": "100644",
+      "path": "audio/F002/fcf62c17e2747c7471417a47513c6652928f889a60d900b2d73e594e4b124a01.wav",
+      "sha256": "c134e22ae77b4ff01d648bee9d6a82c678498bb74f0c2cc11f7e9bf4a8fb7310"
+    },
+    {
+      "bytes": 421420,
+      "gitOid": "1d0062870dddd189add80f023bca6cee9a1fad85",
+      "mode": "100644",
+      "path": "audio/F002/fe73535b9b30957258a9677e3bc2d30ee3c5811d2e27b4911bbe5f8eb7f25b98.wav",
+      "sha256": "e24e23d1e077661454f56686c7e33fe9c183f9d543e2c75486cd132d87e36b17"
+    },
+    {
+      "bytes": 1779,
+      "gitOid": "17459d02d43dbae10b3b89dbf203afce18822686",
+      "mode": "100644",
+      "path": "content/artwork-provenance.json",
+      "sha256": "c8164e97c77d3c0d56e5858a27d0973404e7b2e93c45125bd020fa6dcb286c8c"
+    },
+    {
+      "bytes": 473,
+      "gitOid": "38b6c2a825620cf5b7ac943e1a042d3b64a59732",
+      "mode": "100644",
+      "path": "content/artwork-provenance/F002.json",
+      "sha256": "304f035c2e3f477b900740ac6aaf400182dffc08aad3bef442b5f237a0cffb12"
+    },
+    {
+      "bytes": 899,
+      "gitOid": "b66c9176de6abb5cc434c2809272619545b0405a",
+      "mode": "100644",
+      "path": "content/artwork-provenances.json",
+      "sha256": "1734fdf9e2cdddea8108c7be01dacb8265f45dfd8860f7324a8ec36756da0fe4"
+    },
+    {
+      "bytes": 14511,
+      "gitOid": "82cd0ca1aa0e5a7461c5dbd40fb5ddf175f15ff8",
+      "mode": "100644",
+      "path": "content/batches/F002/reviews/000473.json",
+      "sha256": "cfca02a197ece175f49188a1ae4f5f4c994c6314d24d14069ba37ec575e7f582"
+    },
+    {
+      "bytes": 35283,
+      "gitOid": "3cad2eaea84acbf2de44800be7c8add49d931a91",
+      "mode": "100644",
+      "path": "content/batches/F002/reviews/043752.json",
+      "sha256": "d3557cdbebc80dd9e9079032c4a621ca9437939d7066f39f04e29e391de6ab18"
+    },
+    {
+      "bytes": 44554,
+      "gitOid": "72d62f2d4783a8d112cb52e61967657cece5abac",
+      "mode": "100644",
+      "path": "content/batches/F002/reviews/043754.json",
+      "sha256": "56ba9b643ca1cd6b27b87b2c4802c599d8da4fcc3549388d20264768a69dbdb7"
+    },
+    {
+      "bytes": 24444,
+      "gitOid": "e625d154c77f47c914dda040393e97d3843980a9",
+      "mode": "100644",
+      "path": "content/batches/F002/speech-revisions/000473.json",
+      "sha256": "2d519f33979512c58627a7ced4c38867be0acc5c8d758c09d05423b35611c507"
+    },
+    {
+      "bytes": 3226,
+      "gitOid": "04bb6ed3b3f5d75f46c46f4da32f3ceab6753986",
+      "mode": "100644",
+      "path": "content/batches/F002/speech-revisions/043752.json",
+      "sha256": "d30477b3f317cb6ee31433fd596405c599b59c21ff9d1ab6976c9c8ddd0d1c50"
+    },
+    {
+      "bytes": 12861,
+      "gitOid": "e9869f51d424adf8623437cc4af28785178fb012",
+      "mode": "100644",
+      "path": "content/batches/F002/speech-revisions/043754.json",
+      "sha256": "9998b36e312c5bfd364b5cb2eb121fa7c9ac2146f8f50a451ebe0000bf69440d"
+    },
+    {
+      "bytes": 404658,
+      "gitOid": "fe55b718cea903e34636f39c66669d1178c390e3",
+      "mode": "100644",
+      "path": "content/catalog.json",
+      "sha256": "1d001aac1d9b5e9d9d244037936048a5caae1ff2972980cc423ec3e980fe4aab"
+    },
+    {
+      "bytes": 3060,
+      "gitOid": "bc3ce0e90392f609d64d643be41e72f98cd74d66",
+      "mode": "100644",
+      "path": "content/licenses.json",
+      "sha256": "a2f4c52e32d2747e39ca4ec543e099c9f418179f2dddcb69273539410800c4f6"
+    },
+    {
+      "bytes": 4914,
+      "gitOid": "555db56a2d2e689009523d3e1910bb4897991ce9",
+      "mode": "100644",
+      "path": "content/provenance.json",
+      "sha256": "0132fd7bd4a313d0ee89587838c6e16daf9def8b96cda5ade25c8d244a8255df"
+    },
+    {
+      "bytes": 1406,
+      "gitOid": "fdeac9f34df5a7f6410f248d58a1a2faf89da21b",
+      "mode": "100644",
+      "path": "content/provenance/F002/000473.json",
+      "sha256": "a115dd61d2d2b384e30a3e43e34451a5f874ff2267f2cd21ce134b95d229f28b"
+    },
+    {
+      "bytes": 1406,
+      "gitOid": "6db80cb9be0d560011fe7051e766857487edf1eb",
+      "mode": "100644",
+      "path": "content/provenance/F002/043752.json",
+      "sha256": "801edd98633a04aaf5e90432992d69ad9fd5f696a67b641dc8d75a19590ec0c0"
+    },
+    {
+      "bytes": 1411,
+      "gitOid": "97bf0d6002ab76cb8b03bafd934a713dcdc9a65c",
+      "mode": "100644",
+      "path": "content/provenance/F002/043754.json",
+      "sha256": "9a1a78e1277a242c76e2fbcaf889586e52cbb56bd5811cb880422b6ea7b2c637"
+    }
+  ],
+  "references": [
+    "artwork/akutagawa-zundamon.png",
+    "artwork/miyazawa-zundamon.png",
+    "audio/F001/01091190e8ac46ea77afae351cbd571fe4fad5c928815edc8df4f51b4ef6e9e4.wav",
+    "audio/F001/03d2a9406c89362a2decf1075de5d1c8e74b4db8535c87fbfc7dfd17d86bf86a.wav",
+    "audio/F001/056cf530d5fd0e74f562c20b16d70f4ca5bdf51c595c3d77c13ff70708d0dfd9.wav",
+    "audio/F001/090d184125bb7b5cf553c8413e953723e7cb75f489774101bd7cd83629fe90a3.wav",
+    "audio/F001/0c315c8b3db6d0b80d5c07f5494354c3c8711d7cd0029928cab2c0132e95122b.wav",
+    "audio/F001/0e262de8683055cc766c09ecd9d075ebabd33720d7e266de61af090becdd26aa.wav",
+    "audio/F001/15cefc81fcacfdf0532177a794508448f5482a819b022217ee811ef59fe4af23.wav",
+    "audio/F001/166e80e71f1d44054b4b3d2efd1bb6e6ed6b296f913eb15d2a3b8684fbefe338.wav",
+    "audio/F001/1e8177f5feea294a6060f4ef99742c2ebaac4d9bc3d5881e629b51f3e8c918f9.wav",
+    "audio/F001/21c1db326763830727b1e26c49785c39a261f46d9de0649f2d98e065c1676617.wav",
+    "audio/F001/2d95ea97f9e54d6d2ce1659e4a6ca566916568edf5e9a2e7eb58f83995290318.wav",
+    "audio/F001/2e0c724e612a4c3051b14ea512bc78d6bf04add79c193340a7f601dc8a2cad9c.wav",
+    "audio/F001/3164fbbe1e607b8e86faf6441e694d4c3b47b9bbe26b373c2827c5a58ebf4556.wav",
+    "audio/F001/34d522eb4c448f7514705507d47f7be07a2e7d8425ed810115fdc0f5109a161a.wav",
+    "audio/F001/3e8f0e87b5911d7b4223b87ec93a47ce0f8092b848436a42a143db6a020711f6.wav",
+    "audio/F001/4c23f99e06df3a6080928580ad60c770d68bc44a6a6e759b6fe35ea5a25db0f5.wav",
+    "audio/F001/4f22b23bda41ed8d445702fdd5d6faa087cabe55a8b3fb121d22b154af7e8781.wav",
+    "audio/F001/572ba6457928b4e72ae8d201d7189d7f7ca9c0024f4a900da01edafe314f2951.wav",
+    "audio/F001/6047f49ee94e234e11ae505a740db37c5d719623cc2eebdbafc732219b6ad09b.wav",
+    "audio/F001/620e0f3a91f62a38ed5137720733ee51247b33c3f0448444c0161f9cff3e5cad.wav",
+    "audio/F001/64bcd65b5021ef274b20092f7c119009242c25bd0ddd1ac0c8698f9b9be9a678.wav",
+    "audio/F001/6be2d4a55b27e38032cc07ca26d9c6cd62261e8974cc5552e5bbd08308a4d820.wav",
+    "audio/F001/77ff3d57d3e053f362be0374fe167e054f5e0293552e2fb5422a9655ad690bdf.wav",
+    "audio/F001/88b9a65e777b6b4852911e6a14a131fb8494dcb16cf90ec9f5ae7bced1b0e13d.wav",
+    "audio/F001/89ba4cb38f49b70d4421278b0fb3a6f09194e384d61d6fb76d60dd06084b8fce.wav",
+    "audio/F001/91bb47743ce1d14636550a519cdd4d5ff84be2ec47da61a58b37a3db55bed7f9.wav",
+    "audio/F001/956dbca9332c418ff17e9ec484b06800bd8d4e27d916b3519c76d4169b5fb3d1.wav",
+    "audio/F001/98f71f5302ea65970bd73b5487086e20505e5e58bef8095b1ca7a54b6406b201.wav",
+    "audio/F001/9e4b064e6715bdc6888d86e8488aac22322fa42232e1d8dec2469d4aa5a93f45.wav",
+    "audio/F001/a6df24806636a0f0360421854ba7b432c145314982ee3ad7ff3e8dce3c1a93a2.wav",
+    "audio/F001/acc44df8000ced3d31bc6ad803e8f6adb962e32ad6f01254027b8de5c3b5501c.wav",
+    "audio/F001/ae71416de2115f5d34bd002439f5545cb2ce3866578671e1ff8f92411af7993c.wav",
+    "audio/F001/b02db09b70e87543b8d86914cc608cebc8c3268636dbb345b2f8682d177d46ea.wav",
+    "audio/F001/b8b0a2ae38d9d585723a5906565551a864cf9f1006ad2d273275c5acd1b3ccf2.wav",
+    "audio/F001/ba932ad81187fb71e7bd008e74c5bb22db26e0b3142e63a10ff0ff77255a02ac.wav",
+    "audio/F001/bcd99f6c802e1d2963dc6ba756ec36ef5ca2c43a140617ce1ef92f9eda724c31.wav",
+    "audio/F001/bd9e066462b5e116326b6cdc7417ce1b3649717639dc2a3385da7ac3da201226.wav",
+    "audio/F001/c4def167be85998ea596fb907d7f7d26c2a5e1fa1e08596f6f6a8712934acd50.wav",
+    "audio/F001/c636838fc8e4f70520d334543f4555a4e70b808a97b4a383ddd22d74d04c4cf9.wav",
+    "audio/F001/c7539a5e6ecc350afb79c5fb5c3d932a39a2dc14ba7e0633557c350317183a53.wav",
+    "audio/F001/c787ea78cddc435d1307a612cef27992329fc7955570b2d02019b430190450e7.wav",
+    "audio/F001/ca3162325e4d44acdd3c2611795ad01eb6a9c7564b0944465494554b358270ae.wav",
+    "audio/F001/cad3e48ee7b46801ad95c5a066857bf8924021863425ef62a08252e4360ec05e.wav",
+    "audio/F001/ccefa990c19cde1326c6a84a107c92f87b43052342622334b935ffbf7f9a258e.wav",
+    "audio/F001/d765fb1b4f1eb52127eb7eef122e96c1acf738d5b7673ef127ca38ba49060726.wav",
+    "audio/F001/dc5dab65b4d1cd6b570f5881311c768f22a75034273505585fe018a4be7b0728.wav",
+    "audio/F001/dd6ef51965c1c1c83c0a8dda26f58a9f8133b02b4a27331e8960be38c3914c7c.wav",
+    "audio/F001/e03cb5e6d22f54e5fee93635544ffb872026ff8883dddf29c92c2093f53a69b7.wav",
+    "audio/F001/e5b1a5184e4753ef8615233b140cb827d701ec950f6b7cb96f8c5cec6a19a863.wav",
+    "audio/F001/e9c354568b144de75d2529ab3b0d884be1052b07ffdd5c421786fd57199b4566.wav",
+    "audio/F001/edd634a6630bb96699225ab8113a0a892536aeb3883cc7c9ae1f615d1bfc3375.wav",
+    "audio/F001/ee0fe14cbf2e63970508fd0954704522f3e64febf8d8e77796fda17293511c79.wav",
+    "audio/F001/f3129013c0cd6d0cec58bebb217953ebe50cbdb408fc7c65240b04f823c09a7a.wav",
+    "audio/F001/f41af55f75c9492dcce375aa749fa63924427db3c2ab31419b4f92891147134a.wav",
+    "audio/F001/f59b46e3fde3d2f3e4fc509a7d7bbe48986245ba82fac89c35b125327422cad5.wav",
+    "audio/F001/fb49f2d0f955cee1f49214ac799b9296de726ffa5a4a1b854536542debb080da.wav",
+    "audio/F001/fbdf8d06e9bac42d3606796769b5754febd1002748d04bf4dfa4c573abb5fad2.wav",
+    "audio/F002/01c4e64931c192c687a8e13f4bb070e011b043371a8e6b43457c0fc9361bceb9.wav",
+    "audio/F002/032494ac8544bee1b87e187e0d2baec8b3693045686e9108d69602c3d5112aa9.wav",
+    "audio/F002/0c3ace80032796da1031c9eedb6f2bd52bfc52048b8ee87f49777de766e47844.wav",
+    "audio/F002/0d8f257fce99254587ad667d6add0014eaf969ab341d75dec8c21cfd9bcb5ee9.wav",
+    "audio/F002/124ba4b863c19ac32671f952d70f090057b198c295642e1d8aec7843c77c6e20.wav",
+    "audio/F002/148a22afce1537b46d5ef93c8cb21b421bc5ba75ab5e9dc50151b52ef1fcc840.wav",
+    "audio/F002/16588e793b8ac9570f220a9326d9792dd1863878eca44b659e52d1f5ce5a0d25.wav",
+    "audio/F002/1a761ca7dbc8b81edb30a89f795e7998fac7e473feebc220741b9b97cbec4f39.wav",
+    "audio/F002/1b5c132a02c948059923ef8dea4dee880ea1bcc723e98799813d6ad86f2946cb.wav",
+    "audio/F002/1e9a394e7ec763a7d9a56bd77b9a77b753e33163fa33799ace4c4a970fdf3c51.wav",
+    "audio/F002/1fd1336330ce3985369dc9bfc31004eedb476156d487c2ca6c466b7f4b24492a.wav",
+    "audio/F002/21cd8bb995cfbc72d8f7c14c19f5644aecd24242fd413192011466aada76594c.wav",
+    "audio/F002/233e4b6520d6c36c66635daa363c6be030e0f73b106f6822c526d1651c40ad06.wav",
+    "audio/F002/2715659546de8aa7de2f1fa198d6b81df908c38a6051c36e1c47db3a121f3beb.wav",
+    "audio/F002/27839dc7a9d33a44fe72c7d5f71936413aff218a23e2fb82ad92d2851c4acb64.wav",
+    "audio/F002/28c638d5b0a2cd5f345d241b626921c8deb36a646d72563b96c9eba87edeebcd.wav",
+    "audio/F002/2961315ea4636a9a5a4cdbd7163df9172b490a0d266916cf165da35a16ee62a7.wav",
+    "audio/F002/2aea386752646ccd73abf8fa3569fb5dc90fe33da6a4122a70ac8972803c1217.wav",
+    "audio/F002/2c731db2c9b26233bacd1e0dd7cd1f7d1bfc6ed76c593db7ca24d0127695f370.wav",
+    "audio/F002/2d27af444be27ad9e1be2946170cba4fd7698fe39513636363230c7668911347.wav",
+    "audio/F002/2dff21f8980c1b84c3666572a174aa7e53ceea9e91d9a93d78db4447be2b95a7.wav",
+    "audio/F002/3262c70fd5ef71553d262a308545c2746cb456d8e8aa33d4bcd74f1def6627a6.wav",
+    "audio/F002/34b2ba0580adcc7a5c8e87f4195db03b4f01f8cfc14f71e5a04a421a79bf33ec.wav",
+    "audio/F002/374d55964bd5d5d2a5cce6f240592d3ff339d7b832bcca2eab95ebe924aeab15.wav",
+    "audio/F002/391a4bf75c36d187222c1cdbe11ce08b15c3c93af72495105454d746cb3ade1a.wav",
+    "audio/F002/3a67594390ea9455c40b8d73b88cd91c890be694bc71018d30cfe5b9b140ee1b.wav",
+    "audio/F002/3d272499ba5434087af405b8d59c6b1b3b5205450bfddde4770ef77fc5771300.wav",
+    "audio/F002/3d6aff3f0027b4ebfc96ee0155ee3d8268aee7b5fe2bd1bec901274b788f3984.wav",
+    "audio/F002/400f614bd0680bd1fb8cf127ccf5a25298935b917db5465ad05bcab6a10ea4cb.wav",
+    "audio/F002/45f4dfc3dc48ea31caa02b8068a92ee8b9ba638a31ca368aa5b6cf0b40749271.wav",
+    "audio/F002/46adb7efb18c11efe22821a8e0bd2686b77faea228d626c30147dbf3657be3c0.wav",
+    "audio/F002/478f5594c08a150d02955fbab4af158d1e8ee492f52f23f4ebba9237e2f1a4db.wav",
+    "audio/F002/47afaf1c2486b8c25faeecf99894bb4d0ce62038715399c5d5dfaba9d928de2b.wav",
+    "audio/F002/498130d1a3bbac07fc903c6b5bd9afae503f188f947faa1c67812382c7839968.wav",
+    "audio/F002/49c844880a0fe5ab6f921d6da7ebe4e97cfc9b871db592b945ddddac4a1a766d.wav",
+    "audio/F002/4d0b6fea1ba687299ec1998ef3134b0ab41d42f832d36bda79c76962d0cf18c4.wav",
+    "audio/F002/4da502a751d0a7448e97d208b27140659215de3efb0e69db0ccc122737feb17d.wav",
+    "audio/F002/4fd32d9f64b8177690beeb73e2ca68c9dcc4113772de18b5f67b8d9af9d50d5a.wav",
+    "audio/F002/5059bdfd7c71954c2349772ce27ae2c8494826958b773e28fc512c7d2778f6e1.wav",
+    "audio/F002/52a241aecb457bd30f2c9867eb00414aefee7ad310b5ddf67621d751d95c74ff.wav",
+    "audio/F002/5334dfa42752f4ed4f936f1f775676df29789b273f498ae215b5b1729e7670be.wav",
+    "audio/F002/56b6c55daa0f39aff2a9c45735470a93b154ffba993b59ad5d2ad567e88f7f06.wav",
+    "audio/F002/5b34a37203f2695904222b380cedf51abbb87de4e30cc904593c87d1db665ab4.wav",
+    "audio/F002/5c10cba8f7661d8eed0d02c489c357466f9569ff87e143a1ba7f459a6e60d68b.wav",
+    "audio/F002/5ff3d733f6f6e57161a922b9db1394b5ac92c82055f5314c5d2a9b943f4bfbf7.wav",
+    "audio/F002/60430eab510988425d2b02b98de9f804a18ec25f52054203271915e16a830841.wav",
+    "audio/F002/642e2fb5b2c4f91b49ece84d685d0b04b3b76afe163a0b7f4dca6733a1e99ce7.wav",
+    "audio/F002/64da9d3936284bc0a1fec8c996b7e0c938d3bf6c4e9b7fab6eadfda1fc3db045.wav",
+    "audio/F002/658d820dd77b9eb06011ed92fc9a5129fdc6671ff7e1aea9bcb19052a9adbff1.wav",
+    "audio/F002/65b829f22495b32b2a068599db86ee09d348705127ebe182decb73d0c211dca0.wav",
+    "audio/F002/69399fa812d7c65f848522d556a7a464eddd1de7a41784da340c23986fdb0d25.wav",
+    "audio/F002/6a4133840b50ec88aa28a4a50f06771c571e08bf35172ed071b165a142ee1378.wav",
+    "audio/F002/6c50d3404a7585962a22246c7be28d776c2832feb9d0a3a46a32886f16752557.wav",
+    "audio/F002/6cc8ca128315a707aa92439367ee232001c2bc4c646e48a2605a1dbc3d080efd.wav",
+    "audio/F002/6cdcedae5a779931d669dd62539e3958601147dac46b21901c720dbe8735d899.wav",
+    "audio/F002/6dc132efde62e2cbed3cb6b0ecba3bfd9ed220ac593857cbf035da05a3384101.wav",
+    "audio/F002/6dfb6ffd150ab7cb73f9b92617dc8bb095b38c8731d3642d0abad0e94b1695b4.wav",
+    "audio/F002/701416c0c5518b272b7a01dadf7761bc3aef3d7572f81497e417646f2f6db925.wav",
+    "audio/F002/704371c5b06a4cd7acfaf9a6df33fe20d02623c21136467222bca00f3c753637.wav",
+    "audio/F002/7077d20678cca10a2939d9a291a8dd1d6816d1e16e8407fce58068f0fe861e6a.wav",
+    "audio/F002/72c36480c959c3d3c7252e8ea6035310dcbe938ba99f2097e0f9f38ce0ec760a.wav",
+    "audio/F002/758d8e0996af7b4ea4e71e53f8401e017a65882504702ac98d3f4c618029c054.wav",
+    "audio/F002/759be9dcbe497e575b91db6f2d015c7afa4a6a81d5db406ac58cae6b07fd72c1.wav",
+    "audio/F002/75c47854751324870d5f453faca3602fff5245a5a8debd1e7a41993c3676c0ce.wav",
+    "audio/F002/766f0e0a9b73407ea23d1f9755111fce1b3016e6b52ea49b5b721cfd2dbdf3b8.wav",
+    "audio/F002/787c55a44b30eb561d220fc667d4395cf96b1cff601761544d33be6e31d997a9.wav",
+    "audio/F002/7cd4b492f29c14fe47f9b8ea8809f6ff76e99bef0b3a2b7f4a63500163f87909.wav",
+    "audio/F002/81a9a61413a6bb7ba9f59534d01e8cb2c1369a19f1449d13855c26b64682348b.wav",
+    "audio/F002/8628f2e380e9084e4ca6be11a5f11ea9277757bd679d30a9704e3b94c6314ad8.wav",
+    "audio/F002/876cfb52850f48b5e889cbb845b7cf867759d70af1e063b551af719d2afd39d6.wav",
+    "audio/F002/8acded2b1898776584c70d41b6b5c8dd5c71ec17d5e24d6ab5236e1004bbb6ad.wav",
+    "audio/F002/8b3aac5be36e1f0276643001cdd2bbf9cd90a7e96c61b1b155e99dc9219ff90f.wav",
+    "audio/F002/8b3b6fbc651f00940fb288c738b5155e68d454b7cd71c07835d670779aff217a.wav",
+    "audio/F002/8fc9c5999efe731fe45ee1b735493b28dc66225f7702657f8634c7d83d31a380.wav",
+    "audio/F002/91e210eb8708f9e8c03384d2b012a7829ad92dc6c0477fdf05abde8a8900f3ef.wav",
+    "audio/F002/92474f047a8c567b582630d1601aea3a193e34a991f32f3e6ece75822934911e.wav",
+    "audio/F002/948ce15df1d33f2a43a603c241754dcec0bd15631dd0098273474e2e73ce9c50.wav",
+    "audio/F002/985ef09279e2177ab943a8d7caa3942b951724bbc2d1f624a794d652a822ea8b.wav",
+    "audio/F002/9c09f2be989dc12cd0e096ad750c446b987a4cf0314d375601dcb80ed8f83449.wav",
+    "audio/F002/9c5eabdf36f67b614200816e565c040019d2a66bfb6843508458efffc3b4a6eb.wav",
+    "audio/F002/9db142e1bcc3eebcdadd88d93da1a06d198eba88232f1fb1c8d5e13c0addd7d9.wav",
+    "audio/F002/9dca93e8f8231bfeba586c66f96f940b570815993f89b0c023f5c459426e2a5b.wav",
+    "audio/F002/a0ad261afbff96a115bb08db379c88d0595da8bbe81c7133e967d6efb09eef30.wav",
+    "audio/F002/a592d76f799f71fa4d359f7f36ecd662e892fd1b7f803783d9d64a42b66985c4.wav",
+    "audio/F002/a82a8930de4cd0a77ed7b7bbd3d8b86b3b5550c967520477933b8f3346526e2d.wav",
+    "audio/F002/aa645862157075f671fcf7f8cd3b4d748b125bcc0699566bb9a1c14ae3026bef.wav",
+    "audio/F002/aab0956ba89f0c92713167b0a4f40465a10042bed5499b569533d2448ff073bf.wav",
+    "audio/F002/aad8627460663fc9d642545389256e54ee6e1c267fb21a7d5035c1eac7f7bd8d.wav",
+    "audio/F002/ac81454d2840a28a873e6b0144b6e7f0c3a959fc2e1937af14eed1a6d5b82a22.wav",
+    "audio/F002/ad1ad00a1d56c1c44b506520a4dfb69de22615e3d9b76a5b52b8b66f3dbbec75.wav",
+    "audio/F002/b495d2920766f671da32b93f7bd933b7ec65e81a6507e8356e369109fd5daf9f.wav",
+    "audio/F002/b58f1f37db83aaa1f7e94eb9de3be83b1c6f775a56dc5e1828ccafebd4c961e1.wav",
+    "audio/F002/b598e3c6b7d450ba4854e488fc6a2d137366855ba0cb774e1ba3a4ed5e3236aa.wav",
+    "audio/F002/b66eeac590a082ce256760d2a9cce2d1ca9073f4fbd565f56c306ace8c34d877.wav",
+    "audio/F002/b723f85a2464c9d74aaabc16e95227685f6dc8e7b4c6c12aa76993e47890daee.wav",
+    "audio/F002/b913f03294002cfc100b4353210efe92cc7a7a39d0c057dbe654a2dbbb08f8bf.wav",
+    "audio/F002/b97f0a96916f0cb9806c4e3cae3d83c7618dfc56d9a221d748a033c2216f4594.wav",
+    "audio/F002/b9b752f609ce31f29962d23ea5271d04804f97530e1c30cf48bbdb8bfb18b203.wav",
+    "audio/F002/ba0258edf2ea3aa71da48538569c4c6e2915c51c91e176e5c050196e75b370da.wav",
+    "audio/F002/bb5d154c8dcf58641d6d7382925f172c674fefa359d2a85d621566c99831e1e0.wav",
+    "audio/F002/bbcf44b47860823118d46a512b9869f218cb0d7b7e515a374197b9b721b2a07f.wav",
+    "audio/F002/bc1091f40466168fb5c0985eeae77ef0b60f491dc83b3ec76c3797a2209d25c2.wav",
+    "audio/F002/bc8c3714973a217795ace06729ccd5a8bc7b28f2ed84c49d778103ca641949a0.wav",
+    "audio/F002/bc8f3743fbc8fa16dbcbcf3ade039911941570ab81fd07c0dd92e930d8583bb5.wav",
+    "audio/F002/be6427222f7745730faae3c596e549389b98d1605b4d1d1febc85c0e419ff2ca.wav",
+    "audio/F002/be7dac45b8307e17f30c1b54450e8ad1c690ad941edebef38992fbffbda3e84c.wav",
+    "audio/F002/bf3c5f199e8de3cf502a5a66fdbce17aa455d769e57beb98b408fdb20268aa2e.wav",
+    "audio/F002/c1e2b01cfda1d83e770a37cee6f3e1640235166e9f8d38bf0c084e38a3807c12.wav",
+    "audio/F002/c47f8cbfabb72c2cfb7a11d90c82c9ec7e30f7de92a995ea0d0293a9d3a13bd0.wav",
+    "audio/F002/c5742591e0ce53e5cd869373ea8079968bd8c6a58530ccb15c95fc76f3fa6350.wav",
+    "audio/F002/c6462210868933d80b99d448d9ec6c085b3e1af1cff9ed4e505b6d158b5b20be.wav",
+    "audio/F002/c6f78e8660531715f4b4deffc6203683af4b6730453ccca54548c52c990e37a4.wav",
+    "audio/F002/caac40b4c4c6dc09dd435d1bff34eaeb063ec9933d99f870966f54fcc1885af7.wav",
+    "audio/F002/cada24859b1f94a0852ba8bee2436c7947f78d1ebb3f6407377fea5a51a4bd5f.wav",
+    "audio/F002/cccbf75f1137cea8040d41dcb855cb9556fdfac120c9e892104527af6b3118fb.wav",
+    "audio/F002/cd260557f724831710a25a8526b1ff76e693b8282695bbd6b60087b70438bf2c.wav",
+    "audio/F002/ceb7b56fc0dc13bb7150e68e96545904868283bea005e7fc0a69ed7aefff6d91.wav",
+    "audio/F002/d03d8aaf34c3b237c67564e0cae8705aedab22c4dfbc2338c5f3d73f47f98ddb.wav",
+    "audio/F002/d0e1be5f93c165f8e40c465c4492b21816cd2a034c57d580cea1e083b5574fda.wav",
+    "audio/F002/d2c3cfc3388128fd02536c7b43b6d1d0ddf6a8f3267a53a7a2bd915587994144.wav",
+    "audio/F002/d776e7bf24da11f3ccaa92f7b39f175533d846c5189c21fc8318dfa376766879.wav",
+    "audio/F002/d8f2ad3a40cd8398e5198616054f6d1f6cca9f145fb332149d3ef9c956cbc211.wav",
+    "audio/F002/dae87d9d52808a18e1f30d64464e6983d76b9251fd8751669313dd6e91b8f568.wav",
+    "audio/F002/ddc97eabc8059794b01a628a72d2601e66794b3796fb6fae7911610f2e5eec8e.wav",
+    "audio/F002/dde2341b40442d20bc37af61366b729d6b31d61295fce5810f0c6eca448c2e30.wav",
+    "audio/F002/df330d6bc6e4d57956a4c5442556a4e11aafe971c2dec9a9e547b6fe48bb0cc2.wav",
+    "audio/F002/e0a0b807024fe92ec297376c24dd090f0113fe9b994a8d2aef453b96ec30957b.wav",
+    "audio/F002/e1d1e978585da0d693b1599fe71d9ed848cc318e9e4ed664b49d74055764751d.wav",
+    "audio/F002/e2330db8114a647ed96b86e9c6e18f3fdc86f1a687579de156dc7364a4e24f82.wav",
+    "audio/F002/e3c3ec378bf8b3123febb8909dd1ed570fd425475e964673de8f9e7a4da984b1.wav",
+    "audio/F002/e3fd09924889adc92edd17ef9c1231acdce2ccde361fd8f3358007a53db36cef.wav",
+    "audio/F002/e77dacb8caa470778908e65a7b9785f41898b67f54e418e1ca0afa6ab8946800.wav",
+    "audio/F002/e8bb8e414e1f2bfaff4475fbb2c1f4d13b6cd7ff8011f3473332b81a7f89e2f4.wav",
+    "audio/F002/e8d83ec035b86be9865cce636a32a15383c2573680910d9b8d985cfcfd50d940.wav",
+    "audio/F002/e969712824157951636cec262d97c0ef922c270471b10eedfedc6fc3d2a940c2.wav",
+    "audio/F002/e9ce7d424296592c78cc6939bae6ff65ca2238dea3af49991919abfb909d83bb.wav",
+    "audio/F002/ea225a64956490a69db7f59f139b65025224d552ebfa959dd899fab2c12f86fb.wav",
+    "audio/F002/ecb5f3a0ab68d330434320933d403341340272ad45950a982de149298da6bf74.wav",
+    "audio/F002/ecdbd3aabf2706ab5042890ce0ac3a86ba495856ee8002f459dd75037f9e458d.wav",
+    "audio/F002/ef01d161d458b8e054f4d5a9d3b09c5d009629cb3ea7e2a2ef3b97017169ec37.wav",
+    "audio/F002/f111d6ee729a703fc10b7ffcf6b10c30935f34092b176a907e92ebede4b88baf.wav",
+    "audio/F002/f1cd4b3acc7018d197f793cc6c2204f21a2acbc26dad7c0e4e94290c112f9a6b.wav",
+    "audio/F002/f22b1a1d46f6a96833c205dce0c3d5f3f3157c722520db041b3d12f2285ff381.wav",
+    "audio/F002/f5c7d639c3f61400a2bff2e6f64b697c20aa51d2a0a380d4559e3189ccb72356.wav",
+    "audio/F002/f641dd2515fbd592a5450d5ecc01cddebe1db455fa7f274735922e49eb85b6dd.wav",
+    "audio/F002/f642d31f73ba58816dc59f9b4c64bf7c2b7a06f17cbcdbcf2caa1cc821068043.wav",
+    "audio/F002/f71733b06e3b84c370a0b72b65c2f7d09fbf7343f22421aa6b3eb2093afb96f4.wav",
+    "audio/F002/f7779ff19fc4486ee04b64ae17ee98b4a142edd335bb61eeac01ce5c9f41084a.wav",
+    "audio/F002/fca60d74df24aac82736a0299619587f851848cd8be15ee1dc44ce04d856fec8.wav",
+    "audio/F002/fcf62c17e2747c7471417a47513c6652928f889a60d900b2d73e594e4b124a01.wav",
+    "audio/F002/fe73535b9b30957258a9677e3bc2d30ee3c5811d2e27b4911bbe5f8eb7f25b98.wav",
+    "content/catalog.json",
+    "content/licenses.json",
+    "content/provenance.json",
+    "content/provenance/F002/000473.json",
+    "content/provenance/F002/043752.json",
+    "content/provenance/F002/043754.json"
+  ],
+  "release": "v0.2.0",
+  "schemaVersion": "1.0.0"
+}
