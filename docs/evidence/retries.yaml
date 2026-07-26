@@ -186,3 +186,13 @@ attempts:
   cause: none
   recovery: 公開昇格前後のfixtureを両対応にし、143 suites・853 testsを再実行
   log: docs/evidence/ut/UT-F003-attempt-3.json
+- date: '2026-07-26T21:23:00+09:00'
+  feature: F003
+  scope: IT-runtime
+  attempt: 4
+  command: clean commit Playwright 4 project直列実行
+  result: fail
+  failures: 1
+  cause: WebKitのセキュリティ操作試験で公開WAV取得が5秒を超え、状態がidleのまま期限切れ
+  recovery: 全asset HTTP検査はdelivery試験に維持し、security操作は決定的な同一origin音声応答へ分離
+  log: docs/evidence/it/IT-F003-runtime-attempt-4-failure.md

@@ -123,6 +123,10 @@ test('外部request・Cookie・storage・form・CSP違反が0件で主要操作�
       window.__cspViolations.push(`${event.violatedDirective}:${event.blockedURI}`);
     });
   });
+  // 音声実体の全件200検査はdelivery試験へ分離し、ここでは状態遷移をI/O待ちから独立させる。
+  await page.route('**/audio/**', async (route) => {
+    await route.fulfill({ status: 200, contentType: 'audio/wav', body: 'RIFF' });
+  });
   const externalRequests: string[] = [];
   page.on('request', (request) => {
     const url = new URL(request.url());
