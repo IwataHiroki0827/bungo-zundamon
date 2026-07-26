@@ -1,0 +1,35 @@
+{
+  "authorId": "000035",
+  "batchId": "F003",
+  "editorialReview": {
+    "approved": 62,
+    "path": "content/batches/F003/reviews/001567.json",
+    "pending": 0,
+    "rejected": 0,
+    "resultSha256": "f6ffebe336a5e2fc6ace04936caa3455e9749a65f4b5a7a583afc5c8782ae74b",
+    "sha256": "8a1ee759254bf7cd161c126a8c79257391ca9aa4a67387b461429dbd1e84b4f8"
+  },
+  "processing": {
+    "candidateCount": 62,
+    "sourceTreeSha256": "ab223067ae0219600e3c81ea143f363da2af27d79102b0eebb6fe562b618c0d1",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "太宰治全集3",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+    "fetchedAt": "2026-07-26T09:52:26.624Z",
+    "inputter": "金川一之",
+    "proofreader": "高橋美奈子",
+    "rawSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "textUrl": "https://www.aozora.gr.jp/cards/000035/files/1567_14913.html"
+  },
+  "speechRevisions": {
+    "count": 0,
+    "path": "content/batches/F003/speech-revisions/001567.json",
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "title": "走れメロス",
+  "workId": "001567"
+}

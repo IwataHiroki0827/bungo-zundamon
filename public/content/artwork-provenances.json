@@ -21,6 +21,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F002.json",
       "provenanceSha256": "304f035c2e3f477b900740ac6aaf400182dffc08aad3bef442b5f237a0cffb12"
+    },
+    {
+      "authorId": "000035",
+      "batchId": "F003",
+      "manifestId": "artwork-F003-000035-v1",
+      "output": {
+        "path": "artwork/dazai-zundamon.png",
+        "sha256": "c58b3233decc0b485f938c2d9f73dd16ade06d546ac72ad429fe86bbd22d31b6"
+      },
+      "provenanceRef": "content/artwork-provenance/F003.json",
+      "provenanceSha256": "50ad2030a55ad538217bf56f1c77164481ff44f91064d685a45516ee2d28a534"
     }
   ],
   "schemaVersion": "1.0.0"
