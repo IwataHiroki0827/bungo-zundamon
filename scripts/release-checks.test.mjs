@@ -49,6 +49,7 @@ describe('FUN-F001-032 verifyWorkflowPermissions [UT-F001-032]', () => {
     ['alwaysによる検査迂回', (value) => value.replace('      - name: Verify without content retrieval', '      - name: Verify without content retrieval\n        if: always()'), 'WORKFLOW_CONTROL_BYPASS'],
     ['continue-on-error', (value) => value.replace('        run: npm run verify', '        continue-on-error: true\n        run: npm run verify'), 'WORKFLOW_CONTROL_BYPASS'],
     ['重複key', (value) => value.replace('permissions:\n  contents: read', 'permissions:\n  contents: read\n  contents: read'), 'WORKFLOW_YAML_INVALID'],
+    ['shallow checkout', (value) => value.replace('          fetch-depth: 0\n', ''), 'CHECKOUT_HISTORY_INCOMPLETE'],
     ['artifact upload欠落', (value) => value.replace(/ {6}- name: Upload Pages artifact[\s\S]*? {10}path: dist\n\n {2}deploy:/, '\n  deploy:'), 'BUILD_STEPS_INVALID'],
   ])('%sを拒否する', async (_name, mutate, code) => {
     const workflow = await readFile(path.join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8');

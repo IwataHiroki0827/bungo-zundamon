@@ -174,8 +174,18 @@ export function verifyWorkflowPermissions(workflow, options = {}) {
     }
   }
   const checkoutSteps = buildSteps.filter((step) => actionReference(step)?.[0] === 'actions/checkout');
-  if (checkoutSteps.length !== 1 || !hasExactObject(checkoutSteps[0]?.with, { 'persist-credentials': false })) {
+  const checkoutWith = checkoutSteps.length === 1 && isRecord(checkoutSteps[0]?.with)
+    ? checkoutSteps[0].with
+    : null;
+  if (checkoutSteps.length !== 1 || checkoutWith?.['persist-credentials'] !== false) {
     errors.push('CHECKOUT_CREDENTIALS_PERSISTED');
+  }
+  if (checkoutSteps.length !== 1 || checkoutWith?.['fetch-depth'] !== 0) {
+    errors.push('CHECKOUT_HISTORY_INCOMPLETE');
+  }
+  if (checkoutWith !== null
+    && !hasExactObject(checkoutWith, { 'persist-credentials': false, 'fetch-depth': 0 })) {
+    errors.push('CHECKOUT_CONFIG_INVALID');
   }
 
   if (!hasExactRunStep(buildSteps, 'npm ci')) errors.push('NPM_CI_MISSING');

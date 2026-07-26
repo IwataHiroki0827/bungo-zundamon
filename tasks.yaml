@@ -987,3 +987,16 @@ tasks:
   completed_at: '2026-07-26T20:19:06+09:00'
   result: CHG-F003-002を実装し、固定Catalog projection・追記可能provenance・published invariant
     hash chainを対象24試験と全840試験で検証
+- id: T-047
+  title: Actions固定baseline履歴取得とhosted回帰
+  feature: F003
+  phase: release
+  state: doing
+  depends:
+  - T-043
+  tags: *id003
+  mode: advisor
+  mode_reason: hosted失敗の原因を固定履歴checkoutへ限定し、workflow退行試験と再pushで検証するため
+  model:
+    lead: opus
+    workers: sonnet

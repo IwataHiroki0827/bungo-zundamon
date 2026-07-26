@@ -487,3 +487,17 @@ changes:
   completed_at: '2026-07-26T20:19:06+09:00'
   result: 固定v0.2.0 baselineをpreview/accept/release chainへ結合し、既存作者entry改変を拒否。全840試験と独立再受入High/Medium/Low
     0でPASS
+- id: CHG-F003-003
+  date: '2026-07-26'
+  trigger: F003リリース候補のGitHub Actions run 30203038864で固定公開baseline commitを読めずhosted buildが失敗
+  level: design
+  affected:
+  - DES-F001-016
+  - FUN-F001-032
+  - UT-F001-032
+  - .github/workflows/pages.yml
+  - scripts/release-checks.mjs
+  - scripts/release-checks.test.mjs
+  - T-044
+  - T-047
+  status: in-review
