@@ -1,0 +1,78 @@
+{
+  "authorId": "000035",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "女生徒",
+      "workId": "000275"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "走れメロス",
+      "workId": "001567"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+      "completionStatus": "unfinished",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "unfinished"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "グッド・バイ",
+      "workId": "000258"
+    }
+  ]
+}

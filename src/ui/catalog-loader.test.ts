@@ -431,6 +431,38 @@ describe('FUN-F002-004 CatalogV2検証 [DES-F002-001][DES-F002-006][DES-F002-012
     expect(validateCatalog(rawCatalogV2(), 4096).works).toHaveLength(2);
   });
 
+  it('3配置を持つ作品noticeを受理し、scope欠落・未完不整合・unknown keyを拒否する', () => {
+    const catalog = rawCatalogV2(false);
+    const work = (catalog.works as Array<Record<string, unknown>>)[0]!;
+    work.completionStatus = 'unfinished';
+    work.notices = [
+      { textKey: 'unfinished', placements: ['work-list', 'work-detail', 'credits'] },
+      { textKey: 'dialogue-excerpt-scope', placements: ['work-list', 'work-detail', 'credits'] },
+    ];
+    expect(validateCatalogV2(catalog, 4096).ok).toBe(true);
+
+    const scopeMissing = structuredClone(catalog);
+    (scopeMissing.works as Array<Record<string, unknown>>)[0]!.notices = [
+      { textKey: 'unfinished', placements: ['work-list', 'work-detail', 'credits'] },
+    ];
+    expect(validateCatalogV2(scopeMissing, 4096)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_ORPHAN_REFERENCE' },
+    });
+
+    const inconsistent = structuredClone(catalog);
+    (inconsistent.works as Array<Record<string, unknown>>)[0]!.completionStatus = 'complete';
+    expect(validateCatalogV2(inconsistent, 4096)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_ORPHAN_REFERENCE' },
+    });
+
+    const unknown = structuredClone(catalog);
+    ((unknown.works as Array<Record<string, unknown>>)[0]!.notices as Array<Record<string, unknown>>)[0]!
+      .textKey = 'unknown';
+    expect(validateCatalogV2(unknown, 4096)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_ORPHAN_REFERENCE' },
+    });
+  });
+
   it('作者・作品各1件の最小catalogと上限ちょうどを受理し、byte上限+1を拒否する', () => {
     expect(validateCatalogV2(rawCatalogV2(false), 8_388_608).ok).toBe(true);
     expect(validateCatalogV2(rawCatalogV2(false), 8_388_609)).toMatchObject({

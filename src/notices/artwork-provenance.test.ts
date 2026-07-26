@@ -5,8 +5,11 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import {
+  loadAndVerifyTrustedArtworkMachineReview,
   validateArtworkProvenance,
   type ArtworkProvenanceV2,
+  type ArtworkProvenanceV3,
+  type ArtworkV3TrustContext,
 } from './artwork-provenance.ts';
 
 const sha = (value: Uint8Array | string): string => createHash('sha256').update(value).digest('hex');
@@ -95,6 +98,29 @@ async function fixture(): Promise<{ workspace: string; bytes: Uint8Array; manife
       },
       credit: '宮沢賢治ずんだもん：OpenAI built-in image_genによる独自生成（入力画像なし）',
     },
+  };
+}
+
+async function v3Fixture(): Promise<{
+  workspace: string;
+  manifest: ArtworkProvenanceV3;
+  trust: ArtworkV3TrustContext;
+}> {
+  const workspace = process.cwd();
+  const manifest = JSON.parse(await readFile(
+    join(workspace, 'content', 'batches', 'F003', 'artwork-provenance.json'),
+    'utf8',
+  )) as ArtworkProvenanceV3;
+  const identity = {
+    manifestId: manifest.manifestId,
+    batchId: manifest.batchId,
+    authorId: manifest.authorId,
+    outputPath: manifest.output.publicPath,
+  };
+  return {
+    workspace,
+    manifest,
+    trust: await loadAndVerifyTrustedArtworkMachineReview(workspace, identity),
   };
 }
 
@@ -192,5 +218,76 @@ describe('UT-F002-012 作者別ArtworkProvenanceV2', () => {
       ...value.manifest,
       credit: '',
     }, value.workspace)).rejects.toMatchObject({ code: 'ARTWORK_REVIEW_MISSING' });
+  });
+});
+
+describe('UT-F003-024 ArtworkProvenanceV3 machine review [DES-F003-009][FUN-F003-024]', () => {
+  it('manifest identity・画像実体・正規machine review・trusted coordinator記録を全結合する', async () => {
+    const value = await v3Fixture();
+    await expect(validateArtworkProvenance(value.manifest, value.workspace, value.trust)).resolves.toMatchObject({
+      result: 'pass',
+      manifestId: 'artwork-F003-000035-v1',
+      authorId: '000035',
+      outputPath: 'artwork/dazai-zundamon.png',
+      inputCount: 0,
+    });
+  });
+
+  it.each([
+    ['machine欠落', (value: Awaited<ReturnType<typeof v3Fixture>>) => ({
+      manifest: { ...value.manifest, machineReview: undefined } as unknown as ArtworkProvenanceV3,
+      trust: value.trust,
+    })],
+    ['identity差', (value: Awaited<ReturnType<typeof v3Fixture>>) => ({
+      manifest: value.manifest,
+      trust: { ...value.trust, identity: { ...value.trust.identity, authorId: 'forged' } },
+    })],
+    ['run差', (value: Awaited<ReturnType<typeof v3Fixture>>) => ({
+      manifest: value.manifest,
+      trust: {
+        ...value.trust,
+        coordinatorRecord: {
+          ...value.trust.coordinatorRecord,
+          machineReview: { ...value.trust.coordinatorRecord.machineReview, runId: 'forged-run' },
+        },
+      },
+    })],
+    ['image hash差', (value: Awaited<ReturnType<typeof v3Fixture>>) => ({
+      manifest: {
+        ...value.manifest,
+        machineReview: { ...value.manifest.machineReview, imageSha256: '0'.repeat(64) },
+      },
+      trust: value.trust,
+    })],
+  ])('%sを拒否する', async (_label, mutate) => {
+    const value = await v3Fixture();
+    const changed = mutate(value);
+    await expect(validateArtworkProvenance(changed.manifest, value.workspace, changed.trust))
+      .rejects.toBeInstanceOf(Error);
+  });
+
+  it('F003 committed provenanceと生成PNG・coordinator recordが一致する', async () => {
+    const workspace = process.cwd();
+    const manifest = JSON.parse(await readFile(
+      join(workspace, 'content', 'batches', 'F003', 'artwork-provenance.json'),
+      'utf8',
+    )) as ArtworkProvenanceV3;
+    await expect(loadAndVerifyTrustedArtworkMachineReview(workspace, {
+      manifestId: manifest.manifestId,
+      batchId: manifest.batchId,
+      authorId: 'forged',
+      outputPath: manifest.output.publicPath,
+    })).rejects.toMatchObject({ code: 'ARTWORK_REVIEW_MISSING' });
+    const verifiedTrust = await loadAndVerifyTrustedArtworkMachineReview(workspace, {
+      manifestId: manifest.manifestId,
+      batchId: manifest.batchId,
+      authorId: manifest.authorId,
+      outputPath: manifest.output.publicPath,
+    });
+    await expect(validateArtworkProvenance(manifest, workspace, verifiedTrust)).resolves.toMatchObject({
+      result: 'pass',
+      outputSha256: 'c58b3233decc0b485f938c2d9f73dd16ade06d546ac72ad429fe86bbd22d31b6',
+      outputBytes: 2_960_855,
+    });
   });
 });

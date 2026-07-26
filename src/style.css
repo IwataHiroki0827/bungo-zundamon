@@ -505,9 +505,26 @@ p {
   font-weight: 700;
 }
 
+.work-notice {
+  grid-column: 1 / -1;
+  color: #765228;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .work-intro {
   padding: 0 1.25rem 1rem;
   text-align: right;
+}
+
+.work-notices-detail {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  color: #62451f;
+  font-size: 0.88rem;
+  text-align: left;
 }
 
 .source-attribution,

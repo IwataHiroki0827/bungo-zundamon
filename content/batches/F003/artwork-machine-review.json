@@ -1,0 +1,21 @@
+{
+  "authorId": "000035",
+  "batchId": "F003",
+  "machineReview": {
+    "artifactSha256": "f8054e34f8c4d51ec23b2e9b4e20a6b6b5bc40838c5e278b0f37e534112a7507",
+    "decision": "approved",
+    "imageSha256": "c58b3233decc0b485f938c2d9f73dd16ade06d546ac72ad429fe86bbd22d31b6",
+    "modelClass": "image-generation",
+    "policySha256": "b1c9e153b2eaa6eefc2eefa7bec6094b308c86fb3341719aae411d66c8ac5af7",
+    "producerTaskPath": "/root",
+    "promptSha256": "c5e5eaf5e45a18c003eef5db4eecbe8b8e5063ed6583b31b7d68a52949690e0c",
+    "reviewedAt": "2026-07-26T07:00:00.000Z",
+    "reviewerKind": "project-factory-agent",
+    "runId": "f003-t038-imagegen-20260726",
+    "toolSha256": "c160aa8720a17cbe16ddc7fd56bc2c8cbfc9042d1506cfe99c5b48f3cc6ec76c"
+  },
+  "manifestId": "artwork-F003-000035-v1",
+  "outputPath": "artwork/dazai-zundamon.png",
+  "recordSha256": "f6076f11d63a542f2117fbeed463adce2e9ef079c79c11b8a83f06e2ebf4d4d1",
+  "schemaVersion": "1.0.0"
+}

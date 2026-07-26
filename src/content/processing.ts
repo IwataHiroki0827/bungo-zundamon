@@ -324,11 +324,25 @@ export interface CatalogDialogueV2 extends CatalogDialogue {
   workId: string;
 }
 
+export type CatalogWorkNoticeTextKey =
+  | 'dialogue-excerpt-scope'
+  | 'official-content-warning'
+  | 'unfinished';
+
+export type CatalogWorkNoticePlacement = 'work-list' | 'work-detail' | 'credits';
+
+export interface CatalogWorkNotice {
+  textKey: CatalogWorkNoticeTextKey;
+  placements: CatalogWorkNoticePlacement[];
+}
+
 export interface CatalogWorkV2 extends Omit<CatalogWork, 'source' | 'dialogues'> {
   authorId: string;
   batchId: string;
   source: CatalogSourceV2;
   dialogues: CatalogDialogueV2[];
+  completionStatus?: 'complete' | 'unfinished';
+  notices?: CatalogWorkNotice[];
 }
 
 export interface CatalogAudioAssetV2 extends AudioAsset {

@@ -810,7 +810,7 @@ tasks:
   title: 太宰治画像・未完/公式注意・権利表示を整備
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-037
   tags:
@@ -823,11 +823,12 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  result: 太宰治ずんだもん画像、未完・公式注意・抜粋scope、3配置DOM、固定provenance chainを実装。全795テスト・型・lint・build・trace_checkをPASSし、独立受け入れHigh/Medium/Low 0
 - id: T-039
   title: 女生徒の全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-037
   - T-038

@@ -140,6 +140,39 @@ describe('UT-F002-023 FUN-F002-023 renderAuthorPageV2', () => {
     expect(control).not.toHaveBeenCalled();
   });
 
+  it('作品noticeを一覧・詳細へ安全なtext nodeで描画し、全作品を閉じた状態で開始する', () => {
+    const catalog = catalogFixture();
+    const target = catalog.works.find((work) => work.workId === '000473')!;
+    target.completionStatus = 'unfinished';
+    target.notices = [
+      {
+        textKey: 'unfinished',
+        placements: ['work-list', 'work-detail', 'credits'],
+      },
+      {
+        textKey: 'official-content-warning',
+        placements: ['work-list', 'work-detail', 'credits'],
+      },
+      {
+        textKey: 'dialogue-excerpt-scope',
+        placements: ['work-list', 'work-detail', 'credits'],
+      },
+    ];
+    const page = renderAuthorPageV2(
+      '000081',
+      catalog,
+      controllerFixture().controller,
+      new URL('https://example.test/app/'),
+    );
+    const panels = Array.from(page.querySelectorAll<HTMLDetailsElement>('.work-panel'));
+    const first = panels[0]!;
+    expect(panels.every((panel) => !panel.open)).toBe(true);
+    expect(first.querySelector('summary')?.textContent).toContain('未完');
+    expect(first.querySelector('summary')?.textContent).toContain('不適切と受け取られる可能性');
+    expect(first.querySelector('.work-notices-detail')?.textContent).toContain('作品全文の朗読や要約ではなく');
+    expect(first.querySelector('script, img')).toBeNull();
+  });
+
   it.each([
     ['author不在', (catalog: UICatalogV2) => ({ authorId: '999999', catalog, code: 'UI_AUTHOR_NOT_FOUND' })],
     ['0作品', (catalog: UICatalogV2) => ({ authorId: '000081', catalog: { ...catalog, works: catalog.works.filter((work) => work.authorId !== '000081') }, code: 'UI_WORK_AUTHOR_MISMATCH' })],

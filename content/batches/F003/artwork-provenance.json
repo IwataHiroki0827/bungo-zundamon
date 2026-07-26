@@ -1,0 +1,61 @@
+{
+  "authorId": "000035",
+  "batchId": "F003",
+  "characterGuideline": {
+    "contentSha256": "d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d",
+    "decision": "allowed-original-fan-art",
+    "decisionSummary": "入力画像0件の独自生成ファンアートとして使用し、非公式であることとcreditを表示する。第三者配布素材や公式画像の再利用はない。",
+    "fetchedAt": "2026-07-25T10:50:10.493Z",
+    "policyId": "zundamon-character-guideline",
+    "url": "https://zunko.jp/guideline.html"
+  },
+  "creationMethod": "original-generation",
+  "credit": "太宰治ずんだもん：OpenAI built-in image_genによる独自生成（入力・参照画像なし）",
+  "generatedOn": "2026-07-26",
+  "generation": {
+    "inputImageCount": 0,
+    "model": "not exposed by built-in tool",
+    "modelVersion": "not exposed by built-in tool",
+    "prompt": "Use case: illustration-story\nAsset type: square author card illustration for a Japanese literature web app\nPrimary request: Create an entirely original chibi illustration of a green bean-themed fictional mascot reimagined as a witty, introspective early-20th-century Japanese novelist, evoking a literary atmosphere associated with Osamu Dazai without copying any real photograph, identifiable face, or existing character artwork.\nScene/backdrop: warm aged washi-paper texture with a loose circular charcoal ink-wash halo; sparse plum-blossom petals and a few abstract manuscript-paper motifs, with no readable writing.\nSubject: one fictional mascot character only; leaf-green hair with two rounded bean-pod buns; large amber eyes; thoughtful but gently mischievous expression; modest charcoal-gray Japanese-Western literary coat over a cream shirt, muted wine-red scarf, holding a closed plain notebook and a fountain pen.\nStyle/medium: polished hand-drawn anime chibi illustration, soft watercolor and colored-pencil texture, clean dark outlines, visually compatible with a literary character card.\nComposition/framing: centered full-body or knees-up portrait, generous padding, square composition, hands clearly visible and anatomically natural.\nLighting/mood: soft warm diffuse light, introspective, elegant, slightly wistful, approachable.\nColor palette: parchment beige, leaf green, charcoal gray, cream, muted wine red, soft black ink.\nConstraints: entirely original generated image; zero input or reference images; no depiction or tracing of Osamu Dazai or any real person; no copied pose or costume; no copyrighted third-party character costume or logo; no readable text; no signature; no watermark.\nAvoid: photorealism, exact human likeness, bandages, cigarette, alcohol, weapons, military insignia, recognizable brand marks, extra people, distorted hands, extra fingers, cropped head, neon background.",
+    "promptSha256": "c5e5eaf5e45a18c003eef5db4eecbe8b8e5063ed6583b31b7d68a52949690e0c",
+    "provider": "OpenAI",
+    "providerTerms": {
+      "contentSha256": "043449f1a2b1c49d3fd644449e895ce8971469b45eefbca38771195854288496",
+      "decisionSummary": "built-in image_genによる入力画像なし生成物の利用に関するprovider termsを選定時確認した。",
+      "fetchedAt": "2026-07-25T10:50:10.610Z",
+      "policyId": "openai-terms",
+      "url": "https://openai.com/policies/terms-of-use/"
+    },
+    "recipe": "OpenAI built-in image_genへ上記promptを入力し、入力・参照画像0件で1枚生成。生成PNGを画像編集・合成・inpainting・文字追加・第三者素材追加なしでF003 tracked public-files正本へbyte-for-byteコピーした。",
+    "recipeSha256": "9b359e6d482461b819dff0cc5d4e7f9e63d5d1445c72f5f57fb315c2b37d6ec4",
+    "tool": "built-in image_gen"
+  },
+  "inputAllowlist": [],
+  "inputs": [],
+  "machineReview": {
+    "artifactSha256": "f8054e34f8c4d51ec23b2e9b4e20a6b6b5bc40838c5e278b0f37e534112a7507",
+    "decision": "approved",
+    "imageSha256": "c58b3233decc0b485f938c2d9f73dd16ade06d546ac72ad429fe86bbd22d31b6",
+    "modelClass": "image-generation",
+    "policySha256": "b1c9e153b2eaa6eefc2eefa7bec6094b308c86fb3341719aae411d66c8ac5af7",
+    "producerTaskPath": "/root",
+    "promptSha256": "c5e5eaf5e45a18c003eef5db4eecbe8b8e5063ed6583b31b7d68a52949690e0c",
+    "reviewedAt": "2026-07-26T07:00:00.000Z",
+    "reviewerKind": "project-factory-agent",
+    "runId": "f003-t038-imagegen-20260726",
+    "toolSha256": "c160aa8720a17cbe16ddc7fd56bc2c8cbfc9042d1506cfe99c5b48f3cc6ec76c"
+  },
+  "manifestId": "artwork-F003-000035-v1",
+  "output": {
+    "bitDepth": 8,
+    "bytes": 2960855,
+    "colorType": "RGB",
+    "height": 1254,
+    "mediaType": "image/png",
+    "publicPath": "artwork/dazai-zundamon.png",
+    "sha256": "c58b3233decc0b485f938c2d9f73dd16ade06d546ac72ad429fe86bbd22d31b6",
+    "sourcePath": "content/batches/F003/public-files/artwork/dazai-zundamon.png",
+    "width": 1254
+  },
+  "schemaVersion": "3.0.0"
+}

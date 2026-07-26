@@ -1,3 +1,4 @@
+import { WORK_NOTICE_TEXT } from '../notices/work-notice-text';
 import { AudioController } from './audio-controller';
 import { resolvePublicAsset, resolvePublicAssetV2 } from './catalog-loader';
 import { observeAudioLazyLoading } from './lazy-loading';
@@ -411,7 +412,7 @@ export function renderDialogueCard(
   return card;
 }
 
-function renderWork(work: DisplayWork, controller: AudioController, authorId?: string): HTMLElement {
+function renderWork(work: DisplayWork | DisplayWorkV2, controller: AudioController, authorId?: string): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
 
@@ -419,6 +420,16 @@ function renderWork(work: DisplayWork, controller: AudioController, authorId?: s
   const heading = textElement('span', work.title, 'work-title');
   const count = textElement('span', `${work.dialogues.length}台詞`, 'work-count');
   summary.append(heading, count);
+  const notices = 'notices' in work && Array.isArray(work.notices) ? work.notices : [];
+  for (const notice of notices) {
+    if (notice.placements.includes('work-list')) {
+      summary.append(textElement(
+        'span',
+        WORK_NOTICE_TEXT[notice.textKey],
+        `work-notice work-notice-${notice.textKey}`,
+      ));
+    }
+  }
 
   const source = authorId
     ? aozoraLinkV2('青空文庫の図書カード', work.cardLink, authorId)
@@ -433,6 +444,15 @@ function renderWork(work: DisplayWork, controller: AudioController, authorId?: s
     );
   }
   intro.append(source);
+  const detailNotices = notices.filter((notice) => notice.placements.includes('work-detail'));
+  if (detailNotices.length > 0) {
+    const noticeList = document.createElement('ul');
+    noticeList.className = 'work-notices work-notices-detail';
+    for (const notice of detailNotices) {
+      noticeList.append(textElement('li', WORK_NOTICE_TEXT[notice.textKey]));
+    }
+    intro.append(noticeList);
+  }
 
   const list = document.createElement('ol');
   list.className = 'dialogue-list';

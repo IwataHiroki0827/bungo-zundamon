@@ -9,6 +9,7 @@ export {
 } from './artwork-bundle';
 export { isValidatedLicenseManifest, validateReleaseNotices } from './release-notices';
 export { resolveTrustedExternalLink } from './trusted-links';
+export { WORK_NOTICE_TEXT, type WorkNoticeTextKey } from './work-notice-text';
 export { REQUIRED_NOTICE_TEXT } from './types';
 export type {
   ArtworkInput,

@@ -435,6 +435,39 @@ function v2AozoraUrl(value: unknown, authorId: string, workId: string, kind: 'ca
   return url.href;
 }
 
+const WORK_NOTICE_KEYS = new Set([
+  'dialogue-excerpt-scope',
+  'official-content-warning',
+  'unfinished',
+]);
+const WORK_NOTICE_PLACEMENTS = new Set(['work-list', 'work-detail', 'credits']);
+
+function v2WorkNotices(work: Record<string, unknown>): void {
+  if (work.completionStatus === undefined && work.notices === undefined) return;
+  if ((work.completionStatus !== 'complete' && work.completionStatus !== 'unfinished') ||
+    !Array.isArray(work.notices) || work.notices.length === 0) {
+    failV2('CATALOG_ORPHAN_REFERENCE');
+  }
+  const keys = new Set<string>();
+  for (const notice of work.notices) {
+    v2Record(notice);
+    if (Object.keys(notice).sort().join('\0') !== 'placements\0textKey' ||
+      typeof notice.textKey !== 'string' || !WORK_NOTICE_KEYS.has(notice.textKey) ||
+      keys.has(notice.textKey) || !Array.isArray(notice.placements) ||
+      notice.placements.length !== WORK_NOTICE_PLACEMENTS.size ||
+      new Set(notice.placements).size !== WORK_NOTICE_PLACEMENTS.size ||
+      !notice.placements.every((placement) =>
+        typeof placement === 'string' && WORK_NOTICE_PLACEMENTS.has(placement))) {
+      failV2('CATALOG_ORPHAN_REFERENCE');
+    }
+    keys.add(notice.textKey);
+  }
+  if (!keys.has('dialogue-excerpt-scope') ||
+    keys.has('unfinished') !== (work.completionStatus === 'unfinished')) {
+    failV2('CATALOG_ORPHAN_REFERENCE');
+  }
+}
+
 interface ParsedCounts {
   readonly total: number;
   readonly published: number;
@@ -559,6 +592,7 @@ function parseCatalogV2(value: unknown): UICatalogV2 {
     actualWorksByBatch.set(batchId, actualBatchWorks);
     workCountsByAuthor.set(authorId, (workCountsByAuthor.get(authorId) ?? 0) + 1);
     v2String(work.title);
+    v2WorkNotices(work);
     const cardLink = v2AozoraUrl(work.cardLink, authorId, workId, 'card');
     v2Record(work.source);
     if (v2AozoraUrl(work.source.cardUrl, authorId, workId, 'card') !== cardLink) failV2('CATALOG_PATH_UNSAFE');

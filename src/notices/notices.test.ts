@@ -578,6 +578,21 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
       link.protocol === 'https:' && link.target === '_blank' && link.rel === 'noopener noreferrer')).toBe(true);
   });
 
+  it('作品noticeをクレジット配置へ固定文言で描画する', () => {
+    const catalog = catalogV2Fixture();
+    catalog.works[0]!.completionStatus = 'unfinished';
+    catalog.works[0]!.notices = [
+      { textKey: 'unfinished', placements: ['work-list', 'work-detail', 'credits'] },
+      { textKey: 'official-content-warning', placements: ['work-list', 'work-detail', 'credits'] },
+      { textKey: 'dialogue-excerpt-scope', placements: ['work-list', 'work-detail', 'credits'] },
+    ];
+    const page = renderCreditsV2(catalog, validatedBundle());
+    const sources = page.querySelector('section:nth-of-type(2)');
+    expect(sources?.textContent).toContain('未完');
+    expect(sources?.textContent).toContain('不適切と受け取られる可能性');
+    expect(sources?.textContent).toContain('作品全文の朗読や要約ではなく');
+  });
+
   it('作者・作品が各1件の境界でも完全なクレジットを描画する', () => {
     const catalog = structuredClone(catalogV2Fixture());
     catalog.authors.splice(1);
