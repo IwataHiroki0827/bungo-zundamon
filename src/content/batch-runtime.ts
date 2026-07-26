@@ -6,6 +6,10 @@ import { lstat, mkdir, mkdtemp, readFile, readdir, realpath, rm, statfs } from '
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { canonicalJson, writeJsonArtifactAtomic } from './artifacts.ts';
 import {
+  projectVoiceDiffPlanPaths,
+  resolveVoiceDiffPlanPaths,
+} from './f003-artifact-paths.ts';
+import {
   type BatchManifest,
   type BatchId,
   type ReleaseBuildContext,
@@ -81,7 +85,12 @@ import {
 import { buildPagesPreview, type PagesDistPreview } from './pages-preview.ts';
 import { loadAndVerifyF001Baseline, verifyF001DistInvariant, verifyF001Invariant, type F001Baseline } from './baseline.ts';
 import { validateCatalogV2 } from '../ui/catalog-loader.ts';
-import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/artwork-provenance.ts';
+import {
+  loadAndVerifyTrustedArtworkMachineReview,
+  validateArtworkProvenance,
+  type ArtworkProvenanceV2,
+  type ArtworkProvenanceV3,
+} from '../notices/artwork-provenance.ts';
 import {
   validateSelectionPolicySnapshots,
   type PolicyObservation,
@@ -465,7 +474,24 @@ async function executeRights(
       policyUnknown.observations as PolicyObservation[],
       manifest.batchId,
     );
-    artworkDecision = await validateArtworkProvenance(artworkUnknown as ArtworkProvenanceV2, workspace);
+    if (isRecord(artworkUnknown) && artworkUnknown.schemaVersion === '3.0.0' &&
+      typeof artworkUnknown.manifestId === 'string' && typeof artworkUnknown.batchId === 'string' &&
+      typeof artworkUnknown.authorId === 'string' && isRecord(artworkUnknown.output) &&
+      typeof artworkUnknown.output.publicPath === 'string') {
+      const trust = await loadAndVerifyTrustedArtworkMachineReview(workspace, {
+        manifestId: artworkUnknown.manifestId,
+        batchId: artworkUnknown.batchId,
+        authorId: artworkUnknown.authorId,
+        outputPath: artworkUnknown.output.publicPath,
+      });
+      artworkDecision = await validateArtworkProvenance(
+        artworkUnknown as unknown as ArtworkProvenanceV3,
+        workspace,
+        trust,
+      );
+    } else {
+      artworkDecision = await validateArtworkProvenance(artworkUnknown as ArtworkProvenanceV2, workspace);
+    }
   } catch (error) {
     throw prerequisite('rights', `rights artifact検証に失敗しました: ${error instanceof Error ? error.message : 'invalid'}`);
   }
@@ -772,10 +798,13 @@ async function executeCapacityForecast(
     throw prerequisite('capacity-forecast', `capacity authorizationが不正です: ${error instanceof Error ? error.message : 'invalid'}`);
   }
   const forecastRef = `content/batches/${manifest.batchId}/capacity-forecast/${workId}.json` as WorkspaceRelativePath;
+  const persistedPlan = manifest.batchId === 'F003'
+    ? projectVoiceDiffPlanPaths(workspace, plan)
+    : plan;
   const artifact: VoiceAuthorizationArtifact = {
     schemaVersion: '1.0.0', kind: 'voice-capacity-authorization', batchId: manifest.batchId, workId,
     expectedManifestSha: inputs.expectedManifestSha, preTreeDigest: acceptedAudio.digest,
-    reviewSha256: digestArtifact(review), configSha256: digestArtifact(config), plan, authorization,
+    reviewSha256: digestArtifact(review), configSha256: digestArtifact(config), plan: persistedPlan, authorization,
   };
   const evidencePath = join(workspace, '.cache', 'batch-capacity', manifest.batchId, workId, 'forecast-report.json');
   await Promise.all([
@@ -900,7 +929,10 @@ async function executeVoice(
     throw prerequisite('voice', `voice config schemaが不正です: ${error instanceof Error ? error.message : 'invalid'}`);
   }
   const authorizationUnknown = await readCanonicalRuntimeArtifact<unknown>(workspace, work.forecastRef, 'voice capacity authorization', 'voice');
-  const authorization = validateVoiceAuthorization(authorizationUnknown, manifest, workId, review, config);
+  const persistedAuthorization = validateVoiceAuthorization(authorizationUnknown, manifest, workId, review, config);
+  const authorization: VoiceAuthorizationArtifact = manifest.batchId === 'F003'
+    ? { ...persistedAuthorization, plan: resolveVoiceDiffPlanPaths(workspace, persistedAuthorization.plan) }
+    : persistedAuthorization;
   const items = review.approved.map(({ candidate }) => ({
     candidateId: candidate.candidateId,
     workId,

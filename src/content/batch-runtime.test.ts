@@ -20,7 +20,7 @@ import {
 } from './batch.ts';
 import { applyWorkReviews, type Candidate, type ReviewRecord } from './processing.ts';
 import type { BatchSourceDependencies } from './batch-production.ts';
-import type { SelectedWork } from './source.ts';
+import type { BibliographySnapshot, SelectedWork, WorkRightsObservation } from './source.ts';
 import type { VoiceDiffGenerationResult, VoiceDiffPlan } from '../voice/generation.ts';
 import type { ActualCapacityInput, CapacityForecastInput } from '../voice/budget.ts';
 
@@ -292,6 +292,54 @@ function rightsSourceDependencies(): BatchSourceDependencies {
   };
 }
 
+async function f003RightsFixture(): Promise<{
+  workspace: string;
+  manifest: BatchManifest;
+  dependencies: BatchSourceDependencies;
+}> {
+  const input = await fixture();
+  const sourceRoot = join(process.cwd(), 'content', 'batches', 'F003');
+  const batchRoot = join(input.workspace, 'content', 'batches', 'F003');
+  await cp(sourceRoot, batchRoot, { recursive: true });
+  const storedManifest = JSON.parse(await readFile(join(sourceRoot, 'batch.json'), 'utf8')) as BatchManifest;
+  const candidate = {
+    ...storedManifest,
+    status: 'draft',
+    stageRecords: [],
+    rightsSnapshotIds: [],
+    inputPaths: [],
+    outputPaths: [],
+    workProgress: storedManifest.workProgress.map((work) => ({
+      workId: work.workId,
+      status: 'pending' as const,
+      stageRecords: [],
+    })),
+  };
+  const checked = validateBatchManifest(candidate);
+  if (!checked.ok) throw new Error(checked.error.message);
+  const storedRights = JSON.parse(
+    await readFile(join(sourceRoot, 'rights-selection.json'), 'utf8'),
+  ) as {
+    readonly bibliographySnapshot: BibliographySnapshot;
+    readonly selection: {
+      readonly works: readonly SelectedWork[];
+      readonly observation: WorkRightsObservation;
+    };
+  };
+  const dependencies: BatchSourceDependencies = {
+    loadBibliography: async () => ({
+      snapshot: storedRights.bibliographySnapshot,
+      csv: new TextEncoder().encode('fixture-csv'),
+      rows: [],
+    }),
+    selectWorks: async () => storedRights.selection,
+    fetchSource: async () => { throw new Error('rights stage must not fetch source'); },
+    decodeSource: () => { throw new Error('rights stage must not decode source'); },
+    extractCandidates: () => { throw new Error('rights stage must not extract candidates'); },
+  };
+  return { workspace: input.workspace, manifest: checked.value, dependencies };
+}
+
 describe('production rights入力結合 [DES-F002-002][DES-F002-009][DES-F002-012][DES-F002-015]', () => {
   it('policy全5件・artwork PNG・公式書誌3作品を検証し最新観測時刻でrights-verifiedへ進める', async () => {
     const input = await rightsFixture();
@@ -306,6 +354,25 @@ describe('production rights入力結合 [DES-F002-002][DES-F002-009][DES-F002-01
       stageRecords: [{ stage: 'rights-verified', completedAt: '2026-07-25T11:00:00.000Z', count: 9 }],
     });
     expect(result.nextManifest.rightsSnapshotIds).toHaveLength(6);
+  });
+
+  it('F003 machine reviewをtrusted coordinator記録と照合してrights-verifiedへ進める', async () => {
+    const input = await f003RightsFixture();
+    const result = await createProductionBatchDependencies({}, input.dependencies).executeStage({
+      workspace: input.workspace,
+      batchId: input.manifest.batchId,
+      manifest: input.manifest,
+      stage: 'rights',
+    });
+    expect(result.nextManifest).toMatchObject({
+      batchId: 'F003',
+      status: 'rights-verified',
+      author: { authorId: '000035' },
+    });
+    expect(result.nextManifest.stageRecords.at(-1)).toMatchObject({
+      stage: 'rights-verified',
+      count: 9,
+    });
   });
 
   it('policy欠損・extra schemaとartwork PNG改変を遷移前に拒否する', async () => {

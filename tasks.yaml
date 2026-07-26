@@ -828,7 +828,7 @@ tasks:
   title: 女生徒の全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-037
   - T-038
@@ -849,11 +849,12 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  result: 女生徒47候補を独立二重レビューと第三裁定で31承認・16除外へ確定し、30 WAV・容量実測・F001/F002不変・相対POSIX証跡chainをatomic acceptedへ結合。全838テストと独立受け入れHigh/Medium/Low 0でPASS
 - id: T-040
   title: 走れメロスの全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-039
   tags: *id004

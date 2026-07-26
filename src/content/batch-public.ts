@@ -21,7 +21,12 @@ import {
   validateArtworkProvenanceBundle,
   type ArtworkCreditManifest,
 } from '../notices/artwork-bundle.ts';
-import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/artwork-provenance.ts';
+import {
+  loadAndVerifyTrustedArtworkMachineReview,
+  validateArtworkProvenance,
+  type ArtworkProvenanceV2,
+  type ArtworkProvenanceV3,
+} from '../notices/artwork-provenance.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -194,14 +199,25 @@ async function integrateArtworkProvenances(
     if (!isRecord(raw) || typeof raw.manifestId !== 'string') {
       throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `作者画像provenance identityが不正です: ${author.authorId}`);
     }
-    if (author.introducedByBatchId !== 'F002') {
+    if (author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003') {
       throw new PublicIntegrationError(
         'PUBLIC_REFERENCE_MISSING',
         `作者画像provenance schema validatorが未登録です: ${author.introducedByBatchId}`,
       );
     }
     try {
-      const decision = await validateArtworkProvenance(raw as unknown as ArtworkProvenanceV2, workspace);
+      const decision = author.introducedByBatchId === 'F003'
+        ? await validateArtworkProvenance(
+            raw as unknown as ArtworkProvenanceV3,
+            workspace,
+            await loadAndVerifyTrustedArtworkMachineReview(workspace, {
+              manifestId: String(raw.manifestId),
+              batchId: source.manifest.batchId,
+              authorId: source.manifest.author.authorId,
+              outputPath: author.artwork.path,
+            }),
+          )
+        : await validateArtworkProvenance(raw as unknown as ArtworkProvenanceV2, workspace);
       if (decision.authorId !== author.authorId || decision.outputPath !== author.artwork.path ||
         decision.outputSha256 !== author.artwork.sha256) {
         throw new Error('artwork-decision-catalog-mismatch');

@@ -1,0 +1,4380 @@
+[
+  {
+    "contextAfter": "と大声で言われて、まぶしさ、それから、へんな間の悪さ、それから、胸がどきどきして、着物のまえを合せたりして、ちょっと、てれくさく",
+    "contextBefore": "押入れの真っ暗い中に、じっと、しゃがんで隠れていて、突然、でこちゃんに、がらっと襖をあけられ、日の光がどっと来て、でこちゃんに、",
+    "extractorVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 102,
+      "start": 95
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 102,
+      "startToken": 95
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "！"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と小さい声で呼んでみる。へんに気恥ずかしく、うれしく、起きて、さっさと蒲団をたたむ。蒲団を持ち上げるとき、よいしょ、と掛声して、は",
+    "contextBefore": "はいつも厭世的だ。いやになる。いろいろ醜い後悔ばっかり、いちどに、どっとかたまって胸をふさぎ、身悶えしちゃう。\n\n　朝は、意地悪。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 689,
+      "start": 683
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 689,
+      "startToken": 683
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "父"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "を唄う。ちょっとあたりを見廻したような感じ。普段、モオツァルトだの、バッハだのに熱中しているはずの自分が、無意識に、「唐人お吉」",
+    "contextBefore": "やってみたが、だめだった。もう、涙のない女になったのかも知れない。\n\n　あきらめて、お部屋の掃除をはじめる。お掃除しながら、ふと",
+    "extractorVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 2579,
+      "start": 2573
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2579,
+      "startToken": 2573
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "唐"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "吉"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "を唄ったのが、面白い。蒲団を持ち上げるとき、よいしょ、と言ったり、お掃除しながら、唐人お吉を唄うようでは、自分も、もう、だめかと",
+    "contextBefore": "「唐人お吉」を唄う。ちょっとあたりを見廻したような感じ。普段、モオツァルトだの、バッハだのに熱中しているはずの自分が、無意識に、",
+    "extractorVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 2643,
+      "start": 2637
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2643,
+      "startToken": 2637
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "唐"
+      },
+      {
+        "type": "text",
+        "value": "人"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "吉"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と言ったら、男は苦笑して平気で新聞を読み出した。よく考えてみると、どっちが図々しいのかわからない。こっちの方が図々しいのかも知れ",
+    "contextBefore": "て、スカアトのひだをちょっと直して、そうして坐ろうとしたら、眼鏡の男の人が、ちゃんと私のお道具をどけて席に腰かけてしまった。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 6093,
+      "start": 6075
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6093,
+      "startToken": 6075
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "私"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "席"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "という見出しで、いろんな人が書いて在る。読んでいるうちに、自分のことを言われたような気がして恥ずかしい気にもなる。それに書く人、",
+    "contextBefore": "牛を殺すのはよくない、などと結論するのだから、批判も何もあったものでない。何も考えない方が、むしろ良心的だ。\n\n　この雑誌にも、",
+    "extractorVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 6962,
+      "start": 6954
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6962,
+      "startToken": 6954
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "若"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "欠"
+      },
+      {
+        "type": "text",
+        "value": "点"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "の感覚が欠如してしまっている。お上品ぶっていながら、気品がない。そのほか、たくさんのことが書かれている。本当に、読んでいて、はっ",
+    "contextBefore": "自分、ならびに自分の周囲の生活に、正しい強い愛情を持っていない。本当の意味の謙遜がない。独創性にとぼしい。模倣だけだ。人間本来の",
+    "extractorVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7489,
+      "start": 7486
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7489,
+      "startToken": 7486
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "愛"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "とか、「本来の」とかいう形容詞がたくさんあるけれど、「本当の」愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書",
+    "contextBefore": "れどもここに書かれてある言葉全部が、なんだか、楽観的な、この人たちの普段の気持とは離れて、ただ書いてみたというような感じがする。",
+    "extractorVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7648,
+      "start": 7640
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7648,
+      "startToken": 7640
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "当"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "意"
+      },
+      {
+        "type": "text",
+        "value": "味"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "とかいう形容詞がたくさんあるけれど、「本当の」愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書かれていない。こ",
+    "contextBefore": "る言葉全部が、なんだか、楽観的な、この人たちの普段の気持とは離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、",
+    "extractorVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7656,
+      "start": 7651
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7656,
+      "startToken": 7651
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書かれていない。この人たちには、わかっているのかも知れない。それ",
+    "contextBefore": "普段の気持とは離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、「本来の」とかいう形容詞がたくさんあるけれど、",
+    "extractorVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7679,
+      "start": 7674
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7679,
+      "startToken": 7674
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "当"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "自覚、とは、どんなものか、はっきり手にとるようには書かれていない。この人たちには、わかっているのかも知れない。それならば、もっと",
+    "contextBefore": "離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、「本来の」とかいう形容詞がたくさんあるけれど、「本当の」愛、",
+    "extractorVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7686,
+      "start": 7681
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7686,
+      "startToken": 7681
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "当"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "というものもあるのだ。これらすべての事を思ったり見たり考えたりすると、自分の個性を伸ばすどころの騒ぎではない。まあ、まあ目立たず",
+    "contextBefore": "置いているはずだ）始終生活と関係のある親類というものも、ある。知人もある。友達もある。それから、いつも大きな力で私たちを押し流す",
+    "extractorVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 8392,
+      "start": 8387
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8392,
+      "startToken": 8387
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "世"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "中"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と聴いたものだ。そのときには、お母さんは、何か一言で片づけて、そうして怒ったものだ。悪い、不良みたいだ、と言って、お母さんは悲しが",
+    "contextBefore": "ばすことは、できない。おっかないのだ。小さい時分には、私も、自分の気持とひとの気持と全く違ってしまったときには、お母さんに、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 8893,
+      "start": 8888
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8893,
+      "startToken": 8888
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ぜ"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "とおっしゃっていたそうだ。だんだん大きくなるにつれて、私は、おっかなびっくりになってしまった。洋服いちまい作るのにも、人々の思惑",
+    "contextBefore": "お母さんは悲しがっていたようだった。お父さんに言ったこともある。お父さんは、そのときただ黙って笑っていた。そしてあとでお母さんに",
+    "extractorVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 9023,
+      "start": 9013
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9023,
+      "startToken": 9013
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "中"
+      },
+      {
+        "type": "text",
+        "value": "心"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "子"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "が来ている。ブリッジの階段をコトコト昇りながら、ナンジャラホイと思った。ばかばかしい。私は、少し幸福すぎるのかも知れない。\n\n　",
+    "contextBefore": "たのと全く同じだ。いま、という瞬間は、面白い。いま、いま、いま、と指でおさえているうちにも、いま、は遠くへ飛び去って、あたらしい",
+    "extractorVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11114,
+      "start": 11110
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11114,
+      "startToken": 11110
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "ということが、無かったら、もっともっとこの先生すきなのだけれど。あまりにポオズをつけすぎる。どこか、無理がある。あれじゃあ疲れる",
+    "contextBefore": "るのかも知れない。\n\n　けさの小杉先生は綺麗。私の風呂敷みたいに綺麗。美しい青色の似合う先生。胸の真紅のカーネーションも目立つ。",
+    "extractorVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11235,
+      "start": 11230
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11235,
+      "startToken": 11230
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "には、もう、みんな、きゃあ、きゃあ。ドロンドロン式でなく、心理的なので、面白い。あんまり騒いだので、いま食べたばかりなのに、もう",
+    "contextBefore": "つけたのは、人間だし、花を愛するのも人間だもの。\n\n　お昼御飯のときは、お化け話が出る。ヤスベエねえちゃんの、一高七不思議の一つ、",
+    "extractorVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11820,
+      "start": 11813
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11820,
+      "startToken": 11813
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "開",
+        "reading": "あ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "扉"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "の話、おかしい、おかしい。\n\n　午後の図画の時間には、皆、校庭に出て、写生のお稽古。伊藤先生は、どうして私を、いつも無意味に困ら",
+    "contextBefore": "さん夢中。誰でもかれでも、このお化け話とやらには、興味が湧くらしい。一つの刺戟でしょうかな。それから、これは怪談ではないけれど、",
+    "extractorVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12010,
+      "start": 12003
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12010,
+      "startToken": 12003
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "久"
+      },
+      {
+        "type": "text",
+        "value": "原"
+      },
+      {
+        "type": "text",
+        "value": "房"
+      },
+      {
+        "type": "text",
+        "value": "之"
+      },
+      {
+        "type": "text",
+        "value": "助"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "なんて、やりきれない。人は、いい人なんだろうけれど、ゼスチュアが多すぎる。\n\n　ゼスチュアといえば、私だって、負けないでたくさん",
+    "contextBefore": "わずらわしい。ハッキリしない人である。変に笑ったり、先生のくせに恥ずかしがったり、何しろサッパリしないのには、ゲッとなりそうだ。",
+    "extractorVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12464,
+      "start": 12450
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12464,
+      "startToken": 12450
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "死"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "妹"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "思"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "出"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "なんて言って、これがまた、一つのポオズなのだから、動きがとれない。こうして、おとなしく先生のモデルになってあげていながらも、つく",
+    "contextBefore": "アといえば、私だって、負けないでたくさんに持っている。私のは、その上、ずるくて利巧に立ちまわる。本当にキザなのだから始末に困る。",
+    "extractorVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12610,
+      "start": 12572
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12610,
+      "startToken": 12572
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "自"
+      },
+      {
+        "type": "text",
+        "value": "分"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ポ"
+      },
+      {
+        "type": "text",
+        "value": "オ"
+      },
+      {
+        "type": "text",
+        "value": "ズ"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "ぎ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ポ"
+      },
+      {
+        "type": "text",
+        "value": "オ"
+      },
+      {
+        "type": "text",
+        "value": "ズ"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "引"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "嘘"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "化"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と祈っているのだ。本なんか読むの止めてしまえ。観念だけの生活で、無意味な、高慢ちきの知ったかぶりなんて、軽蔑、軽蔑。やれ生活の目",
+    "contextBefore": "言って、これがまた、一つのポオズなのだから、動きがとれない。こうして、おとなしく先生のモデルになってあげていながらも、つくづく、",
+    "extractorVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12694,
+      "start": 12677
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12694,
+      "startToken": 12677
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "自"
+      },
+      {
+        "type": "text",
+        "value": "然"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "素"
+      },
+      {
+        "type": "text",
+        "value": "直"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "が一ばん読みたい。それから、ふっと、お母さん長生きするように、と思う。先生のモデルになっていると、へんに、つらい。くたくたに疲れ",
+    "contextBefore": "のあることさえ、知らない。\n\n　だまって同じ姿勢で立っていると、やたら無性に、お金が欲しくなって来る。十円あれば、よいのだけれど。",
+    "extractorVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13048,
+      "start": 13038
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13048,
+      "startToken": 13038
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "ダ"
+      },
+      {
+        "type": "text",
+        "value": "ム"
+      },
+      {
+        "type": "text",
+        "value": "・"
+      },
+      {
+        "type": "text",
+        "value": "キ"
+      },
+      {
+        "type": "text",
+        "value": "ュ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "イ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "なぞと乱暴なこと言い出して、そのうちに、なんだかお寺さんご自身、見合いに、ほんとうに行くことにきまってしまったような錯覚を起した",
+    "contextBefore": "て、つくづくいまは後悔した。私たち、こんなところへ来るなんて、自分自身を軽蔑していることだと思った。お寺さんは、大はしゃぎ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13364,
+      "start": 13347
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13364,
+      "startToken": 13347
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "合"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "とか、「和服のときには、帯は、どんなのがいいの？」なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どな",
+    "contextBefore": "こと言い出して、そのうちに、なんだかお寺さんご自身、見合いに、ほんとうに行くことにきまってしまったような錯覚を起したらしく、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13458,
+      "start": 13434
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13458,
+      "startToken": 13434
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "髪"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "色"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "花"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "base": "挿",
+        "reading": "さ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どなたと見合いなさるの？」と私も、笑いながら尋ねると、",
+    "contextBefore": "合いに、ほんとうに行くことにきまってしまったような錯覚を起したらしく、\n\n「こんな髪には、どんな色の花を挿したらいいの？」とか、",
+    "extractorVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13483,
+      "start": 13461
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13483,
+      "startToken": 13461
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "和"
+      },
+      {
+        "type": "text",
+        "value": "服"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "帯"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と私も、笑いながら尋ねると、\n\n「もち屋は、もち屋と言いますからね」と、澄まして答えた。それどういう意味なの、と私も少し驚いて聴",
+    "contextBefore": "の？」とか、「和服のときには、帯は、どんなのがいいの？」なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13533,
+      "start": 13519
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13533,
+      "startToken": 13519
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "合"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と、澄まして答えた。それどういう意味なの、と私も少し驚いて聴いてみたら、お寺の娘はお寺へお嫁入りするのが一ばんいいのよ、一生食べ",
+    "contextBefore": "て、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どなたと見合いなさるの？」と私も、笑いながら尋ねると、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13567,
+      "start": 13549
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13567,
+      "startToken": 13549
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "屋"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "屋"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "言"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n　そうかも知れない。私は、たしかに、いけなくなった。くだらなくなった。いけない、いけない。弱い、弱い。だしぬけに、大きな声が",
+    "contextBefore": "なぜ、このごろの自分が、いけないのか。どうして、こんなに不安なのだろう。いつでも、何かにおびえている。この間も、誰かに言われた。",
+    "extractorVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15350,
+      "start": 15331
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15350,
+      "startToken": 15331
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "俗"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "ぽ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と呼んでみる。お父さん、お父さん。夕焼の空は綺麗です。そうして、夕靄は、ピンク色。夕日の光が靄の中に溶けて、にじんで、そのために",
+    "contextBefore": "自分の弱虫を、ごまかそうたって、だめだぞ。もっとどうにかなれ。私は、恋をしているのかも知れない。青草原に仰向けに寝ころがった。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15514,
+      "start": 15508
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15514,
+      "startToken": 15508
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "父"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と涙が出そうなくらい思いました。じっと空を見ていると、だんだん空が変ってゆくのです。だんだん青味がかってゆくのです。ただ、溜息ば",
+    "contextBefore": "れは、この空の色は、なんという色なのかしら。薔薇。火事。虹。天使の翼。大伽藍。いいえ、そんなんじゃない。もっと、もっと神々しい。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15852,
+      "start": 15842
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15852,
+      "startToken": 15842
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "愛"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と呼んだ。\n\n　ジャピイは、玄関のほうから、気取って走って来た。急に、歯ぎしりするほどジャピイを可愛くなっちゃって、シッポを強く",
+    "contextBefore": "背伸びしては、茱萸をとって食べている。ジャピイも下で食べている。可笑しかった。そのこと、思い出したら、ジャピイを懐かしくて、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 17019,
+      "start": 17012
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 17019,
+      "startToken": 17012
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ジ"
+      },
+      {
+        "type": "text",
+        "value": "ャ"
+      },
+      {
+        "type": "text",
+        "value": "ピ"
+      },
+      {
+        "type": "text",
+        "value": "イ"
+      },
+      {
+        "type": "text",
+        "value": "！"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "とおっしゃった。蚊が出て来ると、ふとお父さんを思い出し、ほどきものをすると、お父さんを思い出し、爪を切るときにもお父さんを思い出",
+    "contextBefore": "、お父さんは、もういない。たったお母さんと私だけになってしまった。お母さんもお淋しいことばかりなのだろう。こないだもお母さんは、",
+    "extractorVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 18303,
+      "start": 18208
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 18303,
+      "startToken": 18208
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "生"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "楽"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "私"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "楽"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "感"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "ゆ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "呉"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "幸"
+      },
+      {
+        "type": "text",
+        "value": "福"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "父"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と、とぼけて言って、私をからかって、私が、本気でウクレレなんかに熱中して居るとでも思っているらしい様子なので、私は、あさましくて",
+    "contextBefore": "ないだも、私が、ばからしい、わざとウクレレ持ち出して、ポンポンやってはしゃいで見せたら、お母さんは、しんから嬉しそうにして、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 19214,
+      "start": 19194
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 19214,
+      "startToken": 19194
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "雨"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "雨"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "音"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "聞"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と、私は、ありのまま事実を、言ったつもりなのに、今井田さん御夫婦は、窮余の一策とは、うまいことをおっしゃる、と手を拍たんばかりに",
+    "contextBefore": "たのであるが、今井田さんの奥さんの、しつこい無智なお世辞には、さすがにむかむかして、よし、もう嘘は、つくまいと屹っとなって、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 21296,
+      "start": 21251
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 21296,
+      "startToken": 21251
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "料"
+      },
+      {
+        "type": "text",
+        "value": "理"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "ご"
+      },
+      {
+        "type": "text",
+        "value": "ざ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "私"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "窮"
+      },
+      {
+        "type": "text",
+        "value": "余"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "一"
+      },
+      {
+        "type": "text",
+        "value": "策"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "と、お母さん、私のかなしい気持、ちゃんとわかっていらっしゃる癖に、今井田さんの気持を迎えるために、そんなくだらないことを言って、",
+    "contextBefore": "、お箸とお茶碗ほおり出して、大声あげて泣こうかしらと思った。じっとこらえて、無理に、にやにや笑って見せたら、お母さんまでが、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 21466,
+      "start": 21442
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 21466,
+      "startToken": 21442
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "子"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "役"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "立"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "を羨しく思うのだ。私にだって、あんなに慕って甘えてくれる弟が、ひとりでもあったなら、私は、こんなに一日一日、みっともなく、まごつ",
+    "contextBefore": "半分泣きかけて呼ぶ他所の子供の声に、はっと胸を突かれた。私を呼んでいるのではないけれども、いまのあの子に泣きながら慕われているその",
+    "extractorVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 25207,
+      "start": 25199
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25207,
+      "startToken": 25199
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "という意味とやらの小唄を教えて下さったり、星のお話をしたり、即興の詩を作ってみせたり、ステッキついて、唾をピュッピュッ出し出し、",
+    "contextBefore": "た。私が散歩に行きたいと無理言っていると、お父さん、病気だったのに、一緒に散歩に出て下さった。いつも若かったお父さん。ドイツ語の",
+    "extractorVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 25601,
+      "start": 25584
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25601,
+      "startToken": 25584
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "百"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "九"
+      },
+      {
+        "type": "text",
+        "value": "十"
+      },
+      {
+        "type": "text",
+        "value": "九"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "といいながら、そんなに不愉快そうな顔もしていない。ひとの用事をしてあげるのがお好きなのだから仕方がない。\n\n「なにしろ、話がやや",
+    "contextBefore": "いもの。ぱらぱら骨がほどけていって、急にふわっと軽くなる。クルクルもてあそんでいたら、お母さん帰っていらした。御機嫌がよい。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 26766,
+      "start": 26754
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26766,
+      "startToken": 26754
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "疲"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "疲"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "など言いながら着物を着換えてお風呂へはいる。\n\n　お風呂から上がって、私と二人でお茶を飲みながら、へんにニコニコ笑って、お母さん",
+    "contextBefore": "あ、疲れた、疲れた」といいながら、そんなに不愉快そうな顔もしていない。ひとの用事をしてあげるのがお好きなのだから仕方がない。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 26835,
+      "start": 26820
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26835,
+      "startToken": 26820
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "話"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n　もう私は嬉しくてたまらない。「裸足の少女」という映画も見たいとは思っていたのだが、このごろ私は遊んでばかりいたので、遠慮し",
+    "contextBefore": "風呂へはいる。\n\n　お風呂から上がって、私と二人でお茶を飲みながら、へんにニコニコ笑って、お母さん何を言い出すかと思ったら、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 27021,
+      "start": 26914
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27021,
+      "startToken": 26914
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "『"
+      },
+      {
+        "base": "裸足",
+        "reading": "はだし",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "少"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "』"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "言"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "ご"
+      },
+      {
+        "type": "text",
+        "value": "ざ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "晩"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "母"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "肩"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "下"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "働"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "楽"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "という映画も見たいとは思っていたのだが、このごろ私は遊んでばかりいたので、遠慮していたのだ。それをお母さん、ちゃんと察して、私に",
+    "contextBefore": "わり、今晩は、ちょっとお母さんの肩をもんで下さい。働いて行くのなら、なおさら楽しいでしょう？」\n\n　もう私は嬉しくてたまらない。",
+    "extractorVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 27045,
+      "start": 27038
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27045,
+      "startToken": 27038
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "裸"
+      },
+      {
+        "type": "text",
+        "value": "足"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "少"
+      },
+      {
+        "type": "text",
+        "value": "女"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n　お母さんは、れいによって私をからかう。\n\n「そうでしょう？　心がこもっていますからね。でも、あたしの取柄は、アンマ上下、それだ",
+    "contextBefore": "さばいて行けるだけの叡智もあったし、純粋の自己犠牲の美しさも知っていたし、完全に無報酬の、奉仕のよろこびもわきまえていたのだ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 28181,
+      "start": 28162
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28181,
+      "startToken": 28162
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "天"
+      },
+      {
+        "type": "text",
+        "value": "才"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n　素直に思っていることを、そのまま言ってみたら、それは私の耳にも、とっても爽やかに響いて、この二、三年、私が、こんなに、無邪",
+    "contextBefore": "、奉仕のよろこびもわきまえていたのだ。\n\n「ああ、いいアンマさんだ。天才ですね」\n\n　お母さんは、れいによって私をからかう。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 28284,
+      "start": 28205
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28284,
+      "startToken": 28205
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "心"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "base": "取柄",
+        "reading": "とりえ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "base": "上下",
+        "reading": "かみしも",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "心"
+      },
+      {
+        "type": "text",
+        "value": "細"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n「いいの、そんなに欲しくなくなったの」\n\n「でも、なければ、困るでしょう」\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう",
+    "contextBefore": "り思っていたお母さん、目をつぶったまま突然言い出したので、びくっとした。お母さん、ときどきこんなことをして、私をおどろかす。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30501,
+      "start": 30454
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30501,
+      "startToken": 30454
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "夏"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "靴"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "言"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "渋"
+      },
+      {
+        "type": "text",
+        "value": "谷"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "靴"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "高"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n「でも、なければ、困るでしょう」\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかって",
+    "contextBefore": "とをして、私をおどろかす。\n\n「夏の靴がほしいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30522,
+      "start": 30503
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30522,
+      "startToken": 30503
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "欲"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかっている。けれども、きっと来る、あすは来",
+    "contextBefore": "しいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」\n\n「いいの、そんなに欲しくなくなったの」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30540,
+      "start": 30524
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30540,
+      "startToken": 30524
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "困"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  },
+  {
+    "contextAfter": "\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかっている。けれども、きっと来る、あすは来る、と信じて",
+    "contextBefore": "ったついでに見て来たよ。靴も、高くなったねえ」\n\n「いいの、そんなに欲しくなくなったの」\n\n「でも、なければ、困るでしょう」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30546,
+      "start": 30542
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30546,
+      "startToken": 30542
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000275"
+  }
+]

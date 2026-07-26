@@ -1,0 +1,107 @@
+{
+  "observation": {
+    "bibliographySha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
+    "observedAt": "2026-07-26T08:34:02.449Z",
+    "phase": "selection",
+    "works": [
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000035",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/275_13903.html",
+        "status": "公開中",
+        "title": "女生徒",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "000275"
+      },
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000035",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/1567_14913.html",
+        "status": "公開中",
+        "title": "走れメロス",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "001567"
+      },
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000035",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html",
+        "status": "公開中",
+        "title": "グッド・バイ",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "000258"
+      }
+    ]
+  },
+  "works": [
+    {
+      "baseEdition": "女生徒",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "女生徒",
+      "inputter": "細渕真弓",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000035",
+      "proofreader": "細渕紀子",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/275_13903.html",
+      "status": "公開中",
+      "title": "女生徒",
+      "workId": "000275"
+    },
+    {
+      "baseEdition": "太宰治全集3",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "太宰治全集3",
+      "inputter": "金川一之",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000035",
+      "proofreader": "高橋美奈子",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/1567_14913.html",
+      "status": "公開中",
+      "title": "走れメロス",
+      "workId": "001567"
+    },
+    {
+      "baseEdition": "太宰治全集9",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "太宰治全集9",
+      "inputter": "柴田卓治",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000035",
+      "proofreader": "かとうかおり",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html",
+      "status": "公開中",
+      "title": "グッド・バイ",
+      "workId": "000258"
+    }
+  ]
+}

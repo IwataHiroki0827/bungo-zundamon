@@ -1,0 +1,1083 @@
+[
+  {
+    "candidateId": "kbtgL3srBn0eDome_rS4ODsH15QSmX7rhNv0v0fE5uY",
+    "contextAfter": "と大声で言われて、まぶしさ、それから、へんな間の悪さ、それから、胸がどきどきして、着物のまえを合せたりして、ちょっと、てれくさく",
+    "contextBefore": "押入れの真っ暗い中に、じっと、しゃがんで隠れていて、突然、でこちゃんに、がらっと襖をあけられ、日の光がどっと来て、でこちゃんに、",
+    "displayText": "「見つけた！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 102,
+      "start": 95
+    },
+    "revisions": [],
+    "sha256": "6f4737b375d663f9044631c69d9fa67f29dfb4bf6df222b8162c770e033672bf",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 102,
+      "startToken": 95
+    },
+    "speechText": "「見つけた！」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "4oAC3hkBPZCJaJtgulduAmkdcSzow4ckZ1ztUv-fqVM",
+    "contextAfter": "と小さい声で呼んでみる。へんに気恥ずかしく、うれしく、起きて、さっさと蒲団をたたむ。蒲団を持ち上げるとき、よいしょ、と掛声して、は",
+    "contextBefore": "はいつも厭世的だ。いやになる。いろいろ醜い後悔ばっかり、いちどに、どっとかたまって胸をふさぎ、身悶えしちゃう。\n\n　朝は、意地悪。\n\n",
+    "displayText": "「お父さん」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 689,
+      "start": 683
+    },
+    "revisions": [],
+    "sha256": "286818f08186f2942eed6fa3345460a24779bd003f602a3ee3aa332d2ddd9199",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 689,
+      "startToken": 683
+    },
+    "speechText": "「お父さん」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "v--K_enswV4BDHarygwMEBE7rqVcFjakSHKv--o0oWw",
+    "contextAfter": "を唄う。ちょっとあたりを見廻したような感じ。普段、モオツァルトだの、バッハだのに熱中しているはずの自分が、無意識に、「唐人お吉」",
+    "contextBefore": "やってみたが、だめだった。もう、涙のない女になったのかも知れない。\n\n　あきらめて、お部屋の掃除をはじめる。お掃除しながら、ふと",
+    "displayText": "「唐人お吉」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 2579,
+      "start": 2573
+    },
+    "revisions": [],
+    "sha256": "4385c4a3f504a7600e2f1dce321e6ef398a14b016696426b0749e0cdc054d1f1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2579,
+      "startToken": 2573
+    },
+    "speechText": "「唐人お吉」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "gJM87oIWiU8xJhSronyNcLHQg58pzUm3mLYflWnxaFI",
+    "contextAfter": "を唄ったのが、面白い。蒲団を持ち上げるとき、よいしょ、と言ったり、お掃除しながら、唐人お吉を唄うようでは、自分も、もう、だめかと",
+    "contextBefore": "「唐人お吉」を唄う。ちょっとあたりを見廻したような感じ。普段、モオツァルトだの、バッハだのに熱中しているはずの自分が、無意識に、",
+    "displayText": "「唐人お吉」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 2643,
+      "start": 2637
+    },
+    "revisions": [],
+    "sha256": "95fc930fd22dcad3d878c3a328290649d1dac198a6511e8291e7ac136e9f1256",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2643,
+      "startToken": 2637
+    },
+    "speechText": "「唐人お吉」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "cbg6GLofSzK82mdhZPGKRMLxnxeWnlCsVh1L9nINeVE",
+    "contextAfter": "と言ったら、男は苦笑して平気で新聞を読み出した。よく考えてみると、どっちが図々しいのかわからない。こっちの方が図々しいのかも知れ",
+    "contextBefore": "て、スカアトのひだをちょっと直して、そうして坐ろうとしたら、眼鏡の男の人が、ちゃんと私のお道具をどけて席に腰かけてしまった。\n\n",
+    "displayText": "「あの、そこは私、見つけた席ですの」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 6093,
+      "start": 6075
+    },
+    "revisions": [],
+    "sha256": "e922ea1e2d268c33afafb7efbeda266d38d4a2309e693bf8f8241df498d270b9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6093,
+      "startToken": 6075
+    },
+    "speechText": "「あの、そこは私、見つけた席ですの」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "V7csPlwuwHKewBGPOsruWPltS8ybqP5t6wyTkuS-xug",
+    "contextAfter": "という見出しで、いろんな人が書いて在る。読んでいるうちに、自分のことを言われたような気がして恥ずかしい気にもなる。それに書く人、",
+    "contextBefore": "牛を殺すのはよくない、などと結論するのだから、批判も何もあったものでない。何も考えない方が、むしろ良心的だ。\n\n　この雑誌にも、",
+    "displayText": "「若い女の欠点」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 6962,
+      "start": 6954
+    },
+    "revisions": [],
+    "sha256": "ba91715a626f63c46dc728d7956c1612d831d572ef753bf2766a75a506274fc8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6962,
+      "startToken": 6954
+    },
+    "speechText": "「若い女の欠点」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "T0PUEjPPK4lyB_6VGNzeiMGtA41XMrOYVDaKelaLws8",
+    "contextAfter": "の感覚が欠如してしまっている。お上品ぶっていながら、気品がない。そのほか、たくさんのことが書かれている。本当に、読んでいて、はっ",
+    "contextBefore": "自分、ならびに自分の周囲の生活に、正しい強い愛情を持っていない。本当の意味の謙遜がない。独創性にとぼしい。模倣だけだ。人間本来の",
+    "displayText": "「愛」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7489,
+      "start": 7486
+    },
+    "revisions": [],
+    "sha256": "fdeea676d798c3611c0db78100813967f1cf41056a6f22430b72ee13daf64e0d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7489,
+      "startToken": 7486
+    },
+    "speechText": "「愛」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "g_1Q8rxNOozvQk4OvI-cKlxsYLn8Q1XA_HE6tKqOT8o",
+    "contextAfter": "とか、「本来の」とかいう形容詞がたくさんあるけれど、「本当の」愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書",
+    "contextBefore": "れどもここに書かれてある言葉全部が、なんだか、楽観的な、この人たちの普段の気持とは離れて、ただ書いてみたというような感じがする。",
+    "displayText": "「本当の意味の」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7648,
+      "start": 7640
+    },
+    "revisions": [],
+    "sha256": "de725cdba3fa3580bc152268f9b8a42bdb7c9fbf483a7facc671231d3150c2c0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7648,
+      "startToken": 7640
+    },
+    "speechText": "「本当の意味の」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "9XSyWh_ncbQsuRfmgmo4d_7KYUzaBv7PVEnNR8tELVg",
+    "contextAfter": "とかいう形容詞がたくさんあるけれど、「本当の」愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書かれていない。こ",
+    "contextBefore": "る言葉全部が、なんだか、楽観的な、この人たちの普段の気持とは離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、",
+    "displayText": "「本来の」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7656,
+      "start": 7651
+    },
+    "revisions": [],
+    "sha256": "beb0079a137d483f9c4a4331aa07179a5adf98f35899a635013d82dd20bccb1e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7656,
+      "startToken": 7651
+    },
+    "speechText": "「本来の」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "mHY_-U3PG9Oz2EPRfco6RisJYOvTvjEKn0usnSDO378",
+    "contextAfter": "愛、「本当の」自覚、とは、どんなものか、はっきり手にとるようには書かれていない。この人たちには、わかっているのかも知れない。それ",
+    "contextBefore": "普段の気持とは離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、「本来の」とかいう形容詞がたくさんあるけれど、",
+    "displayText": "「本当の」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7679,
+      "start": 7674
+    },
+    "revisions": [],
+    "sha256": "101375c163a3ea00d4f385ac112705d2b0d803696d3c46c743ff225c95517244",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7679,
+      "startToken": 7674
+    },
+    "speechText": "「本当の」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "NQAZVTF7AQRHa4UeXLVbO5twiEEj1eIhgnOXXgOAo90",
+    "contextAfter": "自覚、とは、どんなものか、はっきり手にとるようには書かれていない。この人たちには、わかっているのかも知れない。それならば、もっと",
+    "contextBefore": "離れて、ただ書いてみたというような感じがする。「本当の意味の」とか、「本来の」とかいう形容詞がたくさんあるけれど、「本当の」愛、",
+    "displayText": "「本当の」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 7686,
+      "start": 7681
+    },
+    "revisions": [],
+    "sha256": "81ed3eecf56d5e4cd9bab41cd07a1406f6bd6093ccd155bbbdd5a9de2cbca146",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7686,
+      "startToken": 7681
+    },
+    "speechText": "「本当の」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "0PXCm8uQaahUS-zoiZ0a9l4uCMrMIISEJ3ITd4N6CRA",
+    "contextAfter": "というものもあるのだ。これらすべての事を思ったり見たり考えたりすると、自分の個性を伸ばすどころの騒ぎではない。まあ、まあ目立たず",
+    "contextBefore": "置いているはずだ）始終生活と関係のある親類というものも、ある。知人もある。友達もある。それから、いつも大きな力で私たちを押し流す",
+    "displayText": "「世の中」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 8392,
+      "start": 8387
+    },
+    "revisions": [],
+    "sha256": "7995a78fff21af0ab3c9f06e9039c9f07e7781dde8eefa5f8c643f3d9c21ca24",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8392,
+      "startToken": 8387
+    },
+    "speechText": "「世の中」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "fayzYl3-Ffw1x9Dq51pGsPcIE7KqJdn5LCwdzEixv2w",
+    "contextAfter": "と聴いたものだ。そのときには、お母さんは、何か一言で片づけて、そうして怒ったものだ。悪い、不良みたいだ、と言って、お母さんは悲しが",
+    "contextBefore": "ばすことは、できない。おっかないのだ。小さい時分には、私も、自分の気持とひとの気持と全く違ってしまったときには、お母さんに、\n\n",
+    "displayText": "「なぜ？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 8893,
+      "start": 8888
+    },
+    "revisions": [],
+    "sha256": "829581091682cec429d2569db77fe5d4edc8b172eb98e9f38dddf2b09a8057f2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8893,
+      "startToken": 8888
+    },
+    "speechText": "「なぜ？」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "ruYyYzNX16EI87YwQRBt-Krg3EJgyqleVB-zM-6cAAs",
+    "contextAfter": "とおっしゃっていたそうだ。だんだん大きくなるにつれて、私は、おっかなびっくりになってしまった。洋服いちまい作るのにも、人々の思惑",
+    "contextBefore": "お母さんは悲しがっていたようだった。お父さんに言ったこともある。お父さんは、そのときただ黙って笑っていた。そしてあとでお母さんに",
+    "displayText": "「中心はずれの子だ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 9023,
+      "start": 9013
+    },
+    "revisions": [],
+    "sha256": "48b86445d63bdca387bae34e5c2b45d622cdaf03dd78deeffc2a5aa1c7993494",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9023,
+      "startToken": 9013
+    },
+    "speechText": "「中心はずれの子だ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "zXxY1jnX8DjtVHBD34xLweiZ5CiFbANpV_7k1kntczM",
+    "contextAfter": "が来ている。ブリッジの階段をコトコト昇りながら、ナンジャラホイと思った。ばかばかしい。私は、少し幸福すぎるのかも知れない。\n\n　",
+    "contextBefore": "たのと全く同じだ。いま、という瞬間は、面白い。いま、いま、いま、と指でおさえているうちにも、いま、は遠くへ飛び去って、あたらしい",
+    "displayText": "「いま」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11114,
+      "start": 11110
+    },
+    "revisions": [],
+    "sha256": "eaf75c4e03164649f4a92c0e42ef00044c2296be89200b25f401371e99113682",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11114,
+      "startToken": 11110
+    },
+    "speechText": "「いま」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "xGRTRLVQDHkgkwTyWKJW1LYcPM66eWB7CK9ZwYypEpo",
+    "contextAfter": "ということが、無かったら、もっともっとこの先生すきなのだけれど。あまりにポオズをつけすぎる。どこか、無理がある。あれじゃあ疲れる",
+    "contextBefore": "るのかも知れない。\n\n　けさの小杉先生は綺麗。私の風呂敷みたいに綺麗。美しい青色の似合う先生。胸の真紅のカーネーションも目立つ。",
+    "displayText": "「つくる」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11235,
+      "start": 11230
+    },
+    "revisions": [],
+    "sha256": "d607b699017a0cfe0dafaf0224d02cfc373d5595d93599928b6191b37b459a5b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11235,
+      "startToken": 11230
+    },
+    "speechText": "「つくる」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "_oE0UC7M3tyNdP9nBYhutvZzCfMu6YZ50l4KJAO7N8g",
+    "contextAfter": "には、もう、みんな、きゃあ、きゃあ。ドロンドロン式でなく、心理的なので、面白い。あんまり騒いだので、いま食べたばかりなのに、もう",
+    "contextBefore": "つけたのは、人間だし、花を愛するのも人間だもの。\n\n　お昼御飯のときは、お化け話が出る。ヤスベエねえちゃんの、一高七不思議の一つ、",
+    "displayText": "「開かずの扉」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 11820,
+      "start": 11813
+    },
+    "revisions": [],
+    "sha256": "3a4b36d058c45eaaab3eed567da3278f9f23fb08c9efeca3b0a95f3bd189b502",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 11820,
+      "startToken": 11813
+    },
+    "speechText": "「あかずの扉」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "jdZZ6CXWCAaivsdBPnLrzVq53b5kKTlkrXoCqROTjKg",
+    "contextAfter": "の話、おかしい、おかしい。\n\n　午後の図画の時間には、皆、校庭に出て、写生のお稽古。伊藤先生は、どうして私を、いつも無意味に困ら",
+    "contextBefore": "さん夢中。誰でもかれでも、このお化け話とやらには、興味が湧くらしい。一つの刺戟でしょうかな。それから、これは怪談ではないけれど、",
+    "displayText": "「久原房之助」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12010,
+      "start": 12003
+    },
+    "revisions": [],
+    "sha256": "39cdf6dee12f30b72e38c2addd2c83c5bcadd17a6d8c63b6afc335b1855ab283",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12010,
+      "startToken": 12003
+    },
+    "speechText": "「久原房之助」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "G5Q7_9aPRz1RR5uDETcFCBUDfFp1hZyxWx2Ra0D-pPE",
+    "contextAfter": "なんて、やりきれない。人は、いい人なんだろうけれど、ゼスチュアが多すぎる。\n\n　ゼスチュアといえば、私だって、負けないでたくさん",
+    "contextBefore": "わずらわしい。ハッキリしない人である。変に笑ったり、先生のくせに恥ずかしがったり、何しろサッパリしないのには、ゲッとなりそうだ。",
+    "displayText": "「死んだ妹を、思い出します」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12464,
+      "start": 12450
+    },
+    "revisions": [],
+    "sha256": "ec5761e13c0c9d609448a6d6b767c592fb4f22f15feaab1f415143ce6c25f31c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12464,
+      "startToken": 12450
+    },
+    "speechText": "「死んだ妹を、思い出します」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "smZyFmovehLQ2G8_hvDBbn0kzVG_QZxcJLT644DsBo8",
+    "contextAfter": "なんて言って、これがまた、一つのポオズなのだから、動きがとれない。こうして、おとなしく先生のモデルになってあげていながらも、つく",
+    "contextBefore": "アといえば、私だって、負けないでたくさんに持っている。私のは、その上、ずるくて利巧に立ちまわる。本当にキザなのだから始末に困る。",
+    "displayText": "「自分は、ポオズをつくりすぎて、ポオズに引きずられている嘘つきの化けものだ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12610,
+      "start": 12572
+    },
+    "revisions": [],
+    "sha256": "b4cdc2c60c7098cc761c77d82db08c85d9aa393acf8a5bb1eea642c8b2f8fbef",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12610,
+      "startToken": 12572
+    },
+    "speechText": "「自分は、ポオズをつくりすぎて、ポオズに引きずられている嘘つきの化けものだ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "74G9KQRFrV2VPRsxP8IAxM1msrcZhyYvBe6YxQ0tuY8",
+    "contextAfter": "と祈っているのだ。本なんか読むの止めてしまえ。観念だけの生活で、無意味な、高慢ちきの知ったかぶりなんて、軽蔑、軽蔑。やれ生活の目",
+    "contextBefore": "言って、これがまた、一つのポオズなのだから、動きがとれない。こうして、おとなしく先生のモデルになってあげていながらも、つくづく、",
+    "displayText": "「自然になりたい、素直になりたい」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 12694,
+      "start": 12677
+    },
+    "revisions": [],
+    "sha256": "6c34b230249a45813c40c16107fec3441ae937dcc1049d9c86debb4b99d6da47",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 12694,
+      "startToken": 12677
+    },
+    "speechText": "「自然になりたい、素直になりたい」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "fQv9Qx4pHXIB1bMO0x0rVtmAtWSQavyqzNDHhWPSRN8",
+    "contextAfter": "が一ばん読みたい。それから、ふっと、お母さん長生きするように、と思う。先生のモデルになっていると、へんに、つらい。くたくたに疲れ",
+    "contextBefore": "のあることさえ、知らない。\n\n　だまって同じ姿勢で立っていると、やたら無性に、お金が欲しくなって来る。十円あれば、よいのだけれど。",
+    "displayText": "「マダム・キュリイ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13048,
+      "start": 13038
+    },
+    "revisions": [],
+    "sha256": "483ed9f3de2c6af3ba583d31ce701701d35baadc5cae30ad6484199d0b1bf92d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13048,
+      "startToken": 13038
+    },
+    "speechText": "「マダム・キュリイ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "t4kMWSSNsXkzimRZhqxxLa9dUcjUIs1AKIKNDPYycfc",
+    "contextAfter": "なぞと乱暴なこと言い出して、そのうちに、なんだかお寺さんご自身、見合いに、ほんとうに行くことにきまってしまったような錯覚を起した",
+    "contextBefore": "て、つくづくいまは後悔した。私たち、こんなところへ来るなんて、自分自身を軽蔑していることだと思った。お寺さんは、大はしゃぎ。\n\n",
+    "displayText": "「このまま、見合いに行こうかしら」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13364,
+      "start": 13347
+    },
+    "revisions": [],
+    "sha256": "fcaa9e1d5a8f8f717a56d0f812a9e51b92ee725343e0aab94dc754b1bbb035af",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13364,
+      "startToken": 13347
+    },
+    "speechText": "「このまま、見合いに行こうかしら」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "tttyIchOoUVzZveg1gqwO0wUymURG8mVhmcYc5w61a4",
+    "contextAfter": "とか、「和服のときには、帯は、どんなのがいいの？」なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どな",
+    "contextBefore": "こと言い出して、そのうちに、なんだかお寺さんご自身、見合いに、ほんとうに行くことにきまってしまったような錯覚を起したらしく、\n\n",
+    "displayText": "「こんな髪には、どんな色の花を挿したらいいの？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13458,
+      "start": 13434
+    },
+    "revisions": [],
+    "sha256": "71beff8d21a0299395983eb4701b4f94a11f5807ceb7a512a71d18c90d136f9c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13458,
+      "startToken": 13434
+    },
+    "speechText": "「こんな髪には、どんな色の花をさしたらいいの？」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "TnSxCvRI5Wpm_U0LVTLr9pPPEfxLAbaSeBFeNprM8vQ",
+    "contextAfter": "なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どなたと見合いなさるの？」と私も、笑いながら尋ねると、",
+    "contextBefore": "合いに、ほんとうに行くことにきまってしまったような錯覚を起したらしく、\n\n「こんな髪には、どんな色の花を挿したらいいの？」とか、",
+    "displayText": "「和服のときには、帯は、どんなのがいいの？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13483,
+      "start": 13461
+    },
+    "revisions": [],
+    "sha256": "e79a8ba1626422fbb0ed0d15d370d745e44bdcf6d4b1ac467bedf855f98ebefd",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13483,
+      "startToken": 13461
+    },
+    "speechText": "「和服のときには、帯は、どんなのがいいの？」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "dIKoyOa4E2kdQWzRwY7oG-vo7hjgPAzpJi8SMMrA_CM",
+    "contextAfter": "と私も、笑いながら尋ねると、\n\n「もち屋は、もち屋と言いますからね」と、澄まして答えた。それどういう意味なの、と私も少し驚いて聴",
+    "contextBefore": "の？」とか、「和服のときには、帯は、どんなのがいいの？」なんて、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n",
+    "displayText": "「どなたと見合いなさるの？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13533,
+      "start": 13519
+    },
+    "revisions": [],
+    "sha256": "85a8798b52a1da179445f3b7ca72788130b6ed5d1b6565576ce63c81b39cb690",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13533,
+      "startToken": 13519
+    },
+    "speechText": "「どなたと見合いなさるの？」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "Spkseg19H-2TixnikgPL2SwTT_UNCBm-NMuZ-4HYHbk",
+    "contextAfter": "と、澄まして答えた。それどういう意味なの、と私も少し驚いて聴いてみたら、お寺の娘はお寺へお嫁入りするのが一ばんいいのよ、一生食べ",
+    "contextBefore": "て、本気にやり出す。\n\n　ほんとに、何も考えない可愛らしいひと。\n\n「どなたと見合いなさるの？」と私も、笑いながら尋ねると、\n\n",
+    "displayText": "「もち屋は、もち屋と言いますからね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 13567,
+      "start": 13549
+    },
+    "revisions": [],
+    "sha256": "2f59c8519fe1b61b2a78f5c4a12d7887d139d1dbc56da89e2617e9309562a333",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 13567,
+      "startToken": 13549
+    },
+    "speechText": "「もち屋は、もち屋と言いますからね」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "VD8Qdq-It6ys_zCiOfZyihDQ13rW_fvxO4bYMiMyEz8",
+    "contextAfter": "\n\n　そうかも知れない。私は、たしかに、いけなくなった。くだらなくなった。いけない、いけない。弱い、弱い。だしぬけに、大きな声が",
+    "contextBefore": "なぜ、このごろの自分が、いけないのか。どうして、こんなに不安なのだろう。いつでも、何かにおびえている。この間も、誰かに言われた。",
+    "displayText": "「あなたは、だんだん俗っぽくなるのね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15350,
+      "start": 15331
+    },
+    "revisions": [],
+    "sha256": "d8d6a30fbf01e830c87d518e5ed5b95bbc9518c1f315181a872aae710bef451f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15350,
+      "startToken": 15331
+    },
+    "speechText": "「あなたは、だんだん俗っぽくなるのね」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "j2JfCRQnieMbgneQPSGUkXmc9U-_rw1a5lRVVJjxlyI",
+    "contextAfter": "と呼んでみる。お父さん、お父さん。夕焼の空は綺麗です。そうして、夕靄は、ピンク色。夕日の光が靄の中に溶けて、にじんで、そのために",
+    "contextBefore": "自分の弱虫を、ごまかそうたって、だめだぞ。もっとどうにかなれ。私は、恋をしているのかも知れない。青草原に仰向けに寝ころがった。\n\n",
+    "displayText": "「お父さん」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15514,
+      "start": 15508
+    },
+    "revisions": [],
+    "sha256": "1d109537f5dfa80b41b3455a43ba4641d61a4121bff4eb4c6f5c225476590922",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15514,
+      "startToken": 15508
+    },
+    "speechText": "「お父さん」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "tmq5Q5LS_RWVGbgNBpaTX9hTu15h5bhwMmjE-i35PMs",
+    "contextAfter": "と涙が出そうなくらい思いました。じっと空を見ていると、だんだん空が変ってゆくのです。だんだん青味がかってゆくのです。ただ、溜息ば",
+    "contextBefore": "れは、この空の色は、なんという色なのかしら。薔薇。火事。虹。天使の翼。大伽藍。いいえ、そんなんじゃない。もっと、もっと神々しい。\n\n",
+    "displayText": "「みんなを愛したい」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 15852,
+      "start": 15842
+    },
+    "revisions": [],
+    "sha256": "dcd6d40a984fc7aacc12a75c1f4e79424dadee728e30375237a6b25a91e3c13d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 15852,
+      "startToken": 15842
+    },
+    "speechText": "「みんなを愛したい」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "Qx8rGY_QjrZfWMhQCij0ja1Beh_3b9qJNC7WbcGpxPk",
+    "contextAfter": "と呼んだ。\n\n　ジャピイは、玄関のほうから、気取って走って来た。急に、歯ぎしりするほどジャピイを可愛くなっちゃって、シッポを強く",
+    "contextBefore": "背伸びしては、茱萸をとって食べている。ジャピイも下で食べている。可笑しかった。そのこと、思い出したら、ジャピイを懐かしくて、\n\n",
+    "displayText": "「ジャピイ！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 17019,
+      "start": 17012
+    },
+    "revisions": [],
+    "sha256": "eedd9b77505c17fb03ff1822fd40843986dfa2c8b767148994a5a77a38959a95",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 17019,
+      "startToken": 17012
+    },
+    "speechText": "「ジャピイ！」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "j4r10PdBNWrEkI7Vcdag7XaxZku0AW2pLiLHxRc6IuY",
+    "contextAfter": "とおっしゃった。蚊が出て来ると、ふとお父さんを思い出し、ほどきものをすると、お父さんを思い出し、爪を切るときにもお父さんを思い出",
+    "contextBefore": "、お父さんは、もういない。たったお母さんと私だけになってしまった。お母さんもお淋しいことばかりなのだろう。こないだもお母さんは、",
+    "displayText": "「もうこれからさきは、生きる楽しみがなくなってしまった。あなたを見たって、私は、ほんとうは、あまり楽しみを感じない。ゆるしてお呉れ。幸福も、お父さんがいらっしゃらなければ、来ないほうがよい」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 18303,
+      "start": 18208
+    },
+    "revisions": [],
+    "sha256": "f5f5746a6b9765668693f86f59d787838e08da54586ab6f458ac11602a078324",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 18303,
+      "startToken": 18208
+    },
+    "speechText": "「もうこれからさきは、生きる楽しみがなくなってしまった。あなたを見たって、私は、ほんとうは、あまり楽しみを感じない。ゆるしてお呉れ。幸福も、お父さんがいらっしゃらなければ、来ないほうがよい」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "_0mBPIbtLRfqwyyiCkLOvhxohJrCgcT0t0QDBLrPLRc",
+    "contextAfter": "と、とぼけて言って、私をからかって、私が、本気でウクレレなんかに熱中して居るとでも思っているらしい様子なので、私は、あさましくて",
+    "contextBefore": "ないだも、私が、ばからしい、わざとウクレレ持ち出して、ポンポンやってはしゃいで見せたら、お母さんは、しんから嬉しそうにして、\n\n",
+    "displayText": "「おや、雨かな？　雨だれの音が聞えるね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 19214,
+      "start": 19194
+    },
+    "revisions": [],
+    "sha256": "ebe378ce353024bb34c7565a6c7838a224b5c14d1cbc960d0b376928acff00ac",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 19214,
+      "startToken": 19194
+    },
+    "speechText": "「おや、雨かな？ 雨だれの音が聞えるね」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "jxjorlyJgBpozKr4q28G2Ohz_ecCbexLJYuRJalz5r8",
+    "contextAfter": "と、私は、ありのまま事実を、言ったつもりなのに、今井田さん御夫婦は、窮余の一策とは、うまいことをおっしゃる、と手を拍たんばかりに",
+    "contextBefore": "たのであるが、今井田さんの奥さんの、しつこい無智なお世辞には、さすがにむかむかして、よし、もう嘘は、つくまいと屹っとなって、\n\n",
+    "displayText": "「こんなお料理、ちっともおいしくございません。なんにもないので、私の窮余の一策なんですよ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 21296,
+      "start": 21251
+    },
+    "revisions": [],
+    "sha256": "5dd0fdbc0cc093a496e1ee13c6cd01b977ace91a0b9f561b1cecafb20e8903b6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 21296,
+      "startToken": 21251
+    },
+    "speechText": "「こんなお料理、ちっともおいしくございません。なんにもないので、私の窮余の一策なんですよ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "XalKVu62zW6IoUlOwqoM5-D4V7I4mo_royAXl7oJQNc",
+    "contextAfter": "と、お母さん、私のかなしい気持、ちゃんとわかっていらっしゃる癖に、今井田さんの気持を迎えるために、そんなくだらないことを言って、",
+    "contextBefore": "、お箸とお茶碗ほおり出して、大声あげて泣こうかしらと思った。じっとこらえて、無理に、にやにや笑って見せたら、お母さんまでが、\n\n",
+    "displayText": "「この子も、だんだん役に立つようになりましたよ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 21466,
+      "start": 21442
+    },
+    "revisions": [],
+    "sha256": "dbf88c2f1b223329a1ca13b39f25a0570f88a5328fbc10b32c3bf60530aa89ab",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 21466,
+      "startToken": 21442
+    },
+    "speechText": "「この子も、だんだん役に立つようになりましたよ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "RKy67q1auVTWSCISbKsbVWVpBJavMgfn9DRvCongn-E",
+    "contextAfter": "を羨しく思うのだ。私にだって、あんなに慕って甘えてくれる弟が、ひとりでもあったなら、私は、こんなに一日一日、みっともなく、まごつ",
+    "contextBefore": "半分泣きかけて呼ぶ他所の子供の声に、はっと胸を突かれた。私を呼んでいるのではないけれども、いまのあの子に泣きながら慕われているその",
+    "displayText": "「おねえちゃん」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 25207,
+      "start": 25199
+    },
+    "revisions": [],
+    "sha256": "62e1fa610286af156e4a5b20b27d7b4766cc0173e21f3f66023ba2a5e2e63c60",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25207,
+      "startToken": 25199
+    },
+    "speechText": "「おねえちゃん」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "MuwZQcadENICKauu4fa3X4GkrhB-BrKmXnaSOQ1X3aU",
+    "contextAfter": "という意味とやらの小唄を教えて下さったり、星のお話をしたり、即興の詩を作ってみせたり、ステッキついて、唾をピュッピュッ出し出し、",
+    "contextBefore": "た。私が散歩に行きたいと無理言っていると、お父さん、病気だったのに、一緒に散歩に出て下さった。いつも若かったお父さん。ドイツ語の",
+    "displayText": "「おまえ百まで、わしゃ九十九まで」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 25601,
+      "start": 25584
+    },
+    "revisions": [],
+    "sha256": "b6886d986c0e2c486eb5e6eb925d9c5bad0d89b911b4ea47e012aa2b762e6d01",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25601,
+      "startToken": 25584
+    },
+    "speechText": "「おまえ百まで、わしゃ九十九まで」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "a8kTAO6WcAXCJd_tbb_bd8cm3lvI6Q7bTsjvwgXW2Qk",
+    "contextAfter": "といいながら、そんなに不愉快そうな顔もしていない。ひとの用事をしてあげるのがお好きなのだから仕方がない。\n\n「なにしろ、話がやや",
+    "contextBefore": "いもの。ぱらぱら骨がほどけていって、急にふわっと軽くなる。クルクルもてあそんでいたら、お母さん帰っていらした。御機嫌がよい。\n\n",
+    "displayText": "「ああ、疲れた、疲れた」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 26766,
+      "start": 26754
+    },
+    "revisions": [],
+    "sha256": "6fc3a8f1222b5613651af3bb82e774f744105bb8e70f5945bb9272b7bbe2e378",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26766,
+      "startToken": 26754
+    },
+    "speechText": "「ああ、疲れた、疲れた」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "6uywrc4Zl_Q9xbz3oTaDWUjOgoh4BBM56Hx8VdnSvts",
+    "contextAfter": "など言いながら着物を着換えてお風呂へはいる。\n\n　お風呂から上がって、私と二人でお茶を飲みながら、へんにニコニコ笑って、お母さん",
+    "contextBefore": "あ、疲れた、疲れた」といいながら、そんなに不愉快そうな顔もしていない。ひとの用事をしてあげるのがお好きなのだから仕方がない。\n\n",
+    "displayText": "「なにしろ、話がややこしくて」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 26835,
+      "start": 26820
+    },
+    "revisions": [],
+    "sha256": "1fb2da221b82f80c3ec48c416c3d51e045bd31341cc3d78b0c27b0ba68f32b96",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26835,
+      "startToken": 26820
+    },
+    "speechText": "「なにしろ、話がややこしくて」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "_w-h-SN24wCD6ClKZo3nLWDiVcSux5GqB0BiLe5l1gM",
+    "contextAfter": "\n\n　もう私は嬉しくてたまらない。「裸足の少女」という映画も見たいとは思っていたのだが、このごろ私は遊んでばかりいたので、遠慮し",
+    "contextBefore": "風呂へはいる。\n\n　お風呂から上がって、私と二人でお茶を飲みながら、へんにニコニコ笑って、お母さん何を言い出すかと思ったら、\n\n",
+    "displayText": "「あなたは、こないだから『裸足の少女』を見たい見たいと言ってたでしょう？　そんなに行きたいなら、行ってもよござんす。そのかわり、今晩は、ちょっとお母さんの肩をもんで下さい。働いて行くのなら、なおさら楽しいでしょう？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 27021,
+      "start": 26914
+    },
+    "revisions": [],
+    "sha256": "dc0123d7120e2afb0d0531424fce6147dd3933f8bd581ed6b29558f70accc5a5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27021,
+      "startToken": 26914
+    },
+    "speechText": "「あなたは、こないだから『はだしの少女』を見たい見たいと言ってたでしょう？ そんなに行きたいなら、行ってもよござんす。そのかわり、今晩は、ちょっとお母さんの肩をもんで下さい。働いて行くのなら、なおさら楽しいでしょう？」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "9MZAqboSy8Oy7TSdZ2eOsmN7CR016cdIPLRGJs0dJYw",
+    "contextAfter": "という映画も見たいとは思っていたのだが、このごろ私は遊んでばかりいたので、遠慮していたのだ。それをお母さん、ちゃんと察して、私に",
+    "contextBefore": "わり、今晩は、ちょっとお母さんの肩をもんで下さい。働いて行くのなら、なおさら楽しいでしょう？」\n\n　もう私は嬉しくてたまらない。",
+    "displayText": "「裸足の少女」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 27045,
+      "start": 27038
+    },
+    "revisions": [],
+    "sha256": "95ec1444c12ce9723bfeed31aeac36e8ecc7a6db3d496ddedbd4c84dfec5a225",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27045,
+      "startToken": 27038
+    },
+    "speechText": "「裸足の少女」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "7rcx89NwW91WLOA61lMk2BohasjmlRwiFIjllkTxhhQ",
+    "contextAfter": "\n\n　お母さんは、れいによって私をからかう。\n\n「そうでしょう？　心がこもっていますからね。でも、あたしの取柄は、アンマ上下、それだ",
+    "contextBefore": "さばいて行けるだけの叡智もあったし、純粋の自己犠牲の美しさも知っていたし、完全に無報酬の、奉仕のよろこびもわきまえていたのだ。\n\n",
+    "displayText": "「ああ、いいアンマさんだ。天才ですね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 28181,
+      "start": 28162
+    },
+    "revisions": [],
+    "sha256": "2d7ddafc65da7eea36f612e274b0e0aa7ee12056b409a3cbc14205dbdf5c88ee",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28181,
+      "startToken": 28162
+    },
+    "speechText": "「ああ、いいアンマさんだ。天才ですね」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "Cxv0h9bNcX5RyYFAWuF67P6exWPpKcd5ZJJSSvQgo68",
+    "contextAfter": "\n\n　素直に思っていることを、そのまま言ってみたら、それは私の耳にも、とっても爽やかに響いて、この二、三年、私が、こんなに、無邪",
+    "contextBefore": "、奉仕のよろこびもわきまえていたのだ。\n\n「ああ、いいアンマさんだ。天才ですね」\n\n　お母さんは、れいによって私をからかう。\n\n",
+    "displayText": "「そうでしょう？　心がこもっていますからね。でも、あたしの取柄は、アンマ上下、それだけじゃないんですよ。それだけじゃ、心細いわねえ。もっと、いいとこもあるんです」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 28284,
+      "start": 28205
+    },
+    "revisions": [],
+    "sha256": "6232afe2fec4011aa5d7c35c2784adcc9c404460523c6e25e6773defdc7a574f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28284,
+      "startToken": 28205
+    },
+    "speechText": "「そうでしょう？ 心がこもっていますからね。でも、あたしのとりえは、アンマかみしも、それだけじゃないんですよ。それだけじゃ、心細いわねえ。もっと、いいとこもあるんです」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "ZDEbra5pWDrahnu8vtLaqpVkV2TThiMshFFKYpN2LAo",
+    "contextAfter": "\n\n「いいの、そんなに欲しくなくなったの」\n\n「でも、なければ、困るでしょう」\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう",
+    "contextBefore": "り思っていたお母さん、目をつぶったまま突然言い出したので、びくっとした。お母さん、ときどきこんなことをして、私をおどろかす。\n\n",
+    "displayText": "「夏の靴がほしいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30501,
+      "start": 30454
+    },
+    "revisions": [],
+    "sha256": "06656bd9c79722b6cc9bcbc7241492e6b15b7a3f41837682993fc5496b9b5cbf",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30501,
+      "startToken": 30454
+    },
+    "speechText": "「夏の靴がほしいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "GkazX0Wc6In22ULC0FNphYGRA8kJd4eobkuzqV24Exc",
+    "contextAfter": "\n\n「でも、なければ、困るでしょう」\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかって",
+    "contextBefore": "とをして、私をおどろかす。\n\n「夏の靴がほしいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」\n\n",
+    "displayText": "「いいの、そんなに欲しくなくなったの」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30522,
+      "start": 30503
+    },
+    "revisions": [],
+    "sha256": "bb7056722ab164a360defab80c7effaa9d6868f0ad2ceebb434f12750e98f48b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30522,
+      "startToken": 30503
+    },
+    "speechText": "「いいの、そんなに欲しくなくなったの」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "JeMlpi9PlIJfWFCCCPLj-oh-dqKP5DzDhwxDi-nuPIY",
+    "contextAfter": "\n\n「うん」\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかっている。けれども、きっと来る、あすは来",
+    "contextBefore": "しいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」\n\n「いいの、そんなに欲しくなくなったの」\n\n",
+    "displayText": "「でも、なければ、困るでしょう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30540,
+      "start": 30524
+    },
+    "revisions": [],
+    "sha256": "60d226c7d542c02cb13ac52211e1c709f6a14c3ae3d4a661834a83dcb19ca269",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30540,
+      "startToken": 30524
+    },
+    "speechText": "「でも、なければ、困るでしょう」",
+    "workId": "000275"
+  },
+  {
+    "candidateId": "Xo_djz8ElvC_rHRefziKezu6KXLucrktfdonEwf187E",
+    "contextAfter": "\n\n　明日もまた、同じ日が来るのだろう。幸福は一生、来ないのだ。それは、わかっている。けれども、きっと来る、あすは来る、と信じて",
+    "contextBefore": "ったついでに見て来たよ。靴も、高くなったねえ」\n\n「いいの、そんなに欲しくなくなったの」\n\n「でも、なければ、困るでしょう」\n\n",
+    "displayText": "「うん」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "rawTokenRange": {
+      "end": 30546,
+      "start": 30542
+    },
+    "revisions": [],
+    "sha256": "1cd00adb870d1adcff3c27fbef06fdf7049c0393f8427059accad9d9a1acc586",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30546,
+      "startToken": 30542
+    },
+    "speechText": "「うん」",
+    "workId": "000275"
+  }
+]

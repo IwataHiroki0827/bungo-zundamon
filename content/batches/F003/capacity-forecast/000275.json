@@ -1,0 +1,471 @@
+{
+  "authorization": {
+    "minimumFreeBytesAfterWrite": 150994944,
+    "planDigest": "275a40af15b9c172fd465b86082ff379a8238088c6b00124bed95da59a0af233",
+    "remainingResponseBytes": 104857600,
+    "result": "pass"
+  },
+  "batchId": "F003",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "52b9d1792d772715ed631de62b4a98dce091906790fb6e0a2bbdcc19c55b5449",
+  "kind": "voice-capacity-authorization",
+  "plan": {
+    "batchId": "F003",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 31,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694",
+        "candidateIds": [
+          "_w-h-SN24wCD6ClKZo3nLWDiVcSux5GqB0BiLe5l1gM"
+        ],
+        "estimatedBytes": 941804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694.json",
+        "status": "miss",
+        "text": "「あなたは、こないだから『はだしの少女』を見たい見たいと言ってたでしょう？ そんなに行きたいなら、行ってもよござんす。そのかわり、今晩は、ちょっとお母さんの肩をもんで下さい。働いて行くのなら、なおさら楽しいでしょう？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0",
+        "candidateIds": [
+          "4oAC3hkBPZCJaJtgulduAmkdcSzow4ckZ1ztUv-fqVM",
+          "j2JfCRQnieMbgneQPSGUkXmc9U-_rw1a5lRVVJjxlyI"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0.json",
+        "status": "miss",
+        "text": "「お父さん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c",
+        "candidateIds": [
+          "XalKVu62zW6IoUlOwqoM5-D4V7I4mo_royAXl7oJQNc"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c.json",
+        "status": "miss",
+        "text": "「この子も、だんだん役に立つようになりましたよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60",
+        "candidateIds": [
+          "_0mBPIbtLRfqwyyiCkLOvhxohJrCgcT0t0QDBLrPLRc"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60.json",
+        "status": "miss",
+        "text": "「おや、雨かな？ 雨だれの音が聞えるね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9",
+        "candidateIds": [
+          "kbtgL3srBn0eDome_rS4ODsH15QSmX7rhNv0v0fE5uY"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9.json",
+        "status": "miss",
+        "text": "「見つけた！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6",
+        "candidateIds": [
+          "7rcx89NwW91WLOA61lMk2BohasjmlRwiFIjllkTxhhQ"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6.json",
+        "status": "miss",
+        "text": "「ああ、いいアンマさんだ。天才ですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c",
+        "candidateIds": [
+          "j4r10PdBNWrEkI7Vcdag7XaxZku0AW2pLiLHxRc6IuY"
+        ],
+        "estimatedBytes": 820844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c.json",
+        "status": "miss",
+        "text": "「もうこれからさきは、生きる楽しみがなくなってしまった。あなたを見たって、私は、ほんとうは、あまり楽しみを感じない。ゆるしてお呉れ。幸福も、お父さんがいらっしゃらなければ、来ないほうがよい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9",
+        "candidateIds": [
+          "ZDEbra5pWDrahnu8vtLaqpVkV2TThiMshFFKYpN2LAo"
+        ],
+        "estimatedBytes": 406124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9.json",
+        "status": "miss",
+        "text": "「夏の靴がほしいと言っていたから、きょう渋谷へ行ったついでに見て来たよ。靴も、高くなったねえ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
+        "candidateIds": [
+          "Xo_djz8ElvC_rHRefziKezu6KXLucrktfdonEwf187E"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.json",
+        "status": "miss",
+        "text": "「うん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0",
+        "candidateIds": [
+          "dIKoyOa4E2kdQWzRwY7oG-vo7hjgPAzpJi8SMMrA_CM"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0.json",
+        "status": "miss",
+        "text": "「どなたと見合いなさるの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848",
+        "candidateIds": [
+          "jxjorlyJgBpozKr4q28G2Ohz_ecCbexLJYuRJalz5r8"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848.json",
+        "status": "miss",
+        "text": "「こんなお料理、ちっともおいしくございません。なんにもないので、私の窮余の一策なんですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33",
+        "candidateIds": [
+          "t4kMWSSNsXkzimRZhqxxLa9dUcjUIs1AKIKNDPYycfc"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33.json",
+        "status": "miss",
+        "text": "「このまま、見合いに行こうかしら」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818",
+        "candidateIds": [
+          "6uywrc4Zl_Q9xbz3oTaDWUjOgoh4BBM56Hx8VdnSvts"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818.json",
+        "status": "miss",
+        "text": "「なにしろ、話がややこしくて」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6",
+        "candidateIds": [
+          "G5Q7_9aPRz1RR5uDETcFCBUDfFp1hZyxWx2Ra0D-pPE"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6.json",
+        "status": "miss",
+        "text": "「死んだ妹を、思い出します」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb",
+        "candidateIds": [
+          "ruYyYzNX16EI87YwQRBt-Krg3EJgyqleVB-zM-6cAAs"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb.json",
+        "status": "miss",
+        "text": "「中心はずれの子だ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d",
+        "candidateIds": [
+          "smZyFmovehLQ2G8_hvDBbn0kzVG_QZxcJLT644DsBo8"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d.json",
+        "status": "miss",
+        "text": "「自分は、ポオズをつくりすぎて、ポオズに引きずられている嘘つきの化けものだ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db",
+        "candidateIds": [
+          "RKy67q1auVTWSCISbKsbVWVpBJavMgfn9DRvCongn-E"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db.json",
+        "status": "miss",
+        "text": "「おねえちゃん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c",
+        "candidateIds": [
+          "tmq5Q5LS_RWVGbgNBpaTX9hTu15h5bhwMmjE-i35PMs"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c.json",
+        "status": "miss",
+        "text": "「みんなを愛したい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143",
+        "candidateIds": [
+          "cbg6GLofSzK82mdhZPGKRMLxnxeWnlCsVh1L9nINeVE"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143.json",
+        "status": "miss",
+        "text": "「あの、そこは私、見つけた席ですの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266",
+        "candidateIds": [
+          "TnSxCvRI5Wpm_U0LVTLr9pPPEfxLAbaSeBFeNprM8vQ"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266.json",
+        "status": "miss",
+        "text": "「和服のときには、帯は、どんなのがいいの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301",
+        "candidateIds": [
+          "JeMlpi9PlIJfWFCCCPLj-oh-dqKP5DzDhwxDi-nuPIY"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301.json",
+        "status": "miss",
+        "text": "「でも、なければ、困るでしょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b",
+        "candidateIds": [
+          "74G9KQRFrV2VPRsxP8IAxM1msrcZhyYvBe6YxQ0tuY8"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b.json",
+        "status": "miss",
+        "text": "「自然になりたい、素直になりたい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c",
+        "candidateIds": [
+          "VD8Qdq-It6ys_zCiOfZyihDQ13rW_fvxO4bYMiMyEz8"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c.json",
+        "status": "miss",
+        "text": "「あなたは、だんだん俗っぽくなるのね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf",
+        "candidateIds": [
+          "tttyIchOoUVzZveg1gqwO0wUymURG8mVhmcYc5w61a4"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf.json",
+        "status": "miss",
+        "text": "「こんな髪には、どんな色の花をさしたらいいの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e",
+        "candidateIds": [
+          "Qx8rGY_QjrZfWMhQCij0ja1Beh_3b9qJNC7WbcGpxPk"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e.json",
+        "status": "miss",
+        "text": "「ジャピイ！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d",
+        "candidateIds": [
+          "fayzYl3-Ffw1x9Dq51pGsPcIE7KqJdn5LCwdzEixv2w"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.json",
+        "status": "miss",
+        "text": "「なぜ？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839",
+        "candidateIds": [
+          "a8kTAO6WcAXCJd_tbb_bd8cm3lvI6Q7bTsjvwgXW2Qk"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839.json",
+        "status": "miss",
+        "text": "「ああ、疲れた、疲れた」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17",
+        "candidateIds": [
+          "Cxv0h9bNcX5RyYFAWuF67P6exWPpKcd5ZJJSSvQgo68"
+        ],
+        "estimatedBytes": 725804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17.json",
+        "status": "miss",
+        "text": "「そうでしょう？ 心がこもっていますからね。でも、あたしのとりえは、アンマかみしも、それだけじゃないんですよ。それだけじゃ、心細いわねえ。もっと、いいとこもあるんです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe",
+        "candidateIds": [
+          "Spkseg19H-2TixnikgPL2SwTT_UNCBm-NMuZ-4HYHbk"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe.json",
+        "status": "miss",
+        "text": "「もち屋は、もち屋と言いますからね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe.wav",
+        "workIds": [
+          "000275"
+        ]
+      },
+      {
+        "audioId": "f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4",
+        "candidateIds": [
+          "GkazX0Wc6In22ULC0FNphYGRA8kJd4eobkuzqV24Exc"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4.json",
+        "status": "miss",
+        "text": "「いいの、そんなに欲しくなくなったの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4.wav",
+        "workIds": [
+          "000275"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 6593640,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "52b9d1792d772715ed631de62b4a98dce091906790fb6e0a2bbdcc19c55b5449",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 30,
+    "planDigest": "275a40af15b9c172fd465b86082ff379a8238088c6b00124bed95da59a0af233",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 30,
+    "workId": "000275"
+  },
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reviewSha256": "5adfa4f602077681cd43fc05f414b184314627967fa2401d0f72db901dfaaa5f",
+  "schemaVersion": "1.0.0",
+  "workId": "000275"
+}

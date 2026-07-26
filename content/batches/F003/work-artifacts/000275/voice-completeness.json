@@ -1,0 +1,563 @@
+{
+  "batchId": "F003",
+  "inputHashes": [
+    "ec0d04e319e430f4198bd1f5a84fa88b2b161130e3884e56b0d9741471c42aed",
+    "bb11a4ed689c3e947c8fc283c5fa810c62a037165a568384e56c39ef416f2c60"
+  ],
+  "kind": "voice-completeness",
+  "payload": {
+    "completeness": {
+      "approvedCount": 31,
+      "authorizationDigest": "d9f543f7eba8e5289d6978ff799329faabff026ee2c8bfbee94ac6bf4fc5ccbd",
+      "batchId": "F003",
+      "candidateAudio": {
+        "_0mBPIbtLRfqwyyiCkLOvhxohJrCgcT0t0QDBLrPLRc": "1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60",
+        "_w-h-SN24wCD6ClKZo3nLWDiVcSux5GqB0BiLe5l1gM": "0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694",
+        "4oAC3hkBPZCJaJtgulduAmkdcSzow4ckZ1ztUv-fqVM": "1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0",
+        "6uywrc4Zl_Q9xbz3oTaDWUjOgoh4BBM56Hx8VdnSvts": "5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818",
+        "74G9KQRFrV2VPRsxP8IAxM1msrcZhyYvBe6YxQ0tuY8": "9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b",
+        "7rcx89NwW91WLOA61lMk2BohasjmlRwiFIjllkTxhhQ": "3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6",
+        "a8kTAO6WcAXCJd_tbb_bd8cm3lvI6Q7bTsjvwgXW2Qk": "c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839",
+        "cbg6GLofSzK82mdhZPGKRMLxnxeWnlCsVh1L9nINeVE": "8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143",
+        "Cxv0h9bNcX5RyYFAWuF67P6exWPpKcd5ZJJSSvQgo68": "e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17",
+        "dIKoyOa4E2kdQWzRwY7oG-vo7hjgPAzpJi8SMMrA_CM": "5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0",
+        "fayzYl3-Ffw1x9Dq51pGsPcIE7KqJdn5LCwdzEixv2w": "c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d",
+        "G5Q7_9aPRz1RR5uDETcFCBUDfFp1hZyxWx2Ra0D-pPE": "6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6",
+        "GkazX0Wc6In22ULC0FNphYGRA8kJd4eobkuzqV24Exc": "f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4",
+        "j2JfCRQnieMbgneQPSGUkXmc9U-_rw1a5lRVVJjxlyI": "1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0",
+        "j4r10PdBNWrEkI7Vcdag7XaxZku0AW2pLiLHxRc6IuY": "3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c",
+        "JeMlpi9PlIJfWFCCCPLj-oh-dqKP5DzDhwxDi-nuPIY": "8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301",
+        "jxjorlyJgBpozKr4q28G2Ohz_ecCbexLJYuRJalz5r8": "53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848",
+        "kbtgL3srBn0eDome_rS4ODsH15QSmX7rhNv0v0fE5uY": "2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9",
+        "Qx8rGY_QjrZfWMhQCij0ja1Beh_3b9qJNC7WbcGpxPk": "c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e",
+        "RKy67q1auVTWSCISbKsbVWVpBJavMgfn9DRvCongn-E": "7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db",
+        "ruYyYzNX16EI87YwQRBt-Krg3EJgyqleVB-zM-6cAAs": "725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb",
+        "smZyFmovehLQ2G8_hvDBbn0kzVG_QZxcJLT644DsBo8": "75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d",
+        "Spkseg19H-2TixnikgPL2SwTT_UNCBm-NMuZ-4HYHbk": "ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe",
+        "t4kMWSSNsXkzimRZhqxxLa9dUcjUIs1AKIKNDPYycfc": "54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33",
+        "tmq5Q5LS_RWVGbgNBpaTX9hTu15h5bhwMmjE-i35PMs": "81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c",
+        "TnSxCvRI5Wpm_U0LVTLr9pPPEfxLAbaSeBFeNprM8vQ": "8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266",
+        "tttyIchOoUVzZveg1gqwO0wUymURG8mVhmcYc5w61a4": "ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf",
+        "VD8Qdq-It6ys_zCiOfZyihDQ13rW_fvxO4bYMiMyEz8": "a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c",
+        "XalKVu62zW6IoUlOwqoM5-D4V7I4mo_royAXl7oJQNc": "1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c",
+        "Xo_djz8ElvC_rHRefziKezu6KXLucrktfdonEwf187E": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
+        "ZDEbra5pWDrahnu8vtLaqpVkV2TThiMshFFKYpN2LAo": "38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9"
+      },
+      "completenessDigest": "b749a2b27fc4880813c906979d27c2bc9b5947ee78da973966b7957894c26b0b",
+      "expectedManifestSha": "52b9d1792d772715ed631de62b4a98dce091906790fb6e0a2bbdcc19c55b5449",
+      "generationDigest": "56ae56e36879525acb23bb0f287efe5258b4802b086ef38d2e8f06377bf79dc9",
+      "planDigest": "275a40af15b9c172fd465b86082ff379a8238088c6b00124bed95da59a0af233",
+      "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "pass",
+      "uniqueAudioCount": 30,
+      "workId": "000275"
+    },
+    "completenessDigest": "b749a2b27fc4880813c906979d27c2bc9b5947ee78da973966b7957894c26b0b",
+    "generation": {
+      "assets": [
+        {
+          "audioId": "0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694",
+          "bytes": 863276,
+          "candidateIds": [
+            "_w-h-SN24wCD6ClKZo3nLWDiVcSux5GqB0BiLe5l1gM"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 17984,
+          "path": "audio/F003/0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694.wav",
+          "sha256": "108d491a1e1e3a2ecc5ec34616db49b7e4aab2c5b9557432a5287ae861f0007f",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/0576aaf29d1e1fa12c4f336daec7a32b6286b1b41f21036c2090509a2f32b694.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0",
+          "bytes": 45100,
+          "candidateIds": [
+            "4oAC3hkBPZCJaJtgulduAmkdcSzow4ckZ1ztUv-fqVM",
+            "j2JfCRQnieMbgneQPSGUkXmc9U-_rw1a5lRVVJjxlyI"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 939,
+          "path": "audio/F003/1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0.wav",
+          "sha256": "42f8bd1233630feef04751a4ab7ca9b8c2b8ca4d801e844ecd4ec669f7d2bdb8",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/1504a278d689e41e996b5acc42bb54f205a26834458be40bb34d0ca79cda2fa0.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c",
+          "bytes": 177196,
+          "candidateIds": [
+            "XalKVu62zW6IoUlOwqoM5-D4V7I4mo_royAXl7oJQNc"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 3691,
+          "path": "audio/F003/1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c.wav",
+          "sha256": "8c9527e7c96c42288ae3d048a819cfc8c47c81fa3b20cbc817db014dc4588afe",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/1d3e1ea2390d8b40108cd7fa7351eafb0761babfb301e632a9968634d10d187c.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60",
+          "bytes": 198700,
+          "candidateIds": [
+            "_0mBPIbtLRfqwyyiCkLOvhxohJrCgcT0t0QDBLrPLRc"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 4139,
+          "path": "audio/F003/1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60.wav",
+          "sha256": "4cad5e2d924c88cd88703f54f33e2a8d7bd17c55feb52d970af56b480dd463eb",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/1ef4287984243401ba96db8e0a8760a0917f5dfd286e51d237869bb3f6e31b60.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9",
+          "bytes": 43052,
+          "candidateIds": [
+            "kbtgL3srBn0eDome_rS4ODsH15QSmX7rhNv0v0fE5uY"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 896,
+          "path": "audio/F003/2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9.wav",
+          "sha256": "e5ea858b42fb8a2be8c1004f71b4354b12ef767f5b352e74fd717194765bff41",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/2efe471d82df8483455ca9ec13e6c0397b942a28434540355c43c393c7c58da9.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6",
+          "bytes": 186412,
+          "candidateIds": [
+            "7rcx89NwW91WLOA61lMk2BohasjmlRwiFIjllkTxhhQ"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 3883,
+          "path": "audio/F003/3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6.wav",
+          "sha256": "c38e637db543f88c31a45a04524650df5f7d29e3e1396a4df87ffbf665521e29",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/3226f3ac07965dcf3bd59663b5dad2ed162decb1362a92af6c3fc509f3adc1c6.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c",
+          "bytes": 779820,
+          "candidateIds": [
+            "j4r10PdBNWrEkI7Vcdag7XaxZku0AW2pLiLHxRc6IuY"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 16245,
+          "path": "audio/F003/3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c.wav",
+          "sha256": "550f44bd7fb049747fcd6d9112ed2a89640b9e194ef144afc24fe55b661666e5",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/3547fe14adaf2cd695f565011070cfdbae836229190856c60c9cd00c95e82d6c.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9",
+          "bytes": 369196,
+          "candidateIds": [
+            "ZDEbra5pWDrahnu8vtLaqpVkV2TThiMshFFKYpN2LAo"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 7691,
+          "path": "audio/F003/38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9.wav",
+          "sha256": "389d6c8e002d43bc8a819eed88434f4da59e7092db93c40d9d18b59b89d7a3f9",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/38f6b971699c42ddc31dd94367f4aaf7a4d803d40739fa15e18a01e955e2b1d9.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
+          "bytes": 27180,
+          "candidateIds": [
+            "Xo_djz8ElvC_rHRefziKezu6KXLucrktfdonEwf187E"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 565,
+          "path": "audio/F003/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
+          "sha256": "bde748264d64bfb1c1fa529a8d3b02334975dccf5478651910e92af33a3ffa71",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0",
+          "bytes": 95276,
+          "candidateIds": [
+            "dIKoyOa4E2kdQWzRwY7oG-vo7hjgPAzpJi8SMMrA_CM"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 1984,
+          "path": "audio/F003/5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0.wav",
+          "sha256": "1a201923888eb2855cb62b290c6b90600c18792f5b9ad19bf27bf44d2ca3b568",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/5273f633b09f1e6fa30d4037488a3794877685840f0c0bf53f5ff3d7cfdcd0e0.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848",
+          "bytes": 378924,
+          "candidateIds": [
+            "jxjorlyJgBpozKr4q28G2Ohz_ecCbexLJYuRJalz5r8"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 7893,
+          "path": "audio/F003/53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848.wav",
+          "sha256": "301ce74b2b9462b12ad03b2f32d30a603eaf7c6ad6ec08edf68ec8c349eaa89c",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/53baa19ca0cc9246aa3e81067dbef40516fb3f24c8e7175bb00577c0f7f15848.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33",
+          "bytes": 124460,
+          "candidateIds": [
+            "t4kMWSSNsXkzimRZhqxxLa9dUcjUIs1AKIKNDPYycfc"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2592,
+          "path": "audio/F003/54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33.wav",
+          "sha256": "466aeda9093850466c2fa167ecb31c7a14be474cdfd047b98dede43a21f994f4",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/54619f6ac0072ab24f4603541ad5763e9e1589c1e33a7f10b44a8e8d6de0fa33.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818",
+          "bytes": 132652,
+          "candidateIds": [
+            "6uywrc4Zl_Q9xbz3oTaDWUjOgoh4BBM56Hx8VdnSvts"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2763,
+          "path": "audio/F003/5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818.wav",
+          "sha256": "de94f76ae586a82b7743aca5ac3e6d994341ed0b24ad687f34ed4a6a8ba31c69",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/5d76cdb1dd7fe3030bf182b2c4c2054392ed9abed88776b2851fcd8f7826a818.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6",
+          "bytes": 127532,
+          "candidateIds": [
+            "G5Q7_9aPRz1RR5uDETcFCBUDfFp1hZyxWx2Ra0D-pPE"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2656,
+          "path": "audio/F003/6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6.wav",
+          "sha256": "07f7ebc9ae1a296201eddcbd8d785ba9038e90fbab9f39d846e82b87d1312f0a",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/6cfe21f6546bc0cff0650b67b9a3614f837de49f1ee42c1625764eb17b3900d6.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb",
+          "bytes": 83500,
+          "candidateIds": [
+            "ruYyYzNX16EI87YwQRBt-Krg3EJgyqleVB-zM-6cAAs"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 1739,
+          "path": "audio/F003/725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb.wav",
+          "sha256": "c47a521adce38ac4cbdd891f7efbaee94a5f9f43391512df620699a0ac2b7e32",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/725a2b22a2acac98dc725de2a8d51a2e5ad051998a7439cb21eeeb4a0abe24eb.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d",
+          "bytes": 291884,
+          "candidateIds": [
+            "smZyFmovehLQ2G8_hvDBbn0kzVG_QZxcJLT644DsBo8"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 6080,
+          "path": "audio/F003/75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d.wav",
+          "sha256": "f57584f518ddacfa60dcf9bd8058cc555d8c3c5fd6e569080308285db60ddaca",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/75301e8e1c67ce76d4e6bc5dfd3cffc917f7907c33f3d2d125a90b950621715d.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db",
+          "bytes": 47660,
+          "candidateIds": [
+            "RKy67q1auVTWSCISbKsbVWVpBJavMgfn9DRvCongn-E"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 992,
+          "path": "audio/F003/7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db.wav",
+          "sha256": "08ef0c641f5eb9a0f029942db810ac0928922671da922f61029ee769aea54eb4",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/7bc80492b434c4b4d50683ff1bf2820e69f104d303b57ee8299cad5eb6d389db.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c",
+          "bytes": 68652,
+          "candidateIds": [
+            "tmq5Q5LS_RWVGbgNBpaTX9hTu15h5bhwMmjE-i35PMs"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 1429,
+          "path": "audio/F003/81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c.wav",
+          "sha256": "69b558d76e09b13af2cc654ac8f12ae75b3e7b59bdd115972dc3becc2a7e8ce9",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/81029a5b4857b0ed1d94f4f6d9b4a0df42e16a91fea461ab2078d179bd81fc5c.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143",
+          "bytes": 176684,
+          "candidateIds": [
+            "cbg6GLofSzK82mdhZPGKRMLxnxeWnlCsVh1L9nINeVE"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 3680,
+          "path": "audio/F003/8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143.wav",
+          "sha256": "026a4fd6bdbafa392358b2d0c7d00c88375d3a87faa68b38a5e3d8edaed900c9",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/8a8b7a0da43c44dbed350443bd11b2c27291e14d7f01770435be75804d4a0143.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266",
+          "bytes": 188460,
+          "candidateIds": [
+            "TnSxCvRI5Wpm_U0LVTLr9pPPEfxLAbaSeBFeNprM8vQ"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 3925,
+          "path": "audio/F003/8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266.wav",
+          "sha256": "9ce00f963f48eb119297d77ce4a2a471bb5ec455da00acbc4b6dfad964a97a64",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/8e795fcf3574306386162167c7d057c861b61f8dfcf2f247f482dfad822e2266.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301",
+          "bytes": 135212,
+          "candidateIds": [
+            "JeMlpi9PlIJfWFCCCPLj-oh-dqKP5DzDhwxDi-nuPIY"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2816,
+          "path": "audio/F003/8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301.wav",
+          "sha256": "45f21f529021af4e73be6e5ebc70b313406b26ccf44ded7efa2a20e325e8db8e",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/8f8a8360197b5cfba09c52df7f8840b6b9adb4b0b1e46f6b4cd1e9063a042301.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b",
+          "bytes": 141868,
+          "candidateIds": [
+            "74G9KQRFrV2VPRsxP8IAxM1msrcZhyYvBe6YxQ0tuY8"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2955,
+          "path": "audio/F003/9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b.wav",
+          "sha256": "5ad419445fbe6448d46bd49358154c9a9dd7771f1663cea528a284a90e905af5",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/9f8c6fd61c51f9c20c659d014f27a6ee129914d0113e30fa1b6ea282cc031e6b.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c",
+          "bytes": 143916,
+          "candidateIds": [
+            "VD8Qdq-It6ys_zCiOfZyihDQ13rW_fvxO4bYMiMyEz8"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2997,
+          "path": "audio/F003/a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c.wav",
+          "sha256": "b662b26cc3f6b4c263519ff045508265b0fbca68c678fc8d2d765f1f596d46cf",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/a2a71c3e89df92523a3aee10b6fdfbf5e5a3cffa4763762559f0be22c0b19b7c.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf",
+          "bytes": 190508,
+          "candidateIds": [
+            "tttyIchOoUVzZveg1gqwO0wUymURG8mVhmcYc5w61a4"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 3968,
+          "path": "audio/F003/ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf.wav",
+          "sha256": "b7415dc7b0a2d6ed30f4d2592be0307c8ae5c94557c74397afd7305ad16663e3",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/ab0e9c77f574f833c1792552498fd1218f5851634f59a3fa02c8f1e14ae5b7bf.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e",
+          "bytes": 38956,
+          "candidateIds": [
+            "Qx8rGY_QjrZfWMhQCij0ja1Beh_3b9qJNC7WbcGpxPk"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 811,
+          "path": "audio/F003/c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e.wav",
+          "sha256": "998cfb2101f15ce6a7d0c9ed9d429013660aa42aeeab2b45a90fdc74604d85fe",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/c19be69051996bdfa07cf56810cd3007c943c138ca0aecd9ccc5d330729d1c8e.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d",
+          "bytes": 43564,
+          "candidateIds": [
+            "fayzYl3-Ffw1x9Dq51pGsPcIE7KqJdn5LCwdzEixv2w"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 907,
+          "path": "audio/F003/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.wav",
+          "sha256": "b11668a7d5cda17cec8267bac07e6bc1c6cc776be30a29c3323b45a181af0866",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839",
+          "bytes": 138284,
+          "candidateIds": [
+            "a8kTAO6WcAXCJd_tbb_bd8cm3lvI6Q7bTsjvwgXW2Qk"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2880,
+          "path": "audio/F003/c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839.wav",
+          "sha256": "317695ac2188fc489aebce4279bf73c3dcb127c6f0c4e169277e51f0b1317b86",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/c95f65d1f3aad7935299f6fa0e79c87173a18f3816202c5fbd04bb4a0181a839.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17",
+          "bytes": 688172,
+          "candidateIds": [
+            "Cxv0h9bNcX5RyYFAWuF67P6exWPpKcd5ZJJSSvQgo68"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 14336,
+          "path": "audio/F003/e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17.wav",
+          "sha256": "b8ca8419f74f0ffd1d11990d2a9c33a5a9546fcf0423e3c721f9e16ffb4ad974",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/e1a6e714e11fc9a97b9bc8912702f25a4b678b41da9865cf1ba13e783fe4ec17.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe",
+          "bytes": 138284,
+          "candidateIds": [
+            "Spkseg19H-2TixnikgPL2SwTT_UNCBm-NMuZ-4HYHbk"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2880,
+          "path": "audio/F003/ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe.wav",
+          "sha256": "28b8b16de14d8f4d56f8d8bf983fd25be632732ee6a35d05f1d311d98dc83504",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/ec087a1d4d82cd24b9b2905e9a261e3b24698bd452c1e4c28ec2b1e9f0b2bdfe.wav",
+          "workIds": [
+            "000275"
+          ]
+        },
+        {
+          "audioId": "f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4",
+          "bytes": 139820,
+          "candidateIds": [
+            "GkazX0Wc6In22ULC0FNphYGRA8kJd4eobkuzqV24Exc"
+          ],
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 2912,
+          "path": "audio/F003/f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4.wav",
+          "sha256": "8df12c0690146a94433b637c1fcaa9eb45ecfa62d50d51ee17755e9a312ae0c0",
+          "source": "staging",
+          "sourcePath": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275/f0a5dc16e60a29ff73a50601a124c637d19ad48cf9c4346cf48a8b4215883fa4.wav",
+          "workIds": [
+            "000275"
+          ]
+        }
+      ],
+      "attempted": 30,
+      "authorizationDigest": "d9f543f7eba8e5289d6978ff799329faabff026ee2c8bfbee94ac6bf4fc5ccbd",
+      "batchId": "F003",
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "expectedManifestSha": "52b9d1792d772715ed631de62b4a98dce091906790fb6e0a2bbdcc19c55b5449",
+      "failed": 0,
+      "failures": [],
+      "generationDigest": "56ae56e36879525acb23bb0f287efe5258b4802b086ef38d2e8f06377bf79dc9",
+      "planDigest": "275a40af15b9c172fd465b86082ff379a8238088c6b00124bed95da59a0af233",
+      "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "schemaVersion": "2",
+      "stagedBytes": 6204200,
+      "stagingRoot": ".cache/.voice-stage-fc807668-b2c1-4249-8861-ea9ea88b09ba-000275",
+      "succeeded": 30,
+      "workId": "000275"
+    },
+    "generationDigest": "56ae56e36879525acb23bb0f287efe5258b4802b086ef38d2e8f06377bf79dc9",
+    "planDigest": "275a40af15b9c172fd465b86082ff379a8238088c6b00124bed95da59a0af233",
+    "reconciliationDigest": "bb11a4ed689c3e947c8fc283c5fa810c62a037165a568384e56c39ef416f2c60"
+  },
+  "schemaVersion": "1.0.0",
+  "toolSha256": "1a7d7f1d8a86f64c577e3c93d8b840be0290c5b194a9d2064b509afdf2bed390",
+  "workId": "000275"
+}

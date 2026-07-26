@@ -201,6 +201,19 @@ async function trustedAdjudicationBundle(
 }
 
 describe('UT-F003-009 独立判定authorization・seal [DES-F003-005][FUN-F003-009]', () => {
+  it('base64url由来で先頭がunderscoreまたはhyphenのcandidate IDを受理する', async () => {
+    const candidates = [
+      { ...CANDIDATES[0]!, candidateId: '_candidate-1' },
+      { ...CANDIDATES[1]!, candidateId: '-candidate-2' },
+    ];
+    const primary = authorization('primary', 'base64url-candidates', [], candidates);
+    const root = await workspace([primary]);
+    const sealed = await sealAndValidateEditorialJudgmentSet(root, primary, external(primary), {
+      now: () => '2026-07-26T01:00:00.000Z',
+    });
+    expect(sealed.judgments.map((item) => item.candidateId)).toEqual(['_candidate-1', '-candidate-2']);
+  });
+
   it('trusted storeと外部exact schemaを全candidate joinし、primary identityをsealへ自己申告させない', async () => {
     const primary = authorization('primary', 'primary');
     const secondary = authorization('secondary', 'secondary');

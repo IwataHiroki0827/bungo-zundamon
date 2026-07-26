@@ -1,10 +1,10 @@
 ---
 phase: implement
 feature: F003
-updated: 2026-07-26T17:27:17+09:00
+updated: 2026-07-26T18:49:00+09:00
 next_actions:
-  - "T-039で女生徒の全候補レビューと音声生成を作品単位で完了する"
-  - "T-039の容量forecast・実測・音声完全性を照合してacceptedへ遷移する"
+  - "T-040で走れメロスの全候補レビューと音声生成を作品単位で完了する"
+  - "T-040の容量forecast・実測・音声完全性を照合してacceptedへ遷移する"
 blocked_by: []
 ---
 
@@ -13,29 +13,28 @@ blocked_by: []
 ## 現在の状況
 
 - F001はv0.1.0、F002はv0.2.0としてGitHub Pagesへ公開・クローズ済み。公開サイトは2作者・6作品・213台詞で安定稼働中。
+- 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
-- UT 29件でFUN 29件、IT 14件でDES 12件を網羅し、独立レビュー2観点の最終結果はHigh/Medium/Low 0件、trace_check対応漏れ0となった。
-- CHG-F001-006で全作者ページの収録作品を初期全閉へ変更し、単体737件・対象Playwright 5件・typecheck・lint・buildをPASSした。
-- F003はT-037で承認候補・Q-017 binding・固定F002 baseline、原典取得・抽出・読み補正・容量予測、独立二重レビュー契約（FUN-F003-001〜013）を実装した。
-- T-037の独立受け入れはHigh 0 / Medium 0でPASSした。
-- T-038で太宰治ずんだもん画像、作品注意、抜粋scope、3配置DOM、改ざん耐性のあるprovenance chainを実装した。独立再受け入れはHigh/Medium/Low 0でPASSし、T-039へ進んだ。
-- 現在の全自動検証はVitest 795件、typecheck、lint、build、F003 trace_checkがPASSしている。
+- T-037で候補・原典・独立二重レビュー契約、T-038で太宰治画像・作品注意・provenance chainを実装済み。
+- T-039で「女生徒」47候補を31承認・16除外・保留0へ確定し、31候補を30 WAV（6,204,200 bytes）へ対応して作品単位で`accepted`へ昇格した。
+- 永続証跡のpathはworkspace相対POSIXへ固定し、filesystem API直前だけ絶対解決する。危険path、secret、reparse point、既存`public`差分はいずれも0件。
+- 現在の全自動検証はVitest 838件、typecheck、lint、build、F003 trace_checkがPASSしている。T-039の独立受け入れはHigh/Medium/Low 0件。
 
 ## 直近の作業（最新5件）
 
-- T-038の太宰治ずんだもん画像・作品注意・権利表示を実装し独立再受け入れPASS
-- 作品注意registryとmachine reviewをProjectFactory固定hashへ結合し共同偽造を拒否
-- 作品一覧・詳細・クレジットへ未完・公式注意・括弧発話抜粋scopeを安全に接続
-- 作者route遷移・直アクセス・再読込・作者切替直後の収録作品を全件閉じる回帰試験を追加
-- T-037の候補・原典・独立二重レビュー契約を実装し独立受け入れPASS
+- T-039「女生徒」をprepared digest・manifest・2種journal・30 accepted audioへatomicに結合し独立受け入れPASS
+- 絶対path、authority、ADS、query、fragment、percent、制御文字を拒否する相対POSIX path境界と否定試験を追加
+- 47候補のprimary/secondary判定と第三裁定を31承認・16除外・保留0で完結
+- VOICEVOX 0.25.2で31候補を30 WAVへ生成し、容量actual・F001/F002 invariantをPASS
+- 作者routeへ戻った場合も収録作品を全件閉じる回帰修正をコミット
 
 ## 次のアクション
 
-- T-039で最初の収録作品「女生徒」の全候補を独立二重レビューする。
+- T-040で「走れメロス」の原典抽出結果を固定し、全候補の独立二重レビューを開始する。
 - 承認台詞だけを同時生成1で音声化し、容量forecast・実測・音声完全性を照合する。
-- 作品単位の証跡chainが完結した場合だけ女生徒を`accepted`へ遷移する。
+- 「走れメロス」の作品単位証跡chainが完結した場合だけ`accepted`へ遷移する。
 
 ## 未解決事項
 
-- C:の空きは37.19 GB（4.0%）で逼迫判定。危険域5 GBではないため、削除せず作品単位・同時生成1・生成前後再計測で進める。
+- C:の空きは約35.05 GB（3.77%）で逼迫判定。危険域5 GBではないため、削除せず作品単位・同時生成1・生成前後再計測で進める。

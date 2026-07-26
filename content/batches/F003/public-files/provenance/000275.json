@@ -1,0 +1,35 @@
+{
+  "authorId": "000035",
+  "batchId": "F003",
+  "editorialReview": {
+    "approved": 31,
+    "path": "content/batches/F003/reviews/000275.json",
+    "pending": 0,
+    "rejected": 16,
+    "resultSha256": "5adfa4f602077681cd43fc05f414b184314627967fa2401d0f72db901dfaaa5f",
+    "sha256": "697b2f366aaa17b8a2f503a86ddb82f013049b5cd56e7810d3aee3a961eb23ce"
+  },
+  "processing": {
+    "candidateCount": 47,
+    "sourceTreeSha256": "765a95c6e45680adc1ce633ab6d579a34a840c270a258f6c73b04c37ea30898b",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "女生徒",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+    "fetchedAt": "2026-07-26T08:34:03.535Z",
+    "inputter": "細渕真弓",
+    "proofreader": "細渕紀子",
+    "rawSha256": "67dc9539775b61674297f7d59db936bfda4f5d59a2fece6c55c199af36366df9",
+    "textUrl": "https://www.aozora.gr.jp/cards/000035/files/275_13903.html"
+  },
+  "speechRevisions": {
+    "count": 0,
+    "path": "content/batches/F003/speech-revisions/000275.json",
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "title": "女生徒",
+  "workId": "000275"
+}

@@ -12,6 +12,7 @@ import type { Sha256, WorkspaceRelativePath } from './batch.ts';
 
 const SHA256 = /^[a-f0-9]{64}$/u;
 const SAFE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u;
+const CANDIDATE_ID = /^[A-Za-z0-9_-][A-Za-z0-9._-]{0,127}$/u;
 const RFC3339 = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?Z$/u;
 const ROLES = ['primary', 'secondary', 'adjudicator'] as const;
 const DECISIONS = ['approved', 'rejected', 'ambiguous'] as const;
@@ -220,7 +221,7 @@ function validTaskPath(value: unknown): value is string {
 function validCandidate(value: unknown): value is EditorialCandidate {
   return isRecord(value) &&
     exactKeys(value, ['candidateId', 'inputSha256', 'sourceAnchor']) &&
-    typeof value.candidateId === 'string' && SAFE_ID.test(value.candidateId) &&
+    typeof value.candidateId === 'string' && CANDIDATE_ID.test(value.candidateId) &&
     typeof value.inputSha256 === 'string' && SHA256.test(value.inputSha256) &&
     validNonEmpty(value.sourceAnchor, 1_024);
 }
@@ -386,7 +387,7 @@ function parseCanonicalJson(bytes: Uint8Array, code: EditorialIndependentErrorCo
 function validJudgment(value: unknown): value is EditorialJudgment {
   return isRecord(value) &&
     exactKeys(value, ['candidateId', 'decision', 'reasonCode', 'speaker', 'sourceAnchor', 'inputSha256']) &&
-    typeof value.candidateId === 'string' && SAFE_ID.test(value.candidateId) &&
+    typeof value.candidateId === 'string' && CANDIDATE_ID.test(value.candidateId) &&
     DECISIONS.includes(value.decision as EditorialDecision) &&
     validNonEmpty(value.reasonCode, 128) &&
     (value.speaker === null || validNonEmpty(value.speaker, 256)) &&
