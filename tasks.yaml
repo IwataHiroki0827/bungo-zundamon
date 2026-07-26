@@ -627,7 +627,8 @@ tasks:
     lead: opus
     workers: sonnet
   completed_at: '2026-07-26T02:56:00+09:00'
-  result: IT-F002 18/18、QT-F002 14/14、Vitest 737/737、Playwright 84/84、hosted artifactとexact release-verifyを同一candidateへ結合してPASS
+  result: IT-F002 18/18、QT-F002 14/14、Vitest 737/737、Playwright 84/84、hosted artifactとexact
+    release-verifyを同一candidateへ結合してPASS
 - id: T-030
   title: リリース前総点検・GitHub Pages公開・公開後全routeスモーク
   feature: F002
@@ -731,7 +732,7 @@ tasks:
   state: done
   depends:
   - T-033
-  tags: &f003_requirements
+  tags: &id003
   - REQ-F003-001
   - REQ-F003-002
   - REQ-F003-003
@@ -757,7 +758,6 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-26T04:06:23+09:00'
   result: FD-F003 DES 12件を作成し、3観点独立レビューHigh/Medium/Low 0でApproved
-
 - id: T-035
   title: F003関数設計書を作成しデータ・検証・状態遷移契約へ展開
   feature: F003
@@ -765,7 +765,7 @@ tasks:
   state: done
   depends:
   - T-034
-  tags: *f003_requirements
+  tags: *id003
   mode: advisor
   mode_reason: FDから候補・二重レビュー・容量・atomic受入の関数契約を逐次導出するため
   model:
@@ -773,15 +773,14 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-26T04:06:23+09:00'
   result: DD-F003 FUN 29件を作成し、既存F002汎用化・信頼境界・exact release契約をApproved
-
 - id: T-036
   title: UT-F003・IT-F003を作成しQT-F003との網羅性を確認
   feature: F003
   phase: testspec
-  state: doing
+  state: done
   depends:
   - T-035
-  tags: *f003_requirements
+  tags: *id003
   mode: orchestration
   mode_reason: content・review・voice・UI・容量・securityの試験領域を独立設計できるため
   model:
@@ -791,7 +790,7 @@ tasks:
   title: F003候補manifest・権利原典・独立二重レビュー契約を整備
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-036
   tags:
@@ -831,7 +830,7 @@ tasks:
   depends:
   - T-037
   - T-038
-  tags: &f003_work
+  tags: &id004
   - REQ-F003-005
   - REQ-F003-006
   - REQ-F003-007
@@ -855,7 +854,7 @@ tasks:
   state: todo
   depends:
   - T-039
-  tags: *f003_work
+  tags: *id004
   mode: orchestration
   mode_reason: 全候補の二重判定・読み補正・音声・容量を定型反復し独立受入できるため
   model:
@@ -868,7 +867,7 @@ tasks:
   state: todo
   depends:
   - T-040
-  tags: *f003_work
+  tags: *id004
   mode: orchestration
   mode_reason: 未完表示を含む全候補の二重判定・音声・容量を定型反復し独立受入できるため
   model:
@@ -907,7 +906,7 @@ tasks:
   depends:
   - T-036
   - T-042
-  tags: *f003_requirements
+  tags: *id003
   mode: orchestration
   mode_reason: 統合・権利・容量・セキュリティ・4ブラウザ試験を独立実施して同一candidateへ結合できるため
   model:
@@ -920,9 +919,23 @@ tasks:
   state: todo
   depends:
   - T-043
-  tags: *f003_requirements
+  tags: *id003
   mode: advisor
   mode_reason: ゲート④・版番号・exact deploy・rollback・公開後判定を逐次管理するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-045
+  title: 作者ページの収録作品を初期全閉へ変更して回帰試験
+  feature: F003
+  phase: testspec
+  state: done
+  depends: []
+  tags:
+  - REQ-F001-004
+  - REQ-F003-003
+  mode: advisor
+  mode_reason: 共通UIの小規模な要求変更を既存回帰試験で検証し、F003試験仕様へ反映するため
   model:
     lead: opus
     workers: sonnet

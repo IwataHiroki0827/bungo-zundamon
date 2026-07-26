@@ -303,7 +303,8 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 28000
-  note: exact candidate 84c985fへVitest 737件、Playwright 84件、typecheck、lint、build、hosted artifact digest、release-verifyを結合してPASS
+  note: exact candidate 84c985fへVitest 737件、Playwright 84件、typecheck、lint、build、hosted
+    artifact digest、release-verifyを結合してPASS
 - date: '2026-07-26'
   phase: release
   task: T-030 F002 v0.2.0段階公開
@@ -331,4 +332,21 @@ entries:
   model: GPT-5
   agents: 4
   est_tokens: 30000
-  note: DES 12件・FUN 29件を作成。固定baseline、F002汎用化、独立編集authorization、Catalog notice、machine画像review、atomic/release境界を3観点で反復レビューし最終High/Medium/Low 0
+  note: DES 12件・FUN 29件を作成。固定baseline、F002汎用化、独立編集authorization、Catalog notice、machine画像review、atomic/release境界を3観点で反復レビューし最終High/Medium/Low
+    0
+- date: '2026-07-26'
+  phase: testspec
+  task: T-036 F003 UT/IT試験仕様・ゲート③
+  model: GPT-5
+  agents: 3
+  est_tokens: 24000
+  note: UT 29件・IT 14件を作成。第三裁定8/9証跡、authorization atomic seal、transport、容量、初期全閉、deploy冪等を反復レビューし最終High/Medium/Low
+    0、trace_check漏れ0、ゲート③承認を完了
+- date: '2026-07-26'
+  phase: implement
+  task: T-037 F003候補・固定baseline（前半）
+  model: GPT-5
+  agents: 4
+  est_tokens: 18000
+  note: FUN-F003-001〜005を実装。Q-017/SRS/QT/binding実体hash、候補registry、固定v0.2.0 Git object
+    226 filesを検証し、生成descriptor破損と型/lintを修正。Vitest 744件、typecheck、lint、build PASS
