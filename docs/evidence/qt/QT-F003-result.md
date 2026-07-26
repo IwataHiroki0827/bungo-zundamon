@@ -25,7 +25,9 @@
 - F003: 282候補、259公開対象、23編集除外、255一意音声
 - production build: 495ファイル、164,314,350 bytes
 - ブラウザ: 81 PASS、3重複検査skip、unexpected 0、flaky 0
-- 依存脆弱性・静的security・ビルド参照: T-044開始前にexact clean commitで再検証する
+- 依存脆弱性High/Critical 0、静的security・ビルド参照PASS
+- RuntimeAcceptance: schema 1.1、4生レポート・test source・public・distのhash結合PASS
+- 独立再受入: High 0 / Medium 0 / Low 0
 
 ## 判定
 

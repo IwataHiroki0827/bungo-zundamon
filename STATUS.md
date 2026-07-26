@@ -1,9 +1,8 @@
 ---
-phase: test
+phase: release
 feature: F003
-updated: 2026-07-26T20:38:00+09:00
+updated: 2026-07-26T21:43:55+09:00
 next_actions:
-  - "T-043でUT・IT・QT・自動ブラウザ・権利・容量受入を同一candidateへ結合する"
   - "T-044でリリース前総点検後、GitHub Pagesへ段階公開し公開5 routeを確認する"
 blocked_by: []
 ---
@@ -23,21 +22,21 @@ blocked_by: []
 - CHG-F003-002で固定v0.2.0 published baselineを作品受入・最終統合・dist・release verificationへ結合し、既存作者entryをcanonical exactで保護した。
 - 永続証跡のpathはworkspace相対POSIXへ固定し、filesystem API直前だけ絶対解決する。危険path、secret、reparse point、既存`public`差分はいずれも0件。
 - T-042で固定F001・固定v0.2.0 F002・accepted F003を最終統合し、3作者・9作品・472台詞・463音声・492ファイルを確認した。
-- 現在の全自動検証はVitest 841件、typecheck、lint、build、F003 trace_checkがPASSしている。T-042の独立受け入れもHigh/Medium/Low 0件。
+- T-043でVitest 853件、typecheck、lint、495ファイルのbuild、依存監査、4環境81件をPASSした。3件のskipはChromiumで実施した全asset照合の重複省略である。
+- RuntimeAcceptance schema 1.1へclean commit、test source、4ブラウザ生レポート、public、distをhash結合し、独立再受入High/Medium/Low 0件でPASSした。
 
 ## 直近の作業（最新5件）
 
+- T-043でRuntimeAcceptance 1.1をexact clean commitへ結合し、独立再受入PASS
+- 4環境81 PASS・3重複skip、UT 853/853、build 495ファイル、audit High/Critical 0
 - T-042でF001/F002/F003の最終Catalog統合をexact source commitへ固定し、独立受け入れPASS
 - F003は282候補から259件を公開対象、23件を編集除外、255個の一意音声へ対応
 - 最終候補は3作者・9作品・472台詞・463音声・492ファイル、既存public差分0件
-- 「グッド・バイ」をunfinishedとし、3作品の注意・括弧発話抜粋を3配置へ結合
-- 全841テスト・typecheck・lint・build・trace coverage 100%を確認
 
 ## 次のアクション
 
-- T-043でUT・IT・QT・自動ブラウザ・権利・容量受入を同一candidateへ結合する。
 - T-044でリリース前総点検後、GitHub Pagesへ段階公開し公開5 routeをスモーク確認する。
 
 ## 未解決事項
 
-- C:の空きはT-041容量計測時約32.27 GBで逼迫判定。危険域5 GBではないため、削除せず統合・試験・公開の各段階で再計測する。
+- C:の空きはT-043完了時約26.8 GBで逼迫判定。危険域5 GBではないため、削除せずリリース・公開の各段階で再計測する。

@@ -226,3 +226,14 @@ attempts:
   cause: Firefoxでroute animation完了前のsummary展開DOMが確定描画に置換された
   recovery: expandFirstWork helper内でroute animation完了を待ってから明示展開
   log: docs/evidence/it/IT-F003-runtime-attempt-7-failure.md
+- date: '2026-07-26T21:43:55+09:00'
+  feature: F003
+  scope: IT-runtime
+  attempt: 8
+  command: npm run test:f003-runtime
+  result: pass
+  failures: 0
+  cause: none
+  recovery: RuntimeAcceptance schema 1.1で4 browser raw report・test source・clean commit・public/distをhash結合し、独立再受入High/Medium/Low
+    0
+  log: docs/evidence/it/IT-F003-runtime-attempt-8-result.md

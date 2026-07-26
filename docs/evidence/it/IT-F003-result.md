@@ -37,3 +37,7 @@ Firefox・WebKit・Android相当で省略した1件は、164 MiBの全公開ア�
 ## 判定
 
 IT-F003-001〜011・013〜014のsource・predeploy範囲をPASSとする。IT-F003-012は同じ実装で異常系を自動検証済みだが、正常系のhosted artifact・release commit・公開smokeはT-044の段階公開後にexact tupleへ結合して正式確定する。
+
+## RuntimeAcceptance
+
+attempt 8でclean commit `bb271bb`上の4環境を同一runner内で再実行し、生レポート4件、test source、public、distをRuntimeAcceptance schema 1.1へhash結合した。独立再受入はHigh/Medium/Low 0件でPASSした。詳細は`IT-F003-runtime-attempt-8-result.md`と`IT-F003-independent-acceptance.md`を参照する。

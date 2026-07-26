@@ -916,7 +916,7 @@ tasks:
   title: F003 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F003
   phase: test
-  state: doing
+  state: done
   depends:
   - T-036
   - T-042
@@ -926,11 +926,14 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T21:43:55+09:00'
+  result: UT 853/853、4 browser 81 PASS/3重複skip、build 495 files、audit High/Critical
+    0、RuntimeAcceptance 1.1 exact hash結合をPASS。独立再受入High/Medium/Low 0
 - id: T-044
   title: F003リリース前総点検・GitHub Pages段階公開・公開5 routeスモーク
   feature: F003
   phase: release
-  state: todo
+  state: doing
   depends:
   - T-043
   tags: *id003
