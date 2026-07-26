@@ -32,7 +32,7 @@ function fixture(): RuntimeAcceptanceMeasurements {
     distSha256: hash('dist'),
     routes,
     browsers: ['chromium', 'firefox', 'webkit', 'android-equivalent'],
-    viewports: ['390x844', '768x1024', '1440x900'],
+    viewports: ['390x844', '844x390', '1440x900'],
     reducedMotion: true,
     initialOpenPanels: Object.fromEntries(routes.map((route) => [route, 0])),
     keyboardExpandable: true,

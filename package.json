@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:f003-runtime": "node --experimental-transform-types scripts/f003-runtime-acceptance.ts",
     "verify": "npm run lint && npm test && npm run build",
     "verify:build": "node --experimental-transform-types scripts/verify-project.mjs",
     "preview": "vite preview --host 127.0.0.1 --strictPort",

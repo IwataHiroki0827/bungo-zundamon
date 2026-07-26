@@ -83,7 +83,15 @@ export async function openAuthor(page: Page): Promise<void> {
   await akutagawaCard.getByRole('link', { name: '作品と台詞を聴く' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
   await waitForRouteReady(page);
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
+  await expandFirstWork(page);
   await expect(page.locator('.dialogue-card').first()).toHaveAttribute('data-player-state', 'idle');
+}
+
+export async function expandFirstWork(page: Page): Promise<void> {
+  const firstWork = page.locator('.work-panel').first();
+  await firstWork.locator('summary').click();
+  await expect(firstWork).toHaveAttribute('open', '');
 }
 
 export async function waitForRouteReady(page: Page): Promise<void> {

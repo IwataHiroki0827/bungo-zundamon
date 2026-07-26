@@ -40,7 +40,8 @@ test('catalog異常を再試行可能な全体エラーへ隔離する', async (
 });
 
 // IT-F001-015 / IT-F001-020 / QT-F001-016 / QT-F001-018
-test('production buildの全公開assetがPages base配下で200を返す', async ({ page, request, baseURL }) => {
+test('production buildの全公開assetがPages base配下で200を返す', async ({ page, request, baseURL }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium-pages-preview', '全asset実体照合はChromiumで一度だけ実行する');
   const badRequests: string[] = [];
   page.on('response', (response) => {
     if (response.status() >= 400) badRequests.push(`${response.status()} ${response.url()}`);
@@ -65,6 +66,7 @@ test('production buildの全公開assetがPages base配下で200を返す', asyn
     'content/artwork-provenance.json',
     'content/artwork-provenances.json',
     'content/artwork-provenance/F002.json',
+    'content/artwork-provenance/F003.json',
     ...artworkPaths,
     ...catalog.audioAssets.map((asset) => asset.path),
   ];

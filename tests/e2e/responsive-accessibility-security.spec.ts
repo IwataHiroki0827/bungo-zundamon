@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { assertNoHorizontalOverflow, installDeterministicAudio } from './fixtures';
+import { assertNoHorizontalOverflow, expandFirstWork, installDeterministicAudio } from './fixtures';
 
 test.beforeEach(async ({ page }) => {
   await installDeterministicAudio(page);
@@ -133,6 +133,8 @@ test('外部request・Cookie・storage・form・CSP違反が0件で主要操作�
     .filter({ hasText: '原著者: 芥川龍之介' })
     .getByRole('link', { name: '作品と台詞を聴く' })
     .click();
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
+  await expandFirstWork(page);
   const first = page.locator('.dialogue-card').first();
   await first.getByRole('button', { name: /^再生：/ }).click();
   await expect(first).toHaveAttribute('data-player-state', 'playing');

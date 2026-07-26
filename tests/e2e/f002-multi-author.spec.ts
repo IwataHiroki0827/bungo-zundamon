@@ -1,6 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { createHash } from 'node:crypto';
-import { assertNoHorizontalOverflow, installDeterministicAudio, PAGES_PATH, waitForRouteReady } from './fixtures';
+import {
+  assertNoHorizontalOverflow,
+  expandFirstWork,
+  installDeterministicAudio,
+  PAGES_PATH,
+  waitForRouteReady,
+} from './fixtures';
 
 test.beforeEach(async ({ page }) => {
   // native codec・autoplay・実音声品質ではなく、アプリのAudioPortと遅延取得だけを検査する。
@@ -15,16 +21,19 @@ async function openAuthorFromHome(page: import('@playwright/test').Page, name: s
   await waitForRouteReady(page);
 }
 
-// @it IT-F002-010 @it IT-F002-012 @qt QT-F002-002 @qt QT-F002-014
-test('CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川との往復を維持する', async ({ page }) => {
+// @it IT-F002-010 @it IT-F002-012 @it IT-F003-009 @it IT-F003-014 @qt QT-F002-002 @qt QT-F002-014 @qt QT-F003-015
+test('CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する', async ({ page }) => {
   await page.goto('#/');
-  await expect(page.locator('.author-card')).toHaveCount(2);
+  await expect(page.locator('.author-card')).toHaveCount(3);
   const akutagawa = page.locator('.author-card').filter({ hasText: 'あくたがわずんのすけ' });
   const miyazawa = page.locator('.author-card').filter({ hasText: 'みやざわずんじ' });
+  const dazai = page.locator('.author-card').filter({ hasText: 'だざいおさむ' });
   await expect(akutagawa).toContainText('原著者: 芥川龍之介');
   await expect(akutagawa).toContainText('3作品・59台詞');
   await expect(miyazawa).toContainText('原著者: 宮沢賢治');
   await expect(miyazawa).toContainText('3作品・154台詞');
+  await expect(dazai).toContainText('原著者: 太宰治');
+  await expect(dazai).toContainText('3作品・259台詞');
 
   await miyazawa.getByRole('link', { name: '作品と台詞を聴く' }).click();
   await expect(page).toHaveURL(new RegExp(`${PAGES_PATH.replaceAll('/', '\\/')}#/authors/miyazawa-zunji$`));
@@ -52,7 +61,7 @@ test('CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川と
   await expect(page.getByRole('heading', { level: 1, name: 'みやざわずんじ' })).toBeVisible();
 });
 
-// @it IT-F002-011 @it IT-F002-012 @qt QT-F002-008 @qt QT-F002-014
+// @it IT-F002-011 @it IT-F002-012 @it IT-F003-010 @qt QT-F002-008 @qt QT-F002-014 @qt QT-F003-011
 test('作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない', async ({ page }) => {
   const audioRequests: string[] = [];
   await page.route('**/audio/**', async (route) => {
@@ -61,6 +70,7 @@ test('作者route変更で音声を停止し、遅延eventを新しい作者DOM�
   });
   await openAuthorFromHome(page, 'みやざわずんじ');
   expect(audioRequests).toHaveLength(0);
+  await expandFirstWork(page);
   const firstMiyazawa = page.locator('.dialogue-card').first();
   await firstMiyazawa.getByRole('button', { name: /^再生：/ }).click();
   await expect(firstMiyazawa).toHaveAttribute('data-player-state', 'playing');
@@ -89,7 +99,7 @@ test('作者route変更で音声を停止し、遅延eventを新しい作者DOM�
   await expect(page.getByText(/音声を再生できませんでした/)).toHaveCount(0);
 });
 
-// @it IT-F002-010 @it IT-F002-014 @qt QT-F002-002 @qt QT-F002-014
+// @it IT-F002-010 @it IT-F002-014 @it IT-F003-010 @qt QT-F002-002 @qt QT-F002-014 @qt QT-F003-014
 for (const viewport of [
   { name: '390x844', width: 390, height: 844 },
   { name: '844x390', width: 844, height: 390 },
@@ -106,6 +116,7 @@ for (const viewport of [
     await page.keyboard.press('Enter');
     await expect(page.getByRole('heading', { level: 1, name: 'みやざわずんじ' })).toBeVisible();
     await assertNoHorizontalOverflow(page);
+    await expandFirstWork(page);
     const play = page.locator('.dialogue-card').first().getByRole('button', { name: /^再生：/ });
     await play.focus();
     const box = await play.boundingBox();
@@ -117,7 +128,7 @@ for (const viewport of [
   });
 }
 
-// @it IT-F002-012 @qt QT-F002-014
+// @it IT-F002-012 @it IT-F003-010 @qt QT-F002-014 @qt QT-F003-014
 test('reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('#/authors/miyazawa-zunji');
@@ -125,6 +136,8 @@ test('reduced motionは宮沢の情報と再生操作を保ったまま演出だ
   await expect(page.locator('.motion-toggle')).toBeDisabled();
   await expect(page.locator('.motion-toggle')).toContainText('端末設定により動きを停止中');
   await expect(page.locator('.work-panel')).toHaveCount(3);
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
+  await expandFirstWork(page);
   const play = page.locator('.dialogue-card').first().getByRole('button', { name: /^再生：/ });
   await play.click();
   await expect(page.locator('.dialogue-card').first()).toHaveAttribute('data-player-state', 'playing');
@@ -159,16 +172,23 @@ test('宮沢画像とcreditを同一originの公開実体へ結合する', async
   await expect(page.locator('[data-page="credits"]')).toContainText('VOICEVOX:ずんだもん');
 });
 
-// @it IT-F002-012 @qt QT-F002-014
-test('2作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件', async ({ page }) => {
+// @it IT-F002-012 @it IT-F003-011 @qt QT-F002-014 @qt QT-F003-013 @qt QT-F003-014
+test('3作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件', async ({ page }) => {
   const externalRequests: string[] = [];
   page.on('request', (request) => {
     const url = new URL(request.url());
     if (url.hostname !== '127.0.0.1') externalRequests.push(request.url());
   });
-  for (const route of ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits']) {
+  for (const route of [
+    '#/',
+    '#/authors/akutagawa-zunnosuke',
+    '#/authors/miyazawa-zunji',
+    '#/authors/dazai-osamu',
+    '#/credits',
+  ]) {
     await page.goto(route);
     await expect(page.locator('main')).toBeVisible();
+    if (route.startsWith('#/authors/')) await expect(page.locator('.work-panel[open]')).toHaveCount(0);
   }
   expect(externalRequests).toEqual([]);
   expect(await page.context().cookies()).toEqual([]);

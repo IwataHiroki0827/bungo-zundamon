@@ -146,3 +146,43 @@ attempts:
   cause: 4 browser一括実行が5分の実行上限を超過し、JSON reporter終端前に終了した
   recovery: 機能障害と分離するためbrowser project単位へ分割し、各結果を個別JSONへ保存して再実行する
   log: docs/evidence/it/IT-F003-browser-attempt-1-timeout.md
+- date: '2026-07-26T21:05:00+09:00'
+  feature: F003
+  scope: IT-browser
+  attempt: 2
+  command: playwright chromium project
+  result: fail
+  failures: 10
+  cause: E2Eが旧F002の2作者・先頭作品初期openを前提にし、F003の3作者・初期全閉と不一致だった
+  recovery: 作者数・太宰件数・5 routeをF003へ拡張し、再生前にsummaryを明示展開する。全asset照合はChromium一回へ限定する
+  log: docs/evidence/it/IT-F003-browser-attempt-2-failure.md
+- date: '2026-07-26T21:12:23+09:00'
+  feature: F003
+  scope: IT-browser
+  attempt: 3
+  command: playwright project単位でChromium・Firefox・WebKit・Android相当を実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: F003の3作者・初期全閉契約へE2Eを同期し、全asset照合はChromium一回に限定
+  log: docs/evidence/it/IT-F003-result.md
+- date: '2026-07-26T21:13:30+09:00'
+  feature: F003
+  scope: UT
+  attempt: 2
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F003-attempt-2.json
+  result: fail
+  failures: 2
+  cause: 公開候補が既にF003画像由来entryを含む状態で旧fixtureが偽F003 entryを重複追加した。別1件の収集エラーは単独再現せず
+  recovery: F003未追加・追加済みの両方で一意entryを検証するfixtureへ修正し、対象12件を単独再検証
+  log: docs/evidence/ut/UT-F003-attempt-2.json
+- date: '2026-07-26T21:16:20+09:00'
+  feature: F003
+  scope: UT
+  attempt: 3
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F003-attempt-3.json
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 公開昇格前後のfixtureを両対応にし、143 suites・853 testsを再実行
+  log: docs/evidence/ut/UT-F003-attempt-3.json

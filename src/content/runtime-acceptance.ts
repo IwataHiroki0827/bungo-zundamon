@@ -18,7 +18,7 @@ export const REQUIRED_RUNTIME_BROWSERS = [
 
 export const REQUIRED_RUNTIME_VIEWPORTS = [
   '390x844',
-  '768x1024',
+  '844x390',
   '1440x900',
 ] as const;
 

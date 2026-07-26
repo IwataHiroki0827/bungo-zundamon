@@ -130,14 +130,17 @@ describe('UT-F003-005 FUN-F003-005 published invariant', () => {
       artworks: Array<Record<string, unknown>>;
       schemaVersion: '1.0.0';
     };
-    bundle.artworks.push({
-      authorId: '000035',
-      batchId: 'F003',
-      manifestId: 'artwork-F003-000035-v1',
-      provenanceRef: 'content/artwork-provenance/F003.json',
-      provenanceSha256: 'a'.repeat(64),
-      output: { path: 'artwork/dazai-zundamon.png', sha256: 'b'.repeat(64) },
-    });
+    if (!bundle.artworks.some((entry) => entry.authorId === '000035')) {
+      bundle.artworks.push({
+        authorId: '000035',
+        batchId: 'F003',
+        manifestId: 'artwork-F003-000035-v1',
+        provenanceRef: 'content/artwork-provenance/F003.json',
+        provenanceSha256: 'a'.repeat(64),
+        output: { path: 'artwork/dazai-zundamon.png', sha256: 'b'.repeat(64) },
+      });
+    }
+    expect(bundle.artworks.filter((entry) => entry.authorId === '000035')).toHaveLength(1);
     await writeFile(path, JSON.stringify(bundle));
     const appended = await verifyPublishedInvariant(baseline, {
       target: 'work-preview',

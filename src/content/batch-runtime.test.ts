@@ -1004,7 +1004,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       routes,
       routeSetSha256: hash(canonicalJson(routes)),
       browsers: ['android-equivalent', 'chromium', 'firefox', 'webkit'],
-      viewports: ['1440x900', '390x844', '768x1024'],
+      viewports: ['1440x900', '390x844', '844x390'],
       reducedMotion: true,
       initialOpenPanels: { '#/': 0, '#/authors/a': 0, '#/credits': 0 },
       keyboardExpandable: true,
