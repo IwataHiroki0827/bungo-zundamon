@@ -89,6 +89,7 @@ export async function openAuthor(page: Page): Promise<void> {
 }
 
 export async function expandFirstWork(page: Page): Promise<void> {
+  await waitForRouteReady(page);
   const firstWork = page.locator('.work-panel').first();
   await firstWork.locator('summary').click();
   await expect(firstWork).toHaveAttribute('open', '');

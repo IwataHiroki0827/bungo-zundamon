@@ -216,3 +216,13 @@ attempts:
   cause: Chromium 2件目のloopback遷移でnet::ERR_NO_BUFFER_SPACEが発生
   recovery: 4 browserを4191〜4194の別portへ分離し、runnerでstdout/stderrを保持
   log: docs/evidence/it/IT-F003-runtime-attempt-6-failure.md
+- date: '2026-07-26T21:38:00+09:00'
+  feature: F003
+  scope: IT-runtime
+  attempt: 7
+  command: npm run test:f003-runtime
+  result: fail
+  failures: 1
+  cause: Firefoxでroute animation完了前のsummary展開DOMが確定描画に置換された
+  recovery: expandFirstWork helper内でroute animation完了を待ってから明示展開
+  log: docs/evidence/it/IT-F003-runtime-attempt-7-failure.md
