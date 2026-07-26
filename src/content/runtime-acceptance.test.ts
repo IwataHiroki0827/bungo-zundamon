@@ -30,6 +30,13 @@ function fixture(): RuntimeAcceptanceMeasurements {
     sourceCommit: 'a'.repeat(40),
     contentBuildSha256: hash('content'),
     distSha256: hash('dist'),
+    testSourceSha256: hash('tests'),
+    browserReportSha256: {
+      chromium: hash('chromium'),
+      firefox: hash('firefox'),
+      webkit: hash('webkit'),
+      'android-equivalent': hash('android-equivalent'),
+    },
     routes,
     browsers: ['chromium', 'firefox', 'webkit', 'android-equivalent'],
     viewports: ['390x844', '844x390', '1440x900'],
@@ -56,7 +63,7 @@ describe('FUN-F003-026 RuntimeAcceptance [UT-F003-026][IT-F003-011]', () => {
   it('5 route・4 browser・3 viewport・初期全閉・security 0をhashへ固定する', () => {
     const evidence = createRuntimeAcceptanceEvidence(fixture());
     expect(evidence).toMatchObject({
-      schemaVersion: '1.0.0',
+      schemaVersion: '1.1.0',
       kind: 'runtime-acceptance',
       batchId: 'F003',
       result: 'pass',
@@ -72,6 +79,10 @@ describe('FUN-F003-026 RuntimeAcceptance [UT-F003-026][IT-F003-011]', () => {
   it.each([
     ['route欠落', (value: RuntimeAcceptanceMeasurements) => ({ ...value, routes: value.routes.slice(1) })],
     ['browser欠落', (value: RuntimeAcceptanceMeasurements) => ({ ...value, browsers: value.browsers.slice(1) })],
+    ['browser report欠落', (value: RuntimeAcceptanceMeasurements) => ({
+      ...value,
+      browserReportSha256: { ...value.browserReportSha256, webkit: '' as Sha256 },
+    })],
     ['viewport重複', (value: RuntimeAcceptanceMeasurements) => ({ ...value, viewports: ['390x844', '390x844', '1440x900'] })],
     ['初期open', (value: RuntimeAcceptanceMeasurements) => ({
       ...value,

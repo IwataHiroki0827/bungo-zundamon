@@ -37,6 +37,8 @@ export interface RuntimeAcceptanceMeasurements {
   readonly sourceCommit: string;
   readonly contentBuildSha256: Sha256;
   readonly distSha256: Sha256;
+  readonly testSourceSha256: Sha256;
+  readonly browserReportSha256: Readonly<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>>;
   readonly routes: readonly string[];
   readonly browsers: readonly string[];
   readonly viewports: readonly string[];
@@ -47,12 +49,14 @@ export interface RuntimeAcceptanceMeasurements {
 }
 
 interface RuntimeAcceptanceCore {
-  readonly schemaVersion: '1.0.0';
+  readonly schemaVersion: '1.1.0';
   readonly kind: 'runtime-acceptance';
   readonly batchId: BatchId;
   readonly sourceCommit: string;
   readonly contentBuildSha256: Sha256;
   readonly distSha256: Sha256;
+  readonly testSourceSha256: Sha256;
+  readonly browserReportSha256: Readonly<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>>;
   readonly routes: readonly string[];
   readonly routeSetSha256: Sha256;
   readonly browsers: readonly string[];
@@ -127,13 +131,28 @@ function validateSecurity(value: unknown): RuntimeSecurityMeasurements {
   return value as unknown as RuntimeSecurityMeasurements;
 }
 
+function validateBrowserReportHashes(
+  value: unknown,
+): Readonly<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>> {
+  if (!isRecord(value) || !exactKeys(value, REQUIRED_RUNTIME_BROWSERS) ||
+    REQUIRED_RUNTIME_BROWSERS.some((browser) =>
+      typeof value[browser] !== 'string' || !SHA256.test(value[browser] as string))) {
+    return fail('RUNTIME_BROWSER_REPORT_BINDING_INVALID', 'browser生レポートhashが不足または不正です');
+  }
+  return Object.freeze(Object.fromEntries(
+    [...REQUIRED_RUNTIME_BROWSERS]
+      .sort((left, right) => left.localeCompare(right, 'en'))
+      .map((browser) => [browser, value[browser] as Sha256]),
+  )) as Readonly<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>>;
+}
+
 /** @des DES-F003-011 @fun FUN-F003-026 */
 export function createRuntimeAcceptanceEvidence(
   measurements: RuntimeAcceptanceMeasurements,
 ): RuntimeAcceptanceEvidence {
   const routes = canonicalRoutes(measurements.routes);
   if (!COMMIT.test(measurements.sourceCommit) || !SHA256.test(measurements.contentBuildSha256) ||
-    !SHA256.test(measurements.distSha256)) {
+    !SHA256.test(measurements.distSha256) || !SHA256.test(measurements.testSourceSha256)) {
     return fail('RUNTIME_CANDIDATE_TUPLE_INVALID', 'candidate tupleが不正です');
   }
   if (!exactSet(measurements.browsers, REQUIRED_RUNTIME_BROWSERS) ||
@@ -147,13 +166,16 @@ export function createRuntimeAcceptanceEvidence(
     return fail('RUNTIME_INITIAL_OPEN_PANEL', '全routeの初期表示が全閉ではありません');
   }
   const security = validateSecurity(measurements.security);
+  const browserReportSha256 = validateBrowserReportHashes(measurements.browserReportSha256);
   const core: RuntimeAcceptanceCore = {
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     kind: 'runtime-acceptance',
     batchId: measurements.batchId,
     sourceCommit: measurements.sourceCommit,
     contentBuildSha256: measurements.contentBuildSha256,
     distSha256: measurements.distSha256,
+    testSourceSha256: measurements.testSourceSha256,
+    browserReportSha256,
     routes,
     routeSetSha256: sha256(canonicalJson(routes)),
     browsers: [...measurements.browsers].sort((left, right) => left.localeCompare(right, 'en')),
@@ -173,13 +195,15 @@ export function createRuntimeAcceptanceEvidence(
 export function validateRuntimeAcceptanceEvidence(value: unknown): RuntimeAcceptanceEvidence {
   const keys = [
     'schemaVersion', 'kind', 'batchId', 'sourceCommit', 'contentBuildSha256', 'distSha256',
+    'testSourceSha256', 'browserReportSha256',
     'routes', 'routeSetSha256', 'browsers', 'viewports', 'reducedMotion', 'initialOpenPanels',
     'keyboardExpandable', 'security', 'result', 'evidenceSha256',
   ];
-  if (!isRecord(value) || !exactKeys(value, keys) || value.schemaVersion !== '1.0.0' ||
+  if (!isRecord(value) || !exactKeys(value, keys) || value.schemaVersion !== '1.1.0' ||
     value.kind !== 'runtime-acceptance' || typeof value.batchId !== 'string' ||
     typeof value.sourceCommit !== 'string' || typeof value.contentBuildSha256 !== 'string' ||
-    typeof value.distSha256 !== 'string' || !Array.isArray(value.routes) ||
+    typeof value.distSha256 !== 'string' || typeof value.testSourceSha256 !== 'string' ||
+    !isRecord(value.browserReportSha256) || !Array.isArray(value.routes) ||
     !Array.isArray(value.browsers) || !Array.isArray(value.viewports) ||
     !isRecord(value.initialOpenPanels) || !isRecord(value.security)) {
     return fail('RUNTIME_EVIDENCE_SCHEMA_INVALID', 'RuntimeAcceptance schemaが不正です');
@@ -192,6 +216,11 @@ export function validateRuntimeAcceptanceEvidence(value: unknown): RuntimeAccept
     sourceCommit,
     contentBuildSha256: measurements.contentBuildSha256 as Sha256,
     distSha256: measurements.distSha256 as Sha256,
+    testSourceSha256: measurements.testSourceSha256 as Sha256,
+    browserReportSha256: measurements.browserReportSha256 as Record<
+      (typeof REQUIRED_RUNTIME_BROWSERS)[number],
+      Sha256
+    >,
     routes: measurements.routes as string[],
     browsers: measurements.browsers as string[],
     viewports: measurements.viewports as string[],

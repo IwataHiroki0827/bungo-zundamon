@@ -1,6 +1,6 @@
 import { execFile as execFileCallback } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { lstat, readFile, readdir } from 'node:fs/promises';
+import { lstat, mkdir, readFile, readdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
@@ -16,6 +16,12 @@ const execFile = promisify(execFileCallback);
 const BATCH_ID = 'F003';
 const EVIDENCE_PATH = '.cache/batch-release/F003/runtime-acceptance.json';
 const BROWSER_REPORT_ROOT = '.cache/batch-release/F003/browser';
+const BROWSER_RUNS = [
+  ['chromium', 'chromium-pages-preview', 'chromium.json', 0],
+  ['firefox', 'firefox-pages-preview', 'firefox.json', 1],
+  ['webkit', 'webkit-pages-preview', 'webkit.json', 1],
+  ['android-equivalent', 'android-equivalent-pages-preview', 'android-equivalent.json', 1],
+] as const;
 const REQUIRED_TITLES = [
   'CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する',
   '390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない',
@@ -101,9 +107,10 @@ async function verifyBrowserReport(
   fileName: string,
   projectName: string,
   skipped: number,
-): Promise<void> {
+): Promise<Sha256> {
+  const reportBytes = await readFile(join(workspace, BROWSER_REPORT_ROOT, fileName));
   const report = JSON.parse(
-    await readFile(join(workspace, BROWSER_REPORT_ROOT, fileName), 'utf8'),
+    new TextDecoder('utf-8', { fatal: true }).decode(reportBytes),
   ) as PlaywrightReport;
   const specs = collectSpecs(report.suites);
   const allowedSkippedTitle = 'production buildの全公開assetがPages base配下で200を返す';
@@ -120,15 +127,37 @@ async function verifyBrowserReport(
       throw new Error(`${projectName}に必須試験がありません: ${title}`);
     }
   }
+  return sha256(reportBytes);
 }
 
-async function run(workspace: string, command: string, args: readonly string[]): Promise<string> {
+async function run(
+  workspace: string,
+  command: string,
+  args: readonly string[],
+  environment: NodeJS.ProcessEnv = process.env,
+): Promise<string> {
   const { stdout } = await execFile(command, args, {
     cwd: workspace,
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,
+    env: environment,
   });
   return stdout;
+}
+
+async function assertSameCleanCandidate(
+  workspace: string,
+  sourceCommit: string,
+  contentBuildSha256: Sha256,
+): Promise<void> {
+  const [{ stdout: head }, { stdout: status }, publicSha256] = await Promise.all([
+    execFile('git', ['rev-parse', 'HEAD'], { cwd: workspace, encoding: 'utf8' }),
+    execFile('git', ['status', '--porcelain=v1'], { cwd: workspace, encoding: 'utf8' }),
+    treeSha256(join(workspace, 'public')),
+  ]);
+  if (head.trim() !== sourceCommit || status.trim() !== '' || publicSha256 !== contentBuildSha256) {
+    throw new Error('browser実行中にexact clean candidateが変化しました');
+  }
 }
 
 async function main(): Promise<void> {
@@ -153,13 +182,6 @@ async function main(): Promise<void> {
   const critical = audit.metadata?.vulnerabilities?.critical ?? -1;
   if (high !== 0 || critical !== 0) throw new Error('依存脆弱性のHigh/Criticalが0件ではありません');
 
-  await Promise.all([
-    verifyBrowserReport(workspace, 'chromium.json', 'chromium-pages-preview', 0),
-    verifyBrowserReport(workspace, 'firefox.json', 'firefox-pages-preview', 1),
-    verifyBrowserReport(workspace, 'webkit.json', 'webkit-pages-preview', 1),
-    verifyBrowserReport(workspace, 'android-equivalent.json', 'android-equivalent-pages-preview', 1),
-  ]);
-
   const catalog = JSON.parse(
     await readFile(join(workspace, 'public', 'content', 'catalog.json'), 'utf8'),
   ) as CatalogProjection;
@@ -167,11 +189,42 @@ async function main(): Promise<void> {
   if (routes.length !== 5) throw new Error('F003の公開routeが5件ではありません');
   const contentBuildSha256 = await treeSha256(join(workspace, 'public'));
   const distSha256 = await treeSha256(join(workspace, 'dist'));
+  const testSourceSha256 = sha256(canonicalJson({
+    playwrightConfigSha256: sha256(await readFile(join(workspace, 'playwright.config.ts'))),
+    e2eTreeSha256: await treeSha256(join(workspace, 'tests', 'e2e')),
+  }));
+  await mkdir(join(workspace, BROWSER_REPORT_ROOT), { recursive: true });
+  const browserReportSha256: Partial<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>> = {};
+  for (const [browser, projectName, fileName, skipped] of BROWSER_RUNS) {
+    await assertSameCleanCandidate(workspace, sourceCommit, contentBuildSha256);
+    process.stdout.write(`Playwright ${projectName}を実行します\n`);
+    await run(
+      workspace,
+      npm,
+      ['exec', '--', 'playwright', 'test', `--project=${projectName}`, '--reporter=json'],
+      {
+        ...process.env,
+        PLAYWRIGHT_JSON_OUTPUT_FILE: join(workspace, BROWSER_REPORT_ROOT, fileName),
+      },
+    );
+    browserReportSha256[browser] = await verifyBrowserReport(
+      workspace,
+      fileName,
+      projectName,
+      skipped,
+    );
+    await assertSameCleanCandidate(workspace, sourceCommit, contentBuildSha256);
+  }
   const evidence = createRuntimeAcceptanceEvidence({
     batchId: BATCH_ID as BatchId,
     sourceCommit,
     contentBuildSha256,
     distSha256,
+    testSourceSha256,
+    browserReportSha256: browserReportSha256 as Record<
+      (typeof REQUIRED_RUNTIME_BROWSERS)[number],
+      Sha256
+    >,
     routes,
     browsers: REQUIRED_RUNTIME_BROWSERS,
     viewports: REQUIRED_RUNTIME_VIEWPORTS,
@@ -197,6 +250,8 @@ async function main(): Promise<void> {
     sourceCommit,
     contentBuildSha256,
     distSha256,
+    testSourceSha256,
+    browserReportSha256,
     result: evidence.result,
   })}\n`);
 }

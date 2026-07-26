@@ -995,12 +995,19 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const runtimeAcceptancePath = join(input.workspace, ...runtimeAcceptanceRef.split('/'));
     const routes = ['#/', '#/authors/a', '#/credits'];
     const runtimeCore = {
-      schemaVersion: '1.0.0',
+      schemaVersion: '1.1.0',
       kind: 'runtime-acceptance',
       batchId: input.manifest.batchId,
       sourceCommit: commit,
       contentBuildSha256: HASH,
       distSha256: context.distSha256,
+      testSourceSha256: HASH,
+      browserReportSha256: {
+        chromium: HASH,
+        firefox: HASH,
+        webkit: HASH,
+        'android-equivalent': HASH,
+      },
       routes,
       routeSetSha256: hash(canonicalJson(routes)),
       browsers: ['android-equivalent', 'chromium', 'firefox', 'webkit'],
