@@ -415,6 +415,8 @@ export function renderDialogueCard(
 function renderWork(work: DisplayWork | DisplayWorkV2, controller: AudioController, authorId?: string): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
+  // ブラウザの履歴復元に委ねず、作者ページを描画するたびに閉じた状態から始める。
+  details.open = false;
 
   const summary = document.createElement('summary');
   const heading = textElement('span', work.title, 'work-title');

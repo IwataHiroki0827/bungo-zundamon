@@ -332,6 +332,31 @@ describe('文豪ずんだもんの画面', () => {
     expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
   });
 
+  /** @des DES-F002-007 @ut UT-F002-021 @it IT-F002-010 */
+  it('作者ページへ戻ったときも収録作品をすべて閉じて描画する', () => {
+    location.hash = '#/authors/miyazawa-zunji';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalogV2(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+    });
+
+    const firstPanel = root.querySelector<HTMLDetailsElement>('details.work-panel');
+    expect(firstPanel).not.toBeNull();
+    firstPanel!.open = true;
+
+    location.hash = '#/credits';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    location.hash = '#/authors/miyazawa-zunji';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+
+    const panels = Array.from(root.querySelectorAll<HTMLDetailsElement>('details.work-panel'));
+    expect(panels.length).toBeGreaterThan(0);
+    expect(panels.every((panel) => !panel.open)).toBe(true);
+  });
+
   it('CatalogV2でもbase URLの空hashをhomeとして描画する', () => {
     history.replaceState(null, '', `${location.pathname}${location.search}`);
     const root = document.createElement('main');
