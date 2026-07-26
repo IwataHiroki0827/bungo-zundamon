@@ -13,7 +13,7 @@
 
 ### 品質確認
 
-- Vitest 853件、Chromium・Firefox・WebKit・Android相当のPlaywright自動試験、型検査、lint、production build、依存脆弱性検査を実行。
+- Vitest 854件、Chromium・Firefox・WebKit・Android相当のPlaywright自動試験、型検査、lint、production build、依存脆弱性検査を実行。
 - リリース候補commit、試験ソース、4ブラウザの生レポート、公開content tree、配布物をSHA-256で一つの実行時受入証跡へ結合。
 - 作者ページへの遷移・直アクセス・再読込時に、先頭を含む収録作品がすべて閉じていることを回帰確認。
 
