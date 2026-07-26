@@ -504,3 +504,16 @@ changes:
   approved_by: 既存要求を変更しないhosted checkout設計補完・独立レビューHigh/Medium/Low 0
   completed_at: '2026-07-26T22:15:30+09:00'
   result: 全855試験とActions run 30203430053をPASSし、artifact内catalog hash一致・feature deploy skipを確認
+- id: CHG-F003-004
+  date: '2026-07-26'
+  trigger: v0.3.0公開後のF003 manifest遷移前検査でF002の4 route固定を検出
+  level: implementation
+  affected:
+  - DES-F003-012
+  - FUN-F003-029
+  - UT-F003-029
+  - src/content/batch.ts
+  - src/content/batch.test.ts
+  - T-044
+  - T-048
+  status: in-review

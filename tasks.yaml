@@ -1002,3 +1002,19 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-26T22:15:30+09:00'
   result: CHG-F003-003を実装し、全855試験・独立レビューHigh/Medium/Low 0・Actions run 30203430053・hosted artifact catalog hash一致をPASS
+- id: T-048
+  title: F003公開5 routeのpublished遷移を是正
+  feature: F003
+  phase: release
+  state: doing
+  depends:
+  - T-047
+  tags:
+  - DES-F003-012
+  - FUN-F003-029
+  - UT-F003-029
+  mode: advisor
+  mode_reason: 公開済み5 route証跡とmanifest遷移を同一release tupleで閉じるため
+  model:
+    lead: opus
+    workers: sonnet

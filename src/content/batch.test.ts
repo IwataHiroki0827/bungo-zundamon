@@ -138,6 +138,36 @@ function acceptedFixture(): BatchManifest {
   });
 }
 
+function f003AcceptedFixture(): BatchManifest {
+  const manifest = acceptedFixture();
+  const workIds = ['000275', '001567', '000258'] as unknown as BatchManifest['workIds'];
+  return validated({
+    ...manifest,
+    batchId: 'F003' as BatchManifest['batchId'],
+    feature: 'F003',
+    author: {
+      authorId: '000035',
+      name: 'だざいおさむ',
+      originalName: '太宰治',
+      slug: 'dazai-osamu',
+      identitySha256: HASH_A,
+    },
+    workIds,
+    workProgress: workIds.map((workId, index) => ({
+      ...manifest.workProgress[index]!,
+      workId,
+      acceptedAudioSources: [{
+        ...manifest.workProgress[index]!.acceptedAudioSources![0]!,
+        path: path(`content/batches/F003/accepted-audio/${workId}/audio-${index}.wav`),
+      }],
+    })) as unknown as BatchManifest['workProgress'],
+    inputPaths: [path('data/batches/F003/selected-works.json')],
+    outputPaths: [path('content/batches/F003/provenance.json')],
+    voiceConfigRef: path('content/batches/F003/voice-config.json'),
+    artworkProvenanceRef: path('content/batches/F003/artwork-provenance.json'),
+  });
+}
+
 async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
   release: ReleaseBuildContext;
   approval: ReleaseApproval;
@@ -155,24 +185,26 @@ async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
     ...release,
     result: 'approved' as const,
     approvedAt: '2026-07-20T01:00:00Z',
-    releaseVersion: '0.2.0',
-    evidenceRef: path('docs/evidence/release/F002-approval.json'),
+    releaseVersion: manifest.feature === 'F003' ? '0.3.0' : '0.2.0',
+    evidenceRef: path(`docs/evidence/release/${manifest.batchId}-approval.json`),
     evidenceSha256: HASH_A,
   };
   const deployment = {
     ...release,
     result: 'success' as const,
     deployedAt: '2026-07-20T01:01:00Z',
-    evidenceRef: path('docs/evidence/release/F002-deployment.json'),
+    evidenceRef: path(`docs/evidence/release/${manifest.batchId}-deployment.json`),
     evidenceSha256: HASH_A,
     deployFlagDisabled: true,
   };
-  const expectedRoutes = ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'];
+  const expectedRoutes = manifest.feature === 'F003'
+    ? ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/authors/dazai-osamu', '#/credits']
+    : ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'];
   const smoke = {
     ...release,
     result: 'pass' as const,
     checkedAt: '2026-07-20T01:02:00Z',
-    evidenceRef: path('docs/evidence/release/F002-smoke.json'),
+    evidenceRef: path(`docs/evidence/release/${manifest.batchId}-smoke.json`),
     evidenceSha256: HASH_A,
     allRoutesCovered: true,
     expectedRoutes,
@@ -184,13 +216,12 @@ async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
   return { release, approval, deployment, smoke };
 }
 
-async function publishFixture() {
+async function publishFixture(manifest: BatchManifest = acceptedFixture()) {
   const root = await mkdtemp(join(tmpdir(), 'bungo-publish-'));
   temporaryDirectories.push(root);
-  const manifestPath = path('content/batches/F002/batch.json');
+  const manifestPath = path(`content/batches/${manifest.batchId}/batch.json`);
   const target = join(root, ...manifestPath.split('/'));
-  const manifest = acceptedFixture();
-  await mkdir(join(root, 'content', 'batches', 'F002'), { recursive: true });
+  await mkdir(join(root, 'content', 'batches', manifest.batchId), { recursive: true });
   await writeFile(target, canonicalJson(manifest), 'utf8');
   const evidence = await publishEvidence(root, manifest);
   return {
@@ -570,6 +601,46 @@ describe('published遷移transaction [DES-F002-002][DES-F002-015][DES-F002-016][
     expect(resumed).toEqual(result);
     expect(await readFile(input.target, 'utf8')).toBe(manifestBytes);
     expect(await readFile(releaseJournalPath, 'utf8')).toBe(releaseJournal);
+  });
+
+  // @des DES-F003-012 @fun FUN-F003-029 @test UT-F003-029
+  it('F003の公開5 routeを同一candidateへ結合してpublishedへ記録する', async () => {
+    const input = await publishFixture(f003AcceptedFixture());
+    const result = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(result.manifest).toMatchObject({
+      batchId: 'F003',
+      feature: 'F003',
+      status: 'published',
+      releaseVersion: '0.3.0',
+      deploymentEvidenceRef: 'docs/evidence/release/F003-deployment.json',
+      smokeEvidenceRef: 'docs/evidence/release/F003-smoke.json',
+    });
+  });
+
+  // @des DES-F003-012 @fun FUN-F003-029 @test UT-F003-029
+  it('未知featureの自己申告routeを拒否してaccepted manifestをbyte不変で維持する', async () => {
+    const input = await publishFixture(validated({ ...acceptedFixture(), feature: 'F999' }));
+    const before = await readFile(input.target, 'utf8');
+    await expect(recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    )).rejects.toMatchObject({ code: 'PUBLISH_SMOKE_FAILED' });
+    expect(await readFile(input.target, 'utf8')).toBe(before);
   });
 
   // @des DES-F002-002 DES-F002-015 DES-F002-016 @fun FUN-F002-037 @test UT-F002-037

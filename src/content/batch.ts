@@ -990,6 +990,17 @@ const F002_PUBLIC_ROUTES = [
   '#/authors/miyazawa-zunji',
   '#/credits',
 ] as const;
+const F003_PUBLIC_ROUTES = [
+  '#/',
+  '#/authors/akutagawa-zunnosuke',
+  '#/authors/miyazawa-zunji',
+  '#/authors/dazai-osamu',
+  '#/credits',
+] as const;
+const PUBLIC_ROUTES_BY_FEATURE: Readonly<Record<string, readonly string[]>> = {
+  F002: F002_PUBLIC_ROUTES,
+  F003: F003_PUBLIC_ROUTES,
+};
 
 interface PublishBatchJournal {
   readonly schemaVersion: '1.0.0';
@@ -1062,8 +1073,10 @@ function smokeEvidence(value: unknown, release: ReleaseBuildContext): value is P
   if (!routes.every(validPublicRoute) || !expectedRoutes.every(validPublicRoute) ||
     new Set(routes).size !== routes.length || new Set(expectedRoutes).size !== expectedRoutes.length) return false;
   const expected = expectedRoutes as string[];
-  return exactRouteSet(expected, F002_PUBLIC_ROUTES) &&
-    exactRouteSet(routes as string[], F002_PUBLIC_ROUTES);
+  const requiredRoutes = PUBLIC_ROUTES_BY_FEATURE[release.feature];
+  return requiredRoutes !== undefined &&
+    exactRouteSet(expected, requiredRoutes) &&
+    exactRouteSet(routes as string[], requiredRoutes);
 }
 
 function publishDigest(value: unknown): Sha256 {
