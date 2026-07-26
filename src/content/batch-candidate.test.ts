@@ -266,6 +266,15 @@ describe('F003 candidate registry [DES-F003-001]', () => {
     expect(manifest.workProgress.map((work) => work.status)).toEqual(['pending', 'pending', 'pending']);
     expect(manifest.inputPaths).toEqual([]);
     expect(manifest.outputPaths).toEqual([]);
+    const forgedApproval = structuredClone(approval);
+    expect(() => selectApprovedBatchCandidateAndCreateTemplate(
+      input.registry,
+      forgedApproval,
+      'F003' as BatchId,
+      gateRefs,
+    )).toThrow(expect.objectContaining<Partial<BatchCandidateError>>({
+      code: 'CANDIDATE_APPROVAL_INVALID',
+    }));
     const changed = structuredClone(input.registry) as unknown as {
       candidates: Array<{ approvalBinding: { evidenceSha256: Sha256 } }>;
     };

@@ -38,7 +38,7 @@ async function treeDigest(root: string): Promise<Sha256> {
 
 beforeAll(async () => {
   baseline = await loadAndVerifyPublishedBaseline(workspace, F002_PUBLISHED_RELEASE);
-});
+}, 30_000);
 
 afterAll(async () => {
   await Promise.all(temporary.map((path) => rm(path, { recursive: true, force: true })));

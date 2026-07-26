@@ -96,6 +96,8 @@ export interface VerifiedClosedApproval {
   readonly evidenceSha256: Sha256;
 }
 
+const verifiedClosedApprovals = new WeakSet<object>();
+
 export type CandidateValidationResult =
   | { readonly ok: true; readonly value: BatchCandidateRegistry }
   | { readonly ok: false; readonly code: CandidateFailureCode; readonly message: string };
@@ -411,7 +413,7 @@ export async function loadAndVerifyClosedApproval(
       throw new BatchCandidateError('CANDIDATE_APPROVAL_CONFLICT', `Approved文書SHAが一致しません: ${document.path}`);
     }
   }
-  return Object.freeze({
+  const verified = Object.freeze({
     __brand: 'VerifiedClosedApproval',
     queueId: evidence.queueId,
     queueSha256: queueSha,
@@ -422,6 +424,8 @@ export async function loadAndVerifyClosedApproval(
     evidenceRef: bindingEvidence.path,
     evidenceSha256: bindingEvidence.sha256,
   });
+  verifiedClosedApprovals.add(verified);
+  return verified;
 }
 
 function sameDocuments(left: readonly ApprovalBindingDocument[], right: readonly ApprovalBindingDocument[]): boolean {
@@ -439,7 +443,8 @@ export function selectApprovedBatchCandidateAndCreateTemplate(
 ): BatchManifest {
   const registry = validateBatchCandidateRegistry(registryValue);
   if (!registry.ok) throw new BatchCandidateError(registry.code, registry.message);
-  if (!isRecord(approval) || approval.__brand !== 'VerifiedClosedApproval' ||
+  if (!isRecord(approval) || !verifiedClosedApprovals.has(approval) ||
+    approval.__brand !== 'VerifiedClosedApproval' ||
     approval.feature !== feature || !isSha(approval.approvalItemSha256) ||
     !isSha(approval.evidenceSha256)) {
     throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'verified approvalがfeatureと一致しません');

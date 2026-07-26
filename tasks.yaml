@@ -790,7 +790,7 @@ tasks:
   title: F003候補manifest・権利原典・独立二重レビュー契約を整備
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-036
   tags:
@@ -805,11 +805,12 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  result: FUN-F003-001〜013を実装し、全780テスト・型・lint・build・trace_checkをPASS。独立受け入れHigh 0 / Medium 0
 - id: T-038
   title: 太宰治画像・未完/公式注意・権利表示を整備
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-037
   tags:
