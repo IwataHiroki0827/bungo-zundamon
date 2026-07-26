@@ -411,10 +411,9 @@ export function renderDialogueCard(
   return card;
 }
 
-function renderWork(work: DisplayWork, controller: AudioController, expanded: boolean, authorId?: string): HTMLElement {
+function renderWork(work: DisplayWork, controller: AudioController, authorId?: string): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
-  details.open = expanded;
 
   const summary = document.createElement('summary');
   const heading = textElement('span', work.title, 'work-title');
@@ -482,7 +481,7 @@ export function renderAuthorPage(
   title.id = 'works-title';
   const workList = document.createElement('div');
   workList.className = 'work-list';
-  works.forEach((work, index) => workList.append(renderWork(work, controller, index === 0)));
+  works.forEach((work) => workList.append(renderWork(work, controller)));
   const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
   worksSection.append(title, workList);
   page.append(header, worksSection);
@@ -541,7 +540,7 @@ export function renderAuthorPageV2(
   title.id = 'works-v2-title';
   const workList = document.createElement('div');
   workList.className = 'work-list';
-  works.forEach((work, index) => workList.append(renderWork(work, controller, index === 0, authorId)));
+  works.forEach((work) => workList.append(renderWork(work, controller, authorId)));
   const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
   worksSection.append(title, workList);
   page.append(header, worksSection);

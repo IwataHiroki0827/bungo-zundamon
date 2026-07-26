@@ -302,7 +302,7 @@ describe('文豪ずんだもんの画面', () => {
 
     expect(root.querySelector('h1')?.textContent).toBe('あくたがわずんのすけ');
     expect(root.querySelectorAll('details.work-panel')).toHaveLength(3);
-    expect(root.querySelector('details.work-panel')?.hasAttribute('open')).toBe(true);
+    expect(Array.from(root.querySelectorAll('details.work-panel')).every((panel) => !panel.hasAttribute('open'))).toBe(true);
     expect(root.querySelectorAll('button.play-button')).toHaveLength(3);
     expect(root.querySelectorAll('button.stop-button')).toHaveLength(3);
     expect(root.querySelector('blockquote p')?.textContent).toBe('「羅生門の台詞」');

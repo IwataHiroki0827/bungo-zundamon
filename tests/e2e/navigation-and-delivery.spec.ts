@@ -8,9 +8,11 @@ test('Pages subpathでhash routeの直開き・再読込・履歴・キーボー
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
   await expect(page.getByText('原著者: 芥川龍之介').first()).toBeVisible();
   await expect(page.locator('.work-panel')).toHaveCount(3);
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
 
   await page.reload();
   await expect(page.getByRole('heading', { level: 1, name: 'あくたがわずんのすけ' })).toBeVisible();
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
   await page.getByRole('link', { name: 'クレジット', exact: true }).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('heading', { level: 1, name: 'クレジット・出典・利用条件' })).toBeVisible();

@@ -32,6 +32,7 @@ test('CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川と
   await expect(page.getByRole('heading', { level: 1, name: 'みやざわずんじ' })).toBeVisible();
   await expect(page.getByText('原著者: 宮沢賢治').first()).toBeVisible();
   await expect(page.locator('.work-panel')).toHaveCount(3);
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
   await expect(page.locator('.dialogue-card')).toHaveCount(154);
   for (const title of ['よだかの星', 'どんぐりと山猫', '注文の多い料理店']) {
     await expect(page.locator('.work-title', { hasText: title })).toHaveCount(1);
@@ -43,6 +44,7 @@ test('CatalogV2の2作者と宮沢3作品154台詞を所属分離し、芥川と
   await page.getByRole('link', { name: 'トップ', exact: true }).click();
   await akutagawa.getByRole('link', { name: '作品と台詞を聴く' }).click();
   await expect(page.locator('[data-page="author"]')).toHaveAttribute('data-author-id', '000879');
+  await expect(page.locator('.work-panel[open]')).toHaveCount(0);
   await expect(page.locator('.dialogue-card')).toHaveCount(59);
   await page.goBack();
   await expect(page.getByRole('heading', { level: 1, name: '文豪ずんだもん' })).toBeVisible();
