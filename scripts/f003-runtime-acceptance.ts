@@ -17,10 +17,10 @@ const BATCH_ID = 'F003';
 const EVIDENCE_PATH = '.cache/batch-release/F003/runtime-acceptance.json';
 const BROWSER_REPORT_ROOT = '.cache/batch-release/F003/browser';
 const BROWSER_RUNS = [
-  ['chromium', 'chromium-pages-preview', 'chromium.json', 0],
-  ['firefox', 'firefox-pages-preview', 'firefox.json', 1],
-  ['webkit', 'webkit-pages-preview', 'webkit.json', 1],
-  ['android-equivalent', 'android-equivalent-pages-preview', 'android-equivalent.json', 1],
+  ['chromium', 'chromium-pages-preview', 'chromium.json', 0, '4191'],
+  ['firefox', 'firefox-pages-preview', 'firefox.json', 1, '4192'],
+  ['webkit', 'webkit-pages-preview', 'webkit.json', 1, '4193'],
+  ['android-equivalent', 'android-equivalent-pages-preview', 'android-equivalent.json', 1, '4194'],
 ] as const;
 const REQUIRED_TITLES = [
   'CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する',
@@ -136,13 +136,21 @@ async function run(
   args: readonly string[],
   environment: NodeJS.ProcessEnv = process.env,
 ): Promise<string> {
-  const { stdout } = await execFile(command, args, {
-    cwd: workspace,
-    encoding: 'utf8',
-    maxBuffer: 16 * 1024 * 1024,
-    env: environment,
-  });
-  return stdout;
+  try {
+    const { stdout } = await execFile(command, args, {
+      cwd: workspace,
+      encoding: 'utf8',
+      maxBuffer: 16 * 1024 * 1024,
+      env: environment,
+    });
+    return stdout;
+  } catch (error) {
+    const detail = error as Error & { stdout?: string; stderr?: string; code?: number };
+    throw new Error(
+      `${detail.message}\n${detail.stdout ?? ''}\n${detail.stderr ?? ''}`.trim(),
+      { cause: error },
+    );
+  }
 }
 
 async function assertSameCleanCandidate(
@@ -196,7 +204,7 @@ async function main(): Promise<void> {
   }));
   await mkdir(join(workspace, BROWSER_REPORT_ROOT), { recursive: true });
   const browserReportSha256: Partial<Record<(typeof REQUIRED_RUNTIME_BROWSERS)[number], Sha256>> = {};
-  for (const [browser, projectName, fileName, skipped] of BROWSER_RUNS) {
+  for (const [browser, projectName, fileName, skipped, port] of BROWSER_RUNS) {
     await assertSameCleanCandidate(workspace, sourceCommit, contentBuildSha256);
     process.stdout.write(`Playwright ${projectName}を実行します\n`);
     await run(
@@ -205,6 +213,7 @@ async function main(): Promise<void> {
       [npmCli, 'exec', '--', 'playwright', 'test', `--project=${projectName}`, '--reporter=json'],
       {
         ...process.env,
+        PLAYWRIGHT_PORT: port,
         PLAYWRIGHT_JSON_OUTPUT_FILE: join(workspace, BROWSER_REPORT_ROOT, fileName),
       },
     );

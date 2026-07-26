@@ -206,3 +206,13 @@ attempts:
   cause: Windows Node.js 24がexecFileからnpm.cmdの直接起動をspawn EINVALで拒否
   recovery: npm_execpathのCLI JavaScript実体をNode.jsから直接実行
   log: docs/evidence/it/IT-F003-runtime-attempt-5-failure.md
+- date: '2026-07-26T21:35:00+09:00'
+  feature: F003
+  scope: IT-runtime
+  attempt: 6
+  command: npm run test:f003-runtime
+  result: fail
+  failures: 1
+  cause: Chromium 2件目のloopback遷移でnet::ERR_NO_BUFFER_SPACEが発生
+  recovery: 4 browserを4191〜4194の別portへ分離し、runnerでstdout/stderrを保持
+  log: docs/evidence/it/IT-F003-runtime-attempt-6-failure.md
