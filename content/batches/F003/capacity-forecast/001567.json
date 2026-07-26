@@ -1,0 +1,905 @@
+{
+  "authorization": {
+    "minimumFreeBytesAfterWrite": 150994944,
+    "planDigest": "22e29f9033761a51c856020564f87593ebec74bb2d68bf01e6e20c15bd053d43",
+    "remainingResponseBytes": 98653400,
+    "result": "pass"
+  },
+  "batchId": "F003",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "159a171be354331a37180b7c703b3b49911e090c493d6d17951ac0ffbe873597",
+  "kind": "voice-capacity-authorization",
+  "plan": {
+    "batchId": "F003",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 62,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "00d09a468c69960d79ffcf833572a9da581dc6e35d7538d2f42b7e979aa6250e",
+        "candidateIds": [
+          "7RaPB4nijQXSNdPRLWAoTDynMlfR26f3sfJB7nVVCI4"
+        ],
+        "estimatedBytes": 501164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/00d09a468c69960d79ffcf833572a9da581dc6e35d7538d2f42b7e979aa6250e.json",
+        "status": "miss",
+        "text": "「ああ、王はりこうだ。うぬぼれているがよい。私は、ちゃんと死ぬる覚悟で居るのに。命乞いなど決してしない。ただ、――」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/00d09a468c69960d79ffcf833572a9da581dc6e35d7538d2f42b7e979aa6250e.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "0290dc87a1e3858c62f2e130c5eceb753d7e6a6778e60bf95396e17c9a0ec05d",
+        "candidateIds": [
+          "QsVnZYKI7eKf_zGqB5MXpx5e6D2rMekoYDIbGzD1cvQ"
+        ],
+        "estimatedBytes": 622124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0290dc87a1e3858c62f2e130c5eceb753d7e6a6778e60bf95396e17c9a0ec05d.json",
+        "status": "miss",
+        "text": "「私を殴れ。ちから一ぱいに頬を殴れ。私は、途中で一度、悪い夢を見た。君がもし私を殴ってくれなかったら、私は君と抱擁する資格さえ無いのだ。殴れ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0290dc87a1e3858c62f2e130c5eceb753d7e6a6778e60bf95396e17c9a0ec05d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "04a0234522d6fb394f6986a04f38898fea886fc865208ed3f2faad76e59925c6",
+        "candidateIds": [
+          "ubMYxhE2hQRY69n4jlxdc00WvbprCrWCFyPXx7nos_E"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/04a0234522d6fb394f6986a04f38898fea886fc865208ed3f2faad76e59925c6.json",
+        "status": "miss",
+        "text": "「なんでも無い。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/04a0234522d6fb394f6986a04f38898fea886fc865208ed3f2faad76e59925c6.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "05ac005c1c99c40d354fe1e9881995a41250766175c3af37b711853a4adf46c8",
+        "candidateIds": [
+          "TBkbbZutK02LWCK_pCIZLLVQtxrXfgTOKo5rtyQTVhY"
+        ],
+        "estimatedBytes": 1978604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/05ac005c1c99c40d354fe1e9881995a41250766175c3af37b711853a4adf46c8.json",
+        "status": "miss",
+        "text": "「おめでとう。私は疲れてしまったから、ちょっとご免こうむって眠りたい。眼が覚めたら、すぐに市に出かける。大切な用事があるのだ。私がいなくても、もうおまえには優しい亭主があるのだから、決して寂しい事は無い。おまえの兄の、一ばんきらいなものは、人を疑う事と、それから、嘘をつく事だ。おまえも、それは、知っているね。亭主との間に、どんな秘密でも作ってはならぬ。おまえに言いたいのは、それだけだ。おまえの兄は、たぶん偉い男なのだから、おまえもその誇りを持っていろ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/05ac005c1c99c40d354fe1e9881995a41250766175c3af37b711853a4adf46c8.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "08b5de5cde824f177e910daa3ce64aebbb64840c0841e037682a493b02f3bd4f",
+        "candidateIds": [
+          "42px6YvjzASvK4fTYXSFBfqjFLT9fcG_ikSlX4u3SiE"
+        ],
+        "estimatedBytes": 483884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/08b5de5cde824f177e910daa3ce64aebbb64840c0841e037682a493b02f3bd4f.json",
+        "status": "miss",
+        "text": "「ああ、あなたは気が狂ったか。それでは、うんと走るがいい。ひょっとしたら、間に合わぬものでもない。走るがいい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/08b5de5cde824f177e910daa3ce64aebbb64840c0841e037682a493b02f3bd4f.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "0a702e0d6a3e0eded39b64e4b28644bf0a7dba68aa38eb63f34bec26063ad325",
+        "candidateIds": [
+          "aF3YpDv9GGG80zII6UJjGSk2wXdpbWfoc67FYbYB7QA"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0a702e0d6a3e0eded39b64e4b28644bf0a7dba68aa38eb63f34bec26063ad325.json",
+        "status": "miss",
+        "text": "「誰だ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0a702e0d6a3e0eded39b64e4b28644bf0a7dba68aa38eb63f34bec26063ad325.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "1a704a6b0defc4bc436737b75d618550a451ec88417762de71eb39b4461e174b",
+        "candidateIds": [
+          "3pcnGVFZaBl-3GL0ZIVbKPI_134YcNL1butiMt06Hzw"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a704a6b0defc4bc436737b75d618550a451ec88417762de71eb39b4461e174b.json",
+        "status": "miss",
+        "text": "「あきれた王だ。生かして置けぬ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a704a6b0defc4bc436737b75d618550a451ec88417762de71eb39b4461e174b.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "1b93327529cd9c3bad3485a82f3a9fe79755d1e0eb89a0a3a13502feccee5095",
+        "candidateIds": [
+          "IxkhCUGnEoZ7ihdvRAWoAHlKhquZqTxmU2IV5AGO8_o"
+        ],
+        "estimatedBytes": 1140524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1b93327529cd9c3bad3485a82f3a9fe79755d1e0eb89a0a3a13502feccee5095.json",
+        "status": "miss",
+        "text": "「いいえ、乱心ではございませぬ。人を、信ずる事が出来ぬ、というのです。このごろは、臣下の心をも、お疑いになり、少しく派手な暮しをしている者には、人質ひとりずつ差し出すことを命じて居ります。御命令を拒めば十字架にかけられて、殺されます。きょうは、六人殺されました。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1b93327529cd9c3bad3485a82f3a9fe79755d1e0eb89a0a3a13502feccee5095.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "1b9347f721447796128de45036a3f6a33faa2f3a415caa507287e91f8d636e30",
+        "candidateIds": [
+          "MvgLUNpjGpXyacThPEoB1bZBOCQQfu2kdhoP6mfCp7c"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1b9347f721447796128de45036a3f6a33faa2f3a415caa507287e91f8d636e30.json",
+        "status": "miss",
+        "text": "「ああ、メロス様。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1b9347f721447796128de45036a3f6a33faa2f3a415caa507287e91f8d636e30.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "1d9cb8690e3dc158365030d32272f8200778f200a817b2bc8ebb48edc8506dd0",
+        "candidateIds": [
+          "PwepYBF4wJMF5D2NGqNjBUJF8NbO0O3WZGXAhpSMty8"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d9cb8690e3dc158365030d32272f8200778f200a817b2bc8ebb48edc8506dd0.json",
+        "status": "miss",
+        "text": "「この短刀で何をするつもりであったか。言え！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d9cb8690e3dc158365030d32272f8200778f200a817b2bc8ebb48edc8506dd0.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "2f05c052aea640930f5369c47dcca396bad9acdfa567fec740bc48694c9b1d16",
+        "candidateIds": [
+          "Sizd6jdAdUPd8tWhfKhijrmO92UHitAlWmqc6gEBc4g"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2f05c052aea640930f5369c47dcca396bad9acdfa567fec740bc48694c9b1d16.json",
+        "status": "miss",
+        "text": "「さては、王の命令で、ここで私を待ち伏せしていたのだな。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2f05c052aea640930f5369c47dcca396bad9acdfa567fec740bc48694c9b1d16.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "32f9bd4e0b2c554bbfcd5a56f264f44d92109a00530c0d7a4c1ad351e8fe9055",
+        "candidateIds": [
+          "sNO6BN1iI_pQ5BSpzC1Yg8wGOA2ni78aAXClVRtso28"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/32f9bd4e0b2c554bbfcd5a56f264f44d92109a00530c0d7a4c1ad351e8fe9055.json",
+        "status": "miss",
+        "text": "「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/32f9bd4e0b2c554bbfcd5a56f264f44d92109a00530c0d7a4c1ad351e8fe9055.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "3520d7b43ef4ac346b574f7b2a53006e187385c2ae95030f28f4c2ae5c041fe8",
+        "candidateIds": [
+          "B3E86CZn7ocn6CuE1XpAdYbuCdIHMKTDdXeCTG-3JRE"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3520d7b43ef4ac346b574f7b2a53006e187385c2ae95030f28f4c2ae5c041fe8.json",
+        "status": "miss",
+        "text": "「セリヌンティウス。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3520d7b43ef4ac346b574f7b2a53006e187385c2ae95030f28f4c2ae5c041fe8.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "394a8fd720c714d45cc4bf34226997f59bf97036c694f988f7b7f98ebf560e12",
+        "candidateIds": [
+          "nEB2sjW2D88SY6rc1KUFuApgwBcB-x7HCYN8Y9yqNxU",
+          "u-iicfE0coqNgz4wuWyjmhfFL6dt0HCCHeMeDs8ivsw"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/394a8fd720c714d45cc4bf34226997f59bf97036c694f988f7b7f98ebf560e12.json",
+        "status": "miss",
+        "text": "「いや、まだ陽は沈まぬ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/394a8fd720c714d45cc4bf34226997f59bf97036c694f988f7b7f98ebf560e12.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "3a4b4316f93c2e46069de356e735428945a5b71826bcca1a3d788912375fbcb2",
+        "candidateIds": [
+          "xLI6etfXJYbIEUKjYuu0Mx_CvRtbKldnPDksnBW90n0"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3a4b4316f93c2e46069de356e735428945a5b71826bcca1a3d788912375fbcb2.json",
+        "status": "miss",
+        "text": "「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3a4b4316f93c2e46069de356e735428945a5b71826bcca1a3d788912375fbcb2.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "4414c32bbd25f208a4f237d01ae1d999d9641752ff2b6dbecd20eab03c307462",
+        "candidateIds": [
+          "eHy6MqLpb8XyIotVR_8AloxA_vTt1Jy1t93D1plvBEk"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4414c32bbd25f208a4f237d01ae1d999d9641752ff2b6dbecd20eab03c307462.json",
+        "status": "miss",
+        "text": "「ありがとう、友よ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4414c32bbd25f208a4f237d01ae1d999d9641752ff2b6dbecd20eab03c307462.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "44cb03e94ea7c67a28a1a3706f3972b6148c8692cf134253c85e4fce042bdaba",
+        "candidateIds": [
+          "pUQR3hKJuHT9aOCEfvA_B9x7aWfkMLcEUM6PCiddh1k"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/44cb03e94ea7c67a28a1a3706f3972b6148c8692cf134253c85e4fce042bdaba.json",
+        "status": "miss",
+        "text": "「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/44cb03e94ea7c67a28a1a3706f3972b6148c8692cf134253c85e4fce042bdaba.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "511aa7f0336736c0871ccc7ad26cb7c9a9799b287b37bca43c8c994db5eba7e6",
+        "candidateIds": [
+          "0Ph6ba71h6r8qdXc6im-hYdWYWGEmZ8qETNO1ciXX0I"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/511aa7f0336736c0871ccc7ad26cb7c9a9799b287b37bca43c8c994db5eba7e6.json",
+        "status": "miss",
+        "text": "「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/511aa7f0336736c0871ccc7ad26cb7c9a9799b287b37bca43c8c994db5eba7e6.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "51e350ae68734eb42ccb4e82836ba3efb9633fe0456b0e194da79cc30827a698",
+        "candidateIds": [
+          "wnOgemznoa7vZoWOkligSQCDIxbb9M_W_GXt9k0k1Mo"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51e350ae68734eb42ccb4e82836ba3efb9633fe0456b0e194da79cc30827a698.json",
+        "status": "miss",
+        "text": "「市を暴君の手から救うのだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51e350ae68734eb42ccb4e82836ba3efb9633fe0456b0e194da79cc30827a698.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "56e79855f6d44655edc3923cc267a318db67fc7e47d2541e84b54b3d31b79594",
+        "candidateIds": [
+          "czTDIa8oC1Smu4ZASQxNSwnQqzC0rF4ktO6QYKOayAg"
+        ],
+        "estimatedBytes": 630764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56e79855f6d44655edc3923cc267a318db67fc7e47d2541e84b54b3d31b79594.json",
+        "status": "miss",
+        "text": "「メロス、君は、まっぱだかじゃないか。早くそのマントを着るがいい。この可愛い娘さんは、メロスの裸体を、皆に見られるのが、たまらなく口惜しいのだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56e79855f6d44655edc3923cc267a318db67fc7e47d2541e84b54b3d31b79594.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "58f73e495a0f3b7db2ca0b1eb5ac45efe553fd05c688fd5feb7736e0598f2dfd",
+        "candidateIds": [
+          "Fq5F4z4KJWfWrXRT4B-3Ld9ahHu3JNssVrzh948W9RU"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58f73e495a0f3b7db2ca0b1eb5ac45efe553fd05c688fd5feb7736e0598f2dfd.json",
+        "status": "miss",
+        "text": "「なぜ殺すのだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58f73e495a0f3b7db2ca0b1eb5ac45efe553fd05c688fd5feb7736e0598f2dfd.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "5aa375b902f1ab0dcb9401eff19fcf2e12c0f54b33a4550e5c17a8a90dccb762",
+        "candidateIds": [
+          "ISUwgPjUj8P6NKd9I-0Bn6uSwMjjaRxl24VXllwfpZ0"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5aa375b902f1ab0dcb9401eff19fcf2e12c0f54b33a4550e5c17a8a90dccb762.json",
+        "status": "miss",
+        "text": "「いまごろは、あの男も、磔にかかっているよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5aa375b902f1ab0dcb9401eff19fcf2e12c0f54b33a4550e5c17a8a90dccb762.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "5add806c2a6d4b7a01647b47124939abaebfdda8f9b9751750367c5e35e7022d",
+        "candidateIds": [
+          "HcTpUXUpKebJ5gJ7kWZo8IA8TcEF5trM9xbZv13Alfk"
+        ],
+        "estimatedBytes": 725804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5add806c2a6d4b7a01647b47124939abaebfdda8f9b9751750367c5e35e7022d.json",
+        "status": "miss",
+        "text": "「はい、はじめは王様の妹婿さまを。それから、御自身のおよつぎを。それから、妹さまを。それから、妹さまの御子さまを。それから、皇后さまを。それから、賢臣のアレキス様を。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5add806c2a6d4b7a01647b47124939abaebfdda8f9b9751750367c5e35e7022d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "5d8115972713697a4cc94de82993f768ebad4da2bd46ff052e66a69691d4c440",
+        "candidateIds": [
+          "Aru-38iO110yNIpb7kaix73Rz20xv-fKdq3rM5ovY6o"
+        ],
+        "estimatedBytes": 907244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d8115972713697a4cc94de82993f768ebad4da2bd46ff052e66a69691d4c440.json",
+        "status": "miss",
+        "text": "「それだから、走るのだ。信じられているから走るのだ。間に合う、間に合わぬは問題でないのだ。人の命も問題でないのだ。私は、なんだか、もっと恐ろしく大きいものの為に走っているのだ。ついて来い！ フィロストラトス。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d8115972713697a4cc94de82993f768ebad4da2bd46ff052e66a69691d4c440.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "5dff3c04f7a879324d0e3cd06be9eb4573659e6e14504489b9e863588f2df47c",
+        "candidateIds": [
+          "eprjIOulFJwPGluFWyfDtny4PLnHM3QrSPzdvrtTsVM"
+        ],
+        "estimatedBytes": 656684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5dff3c04f7a879324d0e3cd06be9eb4573659e6e14504489b9e863588f2df47c.json",
+        "status": "miss",
+        "text": "「疑うのが、正当の心構えなのだと、わしに教えてくれたのは、おまえたちだ。人の心は、あてにならない。人間は、もともと私慾のかたまりさ。信じては、ならぬ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5dff3c04f7a879324d0e3cd06be9eb4573659e6e14504489b9e863588f2df47c.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "63084f873023e15332a816b8a02a33608265b4b292073c07ebbb34a1fa16689d",
+        "candidateIds": [
+          "B_p6z1cKsN2bYhZDs64B17yYkNRmU-Hz1titka9K__s"
+        ],
+        "estimatedBytes": 362924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/63084f873023e15332a816b8a02a33608265b4b292073c07ebbb34a1fa16689d.json",
+        "status": "miss",
+        "text": "「フィロストラトスでございます。貴方のお友達セリヌンティウス様の弟子でございます。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/63084f873023e15332a816b8a02a33608265b4b292073c07ebbb34a1fa16689d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "646a032fb9ad64404b7484aa80b7a86946cb8d497a294d555d77e2203ac5916a",
+        "candidateIds": [
+          "cjOoN3w0WCey9zvT3QKuc46zUog3dQJ8pq7Dzszxvvs"
+        ],
+        "estimatedBytes": 786284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/646a032fb9ad64404b7484aa80b7a86946cb8d497a294d555d77e2203ac5916a.json",
+        "status": "miss",
+        "text": "「メロス、私を殴れ。同じくらい音高く私の頬を殴れ。私はこの三日の間、たった一度だけ、ちらと君を疑った。生れて、はじめて君を疑った。君が私を殴ってくれなければ、私は君と抱擁できない。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/646a032fb9ad64404b7484aa80b7a86946cb8d497a294d555d77e2203ac5916a.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "726295621f4ad7dca9573cc886a5c8859467025c5f62d0071a1d4721be17a984",
+        "candidateIds": [
+          "sZDFyTxwBUvVhnSfBLG21YTSRYZ11UkI1KGfUdPxoe4"
+        ],
+        "estimatedBytes": 639404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/726295621f4ad7dca9573cc886a5c8859467025c5f62d0071a1d4721be17a984.json",
+        "status": "miss",
+        "text": "「仕度の無いのはお互さまさ。私の家にも、宝といっては、妹と羊だけだ。他には、何も無い。全部あげよう。もう一つ、メロスの弟になったことを誇ってくれ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/726295621f4ad7dca9573cc886a5c8859467025c5f62d0071a1d4721be17a984.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "7662769dcdc8b5d65ab986e6d86e6ca43f9c84eee422192657847ae871ea44fe",
+        "candidateIds": [
+          "mV9Kai4uu60DCRzJAiHPCRAfxA1fha-rh6yPxuGLpbg"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7662769dcdc8b5d65ab986e6d86e6ca43f9c84eee422192657847ae871ea44fe.json",
+        "status": "miss",
+        "text": "「だまれ、げせんの者。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7662769dcdc8b5d65ab986e6d86e6ca43f9c84eee422192657847ae871ea44fe.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "77f320e9044a7b378f0ee13ec1dbc4d955eb4c9d1885980d704c5eed22c2c948",
+        "candidateIds": [
+          "vmpf0yxArJXMfCLmTDbXww8GtbcylavP15r6ky4SZWM"
+        ],
+        "estimatedBytes": 915884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/77f320e9044a7b378f0ee13ec1dbc4d955eb4c9d1885980d704c5eed22c2c948.json",
+        "status": "miss",
+        "text": "「おまえらの望みはかなったぞ。おまえらは、わしの心に勝ったのだ。信実とは、決して空虚な妄想ではなかった。どうか、わしをも仲間に入れてくれまいか。どうか、わしの願いを聞き入れて、おまえらの仲間の一人にしてほしい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/77f320e9044a7b378f0ee13ec1dbc4d955eb4c9d1885980d704c5eed22c2c948.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "79e6695c9232a2fc316054f0fef27dee8323f70fac2dd7c3dadd3cc2bb00ef25",
+        "candidateIds": [
+          "C_WCZ44c59ACVE4aQg9dng6fAJ0a-EeEoDZBI_gqjLc"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/79e6695c9232a2fc316054f0fef27dee8323f70fac2dd7c3dadd3cc2bb00ef25.json",
+        "status": "miss",
+        "text": "「たくさんの人を殺したのか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/79e6695c9232a2fc316054f0fef27dee8323f70fac2dd7c3dadd3cc2bb00ef25.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "7e035b4dc0fd1211b3c8a54ac411fc478c2a6a1dff32f69772e0b7125a423839",
+        "candidateIds": [
+          "W_jX9bADtTerqEABSrXyOGjXrLg8vNMMv6xrc5X-QUE"
+        ],
+        "estimatedBytes": 501164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7e035b4dc0fd1211b3c8a54ac411fc478c2a6a1dff32f69772e0b7125a423839.json",
+        "status": "miss",
+        "text": "「もう、駄目でございます。むだでございます。走るのは、やめて下さい。もう、あのかたをお助けになることは出来ません。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7e035b4dc0fd1211b3c8a54ac411fc478c2a6a1dff32f69772e0b7125a423839.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "8643343b76d94e34eee65539940f7c515ab0a36667a81fdefb74e2c4586ba9df",
+        "candidateIds": [
+          "WDKO7IEFV-jMwUXbNQfTR92XYZMX8aBV1LVQDxvEMTg"
+        ],
+        "estimatedBytes": 1486124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8643343b76d94e34eee65539940f7c515ab0a36667a81fdefb74e2c4586ba9df.json",
+        "status": "miss",
+        "text": "「私は約束を守ります。私を、三日間だけ許して下さい。妹が、私の帰りを待っているのだ。そんなに私を信じられないならば、よろしい、この市にセリヌンティウスという石工がいます。私の無二の友人だ。あれを、人質としてここに置いて行こう。私が逃げてしまって、三日目の日暮まで、ここに帰って来なかったら、あの友人を絞め殺して下さい。たのむ、そうして下さい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8643343b76d94e34eee65539940f7c515ab0a36667a81fdefb74e2c4586ba9df.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "86e4f71c5f85c313b67b43280b5166cb2ddfee045df6a0472a1a2ac566f1d1cf",
+        "candidateIds": [
+          "8vfG2HRyrJi5FsXBGsU4ubiiYMKyKT73DK6EyDByrJU"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/86e4f71c5f85c313b67b43280b5166cb2ddfee045df6a0472a1a2ac566f1d1cf.json",
+        "status": "miss",
+        "text": "「どっこい放さぬ。持ちもの全部を置いて行け。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/86e4f71c5f85c313b67b43280b5166cb2ddfee045df6a0472a1a2ac566f1d1cf.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "8a0f5e5f27f6c327e12e522a9b987d92980f18b55f556dc9e38afe806599d0bb",
+        "candidateIds": [
+          "3tI30rTPYMnmNchrktEsqZD8MtntP8wC8kvKbMLrIrA"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a0f5e5f27f6c327e12e522a9b987d92980f18b55f556dc9e38afe806599d0bb.json",
+        "status": "miss",
+        "text": "「なに、何をおっしゃる。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a0f5e5f27f6c327e12e522a9b987d92980f18b55f556dc9e38afe806599d0bb.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "8d2e6a28fd015de5c81779e764460adddbbbfcc177270a226a6050e2313f625d",
+        "candidateIds": [
+          "KyY5gzHpT78F-5HQBaySOkYNW-f_qJdmUfxzoLmJ6Og"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8d2e6a28fd015de5c81779e764460adddbbbfcc177270a226a6050e2313f625d.json",
+        "status": "miss",
+        "text": "「その、いのちが欲しいのだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8d2e6a28fd015de5c81779e764460adddbbbfcc177270a226a6050e2313f625d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "97961509220621ce8da36592363cc1449be11922fb9d799d593d5f5f2cc37501",
+        "candidateIds": [
+          "cHUrWL4wAEHZwwtiM2MxBwaljFeaHGCgt_G8f4Xqt9A"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/97961509220621ce8da36592363cc1449be11922fb9d799d593d5f5f2cc37501.json",
+        "status": "miss",
+        "text": "「はは。いのちが大事だったら、おくれて来い。おまえの心は、わかっているぞ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/97961509220621ce8da36592363cc1449be11922fb9d799d593d5f5f2cc37501.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "9f0fd3d8308ea7dd9577e26c47ad76bcdb0c39239eaa7cb36897ad964057f29d",
+        "candidateIds": [
+          "6WKHcoAGSn-p-Znh_gzI25BtX6j4sITIiWZH4kDLNN4"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f0fd3d8308ea7dd9577e26c47ad76bcdb0c39239eaa7cb36897ad964057f29d.json",
+        "status": "miss",
+        "text": "「おまえがか？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f0fd3d8308ea7dd9577e26c47ad76bcdb0c39239eaa7cb36897ad964057f29d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "9f45d4acc54d09d36d34a863b9f293799d337ea875ce695dc52f5edd45a3d5e6",
+        "candidateIds": [
+          "YEzlYOHps0nWvxAhZEQpO-UntjUPpL5KOgSgdnpS6gI"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f45d4acc54d09d36d34a863b9f293799d337ea875ce695dc52f5edd45a3d5e6.json",
+        "status": "miss",
+        "text": "「待て。その人を殺してはならぬ。メロスが帰って来た。約束のとおり、いま、帰って来た。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9f45d4acc54d09d36d34a863b9f293799d337ea875ce695dc52f5edd45a3d5e6.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "a6cf5442dbdd2d6d2d33f350e36975554c953dc94c5dcd3a067e987f57088735",
+        "candidateIds": [
+          "0PcXQqtAlFXE4VxsQFRrfkbNbD4cZnXp4RuQPLz8tpc"
+        ],
+        "estimatedBytes": 570284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a6cf5442dbdd2d6d2d33f350e36975554c953dc94c5dcd3a067e987f57088735.json",
+        "status": "miss",
+        "text": "「ちょうど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少し、もうちょっとでも、早かったなら！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a6cf5442dbdd2d6d2d33f350e36975554c953dc94c5dcd3a067e987f57088735.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "a901cf7bdfead3a645e5d62c917d4b320dba11f905374c0a4ee758204018ceff",
+        "candidateIds": [
+          "MZdluJvoXuf3uowKmDq4hG8mcB4ANhCQLvUHKJgrX8U"
+        ],
+        "estimatedBytes": 786284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a901cf7bdfead3a645e5d62c917d4b320dba11f905374c0a4ee758204018ceff.json",
+        "status": "miss",
+        "text": "「願いを、聞いた。その身代りを呼ぶがよい。三日目には日没までに帰って来い。おくれたら、その身代りを、きっと殺すぞ。ちょっとおくれて来るがいい。おまえの罪は、永遠にゆるしてやろうぞ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a901cf7bdfead3a645e5d62c917d4b320dba11f905374c0a4ee758204018ceff.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "b1309f930f759620aa1559f7396a252ce0adf5f3172a5a043554f30c7c65115d",
+        "candidateIds": [
+          "_FXWDZXVx2m_IdsJKao7nNd8Q0laM3ADlYUvR0CyeYQ"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1309f930f759620aa1559f7396a252ce0adf5f3172a5a043554f30c7c65115d.json",
+        "status": "miss",
+        "text": "「言うな！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1309f930f759620aa1559f7396a252ce0adf5f3172a5a043554f30c7c65115d.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "b94ebaaa2793eecec682c8c2cd83aa93fda5eb69067d1b343181105c57f67c88",
+        "candidateIds": [
+          "1ool2fOAnHpuNmFNmox2X0F1jNZQraOuPnPCyCl4Nsc"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b94ebaaa2793eecec682c8c2cd83aa93fda5eb69067d1b343181105c57f67c88.json",
+        "status": "miss",
+        "text": "「私だ、刑吏！ 殺されるのは、私だ。メロスだ。彼を人質にした私は、ここにいる！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b94ebaaa2793eecec682c8c2cd83aa93fda5eb69067d1b343181105c57f67c88.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "bf3d2348a07c1fa88d6fff56d3dd3d17bd9fcbafe5706fcc52414ff54b49bc59",
+        "candidateIds": [
+          "p18lMjj11kR_5x2Uz6aZND_ukHlc4FT1lBaoiCqfqH4"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf3d2348a07c1fa88d6fff56d3dd3d17bd9fcbafe5706fcc52414ff54b49bc59.json",
+        "status": "miss",
+        "text": "「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf3d2348a07c1fa88d6fff56d3dd3d17bd9fcbafe5706fcc52414ff54b49bc59.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "c722737c93209d54b55c7e8d186fe57f0a88dd3a409bc7d5d7059ca357f11e43",
+        "candidateIds": [
+          "9aFglcDvYz99ZnlB9koboKe1CezU6XgDF7TupF9fX8s"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c722737c93209d54b55c7e8d186fe57f0a88dd3a409bc7d5d7059ca357f11e43.json",
+        "status": "miss",
+        "text": "「市に用事を残して来た。またすぐ市に行かなければならぬ。あす、おまえの結婚式を挙げる。早いほうがよかろう。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c722737c93209d54b55c7e8d186fe57f0a88dd3a409bc7d5d7059ca357f11e43.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "ce37a447e4a0eb969ce71a616ab4ea5f435aa85923fbd6d0a2d410e8025d0eea",
+        "candidateIds": [
+          "xuXy1YV85WqPEeapd1dcVpYYDiPiPt205ySs6ACt-Fs"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce37a447e4a0eb969ce71a616ab4ea5f435aa85923fbd6d0a2d410e8025d0eea.json",
+        "status": "miss",
+        "text": "「そうです。帰って来るのです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce37a447e4a0eb969ce71a616ab4ea5f435aa85923fbd6d0a2d410e8025d0eea.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d081dd23e55e4cffe223c9c3437a899a9bbe356d157706d3d4c731afcfcb9800",
+        "candidateIds": [
+          "A3tJFUv3jSSc1mh8VbXHx9DkDkOqTGFJG8sKsQLQW_Q"
+        ],
+        "estimatedBytes": 665324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d081dd23e55e4cffe223c9c3437a899a9bbe356d157706d3d4c731afcfcb9800.json",
+        "status": "miss",
+        "text": "「口では、どんな清らかな事でも言える。わしには、人の腹綿の奥底が見え透いてならぬ。おまえだって、いまに、はりつけになってから、泣いてわびたって聞かぬぞ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d081dd23e55e4cffe223c9c3437a899a9bbe356d157706d3d4c731afcfcb9800.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d29f635f5e84a09ea3704a015a408114b8761847678e857339ea84c570bcda88",
+        "candidateIds": [
+          "gXh01YlVvSfbGu-rm-cskFWOnHbZZwSFtXu4cHymh8M"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d29f635f5e84a09ea3704a015a408114b8761847678e857339ea84c570bcda88.json",
+        "status": "miss",
+        "text": "「待て。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d29f635f5e84a09ea3704a015a408114b8761847678e857339ea84c570bcda88.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d36a299ed0ddc90ed77ef10f019fc0fb0679b6699ab65a7bf327e19e24b92011",
+        "candidateIds": [
+          "9Hrny08Q8_DbGWiu2Nq8f8MY6Lb00VRVnazOD9SUX0k"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d36a299ed0ddc90ed77ef10f019fc0fb0679b6699ab65a7bf327e19e24b92011.json",
+        "status": "miss",
+        "text": "「気の毒だが正義のためだ！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d36a299ed0ddc90ed77ef10f019fc0fb0679b6699ab65a7bf327e19e24b92011.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d448a980b57adac151e42bbd867e60e9f0c5a6afd55a42be2e9d405d2bc7676b",
+        "candidateIds": [
+          "oYKvI3GTvlBy_O45fqFX1S4JZfHgph9Yjuc7xTPMAFY"
+        ],
+        "estimatedBytes": 1114604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d448a980b57adac151e42bbd867e60e9f0c5a6afd55a42be2e9d405d2bc7676b.json",
+        "status": "miss",
+        "text": "「やめて下さい。走るのは、やめて下さい。いまはご自分のお命が大事です。あの方は、あなたを信じて居りました。刑場に引き出されても、平気でいました。王様が、さんざんあの方をからかっても、メロスは来ます、とだけ答え、強い信念を持ちつづけている様子でございました。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d448a980b57adac151e42bbd867e60e9f0c5a6afd55a42be2e9d405d2bc7676b.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d5fa87ac2626505e1ddd43c642783389e479d6ab81cb6a658a7b2c93abe6d86a",
+        "candidateIds": [
+          "LwyCkusev-y6yZQN7DTV25qKX0Vr8ly1_MqZ4I081s8"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d5fa87ac2626505e1ddd43c642783389e479d6ab81cb6a658a7b2c93abe6d86a.json",
+        "status": "miss",
+        "text": "「おどろいた。国王は乱心か。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d5fa87ac2626505e1ddd43c642783389e479d6ab81cb6a658a7b2c93abe6d86a.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "d70b304fa6b13213a8d250af2d4fa9486d44758a129818290a9f15a2cb39eba0",
+        "candidateIds": [
+          "UKefdgwKQfpFBBGVcSACNF-NzVn3dTY2crcf1VBPjHc"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d70b304fa6b13213a8d250af2d4fa9486d44758a129818290a9f15a2cb39eba0.json",
+        "status": "miss",
+        "text": "「万歳、王様万歳。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d70b304fa6b13213a8d250af2d4fa9486d44758a129818290a9f15a2cb39eba0.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "de5c57330be35337d3c173e9bf9c91bf8d80eb3eb72b7f7c77eecdc4e1e6292c",
+        "candidateIds": [
+          "lWoj1wcBxGYQdaLOstJrui4fDSNeU_ekdIfA8PXw8tg"
+        ],
+        "estimatedBytes": 475244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/de5c57330be35337d3c173e9bf9c91bf8d80eb3eb72b7f7c77eecdc4e1e6292c.json",
+        "status": "miss",
+        "text": "「うれしいか。きれいな衣裳も買って来た。さあ、これから行って、村の人たちに知らせて来い。結婚式は、あすだと。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/de5c57330be35337d3c173e9bf9c91bf8d80eb3eb72b7f7c77eecdc4e1e6292c.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "ecda40bf069b39317c0b74830796458df31b796f8ce42d92b7fdc4f2281d04e3",
+        "candidateIds": [
+          "MZnM9Ek_mxMJ5Mkds2EuLSx-mJjYqQdiHiIS4vq0qYY"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ecda40bf069b39317c0b74830796458df31b796f8ce42d92b7fdc4f2281d04e3.json",
+        "status": "miss",
+        "text": "「なんの為の平和だ。自分の地位を守る為か。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ecda40bf069b39317c0b74830796458df31b796f8ce42d92b7fdc4f2281d04e3.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "ee8777e39c780bece8ccd7d1a486e96365cf179f97d15901d86c760df94a255c",
+        "candidateIds": [
+          "xJFZTb7FTMgI4ee6QvpJO6Ii9ghIU9fC2eIaAqCUhBw"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ee8777e39c780bece8ccd7d1a486e96365cf179f97d15901d86c760df94a255c.json",
+        "status": "miss",
+        "text": "「わしだって、平和を望んでいるのだが。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ee8777e39c780bece8ccd7d1a486e96365cf179f97d15901d86c760df94a255c.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f14ebff5a1e2ba94963353e1d4dad9398ae4eb4894f6e0492d25eb50d53a5f9c",
+        "candidateIds": [
+          "PJ1JW2vjgMl8htCfKmpWijVNmTOy8rdnxDeQst_T72g"
+        ],
+        "estimatedBytes": 293804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f14ebff5a1e2ba94963353e1d4dad9398ae4eb4894f6e0492d25eb50d53a5f9c.json",
+        "status": "miss",
+        "text": "「とんでもないうそを言うわい。逃がした小鳥が帰って来るというのか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f14ebff5a1e2ba94963353e1d4dad9398ae4eb4894f6e0492d25eb50d53a5f9c.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f229010a36c8f32f59a45dd29477966c80212ed5f2bca52431dd384d2e60de7c",
+        "candidateIds": [
+          "RyPcGAw1p2NhDLmorF20A2dnx7sc74GBlmOeD5LPhIY"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f229010a36c8f32f59a45dd29477966c80212ed5f2bca52431dd384d2e60de7c.json",
+        "status": "miss",
+        "text": "「王様は、人を殺します。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f229010a36c8f32f59a45dd29477966c80212ed5f2bca52431dd384d2e60de7c.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f6d3fc7dcf47a49e8dd8b5f74503de4f9c31776170b8de7e0063929ee9731fc1",
+        "candidateIds": [
+          "r7pApIQU0fS4U0ZnNcHLUkQ0ZFLARlC5in_J411KFHs"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f6d3fc7dcf47a49e8dd8b5f74503de4f9c31776170b8de7e0063929ee9731fc1.json",
+        "status": "miss",
+        "text": "「ばかな。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f6d3fc7dcf47a49e8dd8b5f74503de4f9c31776170b8de7e0063929ee9731fc1.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f7f1a149b2c2d27a6977e1ef6336ff1e45f2d2e5b2721b39f3f9572ce76eab7a",
+        "candidateIds": [
+          "-vlEmkP2mQbgrvh9qQ80hR_nOtezmwdSeB4ZtwZBvBc"
+        ],
+        "estimatedBytes": 820844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7f1a149b2c2d27a6977e1ef6336ff1e45f2d2e5b2721b39f3f9572ce76eab7a.json",
+        "status": "miss",
+        "text": "「ただ、私に情をかけたいつもりなら、処刑までに三日間の日限を与えて下さい。たった一人の妹に、亭主を持たせてやりたいのです。三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7f1a149b2c2d27a6977e1ef6336ff1e45f2d2e5b2721b39f3f9572ce76eab7a.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f8adf07aa49b01bbef1b248d634379307007e544f5da4e9105b2148456d6a19a",
+        "candidateIds": [
+          "JvWuwzMLKr3rZzs0_f_tlbaok48SK6hDkoZUXoMcRTE"
+        ],
+        "estimatedBytes": 829484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8adf07aa49b01bbef1b248d634379307007e544f5da4e9105b2148456d6a19a.json",
+        "status": "miss",
+        "text": "「ああ、しずめたまえ、荒れ狂う流れを！ 時は刻々に過ぎて行きます。太陽も既に真昼時です。あれが沈んでしまわぬうちに、王城に行き着くことが出来なかったら、あの佳い友達が、私のために死ぬのです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8adf07aa49b01bbef1b248d634379307007e544f5da4e9105b2148456d6a19a.wav",
+        "workIds": [
+          "001567"
+        ]
+      },
+      {
+        "audioId": "f8bdd279a29a8193d14993a5a7b3e9818efc7e0c6fc0208ba5a7ab6d5d6e02f2",
+        "candidateIds": [
+          "X3ohoeAOucvKgJtgSdQqCQE2dTbqOf99ZPlMojfXZBw"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8bdd279a29a8193d14993a5a7b3e9818efc7e0c6fc0208ba5a7ab6d5d6e02f2.json",
+        "status": "miss",
+        "text": "「罪の無い人を殺して、何が平和だ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8bdd279a29a8193d14993a5a7b3e9818efc7e0c6fc0208ba5a7ab6d5d6e02f2.wav",
+        "workIds": [
+          "001567"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 24505724,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "159a171be354331a37180b7c703b3b49911e090c493d6d17951ac0ffbe873597",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 61,
+    "planDigest": "22e29f9033761a51c856020564f87593ebec74bb2d68bf01e6e20c15bd053d43",
+    "preTreeDigest": "e2d3df620d0ff09054509c6d32f77558991506ea940a02e7d07d616861f33a74",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 61,
+    "workId": "001567"
+  },
+  "preTreeDigest": "e2d3df620d0ff09054509c6d32f77558991506ea940a02e7d07d616861f33a74",
+  "reviewSha256": "f6ffebe336a5e2fc6ace04936caa3455e9749a65f4b5a7a583afc5c8782ae74b",
+  "schemaVersion": "1.0.0",
+  "workId": "001567"
+}

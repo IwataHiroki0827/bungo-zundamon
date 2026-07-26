@@ -24,7 +24,16 @@ import type {
 } from '../src/content/f003-review-acceptance.ts';
 
 const BATCH_ID = 'F003';
-const WORK_ID = '000275';
+const WORK_IDS = ['000275', '001567', '000258'] as const;
+const command = process.argv[2];
+const workFlag = process.argv.indexOf('--work');
+const workArgument = workFlag >= 0 ? process.argv[workFlag + 1] : process.argv[3];
+if (!workArgument || !WORK_IDS.includes(workArgument as (typeof WORK_IDS)[number])) {
+  throw new Error(
+    `usage: node --experimental-transform-types scripts/f003-work-inputs.ts safety|forecast|actual|envelopes --work ${WORK_IDS.join('|')}`,
+  );
+}
+const WORK_ID = workArgument;
 const MEBIBYTE = 1_048_576;
 
 function sha256(value: string | Uint8Array): string {
@@ -74,7 +83,7 @@ async function writeSafety(workspace: string): Promise<void> {
   ]);
   if (review.workId !== WORK_ID || review.pending.length !== 0 || review.approved.length === 0 ||
     reconciliation.pendingIds.length !== 0) {
-    throw new Error('完結した女生徒review/reconciliationが必要です');
+    throw new Error(`完結したreview/reconciliationが必要です: ${WORK_ID}`);
   }
   const revised = applySpeechRevisions(
     review.approved.map(({ candidate }) => ({
@@ -267,10 +276,13 @@ async function writeEnvelopes(workspace: string): Promise<void> {
   process.stdout.write('F003 acceptance envelopes: ready\n');
 }
 
-const command = process.argv[2];
 const workspace = resolve(process.cwd());
 if (command === 'safety') await writeSafety(workspace);
 else if (command === 'forecast') await writeForecastInputs(workspace);
 else if (command === 'actual') await writeActualInputs(workspace);
 else if (command === 'envelopes') await writeEnvelopes(workspace);
-else throw new Error('usage: node --experimental-transform-types scripts/f003-work-inputs.ts safety|forecast|actual|envelopes');
+else {
+  throw new Error(
+    `usage: node --experimental-transform-types scripts/f003-work-inputs.ts safety|forecast|actual|envelopes --work ${WORK_IDS.join('|')}`,
+  );
+}

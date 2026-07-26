@@ -805,7 +805,8 @@ tasks:
   model:
     lead: opus
     workers: sonnet
-  result: FUN-F003-001〜013を実装し、全780テスト・型・lint・build・trace_checkをPASS。独立受け入れHigh 0 / Medium 0
+  result: FUN-F003-001〜013を実装し、全780テスト・型・lint・build・trace_checkをPASS。独立受け入れHigh 0
+    / Medium 0
 - id: T-038
   title: 太宰治画像・未完/公式注意・権利表示を整備
   feature: F003
@@ -823,7 +824,8 @@ tasks:
   model:
     lead: opus
     workers: sonnet
-  result: 太宰治ずんだもん画像、未完・公式注意・抜粋scope、3配置DOM、固定provenance chainを実装。全795テスト・型・lint・build・trace_checkをPASSし、独立受け入れHigh/Medium/Low 0
+  result: 太宰治ずんだもん画像、未完・公式注意・抜粋scope、3配置DOM、固定provenance chainを実装。全795テスト・型・lint・build・trace_checkをPASSし、独立受け入れHigh/Medium/Low
+    0
 - id: T-039
   title: 女生徒の全候補レビュー・音声生成・作品単位受入
   feature: F003
@@ -849,12 +851,13 @@ tasks:
   model:
     lead: opus
     workers: sonnet
-  result: 女生徒47候補を独立二重レビューと第三裁定で31承認・16除外へ確定し、30 WAV・容量実測・F001/F002不変・相対POSIX証跡chainをatomic acceptedへ結合。全838テストと独立受け入れHigh/Medium/Low 0でPASS
+  result: 女生徒47候補を独立二重レビューと第三裁定で31承認・16除外へ確定し、30 WAV・容量実測・F001/F002不変・相対POSIX証跡chainをatomic
+    acceptedへ結合。全838テストと独立受け入れHigh/Medium/Low 0でPASS
 - id: T-040
   title: 走れメロスの全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-039
   tags: *id004
@@ -863,11 +866,13 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  result: 走れメロス62候補を独立二重レビューと第三裁定で全件承認し、61 WAV・容量実測・累積Catalog preview・F001/F002不変をatomic
+    acceptedへ結合。全839テストと独立受け入れHigh/Medium/Low 0でPASS
 - id: T-041
   title: グッド・バイの全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-040
   tags: *id004

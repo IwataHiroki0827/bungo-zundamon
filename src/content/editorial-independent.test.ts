@@ -12,6 +12,7 @@ import {
   loadAndVerifyEditorialJudgmentSets,
   reconcileIndependentJudgments,
   recoverEditorialJudgmentTransaction,
+  registerEditorialAuthorizations,
   sealAndValidateEditorialJudgmentSet,
   verifyEditorialCompleteness,
   type EditorialCandidate,
@@ -201,6 +202,37 @@ async function trustedAdjudicationBundle(
 }
 
 describe('UT-F003-009 独立判定authorization・seal [DES-F003-005][FUN-F003-009]', () => {
+  it('後続作品authorizationを既存sealを保ったまま冪等追記する', async () => {
+    const first = authorization('primary', 'first-work');
+    const next = authorization('secondary', 'next-work');
+    const root = await workspace([first]);
+    await sealAndValidateEditorialJudgmentSet(root, first, external(first), {
+      now: () => '2026-07-26T01:00:00.000Z',
+    });
+
+    await registerEditorialAuthorizations(root, [next]);
+    await registerEditorialAuthorizations(root, [next]);
+    const saved = await stored(root);
+    expect(saved.authorizations).toHaveLength(2);
+    expect(saved.authorizations[0]?.status).toBe('used');
+    expect(saved.authorizations[1]).toMatchObject({
+      authorization: next,
+      status: 'unused',
+      usedAt: null,
+      sealPath: null,
+      sealSha256: null,
+    });
+
+    await sealAndValidateEditorialJudgmentSet(root, next, external(next), {
+      now: () => '2026-07-26T01:01:00.000Z',
+    });
+    await expect(registerEditorialAuthorizations(root, [{
+      ...next,
+      promptSha256: H('different-prompt'),
+    }])).rejects.toMatchObject({ code: 'EDITORIAL_AUTHORIZATION_UNTRUSTED' });
+    expect(await loadAndVerifyEditorialJudgmentSets(root)).toHaveLength(2);
+  });
+
   it('base64url由来で先頭がunderscoreまたはhyphenのcandidate IDを受理する', async () => {
     const candidates = [
       { ...CANDIDATES[0]!, candidateId: '_candidate-1' },

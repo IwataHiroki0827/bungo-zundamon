@@ -1,0 +1,1428 @@
+[
+  {
+    "candidateId": "RyPcGAw1p2NhDLmorF20A2dnx7sc74GBlmOeD5LPhIY",
+    "contextAfter": "\n\n「なぜ殺すのだ。」\n\n「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」\n\n「たくさんの人を殺した",
+    "contextBefore": "した。老爺は答えなかった。メロスは両手で老爺のからだをゆすぶって質問を重ねた。老爺は、あたりをはばかる低声で、わずか答えた。\n\n",
+    "displayText": "「王様は、人を殺します。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 704,
+      "start": 691
+    },
+    "revisions": [],
+    "sha256": "f15ec1e0ea63329c61a9e3031db0c8f5873100183b5d226769517ece23e44a3e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 704,
+      "startToken": 691
+    },
+    "speechText": "「王様は、人を殺します。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "Fq5F4z4KJWfWrXRT4B-3Ld9ahHu3JNssVrzh948W9RU",
+    "contextAfter": "\n\n「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」\n\n「たくさんの人を殺したのか。」\n\n「はい、は",
+    "contextBefore": "スは両手で老爺のからだをゆすぶって質問を重ねた。老爺は、あたりをはばかる低声で、わずか答えた。\n\n「王様は、人を殺します。」\n\n",
+    "displayText": "「なぜ殺すのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 715,
+      "start": 706
+    },
+    "revisions": [],
+    "sha256": "f381ce5805c1f62909e2fe07a5175ee997e2cf5ae4e3827afc4392f7c0681a8f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 715,
+      "startToken": 706
+    },
+    "speechText": "「なぜ殺すのだ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "0Ph6ba71h6r8qdXc6im-hYdWYWGEmZ8qETNO1ciXX0I",
+    "contextAfter": "\n\n「たくさんの人を殺したのか。」\n\n「はい、はじめは王様の妹婿さまを。それから、御自身のお世嗣を。それから、妹さまを。それから、",
+    "contextBefore": "をゆすぶって質問を重ねた。老爺は、あたりをはばかる低声で、わずか答えた。\n\n「王様は、人を殺します。」\n\n「なぜ殺すのだ。」\n\n",
+    "displayText": "「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 755,
+      "start": 717
+    },
+    "revisions": [],
+    "sha256": "ec50c639198d6642bab545d0fa66162d29c9429350f0264cefee686e1fa51b61",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 755,
+      "startToken": 717
+    },
+    "speechText": "「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "C_WCZ44c59ACVE4aQg9dng6fAJ0a-EeEoDZBI_gqjLc",
+    "contextAfter": "\n\n「はい、はじめは王様の妹婿さまを。それから、御自身のお世嗣を。それから、妹さまを。それから、妹さまの御子さまを。それから、皇后",
+    "contextBefore": "様は、人を殺します。」\n\n「なぜ殺すのだ。」\n\n「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」\n\n",
+    "displayText": "「たくさんの人を殺したのか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 772,
+      "start": 757
+    },
+    "revisions": [],
+    "sha256": "17dfb40e2078360f90b0b9ea51ef49a7b20269e9436b1069205b64127677c4c3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 772,
+      "startToken": 757
+    },
+    "speechText": "「たくさんの人を殺したのか。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "HcTpUXUpKebJ5gJ7kWZo8IA8TcEF5trM9xbZv13Alfk",
+    "contextAfter": "\n\n「おどろいた。国王は乱心か。」\n\n「いいえ、乱心ではございませぬ。人を、信ずる事が出来ぬ、というのです。このごろは、臣下の心",
+    "contextBefore": "すのだ。」\n\n「悪心を抱いている、というのですが、誰もそんな、悪心を持っては居りませぬ。」\n\n「たくさんの人を殺したのか。」\n\n",
+    "displayText": "「はい、はじめは王様の妹婿さまを。それから、御自身のお世嗣を。それから、妹さまを。それから、妹さまの御子さまを。それから、皇后さまを。それから、賢臣のアレキス様を。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 856,
+      "start": 774
+    },
+    "revisions": [],
+    "sha256": "ceeabd6a8e8ac7e93ce0ad5ecda30d5a137b926ad6b75b47a254c368aa95e770",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 856,
+      "startToken": 774
+    },
+    "speechText": "「はい、はじめは王様の妹婿さまを。それから、御自身のおよつぎを。それから、妹さまを。それから、妹さまの御子さまを。それから、皇后さまを。それから、賢臣のアレキス様を。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "LwyCkusev-y6yZQN7DTV25qKX0Vr8ly1_MqZ4I081s8",
+    "contextAfter": "\n\n「いいえ、乱心ではございませぬ。人を、信ずる事が出来ぬ、というのです。このごろは、臣下の心をも、お疑いになり、少しく派手な暮",
+    "contextBefore": "ら、御自身のお世嗣を。それから、妹さまを。それから、妹さまの御子さまを。それから、皇后さまを。それから、賢臣のアレキス様を。」\n\n",
+    "displayText": "「おどろいた。国王は乱心か。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 873,
+      "start": 858
+    },
+    "revisions": [],
+    "sha256": "112abc11cb4d83401089805d3e42db22c70fd3354c6fdb5d34ca70fc19dbeb1e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 873,
+      "startToken": 858
+    },
+    "speechText": "「おどろいた。国王は乱心か。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "IxkhCUGnEoZ7ihdvRAWoAHlKhquZqTxmU2IV5AGO8_o",
+    "contextAfter": "\n\n　聞いて、メロスは激怒した。「呆れた王だ。生かして置けぬ。」\n\n　メロスは、単純な男であった。買い物を、背負ったままで、のそ",
+    "contextBefore": "まを。それから、妹さまの御子さまを。それから、皇后さまを。それから、賢臣のアレキス様を。」\n\n「おどろいた。国王は乱心か。」\n\n",
+    "displayText": "「いいえ、乱心ではございませぬ。人を、信ずる事が出来ぬ、というのです。このごろは、臣下の心をも、お疑いになり、少しく派手な暮しをしている者には、人質ひとりずつ差し出すことを命じて居ります。御命令を拒めば十字架にかけられて、殺されます。きょうは、六人殺されました。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1007,
+      "start": 875
+    },
+    "revisions": [],
+    "sha256": "993dc6dbc2f0431a6009584cb0e6d051e2b067a06e5d5ab0a2400fafbb7a6bde",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1007,
+      "startToken": 875
+    },
+    "speechText": "「いいえ、乱心ではございませぬ。人を、信ずる事が出来ぬ、というのです。このごろは、臣下の心をも、お疑いになり、少しく派手な暮しをしている者には、人質ひとりずつ差し出すことを命じて居ります。御命令を拒めば十字架にかけられて、殺されます。きょうは、六人殺されました。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "3pcnGVFZaBl-3GL0ZIVbKPI_134YcNL1butiMt06Hzw",
+    "contextAfter": "\n\n　メロスは、単純な男であった。買い物を、背負ったままで、のそのそ王城にはいって行った。たちまち彼は、巡邏の警吏に捕縛された。調",
+    "contextBefore": "とを命じて居ります。御命令を拒めば十字架にかけられて、殺されます。きょうは、六人殺されました。」\n\n　聞いて、メロスは激怒した。",
+    "displayText": "「呆れた王だ。生かして置けぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1039,
+      "start": 1023
+    },
+    "revisions": [],
+    "sha256": "36946354985c470f5be93b74f06f4045e200ba7cf143d53c10b6be0f7a4ceed8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1039,
+      "startToken": 1023
+    },
+    "speechText": "「あきれた王だ。生かして置けぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "PwepYBF4wJMF5D2NGqNjBUJF8NbO0O3WZGXAhpSMty8",
+    "contextAfter": "暴君ディオニスは静かに、けれども威厳を以て問いつめた。その王の顔は蒼白で、眉間の皺は、刻み込まれたように深かった。\n\n「市を暴君の手",
+    "contextBefore": "に捕縛された。調べられて、メロスの懐中からは短剣が出て来たので、騒ぎが大きくなってしまった。メロスは、王の前に引き出された。\n\n",
+    "displayText": "「この短刀で何をするつもりであったか。言え！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1182,
+      "start": 1159
+    },
+    "revisions": [],
+    "sha256": "7a4ee88e4f2697469a2759ff924486e3e53ab1006e73a3dc2316517083bc2910",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1182,
+      "startToken": 1159
+    },
+    "speechText": "「この短刀で何をするつもりであったか。言え！」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "wnOgemznoa7vZoWOkligSQCDIxbb9M_W_GXt9k0k1Mo",
+    "contextAfter": "とメロスは悪びれずに答えた。\n\n「おまえがか？」王は、憫笑した。「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」\n\n「言",
+    "contextBefore": "たか。言え！」暴君ディオニスは静かに、けれども威厳を以て問いつめた。その王の顔は蒼白で、眉間の皺は、刻み込まれたように深かった。\n\n",
+    "displayText": "「市を暴君の手から救うのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1254,
+      "start": 1239
+    },
+    "revisions": [],
+    "sha256": "d67396834284952f8e597a50a2844db0cfd900ddcd302e4cd10e78b435e64f24",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1254,
+      "startToken": 1239
+    },
+    "speechText": "「市を暴君の手から救うのだ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "6WKHcoAGSn-p-Znh_gzI25BtX6j4sITIiWZH4kDLNN4",
+    "contextAfter": "王は、憫笑した。「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」\n\n「言うな！」とメロスは、いきり立って反駁した。「人の心",
+    "contextBefore": "めた。その王の顔は蒼白で、眉間の皺は、刻み込まれたように深かった。\n\n「市を暴君の手から救うのだ。」とメロスは悪びれずに答えた。\n\n",
+    "displayText": "「おまえがか？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1278,
+      "start": 1270
+    },
+    "revisions": [],
+    "sha256": "0335f68f68592c54c3ca3e086ad5ee0eed947e9a9f3d43f60655240e3c0ddff8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1278,
+      "startToken": 1270
+    },
+    "speechText": "「おまえがか？」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "pUQR3hKJuHT9aOCEfvA_B9x7aWfkMLcEUM6PCiddh1k",
+    "contextAfter": "\n\n「言うな！」とメロスは、いきり立って反駁した。「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」\n",
+    "contextBefore": "は、刻み込まれたように深かった。\n\n「市を暴君の手から救うのだ。」とメロスは悪びれずに答えた。\n\n「おまえがか？」王は、憫笑した。",
+    "displayText": "「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1314,
+      "start": 1285
+    },
+    "revisions": [],
+    "sha256": "a787e4a8de67e097aeaea99db084b50a0e93e020179bbae2780a4960e8af600a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1314,
+      "startToken": 1285
+    },
+    "speechText": "「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "_FXWDZXVx2m_IdsJKao7nNd8Q0laM3ADlYUvR0CyeYQ",
+    "contextAfter": "とメロスは、いきり立って反駁した。「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」\n\n「疑うのが、正",
+    "contextBefore": "。」とメロスは悪びれずに答えた。\n\n「おまえがか？」王は、憫笑した。「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」\n\n",
+    "displayText": "「言うな！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1322,
+      "start": 1316
+    },
+    "revisions": [],
+    "sha256": "c17f187f3acaf43c2b5fd807028e445f0331c69dc8400a0613394c61ce0cffae",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1322,
+      "startToken": 1316
+    },
+    "speechText": "「言うな！」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "p18lMjj11kR_5x2Uz6aZND_ukHlc4FT1lBaoiCqfqH4",
+    "contextAfter": "\n\n「疑うのが、正当の心構えなのだと、わしに教えてくれたのは、おまえたちだ。人の心は、あてにならない。人間は、もともと私慾のかた",
+    "contextBefore": "がか？」王は、憫笑した。「仕方の無いやつじゃ。おまえには、わしの孤独がわからぬ。」\n\n「言うな！」とメロスは、いきり立って反駁した。",
+    "displayText": "「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1377,
+      "start": 1338
+    },
+    "revisions": [],
+    "sha256": "10060ef5a165787938ff74e63b0055a05afe34e2ff1dd0250c798517b5ff28fa",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1377,
+      "startToken": 1338
+    },
+    "speechText": "「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "eprjIOulFJwPGluFWyfDtny4PLnHM3QrSPzdvrtTsVM",
+    "contextAfter": "暴君は落着いて呟き、ほっと溜息をついた。「わしだって、平和を望んでいるのだが。」\n\n「なんの為の平和だ。自分の地位を守る為か。」こ",
+    "contextBefore": "\n「言うな！」とメロスは、いきり立って反駁した。「人の心を疑うのは、最も恥ずべき悪徳だ。王は、民の忠誠をさえ疑って居られる。」\n\n",
+    "displayText": "「疑うのが、正当の心構えなのだと、わしに教えてくれたのは、おまえたちだ。人の心は、あてにならない。人間は、もともと私慾のかたまりさ。信じては、ならぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1455,
+      "start": 1379
+    },
+    "revisions": [],
+    "sha256": "baa4a943fde739ff671c1fe3f63f3d9d33b408c3bb38ff7b0d6b5988079c5642",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1455,
+      "startToken": 1379
+    },
+    "speechText": "「疑うのが、正当の心構えなのだと、わしに教えてくれたのは、おまえたちだ。人の心は、あてにならない。人間は、もともと私慾のかたまりさ。信じては、ならぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "xJFZTb7FTMgI4ee6QvpJO6Ii9ghIU9fC2eIaAqCUhBw",
+    "contextAfter": "\n\n「なんの為の平和だ。自分の地位を守る為か。」こんどはメロスが嘲笑した。「罪の無い人を殺して、何が平和だ。」\n\n「だまれ、下賤の",
+    "contextBefore": "えたちだ。人の心は、あてにならない。人間は、もともと私慾のかたまりさ。信じては、ならぬ。」暴君は落着いて呟き、ほっと溜息をついた。",
+    "displayText": "「わしだって、平和を望んでいるのだが。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1494,
+      "start": 1474
+    },
+    "revisions": [],
+    "sha256": "79d74ee52bbfa42bdb0013b656c3f6e3b5994c71c1c16142e5d04e926ff17af6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1494,
+      "startToken": 1474
+    },
+    "speechText": "「わしだって、平和を望んでいるのだが。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "MZnM9Ek_mxMJ5Mkds2EuLSx-mJjYqQdiHiIS4vq0qYY",
+    "contextAfter": "こんどはメロスが嘲笑した。「罪の無い人を殺して、何が平和だ。」\n\n「だまれ、下賤の者。」王は、さっと顔を挙げて報いた。「口では、ど",
+    "contextBefore": "もともと私慾のかたまりさ。信じては、ならぬ。」暴君は落着いて呟き、ほっと溜息をついた。「わしだって、平和を望んでいるのだが。」\n\n",
+    "displayText": "「なんの為の平和だ。自分の地位を守る為か。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1518,
+      "start": 1496
+    },
+    "revisions": [],
+    "sha256": "87e303af670c400052e7a770f9c6d31190e31a995daf8273ead5e39f0117d2cf",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1518,
+      "startToken": 1496
+    },
+    "speechText": "「なんの為の平和だ。自分の地位を守る為か。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "X3ohoeAOucvKgJtgSdQqCQE2dTbqOf99ZPlMojfXZBw",
+    "contextAfter": "\n\n「だまれ、下賤の者。」王は、さっと顔を挙げて報いた。「口では、どんな清らかな事でも言える。わしには、人の腹綿の奥底が見え透いて",
+    "contextBefore": "と溜息をついた。「わしだって、平和を望んでいるのだが。」\n\n「なんの為の平和だ。自分の地位を守る為か。」こんどはメロスが嘲笑した。",
+    "displayText": "「罪の無い人を殺して、何が平和だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1549,
+      "start": 1531
+    },
+    "revisions": [],
+    "sha256": "a0b22de2094e5933365aa65b5b337bab0b1c801cf3d31b34f0ac3bae65616bee",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1549,
+      "startToken": 1531
+    },
+    "speechText": "「罪の無い人を殺して、何が平和だ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "mV9Kai4uu60DCRzJAiHPCRAfxA1fha-rh6yPxuGLpbg",
+    "contextAfter": "王は、さっと顔を挙げて報いた。「口では、どんな清らかな事でも言える。わしには、人の腹綿の奥底が見え透いてならぬ。おまえだって、い",
+    "contextBefore": "いるのだが。」\n\n「なんの為の平和だ。自分の地位を守る為か。」こんどはメロスが嘲笑した。「罪の無い人を殺して、何が平和だ。」\n\n",
+    "displayText": "「だまれ、下賤の者。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1561,
+      "start": 1551
+    },
+    "revisions": [],
+    "sha256": "9b32e7edb91b06d6eb945a2534f1d49035752fe5a8440deb24f1b2f4ae16df3d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1561,
+      "startToken": 1551
+    },
+    "speechText": "「だまれ、げせんの者。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "A3tJFUv3jSSc1mh8VbXHx9DkDkOqTGFJG8sKsQLQW_Q",
+    "contextAfter": "\n\n「ああ、王は悧巧だ。自惚れているがよい。私は、ちゃんと死ぬる覚悟で居るのに。命乞いなど決してしない。ただ、――」と言いかけて、メ",
+    "contextBefore": "守る為か。」こんどはメロスが嘲笑した。「罪の無い人を殺して、何が平和だ。」\n\n「だまれ、下賤の者。」王は、さっと顔を挙げて報いた。",
+    "displayText": "「口では、どんな清らかな事でも言える。わしには、人の腹綿の奥底が見え透いてならぬ。おまえだって、いまに、磔になってから、泣いて詫びたって聞かぬぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1650,
+      "start": 1576
+    },
+    "revisions": [],
+    "sha256": "fda0bc80bcb5237a95aed67476516f270b7cef3f1c343887e20d245b90f1725c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1650,
+      "startToken": 1576
+    },
+    "speechText": "「口では、どんな清らかな事でも言える。わしには、人の腹綿の奥底が見え透いてならぬ。おまえだって、いまに、はりつけになってから、泣いてわびたって聞かぬぞ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "7RaPB4nijQXSNdPRLWAoTDynMlfR26f3sfJB7nVVCI4",
+    "contextAfter": "と言いかけて、メロスは足もとに視線を落し瞬時ためらい、「ただ、私に情をかけたいつもりなら、処刑までに三日間の日限を与えて下さい。",
+    "contextBefore": "事でも言える。わしには、人の腹綿の奥底が見え透いてならぬ。おまえだって、いまに、磔になってから、泣いて詫びたって聞かぬぞ。」\n\n",
+    "displayText": "「ああ、王は悧巧だ。自惚れているがよい。私は、ちゃんと死ぬる覚悟で居るのに。命乞いなど決してしない。ただ、――」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1706,
+      "start": 1652
+    },
+    "revisions": [],
+    "sha256": "a2b8f0b85c9b72cc066914f64c54ca7ea7cf0e87fe07c5ec1ff13322fecf1099",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1706,
+      "startToken": 1652
+    },
+    "speechText": "「ああ、王はりこうだ。うぬぼれているがよい。私は、ちゃんと死ぬる覚悟で居るのに。命乞いなど決してしない。ただ、――」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "-vlEmkP2mQbgrvh9qQ80hR_nOtezmwdSeB4ZtwZBvBc",
+    "contextAfter": "\n\n「ばかな。」と暴君は、嗄れた声で低く笑った。「とんでもない嘘を言うわい。逃がした小鳥が帰って来るというのか。」\n\n「そうです",
+    "contextBefore": "。私は、ちゃんと死ぬる覚悟で居るのに。命乞いなど決してしない。ただ、――」と言いかけて、メロスは足もとに視線を落し瞬時ためらい、",
+    "displayText": "「ただ、私に情をかけたいつもりなら、処刑までに三日間の日限を与えて下さい。たった一人の妹に、亭主を持たせてやりたいのです。三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1828,
+      "start": 1733
+    },
+    "revisions": [],
+    "sha256": "1b2f028f1ff85d081afcb9230c57c58369934ab9597e80bd9168e8067fd1e9f2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1828,
+      "startToken": 1733
+    },
+    "speechText": "「ただ、私に情をかけたいつもりなら、処刑までに三日間の日限を与えて下さい。たった一人の妹に、亭主を持たせてやりたいのです。三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "r7pApIQU0fS4U0ZnNcHLUkQ0ZFLARlC5in_J411KFHs",
+    "contextAfter": "と暴君は、嗄れた声で低く笑った。「とんでもない嘘を言うわい。逃がした小鳥が帰って来るというのか。」\n\n「そうです。帰って来るので",
+    "contextBefore": "下さい。たった一人の妹に、亭主を持たせてやりたいのです。三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。」\n\n",
+    "displayText": "「ばかな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1836,
+      "start": 1830
+    },
+    "revisions": [],
+    "sha256": "b4ed52381912d49bf25a288fc56866c6d407e4961da32ced6a792038daa76472",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1836,
+      "startToken": 1830
+    },
+    "speechText": "「ばかな。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "PJ1JW2vjgMl8htCfKmpWijVNmTOy8rdnxDeQst_T72g",
+    "contextAfter": "\n\n「そうです。帰って来るのです。」メロスは必死で言い張った。「私は約束を守ります。私を、三日間だけ許して下さい。妹が、私の帰り",
+    "contextBefore": "たいのです。三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。」\n\n「ばかな。」と暴君は、嗄れた声で低く笑った。",
+    "displayText": "「とんでもない嘘を言うわい。逃がした小鳥が帰って来るというのか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1885,
+      "start": 1852
+    },
+    "revisions": [],
+    "sha256": "bd9475e94a387be95dbe72321632828643324fac6bb431102e733744edeec0f0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1885,
+      "startToken": 1852
+    },
+    "speechText": "「とんでもないうそを言うわい。逃がした小鳥が帰って来るというのか。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "xuXy1YV85WqPEeapd1dcVpYYDiPiPt205ySs6ACt-Fs",
+    "contextAfter": "メロスは必死で言い張った。「私は約束を守ります。私を、三日間だけ許して下さい。妹が、私の帰りを待っているのだ。そんなに私を信じら",
+    "contextBefore": "来ます。」\n\n「ばかな。」と暴君は、嗄れた声で低く笑った。「とんでもない嘘を言うわい。逃がした小鳥が帰って来るというのか。」\n\n",
+    "displayText": "「そうです。帰って来るのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 1903,
+      "start": 1887
+    },
+    "revisions": [],
+    "sha256": "e874e7e94951e04faa6ff00635bb82353d971012d70794d849c9e9510462e66c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1903,
+      "startToken": 1887
+    },
+    "speechText": "「そうです。帰って来るのです。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "WDKO7IEFV-jMwUXbNQfTR92XYZMX8aBV1LVQDxvEMTg",
+    "contextAfter": "\n\n　それを聞いて王は、残虐な気持で、そっと北叟笑んだ。生意気なことを言うわい。どうせ帰って来ないにきまっている。この嘘つきに騙され",
+    "contextBefore": "「とんでもない嘘を言うわい。逃がした小鳥が帰って来るというのか。」\n\n「そうです。帰って来るのです。」メロスは必死で言い張った。",
+    "displayText": "「私は約束を守ります。私を、三日間だけ許して下さい。妹が、私の帰りを待っているのだ。そんなに私を信じられないならば、よろしい、この市にセリヌンティウスという石工がいます。私の無二の友人だ。あれを、人質としてここに置いて行こう。私が逃げてしまって、三日目の日暮まで、ここに帰って来なかったら、あの友人を絞め殺して下さい。たのむ、そうして下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2088,
+      "start": 1916
+    },
+    "revisions": [],
+    "sha256": "cae9947999faac15251985b514093b076d1e7c968e274583431adf87509bde70",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2088,
+      "startToken": 1916
+    },
+    "speechText": "「私は約束を守ります。私を、三日間だけ許して下さい。妹が、私の帰りを待っているのだ。そんなに私を信じられないならば、よろしい、この市にセリヌンティウスという石工がいます。私の無二の友人だ。あれを、人質としてここに置いて行こう。私が逃げてしまって、三日目の日暮まで、ここに帰って来なかったら、あの友人を絞め殺して下さい。たのむ、そうして下さい。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "MZdluJvoXuf3uowKmDq4hG8mcB4ANhCQLvUHKJgrX8U",
+    "contextAfter": "\n\n「なに、何をおっしゃる。」\n\n「はは。いのちが大事だったら、おくれて来い。おまえの心は、わかっているぞ。」\n\n　メロスは口惜",
+    "contextBefore": "ぬと、わしは悲しい顔して、その身代りの男を磔刑に処してやるのだ。世の中の、正直者とかいう奴輩にうんと見せつけてやりたいものさ。\n\n",
+    "displayText": "「願いを、聞いた。その身代りを呼ぶがよい。三日目には日没までに帰って来い。おくれたら、その身代りを、きっと殺すぞ。ちょっとおくれて来るがいい。おまえの罪は、永遠にゆるしてやろうぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2364,
+      "start": 2273
+    },
+    "revisions": [],
+    "sha256": "7cd1a2e594e0410f131843ad05b3e4c6d7cc39619c2cd3dcf36539ed7612ea38",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2364,
+      "startToken": 2273
+    },
+    "speechText": "「願いを、聞いた。その身代りを呼ぶがよい。三日目には日没までに帰って来い。おくれたら、その身代りを、きっと殺すぞ。ちょっとおくれて来るがいい。おまえの罪は、永遠にゆるしてやろうぞ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "3tI30rTPYMnmNchrktEsqZD8MtntP8wC8kvKbMLrIrA",
+    "contextAfter": "\n\n「はは。いのちが大事だったら、おくれて来い。おまえの心は、わかっているぞ。」\n\n　メロスは口惜しく、地団駄踏んだ。ものも言いたく",
+    "contextBefore": "でに帰って来い。おくれたら、その身代りを、きっと殺すぞ。ちょっとおくれて来るがいい。おまえの罪は、永遠にゆるしてやろうぞ。」\n\n",
+    "displayText": "「なに、何をおっしゃる。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2379,
+      "start": 2366
+    },
+    "revisions": [],
+    "sha256": "7d1291e07988eef0b0e8fcbc9a3b93487bded2e9ea575035e08cf715ee13fb3f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2379,
+      "startToken": 2366
+    },
+    "speechText": "「なに、何をおっしゃる。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "cHUrWL4wAEHZwwtiM2MxBwaljFeaHGCgt_G8f4Xqt9A",
+    "contextAfter": "\n\n　メロスは口惜しく、地団駄踏んだ。ものも言いたくなくなった。\n\n　竹馬の友、セリヌンティウスは、深夜、王城に召された。暴君ディオ",
+    "contextBefore": "の身代りを、きっと殺すぞ。ちょっとおくれて来るがいい。おまえの罪は、永遠にゆるしてやろうぞ。」\n\n「なに、何をおっしゃる。」\n\n",
+    "displayText": "「はは。いのちが大事だったら、おくれて来い。おまえの心は、わかっているぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2419,
+      "start": 2381
+    },
+    "revisions": [],
+    "sha256": "b113a8863702e56f6d448f492666d7ac9e35fd53d6b9cbc1a4625f09749bbd63",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2419,
+      "startToken": 2381
+    },
+    "speechText": "「はは。いのちが大事だったら、おくれて来い。おまえの心は、わかっているぞ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "ubMYxhE2hQRY69n4jlxdc00WvbprCrWCFyPXx7nos_E",
+    "contextAfter": "メロスは無理に笑おうと努めた。「市に用事を残して来た。またすぐ市に行かなければならぬ。あす、おまえの結婚式を挙げる。早いほうがよ",
+    "contextBefore": "は兄の代りに羊群の番をしていた。よろめいて歩いて来る兄の、疲労困憊の姿を見つけて驚いた。そうして、うるさく兄に質問を浴びせた。\n\n",
+    "displayText": "「なんでも無い。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2768,
+      "start": 2759
+    },
+    "revisions": [],
+    "sha256": "c7755afbd7d4c3c60f5e72b4fb906dc40ccccc658d9e2fca9624c6ebbd1917f1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2768,
+      "startToken": 2759
+    },
+    "speechText": "「なんでも無い。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "9aFglcDvYz99ZnlB9koboKe1CezU6XgDF7TupF9fX8s",
+    "contextAfter": "\n\n　妹は頬をあからめた。\n\n「うれしいか。綺麗な衣裳も買って来た。さあ、これから行って、村の人たちに知らせて来い。結婚式は、あす",
+    "contextBefore": "来る兄の、疲労困憊の姿を見つけて驚いた。そうして、うるさく兄に質問を浴びせた。\n\n「なんでも無い。」メロスは無理に笑おうと努めた。",
+    "displayText": "「市に用事を残して来た。またすぐ市に行かなければならぬ。あす、おまえの結婚式を挙げる。早いほうがよかろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2837,
+      "start": 2783
+    },
+    "revisions": [],
+    "sha256": "c1879ae3d3491460f2ac7fe270e8d9f0caf8e4558a5f3cb73f464bba2f7fedff",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2837,
+      "startToken": 2783
+    },
+    "speechText": "「市に用事を残して来た。またすぐ市に行かなければならぬ。あす、おまえの結婚式を挙げる。早いほうがよかろう。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "lWoj1wcBxGYQdaLOstJrui4fDSNeU_ekdIfA8PXw8tg",
+    "contextAfter": "\n\n　メロスは、また、よろよろと歩き出し、家へ帰って神々の祭壇を飾り、祝宴の席を調え、間もなく床に倒れ伏し、呼吸もせぬくらいの深",
+    "contextBefore": "を残して来た。またすぐ市に行かなければならぬ。あす、おまえの結婚式を挙げる。早いほうがよかろう。」\n\n　妹は頬をあからめた。\n\n",
+    "displayText": "「うれしいか。綺麗な衣裳も買って来た。さあ、これから行って、村の人たちに知らせて来い。結婚式は、あすだと。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 2905,
+      "start": 2852
+    },
+    "revisions": [],
+    "sha256": "5e17fcc22fb2009e6d22b9f27388c80016e7bbbd439c5dbf43f3bc8bb4c91c8e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2905,
+      "startToken": 2852
+    },
+    "speechText": "「うれしいか。きれいな衣裳も買って来た。さあ、これから行って、村の人たちに知らせて来い。結婚式は、あすだと。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "TBkbbZutK02LWCK_pCIZLLVQtxrXfgTOKo5rtyQTVhY",
+    "contextAfter": "\n\n　花嫁は、夢見心地で首肯いた。メロスは、それから花婿の肩をたたいて、\n\n「仕度の無いのはお互さまさ。私の家にも、宝といっては、",
+    "contextBefore": "愚図とどまっていたかった。メロスほどの男にも、やはり未練の情というものは在る。今宵呆然、歓喜に酔っているらしい花嫁に近寄り、\n\n",
+    "displayText": "「おめでとう。私は疲れてしまったから、ちょっとご免こうむって眠りたい。眼が覚めたら、すぐに市に出かける。大切な用事があるのだ。私がいなくても、もうおまえには優しい亭主があるのだから、決して寂しい事は無い。おまえの兄の、一ばんきらいなものは、人を疑う事と、それから、嘘をつく事だ。おまえも、それは、知っているね。亭主との間に、どんな秘密でも作ってはならぬ。おまえに言いたいのは、それだけだ。おまえの兄は、たぶん偉い男なのだから、おまえもその誇りを持っていろ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 3903,
+      "start": 3674
+    },
+    "revisions": [],
+    "sha256": "49c738f3b3ffd97c8aa985782985aab27b97d1d4fab45d1971029b60447bd2e0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3903,
+      "startToken": 3674
+    },
+    "speechText": "「おめでとう。私は疲れてしまったから、ちょっとご免こうむって眠りたい。眼が覚めたら、すぐに市に出かける。大切な用事があるのだ。私がいなくても、もうおまえには優しい亭主があるのだから、決して寂しい事は無い。おまえの兄の、一ばんきらいなものは、人を疑う事と、それから、嘘をつく事だ。おまえも、それは、知っているね。亭主との間に、どんな秘密でも作ってはならぬ。おまえに言いたいのは、それだけだ。おまえの兄は、たぶん偉い男なのだから、おまえもその誇りを持っていろ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "sZDFyTxwBUvVhnSfBLG21YTSRYZ11UkI1KGfUdPxoe4",
+    "contextAfter": "\n\n　花婿は揉み手して、てれていた。メロスは笑って村人たちにも会釈して、宴席から立ち去り、羊小屋にもぐり込んで、死んだように深く眠",
+    "contextBefore": "ぶん偉い男なのだから、おまえもその誇りを持っていろ。」\n\n　花嫁は、夢見心地で首肯いた。メロスは、それから花婿の肩をたたいて、\n\n",
+    "displayText": "「仕度の無いのはお互さまさ。私の家にも、宝といっては、妹と羊だけだ。他には、何も無い。全部あげよう。もう一つ、メロスの弟になったことを誇ってくれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 4014,
+      "start": 3940
+    },
+    "revisions": [],
+    "sha256": "a7d1a96c0076ca276107fd4a75c06893d72578dae24456d12ccc7bb562203f98",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4014,
+      "startToken": 3940
+    },
+    "speechText": "「仕度の無いのはお互さまさ。私の家にも、宝といっては、妹と羊だけだ。他には、何も無い。全部あげよう。もう一つ、メロスの弟になったことを誇ってくれ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "JvWuwzMLKr3rZzs0_f_tlbaok48SK6hDkoZUXoMcRTE",
+    "contextAfter": "\n\n　濁流は、メロスの叫びをせせら笑う如く、ますます激しく躍り狂う。浪は浪を呑み、捲き、煽り立て、そうして時は、刻一刻と消えて行",
+    "contextBefore": "ない。流れはいよいよ、ふくれ上り、海のようになっている。メロスは川岸にうずくまり、男泣きに泣きながらゼウスに手を挙げて哀願した。",
+    "displayText": "「ああ、鎮めたまえ、荒れ狂う流れを！　時は刻々に過ぎて行きます。太陽も既に真昼時です。あれが沈んでしまわぬうちに、王城に行き着くことが出来なかったら、あの佳い友達が、私のために死ぬのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5003,
+      "start": 4908
+    },
+    "revisions": [],
+    "sha256": "b6ffbd09f0c7f76232a6e73856371fa83d1751c0cd8f8ede2c6bb51df21ae76c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5003,
+      "startToken": 4908
+    },
+    "speechText": "「ああ、しずめたまえ、荒れ狂う流れを！ 時は刻々に過ぎて行きます。太陽も既に真昼時です。あれが沈んでしまわぬうちに、王城に行き着くことが出来なかったら、あの佳い友達が、私のために死ぬのです。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "gXh01YlVvSfbGu-rm-cskFWOnHbZZwSFtXu4cHymh8M",
+    "contextAfter": "\n\n「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」\n\n「どっこい放さぬ。持ちもの全部を置いて行け。」\n\n",
+    "contextBefore": "に西に傾きかけている。ぜいぜい荒い呼吸をしながら峠をのぼり、のぼり切って、ほっとした時、突然、目の前に一隊の山賊が躍り出た。\n\n",
+    "displayText": "「待て。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5432,
+      "start": 5427
+    },
+    "revisions": [],
+    "sha256": "d212f82f57deae39e45709c477afa3c8d0987d621086badddaf3286ad9ccbdd5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5432,
+      "startToken": 5427
+    },
+    "speechText": "「待て。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "xLI6etfXJYbIEUKjYuu0Mx_CvRtbKldnPDksnBW90n0",
+    "contextAfter": "\n\n「どっこい放さぬ。持ちもの全部を置いて行け。」\n\n「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれて",
+    "contextBefore": "ている。ぜいぜい荒い呼吸をしながら峠をのぼり、のぼり切って、ほっとした時、突然、目の前に一隊の山賊が躍り出た。\n\n「待て。」\n\n",
+    "displayText": "「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5469,
+      "start": 5434
+    },
+    "revisions": [],
+    "sha256": "59f6b3eb182621cd34d3d0fef94c3a608ea8337d50e1b6524163b70647ca35ad",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5469,
+      "startToken": 5434
+    },
+    "speechText": "「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "8vfG2HRyrJi5FsXBGsU4ubiiYMKyKT73DK6EyDByrJU",
+    "contextAfter": "\n\n「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」\n\n「その、いのちが欲しいのだ。」\n\n",
+    "contextBefore": "突然、目の前に一隊の山賊が躍り出た。\n\n「待て。」\n\n「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」\n\n",
+    "displayText": "「どっこい放さぬ。持ちもの全部を置いて行け。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5494,
+      "start": 5471
+    },
+    "revisions": [],
+    "sha256": "47e91bf2f25fefc54d157d88996aa057efdfb8f7fc256f268194709ebf66c62c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5494,
+      "startToken": 5471
+    },
+    "speechText": "「どっこい放さぬ。持ちもの全部を置いて行け。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "sNO6BN1iI_pQ5BSpzC1Yg8wGOA2ni78aAXClVRtso28",
+    "contextAfter": "\n\n「その、いのちが欲しいのだ。」\n\n「さては、王の命令で、ここで私を待ち伏せしていたのだな。」\n\n　山賊たちは、ものも言わず一",
+    "contextBefore": "\n\n「何をするのだ。私は陽の沈まぬうちに王城へ行かなければならぬ。放せ。」\n\n「どっこい放さぬ。持ちもの全部を置いて行け。」\n\n",
+    "displayText": "「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5539,
+      "start": 5496
+    },
+    "revisions": [],
+    "sha256": "8eb2698dd05b83b6eb4bf5add8d4263950fcb1681e95ccd4e51a08856ecd37a6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5539,
+      "startToken": 5496
+    },
+    "speechText": "「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "KyY5gzHpT78F-5HQBaySOkYNW-f_qJdmUfxzoLmJ6Og",
+    "contextAfter": "\n\n「さては、王の命令で、ここで私を待ち伏せしていたのだな。」\n\n　山賊たちは、ものも言わず一斉に棍棒を振り挙げた。メロスはひょい",
+    "contextBefore": "さぬ。持ちもの全部を置いて行け。」\n\n「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」\n\n",
+    "displayText": "「その、いのちが欲しいのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5556,
+      "start": 5541
+    },
+    "revisions": [],
+    "sha256": "63079f7aea67b52af68bdedeeb14383d650bb78e5b8484e95a338fb341daad3a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5556,
+      "startToken": 5541
+    },
+    "speechText": "「その、いのちが欲しいのだ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "Sizd6jdAdUPd8tWhfKhijrmO92UHitAlWmqc6gEBc4g",
+    "contextAfter": "\n\n　山賊たちは、ものも言わず一斉に棍棒を振り挙げた。メロスはひょいと、からだを折り曲げ、飛鳥の如く身近かの一人に襲いかかり、その",
+    "contextBefore": "\n\n「私にはいのちの他には何も無い。その、たった一つの命も、これから王にくれてやるのだ。」\n\n「その、いのちが欲しいのだ。」\n\n",
+    "displayText": "「さては、王の命令で、ここで私を待ち伏せしていたのだな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5587,
+      "start": 5558
+    },
+    "revisions": [],
+    "sha256": "997ad84f168287c79caa6e139e2ddde1a96deeb92c134662d7028fedf9cbe7c9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5587,
+      "startToken": 5558
+    },
+    "speechText": "「さては、王の命令で、ここで私を待ち伏せしていたのだな。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "9Hrny08Q8_DbGWiu2Nq8f8MY6Lb00VRVnazOD9SUX0k",
+    "contextAfter": "と猛然一撃、たちまち、三人を殴り倒し、残る者のひるむ隙に、さっさと走って峠を下った。一気に峠を駈け降りたが、流石に疲労し、折から午",
+    "contextBefore": "も言わず一斉に棍棒を振り挙げた。メロスはひょいと、からだを折り曲げ、飛鳥の如く身近かの一人に襲いかかり、その棍棒を奪い取って、\n\n",
+    "displayText": "「気の毒だが正義のためだ！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 5676,
+      "start": 5662
+    },
+    "revisions": [],
+    "sha256": "533f3c3c5f4eda39f0ca609aa6ad0942bd6f369ec22d5b3064a69a7404815103",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5676,
+      "startToken": 5662
+    },
+    "speechText": "「気の毒だが正義のためだ！」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "ISUwgPjUj8P6NKd9I-0Bn6uSwMjjaRxl24VXllwfpZ0",
+    "contextAfter": "ああ、その男、その男のために私は、いまこんなに走っているのだ。その男を死なせてはならない。急げ、メロス。おくれてはならぬ。愛と誠",
+    "contextBefore": "し、小川を飛び越え、少しずつ沈んでゆく太陽の、十倍も早く走った。一団の旅人と颯っとすれちがった瞬間、不吉な会話を小耳にはさんだ。",
+    "displayText": "「いまごろは、あの男も、磔にかかっているよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 7938,
+      "start": 7915
+    },
+    "revisions": [],
+    "sha256": "558716a373ea1da2eb5eb3811584277f0e1a3caa78466d3e8769498bef8cccb1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7938,
+      "startToken": 7915
+    },
+    "speechText": "「いまごろは、あの男も、磔にかかっているよ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "MvgLUNpjGpXyacThPEoB1bZBOCQQfu2kdhoP6mfCp7c",
+    "contextAfter": "うめくような声が、風と共に聞えた。\n\n「誰だ。」メロスは走りながら尋ねた。\n\n「フィロストラトスでございます。貴方のお友達セリヌ",
+    "contextBefore": "、三度、口から血が噴き出た。見える。はるか向うに小さく、シラクスの市の塔楼が見える。塔楼は、夕陽を受けてきらきら光っている。\n\n",
+    "displayText": "「ああ、メロス様。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8138,
+      "start": 8128
+    },
+    "revisions": [],
+    "sha256": "781062b3d0034df4a413d7860aa864c9715d7eb0c9c330229403808f25f371e0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8138,
+      "startToken": 8128
+    },
+    "speechText": "「ああ、メロス様。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "aF3YpDv9GGG80zII6UJjGSk2wXdpbWfoc67FYbYB7QA",
+    "contextAfter": "メロスは走りながら尋ねた。\n\n「フィロストラトスでございます。貴方のお友達セリヌンティウス様の弟子でございます。」その若い石工も",
+    "contextBefore": "ラクスの市の塔楼が見える。塔楼は、夕陽を受けてきらきら光っている。\n\n「ああ、メロス様。」うめくような声が、風と共に聞えた。\n\n",
+    "displayText": "「誰だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8162,
+      "start": 8157
+    },
+    "revisions": [],
+    "sha256": "c24f30dea375235b68a864fc799ca5939fb83bc313ff9e97082ee68ce5db02a5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8162,
+      "startToken": 8157
+    },
+    "speechText": "「誰だ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "B_p6z1cKsN2bYhZDs64B17yYkNRmU-Hz1titka9K__s",
+    "contextAfter": "その若い石工も、メロスの後について走りながら叫んだ。「もう、駄目でございます。むだでございます。走るのは、やめて下さい。もう、あ",
+    "contextBefore": "受けてきらきら光っている。\n\n「ああ、メロス様。」うめくような声が、風と共に聞えた。\n\n「誰だ。」メロスは走りながら尋ねた。\n\n",
+    "displayText": "「フィロストラトスでございます。貴方のお友達セリヌンティウス様の弟子でございます。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8219,
+      "start": 8177
+    },
+    "revisions": [],
+    "sha256": "b550290e9b3a8cb9e1fe80016d49b18d60513e61ae9fd95196bd00e1dfdfa49e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8219,
+      "startToken": 8177
+    },
+    "speechText": "「フィロストラトスでございます。貴方のお友達セリヌンティウス様の弟子でございます。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "W_jX9bADtTerqEABSrXyOGjXrLg8vNMMv6xrc5X-QUE",
+    "contextAfter": "\n\n「いや、まだ陽は沈まぬ。」\n\n「ちょうど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少",
+    "contextBefore": "ストラトスでございます。貴方のお友達セリヌンティウス様の弟子でございます。」その若い石工も、メロスの後について走りながら叫んだ。",
+    "displayText": "「もう、駄目でございます。むだでございます。走るのは、やめて下さい。もう、あの方をお助けになることは出来ません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8302,
+      "start": 8245
+    },
+    "revisions": [],
+    "sha256": "af04247cbb298da47353bc66006e1754d5bc47ca632909ac95ca2bd309ff2e2e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8302,
+      "startToken": 8245
+    },
+    "speechText": "「もう、駄目でございます。むだでございます。走るのは、やめて下さい。もう、あのかたをお助けになることは出来ません。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "nEB2sjW2D88SY6rc1KUFuApgwBcB-x7HCYN8Y9yqNxU",
+    "contextAfter": "\n\n「ちょうど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少し、もうちょっとでも、早かった",
+    "contextBefore": "ら叫んだ。「もう、駄目でございます。むだでございます。走るのは、やめて下さい。もう、あの方をお助けになることは出来ません。」\n\n",
+    "displayText": "「いや、まだ陽は沈まぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8317,
+      "start": 8304
+    },
+    "revisions": [],
+    "sha256": "07127942d8e493200a35f506548921f93fc37c45dcb4975540c7b6268fedbded",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8317,
+      "startToken": 8304
+    },
+    "speechText": "「いや、まだ陽は沈まぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "0PcXQqtAlFXE4VxsQFRrfkbNbD4cZnXp4RuQPLz8tpc",
+    "contextAfter": "\n\n「いや、まだ陽は沈まぬ。」メロスは胸の張り裂ける思いで、赤く大きい夕陽ばかりを見つめていた。走るより他は無い。\n\n「やめて下",
+    "contextBefore": "ます。むだでございます。走るのは、やめて下さい。もう、あの方をお助けになることは出来ません。」\n\n「いや、まだ陽は沈まぬ。」\n\n",
+    "displayText": "「ちょうど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少し、もうちょっとでも、早かったなら！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 48,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8385,
+      "start": 8319
+    },
+    "revisions": [],
+    "sha256": "c98e67b4318dcce1e1b7b6fe2cc7a4a8d8fa58562cb5622f9456d4a99b1b1dc4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8385,
+      "startToken": 8319
+    },
+    "speechText": "「ちょうど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少し、もうちょっとでも、早かったなら！」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "u-iicfE0coqNgz4wuWyjmhfFL6dt0HCCHeMeDs8ivsw",
+    "contextAfter": "メロスは胸の張り裂ける思いで、赤く大きい夕陽ばかりを見つめていた。走るより他は無い。\n\n「やめて下さい。走るのは、やめて下さい。",
+    "contextBefore": "ど今、あの方が死刑になるところです。ああ、あなたは遅かった。おうらみ申します。ほんの少し、もうちょっとでも、早かったなら！」\n\n",
+    "displayText": "「いや、まだ陽は沈まぬ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8400,
+      "start": 8387
+    },
+    "revisions": [],
+    "sha256": "303b0a0877d2bc1f5a3f55febef36014b8233017af4542afa7148701d515c580",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8400,
+      "startToken": 8387
+    },
+    "speechText": "「いや、まだ陽は沈まぬ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "oYKvI3GTvlBy_O45fqFX1S4JZfHgph9Yjuc7xTPMAFY",
+    "contextAfter": "\n\n「それだから、走るのだ。信じられているから走るのだ。間に合う、間に合わぬは問題でないのだ。人の命も問題でないのだ。私は、なん",
+    "contextBefore": "たなら！」\n\n「いや、まだ陽は沈まぬ。」メロスは胸の張り裂ける思いで、赤く大きい夕陽ばかりを見つめていた。走るより他は無い。\n\n",
+    "displayText": "「やめて下さい。走るのは、やめて下さい。いまはご自分のお命が大事です。あの方は、あなたを信じて居りました。刑場に引き出されても、平気でいました。王様が、さんざんあの方をからかっても、メロスは来ます、とだけ答え、強い信念を持ちつづけている様子でございました。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8573,
+      "start": 8444
+    },
+    "revisions": [],
+    "sha256": "215a3fddb121bcb0653dcb9f43f562faa1c63c264ef2814bc83df66ca8db8071",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8573,
+      "startToken": 8444
+    },
+    "speechText": "「やめて下さい。走るのは、やめて下さい。いまはご自分のお命が大事です。あの方は、あなたを信じて居りました。刑場に引き出されても、平気でいました。王様が、さんざんあの方をからかっても、メロスは来ます、とだけ答え、強い信念を持ちつづけている様子でございました。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "Aru-38iO110yNIpb7kaix73Rz20xv-fKdq3rM5ovY6o",
+    "contextAfter": "\n\n「ああ、あなたは気が狂ったか。それでは、うんと走るがいい。ひょっとしたら、間に合わぬものでもない。走るがいい。」\n\n　言うに",
+    "contextBefore": "いました。王様が、さんざんあの方をからかっても、メロスは来ます、とだけ答え、強い信念を持ちつづけている様子でございました。」\n\n",
+    "displayText": "「それだから、走るのだ。信じられているから走るのだ。間に合う、間に合わぬは問題でないのだ。人の命も問題でないのだ。私は、なんだか、もっと恐ろしく大きいものの為に走っているのだ。ついて来い！　フィロストラトス。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8680,
+      "start": 8575
+    },
+    "revisions": [],
+    "sha256": "901ded8660aaf12c22517f7bd4494ff1ccab7ff79255d56bf7c93584a79e0a04",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8680,
+      "startToken": 8575
+    },
+    "speechText": "「それだから、走るのだ。信じられているから走るのだ。間に合う、間に合わぬは問題でないのだ。人の命も問題でないのだ。私は、なんだか、もっと恐ろしく大きいものの為に走っているのだ。ついて来い！ フィロストラトス。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "42px6YvjzASvK4fTYXSFBfqjFLT9fcG_ikSlX4u3SiE",
+    "contextAfter": "\n\n　言うにや及ぶ。まだ陽は沈まぬ。最後の死力を尽して、メロスは走った。メロスの頭は、からっぽだ。何一つ考えていない。ただ、わけ",
+    "contextBefore": "だ。人の命も問題でないのだ。私は、なんだか、もっと恐ろしく大きいものの為に走っているのだ。ついて来い！　フィロストラトス。」\n\n",
+    "displayText": "「ああ、あなたは気が狂ったか。それでは、うんと走るがいい。ひょっとしたら、間に合わぬものでもない。走るがいい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8738,
+      "start": 8682
+    },
+    "revisions": [],
+    "sha256": "752208a96fe878e0194dff32cf45f35813f1f8a8e16545f3b0574b099b45bb68",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8738,
+      "startToken": 8682
+    },
+    "speechText": "「ああ、あなたは気が狂ったか。それでは、うんと走るがいい。ひょっとしたら、間に合わぬものでもない。走るがいい。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "YEzlYOHps0nWvxAhZEQpO-UntjUPpL5KOgSgdnpS6gI",
+    "contextAfter": "と大声で刑場の群衆にむかって叫んだつもりであったが、喉がつぶれて嗄れた声が幽かに出たばかり、群衆は、ひとりとして彼の到着に気がつ",
+    "contextBefore": "った。陽は、ゆらゆら地平線に没し、まさに最後の一片の残光も、消えようとした時、メロスは疾風の如く刑場に突入した。間に合った。\n\n",
+    "displayText": "「待て。その人を殺してはならぬ。メロスが帰って来た。約束のとおり、いま、帰って来た。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 8926,
+      "start": 8883
+    },
+    "revisions": [],
+    "sha256": "ef0fee7d208a6ddc6de0f98736c4ebf46b8f85d818adc1175d489f1b49895257",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8926,
+      "startToken": 8883
+    },
+    "speechText": "「待て。その人を殺してはならぬ。メロスが帰って来た。約束のとおり、いま、帰って来た。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "1ool2fOAnHpuNmFNmox2X0F1jNZQraOuPnPCyCl4Nsc",
+    "contextAfter": "と、かすれた声で精一ぱいに叫びながら、ついに磔台に昇り、釣り上げられてゆく友の両足に、齧りついた。群衆は、どよめいた。あっぱれ。",
+    "contextBefore": "ヌンティウスは、徐々に釣り上げられてゆく。メロスはそれを目撃して最後の勇、先刻、濁流を泳いだように群衆を掻きわけ、掻きわけ、\n\n",
+    "displayText": "「私だ、刑吏！　殺されるのは、私だ。メロスだ。彼を人質にした私は、ここにいる！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9121,
+      "start": 9081
+    },
+    "revisions": [],
+    "sha256": "e5ed3a34f7e48259558c806cdbf1892c151e18288d143a9fbd1b2532a0e53bfc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9121,
+      "startToken": 9081
+    },
+    "speechText": "「私だ、刑吏！ 殺されるのは、私だ。メロスだ。彼を人質にした私は、ここにいる！」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "B3E86CZn7ocn6CuE1XpAdYbuCdIHMKTDdXeCTG-3JRE",
+    "contextAfter": "メロスは眼に涙を浮べて言った。「私を殴れ。ちから一ぱいに頬を殴れ。私は、途中で一度、悪い夢を見た。君が若し私を殴ってくれなかった",
+    "contextBefore": "友の両足に、齧りついた。群衆は、どよめいた。あっぱれ。ゆるせ、と口々にわめいた。セリヌンティウスの縄は、ほどかれたのである。\n\n",
+    "displayText": "「セリヌンティウス。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9233,
+      "start": 9222
+    },
+    "revisions": [],
+    "sha256": "d2376b011fd571a4cefce7babcc33e5db2c3282326ea73aed90955ba5492574d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9233,
+      "startToken": 9222
+    },
+    "speechText": "「セリヌンティウス。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "QsVnZYKI7eKf_zGqB5MXpx5e6D2rMekoYDIbGzD1cvQ",
+    "contextAfter": "\n\n　セリヌンティウスは、すべてを察した様子で首肯き、刑場一ぱいに鳴り響くほど音高くメロスの右頬を殴った。殴ってから優しく微笑み、\n",
+    "contextBefore": "。ゆるせ、と口々にわめいた。セリヌンティウスの縄は、ほどかれたのである。\n\n「セリヌンティウス。」メロスは眼に涙を浮べて言った。",
+    "displayText": "「私を殴れ。ちから一ぱいに頬を殴れ。私は、途中で一度、悪い夢を見た。君が若し私を殴ってくれなかったら、私は君と抱擁する資格さえ無いのだ。殴れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9320,
+      "start": 9248
+    },
+    "revisions": [],
+    "sha256": "786b924498e4229f1622d49ca159cb2bc03b43ac30aabd2b05bc6e4035222ba7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9320,
+      "startToken": 9248
+    },
+    "speechText": "「私を殴れ。ちから一ぱいに頬を殴れ。私は、途中で一度、悪い夢を見た。君がもし私を殴ってくれなかったら、私は君と抱擁する資格さえ無いのだ。殴れ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "cjOoN3w0WCey9zvT3QKuc46zUog3dQJ8pq7Dzszxvvs",
+    "contextAfter": "\n\n　メロスは腕に唸りをつけてセリヌンティウスの頬を殴った。\n\n「ありがとう、友よ。」二人同時に言い、ひしと抱き合い、それから嬉",
+    "contextBefore": "\n　セリヌンティウスは、すべてを察した様子で首肯き、刑場一ぱいに鳴り響くほど音高くメロスの右頬を殴った。殴ってから優しく微笑み、\n\n",
+    "displayText": "「メロス、私を殴れ。同じくらい音高く私の頬を殴れ。私はこの三日の間、たった一度だけ、ちらと君を疑った。生れて、はじめて君を疑った。君が私を殴ってくれなければ、私は君と抱擁できない。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9476,
+      "start": 9385
+    },
+    "revisions": [],
+    "sha256": "4ef9b62205de08be7f4a03715da70f7a2a3ca6d9bb16b2a80d1502c7448fd2ea",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9476,
+      "startToken": 9385
+    },
+    "speechText": "「メロス、私を殴れ。同じくらい音高く私の頬を殴れ。私はこの三日の間、たった一度だけ、ちらと君を疑った。生れて、はじめて君を疑った。君が私を殴ってくれなければ、私は君と抱擁できない。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "eHy6MqLpb8XyIotVR_8AloxA_vTt1Jy1t93D1plvBEk",
+    "contextAfter": "二人同時に言い、ひしと抱き合い、それから嬉し泣きにおいおい声を放って泣いた。\n\n　群衆の中からも、歔欷の声が聞えた。暴君ディオニス",
+    "contextBefore": "君を疑った。君が私を殴ってくれなければ、私は君と抱擁できない。」\n\n　メロスは腕に唸りをつけてセリヌンティウスの頬を殴った。\n\n",
+    "displayText": "「ありがとう、友よ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9519,
+      "start": 9508
+    },
+    "revisions": [],
+    "sha256": "a6e1356a7fbfe6e07ce5cdefeab4ce3d1389e232908f431c3314d5e9a70a5c9e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9519,
+      "startToken": 9508
+    },
+    "speechText": "「ありがとう、友よ。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "vmpf0yxArJXMfCLmTDbXww8GtbcylavP15r6ky4SZWM",
+    "contextAfter": "\n\n　どっと群衆の間に、歓声が起った。\n\n「万歳、王様万歳。」\n\n　ひとりの少女が、緋のマントをメロスに捧げた。メロスは、まごつ",
+    "contextBefore": "暴君ディオニスは、群衆の背後から二人の様を、まじまじと見つめていたが、やがて静かに二人に近づき、顔をあからめて、こう言った。\n\n",
+    "displayText": "「おまえらの望みは叶ったぞ。おまえらは、わしの心に勝ったのだ。信実とは、決して空虚な妄想ではなかった。どうか、わしをも仲間に入れてくれまいか。どうか、わしの願いを聞き入れて、おまえらの仲間の一人にしてほしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9745,
+      "start": 9640
+    },
+    "revisions": [],
+    "sha256": "8a24587d3e05f058dc7f54f0d5af8c0be2b1b7d348ac5f327ca64949888bd4bc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9745,
+      "startToken": 9640
+    },
+    "speechText": "「おまえらの望みはかなったぞ。おまえらは、わしの心に勝ったのだ。信実とは、決して空虚な妄想ではなかった。どうか、わしをも仲間に入れてくれまいか。どうか、わしの願いを聞き入れて、おまえらの仲間の一人にしてほしい。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "UKefdgwKQfpFBBGVcSACNF-NzVn3dTY2crcf1VBPjHc",
+    "contextAfter": "\n\n　ひとりの少女が、緋のマントをメロスに捧げた。メロスは、まごついた。佳き友は、気をきかせて教えてやった。\n\n「メロス、君は、",
+    "contextBefore": "入れてくれまいか。どうか、わしの願いを聞き入れて、おまえらの仲間の一人にしてほしい。」\n\n　どっと群衆の間に、歓声が起った。\n\n",
+    "displayText": "「万歳、王様万歳。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9776,
+      "start": 9766
+    },
+    "revisions": [],
+    "sha256": "64cd832a116aaf86ba27c4660bd07b3e20b96db29c620d469e785b8de8d596e6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9776,
+      "startToken": 9766
+    },
+    "speechText": "「万歳、王様万歳。」",
+    "workId": "001567"
+  },
+  {
+    "candidateId": "czTDIa8oC1Smu4ZASQxNSwnQqzC0rF4ktO6QYKOayAg",
+    "contextAfter": "\n\n　勇者は、ひどく赤面した。\n\n（古伝説と、シルレルの詩から。）\n\n\n\n\n\n\n\n",
+    "contextBefore": "歳、王様万歳。」\n\n　ひとりの少女が、緋のマントをメロスに捧げた。メロスは、まごついた。佳き友は、気をきかせて教えてやった。\n\n",
+    "displayText": "「メロス、君は、まっぱだかじゃないか。早くそのマントを着るがいい。この可愛い娘さんは、メロスの裸体を、皆に見られるのが、たまらなく口惜しいのだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "b1358436a7faa484c828679eb762012c315a046f5640c2e27cf0d59c8093916d",
+    "rawTokenRange": {
+      "end": 9905,
+      "start": 9832
+    },
+    "revisions": [],
+    "sha256": "32069cba6d90ac1024ee566cca5955be165a1921a432b7211fc9134b2d781fb4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9905,
+      "startToken": 9832
+    },
+    "speechText": "「メロス、君は、まっぱだかじゃないか。早くそのマントを着るがいい。この可愛い娘さんは、メロスの裸体を、皆に見られるのが、たまらなく口惜しいのだ。」",
+    "workId": "001567"
+  }
+]

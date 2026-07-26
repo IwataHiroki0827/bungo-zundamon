@@ -15,10 +15,22 @@ import {
   type ActiveBatchPreview,
   type BatchCatalogFragment,
 } from '../src/content/batch-public.ts';
-import type { CatalogV2, WorkReviewResult } from '../src/content/processing.ts';
+import {
+  applyWorkReviews,
+  type Candidate,
+  type CatalogV2,
+  type ReviewRecord,
+  type WorkReviewResult,
+} from '../src/content/processing.ts';
 
 const BATCH_ID = 'F003';
-const WORK_ID = '000275';
+const WORK_IDS = ['000275', '001567', '000258'] as const;
+const workFlag = process.argv.indexOf('--work');
+const workArgument = workFlag >= 0 ? process.argv[workFlag + 1] : process.argv[2];
+if (!workArgument || !WORK_IDS.includes(workArgument as (typeof WORK_IDS)[number])) {
+  throw new Error(`usage: node --experimental-transform-types scripts/f003-preview.ts --work ${WORK_IDS.join('|')}`);
+}
+const WORK_ID = workArgument;
 
 interface VoiceGenerationArtifact {
   readonly generation: {
@@ -37,6 +49,14 @@ interface VoiceGenerationArtifact {
       readonly configHash: string;
     }[];
   };
+}
+
+interface PreviousWorkPreview {
+  readonly work: BatchCatalogFragment['works'][number];
+  readonly audioAssets: BatchCatalogFragment['audioAssets'];
+  readonly candidateCounts: BatchCatalogFragment['candidateCounts'];
+  readonly publicFile: NonNullable<BatchCatalogFragment['publicFiles']>[number];
+  readonly stagedFiles: readonly ActiveBatchPreview['stagedFiles'][number][];
 }
 
 function sha256(value: string | Uint8Array): string {
@@ -125,6 +145,177 @@ async function f002Fragment(workspace: string, catalog: CatalogV2): Promise<Batc
   const counts = catalog.candidateCounts.byBatch.F002;
   if (!counts) throw new Error('公開catalogにF002 candidate countsがありません');
   return { authors: author, works, audioAssets, candidateCounts: counts, publicFiles };
+}
+
+async function previousWorkPreview(
+  workspace: string,
+  workId: string,
+  rights: {
+    readonly selection: { readonly works: readonly {
+      readonly workId: string;
+      readonly title: string;
+      readonly cardUrl: string;
+      readonly sourceUrl: string;
+      readonly baseEdition: string;
+      readonly inputter: string;
+      readonly proofreader: string;
+    }[] };
+  },
+): Promise<PreviousWorkPreview> {
+  const [candidates, reviewRecords, generationArtifact, provenanceBytes] = await Promise.all([
+    readJson<Candidate[]>(join(
+      workspace, 'data', 'batches', BATCH_ID, 'work-artifacts', workId, 'intermediate', workId, 'candidates.json',
+    )),
+    readJson<ReviewRecord[]>(join(workspace, 'content', 'batches', BATCH_ID, 'reviews', `${workId}.json`)),
+    readJson<{ readonly payload: { readonly generation: VoiceGenerationArtifact['generation'] } }>(join(
+      workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId, 'voice-completeness.json',
+    )),
+    readFile(join(workspace, 'content', 'batches', BATCH_ID, 'public-files', 'provenance', `${workId}.json`)),
+  ]);
+  const selected = rights.selection.works.find((item) => item.workId === workId);
+  if (!selected) throw new Error(`rights selectionに先行作品がありません: ${workId}`);
+  const review = applyWorkReviews(workId, candidates, reviewRecords);
+  const generation = generationArtifact.payload.generation;
+  if (generation.batchId !== BATCH_ID || generation.workId !== workId) {
+    throw new Error(`先行作品のgeneration tupleが不正です: ${workId}`);
+  }
+  const provenance = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(provenanceBytes)) as {
+    readonly processing: { readonly transformation: string };
+    readonly source: { readonly fetchedAt: string; readonly rawSha256: string };
+  };
+  const candidateAudio = new Map<string, string>();
+  for (const asset of generation.assets) {
+    for (const candidateId of asset.candidateIds) candidateAudio.set(candidateId, asset.audioId);
+  }
+  const reviews = new Map(review.all.map((item) => [item.candidate.candidateId, item.review]));
+  const dialogues = review.approved.map(({ candidate }, order) => {
+    const audioId = candidateAudio.get(candidate.candidateId);
+    const editorial = reviews.get(candidate.candidateId);
+    if (!audioId || !editorial) throw new Error(`先行作品のaudio/review対応がありません: ${workId}/${candidate.candidateId}`);
+    return {
+      dialogueId: candidate.candidateId,
+      workId,
+      order,
+      displayText: candidate.displayText,
+      speechText: candidate.speechText,
+      audioId,
+      sourceAnchor: candidate.sourceAnchor,
+      review: editorial,
+    };
+  });
+  const reasonCounts = Object.fromEntries(
+    [...new Set(review.rejected.map((item) => item.review.reasonCode))]
+      .map((reason) => [reason, review.rejected.filter((item) => item.review.reasonCode === reason).length]),
+  );
+  const provenancePath = `content/provenance/${BATCH_ID}/${workId}.json`;
+  const publicFile = {
+    source: asWorkspacePath(`content/batches/${BATCH_ID}/public-files/provenance/${workId}.json`),
+    publicPath: asWorkspacePath(provenancePath),
+    sha256: asSha256(sha256(provenanceBytes)),
+    bytes: provenanceBytes.byteLength,
+  };
+  const stagedFiles: ActiveBatchPreview['stagedFiles'][number][] = [];
+  stagedFiles.push({
+    source: join(workspace, ...publicFile.source.split('/')),
+    publicPath: publicFile.publicPath,
+    sha256: publicFile.sha256,
+    bytes: publicFile.bytes,
+  });
+  return {
+    work: {
+      workId,
+      title: selected.title,
+      cardLink: selected.cardUrl,
+      authorId: '000035',
+      batchId: BATCH_ID,
+      source: {
+        cardUrl: selected.cardUrl,
+        textUrl: selected.sourceUrl,
+        attribution: '青空文庫',
+        baseEdition: selected.baseEdition,
+        inputter: selected.inputter,
+        proofreader: selected.proofreader,
+        fetchedAt: provenance.source.fetchedAt,
+        transformation: provenance.processing.transformation,
+        sourceSha256: provenance.source.rawSha256,
+        provenancePath,
+        provenanceSha256: sha256(provenanceBytes),
+      },
+      dialogues,
+      completionStatus: 'complete',
+      notices: [
+        { textKey: 'dialogue-excerpt-scope', placements: ['work-list', 'work-detail', 'credits'] },
+        { textKey: 'official-content-warning', placements: ['work-list', 'work-detail', 'credits'] },
+      ],
+    },
+    audioAssets: generation.assets.map((asset) => ({
+      audioId: asset.audioId,
+      batchId: BATCH_ID,
+      path: `audio/${BATCH_ID}/${asset.audioId}.wav`,
+      sha256: asset.sha256,
+      bytes: asset.bytes,
+      durationMs: asset.durationMs,
+      configHash: asset.configHash,
+      candidateIds: [...asset.candidateIds],
+    })),
+    candidateCounts: {
+      total: review.all.length,
+      published: review.approved.length,
+      editorialExcluded: review.rejected.length,
+      audioExcluded: 0,
+      editorialReasons: reasonCounts,
+      audioFailureReasons: {},
+    },
+    publicFile,
+    stagedFiles,
+  };
+}
+
+function sumCounts(
+  counts: readonly BatchCatalogFragment['candidateCounts'][],
+): BatchCatalogFragment['candidateCounts'] {
+  const sumRecord = (field: 'editorialReasons' | 'audioFailureReasons'): Record<string, number> => {
+    const result: Record<string, number> = {};
+    for (const count of counts) {
+      for (const [reason, value] of Object.entries(count[field] ?? {})) {
+        result[reason] = (result[reason] ?? 0) + value;
+      }
+    }
+    return result;
+  };
+  return {
+    total: counts.reduce((sum, item) => sum + item.total, 0),
+    published: counts.reduce((sum, item) => sum + item.published, 0),
+    editorialExcluded: counts.reduce((sum, item) => sum + item.editorialExcluded, 0),
+    audioExcluded: counts.reduce((sum, item) => sum + item.audioExcluded, 0),
+    editorialReasons: sumRecord('editorialReasons'),
+    audioFailureReasons: sumRecord('audioFailureReasons'),
+  };
+}
+
+function mergeAudioAssets(
+  assets: readonly BatchCatalogFragment['audioAssets'][number][],
+): BatchCatalogFragment['audioAssets'] {
+  const merged = new Map<string, BatchCatalogFragment['audioAssets'][number]>();
+  for (const asset of assets) {
+    const current = merged.get(asset.audioId);
+    if (!current) {
+      merged.set(asset.audioId, { ...asset, candidateIds: [...(asset.candidateIds ?? [])] });
+      continue;
+    }
+    if (
+      current.sha256 !== asset.sha256 || current.bytes !== asset.bytes ||
+      current.configHash !== asset.configHash || current.durationMs !== asset.durationMs ||
+      current.path !== asset.path
+    ) {
+      throw new Error(`同一audioIdのmetadataが競合しています: ${asset.audioId}`);
+    }
+    merged.set(asset.audioId, {
+      ...current,
+      candidateIds: [...new Set([...(current.candidateIds ?? []), ...(asset.candidateIds ?? [])])],
+    });
+  }
+  return [...merged.values()];
 }
 
 async function main(): Promise<void> {
@@ -238,7 +429,7 @@ async function main(): Promise<void> {
       .map((reason) => [reason, review.rejected.filter((item) => item.review.reasonCode === reason).length]),
   );
   const provenancePath = `content/provenance/${BATCH_ID}/${WORK_ID}.json`;
-  const activeFragment: BatchCatalogFragment = {
+  const currentFragment: BatchCatalogFragment = {
     authors: [{
       ...manifest.author,
       artwork: {
@@ -307,6 +498,34 @@ async function main(): Promise<void> {
       },
     ],
   };
+  const workIndex = manifest.workIds.indexOf(WORK_ID as never);
+  const priorWorkIds = manifest.workIds.slice(0, workIndex);
+  for (const priorWorkId of priorWorkIds) {
+    const prior = manifest.workProgress[manifest.workIds.indexOf(priorWorkId)];
+    if (prior?.status !== 'accepted') {
+      throw new Error(`先行作品がacceptedではありません: ${priorWorkId}/${prior?.status ?? 'missing'}`);
+    }
+  }
+  const priorPreviews = await Promise.all(
+    priorWorkIds.map((priorWorkId) => previousWorkPreview(workspace, priorWorkId, rights)),
+  );
+  const activeFragment: BatchCatalogFragment = {
+    authors: currentFragment.authors,
+    works: [...priorPreviews.map((item) => item.work), ...currentFragment.works],
+    audioAssets: mergeAudioAssets([
+      ...priorPreviews.flatMap((item) => item.audioAssets),
+      ...currentFragment.audioAssets,
+    ]),
+    candidateCounts: sumCounts([
+      ...priorPreviews.map((item) => item.candidateCounts),
+      currentFragment.candidateCounts,
+    ]),
+    publicFiles: [
+      ...(currentFragment.publicFiles?.filter((item) => item.publicPath === 'artwork/dazai-zundamon.png') ?? []),
+      ...priorPreviews.map((item) => item.publicFile),
+      ...(currentFragment.publicFiles?.filter((item) => item.publicPath !== 'artwork/dazai-zundamon.png') ?? []),
+    ],
+  };
 
   const activeStage = join(workspace, '.cache', `.f003-active-${randomUUID()}`);
   const previewStage = join(workspace, '.cache', `.f003-preview-${randomUUID()}`);
@@ -342,6 +561,19 @@ async function main(): Promise<void> {
     await copyFile(item.source, target);
     stagedFiles.push({ ...item, source: target });
   }
+  for (const item of priorPreviews.flatMap((preview) => preview.stagedFiles)) {
+    const existing = stagedFiles.find((candidate) => candidate.publicPath === item.publicPath);
+    if (existing) {
+      if (existing.sha256 !== item.sha256 || existing.bytes !== item.bytes) {
+        throw new Error(`先行作品とのpublic fileが競合しています: ${item.publicPath}`);
+      }
+      continue;
+    }
+    const target = join(activeStage, ...item.publicPath.split('/'));
+    await mkdir(dirname(target), { recursive: true });
+    await copyFile(item.source, target);
+    stagedFiles.push({ ...item, source: target });
+  }
 
   const [f001, batches, f002] = await Promise.all([
     loadAndVerifyF001Baseline(
@@ -361,7 +593,7 @@ async function main(): Promise<void> {
       feature: BATCH_ID,
       status: 'accepted',
       authorId: manifest.author.authorId,
-      workIds: [WORK_ID],
+      workIds: manifest.workIds.slice(0, workIndex + 1),
       acceptedAt: workProgress.stageRecords.findLast((item) => item.stage === 'voiced')!.completedAt,
       evidenceSha256: hashBatchManifest(manifest),
     },

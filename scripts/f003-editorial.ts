@@ -3,25 +3,30 @@ import { mkdir, open, readFile, rename } from 'node:fs/promises';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { canonicalJson } from '../src/content/artifacts.ts';
 import {
-  EDITORIAL_TRANSACTION_ROOT,
   hashEditorialCandidates,
   hashEditorialJudgmentArtifact,
   loadAndVerifyEditorialJudgmentSets,
   reconcileIndependentJudgments,
+  registerEditorialAuthorizations,
   sealAndValidateEditorialJudgmentSet,
   verifyEditorialCompleteness,
   type EditorialCandidate,
   type EditorialJudgment,
   type EditorialJudgmentExternalResult,
   type EditorialJudgmentSet,
-  type ReviewAuthorizationStore,
   type ReviewInputRef,
   type ReviewRunAuthorization,
 } from '../src/content/editorial-independent.ts';
 import { bridgeEditorialResolutionSetToReviewRecords } from '../src/content/f003-review-acceptance.ts';
 
 const BATCH_ID = 'F003';
-const WORK_ID = '000275';
+const WORK_IDS = ['000275', '001567', '000258'] as const;
+const workArgument = process.argv[2] === '--work' ? process.argv[3] : process.argv[2];
+if (!workArgument || !WORK_IDS.includes(workArgument as (typeof WORK_IDS)[number])) {
+  throw new Error(`usage: node --experimental-transform-types scripts/f003-editorial.ts --work ${WORK_IDS.join('|')}`);
+}
+const WORK_ID = workArgument;
+const WORK_INDEX = WORK_IDS.indexOf(WORK_ID as (typeof WORK_IDS)[number]);
 const CANDIDATES_PATH =
   `data/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/intermediate/${WORK_ID}/candidates.json`;
 const DECISION_ROOT = `.cache/f003-editorial/${WORK_ID}`;
@@ -103,16 +108,16 @@ function authorization(
   extraRefs: readonly ReviewInputRef[] = [],
 ): ReviewRunAuthorization {
   return Object.freeze({
-    authorizationId: `f003-000275-${suffix}`,
+    authorizationId: `f003-${WORK_ID}-${suffix}`,
     role,
     producerTaskPath,
     judgeRole: role,
-    runId: `f003-000275-${suffix}-run`,
+    runId: `f003-${WORK_ID}-${suffix}-run`,
     candidateSetSha256: common.candidateSetSha256,
     policySha256: common.policySha256,
     promptSha256: common.promptSha256,
     toolSha256: common.toolSha256,
-    nonce: `f003-000275-${suffix}-nonce`,
+    nonce: `f003-${WORK_ID}-${suffix}-nonce`,
     issuedAt,
     inputRefs: Object.freeze([...common.inputRefs, ...extraRefs]),
     candidates,
@@ -216,19 +221,20 @@ async function main(): Promise<void> {
       { kind: 'tool', path: toolPath, sha256: sha256(toolBytes) },
     ] satisfies ReviewInputRef[],
   };
-  const primaryAt = '2026-07-26T08:40:00.000Z';
-  const secondaryAt = '2026-07-26T08:40:01.000Z';
-  const adjudicatorAt = '2026-07-26T08:51:00.000Z';
+  const hour = String(8 + WORK_INDEX).padStart(2, '0');
+  const primaryAt = `2026-07-26T${hour}:40:00.000Z`;
+  const secondaryAt = `2026-07-26T${hour}:40:01.000Z`;
+  const adjudicatorAt = `2026-07-26T${hour}:51:00.000Z`;
   const primary = authorization(
-    'primary', 'primary', '/root/f003_t037_acceptor', '2026-07-26T08:34:00.000Z',
+    'primary', 'primary', `/root/f003-editorial/${WORK_ID}/primary`, `2026-07-26T${hour}:34:00.000Z`,
     candidates, common,
   );
   const secondary = authorization(
-    'secondary', 'secondary', '/root/f003_design_feasibility', '2026-07-26T08:34:01.000Z',
+    'secondary', 'secondary', `/root/f003-editorial/${WORK_ID}/secondary`, `2026-07-26T${hour}:34:01.000Z`,
     candidates, common,
   );
   const adjudicator = authorization(
-    'adjudicator', 'adjudicator', '/root/f003_editorial_adjudicator', '2026-07-26T08:45:00.000Z',
+    'adjudicator', 'adjudicator', `/root/f003-editorial/${WORK_ID}/adjudicator`, `2026-07-26T${hour}:45:00.000Z`,
     candidates, common,
     [
       {
@@ -243,30 +249,14 @@ async function main(): Promise<void> {
       },
     ],
   );
-  const store: ReviewAuthorizationStore = {
-    schemaVersion: '1.0.0',
-    authorizations: [primary, secondary, adjudicator].map((entry) => ({
-      authorization: entry,
-      status: 'unused',
-      usedAt: null,
-      sealPath: null,
-      sealSha256: null,
-    })),
-  };
-  const storePath = `${EDITORIAL_TRANSACTION_ROOT}/store.json`;
-  try {
-    await readFile(workspacePath(workspace, storePath));
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
-    await writeCanonicalCreateOrSame(workspace, storePath, store);
-  }
+  await registerEditorialAuthorizations(workspace, [primary, secondary, adjudicator]);
   await sealIfMissing(workspace, primary, primaryJudgments, primaryAt);
   await sealIfMissing(workspace, secondary, secondaryJudgments, secondaryAt);
   await sealIfMissing(workspace, adjudicator, adjudicatorJudgments, adjudicatorAt);
   const trusted = await loadAndVerifyEditorialJudgmentSets(workspace);
-  const primarySet = trusted.find((item) => item.header.role === 'primary');
-  const secondarySet = trusted.find((item) => item.header.role === 'secondary');
-  const adjudicatorSet = trusted.find((item) => item.header.role === 'adjudicator');
+  const primarySet = trusted.find((item) => item.header.authorizationId === primary.authorizationId);
+  const secondarySet = trusted.find((item) => item.header.authorizationId === secondary.authorizationId);
+  const adjudicatorSet = trusted.find((item) => item.header.authorizationId === adjudicator.authorizationId);
   if (!primarySet || !secondarySet || !adjudicatorSet) throw new Error('trusted sealが3件揃っていません');
   const resolution = reconcileIndependentJudgments(candidates, primarySet, secondarySet, adjudicatorSet);
   const completeness = verifyEditorialCompleteness(candidates, resolution.resolutions);

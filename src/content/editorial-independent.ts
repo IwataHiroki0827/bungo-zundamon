@@ -157,6 +157,10 @@ export interface EditorialSealOptions {
   readonly promotionHooks?: PromotionHooks;
 }
 
+export interface EditorialAuthorizationRegistrationOptions {
+  readonly promotionHooks?: PromotionHooks;
+}
+
 export type EditorialIndependentErrorCode =
   | 'EDITORIAL_AUTHORIZATION_STORE_INVALID'
   | 'EDITORIAL_AUTHORIZATION_UNTRUSTED'
@@ -600,6 +604,88 @@ export async function recoverEditorialJudgmentTransaction(workspace: string): Pr
     workspace,
     EDITORIAL_TRANSACTION_ROOT as WorkspaceRelativePath,
   );
+}
+
+/**
+ * 後続作品の独立判定authorizationを既存のtrusted storeへ競合検出付きで追記する。
+ * 同一authorizationの再登録は冪等、同一IDで内容が異なる場合は拒否する。
+ * @des DES-F003-005 @fun FUN-F003-009
+ */
+export async function registerEditorialAuthorizations(
+  workspace: string,
+  authorizations: readonly ReviewRunAuthorization[],
+  options: EditorialAuthorizationRegistrationOptions = {},
+): Promise<void> {
+  if (authorizations.length === 0) {
+    throw new EditorialIndependentError(
+      'EDITORIAL_AUTHORIZATION_STORE_INVALID',
+      '登録するauthorizationがありません',
+    );
+  }
+  await recoverEditorialJudgmentTransaction(workspace);
+  const tree = await readTransactionTree(workspace);
+  const storeBytes = tree.get(AUTHORIZATION_STORE_PATH);
+  let current: ReviewAuthorizationStore;
+  if (storeBytes) {
+    const parsed = parseCanonicalJson(storeBytes, 'EDITORIAL_AUTHORIZATION_STORE_INVALID');
+    validateStore(parsed);
+    current = parsed;
+    verifySealsAgainstStore(current, tree);
+  } else {
+    current = { schemaVersion: '1.0.0', authorizations: [] };
+  }
+
+  const additions: ReviewAuthorizationRecord[] = [];
+  for (const authorization of authorizations) {
+    validateAuthorization(authorization);
+    assertPrimaryDisclosurePolicy(authorization);
+    const existing = current.authorizations.find((item) =>
+      item.authorization.authorizationId === authorization.authorizationId);
+    if (existing) {
+      if (canonicalJson(existing.authorization) !== canonicalJson(authorization)) {
+        throw new EditorialIndependentError(
+          'EDITORIAL_AUTHORIZATION_UNTRUSTED',
+          `同一IDのauthorization内容が一致しません: ${authorization.authorizationId}`,
+        );
+      }
+      continue;
+    }
+    additions.push({
+      authorization,
+      status: 'unused',
+      usedAt: null,
+      sealPath: null,
+      sealSha256: null,
+    });
+  }
+  if (additions.length === 0) return;
+
+  const nextStore: ReviewAuthorizationStore = {
+    schemaVersion: '1.0.0',
+    authorizations: [...current.authorizations, ...additions],
+  };
+  validateStore(nextStore);
+  const entries: BatchSourceTreeEntry[] = [];
+  for (const [path, bytes] of tree) {
+    if (path !== AUTHORIZATION_STORE_PATH) entries.push({ path, bytes });
+  }
+  entries.push({ path: AUTHORIZATION_STORE_PATH, bytes: jsonBytes(nextStore) });
+  const expectedTreeDigest = transactionTreeDigest(tree);
+  await promoteBatchSourceArtifactTree(
+    workspace,
+    EDITORIAL_TRANSACTION_ROOT as WorkspaceRelativePath,
+    entries,
+    options.promotionHooks,
+    async () => {
+      if (transactionTreeDigest(await readTransactionTree(workspace)) !== expectedTreeDigest) {
+        throw new EditorialIndependentError(
+          'EDITORIAL_AUTHORIZATION_UNTRUSTED',
+          'trusted storeがauthorization登録中に変更されました',
+        );
+      }
+    },
+  );
+  await loadAndVerifyEditorialJudgmentSets(workspace);
 }
 
 /**

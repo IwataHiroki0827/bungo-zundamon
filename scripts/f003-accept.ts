@@ -11,7 +11,13 @@ import {
 } from '../src/content/f003-review-acceptance.ts';
 
 const BATCH_ID = 'F003';
-const WORK_ID = '000275';
+const WORK_IDS = ['000275', '001567', '000258'] as const;
+const workFlag = process.argv.indexOf('--work');
+const workArgument = workFlag >= 0 ? process.argv[workFlag + 1] : process.argv[2];
+if (!workArgument || !WORK_IDS.includes(workArgument as (typeof WORK_IDS)[number])) {
+  throw new Error(`usage: node --experimental-transform-types scripts/f003-accept.ts --work ${WORK_IDS.join('|')}`);
+}
+const WORK_ID = workArgument;
 const WORK_ROOT = `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}`;
 
 function sha256(value: Uint8Array): string {
