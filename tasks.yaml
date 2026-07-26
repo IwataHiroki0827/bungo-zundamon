@@ -888,7 +888,7 @@ tasks:
   title: F003最終Catalog統合・既存不変・データ駆動route・全asset整合を確認
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-038
   - T-041
@@ -909,11 +909,14 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T20:38:00+09:00'
+  result: 固定F001・固定v0.2.0 F002・accepted F003を永続artifactから統合し、3作者・9作品・472台詞・463音声・492ファイルを確認。全841試験と独立受入High/Medium/Low
+    0でPASS、既存public差分0件
 - id: T-043
   title: F003 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F003
   phase: test
-  state: todo
+  state: doing
   depends:
   - T-036
   - T-042

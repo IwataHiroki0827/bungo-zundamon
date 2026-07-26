@@ -1,10 +1,10 @@
 ---
-phase: implement
+phase: test
 feature: F003
-updated: 2026-07-26T20:19:06+09:00
+updated: 2026-07-26T20:38:00+09:00
 next_actions:
-  - "T-042でF003の最終Catalog統合・既存公開不変・全asset整合を確認する"
-  - "T-043でUT・IT・QT・自動ブラウザ・権利・容量受入を実施する"
+  - "T-043でUT・IT・QT・自動ブラウザ・権利・容量受入を同一candidateへ結合する"
+  - "T-044でリリース前総点検後、GitHub Pagesへ段階公開し公開5 routeを確認する"
 blocked_by: []
 ---
 
@@ -22,19 +22,19 @@ blocked_by: []
 - T-041で「グッド・バイ」173候補を166承認・7除外・保留0へ確定し、165音声参照（新規164 WAV、先行作品共有1）へ対応して作品単位で`accepted`へ昇格した。
 - CHG-F003-002で固定v0.2.0 published baselineを作品受入・最終統合・dist・release verificationへ結合し、既存作者entryをcanonical exactで保護した。
 - 永続証跡のpathはworkspace相対POSIXへ固定し、filesystem API直前だけ絶対解決する。危険path、secret、reparse point、既存`public`差分はいずれも0件。
-- 現在の全自動検証はVitest 840件、typecheck、lint、build、F003 trace_checkがPASSしている。T-041是正後の独立再受け入れはHigh/Medium/Low 0件。
+- T-042で固定F001・固定v0.2.0 F002・accepted F003を最終統合し、3作者・9作品・472台詞・463音声・492ファイルを確認した。
+- 現在の全自動検証はVitest 841件、typecheck、lint、build、F003 trace_checkがPASSしている。T-042の独立受け入れもHigh/Medium/Low 0件。
 
 ## 直近の作業（最新5件）
 
-- T-041「グッド・バイ」をmanifest・2種journal・176対象ファイルへatomicに結合し、独立再受け入れPASS
-- 固定v0.2.0 published baselineをwork preview・accept・release chainへ結合
-- 173候補を166承認・7除外へ確定し、165音声参照を新規164 WAV・共有1 WAVで構成
-- F003累積音声78,897,620 bytes、Pages 164,314,362 bytes、repository 165,455,869 bytesで容量PASS
-- 全840テスト・typecheck・lint・build・trace coverage 100%を確認
+- T-042でF001/F002/F003の最終Catalog統合をexact source commitへ固定し、独立受け入れPASS
+- F003は282候補から259件を公開対象、23件を編集除外、255個の一意音声へ対応
+- 最終候補は3作者・9作品・472台詞・463音声・492ファイル、既存public差分0件
+- 「グッド・バイ」をunfinishedとし、3作品の注意・括弧発話抜粋を3配置へ結合
+- 全841テスト・typecheck・lint・build・trace coverage 100%を確認
 
 ## 次のアクション
 
-- T-042で3作品の最終Catalog統合、既存公開不変、データ駆動route、全asset整合を確認する。
 - T-043でUT・IT・QT・自動ブラウザ・権利・容量受入を同一candidateへ結合する。
 - T-044でリリース前総点検後、GitHub Pagesへ段階公開し公開5 routeをスモーク確認する。
 
