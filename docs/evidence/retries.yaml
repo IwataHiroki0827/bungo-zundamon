@@ -98,7 +98,8 @@ attempts:
   feature: F001
   scope: IT-CHG-F001-005-impact
   attempt: 5
-  command: npm test && npm run typecheck && npm run lint && npm run build && npm run test:e2e
+  command: npm test && npm run typecheck && npm run lint && npm run build && npm run
+    test:e2e
   result: pass
   failures: 0
   cause: none
@@ -112,7 +113,8 @@ attempts:
   result: fail
   failures: 4
   cause: 自動試験689件はPASSしたが、独立受入で証跡型・accepted音声path・publish証跡実体・disk再読込recoveryのfail-openを検出
-  recovery: 種類別証跡とcanonical pathを厳密化し、証跡実体hash・全route集合・実process再起動相当のjournal recoveryを追加してattempt 2を実施
+  recovery: 種類別証跡とcanonical pathを厳密化し、証跡実体hash・全route集合・実process再起動相当のjournal recoveryを追加してattempt
+    2を実施
   log: docs/evidence/ut/UT-F002-attempt-1.log
 - date: '2026-07-26T00:20:10+09:00'
   feature: F002
@@ -134,3 +136,13 @@ attempts:
   cause: none
   recovery: attempt 1・2のfail-open修正後、独立受入ACCEPT（High/Medium/Low 0件）
   log: docs/evidence/ut/UT-F002-attempt-3.log
+- date: '2026-07-26T20:56:55+09:00'
+  feature: F003
+  scope: IT-browser
+  attempt: 1
+  command: playwright 4 projects in one invocation
+  result: fail
+  failures: 1
+  cause: 4 browser一括実行が5分の実行上限を超過し、JSON reporter終端前に終了した
+  recovery: 機能障害と分離するためbrowser project単位へ分割し、各結果を個別JSONへ保存して再実行する
+  log: docs/evidence/it/IT-F003-browser-attempt-1-timeout.md
