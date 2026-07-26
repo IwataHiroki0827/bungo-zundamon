@@ -358,3 +358,17 @@ entries:
   est_tokens: 16000
   note: 固定F001・固定v0.2.0 F002・accepted F003を統合。3作者・9作品・472台詞・463音声・492ファイル、全841試験、独立受入High/Medium/Low
     0、既存public差分0を確認
+- date: '2026-07-26'
+  phase: requirements
+  task: T-049 F004要求・QT仕様
+  model: GPT-5
+  agents: 3
+  est_tokens: 14000
+  note: Tier大の一次資料調査と反証評価で宮沢賢治3作品を確定。REQ 17件、QT 14件、QA未回答0、最終High/Medium/Low 0、ゲート①承認を完了
+- date: '2026-07-26'
+  phase: setup
+  task: T-050 F004 WBS・実行形態・検証環境
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: T-051〜T-061へ設計・試験仕様・共通基盤・3作品atomic受入・統合・試験・段階公開を分解。既存CLI/Playwright/VOICEVOXを再利用し、追加MCP不要と判定

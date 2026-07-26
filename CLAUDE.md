@@ -37,6 +37,8 @@ npm run test:e2e
 - F003は`npm run content:batch -- --batch F003 --work <WorkID> --stage <stage|all>`を使用し、女生徒→走れメロス→グッド・バイの順に作品単位で処理する。
 - F003の候補定義は`content/batch-candidates.json`に置き、作者・作品固有のapplication code分岐を追加しない。
 - F003音声生成前にはdisk-guardを実行し、追加WAV・Pages artifact・Git object・source repository・作業ドライブを別々に検査する。
+- F004は`npm run content:batch -- --batch F004 --work <WorkID> --stage <stage|all>`を使用し、オツベルと象（`000466`）→雪渡り（`045679`）→カイロ団長（`001918`）の順に作品単位で処理する。
+- F004は公開済みv0.3.0を固定baselineにし、既存宮沢author identity・route・画像をexact再利用する。音声生成前はdisk-guardと既存の容量境界試験を実行する。
 
 ## プロジェクト規約
 

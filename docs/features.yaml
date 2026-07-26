@@ -19,6 +19,6 @@ features:
 - id: F004
   title: 宮沢賢治「雪渡り」ほか3作品の追加
   branch: feature/F004
-  state: requirements
+  state: design
   merge_after:
   - F003

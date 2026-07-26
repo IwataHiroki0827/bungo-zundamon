@@ -801,3 +801,26 @@ items:
   processed_note: 本会話の包括承認を候補commitへ結合し、同じSHAだけを段階公開した。Actions run 30203760729と公開5 routeスモークがPASSし、デプロイ変数を閉じてF003 manifestをpublishedへ遷移した。
   release_result: released
   released_at: '2026-07-26T22:20:30+09:00'
+- id: Q-022
+  type: approval
+  status: closed
+  title: F004 要求仕様・適格性試験仕様の一括承認
+  body: >-
+    Tier大調査と独立反証評価High/Medium/Low 0により、宮沢賢治へオツベルと象・雪渡り・カイロ団長を追加するREQ 17件とQT 14件を確定しました。新字新仮名・権利条件、本文領域内の最外側「」抽出、候補全件レビュー、予測66.65 MiB、同一作者merge、初期全閉を自動証跡で検証します。
+  target: docs/srs/SRS-F004.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開後は次の作者・作品・音声追加を継続する。'
+  created: '2026-07-26T22:50:02+09:00'
+  source: pf-requirements
+  resume:
+    task: T-050
+    next: pf-setup
+  approved_at: '2026-07-26T22:50:02+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-26T22:50:02+09:00'
+  processed_note: SRS-F004とQT-F004をApprovedへ更新し、T-049を完了。F004をsetupへ移行した。
