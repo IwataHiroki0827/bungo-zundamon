@@ -196,3 +196,13 @@ attempts:
   cause: WebKitのセキュリティ操作試験で公開WAV取得が5秒を超え、状態がidleのまま期限切れ
   recovery: 全asset HTTP検査はdelivery試験に維持し、security操作は決定的な同一origin音声応答へ分離
   log: docs/evidence/it/IT-F003-runtime-attempt-4-failure.md
+- date: '2026-07-26T21:33:00+09:00'
+  feature: F003
+  scope: IT-runtime
+  attempt: 5
+  command: npm run test:f003-runtime
+  result: fail
+  failures: 1
+  cause: Windows Node.js 24がexecFileからnpm.cmdの直接起動をspawn EINVALで拒否
+  recovery: npm_execpathのCLI JavaScript実体をNode.jsから直接実行
+  log: docs/evidence/it/IT-F003-runtime-attempt-5-failure.md

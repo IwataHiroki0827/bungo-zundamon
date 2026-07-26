@@ -171,12 +171,13 @@ async function main(): Promise<void> {
     throw new Error('RuntimeAcceptance生成にはexact clean source commitが必要です');
   }
 
-  const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
   const node = process.execPath;
-  await run(workspace, npm, ['run', 'build']);
+  const npmCli = process.env.npm_execpath;
+  if (!npmCli) throw new Error('npm CLI実体を解決できません');
+  await run(workspace, node, [npmCli, 'run', 'build']);
   await run(workspace, node, ['--experimental-transform-types', 'scripts/verify-project.mjs']);
   const audit = JSON.parse(
-    await run(workspace, npm, ['audit', '--omit=dev', '--audit-level=high', '--json']),
+    await run(workspace, node, [npmCli, 'audit', '--omit=dev', '--audit-level=high', '--json']),
   ) as AuditReport;
   const high = audit.metadata?.vulnerabilities?.high ?? -1;
   const critical = audit.metadata?.vulnerabilities?.critical ?? -1;
@@ -200,8 +201,8 @@ async function main(): Promise<void> {
     process.stdout.write(`Playwright ${projectName}を実行します\n`);
     await run(
       workspace,
-      npm,
-      ['exec', '--', 'playwright', 'test', `--project=${projectName}`, '--reporter=json'],
+      node,
+      [npmCli, 'exec', '--', 'playwright', 'test', `--project=${projectName}`, '--reporter=json'],
       {
         ...process.env,
         PLAYWRIGHT_JSON_OUTPUT_FILE: join(workspace, BROWSER_REPORT_ROOT, fileName),
