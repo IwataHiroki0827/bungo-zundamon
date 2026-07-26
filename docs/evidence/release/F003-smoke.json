@@ -1,0 +1,24 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "aa103dfb5e323aa1d4f78fd42a7fd6d37b393077e05a0ed89bf2f5bd811a23e5",
+  "checkedAt": "2026-07-26T13:20:30Z",
+  "distSha256": "c1656d8e5514ee151310109cbc6601af4515ce47ca8b214bf3a83a9aa5c3c5a6",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/credits"
+  ],
+  "feature": "F003",
+  "releaseCandidateBatchId": "F003",
+  "releaseCommit": "79d12825b83459b92da58e14a32f853bae6d92d9",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/credits"
+  ]
+}

@@ -13,6 +13,12 @@ features:
 - id: F003
   title: 太宰治3作品のコンテンツ追加
   branch: feature/F003
-  state: release
+  state: closed
   merge_after:
   - F002
+- id: F004
+  title: 宮沢賢治「雪渡り」ほか3作品の追加
+  branch: feature/F004
+  state: requirements
+  merge_after:
+  - F003

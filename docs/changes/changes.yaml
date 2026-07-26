@@ -509,11 +509,20 @@ changes:
   trigger: v0.3.0公開後のF003 manifest遷移前検査でF002の4 route固定を検出
   level: implementation
   affected:
+  - DES-F003-009
   - DES-F003-012
+  - FUN-F003-022
   - FUN-F003-029
+  - UT-F003-022
   - UT-F003-029
   - src/content/batch.ts
   - src/content/batch.test.ts
+  - src/content/f003-catalog.ts
+  - src/content/f003-catalog.test.ts
+  - src/content/batch-runtime.test.ts
   - T-044
   - T-048
-  status: in-review
+  status: done
+  approved_by: 独立再レビューHigh/Medium/Low 0
+  completed_at: '2026-07-26T22:29:29+09:00'
+  result: F003の正確な公開5 routeを許可し、未知featureをfail-closedで拒否。全857試験と実公開証跡によるpublished遷移をPASS

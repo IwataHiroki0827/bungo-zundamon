@@ -11,7 +11,7 @@ import {
 } from './published-baseline.ts';
 
 describe('UT-F003-022 最終Catalog fragment統合 [DES-F003-009][FUN-F003-022]', () => {
-  it('固定F002とaccepted F003を永続artifactからデータ駆動で復元する', async () => {
+  it('固定F002とaccepted済みF003を永続artifactからデータ駆動で復元する', async () => {
     const workspace = resolve(process.cwd());
     const baseline = await loadAndVerifyPublishedBaseline(workspace, F002_PUBLISHED_RELEASE);
     const [f002, f003] = await Promise.all([

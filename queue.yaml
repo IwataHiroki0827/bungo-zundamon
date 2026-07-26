@@ -798,4 +798,6 @@ items:
   approved_at: '2026-07-26T22:15:30+09:00'
   approval_answer_normalized: 承認
   processed_at: '2026-07-26T22:15:30+09:00'
-  processed_note: 本会話の包括承認を候補commitへ結合し、同じSHAだけの段階公開を許可した。
+  processed_note: 本会話の包括承認を候補commitへ結合し、同じSHAだけを段階公開した。Actions run 30203760729と公開5 routeスモークがPASSし、デプロイ変数を閉じてF003 manifestをpublishedへ遷移した。
+  release_result: released
+  released_at: '2026-07-26T22:20:30+09:00'

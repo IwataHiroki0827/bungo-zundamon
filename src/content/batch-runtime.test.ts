@@ -305,10 +305,18 @@ async function f003RightsFixture(): Promise<{
   const {
     acceptedAt: _acceptedAt,
     acceptedBy: _acceptedBy,
+    publishedAt: _publishedAt,
+    releaseVersion: _releaseVersion,
+    deploymentEvidenceRef: _deploymentEvidenceRef,
+    smokeEvidenceRef: _smokeEvidenceRef,
     ...unacceptedManifest
   } = storedManifest;
   void _acceptedAt;
   void _acceptedBy;
+  void _publishedAt;
+  void _releaseVersion;
+  void _deploymentEvidenceRef;
+  void _smokeEvidenceRef;
   const candidate = {
     ...unacceptedManifest,
     status: 'draft',

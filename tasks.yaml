@@ -933,7 +933,7 @@ tasks:
   title: F003リリース前総点検・GitHub Pages段階公開・公開5 routeスモーク
   feature: F003
   phase: release
-  state: doing
+  state: done
   depends:
   - T-043
   tags: *id003
@@ -942,6 +942,8 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T22:29:29+09:00'
+  result: v0.3.0をcommit 79d1282からGitHub Pagesへ公開。Actions run 30203760729、公開5 route、初期全閉、画像、音声Range、CSP・外部通信を自動確認してPASS
 - id: T-045
   title: 作者ページの収録作品を初期全閉へ変更して回帰試験
   feature: F003
@@ -1006,7 +1008,7 @@ tasks:
   title: F003公開5 routeのpublished遷移を是正
   feature: F003
   phase: release
-  state: doing
+  state: done
   depends:
   - T-047
   tags:
@@ -1015,6 +1017,22 @@ tasks:
   - UT-F003-029
   mode: advisor
   mode_reason: 公開済み5 route証跡とmanifest遷移を同一release tupleで閉じるため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-26T22:29:29+09:00'
+  result: CHG-F003-004を実装し、全857試験・独立レビューHigh/Medium/Low 0・実公開3証跡のexact tupleでF003 manifestをpublishedへ遷移
+- id: T-049
+  title: F004宮沢賢治「雪渡り」ほか追加3作品の要求・QT仕様を確定
+  feature: F004
+  phase: requirements
+  state: doing
+  depends:
+  - T-044
+  - T-048
+  tags: []
+  mode: advisor
+  mode_reason: 公開済みF003を固定baselineにし、既存作者への追加3作品を権利・容量・品質条件から選定するため
   model:
     lead: opus
     workers: sonnet

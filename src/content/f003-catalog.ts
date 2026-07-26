@@ -160,7 +160,7 @@ export async function loadPublishedF002CatalogFragment(
 }
 
 /**
- * accepted F003の3作品を永続artifactだけから再構築し、作者・notice・音声参照を逆joinする。
+ * acceptedまたはpublished F003の3作品を永続artifactだけから再構築し、作者・notice・音声参照を逆joinする。
  * @des DES-F003-009 @fun FUN-F003-022 @fun FUN-F003-023 @ut UT-F003-022 @ut UT-F003-023
  */
 export async function loadAcceptedF003CatalogFragment(
@@ -168,9 +168,9 @@ export async function loadAcceptedF003CatalogFragment(
 ): Promise<BatchCatalogFragment> {
   const batchPath = join(workspace, 'content', 'batches', 'F003', 'batch.json');
   const checked = validateBatchManifest(await readJson<unknown>(batchPath));
-  if (!checked.ok || checked.value.status !== 'accepted' ||
+  if (!checked.ok || !['accepted', 'published'].includes(checked.value.status) ||
     checked.value.workProgress.some((work) => work.status !== 'accepted')) {
-    throw new Error('F003全作品がacceptedのcanonical manifestではありません');
+    throw new Error('F003全作品がaccepted済みのcanonical manifestではありません');
   }
   const manifest = checked.value;
   const [rights, notices, artworkBytes] = await Promise.all([

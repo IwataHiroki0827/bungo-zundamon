@@ -16,6 +16,7 @@
     "slug": "dazai-osamu"
   },
   "batchId": "F003",
+  "deploymentEvidenceRef": "docs/evidence/release/F003-deployment.json",
   "editionRules": [
     {
       "allowedWorkIds": [
@@ -50,6 +51,8 @@
   "outputPaths": [
     "content/batches/F003/rights-selection.json"
   ],
+  "publishedAt": "2026-07-26T13:20:30Z",
+  "releaseVersion": "0.3.0",
   "rightsSnapshotIds": [
     "aozora-selection:7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
     "aozora-handling:1cc5417bf036b96a8fdb7201cd9ab9c262f849e27926867e4d26cc6072c81da6",
@@ -59,6 +62,7 @@
     "openai-terms:043449f1a2b1c49d3fd644449e895ce8971469b45eefbca38771195854288496"
   ],
   "schemaVersion": "1.0.0",
+  "smokeEvidenceRef": "docs/evidence/release/F003-smoke.json",
   "stageRecords": [
     {
       "completedAt": "2026-07-26T08:33:56.472Z",
@@ -78,7 +82,7 @@
       "toolVersion": "batch-runtime-rights/1.0.0"
     }
   ],
-  "status": "accepted",
+  "status": "published",
   "voiceConfigRef": "content/batches/F003/voice-config.json",
   "workIds": [
     "000275",
