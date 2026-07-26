@@ -222,19 +222,36 @@ async function main(): Promise<void> {
     ] satisfies ReviewInputRef[],
   };
   const hour = String(8 + WORK_INDEX).padStart(2, '0');
-  const primaryAt = `2026-07-26T${hour}:40:00.000Z`;
-  const secondaryAt = `2026-07-26T${hour}:40:01.000Z`;
-  const adjudicatorAt = `2026-07-26T${hour}:51:00.000Z`;
+  const times = WORK_INDEX === 2
+    ? {
+        primaryIssued: '2026-07-26T10:15:00.000Z',
+        secondaryIssued: '2026-07-26T10:15:01.000Z',
+        adjudicatorIssued: '2026-07-26T10:25:00.000Z',
+        primarySealed: '2026-07-26T10:20:00.000Z',
+        secondarySealed: '2026-07-26T10:20:01.000Z',
+        adjudicatorSealed: '2026-07-26T10:26:00.000Z',
+      }
+    : {
+        primaryIssued: `2026-07-26T${hour}:34:00.000Z`,
+        secondaryIssued: `2026-07-26T${hour}:34:01.000Z`,
+        adjudicatorIssued: `2026-07-26T${hour}:45:00.000Z`,
+        primarySealed: `2026-07-26T${hour}:40:00.000Z`,
+        secondarySealed: `2026-07-26T${hour}:40:01.000Z`,
+        adjudicatorSealed: `2026-07-26T${hour}:51:00.000Z`,
+      };
+  const primaryAt = times.primarySealed;
+  const secondaryAt = times.secondarySealed;
+  const adjudicatorAt = times.adjudicatorSealed;
   const primary = authorization(
-    'primary', 'primary', `/root/f003-editorial/${WORK_ID}/primary`, `2026-07-26T${hour}:34:00.000Z`,
+    'primary', 'primary', `/root/f003-editorial/${WORK_ID}/primary`, times.primaryIssued,
     candidates, common,
   );
   const secondary = authorization(
-    'secondary', 'secondary', `/root/f003-editorial/${WORK_ID}/secondary`, `2026-07-26T${hour}:34:01.000Z`,
+    'secondary', 'secondary', `/root/f003-editorial/${WORK_ID}/secondary`, times.secondaryIssued,
     candidates, common,
   );
   const adjudicator = authorization(
-    'adjudicator', 'adjudicator', `/root/f003-editorial/${WORK_ID}/adjudicator`, `2026-07-26T${hour}:45:00.000Z`,
+    'adjudicator', 'adjudicator', `/root/f003-editorial/${WORK_ID}/adjudicator`, times.adjudicatorIssued,
     candidates, common,
     [
       {

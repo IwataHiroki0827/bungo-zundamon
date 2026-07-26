@@ -8,6 +8,10 @@ import { canonicalJson } from './artifacts.ts';
 import type { IntegratedFile } from './batch-public.ts';
 import type { Sha256, WorkspaceRelativePath } from './batch.ts';
 import type { CatalogV2 } from './processing.ts';
+import {
+  validateArtworkProvenanceBundle,
+  type ArtworkProvenanceBundle,
+} from '../notices/artwork-bundle.ts';
 
 const execFileAsync = promisify(execFile);
 const SHA_PATTERN = /^[a-f0-9]{64}$/u;
@@ -51,6 +55,7 @@ export interface PublishedBaselineDescriptor {
 export interface PublishedBaselineBundle {
   readonly release: PinnedPublishedRelease;
   readonly catalog: CatalogV2;
+  readonly artworkProvenances: ArtworkProvenanceBundle;
   readonly files: readonly PublishedBaselineFile[];
   readonly references: readonly WorkspaceRelativePath[];
   readonly baselineSha256: Sha256;
@@ -310,6 +315,7 @@ export async function loadAndVerifyPublishedBaseline(
   if (tree.length !== descriptor.files.length) throw new PublishedBaselineError('固定public Git treeのfile数が一致しません');
   const digest = createHash('sha256');
   let catalogBytes: Uint8Array | undefined;
+  let artworkProvenancesBytes: Uint8Array | undefined;
   for (let index = 0; index < descriptor.files.length; index += 1) {
     const expected = descriptor.files[index]!;
     const actual = tree[index];
@@ -322,21 +328,27 @@ export async function loadAndVerifyPublishedBaseline(
     }
     digest.update(expected.path).update('\0').update(String(bytes.byteLength)).update('\0').update(bytes);
     if (expected.path === 'content/catalog.json') catalogBytes = bytes;
+    if (expected.path === 'content/artwork-provenances.json') artworkProvenancesBytes = bytes;
   }
-  if (digest.digest('hex') !== pinnedRelease.contentBuildSha256 || !catalogBytes ||
+  if (digest.digest('hex') !== pinnedRelease.contentBuildSha256 || !catalogBytes || !artworkProvenancesBytes ||
     sha256(catalogBytes) !== pinnedRelease.catalogSha256) {
     throw new PublishedBaselineError('固定public content/catalog SHAが一致しません');
   }
   let catalog: CatalogV2;
+  let artworkProvenances: ArtworkProvenanceBundle;
   try {
     catalog = JSON.parse(new TextDecoder().decode(catalogBytes)) as CatalogV2;
+    artworkProvenances = validateArtworkProvenanceBundle(
+      JSON.parse(new TextDecoder().decode(artworkProvenancesBytes)) as unknown,
+    );
   } catch (error) {
-    throw new PublishedBaselineError('固定catalog JSONが不正です', { cause: error });
+    throw new PublishedBaselineError('固定catalog/artwork provenance JSONが不正です', { cause: error });
   }
   assertCatalog(catalog, descriptor);
   return deepFreeze({
     release: { ...F002_PUBLISHED_RELEASE },
     catalog,
+    artworkProvenances,
     files: descriptor.files.map((file) => ({ ...file })),
     references: [...descriptor.references],
     baselineSha256: descriptor.descriptorSha256,
@@ -346,6 +358,7 @@ export async function loadAndVerifyPublishedBaseline(
 async function readTree(root: string): Promise<{
   readonly files: ReadonlyMap<string, IntegratedFile>;
   readonly catalogBytes?: Uint8Array;
+  readonly artworkProvenancesBytes?: Uint8Array;
   readonly treeSha256: Sha256;
 }> {
   const entries: Array<{ path: WorkspaceRelativePath; bytes: Uint8Array }> = [];
@@ -367,13 +380,15 @@ async function readTree(root: string): Promise<{
   const digest = createHash('sha256');
   const files = new Map<string, IntegratedFile>();
   let catalogBytes: Uint8Array | undefined;
+  let artworkProvenancesBytes: Uint8Array | undefined;
   for (const entry of entries.sort((left, right) => left.path.localeCompare(right.path, 'en'))) {
     const file = { path: entry.path, bytes: entry.bytes.byteLength, sha256: sha256(entry.bytes) };
     files.set(entry.path, file);
     digest.update(entry.path).update('\0').update(String(entry.bytes.byteLength)).update('\0').update(entry.bytes);
     if (entry.path === 'content/catalog.json') catalogBytes = entry.bytes;
+    if (entry.path === 'content/artwork-provenances.json') artworkProvenancesBytes = entry.bytes;
   }
-  return { files, catalogBytes, treeSha256: digest.digest('hex') as Sha256 };
+  return { files, catalogBytes, artworkProvenancesBytes, treeSha256: digest.digest('hex') as Sha256 };
 }
 
 function catalogProjection(catalog: CatalogV2, baseline: CatalogV2): unknown {
@@ -417,7 +432,7 @@ export async function verifyPublishedInvariant(
   const mismatches: string[] = [];
   if (candidateTreeOrDist.treeSha256 !== actual.treeSha256) mismatches.push('INPUT_TREE_SHA_MISMATCH');
   for (const expected of baseline.files) {
-    if (expected.path === 'content/catalog.json') continue;
+    if (expected.path === 'content/catalog.json' || expected.path === 'content/artwork-provenances.json') continue;
     const file = actual.files.get(expected.path);
     if (!file) mismatches.push(`PATH_MISSING:${expected.path}`);
     else if (file.bytes !== expected.bytes || file.sha256 !== expected.sha256) mismatches.push(`FILE_MISMATCH:${expected.path}`);
@@ -436,6 +451,22 @@ export async function verifyPublishedInvariant(
       }
     } catch {
       mismatches.push('CATALOG_INVALID');
+    }
+  }
+  if (!actual.artworkProvenancesBytes) {
+    mismatches.push('ARTWORK_PROVENANCES_MISSING');
+  } else {
+    try {
+      const actualBundle = validateArtworkProvenanceBundle(
+        JSON.parse(new TextDecoder().decode(actual.artworkProvenancesBytes)) as unknown,
+      );
+      const actualByAuthor = new Map(actualBundle.artworks.map((entry) => [entry.authorId, entry]));
+      if (baseline.artworkProvenances.artworks.some((expected) =>
+        canonicalJson(actualByAuthor.get(expected.authorId)) !== canonicalJson(expected))) {
+        mismatches.push('ARTWORK_PROVENANCE_PROJECTION_MISMATCH');
+      }
+    } catch {
+      mismatches.push('ARTWORK_PROVENANCES_INVALID');
     }
   }
   return finishReport(candidateTreeOrDist, actual.treeSha256, baseline.baselineSha256, mismatches);

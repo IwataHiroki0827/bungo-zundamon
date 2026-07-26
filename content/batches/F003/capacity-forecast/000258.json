@@ -1,0 +1,2361 @@
+{
+  "authorization": {
+    "minimumFreeBytesAfterWrite": 150994944,
+    "planDigest": "2a02f695f68de9fbd202b0d5e687b95b95c3ef98c2e70ba061f541e03c0ce16c",
+    "remainingResponseBytes": 73961052,
+    "result": "pass"
+  },
+  "batchId": "F003",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "a7db4b884f1360af2526ded5cca7766dd053d8e0bd7780863620c402c3eec071",
+  "kind": "voice-capacity-authorization",
+  "plan": {
+    "batchId": "F003",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 166,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "017b321a248feda7f67dc8a5baf95702a6f232990360559f641f025e813e8e9e",
+        "candidateIds": [
+          "r_ZUyzW29sZgmKTx4mV2fYRMzQemYmU2jP6IwNrItbI"
+        ],
+        "estimatedBytes": 527084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/017b321a248feda7f67dc8a5baf95702a6f232990360559f641f025e813e8e9e.json",
+        "status": "miss",
+        "text": "「電話を切ってもいいんでしょう？ 他にもう用なんか無いんでしょう？ さっきから、おしっこが出たくて、足踏みしているのよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/017b321a248feda7f67dc8a5baf95702a6f232990360559f641f025e813e8e9e.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "017eb9622d7ef3519cdc67808d0497cd26ca4dd3d1232e6eafe01d7ef5293fa5",
+        "candidateIds": [
+          "pYXO9FCc77NKPOy0J7y55R3z7TkBkuVjUz8zsi1dOJ0"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/017eb9622d7ef3519cdc67808d0497cd26ca4dd3d1232e6eafe01d7ef5293fa5.json",
+        "status": "miss",
+        "text": "「ええっと、どなただったかな？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/017eb9622d7ef3519cdc67808d0497cd26ca4dd3d1232e6eafe01d7ef5293fa5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "029773a5e5cfdc095329779e20662af77323b67c74fa4920539d18f9910e8ad1",
+        "candidateIds": [
+          "5A34TqCOuw8g132yWrCqVG69ecBeGmte4K-U0g9CLV8"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/029773a5e5cfdc095329779e20662af77323b67c74fa4920539d18f9910e8ad1.json",
+        "status": "miss",
+        "text": "「全部、やめるつもりでいるんです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/029773a5e5cfdc095329779e20662af77323b67c74fa4920539d18f9910e8ad1.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "05b102b0e6063f787d69abb95d283a09f9a0a2fb9db3cb8d58c05af99bdf4c2b",
+        "candidateIds": [
+          "_t1FyOtmxZjsk4R1e7KfUa9rWpaImvO2c6SILvKfj1M"
+        ],
+        "estimatedBytes": 311084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/05b102b0e6063f787d69abb95d283a09f9a0a2fb9db3cb8d58c05af99bdf4c2b.json",
+        "status": "miss",
+        "text": "「もし、もし。田島ですがね、こないだは、酔っぱらいすぎて、あはははは。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/05b102b0e6063f787d69abb95d283a09f9a0a2fb9db3cb8d58c05af99bdf4c2b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0675b7100ff5c2a968c74249a3f94ee274196fa808a77014885b26b7b228d0f3",
+        "candidateIds": [
+          "bzN_a8MtixEwSGqIDNIqpA1wkBgDJe5DqJpzgsr58ao"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0675b7100ff5c2a968c74249a3f94ee274196fa808a77014885b26b7b228d0f3.json",
+        "status": "miss",
+        "text": "「おいおい、あまり失敬な事を言ったら怒るぜ。失敬にも程度があるよ。食ってばかりいるじゃないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0675b7100ff5c2a968c74249a3f94ee274196fa808a77014885b26b7b228d0f3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0a8d7085391dfa6bb88a398baeb0a88e2fb400c97fad5f53105d80e9e2da8b95",
+        "candidateIds": [
+          "PFYx98Ah4UfudHTERc3m6Uya9Ea6QKxRuOE2_4rtjPs"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0a8d7085391dfa6bb88a398baeb0a88e2fb400c97fad5f53105d80e9e2da8b95.json",
+        "status": "miss",
+        "text": "「それは別に支払う。君のれいの商売で、もうけるぶんくらいは、そのつどきちんと支払う。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0a8d7085391dfa6bb88a398baeb0a88e2fb400c97fad5f53105d80e9e2da8b95.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0ab6a1ad9092a21727e111762027249244ba28fde302388840b403ce5899d13f",
+        "candidateIds": [
+          "hsw_Nh_b_n5cxBhUd4O_LzdE6EVbnpEAJ45fDxrSIU8"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ab6a1ad9092a21727e111762027249244ba28fde302388840b403ce5899d13f.json",
+        "status": "miss",
+        "text": "「君に、たのみたい事があるのだがね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ab6a1ad9092a21727e111762027249244ba28fde302388840b403ce5899d13f.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0b03c8fe70ba6d1065483c5ab1b5a5542be070de1e1949999e0473fe4be053ad",
+        "candidateIds": [
+          "lCdEz-W7KAuMyGaMWpgMmd4eGT-zuoST85U2FcNUNpc"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0b03c8fe70ba6d1065483c5ab1b5a5542be070de1e1949999e0473fe4be053ad.json",
+        "status": "miss",
+        "text": "「田島さん！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0b03c8fe70ba6d1065483c5ab1b5a5542be070de1e1949999e0473fe4be053ad.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0b34873effd71393c0f71d166bc035071a6e1700060c31712fdcb2c0e210ebe2",
+        "candidateIds": [
+          "DscpBdQQXdmZ9lrThrUk5xpmAXchnygVCzW-nz_vm6E"
+        ],
+        "estimatedBytes": 665324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0b34873effd71393c0f71d166bc035071a6e1700060c31712fdcb2c0e210ebe2.json",
+        "status": "miss",
+        "text": "「きょうはね、ちょっと重いものを背負ったから、少し疲れて、いままで昼寝をしていたの。ああ、そう、いいものがある。お部屋へあがったらどう？ 割に安いのよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0b34873effd71393c0f71d166bc035071a6e1700060c31712fdcb2c0e210ebe2.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "0ce6324fc284ffca403a783fd778a5a25922ddbbf42185c5f33102864d266c21",
+        "candidateIds": [
+          "RC93U1Sdikzzzq801S4o2x-Na9RGEl0BLQJgGMPxTeI"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ce6324fc284ffca403a783fd778a5a25922ddbbf42185c5f33102864d266c21.json",
+        "status": "miss",
+        "text": "「いいえ、もう、僕ひとりで、何とか、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ce6324fc284ffca403a783fd778a5a25922ddbbf42185c5f33102864d266c21.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "162328f1cce17a1ccc423b0121cc0e5d37e2459f0509593f423b6fef8d921e70",
+        "candidateIds": [
+          "47PIyr-mlHVroyWayFcKKcOpb_-AuKBnQU4A5WohQgo"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/162328f1cce17a1ccc423b0121cc0e5d37e2459f0509593f423b6fef8d921e70.json",
+        "status": "miss",
+        "text": "「これで、もう、おしまい？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/162328f1cce17a1ccc423b0121cc0e5d37e2459f0509593f423b6fef8d921e70.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "18e9665f225b8d92dd7dc8faef04efc67c1771e8ca80476cd67ba4848f52bb11",
+        "candidateIds": [
+          "cj04DQadVUxvI1d7MWHJUfFcQ7LIok5GBuvEfk_Np9Y"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/18e9665f225b8d92dd7dc8faef04efc67c1771e8ca80476cd67ba4848f52bb11.json",
+        "status": "miss",
+        "text": "「そこを見込んで、頼みがあるんだ。一時間、いや、三十分でいい、顔を貸してくれ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/18e9665f225b8d92dd7dc8faef04efc67c1771e8ca80476cd67ba4848f52bb11.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "19e05d9379cf4495c0f915046c60db84677c0094ea04dc532e99c3632fcd1625",
+        "candidateIds": [
+          "4tSQORDaUXHa4NQrBuZA8NdUlQwGufbE3J_5aMymOeI"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/19e05d9379cf4495c0f915046c60db84677c0094ea04dc532e99c3632fcd1625.json",
+        "status": "miss",
+        "text": "「だめよ！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/19e05d9379cf4495c0f915046c60db84677c0094ea04dc532e99c3632fcd1625.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "1a8688b95e90579c21693b966cc2dda16de56596f3f5e108fd22bd7deaff5ea1",
+        "candidateIds": [
+          "YdlEQwXuyx8BkWCVOfbR6fviFELE2WdiDejX28XR5g4"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a8688b95e90579c21693b966cc2dda16de56596f3f5e108fd22bd7deaff5ea1.json",
+        "status": "miss",
+        "text": "「ダメです。かぜをひいて寝ています。仕事は、当分ダメでしょう。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a8688b95e90579c21693b966cc2dda16de56596f3f5e108fd22bd7deaff5ea1.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "1bc456534b997600e64b56cc26c35a98a8059c851c0cd1d342d12a007b36e078",
+        "candidateIds": [
+          "07igNVJ2pdZaScedEL0_U1PfRSxrY_u2izUipvc8kQ4"
+        ],
+        "estimatedBytes": 596204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1bc456534b997600e64b56cc26c35a98a8059c851c0cd1d342d12a007b36e078.json",
+        "status": "miss",
+        "text": "「まあ、いいじゃないか。つぎの停留場まで歩こう。何せ、これは、お前にとって重大問題だろうからな。二人で、対策を研究してみようじゃないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1bc456534b997600e64b56cc26c35a98a8059c851c0cd1d342d12a007b36e078.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "20aa77f36fe2a10d74f5c4fe0e78a082cdd61752716a876366016b7555aaa10a",
+        "candidateIds": [
+          "Nq_Vy4PvwauJMwkyX2nvq7ng1x1RC8Jgp2waPZGlyM4"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/20aa77f36fe2a10d74f5c4fe0e78a082cdd61752716a876366016b7555aaa10a.json",
+        "status": "miss",
+        "text": "「ケチねえ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/20aa77f36fe2a10d74f5c4fe0e78a082cdd61752716a876366016b7555aaa10a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "20e18567e5f27884ebcd79dbea1e58a737359a80b427a709b3d7f2e5081e55ab",
+        "candidateIds": [
+          "hci8bZw-yNAh4BqM4VHtcVdvM-p4AEs96Ya4vILMdRE"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/20e18567e5f27884ebcd79dbea1e58a737359a80b427a709b3d7f2e5081e55ab.json",
+        "status": "miss",
+        "text": "「いただくわ。私、おなかがすいてるの。それから、何が出来るの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/20e18567e5f27884ebcd79dbea1e58a737359a80b427a709b3d7f2e5081e55ab.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "21ba11a3b188d820e5b843fdb6dc0900f427915349602107a59512cfd185b18b",
+        "candidateIds": [
+          "9sgp1euV78JZl0ZTfg32CTZhh3vdm80orb9b4DfaCFE"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/21ba11a3b188d820e5b843fdb6dc0900f427915349602107a59512cfd185b18b.json",
+        "status": "miss",
+        "text": "「あら、いやだ。男なんて、おかしくって。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/21ba11a3b188d820e5b843fdb6dc0900f427915349602107a59512cfd185b18b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "247ec27e36b8aa31c5a39cc4273e56f2e0a30cef849653d5f3de22bd40e05cdf",
+        "candidateIds": [
+          "Z4dCYXl98h36Ql0sjsBBSzzzPNObigdrfjQ1q3XPgBE"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/247ec27e36b8aa31c5a39cc4273e56f2e0a30cef849653d5f3de22bd40e05cdf.json",
+        "status": "miss",
+        "text": "「きょうは、映画か？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/247ec27e36b8aa31c5a39cc4273e56f2e0a30cef849653d5f3de22bd40e05cdf.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "25579d4515241f23b09f71a7a40ac4a3d9d08e91b2715d42e72e80f48d844e58",
+        "candidateIds": [
+          "QRVxnrp2yA4v53owMaXFEjlpIqTbiXVTSgWP8mzqp8Y"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/25579d4515241f23b09f71a7a40ac4a3d9d08e91b2715d42e72e80f48d844e58.json",
+        "status": "miss",
+        "text": "「いい話？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/25579d4515241f23b09f71a7a40ac4a3d9d08e91b2715d42e72e80f48d844e58.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "27f80c6244a6493ed69f7591ef0f9412f0b2b77931daed7c3a083e3a42178dfc",
+        "candidateIds": [
+          "SKSYLgl4nIwqj0Ih_t43_j-kpqCNkq2G4LTCpoP-d68"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/27f80c6244a6493ed69f7591ef0f9412f0b2b77931daed7c3a083e3a42178dfc.json",
+        "status": "miss",
+        "text": "「ばからしい。あなたみたいないんらんじゃありませんよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/27f80c6244a6493ed69f7591ef0f9412f0b2b77931daed7c3a083e3a42178dfc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "292e9db51b12e1f74b7355b3e55ceb5f0bd86a181094cdaab215bff9e1ac9534",
+        "candidateIds": [
+          "LrGKWI15nS-4CrG7X5NK_dy4zT0HJqbb9oh6t_RTAic"
+        ],
+        "estimatedBytes": 483884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/292e9db51b12e1f74b7355b3e55ceb5f0bd86a181094cdaab215bff9e1ac9534.json",
+        "status": "miss",
+        "text": "「そら、一枚、二枚、三枚、四枚。これでいいだろう。手をひっこめろ。君みたいな恥知らずを産んだ親の顔が見たいや。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/292e9db51b12e1f74b7355b3e55ceb5f0bd86a181094cdaab215bff9e1ac9534.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "2a0a0d3b0b8ea92f8bcc74253972462f20bda530915592f81056dc5b4efc9bbe",
+        "candidateIds": [
+          "R-R8zpwtr8ooFRnLc4csQr8S2hUGem2daWzguQO-yLY"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a0a0d3b0b8ea92f8bcc74253972462f20bda530915592f81056dc5b4efc9bbe.json",
+        "status": "miss",
+        "text": "「パーマ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a0a0d3b0b8ea92f8bcc74253972462f20bda530915592f81056dc5b4efc9bbe.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "2a128dcc1aed20ca629a46306f97e65a818cb38f009d832e1f8fe902b260e697",
+        "candidateIds": [
+          "Uz2Nxm4fNrNtaR2nuf2ZsSWojJSScCarnWXtqKba9_A"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a128dcc1aed20ca629a46306f97e65a818cb38f009d832e1f8fe902b260e697.json",
+        "status": "miss",
+        "text": "「ひざくりげだろう。ひとりでかい？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a128dcc1aed20ca629a46306f97e65a818cb38f009d832e1f8fe902b260e697.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "2d6ad87c83bb5ceba417f605ecd0ebad0029edb5aaff0ad81d38a0f2a8866fdb",
+        "candidateIds": [
+          "DmN19JOcr4pUdkL2EpZ8gRNL7co_0lvgDo9pFAxzkRk"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d6ad87c83bb5ceba417f605ecd0ebad0029edb5aaff0ad81d38a0f2a8866fdb.json",
+        "status": "miss",
+        "text": "「大好物だ。ここにあるのかい？ ごちそうになろう。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d6ad87c83bb5ceba417f605ecd0ebad0029edb5aaff0ad81d38a0f2a8866fdb.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "2eff170d975471713257cfb354a2e592fba00884f258b96d800a7e63a3213055",
+        "candidateIds": [
+          "VG62Uf_dtNgSCeHRuCn7DGo_YwH2PGqxTIihKFUy-10"
+        ],
+        "estimatedBytes": 596204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2eff170d975471713257cfb354a2e592fba00884f258b96d800a7e63a3213055.json",
+        "status": "miss",
+        "text": "「あなたの言う事、何だか、わけがわからないけど、男のひとは誰でも、お金が、うんとたまると、そんなケチくさい事を考えるようになるらしいわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2eff170d975471713257cfb354a2e592fba00884f258b96d800a7e63a3213055.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "33f0870356f0853b1b8f51a78c9c0c3e001e166e9482da5a203126ed82d25a12",
+        "candidateIds": [
+          "UysewY4aDB7zTe2u7kC1YImwAo6HXqV8u4e3imihDzk"
+        ],
+        "estimatedBytes": 285164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/33f0870356f0853b1b8f51a78c9c0c3e001e166e9482da5a203126ed82d25a12.json",
+        "status": "miss",
+        "text": "「女がひとりでいるとね、いろんな事があるわ。気にしてやしません。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/33f0870356f0853b1b8f51a78c9c0c3e001e166e9482da5a203126ed82d25a12.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "356ba3ec27d7c56b61d65a9f1eeefca092327e91e99788ea6099d65174d2a274",
+        "candidateIds": [
+          "oqQzNM5e9NPN__oK0taJF_uT_HPvXekvBznykuCsdFc"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/356ba3ec27d7c56b61d65a9f1eeefca092327e91e99788ea6099d65174d2a274.json",
+        "status": "miss",
+        "text": "「君は、自分でお料理した事ある？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/356ba3ec27d7c56b61d65a9f1eeefca092327e91e99788ea6099d65174d2a274.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "3b38d6d2c59174996752c7070a2ee987c050709181076c103650c103568a5038",
+        "candidateIds": [
+          "FeLiPX727FR9vx1J80JhCLpwF47rY8ToMK2MJ_CKkhE"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3b38d6d2c59174996752c7070a2ee987c050709181076c103650c103568a5038.json",
+        "status": "miss",
+        "text": "「バカだわ、あなたは。まるでなってやしないじゃないの。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3b38d6d2c59174996752c7070a2ee987c050709181076c103650c103568a5038.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "3f32e26a55e276411f47234654dfb77c25dac09852309a5500be5a1418e1d458",
+        "candidateIds": [
+          "gfvhGThq2DpQ3uXDOckJ_v8X4Nr3Rp52gOUPpFKxc_Q"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f32e26a55e276411f47234654dfb77c25dac09852309a5500be5a1418e1d458.json",
+        "status": "miss",
+        "text": "「ケンカするほど深い仲、ってね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f32e26a55e276411f47234654dfb77c25dac09852309a5500be5a1418e1d458.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "4060495d8d9b5cf8f0e6fd4f0a9931c1bc8ef64fe0bc233df51155417f50a535",
+        "candidateIds": [
+          "UdJGtOwUBAw_DHaBNv_DtQdTxXYl66Cftn_7Yl7YC4Y"
+        ],
+        "estimatedBytes": 233324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4060495d8d9b5cf8f0e6fd4f0a9931c1bc8ef64fe0bc233df51155417f50a535.json",
+        "status": "miss",
+        "text": "「じょうだんじゃない。ひとのごちそうになる時だけよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4060495d8d9b5cf8f0e6fd4f0a9931c1bc8ef64fe0bc233df51155417f50a535.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "4267009f23c9b02d7579e4c6ef61f03d037550a18054bc91d290ef108160bd20",
+        "candidateIds": [
+          "0dLfSWlBFTYhBDihXjWdLbJTZjvYmdtorVto0fAVd8c"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4267009f23c9b02d7579e4c6ef61f03d037550a18054bc91d290ef108160bd20.json",
+        "status": "miss",
+        "text": "「ケチねえ、一ハラ気前よく買いなさい。かつおぶしを半分に切って買うみたい。ケチねえ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4267009f23c9b02d7579e4c6ef61f03d037550a18054bc91d290ef108160bd20.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "43d6b6c4b322bf968a3059ea1a61d95f4a1bde8bb06824e5d6f138e6b38cbb40",
+        "candidateIds": [
+          "LJPAgB9FVYu0I4sdkmqTHbho4ULYWt4hA0pCuXqe-3s"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/43d6b6c4b322bf968a3059ea1a61d95f4a1bde8bb06824e5d6f138e6b38cbb40.json",
+        "status": "miss",
+        "text": "「フクスイの陣って、とこね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/43d6b6c4b322bf968a3059ea1a61d95f4a1bde8bb06824e5d6f138e6b38cbb40.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "48055d1e6e053c5c355d2d317ca30dc9402db2faf96142232dca3575f0c7661c",
+        "candidateIds": [
+          "XEyafAgtHP35j6nvnXSTdMVD3fz1NaDdQdID-zFuvqw"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/48055d1e6e053c5c355d2d317ca30dc9402db2faf96142232dca3575f0c7661c.json",
+        "status": "miss",
+        "text": "「キントンが出来ないかしら。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/48055d1e6e053c5c355d2d317ca30dc9402db2faf96142232dca3575f0c7661c.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "4afa89e00dcf5e8bdc5cfaa7280674d9838e544cc232997ad97183e09bb535f3",
+        "candidateIds": [
+          "IG0O7ChSOB_35WNqTTJhRy2Y26jlddswaq8gHORTSUQ"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4afa89e00dcf5e8bdc5cfaa7280674d9838e544cc232997ad97183e09bb535f3.json",
+        "status": "miss",
+        "text": "「言葉をつつしんだら、どうだい。ゲスなやつだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4afa89e00dcf5e8bdc5cfaa7280674d9838e544cc232997ad97183e09bb535f3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "4b684cc48552cc9496d9f0a5d5e34cf2ce138e4470c4558a1d19ccc2046a15d2",
+        "candidateIds": [
+          "82ONvk0MG-E77djqJvLGdSMf0X5qvBXykgfRAqR3eyQ"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b684cc48552cc9496d9f0a5d5e34cf2ce138e4470c4558a1d19ccc2046a15d2.json",
+        "status": "miss",
+        "text": "「そうだな、トンカツが自慢らしいよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b684cc48552cc9496d9f0a5d5e34cf2ce138e4470c4558a1d19ccc2046a15d2.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087",
+        "candidateIds": [
+          "7XeCOom_4w_QTDIOM6tpCTLG9SjCZGSuXnkZZDzjlgQ"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.json",
+        "status": "miss",
+        "text": "「何が？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "557496a6a7c3ed3271f43c0496b053768998be70bf9c8d87e62a0cc29239d640",
+        "candidateIds": [
+          "54VOlh8iYTTAzhioe66vLwabSj015pEaFDvjirL6IGM"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/557496a6a7c3ed3271f43c0496b053768998be70bf9c8d87e62a0cc29239d640.json",
+        "status": "miss",
+        "text": "「からかっちゃいけません。人間には皆、善事を行おうとする本能がある。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/557496a6a7c3ed3271f43c0496b053768998be70bf9c8d87e62a0cc29239d640.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "56c4639e460910352f2d4516724242f5329b4b713a2f4f63f1accb022cb26438",
+        "candidateIds": [
+          "V2C5QJGzinhSu_pZM2ic7yiqgCKaep3JWvX0RB80dTo"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56c4639e460910352f2d4516724242f5329b4b713a2f4f63f1accb022cb26438.json",
+        "status": "miss",
+        "text": "「ちょっと待って下さい、ちょっと。一日、三千円でどうです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56c4639e460910352f2d4516724242f5329b4b713a2f4f63f1accb022cb26438.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "56ef66bacd51220b8844404df1a076632f76d977d2523add3d2928c3d6f74ea5",
+        "candidateIds": [
+          "d5_ROE_82JgIM_7aOtrDT32cpHwmRUhSHNeh-whceJw"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56ef66bacd51220b8844404df1a076632f76d977d2523add3d2928c3d6f74ea5.json",
+        "status": "miss",
+        "text": "「でも、そんな身なりでも無いじゃないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/56ef66bacd51220b8844404df1a076632f76d977d2523add3d2928c3d6f74ea5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "57cd82dd932fcbc5a1ca35abd0fe01b5eb384f172e881d2b6305f93a1e995db9",
+        "candidateIds": [
+          "Z2Y-o-Jf1beDSIoodObpLi2ZzpjHxtY84Hv7CRVg558"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/57cd82dd932fcbc5a1ca35abd0fe01b5eb384f172e881d2b6305f93a1e995db9.json",
+        "status": "miss",
+        "text": "「おやおや、おそれいりまめ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/57cd82dd932fcbc5a1ca35abd0fe01b5eb384f172e881d2b6305f93a1e995db9.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "581e030d2de0ebd9fc6f21c18ce3095102fe88979a2c8b6002b61a7f2e4ac2c6",
+        "candidateIds": [
+          "jldrENwssGsOBkZWZC2ND0LMxZcFbkJa2yy27QUgYtE"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/581e030d2de0ebd9fc6f21c18ce3095102fe88979a2c8b6002b61a7f2e4ac2c6.json",
+        "status": "miss",
+        "text": "「自分は、ケイ子の兄でありますが。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/581e030d2de0ebd9fc6f21c18ce3095102fe88979a2c8b6002b61a7f2e4ac2c6.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "58a9bd4135792482df256fe0cbadff452584d236f352474c850c784d30646516",
+        "candidateIds": [
+          "wzRZ5SgLB55WE_xqin0898yUnaPUkIWpblfRxAdt3YE"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58a9bd4135792482df256fe0cbadff452584d236f352474c850c784d30646516.json",
+        "status": "miss",
+        "text": "「何か、こんたんがあるんだわ。むだには歩かないひとなんだから。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58a9bd4135792482df256fe0cbadff452584d236f352474c850c784d30646516.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "5a4d89ebecd9133846c52bb49c1ec751a016b996c10ffd07220ec794858bf462",
+        "candidateIds": [
+          "gOEMI6xCGOmK8uo1SyKoxd7BPUjJYRn7r897tzW5r14"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5a4d89ebecd9133846c52bb49c1ec751a016b996c10ffd07220ec794858bf462.json",
+        "status": "miss",
+        "text": "「ばかねえ、あなたは。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5a4d89ebecd9133846c52bb49c1ec751a016b996c10ffd07220ec794858bf462.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "5ca128d672b2cb052f22a3ad36bbbd9237b56b36632bba53762b20e6988de526",
+        "candidateIds": [
+          "3F_j2kf1xKi4D0G1xYwgHDmiGUCSeJuPzeZDhiFnV2E"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5ca128d672b2cb052f22a3ad36bbbd9237b56b36632bba53762b20e6988de526.json",
+        "status": "miss",
+        "text": "「泣いてるんじゃねえだろうな。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5ca128d672b2cb052f22a3ad36bbbd9237b56b36632bba53762b20e6988de526.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "5d5164ead1a4e0c97effd2f05d326e72319f969aef0dfde77215c63f3d23d310",
+        "candidateIds": [
+          "3IV6wX6rRs-GpaxELWQlfmYlju2BWG91TnxNaQRSaFs"
+        ],
+        "estimatedBytes": 293804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d5164ead1a4e0c97effd2f05d326e72319f969aef0dfde77215c63f3d23d310.json",
+        "status": "miss",
+        "text": "「それじゃ、五千円。そうして下さい。これは、道徳の問題ですからね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d5164ead1a4e0c97effd2f05d326e72319f969aef0dfde77215c63f3d23d310.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "5d5679da422726abaf50539a261ae57768478e8921bef46461408653cb2112af",
+        "candidateIds": [
+          "uif82ftxZ_TssEAgYO503loIoOwcqfgwvzGBfD_8n68"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d5679da422726abaf50539a261ae57768478e8921bef46461408653cb2112af.json",
+        "status": "miss",
+        "text": "「よし、一ハラ買う。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d5679da422726abaf50539a261ae57768478e8921bef46461408653cb2112af.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "5d8367a012a6977e31c294f479addedbe9fa3cbee5df79f822fb369a63e795ae",
+        "candidateIds": [
+          "Rgq89HRz596a7AGi8OppjWEelvETByryFNEFXXUPf8o"
+        ],
+        "estimatedBytes": 518444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d8367a012a6977e31c294f479addedbe9fa3cbee5df79f822fb369a63e795ae.json",
+        "status": "miss",
+        "text": "「ぷ！ とんだ責任だ。別れ話だの何だのと言って、またイチャつきたいのでしょう？ ほんとにすけべいそうなツラをしている。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d8367a012a6977e31c294f479addedbe9fa3cbee5df79f822fb369a63e795ae.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "602647458e3f6c522b3a565e3fe3b1e5ad3b64e5523f8364b554097c3c367c01",
+        "candidateIds": [
+          "BldWsCv9Ri5tMopjITzuzCsNBPwI67JD1kndr0ff2B4"
+        ],
+        "estimatedBytes": 553004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/602647458e3f6c522b3a565e3fe3b1e5ad3b64e5523f8364b554097c3c367c01.json",
+        "status": "miss",
+        "text": "「なんだ、身の上話はつまらん。コップを借してくれ。これから、ウイスキイとカラスミだ。うん、ピイナツもある。これは、君にあげる。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/602647458e3f6c522b3a565e3fe3b1e5ad3b64e5523f8364b554097c3c367c01.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "614154da9a941690549dadc444fc3829c8e73f641f90ad99b6486c847a62c9cc",
+        "candidateIds": [
+          "JR3GH4FDbihvaOxxCQUDkqHiH7t7GcTEsDw435pLEP8"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/614154da9a941690549dadc444fc3829c8e73f641f90ad99b6486c847a62c9cc.json",
+        "status": "miss",
+        "text": "「あなたにも音楽がわかるの？ 音痴みたいな顔をしているけど。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/614154da9a941690549dadc444fc3829c8e73f641f90ad99b6486c847a62c9cc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "615bbd55b5871c0c28293ed0788dbdbae9c307b125c27206c2f3ca8d441e6e90",
+        "candidateIds": [
+          "wt7hdKTCmyla4O3vrG4fHcJuLhX_ogu0VGXbZfKBlnw"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/615bbd55b5871c0c28293ed0788dbdbae9c307b125c27206c2f3ca8d441e6e90.json",
+        "status": "miss",
+        "text": "「何か、いいくふうが無いものでしょうか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/615bbd55b5871c0c28293ed0788dbdbae9c307b125c27206c2f3ca8d441e6e90.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "62d7e5475936e31f7975c9c1929ea62b360bd910601fe6dd3c14a05bb52d6add",
+        "candidateIds": [
+          "34f9kVF7VvMZBwjJWFYdrxQZRyMdup_rP4mTcslzcIg"
+        ],
+        "estimatedBytes": 1537964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/62d7e5475936e31f7975c9c1929ea62b360bd910601fe6dd3c14a05bb52d6add.json",
+        "status": "miss",
+        "text": "「まあ、そうだ。ただし、条件が二つある。よその女のひとの前では一言も、ものを言ってくれるな。たのむぜ。笑ったり、うなずいたり、首を振ったり、まあ、せいぜいそれくらいのところにしていただく。もう一つは、ひとの前で、ものを食べない事。ぼくと二人きりになったら、そりゃ、いくら食べてもかまわないけど、ひとの前では、まずお茶一ぱいくらいのところにしてもらいたい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/62d7e5475936e31f7975c9c1929ea62b360bd910601fe6dd3c14a05bb52d6add.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "635a008a55c7c504ece712a1c4639c5e0d6e96fcc812bccf81040525698a98d5",
+        "candidateIds": [
+          "r0T0xSZWichqeTpR8ONYORs1b0exLPPvJh87-bdjx14"
+        ],
+        "estimatedBytes": 743084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/635a008a55c7c504ece712a1c4639c5e0d6e96fcc812bccf81040525698a98d5.json",
+        "status": "miss",
+        "text": "「いいかい？ たぶん大丈夫だと思うけどね、そこに乱暴な男がひとりいてね、もしそいつが腕を振り上げたら、君は軽くこう、取りおさえて下さい。なあに、弱いやつらしいんですがね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/635a008a55c7c504ece712a1c4639c5e0d6e96fcc812bccf81040525698a98d5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "64112260bc7e389ad8150252b1f4cd7aee616dddcccde9847d07837c9a9e8752",
+        "candidateIds": [
+          "xqpCuogIAMcsbPbZ9PPg7VUlDjEZUSXah6erDNRTatg"
+        ],
+        "estimatedBytes": 285164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64112260bc7e389ad8150252b1f4cd7aee616dddcccde9847d07837c9a9e8752.json",
+        "status": "miss",
+        "text": "「いや、そこを、たすけて下さい。僕もこの頃どうも収入が少くてね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64112260bc7e389ad8150252b1f4cd7aee616dddcccde9847d07837c9a9e8752.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "641e457f816860defa7cdd5104d9b7eee53e3b89a595586104001e1001e26f6a",
+        "candidateIds": [
+          "bEbDQcz5obqpfoqDLEg1E9PHE0Sz8qomgMvxZjD98nI"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/641e457f816860defa7cdd5104d9b7eee53e3b89a595586104001e1001e26f6a.json",
+        "status": "miss",
+        "text": "「そりゃ、女性ですもの。たまには、着飾って映画も見たいわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/641e457f816860defa7cdd5104d9b7eee53e3b89a595586104001e1001e26f6a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "643ea6f090474b2bbabed27feb0ab0089fc5937ba026f804cfdfe8b1b6e5bdf3",
+        "candidateIds": [
+          "DYFCcxVh475Ph6c_9WKRVbaE6ZAl6oSrMXTMy-cVsss"
+        ],
+        "estimatedBytes": 570284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/643ea6f090474b2bbabed27feb0ab0089fc5937ba026f804cfdfe8b1b6e5bdf3.json",
+        "status": "miss",
+        "text": "「おしゃれなんか、一週間にいちどくらいでたくさん。べつに男に好かれようとも思わないし、ふだん着は、これくらいで、ちょうどいいのよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/643ea6f090474b2bbabed27feb0ab0089fc5937ba026f804cfdfe8b1b6e5bdf3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "64ac3f83f7896c1300d203fcc3cd2e5fd84a252e9a1ee1b9310945681bf10df4",
+        "candidateIds": [
+          "SJ7Z2x6nHwZ1dNh7ROH4nUv3V29XMXjcUJFoDapNpgQ"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64ac3f83f7896c1300d203fcc3cd2e5fd84a252e9a1ee1b9310945681bf10df4.json",
+        "status": "miss",
+        "text": "「あのう、僕の靴を、すまないけど。……それから、ひものようなものがありましたら、お願いします。眼鏡のツルがこわれましたから。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64ac3f83f7896c1300d203fcc3cd2e5fd84a252e9a1ee1b9310945681bf10df4.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "665003a8ded129913dfc59e3bd7320aa3817f0a14ff9682da9439c5c399035d4",
+        "candidateIds": [
+          "yWD_l4MOpKHgEzmd8t0eFIax-nL9OZHWSE4vKV01HlI"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/665003a8ded129913dfc59e3bd7320aa3817f0a14ff9682da9439c5c399035d4.json",
+        "status": "miss",
+        "text": "「やれば出来るわよ。めんどうくさいからしないだけ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/665003a8ded129913dfc59e3bd7320aa3817f0a14ff9682da9439c5c399035d4.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "689d0d5382f39c5ca95453f8771825f6efc54d546a42bb63e71687372e1c6d74",
+        "candidateIds": [
+          "mvtUAp25YuOpj4tLY6SMWdUGxO0vaN3k8DM6dUDfN9o"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/689d0d5382f39c5ca95453f8771825f6efc54d546a42bb63e71687372e1c6d74.json",
+        "status": "miss",
+        "text": "「でも、また出直して来てもいいんだよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/689d0d5382f39c5ca95453f8771825f6efc54d546a42bb63e71687372e1c6d74.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "6cb80d1ddd2c749269a245c2134fe9bae32dd863654f2fbdf0137c5d41fb7f5b",
+        "candidateIds": [
+          "CipnU6tTpMv_rxwdmFYUUzuhGI5Ygc5nC1vG_CXJaEc"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6cb80d1ddd2c749269a245c2134fe9bae32dd863654f2fbdf0137c5d41fb7f5b.json",
+        "status": "miss",
+        "text": "「ただ、あなたについて歩いていたら、いいの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6cb80d1ddd2c749269a245c2134fe9bae32dd863654f2fbdf0137c5d41fb7f5b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "6fda29635fbd006226d5523a778a972340a364d70eb3803d929f25514b90d028",
+        "candidateIds": [
+          "RADL0nWdeVvJpmRZSvvPaPbfocrGbmAf6AIpgE2Q-fM"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6fda29635fbd006226d5523a778a972340a364d70eb3803d929f25514b90d028.json",
+        "status": "miss",
+        "text": "「そんなに、うまくも無いじゃないの。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6fda29635fbd006226d5523a778a972340a364d70eb3803d929f25514b90d028.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "70d6b8d4246a33b3721e702c4051425968d790f7bfa83efa8f3bf4794c1d8261",
+        "candidateIds": [
+          "9RoI17WTXUgGbhVHdWyOdA31akC0fCb-izlq6o4mI8A"
+        ],
+        "estimatedBytes": 293804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/70d6b8d4246a33b3721e702c4051425968d790f7bfa83efa8f3bf4794c1d8261.json",
+        "status": "miss",
+        "text": "「たいてい出来るだろうけど、いったい、どんなものを食べたいんだい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/70d6b8d4246a33b3721e702c4051425968d790f7bfa83efa8f3bf4794c1d8261.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7353f30b6ccb59c83ccfeb46408a55d04e41339168f5e6d2767a93a4852b5a5f",
+        "candidateIds": [
+          "hIgoUJt6GfHMmlHZS9I9LsI6nPLaj0fDOdZFWjnzrRo"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7353f30b6ccb59c83ccfeb46408a55d04e41339168f5e6d2767a93a4852b5a5f.json",
+        "status": "miss",
+        "text": "「これから、また何か、食うんだろう？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7353f30b6ccb59c83ccfeb46408a55d04e41339168f5e6d2767a93a4852b5a5f.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "751294ee486df79a51e0aa5e738cd201a0c1992aa011241eb0b6a634949e9ad3",
+        "candidateIds": [
+          "avhnZhXRhDrtXMLJcRr_epjZlLFRNt10kju-JK3JDPI"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/751294ee486df79a51e0aa5e738cd201a0c1992aa011241eb0b6a634949e9ad3.json",
+        "status": "miss",
+        "text": "「私も見たいわ。そうして、ぶってやりたいわ。捨てりゃ、ネギでも、しおれて枯れる、ってさ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/751294ee486df79a51e0aa5e738cd201a0c1992aa011241eb0b6a634949e9ad3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "77d3b8e6c2e65fe144eca57d9a572c21836d3729fcd408e014de4a1e1353410b",
+        "candidateIds": [
+          "vgWvtLD-k0E6d9D6OAnwfZ902xu2jTJd9U9YITLmLeE"
+        ],
+        "estimatedBytes": 449324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/77d3b8e6c2e65fe144eca57d9a572c21836d3729fcd408e014de4a1e1353410b.json",
+        "status": "miss",
+        "text": "「いや、もういいだろう。ここの店は、あまり安くないんだよ。君は、いつも、こんなにたくさん食べるのかね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/77d3b8e6c2e65fe144eca57d9a572c21836d3729fcd408e014de4a1e1353410b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "78f4c7d1f358b1ba29c36d1007bc6e7e67ebfaef7db78869a5a9f924e13360b0",
+        "candidateIds": [
+          "sYqfgqSiSzGbrn0pEBL_05iZerr8KTywsIIErMSCWAk"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/78f4c7d1f358b1ba29c36d1007bc6e7e67ebfaef7db78869a5a9f924e13360b0.json",
+        "status": "miss",
+        "text": "「あら、そう？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/78f4c7d1f358b1ba29c36d1007bc6e7e67ebfaef7db78869a5a9f924e13360b0.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7b6c42443ab3b4b02e4a09ce9c69c4c3bd5fe26f81a896d0b4e27aaa2279632a",
+        "candidateIds": [
+          "BGd_P9upcc6-SQgxCzvjLbz_lB8Bz-OPVPhYF7SOSNQ"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7b6c42443ab3b4b02e4a09ce9c69c4c3bd5fe26f81a896d0b4e27aaa2279632a.json",
+        "status": "miss",
+        "text": "「五千円で、たのみます。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7b6c42443ab3b4b02e4a09ce9c69c4c3bd5fe26f81a896d0b4e27aaa2279632a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7bd7c3459d22d91f97b086a89abfee80bf2654d82303f2ada48166429286d353",
+        "candidateIds": [
+          "wWrkJU1s0Qhiz6OLNJZQWXSTZQ1oW1gEVUo94EdNWos"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7bd7c3459d22d91f97b086a89abfee80bf2654d82303f2ada48166429286d353.json",
+        "status": "miss",
+        "text": "「けっこうな事じゃないの。どうも、よっぽどあなたは、ためたな？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7bd7c3459d22d91f97b086a89abfee80bf2654d82303f2ada48166429286d353.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7c149309306aa03a6833c6bdd7b19525779b71cfdc223e8581e7e1e68ceeca6b",
+        "candidateIds": [
+          "0Woh8xqgXhCJDZvY52squ2Y7czRoc0KOVTKLErAABbw"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7c149309306aa03a6833c6bdd7b19525779b71cfdc223e8581e7e1e68ceeca6b.json",
+        "status": "miss",
+        "text": "「いや、その声は泣いてる声だ。とんだ色男さ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7c149309306aa03a6833c6bdd7b19525779b71cfdc223e8581e7e1e68ceeca6b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7ec073d71084bedf56dcf9bbe748c1c46d0c6f2121e7881fe3dcee96f914f676",
+        "candidateIds": [
+          "sT8X_rUwAYSLQU1eJpwCjY3gCWXAqjXA-gjqsoDXMXc"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7ec073d71084bedf56dcf9bbe748c1c46d0c6f2121e7881fe3dcee96f914f676.json",
+        "status": "miss",
+        "text": "「心配するな。ぼくだって、いま一生懸命なんだ。これが失敗したら、身の破滅さ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7ec073d71084bedf56dcf9bbe748c1c46d0c6f2121e7881fe3dcee96f914f676.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7f04e81cb94d5b835f29de55c3fd8414441a2cd3fba8fe4d0950045c8854fdff",
+        "candidateIds": [
+          "qFhn10H-gbPaSu9dbQ57QfiCoenyc1_Di3tB1eG-QSM"
+        ],
+        "estimatedBytes": 924524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f04e81cb94d5b835f29de55c3fd8414441a2cd3fba8fe4d0950045c8854fdff.json",
+        "status": "miss",
+        "text": "「ケチねえ、あなたは。女は、たいてい、これくらい食うの普通だわよ。もうたくさん、なんて断っているお嬢さんや何か、あれは、ただ、色気があるから体裁をとりつくろっているだけなのよ。私なら、いくらでも、食べられるわよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f04e81cb94d5b835f29de55c3fd8414441a2cd3fba8fe4d0950045c8854fdff.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7f39a7632ff294c7d8996ac03deadcb3e8420b59bf31ac5669e71ac01172efba",
+        "candidateIds": [
+          "9WM72pZMIatVIo2jewBG01SJ8mY8WRrBqTjWLBgP8Ys"
+        ],
+        "estimatedBytes": 2142764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f39a7632ff294c7d8996ac03deadcb3e8420b59bf31ac5669e71ac01172efba.json",
+        "status": "miss",
+        "text": "「いや、いや、お前ひとりでは解決できない。まさか、お前、死ぬ気じゃないだろうな。実に、心配になって来た。女にほれられて、死ぬというのは、これは悲劇じゃない、喜劇だ。いや、ファース（茶番）というものだ。こっけいのきわみだね。誰も同情しやしない。死ぬのはやめたほうがよい。うむ、名案。すごい美人を、どこからか見つけて来てね、そのひとに事情を話し、お前の女房という形になってもらって、それを連れて、お前のその女たち一人々々を歴訪する。効果てきめん。女たちは、皆だまって引下る。どうだ、やってみないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f39a7632ff294c7d8996ac03deadcb3e8420b59bf31ac5669e71ac01172efba.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "7f60690d4ac7fe8527c66aead71bd2f048c77bad8dcf43acb1bb73cea4730e73",
+        "candidateIds": [
+          "0_VaQxOcbbw95u7pfUYxEnMVcVkQ3EPzrKEmI7bH_BY"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f60690d4ac7fe8527c66aead71bd2f048c77bad8dcf43acb1bb73cea4730e73.json",
+        "status": "miss",
+        "text": "「いい加減に、やめてくれねえかなあ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f60690d4ac7fe8527c66aead71bd2f048c77bad8dcf43acb1bb73cea4730e73.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "80b1092c68b5d92bef25451ddd398d6343dd1bba37b2d09d552033b95ce8fab3",
+        "candidateIds": [
+          "xXlhDE2pZN5-fRpzXAL-ukqSQ8k6AZT9-QEAPqsIELo"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80b1092c68b5d92bef25451ddd398d6343dd1bba37b2d09d552033b95ce8fab3.json",
+        "status": "miss",
+        "text": "「だめ、だめ、お帰り。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80b1092c68b5d92bef25451ddd398d6343dd1bba37b2d09d552033b95ce8fab3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "80f18f94627a78953c5b03c22d8dfb0379d76d93fdf2fbbc4c6155ca06c2f391",
+        "candidateIds": [
+          "IwLq7QbWGIqSvhZAIsL7To4pXZ7u7Hg_wFTRO6Pk8fg"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80f18f94627a78953c5b03c22d8dfb0379d76d93fdf2fbbc4c6155ca06c2f391.json",
+        "status": "miss",
+        "text": "「少し、もらおうか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80f18f94627a78953c5b03c22d8dfb0379d76d93fdf2fbbc4c6155ca06c2f391.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "8271e9ce3700f4516d3f1e2bc88fabf0c757e656ae46503a2cd3983f00a71be8",
+        "candidateIds": [
+          "PhWj_Tb1gtaNMksugHqd5Rc0EG6sxR7-cryH1lcse6c"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8271e9ce3700f4516d3f1e2bc88fabf0c757e656ae46503a2cd3983f00a71be8.json",
+        "status": "miss",
+        "text": "「あそびに来たのだけどね、」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8271e9ce3700f4516d3f1e2bc88fabf0c757e656ae46503a2cd3983f00a71be8.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "8b1bf738738812a7b14db67f38ddda9ba2cb5732132efc2ee8a0086ac09980bf",
+        "candidateIds": [
+          "sNS8kt9U683hOIKUsaXF8vxtj2RYZeVYIFtRNWiE0qo"
+        ],
+        "estimatedBytes": 397484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8b1bf738738812a7b14db67f38ddda9ba2cb5732132efc2ee8a0086ac09980bf.json",
+        "status": "miss",
+        "text": "「安くしてあげるったら、ばかねえ。おいしいのよ、本場ものだから。じたばたしないで、お出し。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8b1bf738738812a7b14db67f38ddda9ba2cb5732132efc2ee8a0086ac09980bf.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "8cdea28fa956820fe1987b2e68c3fe811336c430305c4561385e37805e84d9c6",
+        "candidateIds": [
+          "MMvtcUaMe5P2AnGZO3YQYb1_XViYKUbBzeVy4EmI6G8"
+        ],
+        "estimatedBytes": 898604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8cdea28fa956820fe1987b2e68c3fe811336c430305c4561385e37805e84d9c6.json",
+        "status": "miss",
+        "text": "「やめろ！ あの子だなんて、失敬な呼び方は、よしてくれ。おとなしいひとなんだよ、あのひとは。君なんかとは、違うんだ。とにかく、黙っていてくれ。君のそのからすの声みたいなのを聞いていると、気が狂いそうになる。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8cdea28fa956820fe1987b2e68c3fe811336c430305c4561385e37805e84d9c6.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "8d6f5ba7dcc0058951f874c53ed148a23304d3f4546695b6e468c7b0cda91a61",
+        "candidateIds": [
+          "-MZ884F4g07pqKun0c9_vOftlxZ64aM7gB41_SqUMa0"
+        ],
+        "estimatedBytes": 397484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8d6f5ba7dcc0058951f874c53ed148a23304d3f4546695b6e468c7b0cda91a61.json",
+        "status": "miss",
+        "text": "「いま考えると、まるで僕は狂っていたみたいなんですよ。とんでもなく、手をひろげすぎて、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8d6f5ba7dcc0058951f874c53ed148a23304d3f4546695b6e468c7b0cda91a61.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "8fc745bd9970a54ebd5aa20739d9738d68eb6734f4d141374d98be27c9cea41a",
+        "candidateIds": [
+          "tT6j4PSLdV8MWHjN-vT-U-Is7S8nxexoTbhWfdH-5mA"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8fc745bd9970a54ebd5aa20739d9738d68eb6734f4d141374d98be27c9cea41a.json",
+        "status": "miss",
+        "text": "「冗談じゃない。お出しなさい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8fc745bd9970a54ebd5aa20739d9738d68eb6734f4d141374d98be27c9cea41a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "92a3ab992ef35a7ad985a60ef8165d531ea78ce5c7d0e1975d72d24cdddd4542",
+        "candidateIds": [
+          "L5kwYrzZstVHAap7Ls6i6ZGYcirf0Ap12D-UgFcbWj4"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/92a3ab992ef35a7ad985a60ef8165d531ea78ce5c7d0e1975d72d24cdddd4542.json",
+        "status": "miss",
+        "text": "「ありがとう！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/92a3ab992ef35a7ad985a60ef8165d531ea78ce5c7d0e1975d72d24cdddd4542.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "93eb537bb004587cb329ff498824de637ef634a7ccfd185c33ded4062d494b91",
+        "candidateIds": [
+          "U5XWZNVKR4iwHN7neQfhZr6H8TmUpGYJ_Q5TKVYxFyk"
+        ],
+        "estimatedBytes": 648044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93eb537bb004587cb329ff498824de637ef634a7ccfd185c33ded4062d494b91.json",
+        "status": "miss",
+        "text": "「この部屋は、もとから汚くて、手がつけられないのよ。それに私の商売が商売だから、どうしたって、部屋の中がちらかってね。見せましょうか、押入れの中を。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93eb537bb004587cb329ff498824de637ef634a7ccfd185c33ded4062d494b91.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9a0ca9f578b617277841e0d1d1a04586446dd9c47d565fb1d037c22ebf70c6fb",
+        "candidateIds": [
+          "GwOv8uotj66jXMUT1xgBZ2QVMznpHmbBqy33snlJo-g"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a0ca9f578b617277841e0d1d1a04586446dd9c47d565fb1d037c22ebf70c6fb.json",
+        "status": "miss",
+        "text": "「君も、しかし、いままで誰かと恋愛した事は、あるだろうね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a0ca9f578b617277841e0d1d1a04586446dd9c47d565fb1d037c22ebf70c6fb.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9a61aa2217a5eea159f5a224e3f688f5d8e1eb812e86eb889cf5a86c34deea9e",
+        "candidateIds": [
+          "LT-xThe6zgSnNy6MliqW9tAEo6XAEbrb4xuAEoYG7vI"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a61aa2217a5eea159f5a224e3f688f5d8e1eb812e86eb889cf5a86c34deea9e.json",
+        "status": "miss",
+        "text": "「きょうは女房を連れて来ました。疎開先から、こんど呼び寄せたのです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a61aa2217a5eea159f5a224e3f688f5d8e1eb812e86eb889cf5a86c34deea9e.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9a8eda06a604cc97a8464a2fd1eaed6df6be1f03a9d67e0215e572167aae77fb",
+        "candidateIds": [
+          "5xa3Xhe5JCrZ0_FLdE1N160-EqxB-MWaWJrQ01tfCxI"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a8eda06a604cc97a8464a2fd1eaed6df6be1f03a9d67e0215e572167aae77fb.json",
+        "status": "miss",
+        "text": "「全部、やめるつもり、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a8eda06a604cc97a8464a2fd1eaed6df6be1f03a9d67e0215e572167aae77fb.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9c678d4298e51ce9fbcc924a230b579b15e68096fe3813d29e2598bb9d360db6",
+        "candidateIds": [
+          "UeUQWTdZ1BbNUYX71BdmO4hnLNHpi-VWNr1vmTduN_8"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c678d4298e51ce9fbcc924a230b579b15e68096fe3813d29e2598bb9d360db6.json",
+        "status": "miss",
+        "text": "「もっと、さっぱりなさいよ。あなた、少しニヤケ過ぎてよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c678d4298e51ce9fbcc924a230b579b15e68096fe3813d29e2598bb9d360db6.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9d2baf01e125d4f0d444e0d8d018d6728aae3e878251fb72215d8e561f2aee16",
+        "candidateIds": [
+          "DvGiAtRkUSaYPu5dMAuDHHieT1rqbQpG5MJEzKam2X0"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9d2baf01e125d4f0d444e0d8d018d6728aae3e878251fb72215d8e561f2aee16.json",
+        "status": "miss",
+        "text": "「銀座にも、どこにも、あなたほどの腕前のひとは無いってうわさですからね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9d2baf01e125d4f0d444e0d8d018d6728aae3e878251fb72215d8e561f2aee16.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9e981b58f306f1252c683f9b10c7013eb466a46d2773b7f713846f2cfc31042b",
+        "candidateIds": [
+          "BAUIwY9fTvjOykXllXjzIENyMVwNNHLObKhC4BjiwCI"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9e981b58f306f1252c683f9b10c7013eb466a46d2773b7f713846f2cfc31042b.json",
+        "status": "miss",
+        "text": "「女が好きだったらしいな。お前も、そろそろねんぐのおさめ時じゃねえのか。やつれたぜ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9e981b58f306f1252c683f9b10c7013eb466a46d2773b7f713846f2cfc31042b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "9eb5cc0525bf52db88aca81bfca9e4db44a0926823f31d36aacd53002cdb7e18",
+        "candidateIds": [
+          "NePIe1F1Kb8BuQ9O9gaaVoLfYAB9lZHrpfRrPpiKCeg"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9eb5cc0525bf52db88aca81bfca9e4db44a0926823f31d36aacd53002cdb7e18.json",
+        "status": "miss",
+        "text": "「ゆるしてくれえ。どろぼう！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9eb5cc0525bf52db88aca81bfca9e4db44a0926823f31d36aacd53002cdb7e18.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a05db7c4e191a65217f2de1a9c058a3bff62b9fccec74522066d47d2397e6216",
+        "candidateIds": [
+          "6VUxzG16xB3UGktsGfgqtZQ8_5iODZxX5vOKxXl8g2g"
+        ],
+        "estimatedBytes": 855404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a05db7c4e191a65217f2de1a9c058a3bff62b9fccec74522066d47d2397e6216.json",
+        "status": "miss",
+        "text": "「いや、僕もあれからいろいろ深く考えましたがね、結局、ですね、僕が女たちと別れて、小さい家を買って、いなかから妻子を呼び寄せ、幸福な家庭をつくる、という事ですね、これは、道徳上、悪い事でしょうか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a05db7c4e191a65217f2de1a9c058a3bff62b9fccec74522066d47d2397e6216.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a20046d4cdd6b4e1776c1ea74b75cb10a9f53815a4f5b8153740a97f7e53144a",
+        "candidateIds": [
+          "DTPAbypZX3HNuxSx4AMtjKY0jZP5HWGehgrRfRChcJM"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a20046d4cdd6b4e1776c1ea74b75cb10a9f53815a4f5b8153740a97f7e53144a.json",
+        "status": "miss",
+        "text": "「いいえ、雨で眼鏡の玉がくもって、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a20046d4cdd6b4e1776c1ea74b75cb10a9f53815a4f5b8153740a97f7e53144a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a383fb31d7ca3c3a927d74b7cdaa7d39f497aed8be0dc281dfb55726d4dd03b3",
+        "candidateIds": [
+          "LqOol0tavsAbpmOO7xHbnCqQD_kNhthfyEgINcH-bZE"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a383fb31d7ca3c3a927d74b7cdaa7d39f497aed8be0dc281dfb55726d4dd03b3.json",
+        "status": "miss",
+        "text": "「財布をかえしてくれ。これからは、五千円以上、使ってはならん。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a383fb31d7ca3c3a927d74b7cdaa7d39f497aed8be0dc281dfb55726d4dd03b3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a4804c06c77ecd25969f58f0c1c0a7965b21c5f47724a77642975abd293860be",
+        "candidateIds": [
+          "0miwxUFSOC-g7R1Nj0StJW5lHqeVKLLsfh5e05ZPFMM"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a4804c06c77ecd25969f58f0c1c0a7965b21c5f47724a77642975abd293860be.json",
+        "status": "miss",
+        "text": "「きれいずき？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a4804c06c77ecd25969f58f0c1c0a7965b21c5f47724a77642975abd293860be.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a9f1974fe28ee7bd1cdef9525ca156aad7daa9e419eb457947ed1669fecbd2cb",
+        "candidateIds": [
+          "VEk-AJv97nPYxmn2214YG5t0lnZr9bcm6VPLAZJA9J0"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9f1974fe28ee7bd1cdef9525ca156aad7daa9e419eb457947ed1669fecbd2cb.json",
+        "status": "miss",
+        "text": "「お金の事ばかり言ってないで、……道徳のね、つまり、思想上のね、その問題なんですがね、君はどう考えますか？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9f1974fe28ee7bd1cdef9525ca156aad7daa9e419eb457947ed1669fecbd2cb.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "a9f6453e4b5d6cc4f0f25e3504d9fbf158724bbcfff792c88d70063122317a45",
+        "candidateIds": [
+          "LAHtVu1l26AFv-pY4jdzh0jMFr6s5NPS1v9w49MDJZY"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9f6453e4b5d6cc4f0f25e3504d9fbf158724bbcfff792c88d70063122317a45.json",
+        "status": "miss",
+        "text": "「へえ？ 私はえちごじしかと思った。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9f6453e4b5d6cc4f0f25e3504d9fbf158724bbcfff792c88d70063122317a45.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "aacc227ab0b20370fbe8d6dd090fcba44e20d1e1d14e5aaf8f56cd4c539e5d57",
+        "candidateIds": [
+          "JQbFyZh2M48BOgDoZYTZuGND3G7rVhlZMpluUWeGO7k"
+        ],
+        "estimatedBytes": 622124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aacc227ab0b20370fbe8d6dd090fcba44e20d1e1d14e5aaf8f56cd4c539e5d57.json",
+        "status": "miss",
+        "text": "「君のする事なす事を見ていると、まったく、人生がはかなくなるよ。その手は、ひっこめてくれ。カラスミなんて、要らねえや。あれは、馬が食うもんだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aacc227ab0b20370fbe8d6dd090fcba44e20d1e1d14e5aaf8f56cd4c539e5d57.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ab3417ac2d710efc8f68e025301a136a6b5f5fc331348cf08f0400c4e69a6dbb",
+        "candidateIds": [
+          "kaU64FFHJmjk5v38Vkn4dBptnZWVBMbsuf_3oSpUZbo"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab3417ac2d710efc8f68e025301a136a6b5f5fc331348cf08f0400c4e69a6dbb.json",
+        "status": "miss",
+        "text": "「雑誌社のものですけど、水原先生に、ちょっと、画の相談、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab3417ac2d710efc8f68e025301a136a6b5f5fc331348cf08f0400c4e69a6dbb.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ac5579c5be263ddb45e78e0ae3f3c661424b6ca4e407beb4d99cd0993beb89f4",
+        "candidateIds": [
+          "fUdzub29z0ucVexZ9coYeRP65P4dfYadt5VNP2Mfe1M"
+        ],
+        "estimatedBytes": 483884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac5579c5be263ddb45e78e0ae3f3c661424b6ca4e407beb4d99cd0993beb89f4.json",
+        "status": "miss",
+        "text": "「へんねえ。また酔った振りなんかして、ばかなまねをしようとしているんじゃないでしょうね。あれは、ごめんですよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac5579c5be263ddb45e78e0ae3f3c661424b6ca4e407beb4d99cd0993beb89f4.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ac7e1322f18e5e32dc0660bff5ae5f44e29b690c9962411d2bc4e3c727ef94a6",
+        "candidateIds": [
+          "AY1KdjDWX0o8IO3sHkryhjHywQByz5p_fv2qGr1WG-0"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac7e1322f18e5e32dc0660bff5ae5f44e29b690c9962411d2bc4e3c727ef94a6.json",
+        "status": "miss",
+        "text": "「召し上れ。味の素は、サーヴィスよ。気にしなくたっていいわよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac7e1322f18e5e32dc0660bff5ae5f44e29b690c9962411d2bc4e3c727ef94a6.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "acaba234e040a097b5b11d5981244fd9c3090bcfd01a807f88a4cb6c0262b91c",
+        "candidateIds": [
+          "J5-eMrKnvaYNIRgNeCngdMFaa7dJhS8q8PhrPV8Mk7M"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/acaba234e040a097b5b11d5981244fd9c3090bcfd01a807f88a4cb6c0262b91c.json",
+        "status": "miss",
+        "text": "「ああ、酔った。すきっぱらに飲んだので、ひどく酔った。ちょっとここへ寝かせてもらおうか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/acaba234e040a097b5b11d5981244fd9c3090bcfd01a807f88a4cb6c0262b91c.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "acc0cf42dad515e509f2e8cd3246dc33751397512cc2c4c8fae778a734ceff75",
+        "candidateIds": [
+          "i_EW2X3Mstf6plhP-nXx0klZmpEG76H5rDVDRMd88YM"
+        ],
+        "estimatedBytes": 362924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/acc0cf42dad515e509f2e8cd3246dc33751397512cc2c4c8fae778a734ceff75.json",
+        "status": "miss",
+        "text": "「ばかにしないで！ 見えすいていますよ。泊りたかったら、五十万、いや百万円お出し。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/acc0cf42dad515e509f2e8cd3246dc33751397512cc2c4c8fae778a734ceff75.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ad8fd77fb6747b027d5407d1bc2ffb344fdd2191744aaa74afd903cf83d514f2",
+        "candidateIds": [
+          "7U-61dy4ZEwEdfp3q7K4s5isot3oHVewHiHXngGUtmg"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ad8fd77fb6747b027d5407d1bc2ffb344fdd2191744aaa74afd903cf83d514f2.json",
+        "status": "miss",
+        "text": "「何も、君、そんなに怒る事は無いじゃないか。酔ったから、ここへ、ちょっと、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ad8fd77fb6747b027d5407d1bc2ffb344fdd2191744aaa74afd903cf83d514f2.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "af56219a851e215835b9dd17babd71a4f8c2e8d79852c09a5f30b5f685765442",
+        "candidateIds": [
+          "HeKBzEONABmoXqZiWP5MRu34m39UyduzEPlXOX4jjmU"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/af56219a851e215835b9dd17babd71a4f8c2e8d79852c09a5f30b5f685765442.json",
+        "status": "miss",
+        "text": "「君に損はかけない。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/af56219a851e215835b9dd17babd71a4f8c2e8d79852c09a5f30b5f685765442.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "b0d387dda638e5792f59930fa8c2cf8890cf2ebfaa7bf7d7b73f69b18c3f6056",
+        "candidateIds": [
+          "jm3cCep006w0QC59zel1616rJD9VeZSRDCfNA9hfUCk"
+        ],
+        "estimatedBytes": 285164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b0d387dda638e5792f59930fa8c2cf8890cf2ebfaa7bf7d7b73f69b18c3f6056.json",
+        "status": "miss",
+        "text": "「そう。もう見て来たの。あれ、何ていったかしら、アシクリゲ、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b0d387dda638e5792f59930fa8c2cf8890cf2ebfaa7bf7d7b73f69b18c3f6056.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "b1679c9f29557426ee68d526c0b9b96e9c9c45293bd28982d9d4f6326f6c5111",
+        "candidateIds": [
+          "KcHBrVfOLNHKXmp7Ya-GDiQ60HXcniD5ZEfxAxDrCTY"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1679c9f29557426ee68d526c0b9b96e9c9c45293bd28982d9d4f6326f6c5111.json",
+        "status": "miss",
+        "text": "「あの曲は、何？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1679c9f29557426ee68d526c0b9b96e9c9c45293bd28982d9d4f6326f6c5111.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "b7bd99e01d80e5badcc43ff2fbe56f204b1be039998ac228cb1dc77c2907c566",
+        "candidateIds": [
+          "mILE_URMLOOvO5PSNMR_eK5KTQJvv9Wynzmukkdy3nE"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7bd99e01d80e5badcc43ff2fbe56f204b1be039998ac228cb1dc77c2907c566.json",
+        "status": "miss",
+        "text": "「ニヤケているんじゃない。キレイというものなんだ。君は、きょうはまた、きたな過ぎるじゃないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7bd99e01d80e5badcc43ff2fbe56f204b1be039998ac228cb1dc77c2907c566.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "b9ed948d3001f8dc501da5e43c57eedce5d80b2f50d41df4002d5d310f4557e8",
+        "candidateIds": [
+          "ELiTJPaHtFHEMhLY2sLcraJD2_binmHdD03E-BGtYrU"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b9ed948d3001f8dc501da5e43c57eedce5d80b2f50d41df4002d5d310f4557e8.json",
+        "status": "miss",
+        "text": "「フクスイ？ バカ野郎、ハイスイ（背水）の陣だよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b9ed948d3001f8dc501da5e43c57eedce5d80b2f50d41df4002d5d310f4557e8.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ba1d42cd596d31546a76377b64b735294847b8a07919aaae648262b2eff732b1",
+        "candidateIds": [
+          "hQMeXaUpNY0z1H70bXuJqwEl9wloVB03fdrd5kyrbo4"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ba1d42cd596d31546a76377b64b735294847b8a07919aaae648262b2eff732b1.json",
+        "status": "miss",
+        "text": "「そうね、きょうは、我慢してあげるわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ba1d42cd596d31546a76377b64b735294847b8a07919aaae648262b2eff732b1.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "bc155c3436ec938528cb158ccd0ea8df5168396d98cf7563b4cb73ee27affc3a",
+        "candidateIds": [
+          "ahKBz2kWcRFP8xdSBJkLB3TEPHkVNZxOv1f_xPluuq8"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc155c3436ec938528cb158ccd0ea8df5168396d98cf7563b4cb73ee27affc3a.json",
+        "status": "miss",
+        "text": "「何も考えないわ。あなたの事なんか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc155c3436ec938528cb158ccd0ea8df5168396d98cf7563b4cb73ee27affc3a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "be2ad79ce5e10453c68c8d4280256072a6cb0c15495b8d6f50353004f27f7225",
+        "candidateIds": [
+          "LsS883gSprwdjibw9eRwm44SW3yBsxV4bq89BVR_uN8"
+        ],
+        "estimatedBytes": 1330604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/be2ad79ce5e10453c68c8d4280256072a6cb0c15495b8d6f50353004f27f7225.json",
+        "status": "miss",
+        "text": "「案外、しゅしょうな事を言いやがる。もっとも、多情な奴に限って奇妙にいやらしいくらい道徳におびえて、そこがまた、女に好かれるゆえんでもあるのだがね。男振りがよくて、金があって、若くて、おまけに道徳的で優しいと来たら、そりゃ、もてるよ。当り前の話だ。お前のほうでやめるつもりでも、先方が承知しないぜ、これは。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/be2ad79ce5e10453c68c8d4280256072a6cb0c15495b8d6f50353004f27f7225.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c02bfb8cbbe96bd87d2e01ea45db7347f40d4ea05c82128cbdc2f09b4e1d77e5",
+        "candidateIds": [
+          "HfBltg-BnA542z9zKh0ZFTNRtOwYOsMSIVixG8BlezU"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c02bfb8cbbe96bd87d2e01ea45db7347f40d4ea05c82128cbdc2f09b4e1d77e5.json",
+        "status": "miss",
+        "text": "「へえ？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c02bfb8cbbe96bd87d2e01ea45db7347f40d4ea05c82128cbdc2f09b4e1d77e5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c153a875690e84830ee7d58edca775fe403365d01787abba09a009b34169bbb9",
+        "candidateIds": [
+          "tzWxnymr58mhWMBW-VrqK6g1eQOttLqrtOqD-TdDnos"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c153a875690e84830ee7d58edca775fe403365d01787abba09a009b34169bbb9.json",
+        "status": "miss",
+        "text": "「一本（一万円のこと）でなくちゃ、いや。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c153a875690e84830ee7d58edca775fe403365d01787abba09a009b34169bbb9.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c25c14631afb8ea603789cadb130faf9caf1bcaf61cd37cc1ca331ad7394c27a",
+        "candidateIds": [
+          "nTdRIsA7mGS9B1TxAShylb3RB8GLz1jUcp64ExvehYw"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c25c14631afb8ea603789cadb130faf9caf1bcaf61cd37cc1ca331ad7394c27a.json",
+        "status": "miss",
+        "text": "「そんなら、それで、いいじゃないの？ 電話を切るわよ。そんな無駄話は、いや。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c25c14631afb8ea603789cadb130faf9caf1bcaf61cd37cc1ca331ad7394c27a.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c335bfaf9c89c6096739eec860d2a521476836d20a11ad2bb744ff8c465df096",
+        "candidateIds": [
+          "2eqfrI3M4iL7x-ahIoNFbCm8K4qFGO1bQPK-9Soh5g4"
+        ],
+        "estimatedBytes": 362924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c335bfaf9c89c6096739eec860d2a521476836d20a11ad2bb744ff8c465df096.json",
+        "status": "miss",
+        "text": "「上品ぶったって、ダメよ。あなただって、いつも酒くさいじゃないの。いやな、におい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c335bfaf9c89c6096739eec860d2a521476836d20a11ad2bb744ff8c465df096.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d",
+        "candidateIds": [
+          "z-bRe9KAqzdfcjN-BUcijruTyUZBLioO8p_VUNhr8CE"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.json",
+        "status": "miss",
+        "text": "「なぜ？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c4ee7da72ca8f1da52ee826c92d4e7f5c1b6aa8fdd9b8354732524fc0983244d.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c69fba15d21668977da743430a1a9f97b741ace5e8378db3402a45dc2cf33e60",
+        "candidateIds": [
+          "aU_5paQRxFeMSp3g5rWqn1XakNKzgTVa7j2AY9hA5II"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c69fba15d21668977da743430a1a9f97b741ace5e8378db3402a45dc2cf33e60.json",
+        "status": "miss",
+        "text": "「ケチねえ。あなたは、だめ。私奥へ行って聞いて来るわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c69fba15d21668977da743430a1a9f97b741ace5e8378db3402a45dc2cf33e60.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c6b8895734ef4cc346e841ad377e256adb54f875401361c644b0e5a64537fa83",
+        "candidateIds": [
+          "6UDCbBdCKFQFug9x5_xfU3FSCObUjYcdBmslcKAwOF0"
+        ],
+        "estimatedBytes": 423404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c6b8895734ef4cc346e841ad377e256adb54f875401361c644b0e5a64537fa83.json",
+        "status": "miss",
+        "text": "「そんなら、よしたら、どう？ 私だって何も、すき好んで、あなたについて歩いているんじゃないわよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c6b8895734ef4cc346e841ad377e256adb54f875401361c644b0e5a64537fa83.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "c8fbfa72cd8b412392ccad17935feab405ddca27570ee4616f1ef8ba3b9d5ed5",
+        "candidateIds": [
+          "8Te3dIjWki-FEHd6Xp2ivOAsoPGfEl4nxPVWJiQGRn4"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c8fbfa72cd8b412392ccad17935feab405ddca27570ee4616f1ef8ba3b9d5ed5.json",
+        "status": "miss",
+        "text": "「こんちは。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c8fbfa72cd8b412392ccad17935feab405ddca27570ee4616f1ef8ba3b9d5ed5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "cada5aa1698002a8adfc7d2048d6ed364fa3c375220d22823ee178467ccdab77",
+        "candidateIds": [
+          "MpIZCrVbNeQ9ibi8Bat9Dengi7w-PPDQIKKaB_WU83k"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cada5aa1698002a8adfc7d2048d6ed364fa3c375220d22823ee178467ccdab77.json",
+        "status": "miss",
+        "text": "「もう四枚。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cada5aa1698002a8adfc7d2048d6ed364fa3c375220d22823ee178467ccdab77.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "cae4372f71942bb9fc5e033c8189cdc31df5d40c3142a562f1f3a628ea5fdadc",
+        "candidateIds": [
+          "m2tfaPh2tUq4MQ94zipbAhPsGnYSVcJfdk9_r4rSydU"
+        ],
+        "estimatedBytes": 1641644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cae4372f71942bb9fc5e033c8189cdc31df5d40c3142a562f1f3a628ea5fdadc.json",
+        "status": "miss",
+        "text": "「無いね。お前が五、六年、外国にでも行って来たらいいだろうが、しかし、いまは簡単に洋行なんか出来ない。いっそ、その女たちを全部、一室に呼び集め、ほたるの光でも歌わせて、いや、仰げば尊し、のほうがいいかな、お前が一人々々に卒業証書を授与してね、それからお前は、発狂のまねをして、まっぱだかで表に飛び出し、逃げる。これなら、たしかだ。女たちも、さすがにあきれて、あきらめるだろうさ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cae4372f71942bb9fc5e033c8189cdc31df5d40c3142a562f1f3a628ea5fdadc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "cbaf16a1ced05a4f4562c1702386882530c2d7f5e8bc5a73803fa7f9fb8930d1",
+        "candidateIds": [
+          "psKW2EG_Q3XtGKFTZ8Evdfqjgh2jNbmNPK_IIapHQMA"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cbaf16a1ced05a4f4562c1702386882530c2d7f5e8bc5a73803fa7f9fb8930d1.json",
+        "status": "miss",
+        "text": "「あなたは、ケチで値切ってばかりいるから、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cbaf16a1ced05a4f4562c1702386882530c2d7f5e8bc5a73803fa7f9fb8930d1.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "cbff2f7ee2b9651f8beed664718172ee399e1be42af7e3f930e2342505a5b698",
+        "candidateIds": [
+          "Vd70zQbpoCwPNq5TzECRjkQ7NOXwm570Q3l9dvrNtls"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cbff2f7ee2b9651f8beed664718172ee399e1be42af7e3f930e2342505a5b698.json",
+        "status": "miss",
+        "text": "「女房の髪をね、一つ、いじってやって下さい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cbff2f7ee2b9651f8beed664718172ee399e1be42af7e3f930e2342505a5b698.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "cd28279e2a5ce8b56148bbc7d817e50f783db57dc71d41012819ec6cdf8fc6bc",
+        "candidateIds": [
+          "teYp7yRFWhQpaLZCfpWm7pT77WyrXAkiRBZu83jsjRA"
+        ],
+        "estimatedBytes": 354284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cd28279e2a5ce8b56148bbc7d817e50f783db57dc71d41012819ec6cdf8fc6bc.json",
+        "status": "miss",
+        "text": "「それじゃね、これから、いくらでも君に食べさせるから、ぼくの頼み事も聞いてくれ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cd28279e2a5ce8b56148bbc7d817e50f783db57dc71d41012819ec6cdf8fc6bc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d2969296230e88b43c8663316754b312aed5fb3c16f212c568212d6727b50203",
+        "candidateIds": [
+          "ZKvGFQFZkA1XBBQakXO7J3JTCWAg1xC73FpKNxmA-js"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2969296230e88b43c8663316754b312aed5fb3c16f212c568212d6727b50203.json",
+        "status": "miss",
+        "text": "「あなた、カラスミなんか、好きでしょう？ 酒飲みだから。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2969296230e88b43c8663316754b312aed5fb3c16f212c568212d6727b50203.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d2abf88b279d27321c0afd13cff10a945cfc0a20e36c8870a770e3b530f10f6d",
+        "candidateIds": [
+          "twOf_XN7KQWy5A15MPbhSvphxBlzPiJvLPxeGMUZt2I"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2abf88b279d27321c0afd13cff10a945cfc0a20e36c8870a770e3b530f10f6d.json",
+        "status": "miss",
+        "text": "「さては、相当ため込んだね。いやに、りゅうとしてるじゃないか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2abf88b279d27321c0afd13cff10a945cfc0a20e36c8870a770e3b530f10f6d.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d2e2c5d0baf96e723a0f61f2686e43d6e6c9fa34246147bd1c9fab50e45d2106",
+        "candidateIds": [
+          "-bKc_KtWhFbFX6gWq9av1b9tlXHn8AWo6fFfRj9Z4E8"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2e2c5d0baf96e723a0f61f2686e43d6e6c9fa34246147bd1c9fab50e45d2106.json",
+        "status": "miss",
+        "text": "「そこなんです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2e2c5d0baf96e723a0f61f2686e43d6e6c9fa34246147bd1c9fab50e45d2106.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d43f1d6bbdcc427f601b8f83504eec4d07bfc26ea6f71d0c0184c9a4a20e78ca",
+        "candidateIds": [
+          "uTXaaF5kSW4OLalcRNucs3SghXBRHTZAF69Ad9YTujE"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d43f1d6bbdcc427f601b8f83504eec4d07bfc26ea6f71d0c0184c9a4a20e78ca.json",
+        "status": "miss",
+        "text": "「だれ？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d43f1d6bbdcc427f601b8f83504eec4d07bfc26ea6f71d0c0184c9a4a20e78ca.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d5775fa5c33a1e0ece606b8651f86b11d13208ec6efded880644e221e44a74cf",
+        "candidateIds": [
+          "PyaE4vIZTVYVDoTyTbHsryO5ZhAjzZQMYS0dY7gKles",
+          "kVPMmn1EOrygXjRVXtm0mUhIpCTMfINeqU-Rx6mTdKA"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d5775fa5c33a1e0ece606b8651f86b11d13208ec6efded880644e221e44a74cf.json",
+        "status": "miss",
+        "text": "「あら、いやだ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d5775fa5c33a1e0ece606b8651f86b11d13208ec6efded880644e221e44a74cf.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d759028823d94ef75512c9c5bf806dc69a38b582145ace0cfd9c04080388d2c5",
+        "candidateIds": [
+          "v4FO1JgDtmJ8gJWbWPDLusKjr4a5YISF0fnee3UIKi8"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d759028823d94ef75512c9c5bf806dc69a38b582145ace0cfd9c04080388d2c5.json",
+        "status": "miss",
+        "text": "「その他、お金もくれるんでしょう？ あなたは、ケチで、ごまかすから。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d759028823d94ef75512c9c5bf806dc69a38b582145ace0cfd9c04080388d2c5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d7cbf3138802807bfc897a031f83278c7fcbd09f9d8f21190e98f239596e5138",
+        "candidateIds": [
+          "c3MfXukNTru3x1yO-XGikny19398M_lki1D-Lh813eI"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d7cbf3138802807bfc897a031f83278c7fcbd09f9d8f21190e98f239596e5138.json",
+        "status": "miss",
+        "text": "「それが、だから、悪い事でしょうか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d7cbf3138802807bfc897a031f83278c7fcbd09f9d8f21190e98f239596e5138.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d7f37db94d386c9d20dc65ab65e8f27c28a63f25b664016a129c4bcda7be2b9c",
+        "candidateIds": [
+          "dxvJ9Z7Q3R4_R95QwK7rXNkkvuV1AKebd14svGV50Ks"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d7f37db94d386c9d20dc65ab65e8f27c28a63f25b664016a129c4bcda7be2b9c.json",
+        "status": "miss",
+        "text": "「失礼します。僕は、あの、ここから電車で、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d7f37db94d386c9d20dc65ab65e8f27c28a63f25b664016a129c4bcda7be2b9c.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "d820f1940cad692a6e25b3358316f507a4ee2304f9a2e5778cdfa5724fe81a57",
+        "candidateIds": [
+          "2v5aTAYrhSATpsxvI2chClywbnLbimbWHPyPOo6Mz-E"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d820f1940cad692a6e25b3358316f507a4ee2304f9a2e5778cdfa5724fe81a57.json",
+        "status": "miss",
+        "text": "「おしっこが出たいのよ。もう、かんにんして。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d820f1940cad692a6e25b3358316f507a4ee2304f9a2e5778cdfa5724fe81a57.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "da3f550597b63910be59b703f6e0aa02452bbe70af8f77db33cd6010f5e5e09c",
+        "candidateIds": [
+          "SJMQkAWowXcl3m5V-s4jYhqkBYygpYf2cy3857e0K_E"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/da3f550597b63910be59b703f6e0aa02452bbe70af8f77db33cd6010f5e5e09c.json",
+        "status": "miss",
+        "text": "「でも、そのモンペは、ひどすぎるんじゃないか？ 非衛生的だ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/da3f550597b63910be59b703f6e0aa02452bbe70af8f77db33cd6010f5e5e09c.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "dc1a21fb6a90587ce50ce6f4812712001b73b11a7d99f5800d5f48842f565546",
+        "candidateIds": [
+          "Sn4CeJCiPNAWwTFQfJPoxMQ1ij04XiKXiUnJU9fxWN8"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc1a21fb6a90587ce50ce6f4812712001b73b11a7d99f5800d5f48842f565546.json",
+        "status": "miss",
+        "text": "「あいつも、」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc1a21fb6a90587ce50ce6f4812712001b73b11a7d99f5800d5f48842f565546.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "dc3d774f56574a11582ef98c819293123528f7c9c5ab5911d14c6f171b2dbdbd",
+        "candidateIds": [
+          "dbabne4aApyuaXLwJAv_XeipasjwaR9W3vGXXRuBvbQ"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc3d774f56574a11582ef98c819293123528f7c9c5ab5911d14c6f171b2dbdbd.json",
+        "status": "miss",
+        "text": "「なんだ、あなたか。なぜ、来たの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc3d774f56574a11582ef98c819293123528f7c9c5ab5911d14c6f171b2dbdbd.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "dd8162f30587b928626b12aef6c700209c05f6af0b631ece46cf2c240200e276",
+        "candidateIds": [
+          "7_I4IYX0qW5tUIjERfSKNjuVplKFUvYJRh23SIFr3t4"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd8162f30587b928626b12aef6c700209c05f6af0b631ece46cf2c240200e276.json",
+        "status": "miss",
+        "text": "「くさい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd8162f30587b928626b12aef6c700209c05f6af0b631ece46cf2c240200e276.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "dff4f734fbea8a82d91e4cc7b148966e881568daf8dff8604f9c3e410f57c29f",
+        "candidateIds": [
+          "SjHyZ7vh_lDMRW17fbUSQLVnojQfdyrFFLilEWwq5T8"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dff4f734fbea8a82d91e4cc7b148966e881568daf8dff8604f9c3e410f57c29f.json",
+        "status": "miss",
+        "text": "「引受けてくれるね？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dff4f734fbea8a82d91e4cc7b148966e881568daf8dff8604f9c3e410f57c29f.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e14de3252aebcb2bc9318aa0d0216ad36c308a92edc323319fbff639aad264ad",
+        "candidateIds": [
+          "z3-PaalWZ8uIwwGw50fl9pgC0Qk1mEtjzHQJh_j_SW0"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e14de3252aebcb2bc9318aa0d0216ad36c308a92edc323319fbff639aad264ad.json",
+        "status": "miss",
+        "text": "「いや、きょうは、本当に、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e14de3252aebcb2bc9318aa0d0216ad36c308a92edc323319fbff639aad264ad.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e30f13a160dcaaf9976537dbaf3aa9ed7c1f329e0e2a625f5719b831a7c2baea",
+        "candidateIds": [
+          "IgQnX_wcy4wiT0FgJLfq5_k4elX7e8Pq4lbWLUoPEfo"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e30f13a160dcaaf9976537dbaf3aa9ed7c1f329e0e2a625f5719b831a7c2baea.json",
+        "status": "miss",
+        "text": "「ショパン。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e30f13a160dcaaf9976537dbaf3aa9ed7c1f329e0e2a625f5719b831a7c2baea.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e4a59de2f2f7e5e7111767791fd475a9bfa579ef498b32a6f3deeb297a0cd466",
+        "candidateIds": [
+          "7z5oiZFvclL-b6I_gP-_sokpKugxAAdkhcywbnpQBGA"
+        ],
+        "estimatedBytes": 483884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4a59de2f2f7e5e7111767791fd475a9bfa579ef498b32a6f3deeb297a0cd466.json",
+        "status": "miss",
+        "text": "「いや、商売の話じゃない。ぼくはもう、そろそろ足を洗うつもりでいるんだ。君は、まだ相変らず、かついでいるのか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4a59de2f2f7e5e7111767791fd475a9bfa579ef498b32a6f3deeb297a0cd466.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e4b351f4b45ce859f4990da10f15def5ae5678ef23964887e9ff696afc026b6f",
+        "candidateIds": [
+          "XRoTZhc914zB7p4S5jcmZABuiKqjcSHs5wrQnbQtqyo"
+        ],
+        "estimatedBytes": 553004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4b351f4b45ce859f4990da10f15def5ae5678ef23964887e9ff696afc026b6f.json",
+        "status": "miss",
+        "text": "「いや、使った。あとでぼくが残金を調べてみれば、わかる。一万円以上は、たしかに使った。こないだの料理だって安くなかったんだぜ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4b351f4b45ce859f4990da10f15def5ae5678ef23964887e9ff696afc026b6f.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e5c1ac962a4143f429c85ee848e12419839da1e519065444963d511cf0138ed9",
+        "candidateIds": [
+          "8cKFUSsWRRyBTvwZe8mSGEcEoAiH-suQ1sYtmxdPPPY"
+        ],
+        "estimatedBytes": 786284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5c1ac962a4143f429c85ee848e12419839da1e519065444963d511cf0138ed9.json",
+        "status": "miss",
+        "text": "「しかし、僕にとっては、本当に死活の大問題なんです。僕は、道徳は、やはり重んじなけりゃならん、と思っているんです。たすけて下さい、僕を、たすけて下さい。僕は、いい事をしたいんです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5c1ac962a4143f429c85ee848e12419839da1e519065444963d511cf0138ed9.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e611784f49570cb7a8e2342aa13b1434b20e66d0793cc507dc591b706663f594",
+        "candidateIds": [
+          "exrg3mdjMjuryeUky50bmCkfGWymh1RHM1_jVTrZDTg"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e611784f49570cb7a8e2342aa13b1434b20e66d0793cc507dc591b706663f594.json",
+        "status": "miss",
+        "text": "「恋愛と淫乱とは、根本的にちがいますよ。君は、なんにも知らんらしいね。教えてあげましょうかね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e611784f49570cb7a8e2342aa13b1434b20e66d0793cc507dc591b706663f594.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e6633353ab08fcf27bd169ea140f2029e04d4fb45fd8ad5993fd90e1a851e032",
+        "candidateIds": [
+          "rfwe_IFVwQn_ruO8N3r1EfbY6EaKa9nV31ENUEpVL4g"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e6633353ab08fcf27bd169ea140f2029e04d4fb45fd8ad5993fd90e1a851e032.json",
+        "status": "miss",
+        "text": "「お洗濯は？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e6633353ab08fcf27bd169ea140f2029e04d4fb45fd8ad5993fd90e1a851e032.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e6f3064eb4a5fb6672fcb57a5c28d9d6e6aff8bd85996cdc5ac4fe7c1c6ada54",
+        "candidateIds": [
+          "7DYAKP9LtkgsodDcYVaUigy0UMd5L8_kRJFSivpkx9Q"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e6f3064eb4a5fb6672fcb57a5c28d9d6e6aff8bd85996cdc5ac4fe7c1c6ada54.json",
+        "status": "miss",
+        "text": "「それは、まあ、無論そういうものでしょうが、僕はね、これはね、いい事だと思うんです。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e6f3064eb4a5fb6672fcb57a5c28d9d6e6aff8bd85996cdc5ac4fe7c1c6ada54.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e7f161de030c0be9c283f3f5bc28b113e28c202eb651eea30d885369deb9a495",
+        "candidateIds": [
+          "5WEFkyTo2hSvJVGSYBpU9EEVYeerKO2jQvSqpUhjVyo"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e7f161de030c0be9c283f3f5bc28b113e28c202eb651eea30d885369deb9a495.json",
+        "status": "miss",
+        "text": "「でも、私の仕事を休まなければならないんだから、損よ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e7f161de030c0be9c283f3f5bc28b113e28c202eb651eea30d885369deb9a495.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e81ca6630f9b263165ba69e52575b681131f48b27ad9d1511ab6553ed4c5d50e",
+        "candidateIds": [
+          "8TeJBDXVlo-ls1lC-3THHfZrOgXpqhMeRC9h9MDK_WY"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e81ca6630f9b263165ba69e52575b681131f48b27ad9d1511ab6553ed4c5d50e.json",
+        "status": "miss",
+        "text": "「くさい仲、というものさね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e81ca6630f9b263165ba69e52575b681131f48b27ad9d1511ab6553ed4c5d50e.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e95d6bd1ec0218c858e20a2e2799ff8e216d642d8f6887a884e698c0598dc97b",
+        "candidateIds": [
+          "tleepod3p-SMwFNgeKGcJsD-g3yE-XOgDVf-_1KRvtM"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e95d6bd1ec0218c858e20a2e2799ff8e216d642d8f6887a884e698c0598dc97b.json",
+        "status": "miss",
+        "text": "「そう。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e95d6bd1ec0218c858e20a2e2799ff8e216d642d8f6887a884e698c0598dc97b.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "e9a60019c582211679e961044bdbe4bdfa8a00665e3835335d6aec0581aec54e",
+        "candidateIds": [
+          "L0MmC9RF1Oly1NniVE1nD1hmQcIW20lCkZRbl1aExO0"
+        ],
+        "estimatedBytes": 820844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e9a60019c582211679e961044bdbe4bdfa8a00665e3835335d6aec0581aec54e.json",
+        "status": "miss",
+        "text": "「そんな乱暴な事は出来ない。相手の人たちだって、これから、結婚するかも知れないし、また、新しい愛人をつくるかも知れない。相手のひとたちの気持をちゃんときめさせるようにするのが、男の責任さ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e9a60019c582211679e961044bdbe4bdfa8a00665e3835335d6aec0581aec54e.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ea1da92b587f6ad57e7b4340f51f0b4d27036fd80081f5fc5fab34f775dfd780",
+        "candidateIds": [
+          "1tXULZaH3UgkhI3d3P7iP3-DV2kCikFZXaBOu2KrCK4"
+        ],
+        "estimatedBytes": 639404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ea1da92b587f6ad57e7b4340f51f0b4d27036fd80081f5fc5fab34f775dfd780.json",
+        "status": "miss",
+        "text": "「まだ、何か食う気かい？ 胃拡張とちがうか。病気だぜ、君は。いちど医者に見てもらったらどうだい。さっきから、ずいぶん食ったぜ。もういい加減によせ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ea1da92b587f6ad57e7b4340f51f0b4d27036fd80081f5fc5fab34f775dfd780.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ece07e267dc9e68ea25871692b8145842337de8164d9f44cb4c3edc615b93188",
+        "candidateIds": [
+          "r3WMPiIbWbW0BYu-v1NpET4TboUVpUIVJPNWUByIw_c"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ece07e267dc9e68ea25871692b8145842337de8164d9f44cb4c3edc615b93188.json",
+        "status": "miss",
+        "text": "「ここの自慢のもの。トンカツの他に何か無いの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ece07e267dc9e68ea25871692b8145842337de8164d9f44cb4c3edc615b93188.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "ed7993280992bc6a8d093778bbfdfc3eb4ad2e28dbe3c8e57b9ec314745fad77",
+        "candidateIds": [
+          "ek0dwrByB4UUdDO7xKzKz9zUGm9Cn0M5TlsKNToJkuI"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed7993280992bc6a8d093778bbfdfc3eb4ad2e28dbe3c8e57b9ec314745fad77.json",
+        "status": "miss",
+        "text": "「ごちそうが、つくの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed7993280992bc6a8d093778bbfdfc3eb4ad2e28dbe3c8e57b9ec314745fad77.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "efe7ff424a16022e371dcbc5bfa5de96534b19ade9bb75e80c7e7890635a80bc",
+        "candidateIds": [
+          "ZRypOvtVINYHS0yb1A-hulez9p4xz0hDYbYwxQ0F9FM"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/efe7ff424a16022e371dcbc5bfa5de96534b19ade9bb75e80c7e7890635a80bc.json",
+        "status": "miss",
+        "text": "「バカ野郎、いい加減にしろ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/efe7ff424a16022e371dcbc5bfa5de96534b19ade9bb75e80c7e7890635a80bc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f00650304dbfc774de19be6fe7ca14bc4896578064c2e501fce1507c279f2fe5",
+        "candidateIds": [
+          "oTFRQm2PKO9W8kFRzJbcpoNnUbiEcBsWxkKn2PrjdYY"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f00650304dbfc774de19be6fe7ca14bc4896578064c2e501fce1507c279f2fe5.json",
+        "status": "miss",
+        "text": "「ばか、僕の音楽通を知らんな、君は。名曲ならば、一日一ぱいでも聞いていたい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f00650304dbfc774de19be6fe7ca14bc4896578064c2e501fce1507c279f2fe5.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f04cc52729674912571e078e352c6f2597dbcc36fd48d546afe2a6763f05ad07",
+        "candidateIds": [
+          "Qbzwr_eolGGGbaEojmEAhejCqxKteyli09P_YIDVSaM"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f04cc52729674912571e078e352c6f2597dbcc36fd48d546afe2a6763f05ad07.json",
+        "status": "miss",
+        "text": "「グッド・バイ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f04cc52729674912571e078e352c6f2597dbcc36fd48d546afe2a6763f05ad07.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f0c4b5cf78d8b3852bac3b97b1c36dff7844cd7a22bbea5fbc6602e4723e9cce",
+        "candidateIds": [
+          "mDTYvPja9OjJOZavz-Oe--EDVn_kH2tmJBIkWtcLjHk"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0c4b5cf78d8b3852bac3b97b1c36dff7844cd7a22bbea5fbc6602e4723e9cce.json",
+        "status": "miss",
+        "text": "「そんなには、使わないわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0c4b5cf78d8b3852bac3b97b1c36dff7844cd7a22bbea5fbc6602e4723e9cce.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f0d7bb59aec90ea3417d74ac0ab91afed6eef7cd6e74442282bdf28af6ec14e4",
+        "candidateIds": [
+          "qQCWaD0UnEwqnINJcRTVWFq2EPREoY5IALbPFYcAAco"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0d7bb59aec90ea3417d74ac0ab91afed6eef7cd6e74442282bdf28af6ec14e4.json",
+        "status": "miss",
+        "text": "「ピアノが聞えるね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0d7bb59aec90ea3417d74ac0ab91afed6eef7cd6e74442282bdf28af6ec14e4.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f1d502ddfccec3fae6af8b1d75df7105d73cdf0c396e145b94e11b99f57102a3",
+        "candidateIds": [
+          "l1f-nnLi_xn2pGn8TQgxlwgWAl_l38bQdtQ20qLpWbU"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f1d502ddfccec3fae6af8b1d75df7105d73cdf0c396e145b94e11b99f57102a3.json",
+        "status": "miss",
+        "text": "「ここ、何か、自慢の料理でもあるの？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f1d502ddfccec3fae6af8b1d75df7105d73cdf0c396e145b94e11b99f57102a3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f28d8d899fc66144e48384b8f5c2ff631864e0c86c14b53d2e58b8c6f8a162bc",
+        "candidateIds": [
+          "PBgrlqPDQZqNAik-rvpQ1YcG1Sd10PtokhCC-WJe41A"
+        ],
+        "estimatedBytes": 561644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f28d8d899fc66144e48384b8f5c2ff631864e0c86c14b53d2e58b8c6f8a162bc.json",
+        "status": "miss",
+        "text": "「あんな事で、もう、わかれてしまうなんて、あの子も、いくじが無いね。ちょっと、べっぴんさんじゃないか。あのくらいの器量なら、……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f28d8d899fc66144e48384b8f5c2ff631864e0c86c14b53d2e58b8c6f8a162bc.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f2b33136338edb1129f9b0c01fcb08f5ac0db01373edb3e7ed1097289384ab06",
+        "candidateIds": [
+          "SFXoSTrhgKyR58QlYE3V5WY_2vinJB0Pyn5NPs7UGDo"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f2b33136338edb1129f9b0c01fcb08f5ac0db01373edb3e7ed1097289384ab06.json",
+        "status": "miss",
+        "text": "「そうさ、全くなってやしないから、君にこうして頼むんだ。往生しているんだよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f2b33136338edb1129f9b0c01fcb08f5ac0db01373edb3e7ed1097289384ab06.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f5acfc2c5e1a93c2fbc37651258e2a5f083e202dc0ea3e65cbcc9f86e29593b9",
+        "candidateIds": [
+          "dmPjofxQCFkcHSI_28S5BbBdUGxGUS4RfY9yyDJhWvU"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f5acfc2c5e1a93c2fbc37651258e2a5f083e202dc0ea3e65cbcc9f86e29593b9.json",
+        "status": "miss",
+        "text": "「それは結構だが、いったい、お前には、女が幾人あるんだい？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f5acfc2c5e1a93c2fbc37651258e2a5f083e202dc0ea3e65cbcc9f86e29593b9.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f627d343a0bd9c83efa113248f3f3587464a5ffba8b7ddbe343da0d8345987e3",
+        "candidateIds": [
+          "omCJtORcXx2H0eIiplFehRYE01MSSmtPqQQKQ5lCFSs"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f627d343a0bd9c83efa113248f3f3587464a5ffba8b7ddbe343da0d8345987e3.json",
+        "status": "miss",
+        "text": "「あたりまえよ。かつがなきゃおまんまが食べられませんからね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f627d343a0bd9c83efa113248f3f3587464a5ffba8b7ddbe343da0d8345987e3.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "f7d3b20cf361cb5b6a304ae81754c69787e76bd771dd70ea347b1fea86dbc913",
+        "candidateIds": [
+          "kFkSWcd8ytlzCzSi54KYSMXySPvfRrlv1UGlZj6qlgQ"
+        ],
+        "estimatedBytes": 293804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7d3b20cf361cb5b6a304ae81754c69787e76bd771dd70ea347b1fea86dbc913.json",
+        "status": "miss",
+        "text": "「バカにしないでよ。私は、どっちかと言えば、きれいずきなほうだわ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7d3b20cf361cb5b6a304ae81754c69787e76bd771dd70ea347b1fea86dbc913.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "fa64e8b8d9519cf4fda8cbede43226b793ce0b5875a5278a2eb83bb56d3ca2b7",
+        "candidateIds": [
+          "mji_XQ324kgez4HPnv9CYRs1QHas9ZHDJoxCF5fwZpI"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fa64e8b8d9519cf4fda8cbede43226b793ce0b5875a5278a2eb83bb56d3ca2b7.json",
+        "status": "miss",
+        "text": "「ここのトンカツは、大きいよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fa64e8b8d9519cf4fda8cbede43226b793ce0b5875a5278a2eb83bb56d3ca2b7.wav",
+        "workIds": [
+          "000258"
+        ]
+      },
+      {
+        "audioId": "fb66f5153f953cb83064e1bc9b2ee6c2e19eaf4b8a302ab3c2a49761e26d3946",
+        "candidateIds": [
+          "GxvlRketG7uvrtBgEanUwbBBC0Y46kUHEZ9myEQbgMQ"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fb66f5153f953cb83064e1bc9b2ee6c2e19eaf4b8a302ab3c2a49761e26d3946.json",
+        "status": "miss",
+        "text": "「何もそんな、めんどうな事をしなくても、いやになったら、ふっとそれっきりあわなけれあいいじゃないの。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fb66f5153f953cb83064e1bc9b2ee6c2e19eaf4b8a302ab3c2a49761e26d3946.wav",
+        "workIds": [
+          "000258"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 49384860,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "a7db4b884f1360af2526ded5cca7766dd053d8e0bd7780863620c402c3eec071",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 165,
+    "planDigest": "2a02f695f68de9fbd202b0d5e687b95b95c3ef98c2e70ba061f541e03c0ce16c",
+    "preTreeDigest": "3b7b1bd84a525e755e17189b750603ea556a7c4cf9350e996d509bc22035049f",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 165,
+    "workId": "000258"
+  },
+  "preTreeDigest": "3b7b1bd84a525e755e17189b750603ea556a7c4cf9350e996d509bc22035049f",
+  "reviewSha256": "f3e52010fca5a9456a507fe2e17b40d5c6720e1ec9ae53b6f726b7e3a5ec4e64",
+  "schemaVersion": "1.0.0",
+  "workId": "000258"
+}

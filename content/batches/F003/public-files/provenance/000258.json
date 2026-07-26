@@ -1,0 +1,35 @@
+{
+  "authorId": "000035",
+  "batchId": "F003",
+  "editorialReview": {
+    "approved": 166,
+    "path": "content/batches/F003/reviews/000258.json",
+    "pending": 0,
+    "rejected": 7,
+    "resultSha256": "f3e52010fca5a9456a507fe2e17b40d5c6720e1ec9ae53b6f726b7e3a5ec4e64",
+    "sha256": "3c803c0dee9f8e37d74ac72e8272a636873ae72367036ca0899c31350349955c"
+  },
+  "processing": {
+    "candidateCount": 173,
+    "sourceTreeSha256": "6ca35186863102366ef6a20f07525c41868da264ed67c4c48d8171a2b08e9ff8",
+    "toolVersion": "batch-runtime-source/1.0.0",
+    "transformation": "青空文庫公式XHTMLを宣言charsetでdecodeし、外側の「」候補を抽出して表示文とVOICEVOX用speech textへ決定的に正規化"
+  },
+  "schemaVersion": "1.0.0",
+  "source": {
+    "baseEdition": "太宰治全集9",
+    "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+    "fetchedAt": "2026-07-26T10:20:48.349Z",
+    "inputter": "柴田卓治",
+    "proofreader": "かとうかおり",
+    "rawSha256": "8eb5d7cd095e4b7163da4fcefda31166932794d656bb25b8c7ffa28b27515c41",
+    "textUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html"
+  },
+  "speechRevisions": {
+    "count": 0,
+    "path": "content/batches/F003/speech-revisions/000258.json",
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "title": "グッド・バイ",
+  "workId": "000258"
+}

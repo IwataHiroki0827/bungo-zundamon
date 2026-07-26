@@ -338,6 +338,15 @@ async function acceptanceFixture(adjudication = false) {
       stagingRoot: '.cache/content-preview',
     } as never,
     invariant: { result: 'pass', buildSha256: H('build'), stagingSha256: H('build') } as never,
+    publishedInvariant: {
+      result: 'pass',
+      target: 'work-preview',
+      inputTreeSha256: H('build'),
+      actualTreeSha256: H('build'),
+      baselineSha256: H('published-baseline'),
+      mismatches: [],
+      reportSha256: H('published-report'),
+    },
   });
   refs.content = await writeCanonical(root, `${rootPath}/baseline-content.json`, content);
   const dist = artifact('baseline-dist', [refs.content.sha256], {

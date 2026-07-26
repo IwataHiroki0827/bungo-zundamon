@@ -84,6 +84,12 @@ import {
 } from './batch-public.ts';
 import { buildPagesPreview, type PagesDistPreview } from './pages-preview.ts';
 import { loadAndVerifyF001Baseline, verifyF001DistInvariant, verifyF001Invariant, type F001Baseline } from './baseline.ts';
+import {
+  F002_PUBLISHED_RELEASE,
+  loadAndVerifyPublishedBaseline,
+  verifyPublishedInvariant,
+  type PublishedInvariantReport,
+} from './published-baseline.ts';
 import { validateCatalogV2 } from '../ui/catalog-loader.ts';
 import {
   loadAndVerifyTrustedArtworkMachineReview,
@@ -880,6 +886,8 @@ export interface ProductionBatchRuntimeOperations {
   readonly verifyF001Invariant: typeof verifyF001Invariant;
   readonly verifyF001DistInvariant: typeof verifyF001DistInvariant;
   readonly loadBaseline: typeof loadAndVerifyF001Baseline;
+  readonly loadPublishedBaseline: typeof loadAndVerifyPublishedBaseline;
+  readonly verifyPublishedInvariant: typeof verifyPublishedInvariant;
   readonly validateCatalog: typeof validateCatalogV2;
   readonly createVoiceClient: (workspace: string, config: VoiceConfigV2) => ProductionVoicevoxClient;
   readonly promoteWork: typeof promoteVerifiedWorkArtifacts;
@@ -899,6 +907,8 @@ const DEFAULT_RUNTIME_OPERATIONS: ProductionBatchRuntimeOperations = {
   verifyF001Invariant,
   verifyF001DistInvariant,
   loadBaseline: loadAndVerifyF001Baseline,
+  loadPublishedBaseline: loadAndVerifyPublishedBaseline,
+  verifyPublishedInvariant,
   validateCatalog: validateCatalogV2,
   createVoiceClient: (workspace, config) => new ProductionVoicevoxClient({
     baseUrl: 'http://127.0.0.1:50021', config, workspaceRoot: workspace, timeoutMs: 60_000, proxy: false,
@@ -1079,7 +1089,7 @@ async function executeCapacityActual(
   operations: ProductionBatchRuntimeOperations,
 ): Promise<BatchStageExecution> {
   const root = `.cache/batch-accept/${manifest.batchId}/${workId}`;
-  const [generationArtifact, completeness, preview, baselineBundle, inputs] = await Promise.all([
+  const [generationArtifact, completeness, preview, baselineBundle, publishedBaseline, inputs] = await Promise.all([
     readCanonicalRuntimeArtifact<VoiceGenerationRuntimeArtifact>(workspace, `${root}/voice-generation.json`, 'voice generation', 'capacity-actual'),
     readCanonicalRuntimeArtifact<VoiceCompletenessReport>(workspace, `${root}/voice-completeness.json`, 'voice completeness', 'capacity-actual'),
     readCanonicalRuntimeArtifact<IntegratedBuild>(workspace, `${root}/content-preview.json`, 'content preview', 'capacity-actual'),
@@ -1088,6 +1098,7 @@ async function executeCapacityActual(
       join(workspace, 'content', 'baselines', 'F001-v0.1.0.json'),
       join(workspace, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
     ),
+    operations.loadPublishedBaseline(workspace, F002_PUBLISHED_RELEASE),
     readCanonicalRuntimeArtifact<unknown>(workspace, `${root}/capacity-actual-inputs.json`, 'capacity actual inputs', 'capacity-actual'),
   ]);
   const baseline = {
@@ -1122,12 +1133,22 @@ async function executeCapacityActual(
   await mkdir(pagesOutputRoot, { recursive: false });
   try {
     let contentInvariant;
+    let publishedInvariant;
     let pages: PagesDistPreview;
     let distInvariant;
     try {
       contentInvariant = await operations.verifyF001Invariant(catalog.value, preview.stagingRoot, baseline);
       if (contentInvariant.buildSha256 !== preview.buildSha256 || contentInvariant.stagingSha256 !== preview.buildSha256) {
         throw new Error('content invariant/build SHA mismatch');
+      }
+      publishedInvariant = await operations.verifyPublishedInvariant(publishedBaseline, {
+        target: 'work-preview',
+        root: preview.stagingRoot,
+        treeSha256: preview.buildSha256,
+      });
+      if (publishedInvariant.result !== 'pass' || publishedInvariant.inputTreeSha256 !== preview.buildSha256 ||
+        publishedInvariant.actualTreeSha256 !== preview.buildSha256) {
+        throw new Error(`published baseline invariant mismatch: ${publishedInvariant.mismatches.join(',')}`);
       }
       pages = await operations.buildPagesPreview(preview, workspace, pagesOutputRoot, true);
       if (pages.batchId !== manifest.batchId || pages.workId !== workId || pages.contentBuildSha256 !== preview.buildSha256) {
@@ -1168,11 +1189,18 @@ async function executeCapacityActual(
       writeJsonArtifactAtomic(workspace, join(workspace, ...actualCapacityRef.split('/')), actual),
       writeJsonArtifactAtomic(workspace, join(workspace, root, 'dist-preview.json'), pages),
       writeJsonArtifactAtomic(workspace, join(workspace, root, 'f001-content-invariant.json'), contentInvariant),
+      writeJsonArtifactAtomic(workspace, join(workspace, root, 'published-content-invariant.json'), publishedInvariant),
       writeJsonArtifactAtomic(workspace, join(workspace, root, 'f001-dist-invariant.json'), distInvariant),
     ]);
     const inputHashes = [hashBatchManifest(manifest), generation.generationDigest as Sha256,
       completeness.completenessDigest as Sha256, preview.buildSha256, digestArtifact(actualInputs)];
-    const outputHashes = [digestArtifact(actual), pages.distSha256, digestArtifact(contentInvariant), digestArtifact(distInvariant)];
+    const outputHashes = [
+      digestArtifact(actual),
+      pages.distSha256,
+      digestArtifact(contentInvariant),
+      digestArtifact(publishedInvariant),
+      digestArtifact(distInvariant),
+    ];
     const evidence: StageEvidence = {
       kind: 'stage', expectedManifestSha: hashBatchManifest(manifest), workId, stage: 'capacity-actual',
       inputHashes, outputHashes, toolVersion: 'batch-runtime-capacity/1.0.0', count: actual.additionalAudio.includedPaths.length,
@@ -1195,11 +1223,22 @@ interface AcceptanceArtifacts {
   readonly preview: IntegratedBuild;
   readonly pages: DistPreview;
   readonly contentInvariant: F001ContentInvariantReport;
+  readonly publishedInvariant: PublishedInvariantReport;
   readonly distInvariant: F001DistInvariantReport;
 }
 
 function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: BatchManifest, workId: WorkId): void {
-  const { generationArtifact, generation, completeness, actual, preview, pages, contentInvariant, distInvariant } = value;
+  const {
+    generationArtifact,
+    generation,
+    completeness,
+    actual,
+    preview,
+    pages,
+    contentInvariant,
+    publishedInvariant,
+    distInvariant,
+  } = value;
   const work = manifest.workProgress[manifest.workIds.indexOf(workId)];
   const voicedEvidence = work?.stageRecords.findLast(
     (record) => record.stage === 'voiced',
@@ -1223,7 +1262,9 @@ function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: Batch
     !['pass', 'pass_with_warning'].includes(actual.result) || !isRecord(preview) || preview.mode !== 'work-preview' ||
     preview.activeBatchId !== manifest.batchId || preview.activeWorkId !== workId || !isSha256(preview.buildSha256) ||
     !isRecord(pages) || pages.batchId !== manifest.batchId || pages.workId !== workId || !isSha256(pages.distSha256) ||
-    !isRecord(contentInvariant) || contentInvariant.result !== 'pass' || !isRecord(distInvariant) || distInvariant.result !== 'pass' ||
+    !isRecord(contentInvariant) || contentInvariant.result !== 'pass' ||
+    !isRecord(publishedInvariant) || publishedInvariant.result !== 'pass' ||
+    !isRecord(distInvariant) || distInvariant.result !== 'pass' ||
     !capacityEvidence || capacityEvidence.stage !== 'capacity-actual' ||
     !capacityEvidence.inputHashes.some((value) => value === generationArtifact.voicedManifestSha) ||
     !capacityEvidence.inputHashes.some((value) => value === generation.generationDigest) ||
@@ -1232,12 +1273,15 @@ function validateAcceptanceArtifacts(value: AcceptanceArtifacts, manifest: Batch
     !capacityEvidence.outputHashes.some((value) => value === digestArtifact(actual)) ||
     !capacityEvidence.outputHashes.some((value) => value === pages.distSha256) ||
     !capacityEvidence.outputHashes.some((value) => value === digestArtifact(contentInvariant)) ||
+    !capacityEvidence.outputHashes.some((value) => value === digestArtifact(publishedInvariant)) ||
     !capacityEvidence.outputHashes.some((value) => value === digestArtifact(distInvariant))) {
     throw prerequisite('accept', 'accept artifact schema/tuple/PASSが不正です');
   }
   if (actual.contentBuildSha256 !== preview.buildSha256 || pages.contentBuildSha256 !== preview.buildSha256 ||
     actual.distSha256 !== pages.distSha256 || contentInvariant.buildSha256 !== preview.buildSha256 ||
     contentInvariant.stagingSha256 !== preview.buildSha256 || distInvariant.contentBuildSha256 !== preview.buildSha256 ||
+    publishedInvariant.target !== 'work-preview' || publishedInvariant.inputTreeSha256 !== preview.buildSha256 ||
+    publishedInvariant.actualTreeSha256 !== preview.buildSha256 ||
     distInvariant.distSha256 !== pages.distSha256 || actual.generationDigest !== generation.generationDigest ||
     actual.completenessDigest !== completeness.completenessDigest || actual.planDigest !== generation.planDigest ||
     actual.authorizationDigest !== generation.authorizationDigest) {
@@ -1252,17 +1296,42 @@ async function acceptWorkFromArtifacts(
   operations: ProductionBatchRuntimeOperations,
 ) {
   const root = `.cache/batch-accept/${manifest.batchId}/${workId}`;
-  const [generationArtifact, completeness, actual, preview, pages, contentInvariant, distInvariant] = await Promise.all([
+  const [
+    generationArtifact,
+    completeness,
+    actual,
+    preview,
+    pages,
+    contentInvariant,
+    publishedInvariant,
+    distInvariant,
+  ] = await Promise.all([
     readCanonicalRuntimeArtifact<VoiceGenerationRuntimeArtifact>(workspace, `${root}/voice-generation.json`, 'voice generation', 'accept'),
     readCanonicalRuntimeArtifact<VoiceCompletenessReport>(workspace, `${root}/voice-completeness.json`, 'voice completeness', 'accept'),
     readCanonicalRuntimeArtifact<ActualCapacityReport>(workspace, `content/batches/${manifest.batchId}/capacity-actual/${workId}.json`, 'actual capacity', 'accept'),
     readCanonicalRuntimeArtifact<IntegratedBuild>(workspace, `${root}/content-preview.json`, 'content preview', 'accept'),
     readCanonicalRuntimeArtifact<DistPreview>(workspace, `${root}/dist-preview.json`, 'dist preview', 'accept'),
     readCanonicalRuntimeArtifact<F001ContentInvariantReport>(workspace, `${root}/f001-content-invariant.json`, 'F001 content invariant', 'accept'),
+    readCanonicalRuntimeArtifact<PublishedInvariantReport>(
+      workspace,
+      `${root}/published-content-invariant.json`,
+      'published content invariant',
+      'accept',
+    ),
     readCanonicalRuntimeArtifact<F001DistInvariantReport>(workspace, `${root}/f001-dist-invariant.json`, 'F001 dist invariant', 'accept'),
   ]);
   const generation = generationArtifact.generation;
-  const artifacts = { generationArtifact, generation, completeness, actual, preview, pages, contentInvariant, distInvariant };
+  const artifacts = {
+    generationArtifact,
+    generation,
+    completeness,
+    actual,
+    preview,
+    pages,
+    contentInvariant,
+    publishedInvariant,
+    distInvariant,
+  };
   validateAcceptanceArtifacts(artifacts, manifest, workId);
   const evidence = await operations.promoteWork(
     workspace, manifest.batchId, workId, generation, completeness, actual, preview, pages, contentInvariant, distInvariant,
@@ -1470,6 +1539,12 @@ async function executeReleaseBuild(
   if (release && verifiedBaseline.baselineSha256 !== artifact.f001.baselineSha256) {
     throw prerequisite('release-verify', '固定F001 baseline実体がrelease artifact bindingと一致しません');
   }
+  const publishedBaseline = await operations.loadPublishedBaseline(workspace, F002_PUBLISHED_RELEASE);
+  const publishedCatalogBatches = Object.fromEntries(
+    publishedBaseline.catalog.batches
+      .filter((batch) => batch.batchId !== 'F001')
+      .map((batch) => [batch.batchId, batch]),
+  );
   const batches = await operations.loadBatches(workspace, preparation ? { preparation } : { release });
   const expectedBatchIds = batches.map((batch) => batch.manifest.batchId).sort((left, right) => left.localeCompare(right, 'en'));
   const fragmentIds = Object.keys(artifact.batchCatalogs).sort((left, right) => left.localeCompare(right, 'en'));
@@ -1485,8 +1560,19 @@ async function executeReleaseBuild(
       mode,
       workspaceRoot: workspace,
       batchCatalogs: artifact.batchCatalogs,
+      publishedCatalogBatches,
       ...(release ? { trackedPublicRoot: join(workspace, 'public') } : {}),
     }, undefined, preparation, release);
+    const publishedContentInvariant = await operations.verifyPublishedInvariant(publishedBaseline, {
+      target: 'integrated-tree',
+      root: build.stagingRoot,
+      treeSha256: build.buildSha256,
+    });
+    if (publishedContentInvariant.result !== 'pass' ||
+      publishedContentInvariant.inputTreeSha256 !== build.buildSha256 ||
+      publishedContentInvariant.actualTreeSha256 !== build.buildSha256) {
+      throw prerequisite(mode, `固定F002 published baseline不変違反: ${publishedContentInvariant.mismatches.join(',')}`);
+    }
     if (release && artifact.candidate?.contentBuildSha256 !== build.buildSha256) {
       throw prerequisite('release-verify', '再生成content build SHAがcandidate bindingと一致しません');
     }
@@ -1495,6 +1581,11 @@ async function executeReleaseBuild(
       if (invariant.result !== 'pass' || invariant.buildSha256 !== build.buildSha256 || invariant.stagingSha256 !== build.buildSha256) {
         throw prerequisite(mode, 'F001 content invariantがprepare buildと一致しません');
       }
+      await writeJsonArtifactAtomic(
+        workspace,
+        join(workspace, '.cache', 'batch-release', manifest.batchId, 'prepare-reports', 'published-content-invariant.json'),
+        publishedContentInvariant,
+      );
       await operations.promoteTree(
         workspace,
         staging,
@@ -1531,6 +1622,16 @@ async function executeReleaseBuild(
         throw prerequisite('release-verify', 'release Pages preview tuple/distがcandidateと一致しません');
       }
       const distInvariant = await operations.verifyF001DistInvariant(pages, baseline, contentInvariant);
+      const publishedDistInvariant = await operations.verifyPublishedInvariant(publishedBaseline, {
+        target: 'dist',
+        root: pages.outputRoot,
+        treeSha256: pages.distSha256,
+      });
+      if (publishedDistInvariant.result !== 'pass' ||
+        publishedDistInvariant.inputTreeSha256 !== pages.distSha256 ||
+        publishedDistInvariant.actualTreeSha256 !== pages.distSha256) {
+        throw prerequisite('release-verify', `固定F002 published dist不変違反: ${publishedDistInvariant.mismatches.join(',')}`);
+      }
       const acceptedAudio = await measureRuntimeTree(join(workspace, 'content', 'batches', manifest.batchId, 'accepted-audio'), true);
       const plannedCandidates = capacity.repositoryCandidateFiles.map((value) => resolve(workspace, value));
       const candidateArtifact = join(workspace, ...(artifact.candidateArtifactPath as string).split('/'));
@@ -1557,20 +1658,30 @@ async function executeReleaseBuild(
       const reportRoot = join(workspace, '.cache', 'batch-release', manifest.batchId, 'release-reports');
       await Promise.all([
         writeJsonArtifactAtomic(workspace, join(reportRoot, 'f001-content-invariant.json'), contentInvariant),
+        writeJsonArtifactAtomic(workspace, join(reportRoot, 'published-content-invariant.json'), publishedContentInvariant),
         writeJsonArtifactAtomic(workspace, join(reportRoot, 'dist-preview.json'), pages),
         writeJsonArtifactAtomic(workspace, join(reportRoot, 'f001-dist-invariant.json'), distInvariant),
+        writeJsonArtifactAtomic(workspace, join(reportRoot, 'published-dist-invariant.json'), publishedDistInvariant),
         writeJsonArtifactAtomic(workspace, join(reportRoot, 'capacity-actual.json'), actual),
       ]);
       return {
         inputHashes: [artifact.expectedManifestSha, artifact.payloadSha256, verifiedBaseline.baselineSha256],
-        outputHashes: [build.buildSha256, pages.distSha256, digestArtifact(contentInvariant), digestArtifact(distInvariant), digestArtifact(actual)],
+        outputHashes: [
+          build.buildSha256,
+          pages.distSha256,
+          digestArtifact(contentInvariant),
+          digestArtifact(publishedContentInvariant),
+          digestArtifact(distInvariant),
+          digestArtifact(publishedDistInvariant),
+          digestArtifact(actual),
+        ],
         count: build.files.length,
         actualCapacityResult: actual.result,
       } as const;
     }
     return {
       inputHashes: [artifact.expectedManifestSha, artifact.payloadSha256, artifact.f001.baselineSha256],
-      outputHashes: [build.buildSha256],
+      outputHashes: [build.buildSha256, digestArtifact(publishedContentInvariant)],
       count: build.files.length,
     } as const;
   } finally {

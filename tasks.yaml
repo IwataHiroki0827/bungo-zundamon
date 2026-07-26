@@ -872,7 +872,7 @@ tasks:
   title: グッド・バイの全候補レビュー・音声生成・作品単位受入
   feature: F003
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-040
   tags: *id004
@@ -881,11 +881,14 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-26T20:19:06+09:00'
+  result: グッド・バイ173候補を166承認・7除外へ確定し、165音声参照（新規164 WAV・共有1）と容量・固定公開baselineをatomic
+    acceptedへ結合。全840試験、独立再受入High/Medium/Low 0でPASS
 - id: T-042
   title: F003最終Catalog統合・既存不変・データ駆動route・全asset整合を確認
   feature: F003
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-038
   - T-041
@@ -947,3 +950,34 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-046
+  title: 固定published baseline投影・作品受入chainを是正
+  feature: F003
+  phase: implement
+  state: done
+  depends:
+  - T-036
+  tags:
+  - REQ-F003-001
+  - REQ-F003-017
+  - DES-F003-002
+  - DES-F003-009
+  - FUN-F003-005
+  - FUN-F003-022
+  - FUN-F003-024
+  - UT-F003-005
+  - UT-F003-022
+  - UT-F003-024
+  - IT-F003-002
+  - IT-F003-009
+  - IT-F003-013
+  - QT-F003-001
+  - QT-F003-012
+  mode: advisor
+  mode_reason: 固定公開baselineと追記可能aggregateの境界を単一hash chainで是正するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-26T20:19:06+09:00'
+  result: CHG-F003-002を実装し、固定Catalog projection・追記可能provenance・published invariant
+    hash chainを対象24試験と全840試験で検証

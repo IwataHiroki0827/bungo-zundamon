@@ -172,6 +172,7 @@ async function writeEnvelopes(workspace: string): Promise<void> {
     preview,
     distPreview,
     contentInvariant,
+    publishedInvariant,
     distInvariant,
     runtimeTool,
   ] = await Promise.all([
@@ -187,6 +188,9 @@ async function writeEnvelopes(workspace: string): Promise<void> {
     readJson<F003BaselineContentArtifact['payload']['preview']>(join(cache, 'content-preview.json')),
     readJson<F003BaselineDistArtifact['payload']['preview']>(join(cache, 'dist-preview.json')),
     readJson<F003BaselineContentArtifact['payload']['invariant']>(join(cache, 'f001-content-invariant.json')),
+    readJson<F003BaselineContentArtifact['payload']['publishedInvariant']>(
+      join(cache, 'published-content-invariant.json'),
+    ),
     readJson<F003BaselineDistArtifact['payload']['invariant']>(join(cache, 'f001-dist-invariant.json')),
     readFile(join(workspace, 'src', 'content', 'batch-runtime.ts')),
   ]);
@@ -194,7 +198,11 @@ async function writeEnvelopes(workspace: string): Promise<void> {
   if (generation.batchId !== BATCH_ID || generation.workId !== WORK_ID ||
     completeness.result !== 'pass' || actual.result === 'blocked' ||
     preview.activeBatchId !== BATCH_ID || preview.activeWorkId !== WORK_ID ||
-    contentInvariant.result !== 'pass' || distInvariant.result !== 'pass') {
+    contentInvariant.result !== 'pass' || publishedInvariant.result !== 'pass' ||
+    publishedInvariant.target !== 'work-preview' ||
+    publishedInvariant.inputTreeSha256 !== preview.buildSha256 ||
+    publishedInvariant.actualTreeSha256 !== preview.buildSha256 ||
+    distInvariant.result !== 'pass') {
     throw new Error('voice/capacity/baseline evidenceがPASS tupleではありません');
   }
   const persistedGeneration = projectVoiceGenerationPaths(workspace, generation);
@@ -252,6 +260,7 @@ async function writeEnvelopes(workspace: string): Promise<void> {
       contentBuildSha256: preview.buildSha256,
       preview: persistedPreview,
       invariant: contentInvariant,
+      publishedInvariant,
     },
   };
   const contentPath = join(root, 'baseline-content.json');

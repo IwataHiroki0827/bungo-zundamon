@@ -59,6 +59,7 @@ export interface IntegratedBuildOptions {
   readonly mode: IntegratedBuildMode;
   readonly workspaceRoot: string;
   readonly batchCatalogs?: Readonly<Record<string, BatchCatalogFragment>>;
+  readonly publishedCatalogBatches?: Readonly<Record<string, CatalogV2['batches'][number]>>;
   readonly trackedPublicRoot?: string;
 }
 
@@ -494,6 +495,7 @@ function catalogFor(
   batches: readonly PublishableBatch[],
   f001: F001BaselineBundle,
   fragments: Readonly<Record<string, BatchCatalogFragment>>,
+  publishedCatalogBatches: Readonly<Record<string, CatalogV2['batches'][number]>>,
   active?: ActiveBatchPreview,
 ): CatalogV2 {
   const base = f001.catalog as Partial<CatalogV2>;
@@ -540,16 +542,30 @@ function catalogFor(
       throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', `author identityが矛盾しています: ${author.authorId}`);
     }
   }
-  const catalogBatches: CatalogV2['batches'] = batches.map((batch) => ({
-    batchId: batch.manifest.batchId,
-    feature: batch.manifest.feature,
-    status: batch.manifest.status === 'published' ? 'published' : 'accepted',
-    authorId: batch.manifest.author.authorId,
-    workIds: [...batch.manifest.workIds],
-    acceptedAt: batch.manifest.acceptedAt as string,
-    ...(batch.manifest.publishedAt ? { publishedAt: batch.manifest.publishedAt } : {}),
-    evidenceSha256: batch.manifestSha256,
-  }));
+  const catalogBatches: CatalogV2['batches'] = batches.map((batch) => {
+    const pinned = publishedCatalogBatches[batch.manifest.batchId];
+    if (pinned) {
+      if (pinned.batchId !== batch.manifest.batchId || pinned.feature !== batch.manifest.feature ||
+        pinned.authorId !== batch.manifest.author.authorId ||
+        canonicalJson(pinned.workIds) !== canonicalJson(batch.manifest.workIds)) {
+        throw new PublicIntegrationError(
+          'PUBLIC_BASELINE_FAILED',
+          `固定published catalog batchがmanifest identityと一致しません: ${batch.manifest.batchId}`,
+        );
+      }
+      return pinned;
+    }
+    return {
+      batchId: batch.manifest.batchId,
+      feature: batch.manifest.feature,
+      status: batch.manifest.status === 'published' ? 'published' : 'accepted',
+      authorId: batch.manifest.author.authorId,
+      workIds: [...batch.manifest.workIds],
+      acceptedAt: batch.manifest.acceptedAt as string,
+      ...(batch.manifest.publishedAt ? { publishedAt: batch.manifest.publishedAt } : {}),
+      evidenceSha256: batch.manifestSha256,
+    };
+  });
   if (active) catalogBatches.push(active.catalogBatch);
   const catalog: CatalogV2 = {
     schemaVersion: '2.0.0',
@@ -848,7 +864,7 @@ export async function buildIntegratedPublicTree(
       );
     }
   }
-  const catalog = catalogFor(batches, f001, fragments, effectiveActive);
+  const catalog = catalogFor(batches, f001, fragments, options.publishedCatalogBatches ?? {}, effectiveActive);
   const catalogBytes = canonicalJson(catalog);
   const validation = validateCatalogV2(catalog, Buffer.byteLength(catalogBytes, 'utf8'));
   if (!validation.ok) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `CatalogV2 validationに失敗しました: ${validation.error.code}`);

@@ -4,6 +4,11 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { canonicalJson } from '../src/content/artifacts.ts';
 import { loadAndVerifyF001Baseline } from '../src/content/baseline.ts';
 import {
+  F002_PUBLISHED_RELEASE,
+  loadAndVerifyPublishedBaseline,
+  verifyPublishedInvariant,
+} from '../src/content/published-baseline.ts';
+import {
   hashBatchManifest,
   loadAcceptedBatches,
   validateBatchManifest,
@@ -327,7 +332,7 @@ async function main(): Promise<void> {
   const workProgress = manifest.workProgress[manifest.workIds.indexOf(WORK_ID as never)];
   if (workProgress?.status !== 'voiced') throw new Error(`previewにはvoiced workが必要です: ${workProgress?.status}`);
 
-  const [review, generationArtifact, rights, source, publicCatalog, reconciliationBytes, reviewBytes] = await Promise.all([
+  const [review, generationArtifact, rights, source, reconciliationBytes, reviewBytes] = await Promise.all([
     readJson<WorkReviewResult>(join(workspace, '.cache', 'batch-review', BATCH_ID, WORK_ID, 'review-result.json')),
     readJson<VoiceGenerationArtifact>(
       join(workspace, '.cache', 'batch-accept', BATCH_ID, WORK_ID, 'voice-generation.json'),
@@ -348,7 +353,6 @@ async function main(): Promise<void> {
       readonly fetchedAt: string;
       readonly sourceUrl: string;
     }>(join(workspace, 'data', 'batches', BATCH_ID, 'work-artifacts', WORK_ID, 'sources', WORK_ID, 'source.json')),
-    readJson<CatalogV2>(join(workspace, 'public', 'content', 'catalog.json')),
     readFile(join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', WORK_ID, 'review-reconciliation.json')),
     readFile(join(workspace, 'content', 'batches', BATCH_ID, 'reviews', `${WORK_ID}.json`)),
   ]);
@@ -531,7 +535,11 @@ async function main(): Promise<void> {
   const previewStage = join(workspace, '.cache', `.f003-preview-${randomUUID()}`);
   await Promise.all([mkdir(activeStage, { recursive: false }), mkdir(previewStage, { recursive: false })]);
   const stagedFiles: ActiveBatchPreview['stagedFiles'][number][] = [];
+  const priorAudioPaths = new Set(
+    priorPreviews.flatMap((preview) => preview.audioAssets.map((asset) => asset.path)),
+  );
   for (const asset of generationArtifact.generation.assets) {
+    if (priorAudioPaths.has(`audio/${BATCH_ID}/${asset.audioId}.wav`)) continue;
     const target = join(activeStage, 'audio', `${asset.audioId}.wav`);
     await mkdir(dirname(target), { recursive: true });
     await copyFile(asset.sourcePath, target);
@@ -575,15 +583,18 @@ async function main(): Promise<void> {
     stagedFiles.push({ ...item, source: target });
   }
 
-  const [f001, batches, f002] = await Promise.all([
+  const [f001, publishedBaseline, batches] = await Promise.all([
     loadAndVerifyF001Baseline(
       join(workspace, 'public'),
       join(workspace, 'content', 'baselines', 'F001-v0.1.0.json'),
       join(workspace, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
     ),
+    loadAndVerifyPublishedBaseline(workspace, F002_PUBLISHED_RELEASE),
     loadAcceptedBatches(workspace),
-    f002Fragment(workspace, publicCatalog),
   ]);
+  const f002 = await f002Fragment(workspace, publishedBaseline.catalog);
+  const publishedF002Batch = publishedBaseline.catalog.batches.find((batch) => batch.batchId === 'F002');
+  if (!publishedF002Batch) throw new Error('固定published baselineにF002 catalog batchがありません');
   const active: ActiveBatchPreview = {
     manifest,
     workId: WORK_ID,
@@ -610,12 +621,29 @@ async function main(): Promise<void> {
       syntheticBatch: f001.syntheticBatch,
     },
     previewStage,
-    { mode: 'work-preview', workspaceRoot: workspace, batchCatalogs: { F002: f002 } },
+    {
+      mode: 'work-preview',
+      workspaceRoot: workspace,
+      batchCatalogs: { F002: f002 },
+      publishedCatalogBatches: { F002: publishedF002Batch },
+    },
     active,
   );
+  const publishedInvariant = await verifyPublishedInvariant(publishedBaseline, {
+    target: 'work-preview',
+    root: build.stagingRoot,
+    treeSha256: build.buildSha256,
+  });
+  if (publishedInvariant.result !== 'pass') {
+    throw new Error(`固定F002 published baseline不変違反: ${publishedInvariant.mismatches.join(',')}`);
+  }
   await writeCanonicalAtomic(
     join(workspace, '.cache', 'batch-accept', BATCH_ID, WORK_ID, 'content-preview.json'),
     build,
+  );
+  await writeCanonicalAtomic(
+    join(workspace, '.cache', 'batch-accept', BATCH_ID, WORK_ID, 'published-content-invariant.json'),
+    publishedInvariant,
   );
   process.stdout.write(
     `work-preview: ${build.files.length} files, build=${build.buildSha256}, reconciliation=${sha256(reconciliationBytes)}\n`,

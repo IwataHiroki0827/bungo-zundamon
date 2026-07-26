@@ -10,7 +10,13 @@ import {
 } from '../src/content/batch.ts';
 
 const BATCH_ID = 'F003';
-const WORK_ID = '000275';
+const WORK_IDS = ['000275', '001567', '000258'] as const;
+const workFlag = process.argv.indexOf('--work');
+const workArgument = workFlag >= 0 ? process.argv[workFlag + 1] : process.argv[2];
+if (!workArgument || !WORK_IDS.includes(workArgument as (typeof WORK_IDS)[number])) {
+  throw new Error(`usage: node --experimental-transform-types scripts/f003-reaccept-reset.ts --work ${WORK_IDS.join('|')}`);
+}
+const WORK_ID = workArgument;
 const MANIFEST_PATH = `content/batches/${BATCH_ID}/batch.json` as WorkspaceRelativePath;
 
 async function exists(path: string): Promise<boolean> {
@@ -31,27 +37,47 @@ async function moveToBackup(workspace: string, backup: string, relativePath: str
   await rename(source, target);
 }
 
-function reviewedManifest(current: BatchManifest): BatchManifest {
+function voicedManifest(current: BatchManifest): BatchManifest {
   const index = current.workIds.indexOf(WORK_ID as never);
   const work = current.workProgress[index];
-  if (current.batchId !== BATCH_ID || index !== 0 || !work || work.status !== 'accepted' ||
-    work.stageRecords.at(-1)?.stage !== 'accepted') {
-    throw new Error('女生徒がacceptedのcanonical F003 manifestではありません');
+  const accepted = work?.status === 'accepted' && work.stageRecords.at(-1)?.stage === 'accepted';
+  const partiallyReset = work?.status === 'voiced' && work.stageRecords.at(-1)?.stage === 'capacity-actual';
+  if (current.batchId !== BATCH_ID || index < 0 || !work || (!accepted && !partiallyReset) ||
+    current.workProgress.slice(index + 1).some((item) => item.status === 'accepted')) {
+    throw new Error(`${WORK_ID}が再受入可能な最後のaccepted/voiced workではありません`);
   }
-  const reviewed = {
-    workId: work.workId,
-    status: 'reviewed' as const,
-    stageRecords: work.stageRecords.slice(0, 2),
+  const {
+    acceptedAt: _acceptedAt,
+    acceptedBy: _acceptedBy,
+    acceptedAudioSources: _acceptedAudioSources,
+    ...workCore
+  } = work;
+  void _acceptedAt;
+  void _acceptedBy;
+  void _acceptedAudioSources;
+  const voiced = {
+    ...workCore,
+    status: 'voiced' as const,
+    stageRecords: work.stageRecords.slice(0, accepted ? -2 : -1),
   };
-  if (reviewed.stageRecords.at(-1)?.stage !== 'reviewed') {
-    throw new Error('reviewedへ戻すためのstage chainがありません');
+  if (voiced.stageRecords.at(-1)?.stage !== 'voiced') {
+    throw new Error('voicedへ戻すためのstage chainがありません');
   }
+  delete (voiced as { actualCapacityRef?: string }).actualCapacityRef;
+  const {
+    acceptedAt: _batchAcceptedAt,
+    acceptedBy: _batchAcceptedBy,
+    ...batchCore
+  } = current;
+  void _batchAcceptedAt;
+  void _batchAcceptedBy;
   const candidate = {
-    ...current,
-    workProgress: current.workProgress.map((item, workIndex) => workIndex === index ? reviewed : item),
+    ...batchCore,
+    status: 'voiced' as const,
+    workProgress: current.workProgress.map((item, workIndex) => workIndex === index ? voiced : item),
   };
   const checked = validateBatchManifest(candidate);
-  if (!checked.ok) throw new Error(`reviewed manifestが不正です: ${checked.error.code}`);
+  if (!checked.ok) throw new Error(`voiced manifestが不正です: ${checked.error.code}`);
   return checked.value;
 }
 
@@ -62,23 +88,29 @@ async function main(): Promise<void> {
   const checked = validateBatchManifest(raw);
   if (!checked.ok) throw new Error(`F003 manifestが不正です: ${checked.error.code}`);
   const current = checked.value;
-  const next = reviewedManifest(current);
-  const backup = join(workspace, '.cache', 'f003-reaccept-backup', new Date().toISOString().replaceAll(':', '-'));
+  const next = voicedManifest(current);
+  const backup = join(
+    workspace,
+    '.cache',
+    'f003-reaccept-backup',
+    `${WORK_ID}-${new Date().toISOString().replaceAll(':', '-')}`,
+  );
   await mkdir(dirname(backup), { recursive: true });
   await mkdir(backup, { recursive: false });
   await copyFile(manifestFile, join(backup, 'batch.accepted.json'));
 
   for (const relativePath of [
     `content/batches/${BATCH_ID}/accepted-audio/${WORK_ID}`,
-    `content/batches/${BATCH_ID}/capacity-forecast/${WORK_ID}.json`,
     `content/batches/${BATCH_ID}/capacity-actual/${WORK_ID}.json`,
-    `content/batches/${BATCH_ID}/voice-evidence/${WORK_ID}.json`,
     `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/voice-completeness.json`,
     `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/capacity-actual.json`,
     `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/baseline-content.json`,
     `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/baseline-dist.json`,
-    `.cache/batch-capacity/${BATCH_ID}/${WORK_ID}`,
-    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}`,
+    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}/content-preview.json`,
+    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}/dist-preview.json`,
+    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}/f001-content-invariant.json`,
+    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}/published-content-invariant.json`,
+    `.cache/batch-accept/${BATCH_ID}/${WORK_ID}/f001-dist-invariant.json`,
     `.cache/transactions/accepted-audio/${BATCH_ID}-${WORK_ID}.json`,
     `.cache/transactions/f003-work-acceptance/${BATCH_ID}-${WORK_ID}.json`,
   ]) {
@@ -86,7 +118,7 @@ async function main(): Promise<void> {
   }
 
   await writeBatchManifestAtomic(workspace, MANIFEST_PATH, next, hashBatchManifest(current));
-  process.stdout.write(`F003/${WORK_ID}をreviewedへ安全に戻しました。backup=${backup}\n`);
+  process.stdout.write(`F003/${WORK_ID}をvoicedへ安全に戻しました。backup=${backup}\n`);
 }
 
 await main();

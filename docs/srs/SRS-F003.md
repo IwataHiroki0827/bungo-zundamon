@@ -26,7 +26,7 @@ F003では長大音声の分割再生、`『』`単独抽出、作品全文朗�
 
 | ID | 要求 | 優先度 | 受入基準 |
 |---|---|---:|---|
-| REQ-F003-001 | 公開済みF001/F002を不変に維持する | 高 | 2作者・6作品・213台詞、既存catalog/provenance/audioのpath・bytes・SHA-256・参照がexact baselineと一致する |
+| REQ-F003-001 | 公開済みF001/F002を不変に維持する | 高 | 2作者・6作品・213台詞、既存catalog/provenance/audioのpath・bytes・SHA-256・参照がexact baselineと一致する。作者画像の追記可能な集約manifestは既存2 entryをcanonical exactで維持し、検証済みF003 entryの追記だけを許可する |
 | REQ-F003-002 | F003をデータ駆動の1作者・重複なし3作品バッチとして管理する | 高 | 承認済みBatchCandidateから`draft`、3作品`pending`、artifactなし、4ゲート参照付きmanifestを生成する。作者・作品固有の条件分岐をapplication sourceへ追加せず、自動公開しない |
 | REQ-F003-003 | 太宰治を3人目の作者として表示する | 高 | トップに3作者が表示され、`#/authors/dazai-osamu`へ直アクセスでき、原著者名「太宰治」を併記する。作者routeの初期表示は先頭を含む全作品を閉じる |
 | REQ-F003-004 | 対象3作品を太宰治へ所属分離する | 高 | 女生徒・走れメロス・グッド・バイだけを太宰routeへ表示し、他作者の作品・台詞・音声を混在させない |

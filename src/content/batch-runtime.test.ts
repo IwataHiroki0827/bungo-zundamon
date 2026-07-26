@@ -302,8 +302,15 @@ async function f003RightsFixture(): Promise<{
   const batchRoot = join(input.workspace, 'content', 'batches', 'F003');
   await cp(sourceRoot, batchRoot, { recursive: true });
   const storedManifest = JSON.parse(await readFile(join(sourceRoot, 'batch.json'), 'utf8')) as BatchManifest;
+  const {
+    acceptedAt: _acceptedAt,
+    acceptedBy: _acceptedBy,
+    ...unacceptedManifest
+  } = storedManifest;
+  void _acceptedAt;
+  void _acceptedBy;
   const candidate = {
-    ...storedManifest,
+    ...unacceptedManifest,
     status: 'draft',
     stageRecords: [],
     rightsSnapshotIds: [],
@@ -648,6 +655,15 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       }, batchId: voiced.batchId, workId,
     };
     const contentInvariant = { result: 'pass' as const, buildSha256: preview.buildSha256, stagingSha256: preview.buildSha256, baselineSha256: HASH };
+    const publishedInvariant = {
+      result: 'pass' as const,
+      target: 'work-preview' as const,
+      inputTreeSha256: preview.buildSha256,
+      actualTreeSha256: preview.buildSha256,
+      baselineSha256: HASH,
+      mismatches: [],
+      reportSha256: hash('published-report'),
+    };
     const distInvariant = { result: 'pass' as const, distSha256: pages.distSha256, contentBuildSha256: preview.buildSha256, baselineSha256: HASH, reportSha256: hash('dist-report') };
     const actual = {
       evidenceKind: 'actual' as const, phase: 'work-preview' as const, result: 'pass' as const,
@@ -666,6 +682,8 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     });
     const dependencies = createProductionBatchDependencies({
       loadBaseline: vi.fn(async () => ({ sourceRoot: join(input.workspace, 'public'), files: [], catalog: {}, syntheticBatch: {}, baselineSha256: HASH } as never)),
+      loadPublishedBaseline: vi.fn(async () => ({ catalog: {}, files: [], baselineSha256: HASH } as never)),
+      verifyPublishedInvariant: vi.fn(async () => publishedInvariant),
       validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
       verifyF001Invariant: vi.fn(async () => contentInvariant),
       buildPagesPreview,
@@ -859,6 +877,15 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const contentInvariant = {
       result: 'pass' as const, buildSha256: contentSha, stagingSha256: contentSha, baselineSha256: HASH,
     };
+    const publishedInvariant = {
+      result: 'pass' as const,
+      target: 'work-preview' as const,
+      inputTreeSha256: contentSha,
+      actualTreeSha256: contentSha,
+      baselineSha256: HASH,
+      mismatches: [],
+      reportSha256: hash('published-report'),
+    };
     const distInvariant = { result: 'pass' as const, distSha256: distSha, contentBuildSha256: contentSha };
     const actual = {
       result: 'pass' as const, batchId: 'F002', workId, contentBuildSha256: contentSha, distSha256: distSha,
@@ -872,6 +899,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       })),
       writeFile(join(acceptRoot, 'dist-preview.json'), canonicalJson({ distSha256: distSha, contentBuildSha256: contentSha, batchId: 'F002', workId })),
       writeFile(join(acceptRoot, 'f001-content-invariant.json'), canonicalJson(contentInvariant)),
+      writeFile(join(acceptRoot, 'published-content-invariant.json'), canonicalJson(publishedInvariant)),
       writeFile(join(acceptRoot, 'f001-dist-invariant.json'), canonicalJson(distInvariant)),
     ]);
     const actualPath = join(input.workspace, 'content', 'batches', 'F002', 'capacity-actual', `${workId}.json`);
@@ -880,7 +908,13 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const capacityRecord = {
       stage: 'capacity-actual' as const,
       inputHashes: [hashBatchManifest(voiced), generation.generationDigest, completeness.completenessDigest, contentSha, hash('actual-inputs')],
-      outputHashes: [hash(canonicalJson(actual)), distSha, hash(canonicalJson(contentInvariant)), hash(canonicalJson(distInvariant))],
+      outputHashes: [
+        hash(canonicalJson(actual)),
+        distSha,
+        hash(canonicalJson(contentInvariant)),
+        hash(canonicalJson(publishedInvariant)),
+        hash(canonicalJson(distInvariant)),
+      ],
       toolVersion: 'fixture/1.0.0', count: 1, completedAt: '2026-07-20T00:04:00Z',
     };
     const capacityManifest = {
@@ -995,6 +1029,20 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     });
     const distInvariant = { result: 'pass' as const, distSha256: context.distSha256, contentBuildSha256: HASH, baselineSha256: HASH, reportSha256: hash('dist-report') };
     const verifyF001DistInvariant = vi.fn(async () => distInvariant);
+    const loadPublishedBaseline = vi.fn(async () => ({
+      catalog: { batches: [] },
+      files: [],
+      baselineSha256: hash('published-baseline'),
+    } as never));
+    const verifyPublishedInvariant = vi.fn(async (_baseline, request: { target: 'work-preview' | 'integrated-tree' | 'dist'; treeSha256: Sha256 }) => ({
+      result: 'pass' as const,
+      target: request.target,
+      inputTreeSha256: request.treeSha256,
+      actualTreeSha256: request.treeSha256,
+      baselineSha256: hash('published-baseline'),
+      mismatches: [],
+      reportSha256: hash(`published-${request.target}`),
+    }));
     const section = { measuredBytes: 0, thresholdBytes: 1, status: 'pass' as const, includedPaths: [], deduplicatedHashes: [], reasons: [] };
     const releaseActual = {
       evidenceKind: 'actual' as const, phase: 'release' as const, result: 'pass' as const,
@@ -1014,7 +1062,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     });
     const dependencies = createProductionBatchDependencies({
       loadBatches: vi.fn(async () => []),
-      buildTree, promoteTree, loadBaseline,
+      buildTree, promoteTree, loadBaseline, loadPublishedBaseline, verifyPublishedInvariant,
       validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
       verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant, verifyActualCapacity,
     });
@@ -1027,7 +1075,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
       mode: 'release',
     });
 
-    expect(result.outputHashes).toHaveLength(5);
+    expect(result.outputHashes).toHaveLength(7);
     expect(result.outputHashes).toContain(HASH);
     expect(result.outputHashes).toContain(context.distSha256);
     expect(buildTree).toHaveBeenCalledTimes(1);
@@ -1069,6 +1117,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     await writeFile(candidateFile, candidateBytes);
     const blocked = createProductionBatchDependencies({
       loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      loadPublishedBaseline, verifyPublishedInvariant,
       validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
       verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant,
       verifyActualCapacity: vi.fn(async () => ({ ...releaseActual, result: 'blocked' as const } as never)),
@@ -1083,6 +1132,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
 
     const workReportReuse = createProductionBatchDependencies({
       loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      loadPublishedBaseline, verifyPublishedInvariant,
       validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
       verifyF001Invariant, buildPagesPreview, verifyF001DistInvariant,
       verifyActualCapacity: vi.fn(async () => ({ ...releaseActual, phase: 'work-preview' as const } as never)),
@@ -1094,6 +1144,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
 
     const otherDist = createProductionBatchDependencies({
       loadBatches: vi.fn(async () => []), buildTree, promoteTree, loadBaseline,
+      loadPublishedBaseline, verifyPublishedInvariant,
       validateCatalog: vi.fn(() => ({ ok: true, success: true, value: {} } as never)),
       verifyF001Invariant,
       buildPagesPreview: vi.fn(async () => ({ ...pages, distSha256: hash('other-dist') } as never)),

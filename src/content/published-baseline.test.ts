@@ -119,4 +119,43 @@ describe('UT-F003-005 FUN-F003-005 published invariant', () => {
     expect(changed.result).toBe('blocked');
     expect(changed.mismatches).toContain(`FILE_MISMATCH:${file.path}`);
   });
+
+  it('画像provenance集約はF003追記を許可し、既存作者entryの変更を拒否する', async () => {
+    const source = join(workspace, 'public');
+    const root = await mkdtemp(join(tmpdir(), 'f002-artwork-projection-'));
+    temporary.push(root);
+    await cp(source, root, { recursive: true });
+    const path = join(root, 'content', 'artwork-provenances.json');
+    const bundle = JSON.parse(await readFile(path, 'utf8')) as {
+      artworks: Array<Record<string, unknown>>;
+      schemaVersion: '1.0.0';
+    };
+    bundle.artworks.push({
+      authorId: '000035',
+      batchId: 'F003',
+      manifestId: 'artwork-F003-000035-v1',
+      provenanceRef: 'content/artwork-provenance/F003.json',
+      provenanceSha256: 'a'.repeat(64),
+      output: { path: 'artwork/dazai-zundamon.png', sha256: 'b'.repeat(64) },
+    });
+    await writeFile(path, JSON.stringify(bundle));
+    const appended = await verifyPublishedInvariant(baseline, {
+      target: 'work-preview',
+      root,
+      treeSha256: await treeDigest(root),
+    });
+    expect(appended).toMatchObject({ result: 'pass', mismatches: [] });
+
+    bundle.artworks[0] = { ...bundle.artworks[0], provenanceSha256: 'c'.repeat(64) };
+    await writeFile(path, JSON.stringify(bundle));
+    const changed = await verifyPublishedInvariant(baseline, {
+      target: 'work-preview',
+      root,
+      treeSha256: await treeDigest(root),
+    });
+    expect(changed).toMatchObject({
+      result: 'blocked',
+      mismatches: ['ARTWORK_PROVENANCE_PROJECTION_MISMATCH'],
+    });
+  });
 });

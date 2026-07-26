@@ -20,6 +20,7 @@ import {
   type WorkId,
 } from './batch.ts';
 import type { F001ContentInvariantReport, IntegratedBuild } from './batch-public.ts';
+import type { PublishedInvariantReport } from './published-baseline.ts';
 import {
   resolveVoiceGenerationPaths,
   resolveWorkspaceArtifactPath,
@@ -127,6 +128,7 @@ export type F003BaselineContentArtifact = AcceptanceArtifactBase<'baseline-conte
   contentBuildSha256: Sha256 | string;
   preview: IntegratedBuild;
   invariant: F001ContentInvariantReport;
+  publishedInvariant: PublishedInvariantReport;
 }>>;
 
 export type F003BaselineDistArtifact = AcceptanceArtifactBase<'baseline-dist', Readonly<{
@@ -482,7 +484,7 @@ function assertArtifactEnvelope<K extends F003AcceptanceArtifact['kind']>(
       'result', 'planDigest', 'generationDigest', 'completenessDigest',
       'contentBuildSha256', 'distSha256', 'actual',
     ],
-    'baseline-content': ['result', 'contentBuildSha256', 'preview', 'invariant'],
+    'baseline-content': ['result', 'contentBuildSha256', 'preview', 'invariant', 'publishedInvariant'],
     'baseline-dist': ['result', 'contentBuildSha256', 'distSha256', 'preview', 'invariant'],
   };
   if (!exactKeys(value.payload, payloadKeys[kind]!)) {
@@ -556,6 +558,10 @@ function assertCrossChain(
     content.payload.contentBuildSha256 !== baseline.contentBuildSha256 ||
     content.payload.preview?.buildSha256 !== baseline.contentBuildSha256 ||
     content.payload.invariant?.result !== 'pass' ||
+    content.payload.publishedInvariant?.result !== 'pass' ||
+    content.payload.publishedInvariant?.target !== 'work-preview' ||
+    content.payload.publishedInvariant?.inputTreeSha256 !== baseline.contentBuildSha256 ||
+    content.payload.publishedInvariant?.actualTreeSha256 !== baseline.contentBuildSha256 ||
     !content.inputHashes.includes(refs.capacityActual.sha256)) {
     fail('F003_ACCEPTANCE_BASELINE_INVALID', 'baseline content tupleが一致しません');
   }

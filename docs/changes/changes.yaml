@@ -455,3 +455,35 @@ changes:
   approved_by: ユーザーの本会話での直接指示（2026-07-26）
   completed_at: '2026-07-26T15:15:00+09:00'
   result: 旧表示・CatalogV2表示の初期open指定を除去し、単体・Playwright回帰を初期全閉と利用者操作による展開へ更新
+- id: CHG-F003-002
+  date: '2026-07-26'
+  trigger: T-041独立受入で固定F002 published baseline検査の未結合と追記可能manifestのexact比較矛盾を検出
+  level: requirement
+  affected:
+  - REQ-F003-001
+  - REQ-F003-017
+  - DES-F003-002
+  - DES-F003-009
+  - FUN-F003-005
+  - FUN-F003-022
+  - FUN-F003-024
+  - UT-F003-005
+  - UT-F003-022
+  - UT-F003-024
+  - IT-F003-002
+  - IT-F003-009
+  - IT-F003-013
+  - QT-F003-001
+  - QT-F003-012
+  - T-039
+  - T-040
+  - T-041
+  - T-042
+  - T-043
+  - T-044
+  - T-046
+  status: done
+  approved_by: ユーザーの本会話での直接指示（2026-07-26）
+  completed_at: '2026-07-26T20:19:06+09:00'
+  result: 固定v0.2.0 baselineをpreview/accept/release chainへ結合し、既存作者entry改変を拒否。全840試験と独立再受入High/Medium/Low
+    0でPASS
