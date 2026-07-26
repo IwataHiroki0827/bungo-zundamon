@@ -88,3 +88,13 @@
 仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。その後、IDごとに仕様の主要手順と期待結果を上表の実oracleへ意味的に照合した。正式PASS/FAILは`QT-F002-result.md`とexact candidate固定後のattempt生ログで判定する。
 
 ---
+
+## F003 QT仕様ID機械照合
+
+- 対象仕様: `docs/tests/qt/QT-F003.md`
+- 対応表の実行コード: `src/content/f003-spec-coverage.test.ts`
+- 対象ID: `QT-F003-001`〜`QT-F003-015`
+- 対応済み: **15 / 15**
+- 未対応・余剰・自動化不可: **0**
+
+全項目をVitest、security checker、Playwrightの自動範囲へ対応付けた。手動・実機・目視・聴取・手動スクリーンリーダーは正式PASSの前提に含めない。

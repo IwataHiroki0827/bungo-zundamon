@@ -101,6 +101,18 @@ npm test
 
 ---
 
+## F003 UT仕様ID機械照合
+
+- 対象仕様: `docs/tests/ut/UT-F003.md`
+- 対応表の実行コード: `src/content/f003-spec-coverage.test.ts`
+- 対象ID: `UT-F003-001`〜`UT-F003-029`
+- 対応済み: **29 / 29**
+- 未対応・余剰・自動化不可: **0**
+
+各IDは対応表から実テストまたはproduction統合手順へ結合し、参照先ファイルの存在をVitestで機械検証する。正式PASS数は同じcandidateで実行した`UT-F003-attempt-1.json`へ記録する。
+
+---
+
 # F002 単体試験仕様ID機械照合
 
 ## T-028 実行前照合（2026-07-25）

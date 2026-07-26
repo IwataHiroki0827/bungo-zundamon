@@ -101,6 +101,10 @@ import {
   validateSelectionPolicySnapshots,
   type PolicyObservation,
 } from '../notices/policy-snapshots.ts';
+import {
+  loadRuntimeAcceptanceEvidence,
+  type RuntimeAcceptanceEvidence,
+} from './runtime-acceptance.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -1355,6 +1359,8 @@ interface ReleaseRuntimePayload {
   readonly candidate?: ReleaseCandidateArtifactBinding;
   readonly candidateArtifactPath?: WorkspaceRelativePath;
   readonly capacity?: ReleaseCapacityPlan;
+  readonly runtimeAcceptanceRef?: WorkspaceRelativePath;
+  readonly runtimeAcceptanceSha256?: Sha256;
 }
 
 interface ReleaseCapacityPlan {
@@ -1374,7 +1380,7 @@ export interface ReleaseCandidateArtifactBinding {
 }
 
 export interface ReleaseRuntimeArtifact extends ReleaseRuntimePayload {
-  readonly schemaVersion: '1.0.0';
+  readonly schemaVersion: '2.0.0';
   readonly kind: 'prepare-release-inputs' | 'release-verify-inputs';
   readonly batchId: BatchId;
   readonly expectedManifestSha: Sha256;
@@ -1461,9 +1467,11 @@ async function loadReleaseRuntimeArtifact(
   const preparation = mode === 'prepare-release';
   const expectedKeys = [
     'schemaVersion', 'kind', 'batchId', 'expectedManifestSha', 'payloadSha256', 'context', 'f001', 'batchCatalogs',
-    ...(preparation ? ['expectedCurrentPublicSha256', 'contentInvariant'] : ['candidate', 'candidateArtifactPath', 'capacity']),
+    ...(preparation ? ['expectedCurrentPublicSha256', 'contentInvariant'] : [
+      'candidate', 'candidateArtifactPath', 'capacity', 'runtimeAcceptanceRef', 'runtimeAcceptanceSha256',
+    ]),
   ];
-  if (!isRecord(unknown) || !exactKeys(unknown, expectedKeys) || unknown.schemaVersion !== '1.0.0' ||
+  if (!isRecord(unknown) || !exactKeys(unknown, expectedKeys) || unknown.schemaVersion !== '2.0.0' ||
     unknown.kind !== `${mode}-inputs` || unknown.batchId !== manifest.batchId ||
     unknown.expectedManifestSha !== hashBatchManifest(manifest) || !isSha256(unknown.payloadSha256) ||
     !isRecord(unknown.f001) || !isRecord(unknown.batchCatalogs)) {
@@ -1481,6 +1489,8 @@ async function loadReleaseRuntimeArtifact(
       candidate: validateReleaseCandidateBinding(unknown.candidate, context as ReleaseBuildContext),
       candidateArtifactPath: unknown.candidateArtifactPath as WorkspaceRelativePath,
       capacity: unknown.capacity as unknown as ReleaseCapacityPlan,
+      runtimeAcceptanceRef: unknown.runtimeAcceptanceRef as WorkspaceRelativePath,
+      runtimeAcceptanceSha256: unknown.runtimeAcceptanceSha256 as Sha256,
     }),
   };
   if (unknown.payloadSha256 !== digestArtifact(payload) || !isSha256(payload.f001.baselineSha256) ||
@@ -1493,7 +1503,8 @@ async function loadReleaseRuntimeArtifact(
         !Array.isArray(payload.capacity.repositoryCandidateFiles) ||
         !payload.capacity.repositoryCandidateFiles.every((item) => typeof item === 'string') ||
         !Number.isSafeInteger(payload.capacity.liveWriteUpperBounds) || payload.capacity.liveWriteUpperBounds < 0 ||
-        !Number.isSafeInteger(payload.capacity.rollbackBackupBytes) || payload.capacity.rollbackBackupBytes < 0))) {
+        !Number.isSafeInteger(payload.capacity.rollbackBackupBytes) || payload.capacity.rollbackBackupBytes < 0 ||
+        typeof payload.runtimeAcceptanceRef !== 'string' || !isSha256(payload.runtimeAcceptanceSha256)))) {
     throw prerequisite(mode, `${mode} baseline/fragment/context hash chainが不正です`);
   }
   if (!preparation) {
@@ -1505,6 +1516,25 @@ async function loadReleaseRuntimeArtifact(
     const actualArtifactDigest = await hashRuntimeCandidateArtifact(workspace, payload.candidateArtifactPath as WorkspaceRelativePath);
     if (actualArtifactDigest !== (context as ReleaseBuildContext).artifactDigest) {
       throw prerequisite('release-verify', 'candidate artifact実体digestがrelease contextと一致しません');
+    }
+    let runtimeAcceptance: RuntimeAcceptanceEvidence;
+    try {
+      runtimeAcceptance = await loadRuntimeAcceptanceEvidence(
+        workspace,
+        payload.runtimeAcceptanceRef as WorkspaceRelativePath,
+        payload.runtimeAcceptanceSha256 as Sha256,
+      );
+    } catch (error) {
+      throw prerequisite(
+        'release-verify',
+        `RuntimeAcceptance原artifactが不正です: ${error instanceof Error ? error.message : 'unknown error'}`,
+      );
+    }
+    if (runtimeAcceptance.batchId !== manifest.batchId ||
+      runtimeAcceptance.sourceCommit !== (context as ReleaseBuildContext).releaseCommit ||
+      runtimeAcceptance.contentBuildSha256 !== payload.candidate?.contentBuildSha256 ||
+      runtimeAcceptance.distSha256 !== (context as ReleaseBuildContext).distSha256) {
+      throw prerequisite('release-verify', 'RuntimeAcceptanceのcandidate tupleが一致しません');
     }
   }
   return unknown as unknown as ReleaseRuntimeArtifact;

@@ -96,7 +96,7 @@ function trigger(id: string): HTMLButtonElement {
   return button;
 }
 
-describe('AudioController', () => {
+describe('AudioController [UT-F003-025][IT-F003-010]', () => {
   let audio: FakeAudio;
   let controller: AudioController;
   const data = catalog();

@@ -87,3 +87,15 @@ ITでは、workflow本体の静的契約、event/deploy条件、承認前後のr
 仕様側とテスト側のID集合を`rg`で抽出し、`Compare-Object`の差分が0件であることを確認した。その後、IDごとに仕様の主要手順と期待結果を上表の実oracleへ意味的に照合した。source段階とexact release candidate段階を分離し、正式PASS/FAILは`IT-F002-result.md`と候補固定後のattempt生ログで判定する。
 
 ---
+
+## F003 IT仕様ID機械照合
+
+- 対象仕様: `docs/tests/it/IT-F003.md`
+- 対応表の実行コード: `src/content/f003-spec-coverage.test.ts`
+- 対象ID: `IT-F003-001`〜`IT-F003-014`
+- 対応済み: **14 / 14**
+- 未対応・余剰・自動化不可: **0**
+
+結合試験IDは候補・固定baseline・編集・音声・atomic受入・Catalog・runtime・releaseの実テストへ対応付けた。ブラウザ範囲はPlaywright仕様も参照先として検証する。
+
+---

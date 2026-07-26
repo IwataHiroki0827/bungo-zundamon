@@ -717,7 +717,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     ), 'utf8'))).toMatchObject({ result: 'pass', generationDigest: generation.generationDigest });
   });
 
-  it('voice/accept/prepare/releaseはunavailableではなく欠落artifactをprerequisiteで停止する', async () => {
+  it('voice/accept/prepare/releaseはunavailableではなく欠落artifactをprerequisiteで停止する [UT-F003-027]', async () => {
     const input = await fixture();
     const reviewed = {
       stage: 'reviewed', inputHashes: [HASH], outputHashes: [HASH], toolVersion: 'fixture/1.0.0', count: 1,
@@ -946,7 +946,7 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     expect(hashBatchManifest(voiced)).not.toBe(planManifestSha);
   });
 
-  it('release-verifyはclean commitからF001/Pages/release容量chainを実行しpublicを昇格しない', async () => {
+  it('release-verifyはclean commitからF001/Pages/release容量chainを実行しpublicを昇格しない [UT-F003-028]', async () => {
     const input = await fixture();
     await writeFile(join(input.workspace, '.gitignore'), '.cache/\nartifacts/\n');
     await cp(join(process.cwd(), 'public'), join(input.workspace, 'public'), { recursive: true });
@@ -991,9 +991,40 @@ describe('production terminal handler接続 [DES-F002-002][DES-F002-006][DES-F00
     const capacity = {
       repositoryCandidateFiles: [], liveWriteUpperBounds: 0, rollbackBackupBytes: 0,
     };
-    const payload = { context, f001, batchCatalogs: {}, candidate, candidateArtifactPath, capacity };
-    const artifact = {
+    const runtimeAcceptanceRef = '.cache/batch-release/F002/runtime-acceptance.json' as WorkspaceRelativePath;
+    const runtimeAcceptancePath = join(input.workspace, ...runtimeAcceptanceRef.split('/'));
+    const routes = ['#/', '#/authors/a', '#/credits'];
+    const runtimeCore = {
       schemaVersion: '1.0.0',
+      kind: 'runtime-acceptance',
+      batchId: input.manifest.batchId,
+      sourceCommit: commit,
+      contentBuildSha256: HASH,
+      distSha256: context.distSha256,
+      routes,
+      routeSetSha256: hash(canonicalJson(routes)),
+      browsers: ['android-equivalent', 'chromium', 'firefox', 'webkit'],
+      viewports: ['1440x900', '390x844', '768x1024'],
+      reducedMotion: true,
+      initialOpenPanels: { '#/': 0, '#/authors/a': 0, '#/credits': 0 },
+      keyboardExpandable: true,
+      security: {
+        cspViolations: 0, externalRequests: 0, unsafeDomSinks: 0, storageOrForms: 0,
+        secrets: 0, dependencyHighOrCritical: 0, workflowViolations: 0, status: 'pass',
+      },
+      result: 'pass',
+    };
+    const runtimeAcceptance = { ...runtimeCore, evidenceSha256: hash(canonicalJson(runtimeCore)) };
+    const runtimeBytes = new TextEncoder().encode(canonicalJson(runtimeAcceptance));
+    await mkdir(dirname(runtimeAcceptancePath), { recursive: true });
+    await writeFile(runtimeAcceptancePath, runtimeBytes);
+    const runtimeAcceptanceSha256 = hash(runtimeBytes);
+    const payload = {
+      context, f001, batchCatalogs: {}, candidate, candidateArtifactPath, capacity,
+      runtimeAcceptanceRef, runtimeAcceptanceSha256,
+    };
+    const artifact = {
+      schemaVersion: '2.0.0',
       kind: 'release-verify-inputs',
       batchId: input.manifest.batchId,
       expectedManifestSha: hashBatchManifest(input.manifest),

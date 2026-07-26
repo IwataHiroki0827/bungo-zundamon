@@ -1,6 +1,6 @@
 import { execFile as execFileCallback } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, open, readFile, rename, rm } from 'node:fs/promises';
+import { lstat, mkdir, mkdtemp, open, readFile, readdir, rename, rm } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
@@ -8,6 +8,7 @@ import { canonicalJson } from '../src/content/artifacts.ts';
 import { loadAndVerifyF001Baseline, verifyF001Invariant } from '../src/content/baseline.ts';
 import {
   buildIntegratedPublicTree,
+  promoteIntegratedTree,
   type F001BaselineBundle,
 } from '../src/content/batch-public.ts';
 import {
@@ -52,7 +53,34 @@ async function writeCanonicalAtomic(path: string, value: unknown): Promise<void>
   await rename(temporary, path);
 }
 
+async function treeSha256(root: string): Promise<Sha256> {
+  const files: Array<{ path: string; bytes: Uint8Array }> = [];
+  const walk = async (current: string, logical: string): Promise<void> => {
+    const info = await lstat(current);
+    if (info.isSymbolicLink()) throw new Error('public treeにlink/reparseがあります');
+    if (info.isFile()) {
+      files.push({ path: logical, bytes: await readFile(current) });
+      return;
+    }
+    if (!info.isDirectory()) throw new Error('public treeにはregular fileだけを許可します');
+    for (const name of (await readdir(current)).sort((left, right) => left.localeCompare(right, 'en'))) {
+      await walk(join(current, name), logical ? `${logical}/${name}` : name);
+    }
+  };
+  await walk(root, '');
+  const digest = createHash('sha256');
+  for (const file of files.sort((left, right) => left.path.localeCompare(right.path, 'en'))) {
+    digest.update(file.path).update('\0').update(String(file.bytes.byteLength)).update('\0').update(file.bytes);
+  }
+  return digest.digest('hex') as Sha256;
+}
+
 async function main(): Promise<void> {
+  const args = process.argv.slice(2);
+  if (args.some((value) => value !== '--promote') || args.filter((value) => value === '--promote').length > 1) {
+    throw new Error('usage: f003-final-integration.ts [--promote]');
+  }
+  const promote = args.includes('--promote');
   const workspace = resolve(process.cwd());
   const [{ stdout: head }, { stdout: status }] = await Promise.all([
     execFile('git', ['rev-parse', 'HEAD'], { cwd: workspace, encoding: 'utf8' }),
@@ -75,6 +103,7 @@ async function main(): Promise<void> {
     feature: manifest.feature,
     sourceCommit,
   } as const;
+  const expectedCurrentPublicSha256 = await treeSha256(join(workspace, 'public'));
   const [f001, published, f002, f003, batches] = await Promise.all([
     loadAndVerifyF001Baseline(
       join(workspace, 'public'),
@@ -91,6 +120,7 @@ async function main(): Promise<void> {
   if (!publishedF002Batch) throw new Error('固定v0.2.0 CatalogにF002 batchがありません');
 
   const staging = await mkdtemp(join(workspace, '.cache', 'f003-final-integration-'));
+  let promoted = false;
   try {
     const baselineBundle: F001BaselineBundle = {
       baselineSha256: f001.baselineSha256,
@@ -159,10 +189,21 @@ async function main(): Promise<void> {
       join(workspace, '.cache', 'batch-release', BATCH_ID, 'final-integration.json'),
       report,
     );
+    if (promote) {
+      await promoteIntegratedTree(
+        workspace,
+        staging,
+        build.buildSha256,
+        expectedCurrentPublicSha256,
+        f001Invariant,
+        preparation,
+      );
+      promoted = true;
+    }
     process.stdout.write(`${canonicalJson(report)}\n`);
   } finally {
     const safePrefix = `${join(workspace, '.cache', 'f003-final-integration-')}`;
-    if (staging.startsWith(safePrefix)) {
+    if (!promoted && staging.startsWith(safePrefix)) {
       await rm(staging, { recursive: true, force: true });
     }
   }
