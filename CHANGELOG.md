@@ -2,6 +2,21 @@
 
 このファイルは文豪ずんだもんの公開版における主な変更を記録する。
 
+## [0.3.0] - 2026-07-26
+
+### 追加
+
+- 3人目の作者として「だざいずんじ（原著者: 太宰治）」を追加。
+- 「女生徒」「走れメロス」「グッド・バイ」から、レビュー済み259台詞とVOICEVOX音声255件を追加。
+- 公開内容を3作者・9作品・472台詞・音声463件へ拡充。
+- 未完作品「グッド・バイ」の表示、作品別出典、作者画像由来、権利・クレジット情報を追加。
+
+### 品質確認
+
+- Vitest 853件、Chromium・Firefox・WebKit・Android相当のPlaywright自動試験、型検査、lint、production build、依存脆弱性検査を実行。
+- リリース候補commit、試験ソース、4ブラウザの生レポート、公開content tree、配布物をSHA-256で一つの実行時受入証跡へ結合。
+- 作者ページへの遷移・直アクセス・再読込時に、先頭を含む収録作品がすべて閉じていることを回帰確認。
+
 ## [0.2.1] - 2026-07-26
 
 ### 修正
@@ -53,5 +68,7 @@
 
 - 初回公開smokeで検出した、モバイル幅のクレジット画面でSHA-256文字列が横スクロールを発生させる問題を修正。
 
+[0.3.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.3.0
+[0.2.1]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.2.1
 [0.2.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.2.0
 [0.1.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.1.0
