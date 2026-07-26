@@ -27,6 +27,9 @@ for (const viewport of viewports) {
     await assertNoHorizontalOverflow(page);
 
     const firstWork = page.locator('.work-panel').first();
+    await expect(page.locator('.work-panel[open]')).toHaveCount(0);
+    await firstWork.locator('summary').focus();
+    await page.keyboard.press('Enter');
     await expect(firstWork).toHaveAttribute('open', '');
     const play = firstWork.getByRole('button', { name: /^再生：/ }).first();
     await play.focus();

@@ -427,3 +427,31 @@ changes:
   approved_by: 既存要求の閾値・範囲を変更しないtestspec oracleの明確化
   completed_at: '2026-07-26T04:02:29+09:00'
   result: QT 4件とFD/DDを更新し、3観点の最終独立再レビューHigh/Medium/Low 0。既存試験なし、新規fixtureはT-036へ引継ぎ
+- id: CHG-F001-006
+  date: '2026-07-26'
+  trigger: プロジェクトオーナー直接指示により、作者ページ遷移直後の先頭作品自動展開を廃止
+  level: requirement
+  affected:
+  - REQ-F001-004
+  - DES-F001-010
+  - FUN-F001-023
+  - UT-F001-023
+  - IT-F001-010
+  - QT-F001-002
+  - FUN-F002-023
+  - UT-F002-023
+  - IT-F002-010
+  - QT-F002-002
+  - REQ-F003-003
+  - DES-F003-009
+  - DES-F003-011
+  - FUN-F003-026
+  - T-036
+  - T-045
+  - UT-F003-026
+  - IT-F003-010
+  - QT-F003-015
+  status: done
+  approved_by: ユーザーの本会話での直接指示（2026-07-26）
+  completed_at: '2026-07-26T15:15:00+09:00'
+  result: 旧表示・CatalogV2表示の初期open指定を除去し、単体・Playwright回帰を初期全閉と利用者操作による展開へ更新
