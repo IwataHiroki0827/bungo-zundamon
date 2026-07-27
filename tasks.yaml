@@ -1160,7 +1160,7 @@ tasks:
   title: F004候補manifest・固定v0.3.0 baseline・権利原典を整備
   feature: F004
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-053
   tags:
@@ -1171,11 +1171,13 @@ tasks:
   mode: advisor
   mode_reason: 候補承認bindingと固定公開baselineを先に閉じる逐次作業のため
   model: *model_f004
+  completed_at: '2026-07-27T23:41:11+09:00'
+  result: canonical definition/policyとApprovedBatchContextで宮沢賢治3作品の候補tuple・複数承認を固定し、v0.3.0二重baseline、Catalog identity join、production transport権利再検証、3 XHTML atomic固定を実装。全880試験・型・lint・独立受入PASS
 - id: T-055
   title: 同一作者merge・既存画像再利用・F004共通pipelineを実装
   feature: F004
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-054
   tags:

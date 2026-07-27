@@ -1,0 +1,47 @@
+{
+  "approvalProjectionFields": [
+    "id",
+    "type",
+    "status",
+    "target",
+    "target_mode",
+    "answer",
+    "approved_at"
+  ],
+  "approvals": [
+    {
+      "approvalItemSha256": "c6bf98ce9d4f6563412573a4b333d01a0813db0e3cf02310330aa5fd1a8d0bdf",
+      "queueId": "Q-022"
+    },
+    {
+      "approvalItemSha256": "7abc092c7295b1e0da72a860cbc72c46602aae1dcd6906605b706162b8437094",
+      "queueId": "Q-023"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-F004-001",
+      "level": "requirement",
+      "status": "in-review"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/srs/SRS-F004.md",
+      "sha256": "68fb1ae0d1a15ef7c2929337dc26ecb4dd9b463a50e4fc22f10d5d9289715fc7"
+    },
+    {
+      "path": "docs/tests/qt/QT-F004.md",
+      "sha256": "d1798077b4426f08f31d4c131537852a9088a1bdf825a4f88415789797e7b83e"
+    },
+    {
+      "path": "docs/changes/CHG-F004-001.md",
+      "sha256": "b460bf5681adf80e64a821823b356754f63a5fdeafea6983be9c7209b064592a"
+    }
+  ],
+  "feature": "F004",
+  "migratedAt": "2026-07-27T23:16:00+09:00",
+  "queuePath": "queue.yaml",
+  "queueSha256AtMigration": "f1a2a4e5df7616c1555358cfaf6e677f3fc68202ad5ed42d536af5d86376997a",
+  "schemaVersion": "1.1.0"
+}

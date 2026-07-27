@@ -49,6 +49,66 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256s": {
+          "Q-022": "c6bf98ce9d4f6563412573a4b333d01a0813db0e3cf02310330aa5fd1a8d0bdf",
+          "Q-023": "7abc092c7295b1e0da72a860cbc72c46602aae1dcd6906605b706162b8437094"
+        },
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F004.md",
+            "sha256": "68fb1ae0d1a15ef7c2929337dc26ecb4dd9b463a50e4fc22f10d5d9289715fc7"
+          },
+          {
+            "path": "docs/tests/qt/QT-F004.md",
+            "sha256": "d1798077b4426f08f31d4c131537852a9088a1bdf825a4f88415789797e7b83e"
+          },
+          {
+            "path": "docs/changes/CHG-F004-001.md",
+            "sha256": "b460bf5681adf80e64a821823b356754f63a5fdeafea6983be9c7209b064592a"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F004-approval-binding.json",
+        "evidenceSha256": "9548bd9daca842a25fdde2467503ff446407ddfdcc43a6359b78278395e937d0",
+        "queueIds": [
+          "Q-022",
+          "Q-023"
+        ]
+      },
+      "author": {
+        "authorId": "000081",
+        "identitySha256": "f7b658e3729e6adb3bba4ac11a0ba2657779ab21e84e47f467db244adf6b1bac",
+        "name": "みやざわずんじ",
+        "originalName": "宮沢賢治",
+        "slug": "miyazawa-zunji"
+      },
+      "batchId": "F004",
+      "feature": "F004",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+          "order": 1,
+          "title": "オツベルと象",
+          "workId": "000466",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/466_42316.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+          "order": 2,
+          "title": "雪渡り",
+          "workId": "045679",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+          "order": 3,
+          "title": "カイロ団長",
+          "workId": "001918",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"

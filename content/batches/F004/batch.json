@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F004.md",
+    "release": "docs/evidence/release/F004-approval.json",
+    "requirements": "docs/srs/SRS-F004.md",
+    "testspec": "docs/tests/ut/UT-F004.md"
+  },
+  "artworkProvenanceRef": "content/batches/F004/artwork-provenance.json",
+  "author": {
+    "authorId": "000081",
+    "identitySha256": "f7b658e3729e6adb3bba4ac11a0ba2657779ab21e84e47f467db244adf6b1bac",
+    "name": "みやざわずんじ",
+    "originalName": "宮沢賢治",
+    "slug": "miyazawa-zunji"
+  },
+  "batchId": "F004",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "000466"
+      ],
+      "preferredWorkId": "000466",
+      "reason": "承認済み代表作",
+      "title": "オツベルと象"
+    },
+    {
+      "allowedWorkIds": [
+        "045679"
+      ],
+      "preferredWorkId": "045679",
+      "reason": "承認済み代表作",
+      "title": "雪渡り"
+    },
+    {
+      "allowedWorkIds": [
+        "001918"
+      ],
+      "preferredWorkId": "001918",
+      "reason": "承認済み代表作",
+      "title": "カイロ団長"
+    }
+  ],
+  "feature": "F004",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F004/voice-config.json",
+  "workIds": [
+    "000466",
+    "045679",
+    "001918"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000466"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "045679"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "001918"
+    }
+  ]
+}

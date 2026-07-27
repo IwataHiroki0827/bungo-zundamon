@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F004
-updated: 2026-07-27T23:00:16+09:00
+updated: 2026-07-27T23:41:11+09:00
 next_actions:
-  - "T-054でF004候補manifest・固定v0.3.0二重baseline・権利原典を実装する"
+  - "T-055でsrc/contentの同一作者merge・既存画像再利用・F004共通pipelineを実装する"
 blocked_by: []
 ---
 
@@ -30,19 +30,20 @@ blocked_by: []
 - T-050でT-051〜T-062へWBS分解し、既存CLI・Playwright・VOICEVOXを再利用、追加MCP不要と判定した。
 - T-051/T-052でFD-F004のDES 13件、DD-F004のFUN 37件を作成した。固定v0.3.0二重baseline、同一作者reuse、端末内お気に入り、generic batch、preview/final型分離、公開後rollbackを定義し、3観点の最終独立レビューHigh/Medium/Low 0、ゲート②承認を完了した。
 - T-053でUT-F004 37件、IT-F004 15件を作成し、QT-F004 16件と合わせて全REQ/DES/FUNを網羅した。網羅性・試験設計・CHG-F004-002のセキュリティ再レビューは最終High/Medium/Low 0、trace_check 100%である。
-- Q-025へ包括承認を記録してテストファーストゲート③を通過した。F004はimplementへ移行し、T-054を開始した。
+- Q-025へ包括承認を記録してテストファーストゲート③を通過した。F004はimplementへ移行した。
+- T-054でcanonical definition/policy・ApprovedBatchContext・固定v0.3.0二重baselineを実装した。宮沢賢治3作品のexact tuple、公開Catalog identity、selection/predeploy権利再検証、production transport取得、3 XHTML atomic固定を全880試験と独立受入でPASSし、T-055を開始した。
 
 ## 直近の作業（最新5件）
 
+- T-054の候補tuple・承認binding・baseline・3原典を全880試験と独立受入でPASS
 - UT-F004 37件・IT-F004 15件をApproved、ゲート③通過、trace 100%
 - CHG-F004-002でdeploy有効化前journal pre-armと別process cleanupを設計・試験化
 - お気に入り要求をCHG-F004-001で追加し、FD/DDをDES 13件・FUN 37件でApproved
 - 既存抽出器で46/64/102候補、最大242/278/290字、音声安全側予測66.65 MiBを確認
-- F003 v0.3.0をGitHub Pagesへ公開し、公開後スモークPASS
 
 ## 次のアクション
 
-- T-054で承認済み候補binding、固定v0.3.0 release/control baseline、3作品の権利・原典を実装する。
+- T-055で`src/content/`の同一作者merge・既存画像再利用・F004共通pipelineを実装する（REQ-F004-003/004/014/015、FUN-F004-006〜011）。
 
 ## 未解決事項
 

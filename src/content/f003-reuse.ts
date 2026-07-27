@@ -300,8 +300,9 @@ function expectedRights(
     throw new F003ReuseError('WORK_RIGHTS_SELECTION_MISSING', '原典固定にはselection観測が必要です');
   }
   const right = observation.works.find((item) => item.workId === work.workId);
+  const observedPersonIds = new Set(observation.works.map((item) => item.personId));
   if (!right || right.title !== work.title || right.personId !== work.personId ||
-    right.personId !== '000035' ||
+    observedPersonIds.size !== 1 || !observedPersonIds.has(work.personId) ||
     right.personCopyright !== work.personCopyright ||
     right.workCopyright !== work.copyright ||
     right.role !== work.role || right.translatorPresent !== false ||
@@ -309,7 +310,7 @@ function expectedRights(
     right.personCopyright !== 'なし' || right.workCopyright !== 'なし' ||
     right.role !== '著者' || right.status !== '公開中' || right.orthography !== '新字新仮名' ||
     right.cardUrl !== work.cardUrl || right.sourceUrl !== work.sourceUrl ||
-    work.charset !== 'UTF-8') {
+    (work.charset !== 'UTF-8' && work.charset !== 'Shift_JIS')) {
     throw new F003ReuseError('WORK_ALLOWLIST_MISMATCH', '作品と書誌観測が一致しません');
   }
 }
@@ -335,7 +336,7 @@ export async function fixBatchSource(
     throw new F003ReuseError('SOURCE_OUTPUT_INVALID', '原典固定先はworkspace配下の絶対pathが必要です');
   }
   const artifactRoot = outputRelation.replaceAll(sep, '/');
-  const scratchParent = join(workspace, '.cache', 'f003-source-scratch');
+  const scratchParent = join(workspace, '.cache', 'batch-source-scratch');
   await mkdir(scratchParent, { recursive: true });
   const scratch = join(scratchParent, `${work.workId}-${randomUUID()}`);
   try {

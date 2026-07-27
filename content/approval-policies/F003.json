@@ -1,0 +1,41 @@
+{
+  "approvals": [
+    {
+      "queueId": "Q-017",
+      "target": "docs/srs/SRS-F003.md",
+      "targetMode": "document"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-F003-001",
+      "level": "testspec",
+      "status": "done"
+    }
+  ],
+  "documents": [
+    {
+      "frontmatter": {
+        "feature": "F003",
+        "status": "Approved"
+      },
+      "path": "docs/srs/SRS-F003.md"
+    },
+    {
+      "frontmatter": {
+        "feature": "F003",
+        "status": "Approved"
+      },
+      "path": "docs/tests/qt/QT-F003.md"
+    }
+  ],
+  "evidencePath": "docs/evidence/requirements/F003-approval-binding.json",
+  "evidenceSchemaVersion": "1.0.0",
+  "existingFeatureIds": [
+    "F001",
+    "F002"
+  ],
+  "feature": "F003",
+  "queuePath": "queue.yaml",
+  "schemaVersion": "1.0.0"
+}

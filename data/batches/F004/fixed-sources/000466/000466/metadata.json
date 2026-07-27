@@ -1,0 +1,10 @@
+{
+  "baseEdition": "新編　銀河鉄道の夜",
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "inputter": "r.sawai",
+  "proofreader": "篠宮康彰",
+  "sourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化"
+}

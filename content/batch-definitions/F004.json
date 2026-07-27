@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "reuse",
+  "batchId": "F004",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F004",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+      "order": 1,
+      "title": "オツベルと象",
+      "workId": "000466",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/466_42316.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+      "order": 2,
+      "title": "雪渡り",
+      "workId": "045679",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+      "order": 3,
+      "title": "カイロ団長",
+      "workId": "001918",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html"
+    }
+  ]
+}

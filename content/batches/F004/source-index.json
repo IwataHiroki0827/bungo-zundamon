@@ -1,0 +1,56 @@
+{
+  "batchId": "F004",
+  "bodySelector": ".main_text",
+  "rightsRef": "content/batches/F004/rights-selection.json",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "baseEdition": "新編　銀河鉄道の夜",
+      "bibliographyCharset": "Shift_JIS",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+      "fetchedAt": "2026-07-27T14:33:06.149Z",
+      "inputter": "r.sawai",
+      "proofreader": "篠宮康彰",
+      "rawBytes": 20945,
+      "rawPath": "data/batches/F004/fixed-sources/000466/000466/source.raw",
+      "rawSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+      "recordPath": "data/batches/F004/fixed-sources/000466/000466/source.json",
+      "sourceUpdatedAt": "2011-02-14",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/466_42316.html",
+      "title": "オツベルと象",
+      "workId": "000466"
+    },
+    {
+      "baseEdition": "注文の多い料理店",
+      "bibliographyCharset": "Shift_JIS",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+      "fetchedAt": "2026-07-27T14:33:07.269Z",
+      "inputter": "土屋隆",
+      "proofreader": "田中敬三",
+      "rawBytes": 25777,
+      "rawPath": "data/batches/F004/fixed-sources/045679/045679/source.raw",
+      "rawSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+      "recordPath": "data/batches/F004/fixed-sources/045679/045679/source.json",
+      "sourceUpdatedAt": "2006-03-22",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html",
+      "title": "雪渡り",
+      "workId": "045679"
+    },
+    {
+      "baseEdition": "新編　銀河鉄道の夜",
+      "bibliographyCharset": "Shift_JIS",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+      "fetchedAt": "2026-07-27T14:33:07.419Z",
+      "inputter": "土屋隆",
+      "proofreader": "noriko saito",
+      "rawBytes": 28511,
+      "rawPath": "data/batches/F004/fixed-sources/001918/001918/source.raw",
+      "rawSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+      "recordPath": "data/batches/F004/fixed-sources/001918/001918/source.json",
+      "sourceUpdatedAt": "2005-05-08",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html",
+      "title": "カイロ団長",
+      "workId": "001918"
+    }
+  ]
+}

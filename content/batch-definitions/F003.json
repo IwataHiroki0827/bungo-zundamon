@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "introduce",
+  "batchId": "F003",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F003",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card275.html",
+      "order": 1,
+      "title": "女生徒",
+      "workId": "000275",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/275_20169.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card1567.html",
+      "order": 2,
+      "title": "走れメロス",
+      "workId": "001567",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/1567_14913.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000035/card258.html",
+      "order": 3,
+      "title": "グッド・バイ",
+      "workId": "000258",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000035/files/258_20179.html"
+    }
+  ]
+}

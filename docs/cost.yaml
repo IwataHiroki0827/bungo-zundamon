@@ -386,3 +386,10 @@ entries:
   agents: 3
   est_tokens: 24000
   note: UT 37件・IT 15件を作成。全台詞favorite control、storage障害matrix、brand二層否定、generic AST検査、atomic受入、hosted smoke、deploy disable pre-arm/回復を反復レビューし最終High/Medium/Low 0、trace 100%、ゲート③承認を完了
+- date: '2026-07-27'
+  phase: implement
+  task: T-054 F004候補・固定baseline・権利原典
+  model: GPT-5
+  agents: 2
+  est_tokens: 22000
+  note: canonical definition/policy・ApprovedBatchContext・固定v0.3.0二重baseline・公開Catalog identity join・production transport権利再検証・3 XHTML atomic固定を実装。全52ファイル880試験、型、lint、独立受入PASS

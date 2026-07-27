@@ -16,6 +16,7 @@ import {
   fingerprintArtifact,
   writeJsonArtifactAtomic,
 } from './artifacts.ts';
+import type { CatalogV2 } from './processing.ts';
 
 const SHA256 = /^[0-9a-f]{64}$/u;
 const BATCH_ID = /^F\d{3}$/u;
@@ -38,7 +39,8 @@ type CandidateFailureCode =
   | 'CANDIDATE_DUPLICATE'
   | 'CANDIDATE_PATH_UNSAFE'
   | 'CANDIDATE_APPROVAL_INVALID'
-  | 'CANDIDATE_APPROVAL_CONFLICT';
+  | 'CANDIDATE_APPROVAL_CONFLICT'
+  | 'F004_APPROVAL_MISMATCH';
 
 export class BatchCandidateError extends Error {
   constructor(
@@ -63,13 +65,23 @@ export interface ApprovalBindingDocument {
   readonly sha256: Sha256;
 }
 
-export interface CandidateApprovalBinding {
+export interface CandidateApprovalBindingV1 {
   readonly queueId: string;
   readonly approvalItemSha256: Sha256;
   readonly documents: readonly ApprovalBindingDocument[];
   readonly evidenceRef: WorkspaceRelativePath;
   readonly evidenceSha256: Sha256;
 }
+
+export interface CandidateApprovalBindingV2 {
+  readonly queueIds: readonly string[];
+  readonly approvalItemSha256s: Readonly<Record<string, Sha256>>;
+  readonly documents: readonly ApprovalBindingDocument[];
+  readonly evidenceRef: WorkspaceRelativePath;
+  readonly evidenceSha256: Sha256;
+}
+
+export type CandidateApprovalBinding = CandidateApprovalBindingV1 | CandidateApprovalBindingV2;
 
 export interface ApprovedBatchCandidateDefinition {
   readonly batchId: string;
@@ -86,17 +98,61 @@ export interface BatchCandidateRegistry {
 
 export interface VerifiedClosedApproval {
   readonly __brand: 'VerifiedClosedApproval';
+  /** F003互換用。複数承認では静的policy上の先頭承認を表す。 */
   readonly queueId: string;
   readonly queueSha256: Sha256;
+  /** F003互換用。複数承認では静的policy上の先頭承認を表す。 */
   readonly approvalItemSha256: Sha256;
+  readonly queueIds: readonly string[];
+  readonly approvalItemSha256s: Readonly<Record<string, Sha256>>;
   readonly feature: string;
   readonly target: WorkspaceRelativePath;
+  readonly targets: readonly WorkspaceRelativePath[];
   readonly documents: readonly ApprovalBindingDocument[];
   readonly evidenceRef: WorkspaceRelativePath;
   readonly evidenceSha256: Sha256;
 }
 
 const verifiedClosedApprovals = new WeakSet<object>();
+
+export interface VerifiedBatchDefinition {
+  readonly __brand: 'VerifiedBatchDefinition';
+  readonly ref: WorkspaceRelativePath;
+  readonly sha256: Sha256;
+  readonly batchId: BatchId;
+  readonly feature: BatchId;
+  readonly candidateRegistryPath: 'content/batch-candidates.json';
+  readonly author: BatchAuthor;
+  readonly workIds: readonly string[];
+  readonly works: readonly BatchCandidateRegistryWork[];
+  readonly authorExpectation: 'introduce' | 'reuse';
+}
+
+export interface VerifiedApprovalBindingPolicy {
+  readonly __brand: 'VerifiedApprovalBindingPolicy';
+  readonly ref: WorkspaceRelativePath;
+  readonly sha256: Sha256;
+  readonly feature: BatchId;
+}
+
+export interface ApprovedBatchContext {
+  readonly __brand: 'ApprovedBatchContext';
+  readonly candidate: ApprovedBatchCandidateDefinition;
+  readonly definition: VerifiedBatchDefinition;
+  readonly policy: VerifiedApprovalBindingPolicy;
+  readonly approval: VerifiedClosedApproval;
+}
+
+export interface ExistingAuthorIdentity {
+  readonly __brand: 'ExistingAuthorIdentity';
+  readonly author: BatchAuthor;
+  readonly introducedByBatchId: BatchId;
+}
+
+const verifiedBatchDefinitions = new WeakSet<object>();
+const verifiedApprovalPolicies = new WeakSet<object>();
+const approvedBatchContexts = new WeakSet<object>();
+const existingAuthorIdentities = new WeakSet<object>();
 
 export type CandidateValidationResult =
   | { readonly ok: true; readonly value: BatchCandidateRegistry }
@@ -107,7 +163,7 @@ export interface BindingEvidenceLocator {
   readonly sha256: Sha256;
 }
 
-interface ApprovalBindingEvidence {
+interface ApprovalBindingEvidenceV1 {
   readonly schemaVersion: '1.0.0';
   readonly feature: string;
   readonly queueId: string;
@@ -124,6 +180,154 @@ interface ApprovalBindingEvidence {
   readonly migratedAt: string;
 }
 
+interface ApprovalBindingEvidenceV2 {
+  readonly schemaVersion: '1.1.0';
+  readonly feature: string;
+  readonly queuePath: 'queue.yaml';
+  readonly queueSha256AtMigration: Sha256;
+  readonly approvalProjectionFields: readonly string[];
+  readonly approvals: readonly {
+    readonly queueId: string;
+    readonly approvalItemSha256: Sha256;
+  }[];
+  readonly documents: readonly ApprovalBindingDocument[];
+  readonly changes: readonly {
+    readonly id: string;
+    readonly level: string;
+    readonly status: string;
+  }[];
+  readonly migratedAt: string;
+}
+
+type ApprovalBindingEvidence = ApprovalBindingEvidenceV1 | ApprovalBindingEvidenceV2;
+
+interface ApprovalPolicy {
+  readonly feature: string;
+  readonly authorExpectation: 'introduce' | 'reuse';
+  readonly author?: BatchAuthor;
+  readonly evidencePath: WorkspaceRelativePath;
+  readonly evidenceSchemaVersion: '1.0.0' | '1.1.0';
+  readonly approvals: readonly {
+    readonly queueId: string;
+    readonly target: WorkspaceRelativePath;
+    readonly targetMode: 'document';
+  }[];
+  readonly documents: readonly {
+    readonly path: WorkspaceRelativePath;
+    readonly frontmatter: Readonly<Record<string, string>>;
+  }[];
+  readonly changes: readonly {
+    readonly id: string;
+    readonly level: string;
+    readonly status: string;
+  }[];
+  readonly existingFeatureIds: readonly BatchId[];
+}
+
+/**
+ * Callerがrequired state・path・authorExpectation相当を差し替えられないよう、
+ * production codeが所有する固定ポリシーからだけ承認契約を選ぶ。
+ * @des DES-F004-001 @des DES-F004-011 @fun FUN-F004-001 @ut UT-F004-001
+ */
+const APPROVAL_POLICIES = Object.freeze({
+  F003: Object.freeze({
+    feature: 'F003',
+    authorExpectation: 'introduce',
+    evidencePath: 'docs/evidence/requirements/F003-approval-binding.json' as WorkspaceRelativePath,
+    evidenceSchemaVersion: '1.0.0',
+    approvals: Object.freeze([
+      Object.freeze({
+        queueId: 'Q-017',
+        target: 'docs/srs/SRS-F003.md' as WorkspaceRelativePath,
+        targetMode: 'document',
+      }),
+    ]),
+    documents: Object.freeze([
+      Object.freeze({
+        path: 'docs/srs/SRS-F003.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F003', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/tests/qt/QT-F003.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F003', status: 'Approved' }),
+      }),
+    ]),
+    changes: Object.freeze([
+      Object.freeze({ id: 'CHG-F003-001', level: 'testspec', status: 'done' }),
+    ]),
+    existingFeatureIds: Object.freeze(['F001', 'F002'] as BatchId[]),
+  }),
+  F004: Object.freeze({
+    feature: 'F004',
+    authorExpectation: 'reuse',
+    author: Object.freeze({
+      authorId: '000081',
+      identitySha256: 'f7b658e3729e6adb3bba4ac11a0ba2657779ab21e84e47f467db244adf6b1bac' as Sha256,
+      name: 'みやざわずんじ',
+      originalName: '宮沢賢治',
+      slug: 'miyazawa-zunji',
+    }),
+    evidencePath: 'docs/evidence/requirements/F004-approval-binding.json' as WorkspaceRelativePath,
+    evidenceSchemaVersion: '1.1.0',
+    approvals: Object.freeze([
+      Object.freeze({
+        queueId: 'Q-022',
+        target: 'docs/srs/SRS-F004.md' as WorkspaceRelativePath,
+        targetMode: 'document',
+      }),
+      Object.freeze({
+        queueId: 'Q-023',
+        target: 'docs/changes/CHG-F004-001.md' as WorkspaceRelativePath,
+        targetMode: 'document',
+      }),
+    ]),
+    documents: Object.freeze([
+      Object.freeze({
+        path: 'docs/srs/SRS-F004.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F004', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/tests/qt/QT-F004.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F004', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/changes/CHG-F004-001.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({
+          id: 'CHG-F004-001',
+          feature: 'F004',
+          level: 'requirement',
+          status: 'in-review',
+        }),
+      }),
+    ]),
+    changes: Object.freeze([
+      Object.freeze({ id: 'CHG-F004-001', level: 'requirement', status: 'in-review' }),
+    ]),
+    existingFeatureIds: Object.freeze(['F001', 'F002', 'F003'] as BatchId[]),
+  }),
+} satisfies Readonly<Record<string, ApprovalPolicy>>);
+
+export const BATCH_DEFINITION_REFS = Object.freeze({
+  F003: Object.freeze({
+    ref: 'content/batch-definitions/F003.json' as WorkspaceRelativePath,
+    sha256: 'f673f70680d0f67a64facd8b141dfeef5e8f64cd0a2128a6e3d5d36eb7d8a97f' as Sha256,
+  }),
+  F004: Object.freeze({
+    ref: 'content/batch-definitions/F004.json' as WorkspaceRelativePath,
+    sha256: 'cdf88fdee3b844812a6ae78be60a2161e6afb97f28bdbae10c4daa797012701b' as Sha256,
+  }),
+});
+
+export const APPROVAL_POLICY_REFS = Object.freeze({
+  F003: Object.freeze({
+    ref: 'content/approval-policies/F003.json' as WorkspaceRelativePath,
+    sha256: 'e33b3ab1dd36fd09aa39759c36602ba861a260a6d6ff227ccf4c73b424a3d6df' as Sha256,
+  }),
+  F004: Object.freeze({
+    ref: 'content/approval-policies/F004.json' as WorkspaceRelativePath,
+    sha256: '549e925c441e832fef1ac2a98bbe87bf46424f6cab8944ff2861f4144041ccbf' as Sha256,
+  }),
+});
 function hash(value: string | Uint8Array): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
 }
@@ -187,24 +391,66 @@ function validateAuthor(value: unknown): value is BatchAuthor {
   });
 }
 
-function validateDocuments(value: unknown): value is readonly ApprovalBindingDocument[] {
-  if (!Array.isArray(value) || value.length !== 2) return false;
+function approvalPolicyForFeature(feature: unknown): ApprovalPolicy | null {
+  if (typeof feature !== 'string' || !Object.hasOwn(APPROVAL_POLICIES, feature)) return null;
+  return APPROVAL_POLICIES[feature as keyof typeof APPROVAL_POLICIES];
+}
+
+function approvalPolicyForEvidencePath(path: unknown): ApprovalPolicy | null {
+  if (!isSafePath(path)) return null;
+  return Object.values(APPROVAL_POLICIES).find((policy) => policy.evidencePath === path) ?? null;
+}
+
+function validateCandidateAuthor(value: unknown, policy: ApprovalPolicy): value is BatchAuthor {
+  if (policy.authorExpectation === 'introduce') return validateAuthor(value);
+  return validateAuthorShape(value) && policy.author !== undefined &&
+    canonicalJson(value) === canonicalJson(policy.author);
+}
+
+function validateAuthorShape(value: unknown): value is BatchAuthor {
+  return isRecord(value) &&
+    exactKeys(value, ['authorId', 'name', 'originalName', 'slug', 'identitySha256']) &&
+    typeof value.authorId === 'string' && AUTHOR_ID.test(value.authorId) &&
+    isText(value.name) && isText(value.originalName) &&
+    typeof value.slug === 'string' && SLUG.test(value.slug) && isSha(value.identitySha256);
+}
+
+function validateDocuments(
+  value: unknown,
+  policy: ApprovalPolicy,
+): value is readonly ApprovalBindingDocument[] {
+  if (!Array.isArray(value) || value.length !== policy.documents.length) return false;
   const paths = new Set<string>();
   for (const document of value) {
     if (!isRecord(document) || !exactKeys(document, ['path', 'sha256']) ||
       !isSafePath(document.path) || !isSha(document.sha256) || paths.has(document.path)) return false;
     paths.add(document.path);
   }
-  return paths.has('docs/srs/SRS-F003.md') && paths.has('docs/tests/qt/QT-F003.md');
+  return policy.documents.every((document) => paths.has(document.path)) &&
+    canonicalJson(value.map((document) => (document as ApprovalBindingDocument).path)) ===
+      canonicalJson(policy.documents.map((document) => document.path));
 }
 
-function validateApprovalBinding(value: unknown): value is CandidateApprovalBinding {
-  return isRecord(value) &&
-    exactKeys(value, ['queueId', 'approvalItemSha256', 'documents', 'evidenceRef', 'evidenceSha256']) &&
-    value.queueId === 'Q-017' && isSha(value.approvalItemSha256) &&
-    validateDocuments(value.documents) &&
-    value.evidenceRef === 'docs/evidence/requirements/F003-approval-binding.json' &&
-    isSha(value.evidenceSha256);
+function validateApprovalBinding(
+  value: unknown,
+  policy: ApprovalPolicy,
+): value is CandidateApprovalBinding {
+  if (!isRecord(value) || value.evidenceRef !== policy.evidencePath ||
+    !isSha(value.evidenceSha256) || !validateDocuments(value.documents, policy)) return false;
+  if (policy.evidenceSchemaVersion === '1.0.0') {
+    return exactKeys(value, [
+      'queueId', 'approvalItemSha256', 'documents', 'evidenceRef', 'evidenceSha256',
+    ]) &&
+      value.queueId === policy.approvals[0]?.queueId && isSha(value.approvalItemSha256);
+  }
+  if (!exactKeys(value, [
+    'queueIds', 'approvalItemSha256s', 'documents', 'evidenceRef', 'evidenceSha256',
+  ]) || !Array.isArray(value.queueIds) || !isRecord(value.approvalItemSha256s)) return false;
+  const expectedIds = policy.approvals.map((approval) => approval.queueId);
+  const approvalItemSha256s = value.approvalItemSha256s;
+  return canonicalJson(value.queueIds) === canonicalJson(expectedIds) &&
+    exactKeys(approvalItemSha256s, expectedIds) &&
+    expectedIds.every((queueId) => isSha(approvalItemSha256s[queueId]));
 }
 
 function validateWork(value: unknown): value is BatchCandidateRegistryWork {
@@ -225,13 +471,15 @@ export function validateBatchCandidateRegistry(value: unknown): CandidateValidat
   const batchIds = new Set<string>();
   const features = new Set<string>();
   for (const candidate of value.candidates) {
+    const policy = isRecord(candidate) ? approvalPolicyForFeature(candidate.feature) : null;
     if (!isRecord(candidate) ||
       !exactKeys(candidate, ['batchId', 'feature', 'author', 'works', 'approvalBinding']) ||
       typeof candidate.batchId !== 'string' || !BATCH_ID.test(candidate.batchId) ||
       typeof candidate.feature !== 'string' || candidate.feature !== candidate.batchId ||
-      !validateAuthor(candidate.author) ||
+      policy === null ||
+      !validateCandidateAuthor(candidate.author, policy) ||
       !Array.isArray(candidate.works) || candidate.works.length !== 3 ||
-      !candidate.works.every(validateWork) || !validateApprovalBinding(candidate.approvalBinding)) {
+      !candidate.works.every(validateWork) || !validateApprovalBinding(candidate.approvalBinding, policy)) {
       return fail('CANDIDATE_REGISTRY_INVALID', 'candidateのexact schemaまたはidentityが不正です');
     }
     if (batchIds.has(candidate.batchId) || features.has(candidate.feature) ||
@@ -330,44 +578,87 @@ function approvalProjection(item: Record<string, unknown>): Record<string, unkno
   return Object.fromEntries(APPROVAL_PROJECTION_FIELDS.map((field) => [field, item[field]]));
 }
 
-function parseBindingEvidence(value: unknown): ApprovalBindingEvidence {
-  const keys = [
-    'schemaVersion', 'feature', 'queueId', 'queuePath', 'queueSha256AtMigration',
-    'approvalProjectionFields', 'approvalItemSha256', 'documents', 'changes', 'migratedAt',
-  ];
-  if (!isRecord(value) || !exactKeys(value, keys) || value.schemaVersion !== '1.0.0' ||
-    value.feature !== 'F003' || value.queueId !== 'Q-017' || value.queuePath !== 'queue.yaml' ||
-    !isSha(value.queueSha256AtMigration) || !isSha(value.approvalItemSha256) ||
-    !Array.isArray(value.approvalProjectionFields) ||
-    canonicalJson(value.approvalProjectionFields) !== canonicalJson(APPROVAL_PROJECTION_FIELDS) ||
-    !validateDocuments(value.documents) || !Array.isArray(value.changes) ||
-    !value.changes.some((change) => isRecord(change) && change.id === 'CHG-F003-001' &&
-      change.level === 'testspec' && change.status === 'done') ||
-    typeof value.migratedAt !== 'string' || !Number.isFinite(Date.parse(value.migratedAt))) {
-    throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'approval binding evidenceが不正です');
-  }
-  return value as unknown as ApprovalBindingEvidence;
+function approvalFailureCode(policy: ApprovalPolicy): CandidateFailureCode {
+  return policy.feature === 'F004' ? 'F004_APPROVAL_MISMATCH' : 'CANDIDATE_APPROVAL_INVALID';
 }
 
-function hasApprovedFrontmatter(raw: string): boolean {
+function validateEvidenceChanges(value: unknown, policy: ApprovalPolicy): boolean {
+  return Array.isArray(value) && value.length === policy.changes.length &&
+    value.every((change) => isRecord(change) && exactKeys(change, ['id', 'level', 'status'])) &&
+    canonicalJson(value) === canonicalJson(policy.changes);
+}
+
+function parseBindingEvidence(value: unknown, policy: ApprovalPolicy): ApprovalBindingEvidence {
+  const common =
+    isRecord(value) &&
+    value.feature === policy.feature &&
+    value.queuePath === 'queue.yaml' &&
+    isSha(value.queueSha256AtMigration) &&
+    Array.isArray(value.approvalProjectionFields) &&
+    canonicalJson(value.approvalProjectionFields) === canonicalJson(APPROVAL_PROJECTION_FIELDS) &&
+    validateDocuments(value.documents, policy) &&
+    validateEvidenceChanges(value.changes, policy) &&
+    typeof value.migratedAt === 'string' &&
+    Number.isFinite(Date.parse(value.migratedAt));
+  if (!common) {
+    throw new BatchCandidateError(approvalFailureCode(policy), 'approval binding evidenceが不正です');
+  }
+  if (policy.evidenceSchemaVersion === '1.0.0') {
+    const keys = [
+      'schemaVersion', 'feature', 'queueId', 'queuePath', 'queueSha256AtMigration',
+      'approvalProjectionFields', 'approvalItemSha256', 'documents', 'changes', 'migratedAt',
+    ];
+    if (!exactKeys(value, keys) || value.schemaVersion !== '1.0.0' ||
+      value.queueId !== policy.approvals[0]?.queueId || !isSha(value.approvalItemSha256)) {
+      throw new BatchCandidateError(approvalFailureCode(policy), '単一approval binding evidenceが不正です');
+    }
+    return value as unknown as ApprovalBindingEvidenceV1;
+  }
+  const keys = [
+    'schemaVersion', 'feature', 'queuePath', 'queueSha256AtMigration',
+    'approvalProjectionFields', 'approvals', 'documents', 'changes', 'migratedAt',
+  ];
+  if (!exactKeys(value, keys) || value.schemaVersion !== '1.1.0' || !Array.isArray(value.approvals) ||
+    value.approvals.length !== policy.approvals.length ||
+    !value.approvals.every((approval) =>
+      isRecord(approval) &&
+      exactKeys(approval, ['queueId', 'approvalItemSha256']) &&
+      typeof approval.queueId === 'string' &&
+      isSha(approval.approvalItemSha256)) ||
+    canonicalJson(value.approvals.map((approval) => (approval as { queueId: string }).queueId)) !==
+      canonicalJson(policy.approvals.map((approval) => approval.queueId))) {
+    throw new BatchCandidateError(approvalFailureCode(policy), '複数approval binding evidenceが不正です');
+  }
+  return value as unknown as ApprovalBindingEvidenceV2;
+}
+
+function hasExpectedFrontmatter(
+  raw: string,
+  expected: Readonly<Record<string, string>>,
+): boolean {
   const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/u.exec(raw);
   if (!match?.[1]) return false;
   const document = parseDocument(match[1], { strict: true, uniqueKeys: true });
   if (document.errors.length > 0 || document.warnings.length > 0) return false;
   const value = document.toJS({ maxAliasCount: 0 }) as unknown;
-  return isRecord(value) && value.status === 'Approved' && value.feature === 'F003';
+  return isRecord(value) &&
+    Object.entries(expected).every(([key, expectedValue]) => value[key] === expectedValue);
 }
 
-/** @des DES-F003-001 @fun FUN-F003-002 @ut UT-F003-002 */
+/**
+ * Canonical evidence refから静的policyを選び、全承認と文書実体を再検算する。
+ * @des DES-F003-001 @fun FUN-F003-002 @ut UT-F003-002
+ * @des DES-F004-001 @des DES-F004-011 @fun FUN-F004-001 @ut UT-F004-001
+ */
 export async function loadAndVerifyClosedApproval(
   workspace: string,
   queuePath: WorkspaceRelativePath,
   expectedQueueSha: Sha256,
   bindingEvidence: BindingEvidenceLocator,
 ): Promise<VerifiedClosedApproval> {
+  const policy = approvalPolicyForEvidencePath(bindingEvidence.path);
   if (queuePath !== 'queue.yaml' || !isSha(expectedQueueSha) ||
-    bindingEvidence.path !== 'docs/evidence/requirements/F003-approval-binding.json' ||
-    !isSha(bindingEvidence.sha256)) {
+    policy === null || !isSha(bindingEvidence.sha256)) {
     throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'approval loaderの入力が不正です');
   }
   const queueFile = await verifiedWorkspaceFile(workspace, queuePath);
@@ -390,36 +681,72 @@ export async function loadAndVerifyClosedApproval(
   if (evidenceRaw !== canonicalJson(evidenceValue)) {
     throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'binding evidenceがcanonical JSONではありません');
   }
-  const evidence = parseBindingEvidence(evidenceValue);
+  const evidence = parseBindingEvidence(evidenceValue, policy);
   const queue = parseYamlSequence(queueRaw);
-  const matches = queue.filter((item) => isRecord(item) && item.id === evidence.queueId);
-  if (matches.length !== 1 || !isRecord(matches[0])) {
-    throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'Q-017が一意に存在しません');
-  }
-  const item = matches[0];
-  if (item.type !== 'approval' || item.status !== 'closed' || item.target !== 'docs/srs/SRS-F003.md' ||
-    item.target_mode !== 'document' || item.answer !== '承認' || typeof item.approved_at !== 'string' ||
-    !Number.isFinite(Date.parse(item.approved_at))) {
-    throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'Q-017はclosed document approvalではありません');
-  }
-  const projectionSha = hash(canonicalJson(approvalProjection(item)));
-  if (projectionSha !== evidence.approvalItemSha256) {
-    throw new BatchCandidateError('CANDIDATE_APPROVAL_CONFLICT', 'Q-017 canonical projection SHAが一致しません');
+  const evidenceApprovals = evidence.schemaVersion === '1.0.0'
+    ? [{ queueId: evidence.queueId, approvalItemSha256: evidence.approvalItemSha256 }]
+    : evidence.approvals;
+  const approvalHashes: Record<string, Sha256> = {};
+  const targets: WorkspaceRelativePath[] = [];
+  for (const approvalPolicy of policy.approvals) {
+    const evidenceApproval = evidenceApprovals.find(
+      (approval) => approval.queueId === approvalPolicy.queueId,
+    );
+    const matches = queue.filter((item) => isRecord(item) && item.id === approvalPolicy.queueId);
+    if (!evidenceApproval || matches.length !== 1 || !isRecord(matches[0])) {
+      throw new BatchCandidateError(
+        approvalFailureCode(policy),
+        `${approvalPolicy.queueId}が一意に存在しません`,
+      );
+    }
+    const item = matches[0];
+    if (item.type !== 'approval' || item.status !== 'closed' ||
+      item.target !== approvalPolicy.target || item.target_mode !== approvalPolicy.targetMode ||
+      item.answer !== '承認' || typeof item.approved_at !== 'string' ||
+      !Number.isFinite(Date.parse(item.approved_at))) {
+      throw new BatchCandidateError(
+        approvalFailureCode(policy),
+        `${approvalPolicy.queueId}は要求されたclosed document approvalではありません`,
+      );
+    }
+    const projectionSha = hash(canonicalJson(approvalProjection(item)));
+    if (projectionSha !== evidenceApproval.approvalItemSha256) {
+      throw new BatchCandidateError(
+        policy.feature === 'F004' ? 'F004_APPROVAL_MISMATCH' : 'CANDIDATE_APPROVAL_CONFLICT',
+        `${approvalPolicy.queueId} canonical projection SHAが一致しません`,
+      );
+    }
+    approvalHashes[approvalPolicy.queueId] = projectionSha;
+    targets.push(approvalPolicy.target);
   }
   for (const document of evidence.documents) {
+    const documentPolicy = policy.documents.find((entry) => entry.path === document.path);
+    if (!documentPolicy) {
+      throw new BatchCandidateError(approvalFailureCode(policy), `未許可文書です: ${document.path}`);
+    }
     const documentFile = await verifiedWorkspaceFile(workspace, document.path);
     const raw = await readFile(documentFile, 'utf8');
-    if (!hasApprovedFrontmatter(raw) || hash(raw) !== document.sha256) {
-      throw new BatchCandidateError('CANDIDATE_APPROVAL_CONFLICT', `Approved文書SHAが一致しません: ${document.path}`);
+    if (!hasExpectedFrontmatter(raw, documentPolicy.frontmatter) || hash(raw) !== document.sha256) {
+      throw new BatchCandidateError(
+        policy.feature === 'F004' ? 'F004_APPROVAL_MISMATCH' : 'CANDIDATE_APPROVAL_CONFLICT',
+        `承認文書SHAまたはstateが一致しません: ${document.path}`,
+      );
     }
+  }
+  const firstApproval = policy.approvals[0];
+  if (!firstApproval) {
+    throw new BatchCandidateError(approvalFailureCode(policy), '承認policyが空です');
   }
   const verified = Object.freeze({
     __brand: 'VerifiedClosedApproval',
-    queueId: evidence.queueId,
+    queueId: firstApproval.queueId,
     queueSha256: queueSha,
-    approvalItemSha256: projectionSha,
+    approvalItemSha256: approvalHashes[firstApproval.queueId] as Sha256,
+    queueIds: Object.freeze(policy.approvals.map((approval) => approval.queueId)),
+    approvalItemSha256s: Object.freeze({ ...approvalHashes }),
     feature: evidence.feature,
-    target: item.target as WorkspaceRelativePath,
+    target: firstApproval.target,
+    targets: Object.freeze(targets),
     documents: Object.freeze(evidence.documents.map((document) => Object.freeze({ ...document }))),
     evidenceRef: bindingEvidence.path,
     evidenceSha256: bindingEvidence.sha256,
@@ -434,19 +761,51 @@ function sameDocuments(left: readonly ApprovalBindingDocument[], right: readonly
   return canonicalJson(ordered(left)) === canonicalJson(ordered(right));
 }
 
-/** @des DES-F003-001 @fun FUN-F003-003 @ut UT-F003-003 */
+function sameApprovalBinding(
+  binding: CandidateApprovalBinding,
+  approval: VerifiedClosedApproval,
+  policy: ApprovalPolicy,
+): boolean {
+  const common = binding.evidenceRef === approval.evidenceRef &&
+    binding.evidenceSha256 === approval.evidenceSha256 &&
+    sameDocuments(binding.documents, approval.documents);
+  if (!common) return false;
+  if (policy.evidenceSchemaVersion === '1.0.0') {
+    return 'queueId' in binding &&
+      binding.queueId === approval.queueId &&
+      binding.approvalItemSha256 === approval.approvalItemSha256;
+  }
+  return 'queueIds' in binding &&
+    canonicalJson(binding.queueIds) === canonicalJson(approval.queueIds) &&
+    canonicalJson(binding.approvalItemSha256s) === canonicalJson(approval.approvalItemSha256s);
+}
+
+/**
+ * Verified approvalと候補bindingの完全一致後だけgeneric templateへ変換する。
+ * @des DES-F003-001 @fun FUN-F003-003 @ut UT-F003-003
+ * @des DES-F004-001 @fun FUN-F004-001 @fun FUN-F004-005 @ut UT-F004-001 @ut UT-F004-005
+ */
 export function selectApprovedBatchCandidateAndCreateTemplate(
   registryValue: unknown,
   approval: VerifiedClosedApproval,
   feature: BatchId,
   gateRefs: BatchApprovalGateRefs,
 ): BatchManifest {
+  if (feature !== 'F003') {
+    throw new BatchCandidateError(
+      'CANDIDATE_APPROVAL_INVALID',
+      'F004以降はApprovedBatchContext経路だけを使用できます',
+    );
+  }
   const registry = validateBatchCandidateRegistry(registryValue);
   if (!registry.ok) throw new BatchCandidateError(registry.code, registry.message);
+  const policy = approvalPolicyForFeature(feature);
   if (!isRecord(approval) || !verifiedClosedApprovals.has(approval) ||
     approval.__brand !== 'VerifiedClosedApproval' ||
-    approval.feature !== feature || !isSha(approval.approvalItemSha256) ||
-    !isSha(approval.evidenceSha256)) {
+    approval.feature !== feature || policy === null ||
+    !isSha(approval.approvalItemSha256) || !isSha(approval.evidenceSha256) ||
+    canonicalJson(approval.queueIds) !==
+      canonicalJson(policy.approvals.map((policyApproval) => policyApproval.queueId))) {
     throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'verified approvalがfeatureと一致しません');
   }
   const candidates = registry.value.candidates.filter((candidate) => candidate.feature === feature);
@@ -455,11 +814,7 @@ export function selectApprovedBatchCandidateAndCreateTemplate(
   }
   const candidate = candidates[0];
   if (!candidate || candidate.batchId !== feature ||
-    candidate.approvalBinding.queueId !== approval.queueId ||
-    candidate.approvalBinding.approvalItemSha256 !== approval.approvalItemSha256 ||
-    candidate.approvalBinding.evidenceRef !== approval.evidenceRef ||
-    candidate.approvalBinding.evidenceSha256 !== approval.evidenceSha256 ||
-    !sameDocuments(candidate.approvalBinding.documents, approval.documents)) {
+    !sameApprovalBinding(candidate.approvalBinding, approval, policy)) {
     throw new BatchCandidateError('CANDIDATE_APPROVAL_CONFLICT', 'candidate approval bindingが検証済み承認と一致しません');
   }
   return createNextBatchTemplate({
@@ -468,6 +823,249 @@ export function selectApprovedBatchCandidateAndCreateTemplate(
     author: candidate.author,
     works: candidate.works.map((work) => ({ workId: work.workId, title: work.title })),
     approvalGateRefs: gateRefs,
-    existingFeatureIds: ['F001', 'F002'],
+    existingFeatureIds: policy.existingFeatureIds,
   }, feature);
+}
+
+function descriptorFeature(
+  definitionRef: WorkspaceRelativePath,
+  expectedDefinitionSha: Sha256,
+  policyRef: WorkspaceRelativePath,
+  expectedPolicySha: Sha256,
+): keyof typeof APPROVAL_POLICIES {
+  const feature = (Object.keys(BATCH_DEFINITION_REFS) as Array<keyof typeof BATCH_DEFINITION_REFS>)
+    .find((key) => BATCH_DEFINITION_REFS[key].ref === definitionRef);
+  if (!feature ||
+    BATCH_DEFINITION_REFS[feature].sha256 !== expectedDefinitionSha ||
+    APPROVAL_POLICY_REFS[feature].ref !== policyRef ||
+    APPROVAL_POLICY_REFS[feature].sha256 !== expectedPolicySha) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'definition/policy refとexpected SHAがallowlist外です');
+  }
+  return feature;
+}
+
+function policyDescriptor(policy: ApprovalPolicy): unknown {
+  return {
+    approvals: policy.approvals.map((approval) => ({
+      queueId: approval.queueId,
+      target: approval.target,
+      targetMode: approval.targetMode,
+    })),
+    changes: policy.changes.map((change) => ({ ...change })),
+    documents: policy.documents.map((document) => ({
+      frontmatter: { ...document.frontmatter },
+      path: document.path,
+    })),
+    evidencePath: policy.evidencePath,
+    evidenceSchemaVersion: policy.evidenceSchemaVersion,
+    existingFeatureIds: [...policy.existingFeatureIds],
+    feature: policy.feature,
+    queuePath: 'queue.yaml',
+    schemaVersion: '1.0.0',
+  };
+}
+
+function parseCanonicalDescriptor(raw: string, code: CandidateFailureCode): unknown {
+  let value: unknown;
+  try {
+    value = JSON.parse(raw) as unknown;
+  } catch (error) {
+    throw new BatchCandidateError(code, `descriptor JSONが不正です: ${String(error)}`);
+  }
+  if (raw !== canonicalJson(value)) {
+    throw new BatchCandidateError(code, 'descriptorはcanonical JSONである必要があります');
+  }
+  return value;
+}
+
+function freezeDeep<T>(value: T): T {
+  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const child of Object.values(value as Record<string, unknown>)) freezeDeep(child);
+  }
+  return value;
+}
+
+/**
+ * canonical definition/policyと全原artifactを再読込し、production loaderだけが3 brandをmintする。
+ * @des DES-F004-001 @des DES-F004-011 @fun FUN-F004-001 @ut UT-F004-001
+ */
+export async function loadAndVerifyBatchCandidate(
+  workspace: string,
+  definitionRef: WorkspaceRelativePath,
+  expectedDefinitionSha: Sha256,
+  policyRef: WorkspaceRelativePath,
+  expectedPolicySha: Sha256,
+): Promise<ApprovedBatchContext> {
+  const feature = descriptorFeature(
+    definitionRef,
+    expectedDefinitionSha,
+    policyRef,
+    expectedPolicySha,
+  );
+  const policySource = APPROVAL_POLICIES[feature];
+  const [definitionFile, policyFile] = await Promise.all([
+    verifiedWorkspaceFile(workspace, definitionRef),
+    verifiedWorkspaceFile(workspace, policyRef),
+  ]);
+  const [definitionRaw, policyRaw] = await Promise.all([
+    readFile(definitionFile, 'utf8'),
+    readFile(policyFile, 'utf8'),
+  ]);
+  if (hash(definitionRaw) !== expectedDefinitionSha || hash(policyRaw) !== expectedPolicySha) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'definition/policy descriptor SHAが一致しません');
+  }
+  const definitionValue = parseCanonicalDescriptor(definitionRaw, 'CANDIDATE_REGISTRY_INVALID');
+  const policyValue = parseCanonicalDescriptor(policyRaw, 'F004_APPROVAL_MISMATCH');
+  if (!isRecord(definitionValue) ||
+    !exactKeys(definitionValue, [
+      'authorExpectation', 'batchId', 'candidateRegistryPath', 'feature', 'schemaVersion', 'works',
+    ]) ||
+    definitionValue.schemaVersion !== '1.0.0' ||
+    definitionValue.batchId !== feature || definitionValue.feature !== feature ||
+    definitionValue.candidateRegistryPath !== 'content/batch-candidates.json' ||
+    definitionValue.authorExpectation !== policySource.authorExpectation ||
+    !Array.isArray(definitionValue.works) || definitionValue.works.length !== 3 ||
+    definitionValue.works.some((work) => !validateWork(work)) ||
+    new Set(definitionValue.works.map((work) => (work as BatchCandidateRegistryWork).workId)).size !== 3 ||
+    canonicalJson(policyValue) !== canonicalJson(policyDescriptor(policySource))) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'definition/policy descriptor schemaが不正です');
+  }
+
+  const registryFile = await verifiedWorkspaceFile(workspace, 'content/batch-candidates.json' as WorkspaceRelativePath);
+  const registryRaw = await readFile(registryFile, 'utf8');
+  const registryValue = parseCanonicalDescriptor(registryRaw, 'CANDIDATE_REGISTRY_INVALID');
+  const registry = validateBatchCandidateRegistry(registryValue);
+  if (!registry.ok) throw new BatchCandidateError(registry.code, registry.message);
+  const candidates = registry.value.candidates.filter((candidate) => candidate.feature === feature);
+  const candidate = candidates[0];
+  if (candidates.length !== 1 || !candidate ||
+    canonicalJson(candidate.works) !== canonicalJson(definitionValue.works) ||
+    candidate.batchId !== definitionValue.batchId ||
+    candidate.feature !== definitionValue.feature ||
+    (policySource.authorExpectation === 'reuse' &&
+      (!policySource.author || canonicalJson(candidate.author) !== canonicalJson(policySource.author)))) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'candidateがverified definitionと一致しません');
+  }
+
+  const queueFile = await verifiedWorkspaceFile(workspace, 'queue.yaml' as WorkspaceRelativePath);
+  const queueSha = hash(await readFile(queueFile));
+  const evidenceRef = candidate.approvalBinding.evidenceRef;
+  const evidenceSha = candidate.approvalBinding.evidenceSha256;
+  const approval = await loadAndVerifyClosedApproval(
+    workspace,
+    'queue.yaml' as WorkspaceRelativePath,
+    queueSha,
+    { path: evidenceRef, sha256: evidenceSha },
+  );
+  if (!sameApprovalBinding(candidate.approvalBinding, approval, policySource)) {
+    throw new BatchCandidateError('F004_APPROVAL_MISMATCH', 'candidateとverified approval policyが一致しません');
+  }
+
+  const definition = freezeDeep({
+    __brand: 'VerifiedBatchDefinition' as const,
+    ref: definitionRef,
+    sha256: expectedDefinitionSha,
+    batchId: feature as BatchId,
+    feature: feature as BatchId,
+    candidateRegistryPath: 'content/batch-candidates.json' as const,
+    author: structuredClone(candidate.author),
+    workIds: definitionValue.works.map((work) => (work as BatchCandidateRegistryWork).workId),
+    works: structuredClone(definitionValue.works) as BatchCandidateRegistryWork[],
+    authorExpectation: policySource.authorExpectation,
+  });
+  const verifiedPolicy = freezeDeep({
+    __brand: 'VerifiedApprovalBindingPolicy' as const,
+    ref: policyRef,
+    sha256: expectedPolicySha,
+    feature: feature as BatchId,
+  });
+  verifiedBatchDefinitions.add(definition);
+  verifiedApprovalPolicies.add(verifiedPolicy);
+  const context = freezeDeep({
+    __brand: 'ApprovedBatchContext' as const,
+    candidate: structuredClone(candidate),
+    definition,
+    policy: verifiedPolicy,
+    approval,
+  });
+  approvedBatchContexts.add(context);
+  return context;
+}
+
+/**
+ * Mint済みcontextからだけbatch templateを作成し、caller object経路を閉じる。
+ * @des DES-F004-001 @fun FUN-F004-005 @ut UT-F004-005
+ */
+export function createBatchManifestFromApprovedContext(
+  context: ApprovedBatchContext,
+  gateRefs: BatchApprovalGateRefs,
+): BatchManifest {
+  if (!isRecord(context) || !approvedBatchContexts.has(context) ||
+    context.__brand !== 'ApprovedBatchContext' ||
+    !verifiedBatchDefinitions.has(context.definition) ||
+    !verifiedApprovalPolicies.has(context.policy)) {
+    throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'production loaderがmintしたcontextが必要です');
+  }
+  const policy = approvalPolicyForFeature(context.definition.feature);
+  if (policy === null) {
+    throw new BatchCandidateError('CANDIDATE_APPROVAL_INVALID', 'context featureに対応するpolicyがありません');
+  }
+  return createNextBatchTemplate({
+    candidateId: context.candidate.batchId,
+    approved: true,
+    author: context.candidate.author,
+    works: context.candidate.works.map((work) => ({ workId: work.workId, title: work.title })),
+    approvalGateRefs: gateRefs,
+    existingFeatureIds: policy.existingFeatureIds,
+  }, context.definition.feature);
+}
+
+export function isMintedApprovedBatchContext(value: unknown): value is ApprovedBatchContext {
+  return isRecord(value) && approvedBatchContexts.has(value) &&
+    value.__brand === 'ApprovedBatchContext' &&
+    isRecord(value.definition) && isRecord(value.policy) &&
+    verifiedBatchDefinitions.has(value.definition) &&
+    verifiedApprovalPolicies.has(value.policy);
+}
+
+/** @des DES-F004-011 @fun FUN-F004-021 @ut UT-F004-021 */
+export function isMintedVerifiedBatchDefinition(value: unknown): value is VerifiedBatchDefinition {
+  return isRecord(value) && verifiedBatchDefinitions.has(value) &&
+    value.__brand === 'VerifiedBatchDefinition';
+}
+
+/**
+ * reuse definitionを公開baseline Catalogのexact 1作者へ結合する。
+ * @des DES-F004-001 @des DES-F004-007 @fun FUN-F004-004 @ut UT-F004-004
+ */
+export function verifyExistingAuthorIdentity(
+  context: ApprovedBatchContext,
+  catalog: CatalogV2,
+): ExistingAuthorIdentity {
+  if (!isRecord(context) || !approvedBatchContexts.has(context) ||
+    context.definition.authorExpectation !== 'reuse' ||
+    !isRecord(catalog) || !Array.isArray(catalog.authors)) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'reuse作者検証入力が不正です');
+  }
+  const matches = catalog.authors.filter((author) => author.authorId === context.candidate.author.authorId);
+  const author = matches[0];
+  if (matches.length !== 1 || !author ||
+    canonicalJson({
+      authorId: author.authorId,
+      identitySha256: author.identitySha256,
+      name: author.name,
+      originalName: author.originalName,
+      slug: author.slug,
+    }) !== canonicalJson(context.candidate.author) ||
+    typeof author.introducedByBatchId !== 'string' || !BATCH_ID.test(author.introducedByBatchId)) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'F004_AUTHOR_IDENTITY_CONFLICT');
+  }
+  const verified = freezeDeep({
+    __brand: 'ExistingAuthorIdentity' as const,
+    author: structuredClone(context.candidate.author),
+    introducedByBatchId: author.introducedByBatchId as BatchId,
+  });
+  existingAuthorIdentities.add(verified);
+  return verified;
 }
