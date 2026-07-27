@@ -1197,7 +1197,7 @@ tasks:
   title: オツベルと象を抽出・二重レビュー・音声化・atomic受入
   feature: F004
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-055
   tags:
@@ -1211,11 +1211,13 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f004
+  completed_at: '2026-07-28T01:59:40+09:00'
+  result: オツベルと象46候補を独立二重レビュー＋第三裁定で44採用/2除外/保留0へ確定。43 WAV・9322340 bytesを生成しjournal付きatomic受入。全930試験・独立受入PASS、public差分0
 - id: T-057
   title: 雪渡りを抽出・二重レビュー・音声化・atomic受入
   feature: F004
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-056
   tags:

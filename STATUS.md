@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F004
-updated: 2026-07-28T01:06:31+09:00
+updated: 2026-07-28T01:59:40+09:00
 next_actions:
-  - "T-056でオツベルと象を抽出・二重レビュー・音声化し作品単位でatomic受入する"
+  - "T-057で雪渡りを抽出・二重レビュー・音声化し作品単位でatomic受入する"
 blocked_by: []
 ---
 
@@ -34,18 +34,19 @@ blocked_by: []
 - T-054でcanonical definition/policy・ApprovedBatchContext・固定v0.3.0二重baselineを実装した。宮沢賢治3作品のexact tuple、公開Catalog identity、selection/predeploy権利再検証、production transport取得、3 XHTML atomic固定を全880試験と独立受入でPASSし、T-055を開始した。
 - T-055でF003新規作者/F004既存作者追記の共通Catalog projector、preview/final brand、canonical manifest/source/audio join、既存宮沢画像のexact再利用、実public/dist非破壊previewを実装した。全893試験と独立受入をPASSし、T-062のお気に入り実装を開始した。
 - T-062で全公開台詞のお気に入り切替、固定key/version/上限付き端末内保存、storage障害時のmemory縮退、共有FavoriteController、`#/favorites`、元作品へのone-shot移動を実装した。全918試験、495ファイルbuild、独立受入High/Medium/Low 0をPASSした。
+- T-056で「オツベルと象」46候補を独立二重レビューと第三裁定により44採用・2除外・保留0へ確定した。43 WAV・9,322,340 bytesを生成し、journal付きatomic受入で`000466=accepted`へ昇格した。全930試験と独立受入をPASSし、public差分0を確認した。
 
 ## 直近の作業（最新5件）
 
+- T-056「オツベルと象」を44台詞・43音声でatomic受入し、全930試験・独立受入PASS
 - T-062のお気に入り・端末内保存・作者横断一覧を全918試験と独立受入でPASS
 - T-055の共通Catalog・既存画像再利用・実public previewを全893試験と独立受入でPASS
 - T-054の候補tuple・承認binding・baseline・3原典を全880試験と独立受入でPASS
 - UT-F004 37件・IT-F004 15件をApproved、ゲート③通過、trace 100%
-- CHG-F004-002でdeploy有効化前journal pre-armと別process cleanupを設計・試験化
 
 ## 次のアクション
 
-- T-056で「オツベルと象」を抽出・独立二重レビュー・音声化し、作品単位でatomic受入する（REQ-F004-007〜013）。
+- T-057で「雪渡り」を抽出・独立二重レビュー・音声化し、作品単位でatomic受入する（REQ-F004-007〜013）。
 
 ## 未解決事項
 

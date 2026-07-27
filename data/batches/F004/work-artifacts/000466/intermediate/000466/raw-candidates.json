@@ -1,0 +1,5640 @@
+[
+  {
+    "contextAfter": "\n\n　まったく籾は、パチパチパチパチ歯にあたり、またまっ白な頭や首にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち",
+    "contextBefore": "きめて、稲扱器械の前に出て、象に話をしようとしたが、そのとき象が、とてもきれいな、鶯みたいないい声で、こんな文句を云ったのだ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1356,
+      "start": 1326
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1356,
+      "startToken": 1326
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "砂"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "歯"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n「面白いねえ。」象がからだを斜めにして、眼を細くして返事した。\n\n「ずうっとこっちに居たらどうだい。」\n\n　百姓どもははっと",
+    "contextBefore": "チ歯にあたり、またまっ白な頭や首にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち直し、度胸を据えて斯う云った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1451,
+      "start": 1437
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1451,
+      "startToken": 1437
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "此処",
+        "reading": "ここ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "base": "面白",
+        "reading": "おもしろ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象がからだを斜めにして、眼を細くして返事した。\n\n「ずうっとこっちに居たらどうだい。」\n\n　百姓どもははっとして、息を殺して象を",
+    "contextBefore": "にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち直し、度胸を据えて斯う云った。\n\n「どうだい、此処は面白いかい。」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1461,
+      "start": 1453
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1461,
+      "startToken": 1453
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "面"
+      },
+      {
+        "type": "text",
+        "value": "白"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　百姓どもははっとして、息を殺して象を見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして",
+    "contextBefore": "、度胸を据えて斯う云った。\n\n「どうだい、此処は面白いかい。」\n\n「面白いねえ。」象がからだを斜めにして、眼を細くして返事した。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1504,
+      "start": 1486
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1504,
+      "startToken": 1486
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と答えたもんだ。\n\n「そうか。それではそうしよう。そういうことにしようじゃないか。」オツベルが顔をくしゃくしゃにして、まっ赤にな",
+    "contextBefore": "　百姓どもははっとして、息を殺して象を見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1579,
+      "start": 1570
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1579,
+      "startToken": 1570
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルが顔をくしゃくしゃにして、まっ赤になって悦びながらそう云った。\n\n　どうだ、そうしてこの象は、もうオツベルの財産だ。いま",
+    "contextBefore": "見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして\n\n「居てもいいよ。」と答えたもんだ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1621,
+      "start": 1589
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1621,
+      "startToken": 1589
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "丸太で建てたその象小屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n「ぼくは時計は要らないよ。」象がわ",
+    "contextBefore": "できている。皮も全体、立派で丈夫な象皮なのだ。そしてずいぶんはたらくもんだ。けれどもそんなに稼ぐのも、やっぱり主人が偉いのだ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1916,
+      "start": 1899
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1916,
+      "startToken": 1899
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "前"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "時"
+      },
+      {
+        "type": "text",
+        "value": "計"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "base": "要",
+        "reading": "い",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象がわらって返事した。\n\n「まあ持って見ろ、いいもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶら",
+    "contextBefore": "「おい、お前は時計は要らないか。」丸太で建てたその象小屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1977,
+      "start": 1963
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1977,
+      "startToken": 1963
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "時"
+      },
+      {
+        "type": "text",
+        "value": "計"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "要"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n「なかなかいいね。」象も云う。\n\n「鎖もなくち",
+    "contextBefore": "屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n「ぼくは時計は要らないよ。」象がわらって返事した。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2006,
+      "start": 1990
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2006,
+      "startToken": 1990
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "持"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "見"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象も云う。\n\n「鎖もなくちゃだめだろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はい",
+    "contextBefore": "返事した。\n\n「まあ持って見ろ、いいもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2057,
+      "start": 2047
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2057,
+      "startToken": 2047
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をは",
+    "contextBefore": "いもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n「なかなかいいね。」象も云う。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2078,
+      "start": 2064
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2078,
+      "startToken": 2064
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "鎖",
+        "reading": "くさり",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n「ぼくは靴などはかないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベ",
+    "contextBefore": "\n「なかなかいいね。」象も云う。\n\n「鎖もなくちゃだめだろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2125,
+      "start": 2110
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2125,
+      "startToken": 2110
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "鎖"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n「ぼくは靴などはかないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろ",
+    "contextBefore": "ろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2152,
+      "start": 2138
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2152,
+      "startToken": 2138
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "靴",
+        "reading": "くつ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなか",
+    "contextBefore": "もある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2168,
+      "start": 2154
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2168,
+      "startToken": 2154
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "靴"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなかいいね。」象も云う。\n\n「靴に飾りを",
+    "contextBefore": "た。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n「ぼくは靴などはかないよ。」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2186,
+      "start": 2170
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2186,
+      "startToken": 2170
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象も云う。\n\n「靴に飾りをつけなくちゃ。」オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n「うん、なかなか",
+    "contextBefore": "ないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2237,
+      "start": 2227
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2237,
+      "startToken": 2227
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n「うん、なかなかいいね。」象は二あし歩いてみて、さもうれし",
+    "contextBefore": "いもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなかいいね。」象も云う。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2258,
+      "start": 2244
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2258,
+      "startToken": 2244
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "靴"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "base": "飾",
+        "reading": "かざ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ゃ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象は二あし歩いてみて、さもうれしそうにそう云った。\n\n　次の日、ブリキの大きな時計と、やくざな紙の靴とはやぶけ、象は鎖と分銅だけ",
+    "contextBefore": "かなかいいね。」象も云う。\n\n「靴に飾りをつけなくちゃ。」オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2306,
+      "start": 2293
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2306,
+      "startToken": 2293
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルは両手をうしろで組んで、顔をしかめて象に云う。\n\n「ああ、ぼく水を汲んで来よう。もう何ばいでも汲んでやるよ。」\n\n　象は",
+    "contextBefore": "にそう云った。\n\n　次の日、ブリキの大きな時計と、やくざな紙の靴とはやぶけ、象は鎖と分銅だけで、大よろこびであるいて居った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2422,
+      "start": 2388
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2422,
+      "startToken": 2388
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "済"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "税"
+      },
+      {
+        "type": "text",
+        "value": "金"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "高"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "日"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "川"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "水"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "base": "汲",
+        "reading": "く",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　象は眼を細くしてよろこんで、そのひるすぎに五十だけ、川から水を汲んで来た。そして菜っ葉の畑にかけた。\n\n　夕方象は小屋に居",
+    "contextBefore": "\n「済まないが税金も高いから、今日はすこうし、川から水を汲んでくれ。」オツベルは両手をうしろで組んで、顔をしかめて象に云う。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2481,
+      "start": 2451
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2481,
+      "startToken": 2451
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "水"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "汲"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "汲"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と云っていた。\n\n「済まないが税金がまたあがる。今日は少うし森から、たきぎを運んでくれ」オツベルは房のついた赤い帽子をかぶり、両手",
+    "contextBefore": "十だけ、川から水を汲んで来た。そして菜っ葉の畑にかけた。\n\n　夕方象は小屋に居て、十把の藁をたべながら、西の三日の月を見て、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2592,
+      "start": 2570
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2592,
+      "startToken": 2570
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "稼",
+        "reading": "かせ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "ぐ"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "base": "愉快",
+        "reading": "ゆかい",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "ぱ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルは房のついた赤い帽子をかぶり、両手をかくしにつっ込んで、次の日象にそう言った。\n\n「ああ、ぼくたきぎを持って来よう。いい天",
+    "contextBefore": "夕方象は小屋に居て、十把の藁をたべながら、西の三日の月を見て、\n\n「ああ、稼ぐのは愉快だねえ、さっぱりするねえ」と云っていた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2636,
+      "start": 2601
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2636,
+      "startToken": 2601
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "済"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "税"
+      },
+      {
+        "type": "text",
+        "value": "金"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "日"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "少"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "森"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "ぎ"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "運"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象はわらってこう言った。\n\n　オツベルは少しぎょっとして、パイプを手からあぶなく落としそうにしたがもうあのときは、象がいかにも愉",
+    "contextBefore": "今日は少うし森から、たきぎを運んでくれ」オツベルは房のついた赤い帽子をかぶり、両手をかくしにつっ込んで、次の日象にそう言った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2725,
+      "start": 2680
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2725,
+      "startToken": 2680
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "ぎ"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "持"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "天"
+      },
+      {
+        "type": "text",
+        "value": "気"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "ぜ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "森"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と斯うひとりごとしたそうだ。\n\n　その次の日だ、\n\n「済まないが、税金が五倍になった、今日は少うし鍛冶場へ行って、炭火を吹いてくれな",
+    "contextBefore": "の半日に、象は九百把たきぎを運び、眼を細くしてよろこんだ。\n\n　晩方象は小屋に居て、八把の藁をたべながら、西の四日の月を見て\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2939,
+      "start": 2921
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2939,
+      "startToken": 2921
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "サ"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "タ"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n「ああ、吹いてやろう。本気でやったら、ぼく、もう、息で、石もなげとばせるよ」\n\n　オツベルはまたどきっとしたが、気を落ち付け",
+    "contextBefore": "の藁をたべながら、西の四日の月を見て\n\n「ああ、せいせいした。サンタマリア」と斯うひとりごとしたそうだ。\n\n　その次の日だ、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3006,
+      "start": 2965
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3006,
+      "startToken": 2965
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "済"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "税"
+      },
+      {
+        "type": "text",
+        "value": "金"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "五"
+      },
+      {
+        "type": "text",
+        "value": "倍"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "日"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "少"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "base": "鍛冶場",
+        "reading": "かじば",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "行"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "炭"
+      },
+      {
+        "type": "text",
+        "value": "火"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "base": "吹",
+        "reading": "ふ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　オツベルはまたどきっとしたが、気を落ち付けてわらっていた。\n\n　象はのそのそ鍛冶場へ行って、べたんと肢を折って座り、ふいご",
+    "contextBefore": "りごとしたそうだ。\n\n　その次の日だ、\n\n「済まないが、税金が五倍になった、今日は少うし鍛冶場へ行って、炭火を吹いてくれないか」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3046,
+      "start": 3008
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3046,
+      "startToken": 3008
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "吹"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "気"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "息"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "石"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "げ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と斯う言った。\n\n　どうだ、そうして次の日から、象は朝からかせぐのだ。藁も昨日はただ五把だ。よくまあ、五把の藁などで、あんな力が",
+    "contextBefore": "たんと肢を折って座り、ふいごの代りに半日炭を吹いたのだ。\n\n　その晩、象は象小屋で、七把の藁をたべながら、空の五日の月を見て\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3183,
+      "start": 3160
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3183,
+      "startToken": 3160
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "サ"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "タ"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と云ったということだ。\n\n　こいつを聞いたオツベルは、ことごと象につらくした。\n\n　ある晩、象は象小屋で、ふらふら倒れて地べたに",
+    "contextBefore": "して、じっとこんなにオツベルを見おろすようになってきた。\n\n　ある晩象は象小屋で、三把の藁をたべながら、十日の月を仰ぎ見て、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3517,
+      "start": 3502
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3517,
+      "startToken": 3502
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "苦"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "サ"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "タ"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n「何だい、",
+    "contextBefore": "オツベルは、ことごと象につらくした。\n\n　ある晩、象は象小屋で、ふらふら倒れて地べたに座り、藁もたべずに、十一日の月を見て、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3620,
+      "start": 3602
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3620,
+      "startToken": 3602
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "サ"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "タ"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲",
+    "contextBefore": "象小屋で、ふらふら倒れて地べたに座り、藁もたべずに、十一日の月を見て、\n\n「もう、さようなら、サンタマリア。」と斯う言った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3646,
+      "start": 3629
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3646,
+      "startToken": 3629
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲間へ手紙を書いたらいいや。」月がわらって斯う云った。\n\n「お筆",
+    "contextBefore": "の月を見て、\n\n「もう、さようなら、サンタマリア。」と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3677,
+      "start": 3658
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3677,
+      "startToken": 3658
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "サ"
+      },
+      {
+        "type": "text",
+        "value": "ン"
+      },
+      {
+        "type": "text",
+        "value": "タ"
+      },
+      {
+        "type": "text",
+        "value": "マ"
+      },
+      {
+        "type": "text",
+        "value": "リ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "月がわらって斯う云った。\n\n「お筆も紙もありませんよう。」象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n「そら、これで",
+    "contextBefore": "マリア。」と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3724,
+      "start": 3679
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3724,
+      "startToken": 3679
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "base": "意気地",
+        "reading": "いくじ",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "仲"
+      },
+      {
+        "type": "text",
+        "value": "間"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "手"
+      },
+      {
+        "type": "text",
+        "value": "紙"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "書"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n「そら、これでしょう。」すぐ眼の前で、可愛い子どもの声がした。象が頭を上げ",
+    "contextBefore": "ア。」\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲間へ手紙を書いたらいいや。」月がわらって斯う云った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3753,
+      "start": 3738
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3753,
+      "startToken": 3738
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "筆"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "紙"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "すぐ眼の前で、可愛い子どもの声がした。象が頭を上げて見ると、赤い着物の童子が立って、硯と紙を捧げていた。象は早速手紙を書いた。\n\n",
+    "contextBefore": "たらいいや。」月がわらって斯う云った。\n\n「お筆も紙もありませんよう。」象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3793,
+      "start": 3781
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3793,
+      "startToken": 3781
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ょ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　童子はすぐに手紙をもって、林の方へあるいて行った。\n\n　赤衣の童子が、そうして山に着いたのは、ちょうどひるめしごろだった。こ",
+    "contextBefore": "すぐ眼の前で、可愛い子どもの声がした。象が頭を上げて見ると、赤い着物の童子が立って、硯と紙を捧げていた。象は早速手紙を書いた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3888,
+      "start": 3857
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3888,
+      "startToken": 3857
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ぶ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "眼"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "出"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "助"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n「オツベルをやっつけよう」議長の象が高く叫ぶと、\n\n「おう、でかけよ",
+    "contextBefore": "は、ちょうどひるめしごろだった。このとき山の象どもは、沙羅樹の下のくらがりで、碁などをやっていたのだが、額をあつめてこれを見た。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4030,
+      "start": 3999
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4030,
+      "startToken": 3999
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "ず"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ぶ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "眼"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "出"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "助"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "議長の象が高く叫ぶと、\n\n「おう、でかけよう。グララアガア、グララアガア。」みんながいちどに呼応する。\n\n　さあ、もうみんな、嵐",
+    "contextBefore": "。\n\n「ぼくはずいぶん眼にあっている。みんなで出てきて助けてくれ。」\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4073,
+      "start": 4060
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4073,
+      "startToken": 4060
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "オ"
+      },
+      {
+        "type": "text",
+        "value": "ツ"
+      },
+      {
+        "type": "text",
+        "value": "ベ"
+      },
+      {
+        "type": "text",
+        "value": "ル"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "みんながいちどに呼応する。\n\n　さあ、もうみんな、嵐のように林の中をなきぬけて、グララアガア、グララアガア、野原の方へとんで行く",
+    "contextBefore": "て助けてくれ。」\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n「オツベルをやっつけよう」議長の象が高く叫ぶと、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4111,
+      "start": 4086
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4111,
+      "startToken": 4086
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "グ"
+      },
+      {
+        "type": "text",
+        "value": "ラ"
+      },
+      {
+        "type": "text",
+        "value": "ラ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "ガ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "グ"
+      },
+      {
+        "type": "text",
+        "value": "ラ"
+      },
+      {
+        "type": "text",
+        "value": "ラ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "ガ"
+      },
+      {
+        "type": "text",
+        "value": "ア"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "と声をかぎりに叫んだもんだ。\n\n　ところがオツベルはやっぱりえらい。眼をぱっちりとあいたときは、もう何もかもわかっていた。\n\n「",
+    "contextBefore": "外へ出て、小手をかざして向うを見た。林のような象だろう。汽車より早くやってくる。さあ、まるっきり、血の気も失せてかけ込んで、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4493,
+      "start": 4468
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4493,
+      "startToken": 4468
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "旦那",
+        "reading": "だんな",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "象"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "押"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "寄"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "旦"
+      },
+      {
+        "type": "text",
+        "value": "那"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "象"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "オツベルはもう支度ができて、ラッパみたいないい声で、百姓どもをはげました。ところがどうして、百姓どもは気が気じゃない。こんな主人に",
+    "contextBefore": "」と声をかぎりに叫んだもんだ。\n\n　ところがオツベルはやっぱりえらい。眼をぱっちりとあいたときは、もう何もかもわかっていた。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4794,
+      "start": 4556
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4794,
+      "startToken": 4556
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "象"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "小"
+      },
+      {
+        "type": "text",
+        "value": "屋"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "？"
+      },
+      {
+        "type": "text",
+        "value": "　"
+      },
+      {
+        "type": "text",
+        "value": "居"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "戸"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "戸"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "早"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "象"
+      },
+      {
+        "type": "text",
+        "value": "小"
+      },
+      {
+        "type": "text",
+        "value": "屋"
+      },
+      {
+        "type": "text",
+        "value": "の"
+      },
+      {
+        "type": "text",
+        "value": "戸"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "早"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "丸"
+      },
+      {
+        "type": "text",
+        "value": "太"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "持"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "base": "畜生",
+        "reading": "ちくしょう",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "じ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "丸"
+      },
+      {
+        "type": "text",
+        "value": "太"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ば"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "何"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "で"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "ざ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "力"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "減"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "五"
+      },
+      {
+        "type": "text",
+        "value": "六"
+      },
+      {
+        "type": "text",
+        "value": "本"
+      },
+      {
+        "type": "text",
+        "value": "持"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "丈"
+      },
+      {
+        "type": "text",
+        "value": "夫"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "大"
+      },
+      {
+        "type": "text",
+        "value": "丈"
+      },
+      {
+        "type": "text",
+        "value": "夫"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "も"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "わ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "門"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "門"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "め"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "ぬ"
+      },
+      {
+        "type": "text",
+        "value": "き"
+      },
+      {
+        "type": "text",
+        "value": "を"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "ぱ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "ぱ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "そ"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "お"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "み"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "心"
+      },
+      {
+        "type": "text",
+        "value": "配"
+      },
+      {
+        "type": "text",
+        "value": "す"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "やさしい声もきこえてくる。\n\n「ありがとう。よく来てくれて、ほんとに僕はうれしいよ。」象小屋からも声がする。さあ、そうすると、ま",
+    "contextBefore": "らとゆられ、そこらはばしゃばしゃくらくなり、象はやしきをとりまいた。グララアガア、グララアガア、その恐ろしいさわぎの中から、\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5089,
+      "start": 5075
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5089,
+      "startToken": 5075
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "今"
+      },
+      {
+        "type": "text",
+        "value": "助"
+      },
+      {
+        "type": "text",
+        "value": "け"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "ら"
+      },
+      {
+        "type": "text",
+        "value": "安"
+      },
+      {
+        "type": "text",
+        "value": "心"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "ろ"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "象小屋からも声がする。さあ、そうすると、まわりの象は、一そうひどく、グララアガア、グララアガア、塀のまわりをぐるぐる走っているら",
+    "contextBefore": "りまいた。グララアガア、グララアガア、その恐ろしいさわぎの中から、\n\n「今助けるから安心しろよ。」やさしい声もきこえてくる。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5132,
+      "start": 5104
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5132,
+      "startToken": 5104
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "来"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "て"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "base": "僕",
+        "reading": "ぼく",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "れ"
+      },
+      {
+        "type": "text",
+        "value": "し"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "\n\n　オツベルはいつかどこかで、こんな文句をきいたようだと思いながら、ケースを帯からつめかえた。そのうち、象の片脚が、塀からこっ",
+    "contextBefore": "ララアガア、ドーン、グララアガア、ドーン、グララアガア、ところが弾丸は通らない。牙にあたればはねかえる。一疋なぞは斯う言った。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5510,
+      "start": 5481
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5510,
+      "startToken": 5481
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "な"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "つ"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "さ"
+      },
+      {
+        "type": "text",
+        "value": "い"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "ぱ"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "ぱ"
+      },
+      {
+        "type": "text",
+        "value": "ち"
+      },
+      {
+        "type": "text",
+        "value": "顔"
+      },
+      {
+        "type": "text",
+        "value": "へ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "る"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "みんなは小屋に押し寄せる。丸太なんぞは、マッチのようにへし折られ、あの白象は大へん瘠せて小屋を出た。\n\n「まあ、よかったねやせた",
+    "contextBefore": "ケースを握ったまま、もうくしゃくしゃに潰れていた。早くも門があいていて、グララアガア、グララアガア、象がどしどしなだれ込む。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5694,
+      "start": 5686
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5694,
+      "startToken": 5686
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "base": "牢",
+        "reading": "ろう",
+        "type": "ruby"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "ど"
+      },
+      {
+        "type": "text",
+        "value": "こ"
+      },
+      {
+        "type": "text",
+        "value": "だ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "みんなはしずかにそばにより、鎖と銅をはずしてやった。\n\n「ああ、ありがとう。ほんとにぼくは助かったよ。」白象はさびしくわらってそ",
+    "contextBefore": "む。\n\n「牢はどこだ。」みんなは小屋に押し寄せる。丸太なんぞは、マッチのようにへし折られ、あの白象は大へん瘠せて小屋を出た。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5762,
+      "start": 5746
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5762,
+      "startToken": 5746
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "ま"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "や"
+      },
+      {
+        "type": "text",
+        "value": "せ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "ね"
+      },
+      {
+        "type": "text",
+        "value": "え"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  },
+  {
+    "contextAfter": "白象はさびしくわらってそう云った。\n\n　おや〔一字不明〕、川へはいっちゃいけないったら。\n\n\n\n\n\n\n\n",
+    "contextBefore": "、あの白象は大へん瘠せて小屋を出た。\n\n「まあ、よかったねやせたねえ。」みんなはしずかにそばにより、鎖と銅をはずしてやった。\n\n",
+    "extractorVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5814,
+      "start": 5790
+    },
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5814,
+      "startToken": 5790
+    },
+    "tokens": [
+      {
+        "type": "text",
+        "value": "「"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "、"
+      },
+      {
+        "type": "text",
+        "value": "あ"
+      },
+      {
+        "type": "text",
+        "value": "り"
+      },
+      {
+        "type": "text",
+        "value": "が"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "う"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "ほ"
+      },
+      {
+        "type": "text",
+        "value": "ん"
+      },
+      {
+        "type": "text",
+        "value": "と"
+      },
+      {
+        "type": "text",
+        "value": "に"
+      },
+      {
+        "type": "text",
+        "value": "ぼ"
+      },
+      {
+        "type": "text",
+        "value": "く"
+      },
+      {
+        "type": "text",
+        "value": "は"
+      },
+      {
+        "type": "text",
+        "value": "助"
+      },
+      {
+        "type": "text",
+        "value": "か"
+      },
+      {
+        "type": "text",
+        "value": "っ"
+      },
+      {
+        "type": "text",
+        "value": "た"
+      },
+      {
+        "type": "text",
+        "value": "よ"
+      },
+      {
+        "type": "text",
+        "value": "。"
+      },
+      {
+        "type": "text",
+        "value": "」"
+      }
+    ],
+    "workId": "000466"
+  }
+]

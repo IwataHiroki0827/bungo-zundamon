@@ -6,6 +6,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     ignores: [
+      '.cache/**',
       'dist/**',
       'coverage/**',
       'node_modules/**',

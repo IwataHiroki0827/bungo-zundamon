@@ -1,0 +1,1060 @@
+[
+  {
+    "candidateId": "kOcTURwQKHEQCwBvpy6D4X7xDoqPOGz0IxdZqm3X4Jg",
+    "contextAfter": "\n\n　まったく籾は、パチパチパチパチ歯にあたり、またまっ白な頭や首にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち",
+    "contextBefore": "きめて、稲扱器械の前に出て、象に話をしようとしたが、そのとき象が、とてもきれいな、鶯みたいないい声で、こんな文句を云ったのだ。\n\n",
+    "displayText": "「ああ、だめだ。あんまりせわしく、砂がわたしの歯にあたる。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1356,
+      "start": 1326
+    },
+    "revisions": [],
+    "sha256": "b8d3f0a35be524e059d75266bef2e04b9be6cf903b00c5b4f0e2861c318c39a2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1356,
+      "startToken": 1326
+    },
+    "speechText": "「ああ、だめだ。あんまりせわしく、砂がわたしの歯にあたる。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "YQU66RH_7CwQ2dVRy0zehierAoBpqVSrG8BZYx-ToT8",
+    "contextAfter": "\n\n「面白いねえ。」象がからだを斜めにして、眼を細くして返事した。\n\n「ずうっとこっちに居たらどうだい。」\n\n　百姓どもははっと",
+    "contextBefore": "チ歯にあたり、またまっ白な頭や首にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち直し、度胸を据えて斯う云った。\n\n",
+    "displayText": "「どうだい、此処は面白いかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1451,
+      "start": 1437
+    },
+    "revisions": [],
+    "sha256": "d3e73431440c449d1539cb23481bfd4b98b05ecf702b26cef3272fd3b84a16aa",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1451,
+      "startToken": 1437
+    },
+    "speechText": "「どうだい、ここはおもしろいかい。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "iyndqTY9ek19Vtl7RVmGzblyjPM8HlKglvjBJruSDWY",
+    "contextAfter": "象がからだを斜めにして、眼を細くして返事した。\n\n「ずうっとこっちに居たらどうだい。」\n\n　百姓どもははっとして、息を殺して象を",
+    "contextBefore": "にぶっつかる。\n\n　さあ、オツベルは命懸けだ。パイプを右手にもち直し、度胸を据えて斯う云った。\n\n「どうだい、此処は面白いかい。」\n\n",
+    "displayText": "「面白いねえ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1461,
+      "start": 1453
+    },
+    "revisions": [],
+    "sha256": "eac57fcb18df6d6b1efd1f414621fe28c2a200f8305733069bec45bad1a1b73b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1461,
+      "startToken": 1453
+    },
+    "speechText": "「面白いねえ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "65o8Odsp7ufTlf7cAJoE9IbdYumdX6pxHNz1sFuI_Jo",
+    "contextAfter": "\n\n　百姓どもははっとして、息を殺して象を見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして",
+    "contextBefore": "、度胸を据えて斯う云った。\n\n「どうだい、此処は面白いかい。」\n\n「面白いねえ。」象がからだを斜めにして、眼を細くして返事した。\n\n",
+    "displayText": "「ずうっとこっちに居たらどうだい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1504,
+      "start": 1486
+    },
+    "revisions": [],
+    "sha256": "7d663c6028779648899879b68e9621c30046f7e12ca3f0937d1e02fb71de2b56",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1504,
+      "startToken": 1486
+    },
+    "speechText": "「ずうっとこっちに居たらどうだい。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "1rfMOnkD2mLqFD5ur5txDR52BdNWRlIMaBJHejNGvGE",
+    "contextAfter": "と答えたもんだ。\n\n「そうか。それではそうしよう。そういうことにしようじゃないか。」オツベルが顔をくしゃくしゃにして、まっ赤にな",
+    "contextBefore": "　百姓どもははっとして、息を殺して象を見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして\n\n",
+    "displayText": "「居てもいいよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1579,
+      "start": 1570
+    },
+    "revisions": [],
+    "sha256": "82b55d5796f442476d06fa314f47c9a9c22d9f8423ad8eb7f4dba2268723c7ae",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1579,
+      "startToken": 1570
+    },
+    "speechText": "「居てもいいよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "wlodGjM_k2NVkye7tYCVyLwJtylmRnd46g5eOeeh8Cw",
+    "contextAfter": "オツベルが顔をくしゃくしゃにして、まっ赤になって悦びながらそう云った。\n\n　どうだ、そうしてこの象は、もうオツベルの財産だ。いま",
+    "contextBefore": "見た。オツベルは云ってしまってから、にわかにがたがた顫え出す。ところが象はけろりとして\n\n「居てもいいよ。」と答えたもんだ。\n\n",
+    "displayText": "「そうか。それではそうしよう。そういうことにしようじゃないか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1621,
+      "start": 1589
+    },
+    "revisions": [],
+    "sha256": "9776b02467e18563bdafd422327b9d0a3dba05a9a42e64a36cfbd191f6010073",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1621,
+      "startToken": 1589
+    },
+    "speechText": "「そうか。それではそうしよう。そういうことにしようじゃないか。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "9dq-fMWKSE1c3smPR4rIYh2fQsS3xamEJMfwwA7-noo",
+    "contextAfter": "丸太で建てたその象小屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n「ぼくは時計は要らないよ。」象がわ",
+    "contextBefore": "できている。皮も全体、立派で丈夫な象皮なのだ。そしてずいぶんはたらくもんだ。けれどもそんなに稼ぐのも、やっぱり主人が偉いのだ。\n\n",
+    "displayText": "「おい、お前は時計は要らないか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1916,
+      "start": 1899
+    },
+    "revisions": [],
+    "sha256": "8903136a7033becd95efcde7d470eacdaa316df98865c0b4745ac38b007d746a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1916,
+      "startToken": 1899
+    },
+    "speechText": "「おい、お前は時計はいらないか。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "AHtiyP7oGjSp0sZVfhM_aE-MKwd5BQ9SQLOMZJN0VnI",
+    "contextAfter": "象がわらって返事した。\n\n「まあ持って見ろ、いいもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶら",
+    "contextBefore": "「おい、お前は時計は要らないか。」丸太で建てたその象小屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n",
+    "displayText": "「ぼくは時計は要らないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 1977,
+      "start": 1963
+    },
+    "revisions": [],
+    "sha256": "7a29409e3f8a38e5f8c274bfc68c7c0e709baf03be74e823aa67c6d700537ae3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1977,
+      "startToken": 1963
+    },
+    "speechText": "「ぼくは時計は要らないよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Edu24kBXQ5U_OyFzNPmmGoJfpzjLG-s63sC2Vo1YJtI",
+    "contextAfter": "斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n「なかなかいいね。」象も云う。\n\n「鎖もなくち",
+    "contextBefore": "屋の前に来て、オツベルは琥珀のパイプをくわえ、顔をしかめて斯う訊いた。\n\n「ぼくは時計は要らないよ。」象がわらって返事した。\n\n",
+    "displayText": "「まあ持って見ろ、いいもんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2006,
+      "start": 1990
+    },
+    "revisions": [],
+    "sha256": "6519b33e6d2ced48c68c82a5ffa81ecdc946b50b21581458092b03c287157f5d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2006,
+      "startToken": 1990
+    },
+    "speechText": "「まあ持って見ろ、いいもんだ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Da9Z-eF2kOze9e5GVU_e9mJTEMvEQ1yz3iNThgZM_N8",
+    "contextAfter": "象も云う。\n\n「鎖もなくちゃだめだろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はい",
+    "contextBefore": "返事した。\n\n「まあ持って見ろ、いいもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n",
+    "displayText": "「なかなかいいね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2057,
+      "start": 2047
+    },
+    "revisions": [],
+    "sha256": "30ef08af70132b3477869dbff53b6178522963e194a4e12aa57a20b6b57eaca1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2057,
+      "startToken": 2047
+    },
+    "speechText": "「なかなかいいね。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "0Jw2JewM4LuUxj9CfFZt7n8FGuSW06af5kNyDu2mwTc",
+    "contextAfter": "オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をは",
+    "contextBefore": "いもんだ。」斯う言いながらオツベルは、ブリキでこさえた大きな時計を、象の首からぶらさげた。\n\n「なかなかいいね。」象も云う。\n\n",
+    "displayText": "「鎖もなくちゃだめだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2078,
+      "start": 2064
+    },
+    "revisions": [],
+    "sha256": "a0728b3716f8996a63b8ff37cb7f497b4642d8432df9b9646f31b185084b2cc6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2078,
+      "startToken": 2064
+    },
+    "speechText": "「くさりもなくちゃだめだろう。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "r4JoOQ1kmJBoKacUtliXohfgJW8tbpqv7EXDjajpVKM",
+    "contextAfter": "三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n「ぼくは靴などはかないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベ",
+    "contextBefore": "\n「なかなかいいね。」象も云う。\n\n「鎖もなくちゃだめだろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n",
+    "displayText": "「うん、なかなか鎖はいいね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2125,
+      "start": 2110
+    },
+    "revisions": [],
+    "sha256": "d12fceead458510587b6c564928ed5f2747e400e9960054be038f91b025adf2d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2125,
+      "startToken": 2110
+    },
+    "speechText": "「うん、なかなか鎖はいいね。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "4ZluqbicP0Rp5-XU2dUiqgHgd-9SbzOXHYpg5CelM7Y",
+    "contextAfter": "\n\n「ぼくは靴などはかないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろ",
+    "contextBefore": "ろう。」オツベルときたら、百キロもある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n",
+    "displayText": "「靴をはいたらどうだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2152,
+      "start": 2138
+    },
+    "revisions": [],
+    "sha256": "5fca4c1b7ef97b8875c04fa0d5bd571a7f44bd26424e3a98f901e273f4c3e650",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2152,
+      "startToken": 2138
+    },
+    "speechText": "「くつをはいたらどうだろう。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "n3LWU5iYlwXRigTZKprz7GKOl6zVSUi3f5_2PjwB7D4",
+    "contextAfter": "\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなか",
+    "contextBefore": "もある鎖をさ、その前肢にくっつけた。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n",
+    "displayText": "「ぼくは靴などはかないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2168,
+      "start": 2154
+    },
+    "revisions": [],
+    "sha256": "40ecfc661eb9093d608806ad3d25394d79293a6810f1ff44c507b07afa261fbb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2168,
+      "startToken": 2154
+    },
+    "speechText": "「ぼくは靴などはかないよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "INjpsvaEgHMuIF8MSv17H3R81vVg_sGtS4iw5mN8GXs",
+    "contextAfter": "オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなかいいね。」象も云う。\n\n「靴に飾りを",
+    "contextBefore": "た。\n\n「うん、なかなか鎖はいいね。」三あし歩いて象がいう。\n\n「靴をはいたらどうだろう。」\n\n「ぼくは靴などはかないよ。」\n\n",
+    "displayText": "「まあはいてみろ、いいもんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2186,
+      "start": 2170
+    },
+    "revisions": [],
+    "sha256": "25b653ca0618d41036913017350b0ea5c416c945e2f0f77bc2b5e9dfb082b53c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2186,
+      "startToken": 2170
+    },
+    "speechText": "「まあはいてみろ、いいもんだ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "5w5TZiFgX5D1IHb8mKcZE_xETFXRkRchs53v8jUWeOM",
+    "contextAfter": "象も云う。\n\n「靴に飾りをつけなくちゃ。」オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n「うん、なかなか",
+    "contextBefore": "ないよ。」\n\n「まあはいてみろ、いいもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n",
+    "displayText": "「なかなかいいね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2237,
+      "start": 2227
+    },
+    "revisions": [],
+    "sha256": "5fb136457fb21dcc3fcc8d572422df2e78744c4a3339fdd20258773bcd33a3ca",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2237,
+      "startToken": 2227
+    },
+    "speechText": "「なかなかいいね。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "MkcX-kFj1mErDF4_FU0q-8AeDBTU8HFonLcXBjjGrcM",
+    "contextAfter": "オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n「うん、なかなかいいね。」象は二あし歩いてみて、さもうれし",
+    "contextBefore": "いもんだ。」オツベルは顔をしかめながら、赤い張子の大きな靴を、象のうしろのかかとにはめた。\n\n「なかなかいいね。」象も云う。\n\n",
+    "displayText": "「靴に飾りをつけなくちゃ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2258,
+      "start": 2244
+    },
+    "revisions": [],
+    "sha256": "7cd227d59afc5f85d09a0078dbbd083333a90ac5bc108a8e5882ef4385dbdf28",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2258,
+      "startToken": 2244
+    },
+    "speechText": "「靴にかざりをつけなくちゃ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "qZ5XATQVRsBtwdlifo0zuAW7jYm0T3JFEgBZH_XXAfk",
+    "contextAfter": "象は二あし歩いてみて、さもうれしそうにそう云った。\n\n　次の日、ブリキの大きな時計と、やくざな紙の靴とはやぶけ、象は鎖と分銅だけ",
+    "contextBefore": "かなかいいね。」象も云う。\n\n「靴に飾りをつけなくちゃ。」オツベルはもう大急ぎで、四百キロある分銅を靴の上から、穿め込んだ。\n\n",
+    "displayText": "「うん、なかなかいいね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2306,
+      "start": 2293
+    },
+    "revisions": [],
+    "sha256": "8aeafcc33c34c05838de76adba397fad4052cc9e74c5742845941845761ec1ee",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2306,
+      "startToken": 2293
+    },
+    "speechText": "「うん、なかなかいいね。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "yQxdGj2N-P5agQSy8dDa_FzUfdkv7KP_HI0-HASj2wU",
+    "contextAfter": "オツベルは両手をうしろで組んで、顔をしかめて象に云う。\n\n「ああ、ぼく水を汲んで来よう。もう何ばいでも汲んでやるよ。」\n\n　象は",
+    "contextBefore": "にそう云った。\n\n　次の日、ブリキの大きな時計と、やくざな紙の靴とはやぶけ、象は鎖と分銅だけで、大よろこびであるいて居った。\n\n",
+    "displayText": "「済まないが税金も高いから、今日はすこうし、川から水を汲んでくれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2422,
+      "start": 2388
+    },
+    "revisions": [],
+    "sha256": "cfe94acb5596ba14030cf5f414c9e29cee94e5e829422a10dcdb51ea8251fddf",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2422,
+      "startToken": 2388
+    },
+    "speechText": "「済まないが税金も高いから、今日はすこうし、川から水をくんでくれ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "L14_GJshhG7fk_-3TvzEWJIanPwj9Ol4aSrYUb13Qp8",
+    "contextAfter": "\n\n　象は眼を細くしてよろこんで、そのひるすぎに五十だけ、川から水を汲んで来た。そして菜っ葉の畑にかけた。\n\n　夕方象は小屋に居",
+    "contextBefore": "\n「済まないが税金も高いから、今日はすこうし、川から水を汲んでくれ。」オツベルは両手をうしろで組んで、顔をしかめて象に云う。\n\n",
+    "displayText": "「ああ、ぼく水を汲んで来よう。もう何ばいでも汲んでやるよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2481,
+      "start": 2451
+    },
+    "revisions": [],
+    "sha256": "da80ffc3bb43b5f796f9ca913ec2d500d64fbde6bb353599937b7603a9c765f7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2481,
+      "startToken": 2451
+    },
+    "speechText": "「ああ、ぼく水を汲んで来よう。もう何ばいでも汲んでやるよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Z61H4BLHI7B5_4XVyd1TXQF4qvHwKAmdDYh-GOzliBA",
+    "contextAfter": "と云っていた。\n\n「済まないが税金がまたあがる。今日は少うし森から、たきぎを運んでくれ」オツベルは房のついた赤い帽子をかぶり、両手",
+    "contextBefore": "十だけ、川から水を汲んで来た。そして菜っ葉の畑にかけた。\n\n　夕方象は小屋に居て、十把の藁をたべながら、西の三日の月を見て、\n\n",
+    "displayText": "「ああ、稼ぐのは愉快だねえ、さっぱりするねえ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2592,
+      "start": 2570
+    },
+    "revisions": [],
+    "sha256": "9d70853119e23aaa115b83f6a69bfbbdbb3a07c0fd15dff5e970513926c64d92",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2592,
+      "startToken": 2570
+    },
+    "speechText": "「ああ、かせぐのはゆかいだねえ、さっぱりするねえ」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "QCnMdpJ8VW-tthV1TU4XEoc0UsiKNGQiQ7AyWsQg4GU",
+    "contextAfter": "オツベルは房のついた赤い帽子をかぶり、両手をかくしにつっ込んで、次の日象にそう言った。\n\n「ああ、ぼくたきぎを持って来よう。いい天",
+    "contextBefore": "夕方象は小屋に居て、十把の藁をたべながら、西の三日の月を見て、\n\n「ああ、稼ぐのは愉快だねえ、さっぱりするねえ」と云っていた。\n\n",
+    "displayText": "「済まないが税金がまたあがる。今日は少うし森から、たきぎを運んでくれ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2636,
+      "start": 2601
+    },
+    "revisions": [],
+    "sha256": "aec04a462969ee55a9e1c77e9e8aee63fd43e505c58fec744e5083df77f68e2c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2636,
+      "startToken": 2601
+    },
+    "speechText": "「済まないが税金がまたあがる。今日は少うし森から、たきぎを運んでくれ」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Nvx2we2YP65Tvivyxhtc86zbpatiz13xd0pKgosG81o",
+    "contextAfter": "象はわらってこう言った。\n\n　オツベルは少しぎょっとして、パイプを手からあぶなく落としそうにしたがもうあのときは、象がいかにも愉",
+    "contextBefore": "今日は少うし森から、たきぎを運んでくれ」オツベルは房のついた赤い帽子をかぶり、両手をかくしにつっ込んで、次の日象にそう言った。\n\n",
+    "displayText": "「ああ、ぼくたきぎを持って来よう。いい天気だねえ。ぼくはぜんたい森へ行くのは大すきなんだ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2725,
+      "start": 2680
+    },
+    "revisions": [],
+    "sha256": "568752d84142f68414f72ffc49d664eb528283efd05ef819b34f10698feaba05",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2725,
+      "startToken": 2680
+    },
+    "speechText": "「ああ、ぼくたきぎを持って来よう。いい天気だねえ。ぼくはぜんたい森へ行くのは大すきなんだ」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "o19qS_UPrLYT-QEMt6UwyfO1RMjrll2jRF_n4od_lR0",
+    "contextAfter": "と斯うひとりごとしたそうだ。\n\n　その次の日だ、\n\n「済まないが、税金が五倍になった、今日は少うし鍛冶場へ行って、炭火を吹いてくれな",
+    "contextBefore": "の半日に、象は九百把たきぎを運び、眼を細くしてよろこんだ。\n\n　晩方象は小屋に居て、八把の藁をたべながら、西の四日の月を見て\n\n",
+    "displayText": "「ああ、せいせいした。サンタマリア」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 2939,
+      "start": 2921
+    },
+    "revisions": [],
+    "sha256": "744820a1c1a77dd0fadf8698b702a700428dccafebd030f5399b5c6b8c2a9dcd",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2939,
+      "startToken": 2921
+    },
+    "speechText": "「ああ、せいせいした。サンタマリア」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "M5MyqlqSHRMuEm3-TsaTaVEdzVmVRvTde3VKaBH05lc",
+    "contextAfter": "\n\n「ああ、吹いてやろう。本気でやったら、ぼく、もう、息で、石もなげとばせるよ」\n\n　オツベルはまたどきっとしたが、気を落ち付け",
+    "contextBefore": "の藁をたべながら、西の四日の月を見て\n\n「ああ、せいせいした。サンタマリア」と斯うひとりごとしたそうだ。\n\n　その次の日だ、\n\n",
+    "displayText": "「済まないが、税金が五倍になった、今日は少うし鍛冶場へ行って、炭火を吹いてくれないか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3006,
+      "start": 2965
+    },
+    "revisions": [],
+    "sha256": "e936d7dcfbb51b06966139d5c4c4c5af078d2b89223cf12b9429317afb0807a1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3006,
+      "startToken": 2965
+    },
+    "speechText": "「済まないが、税金が五倍になった、今日は少うしかじばへ行って、炭火をふいてくれないか」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Im4AdBh79HJ33khFPJNgvak38mhGemnCZtZVi-Fz818",
+    "contextAfter": "\n\n　オツベルはまたどきっとしたが、気を落ち付けてわらっていた。\n\n　象はのそのそ鍛冶場へ行って、べたんと肢を折って座り、ふいご",
+    "contextBefore": "りごとしたそうだ。\n\n　その次の日だ、\n\n「済まないが、税金が五倍になった、今日は少うし鍛冶場へ行って、炭火を吹いてくれないか」\n\n",
+    "displayText": "「ああ、吹いてやろう。本気でやったら、ぼく、もう、息で、石もなげとばせるよ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3046,
+      "start": 3008
+    },
+    "revisions": [],
+    "sha256": "7d2ba57fe0faad52a2975b9c267e3c57e77e08a3f9b6192b139adbc983bb84df",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3046,
+      "startToken": 3008
+    },
+    "speechText": "「ああ、吹いてやろう。本気でやったら、ぼく、もう、息で、石もなげとばせるよ」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "-7G4r1K99U5DUfZeflZcMU6bXw6xK8kyXY0_jaO1ss4",
+    "contextAfter": "と斯う言った。\n\n　どうだ、そうして次の日から、象は朝からかせぐのだ。藁も昨日はただ五把だ。よくまあ、五把の藁などで、あんな力が",
+    "contextBefore": "たんと肢を折って座り、ふいごの代りに半日炭を吹いたのだ。\n\n　その晩、象は象小屋で、七把の藁をたべながら、空の五日の月を見て\n\n",
+    "displayText": "「ああ、つかれたな、うれしいな、サンタマリア」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3183,
+      "start": 3160
+    },
+    "revisions": [],
+    "sha256": "19ee976e848035f3836388376ba67dffd1d6b5a4ce37df9c0578e17ff1f4fc1c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3183,
+      "startToken": 3160
+    },
+    "speechText": "「ああ、つかれたな、うれしいな、サンタマリア」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "w9As9MbuhFupb1Vo6Cy_rMn_fK1dzH0NSjiHbv3I9Dk",
+    "contextAfter": "と云ったということだ。\n\n　こいつを聞いたオツベルは、ことごと象につらくした。\n\n　ある晩、象は象小屋で、ふらふら倒れて地べたに",
+    "contextBefore": "して、じっとこんなにオツベルを見おろすようになってきた。\n\n　ある晩象は象小屋で、三把の藁をたべながら、十日の月を仰ぎ見て、\n\n",
+    "displayText": "「苦しいです。サンタマリア。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3517,
+      "start": 3502
+    },
+    "revisions": [],
+    "sha256": "ad4bb380563b7d5a8f6df6b34c7dc27fc6f436cb03c775ada6bde4b849c54e65",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3517,
+      "startToken": 3502
+    },
+    "speechText": "「苦しいです。サンタマリア。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "YtVUNo5_THV82Xc0XXHMZyuJ8mlGObl6Mqr87n9cwak",
+    "contextAfter": "と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n「何だい、",
+    "contextBefore": "オツベルは、ことごと象につらくした。\n\n　ある晩、象は象小屋で、ふらふら倒れて地べたに座り、藁もたべずに、十一日の月を見て、\n\n",
+    "displayText": "「もう、さようなら、サンタマリア。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3620,
+      "start": 3602
+    },
+    "revisions": [],
+    "sha256": "0e552363c0c05cc494d50705036b452f21ee0e696a654738744d2f7e81993554",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3620,
+      "startToken": 3602
+    },
+    "speechText": "「もう、さようなら、サンタマリア。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "Ot-QbbG8iFGWxVsrGP2mkViMfU_wV3wVPGBplN3RXJ0",
+    "contextAfter": "月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲",
+    "contextBefore": "象小屋で、ふらふら倒れて地べたに座り、藁もたべずに、十一日の月を見て、\n\n「もう、さようなら、サンタマリア。」と斯う言った。\n\n",
+    "displayText": "「おや、何だって？　さよならだ？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3646,
+      "start": 3629
+    },
+    "revisions": [],
+    "sha256": "9d29e34f2f7eab47b75c7c0006efec94f4f66a4bcae7117ca67721668a519f63",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3646,
+      "startToken": 3629
+    },
+    "speechText": "「おや、何だって？ さよならだ？」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "GoYS2BipMBt3oHwOPto-6BTe8ZysTjKkHCIruuLxkTU",
+    "contextAfter": "\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲間へ手紙を書いたらいいや。」月がわらって斯う云った。\n\n「お筆",
+    "contextBefore": "の月を見て、\n\n「もう、さようなら、サンタマリア。」と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n",
+    "displayText": "「ええ、さよならです。サンタマリア。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3677,
+      "start": 3658
+    },
+    "revisions": [],
+    "sha256": "511f019353b1ecd497ded500abfbcc0b42f302d669799662353a631d15dcbdc0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3677,
+      "startToken": 3658
+    },
+    "speechText": "「ええ、さよならです。サンタマリア。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "njVjbGq7Zhts8_W85xijgmtwmuf85Z6G6cPdbIEs6M8",
+    "contextAfter": "月がわらって斯う云った。\n\n「お筆も紙もありませんよう。」象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n「そら、これで",
+    "contextBefore": "マリア。」と斯う言った。\n\n「おや、何だって？　さよならだ？」月が俄かに象に訊く。\n\n「ええ、さよならです。サンタマリア。」\n\n",
+    "displayText": "「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲間へ手紙を書いたらいいや。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3724,
+      "start": 3679
+    },
+    "revisions": [],
+    "sha256": "f4476bb871651ddeafbe6111a20a0476bb3e9ecd2ea56ceba1069903eff33d03",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3724,
+      "startToken": 3679
+    },
+    "speechText": "「何だい、なりばかり大きくて、からっきしいくじのないやつだなあ。仲間へ手紙を書いたらいいや。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "zJM3NhTaYc9m4ctDvL-32PkUkrkIB7Xbv46Y6mwm1Bg",
+    "contextAfter": "象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n「そら、これでしょう。」すぐ眼の前で、可愛い子どもの声がした。象が頭を上げ",
+    "contextBefore": "ア。」\n\n「何だい、なりばかり大きくて、からっきし意気地のないやつだなあ。仲間へ手紙を書いたらいいや。」月がわらって斯う云った。\n\n",
+    "displayText": "「お筆も紙もありませんよう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3753,
+      "start": 3738
+    },
+    "revisions": [],
+    "sha256": "d5be2372b1dcad98c6cb1248e0906f1ff0cb70d299f1155a117c7f28a47d923c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3753,
+      "startToken": 3738
+    },
+    "speechText": "「お筆も紙もありませんよう。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "7dXt484ye_eRa7yJMrZV_ZZah4DS6fxClzQd1NvC7Qc",
+    "contextAfter": "すぐ眼の前で、可愛い子どもの声がした。象が頭を上げて見ると、赤い着物の童子が立って、硯と紙を捧げていた。象は早速手紙を書いた。\n\n",
+    "contextBefore": "たらいいや。」月がわらって斯う云った。\n\n「お筆も紙もありませんよう。」象は細ういきれいな声で、しくしくしくしく泣き出した。\n\n",
+    "displayText": "「そら、これでしょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3793,
+      "start": 3781
+    },
+    "revisions": [],
+    "sha256": "394b86f77d94eb1f18a9b0628caa8a28e90533269a3dc627b4fa4f397bc8a445",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3793,
+      "startToken": 3781
+    },
+    "speechText": "「そら、これでしょう。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "6q4YgzZqoRet14HOwaiac2pqQh7uDA_GfdtyH-1LwvI",
+    "contextAfter": "\n\n　童子はすぐに手紙をもって、林の方へあるいて行った。\n\n　赤衣の童子が、そうして山に着いたのは、ちょうどひるめしごろだった。こ",
+    "contextBefore": "すぐ眼の前で、可愛い子どもの声がした。象が頭を上げて見ると、赤い着物の童子が立って、硯と紙を捧げていた。象は早速手紙を書いた。\n\n",
+    "displayText": "「ぼくはずいぶん眼にあっている。みんなで出て来て助けてくれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 3888,
+      "start": 3857
+    },
+    "revisions": [],
+    "sha256": "5fead8cfb0bbc8b32f0420c2b119770d3933e3fe65f93bf05d022eb60e58bfee",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3888,
+      "startToken": 3857
+    },
+    "speechText": "「ぼくはずいぶん眼にあっている。みんなで出て来て助けてくれ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "veEgzXtOYU6sRaMeATOoSk01YiKh_53g4enaXwpPuzc",
+    "contextAfter": "\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n「オツベルをやっつけよう」議長の象が高く叫ぶと、\n\n「おう、でかけよ",
+    "contextBefore": "は、ちょうどひるめしごろだった。このとき山の象どもは、沙羅樹の下のくらがりで、碁などをやっていたのだが、額をあつめてこれを見た。\n\n",
+    "displayText": "「ぼくはずいぶん眼にあっている。みんなで出てきて助けてくれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4030,
+      "start": 3999
+    },
+    "revisions": [],
+    "sha256": "7fa213ed52b1d555d904bed33d972df47ba451c7441ccd2a769e50c500022be2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4030,
+      "startToken": 3999
+    },
+    "speechText": "「ぼくはずいぶん眼にあっている。みんなで出てきて助けてくれ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "g3oQrZGugCFwpI9U8D-1W6hH1Yo1lm8ySN2AEorfCsc",
+    "contextAfter": "議長の象が高く叫ぶと、\n\n「おう、でかけよう。グララアガア、グララアガア。」みんながいちどに呼応する。\n\n　さあ、もうみんな、嵐",
+    "contextBefore": "。\n\n「ぼくはずいぶん眼にあっている。みんなで出てきて助けてくれ。」\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n",
+    "displayText": "「オツベルをやっつけよう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4073,
+      "start": 4060
+    },
+    "revisions": [],
+    "sha256": "e8492cdc957005c79ed734bd59728981ec59320cddc6587d4e04b2f349aa8ca2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4073,
+      "startToken": 4060
+    },
+    "speechText": "「オツベルをやっつけよう」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "fSr_0BiSVognfS0Mdg2ilcZDOuZYj2_u5r5jLoVVb58",
+    "contextAfter": "みんながいちどに呼応する。\n\n　さあ、もうみんな、嵐のように林の中をなきぬけて、グララアガア、グララアガア、野原の方へとんで行く",
+    "contextBefore": "て助けてくれ。」\n\n　象は一せいに立ちあがり、まっ黒になって吠えだした。\n\n「オツベルをやっつけよう」議長の象が高く叫ぶと、\n\n",
+    "displayText": "「おう、でかけよう。グララアガア、グララアガア。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4111,
+      "start": 4086
+    },
+    "revisions": [],
+    "sha256": "5d7d71e6530ff27a6d6bec45e7becf2deada18c4bc3e234dccfbe6c3e4ff1b18",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4111,
+      "startToken": 4086
+    },
+    "speechText": "「おう、でかけよう。グララアガア、グララアガア。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "VRYhOrCOLnWtMM8eSVkJDODn23cwqAWT17gMsEXBWFA",
+    "contextAfter": "と声をかぎりに叫んだもんだ。\n\n　ところがオツベルはやっぱりえらい。眼をぱっちりとあいたときは、もう何もかもわかっていた。\n\n「",
+    "contextBefore": "外へ出て、小手をかざして向うを見た。林のような象だろう。汽車より早くやってくる。さあ、まるっきり、血の気も失せてかけ込んで、\n\n",
+    "displayText": "「旦那あ、象です。押し寄せやした。旦那あ、象です。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4493,
+      "start": 4468
+    },
+    "revisions": [],
+    "sha256": "03d38bf37cc0001ad6e0b60f7c4e777b73cea81f5cdaba319c9b27e54a17e1b0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4493,
+      "startToken": 4468
+    },
+    "speechText": "「だんなあ、象です。押し寄せやした。旦那あ、象です。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "RG4bTtJXLLRre9q3Hhmn9UcIW9S9ty2jMy3iRHcdeFw",
+    "contextAfter": "オツベルはもう支度ができて、ラッパみたいないい声で、百姓どもをはげました。ところがどうして、百姓どもは気が気じゃない。こんな主人に",
+    "contextBefore": "」と声をかぎりに叫んだもんだ。\n\n　ところがオツベルはやっぱりえらい。眼をぱっちりとあいたときは、もう何もかもわかっていた。\n\n",
+    "displayText": "「おい、象のやつは小屋にいるのか。居る？　居る？　居るのか。よし、戸をしめろ。戸をしめるんだよ。早く象小屋の戸をしめるんだ。ようし、早く丸太を持って来い。とじこめちまえ、畜生めじたばたしやがるな、丸太をそこへしばりつけろ。何ができるもんか。わざと力を減らしてあるんだ。ようし、もう五六本持って来い。さあ、大丈夫だ。大丈夫だとも。あわてるなったら。おい、みんな、こんどは門だ。門をしめろ。かんぬきをかえ。つっぱり。つっぱり。そうだ。おい、みんな心配するなったら。しっかりしろよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 4794,
+      "start": 4556
+    },
+    "revisions": [],
+    "sha256": "be317656153b1f3c080461013700dbfdd26eef6cef8340e23c15bfb8da709a26",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4794,
+      "startToken": 4556
+    },
+    "speechText": "「おい、象のやつは小屋にいるのか。居る？ 居る？ 居るのか。よし、戸をしめろ。戸をしめるんだよ。早く象小屋の戸をしめるんだ。ようし、早く丸太を持って来い。とじこめちまえ、ちくしょうめじたばたしやがるな、丸太をそこへしばりつけろ。何ができるもんか。わざと力を減らしてあるんだ。ようし、もう五六本持って来い。さあ、大丈夫だ。大丈夫だとも。あわてるなったら。おい、みんな、こんどは門だ。門をしめろ。かんぬきをかえ。つっぱり。つっぱり。そうだ。おい、みんな心配するなったら。しっかりしろよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "qGmxsdxu-iHs5TXHKd4w5kd1fMgKm1-jrigRNo2xmro",
+    "contextAfter": "やさしい声もきこえてくる。\n\n「ありがとう。よく来てくれて、ほんとに僕はうれしいよ。」象小屋からも声がする。さあ、そうすると、ま",
+    "contextBefore": "らとゆられ、そこらはばしゃばしゃくらくなり、象はやしきをとりまいた。グララアガア、グララアガア、その恐ろしいさわぎの中から、\n\n",
+    "displayText": "「今助けるから安心しろよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5089,
+      "start": 5075
+    },
+    "revisions": [],
+    "sha256": "bccb58b1ac5e483b27d287f12f55e822407f96230c1b6f875587214d398ad8f9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5089,
+      "startToken": 5075
+    },
+    "speechText": "「今助けるから安心しろよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "eVxO6M31lnkhp9r3M4qCEIZ77JNOt1JI0EE1mvTeM_s",
+    "contextAfter": "象小屋からも声がする。さあ、そうすると、まわりの象は、一そうひどく、グララアガア、グララアガア、塀のまわりをぐるぐる走っているら",
+    "contextBefore": "りまいた。グララアガア、グララアガア、その恐ろしいさわぎの中から、\n\n「今助けるから安心しろよ。」やさしい声もきこえてくる。\n\n",
+    "displayText": "「ありがとう。よく来てくれて、ほんとに僕はうれしいよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5132,
+      "start": 5104
+    },
+    "revisions": [],
+    "sha256": "caadcd850db6652cf464f3bd5ba0c3eb2bc655fd79c0afd451a051f124c64e27",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5132,
+      "startToken": 5104
+    },
+    "speechText": "「ありがとう。よく来てくれて、ほんとにぼくはうれしいよ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "5R9Qg98yM5ppYt83QZuI2rKLvjwJoA-t-TaswcWW_aA",
+    "contextAfter": "\n\n　オツベルはいつかどこかで、こんな文句をきいたようだと思いながら、ケースを帯からつめかえた。そのうち、象の片脚が、塀からこっ",
+    "contextBefore": "ララアガア、ドーン、グララアガア、ドーン、グララアガア、ところが弾丸は通らない。牙にあたればはねかえる。一疋なぞは斯う言った。\n\n",
+    "displayText": "「なかなかこいつはうるさいねえ。ぱちぱち顔へあたるんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5510,
+      "start": 5481
+    },
+    "revisions": [],
+    "sha256": "df37e44f6c325db65e149cd9d5977d6cc67461e4d32637ac06da63be447e5b67",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5510,
+      "startToken": 5481
+    },
+    "speechText": "「なかなかこいつはうるさいねえ。ぱちぱち顔へあたるんだ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "CDRYqaocBToGIdqlYxifq4OW5fQxZiGSX1A-dBpm0Fc",
+    "contextAfter": "みんなは小屋に押し寄せる。丸太なんぞは、マッチのようにへし折られ、あの白象は大へん瘠せて小屋を出た。\n\n「まあ、よかったねやせた",
+    "contextBefore": "ケースを握ったまま、もうくしゃくしゃに潰れていた。早くも門があいていて、グララアガア、グララアガア、象がどしどしなだれ込む。\n\n",
+    "displayText": "「牢はどこだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5694,
+      "start": 5686
+    },
+    "revisions": [],
+    "sha256": "9f56b1a96ac664522e64e2e6ed844a325a8a1bf11ccaa4059f80bb5d88eb0a57",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5694,
+      "startToken": 5686
+    },
+    "speechText": "「ろうはどこだ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "7XkfEAJ03zKzJlzKbuobkSTt3RO2e1-vqUBBLRYlKFE",
+    "contextAfter": "みんなはしずかにそばにより、鎖と銅をはずしてやった。\n\n「ああ、ありがとう。ほんとにぼくは助かったよ。」白象はさびしくわらってそ",
+    "contextBefore": "む。\n\n「牢はどこだ。」みんなは小屋に押し寄せる。丸太なんぞは、マッチのようにへし折られ、あの白象は大へん瘠せて小屋を出た。\n\n",
+    "displayText": "「まあ、よかったねやせたねえ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5762,
+      "start": 5746
+    },
+    "revisions": [],
+    "sha256": "126b0130356f598612f9dd13d52a88198d2652cb043ccc8009cfe6ea32a54f79",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5762,
+      "startToken": 5746
+    },
+    "speechText": "「まあ、よかったねやせたねえ。」",
+    "workId": "000466"
+  },
+  {
+    "candidateId": "O6el0Jyvm1nUURagpqvIt_RUvJ5Bgyf9cJkhwomtGBk",
+    "contextAfter": "白象はさびしくわらってそう云った。\n\n　おや〔一字不明〕、川へはいっちゃいけないったら。\n\n\n\n\n\n\n\n",
+    "contextBefore": "、あの白象は大へん瘠せて小屋を出た。\n\n「まあ、よかったねやせたねえ。」みんなはしずかにそばにより、鎖と銅をはずしてやった。\n\n",
+    "displayText": "「ああ、ありがとう。ほんとにぼくは助かったよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
+    "rawTokenRange": {
+      "end": 5814,
+      "start": 5790
+    },
+    "revisions": [],
+    "sha256": "8b42b44fddabe8c4e8479e48d51618435ab813f0ea5cfb731a341e7a5c3e7c70",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5814,
+      "startToken": 5790
+    },
+    "speechText": "「ああ、ありがとう。ほんとにぼくは助かったよ。」",
+    "workId": "000466"
+  }
+]

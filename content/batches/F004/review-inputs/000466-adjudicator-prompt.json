@@ -1,0 +1,98 @@
+{
+  "approvedReasonCodes": [
+    "SPOKEN_DIALOGUE",
+    "INNER_MONOLOGUE"
+  ],
+  "batchId": "F004",
+  "candidatePath": "data/batches/F004/work-artifacts/000466/intermediate/000466/candidates.json",
+  "candidateSha256": "0535e9af6a499581b5659409b6dcaca6fd893f6699dcd8946fdfa6716059b7e6",
+  "decisions": [
+    "approved",
+    "rejected",
+    "ambiguous"
+  ],
+  "differences": [
+    {
+      "candidateId": "fSr_0BiSVognfS0Mdg2ilcZDOuZYj2_u5r5jLoVVb58",
+      "order": 37,
+      "primary": {
+        "candidateId": "fSr_0BiSVognfS0Mdg2ilcZDOuZYj2_u5r5jLoVVb58",
+        "decision": "approved",
+        "inputSha256": "5d7d71e6530ff27a6d6bec45e7becf2deada18c4bc3e234dccfbe6c3e4ff1b18",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4086-4111",
+        "speaker": "山の象たち"
+      },
+      "secondary": {
+        "candidateId": "fSr_0BiSVognfS0Mdg2ilcZDOuZYj2_u5r5jLoVVb58",
+        "decision": "approved",
+        "inputSha256": "5d7d71e6530ff27a6d6bec45e7becf2deada18c4bc3e234dccfbe6c3e4ff1b18",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4086-4111",
+        "speaker": "象たち"
+      }
+    },
+    {
+      "candidateId": "CDRYqaocBToGIdqlYxifq4OW5fQxZiGSX1A-dBpm0Fc",
+      "order": 43,
+      "primary": {
+        "candidateId": "CDRYqaocBToGIdqlYxifq4OW5fQxZiGSX1A-dBpm0Fc",
+        "decision": "approved",
+        "inputSha256": "9f56b1a96ac664522e64e2e6ed844a325a8a1bf11ccaa4059f80bb5d88eb0a57",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5686-5694",
+        "speaker": "山の象たち"
+      },
+      "secondary": {
+        "candidateId": "CDRYqaocBToGIdqlYxifq4OW5fQxZiGSX1A-dBpm0Fc",
+        "decision": "approved",
+        "inputSha256": "9f56b1a96ac664522e64e2e6ed844a325a8a1bf11ccaa4059f80bb5d88eb0a57",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5686-5694",
+        "speaker": "仲間の象"
+      }
+    },
+    {
+      "candidateId": "7XkfEAJ03zKzJlzKbuobkSTt3RO2e1-vqUBBLRYlKFE",
+      "order": 44,
+      "primary": {
+        "candidateId": "7XkfEAJ03zKzJlzKbuobkSTt3RO2e1-vqUBBLRYlKFE",
+        "decision": "approved",
+        "inputSha256": "126b0130356f598612f9dd13d52a88198d2652cb043ccc8009cfe6ea32a54f79",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5746-5762",
+        "speaker": "山の象たち"
+      },
+      "secondary": {
+        "candidateId": "7XkfEAJ03zKzJlzKbuobkSTt3RO2e1-vqUBBLRYlKFE",
+        "decision": "approved",
+        "inputSha256": "126b0130356f598612f9dd13d52a88198d2652cb043ccc8009cfe6ea32a54f79",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5746-5762",
+        "speaker": "仲間の象"
+      }
+    }
+  ],
+  "feature": "F004",
+  "instruction": "候補46件を裁定し、差分3件は本文文脈からspeaker表記を一つ選ぶ。agreement候補も全集合としてexact出力する。",
+  "kind": "f004-independent-adjudication-prompt",
+  "outputPath": ".cache/f004-review/000466-adjudicator.json",
+  "primaryArtifactSha256": "723656df2aca5180c0a990ed88573768934e56f7aa51762b5c9a57a94ed8f0ce",
+  "primaryFileSha256": "e79ae50624c08557cf67e68275e3171d1ec38490789e890cceebade238573037",
+  "primarySealPath": "content/editorial/authorization-transaction/seals/f004-000466-primary.json",
+  "producerTaskPath": "/root/f004_t056_adjudicator",
+  "rejectedReasonCodes": [
+    "QUOTED_MATERIAL",
+    "EXPRESSION_EXAMPLE",
+    "NON_SPEECH",
+    "EXTRACTION_ARTIFACT",
+    "POLICY_EXCLUDED"
+  ],
+  "role": "adjudicator",
+  "runId": "adjudicator-000466-20260728-01",
+  "schemaVersion": "1.0.0",
+  "secondaryArtifactSha256": "78dfe9bd47244650bf11e5c150401b52fdd259e34c04b8710376164996ac1ee8",
+  "secondaryFileSha256": "4846127735f671add75de3d7c30b26feac87a6f7bba4674d2751c43e646bb413",
+  "secondarySealPath": "content/editorial/authorization-transaction/seals/f004-000466-secondary.json",
+  "workId": "000466"
+}
