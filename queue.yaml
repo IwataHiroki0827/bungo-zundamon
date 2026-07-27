@@ -824,3 +824,72 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-26T22:50:02+09:00'
   processed_note: SRS-F004とQT-F004をApprovedへ更新し、T-049を完了。F004をsetupへ移行した。
+- id: Q-023
+  type: approval
+  status: closed
+  title: F004 お気に入り機能の要求変更承認
+  body: >-
+    全公開台詞を端末内へ保存し、作者横断のお気に入り専用画面で見返せる機能をF004へ追加する。専用localStorage key以外の保存、アカウント、外部同期、追跡は行わず、破損・未知version・書込失敗を自動試験する。公開スモーク対象は5 routeから6 routeへ更新する。
+  target: docs/changes/CHG-F004-001.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの直接要望「お気に入り機能が欲しいね」と本会話の包括承認方針を適用。'
+  created: '2026-07-27T00:00:00+09:00'
+  source: pf-change
+  resume:
+    task: T-051
+    next: pf-design
+  approved_at: '2026-07-27T00:00:00+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-27T00:00:00+09:00'
+  processed_note: 重複入力を要求せず、SRS-F004/QT-F004とF004 WBSへ要求変更を反映して設計を継続する。
+- id: Q-024
+  type: approval
+  status: closed
+  title: F004 機能設計・関数設計の承認
+  body: >-
+    宮沢賢治3作品追加と台詞お気に入りをDES 13件・FUN 37件へ展開した。固定v0.3.0二重baseline、同一作者reuse、独立レビュー、差分音声、作品単位atomic受入、端末内保存、作者横断route、generic batch、postdeploy rollbackを定義し、整合性・実現可能性・セキュリティの最終独立レビューはHigh/Medium/Low 0、REQ→DES→FUN欠落0である。
+  target: docs/design/FD-F004.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。お気に入り機能を追加。'
+  created: '2026-07-27T22:47:37+09:00'
+  source: pf-design
+  resume:
+    task: T-053
+    next: pf-testspec
+  approved_at: '2026-07-27T22:47:37+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-27T22:47:37+09:00'
+  processed_note: FD-F004/DD-F004をApprovedへ更新し、T-051/T-052を完了、F004をtestspecへ移行した。
+- id: Q-025
+  type: approval
+  status: closed
+  title: F004 単体・結合試験仕様の承認（実装開始ゲート③）
+  body: >-
+    UT-F004 37件でFUN 37件、IT-F004 15件でDES 13件、QT-F004 16件でREQ 21件を網羅した。お気に入り全台詞control、storage破損・quota、preview/final brand、generic batch、atomic crash、hosted favorite smoke、rollbackとdeploy-disable pre-arm/別process回復を自動試験する。網羅性・試験設計・セキュリティの最終レビューHigh/Medium/Low 0、trace_check 100%である。本承認が実装開始ゲート③である。
+  target: docs/tests/ut/UT-F004.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+  created: '2026-07-27T23:00:16+09:00'
+  source: pf-testspec
+  resume:
+    task: T-054
+    next: pf-implement
+  approved_at: '2026-07-27T23:00:16+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-27T23:00:16+09:00'
+  processed_note: UT-F004/IT-F004をApprovedへ更新し、T-053を完了、テストファーストゲート③を通過してF004をimplementへ移行した。

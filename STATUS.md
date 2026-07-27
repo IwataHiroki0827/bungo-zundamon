@@ -1,9 +1,9 @@
 ---
-phase: design
+phase: implement
 feature: F004
-updated: 2026-07-26T22:54:00+09:00
+updated: 2026-07-27T23:00:16+09:00
 next_actions:
-  - "T-051/T-052でFD-F004/DD-F004を作成し、同一作者mergeと3作品pipelineを設計する"
+  - "T-054でF004候補manifest・固定v0.3.0二重baseline・権利原典を実装する"
 blocked_by: []
 ---
 
@@ -26,20 +26,23 @@ blocked_by: []
 - RuntimeAcceptance schema 1.1へclean commit、test source、4ブラウザ生レポート、public、distをhash結合し、独立再受入High/Medium/Low 0件でPASSした。
 - v0.3.0はActions run 30203760729で段階公開し、公開5 route、初期全閉、画像、音声Range、CSP・外部通信を自動スモークしてPASSした。
 - F003 manifestは実公開3証跡のexact tupleで`published`へ遷移し、公開後状態の全857試験・lint・typecheck・build・trace_checkをPASSした。
-- F004は宮沢賢治へ「オツベルと象」「雪渡り」「カイロ団長」を追加する。Tier大調査と独立反証評価High/Medium/Low 0を完了し、SRS-F004のREQ 17件とQT-F004の14件をゲート①でApprovedにした。
-- T-050でT-051〜T-061へWBS分解し、既存CLI・Playwright・VOICEVOXを再利用、追加MCP不要と判定した。F004はdesignへ移行した。
+- F004は宮沢賢治へ「オツベルと象」「雪渡り」「カイロ団長」を追加し、台詞を端末内へ保存して作者横断で見返せるお気に入りを提供する。CHG-F004-001でREQ 21件・QT 16件へ更新し、直接要望と包括承認をQ-023へ記録した。
+- T-050でT-051〜T-062へWBS分解し、既存CLI・Playwright・VOICEVOXを再利用、追加MCP不要と判定した。
+- T-051/T-052でFD-F004のDES 13件、DD-F004のFUN 37件を作成した。固定v0.3.0二重baseline、同一作者reuse、端末内お気に入り、generic batch、preview/final型分離、公開後rollbackを定義し、3観点の最終独立レビューHigh/Medium/Low 0、ゲート②承認を完了した。
+- T-053でUT-F004 37件、IT-F004 15件を作成し、QT-F004 16件と合わせて全REQ/DES/FUNを網羅した。網羅性・試験設計・CHG-F004-002のセキュリティ再レビューは最終High/Medium/Low 0、trace_check 100%である。
+- Q-025へ包括承認を記録してテストファーストゲート③を通過した。F004はimplementへ移行し、T-054を開始した。
 
 ## 直近の作業（最新5件）
 
-- T-050でF004を設計から段階公開まで11タスクへ分解し、検証環境を整備
-- F004の追加3作品を確定し、SRS-F004/QT-F004をゲート①でApproved
+- UT-F004 37件・IT-F004 15件をApproved、ゲート③通過、trace 100%
+- CHG-F004-002でdeploy有効化前journal pre-armと別process cleanupを設計・試験化
+- お気に入り要求をCHG-F004-001で追加し、FD/DDをDES 13件・FUN 37件でApproved
 - 既存抽出器で46/64/102候補、最大242/278/290字、音声安全側予測66.65 MiBを確認
 - F003 v0.3.0をGitHub Pagesへ公開し、公開後スモークPASS
-- CHG-F003-004で公開5 routeとpublished後の固定Catalog復元を是正し、独立再レビューHigh/Medium/Low 0
 
 ## 次のアクション
 
-- T-051/T-052で`docs/design/FD-F004.md`と`docs/design/DD-F004.md`を作成し、REQ-F004-001〜017を設計へ展開する。
+- T-054で承認済み候補binding、固定v0.3.0 release/control baseline、3作品の権利・原典を実装する。
 
 ## 未解決事項
 

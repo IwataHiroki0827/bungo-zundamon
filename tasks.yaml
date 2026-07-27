@@ -1069,12 +1069,12 @@ tasks:
     lead: opus
     workers: sonnet
   completed_at: '2026-07-26T22:54:00+09:00'
-  result: T-051〜T-061へ設計・試験仕様・共通基盤・3作品atomic受入・統合・試験・段階公開を分解。既存CLI/Playwright/VOICEVOXを再利用し追加MCP不要
+  result: T-051〜T-062へ設計・試験仕様・共通基盤・3作品atomic受入・お気に入り・統合・試験・段階公開を分解。既存CLI/Playwright/VOICEVOXを再利用し追加MCP不要
 - id: T-051
   title: F004機能設計書を作成し同一作者3作品追記を設計
   feature: F004
   phase: design
-  state: todo
+  state: done
   depends:
   - T-050
   tags:
@@ -1084,16 +1084,22 @@ tasks:
   - REQ-F004-004
   - REQ-F004-014
   - REQ-F004-015
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: advisor
   mode_reason: 固定baselineと同一作者mergeの設計判断を単一FDで一貫させるため
   model: &model_f004
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-27T22:47:37+09:00'
+  result: FD-F004のDES 13件へ同一作者3作品追加・お気に入り・固定baseline・rollbackを展開し、3観点レビューHigh/Medium/Low 0でApproved
 - id: T-052
   title: F004関数設計書を作成し検証・transaction契約へ展開
   feature: F004
   phase: design
-  state: todo
+  state: done
   depends:
   - T-051
   tags:
@@ -1107,14 +1113,20 @@ tasks:
   - REQ-F004-013
   - REQ-F004-016
   - REQ-F004-017
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: advisor
   mode_reason: 既存関数の再利用境界とF004固有入力を関数単位で確定するため
   model: *model_f004
+  completed_at: '2026-07-27T22:47:37+09:00'
+  result: DD-F004のFUN 37件へverified brand・preview/final分離・FavoriteController・atomic/release契約を展開しApproved
 - id: T-053
   title: F004 UT・IT仕様を作成しQTとの網羅性を確認
   feature: F004
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-052
   tags:
@@ -1135,14 +1147,20 @@ tasks:
   - REQ-F004-015
   - REQ-F004-016
   - REQ-F004-017
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: advisor
   mode_reason: 設計と全REQの失敗境界をUT/ITへ一貫して割り当てるため
   model: *model_f004
+  completed_at: '2026-07-27T23:00:16+09:00'
+  result: UT 37件・IT 15件・QT 16件を確定。網羅性・試験設計・CHG-F004-002セキュリティ再レビューHigh/Medium/Low 0、trace_check 100%でゲート③承認
 - id: T-054
   title: F004候補manifest・固定v0.3.0 baseline・権利原典を整備
   feature: F004
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-053
   tags:
@@ -1166,6 +1184,8 @@ tasks:
   - REQ-F004-014
   - REQ-F004-015
   - REQ-F004-016
+  - REQ-F004-019
+  - REQ-F004-021
   mode: advisor
   mode_reason: 共通Catalog境界を3作品処理より先に確定するため
   model: *model_f004
@@ -1230,6 +1250,7 @@ tasks:
   state: todo
   depends:
   - T-058
+  - T-062
   tags:
   - REQ-F004-001
   - REQ-F004-003
@@ -1237,6 +1258,10 @@ tasks:
   - REQ-F004-014
   - REQ-F004-015
   - REQ-F004-016
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: advisor
   mode_reason: 固定baselineと追記結果を単一candidateへ統合するため
   model: *model_f004
@@ -1265,11 +1290,15 @@ tasks:
   - REQ-F004-015
   - REQ-F004-016
   - REQ-F004-017
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: orchestration
   mode_reason: UT/IT/QT/4ブラウザ/権利/容量を独立実行して統合判定できるため
   model: *model_f004
 - id: T-061
-  title: F004リリース前総点検・GitHub Pages段階公開・公開5 routeスモーク
+  title: F004リリース前総点検・GitHub Pages段階公開・公開6 routeスモーク
   feature: F004
   phase: release
   state: todo
@@ -1277,6 +1306,26 @@ tasks:
   - T-060
   tags:
   - REQ-F004-017
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f004
+- id: T-062
+  title: 台詞お気に入り・端末内保存・作者横断一覧を実装
+  feature: F004
+  phase: implement
+  state: todo
+  depends:
+  - T-055
+  tags:
+  - REQ-F004-017
+  - REQ-F004-018
+  - REQ-F004-019
+  - REQ-F004-020
+  - REQ-F004-021
+  mode: advisor
+  mode_reason: 安定dialogue ID、保存境界、route、音声制御を単一の状態契約として整合させるため
   model: *model_f004

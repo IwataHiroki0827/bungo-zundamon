@@ -372,3 +372,17 @@ entries:
   agents: 1
   est_tokens: 5000
   note: T-051〜T-061へ設計・試験仕様・共通基盤・3作品atomic受入・統合・試験・段階公開を分解。既存CLI/Playwright/VOICEVOXを再利用し、追加MCP不要と判定
+- date: '2026-07-27'
+  phase: design
+  task: T-051/T-052 F004機能・関数設計とCHG-F004-001
+  model: GPT-5
+  agents: 4
+  est_tokens: 30000
+  note: お気に入り要求をREQ 21件/QT 16件へ追加し、DES 13件・FUN 37件を作成。baseline、同一作者reuse、FavoriteController、generic batch、preview/final brand、rollbackを反復レビューし最終High/Medium/Low 0、ゲート②承認を完了
+- date: '2026-07-27'
+  phase: testspec
+  task: T-053 F004 UT/IT試験仕様・ゲート③
+  model: GPT-5
+  agents: 3
+  est_tokens: 24000
+  note: UT 37件・IT 15件を作成。全台詞favorite control、storage障害matrix、brand二層否定、generic AST検査、atomic受入、hosted smoke、deploy disable pre-arm/回復を反復レビューし最終High/Medium/Low 0、trace 100%、ゲート③承認を完了
