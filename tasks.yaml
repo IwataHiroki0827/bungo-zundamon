@@ -1197,7 +1197,7 @@ tasks:
   title: オツベルと象を抽出・二重レビュー・音声化・atomic受入
   feature: F004
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-055
   tags:
@@ -1321,7 +1321,7 @@ tasks:
   title: 台詞お気に入り・端末内保存・作者横断一覧を実装
   feature: F004
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-055
   tags:
@@ -1333,3 +1333,5 @@ tasks:
   mode: advisor
   mode_reason: 安定dialogue ID、保存境界、route、音声制御を単一の状態契約として整合させるため
   model: *model_f004
+  completed_at: '2026-07-28T01:06:31+09:00'
+  result: 全公開台詞のお気に入り切替、固定key/version/上限付き端末内保存、memory縮退、共有controller、作者横断route、one-shot元作品移動、限定security許可を実装。全54ファイル918試験・495ファイルbuild・独立受入PASS

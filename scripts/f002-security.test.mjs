@@ -1,7 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { runF002SecurityChecks, runF002StaticSecurityChecks } from './f002-security.mjs';
+import {
+  runF002SecurityChecks,
+  runF002StaticSecurityChecks,
+  scanFavoriteStorageContract,
+} from './f002-security.mjs';
 
 const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'";
 const workflowPath = path.resolve(import.meta.dirname, '..', '.github', 'workflows', 'pages.yml');
@@ -40,6 +44,76 @@ async function fixture() {
 
 // Direct trace tags: QT-F002-011
 describe('FUN-F002-029 security集約 [DES-F002-012][DES-F002-016][UT-F002-029][IT-F002-016][IT-F002-017]', () => {
+  it('favorites moduleのexact key/version/schema/localStorage 1件だけを許可する', async () => {
+    const favoriteSource = await readFile(path.resolve(import.meta.dirname, '..', 'src', 'ui', 'favorites.ts'), 'utf8');
+    const favoriteStorage = scanFavoriteStorageContract([{
+      path: 'src/ui/favorites.ts',
+      source: favoriteSource,
+    }]);
+    expect(favoriteStorage).toEqual({
+      status: 'passed',
+      modulePath: 'src/ui/favorites.ts',
+      storageKey: 'bungo-zundamon:favorites:v1',
+      schemaVersion: 1,
+      localStorageCount: 1,
+      violations: 0,
+    });
+    const context = await fixture();
+    context.privacyScan.localStorageCount = 1;
+    context.privacyScan.favoriteStorage = favoriteStorage;
+    await expect(runF002SecurityChecks(context)).resolves.toMatchObject({
+      status: 'pass',
+      counts: { storageOrForms: 0 },
+    });
+  });
+
+  it.each([
+    ['別module localStorage', (source) => [
+      { path: 'src/ui/favorites.ts', source },
+      { path: 'src/ui/other.ts', source: 'window.localStorage.getItem("other")' },
+    ]],
+    ['別key', (source) => [{
+      path: 'src/ui/favorites.ts',
+      source: source.replace('bungo-zundamon:favorites:v1', 'other:key'),
+    }]],
+    ['別version', (source) => [{
+      path: 'src/ui/favorites.ts',
+      source: source.replace(
+        'JSON.stringify({ version: 1, dialogueIds: [...store.dialogueIds] })',
+        'JSON.stringify({ version: 2, dialogueIds: [...store.dialogueIds] })',
+      ),
+    }]],
+    ['別path', (source) => [{ path: 'src/ui/storage.ts', source }]],
+  ])('%sはfavorite storage契約として許可しない', async (_label, mutate) => {
+    const source = await readFile(path.resolve(import.meta.dirname, '..', 'src', 'ui', 'favorites.ts'), 'utf8');
+    expect(scanFavoriteStorageContract(mutate(source))).toMatchObject({
+      status: 'blocked',
+      violations: expect.any(Number),
+    });
+  });
+
+  it('許可証跡があっても余分なstorage・Cookie・formを拒否する', async () => {
+    const source = await readFile(path.resolve(import.meta.dirname, '..', 'src', 'ui', 'favorites.ts'), 'utf8');
+    const favoriteStorage = scanFavoriteStorageContract([{ path: 'src/ui/favorites.ts', source }]);
+    for (const field of ['sessionStorageCount', 'cookieAccessCount', 'formCount', 'indexedDbCount']) {
+      const context = await fixture();
+      context.privacyScan.localStorageCount = 1;
+      context.privacyScan.favoriteStorage = favoriteStorage;
+      context.privacyScan[field] = 1;
+      await expect(runF002SecurityChecks(context)).resolves.toMatchObject({
+        status: 'blocked',
+        codes: expect.arrayContaining(['SECURITY_STORAGE_OR_FORM']),
+      });
+    }
+    const extraLocal = await fixture();
+    extraLocal.privacyScan.localStorageCount = 2;
+    extraLocal.privacyScan.favoriteStorage = favoriteStorage;
+    await expect(runF002SecurityChecks(extraLocal)).resolves.toMatchObject({
+      status: 'blocked',
+      codes: expect.arrayContaining(['SECURITY_STORAGE_OR_FORM']),
+    });
+  });
+
   it('self-only runtime・安全DOM・最小workflow・問題0のscanだけをPASSにする', async () => {
     await expect(runF002SecurityChecks(await fixture())).resolves.toEqual({
       scope: 'full-release',

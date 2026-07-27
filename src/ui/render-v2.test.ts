@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 
 import type { AudioController } from './audio-controller';
+import { createFavoriteController, createFavoriteNavigation } from './favorites';
 import { renderAuthorIndex, renderAuthorPageV2, renderRoute } from './render';
 import type { PlayerState, UICatalogV2 } from './types';
 
@@ -198,6 +199,15 @@ describe('renderRoute CatalogV2 integration', () => {
   it('解決済みrouteをV2 index・author page・credits・not-foundへ接続する', () => {
     const catalog = catalogFixture();
     const { controller } = controllerFixture();
+    const favoriteController = createFavoriteController(
+      () => ({
+        getItem: () => null,
+        setItem: () => undefined,
+        removeItem: () => undefined,
+      }),
+      catalog,
+    );
+    const favoriteNavigation = createFavoriteNavigation(catalog, vi.fn());
     const root = document.createElement('main');
     const creditsRenderer = vi.fn(() => {
       const page = document.createElement('article');
@@ -206,6 +216,8 @@ describe('renderRoute CatalogV2 integration', () => {
     });
     const context = {
       controller,
+      favoriteController,
+      favoriteNavigation,
       baseUrl: new URL('https://example.test/app/'),
       motion: 'reduced' as const,
       motionLockedByOs: false,

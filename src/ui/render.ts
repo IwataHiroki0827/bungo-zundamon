@@ -1,6 +1,12 @@
 import { WORK_NOTICE_TEXT } from '../notices/work-notice-text';
 import { AudioController } from './audio-controller';
 import { resolvePublicAsset, resolvePublicAssetV2 } from './catalog-loader';
+import {
+  selectFavoriteDialogueViews,
+  type FavoriteController,
+  type FavoriteNavigation,
+  type FavoriteSnapshot,
+} from './favorites';
 import { observeAudioLazyLoading } from './lazy-loading';
 import { hasUnsafeTextControl } from './text-safety';
 import type {
@@ -17,6 +23,7 @@ import type {
 } from './types';
 
 const CLEANUP = new WeakMap<Node, () => void>();
+const AFTER_MOUNT = new WeakMap<Node, () => void>();
 
 export type UIRenderErrorCode =
   | 'UI_AUTHOR_REFERENCE_INVALID'
@@ -33,6 +40,8 @@ export class UIRenderError extends Error {
 
 interface RenderChromeContext {
   readonly controller: AudioController;
+  readonly favoriteController: FavoriteController;
+  readonly favoriteNavigation: FavoriteNavigation;
   readonly baseUrl: URL;
   readonly motion: MotionMode;
   readonly motionLockedByOs: boolean;
@@ -66,7 +75,10 @@ function textElement<K extends keyof HTMLElementTagNameMap>(
   return element;
 }
 
-function routeLink(label: string, href: '#/' | '#/authors/akutagawa-zunnosuke' | '#/credits'): HTMLAnchorElement {
+function routeLink(
+  label: string,
+  href: '#/' | '#/authors/akutagawa-zunnosuke' | '#/favorites' | '#/credits',
+): HTMLAnchorElement {
   const anchor = document.createElement('a');
   anchor.className = 'route-link';
   anchor.href = href;
@@ -343,6 +355,7 @@ export function renderDialogueCard(
   dialogue: CatalogDialogue,
   controller: AudioController,
   sourceLink?: HTMLAnchorElement,
+  favoriteController?: FavoriteController,
 ): HTMLElement {
   const card = document.createElement('article');
   card.className = 'dialogue-card';
@@ -369,11 +382,35 @@ export function renderDialogueCard(
   setSafeText(stop, '停止');
   stop.disabled = true;
 
+  let unsubscribeFavorite = (): void => undefined;
+  let onFavorite = (): void => undefined;
+  if (favoriteController) {
+    const favorite = document.createElement('button');
+    favorite.type = 'button';
+    favorite.dataset.dialogueId = dialogue.dialogueId;
+    const updateFavorite = (snapshot: FavoriteSnapshot): void => {
+      const active = snapshot.dialogueIds.includes(dialogue.dialogueId);
+      favorite.className = active ? 'favorite-button is-favorite' : 'favorite-button';
+      favorite.setAttribute('aria-pressed', String(active));
+      setSafeText(favorite, active ? 'お気に入りから削除' : 'お気に入りに追加');
+    };
+    onFavorite = () => {
+      favoriteController.toggle(dialogue.dialogueId);
+    };
+    favorite.addEventListener('click', onFavorite);
+    unsubscribeFavorite = favoriteController.subscribe(updateFavorite);
+    actions.append(play, stop, favorite);
+    CLEANUP.set(favorite, () => {
+      favorite.removeEventListener('click', onFavorite);
+      unsubscribeFavorite();
+    });
+  } else {
+    actions.append(play, stop);
+  }
+
   const status = textElement('p', '再生待ち', 'dialogue-status');
   status.setAttribute('aria-live', 'polite');
   status.setAttribute('aria-atomic', 'true');
-  actions.append(play, stop);
-
   const meta = document.createElement('div');
   meta.className = 'dialogue-meta';
   meta.append(textElement('span', `台詞 ${dialogue.order}`));
@@ -408,13 +445,20 @@ export function renderDialogueCard(
     play.removeEventListener('click', onPlay);
     stop.removeEventListener('click', onStop);
     unsubscribe();
+    cleanupRenderedTree(actions);
   });
   return card;
 }
 
-function renderWork(work: DisplayWork | DisplayWorkV2, controller: AudioController, authorId?: string): HTMLElement {
+function renderWork(
+  work: DisplayWork | DisplayWorkV2,
+  controller: AudioController,
+  authorId?: string,
+  favoriteController?: FavoriteController,
+): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
+  details.dataset.workId = work.workId;
   // ブラウザの履歴復元に委ねず、作者ページを描画するたびに閉じた状態から始める。
   details.open = false;
 
@@ -464,7 +508,7 @@ function renderWork(work: DisplayWork | DisplayWorkV2, controller: AudioControll
       ? aozoraLinkV2('この台詞の作品出典', work.cardLink, authorId)
       : aozoraLink('この台詞の作品出典', work.cardLink);
     dialogueSource.className = 'dialogue-source-link';
-    item.append(renderDialogueCard(dialogue, controller, dialogueSource));
+    item.append(renderDialogueCard(dialogue, controller, dialogueSource, favoriteController));
     list.append(item);
   }
   details.append(summary, intro, list);
@@ -478,6 +522,7 @@ export function renderAuthorPage(
   works: readonly DisplayWork[],
   controller: AudioController,
   baseUrl = new URL(document.baseURI),
+  favoriteController?: FavoriteController,
 ): HTMLElement {
   if (works.length !== 3) throw new TypeError('catalog-work-count-invalid');
   const page = document.createElement('article');
@@ -503,7 +548,7 @@ export function renderAuthorPage(
   title.id = 'works-title';
   const workList = document.createElement('div');
   workList.className = 'work-list';
-  works.forEach((work) => workList.append(renderWork(work, controller)));
+  works.forEach((work) => workList.append(renderWork(work, controller, undefined, favoriteController)));
   const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
   worksSection.append(title, workList);
   page.append(header, worksSection);
@@ -520,6 +565,8 @@ export function renderAuthorPageV2(
   catalog: UICatalogV2,
   controller: AudioController,
   baseUrl = new URL(document.baseURI),
+  favoriteController?: FavoriteController,
+  favoriteNavigation?: FavoriteNavigation,
 ): HTMLElement {
   const matchingAuthors = catalog.authors.filter((author) => author.authorId === authorId);
   if (matchingAuthors.length !== 1) throw new UIRenderError('UI_AUTHOR_NOT_FOUND', `作者を一意に解決できません: ${authorId}`);
@@ -555,6 +602,17 @@ export function renderAuthorPageV2(
   );
   header.append(copy);
 
+  let unsubscribeFavoriteStatus = (): void => undefined;
+  if (favoriteController) {
+    const persistence = textElement('p', '', 'favorite-persistence-status');
+    persistence.setAttribute('aria-live', 'polite');
+    unsubscribeFavoriteStatus = favoriteController.subscribe((snapshot) => {
+      setSafeText(persistence, snapshot.message ?? 'お気に入りはこの端末内に保存されます。');
+      persistence.dataset.persistence = snapshot.persistence;
+    });
+    copy.append(persistence);
+  }
+
   const worksSection = document.createElement('section');
   worksSection.className = 'works-section';
   worksSection.setAttribute('aria-labelledby', 'works-v2-title');
@@ -562,13 +620,143 @@ export function renderAuthorPageV2(
   title.id = 'works-v2-title';
   const workList = document.createElement('div');
   workList.className = 'work-list';
-  works.forEach((work) => workList.append(renderWork(work, controller, authorId)));
+  const workReferences = new Map<string, {
+    panel: HTMLDetailsElement;
+    summary: HTMLElement;
+    dialogues: ReadonlyMap<string, HTMLElement>;
+  }>();
+  works.forEach((work) => {
+    const panel = renderWork(work, controller, authorId, favoriteController) as HTMLDetailsElement;
+    const dialogueCards = Array.from(panel.querySelectorAll<HTMLElement>('.dialogue-card'));
+    workReferences.set(work.workId, {
+      panel,
+      summary: panel.querySelector<HTMLElement>('summary')!,
+      dialogues: new Map(work.dialogues.map((dialogue, index) => [
+        dialogue.dialogueId,
+        dialogueCards[index]!,
+      ])),
+    });
+    workList.append(panel);
+  });
   const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
   worksSection.append(title, workList);
   page.append(header, worksSection);
   CLEANUP.set(page, () => {
+    unsubscribeFavoriteStatus();
     lazyPlan.disconnect();
     cleanupRenderedTree(workList);
+  });
+  const intent = favoriteNavigation?.consume(authorId);
+  if (intent) {
+    const workReference = workReferences.get(intent.workId);
+    const dialogueReference = workReference?.dialogues.get(intent.dialogueId);
+    if (workReference && dialogueReference) {
+      AFTER_MOUNT.set(page, () => {
+        workReference.panel.open = true;
+        dialogueReference.tabIndex = -1;
+        dialogueReference.focus();
+      });
+    }
+  }
+  return page;
+}
+
+/** @des DES-F004-010 @fun FUN-F004-029 @ut UT-F004-029 */
+export function renderFavoritesRoute(
+  catalog: UICatalog | UICatalogV2,
+  controller: AudioController,
+  favoriteController: FavoriteController,
+  navigation: FavoriteNavigation,
+): HTMLElement {
+  const page = document.createElement('article');
+  page.className = 'favorites-page page narrow-page';
+  page.dataset.page = 'favorites';
+  page.append(
+    textElement('p', '端末内コレクション', 'eyebrow'),
+    textElement('h1', 'お気に入り'),
+  );
+  const persistence = textElement('p', '', 'favorite-persistence-status');
+  persistence.setAttribute('aria-live', 'polite');
+  const content = document.createElement('section');
+  content.className = 'favorite-results';
+  content.setAttribute('aria-live', 'polite');
+  page.append(persistence, content);
+
+  let focusIndex: number | null = null;
+  const paint = (snapshot: FavoriteSnapshot): void => {
+    setSafeText(
+      persistence,
+      snapshot.message ?? 'お気に入りはこの端末内だけに保存され、外部へ送信されません。',
+    );
+    persistence.dataset.persistence = snapshot.persistence;
+    cleanupRenderedTree(content);
+    const views = selectFavoriteDialogueViews(snapshot, catalog);
+    const replacement = document.createDocumentFragment();
+    if (views.length === 0) {
+      const emptyTitle = textElement('h2', 'お気に入りはまだありません', 'favorite-empty-title');
+      emptyTitle.tabIndex = -1;
+      replacement.append(
+        emptyTitle,
+        textElement('p', '作者ページの「お気に入りに追加」ボタンから台詞を登録できます。'),
+        textElement('p', '登録内容はこの端末内だけに保存されます。'),
+      );
+    } else {
+      const list = document.createElement('ol');
+      list.className = 'favorite-list';
+      views.forEach((view, index) => {
+        const item = document.createElement('li');
+        item.className = 'favorite-item paper-card';
+        item.dataset.dialogueId = view.dialogue.dialogueId;
+        item.append(
+          textElement('h2', view.author.name, 'favorite-author'),
+          textElement('h3', view.work.title, 'favorite-work'),
+          renderDialogueCard(view.dialogue, controller),
+        );
+        const actions = document.createElement('div');
+        actions.className = 'favorite-route-actions';
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'favorite-button is-favorite';
+        remove.dataset.dialogueId = view.dialogue.dialogueId;
+        remove.setAttribute('aria-pressed', 'true');
+        setSafeText(remove, 'お気に入りから削除');
+        const openOriginal = document.createElement('a');
+        openOriginal.className = 'route-link favorite-original-link';
+        openOriginal.href = `#/authors/${encodeURIComponent(view.author.slug)}`;
+        setSafeText(openOriginal, '元の作品へ移動');
+        const onRemove = (): void => {
+          focusIndex = index;
+          favoriteController.toggle(view.dialogue.dialogueId);
+        };
+        const onOpenOriginal = (event: MouseEvent): void => {
+          event.preventDefault();
+          navigation.activate(view.dialogue.dialogueId);
+        };
+        remove.addEventListener('click', onRemove);
+        openOriginal.addEventListener('click', onOpenOriginal);
+        CLEANUP.set(item, () => {
+          remove.removeEventListener('click', onRemove);
+          openOriginal.removeEventListener('click', onOpenOriginal);
+          cleanupRenderedTree(item.querySelector('.dialogue-card'));
+        });
+        actions.append(remove, openOriginal);
+        item.append(actions);
+        list.append(item);
+      });
+      replacement.append(list);
+    }
+    content.replaceChildren(replacement);
+    if (focusIndex !== null && page.isConnected) {
+      const controls = Array.from(content.querySelectorAll<HTMLButtonElement>('.favorite-item > .favorite-route-actions > .favorite-button'));
+      if (controls.length > 0) controls[Math.min(focusIndex, controls.length - 1)]!.focus();
+      else content.querySelector<HTMLElement>('.favorite-empty-title')?.focus();
+      focusIndex = null;
+    }
+  };
+  const unsubscribe = favoriteController.subscribe(paint);
+  CLEANUP.set(page, () => {
+    unsubscribe();
+    cleanupRenderedTree(content);
   });
   return page;
 }
@@ -608,10 +796,16 @@ function siteHeader(route: Route, context: RenderChromeContext, fallbackAuthorSl
   const nav = document.createElement('nav');
   nav.setAttribute('aria-label', 'メインナビゲーション');
   const authorSlug = route.kind === 'author' ? route.slug : fallbackAuthorSlug;
-  const links = [routeLink('トップ', '#/'), authorRouteLink('作者', authorSlug), routeLink('クレジット', '#/credits')];
+  const links = [
+    routeLink('トップ', '#/'),
+    authorRouteLink('作者', authorSlug),
+    routeLink('お気に入り', '#/favorites'),
+    routeLink('クレジット', '#/credits'),
+  ];
   const currentHref = route.kind === 'author'
     ? `#/authors/${encodeURIComponent(route.slug)}`
-    : route.kind === 'credits' ? '#/credits' : '#/';
+    : route.kind === 'favorites' ? '#/favorites'
+      : route.kind === 'credits' ? '#/credits' : '#/';
   for (const link of links) if (link.getAttribute('href') === currentHref) link.setAttribute('aria-current', 'page');
   nav.append(...links);
 
@@ -707,12 +901,41 @@ export function renderRoute(
         if (!('authorId' in route) || typeof route.authorId !== 'string') {
           throw new UIRenderError('UI_AUTHOR_NOT_FOUND', 'author routeが解決済みではありません');
         }
-        page = renderAuthorPageV2(route.authorId, catalog, context.controller, context.baseUrl);
+        page = renderAuthorPageV2(
+          route.authorId,
+          catalog,
+          context.controller,
+          context.baseUrl,
+          context.favoriteController,
+          context.favoriteNavigation,
+        );
+      } else if (route.kind === 'favorites') {
+        page = renderFavoritesRoute(
+          catalog,
+          context.controller,
+          context.favoriteController,
+          context.favoriteNavigation,
+        );
       } else if (route.kind === 'credits') {
         page = (context as RenderContext<UICatalogV2>).creditsRenderer?.(catalog) ?? renderCreditsFallback();
       } else page = renderNotFound();
     } else if (route.kind === 'home') page = renderHome(catalog, context.baseUrl);
-    else if (route.kind === 'author') page = renderAuthorPage(catalog.author, catalog.works, context.controller, context.baseUrl);
+    else if (route.kind === 'author') {
+      page = renderAuthorPage(
+        catalog.author,
+        catalog.works,
+        context.controller,
+        context.baseUrl,
+        context.favoriteController,
+      );
+    } else if (route.kind === 'favorites') {
+      page = renderFavoritesRoute(
+        catalog,
+        context.controller,
+        context.favoriteController,
+        context.favoriteNavigation,
+      );
+    }
     else if (route.kind === 'credits') {
       page = (context as RenderContext<UICatalog>).creditsRenderer?.(catalog) ?? renderCreditsFallback();
     } else page = renderNotFound();
@@ -729,6 +952,8 @@ export function renderRoute(
   const heading = page.querySelector<HTMLElement>('h1');
   if (heading) heading.tabIndex = -1;
   root.replaceChildren(skip, siteHeader(route, context, fallbackAuthorSlug), page, siteFooter());
+  AFTER_MOUNT.get(page)?.();
+  AFTER_MOUNT.delete(page);
   CLEANUP.set(root, () => {
     cleanupRenderedTree(page);
     cleanupRenderedTree(root.querySelector('.site-header'));

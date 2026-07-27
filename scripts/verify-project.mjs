@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { loadAndVerifyF001Baseline } from '../src/content/production-final.ts';
@@ -8,6 +8,7 @@ import {
   verifyBuiltReferences,
   verifyWorkflowPermissions,
 } from './release-checks.mjs';
+import { scanFavoriteStorageContract } from './f002-security.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KNOWN_BASELINE_CODES = new Set([
@@ -20,6 +21,24 @@ const KNOWN_BASELINE_CODES = new Set([
   'F001_ASSET_HASH_MISMATCH',
   'F001_SOURCE_ROOT_UNSAFE',
 ]);
+
+async function productionTypeScriptSources(root, relativeDirectory = 'src') {
+  const directory = path.join(root, ...relativeDirectory.split('/'));
+  const entries = await readdir(directory, { withFileTypes: true });
+  const sources = [];
+  for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name, 'en'))) {
+    const relativePath = `${relativeDirectory}/${entry.name}`;
+    if (entry.isDirectory()) {
+      sources.push(...await productionTypeScriptSources(root, relativePath));
+    } else if (entry.isFile() && entry.name.endsWith('.ts') && !entry.name.endsWith('.test.ts')) {
+      sources.push({
+        path: relativePath,
+        source: await readFile(path.join(root, ...relativePath.split('/')), 'utf8'),
+      });
+    }
+  }
+  return sources;
+}
 
 /** @des DES-F002-003 DES-F002-006 DES-F002-016 @fun FUN-F002-005 */
 export async function verifyF001BaselinePreflight(
@@ -65,18 +84,20 @@ async function main() {
   const errors = [...workflowReport.errors, ...buildReport.errors, ...baselineReport.errors];
   const warnings = [...workflowReport.warnings, ...buildReport.warnings];
 
-  const [indexHtml, catalog, staticTexts] = await Promise.all([
+  const [indexHtml, catalog, staticTexts, productionSources] = await Promise.all([
     readFile(path.join(projectRoot, 'dist', 'index.html'), 'utf8'),
     readFile(path.join(projectRoot, 'dist', 'content', 'catalog.json'), 'utf8').then(JSON.parse),
     Promise.all(buildReport.files
       .filter((file) => /\.(?:html|js|mjs|css|json|svg|txt)$/iu.test(file.path))
       .map((file) => readFile(path.join(projectRoot, 'dist', ...file.path.split('/')), 'utf8'))),
+    productionTypeScriptSources(projectRoot),
   ]);
   const authorSlugs = catalog.schemaVersion === '2.0.0'
     ? catalog.authors.map((author) => author.slug)
     : [catalog.author.slug];
-  const expectedRoutes = ['#/', ...authorSlugs.map((slug) => `#/authors/${slug}`), '#/credits'];
+  const expectedRoutes = ['#/', ...authorSlugs.map((slug) => `#/authors/${slug}`), '#/favorites', '#/credits'];
   const staticSource = staticTexts.join('\n');
+  const favoriteStorage = scanFavoriteStorageContract(productionSources);
   const securityReport = await runF002StaticSecurityChecks({
     expectedRoutes,
     distRoutes: expectedRoutes.map((route) => ({ route, csp: indexHtml })),
@@ -98,6 +119,7 @@ async function main() {
       sessionStorageCount: [...staticSource.matchAll(/\bsessionStorage\b/gu)].length,
       indexedDbCount: [...staticSource.matchAll(/\bindexedDB\b/gu)].length,
       formCount: [...staticSource.matchAll(/<form\b/giu)].length,
+      favoriteStorage,
     },
     secretScan: {
       status: 'passed',

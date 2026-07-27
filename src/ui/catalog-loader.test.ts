@@ -182,6 +182,7 @@ describe('routeとcatalog境界', () => {
     expect(parseRoute('#/authors/akutagawa-zunnosuke')).toEqual({
       kind: 'author', authorId: '000879', slug: 'akutagawa-zunnosuke',
     });
+    expect(parseRoute('#/favorites')).toEqual({ kind: 'favorites' });
     expect(parseRoute('#/credits')).toEqual({ kind: 'credits' });
     expect(parseRoute('#/authors/evil')).toEqual({ kind: 'notFound' });
     expect(parseRoute('#/%ZZ')).toEqual({ kind: 'notFound' });

@@ -592,6 +592,7 @@ p {
 
 .play-button,
 .stop-button,
+.favorite-button,
 .startup-state button {
   display: inline-flex;
   align-items: center;
@@ -628,6 +629,59 @@ p {
 .stop-button:disabled {
   cursor: not-allowed;
   opacity: 0.42;
+}
+
+.favorite-button {
+  color: #574a21;
+  border-color: #b99d3a;
+  background: #fff8d9;
+}
+
+.favorite-button.is-favorite {
+  color: #fff;
+  border-color: #8a5d13;
+  background: #8a5d13;
+}
+
+.favorite-persistence-status {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.favorite-list {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.favorite-item {
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.favorite-author,
+.favorite-work {
+  margin-block: 0 0.5rem;
+}
+
+.favorite-author {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.favorite-route-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.favorite-original-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.65rem 1rem;
 }
 
 .dialogue-status {

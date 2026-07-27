@@ -25,6 +25,7 @@ function catalog(authors: Array<{ authorId: string; slug: string }>): UICatalogV
 describe('UT-F002-020 FUN-F002-020 parseRouteV2', () => {
   it.each([
     ['#/', { kind: 'home' }],
+    ['#/favorites', { kind: 'favorites' }],
     ['#/credits', { kind: 'credits' }],
     ['#/authors/miyazawa-zunji', { kind: 'authorSlug', slug: 'miyazawa-zunji' }],
     ['#/authors/miyazawa%2Dzunji', { kind: 'authorSlug', slug: 'miyazawa-zunji' }],

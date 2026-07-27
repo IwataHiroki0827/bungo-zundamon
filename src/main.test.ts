@@ -332,6 +332,47 @@ describe('文豪ずんだもんの画面', () => {
     expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
   });
 
+  /** @des DES-F004-009 DES-F004-010 @fun FUN-F004-027 FUN-F004-029 FUN-F004-030 @ut UT-F004-027 UT-F004-029 UT-F004-030 */
+  it('mountした1個のFavoriteControllerを作者とお気に入りrouteで共有し音声なしで永続化する', () => {
+    location.hash = '#/authors/miyazawa-zunji';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    const values = new Map<string, string>();
+    const storageProvider = vi.fn(() => ({
+      getItem: (key: string) => values.get(key) ?? null,
+      setItem: (key: string, value: string) => values.set(key, value),
+      removeItem: (key: string) => values.delete(key),
+    }));
+    const audio = new QuietAudio();
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalogV2(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => audio,
+      storageProvider,
+      mediaQuery: { matches: false },
+    });
+
+    const favoriteButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('.favorite-button'));
+    expect(favoriteButtons).toHaveLength(
+      fixtureCatalogV2().works.filter((work) => work.authorId === '000081')
+        .reduce((count, work) => count + work.dialogues.length, 0),
+    );
+    expect(favoriteButtons.every((button) =>
+      button.getAttribute('aria-pressed') === 'false' &&
+      button.textContent === 'お気に入りに追加')).toBe(true);
+    favoriteButtons[0]!.click();
+    expect(audio.play).not.toHaveBeenCalled();
+    expect(handle.favoriteController.snapshot.dialogueIds).toEqual([favoriteButtons[0]!.dataset.dialogueId]);
+    expect([...values.keys()]).toEqual(['bungo-zundamon:favorites:v1']);
+    expect(values.get('bungo-zundamon:favorites:v1')).not.toMatch(/宮沢|台詞|audio/u);
+
+    location.hash = '#/favorites';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    expect(root.querySelector('[data-page="favorites"]')).not.toBeNull();
+    expect(root.querySelector<HTMLElement>('.favorite-item')?.dataset.dialogueId)
+      .toBe(favoriteButtons[0]!.dataset.dialogueId);
+    expect(storageProvider).toHaveBeenCalledTimes(1);
+  });
+
   /** @des DES-F002-007 @ut UT-F002-021 @it IT-F002-010 */
   it('作者ページへ戻ったときも収録作品をすべて閉じて描画する', () => {
     location.hash = '#/authors/miyazawa-zunji';

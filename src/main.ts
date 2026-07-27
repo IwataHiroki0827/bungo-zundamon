@@ -6,6 +6,13 @@ import { AudioController } from './ui/audio-controller';
 import { loadCatalog, publicBaseUrl } from './ui/catalog-loader';
 import { cleanupRenderedTree, renderRoute, setSafeText } from './ui/render';
 import { parseRoute, parseRouteV2, resolveMotionPreference, resolveRoute } from './ui/routes';
+import {
+  browserFavoriteStorageProvider,
+  createFavoriteController,
+  createFavoriteNavigation,
+  type FavoriteController,
+  type StorageLike,
+} from './ui/favorites';
 import type { AudioFactory, MotionChoice, Route, UICatalog, UICatalogV2 } from './ui/types';
 
 export type ApplicationCatalog = UICatalog | UICatalogV2;
@@ -16,10 +23,12 @@ export interface ApplicationOptions {
   readonly audioFactory?: AudioFactory;
   readonly creditsRenderer?: (catalog: ApplicationCatalog) => HTMLElement;
   readonly mediaQuery?: Pick<MediaQueryList, 'matches'>;
+  readonly storageProvider?: () => StorageLike;
 }
 
 export interface ApplicationHandle {
   readonly controller: AudioController;
+  readonly favoriteController: FavoriteController;
   dispose(): void;
 }
 
@@ -78,6 +87,13 @@ export function renderAfterRouteChange(
 export function mountBungoZundamon(root: HTMLElement, options: ApplicationOptions): ApplicationHandle {
   const baseUrl = options.baseUrl ?? defaultBaseUrl();
   const controller = new AudioController(options.catalog, baseUrl, options.audioFactory);
+  const favoriteController = createFavoriteController(
+    options.storageProvider ?? browserFavoriteStorageProvider,
+    options.catalog,
+  );
+  const favoriteNavigation = createFavoriteNavigation(options.catalog, (hash) => {
+    location.hash = hash;
+  });
   const media = options.mediaQuery ?? (
     typeof matchMedia === 'function'
       ? matchMedia('(prefers-reduced-motion: reduce)')
@@ -94,6 +110,8 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
     const render = (): void => {
       const context = {
         controller,
+        favoriteController,
+        favoriteNavigation,
         baseUrl,
         motion,
         motionLockedByOs: media.matches,
@@ -115,11 +133,14 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
 
   return {
     controller,
+    favoriteController,
     dispose: () => {
       if (disposed) return;
       disposed = true;
       window.removeEventListener('hashchange', onHashChange);
       cleanupRenderedTree(root);
+      favoriteController.dispose();
+      favoriteNavigation.clear();
       controller.dispose();
     },
   };
@@ -188,6 +209,7 @@ export async function startBungoZundamon(
     });
     const handle: ApplicationHandle = {
       controller: mounted.controller,
+      favoriteController: mounted.favoriteController,
       dispose: () => {
         abort.abort();
         if (STARTUPS.get(root) === state) STARTUPS.delete(root);

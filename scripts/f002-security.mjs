@@ -15,6 +15,8 @@ const REQUIRED_CSP = Object.freeze({
 const SHA40 = /^[a-f0-9]{40}$/;
 const REMOTE_ACTION = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_./-]+)?$/;
 const LOCAL_ACTION = /^\.\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/;
+const FAVORITE_STORAGE_MODULE = 'src/ui/favorites.ts';
+const FAVORITE_STORAGE_KEY = 'bungo-zundamon:favorites:v1';
 
 function isRecord(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -122,7 +124,88 @@ function addCode(codes, count, code) {
 }
 
 function validRoute(value) {
-  return value === '#/' || value === '#/credits' || /^#\/authors\/[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(value);
+  return value === '#/' || value === '#/favorites' || value === '#/credits' ||
+    /^#\/authors\/[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(value);
+}
+
+function occurrenceCount(source, pattern) {
+  return typeof source === 'string' ? [...source.matchAll(pattern)].length : 0;
+}
+
+/**
+ * お気に入り以外へstorage例外を広げないため、production sourceのmodule/path/key/schemaを同時検査する。
+ * source本文はreportへ含めない。
+ */
+export function scanFavoriteStorageContract(sources) {
+  let violations = 0;
+  if (!Array.isArray(sources) || sources.length === 0 ||
+    sources.some((entry) => !isRecord(entry) || typeof entry.path !== 'string' || typeof entry.source !== 'string')) {
+    violations += 1;
+  }
+  const entries = Array.isArray(sources)
+    ? sources.filter((entry) => isRecord(entry) && typeof entry.path === 'string' && typeof entry.source === 'string')
+    : [];
+  const modules = entries.filter((entry) => entry.path === FAVORITE_STORAGE_MODULE);
+  if (modules.length !== 1) violations += 1;
+  const favoriteSource = modules[0]?.source ?? '';
+  const localStorageCount = entries.reduce(
+    (total, entry) => total + occurrenceCount(entry.source, /\blocalStorage\b/gu),
+    0,
+  );
+  const favoriteLocalStorageCount = occurrenceCount(favoriteSource, /\blocalStorage\b/gu);
+  const otherLocalStorageCount = localStorageCount - favoriteLocalStorageCount;
+  if (favoriteLocalStorageCount !== 1 || otherLocalStorageCount !== 0) violations += 1;
+  if (occurrenceCount(favoriteSource, /bungo-zundamon:favorites:v1/gu) !== 1) {
+    violations += 1;
+  }
+  for (const required of [
+    /storage\.getItem\(FAVORITE_STORAGE_KEY\)/gu,
+    /storage\.setItem\(FAVORITE_STORAGE_KEY,\s*canonicalFavoriteJson\(store\)\)/gu,
+    /storage\.removeItem\(FAVORITE_STORAGE_KEY\)/gu,
+    /JSON\.stringify\(\{\s*version:\s*1,\s*dialogueIds:\s*\[\.\.\.store\.dialogueIds\]\s*\}\)/gu,
+    /candidate\.version\s*!==\s*1/gu,
+    /Object\.keys\(value\)\.sort\(\)\.join\('\\0'\)\s*!==\s*'dialogueIds\\0version'/gu,
+  ]) {
+    if (occurrenceCount(favoriteSource, required) !== 1) violations += 1;
+  }
+  return Object.freeze({
+    status: violations === 0 ? 'passed' : 'blocked',
+    modulePath: FAVORITE_STORAGE_MODULE,
+    storageKey: FAVORITE_STORAGE_KEY,
+    schemaVersion: 1,
+    localStorageCount,
+    violations,
+  });
+}
+
+function addPrivacyCounts(counts, privacy) {
+  const privacyFields = ['cookieAccessCount', 'localStorageCount', 'sessionStorageCount', 'indexedDbCount', 'formCount'];
+  if (!isRecord(privacy) || privacy.status !== 'passed' || privacyFields.some((key) => !safeInteger(privacy[key]))) {
+    counts.unknownResults += 1;
+    return;
+  }
+  const favorite = privacy.favoriteStorage;
+  let allowedLocalStorage = 0;
+  if (favorite !== undefined) {
+    const exact = {
+      status: 'passed',
+      modulePath: FAVORITE_STORAGE_MODULE,
+      storageKey: FAVORITE_STORAGE_KEY,
+      schemaVersion: 1,
+      localStorageCount: 1,
+      violations: 0,
+    };
+    if (!exactObject(favorite, exact) || privacy.localStorageCount !== 1) {
+      counts.storageOrForms += 1;
+    } else {
+      allowedLocalStorage = 1;
+    }
+  }
+  counts.storageOrForms += privacy.cookieAccessCount +
+    Math.max(0, privacy.localStorageCount - allowedLocalStorage) +
+    privacy.sessionStorageCount +
+    privacy.indexedDbCount +
+    privacy.formCount;
 }
 
 function inspectStaticContext(context) {
@@ -154,10 +237,7 @@ function inspectStaticContext(context) {
   if (!isRecord(dom) || dom.status !== 'passed' || !safeInteger(dom.unsafeSinkCount)) counts.unknownResults += 1;
   else counts.unsafeDomSinks += dom.unsafeSinkCount;
   const privacy = context?.privacyScan;
-  const privacyFields = ['cookieAccessCount', 'localStorageCount', 'sessionStorageCount', 'indexedDbCount', 'formCount'];
-  if (!isRecord(privacy) || privacy.status !== 'passed' || privacyFields.some((key) => !safeInteger(privacy[key]))) {
-    counts.unknownResults += 1;
-  } else counts.storageOrForms += privacyFields.reduce((total, key) => total + privacy[key], 0);
+  addPrivacyCounts(counts, privacy);
   const secrets = context?.secretScan;
   if (!isRecord(secrets) || secrets.status !== 'passed' || !safeInteger(secrets.matches)) counts.unknownResults += 1;
   else counts.secrets += secrets.matches;
@@ -259,12 +339,7 @@ export async function runF002SecurityChecks(context) {
   if (!isRecord(dom) || dom.status !== 'passed' || !safeInteger(dom.unsafeSinkCount)) counts.unknownResults += 1;
   else counts.unsafeDomSinks += dom.unsafeSinkCount;
   const privacy = context?.privacyScan;
-  const privacyFields = ['cookieAccessCount', 'localStorageCount', 'sessionStorageCount', 'indexedDbCount', 'formCount'];
-  if (!isRecord(privacy) || privacy.status !== 'passed' || privacyFields.some((key) => !safeInteger(privacy[key]))) {
-    counts.unknownResults += 1;
-  } else {
-    counts.storageOrForms += privacyFields.reduce((total, key) => total + privacy[key], 0);
-  }
+  addPrivacyCounts(counts, privacy);
   const secrets = context?.secretScan;
   if (!isRecord(secrets) || secrets.status !== 'passed' || !safeInteger(secrets.matches)) counts.unknownResults += 1;
   else counts.secrets += secrets.matches;

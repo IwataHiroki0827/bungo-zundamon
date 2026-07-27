@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F004
-updated: 2026-07-28T00:45:03+09:00
+updated: 2026-07-28T01:06:31+09:00
 next_actions:
-  - "T-062で台詞お気に入り・端末内保存・作者横断一覧を実装する"
+  - "T-056でオツベルと象を抽出・二重レビュー・音声化し作品単位でatomic受入する"
 blocked_by: []
 ---
 
@@ -33,18 +33,19 @@ blocked_by: []
 - Q-025へ包括承認を記録してテストファーストゲート③を通過した。F004はimplementへ移行した。
 - T-054でcanonical definition/policy・ApprovedBatchContext・固定v0.3.0二重baselineを実装した。宮沢賢治3作品のexact tuple、公開Catalog identity、selection/predeploy権利再検証、production transport取得、3 XHTML atomic固定を全880試験と独立受入でPASSし、T-055を開始した。
 - T-055でF003新規作者/F004既存作者追記の共通Catalog projector、preview/final brand、canonical manifest/source/audio join、既存宮沢画像のexact再利用、実public/dist非破壊previewを実装した。全893試験と独立受入をPASSし、T-062のお気に入り実装を開始した。
+- T-062で全公開台詞のお気に入り切替、固定key/version/上限付き端末内保存、storage障害時のmemory縮退、共有FavoriteController、`#/favorites`、元作品へのone-shot移動を実装した。全918試験、495ファイルbuild、独立受入High/Medium/Low 0をPASSした。
 
 ## 直近の作業（最新5件）
 
+- T-062のお気に入り・端末内保存・作者横断一覧を全918試験と独立受入でPASS
 - T-055の共通Catalog・既存画像再利用・実public previewを全893試験と独立受入でPASS
 - T-054の候補tuple・承認binding・baseline・3原典を全880試験と独立受入でPASS
 - UT-F004 37件・IT-F004 15件をApproved、ゲート③通過、trace 100%
 - CHG-F004-002でdeploy有効化前journal pre-armと別process cleanupを設計・試験化
-- お気に入り要求をCHG-F004-001で追加し、FD/DDをDES 13件・FUN 37件でApproved
 
 ## 次のアクション
 
-- T-062で全公開台詞のお気に入り切替、専用localStorageへの安全な永続化、`#/favorites`作者横断一覧を実装する（REQ-F004-017〜021、FUN-F004-025〜030）。
+- T-056で「オツベルと象」を抽出・独立二重レビュー・音声化し、作品単位でatomic受入する（REQ-F004-007〜013）。
 
 ## 未解決事項
 

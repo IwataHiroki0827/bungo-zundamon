@@ -28,6 +28,7 @@ export function parseRouteV2(hash: string): ParsedRoute {
   }
   if (hasAnyControlCharacter(decoded) || hasUnsafeScalar(decoded)) return { kind: 'notFound' };
   if (decoded === '#/') return { kind: 'home' };
+  if (decoded === '#/favorites') return { kind: 'favorites' };
   if (decoded === '#/credits') return { kind: 'credits' };
   const segments = decoded.split('/');
   if (segments.length === 3 && segments[0] === '#' && segments[1] === 'authors' && AUTHOR_SLUG.test(segments[2] ?? '')) {
@@ -50,7 +51,7 @@ export function resolveRoute(parsed: ParsedRoute, catalog: UICatalogV2): Route {
 export function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#') return { kind: 'home' };
   const parsed = parseRouteV2(hash);
-  if (parsed.kind === 'home' || parsed.kind === 'credits' || parsed.kind === 'notFound') return parsed;
+  if (parsed.kind === 'home' || parsed.kind === 'favorites' || parsed.kind === 'credits' || parsed.kind === 'notFound') return parsed;
   if (parsed.slug === 'akutagawa-zunnosuke') {
     return { kind: 'author', authorId: '000879', slug: 'akutagawa-zunnosuke' };
   }

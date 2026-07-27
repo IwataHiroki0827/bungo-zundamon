@@ -400,3 +400,10 @@ entries:
   agents: 2
   est_tokens: 28000
   note: F003新規作者/F004既存作者追記の共通projector、preview/final brand、canonical manifest/source/audio join、既存宮沢画像exact再利用、実public/dist非破壊previewを実装。全53ファイル893試験、型、lint、独立受入PASS
+- date: '2026-07-28'
+  phase: implement
+  task: T-062 台詞お気に入り・端末内保存・作者横断一覧
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: 全公開台詞の切替、固定key/version/上限付きlocalStorage、例外時memory縮退、共有FavoriteController、favorites route、one-shot元作品移動、限定security許可を実装。全54ファイル918試験、495ファイルbuild、独立受入High/Medium/Low 0でPASS

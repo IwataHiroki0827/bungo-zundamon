@@ -53,12 +53,14 @@ export interface LazyLoadPlan {
 export type ParsedRoute =
   | { readonly kind: 'home' }
   | { readonly kind: 'authorSlug'; readonly slug: string }
+  | { readonly kind: 'favorites' }
   | { readonly kind: 'credits' }
   | { readonly kind: 'notFound' };
 
 export type Route =
   | { readonly kind: 'home' }
   | { readonly kind: 'author'; readonly authorId: string; readonly slug: string }
+  | { readonly kind: 'favorites' }
   | { readonly kind: 'credits' }
   | { readonly kind: 'notFound' };
 
