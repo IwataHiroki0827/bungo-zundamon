@@ -393,3 +393,10 @@ entries:
   agents: 2
   est_tokens: 22000
   note: canonical definition/policy・ApprovedBatchContext・固定v0.3.0二重baseline・公開Catalog identity join・production transport権利再検証・3 XHTML atomic固定を実装。全52ファイル880試験、型、lint、独立受入PASS
+- date: '2026-07-28'
+  phase: implement
+  task: T-055 F004共通Catalog・既存画像再利用
+  model: GPT-5
+  agents: 2
+  est_tokens: 28000
+  note: F003新規作者/F004既存作者追記の共通projector、preview/final brand、canonical manifest/source/audio join、既存宮沢画像exact再利用、実public/dist非破壊previewを実装。全53ファイル893試験、型、lint、独立受入PASS

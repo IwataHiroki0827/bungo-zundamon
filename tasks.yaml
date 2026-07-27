@@ -1177,7 +1177,7 @@ tasks:
   title: 同一作者merge・既存画像再利用・F004共通pipelineを実装
   feature: F004
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-054
   tags:
@@ -1191,6 +1191,8 @@ tasks:
   mode: advisor
   mode_reason: 共通Catalog境界を3作品処理より先に確定するため
   model: *model_f004
+  completed_at: '2026-07-28T00:45:03+09:00'
+  result: F003新規作者/F004既存作者追記の共通projector、preview/final brand、canonical manifest/source/audio join、既存画像exact再利用、実public/dist非破壊previewを実装。全53ファイル893試験・型・lint・独立受入PASS
 - id: T-056
   title: オツベルと象を抽出・二重レビュー・音声化・atomic受入
   feature: F004
@@ -1319,7 +1321,7 @@ tasks:
   title: 台詞お気に入り・端末内保存・作者横断一覧を実装
   feature: F004
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-055
   tags:

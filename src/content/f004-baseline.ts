@@ -80,7 +80,33 @@ export interface PublishedV030Baseline {
   readonly publicFiles: readonly PublishedV030GitFile[];
   readonly descriptorSha256: string;
   readonly controlManifest: Readonly<Record<string, unknown>>;
+  readonly artwork: TrustedPublishedArtwork;
+  readonly artworkRegistry: readonly TrustedArtworkRegistryEntry[];
 }
+
+export interface TrustedArtworkRegistryEntry {
+  readonly authorId: string;
+  readonly batchId: string;
+  readonly output: Readonly<{ readonly path: string; readonly sha256: string }>;
+  readonly provenanceRef: string;
+  readonly provenanceSha256: string;
+}
+
+export interface TrustedPublishedArtwork {
+  readonly __brand: 'TrustedPublishedArtwork';
+  readonly authorId: '000081';
+  readonly batchId: 'F002';
+  readonly introducedByBatchId: 'F002';
+  readonly path: 'artwork/miyazawa-zundamon.png';
+  readonly bytes: 3_118_359;
+  readonly sha256: '6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087';
+  readonly provenanceRef: 'content/artwork-provenance/F002.json';
+  readonly provenanceSha256: '304f035c2e3f477b900740ac6aaf400182dffc08aad3bef442b5f237a0cffb12';
+  readonly credit: '宮沢賢治ずんだもん：OpenAI built-in image_genによる独自生成（入力画像なし）';
+}
+
+const publishedBaselines = new WeakSet<object>();
+const trustedPublishedArtworks = new WeakSet<object>();
 
 export interface PublishedV030GitAdapter {
   resolveCommit(workspace: string, ref: string): Promise<string>;
@@ -114,6 +140,103 @@ function exactKeys(value: object, expected: readonly string[]): boolean {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function assertTrustedArtworkObjects(
+  registryBytes: Uint8Array,
+  provenanceBytes: Uint8Array,
+  imageBytes: Uint8Array,
+  catalog: CatalogV2,
+  publicFiles: readonly PublishedV030GitFile[],
+): TrustedPublishedArtwork {
+  let registry: unknown;
+  let provenance: unknown;
+  try {
+    registry = JSON.parse(new TextDecoder().decode(registryBytes)) as unknown;
+    provenance = JSON.parse(new TextDecoder().decode(provenanceBytes)) as unknown;
+  } catch (error) {
+    throw new PublishedV030BaselineError('artwork provenance JSONが不正です', { cause: error });
+  }
+  if (!isRecord(registry) || !exactKeys(registry, ['schemaVersion', 'artworks']) ||
+    registry.schemaVersion !== '1.0.0' || !Array.isArray(registry.artworks) ||
+    !isRecord(provenance) ||
+    !exactKeys(provenance, [
+      'schemaVersion', 'authorId', 'batchId', 'manifestId', 'output',
+      'sourceManifestSha256', 'credit',
+    ]) ||
+    provenance.schemaVersion !== '1.0.0' || provenance.authorId !== '000081' ||
+    provenance.batchId !== 'F002' || !isRecord(provenance.output)) {
+    throw new PublishedV030BaselineError('artwork provenance schemaが固定値と一致しません');
+  }
+  const matches = registry.artworks.filter((entry) =>
+    isRecord(entry) && entry.authorId === '000081');
+  const entry = matches[0];
+  const author = catalog.authors.find((value) => value.authorId === '000081');
+  const fileMatches = publicFiles.filter((file) => file.path === 'artwork/miyazawa-zundamon.png');
+  const file = fileMatches[0];
+  const expectedCredit = '宮沢賢治ずんだもん：OpenAI built-in image_genによる独自生成（入力画像なし）';
+  const imageSha = sha256(imageBytes);
+  if (matches.length !== 1 || !isRecord(entry) ||
+    !exactKeys(entry, [
+      'authorId', 'batchId', 'manifestId', 'output', 'provenanceRef', 'provenanceSha256',
+    ]) ||
+    entry.batchId !== 'F002' || entry.provenanceRef !== 'content/artwork-provenance/F002.json' ||
+    entry.provenanceSha256 !== sha256(provenanceBytes) ||
+    entry.provenanceSha256 !== '304f035c2e3f477b900740ac6aaf400182dffc08aad3bef442b5f237a0cffb12' ||
+    provenance.credit !== expectedCredit || !isRecord(entry.output) ||
+    entry.output.path !== 'artwork/miyazawa-zundamon.png' ||
+    entry.output.sha256 !== imageSha ||
+    !exactKeys(provenance.output, ['path', 'sha256']) ||
+    provenance.output.path !== entry.output.path ||
+    provenance.output.sha256 !== entry.output.sha256 ||
+    imageBytes.byteLength !== 3_118_359 ||
+    imageSha !== '6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087' ||
+    fileMatches.length !== 1 || file?.bytes !== imageBytes.byteLength ||
+    !author || author.introducedByBatchId !== 'F002' ||
+    author.artwork.path !== entry.output.path || author.artwork.sha256 !== imageSha) {
+    throw new PublishedV030BaselineError('artwork release Git object chainが一致しません');
+  }
+  const trusted = deepFreeze({
+    __brand: 'TrustedPublishedArtwork' as const,
+    authorId: '000081' as const,
+    batchId: 'F002' as const,
+    introducedByBatchId: 'F002' as const,
+    path: 'artwork/miyazawa-zundamon.png' as const,
+    bytes: 3_118_359 as const,
+    sha256: imageSha as TrustedPublishedArtwork['sha256'],
+    provenanceRef: entry.provenanceRef as TrustedPublishedArtwork['provenanceRef'],
+    provenanceSha256: entry.provenanceSha256 as TrustedPublishedArtwork['provenanceSha256'],
+    credit: provenance.credit as TrustedPublishedArtwork['credit'],
+  });
+  trustedPublishedArtworks.add(trusted);
+  return trusted;
+}
+
+function parseTrustedArtworkRegistry(bytes: Uint8Array): readonly TrustedArtworkRegistryEntry[] {
+  let value: unknown;
+  try {
+    value = JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+  } catch {
+    throw new PublishedV030BaselineError('artwork registry JSONが不正です');
+  }
+  if (!isRecord(value) || value.schemaVersion !== '1.0.0' || !Array.isArray(value.artworks)) {
+    throw new PublishedV030BaselineError('artwork registry schemaが不正です');
+  }
+  return deepFreeze(value.artworks.map((entry) => {
+    if (!isRecord(entry) || typeof entry.authorId !== 'string' ||
+      typeof entry.batchId !== 'string' || !isRecord(entry.output) ||
+      typeof entry.output.path !== 'string' || typeof entry.output.sha256 !== 'string' ||
+      typeof entry.provenanceRef !== 'string' || typeof entry.provenanceSha256 !== 'string') {
+      throw new PublishedV030BaselineError('artwork registry entryが不正です');
+    }
+    return {
+      authorId: entry.authorId,
+      batchId: entry.batchId,
+      output: { path: entry.output.path, sha256: entry.output.sha256 },
+      provenanceRef: entry.provenanceRef,
+      provenanceSha256: entry.provenanceSha256,
+    };
+  }));
 }
 
 async function verifiedWorkspace(workspace: string): Promise<string> {
@@ -298,12 +421,24 @@ export async function loadPublishedV030Baseline(
     throw new PublishedV030BaselineError('release/tag/control commit identityが一致しません');
   }
 
-  const [publicFiles, catalogBytes, manifestBytes, precheckBytes, releaseEvidenceBytes] = await Promise.all([
+  const [
+    publicFiles,
+    catalogBytes,
+    manifestBytes,
+    precheckBytes,
+    releaseEvidenceBytes,
+    artworkRegistryBytes,
+    artworkProvenanceBytes,
+    artworkBytes,
+  ] = await Promise.all([
     git.listPublicTree(root, releaseCommit),
     git.readObject(root, releaseCommit, 'public/content/catalog.json'),
     git.readObject(root, controlCommit, descriptor.control.manifestPath),
     git.readObject(root, controlCommit, descriptor.control.precheckPath),
     git.readObject(root, controlCommit, descriptor.control.releaseEvidencePath),
+    git.readObject(root, releaseCommit, 'public/content/artwork-provenances.json'),
+    git.readObject(root, releaseCommit, 'public/content/artwork-provenance/F002.json'),
+    git.readObject(root, releaseCommit, 'public/artwork/miyazawa-zundamon.png'),
   ]);
   const publicBytes = publicFiles.reduce((sum, file) => sum + file.bytes, 0);
   if (publicFiles.length !== descriptor.trackedPublic.files || publicBytes !== descriptor.trackedPublic.bytes ||
@@ -335,13 +470,31 @@ export async function loadPublishedV030Baseline(
     new TextDecoder().decode(precheckBytes),
     new TextDecoder().decode(releaseEvidenceBytes),
   );
+  const artwork = assertTrustedArtworkObjects(
+    artworkRegistryBytes,
+    artworkProvenanceBytes,
+    artworkBytes,
+    catalog,
+    publicFiles,
+  );
+  const artworkRegistry = parseTrustedArtworkRegistry(artworkRegistryBytes);
 
-  return deepFreeze({
-    __brand: 'PublishedV030Baseline',
+  const baseline = deepFreeze({
+    __brand: 'PublishedV030Baseline' as const,
     pins: { ...F004_V030_PINS },
     catalog,
     publicFiles: publicFiles.map((file) => ({ ...file })),
     descriptorSha256: DESCRIPTOR_SHA256,
     controlManifest,
+    artwork,
+    artworkRegistry,
   });
+  publishedBaselines.add(baseline);
+  return baseline;
+}
+
+export function isMintedPublishedV030Baseline(value: unknown): value is PublishedV030Baseline {
+  return isRecord(value) && publishedBaselines.has(value) &&
+    value.__brand === 'PublishedV030Baseline' &&
+    isRecord(value.artwork) && trustedPublishedArtworks.has(value.artwork);
 }

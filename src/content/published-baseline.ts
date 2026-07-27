@@ -61,6 +61,8 @@ export interface PublishedBaselineBundle {
   readonly baselineSha256: Sha256;
 }
 
+const publishedBaselineBundles = new WeakSet<object>();
+
 export interface GitTreeEntry {
   readonly mode: string;
   readonly oid: string;
@@ -345,7 +347,7 @@ export async function loadAndVerifyPublishedBaseline(
     throw new PublishedBaselineError('固定catalog/artwork provenance JSONが不正です', { cause: error });
   }
   assertCatalog(catalog, descriptor);
-  return deepFreeze({
+  const baseline = deepFreeze({
     release: { ...F002_PUBLISHED_RELEASE },
     catalog,
     artworkProvenances,
@@ -353,6 +355,12 @@ export async function loadAndVerifyPublishedBaseline(
     references: [...descriptor.references],
     baselineSha256: descriptor.descriptorSha256,
   });
+  publishedBaselineBundles.add(baseline);
+  return baseline;
+}
+
+export function isMintedPublishedBaselineBundle(value: unknown): value is PublishedBaselineBundle {
+  return value !== null && typeof value === 'object' && publishedBaselineBundles.has(value);
 }
 
 async function readTree(root: string): Promise<{

@@ -318,6 +318,13 @@ export interface CatalogAuthorV2 extends CatalogAuthor {
 export interface CatalogSourceV2 extends CatalogSource {
   provenancePath: string;
   provenanceSha256: string;
+  /** canonical source-index/record projection for batch acceptance. */
+  bibliographyCharset?: string;
+  bodySelector?: string;
+  rawBytes?: number;
+  rawSha256?: string;
+  canonicalSourceSha256?: string;
+  sourceUpdatedAt?: string;
 }
 
 export interface CatalogDialogueV2 extends CatalogDialogue {
