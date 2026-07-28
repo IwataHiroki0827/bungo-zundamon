@@ -99,3 +99,23 @@ ITでは、workflow本体の静的契約、event/deploy条件、承認前後のr
 結合試験IDは候補・固定baseline・編集・音声・atomic受入・Catalog・runtime・releaseの実テストへ対応付けた。ブラウザ範囲はPlaywright仕様も参照先として検証する。
 
 ---
+
+## F004 IT仕様ID機械照合
+
+- 対象仕様: `docs/tests/it/IT-F004.md`
+- 対応表の実行コード: `src/content/f004-spec-coverage.test.ts` の `IT_MAP`
+- 対象ID: `IT-F004-001`〜`IT-F004-015`
+- 対応済み: **15 / 15**
+- 未対応・余剰・自動化不可: **0**
+
+| IT ID | 対応する主な自動試験 |
+|---|---|
+| 001〜004 | 承認文脈・固定baseline・取得元・編集 |
+| 005〜008 | 音声・atomic受入・Catalog・起動統合 |
+| 009〜011 | お気に入りE2E・音声分離・セキュリティ |
+| 012〜014 | 候補集計・runtime受入・release check |
+| 015 | 仕様ID機械照合 |
+
+仕様ID集合と対応表のキー集合を完全一致させ、Vitest・security checker・Playwrightの実行対象へ追跡した。正式PASS/FAILはexact候補に対するIT attempt生ログと結果文書で判定する。
+
+---

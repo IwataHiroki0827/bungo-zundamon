@@ -1281,7 +1281,7 @@ tasks:
   title: F004 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F004
   phase: test
-  state: todo
+  state: doing
   depends:
   - T-059
   tags:
