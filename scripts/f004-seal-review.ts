@@ -16,7 +16,8 @@ import {
   type F004CandidateSet,
 } from '../src/content/f004-editorial.ts';
 
-const WORK_ID = '000466';
+const WORK_ID = process.argv[2];
+if (!WORK_ID || !/^[0-9]{6}$/u.test(WORK_ID)) throw new Error('6桁のwork IDが必要です');
 const BUNDLE_PATH = `content/batches/F004/review-inputs/${WORK_ID}-authorizations.json`;
 const REVIEW_INPUT_PATH = `content/batches/F004/review-inputs/${WORK_ID}.json`;
 const ROLES = ['primary', 'secondary', 'adjudicator'] as const;

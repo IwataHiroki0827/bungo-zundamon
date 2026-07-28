@@ -1,0 +1,1132 @@
+{
+  "batchId": "F004",
+  "kind": "f004-candidate-safety",
+  "profilePath": "content/baselines/F002-voice-estimate-profile.json",
+  "profileSha256": "bbdd37182e6650fbc24c418826f8c3c0ba07bc6cc63d8dd3a0df64a86e224ccc",
+  "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+  "reports": [
+    {
+      "candidateId": "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "32f8c8264113973922756d33a3404665ca370e8f00125a54daca0bd9ec398a2c",
+      "speechText": "「堅雪かんこ、凍み雪しんこ。狐の子ぁ、よめいほしい、ほしい。」",
+      "wavBytes": 290108,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "HsEgUdS_VSqC3MvY5X15f5YaafDrpjKN0paEbLBAung",
+      "codePoints": 17,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3314,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "0685df1b350e43fba0b1a672dadf018513ca5ec30dea111c1575977a1b3afcf3",
+      "speechText": "「凍み雪しんしん、堅雪かんかん。」",
+      "wavBytes": 159116,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "fDmhshXKkKtauXb9nElf9Ud8l_20vQdpuJquIELdHzA",
+      "codePoints": 25,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4873,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "e10929e97ec390f9d072bed30f963612452b17e34d2ab4737a60e96797db0c5f",
+      "speechText": "「狐こんこん白狐、お嫁ほしけりゃ、とってやろよ。」",
+      "wavBytes": 233948,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "JLhfWR6uSiIPMVg5X9dUDfgQbm3kKQSmB9zdZsRfIt8",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "52ee02b7b6f78a330bcddca6cc40322108af36c5cf2f0fe20dc0beae26c7d071",
+      "speechText": "「四郎はしんこ、かん子はかんこ、おらはお嫁はいらないよ。」",
+      "wavBytes": 271388,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "2mkkcxIwSCHsQkAoRQxECRKScDYZT515hkiBD2BPXOE",
+      "codePoints": 26,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5068,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "1f7ecbeeea1a0112b4af83634e96299bdf4bc79de8ccd7ab694bc075d936b4f3",
+      "speechText": "「狐こんこん、狐の子、お嫁がいらなきゃもちやろか。」",
+      "wavBytes": 243308,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "D9BOB3x3-1CxuhjX7VhNCQQ65MZ3rPF-5ezt_jwArG0",
+      "codePoints": 28,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5458,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "ba9f0d0f6c880dc9d5ced85151eae3be06db15d56b4baeafa1fe3e42cc0d01d7",
+      "speechText": "「四郎はしんこ、かん子はかんこ、黍の団子をおれやろか。」",
+      "wavBytes": 262028,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "cjo17SQSX8EViKAeD0mPuMaSWxBV_dLRIcFRtzHQp1U",
+      "codePoints": 22,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4288,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "9026044b843449c5c61b4f511716a70b557575369ac7ec4308c2a072f860f6df",
+      "speechText": "「狐こんこん狐の子、狐の団子はうさのくそ。」",
+      "wavBytes": 205868,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "HL3anQZ25f2S5LEi2JJTOwlQ4y3-4c7D69dG6iIV1Sk",
+      "codePoints": 96,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 18711,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "1659fc4e5ceb3bb0d7c2eb9a736662075eac46ff15505a7a4083f9608446dc9f",
+      "speechText": "「いいえ、決してそんなことはありません。あなた方のような立派なお方がうさぎの茶色の団子なんかめしあがるもんですか。私らは全体いままで人をだますなんてあんまりむじつの罪をきせられていたのです。」",
+      "wavBytes": 898172,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "voRhfxoPrfFPD4c5H3OQ3ytvh22eIt-RDtACfXWemUw",
+      "codePoints": 24,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4678,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "12dce12e29a336be42244d14803ae0b48f925f44c74581371776d559e2217088",
+      "speechText": "「そいじゃきつねが人をだますなんてうそかしら。」",
+      "wavBytes": 224588,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "lK3SkR_hDzWWGolTZi3DV0Zo4ENMKP4Bu3Auq4bp0Uo",
+      "codePoints": 126,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 24558,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "65233e8039f9bda3cd51f161028103894893e2e0f60375647cf8845dfb2882d1",
+      "speechText": "「偽ですとも。けだし最もひどい偽です。だまされたという人はたいていお酒によったり、おくびょうでくるくるしたりした人です。面白いですよ。じんべえさんがこの前、月夜の晩私たちのおうちの前にすわって一晩じょうるりをやりましたよ。私らはみんな出て見たのです。」",
+      "wavBytes": 1178828,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "3wo2N60sKOPJaDwc-gyMH4qJtctVkTCETlX3K9lvUAA",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "7439a8deff06f6f0f30dbb6a80bd3a94648b1a00547b86b0e6a523b8ad4bfe53",
+      "speechText": "「甚兵衛さんならじょうるりじゃないや。きっとなにわぶしだぜ。」",
+      "wavBytes": 290108,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "0vpvRaqAjN5dSzbGzH_dil_G8kEZOXhcsoX4AXVMIWs",
+      "codePoints": 107,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 20855,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "a92325b588a87029b065f20a8d010e828d0c20471d53db893dba52ae94f116be",
+      "speechText": "「ええ、そうかもしれません。とにかくお団子をおあがりなさい。私のさしあげるのは、ちゃんと私が畑を作ってまいて草をとってかってたたいて粉にして練ってむしてお砂糖をかけたのです。いかがですか。一さらさしあげましょう。」",
+      "wavBytes": 1001084,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "oWIHmvQ4rc8Cx_boc5cYw93ET5lDF4Wb4bADoMPLhng",
+      "codePoints": 54,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 10525,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "6a10a5e0f71bbb3d4e6bfe1bdd1f74eda40772c634fcb7f823d6958fe5c4827c",
+      "speechText": "「紺三郎さん、僕らは丁度いまね、お餅をたべて来たんだからおなかが減らないんだよ。この次におよばれしようか。」",
+      "wavBytes": 505244,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "O2dRX14KxiLr8yi76IGdqcLlLEpWybZYwmDBq0r_cdY",
+      "codePoints": 99,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 19296,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "3d76ac767b73e4718cba44a6a8eb24c2f029d0a5af03c8c43c51e815abe941c5",
+      "speechText": "「そうですか。そんなら今度げんとうかいのときさしあげましょう。幻燈会にはきっといらっしゃい。この次の雪の凍った月夜の晩です。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」",
+      "wavBytes": 926252,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "qyI4RDyjCppmTCrEEczBaVxM_j-u3PSDA9gafb_-9pU",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "686edc00736a9d1860fd860f593bee90d1fb8cb5f125b10f0a00c0085723f7ee",
+      "speechText": "「そんなら五枚おくれ。」",
+      "wavBytes": 112316,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "a7Hz19qB8FBPUPxFqHNWlrtMVJA1ztwvIpPwYj3L2rQ",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "cbcb36e19168b5d6fe5902ca3c466cbd9eeecc22d8ba524b0686ce70fa116769",
+      "speechText": "「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」",
+      "wavBytes": 271388,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "zb8NZtKEYx3xOydkTiNviQ9JW56D51vg4lIxBwI0f-s",
+      "codePoints": 9,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1755,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "ec02bbeef4a0277d055db608a09e1e75c27f04aa181c495baeb2cdf3f9ec206d",
+      "speechText": "「兄さんたちだ。」",
+      "wavBytes": 84284,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "2KxPy9tMnhHW0k0PUusZwdGnXdLXS3j0VRnb6cW8RFM",
+      "codePoints": 17,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3314,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "c3ed354f0ba78b7599b9f719a3f721e5c1be35d64eabb7d492b584a0443cc718",
+      "speechText": "「兄さんたちは十一歳以下ですか。」",
+      "wavBytes": 159116,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "cd4I4sKK92xHGLFStHCfNrxDgKWPz_EosHMEQvX28_k",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "4a6bbf51f8e8115a29eea6fcb2ee7d249ec024a581f6c05c2247ec163efc3311",
+      "speechText": "「いやちいにいさんは四年生だからね、八つの四つで十二歳。」",
+      "wavBytes": 271388,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "NjVT5ey4udjt53Uz2qKSq0KsWKdEyWt2HR6oP50diLM",
+      "codePoints": 278,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 54184,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "a1b1fd50b7d9f29151d089d8819a03fe33ecabc3adebef5091f2c8201e85b566",
+      "speechText": "「それでは残念ですが兄さんたちはお断わりです。あなた方だけいらっしゃい。特別席をとって置きますから、面白いんですよ。幻燈は第一が『お酒をのむべからず。』これはあなたの村のたえもんさんと、清作さんがお酒をのんでとうとう目がくらんで野原にあるへんてこなおまんじゅうや、おそばをたべようとした所です。私も写真の中にうつっています。第二が『わなに注意せよ。』これは私共のこんべえが野原でわなにかかったのをかいたのです。絵です。写真ではありません。第三が『火を軽べつすべからず。』これは私共のこん助があなたのおうちへ行ってしっぽを焼いた景色です。ぜひおいで下さい。」",
+      "wavBytes": 2600876,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "nbMnnm4pajz5FKJGI4LPovxBapKWwgnWKACfcR-2rf8",
+      "codePoints": 112,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 21830,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "c899130f0214e6b808a18966296cc45b2873a88a01fba02e600f09bfe7917852",
+      "speechText": "「しみ雪しんこ、堅雪かんこ、 野原のまんじゅうはポッポッポ。 酔ってひょろひょろ太右衛門が、 去年、三十八、たべた。 凍み雪しんこ、堅雪かんこ、 野原のおそばはホッホッホ。 酔ってひょろひょろ清作が、 去年十三ばいたべた。」",
+      "wavBytes": 1047884,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "QjeYU1skoJoO2YsPHlSHh6ePZSe9GL3_DZ6S9mRz9FQ",
+      "codePoints": 48,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9356,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "dd5d8dcfecb7c4b98bde3ef9eb519d6b78a8c4f00623c93530c480a808245e55",
+      "speechText": "「狐こんこん狐の子、去年狐のこん兵衛が、ひだりの足をわなに入れ、こんこんばたばたこんこんこん。」",
+      "wavBytes": 449132,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "Y20kOQKtB8U2i9Jtay1bUT1nFAr1Ip42AR9xZrWeez0",
+      "codePoints": 48,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9356,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "dbf2c3c8eb9eb107b7badd8153428ac1256211decc20aad6787ee9ac0d3088e0",
+      "speechText": "「狐こんこん狐の子、去年狐のこん助が、焼いた魚を取ろとしておしりに火がつききゃんきゃんきゃん。」",
+      "wavBytes": 449132,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "oqaDpvtAzMCncU5ko68jGHtMvkizN1bIz1pBA4xPYhw",
+      "codePoints": 33,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6432,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "10c951cefa3f59ad752a6c6f590aa7a1db4e97ebf3dc811bed00ccdf0b57b18e",
+      "speechText": "「しかの子もよびましょうか。鹿の子はそりゃふえがうまいんですよ。」",
+      "wavBytes": 308780,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "a6a4873be7bc2954907bc78d6027299ac7f9fca1fddbebc160c8d55a356fcb66",
+      "speechText": "「堅雪かんこ、凍み雪しんこ、しかの子ぁ嫁ぃほしいほしい。」",
+      "wavBytes": 271388,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "k-K5IOg149ci2zHd4Yr6ziUtW6HHCzQA4bhRaYJm_jI",
+      "codePoints": 21,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4093,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "d3b337818b9d1d54c7b508c4319871aeba0cc266b01eed3bd4eaa4b3914dbcae",
+      "speechText": "「北風ぴいぴい風三郎、西風どうどう又三郎」",
+      "wavBytes": 196508,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "C1ViFoP6sbeq5b4d2RsMEE5hvccRp3fye0vHKqXlI2A",
+      "codePoints": 57,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 11110,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "4aaf8c6e09f69f273138a219afa7a93e72e9a6d15a929bd7362dbdbd28b38253",
+      "speechText": "「あれは鹿の子です。あいつは臆病ですからとてもこっちへ来そうにありません。けれどもういっぺん叫んでみましょうか。」",
+      "wavBytes": 533324,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "805bd507885d813dd9577c4a669ecdf875aa87f2dc6bbb1c1c5a9d83fa5848a9",
+      "speechText": "「堅雪かんこ、凍み雪しんこ、しかの子ぁよめいほしい、ほしい。」",
+      "wavBytes": 290108,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns",
+      "codePoints": 30,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5848,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "f3a9651d40f8e49dca9b7ecbfa8c404b9453516b82e2500792c2257c60417da2",
+      "speechText": "「北風ぴいぴい、かんこかんこ 西風どうどう、どっこどっこ。」",
+      "wavBytes": 280748,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "cDtKoYhdzTsWYroSA5w3RLB2whrblS_wLJij0I1QMos",
+      "codePoints": 63,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 12279,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "cd824a22c7cc150877d3b339d435f6811838d4a5909e438af642033759eeb01c",
+      "speechText": "「雪がやわらかになるといけませんからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで下さい。さっきの幻燈をやりますから。」",
+      "wavBytes": 589436,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "fdd20ab9bc0ea53b79ccee51e42ff27d837e6c3a80987dfdff6eef3573517c52",
+      "speechText": "「堅雪かんこ、凍み雪しんこ。」",
+      "wavBytes": 140396,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "5boQxDpcg2tzPyYB5JtUkJxO0QoqdZWAb4W1wCV9vWw",
+      "codePoints": 19,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3704,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "e929a21d5d1640df282e8805b2f6c826980c609295198775fb0e4a7c590bddee",
+      "speechText": "「今夜狐の幻燈会なんだね。行こうか。」",
+      "wavBytes": 177836,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "BjTFalw2k8MPuV9AeCpTyVo-_vatJzcMYtg0ycAmAnU",
+      "codePoints": 35,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6822,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "58916816c5beb10d2b5466b57594f941d53eb909e925c9815ea2efec3b50ba81",
+      "speechText": "「行きましょう。行きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」",
+      "wavBytes": 327500,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "aG8ieGQ_Up3mJDaw0u44mvpnP_5A9Bklvx-9IGIz5lI",
+      "codePoints": 30,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5848,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "017c0b80401eb2db1b87de4eeb353448ffef79b337ac9da5b1c886001e9f0063",
+      "speechText": "「お前たちは狐のとこへ遊びに行くのかい。ぼくも行きたいな。」",
+      "wavBytes": 280748,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "lSrgEGLsewdoFfpCwcsDBHvnUW8hplion_FSXkLF4hY",
+      "codePoints": 42,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 8186,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "4bba610494812b23b8636797eac339b985e6924efbd292945fff1e6169835e8c",
+      "speechText": "「おおにいさん。だって、狐の幻燈会は十一歳までですよ、入場券に書いてあるんだもの。」",
+      "wavBytes": 392972,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "VPv_jfVnD7SqVywjROMqp-Bf3rPCVuWvbcjmW5CuHeU",
+      "codePoints": 122,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 23779,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "adc445571fca962a702dc51f91027ac76f4dee565820f6a2c23f6c57d300df98",
+      "speechText": "「どれ、ちょっとお見せ、ははあ、学校生徒の父兄にあらずして十二歳以上のらいひんは入場をお断わり申しそろ、狐なんて仲々うまくやってるね。僕はいけないんだね。仕方ないや。お前たち行くんならおもちを持って行っておやりよ。そら、この鏡餅がいいだろう。」",
+      "wavBytes": 1141436,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "W27UrBtq06JpZn0z3Co6qaqNWohuGr7YjFKTYP_kyqs",
+      "codePoints": 70,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 13644,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "f5b3fca01f94eb5c1e8feb5395bd000a168aa842ae1550f8ebd407422f548f07",
+      "speechText": "「行っておいで。大人の狐にあったら急いで目をつぶるんだよ。そら僕らはやしてやろうか。堅雪かんこ、しみ雪しんこ、狐の子ぁよめぃほしいほしい。」",
+      "wavBytes": 654956,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "fRgTMvMjsEIPsDNemTDBDuNlPhA17a1LR1ttlnHpK1w",
+      "codePoints": 26,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5068,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "2027282a4a2c6f6375bbaf49d5c393c98ae9536910cac5d6d87242b4ee2fbed9",
+      "speechText": "「今晩は。お早うございます。入場券はお持ちですか。」",
+      "wavBytes": 243308,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o",
+      "codePoints": 9,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1755,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "9a123ddf8e1317ee94b3ece0652bd5e5a41019f467db96ef0f4e4dd43676edb0",
+      "speechText": "「持っています。」",
+      "wavBytes": 84284,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "7E91cdAjzviTNl1g8XceiROXCbnYEyA8C6A8yaBnLbY",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "9f9e56e36b2e7cbd0256e9a591c2a289e5a10f02cbbedacf728644d5296494c3",
+      "speechText": "「さあ、どうぞあちらへ。」",
+      "wavBytes": 121676,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "gN1PmUkD7FIbN88JY_sfdu_xAaFbLiuzoCi-xkwqdRM",
+      "codePoints": 27,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5263,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "844e9583df20a738939db382bee4bdee19e12297a66a7c77ab39bd5b090a72f2",
+      "speechText": "「今晩は、よくおいででした。先日は失礼いたしました。」",
+      "wavBytes": 252668,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "Vl-WrCwmzkVy2VF81GzhDZVEYYT2X98JwxlJZCgVZ1Y",
+      "codePoints": 40,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7797,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "b08608f7508c12d41b7137ebb98ccffbe4ac28954cf1eceefd4ab116b1a3ada5",
+      "speechText": "「この間は失敬。それから今晩はありがとう。このお餅をみなさんであがって下さい。」",
+      "wavBytes": 374300,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "14zRen8leImzedpN_5BIZARKZk3vxFP7Z5CwGm_00kE",
+      "codePoints": 66,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 12864,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "88bee50d4bc098f30916cd4dd99fca37bcedace03cf97129d7d2cdfcd033207e",
+      "speechText": "「これはどうもおみやげをいただいて済みません。どうかごゆるりとなすって下さい。もうすぐ幻燈もはじまります。私は一寸失礼いたします。」",
+      "wavBytes": 617516,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "pp98LITRCijBwT4OKMs4Zz8zoWFcEoR42dWh8MePt84",
+      "codePoints": 38,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7407,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "fa4c470407daafcadf16acd732cf8acd28e68808b4318d23d1ef0cd3c76d8d9a",
+      "speechText": "「堅雪かんこ、しみ雪しんこ、かたいお餅はかったらこ、白いお餅はべったらこ。」",
+      "wavBytes": 355580,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "3IfK8uvNgyJ9pO9Ok2gnuZRZ6bldjrgNyQrd4nXWuZI",
+      "codePoints": 184,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 35863,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "ca5a1d3abd1ee5fb09c976811e0d0496be8e655ee3172e1f28e7a113d35dbad9",
+      "speechText": "「今夜は美しい天気です。お月様はまるでしんじゅのおさらです。お星さまは野原のつゆがキラキラ固まったようです。さてただいまから幻燈会をやります。みなさんはまたたきやくしゃみをしないで目をまんまろに開いて見ていて下さい。 それから今夜は大切な二人のお客さまがありますからどなたも静かにしないといけません。決してそっちの方へ栗の皮を投げたりしてはなりません。開会の辞です。」",
+      "wavBytes": 1721468,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "yGHA7dzgpcfYpRupS_6KS331zTiz3Y5eVIKF86gr3fU",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "61b5ae7f3db6781f01a9b03b8587d0336c0d78533fe262e76f99a603a5b727ae",
+      "speechText": "「紺三郎さんはうまいんだね。」",
+      "wavBytes": 140396,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "uHTl_eTAbshktoJKPNAvn2uqy4lssgrdPfEJWcyA9rE",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "d06b7c2a60a47d387b7c1d373fd98a6c6e776d2797775badf89e3f4fa23eb142",
+      "speechText": "「あの歌は紺三郎さんのだよ。」",
+      "wavBytes": 140396,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "2LEURP105PDZE6-_AG6COuEyl6ApeL_62dZE8fiX6mI",
+      "codePoints": 18,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3509,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "553fa7e0ce685e74e5437fad0fa4ab389e79b68de2ad1aff151c6bb2ef1687de",
+      "speechText": "「食うだろうか。ね。食うだろうか。」",
+      "wavBytes": 168476,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "Z6o3X3EqcvUaXUh8HdtFGeGw0_MVElmO-JWZh1posjI",
+      "codePoints": 38,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7407,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "095f695c73b4c70443d5e7108b60d9c0355e5f17e6978767e3d2b9fd03cf2855",
+      "speechText": "「ね、喰べよう。お喰べよ。ぼくは紺三郎さんが僕らをだますなんて思わないよ。」",
+      "wavBytes": 355580,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "trsFlfM2woBzaFfhYl2duoQPd32OdP2epMfByOiUDus",
+      "codePoints": 53,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 10330,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "24e76b6fe8b5660dfb1743ebe98914d7aeeb64138d205952ceced07c123addd0",
+      "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり、 たとえからだを、さかれても 狐の生徒はうそ云うな。」",
+      "wavBytes": 495884,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "c6Crp3k_d4_d3bpIoU7QFHa3X3DGVzJ02krZGCV_kBg",
+      "codePoints": 51,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9941,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "74750f3ccc3e07236ddd922a6f881b5021c54cc4414fb08cfb7fc531b8669b87",
+      "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえこごえてたおれても 狐の生徒はぬすまない。」",
+      "wavBytes": 477212,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "SvKKr7BOUo7PCstKDhR015RIQzJmOKPoSqaxndkK5nU",
+      "codePoints": 51,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9941,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "1f4df306aa1b1ca4144410c96e80bd6d54a7132d2282a333914ae43ce257925e",
+      "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえからだがちぎれても 狐の生徒はそねまない。」",
+      "wavBytes": 477212,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "LuHjUaa4SLI_sjgZ71re7F00Dt8OWqckmHpaNMotWJ4",
+      "codePoints": 47,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9161,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "7bd82a896e61cd1c1b9628960f23d67a157eb417a1dfe800d5dea66ef22b3130",
+      "speechText": "「狐こんこん狐の子、去年狐のこん兵衛が 左の足をわなに入れ、こんこんばたばた こんこんこん。」",
+      "wavBytes": 439772,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "cDUnrVJCmm-RnXFItZq4Zp_5hrK5gb_2RsktmecaTqc",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "3331cab85e953ac6ff200affbb00d9166abe9f1e055c0480756ef3e06d94ee23",
+      "speechText": "「僕の作った歌だねい。」",
+      "wavBytes": 112316,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "G0k8aHHo4garKDUgridbX4OWKNDPt1xeauzAvfcv1aQ",
+      "codePoints": 49,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9551,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "a825b83ed12c54073fe9652723ef2bd1bebf7399a692ad70df3080d2f426abbb",
+      "speechText": "「狐こんこん狐の子。去年狐のこん助が 焼いた魚を取ろとしておしりに火がつき きゃんきゃんきゃん。」",
+      "wavBytes": 458492,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "qHltBPP7yExHzFgC0NpjYtmCG2xvw194xnSc2wZSIN4",
+      "codePoints": 173,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 33719,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "7524eee293e2a1e5b90f1012c790c15d5402ceadf2c56c531293335e6846733b",
+      "speechText": "「みなさん。今晩の幻燈はこれでおしまいです。今夜みなさんは深く心にとめなければならないことがあります。それは狐のこしらえたものをかしこいすこしも酔わない人間のお子さんが喰べて下すったという事です。そこでみなさんはこれからも、大人になってもうそをつかず人をそねまず私共狐のいままでの悪い評判をすっかり無くしてしまうだろうと思います。閉会の辞です。」",
+      "wavBytes": 1618556,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "yaxL6xOzVcb99QKdjceyDoamRbquK39U8VzpYjYoBwQ",
+      "codePoints": 28,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5458,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "0ef43a83206d1fd8fd1641d575b29457b31f3748400aac7c3358081521c3a108",
+      "speechText": "「それでは。さようなら。今夜のご恩は決して忘れません。」",
+      "wavBytes": 262028,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "S0FcnixE0KNt5-Je2e1DeRpGWB1pztTdKjL36OXAdus",
+      "codePoints": 11,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2144,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "ba21c271682225fc22d4c1e1a211d8decd00cabbb7dee04c5a7acaa610ccf1c4",
+      "speechText": "「そら、あげますよ。」",
+      "wavBytes": 102956,
+      "workId": "045679"
+    },
+    {
+      "candidateId": "V0H_ot8svdT05g3QZpAe48rImDCIDijoSxxqjsk636M",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "bb906eeca517b361fa20384452352d08d2f5b96ce11fa5aee03028d744911270",
+      "result": "pass",
+      "speechSha256": "75825bd8670fd42105e222eec807b9586b874358aa1f66aa1069f95ee3e1e598",
+      "speechText": "「そら、取って下さい。」",
+      "wavBytes": 112316,
+      "workId": "045679"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "workId": "045679"
+}

@@ -17,7 +17,9 @@ import {
 } from '../src/content/f004-editorial.ts';
 import { applyWorkReviews } from '../src/content/processing.ts';
 
-const WORK_ID = '000466';
+const workIdArg = process.argv[2];
+if (!workIdArg || !/^[0-9]{6}$/u.test(workIdArg)) throw new Error('6桁のwork IDが必要です');
+const WORK_ID = workIdArg;
 const REVIEW_INPUT_PATH = `content/batches/F004/review-inputs/${WORK_ID}.json`;
 const RECONCILIATION_PATH =
   `content/batches/F004/work-artifacts/${WORK_ID}/review-reconciliation.json`;
@@ -71,7 +73,7 @@ async function main(): Promise<void> {
   const primary = seals.find((item) => item.header.authorizationId === `f004-${WORK_ID}-primary`);
   const secondary = seals.find((item) => item.header.authorizationId === `f004-${WORK_ID}-secondary`);
   const adjudicator = seals.find((item) => item.header.authorizationId === `f004-${WORK_ID}-adjudicator`);
-  if (!primary || !secondary || !adjudicator) throw new Error('trusted seal 3件が揃っていません');
+  if (!primary || !secondary) throw new Error('trusted primary/secondary sealが揃っていません');
   const recomputed = reconcileF004Judgments(
     candidateArtifact.value.reviewCandidates,
     primary,
@@ -91,10 +93,10 @@ async function main(): Promise<void> {
   const reviewed = applyWorkReviews(WORK_ID, candidateArtifact.value.candidates, reviewRecords);
   if (
     reviewed.pending.length !== 0 ||
-    reviewed.approved.length !== 44 ||
-    reviewed.rejected.length !== 2
+    reviewed.approved.length === 0 ||
+    reviewed.approved.length + reviewed.rejected.length !== candidateArtifact.value.candidates.length
   ) {
-    throw new Error('review recordsのpartitionが44/2/0ではありません');
+    throw new Error('review recordsのpartitionが候補全集合を覆っていません');
   }
   const approvedIds = new Set(reviewed.approved.map((item) => item.candidate.candidateId));
   const approvedCandidates = candidateArtifact.value.candidates

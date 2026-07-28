@@ -1,0 +1,876 @@
+{
+  "authorization": {
+    "minimumFreeBytesAfterWrite": 150994944,
+    "planDigest": "2fb8b6debd864be95e8b11e17f59fb3754908f5d3724e57ac739bb1e59192c0c",
+    "remainingResponseBytes": 95535260,
+    "result": "pass"
+  },
+  "batchId": "F004",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "961fc0c694a57608a4af6e5d6d00c77fe7f2b2c061934221cc78e14325b3f045",
+  "kind": "voice-capacity-authorization",
+  "plan": {
+    "batchId": "F004",
+    "cacheRoot": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice",
+    "candidateCount": 59,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "022f380d499628874424d04d2b86d534acbe225466bfe4ed4f5700e38d5fe4bf",
+        "candidateIds": [
+          "cd4I4sKK92xHGLFStHCfNrxDgKWPz_EosHMEQvX28_k"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\022f380d499628874424d04d2b86d534acbe225466bfe4ed4f5700e38d5fe4bf.json",
+        "status": "miss",
+        "text": "「いやちいにいさんは四年生だからね、八つの四つで十二歳。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\022f380d499628874424d04d2b86d534acbe225466bfe4ed4f5700e38d5fe4bf.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "075d9cefa89637da610adefb6365f93e4edf82446012ec54180e38f2eaf4eee8",
+        "candidateIds": [
+          "HsEgUdS_VSqC3MvY5X15f5YaafDrpjKN0paEbLBAung"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\075d9cefa89637da610adefb6365f93e4edf82446012ec54180e38f2eaf4eee8.json",
+        "status": "miss",
+        "text": "「凍み雪しんしん、堅雪かんかん。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\075d9cefa89637da610adefb6365f93e4edf82446012ec54180e38f2eaf4eee8.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "08afc99ef1a6d3191c17102f60590635b74890c4ed4ef12b4c58697c53b4d3b1",
+        "candidateIds": [
+          "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\08afc99ef1a6d3191c17102f60590635b74890c4ed4ef12b4c58697c53b4d3b1.json",
+        "status": "miss",
+        "text": "「堅雪かんこ、凍み雪しんこ、しかの子ぁよめいほしい、ほしい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\08afc99ef1a6d3191c17102f60590635b74890c4ed4ef12b4c58697c53b4d3b1.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "1123271b9060cab2c517e69034db03641323793c537234658d73a40272652bec",
+        "candidateIds": [
+          "oWIHmvQ4rc8Cx_boc5cYw93ET5lDF4Wb4bADoMPLhng"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1123271b9060cab2c517e69034db03641323793c537234658d73a40272652bec.json",
+        "status": "miss",
+        "text": "「紺三郎さん、僕らは丁度いまね、お餅をたべて来たんだからおなかが減らないんだよ。この次におよばれしようか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1123271b9060cab2c517e69034db03641323793c537234658d73a40272652bec.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "150b9e891332c804fb2ad6feb02b210376167bbb1bb485247e34caff14bca018",
+        "candidateIds": [
+          "7E91cdAjzviTNl1g8XceiROXCbnYEyA8C6A8yaBnLbY"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\150b9e891332c804fb2ad6feb02b210376167bbb1bb485247e34caff14bca018.json",
+        "status": "miss",
+        "text": "「さあ、どうぞあちらへ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\150b9e891332c804fb2ad6feb02b210376167bbb1bb485247e34caff14bca018.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "17924b7eeacca8f9f4506d2c9e6b6b9605acf46d832f6a34d620e2ccfb1615ef",
+        "candidateIds": [
+          "gN1PmUkD7FIbN88JY_sfdu_xAaFbLiuzoCi-xkwqdRM"
+        ],
+        "estimatedBytes": 233324,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\17924b7eeacca8f9f4506d2c9e6b6b9605acf46d832f6a34d620e2ccfb1615ef.json",
+        "status": "miss",
+        "text": "「今晩は、よくおいででした。先日は失礼いたしました。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\17924b7eeacca8f9f4506d2c9e6b6b9605acf46d832f6a34d620e2ccfb1615ef.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "1daee4681997f28bc01b66e62ebb5201abd594bead32c7b257963d45ec6e95d8",
+        "candidateIds": [
+          "trsFlfM2woBzaFfhYl2duoQPd32OdP2epMfByOiUDus"
+        ],
+        "estimatedBytes": 457964,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1daee4681997f28bc01b66e62ebb5201abd594bead32c7b257963d45ec6e95d8.json",
+        "status": "miss",
+        "text": "「ひるはカンカン日のひかり よるはツンツン月あかり、 たとえからだを、さかれても 狐の生徒はうそ云うな。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1daee4681997f28bc01b66e62ebb5201abd594bead32c7b257963d45ec6e95d8.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "1ead5b2e5945d10f768c6f3b461929c59009999cb8dabe48ff58ccc1e39ab6b1",
+        "candidateIds": [
+          "aG8ieGQ_Up3mJDaw0u44mvpnP_5A9Bklvx-9IGIz5lI"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1ead5b2e5945d10f768c6f3b461929c59009999cb8dabe48ff58ccc1e39ab6b1.json",
+        "status": "miss",
+        "text": "「お前たちは狐のとこへ遊びに行くのかい。ぼくも行きたいな。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\1ead5b2e5945d10f768c6f3b461929c59009999cb8dabe48ff58ccc1e39ab6b1.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "228798c74092354b9db3a680563a14c2557eebbcd18f2f414de9c0c0c2e207bf",
+        "candidateIds": [
+          "D9BOB3x3-1CxuhjX7VhNCQQ65MZ3rPF-5ezt_jwArG0"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\228798c74092354b9db3a680563a14c2557eebbcd18f2f414de9c0c0c2e207bf.json",
+        "status": "miss",
+        "text": "「四郎はしんこ、かん子はかんこ、黍の団子をおれやろか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\228798c74092354b9db3a680563a14c2557eebbcd18f2f414de9c0c0c2e207bf.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "22d78ca50c4f43ee50d07e4f612d22ca2cdc8c2b4096bb94e6126e7f7b4fc118",
+        "candidateIds": [
+          "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\22d78ca50c4f43ee50d07e4f612d22ca2cdc8c2b4096bb94e6126e7f7b4fc118.json",
+        "status": "miss",
+        "text": "「持っています。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\22d78ca50c4f43ee50d07e4f612d22ca2cdc8c2b4096bb94e6126e7f7b4fc118.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "26b42e3d3e8fdbec28a5f76de7704996566efdd17b29949de911bcdb090b49db",
+        "candidateIds": [
+          "C1ViFoP6sbeq5b4d2RsMEE5hvccRp3fye0vHKqXlI2A"
+        ],
+        "estimatedBytes": 492524,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\26b42e3d3e8fdbec28a5f76de7704996566efdd17b29949de911bcdb090b49db.json",
+        "status": "miss",
+        "text": "「あれは鹿の子です。あいつは臆病ですからとてもこっちへ来そうにありません。けれどもういっぺん叫んでみましょうか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\26b42e3d3e8fdbec28a5f76de7704996566efdd17b29949de911bcdb090b49db.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "2b62466bbf83986b3b4ebb41675c38349bec4f755df40b4402dde995705bd786",
+        "candidateIds": [
+          "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2b62466bbf83986b3b4ebb41675c38349bec4f755df40b4402dde995705bd786.json",
+        "status": "miss",
+        "text": "「北風ぴいぴい、かんこかんこ 西風どうどう、どっこどっこ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2b62466bbf83986b3b4ebb41675c38349bec4f755df40b4402dde995705bd786.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "2bd1dfc044d2f4546421f4c86e96beaa1f17f884b001074cab846eda8c7eca01",
+        "candidateIds": [
+          "fDmhshXKkKtauXb9nElf9Ud8l_20vQdpuJquIELdHzA"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2bd1dfc044d2f4546421f4c86e96beaa1f17f884b001074cab846eda8c7eca01.json",
+        "status": "miss",
+        "text": "「狐こんこん白狐、お嫁ほしけりゃ、とってやろよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2bd1dfc044d2f4546421f4c86e96beaa1f17f884b001074cab846eda8c7eca01.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "2c3acacb7fdb9caa1501fc4ebdf1b1f98a15ad43ba8a6d355dc1c6e7e0a1479d",
+        "candidateIds": [
+          "5boQxDpcg2tzPyYB5JtUkJxO0QoqdZWAb4W1wCV9vWw"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2c3acacb7fdb9caa1501fc4ebdf1b1f98a15ad43ba8a6d355dc1c6e7e0a1479d.json",
+        "status": "miss",
+        "text": "「今夜狐の幻燈会なんだね。行こうか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\2c3acacb7fdb9caa1501fc4ebdf1b1f98a15ad43ba8a6d355dc1c6e7e0a1479d.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "32cf0c081331b7e2ee348eae59d6d0b4e2082b0d024213cd6a3c1bcc4d726c80",
+        "candidateIds": [
+          "0vpvRaqAjN5dSzbGzH_dil_G8kEZOXhcsoX4AXVMIWs"
+        ],
+        "estimatedBytes": 924524,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\32cf0c081331b7e2ee348eae59d6d0b4e2082b0d024213cd6a3c1bcc4d726c80.json",
+        "status": "miss",
+        "text": "「ええ、そうかもしれません。とにかくお団子をおあがりなさい。私のさしあげるのは、ちゃんと私が畑を作ってまいて草をとってかってたたいて粉にして練ってむしてお砂糖をかけたのです。いかがですか。一さらさしあげましょう。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\32cf0c081331b7e2ee348eae59d6d0b4e2082b0d024213cd6a3c1bcc4d726c80.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "365d8233182c3990b7fffb239dc7bc19c5d922183803b5f2b788716ed51f063c",
+        "candidateIds": [
+          "Z6o3X3EqcvUaXUh8HdtFGeGw0_MVElmO-JWZh1posjI"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\365d8233182c3990b7fffb239dc7bc19c5d922183803b5f2b788716ed51f063c.json",
+        "status": "miss",
+        "text": "「ね、喰べよう。お喰べよ。ぼくは紺三郎さんが僕らをだますなんて思わないよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\365d8233182c3990b7fffb239dc7bc19c5d922183803b5f2b788716ed51f063c.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "3709d24da196691df1bd237fff0d4d305e595cf4b8abff56b9e620e12caf91e2",
+        "candidateIds": [
+          "V0H_ot8svdT05g3QZpAe48rImDCIDijoSxxqjsk636M"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3709d24da196691df1bd237fff0d4d305e595cf4b8abff56b9e620e12caf91e2.json",
+        "status": "miss",
+        "text": "「そら、取って下さい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3709d24da196691df1bd237fff0d4d305e595cf4b8abff56b9e620e12caf91e2.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "382d424a5c73e010574c149ef5686ed679e791192db6b117c9a0d226bcda75d3",
+        "candidateIds": [
+          "voRhfxoPrfFPD4c5H3OQ3ytvh22eIt-RDtACfXWemUw"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\382d424a5c73e010574c149ef5686ed679e791192db6b117c9a0d226bcda75d3.json",
+        "status": "miss",
+        "text": "「そいじゃきつねが人をだますなんてうそかしら。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\382d424a5c73e010574c149ef5686ed679e791192db6b117c9a0d226bcda75d3.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "3e584c314efb6b99adb4f0f02e719f55c8a6be66bd1e0ac1c1a4d8f2effa523a",
+        "candidateIds": [
+          "c6Crp3k_d4_d3bpIoU7QFHa3X3DGVzJ02krZGCV_kBg"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3e584c314efb6b99adb4f0f02e719f55c8a6be66bd1e0ac1c1a4d8f2effa523a.json",
+        "status": "miss",
+        "text": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえこごえてたおれても 狐の生徒はぬすまない。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3e584c314efb6b99adb4f0f02e719f55c8a6be66bd1e0ac1c1a4d8f2effa523a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "3f3feac2dca59d04d3cafb90695b94fff5feef08589b77e81cab3b0d58cabd57",
+        "candidateIds": [
+          "lK3SkR_hDzWWGolTZi3DV0Zo4ENMKP4Bu3Auq4bp0Uo"
+        ],
+        "estimatedBytes": 1088684,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3f3feac2dca59d04d3cafb90695b94fff5feef08589b77e81cab3b0d58cabd57.json",
+        "status": "miss",
+        "text": "「偽ですとも。けだし最もひどい偽です。だまされたという人はたいていお酒によったり、おくびょうでくるくるしたりした人です。面白いですよ。じんべえさんがこの前、月夜の晩私たちのおうちの前にすわって一晩じょうるりをやりましたよ。私らはみんな出て見たのです。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\3f3feac2dca59d04d3cafb90695b94fff5feef08589b77e81cab3b0d58cabd57.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "4241b62392d376c308d1abd96cd4635c2ad8b27cc92d5dc422c3dca810bf06a6",
+        "candidateIds": [
+          "BjTFalw2k8MPuV9AeCpTyVo-_vatJzcMYtg0ycAmAnU"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\4241b62392d376c308d1abd96cd4635c2ad8b27cc92d5dc422c3dca810bf06a6.json",
+        "status": "miss",
+        "text": "「行きましょう。行きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\4241b62392d376c308d1abd96cd4635c2ad8b27cc92d5dc422c3dca810bf06a6.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "46c257702fb3c89cf8fc449cc0d1d9a0ccb6ca9d14c02e8ea9c732822baae2cd",
+        "candidateIds": [
+          "O2dRX14KxiLr8yi76IGdqcLlLEpWybZYwmDBq0r_cdY"
+        ],
+        "estimatedBytes": 855404,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\46c257702fb3c89cf8fc449cc0d1d9a0ccb6ca9d14c02e8ea9c732822baae2cd.json",
+        "status": "miss",
+        "text": "「そうですか。そんなら今度げんとうかいのときさしあげましょう。幻燈会にはきっといらっしゃい。この次の雪の凍った月夜の晩です。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\46c257702fb3c89cf8fc449cc0d1d9a0ccb6ca9d14c02e8ea9c732822baae2cd.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "52740241acd0df5f4bedf21b86733b66b4323b8a04fa242140161bcad2879c34",
+        "candidateIds": [
+          "2LEURP105PDZE6-_AG6COuEyl6ApeL_62dZE8fiX6mI"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\52740241acd0df5f4bedf21b86733b66b4323b8a04fa242140161bcad2879c34.json",
+        "status": "miss",
+        "text": "「食うだろうか。ね。食うだろうか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\52740241acd0df5f4bedf21b86733b66b4323b8a04fa242140161bcad2879c34.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "5810040f6c9c2d63121e118b1d3e2af457eb1c5ae26cf6498f528f7b06abfb76",
+        "candidateIds": [
+          "lSrgEGLsewdoFfpCwcsDBHvnUW8hplion_FSXkLF4hY"
+        ],
+        "estimatedBytes": 362924,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\5810040f6c9c2d63121e118b1d3e2af457eb1c5ae26cf6498f528f7b06abfb76.json",
+        "status": "miss",
+        "text": "「おおにいさん。だって、狐の幻燈会は十一歳までですよ、入場券に書いてあるんだもの。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\5810040f6c9c2d63121e118b1d3e2af457eb1c5ae26cf6498f528f7b06abfb76.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "608ab4b73bdeb718706e6ca35153d620185f33d3bb7527e06f17aaaeb4f7b81a",
+        "candidateIds": [
+          "uHTl_eTAbshktoJKPNAvn2uqy4lssgrdPfEJWcyA9rE"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\608ab4b73bdeb718706e6ca35153d620185f33d3bb7527e06f17aaaeb4f7b81a.json",
+        "status": "miss",
+        "text": "「あの歌は紺三郎さんのだよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\608ab4b73bdeb718706e6ca35153d620185f33d3bb7527e06f17aaaeb4f7b81a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "60902faef8c3e30d31abf0668f107d8ec00fc6b188af42f44b74274370530dd8",
+        "candidateIds": [
+          "a7Hz19qB8FBPUPxFqHNWlrtMVJA1ztwvIpPwYj3L2rQ"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\60902faef8c3e30d31abf0668f107d8ec00fc6b188af42f44b74274370530dd8.json",
+        "status": "miss",
+        "text": "「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\60902faef8c3e30d31abf0668f107d8ec00fc6b188af42f44b74274370530dd8.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "623b203c41c641484dafe759981e52261e855d9a9ee1cf12ada1cf9ea52bbc3d",
+        "candidateIds": [
+          "oqaDpvtAzMCncU5ko68jGHtMvkizN1bIz1pBA4xPYhw"
+        ],
+        "estimatedBytes": 285164,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\623b203c41c641484dafe759981e52261e855d9a9ee1cf12ada1cf9ea52bbc3d.json",
+        "status": "miss",
+        "text": "「しかの子もよびましょうか。鹿の子はそりゃふえがうまいんですよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\623b203c41c641484dafe759981e52261e855d9a9ee1cf12ada1cf9ea52bbc3d.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "6591d6998545c69d7e97c5153993963eba06a4b7c3d296a7a7068edbdc130654",
+        "candidateIds": [
+          "cjo17SQSX8EViKAeD0mPuMaSWxBV_dLRIcFRtzHQp1U"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\6591d6998545c69d7e97c5153993963eba06a4b7c3d296a7a7068edbdc130654.json",
+        "status": "miss",
+        "text": "「狐こんこん狐の子、狐の団子はうさのくそ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\6591d6998545c69d7e97c5153993963eba06a4b7c3d296a7a7068edbdc130654.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "679eb72dbbf412ac24c9fc6f34c2d8da0a62137c7f059d9ecba1a8b83017632d",
+        "candidateIds": [
+          "qyI4RDyjCppmTCrEEczBaVxM_j-u3PSDA9gafb_-9pU"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\679eb72dbbf412ac24c9fc6f34c2d8da0a62137c7f059d9ecba1a8b83017632d.json",
+        "status": "miss",
+        "text": "「そんなら五枚おくれ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\679eb72dbbf412ac24c9fc6f34c2d8da0a62137c7f059d9ecba1a8b83017632d.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "6e15d8aa8b8cdc4a928f591e7bee014fccb85772ada093e2aa35cc8f73a40fa5",
+        "candidateIds": [
+          "qHltBPP7yExHzFgC0NpjYtmCG2xvw194xnSc2wZSIN4"
+        ],
+        "estimatedBytes": 1494764,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\6e15d8aa8b8cdc4a928f591e7bee014fccb85772ada093e2aa35cc8f73a40fa5.json",
+        "status": "miss",
+        "text": "「みなさん。今晩の幻燈はこれでおしまいです。今夜みなさんは深く心にとめなければならないことがあります。それは狐のこしらえたものをかしこいすこしも酔わない人間のお子さんが喰べて下すったという事です。そこでみなさんはこれからも、大人になってもうそをつかず人をそねまず私共狐のいままでの悪い評判をすっかり無くしてしまうだろうと思います。閉会の辞です。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\6e15d8aa8b8cdc4a928f591e7bee014fccb85772ada093e2aa35cc8f73a40fa5.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "71b5a378a0cb809e00914b97f457259daaa4eee21216b7ddaa33fc41977f9a69",
+        "candidateIds": [
+          "W27UrBtq06JpZn0z3Co6qaqNWohuGr7YjFKTYP_kyqs"
+        ],
+        "estimatedBytes": 604844,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\71b5a378a0cb809e00914b97f457259daaa4eee21216b7ddaa33fc41977f9a69.json",
+        "status": "miss",
+        "text": "「行っておいで。大人の狐にあったら急いで目をつぶるんだよ。そら僕らはやしてやろうか。堅雪かんこ、しみ雪しんこ、狐の子ぁよめぃほしいほしい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\71b5a378a0cb809e00914b97f457259daaa4eee21216b7ddaa33fc41977f9a69.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "795e6dc83544efa5558bb4b7394bdd04f222a95be03bc375bc0719fbcd569a10",
+        "candidateIds": [
+          "HL3anQZ25f2S5LEi2JJTOwlQ4y3-4c7D69dG6iIV1Sk"
+        ],
+        "estimatedBytes": 829484,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\795e6dc83544efa5558bb4b7394bdd04f222a95be03bc375bc0719fbcd569a10.json",
+        "status": "miss",
+        "text": "「いいえ、決してそんなことはありません。あなた方のような立派なお方がうさぎの茶色の団子なんかめしあがるもんですか。私らは全体いままで人をだますなんてあんまりむじつの罪をきせられていたのです。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\795e6dc83544efa5558bb4b7394bdd04f222a95be03bc375bc0719fbcd569a10.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "7a8f1984d63c758ac5bfee4f77ad216483366d3cb1fa352dadee400c2fcb77cc",
+        "candidateIds": [
+          "14zRen8leImzedpN_5BIZARKZk3vxFP7Z5CwGm_00kE"
+        ],
+        "estimatedBytes": 570284,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7a8f1984d63c758ac5bfee4f77ad216483366d3cb1fa352dadee400c2fcb77cc.json",
+        "status": "miss",
+        "text": "「これはどうもおみやげをいただいて済みません。どうかごゆるりとなすって下さい。もうすぐ幻燈もはじまります。私は一寸失礼いたします。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7a8f1984d63c758ac5bfee4f77ad216483366d3cb1fa352dadee400c2fcb77cc.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "7b6f2a49c754f4cbdcae1da1033dc6c1e6a3349d4f4d4c3a8d00f0a1bdddee6f",
+        "candidateIds": [
+          "nbMnnm4pajz5FKJGI4LPovxBapKWwgnWKACfcR-2rf8"
+        ],
+        "estimatedBytes": 967724,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7b6f2a49c754f4cbdcae1da1033dc6c1e6a3349d4f4d4c3a8d00f0a1bdddee6f.json",
+        "status": "miss",
+        "text": "「しみ雪しんこ、堅雪かんこ、 野原のまんじゅうはポッポッポ。 酔ってひょろひょろ太右衛門が、 去年、三十八、たべた。 凍み雪しんこ、堅雪かんこ、 野原のおそばはホッホッホ。 酔ってひょろひょろ清作が、 去年十三ばいたべた。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7b6f2a49c754f4cbdcae1da1033dc6c1e6a3349d4f4d4c3a8d00f0a1bdddee6f.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "7cc5bbe1f0296be57192e8fef90fd9fca8e1a960eb17569a5e8de9fdcbc29c79",
+        "candidateIds": [
+          "NjVT5ey4udjt53Uz2qKSq0KsWKdEyWt2HR6oP50diLM"
+        ],
+        "estimatedBytes": 2401964,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7cc5bbe1f0296be57192e8fef90fd9fca8e1a960eb17569a5e8de9fdcbc29c79.json",
+        "status": "miss",
+        "text": "「それでは残念ですが兄さんたちはお断わりです。あなた方だけいらっしゃい。特別席をとって置きますから、面白いんですよ。幻燈は第一が『お酒をのむべからず。』これはあなたの村のたえもんさんと、清作さんがお酒をのんでとうとう目がくらんで野原にあるへんてこなおまんじゅうや、おそばをたべようとした所です。私も写真の中にうつっています。第二が『わなに注意せよ。』これは私共のこんべえが野原でわなにかかったのをかいたのです。絵です。写真ではありません。第三が『火を軽べつすべからず。』これは私共のこん助があなたのおうちへ行ってしっぽを焼いた景色です。ぜひおいで下さい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7cc5bbe1f0296be57192e8fef90fd9fca8e1a960eb17569a5e8de9fdcbc29c79.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "7e82fad426fe7e728575f228f7ea1169457d2332b842b1f09c2717b5d3a7b426",
+        "candidateIds": [
+          "LuHjUaa4SLI_sjgZ71re7F00Dt8OWqckmHpaNMotWJ4"
+        ],
+        "estimatedBytes": 406124,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7e82fad426fe7e728575f228f7ea1169457d2332b842b1f09c2717b5d3a7b426.json",
+        "status": "miss",
+        "text": "「狐こんこん狐の子、去年狐のこん兵衛が 左の足をわなに入れ、こんこんばたばた こんこんこん。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\7e82fad426fe7e728575f228f7ea1169457d2332b842b1f09c2717b5d3a7b426.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "869d4469bb1a45c49b8332e36106094dc9d7a939d08da1a9456c3dad0569d75b",
+        "candidateIds": [
+          "G0k8aHHo4garKDUgridbX4OWKNDPt1xeauzAvfcv1aQ"
+        ],
+        "estimatedBytes": 423404,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\869d4469bb1a45c49b8332e36106094dc9d7a939d08da1a9456c3dad0569d75b.json",
+        "status": "miss",
+        "text": "「狐こんこん狐の子。去年狐のこん助が 焼いた魚を取ろとしておしりに火がつき きゃんきゃんきゃん。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\869d4469bb1a45c49b8332e36106094dc9d7a939d08da1a9456c3dad0569d75b.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "8c210f0aed03b0705a4d349adc1d3923e4395a7603d3fb64d881ec8bafd00a77",
+        "candidateIds": [
+          "pp98LITRCijBwT4OKMs4Zz8zoWFcEoR42dWh8MePt84"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\8c210f0aed03b0705a4d349adc1d3923e4395a7603d3fb64d881ec8bafd00a77.json",
+        "status": "miss",
+        "text": "「堅雪かんこ、しみ雪しんこ、かたいお餅はかったらこ、白いお餅はべったらこ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\8c210f0aed03b0705a4d349adc1d3923e4395a7603d3fb64d881ec8bafd00a77.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "8cd6b0627a3c381e0cbdd7eb92b4cffdba367c73c6431d91fee5f9fdb94e658a",
+        "candidateIds": [
+          "3IfK8uvNgyJ9pO9Ok2gnuZRZ6bldjrgNyQrd4nXWuZI"
+        ],
+        "estimatedBytes": 1589804,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\8cd6b0627a3c381e0cbdd7eb92b4cffdba367c73c6431d91fee5f9fdb94e658a.json",
+        "status": "miss",
+        "text": "「今夜は美しい天気です。お月様はまるでしんじゅのおさらです。お星さまは野原のつゆがキラキラ固まったようです。さてただいまから幻燈会をやります。みなさんはまたたきやくしゃみをしないで目をまんまろに開いて見ていて下さい。 それから今夜は大切な二人のお客さまがありますからどなたも静かにしないといけません。決してそっちの方へ栗の皮を投げたりしてはなりません。開会の辞です。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\8cd6b0627a3c381e0cbdd7eb92b4cffdba367c73c6431d91fee5f9fdb94e658a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "98324e0a88ab4e731f45ec39e0197330438daac2d478e837e09f387505cc8830",
+        "candidateIds": [
+          "JLhfWR6uSiIPMVg5X9dUDfgQbm3kKQSmB9zdZsRfIt8"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\98324e0a88ab4e731f45ec39e0197330438daac2d478e837e09f387505cc8830.json",
+        "status": "miss",
+        "text": "「四郎はしんこ、かん子はかんこ、おらはお嫁はいらないよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\98324e0a88ab4e731f45ec39e0197330438daac2d478e837e09f387505cc8830.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "9ecd8d8e07c3a16c15ea61e1da0ea5b0ff902ea3a54ce4b32eb2b4db2b359019",
+        "candidateIds": [
+          "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\9ecd8d8e07c3a16c15ea61e1da0ea5b0ff902ea3a54ce4b32eb2b4db2b359019.json",
+        "status": "miss",
+        "text": "「堅雪かんこ、凍み雪しんこ、しかの子ぁ嫁ぃほしいほしい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\9ecd8d8e07c3a16c15ea61e1da0ea5b0ff902ea3a54ce4b32eb2b4db2b359019.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "ac27788a60ff876a18cf0bc53cfe4e07ae4c793b8c09ea9f33b895f48cb3451e",
+        "candidateIds": [
+          "cDtKoYhdzTsWYroSA5w3RLB2whrblS_wLJij0I1QMos"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ac27788a60ff876a18cf0bc53cfe4e07ae4c793b8c09ea9f33b895f48cb3451e.json",
+        "status": "miss",
+        "text": "「雪がやわらかになるといけませんからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで下さい。さっきの幻燈をやりますから。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ac27788a60ff876a18cf0bc53cfe4e07ae4c793b8c09ea9f33b895f48cb3451e.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "ae44648255f73975dd675e326053f0faf962190de2ead444ccf1080741cfac62",
+        "candidateIds": [
+          "2mkkcxIwSCHsQkAoRQxECRKScDYZT515hkiBD2BPXOE"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ae44648255f73975dd675e326053f0faf962190de2ead444ccf1080741cfac62.json",
+        "status": "miss",
+        "text": "「狐こんこん、狐の子、お嫁がいらなきゃもちやろか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ae44648255f73975dd675e326053f0faf962190de2ead444ccf1080741cfac62.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "b6aeb27dfa99361e54dfc5a4683d54db13052e77a4bbae224a47bbc4c250a2d1",
+        "candidateIds": [
+          "Vl-WrCwmzkVy2VF81GzhDZVEYYT2X98JwxlJZCgVZ1Y"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\b6aeb27dfa99361e54dfc5a4683d54db13052e77a4bbae224a47bbc4c250a2d1.json",
+        "status": "miss",
+        "text": "「この間は失敬。それから今晩はありがとう。このお餅をみなさんであがって下さい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\b6aeb27dfa99361e54dfc5a4683d54db13052e77a4bbae224a47bbc4c250a2d1.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "c2dfa82506ee2c3e89f84e6af2281fb3de5ddf3f6f65b30238dc30910ee5e7a2",
+        "candidateIds": [
+          "Y20kOQKtB8U2i9Jtay1bUT1nFAr1Ip42AR9xZrWeez0"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\c2dfa82506ee2c3e89f84e6af2281fb3de5ddf3f6f65b30238dc30910ee5e7a2.json",
+        "status": "miss",
+        "text": "「狐こんこん狐の子、去年狐のこん助が、焼いた魚を取ろとしておしりに火がつききゃんきゃんきゃん。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\c2dfa82506ee2c3e89f84e6af2281fb3de5ddf3f6f65b30238dc30910ee5e7a2.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "c67fc2ebf6397db324b3d84f1d177dbe1a2aeee286cf50be097ee655fa8dc91a",
+        "candidateIds": [
+          "S0FcnixE0KNt5-Je2e1DeRpGWB1pztTdKjL36OXAdus"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\c67fc2ebf6397db324b3d84f1d177dbe1a2aeee286cf50be097ee655fa8dc91a.json",
+        "status": "miss",
+        "text": "「そら、あげますよ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\c67fc2ebf6397db324b3d84f1d177dbe1a2aeee286cf50be097ee655fa8dc91a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "cf713f0fe8246bc4a6e3fd5dbfcfbc65bfac5a5edc58b180179c6722da1dda73",
+        "candidateIds": [
+          "3wo2N60sKOPJaDwc-gyMH4qJtctVkTCETlX3K9lvUAA"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\cf713f0fe8246bc4a6e3fd5dbfcfbc65bfac5a5edc58b180179c6722da1dda73.json",
+        "status": "miss",
+        "text": "「甚兵衛さんならじょうるりじゃないや。きっとなにわぶしだぜ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\cf713f0fe8246bc4a6e3fd5dbfcfbc65bfac5a5edc58b180179c6722da1dda73.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "d3eb05254a492ee86a5f00d71a3b7595bb8b9ba75e02c0e0fd863805cb0579f1",
+        "candidateIds": [
+          "yGHA7dzgpcfYpRupS_6KS331zTiz3Y5eVIKF86gr3fU"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\d3eb05254a492ee86a5f00d71a3b7595bb8b9ba75e02c0e0fd863805cb0579f1.json",
+        "status": "miss",
+        "text": "「紺三郎さんはうまいんだね。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\d3eb05254a492ee86a5f00d71a3b7595bb8b9ba75e02c0e0fd863805cb0579f1.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "d8de09064e261a1226798d26545dd4703f7f3667f3cb74e65196036101f20e54",
+        "candidateIds": [
+          "VPv_jfVnD7SqVywjROMqp-Bf3rPCVuWvbcjmW5CuHeU"
+        ],
+        "estimatedBytes": 1054124,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\d8de09064e261a1226798d26545dd4703f7f3667f3cb74e65196036101f20e54.json",
+        "status": "miss",
+        "text": "「どれ、ちょっとお見せ、ははあ、学校生徒の父兄にあらずして十二歳以上のらいひんは入場をお断わり申しそろ、狐なんて仲々うまくやってるね。僕はいけないんだね。仕方ないや。お前たち行くんならおもちを持って行っておやりよ。そら、この鏡餅がいいだろう。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\d8de09064e261a1226798d26545dd4703f7f3667f3cb74e65196036101f20e54.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "dbab9f9093cdefed7a782b6fc8a94184cdec3d146cb2a7a007b931222cf455aa",
+        "candidateIds": [
+          "k-K5IOg149ci2zHd4Yr6ziUtW6HHCzQA4bhRaYJm_jI"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\dbab9f9093cdefed7a782b6fc8a94184cdec3d146cb2a7a007b931222cf455aa.json",
+        "status": "miss",
+        "text": "「北風ぴいぴい風三郎、西風どうどう又三郎」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\dbab9f9093cdefed7a782b6fc8a94184cdec3d146cb2a7a007b931222cf455aa.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "ddcc6a76879013b28cd7297de69d2f8707ddce920442fbc3e06b523e3202aaff",
+        "candidateIds": [
+          "yaxL6xOzVcb99QKdjceyDoamRbquK39U8VzpYjYoBwQ"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ddcc6a76879013b28cd7297de69d2f8707ddce920442fbc3e06b523e3202aaff.json",
+        "status": "miss",
+        "text": "「それでは。さようなら。今夜のご恩は決して忘れません。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ddcc6a76879013b28cd7297de69d2f8707ddce920442fbc3e06b523e3202aaff.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "e475744fb65de7275401587e3a7498ac70bef025e274258c23ac98a64edcc02a",
+        "candidateIds": [
+          "2KxPy9tMnhHW0k0PUusZwdGnXdLXS3j0VRnb6cW8RFM"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e475744fb65de7275401587e3a7498ac70bef025e274258c23ac98a64edcc02a.json",
+        "status": "miss",
+        "text": "「兄さんたちは十一歳以下ですか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e475744fb65de7275401587e3a7498ac70bef025e274258c23ac98a64edcc02a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "e804d9156724c7f0d4ed514caf6e46a511d01da4d44553b1e43628dbb2a24b3b",
+        "candidateIds": [
+          "SvKKr7BOUo7PCstKDhR015RIQzJmOKPoSqaxndkK5nU"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e804d9156724c7f0d4ed514caf6e46a511d01da4d44553b1e43628dbb2a24b3b.json",
+        "status": "miss",
+        "text": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえからだがちぎれても 狐の生徒はそねまない。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e804d9156724c7f0d4ed514caf6e46a511d01da4d44553b1e43628dbb2a24b3b.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "e9c6db63aea1285fdecda87310e5300e0a5cf6dad26416876e661c9c0894f13a",
+        "candidateIds": [
+          "QjeYU1skoJoO2YsPHlSHh6ePZSe9GL3_DZ6S9mRz9FQ"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e9c6db63aea1285fdecda87310e5300e0a5cf6dad26416876e661c9c0894f13a.json",
+        "status": "miss",
+        "text": "「狐こんこん狐の子、去年狐のこん兵衛が、ひだりの足をわなに入れ、こんこんばたばたこんこんこん。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e9c6db63aea1285fdecda87310e5300e0a5cf6dad26416876e661c9c0894f13a.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "e9dcbcef38a29c73cad635ce94d015917007b065dae16b5aed1f622038999e6f",
+        "candidateIds": [
+          "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e9dcbcef38a29c73cad635ce94d015917007b065dae16b5aed1f622038999e6f.json",
+        "status": "miss",
+        "text": "「堅雪かんこ、凍み雪しんこ。狐の子ぁ、よめいほしい、ほしい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\e9dcbcef38a29c73cad635ce94d015917007b065dae16b5aed1f622038999e6f.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "fc51da924ce92142d7116c4620259ba21697696f14f4b543a5d3ce670a110d76",
+        "candidateIds": [
+          "zb8NZtKEYx3xOydkTiNviQ9JW56D51vg4lIxBwI0f-s"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fc51da924ce92142d7116c4620259ba21697696f14f4b543a5d3ce670a110d76.json",
+        "status": "miss",
+        "text": "「兄さんたちだ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fc51da924ce92142d7116c4620259ba21697696f14f4b543a5d3ce670a110d76.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "fc68795d708fa9e9e5fb20d624435620c7795db205cc53e9464b31c198336dcb",
+        "candidateIds": [
+          "fRgTMvMjsEIPsDNemTDBDuNlPhA17a1LR1ttlnHpK1w"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fc68795d708fa9e9e5fb20d624435620c7795db205cc53e9464b31c198336dcb.json",
+        "status": "miss",
+        "text": "「今晩は。お早うございます。入場券はお持ちですか。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fc68795d708fa9e9e5fb20d624435620c7795db205cc53e9464b31c198336dcb.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "fe379bd31c086bbe529d569a53425a47ce5253415a0f1ecce94ea9a6c49b9e7e",
+        "candidateIds": [
+          "cDUnrVJCmm-RnXFItZq4Zp_5hrK5gb_2RsktmecaTqc"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fe379bd31c086bbe529d569a53425a47ce5253415a0f1ecce94ea9a6c49b9e7e.json",
+        "status": "miss",
+        "text": "「僕の作った歌だねい。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\fe379bd31c086bbe529d569a53425a47ce5253415a0f1ecce94ea9a6c49b9e7e.wav",
+        "workIds": [
+          "045679"
+        ]
+      },
+      {
+        "audioId": "ff45513fd2d5485951be5caf1fa39e81f727fd5c9f98cfbb7a4b208fc09acfb4",
+        "candidateIds": [
+          "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ff45513fd2d5485951be5caf1fa39e81f727fd5c9f98cfbb7a4b208fc09acfb4.json",
+        "status": "miss",
+        "text": "「堅雪かんこ、凍み雪しんこ。」",
+        "wavPath": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\.cache\\voice\\0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691\\ff45513fd2d5485951be5caf1fa39e81f727fd5c9f98cfbb7a4b208fc09acfb4.wav",
+        "workIds": [
+          "045679"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 24799396,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "961fc0c694a57608a4af6e5d6d00c77fe7f2b2c061934221cc78e14325b3f045",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 59,
+    "planDigest": "2fb8b6debd864be95e8b11e17f59fb3754908f5d3724e57ac739bb1e59192c0c",
+    "preTreeDigest": "053cb543abf71f925f1fdccd8ef0e582dd8711de3d16c660327006b56ebd15a6",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 59,
+    "workId": "045679"
+  },
+  "preTreeDigest": "053cb543abf71f925f1fdccd8ef0e582dd8711de3d16c660327006b56ebd15a6",
+  "reviewSha256": "fcfc2d6c42d614ed03fe7b1b05904fd1b7b9ce7680ff82d5f41b8ea1c2634fa2",
+  "schemaVersion": "1.0.0",
+  "workId": "045679"
+}

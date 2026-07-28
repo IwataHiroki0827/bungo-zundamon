@@ -10,7 +10,14 @@ import {
 } from '../src/content/f004-editorial.ts';
 import type { ReviewRunAuthorization } from '../src/content/editorial-independent.ts';
 
-const WORK_ID = '000466';
+const WORK_CONFIG = Object.freeze({
+  '000466': { task: 't056', runDate: '20260728' },
+  '045679': { task: 't057', runDate: '20260729' },
+  '001918': { task: 't058', runDate: '20260729' },
+} as const);
+const WORK_ID = process.argv[2] as keyof typeof WORK_CONFIG;
+const workConfig = WORK_CONFIG[WORK_ID];
+if (!workConfig) throw new Error('F004のwork IDが必要です');
 const CANDIDATE_PATH =
   `data/batches/F004/work-artifacts/${WORK_ID}/intermediate/${WORK_ID}/candidates.json`;
 const REVIEW_INPUT_PATH = `content/batches/F004/review-inputs/${WORK_ID}.json`;
@@ -20,15 +27,15 @@ const TOOL_PATH = 'src/content/f004-editorial.ts';
 const REVIEWERS = Object.freeze([
   {
     role: 'primary' as const,
-    producerTaskPath: '/root/f004_t056_primary_review',
-    runId: 'primary-000466-20260728-01',
-    outputPath: '.cache/f004-review/000466-primary.json',
+    producerTaskPath: `/root/f004_${workConfig.task}_primary_review`,
+    runId: `primary-${WORK_ID}-${workConfig.runDate}-01`,
+    outputPath: `.cache/f004-review/${WORK_ID}-primary.json`,
   },
   {
     role: 'secondary' as const,
-    producerTaskPath: '/root/f004_t056_secondary_review',
-    runId: 'secondary-000466-20260728-01',
-    outputPath: '.cache/f004-review/000466-secondary.json',
+    producerTaskPath: `/root/f004_${workConfig.task}_secondary_review`,
+    runId: `secondary-${WORK_ID}-${workConfig.runDate}-01`,
+    outputPath: `.cache/f004-review/${WORK_ID}-secondary.json`,
   },
 ]);
 
@@ -141,7 +148,7 @@ async function main(): Promise<void> {
       policySha256: sha256(policy),
       promptSha256: sha256(promptText),
       toolSha256: sha256(tool),
-      nonce: `f004-${WORK_ID}-${reviewer.role}-20260728-01-nonce`,
+      nonce: `f004-${WORK_ID}-${reviewer.role}-${workConfig.runDate}-01-nonce`,
       issuedAt,
       inputRefs: [
         { kind: 'candidateSet', path: CANDIDATE_PATH, sha256: sha256(candidate.text) },

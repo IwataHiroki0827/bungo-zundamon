@@ -23,7 +23,9 @@ import { F004_V030_PINS, loadPublishedV030Baseline } from '../src/content/f004-b
 import type { WorkReviewResult } from '../src/content/processing.ts';
 
 const BATCH_ID = 'F004';
-const WORK_ID = '000466' as WorkId;
+const workIdArg = process.argv[2];
+if (!workIdArg || !/^[0-9]{6}$/u.test(workIdArg)) throw new Error('6桁のwork IDが必要です');
+const WORK_ID = workIdArg as WorkId;
 
 function sha(value: string | Uint8Array): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
@@ -61,8 +63,12 @@ if (!checked.ok) throw new Error(`F004 manifestが不正です: ${checked.error.
 const manifest = checked.value;
 const workIndex = manifest.workIds.indexOf(WORK_ID);
 const progress = manifest.workProgress[workIndex];
-if (workIndex !== 0 || progress?.status !== 'voiced') {
-  throw new Error(`previewには先頭のvoiced workが必要です: ${progress?.status ?? 'missing'}`);
+if (
+  workIndex < 0 ||
+  progress?.status !== 'voiced' ||
+  manifest.workProgress.slice(0, workIndex).some((item) => item.status !== 'accepted')
+) {
+  throw new Error(`previewには先行作品accepted＋対象作品voicedが必要です: ${progress?.status ?? 'missing'}`);
 }
 
 const [context, baseline, review, generationArtifact, sourceIndex, sourceRecord, provenanceBytes] =
@@ -223,17 +229,96 @@ for (const asset of generation.assets) {
   await cp(asset.sourcePath, target);
 }
 const boundManifest = structuredClone(manifest) as BatchManifest;
-const rebound = {
-  ...boundManifest,
-  workProgress: boundManifest.workProgress.map((item, index) => index === workIndex ? {
-    ...item,
-    stageRecords: item.stageRecords.map((record, recordIndex) =>
-      recordIndex === item.stageRecords.length - 1
-        ? { ...record, outputHashes: [...record.outputHashes, artifactSha] }
-        : record),
-  } : item),
-} as unknown as BatchManifest;
+const acceptedArtifacts: Array<{
+  artifactRef: string;
+  artifactSha: Sha256;
+}> = [];
+for (let index = 0; index < workIndex; index += 1) {
+  const acceptedId = manifest.workIds[index]!;
+  const acceptedProgress = boundManifest.workProgress[index]!;
+  const acceptedRef =
+    `content/batches/${BATCH_ID}/work-artifacts/${acceptedId}/prepared-work.json`;
+  const acceptedValue = await readJson<{
+    readonly batchId: string;
+    readonly workId: string;
+    readonly lifecycle: 'accepted' | 'staged';
+    readonly audioAssets: readonly {
+      readonly path: string;
+      readonly sha256: string;
+      readonly bytes: number;
+      readonly configHash: string;
+    }[];
+  }>(join(workspace, ...acceptedRef.split('/')));
+  if (
+    acceptedProgress.status !== 'accepted' ||
+    acceptedValue.batchId !== BATCH_ID ||
+    acceptedValue.workId !== acceptedId ||
+    !Array.isArray(acceptedProgress.acceptedAudioSources)
+  ) {
+    throw new Error(`先行accepted artifactが不正です: ${acceptedId}`);
+  }
+  const acceptedArtifact = { ...acceptedValue, lifecycle: 'accepted' as const };
+  const acceptedRaw = canonicalJson(acceptedArtifact);
+  const acceptedSha = sha(acceptedRaw);
+  await writeJsonArtifactAtomic(
+    sourceWorkspace,
+    join(sourceWorkspace, ...acceptedRef.split('/')),
+    acceptedArtifact,
+  );
+  for (const sourcePath of [
+    `data/batches/${BATCH_ID}/fixed-sources/${acceptedId}/${acceptedId}/source.raw`,
+    `data/batches/${BATCH_ID}/fixed-sources/${acceptedId}/${acceptedId}/source.json`,
+    `data/batches/${BATCH_ID}/fixed-sources/${acceptedId}/${acceptedId}/provenance.json`,
+  ]) {
+    const target = join(sourceWorkspace, ...sourcePath.split('/'));
+    await mkdir(dirname(target), { recursive: true });
+    await cp(join(workspace, ...sourcePath.split('/')), target);
+  }
+  for (const asset of acceptedArtifact.audioAssets) {
+    const source = acceptedProgress.acceptedAudioSources.find((entry) =>
+      entry.sha256 === asset.sha256 &&
+      entry.bytes === asset.bytes &&
+      entry.configHash === asset.configHash);
+    if (!source) throw new Error(`先行accepted audio bindingがありません: ${acceptedId}`);
+    const target = join(sourceWorkspace, 'public', ...asset.path.split('/'));
+    await mkdir(dirname(target), { recursive: true });
+    await cp(join(workspace, ...source.path.split('/')), target);
+  }
+  const acceptedStageIndex = acceptedProgress.stageRecords
+    .findLastIndex((record) => record.stage === 'accepted');
+  if (acceptedStageIndex < 0) throw new Error(`先行accepted stageがありません: ${acceptedId}`);
+  const acceptedStages = acceptedProgress.stageRecords as unknown as
+    Array<(typeof acceptedProgress.stageRecords)[number]>;
+  acceptedStages[acceptedStageIndex] = {
+    ...acceptedProgress.stageRecords[acceptedStageIndex]!,
+    outputHashes: [
+      ...acceptedProgress.stageRecords[acceptedStageIndex]!.outputHashes,
+      acceptedSha,
+    ],
+  };
+  acceptedArtifacts.push({ artifactRef: acceptedRef, artifactSha: acceptedSha });
+}
+const currentProgress = boundManifest.workProgress[workIndex]!;
+const currentStages = currentProgress.stageRecords as unknown as
+  Array<(typeof currentProgress.stageRecords)[number]>;
+currentStages[currentStages.length - 1] = {
+  ...currentProgress.stageRecords[currentProgress.stageRecords.length - 1]!,
+  outputHashes: [
+    ...currentProgress.stageRecords[currentProgress.stageRecords.length - 1]!.outputHashes,
+    artifactSha,
+  ],
+};
+const rebound = boundManifest;
 const reboundSha = hashBatchManifest(rebound);
+const acceptedWorks = await Promise.all(acceptedArtifacts.map((accepted) =>
+  loadVerifiedIncludedBatchWork(
+    sourceWorkspace,
+    context.definition,
+    rebound,
+    reboundSha,
+    accepted.artifactRef,
+    accepted.artifactSha,
+  )));
 const included = await loadVerifiedIncludedBatchWork(
   sourceWorkspace,
   context.definition,
@@ -246,7 +331,7 @@ const preview = await prepareBatchWorkPreview(
   workspace,
   context.definition,
   rebound,
-  [],
+  acceptedWorks,
   included,
   baseline,
 );

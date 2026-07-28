@@ -11,7 +11,9 @@ import {
 } from '../src/content/batch.ts';
 
 const BATCH_ID = 'F004';
-const WORK_ID = '000466' as WorkId;
+const workIdArg = process.argv[2];
+if (!workIdArg || !/^[0-9]{6}$/u.test(workIdArg)) throw new Error('6桁のwork IDが必要です');
+const WORK_ID = workIdArg as WorkId;
 const MEBIBYTE = 1_048_576;
 
 async function writeCanonicalAtomic(path: string, value: unknown): Promise<void> {

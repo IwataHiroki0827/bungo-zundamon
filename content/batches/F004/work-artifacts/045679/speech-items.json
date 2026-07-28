@@ -1,0 +1,1359 @@
+[
+  {
+    "candidateId": "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g",
+    "contextAfter": "と二人は森へ向いて高く叫びました。\n\n　しばらくしいんとしましたので二人はも一度叫ぼうとして息をのみこんだとき森の中から\n\n「凍",
+    "contextBefore": "」\n\n　二人は森の近くまで来ました。大きな柏の木は枝も埋まるくらい立派な透きとおった氷柱を下げて重そうに身体を曲げて居りました。\n\n",
+    "displayText": "「堅雪かんこ、凍み雪しんこ。狐の子ぁ、嫁ほしい、ほしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 441,
+      "start": 412
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 441,
+      "startToken": 412
+    },
+    "speechSha256": "32f8c8264113973922756d33a3404665ca370e8f00125a54daca0bd9ec398a2c",
+    "speechText": "「堅雪かんこ、凍み雪しんこ。狐の子ぁ、よめいほしい、ほしい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "HsEgUdS_VSqC3MvY5X15f5YaafDrpjKN0paEbLBAung",
+    "contextAfter": "と云いながら、キシリキシリ雪をふんで白い狐の子が出て来ました。\n\n　四郎は少しぎょっとしてかん子をうしろにかばって、しっかり足を",
+    "contextBefore": "。」と二人は森へ向いて高く叫びました。\n\n　しばらくしいんとしましたので二人はも一度叫ぼうとして息をのみこんだとき森の中から\n\n",
+    "displayText": "「凍み雪しんしん、堅雪かんかん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 520,
+      "start": 503
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 520,
+      "startToken": 503
+    },
+    "speechSha256": "0685df1b350e43fba0b1a672dadf018513ca5ec30dea111c1575977a1b3afcf3",
+    "speechText": "「凍み雪しんしん、堅雪かんかん。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "fDmhshXKkKtauXb9nElf9Ud8l_20vQdpuJquIELdHzA",
+    "contextAfter": "\n\n　すると狐がまだまるで小さいくせに銀の針のようなおひげをピンと一つひねって云いました。\n\n「四郎はしんこ、かん子はかんこ、お",
+    "contextBefore": "雪をふんで白い狐の子が出て来ました。\n\n　四郎は少しぎょっとしてかん子をうしろにかばって、しっかり足をふんばって叫びました。\n\n",
+    "displayText": "「狐こんこん白狐、お嫁ほしけりゃ、とってやろよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 622,
+      "start": 597
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 622,
+      "startToken": 597
+    },
+    "speechSha256": "e10929e97ec390f9d072bed30f963612452b17e34d2ab4737a60e96797db0c5f",
+    "speechText": "「狐こんこん白狐、お嫁ほしけりゃ、とってやろよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "JLhfWR6uSiIPMVg5X9dUDfgQbm3kKQSmB9zdZsRfIt8",
+    "contextAfter": "\n\n　四郎が笑って云いました。\n\n「狐こんこん、狐の子、お嫁がいらなきゃ餅やろか。」\n\n　すると狐の子も頭を二つ三つ振って面白そ",
+    "contextBefore": "、お嫁ほしけりゃ、とってやろよ。」\n\n　すると狐がまだまるで小さいくせに銀の針のようなおひげをピンと一つひねって云いました。\n\n",
+    "displayText": "「四郎はしんこ、かん子はかんこ、おらはお嫁はいらないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 698,
+      "start": 669
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 698,
+      "startToken": 669
+    },
+    "speechSha256": "52ee02b7b6f78a330bcddca6cc40322108af36c5cf2f0fe20dc0beae26c7d071",
+    "speechText": "「四郎はしんこ、かん子はかんこ、おらはお嫁はいらないよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "2mkkcxIwSCHsQkAoRQxECRKScDYZT515hkiBD2BPXOE",
+    "contextAfter": "\n\n　すると狐の子も頭を二つ三つ振って面白そうに云いました。\n\n「四郎はしんこ、かん子はかんこ、黍の団子をおれやろか。」\n\n　か",
+    "contextBefore": "をピンと一つひねって云いました。\n\n「四郎はしんこ、かん子はかんこ、おらはお嫁はいらないよ。」\n\n　四郎が笑って云いました。\n\n",
+    "displayText": "「狐こんこん、狐の子、お嫁がいらなきゃ餅やろか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 740,
+      "start": 715
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 740,
+      "startToken": 715
+    },
+    "speechSha256": "1f7ecbeeea1a0112b4af83634e96299bdf4bc79de8ccd7ab694bc075d936b4f3",
+    "speechText": "「狐こんこん、狐の子、お嫁がいらなきゃもちやろか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "D9BOB3x3-1CxuhjX7VhNCQQ65MZ3rPF-5ezt_jwArG0",
+    "contextAfter": "\n\n　かん子もあんまり面白いので四郎のうしろにかくれたままそっと歌いました。\n\n「狐こんこん狐の子、狐の団子は兎のくそ。」\n\n　",
+    "contextBefore": "いました。\n\n「狐こんこん、狐の子、お嫁がいらなきゃ餅やろか。」\n\n　すると狐の子も頭を二つ三つ振って面白そうに云いました。\n\n",
+    "displayText": "「四郎はしんこ、かん子はかんこ、黍の団子をおれやろか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 800,
+      "start": 772
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 800,
+      "startToken": 772
+    },
+    "speechSha256": "ba9f0d0f6c880dc9d5ced85151eae3be06db15d56b4baeafa1fe3e42cc0d01d7",
+    "speechText": "「四郎はしんこ、かん子はかんこ、黍の団子をおれやろか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "cjo17SQSX8EViKAeD0mPuMaSWxBV_dLRIcFRtzHQp1U",
+    "contextAfter": "\n\n　すると小狐紺三郎が笑って云いました。\n\n「いいえ、決してそんなことはありません。あなた方のような立派なお方が兎の茶色の団子",
+    "contextBefore": "しんこ、かん子はかんこ、黍の団子をおれやろか。」\n\n　かん子もあんまり面白いので四郎のうしろにかくれたままそっと歌いました。\n\n",
+    "displayText": "「狐こんこん狐の子、狐の団子は兎のくそ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 861,
+      "start": 840
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 861,
+      "startToken": 840
+    },
+    "speechSha256": "9026044b843449c5c61b4f511716a70b557575369ac7ec4308c2a072f860f6df",
+    "speechText": "「狐こんこん狐の子、狐の団子はうさのくそ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "HL3anQZ25f2S5LEi2JJTOwlQ4y3-4c7D69dG6iIV1Sk",
+    "contextAfter": "\n\n　四郎がおどろいて尋ねました。\n\n「そいじゃきつねが人をだますなんて偽かしら。」\n\n　紺三郎が熱心に云いました。\n\n「偽です",
+    "contextBefore": "しろにかくれたままそっと歌いました。\n\n「狐こんこん狐の子、狐の団子は兎のくそ。」\n\n　すると小狐紺三郎が笑って云いました。\n\n",
+    "displayText": "「いいえ、決してそんなことはありません。あなた方のような立派なお方が兎の茶色の団子なんか召しあがるもんですか。私らは全体いままで人をだますなんてあんまりむじつの罪をきせられていたのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 978,
+      "start": 884
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 978,
+      "startToken": 884
+    },
+    "speechSha256": "1659fc4e5ceb3bb0d7c2eb9a736662075eac46ff15505a7a4083f9608446dc9f",
+    "speechText": "「いいえ、決してそんなことはありません。あなた方のような立派なお方がうさぎの茶色の団子なんかめしあがるもんですか。私らは全体いままで人をだますなんてあんまりむじつの罪をきせられていたのです。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "voRhfxoPrfFPD4c5H3OQ3ytvh22eIt-RDtACfXWemUw",
+    "contextAfter": "\n\n　紺三郎が熱心に云いました。\n\n「偽ですとも。けだし最もひどい偽です。だまされたという人は大抵お酒に酔ったり、臆病でくるくるした",
+    "contextBefore": "もんですか。私らは全体いままで人をだますなんてあんまりむじつの罪をきせられていたのです。」\n\n　四郎がおどろいて尋ねました。\n\n",
+    "displayText": "「そいじゃきつねが人をだますなんて偽かしら。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1020,
+      "start": 997
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1020,
+      "startToken": 997
+    },
+    "speechSha256": "12dce12e29a336be42244d14803ae0b48f925f44c74581371776d559e2217088",
+    "speechText": "「そいじゃきつねが人をだますなんてうそかしら。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "lK3SkR_hDzWWGolTZi3DV0Zo4ENMKP4Bu3Auq4bp0Uo",
+    "contextAfter": "\n\n　四郎が叫びました。\n\n「甚兵衛さんならじょうるりじゃないや。きっと浪花ぶしだぜ。」\n\n　子狐紺三郎はなるほどという顔をして、",
+    "contextBefore": "です。」\n\n　四郎がおどろいて尋ねました。\n\n「そいじゃきつねが人をだますなんて偽かしら。」\n\n　紺三郎が熱心に云いました。\n\n",
+    "displayText": "「偽ですとも。けだし最もひどい偽です。だまされたという人は大抵お酒に酔ったり、臆病でくるくるしたりした人です。面白いですよ。甚兵衛さんがこの前、月夜の晩私たちのお家の前に坐って一晩じょうるりをやりましたよ。私らはみんな出て見たのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1152,
+      "start": 1038
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1152,
+      "startToken": 1038
+    },
+    "speechSha256": "65233e8039f9bda3cd51f161028103894893e2e0f60375647cf8845dfb2882d1",
+    "speechText": "「偽ですとも。けだし最もひどい偽です。だまされたという人はたいていお酒によったり、おくびょうでくるくるしたりした人です。面白いですよ。じんべえさんがこの前、月夜の晩私たちのおうちの前にすわって一晩じょうるりをやりましたよ。私らはみんな出て見たのです。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "3wo2N60sKOPJaDwc-gyMH4qJtctVkTCETlX3K9lvUAA",
+    "contextAfter": "\n\n　子狐紺三郎はなるほどという顔をして、\n\n「ええ、そうかもしれません。とにかくお団子をおあがりなさい。私のさしあげるのは、ち",
+    "contextBefore": "この前、月夜の晩私たちのお家の前に坐って一晩じょうるりをやりましたよ。私らはみんな出て見たのです。」\n\n　四郎が叫びました。\n\n",
+    "displayText": "「甚兵衛さんならじょうるりじゃないや。きっと浪花ぶしだぜ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1195,
+      "start": 1166
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1195,
+      "startToken": 1166
+    },
+    "speechSha256": "7439a8deff06f6f0f30dbb6a80bd3a94648b1a00547b86b0e6a523b8ad4bfe53",
+    "speechText": "「甚兵衛さんならじょうるりじゃないや。きっとなにわぶしだぜ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "0vpvRaqAjN5dSzbGzH_dil_G8kEZOXhcsoX4AXVMIWs",
+    "contextAfter": "\n\nと云いました。\n\n　と四郎が笑って、\n\n「紺三郎さん、僕らは丁度いまね、お餅をたべて来たんだからおなかが減らないんだよ。この",
+    "contextBefore": "　四郎が叫びました。\n\n「甚兵衛さんならじょうるりじゃないや。きっと浪花ぶしだぜ。」\n\n　子狐紺三郎はなるほどという顔をして、\n\n",
+    "displayText": "「ええ、そうかもしれません。とにかくお団子をおあがりなさい。私のさしあげるのは、ちゃんと私が畑を作って播いて草をとって刈って叩いて粉にして練ってむしてお砂糖をかけたのです。いかがですか。一皿さしあげましょう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1323,
+      "start": 1218
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1323,
+      "startToken": 1218
+    },
+    "speechSha256": "a92325b588a87029b065f20a8d010e828d0c20471d53db893dba52ae94f116be",
+    "speechText": "「ええ、そうかもしれません。とにかくお団子をおあがりなさい。私のさしあげるのは、ちゃんと私が畑を作ってまいて草をとってかってたたいて粉にして練ってむしてお砂糖をかけたのです。いかがですか。一さらさしあげましょう。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "oWIHmvQ4rc8Cx_boc5cYw93ET5lDF4Wb4bADoMPLhng",
+    "contextAfter": "\n\n　子狐の紺三郎が嬉しがってみじかい腕をばたばたして云いました。\n\n「そうですか。そんなら今度幻燈会のときさしあげましょう。幻燈会",
+    "contextBefore": "いて粉にして練ってむしてお砂糖をかけたのです。いかがですか。一皿さしあげましょう。」\n\nと云いました。\n\n　と四郎が笑って、\n\n",
+    "displayText": "「紺三郎さん、僕らは丁度いまね、お餅をたべて来たんだからおなかが減らないんだよ。この次におよばれしようか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1399,
+      "start": 1345
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1399,
+      "startToken": 1345
+    },
+    "speechSha256": "6a10a5e0f71bbb3d4e6bfe1bdd1f74eda40772c634fcb7f823d6958fe5c4827c",
+    "speechText": "「紺三郎さん、僕らは丁度いまね、お餅をたべて来たんだからおなかが減らないんだよ。この次におよばれしようか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "O2dRX14KxiLr8yi76IGdqcLlLEpWybZYwmDBq0r_cdY",
+    "contextAfter": "\n\n「そんなら五枚お呉れ。」と四郎が云いました。\n\n「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」と紺三郎が云いまし",
+    "contextBefore": "だからおなかが減らないんだよ。この次におよばれしようか。」\n\n　子狐の紺三郎が嬉しがってみじかい腕をばたばたして云いました。\n\n",
+    "displayText": "「そうですか。そんなら今度幻燈会のときさしあげましょう。幻燈会にはきっといらっしゃい。この次の雪の凍った月夜の晩です。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1528,
+      "start": 1434
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1528,
+      "startToken": 1434
+    },
+    "speechSha256": "3d76ac767b73e4718cba44a6a8eb24c2f029d0a5af03c8c43c51e815abe941c5",
+    "speechText": "「そうですか。そんなら今度げんとうかいのときさしあげましょう。幻燈会にはきっといらっしゃい。この次の雪の凍った月夜の晩です。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "qyI4RDyjCppmTCrEEczBaVxM_j-u3PSDA9gafb_-9pU",
+    "contextAfter": "と四郎が云いました。\n\n「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」と紺三郎が云いました。\n\n「兄さんたちだ。」と",
+    "contextBefore": "っといらっしゃい。この次の雪の凍った月夜の晩です。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」\n\n",
+    "displayText": "「そんなら五枚お呉れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1542,
+      "start": 1530
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1542,
+      "startToken": 1530
+    },
+    "speechSha256": "686edc00736a9d1860fd860f593bee90d1fb8cb5f125b10f0a00c0085723f7ee",
+    "speechText": "「そんなら五枚おくれ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "a7Hz19qB8FBPUPxFqHNWlrtMVJA1ztwvIpPwYj3L2rQ",
+    "contextAfter": "と紺三郎が云いました。\n\n「兄さんたちだ。」と四郎が答えますと、\n\n「兄さんたちは十一歳以下ですか。」と紺三郎が又尋ねました。\n",
+    "contextBefore": "。八時からはじめますから、入場券をあげて置きましょう。何枚あげましょうか。」\n\n「そんなら五枚お呉れ。」と四郎が云いました。\n\n",
+    "displayText": "「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1583,
+      "start": 1554
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1583,
+      "startToken": 1554
+    },
+    "speechSha256": "cbcb36e19168b5d6fe5902ca3c466cbd9eeecc22d8ba524b0686ce70fa116769",
+    "speechText": "「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "zb8NZtKEYx3xOydkTiNviQ9JW56D51vg4lIxBwI0f-s",
+    "contextAfter": "と四郎が答えますと、\n\n「兄さんたちは十一歳以下ですか。」と紺三郎が又尋ねました。\n\n「いや小兄さんは四年生だからね、八つの四つで",
+    "contextBefore": "んなら五枚お呉れ。」と四郎が云いました。\n\n「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」と紺三郎が云いました。\n\n",
+    "displayText": "「兄さんたちだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1605,
+      "start": 1596
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1605,
+      "startToken": 1596
+    },
+    "speechSha256": "ec02bbeef4a0277d055db608a09e1e75c27f04aa181c495baeb2cdf3f9ec206d",
+    "speechText": "「兄さんたちだ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "2KxPy9tMnhHW0k0PUusZwdGnXdLXS3j0VRnb6cW8RFM",
+    "contextAfter": "と紺三郎が又尋ねました。\n\n「いや小兄さんは四年生だからね、八つの四つで十二歳。」と四郎が云いました。\n\n　すると紺三郎は尤もらし",
+    "contextBefore": "\n「五枚ですか。あなた方が二枚にあとの三枚はどなたですか。」と紺三郎が云いました。\n\n「兄さんたちだ。」と四郎が答えますと、\n\n",
+    "displayText": "「兄さんたちは十一歳以下ですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1634,
+      "start": 1617
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1634,
+      "startToken": 1617
+    },
+    "speechSha256": "c3ed354f0ba78b7599b9f719a3f721e5c1be35d64eabb7d492b584a0443cc718",
+    "speechText": "「兄さんたちは十一歳以下ですか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "cd4I4sKK92xHGLFStHCfNrxDgKWPz_EosHMEQvX28_k",
+    "contextAfter": "と四郎が云いました。\n\n　すると紺三郎は尤もらしく又おひげを一つひねって云いました。\n\n「それでは残念ですが兄さんたちはお断わり",
+    "contextBefore": "紺三郎が云いました。\n\n「兄さんたちだ。」と四郎が答えますと、\n\n「兄さんたちは十一歳以下ですか。」と紺三郎が又尋ねました。\n\n",
+    "displayText": "「いや小兄さんは四年生だからね、八つの四つで十二歳。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1674,
+      "start": 1648
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1674,
+      "startToken": 1648
+    },
+    "speechSha256": "4a6bbf51f8e8115a29eea6fcb2ee7d249ec024a581f6c05c2247ec163efc3311",
+    "speechText": "「いやちいにいさんは四年生だからね、八つの四つで十二歳。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "NjVT5ey4udjt53Uz2qKSq0KsWKdEyWt2HR6oP50diLM",
+    "contextAfter": "\n\n　二人は悦んでうなずきました。\n\n　狐は可笑しそうに口を曲げて、キックキックトントンキックキックトントンと足ぶみをはじめてしっ",
+    "contextBefore": "は四年生だからね、八つの四つで十二歳。」と四郎が云いました。\n\n　すると紺三郎は尤もらしく又おひげを一つひねって云いました。\n\n",
+    "displayText": "「それでは残念ですが兄さんたちはお断わりです。あなた方だけいらっしゃい。特別席をとって置きますから、面白いんですよ。幻燈は第一が『お酒をのむべからず。』これはあなたの村の太右衛門さんと、清作さんがお酒をのんでとうとう目がくらんで野原にあるへんてこなおまんじゅうや、おそばを喰べようとした所です。私も写真の中にうつっています。第二が『わなに注意せよ。』これは私共のこん兵衛が野原でわなにかかったのを画いたのです。絵です。写真ではありません。第三が『火を軽べつすべからず。』これは私共のこん助があなたのお家へ行って尻尾を焼いた景色です。ぜひおいで下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 1989,
+      "start": 1718
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1989,
+      "startToken": 1718
+    },
+    "speechSha256": "a1b1fd50b7d9f29151d089d8819a03fe33ecabc3adebef5091f2c8201e85b566",
+    "speechText": "「それでは残念ですが兄さんたちはお断わりです。あなた方だけいらっしゃい。特別席をとって置きますから、面白いんですよ。幻燈は第一が『お酒をのむべからず。』これはあなたの村のたえもんさんと、清作さんがお酒をのんでとうとう目がくらんで野原にあるへんてこなおまんじゅうや、おそばをたべようとした所です。私も写真の中にうつっています。第二が『わなに注意せよ。』これは私共のこんべえが野原でわなにかかったのをかいたのです。絵です。写真ではありません。第三が『火を軽べつすべからず。』これは私共のこん助があなたのおうちへ行ってしっぽを焼いた景色です。ぜひおいで下さい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "nbMnnm4pajz5FKJGI4LPovxBapKWwgnWKACfcR-2rf8",
+    "contextAfter": "\n\n\n\n　四郎もかん子もすっかり釣り込まれてもう狐と一緒に踊っています。\n\n　キック、キック、トントン。キック、キック、トントン。",
+    "contextBefore": "をはじめてしっぽと頭を振ってしばらく考えていましたがやっと思いついたらしく、両手を振って調子をとりながら歌いはじめました。\n\n\n",
+    "displayText": "「凍み雪しんこ、堅雪かんこ、\n\n　　　野原のまんじゅうはポッポッポ。\n\n　酔ってひょろひょろ太右衛門が、\n\n　　　去年、三十八、たべた。\n\n　凍み雪しんこ、堅雪かんこ、\n\n　　　野原のおそばはホッホッホ。\n\n　酔ってひょろひょろ清作が、\n\n　　　去年十三ばいたべた。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2244,
+      "start": 2110
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2244,
+      "startToken": 2110
+    },
+    "speechSha256": "c899130f0214e6b808a18966296cc45b2873a88a01fba02e600f09bfe7917852",
+    "speechText": "「しみ雪しんこ、堅雪かんこ、 野原のまんじゅうはポッポッポ。 酔ってひょろひょろ太右衛門が、 去年、三十八、たべた。 凍み雪しんこ、堅雪かんこ、 野原のおそばはホッホッホ。 酔ってひょろひょろ清作が、 去年十三ばいたべた。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "QjeYU1skoJoO2YsPHlSHh6ePZSe9GL3_DZ6S9mRz9FQ",
+    "contextAfter": "\n\n　かん子が歌いました。\n\n「狐こんこん狐の子、去年狐のこん助が、焼いた魚を取ろとしておしりに火がつききゃんきゃんきゃん。」\n",
+    "contextBefore": "　キック、キック、トントン。キック、キック、トントン。キック、キック、キック、キック、トントントン。\n\n　四郎が歌いました。\n\n",
+    "displayText": "「狐こんこん狐の子、去年狐のこん兵衛が、ひだりの足をわなに入れ、こんこんばたばたこんこんこん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2393,
+      "start": 2345
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2393,
+      "startToken": 2345
+    },
+    "speechSha256": "dd5d8dcfecb7c4b98bde3ef9eb519d6b78a8c4f00623c93530c480a808245e55",
+    "speechText": "「狐こんこん狐の子、去年狐のこん兵衛が、ひだりの足をわなに入れ、こんこんばたばたこんこんこん。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "Y20kOQKtB8U2i9Jtay1bUT1nFAr1Ip42AR9xZrWeez0",
+    "contextAfter": "\n\n　キック、キック、トントン。キック、キック、トントン。キック、キック、キック、キックトントントン。\n\n　そして三人は踊りなが",
+    "contextBefore": "\n「狐こんこん狐の子、去年狐のこん兵衛が、ひだりの足をわなに入れ、こんこんばたばたこんこんこん。」\n\n　かん子が歌いました。\n\n",
+    "displayText": "「狐こんこん狐の子、去年狐のこん助が、焼いた魚を取ろとしておしりに火がつききゃんきゃんきゃん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2456,
+      "start": 2408
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2456,
+      "startToken": 2408
+    },
+    "speechSha256": "dbf2c3c8eb9eb107b7badd8153428ac1256211decc20aad6787ee9ac0d3088e0",
+    "speechText": "「狐こんこん狐の子、去年狐のこん助が、焼いた魚を取ろとしておしりに火がつききゃんきゃんきゃん。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "oqaDpvtAzMCncU5ko68jGHtMvkizN1bIz1pBA4xPYhw",
+    "contextAfter": "\n\n　四郎とかん子とは手を叩いてよろこびました。そこで三人は一緒に叫びました。\n\n「堅雪かんこ、凍み雪しんこ、鹿の子ぁ嫁ぃほしい",
+    "contextBefore": "は藍色の木の影がいちめん網になって落ちて日光のあたる所には銀の百合が咲いたように見えました。\n\n　すると子狐紺三郎が云いました。\n\n",
+    "displayText": "「鹿の子もよびましょうか。鹿の子はそりゃ笛がうまいんですよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2672,
+      "start": 2641
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2672,
+      "startToken": 2641
+    },
+    "speechSha256": "10c951cefa3f59ad752a6c6f590aa7a1db4e97ebf3dc811bed00ccdf0b57b18e",
+    "speechText": "「しかの子もよびましょうか。鹿の子はそりゃふえがうまいんですよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg",
+    "contextAfter": "\n\n　すると向うで、\n\n「北風ぴいぴい風三郎、西風どうどう又三郎」と細いいい声がしました。\n\n　狐の子の紺三郎がいかにもばかにし",
+    "contextBefore": "しょうか。鹿の子はそりゃ笛がうまいんですよ。」\n\n　四郎とかん子とは手を叩いてよろこびました。そこで三人は一緒に叫びました。\n\n",
+    "displayText": "「堅雪かんこ、凍み雪しんこ、鹿の子ぁ嫁ぃほしいほしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2741,
+      "start": 2713
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2741,
+      "startToken": 2713
+    },
+    "speechSha256": "a6a4873be7bc2954907bc78d6027299ac7f9fca1fddbebc160c8d55a356fcb66",
+    "speechText": "「堅雪かんこ、凍み雪しんこ、しかの子ぁ嫁ぃほしいほしい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "k-K5IOg149ci2zHd4Yr6ziUtW6HHCzQA4bhRaYJm_jI",
+    "contextAfter": "と細いいい声がしました。\n\n　狐の子の紺三郎がいかにもばかにしたように、口を尖らして云いました。\n\n「あれは鹿の子です。あいつは",
+    "contextBefore": "ろこびました。そこで三人は一緒に叫びました。\n\n「堅雪かんこ、凍み雪しんこ、鹿の子ぁ嫁ぃほしいほしい。」\n\n　すると向うで、\n\n",
+    "displayText": "「北風ぴいぴい風三郎、西風どうどう又三郎」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2774,
+      "start": 2753
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2774,
+      "startToken": 2753
+    },
+    "speechSha256": "d3b337818b9d1d54c7b508c4319871aeba0cc266b01eed3bd4eaa4b3914dbcae",
+    "speechText": "「北風ぴいぴい風三郎、西風どうどう又三郎」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "C1ViFoP6sbeq5b4d2RsMEE5hvccRp3fye0vHKqXlI2A",
+    "contextAfter": "\n\n　そこで三人は又叫びました。\n\n「堅雪かんこ、凍み雪しんこ、しかの子ぁ嫁ほしい、ほしい。」\n\n　すると今度はずうっと遠くで風",
+    "contextBefore": "風三郎、西風どうどう又三郎」と細いいい声がしました。\n\n　狐の子の紺三郎がいかにもばかにしたように、口を尖らして云いました。\n\n",
+    "displayText": "「あれは鹿の子です。あいつは臆病ですからとてもこっちへ来そうにありません。けれどもう一遍叫んでみましょうか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2878,
+      "start": 2824
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2878,
+      "startToken": 2824
+    },
+    "speechSha256": "4aaf8c6e09f69f273138a219afa7a93e72e9a6d15a929bd7362dbdbd28b38253",
+    "speechText": "「あれは鹿の子です。あいつは臆病ですからとてもこっちへ来そうにありません。けれどもういっぺん叫んでみましょうか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es",
+    "contextAfter": "\n\n　すると今度はずうっと遠くで風の音か笛の声か、又は鹿の子の歌かこんなように聞えました。\n\n「北風ぴいぴい、かんこかんこ\n\n　",
+    "contextBefore": "す。あいつは臆病ですからとてもこっちへ来そうにありません。けれどもう一遍叫んでみましょうか。」\n\n　そこで三人は又叫びました。\n\n",
+    "displayText": "「堅雪かんこ、凍み雪しんこ、しかの子ぁ嫁ほしい、ほしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 2925,
+      "start": 2896
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2925,
+      "startToken": 2896
+    },
+    "speechSha256": "805bd507885d813dd9577c4a669ecdf875aa87f2dc6bbb1c1c5a9d83fa5848a9",
+    "speechText": "「堅雪かんこ、凍み雪しんこ、しかの子ぁよめいほしい、ほしい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns",
+    "contextAfter": "\n\n　狐が又ひげをひねって云いました。\n\n「雪が柔らかになるといけませんからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで",
+    "contextBefore": "こ、しかの子ぁ嫁ほしい、ほしい。」\n\n　すると今度はずうっと遠くで風の音か笛の声か、又は鹿の子の歌かこんなように聞えました。\n\n",
+    "displayText": "「北風ぴいぴい、かんこかんこ\n\n　　　　西風どうどう、どっこどっこ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3007,
+      "start": 2972
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3007,
+      "startToken": 2972
+    },
+    "speechSha256": "f3a9651d40f8e49dca9b7ecbfa8c404b9453516b82e2500792c2257c60417da2",
+    "speechText": "「北風ぴいぴい、かんこかんこ 西風どうどう、どっこどっこ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "cDtKoYhdzTsWYroSA5w3RLB2whrblS_wLJij0I1QMos",
+    "contextAfter": "\n\n　そこで四郎とかん子とは\n\n「堅雪かんこ、凍み雪しんこ。」と歌いながら銀の雪を渡っておうちへ帰りました。\n\n「堅雪かんこ、凍",
+    "contextBefore": "聞えました。\n\n「北風ぴいぴい、かんこかんこ\n\n　　　　西風どうどう、どっこどっこ。」\n\n　狐が又ひげをひねって云いました。\n\n",
+    "displayText": "「雪が柔らかになるといけませんからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで下さい。さっきの幻燈をやりますから。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3090,
+      "start": 3028
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3090,
+      "startToken": 3028
+    },
+    "speechSha256": "cd824a22c7cc150877d3b339d435f6811838d4a5909e438af642033759eeb01c",
+    "speechText": "「雪がやわらかになるといけませんからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで下さい。さっきの幻燈をやりますから。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4",
+    "contextAfter": "と歌いながら銀の雪を渡っておうちへ帰りました。\n\n「堅雪かんこ、凍み雪しんこ。」\n\n\n\n　　　雪渡り　その二（狐小学校の幻燈会）\n",
+    "contextBefore": "んからもうお帰りなさい。今度月夜に雪が凍ったらきっとおいで下さい。さっきの幻燈をやりますから。」\n\n　そこで四郎とかん子とは\n\n",
+    "displayText": "「堅雪かんこ、凍み雪しんこ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3121,
+      "start": 3106
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3121,
+      "startToken": 3106
+    },
+    "speechSha256": "fdd20ab9bc0ea53b79ccee51e42ff27d837e6c3a80987dfdff6eef3573517c52",
+    "speechText": "「堅雪かんこ、凍み雪しんこ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "5boQxDpcg2tzPyYB5JtUkJxO0QoqdZWAb4W1wCV9vWw",
+    "contextAfter": "\n\n　するとかん子は、\n\n「行きましょう。行きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」とはねあがって高く叫んでしまいま",
+    "contextBefore": "カチカ青く光り、そして今日も寒水石のように堅く凍りました。\n\n　四郎は狐の紺三郎との約束を思い出して妹のかん子にそっと云いました。\n\n",
+    "displayText": "「今夜狐の幻燈会なんだね。行こうか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3307,
+      "start": 3288
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3307,
+      "startToken": 3288
+    },
+    "speechSha256": "e929a21d5d1640df282e8805b2f6c826980c609295198775fb0e4a7c590bddee",
+    "speechText": "「今夜狐の幻燈会なんだね。行こうか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "BjTFalw2k8MPuV9AeCpTyVo-_vatJzcMYtg0ycAmAnU",
+    "contextAfter": "とはねあがって高く叫んでしまいました。\n\n　すると二番目の兄さんの二郎が\n\n「お前たちは狐のとこへ遊びに行くのかい。僕も行きたい",
+    "contextBefore": "は狐の紺三郎との約束を思い出して妹のかん子にそっと云いました。\n\n「今夜狐の幻燈会なんだね。行こうか。」\n\n　するとかん子は、\n\n",
+    "displayText": "「行きましょう。行きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3355,
+      "start": 3320
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3355,
+      "startToken": 3320
+    },
+    "speechSha256": "58916816c5beb10d2b5466b57594f941d53eb909e925c9815ea2efec3b50ba81",
+    "speechText": "「行きましょう。行きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "aG8ieGQ_Up3mJDaw0u44mvpnP_5A9Bklvx-9IGIz5lI",
+    "contextAfter": "と云いました。\n\n　四郎は困ってしまって肩をすくめて云いました。\n\n「大兄さん。だって、狐の幻燈会は十一歳までですよ、入場券に書い",
+    "contextBefore": "きましょう。狐こんこん狐の子、こんこん狐の紺三郎。」とはねあがって高く叫んでしまいました。\n\n　すると二番目の兄さんの二郎が\n\n",
+    "displayText": "「お前たちは狐のとこへ遊びに行くのかい。僕も行きたいな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3422,
+      "start": 3393
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3422,
+      "startToken": 3393
+    },
+    "speechSha256": "017c0b80401eb2db1b87de4eeb353448ffef79b337ac9da5b1c886001e9f0063",
+    "speechText": "「お前たちは狐のとこへ遊びに行くのかい。ぼくも行きたいな。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "lSrgEGLsewdoFfpCwcsDBHvnUW8hplion_FSXkLF4hY",
+    "contextAfter": "\n\n　二郎が云いました。\n\n「どれ、ちょっとお見せ、ははあ、学校生徒の父兄にあらずして十二歳以上の来賓は入場をお断わり申し候、狐な",
+    "contextBefore": "\n「お前たちは狐のとこへ遊びに行くのかい。僕も行きたいな。」と云いました。\n\n　四郎は困ってしまって肩をすくめて云いました。\n\n",
+    "displayText": "「大兄さん。だって、狐の幻燈会は十一歳までですよ、入場券に書いてあるんだもの。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3495,
+      "start": 3456
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3495,
+      "startToken": 3456
+    },
+    "speechSha256": "4bba610494812b23b8636797eac339b985e6924efbd292945fff1e6169835e8c",
+    "speechText": "「おおにいさん。だって、狐の幻燈会は十一歳までですよ、入場券に書いてあるんだもの。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "VPv_jfVnD7SqVywjROMqp-Bf3rPCVuWvbcjmW5CuHeU",
+    "contextAfter": "\n\n　四郎とかん子はそこで小さな雪沓をはいてお餅をかついで外に出ました。\n\n　兄弟の一郎二郎三郎は戸口に並んで立って、\n\n「行って",
+    "contextBefore": "くめて云いました。\n\n「大兄さん。だって、狐の幻燈会は十一歳までですよ、入場券に書いてあるんだもの。」\n\n　二郎が云いました。\n\n",
+    "displayText": "「どれ、ちょっとお見せ、ははあ、学校生徒の父兄にあらずして十二歳以上の来賓は入場をお断わり申し候、狐なんて仲々うまくやってるね。僕はいけないんだね。仕方ないや。お前たち行くんならお餅を持って行っておやりよ。そら、この鏡餅がいいだろう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3626,
+      "start": 3509
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3626,
+      "startToken": 3509
+    },
+    "speechSha256": "adc445571fca962a702dc51f91027ac76f4dee565820f6a2c23f6c57d300df98",
+    "speechText": "「どれ、ちょっとお見せ、ははあ、学校生徒の父兄にあらずして十二歳以上のらいひんは入場をお断わり申しそろ、狐なんて仲々うまくやってるね。僕はいけないんだね。仕方ないや。お前たち行くんならおもちを持って行っておやりよ。そら、この鏡餅がいいだろう。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "W27UrBtq06JpZn0z3Co6qaqNWohuGr7YjFKTYP_kyqs",
+    "contextAfter": "と叫びました。\n\n　お月様は空に高く登り森は青白いけむりに包まれています。二人はもうその森の入口に来ました。\n\n　すると胸にどん",
+    "contextBefore": "ろう。」\n\n　四郎とかん子はそこで小さな雪沓をはいてお餅をかついで外に出ました。\n\n　兄弟の一郎二郎三郎は戸口に並んで立って、\n\n",
+    "displayText": "「行っておいで。大人の狐にあったら急いで目をつぶるんだよ。そら僕ら囃してやろうか。堅雪かんこ、凍み雪しんこ、狐の子ぁ嫁ぃほしいほしい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3754,
+      "start": 3686
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3754,
+      "startToken": 3686
+    },
+    "speechSha256": "f5b3fca01f94eb5c1e8feb5395bd000a168aa842ae1550f8ebd407422f548f07",
+    "speechText": "「行っておいで。大人の狐にあったら急いで目をつぶるんだよ。そら僕らはやしてやろうか。堅雪かんこ、しみ雪しんこ、狐の子ぁよめぃほしいほしい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "fRgTMvMjsEIPsDNemTDBDuNlPhA17a1LR1ttlnHpK1w",
+    "contextAfter": "\n\n「持っています。」二人はそれを出しました。\n\n「さあ、どうぞあちらへ。」狐の子が尤もらしくからだを曲げて眼をパチパチしながら",
+    "contextBefore": "います。二人はもうその森の入口に来ました。\n\n　すると胸にどんぐりのきしょうをつけた白い小さな狐の子が立って居て云いました。\n\n",
+    "displayText": "「今晩は。お早うございます。入場券はお持ちですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3877,
+      "start": 3851
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3877,
+      "startToken": 3851
+    },
+    "speechSha256": "2027282a4a2c6f6375bbaf49d5c393c98ae9536910cac5d6d87242b4ee2fbed9",
+    "speechText": "「今晩は。お早うございます。入場券はお持ちですか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o",
+    "contextAfter": "二人はそれを出しました。\n\n「さあ、どうぞあちらへ。」狐の子が尤もらしくからだを曲げて眼をパチパチしながら林の奥を手で教えました",
+    "contextBefore": "にどんぐりのきしょうをつけた白い小さな狐の子が立って居て云いました。\n\n「今晩は。お早うございます。入場券はお持ちですか。」\n\n",
+    "displayText": "「持っています。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3888,
+      "start": 3879
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3888,
+      "startToken": 3879
+    },
+    "speechSha256": "9a123ddf8e1317ee94b3ece0652bd5e5a41019f467db96ef0f4e4dd43676edb0",
+    "speechText": "「持っています。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "7E91cdAjzviTNl1g8XceiROXCbnYEyA8C6A8yaBnLbY",
+    "contextAfter": "狐の子が尤もらしくからだを曲げて眼をパチパチしながら林の奥を手で教えました。\n\n　林の中には月の光が青い棒を何本も斜めに投げ込ん",
+    "contextBefore": "立って居て云いました。\n\n「今晩は。お早うございます。入場券はお持ちですか。」\n\n「持っています。」二人はそれを出しました。\n\n",
+    "displayText": "「さあ、どうぞあちらへ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 3915,
+      "start": 3902
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3915,
+      "startToken": 3902
+    },
+    "speechSha256": "9f9e56e36b2e7cbd0256e9a591c2a289e5a10f02cbbedacf728644d5296494c3",
+    "speechText": "「さあ、どうぞあちらへ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "gN1PmUkD7FIbN88JY_sfdu_xAaFbLiuzoCi-xkwqdRM",
+    "contextAfter": "という声がしますので四郎とかん子とはびっくりして振り向いて見ると紺三郎です。\n\n　紺三郎なんかまるで立派な燕尾服を着て水仙の花を胸につ",
+    "contextBefore": "の肩車に乗ってお星様を取ろうとしているのです。\n\n　みんなの前の木の枝に白い一枚の敷布がさがっていました。\n\n　不意にうしろで\n\n",
+    "displayText": "「今晩は、よくおいででした。先日は失礼いたしました。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4166,
+      "start": 4139
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4166,
+      "startToken": 4139
+    },
+    "speechSha256": "844e9583df20a738939db382bee4bdee19e12297a66a7c77ab39bd5b090a72f2",
+    "speechText": "「今晩は、よくおいででした。先日は失礼いたしました。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "Vl-WrCwmzkVy2VF81GzhDZVEYYT2X98JwxlJZCgVZ1Y",
+    "contextAfter": "\n\n　狐の学校生徒はみんなこっちを見ています。\n\n　紺三郎は胸を一杯に張ってすまして餅を受けとりました。\n\n「これはどうもおみやげ",
+    "contextBefore": "な燕尾服を着て水仙の花を胸につけてまっ白なはんけちでしきりにその尖ったお口を拭いているのです。\n\n　四郎は一寸お辞儀をして云いました。\n\n",
+    "displayText": "「この間は失敬。それから今晩はありがとう。このお餅をみなさんであがって下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4322,
+      "start": 4282
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4322,
+      "startToken": 4282
+    },
+    "speechSha256": "b08608f7508c12d41b7137ebb98ccffbe4ac28954cf1eceefd4ab116b1a3ada5",
+    "speechText": "「この間は失敬。それから今晩はありがとう。このお餅をみなさんであがって下さい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "14zRen8leImzedpN_5BIZARKZk3vxFP7Z5CwGm_00kE",
+    "contextAfter": "\n\n　紺三郎はお餅を持って向うへ行きました。\n\n　狐の学校生徒は声をそろえて叫びました。\n\n「堅雪かんこ、凍み雪しんこ、硬いお餅",
+    "contextBefore": "んであがって下さい。」\n\n　狐の学校生徒はみんなこっちを見ています。\n\n　紺三郎は胸を一杯に張ってすまして餅を受けとりました。\n\n",
+    "displayText": "「これはどうもおみやげを戴いて済みません。どうかごゆるりとなすって下さい。もうすぐ幻燈もはじまります。私は一寸失礼いたします。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4439,
+      "start": 4375
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4439,
+      "startToken": 4375
+    },
+    "speechSha256": "88bee50d4bc098f30916cd4dd99fca37bcedace03cf97129d7d2cdfcd033207e",
+    "speechText": "「これはどうもおみやげをいただいて済みません。どうかごゆるりとなすって下さい。もうすぐ幻燈もはじまります。私は一寸失礼いたします。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "pp98LITRCijBwT4OKMs4Zz8zoWFcEoR42dWh8MePt84",
+    "contextAfter": "\n\n　幕の横に、\n\n「寄贈、お餅沢山、人の四郎氏、人のかん子氏」と大きな札が出ました。狐の生徒は悦んで手をパチパチ叩きました。\n\n",
+    "contextBefore": "まります。私は一寸失礼いたします。」\n\n　紺三郎はお餅を持って向うへ行きました。\n\n　狐の学校生徒は声をそろえて叫びました。\n\n",
+    "displayText": "「堅雪かんこ、凍み雪しんこ、硬いお餅はかったらこ、白いお餅はべったらこ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4522,
+      "start": 4485
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4522,
+      "startToken": 4485
+    },
+    "speechSha256": "fa4c470407daafcadf16acd732cf8acd28e68808b4318d23d1ef0cd3c76d8d9a",
+    "speechText": "「堅雪かんこ、しみ雪しんこ、かたいお餅はかったらこ、白いお餅はべったらこ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "3IfK8uvNgyJ9pO9Ok2gnuZRZ6bldjrgNyQrd4nXWuZI",
+    "contextAfter": "\n\n　みんな悦んでパチパチ手を叩きました。そして四郎がかん子にそっと云いました。\n\n「紺三郎さんはうまいんだね。」\n\n　笛がピー",
+    "contextBefore": "りました。\n\n　紺三郎がエヘンエヘンとせきばらいをしながら幕の横から出て来て丁寧にお辞儀をしました。みんなはしんとなりました。\n\n",
+    "displayText": "「今夜は美しい天気です。お月様はまるで真珠のお皿です。お星さまは野原の露がキラキラ固まったようです。さて只今から幻燈会をやります。みなさんは瞬やくしゃみをしないで目をまんまろに開いて見ていて下さい。\n\n　それから今夜は大切な二人のお客さまがありますからどなたも静かにしないといけません。決してそっちの方へ栗の皮を投げたりしてはなりません。開会の辞です。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4835,
+      "start": 4660
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4835,
+      "startToken": 4660
+    },
+    "speechSha256": "ca5a1d3abd1ee5fb09c976811e0d0496be8e655ee3172e1f28e7a113d35dbad9",
+    "speechText": "「今夜は美しい天気です。お月様はまるでしんじゅのおさらです。お星さまは野原のつゆがキラキラ固まったようです。さてただいまから幻燈会をやります。みなさんはまたたきやくしゃみをしないで目をまんまろに開いて見ていて下さい。 それから今夜は大切な二人のお客さまがありますからどなたも静かにしないといけません。決してそっちの方へ栗の皮を投げたりしてはなりません。開会の辞です。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "yGHA7dzgpcfYpRupS_6KS331zTiz3Y5eVIKF86gr3fU",
+    "contextAfter": "\n\n　笛がピーと鳴りました。\n\n『お酒をのむべからず』大きな字が幕にうつりました。そしてそれが消えて写真がうつりました。一人のお",
+    "contextBefore": "を投げたりしてはなりません。開会の辞です。」\n\n　みんな悦んでパチパチ手を叩きました。そして四郎がかん子にそっと云いました。\n\n",
+    "displayText": "「紺三郎さんはうまいんだね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 4892,
+      "start": 4877
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4892,
+      "startToken": 4877
+    },
+    "speechSha256": "61b5ae7f3db6781f01a9b03b8587d0336c0d78533fe262e76f99a603a5b727ae",
+    "speechText": "「紺三郎さんはうまいんだね。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "uHTl_eTAbshktoJKPNAvn2uqy4lssgrdPfEJWcyA9rE",
+    "contextAfter": "\n\n　別に写真がうつりました。一人のお酒に酔った若い者がほおの木の葉でこしらえたお椀のようなものに顔をつっ込んで何か喰べています",
+    "contextBefore": "　　去年、三十八たべた。\n\nキックキックキックキックトントントン\n\n\n\n　写真が消えました。四郎はそっとかん子に云いました。\n\n",
+    "displayText": "「あの歌は紺三郎さんのだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5169,
+      "start": 5154
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5169,
+      "startToken": 5154
+    },
+    "speechSha256": "d06b7c2a60a47d387b7c1d373fd98a6c6e776d2797775badf89e3f4fa23eb142",
+    "speechText": "「あの歌は紺三郎さんのだよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "2LEURP105PDZE6-_AG6COuEyl6ApeL_62dZE8fiX6mI",
+    "contextAfter": "なんてひそひそ話し合っているのです。かん子ははずかしくてお皿を手に持ったまままっ赤になってしまいました。すると四郎が決心して云い",
+    "contextBefore": "ぜってたった今太右衛門と清作との悪いものを知らないで喰べたのを見ているのですから。\n\n　それに狐の学校生徒がみんなこっちを向いて",
+    "displayText": "「食うだろうか。ね。食うだろうか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5553,
+      "start": 5535
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5553,
+      "startToken": 5535
+    },
+    "speechSha256": "553fa7e0ce685e74e5437fad0fa4ab389e79b68de2ad1aff151c6bb2ef1687de",
+    "speechText": "「食うだろうか。ね。食うだろうか。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "Z6o3X3EqcvUaXUh8HdtFGeGw0_MVElmO-JWZh1posjI",
+    "contextAfter": "そして二人は黍団子をみんな喰べました。そのおいしいことは頬っぺたも落ちそうです。狐の学校生徒はもうあんまり悦んでみんな踊りあがっ",
+    "contextBefore": "そ話し合っているのです。かん子ははずかしくてお皿を手に持ったまままっ赤になってしまいました。すると四郎が決心して云いました。\n\n",
+    "displayText": "「ね、喰べよう。お喰べよ。僕は紺三郎さんが僕らを欺すなんて思わないよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5659,
+      "start": 5623
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5659,
+      "startToken": 5623
+    },
+    "speechSha256": "095f695c73b4c70443d5e7108b60d9c0355e5f17e6978767e3d2b9fd03cf2855",
+    "speechText": "「ね、喰べよう。お喰べよ。ぼくは紺三郎さんが僕らをだますなんて思わないよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "trsFlfM2woBzaFfhYl2duoQPd32OdP2epMfByOiUDus",
+    "contextAfter": "\n\nキック、キックトントン、キックキックトントン。\n\n「ひるはカンカン日のひかり\n\n　よるはツンツン月あかり\n\n　たとえこごえて",
+    "contextBefore": "そうです。狐の学校生徒はもうあんまり悦んでみんな踊りあがってしまいました。\n\n\nキックキックトントン、キックキックトントン。\n\n",
+    "displayText": "「ひるはカンカン日のひかり\n\n　よるはツンツン月あかり、\n\n　たとえからだを、さかれても\n\n　狐の生徒はうそ云うな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5817,
+      "start": 5758
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5817,
+      "startToken": 5758
+    },
+    "speechSha256": "24e76b6fe8b5660dfb1743ebe98914d7aeeb64138d205952ceced07c123addd0",
+    "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり、 たとえからだを、さかれても 狐の生徒はうそ云うな。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "c6Crp3k_d4_d3bpIoU7QFHa3X3DGVzJ02krZGCV_kBg",
+    "contextAfter": "\n\nキックキックトントン、キックキックトントン。\n\n「ひるはカンカン日のひかり\n\n　よるはツンツン月あかり\n\n　たとえからだがち",
+    "contextBefore": "ン月あかり、\n\n　たとえからだを、さかれても\n\n　狐の生徒はうそ云うな。」\n\nキック、キックトントン、キックキックトントン。\n\n",
+    "displayText": "「ひるはカンカン日のひかり\n\n　よるはツンツン月あかり\n\n　たとえこごえて倒れても\n\n　狐の生徒はぬすまない。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5900,
+      "start": 5844
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5900,
+      "startToken": 5844
+    },
+    "speechSha256": "74750f3ccc3e07236ddd922a6f881b5021c54cc4414fb08cfb7fc531b8669b87",
+    "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえこごえてたおれても 狐の生徒はぬすまない。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "SvKKr7BOUo7PCstKDhR015RIQzJmOKPoSqaxndkK5nU",
+    "contextAfter": "\n\nキックキックトントン、キックキックトントン。\n\n\n\n　四郎もかん子もあんまり嬉しくて涙がこぼれました。\n\n　笛がピーとなりま",
+    "contextBefore": "はツンツン月あかり\n\n　たとえこごえて倒れても\n\n　狐の生徒はぬすまない。」\n\nキックキックトントン、キックキックトントン。\n\n",
+    "displayText": "「ひるはカンカン日のひかり\n\n　よるはツンツン月あかり\n\n　たとえからだがちぎれても\n\n　狐の生徒はそねまない。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 5983,
+      "start": 5926
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5983,
+      "startToken": 5926
+    },
+    "speechSha256": "1f4df306aa1b1ca4144410c96e80bd6d54a7132d2282a333914ae43ce257925e",
+    "speechText": "「ひるはカンカン日のひかり よるはツンツン月あかり たとえからだがちぎれても 狐の生徒はそねまない。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "LuHjUaa4SLI_sjgZ71re7F00Dt8OWqckmHpaNMotWJ4",
+    "contextAfter": "\n\n\n\nとみんなが歌いました。\n\n　四郎がそっとかん子に云いました。\n\n「僕の作った歌だねい。」\n\n　絵が消えて『火を軽べつすべ",
+    "contextBefore": "。\n\n『わなを軽べつすべからず』と大きな字がうつりそれが消えて絵がうつりました。狐のこん兵衛がわなに左足をとられた景色です。\n\n\n",
+    "displayText": "「狐こんこん狐の子、去年狐のこん兵衛が\n\n左の足をわなに入れ、こんこんばたばた\n\n\n\n\nこんこんこん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6165,
+      "start": 6113
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6165,
+      "startToken": 6113
+    },
+    "speechSha256": "7bd82a896e61cd1c1b9628960f23d67a157eb417a1dfe800d5dea66ef22b3130",
+    "speechText": "「狐こんこん狐の子、去年狐のこん兵衛が 左の足をわなに入れ、こんこんばたばた こんこんこん。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "cDUnrVJCmm-RnXFItZq4Zp_5hrK5gb_2RsktmecaTqc",
+    "contextAfter": "\n\n　絵が消えて『火を軽べつすべからず』という字があらわれました。それも消えて絵がうつりました。狐のこん助が焼いたお魚を取ろうと",
+    "contextBefore": "をわなに入れ、こんこんばたばた\n\n\n\n\nこんこんこん。」\n\n\n\nとみんなが歌いました。\n\n　四郎がそっとかん子に云いました。\n\n",
+    "displayText": "「僕の作った歌だねい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6213,
+      "start": 6201
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6213,
+      "startToken": 6201
+    },
+    "speechSha256": "3331cab85e953ac6ff200affbb00d9166abe9f1e055c0480756ef3e06d94ee23",
+    "speechText": "「僕の作った歌だねい。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "G0k8aHHo4garKDUgridbX4OWKNDPt1xeauzAvfcv1aQ",
+    "contextAfter": "\n\n\n\n　笛がピーと鳴り幕は明るくなって紺三郎が又出て来て云いました。\n\n「みなさん。今晩の幻燈はこれでおしまいです。今夜みなさ",
+    "contextBefore": "れも消えて絵がうつりました。狐のこん助が焼いたお魚を取ろうとしてしっぽに火がついた所です。\n\n　狐の生徒がみな叫びました。\n\n\n",
+    "displayText": "「狐こんこん狐の子。去年狐のこん助が\n\n　焼いた魚を取ろとしておしりに火がつき\n\n\n\n\nきゃんきゃんきゃん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6366,
+      "start": 6311
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6366,
+      "startToken": 6311
+    },
+    "speechSha256": "a825b83ed12c54073fe9652723ef2bd1bebf7399a692ad70df3080d2f426abbb",
+    "speechText": "「狐こんこん狐の子。去年狐のこん助が 焼いた魚を取ろとしておしりに火がつき きゃんきゃんきゃん。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "qHltBPP7yExHzFgC0NpjYtmCG2xvw194xnSc2wZSIN4",
+    "contextAfter": "\n\n　狐の生徒はみんな感動して両手をあげたりワーッと立ちあがりました。そしてキラキラ涙をこぼしたのです。\n\n　紺三郎が二人の前に",
+    "contextBefore": "としておしりに火がつき\n\n\n\n\nきゃんきゃんきゃん。」\n\n\n\n　笛がピーと鳴り幕は明るくなって紺三郎が又出て来て云いました。\n\n",
+    "displayText": "「みなさん。今晩の幻燈はこれでおしまいです。今夜みなさんは深く心に留めなければならないことがあります。それは狐のこしらえたものを賢いすこしも酔わない人間のお子さんが喰べて下すったという事です。そこでみなさんはこれからも、大人になってもうそをつかず人をそねまず私共狐の今迄の悪い評判をすっかり無くしてしまうだろうと思います。閉会の辞です。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6571,
+      "start": 6403
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6571,
+      "startToken": 6403
+    },
+    "speechSha256": "7524eee293e2a1e5b90f1012c790c15d5402ceadf2c56c531293335e6846733b",
+    "speechText": "「みなさん。今晩の幻燈はこれでおしまいです。今夜みなさんは深く心にとめなければならないことがあります。それは狐のこしらえたものをかしこいすこしも酔わない人間のお子さんが喰べて下すったという事です。そこでみなさんはこれからも、大人になってもうそをつかず人をそねまず私共狐のいままでの悪い評判をすっかり無くしてしまうだろうと思います。閉会の辞です。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "yaxL6xOzVcb99QKdjceyDoamRbquK39U8VzpYjYoBwQ",
+    "contextAfter": "\n\n　二人もおじぎをしてうちの方へ帰りました。狐の生徒たちが追いかけて来て二人のふところやかくしにどんぐりだの栗だの青びかりの石",
+    "contextBefore": "たりワーッと立ちあがりました。そしてキラキラ涙をこぼしたのです。\n\n　紺三郎が二人の前に来て、丁寧におじぎをして云いました。\n\n",
+    "displayText": "「それでは。さようなら。今夜のご恩は決して忘れません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6683,
+      "start": 6655
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6683,
+      "startToken": 6655
+    },
+    "speechSha256": "0ef43a83206d1fd8fd1641d575b29457b31f3748400aac7c3358081521c3a108",
+    "speechText": "「それでは。さようなら。今夜のご恩は決して忘れません。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "S0FcnixE0KNt5-Je2e1DeRpGWB1pztTdKjL36OXAdus",
+    "contextAfter": "「そら、取って下さい。」なんて云って風の様に逃げ帰って行きます。\n\n　紺三郎は笑って見ていました。\n\n　二人は森を出て野原を行き",
+    "contextBefore": "をしてうちの方へ帰りました。狐の生徒たちが追いかけて来て二人のふところやかくしにどんぐりだの栗だの青びかりの石だのを入れて、\n\n",
+    "displayText": "「そら、あげますよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 62,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6767,
+      "start": 6756
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6767,
+      "startToken": 6756
+    },
+    "speechSha256": "ba21c271682225fc22d4c1e1a211d8decd00cabbb7dee04c5a7acaa610ccf1c4",
+    "speechText": "「そら、あげますよ。」",
+    "workId": "045679"
+  },
+  {
+    "candidateId": "V0H_ot8svdT05g3QZpAe48rImDCIDijoSxxqjsk636M",
+    "contextAfter": "なんて云って風の様に逃げ帰って行きます。\n\n　紺三郎は笑って見ていました。\n\n　二人は森を出て野原を行きました。\n\n　その青白い",
+    "contextBefore": "した。狐の生徒たちが追いかけて来て二人のふところやかくしにどんぐりだの栗だの青びかりの石だのを入れて、\n\n「そら、あげますよ。」",
+    "displayText": "「そら、取って下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 63,
+    "rawSourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+    "rawTokenRange": {
+      "end": 6779,
+      "start": 6767
+    },
+    "revisions": [],
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6779,
+      "startToken": 6767
+    },
+    "speechSha256": "75825bd8670fd42105e222eec807b9586b874358aa1f66aa1069f95ee3e1e598",
+    "speechText": "「そら、取って下さい。」",
+    "workId": "045679"
+  }
+]

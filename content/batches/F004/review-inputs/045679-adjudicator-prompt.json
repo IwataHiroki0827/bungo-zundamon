@@ -1,0 +1,238 @@
+{
+  "approvedReasonCodes": [
+    "SPOKEN_DIALOGUE",
+    "INNER_MONOLOGUE"
+  ],
+  "batchId": "F004",
+  "candidatePath": "data/batches/F004/work-artifacts/045679/intermediate/045679/candidates.json",
+  "candidateSha256": "db53c1121710f071ccfbd9fd2922a826635785e9692518e9b2014a30032756a8",
+  "decisions": [
+    "approved",
+    "rejected",
+    "ambiguous"
+  ],
+  "differences": [
+    {
+      "candidateId": "Rh6BojZH4q-d1eSyIMbvNGY8Qt5BdQFetiUaCrKqODM",
+      "order": 0,
+      "primary": {
+        "candidateId": "Rh6BojZH4q-d1eSyIMbvNGY8Qt5BdQFetiUaCrKqODM",
+        "decision": "approved",
+        "inputSha256": "c2a3d4a82c7ab4a6210250bd14a938b64a7dd11b30003a3155f1217e4ccc7f18",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:76-90",
+        "speaker": "語り手"
+      },
+      "secondary": {
+        "candidateId": "Rh6BojZH4q-d1eSyIMbvNGY8Qt5BdQFetiUaCrKqODM",
+        "decision": "rejected",
+        "inputSha256": "c2a3d4a82c7ab4a6210250bd14a938b64a7dd11b30003a3155f1217e4ccc7f18",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:76-90",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "MWcxkCWs17sJh9ubVtyMZ5QuJi5FSTzYxhSSEunmfr0",
+      "order": 1,
+      "primary": {
+        "candidateId": "MWcxkCWs17sJh9ubVtyMZ5QuJi5FSTzYxhSSEunmfr0",
+        "decision": "approved",
+        "inputSha256": "c5aa93ccaab1347432519a8bafaa1a7a12e7fa8ce61c9814986776298a7b33d3",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:161-176",
+        "speaker": "語り手"
+      },
+      "secondary": {
+        "candidateId": "MWcxkCWs17sJh9ubVtyMZ5QuJi5FSTzYxhSSEunmfr0",
+        "decision": "rejected",
+        "inputSha256": "c5aa93ccaab1347432519a8bafaa1a7a12e7fa8ce61c9814986776298a7b33d3",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:161-176",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "KqxwL8TIyjGbIXCuJjRHMu_izwLHDhq6ov6iXByoU40",
+      "order": 2,
+      "primary": {
+        "candidateId": "KqxwL8TIyjGbIXCuJjRHMu_izwLHDhq6ov6iXByoU40",
+        "decision": "approved",
+        "inputSha256": "8633387d325c3f5edf8cc11cd77990e4ab185c5ba288ea2252dc149620031123",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:334-349",
+        "speaker": "語り手"
+      },
+      "secondary": {
+        "candidateId": "KqxwL8TIyjGbIXCuJjRHMu_izwLHDhq6ov6iXByoU40",
+        "decision": "rejected",
+        "inputSha256": "8633387d325c3f5edf8cc11cd77990e4ab185c5ba288ea2252dc149620031123",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:334-349",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g",
+      "order": 3,
+      "primary": {
+        "candidateId": "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g",
+        "decision": "approved",
+        "inputSha256": "cfa25df24812db5b49f78c206ff5097226b3bbe492b730544c8c6a69df3259ed",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:412-441",
+        "speaker": "四郎とかん子"
+      },
+      "secondary": {
+        "candidateId": "6s1Jup0OY1VD3BKDDOOxBBXpJJoaVxqYzRBWNSTtx3g",
+        "decision": "approved",
+        "inputSha256": "cfa25df24812db5b49f78c206ff5097226b3bbe492b730544c8c6a69df3259ed",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:412-441",
+        "speaker": "四郎・かん子"
+      }
+    },
+    {
+      "candidateId": "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg",
+      "order": 27,
+      "primary": {
+        "candidateId": "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg",
+        "decision": "approved",
+        "inputSha256": "3cf08dd0338dc691b161a4555a62f07c859b032ed26607f8948c77c6c8731791",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2713-2741",
+        "speaker": "四郎とかん子と紺三郎"
+      },
+      "secondary": {
+        "candidateId": "f1xhTa1TZJNGxEaJpEP8WjI-fu8eeqEd94wW8t0rzFg",
+        "decision": "approved",
+        "inputSha256": "3cf08dd0338dc691b161a4555a62f07c859b032ed26607f8948c77c6c8731791",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2713-2741",
+        "speaker": "四郎・かん子・紺三郎"
+      }
+    },
+    {
+      "candidateId": "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es",
+      "order": 30,
+      "primary": {
+        "candidateId": "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es",
+        "decision": "approved",
+        "inputSha256": "b0b2029fe485131fd9f222498d2140482a067830f0e1d54832a6918bf7e03424",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2896-2925",
+        "speaker": "四郎とかん子と紺三郎"
+      },
+      "secondary": {
+        "candidateId": "YtgxPLkJs9MqQmvywWAM2vl71C9a_37U0YCYXuer1es",
+        "decision": "approved",
+        "inputSha256": "b0b2029fe485131fd9f222498d2140482a067830f0e1d54832a6918bf7e03424",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2896-2925",
+        "speaker": "四郎・かん子・紺三郎"
+      }
+    },
+    {
+      "candidateId": "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns",
+      "order": 31,
+      "primary": {
+        "candidateId": "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns",
+        "decision": "approved",
+        "inputSha256": "fbb11d1f6d682c536e89c7f1526e9c7503c2977a08b25acb6f4e0fbf44b8a9a7",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2972-3007",
+        "speaker": "鹿の子"
+      },
+      "secondary": {
+        "candidateId": "ie1s3-Z0rZ66eaIqosrblYBcZ4UNmpT_5JU0j7FStns",
+        "decision": "ambiguous",
+        "inputSha256": "fbb11d1f6d682c536e89c7f1526e9c7503c2977a08b25acb6f4e0fbf44b8a9a7",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2972-3007",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4",
+      "order": 33,
+      "primary": {
+        "candidateId": "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4",
+        "decision": "approved",
+        "inputSha256": "282b5b7f1d31619feb7348ff47015705a2668ca9d3bc493ad19c3cded21f1769",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3106-3121",
+        "speaker": "四郎とかん子"
+      },
+      "secondary": {
+        "candidateId": "EDEoRt_65kbIn26V1MyfV0n0BONwPn195s4seNBw2O4",
+        "decision": "approved",
+        "inputSha256": "282b5b7f1d31619feb7348ff47015705a2668ca9d3bc493ad19c3cded21f1769",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3106-3121",
+        "speaker": "四郎・かん子"
+      }
+    },
+    {
+      "candidateId": "MmGIzturLDHc041okTVYgLsPKsCaWWiZMgZDjcAQnJ0",
+      "order": 34,
+      "primary": {
+        "candidateId": "MmGIzturLDHc041okTVYgLsPKsCaWWiZMgZDjcAQnJ0",
+        "decision": "approved",
+        "inputSha256": "cdcbcf30dca2201cac0cfff0bd6a53d63218a61d8323347d6e75ad09bff93ea4",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3146-3161",
+        "speaker": "語り手"
+      },
+      "secondary": {
+        "candidateId": "MmGIzturLDHc041okTVYgLsPKsCaWWiZMgZDjcAQnJ0",
+        "decision": "rejected",
+        "inputSha256": "cdcbcf30dca2201cac0cfff0bd6a53d63218a61d8323347d6e75ad09bff93ea4",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:3146-3161",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o",
+      "order": 42,
+      "primary": {
+        "candidateId": "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o",
+        "decision": "approved",
+        "inputSha256": "97d32227b9ee8cce77a554fc6d271f4f5ca505b98f11589b301ad771c0d57f2b",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3879-3888",
+        "speaker": "四郎とかん子"
+      },
+      "secondary": {
+        "candidateId": "MvyaZ6g48FqxAm13qDtUKJxHzPfziNVo9p4cz-Kob5o",
+        "decision": "approved",
+        "inputSha256": "97d32227b9ee8cce77a554fc6d271f4f5ca505b98f11589b301ad771c0d57f2b",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3879-3888",
+        "speaker": "四郎・かん子"
+      }
+    }
+  ],
+  "feature": "F004",
+  "instruction": "候補64件を裁定し、差分10件は本文文脈から最終判断を一つ選ぶ。agreement候補も全集合としてexact出力する。",
+  "kind": "f004-independent-adjudication-prompt",
+  "outputPath": ".cache/f004-review/045679-adjudicator.json",
+  "primaryArtifactSha256": "37591c4d7b6bbe0f31593cbea2e7a29eb97f477177fc082cdc25ee4eb3a064a2",
+  "primaryFileSha256": "4fb6e0ae6472083f9a04a3261792e6a539b672023125fc7b5359d4c2aab1d3a3",
+  "primarySealPath": "content/editorial/authorization-transaction/seals/f004-045679-primary.json",
+  "producerTaskPath": "/root/f004_t057_adjudicator",
+  "rejectedReasonCodes": [
+    "QUOTED_MATERIAL",
+    "EXPRESSION_EXAMPLE",
+    "NON_SPEECH",
+    "EXTRACTION_ARTIFACT",
+    "POLICY_EXCLUDED"
+  ],
+  "role": "adjudicator",
+  "runId": "adjudicator-045679-20260729-01",
+  "schemaVersion": "1.0.0",
+  "secondaryArtifactSha256": "85e91ce9eb56e4e7eaf7f183be3f9fd3a1b543deac2ec2bfd10c5ae068924b00",
+  "secondaryFileSha256": "4ec846133b48cba8c4b5e58394f5e56e969af594a26a250f9103dbe2556d7273",
+  "secondarySealPath": "content/editorial/authorization-transaction/seals/f004-045679-secondary.json",
+  "workId": "045679"
+}

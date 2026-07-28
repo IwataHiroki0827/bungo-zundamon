@@ -8,6 +8,7 @@ import {
   hashBatchManifest,
   validateBatchManifest,
   type BatchManifest,
+  type WorkId,
 } from '../src/content/batch.ts';
 import { projectVoiceDiffPlanPaths } from '../src/content/f003-artifact-paths.ts';
 import type { VoiceEstimateProfileV2 } from '../src/content/f003-reuse.ts';
@@ -19,7 +20,9 @@ import {
 import type { F004SpeechItem } from '../src/content/f004-editorial.ts';
 import type { VoiceConfigV2 } from '../src/voice/cache.ts';
 
-const WORK_ID = '000466';
+const workIdArg = process.argv[2];
+if (!workIdArg || !/^[0-9]{6}$/u.test(workIdArg)) throw new Error('6桁のwork IDが必要です');
+const WORK_ID = workIdArg as WorkId;
 const SPEECH_PATH = `content/batches/F004/work-artifacts/${WORK_ID}/speech-items.json`;
 const RECONCILIATION_PATH =
   `content/batches/F004/work-artifacts/${WORK_ID}/review-reconciliation.json`;
@@ -101,8 +104,13 @@ async function main(): Promise<void> {
   const checked = validateBatchManifest(manifestArtifact.value);
   if (!checked.ok) throw new Error(`F004 manifestが不正です: ${checked.error.code}`);
   const manifest = checked.value;
-  if (speech.value.length !== 44 || manifest.workIds[0] !== WORK_ID) {
-    throw new Error('000466 speech/manifest tupleが不正です');
+  const workIndex = manifest.workIds.indexOf(WORK_ID);
+  if (
+    speech.value.length === 0 ||
+    workIndex < 0 ||
+    manifest.workProgress.slice(0, workIndex).some((item) => item.status !== 'accepted')
+  ) {
+    throw new Error(`${WORK_ID} speech/manifest tupleが不正です`);
   }
   const safety = evaluateF004CandidateSafety(
     WORK_ID,

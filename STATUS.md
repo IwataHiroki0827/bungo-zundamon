@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F004
-updated: 2026-07-28T01:59:40+09:00
+updated: 2026-07-29T01:21:29+09:00
 next_actions:
-  - "T-057で雪渡りを抽出・二重レビュー・音声化し作品単位でatomic受入する"
+  - "T-058でカイロ団長を抽出・二重レビュー・音声化し作品単位でatomic受入する"
 blocked_by: []
 ---
 
@@ -35,19 +35,20 @@ blocked_by: []
 - T-055でF003新規作者/F004既存作者追記の共通Catalog projector、preview/final brand、canonical manifest/source/audio join、既存宮沢画像のexact再利用、実public/dist非破壊previewを実装した。全893試験と独立受入をPASSし、T-062のお気に入り実装を開始した。
 - T-062で全公開台詞のお気に入り切替、固定key/version/上限付き端末内保存、storage障害時のmemory縮退、共有FavoriteController、`#/favorites`、元作品へのone-shot移動を実装した。全918試験、495ファイルbuild、独立受入High/Medium/Low 0をPASSした。
 - T-056で「オツベルと象」46候補を独立二重レビューと第三裁定により44採用・2除外・保留0へ確定した。43 WAV・9,322,340 bytesを生成し、journal付きatomic受入で`000466=accepted`へ昇格した。全930試験と独立受入をPASSし、public差分0を確認した。
+- T-057で「雪渡り」64候補を独立二重レビューと第三裁定により59採用・5除外・保留0へ確定した。59 WAV・23,448,100 bytesを生成し、先行`000466=accepted`を含むpreviewとjournal付きatomic受入で`045679=accepted`へ昇格した。全930試験、型、lint、495ファイルbuild、独立受入をPASSし、public差分0を確認した。
 
 ## 直近の作業（最新5件）
 
+- T-057「雪渡り」を59台詞・59音声でatomic受入し、全930試験・独立受入PASS
 - T-056「オツベルと象」を44台詞・43音声でatomic受入し、全930試験・独立受入PASS
 - T-062のお気に入り・端末内保存・作者横断一覧を全918試験と独立受入でPASS
 - T-055の共通Catalog・既存画像再利用・実public previewを全893試験と独立受入でPASS
 - T-054の候補tuple・承認binding・baseline・3原典を全880試験と独立受入でPASS
-- UT-F004 37件・IT-F004 15件をApproved、ゲート③通過、trace 100%
 
 ## 次のアクション
 
-- T-057で「雪渡り」を抽出・独立二重レビュー・音声化し、作品単位でatomic受入する（REQ-F004-007〜013）。
+- T-058で「カイロ団長」を抽出・独立二重レビュー・音声化し、作品単位でatomic受入する（REQ-F004-007〜013）。
 
 ## 未解決事項
 
-- C:の空きはT-043完了時約26.8 GBで逼迫判定。危険域5 GBではないため、削除せずリリース・公開の各段階で再計測する。
+- C:の空きはユーザー整理後約69.6 GiB。5 GiB停止基準まで十分な余裕があり、次作品でも生成前・生成後に再計測する。

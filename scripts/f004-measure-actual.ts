@@ -16,7 +16,8 @@ import {
 import type { VoiceDiffGenerationResult } from '../src/voice/generation.ts';
 
 const execFileAsync = promisify(execFile);
-const WORK_ID = '000466';
+const WORK_ID = process.argv[2];
+if (!WORK_ID || !/^[0-9]{6}$/u.test(WORK_ID)) throw new Error('6桁のwork IDが必要です');
 const FORECAST_PATH = `content/batches/F004/capacity-forecast/${WORK_ID}.json`;
 const RUNTIME_GENERATION_PATH = `.cache/f004-voice/${WORK_ID}-generation.json`;
 const ACTUAL_PATH = `content/batches/F004/capacity-actual/${WORK_ID}.json`;

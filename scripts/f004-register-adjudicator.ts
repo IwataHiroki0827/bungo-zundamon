@@ -13,7 +13,14 @@ import {
   type F004CandidateSet,
 } from '../src/content/f004-editorial.ts';
 
-const WORK_ID = '000466';
+const WORK_CONFIG = Object.freeze({
+  '000466': { task: 't056', runDate: '20260728' },
+  '045679': { task: 't057', runDate: '20260729' },
+  '001918': { task: 't058', runDate: '20260729' },
+} as const);
+const WORK_ID = process.argv[2] as keyof typeof WORK_CONFIG;
+const workConfig = WORK_CONFIG[WORK_ID];
+if (!workConfig) throw new Error('F004のwork IDが必要です');
 const BUNDLE_PATH = `content/batches/F004/review-inputs/${WORK_ID}-authorizations.json`;
 const REVIEW_INPUT_PATH = `content/batches/F004/review-inputs/${WORK_ID}.json`;
 const CANDIDATE_PATH =
@@ -70,7 +77,7 @@ async function main(): Promise<void> {
     existing.length !== 2 ||
     !existing.some((item) => item.role === 'primary') ||
     !existing.some((item) => item.role === 'secondary') ||
-    reviewInput.value.reviewCandidates.length !== 46 ||
+    reviewInput.value.reviewCandidates.length === 0 ||
     primary.value.header.role !== 'primary' ||
     secondary.value.header.role !== 'secondary' ||
     !/^[a-f0-9]{64}$/u.test(primary.value.header.artifactSha256) ||
@@ -99,8 +106,8 @@ async function main(): Promise<void> {
     batchId: 'F004',
     workId: WORK_ID,
     role: 'adjudicator',
-    producerTaskPath: '/root/f004_t056_adjudicator',
-    runId: 'adjudicator-000466-20260728-01',
+    producerTaskPath: `/root/f004_${workConfig.task}_adjudicator`,
+    runId: `adjudicator-${WORK_ID}-${workConfig.runDate}-01`,
     candidatePath: CANDIDATE_PATH,
     candidateSha256: sha256(candidate.text),
     primarySealPath: PRIMARY_SEAL_PATH,
@@ -111,7 +118,7 @@ async function main(): Promise<void> {
     secondaryFileSha256: sha256(secondary.text),
     outputPath: `.cache/f004-review/${WORK_ID}-adjudicator.json`,
     differences,
-    instruction: '候補46件を裁定し、差分3件は本文文脈からspeaker表記を一つ選ぶ。agreement候補も全集合としてexact出力する。',
+    instruction: `候補${reviewInput.value.reviewCandidates.length}件を裁定し、差分${differences.length}件は本文文脈から最終判断を一つ選ぶ。agreement候補も全集合としてexact出力する。`,
     decisions: ['approved', 'rejected', 'ambiguous'],
     approvedReasonCodes: ['SPOKEN_DIALOGUE', 'INNER_MONOLOGUE'],
     rejectedReasonCodes: [
@@ -130,14 +137,14 @@ async function main(): Promise<void> {
   const authorizationValue: ReviewRunAuthorization = {
     authorizationId: `f004-${WORK_ID}-adjudicator`,
     role: 'adjudicator',
-    producerTaskPath: '/root/f004_t056_adjudicator',
+    producerTaskPath: `/root/f004_${workConfig.task}_adjudicator`,
     judgeRole: 'adjudicator',
-    runId: 'adjudicator-000466-20260728-01',
+    runId: `adjudicator-${WORK_ID}-${workConfig.runDate}-01`,
     candidateSetSha256: reviewInput.value.reviewCandidateSetSha256,
     policySha256: sha256(policy),
     promptSha256: sha256(canonicalJson(prompt)),
     toolSha256: sha256(tool),
-    nonce: `f004-${WORK_ID}-adjudicator-20260728-01-nonce`,
+    nonce: `f004-${WORK_ID}-adjudicator-${workConfig.runDate}-01-nonce`,
     issuedAt: new Date().toISOString(),
     inputRefs: [
       { kind: 'candidateSet', path: CANDIDATE_PATH, sha256: sha256(candidate.text) },

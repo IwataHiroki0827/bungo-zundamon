@@ -1,0 +1,107 @@
+{
+  "observation": {
+    "bibliographySha256": "2f3962dd396e0375327e32501929ebe6be3dc9d347f74558c511b097120d7adb",
+    "observedAt": "2026-07-28T15:57:56.431Z",
+    "phase": "selection",
+    "works": [
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/466_42316.html",
+        "status": "公開中",
+        "title": "オツベルと象",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "000466"
+      },
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html",
+        "status": "公開中",
+        "title": "雪渡り",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "045679"
+      },
+      {
+        "cardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000081",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html",
+        "status": "公開中",
+        "title": "カイロ団長",
+        "translatorPresent": false,
+        "workCopyright": "なし",
+        "workId": "001918"
+      }
+    ]
+  },
+  "works": [
+    {
+      "baseEdition": "新編　銀河鉄道の夜",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "新編　銀河鉄道の夜",
+      "inputter": "r.sawai",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000081",
+      "proofreader": "篠宮康彰",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/466_42316.html",
+      "status": "公開中",
+      "title": "オツベルと象",
+      "workId": "000466"
+    },
+    {
+      "baseEdition": "注文の多い料理店",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "注文の多い料理店",
+      "inputter": "土屋隆",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000081",
+      "proofreader": "田中敬三",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html",
+      "status": "公開中",
+      "title": "雪渡り",
+      "workId": "045679"
+    },
+    {
+      "baseEdition": "新編　銀河鉄道の夜",
+      "cardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+      "charset": "Shift_JIS",
+      "copyright": "なし",
+      "edition": "新編　銀河鉄道の夜",
+      "inputter": "土屋隆",
+      "language": "日本語原著",
+      "orthography": "新字新仮名",
+      "personCopyright": "なし",
+      "personId": "000081",
+      "proofreader": "noriko saito",
+      "role": "著者",
+      "selectionReason": "承認済み代表作",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html",
+      "status": "公開中",
+      "title": "カイロ団長",
+      "workId": "001918"
+    }
+  ]
+}
