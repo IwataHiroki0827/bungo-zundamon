@@ -1,0 +1,67 @@
+{
+  "approvals": [
+    {
+      "queueId": "Q-027",
+      "target": "docs/srs/SRS-F005.md",
+      "targetMode": "document"
+    },
+    {
+      "queueId": "Q-028",
+      "target": "docs/changes/CHG-F005-001.md",
+      "targetMode": "reference"
+    },
+    {
+      "queueId": "Q-029",
+      "target": "docs/changes/CHG-F005-001.md",
+      "targetMode": "reference"
+    },
+    {
+      "queueId": "Q-030",
+      "target": "docs/changes/CHG-F005-001.md",
+      "targetMode": "reference"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-F005-001",
+      "level": "requirement",
+      "status": "in-review"
+    }
+  ],
+  "documents": [
+    {
+      "frontmatter": {
+        "feature": "F005",
+        "status": "Approved"
+      },
+      "path": "docs/srs/SRS-F005.md"
+    },
+    {
+      "frontmatter": {
+        "feature": "F005",
+        "status": "Approved"
+      },
+      "path": "docs/tests/qt/QT-F005.md"
+    },
+    {
+      "frontmatter": {
+        "feature": "F005",
+        "id": "CHG-F005-001",
+        "level": "requirement",
+        "status": "in-review"
+      },
+      "path": "docs/changes/CHG-F005-001.md"
+    }
+  ],
+  "evidencePath": "docs/evidence/requirements/F005-approval-binding.json",
+  "evidenceSchemaVersion": "1.1.0",
+  "existingFeatureIds": [
+    "F001",
+    "F002",
+    "F003",
+    "F004"
+  ],
+  "feature": "F005",
+  "queuePath": "queue.yaml",
+  "schemaVersion": "1.0.0"
+}

@@ -1,0 +1,55 @@
+{
+  "approvalProjectionFields": [
+    "id",
+    "type",
+    "status",
+    "target",
+    "target_mode",
+    "answer",
+    "approved_at"
+  ],
+  "approvals": [
+    {
+      "approvalItemSha256": "571ce73c56fa2efb4d4907663eb6268ddac1ba2e4a2136c0e95d86ff70f7b7c2",
+      "queueId": "Q-027"
+    },
+    {
+      "approvalItemSha256": "4fd668157479929c6efd14885177fadb1c78684d95fee2d0ab7a930b856825c1",
+      "queueId": "Q-028"
+    },
+    {
+      "approvalItemSha256": "141ec8270bcdb76b45bb47bf0ceb93afa771336be092d2f3ca16ef3501e76231",
+      "queueId": "Q-029"
+    },
+    {
+      "approvalItemSha256": "dab52612f2ba3ed416e3e409a968aa253454b6eea0c12ef92104ef029d2705e3",
+      "queueId": "Q-030"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-F005-001",
+      "level": "requirement",
+      "status": "in-review"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/srs/SRS-F005.md",
+      "sha256": "46a6edbe93c0f5c7e24493e4fe09be3305ef8eefdfdbc6e09c4647fecea005bc"
+    },
+    {
+      "path": "docs/tests/qt/QT-F005.md",
+      "sha256": "70ef3dbb27bdf053308a2dbbcbf0a11ecf221de10884acb9742bc9bf6408e907"
+    },
+    {
+      "path": "docs/changes/CHG-F005-001.md",
+      "sha256": "7bb6afa0c5d3606dcaf227842bfa02f0b6500f92ca3ff36c163297090e3d204f"
+    }
+  ],
+  "feature": "F005",
+  "migratedAt": "2026-07-29T08:55:00+09:00",
+  "queuePath": "queue.yaml",
+  "queueSha256AtMigration": "bfbf7034edfaf88bb9f793f24e82ed8904e2927e2f26b63a91dcddf346ace5b5",
+  "schemaVersion": "1.1.0"
+}
