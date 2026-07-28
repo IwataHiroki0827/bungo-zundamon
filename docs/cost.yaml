@@ -435,3 +435,10 @@ entries:
   agents: 2
   est_tokens: 18000
   note: FinalCatalogのみで固定v0.3.0へF004 3作品を統合。3作者・12作品・674台詞・662音声、694 content/697 distを再現し、作者内作品順・全asset・既存projection・画像reuse新規0・public差分0を確認。全57ファイル931試験、型、lint、build、独立受入High/Medium/Low 0でPASS
+- date: '2026-07-29'
+  phase: test
+  task: T-060 F004 UT・IT・QT・4環境・権利・容量受入
+  model: GPT-5
+  agents: 2
+  est_tokens: 26000
+  note: 全169 suites/935 tests、F004結合47 suites/252 tests、4環境93 pass/意図的skip 3/fail 0、公式権利unchanged、追加音声65,195,572 bytes、Pages 229,935,951 bytes、依存脆弱性0を同一exact候補へ結合。trace漏れ0・public差分0・独立受入High/Medium/Low 0でPASSし、CHG-F004-001/002をdoneへ閉じた

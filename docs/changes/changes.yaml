@@ -554,8 +554,10 @@ changes:
   - T-060
   - T-061
   - T-062
-  status: in-review
+  status: done
   approved_by: ユーザーの本会話での直接要望と包括承認（2026-07-27）
+  completed_at: '2026-07-29T03:10:00+09:00'
+  result: Q-023承認、SRS/FD/DD/UT/IT/QT更新、T-062実装、T-060影響試験を完了。全935試験、4環境93 pass、storage・CSP・外部通信・公開6 routeを独立受入High/Medium/Low 0でPASS
 - id: CHG-F004-002
   date: '2026-07-27'
   trigger: F004試験仕様レビューでdeploy変数無効化自体の失敗・process停止時oracle不足を検出
@@ -569,5 +571,7 @@ changes:
   - T-053
   - T-060
   - T-061
-  status: in-review
+  status: done
   approved_by: 既存REQ-F004-017を変更しないfail-closed回復契約の補強
+  completed_at: '2026-07-29T03:10:00+09:00'
+  result: 設計・試験仕様再レビューとdeploy-disable pre-arm/read-back/CAS/別process回復の自動試験を完了。T-060全回帰・trace_check・独立受入をPASS

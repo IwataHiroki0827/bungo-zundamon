@@ -39,6 +39,7 @@ blocked_by: []
 - T-058で「カイロ団長」102候補を独立二重レビューと第三裁定により99採用・3除外・保留0へ確定した。99台詞を97 WAV・32,425,132 bytesへ結合し、全3作品を含む694ファイルpreviewとjournal付きatomic受入で`001918=accepted`へ昇格した。全930試験と独立受入をPASSし、public差分0を確認した。
 - T-059で全3作品をFinalCatalogへ統合し、3作者・12作品・674台詞・662音声、694 contentファイル、697 distファイルを再現した。宮沢作品順、固定v0.3.0既存projection、全asset、既存画像reuse新規0、public差分0を確認し、全931試験と独立受入High/Medium/Low 0をPASSした。
 - T-060でUT 169 suites/935 tests、F004結合47 suites/252 tests、4環境93 pass・意図的skip 3・fail 0を完了した。最新公式書誌で対象3作品の権利unchanged、追加音声65,195,572 bytes、Pages候補229,935,951 bytes、Git 264,141,895 bytes、依存脆弱性0を同一exact候補へ結合し、trace漏れ0・public差分0・独立受入High/Medium/Low 0をPASSした。
+- CHG-F004-001/002は要求承認、設計・試験仕様再レビュー、実装、T-060影響試験がすべて完了したため`done`へ閉じた。
 
 ## 直近の作業（最新5件）
 
