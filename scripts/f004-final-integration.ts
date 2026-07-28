@@ -89,6 +89,37 @@ async function main(): Promise<void> {
     ),
     loadPublishedV030Baseline(workspace, F004_V030_PINS),
   ]);
+  const artworkReusePath = join(workspace, ...manifest.artworkProvenanceRef.split('/'));
+  const artworkReuseBytes = await readFile(artworkReusePath);
+  const artworkReuse = JSON.parse(artworkReuseBytes.toString('utf8')) as {
+    readonly schemaVersion: string;
+    readonly batchId: string;
+    readonly authorId: string;
+    readonly newArtworkEntries: number;
+    readonly reuse: {
+      readonly introducedByBatchId: string;
+      readonly sourceProvenanceRef: string;
+      readonly sourceProvenanceSha256: string;
+      readonly output: { readonly path: string; readonly sha256: string };
+      readonly credit: string;
+    };
+  };
+  const sourceArtworkProvenance = await readFile(
+    join(workspace, ...artworkReuse.reuse.sourceProvenanceRef.split('/')),
+  );
+  if (canonicalJson(artworkReuse) !== artworkReuseBytes.toString('utf8') ||
+    artworkReuse.schemaVersion !== '1.0.0' ||
+    artworkReuse.batchId !== BATCH_ID ||
+    artworkReuse.authorId !== baseline.artwork.authorId ||
+    artworkReuse.newArtworkEntries !== 0 ||
+    artworkReuse.reuse.introducedByBatchId !== baseline.artwork.introducedByBatchId ||
+    artworkReuse.reuse.sourceProvenanceRef !== 'content/batches/F002/artwork-provenance.json' ||
+    artworkReuse.reuse.sourceProvenanceSha256 !== sha(sourceArtworkProvenance) ||
+    artworkReuse.reuse.output.path !== baseline.artwork.path ||
+    artworkReuse.reuse.output.sha256 !== baseline.artwork.sha256 ||
+    artworkReuse.reuse.credit !== baseline.artwork.credit) {
+    throw new Error('F004既存画像reuse証跡が固定v0.3.0と一致しません');
+  }
 
   const temporaryInput = await mkdtemp(join(workspace, '.cache', 'f004-final-input-'));
   const finalRoot = await mkdtemp(join(workspace, '.cache', 'f004-final-integration-'));

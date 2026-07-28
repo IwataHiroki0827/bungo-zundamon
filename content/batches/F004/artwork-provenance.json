@@ -1,0 +1,16 @@
+{
+  "authorId": "000081",
+  "batchId": "F004",
+  "newArtworkEntries": 0,
+  "reuse": {
+    "credit": "宮沢賢治ずんだもん：OpenAI built-in image_genによる独自生成（入力画像なし）",
+    "introducedByBatchId": "F002",
+    "output": {
+      "path": "artwork/miyazawa-zundamon.png",
+      "sha256": "6c059a93f09608bdba9a4dbe8b5b0af0b0b901b7dd7e4b2184cca4093110e087"
+    },
+    "sourceProvenanceRef": "content/batches/F002/artwork-provenance.json",
+    "sourceProvenanceSha256": "3646abc02704c0e3817850ec2a04f7f52bed539274d8a8c6286102cbee8897ad"
+  },
+  "schemaVersion": "1.0.0"
+}
