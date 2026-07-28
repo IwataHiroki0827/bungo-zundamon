@@ -665,7 +665,20 @@ export function selectBatchWorks(
 function rightsComparable(observation: WorkRightsObservation): string {
   // 公式拡充CSVは全作家・全作品を含むため、対象外の更新でもfile SHAは変化する。
   // deploy可否はmanifestで選定した作品の権利行だけを比較し、新旧file SHAは観測証跡として保持する。
-  return JSON.stringify({ works: observation.works });
+  // artifactのcanonical key順とruntime生成objectの挿入順に判定を左右させない。
+  return JSON.stringify(observation.works.map((work) => [
+    work.workId,
+    work.title,
+    work.personId,
+    work.personCopyright,
+    work.workCopyright,
+    work.role,
+    work.translatorPresent,
+    work.status,
+    work.orthography,
+    work.cardUrl,
+    work.sourceUrl,
+  ]));
 }
 
 function validSelectionObservation(selection: WorkRightsObservation, manifest: BatchSelectionManifest): boolean {

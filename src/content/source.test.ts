@@ -382,9 +382,27 @@ describe('原典選定・取得・由来', () => {
   it('deploy直前に公式書誌を再取得しselectionと同じrelease commit/runへ結合する', async () => {
     const rows = miyazawaRows();
     const raw = bibliographyCsv(rows);
-    const selection = selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
+    const generatedSelection = selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
       sha256: hash(raw),
     }).observation;
+    const selection: WorkRightsObservation = {
+      bibliographySha256: generatedSelection.bibliographySha256,
+      observedAt: generatedSelection.observedAt,
+      phase: generatedSelection.phase,
+      works: generatedSelection.works.map((work) => ({
+        cardUrl: work.cardUrl,
+        orthography: work.orthography,
+        personCopyright: work.personCopyright,
+        personId: work.personId,
+        role: work.role,
+        sourceUrl: work.sourceUrl,
+        status: work.status,
+        title: work.title,
+        translatorPresent: work.translatorPresent,
+        workCopyright: work.workCopyright,
+        workId: work.workId,
+      })),
+    };
     const { transport, socket } = productionTransport({
       status: 200,
       headers: { 'content-type': 'application/zip' },
