@@ -25,10 +25,12 @@ async function openAuthor(
 test('お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する', async ({ page }) => {
   await openAuthor(page, 'miyazawa-zunji');
   const first = page.locator('.dialogue-card').first();
-  const favorite = first.getByRole('button', { name: 'お気に入りに追加' });
+  const favorite = first.locator('.favorite-button');
+  await expect(favorite).toHaveAccessibleName('お気に入りに追加');
   await expect(favorite).toHaveAttribute('aria-pressed', 'false');
   await favorite.click();
   await expect(favorite).toHaveAttribute('aria-pressed', 'true');
+  await expect(favorite).toHaveAccessibleName('お気に入りから削除');
   expect(await page.evaluate(() => window.__audioFetches)).toEqual([]);
   await expect.poll(async () => page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY))
     .toContain('"version":1');
@@ -62,10 +64,13 @@ test('複数作者をCatalog順に一覧化し、元作品へ一度だけ展開�
   await expect(items.nth(0).locator('.favorite-author')).toHaveText('あくたがわずんのすけ');
   await expect(items.nth(1).locator('.favorite-author')).toHaveText('みやざわずんじ');
 
-  await items.nth(1).getByRole('link', { name: '元作品を開く' }).click();
+  const targetDialogueId = await items.nth(1).getAttribute('data-dialogue-id');
+  expect(targetDialogueId).not.toBeNull();
+  await items.nth(1).getByRole('link', { name: '元の作品へ移動' }).click();
   await expect(page.locator('[data-page="author"]')).toHaveAttribute('data-author-id', '000081');
   await expect(page.locator('.work-panel[open]')).toHaveCount(1);
-  await expect(page.locator('.work-panel[open] .favorite-button:focus')).toHaveCount(1);
+  await expect(page.locator('.work-panel[open] .dialogue-card:focus'))
+    .toHaveAttribute('data-dialogue-id', targetDialogueId!);
 
   await page.reload();
   await waitForRouteReady(page);
@@ -89,7 +94,7 @@ test('破損・重複・未知IDを正規化し、storage書込失敗時もmemor
   await page.getByRole('link', { name: 'お気に入り', exact: true }).click();
   await expect(page.locator('.favorite-item')).toHaveCount(1);
 
-  await page.addInitScript((key) => {
+  await page.evaluate((key) => {
     const original = Storage.prototype.setItem;
     Storage.prototype.setItem = function setItem(name: string, value: string): void {
       if (name === key) throw new DOMException('quota injected', 'QuotaExceededError');
@@ -100,7 +105,8 @@ test('破損・重複・未知IDを正規化し、storage書込失敗時もmemor
   await waitForRouteReady(page);
   await expandFirstWork(page);
   await page.locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' }).click();
-  await expect(page.locator('.favorite-persistence-status')).toContainText('このタブ内');
+  await expect(page.locator('.favorite-persistence-status'))
+    .toContainText('このページを開いている間だけ保持');
   await page.getByRole('link', { name: 'お気に入り', exact: true }).click();
   await expect(page.locator('.favorite-item')).toHaveCount(2);
 });

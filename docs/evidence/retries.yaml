@@ -237,3 +237,53 @@ attempts:
   recovery: RuntimeAcceptance schema 1.1で4 browser raw report・test source・clean commit・public/distをhash結合し、独立再受入High/Medium/Low
     0
   log: docs/evidence/it/IT-F003-runtime-attempt-8-result.md
+- date: '2026-07-29T02:23:57+09:00'
+  feature: F004
+  scope: IT-browser-favorites
+  attempt: 1
+  command: playwright favorites.spec.ts Chromium
+  result: fail
+  failures: 3
+  cause: label変更後も旧accessible nameでlocatorを絞ったこと、リンク表示名の誤期待、同一documentのhash遷移前にaddInitScriptでquota注入したことによる試験実装の不一致
+  recovery: 安定class locatorでlabelとariaを別検証し、実装済み表示名へ同期、現documentのStorage prototypeへquota faultを注入してattempt 2を実施
+  log: docs/evidence/it/IT-F004-favorites-chromium-attempt-1.json
+- date: '2026-07-29T02:24:58+09:00'
+  feature: F004
+  scope: IT-browser-favorites
+  attempt: 2
+  command: playwright favorites.spec.ts Chromium
+  result: fail
+  failures: 2
+  cause: 実装・unit契約どおり対象dialogue cardへfocus済みなのに子のお気に入りbuttonを期待し、memory fallbackの実表示文とも不一致だった
+  recovery: activeなdialogue cardを検証し、memory modeの固定表示文へ同期してattempt 3を実施
+  log: docs/evidence/it/IT-F004-favorites-chromium-attempt-2.json
+- date: '2026-07-29T02:25:36+09:00'
+  feature: F004
+  scope: IT-browser-favorites
+  attempt: 3
+  command: playwright favorites.spec.ts Chromium
+  result: pass
+  failures: 0
+  cause: none
+  recovery: attempt 1・2の試験実装を実装済みDOM・focus・memory契約へ同期
+  log: docs/evidence/it/IT-F004-favorites-chromium-attempt-3.json
+- date: '2026-07-29T02:28:09+09:00'
+  feature: F004
+  scope: IT
+  attempt: 1
+  command: F004結合範囲Vitest
+  result: pass
+  failures: 0
+  cause: none
+  recovery: none
+  log: docs/evidence/it/IT-F004-vitest-attempt-1.json
+- date: '2026-07-29T02:29:02+09:00'
+  feature: F004
+  scope: IT-browser-favorites
+  attempt: 4
+  command: playwright favorites.spec.ts Chromium
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 独立受入Low指摘を反映し、one-shot focusを対象dialogue IDへ直接結合
+  log: docs/evidence/it/IT-F004-favorites-chromium-attempt-4.json

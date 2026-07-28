@@ -1,0 +1,395 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/e2e/favorites.spec.ts",
+      "--project=chromium-pages-preview",
+      "--reporter=json"
+    ],
+    "configFile": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\playwright.config.ts",
+    "rootDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-pages-preview",
+        "name": "chromium-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-pages-preview",
+        "name": "firefox-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-pages-preview",
+        "name": "webkit-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-equivalent-pages-preview",
+        "name": "android-equivalent-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-stable-pages-preview",
+        "name": "chrome-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge-stable-pages-preview",
+        "name": "edge-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4201",
+      "url": "http://127.0.0.1:4201/bungo-zundamon/",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "favorites.spec.ts",
+      "file": "favorites.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6393,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\nExpected: \u001b[32m\"true\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\nExpected: \u001b[32m\"true\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\u001b[22m\n\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts:31:26",
+                    "location": {
+                      "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                      "column": 26,
+                      "line": 31
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 29 |\u001b[39m   \u001b[36mawait\u001b[39m expect(favorite)\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-pressed'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'false'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 30 |\u001b[39m   \u001b[36mawait\u001b[39m favorite\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m   \u001b[36mawait\u001b[39m expect(favorite)\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-pressed'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'true'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m window\u001b[33m.\u001b[39m__audioFetches))\u001b[33m.\u001b[39mtoEqual([])\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m expect\u001b[33m.\u001b[39mpoll(\u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m page\u001b[33m.\u001b[39mevaluate((key) \u001b[33m=>\u001b[39m localStorage\u001b[33m.\u001b[39mgetItem(key)\u001b[33m,\u001b[39m \u001b[33mSTORAGE_KEY\u001b[39m))\n \u001b[90m 34 |\u001b[39m     \u001b[33m.\u001b[39mtoContain(\u001b[32m'\"version\":1'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                        "column": 26,
+                        "line": 31
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\nExpected: \u001b[32m\"true\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' })\u001b[22m\n\n\n  29 |   await expect(favorite).toHaveAttribute('aria-pressed', 'false');\n  30 |   await favorite.click();\n> 31 |   await expect(favorite).toHaveAttribute('aria-pressed', 'true');\n     |                          ^\n  32 |   expect(await page.evaluate(() => window.__audioFetches)).toEqual([]);\n  33 |   await expect.poll(async () => page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY))\n  34 |     .toContain('\"version\":1');\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts:31:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:22:19.135Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する-chromium-pages-preview\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                    "column": 26,
+                    "line": 31
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-29ee3cb3c6baf09067dc",
+          "file": "favorites.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 30752,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                        "column": 60,
+                        "line": 65
+                      },
+                      "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.favorite-item').nth(1).getByRole('link', { name: '元作品を開く' })\u001b[22m\n\n\n  63 |   await expect(items.nth(1).locator('.favorite-author')).toHaveText('みやざわずんじ');\n  64 |\n> 65 |   await items.nth(1).getByRole('link', { name: '元作品を開く' }).click();\n     |                                                            ^\n  66 |   await expect(page.locator('[data-page=\"author\"]')).toHaveAttribute('data-author-id', '000081');\n  67 |   await expect(page.locator('.work-panel[open]')).toHaveCount(1);\n  68 |   await expect(page.locator('.work-panel[open] .favorite-button:focus')).toHaveCount(1);\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts:65:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:22:26.868Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする-chromium-pages-preview\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-43781f05569779cd682d",
+          "file": "favorites.spec.ts",
+          "line": 54,
+          "column": 1
+        },
+        {
+          "title": "破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7288,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.favorite-persistence-status')\nExpected substring: \u001b[32m\"このタブ内\"\u001b[39m\nReceived string:    \u001b[31m\"お気に入りはこの端末内に保存されます。\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.favorite-persistence-status')\u001b[22m\n\u001b[2m    14 × locator resolved to <p aria-live=\"polite\" data-persistence=\"local-storage\" class=\"favorite-persistence-status\">お気に入りはこの端末内に保存されます。</p>\u001b[22m\n\u001b[2m       - unexpected value \"お気に入りはこの端末内に保存されます。\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.favorite-persistence-status')\nExpected substring: \u001b[32m\"このタブ内\"\u001b[39m\nReceived string:    \u001b[31m\"お気に入りはこの端末内に保存されます。\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.favorite-persistence-status')\u001b[22m\n\u001b[2m    14 × locator resolved to <p aria-live=\"polite\" data-persistence=\"local-storage\" class=\"favorite-persistence-status\">お気に入りはこの端末内に保存されます。</p>\u001b[22m\n\u001b[2m       - unexpected value \"お気に入りはこの端末内に保存されます。\"\u001b[22m\n\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts:103:62",
+                    "location": {
+                      "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                      "column": 62,
+                      "line": 103
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 101 |\u001b[39m   \u001b[36mawait\u001b[39m expandFirstWork(page)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.dialogue-card'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'お気に入りに追加'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.favorite-persistence-status'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'このタブ内'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'お気に入り'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 105 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.favorite-item'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m2\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 106 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                        "column": 62,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.favorite-persistence-status')\nExpected substring: \u001b[32m\"このタブ内\"\u001b[39m\nReceived string:    \u001b[31m\"お気に入りはこの端末内に保存されます。\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.favorite-persistence-status')\u001b[22m\n\u001b[2m    14 × locator resolved to <p aria-live=\"polite\" data-persistence=\"local-storage\" class=\"favorite-persistence-status\">お気に入りはこの端末内に保存されます。</p>\u001b[22m\n\u001b[2m       - unexpected value \"お気に入りはこの端末内に保存されます。\"\u001b[22m\n\n\n  101 |   await expandFirstWork(page);\n  102 |   await page.locator('.dialogue-card').first().getByRole('button', { name: 'お気に入りに追加' }).click();\n> 103 |   await expect(page.locator('.favorite-persistence-status')).toContainText('このタブ内');\n      |                                                              ^\n  104 |   await page.getByRole('link', { name: 'お気に入り', exact: true }).click();\n  105 |   await expect(page.locator('.favorite-item')).toHaveCount(2);\n  106 | });\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts:103:62"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:22:58.342Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\favorites-破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する-chromium-pages-preview\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\favorites.spec.ts",
+                    "column": 62,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-69f02e5c7139c0b520c4",
+          "file": "favorites.spec.ts",
+          "line": 76,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-28T17:22:18.335Z",
+    "duration": 47957.455,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
