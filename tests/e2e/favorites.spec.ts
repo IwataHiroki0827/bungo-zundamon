@@ -18,7 +18,12 @@ async function openAuthor(
   await page.goto(`#/authors/${slug}`);
   await waitForRouteReady(page);
   await expect(page.locator('.work-panel[open]')).toHaveCount(0);
-  await expandFirstWork(page);
+  const firstWork = page.locator('.work-panel').first();
+  const summary = firstWork.locator('summary');
+  await summary.focus();
+  await expect(summary).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(firstWork).toHaveAttribute('open', '');
 }
 
 // @it IT-F004-009 @it IT-F004-011 @qt QT-F004-015

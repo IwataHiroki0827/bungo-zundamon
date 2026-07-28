@@ -1,0 +1,1033 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=android-equivalent-pages-preview",
+      "--reporter=json"
+    ],
+    "configFile": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\playwright.config.ts",
+    "rootDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-pages-preview",
+        "name": "chromium-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-pages-preview",
+        "name": "firefox-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-pages-preview",
+        "name": "webkit-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-equivalent-pages-preview",
+        "name": "android-equivalent-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-stable-pages-preview",
+        "name": "chrome-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge-stable-pages-preview",
+        "name": "edge-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4217",
+      "url": "http://127.0.0.1:4217/bungo-zundamon/",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "audio-and-isolation.spec.ts",
+      "file": "audio-and-isolation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2762,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:16.429Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-82e957468de34a4c0fe6",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3503,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:19.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-877bf1db763e54ecec67",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2156,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:23.470Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-294bc0ede3041f150e0f",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "f002-multi-author.spec.ts",
+      "file": "f002-multi-author.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "CatalogV2の3作者12作品674台詞を所属分離し、作者間の往復を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2980,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:25.653Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-9121019deeb4658b5fae",
+          "file": "f002-multi-author.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3370,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:28.639Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b14b67677fb00c161abb",
+          "file": "f002-multi-author.spec.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1157,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:32.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-209c02c241a2fb58509d",
+          "file": "f002-multi-author.spec.ts",
+          "line": 115,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1086,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:33.182Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-96fa45d2af93869996ba",
+          "file": "f002-multi-author.spec.ts",
+          "line": 115,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1544,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:34.274Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-f0b83dc6c2986ad3135d",
+          "file": "f002-multi-author.spec.ts",
+          "line": 115,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 823,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:35.824Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-5d03fd0d66b82e18f55f",
+          "file": "f002-multi-author.spec.ts",
+          "line": 139,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 838,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:36.652Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-c426cfee35332d79ee96",
+          "file": "f002-multi-author.spec.ts",
+          "line": 156,
+          "column": 1
+        },
+        {
+          "title": "3作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:37.496Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-9a4e61685501211b845d",
+          "file": "f002-multi-author.spec.ts",
+          "line": 183,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "favorites.spec.ts",
+      "file": "favorites.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3087,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:38.510Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-ad7fce46f34a30b20f47",
+          "file": "favorites.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:41.602Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-d5337f65f02ec9538a64",
+          "file": "favorites.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2214,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:45.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-58d28b61cfd14829b6ec",
+          "file": "favorites.spec.ts",
+          "line": 86,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "navigation-and-delivery.spec.ts",
+      "file": "navigation-and-delivery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 945,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:47.466Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-8bd6353c3c81a96a4cc5",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 254,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:48.416Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-4ec05893c1965764ae00",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "全asset実体照合はChromiumで一度だけ実行する",
+                  "location": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\navigation-and-delivery.spec.ts",
+                    "line": 44,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 141,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:48.675Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "全asset実体照合はChromiumで一度だけ実行する",
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\navigation-and-delivery.spec.ts",
+                        "line": 44,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-8c4d7e65b97346fb5a81",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 43,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "responsive-accessibility-security.spec.ts",
+      "file": "responsive-accessibility-security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 816,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:48.829Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-87bcf9bba9d647e70b7b",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 716,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:49.649Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-2cd96fa2ffa6105310d3",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1085,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:50.370Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-c747d8a83936e9eb5847",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1175,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:51.460Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-fe9683874089abdb0e81",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 51,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 816,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:52.642Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-b2f7c2d4cddfaefc3a55",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 78,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1197,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:53.463Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-73c897be49be2dd8a5f5",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-equivalent-pages-preview",
+              "projectName": "android-equivalent-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3404,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:40:54.665Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-01fcaf62b931b5e257bd",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 137,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-28T17:40:15.601Z",
+    "duration": 42895.86,
+    "expected": 23,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

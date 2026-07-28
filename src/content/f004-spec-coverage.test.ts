@@ -45,7 +45,7 @@ const UT_MAP: Readonly<Record<string, readonly string[]>> = {
 const IT_MAP: Readonly<Record<string, readonly string[]>> = {
   'IT-F004-001': ['src/content/f004-approved-context.test.ts', 'src/content/batch-candidate.test.ts'],
   'IT-F004-002': ['src/content/f004-baseline.test.ts', 'src/content/batch-public.test.ts'],
-  'IT-F004-003': ['src/content/f004-source.test.ts'],
+  'IT-F004-003': ['src/content/f004-source.test.ts', 'scripts/f004-predeploy-rights.ts'],
   'IT-F004-004': ['src/content/f004-editorial.test.ts'],
   'IT-F004-005': ['src/content/f004-voice.test.ts'],
   'IT-F004-006': ['src/content/f004-acceptance.test.ts', 'src/content/batch-catalog.test.ts'],
@@ -63,12 +63,16 @@ const IT_MAP: Readonly<Record<string, readonly string[]>> = {
 const QT_MAP: Readonly<Record<string, readonly string[]>> = {
   'QT-F004-001': ['src/content/f004-baseline.test.ts'],
   'QT-F004-002': ['src/content/f004-approved-context.test.ts', 'src/content/batch-candidate.test.ts'],
-  'QT-F004-003': ['src/content/f004-source.test.ts'],
+  'QT-F004-003': ['src/content/f004-source.test.ts', 'scripts/f004-predeploy-rights.ts'],
   'QT-F004-004': ['src/content/f004-editorial.test.ts'],
   'QT-F004-005': ['src/content/f004-editorial.test.ts'],
   'QT-F004-006': ['src/content/f004-editorial.test.ts', 'src/content/batch-catalog.test.ts'],
   'QT-F004-007': ['src/content/f004-voice.test.ts'],
-  'QT-F004-008': ['src/content/f004-voice.test.ts', 'src/voice/capacity-v2.test.ts'],
+  'QT-F004-008': [
+    'src/content/f004-voice.test.ts',
+    'src/voice/capacity-v2.test.ts',
+    'scripts/f004-release-capacity.ts',
+  ],
   'QT-F004-009': ['src/content/f004-acceptance.test.ts'],
   'QT-F004-010': ['src/content/batch-catalog.test.ts', 'src/content/batch-public.test.ts'],
   'QT-F004-011': ['src/main.test.ts', 'tests/e2e/audio-and-isolation.spec.ts'],

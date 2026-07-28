@@ -307,3 +307,53 @@ attempts:
   cause: none
   recovery: attempt 1の旧Catalog期待とbutton名検査をF004へ同期
   log: docs/evidence/it/IT-F004-chromium-attempt-2.json
+- date: '2026-07-29T02:37:40+09:00'
+  feature: F004
+  scope: IT-browser-webkit
+  attempt: 1
+  command: playwright WebKit full suite
+  result: fail
+  failures: 1
+  cause: 2作者目の展開時にWebKitのpointer hit-testがsticky header・隣接workへ揺れ、summary clickがtimeoutした
+  recovery: お気に入りシナリオの展開をfocus＋Enterのkeyboard操作へ固定し、アプリ状態とWebKit固有pointer配置を分離して再試行
+  log: docs/evidence/it/IT-F004-webkit-attempt-1.json
+- date: '2026-07-29T02:35:22+09:00'
+  feature: F004
+  scope: IT-browser-firefox
+  attempt: 1
+  command: playwright Firefox full suite
+  result: pass
+  failures: 0
+  cause: none
+  recovery: none
+  log: docs/evidence/it/IT-F004-firefox-attempt-1.json
+- date: '2026-07-29T02:38:26+09:00'
+  feature: F004
+  scope: IT-browser-webkit-favorites
+  attempt: 2
+  command: playwright WebKit favorites suite
+  result: pass
+  failures: 0
+  cause: none
+  recovery: keyboard展開へ固定後の失敗シナリオ3件を先行再検証
+  log: docs/evidence/it/IT-F004-webkit-favorites-attempt-2.json
+- date: '2026-07-29T02:40:02+09:00'
+  feature: F004
+  scope: IT-browser-webkit
+  attempt: 3
+  command: playwright WebKit full suite
+  result: pass
+  failures: 0
+  cause: none
+  recovery: attempt 1のpointer hit-test揺れをkeyboard操作へ分離
+  log: docs/evidence/it/IT-F004-webkit-attempt-3.json
+- date: '2026-07-29T02:40:58+09:00'
+  feature: F004
+  scope: IT-browser-android
+  attempt: 1
+  command: playwright Android equivalent full suite
+  result: pass
+  failures: 0
+  cause: none
+  recovery: none
+  log: docs/evidence/it/IT-F004-android-attempt-1.json

@@ -1,0 +1,268 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/e2e/favorites.spec.ts",
+      "--project=webkit-pages-preview",
+      "--reporter=json"
+    ],
+    "configFile": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\playwright.config.ts",
+    "rootDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-pages-preview",
+        "name": "chromium-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-pages-preview",
+        "name": "firefox-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-pages-preview",
+        "name": "webkit-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-equivalent-pages-preview",
+        "name": "android-equivalent-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-stable-pages-preview",
+        "name": "chrome-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge-stable-pages-preview",
+        "name": "edge-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4215",
+      "url": "http://127.0.0.1:4215/bungo-zundamon/",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "favorites.spec.ts",
+      "file": "favorites.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6893,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:38:08.039Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-a3e627280408b6b733ba",
+          "file": "favorites.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6096,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:38:14.977Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-c50443de2b8fcd95d5b5",
+          "file": "favorites.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-pages-preview",
+              "projectName": "webkit-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:38:21.079Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-c99b7b2f7dc7bb855706",
+          "file": "favorites.spec.ts",
+          "line": 86,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-28T17:38:07.241Z",
+    "duration": 19568.79,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
