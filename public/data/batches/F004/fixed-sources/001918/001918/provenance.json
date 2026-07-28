@@ -1,0 +1,22 @@
+{
+  "baseEdition": "新編　銀河鉄道の夜",
+  "bibliography": {
+    "archiveBytes": 2092313,
+    "archiveSha256": "a60d628c07138fb4f73ec2d777af12acce32582688b838ece3d3a7eaa609876b",
+    "csvBytes": 17155886,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
+    "schemaVersion": "e2eee6da997acefd",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-07-27T14:33:07.419Z",
+  "inputter": "土屋隆",
+  "proofreader": "noriko saito",
+  "sourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/1918_18512.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000081/card1918.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化",
+  "workId": "001918"
+}

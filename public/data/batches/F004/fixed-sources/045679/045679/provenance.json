@@ -1,0 +1,22 @@
+{
+  "baseEdition": "注文の多い料理店",
+  "bibliography": {
+    "archiveBytes": 2092313,
+    "archiveSha256": "a60d628c07138fb4f73ec2d777af12acce32582688b838ece3d3a7eaa609876b",
+    "csvBytes": 17155886,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
+    "schemaVersion": "e2eee6da997acefd",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-07-27T14:33:07.269Z",
+  "inputter": "土屋隆",
+  "proofreader": "田中敬三",
+  "sourceSha256": "560e17f0b40cab7f4623634d0e01dcf183aa248b334dd0e0504b39421c379ad4",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000081/files/45679_22349.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000081/card45679.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLを宣言charsetでdecodeし、「」候補を抽出して表示文・読み上げ文へ決定的に正規化",
+  "workId": "045679"
+}

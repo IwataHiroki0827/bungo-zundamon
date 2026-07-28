@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { mkdtemp, mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -16,6 +17,7 @@ import {
 
 const sourceRoot = resolve(process.cwd());
 const cachedFixtureRoot = resolve(sourceRoot, 'tests/fixtures/f004-acceptance');
+const publishedV030Commit = '79d12825b83459b92da58e14a32f853bae6d92d9';
 const workId = '001918';
 const paths = [
   'content/batches/F004/batch.json',
@@ -124,11 +126,17 @@ async function fixture(): Promise<string> {
   const root = await mkdtemp(join(tmpdir(), 'f004-acceptance-'));
   for (const path of paths) {
     const target = join(root, ...path.split('/'));
-    const source = path.startsWith('.cache/')
-      ? cachedFixturePath(path)
-      : join(sourceRoot, ...path.split('/'));
     await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, await readFile(source));
+    const bytes = path === 'public/content/catalog.json'
+      ? execFileSync(
+        'git',
+        ['show', `${publishedV030Commit}:public/content/catalog.json`],
+        { cwd: sourceRoot, maxBuffer: 16 * 1024 * 1024 },
+      )
+      : await readFile(path.startsWith('.cache/')
+        ? cachedFixturePath(path)
+        : join(sourceRoot, ...path.split('/')));
+    await writeFile(target, bytes);
   }
   const transaction = `.cache/transactions/accepted-audio/F004-${workId}.json`;
   const transactionTarget = join(root, ...transaction.split('/'));
