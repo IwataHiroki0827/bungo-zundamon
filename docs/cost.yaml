@@ -449,3 +449,17 @@ entries:
   agents: 1
   est_tokens: 22000
   note: 公開tree未昇格とCI timeoutを自動検出して修正後、commit f0a2c91をActions run 30390224028で段階公開。公開6 route、初期open 0、お気に入り、3作者・12作品・674台詞・662音声、画像・音声Range、CSP・外部通信をPASSし、deploy変数無効化、manifest published遷移、v0.4.0 tagを完了。公開後全936試験PASS
+- date: '2026-07-29'
+  phase: requirements
+  task: T-063 F005夏目漱石3作品 要求分析
+  model: GPT-5
+  agents: 3
+  est_tokens: 24000
+  note: Tier大の一次情報調査と反証評価で夏目漱石「夢十夜」「倫敦塔」「趣味の遺伝」を確定。REQ 18件・QT 15件、QA未回答0、entity・校正者null・公式注意・規約・容量・追加10作者順位を補強し、最終独立レビューHigh/Medium/Low 0、REQ→QT欠落0でゲート①を通過
+- date: '2026-07-29'
+  phase: setup
+  task: T-064 F005 WBS・実行形態・検証環境
+  model: GPT-5
+  agents: 1
+  est_tokens: 8000
+  note: T-065〜T-075の11タスクへ分解しREQ 18/18をcoverage。既存CLI・VOICEVOX 0.25.2・Playwright 6環境を再利用し追加MCP不要。C:空き56.58 GiBを確認し、typecheck・lint・Vitest 936件・697ファイルbuild・audit 0件をPASS

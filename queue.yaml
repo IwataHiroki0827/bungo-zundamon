@@ -923,3 +923,26 @@ items:
     route・お気に入り・Catalog・画像・音声Range・CSP・外部通信スモークがPASSし、デプロイ変数を閉じてF004 manifestをpublishedへ遷移した。
   release_result: released
   released_at: '2026-07-29T04:08:37+09:00'
+- id: Q-027
+  type: approval
+  status: closed
+  title: F005 要求仕様・適格性試験仕様の承認
+  body: >-
+    夏目漱石「夢十夜」「倫敦塔」「趣味の遺伝」の追加をREQ 18件・QT 15件へ定義した。校正者欄なしのcanonical null、趣味の遺伝XHTMLのnotation_notes内entity正規化、公式表現注意、規約decision allow、容量6区分、初期全閉、お気に入り、独自画像dHash、公開7 route、追加作者10人の再現可能な順位計画を含む。QA未回答0、REQ→QT欠落0、独立レビューHigh/Medium/Low 0である。
+  target: docs/srs/SRS-F005.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、知名度順に10人まで継続、続けて。'
+  created: '2026-07-29T07:42:42+09:00'
+  source: pf-requirements
+  resume:
+    task: T-064
+    next: pf-setup
+  approved_at: '2026-07-29T07:42:42+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T07:42:42+09:00'
+  processed_note: SRS-F005とQT-F005をApprovedへ更新し、T-063を完了。F005をsetupへ移行した。

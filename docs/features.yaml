@@ -19,6 +19,12 @@ features:
 - id: F004
   title: 宮沢賢治「雪渡り」ほか3作品・お気に入り
   branch: feature/F004
-  state: release
+  state: closed
   merge_after:
   - F003
+- id: F005
+  title: 夏目漱石「夢十夜」ほか3作品追加
+  branch: feature/F005
+  state: design
+  merge_after:
+  - F004

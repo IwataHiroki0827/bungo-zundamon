@@ -39,6 +39,9 @@ npm run test:e2e
 - F003音声生成前にはdisk-guardを実行し、追加WAV・Pages artifact・Git object・source repository・作業ドライブを別々に検査する。
 - F004は`npm run content:batch -- --batch F004 --work <WorkID> --stage <stage|all>`を使用し、オツベルと象（`000466`）→雪渡り（`045679`）→カイロ団長（`001918`）の順に作品単位で処理する。
 - F004は公開済みv0.3.0を固定baselineにし、既存宮沢author identity・route・画像をexact再利用する。音声生成前はdisk-guardと既存の容量境界試験を実行する。
+- F005は`npm run content:batch -- --batch F005 --work <WorkID> --stage <stage|all>`を使用し、夢十夜（`000799`）→倫敦塔（`001076`）→趣味の遺伝（`001104`）の順に作品単位で処理する。
+- F005は公開済みv0.4.0を固定baselineにし、`proofreader: null`、趣味の遺伝の固定raw/entity正規化、規約`decision: allow`、容量6区分をfail-closedで検証する。音声生成前はdisk-guardを再実行し、5 GiB未満の見込みなら開始しない。
+- F005のブラウザ受入は既存Playwright設定のChromium・Firefox・WebKit・Pixel 7相当Chromium・Chrome stable・Edge stableの6自動環境を使用し、手動確認を必須証跡にしない。
 
 ## プロジェクト規約
 

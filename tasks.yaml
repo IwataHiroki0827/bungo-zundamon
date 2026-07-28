@@ -89,6 +89,229 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-065
+  title: 機能設計書(FD-F005)を作成しREQ全18件を夏目漱石追加設計へ展開
+  feature: F005
+  phase: design
+  state: doing
+  depends:
+  - T-064
+  tags: &id005
+  - REQ-F005-001
+  - REQ-F005-002
+  - REQ-F005-003
+  - REQ-F005-004
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-010
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  - REQ-F005-014
+  - REQ-F005-015
+  - REQ-F005-016
+  - REQ-F005-017
+  - REQ-F005-018
+  mode: advisor
+  mode_reason: 固定v0.4.0、原典正規化、nullable書誌、容量、UI、権利を単一FDで整合させる逐次設計のため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-066
+  title: 関数設計書(DD-F005)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F005
+  phase: design
+  state: todo
+  depends:
+  - T-065
+  tags: *id005
+  mode: advisor
+  mode_reason: FDからentity正規化、nullable schema、順位計算、画像近似、atomic受入を一貫した関数契約へ逐次展開するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-067
+  title: UT-F005・IT-F005を作成しQT-F005との網羅性を確認
+  feature: F005
+  phase: testspec
+  state: todo
+  depends:
+  - T-066
+  tags: *id005
+  mode: orchestration
+  mode_reason: 原典・権利・容量・Catalog・お気に入り・画像・公開の独立試験領域を並列設計できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-068
+  title: F005候補定義・固定baseline・権利原典・entity正規化基盤を実装
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-067
+  tags:
+  - REQ-F005-001
+  - REQ-F005-002
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-010
+  - REQ-F005-012
+  - REQ-F005-013
+  - REQ-F005-018
+  mode: orchestration
+  mode_reason: baseline、書誌・規約、entity正規化、順位digest、容量forecastを独立実装・検査して統合できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-069
+  title: nullable書誌・夏目Catalog・独自画像・route・お気に入り統合を実装
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-067
+  tags:
+  - REQ-F005-003
+  - REQ-F005-004
+  - REQ-F005-006
+  - REQ-F005-014
+  - REQ-F005-015
+  - REQ-F005-016
+  - REQ-F005-017
+  mode: orchestration
+  mode_reason: schema互換、Catalog projector、画像provenance、route、favorite回帰を独立実装して統合できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-070
+  title: 夢十夜の全候補レビュー・差分音声・作品単位atomic受入
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-068
+  - T-069
+  tags:
+  - REQ-F005-002
+  - REQ-F005-004
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  mode: orchestration
+  mode_reason: 全候補二重判定、読み補正、音声生成、容量、atomic受入を独立検査できる反復作業のため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-071
+  title: 倫敦塔の全候補レビュー・差分音声・作品単位atomic受入
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-070
+  tags:
+  - REQ-F005-002
+  - REQ-F005-004
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  mode: orchestration
+  mode_reason: 先行作品を保護しながら全候補二重判定、音声、容量、atomic受入を独立検査できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-072
+  title: 趣味の遺伝の全候補レビュー・差分音声・作品単位atomic受入
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-071
+  tags:
+  - REQ-F005-002
+  - REQ-F005-004
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-010
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  mode: orchestration
+  mode_reason: entity正規化と公式注意を含む全候補二重判定、音声、容量、atomic受入を独立検査できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-073
+  title: F005最終Catalog統合・固定v0.4.0回帰・公開tree候補を作成
+  feature: F005
+  phase: implement
+  state: todo
+  depends:
+  - T-070
+  - T-071
+  - T-072
+  tags:
+  - REQ-F005-001
+  - REQ-F005-003
+  - REQ-F005-004
+  - REQ-F005-010
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-014
+  - REQ-F005-015
+  - REQ-F005-016
+  - REQ-F005-017
+  mode: advisor
+  mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-074
+  title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
+  feature: F005
+  phase: test
+  state: todo
+  depends:
+  - T-073
+  tags: *id005
+  mode: orchestration
+  mode_reason: ロジック、結合、6ブラウザ環境、権利、容量、securityの独立試験を並列実行できるため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-075
+  title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
+  feature: F005
+  phase: release
+  state: todo
+  depends:
+  - T-074
+  tags: *id005
+  mode: advisor
+  mode_reason: exact候補の版決定、承認、Pages段階公開、rollback、公開後確認を逐次ゲート管理するため
+  model:
+    lead: opus
+    workers: sonnet
 - id: T-005
   title: VOICEVOX音声生成・差分キャッシュ・静的音声資産管理を実装
   feature: F001
@@ -1351,7 +1574,7 @@ tasks:
   title: F005夏目漱石・代表3作品の要求・QT仕様を確定
   feature: F005
   phase: requirements
-  state: doing
+  state: done
   depends:
   - T-061
   tags: []
@@ -1360,3 +1583,38 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-29T07:42:42+09:00'
+  result: 夏目漱石「夢十夜」「倫敦塔」「趣味の遺伝」を確定。REQ 18件・QT 15件・QA未回答0、一次情報調査と独立再レビューHigh/Medium/Low 0、REQ→QT欠落0でゲート①を通過
+- id: T-064
+  title: F005 WBS・実行形態・検証環境を整備
+  feature: F005
+  phase: setup
+  state: done
+  depends:
+  - T-063
+  tags:
+  - REQ-F005-001
+  - REQ-F005-002
+  - REQ-F005-003
+  - REQ-F005-004
+  - REQ-F005-005
+  - REQ-F005-006
+  - REQ-F005-007
+  - REQ-F005-008
+  - REQ-F005-009
+  - REQ-F005-010
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  - REQ-F005-014
+  - REQ-F005-015
+  - REQ-F005-016
+  - REQ-F005-017
+  - REQ-F005-018
+  mode: advisor
+  mode_reason: Approved要求を既存pipelineの再利用範囲とF005固有変更へ分解し、依存・検証コマンド・容量条件を一貫して整備するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-29T07:48:18+09:00'
+  result: T-065〜T-075の11タスクへ分解しREQ 18/18をcoverage。既存CLI・VOICEVOX 0.25.2・Playwright 6環境を再利用し追加MCP不要。型・lint・936 tests・697 files build・audit 0をPASS
