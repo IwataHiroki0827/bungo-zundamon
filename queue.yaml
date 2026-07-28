@@ -969,3 +969,26 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-29T08:20:00+09:00'
   processed_note: CHG-F005-001を承認し、SRS-F005/QT-F005をv1.1.0へ改訂してF005設計を継続した。
+- id: Q-029
+  type: approval
+  status: closed
+  title: CHG-F005-001 容量観測QT明確化の承認
+  body: >-
+    QT-F005-008のETW/IPC片側eventを分離し、notice-onlyはclose拒否、登録Job PID・active phase・既知eventのETW-only低レベルeventはactualへ算入してclose可能とする。要求目的・収録作品・容量停止境界は変更しない。
+  target: docs/changes/CHG-F005-001.md
+  target_mode: reference
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+  created: '2026-07-29T08:52:01+09:00'
+  source: pf-change
+  resume:
+    task: T-065
+    next: pf-design
+  approved_at: '2026-07-29T08:52:01+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T08:52:01+09:00'
+  processed_note: QT-F005をv1.2.0へ改訂し、ETW正本の容量観測契約を明確化してF005設計を継続した。

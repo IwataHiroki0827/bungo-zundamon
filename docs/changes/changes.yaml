@@ -102,7 +102,7 @@ changes:
   - T-074
   - T-075
   status: in-review
-  approved_by: Q-028 承認（包括承認）
+  approved_by: Q-028/Q-029 承認（包括承認）
 - id: CHG-F002-001
   date: '2026-07-20'
   trigger: F002テスト仕様レビューパネルでcandidate証跡結合、atomic crash oracle、境界定数、release再実測、CI pin、published永続化の不足を検出
