@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "introduce",
+  "batchId": "F005",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F005",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+      "order": 1,
+      "title": "夢十夜",
+      "workId": "000799",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+      "order": 2,
+      "title": "倫敦塔",
+      "workId": "001076",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+      "order": 3,
+      "title": "趣味の遺伝",
+      "workId": "001104",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html"
+    }
+  ]
+}
