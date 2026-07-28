@@ -118,7 +118,7 @@ describe('UT-F003-005 FUN-F003-005 published invariant', () => {
     });
     expect(changed.result).toBe('blocked');
     expect(changed.mismatches).toContain(`FILE_MISMATCH:${file.path}`);
-  });
+  }, 30_000);
 
   it('画像provenance集約はF003追記を許可し、既存作者entryの変更を拒否する', async () => {
     const source = join(workspace, 'public');

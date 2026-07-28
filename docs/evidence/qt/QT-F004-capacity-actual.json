@@ -6,18 +6,18 @@
     "distFiles": 697,
     "distMetadataSha256": "7a83a3828d2152093b177ba9a8a57f99c2e5591522723687d8ddd2304ec929a3",
     "distSha256": "c542f435f0adb27cd253788680b58baf102f61fbec33a91d73087bb07d40b8b9",
-    "finalIntegrationReportSha256": "1bb015042957d2409c4848c497780259cc7971f425472d7cafd232bae269af61"
+    "finalIntegrationReportSha256": "7f1a93745aca00399efc5b1febcabcc4b5a708fb424bf2dc38eb56a724951c50"
   },
   "kind": "f004-release-capacity-evidence",
   "measurements": {
     "additionalAudioBytes": 65195572,
     "additionalAudioFiles": 199,
-    "freeBytes": 65450430464,
+    "freeBytes": 63244357632,
     "liveWriteUpperBounds": 229935951,
-    "measuredGitObjects": 3697,
-    "repositoryNonObjectBytes": 343099,
-    "repositoryNonObjectFiles": 61,
-    "rollbackBackupBytes": 164232398
+    "measuredGitObjects": 3747,
+    "repositoryNonObjectBytes": 376323,
+    "repositoryNonObjectFiles": 63,
+    "rollbackBackupBytes": 229844709
   },
   "phase": "release",
   "report": {
@@ -36,7 +36,7 @@
     },
     "reasons": [],
     "repository": {
-      "bytes": 264474857,
+      "bytes": 264588790,
       "limit": 1000000000,
       "status": "pass",
       "warning": 750000000
@@ -49,13 +49,13 @@
       "status": "pass"
     },
     "workDrive": {
-      "bytes": 65450430464,
-      "required": 461277213,
+      "bytes": 63244357632,
+      "required": 526889524,
       "status": "pass"
     },
     "workId": "001918"
   },
   "result": "pass",
   "schemaVersion": "1.0.0",
-  "sourceCommit": "4e136b7fa00600de21b714ea5883ac1cad87382a"
+  "sourceCommit": "19759e2ec5fe2b3969fb19f522b8351d0e587551"
 }
