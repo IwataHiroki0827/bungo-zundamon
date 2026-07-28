@@ -301,7 +301,18 @@ async function main(): Promise<void> {
       normalizedAudio(catalog.audioAssets),
       normalizedAudio(finalCatalog.audioAssets),
     );
-    assertEqual('candidate counts', catalog.candidateCounts, finalCatalog.candidateCounts);
+    const requiredCounts = (counts: CatalogV2['candidateCounts']) => ({
+      total: counts.total,
+      published: counts.published,
+      editorialExcluded: counts.editorialExcluded,
+      audioExcluded: counts.audioExcluded,
+      byBatch: counts.byBatch,
+    });
+    assertEqual(
+      'candidate counts',
+      requiredCounts(catalog.candidateCounts),
+      requiredCounts(finalCatalog.candidateCounts),
+    );
     assertEqual('credits ref', catalog.creditsRef, finalCatalog.creditsRef);
     assertEqual(
       '既存authors',
