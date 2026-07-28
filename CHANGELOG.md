@@ -2,6 +2,20 @@
 
 このファイルは文豪ずんだもんの公開版における主な変更を記録する。
 
+## [0.4.0] - 2026-07-29
+
+### 追加
+
+- 宮沢賢治へ「オツベルと象」「雪渡り」「カイロ団長」を追加し、公開内容を3作者・12作品・674台詞・音声662件へ拡充。
+- 全公開台詞を端末内へ保存し、作者をまたいで見返せるお気に入り画面を追加。
+- お気に入りの空状態、登録・解除、再読込後の保持、破損データ・容量超過時の安全な回復を追加。
+
+### 品質確認
+
+- Vitest 935件、Chromium・Firefox・WebKit・Android相当のPlaywright自動試験、型検査、lint、production build、依存脆弱性検査を実行。
+- 公開6 route、宮沢賢治6作品と他作者各3作品、全作品の初期閉状態、画像、音声Range、CSP、外部通信0件を自動確認。
+- 青空文庫の権利情報、公開容量、固定v0.3.0 baseline、hosted artifactをリリース候補commitへ結合。
+
 ## [0.3.0] - 2026-07-26
 
 ### 追加
@@ -68,6 +82,7 @@
 
 - 初回公開smokeで検出した、モバイル幅のクレジット画面でSHA-256文字列が横スクロールを発生させる問題を修正。
 
+[0.4.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.4.0
 [0.3.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.3.0
 [0.2.1]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.2.1
 [0.2.0]: https://github.com/IwataHiroki0827/bungo-zundamon/releases/tag/v0.2.0
