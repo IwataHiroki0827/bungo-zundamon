@@ -23,6 +23,7 @@ import {
 
 const execFile = promisify(execFileCallback);
 const EVIDENCE_PATH = 'docs/evidence/qt/QT-F004-rights-predeploy.json';
+const CAPACITY_EVIDENCE_PATH = 'docs/evidence/qt/QT-F004-capacity-actual.json';
 const CANDIDATE_PATH = '.cache/batch-release/F004/candidate-paths.json';
 
 function sha256(value: string | Uint8Array): string {
@@ -34,6 +35,12 @@ async function readCanonical<T>(workspace: string, path: string): Promise<{ text
   const value = JSON.parse(text) as T;
   if (canonicalJson(value) !== text) throw new Error(`${path}がcanonical JSONではありません`);
   return { text, value };
+}
+
+function unexpectedStatus(status: string): string[] {
+  const allowed = new Set([EVIDENCE_PATH, CAPACITY_EVIDENCE_PATH]);
+  return status.split(/\r?\n/u).filter(Boolean)
+    .filter((line) => !allowed.has(line.slice(3)));
 }
 
 async function main(): Promise<void> {
@@ -51,7 +58,10 @@ async function main(): Promise<void> {
     readCanonical<BatchSelectionManifest>(workspace, 'content/batches/F004/batch.json'),
   ]);
   const head = headRaw.trim();
-  if (status !== '') throw new Error('権利再確認にはclean worktreeが必要です');
+  const unexpected = unexpectedStatus(status);
+  if (unexpected.length > 0) {
+    throw new Error(`権利再確認には証跡出力以外がcleanである必要があります: ${unexpected.join(',')}`);
+  }
   if (!/^[0-9a-f]{40}$/u.test(head) || candidateArtifact.value.sourceCommit !== head) {
     throw new Error('権利再確認のHEADとexact candidateが一致しません');
   }

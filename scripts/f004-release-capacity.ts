@@ -13,6 +13,7 @@ const execFile = promisify(execFileCallback);
 const CANDIDATE_PATH = '.cache/batch-release/F004/candidate-paths.json';
 const FINAL_REPORT_PATH = '.cache/batch-release/F004/final-integration.json';
 const EVIDENCE_PATH = 'docs/evidence/qt/QT-F004-capacity-actual.json';
+const RIGHTS_EVIDENCE_PATH = 'docs/evidence/qt/QT-F004-rights-predeploy.json';
 const WORK_IDS = ['000466', '045679', '001918'] as const;
 const MINIMUM_FREE_BYTES = 5 * 1024 * 1024 * 1024;
 
@@ -25,6 +26,12 @@ async function readCanonical<T>(workspace: string, path: string): Promise<{ text
   const value = JSON.parse(text) as T;
   if (canonicalJson(value) !== text) throw new Error(`${path}がcanonical JSONではありません`);
   return { text, value };
+}
+
+function unexpectedStatus(status: string): string[] {
+  const allowed = new Set([EVIDENCE_PATH, RIGHTS_EVIDENCE_PATH]);
+  return status.split(/\r?\n/u).filter(Boolean)
+    .filter((line) => !allowed.has(line.slice(3)));
 }
 
 interface MeasuredTree {
@@ -144,7 +151,10 @@ async function main(): Promise<void> {
     statfs(workspace),
   ]);
   const head = headRaw.trim();
-  if (status !== '') throw new Error('release容量実測にはclean worktreeが必要です');
+  const unexpected = unexpectedStatus(status);
+  if (unexpected.length > 0) {
+    throw new Error(`release容量実測には証跡出力以外がcleanである必要があります: ${unexpected.join(',')}`);
+  }
   if (candidateArtifact.value.sourceCommit !== head || finalArtifact.value.sourceCommit !== head ||
     candidateArtifact.value.contentBuildSha256 !== finalArtifact.value.contentBuildSha256 ||
     candidateArtifact.value.distSha256 !== finalArtifact.value.distSha256) {
