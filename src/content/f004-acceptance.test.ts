@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { mkdtemp, mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -14,6 +15,7 @@ import {
 } from './f004-acceptance.ts';
 
 const sourceRoot = resolve(process.cwd());
+const cachedFixtureRoot = resolve(sourceRoot, 'tests/fixtures/f004-acceptance');
 const workId = '001918';
 const paths = [
   'content/batches/F004/batch.json',
@@ -36,13 +38,106 @@ const paths = [
   'public/content/catalog.json',
 ] as const;
 
+function sha256(value: string | Uint8Array): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+function cachedFixturePath(path: string): string {
+  if (!path.startsWith('.cache/')) throw new Error(`cache fixture pathが不正です: ${path}`);
+  return join(cachedFixtureRoot, 'cache', ...path.slice('.cache/'.length).split('/'));
+}
+
+async function normalizePreviewFixture(root: string): Promise<void> {
+  const previewPath = `.cache/batch-accept/F004/${workId}/content-preview.json`;
+  const pagesPath = `.cache/batch-accept/F004/${workId}/dist-preview.json`;
+  const actualPath = `content/batches/F004/capacity-actual/${workId}.json`;
+  const contentInvariantPath = `.cache/batch-accept/F004/${workId}/f001-content-invariant.json`;
+  const publishedInvariantPath = `.cache/batch-accept/F004/${workId}/published-content-invariant.json`;
+  const distInvariantPath = `.cache/batch-accept/F004/${workId}/f001-dist-invariant.json`;
+  const stageRoot = join(root, '.cache', 'fixture-preview');
+  const fixtureBytes = new TextEncoder().encode('F004 acceptance fixture\n');
+  const fixtureFile = {
+    bytes: fixtureBytes.byteLength,
+    path: 'fixture.txt',
+    sha256: sha256(fixtureBytes),
+  };
+  const digest = createHash('sha256')
+    .update(fixtureFile.path)
+    .update('\0')
+    .update(String(fixtureFile.bytes))
+    .update('\0')
+    .update(fixtureBytes)
+    .digest('hex');
+  await mkdir(stageRoot, { recursive: true });
+  await writeFile(join(stageRoot, fixtureFile.path), fixtureBytes);
+
+  const read = async (path: string): Promise<Record<string, unknown>> =>
+    JSON.parse(await readFile(join(root, ...path.split('/')), 'utf8')) as Record<string, unknown>;
+  const write = async (path: string, value: Record<string, unknown>): Promise<void> => {
+    await writeFile(join(root, ...path.split('/')), canonicalJson(value), 'utf8');
+  };
+  const preview = await read(previewPath);
+  const previousBuildSha = String(preview.buildSha256);
+  preview.stagingRoot = stageRoot;
+  preview.buildSha256 = digest;
+  preview.files = [fixtureFile];
+  await write(previewPath, preview);
+
+  const pages = await read(pagesPath);
+  pages.contentBuildSha256 = digest;
+  await write(pagesPath, pages);
+
+  const actual = await read(actualPath);
+  const previousActualSha = sha256(canonicalJson(actual));
+  actual.contentBuildSha256 = digest;
+  actual.contentStagingSha256 = digest;
+  await write(actualPath, actual);
+  const actualSha = sha256(canonicalJson(actual));
+
+  const contentInvariant = await read(contentInvariantPath);
+  contentInvariant.buildSha256 = digest;
+  contentInvariant.stagingSha256 = digest;
+  await write(contentInvariantPath, contentInvariant);
+  const publishedInvariant = await read(publishedInvariantPath);
+  publishedInvariant.inputTreeSha256 = digest;
+  publishedInvariant.actualTreeSha256 = digest;
+  await write(publishedInvariantPath, publishedInvariant);
+  const distInvariant = await read(distInvariantPath);
+  distInvariant.contentBuildSha256 = digest;
+  await write(distInvariantPath, distInvariant);
+
+  const manifestPath = 'content/batches/F004/batch.json';
+  const manifest = await read(manifestPath);
+  const workProgress = manifest.workProgress as Array<Record<string, unknown>>;
+  const progress = workProgress.find((item) => item.workId === workId);
+  const stageRecords = progress?.stageRecords as Array<Record<string, unknown>> | undefined;
+  const stage = stageRecords?.findLast((item) => item.stage === 'capacity-actual');
+  if (!stage) throw new Error('fixture capacity stageがありません');
+  stage.inputHashes = (stage.inputHashes as string[])
+    .map((hash) => hash === previousBuildSha ? digest : hash);
+  stage.outputHashes = (stage.outputHashes as string[])
+    .map((hash) => hash === previousBuildSha ? digest : hash === previousActualSha ? actualSha : hash);
+  await write(manifestPath, manifest);
+}
+
 async function fixture(): Promise<string> {
   const root = await mkdtemp(join(tmpdir(), 'f004-acceptance-'));
   for (const path of paths) {
     const target = join(root, ...path.split('/'));
+    const source = path.startsWith('.cache/')
+      ? cachedFixturePath(path)
+      : join(sourceRoot, ...path.split('/'));
     await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, await readFile(join(sourceRoot, ...path.split('/'))));
+    await writeFile(target, await readFile(source));
   }
+  const transaction = `.cache/transactions/accepted-audio/F004-${workId}.json`;
+  const transactionTarget = join(root, ...transaction.split('/'));
+  await mkdir(dirname(transactionTarget), { recursive: true });
+  await writeFile(
+    transactionTarget,
+    await readFile(cachedFixturePath(transaction)),
+  );
+  await normalizePreviewFixture(root);
   return root;
 }
 
@@ -56,8 +151,9 @@ async function rewrite(root: string, path: string, mutate: (value: Record<string
 describe('F004 acceptance facade [DES-F004-006]', () => {
   /** @fun FUN-F004-018 @ut UT-F004-018 */
   it('canonical allowlistだけからpreparedをmintし、order/preview差を拒否する', async () => {
+    const valid = await fixture();
     const prepared = await prepareF004WorkAcceptance(
-      sourceRoot,
+      valid,
       'content/batches/F004/batch.json',
       workId,
     );
@@ -68,7 +164,7 @@ describe('F004 acceptance facade [DES-F004-006]', () => {
     });
 
     await expect(prepareF004WorkAcceptance(
-      sourceRoot,
+      valid,
       'content/batches/F004/batch.json',
       '045679',
     )).rejects.toMatchObject({ code: 'F004_WORK_ORDER' });
@@ -142,15 +238,16 @@ describe('F004 acceptance facade [DES-F004-006]', () => {
 
   /** @fun FUN-F004-019 @ut UT-F004-019 */
   it('callerが自己申告したpreparedをatomic primitiveへ渡さない', async () => {
+    const valid = await fixture();
     const prepared = await prepareF004WorkAcceptance(
-      sourceRoot,
+      valid,
       'content/batches/F004/batch.json',
       workId,
     );
     const forged = { ...prepared };
     const promote = vi.fn();
     await expect(acceptF004Work(
-      sourceRoot,
+      valid,
       forged,
       forged.expectedManifestSha,
       {},
@@ -161,20 +258,21 @@ describe('F004 acceptance facade [DES-F004-006]', () => {
 
   /** @fun FUN-F004-019 @fun FUN-F004-020 @ut UT-F004-019 @ut UT-F004-020 */
   it('fault後に同じprepared/manifest tupleでrecoveryを再開する', async () => {
+    const valid = await fixture();
     const prepared = await prepareF004WorkAcceptance(
-      sourceRoot,
+      valid,
       'content/batches/F004/batch.json',
       workId,
     );
     const journal = JSON.parse(await readFile(
-      join(sourceRoot, '.cache', 'transactions', 'accepted-audio', `F004-${workId}.json`),
+      join(valid, '.cache', 'transactions', 'accepted-audio', `F004-${workId}.json`),
       'utf8',
     )) as { evidence: WorkAcceptanceEvidence };
     const fault = vi.fn(async () => {
       throw new Error('injected after prepared');
     });
     await expect(acceptF004Work(
-      sourceRoot,
+      valid,
       prepared,
       prepared.expectedManifestSha,
       {},
@@ -183,7 +281,7 @@ describe('F004 acceptance facade [DES-F004-006]', () => {
 
     const resume = vi.fn(async () => journal.evidence);
     const recovered = await recoverF004WorkAcceptance(
-      sourceRoot,
+      valid,
       prepared,
       prepared.expectedManifestSha as Sha256,
       {},
