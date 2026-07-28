@@ -5,6 +5,7 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error('PLAYWRIGHT_PORT must be an integer between 1024 and 65535');
 }
 const pagesUrl = `http://127.0.0.1:${port}/bungo-zundamon/`;
+const usePrebuiltDist = Boolean(process.env.PLAYWRIGHT_DIST_ROOT);
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -57,7 +58,9 @@ export default defineConfig({
   ],
   webServer: {
     // `npm run build`が行う全体typecheckは別ゲートで実施し、ここでは本番Vite成果物を直接配信する。
-    command: `npm exec -- vite build && npm run preview -- --port ${port}`,
+    command: usePrebuiltDist
+      ? `npm run preview -- --port ${port}`
+      : `npm exec -- vite build && npm run preview -- --port ${port}`,
     url: pagesUrl,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

@@ -60,8 +60,9 @@ function assertEqual(label: string, actual: unknown, expected: unknown): void {
 }
 
 async function main(): Promise<void> {
-  if (process.argv.length !== 2) {
-    throw new Error('usage: f004-final-integration.ts');
+  const retainCandidate = process.argv[2] === '--retain';
+  if (process.argv.length !== (retainCandidate ? 3 : 2)) {
+    throw new Error('usage: f004-final-integration.ts [--retain]');
   }
   const workspace = resolve(process.cwd());
   const [{ stdout: head }, { stdout: status }] = await Promise.all([
@@ -124,6 +125,7 @@ async function main(): Promise<void> {
 
   const temporaryInput = await mkdtemp(join(workspace, '.cache', 'f004-final-input-'));
   const finalRoot = await mkdtemp(join(workspace, '.cache', 'f004-final-integration-'));
+  let retained = false;
   try {
     await mkdir(join(temporaryInput, 'content', 'batches', BATCH_ID), { recursive: true });
     await cp(
@@ -418,12 +420,26 @@ async function main(): Promise<void> {
       join(workspace, '.cache', 'batch-release', BATCH_ID, 'final-integration.json'),
       report,
     );
+    if (retainCandidate) {
+      await writeJsonArtifactAtomic(
+        workspace,
+        join(workspace, '.cache', 'batch-release', BATCH_ID, 'candidate-paths.json'),
+        {
+          schemaVersion: '1.0.0',
+          batchId: BATCH_ID,
+          sourceCommit,
+          contentRoot,
+          distRoot,
+          contentBuildSha256: build.buildSha256,
+          distSha256: pages.distSha256,
+        },
+      );
+      retained = true;
+    }
     process.stdout.write(canonicalJson(report));
   } finally {
-    await Promise.all([
-      rm(temporaryInput, { recursive: true, force: true }),
-      rm(finalRoot, { recursive: true, force: true }),
-    ]);
+    await rm(temporaryInput, { recursive: true, force: true });
+    if (!retained) await rm(finalRoot, { recursive: true, force: true });
   }
 }
 
