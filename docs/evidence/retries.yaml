@@ -357,3 +357,53 @@ attempts:
   cause: none
   recovery: none
   log: docs/evidence/it/IT-F004-android-attempt-1.json
+- date: '2026-07-29T02:49:21+09:00'
+  feature: F004
+  scope: QT-rights-predeploy
+  attempt: 1
+  command: npx tsx scripts/f004-predeploy-rights.ts
+  result: fail
+  failures: 1
+  cause: 対象外作品の更新による公式CSV全体hash差を対象3作品の権利変更と誤判定した
+  recovery: deploy判定をmanifest対象3作品の権利行比較へ限定し、新旧CSV hashは観測証跡として保持
+  log: console:f004-predeploy-rights-attempt-1
+- date: '2026-07-29T02:51:45+09:00'
+  feature: F004
+  scope: QT-rights-predeploy
+  attempt: 2
+  command: npx tsx scripts/f004-predeploy-rights.ts
+  result: fail
+  failures: 1
+  cause: canonical artifactとruntime objectのJSON key挿入順差を値差として比較した
+  recovery: 全権利fieldを固定順tupleへ投影してkey順非依存で比較し、回帰試験を追加
+  log: console:f004-predeploy-rights-attempt-2
+- date: '2026-07-29T02:55:12+09:00'
+  feature: F004
+  scope: QT-rights-predeploy
+  attempt: 3
+  command: npx tsx scripts/f004-predeploy-rights.ts
+  result: pass
+  failures: 0
+  cause: none
+  recovery: attempt 1・2の誤検知を修正し、最新公式CSVで対象3作品unchangedを確認
+  log: docs/evidence/qt/QT-F004-rights-predeploy.json
+- date: '2026-07-29T02:55:34+09:00'
+  feature: F004
+  scope: QT-capacity-release
+  attempt: 1
+  command: npx tsx scripts/f004-release-capacity.ts
+  result: pass
+  failures: 0
+  cause: none
+  recovery: none
+  log: docs/evidence/qt/QT-F004-capacity-actual.json
+- date: '2026-07-29T02:56:20+09:00'
+  feature: F004
+  scope: UT
+  attempt: 2
+  command: npm test -- --reporter=json --outputFile=docs/evidence/ut/UT-F004-attempt-2.json
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 権利比較の回帰試験追加後に全回帰を再実行
+  log: docs/evidence/ut/UT-F004-attempt-2.json

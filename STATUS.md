@@ -1,9 +1,9 @@
 ---
-phase: test
+phase: release
 feature: F004
-updated: 2026-07-29T02:10:23+09:00
+updated: 2026-07-29T03:05:00+09:00
 next_actions:
-  - "T-060でF004のUT・IT・QT・自動ブラウザ・権利・容量受入を実施する"
+  - "T-061でF004のリリース前総点検・GitHub Pages段階公開・公開6 routeスモークを実施する"
 blocked_by: []
 ---
 
@@ -38,19 +38,20 @@ blocked_by: []
 - T-057で「雪渡り」64候補を独立二重レビューと第三裁定により59採用・5除外・保留0へ確定した。59 WAV・23,448,100 bytesを生成し、先行`000466=accepted`を含むpreviewとjournal付きatomic受入で`045679=accepted`へ昇格した。全930試験、型、lint、495ファイルbuild、独立受入をPASSし、public差分0を確認した。
 - T-058で「カイロ団長」102候補を独立二重レビューと第三裁定により99採用・3除外・保留0へ確定した。99台詞を97 WAV・32,425,132 bytesへ結合し、全3作品を含む694ファイルpreviewとjournal付きatomic受入で`001918=accepted`へ昇格した。全930試験と独立受入をPASSし、public差分0を確認した。
 - T-059で全3作品をFinalCatalogへ統合し、3作者・12作品・674台詞・662音声、694 contentファイル、697 distファイルを再現した。宮沢作品順、固定v0.3.0既存projection、全asset、既存画像reuse新規0、public差分0を確認し、全931試験と独立受入High/Medium/Low 0をPASSした。
+- T-060でUT 169 suites/935 tests、F004結合47 suites/252 tests、4環境93 pass・意図的skip 3・fail 0を完了した。最新公式書誌で対象3作品の権利unchanged、追加音声65,195,572 bytes、Pages候補229,935,951 bytes、Git 264,141,895 bytes、依存脆弱性0を同一exact候補へ結合し、trace漏れ0・public差分0・独立受入High/Medium/Low 0をPASSした。
 
 ## 直近の作業（最新5件）
 
+- T-060のUT・IT・QT・4環境・権利・容量・セキュリティを同一exact候補へ結合し、独立受入PASS
 - T-059の最終Catalog統合を3作者・12作品・674台詞・662音声で再現し、全931試験・独立受入PASS
 - T-058「カイロ団長」を99台詞・97音声でatomic受入し、全930試験・独立受入PASS
 - T-057「雪渡り」を59台詞・59音声でatomic受入し、全930試験・独立受入PASS
 - T-056「オツベルと象」を44台詞・43音声でatomic受入し、全930試験・独立受入PASS
-- T-062のお気に入り・端末内保存・作者横断一覧を全918試験と独立受入でPASS
 
 ## 次のアクション
 
-- T-060でF004のUT→IT→QT、自動ブラウザ、権利predeploy、容量実測、セキュリティ受入を実施する。
+- T-061でリリース前総点検を実施し、exact候補をGitHub Pagesへ段階公開して公開6 routeを自動スモークする。
 
 ## 未解決事項
 
-- C:の空きはT-059完了時約66.29 GiB。5 GiB停止基準まで十分な余裕があり、試験・公開の各段階で再計測する。
+- C:の空きはT-060容量実測時67,183,439,872 bytes（約62.6 GiB）。必要461,277,213 bytes、5 GiB停止基準まで十分な余裕があり、公開直前にも再計測する。

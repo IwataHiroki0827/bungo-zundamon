@@ -1281,7 +1281,7 @@ tasks:
   title: F004 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F004
   phase: test
-  state: doing
+  state: done
   depends:
   - T-059
   tags:
@@ -1309,6 +1309,8 @@ tasks:
   mode: orchestration
   mode_reason: UT/IT/QT/4ブラウザ/権利/容量を独立実行して統合判定できるため
   model: *model_f004
+  completed_at: '2026-07-29T03:05:00+09:00'
+  result: UT169 suites/935 tests、F004結合47 suites/252 tests、4環境93 pass/意図的skip 3/fail 0、権利unchanged、容量全区分、依存監査を同一exact候補へ結合。public差分0、trace漏れ0、独立受入High/Medium/Low 0でPASS
 - id: T-061
   title: F004リリース前総点検・GitHub Pages段階公開・公開6 routeスモーク
   feature: F004

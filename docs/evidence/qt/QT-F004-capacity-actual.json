@@ -1,0 +1,61 @@
+{
+  "batchId": "F004",
+  "candidate": {
+    "contentBuildSha256": "38fd2142b2c9da5a727d400b0858b0de4e426b05365f5e3bf877a6e764a5ec81",
+    "distBytes": 229935951,
+    "distFiles": 697,
+    "distMetadataSha256": "7a83a3828d2152093b177ba9a8a57f99c2e5591522723687d8ddd2304ec929a3",
+    "distSha256": "c542f435f0adb27cd253788680b58baf102f61fbec33a91d73087bb07d40b8b9",
+    "finalIntegrationReportSha256": "bc0d6912901f586fc41c89ccda02ddaaec800c26c41cd571a48ee41d29edaebd"
+  },
+  "kind": "f004-release-capacity-evidence",
+  "measurements": {
+    "additionalAudioBytes": 65195572,
+    "additionalAudioFiles": 199,
+    "freeBytes": 67183439872,
+    "liveWriteUpperBounds": 229935951,
+    "measuredGitObjects": 3640,
+    "repositoryNonObjectBytes": 339094,
+    "repositoryNonObjectFiles": 61,
+    "rollbackBackupBytes": 164232398
+  },
+  "phase": "release",
+  "report": {
+    "additionalAudio": {
+      "bytes": 65195572,
+      "limit": 104857600,
+      "status": "pass"
+    },
+    "batchId": "F004",
+    "kind": "f004-capacity-actual",
+    "pages": {
+      "bytes": 229935951,
+      "limit": 786432000,
+      "status": "pass",
+      "warning": 524288000
+    },
+    "reasons": [],
+    "repository": {
+      "bytes": 264141895,
+      "limit": 1000000000,
+      "status": "pass",
+      "warning": 750000000
+    },
+    "result": "pass",
+    "schemaVersion": "1.0.0",
+    "singleGitObject": {
+      "bytes": 17156699,
+      "limit": 104857600,
+      "status": "pass"
+    },
+    "workDrive": {
+      "bytes": 67183439872,
+      "required": 461277213,
+      "status": "pass"
+    },
+    "workId": "001918"
+  },
+  "result": "pass",
+  "schemaVersion": "1.0.0",
+  "sourceCommit": "8fe2538ffeb2c322b3519249b962cc7202546679"
+}

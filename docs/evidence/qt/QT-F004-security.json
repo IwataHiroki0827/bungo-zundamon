@@ -1,0 +1,32 @@
+{
+  "audit": {
+    "critical": 0,
+    "high": 0,
+    "low": 0,
+    "moderate": 0,
+    "productionDependencies": 1,
+    "total": 0
+  },
+  "batchId": "F004",
+  "browserRuntime": {
+    "environments": 4,
+    "expected": 93,
+    "flaky": 0,
+    "intendedSkipped": 3,
+    "unexpected": 0
+  },
+  "candidate": {
+    "distSha256": "c542f435f0adb27cd253788680b58baf102f61fbec33a91d73087bb07d40b8b9",
+    "sourceCommit": "8fe2538ffeb2c322b3519249b962cc7202546679"
+  },
+  "kind": "f004-security-evidence",
+  "result": "pass",
+  "schemaVersion": "1.0.0",
+  "staticChecks": {
+    "eslintWarnings": 0,
+    "specCoverage": "UT 37/37, IT 15/15, QT 16/16",
+    "typecheckExitCode": 0,
+    "vitestFailed": 0,
+    "vitestPassed": 935
+  }
+}
