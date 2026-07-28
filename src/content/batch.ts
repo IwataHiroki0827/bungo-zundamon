@@ -997,9 +997,18 @@ const F003_PUBLIC_ROUTES = [
   '#/authors/dazai-osamu',
   '#/credits',
 ] as const;
+const F004_PUBLIC_ROUTES = [
+  '#/',
+  '#/authors/akutagawa-zunnosuke',
+  '#/authors/miyazawa-zunji',
+  '#/authors/dazai-osamu',
+  '#/favorites',
+  '#/credits',
+] as const;
 const PUBLIC_ROUTES_BY_FEATURE: Readonly<Record<string, readonly string[]>> = {
   F002: F002_PUBLIC_ROUTES,
   F003: F003_PUBLIC_ROUTES,
+  F004: F004_PUBLIC_ROUTES,
 };
 
 interface PublishBatchJournal {

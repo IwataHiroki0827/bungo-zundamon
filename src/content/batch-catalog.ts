@@ -932,7 +932,7 @@ export async function prepareBatchWorkPreview(
     join(root, 'content', 'baselines', 'F001-v0.1.0.json'),
     join(root, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
   );
-  const batches = await loadAcceptedBatches(root);
+  const batches = await loadAcceptedBatches(root, { excludeActiveBatchId: definition.batchId });
   const [f002Fragment, f003Fragment] = await Promise.all([
     loadPublishedF002CatalogFragment(root, baseline.catalog),
     loadAcceptedF003CatalogFragment(root),

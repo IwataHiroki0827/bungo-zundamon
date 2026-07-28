@@ -168,6 +168,33 @@ function f003AcceptedFixture(): BatchManifest {
   });
 }
 
+function f004AcceptedFixture(): BatchManifest {
+  const manifest = f003AcceptedFixture();
+  return validated({
+    ...manifest,
+    batchId: 'F004' as BatchManifest['batchId'],
+    feature: 'F004',
+    author: {
+      authorId: '000081',
+      name: 'みやざわけんじ',
+      originalName: '宮沢賢治',
+      slug: 'miyazawa-kenji',
+      identitySha256: HASH_A,
+    },
+    inputPaths: [path('data/batches/F004/selected-works.json')],
+    outputPaths: [path('content/batches/F004/provenance.json')],
+    voiceConfigRef: path('content/batches/F004/voice-config.json'),
+    artworkProvenanceRef: path('content/batches/F004/artwork-provenance.json'),
+    workProgress: manifest.workProgress.map((progress) => ({
+      ...progress,
+      acceptedAudioSources: progress.acceptedAudioSources?.map((source) => ({
+        ...source,
+        path: path(source.path.replace('content/batches/F003/', 'content/batches/F004/')),
+      })),
+    })) as unknown as BatchManifest['workProgress'],
+  });
+}
+
 async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
   release: ReleaseBuildContext;
   approval: ReleaseApproval;
@@ -185,7 +212,7 @@ async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
     ...release,
     result: 'approved' as const,
     approvedAt: '2026-07-20T01:00:00Z',
-    releaseVersion: manifest.feature === 'F003' ? '0.3.0' : '0.2.0',
+    releaseVersion: manifest.feature === 'F004' ? '0.4.0' : manifest.feature === 'F003' ? '0.3.0' : '0.2.0',
     evidenceRef: path(`docs/evidence/release/${manifest.batchId}-approval.json`),
     evidenceSha256: HASH_A,
   };
@@ -197,9 +224,18 @@ async function publishEvidence(root: string, manifest: BatchManifest): Promise<{
     evidenceSha256: HASH_A,
     deployFlagDisabled: true,
   };
-  const expectedRoutes = manifest.feature === 'F003'
-    ? ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/authors/dazai-osamu', '#/credits']
-    : ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'];
+  const expectedRoutes = manifest.feature === 'F004'
+    ? [
+        '#/',
+        '#/authors/akutagawa-zunnosuke',
+        '#/authors/miyazawa-zunji',
+        '#/authors/dazai-osamu',
+        '#/favorites',
+        '#/credits',
+      ]
+    : manifest.feature === 'F003'
+      ? ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/authors/dazai-osamu', '#/credits']
+      : ['#/', '#/authors/akutagawa-zunnosuke', '#/authors/miyazawa-zunji', '#/credits'];
   const smoke = {
     ...release,
     result: 'pass' as const,
@@ -623,6 +659,29 @@ describe('published遷移transaction [DES-F002-002][DES-F002-015][DES-F002-016][
       releaseVersion: '0.3.0',
       deploymentEvidenceRef: 'docs/evidence/release/F003-deployment.json',
       smokeEvidenceRef: 'docs/evidence/release/F003-smoke.json',
+    });
+  });
+
+  // @des DES-F004-021 @fun FUN-F002-037 @test UT-F004-021
+  it('F004の公開6 routeを同一candidateへ結合してpublishedへ記録する', async () => {
+    const input = await publishFixture(f004AcceptedFixture());
+    const result = await recordPublishedBatch(
+      input.root,
+      input.manifestPath,
+      input.manifest,
+      input.expectedSha,
+      input.release,
+      input.approval,
+      input.deployment,
+      input.smoke,
+    );
+    expect(result.manifest).toMatchObject({
+      batchId: 'F004',
+      feature: 'F004',
+      status: 'published',
+      releaseVersion: '0.4.0',
+      deploymentEvidenceRef: 'docs/evidence/release/F004-deployment.json',
+      smokeEvidenceRef: 'docs/evidence/release/F004-smoke.json',
     });
   });
 

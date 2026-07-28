@@ -7,10 +7,10 @@
   "decision": {
     "predeploy": {
       "bibliographySha256": "2f3962dd396e0375327e32501929ebe6be3dc9d347f74558c511b097120d7adb",
-      "observedAt": "2026-07-28T18:51:46.194Z",
+      "observedAt": "2026-07-28T18:57:25.783Z",
       "phase": "predeploy",
-      "releaseCommit": "19759e2ec5fe2b3969fb19f522b8351d0e587551",
-      "runId": "F004-predeploy-19759e2ec5fe",
+      "releaseCommit": "f0a2c91effd17d1fcf75a578dad2c562ba7949c2",
+      "runId": "F004-predeploy-f0a2c91effd1",
       "works": [
         {
           "cardUrl": "https://www.aozora.gr.jp/cards/000081/card466.html",
@@ -54,9 +54,9 @@
       ]
     },
     "reasons": [],
-    "releaseCommit": "19759e2ec5fe2b3969fb19f522b8351d0e587551",
+    "releaseCommit": "f0a2c91effd17d1fcf75a578dad2c562ba7949c2",
     "result": "unchanged",
-    "runId": "F004-predeploy-19759e2ec5fe",
+    "runId": "F004-predeploy-f0a2c91effd1",
     "selection": {
       "bibliographySha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
       "observedAt": "2026-07-26T08:33:56.472Z",
@@ -106,12 +106,12 @@
   },
   "kind": "f004-predeploy-rights-evidence",
   "result": "pass",
-  "runId": "F004-predeploy-19759e2ec5fe",
+  "runId": "F004-predeploy-f0a2c91effd1",
   "schemaVersion": "1.0.0",
   "selectionArtifact": {
     "bibliographySha256": "7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
     "path": "content/batches/F004/rights-selection.json",
     "sha256": "4f59e83f945deb17629f221538a76f3abb242fcd78931675697ccdef6ac59235"
   },
-  "sourceCommit": "19759e2ec5fe2b3969fb19f522b8351d0e587551"
+  "sourceCommit": "f0a2c91effd17d1fcf75a578dad2c562ba7949c2"
 }

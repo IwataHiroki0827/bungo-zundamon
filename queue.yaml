@@ -893,3 +893,33 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-27T23:00:16+09:00'
   processed_note: UT-F004/IT-F004をApprovedへ更新し、T-053を完了、テストファーストゲート③を通過してF004をimplementへ移行した。
+- id: Q-026
+  type: approval
+  status: closed
+  title: F004 v0.4.0 リリース判定（公開）
+  body: commit f0a2c91effd17d1fcf75a578dad2c562ba7949c2のVitest 935件、Chromium・Firefox・WebKit・Android相当93実行、typecheck、lint、build、依存監査、固定v0.3.0
+    baseline、hosted artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・12作品・674台詞・662音声です。6
+    routeの全収録作品は初期open 0で、お気に入りは隔離contextで自動確認します。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
+  target: F004
+  target_mode: reference
+  options:
+  - 承認（公開）
+  - 修正指示
+  allow_freeform: false
+  release_version: 0.4.0
+  approval_target_commit: f0a2c91effd17d1fcf75a578dad2c562ba7949c2
+  precheck: docs/evidence/release/RELEASE-F004-precheck.md
+  answer: 承認（公開）
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
+  created: '2026-07-29T04:00:58+09:00'
+  source: pf-release
+  resume:
+    task: T-061
+    next: pf-release
+  approved_at: '2026-07-29T04:00:58+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T04:00:58+09:00'
+  processed_note: 本会話の包括承認を公開tree込みのexact候補へ結合し、Actions run 30390224028で段階公開した。公開6
+    route・お気に入り・Catalog・画像・音声Range・CSP・外部通信スモークがPASSし、デプロイ変数を閉じてF004 manifestをpublishedへ遷移した。
+  release_result: released
+  released_at: '2026-07-29T04:08:37+09:00'

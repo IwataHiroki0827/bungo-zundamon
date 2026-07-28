@@ -1315,7 +1315,7 @@ tasks:
   title: F004リリース前総点検・GitHub Pages段階公開・公開6 routeスモーク
   feature: F004
   phase: release
-  state: todo
+  state: done
   depends:
   - T-060
   tags:
@@ -1327,6 +1327,8 @@ tasks:
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
   model: *model_f004
+  completed_at: '2026-07-29T04:11:29+09:00'
+  result: v0.4.0をcommit f0a2c91へ固定してActions run 30390224028で段階公開。公開6 route、3作者・12作品・674台詞・662音声、初期open 0、お気に入り、画像・音声Range、CSP・外部通信を自動スモークし、deploy変数無効化・manifest published遷移・tagを完了。公開後管理回帰を含む全936試験PASS
 - id: T-062
   title: 台詞お気に入り・端末内保存・作者横断一覧を実装
   feature: F004

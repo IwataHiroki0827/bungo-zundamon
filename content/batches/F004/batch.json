@@ -16,6 +16,7 @@
     "slug": "miyazawa-zunji"
   },
   "batchId": "F004",
+  "deploymentEvidenceRef": "docs/evidence/release/F004-deployment.json",
   "editionRules": [
     {
       "allowedWorkIds": [
@@ -55,6 +56,8 @@
     "data/batches/F004/fixed-sources/001918/001918/source.json",
     "data/batches/F004/fixed-sources/001918/001918/source.raw"
   ],
+  "publishedAt": "2026-07-28T19:08:37Z",
+  "releaseVersion": "0.4.0",
   "rightsSnapshotIds": [
     "aozora-selection:7546211a06b110c329b3aed94c0e6df236ecd7297315bc56def65713beba1a93",
     "fixed-source:000466:efd6aff174b43bd1d8bb7b286cf0a123a38e09f74fec55a5b7cc6482866713f1",
@@ -62,6 +65,7 @@
     "fixed-source:001918:b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4"
   ],
   "schemaVersion": "1.0.0",
+  "smokeEvidenceRef": "docs/evidence/release/F004-smoke.json",
   "stageRecords": [
     {
       "completedAt": "2026-07-27T14:33:07.419Z",
@@ -80,7 +84,7 @@
       "toolVersion": "f004-fixed-source-rights/1.0.0"
     }
   ],
-  "status": "accepted",
+  "status": "published",
   "voiceConfigRef": "content/batches/F004/voice-config.json",
   "workIds": [
     "000466",
