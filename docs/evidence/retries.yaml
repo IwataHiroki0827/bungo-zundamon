@@ -287,3 +287,23 @@ attempts:
   cause: none
   recovery: 独立受入Low指摘を反映し、one-shot focusを対象dialogue IDへ直接結合
   log: docs/evidence/it/IT-F004-favorites-chromium-attempt-4.json
+- date: '2026-07-29T02:31:33+09:00'
+  feature: F004
+  scope: IT-browser
+  attempt: 1
+  command: playwright Chromium full suite
+  result: fail
+  failures: 3
+  cause: 宮沢3作品154台詞の旧F003期待が残り、可視textを持つお気に入りbuttonを旧CSS除外selectorが無名と誤判定した
+  recovery: F004の3作者12作品674台詞・宮沢6作品356台詞へ同期し、全buttonのaria-labelまたは可視text非空を直接検証。exact 6 routeも追加してattempt 2を実施
+  log: docs/evidence/it/IT-F004-chromium-attempt-1.json
+- date: '2026-07-29T02:33:17+09:00'
+  feature: F004
+  scope: IT-browser
+  attempt: 2
+  command: playwright Chromium full suite
+  result: pass
+  failures: 0
+  cause: none
+  recovery: attempt 1の旧Catalog期待とbutton名検査をF004へ同期
+  log: docs/evidence/it/IT-F004-chromium-attempt-2.json

@@ -21,8 +21,8 @@ async function openAuthorFromHome(page: import('@playwright/test').Page, name: s
   await waitForRouteReady(page);
 }
 
-// @it IT-F002-010 @it IT-F002-012 @it IT-F003-009 @it IT-F003-014 @qt QT-F002-002 @qt QT-F002-014 @qt QT-F003-015
-test('CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する', async ({ page }) => {
+// @it IT-F002-010 @it IT-F002-012 @it IT-F003-009 @it IT-F003-014 @it IT-F004-007 @it IT-F004-008 @qt QT-F002-002 @qt QT-F002-014 @qt QT-F003-015 @qt QT-F004-010
+test('CatalogV2の3作者12作品674台詞を所属分離し、作者間の往復を維持する', async ({ page }) => {
   await page.goto('#/');
   await expect(page.locator('.author-card')).toHaveCount(3);
   const akutagawa = page.locator('.author-card').filter({ hasText: 'あくたがわずんのすけ' });
@@ -31,7 +31,7 @@ test('CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復
   await expect(akutagawa).toContainText('原著者: 芥川龍之介');
   await expect(akutagawa).toContainText('3作品・59台詞');
   await expect(miyazawa).toContainText('原著者: 宮沢賢治');
-  await expect(miyazawa).toContainText('3作品・154台詞');
+  await expect(miyazawa).toContainText('6作品・356台詞');
   await expect(dazai).toContainText('原著者: 太宰治');
   await expect(dazai).toContainText('3作品・259台詞');
 
@@ -40,10 +40,17 @@ test('CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復
   await expect(page.locator('[data-page="author"]')).toHaveAttribute('data-author-id', '000081');
   await expect(page.getByRole('heading', { level: 1, name: 'みやざわずんじ' })).toBeVisible();
   await expect(page.getByText('原著者: 宮沢賢治').first()).toBeVisible();
-  await expect(page.locator('.work-panel')).toHaveCount(3);
+  await expect(page.locator('.work-panel')).toHaveCount(6);
   await expect(page.locator('.work-panel[open]')).toHaveCount(0);
-  await expect(page.locator('.dialogue-card')).toHaveCount(154);
-  for (const title of ['よだかの星', 'どんぐりと山猫', '注文の多い料理店']) {
+  await expect(page.locator('.dialogue-card')).toHaveCount(356);
+  for (const title of [
+    'よだかの星',
+    'どんぐりと山猫',
+    '注文の多い料理店',
+    'オツベルと象',
+    '雪渡り',
+    'カイロ団長',
+  ]) {
     await expect(page.locator('.work-title', { hasText: title })).toHaveCount(1);
   }
   for (const title of ['羅生門', '蜘蛛の糸', '杜子春']) {
@@ -128,14 +135,14 @@ for (const viewport of [
   });
 }
 
-// @it IT-F002-012 @it IT-F003-010 @qt QT-F002-014 @qt QT-F003-014
+// @it IT-F002-012 @it IT-F003-010 @it IT-F004-008 @qt QT-F002-014 @qt QT-F003-014 @qt QT-F004-011
 test('reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('#/authors/miyazawa-zunji');
   await expect(page.locator('#app')).toHaveAttribute('data-motion', 'reduced');
   await expect(page.locator('.motion-toggle')).toBeDisabled();
   await expect(page.locator('.motion-toggle')).toContainText('端末設定により動きを停止中');
-  await expect(page.locator('.work-panel')).toHaveCount(3);
+  await expect(page.locator('.work-panel')).toHaveCount(6);
   await expect(page.locator('.work-panel[open]')).toHaveCount(0);
   await expandFirstWork(page);
   const play = page.locator('.dialogue-card').first().getByRole('button', { name: /^再生：/ });
@@ -172,7 +179,7 @@ test('宮沢画像とcreditを同一originの公開実体へ結合する', async
   await expect(page.locator('[data-page="credits"]')).toContainText('VOICEVOX:ずんだもん');
 });
 
-// @it IT-F002-012 @it IT-F003-011 @qt QT-F002-014 @qt QT-F003-013 @qt QT-F003-014
+// @it IT-F002-012 @it IT-F003-011 @it IT-F004-013 @qt QT-F002-014 @qt QT-F003-013 @qt QT-F003-014 @qt QT-F004-013 @qt QT-F004-014
 test('3作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件', async ({ page }) => {
   const externalRequests: string[] = [];
   page.on('request', (request) => {
@@ -184,6 +191,7 @@ test('3作者の主要routeで許可外通信・CSP・Cookie・storage・formが
     '#/authors/akutagawa-zunnosuke',
     '#/authors/miyazawa-zunji',
     '#/authors/dazai-osamu',
+    '#/favorites',
     '#/credits',
   ]) {
     await page.goto(route);

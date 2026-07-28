@@ -1,0 +1,1148 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium-pages-preview",
+      "--reporter=json"
+    ],
+    "configFile": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\playwright.config.ts",
+    "rootDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-pages-preview",
+        "name": "chromium-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-pages-preview",
+        "name": "firefox-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-pages-preview",
+        "name": "webkit-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-equivalent-pages-preview",
+        "name": "android-equivalent-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-stable-pages-preview",
+        "name": "chrome-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/test-results/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge-stable-pages-preview",
+        "name": "edge-stable-pages-preview",
+        "testDir": "C:/Users/owner/Desktop/ProjectFactory/bungo-zundamon/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4211",
+      "url": "http://127.0.0.1:4211/bungo-zundamon/",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "audio-and-isolation.spec.ts",
+      "file": "audio-and-isolation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "明示操作前0件から対象音声1件だけを取得し、pause/resume/stop/切替/endedを同期する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1593,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:33.212Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-46b30ce5aea24bde1c00",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "音声404とplay拒否を対象カードへ隔離し、別音声と再試行を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2521,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:34.871Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-dab24f6ec9b5464cf646",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "画像404でも主要navigation・音声・クレジット・戻る操作を維持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:37.398Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3bc5175ca303602850bf-105c7092abc87569ceee",
+          "file": "audio-and-isolation.spec.ts",
+          "line": 92,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "f002-multi-author.spec.ts",
+      "file": "f002-multi-author.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5565,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.author-card').filter({ hasText: 'みやざわずんじ' })\nExpected substring: \u001b[32m\"3作品・154台詞\"\u001b[39m\nReceived string:    \u001b[31m\"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.author-card').filter({ hasText: 'みやざわずんじ' })\u001b[22m\n\u001b[2m    14 × locator resolved to <article class=\"author-card paper-card\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.author-card').filter({ hasText: 'みやざわずんじ' })\nExpected substring: \u001b[32m\"3作品・154台詞\"\u001b[39m\nReceived string:    \u001b[31m\"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.author-card').filter({ hasText: 'みやざわずんじ' })\u001b[22m\n\u001b[2m    14 × locator resolved to <article class=\"author-card paper-card\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[22m\n\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts:34:26",
+                    "location": {
+                      "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                      "column": 26,
+                      "line": 34
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 32 |\u001b[39m   \u001b[36mawait\u001b[39m expect(akutagawa)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'3作品・59台詞'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m expect(miyazawa)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'原著者: 宮沢賢治'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m   \u001b[36mawait\u001b[39m expect(miyazawa)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'3作品・154台詞'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dazai)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'原著者: 太宰治'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dazai)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'3作品・259台詞'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 37 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                        "column": 26,
+                        "line": 34
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.author-card').filter({ hasText: 'みやざわずんじ' })\nExpected substring: \u001b[32m\"3作品・154台詞\"\u001b[39m\nReceived string:    \u001b[31m\"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.author-card').filter({ hasText: 'みやざわずんじ' })\u001b[22m\n\u001b[2m    14 × locator resolved to <article class=\"author-card paper-card\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"青空文庫 × ずんだもんみやざわずんじ原著者: 宮沢賢治6作品・356台詞作品と台詞を聴く\"\u001b[22m\n\n\n  32 |   await expect(akutagawa).toContainText('3作品・59台詞');\n  33 |   await expect(miyazawa).toContainText('原著者: 宮沢賢治');\n> 34 |   await expect(miyazawa).toContainText('3作品・154台詞');\n     |                          ^\n  35 |   await expect(dazai).toContainText('原著者: 太宰治');\n  36 |   await expect(dazai).toContainText('3作品・259台詞');\n  37 |\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts:34:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:39.932Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-CatalogV2の3作者9作品472台詞を所属分離し、作者間の往復を維持する-chromium-pages-preview\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                    "column": 26,
+                    "line": 34
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-41ec9f82b72df2de131e",
+          "file": "f002-multi-author.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "作者route変更で音声を停止し、遅延eventを新しい作者DOMへ混入させない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:46.137Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-ffe4bdb48dbe62c2ce21",
+          "file": "f002-multi-author.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "390x844で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1006,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:48.432Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-c189e747eec456594e31",
+          "file": "f002-multi-author.spec.ts",
+          "line": 108,
+          "column": 3
+        },
+        {
+          "title": "844x390で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1015,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:49.444Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-5267f06cca0b2ae859a9",
+          "file": "f002-multi-author.spec.ts",
+          "line": 108,
+          "column": 3
+        },
+        {
+          "title": "1440x900で宮沢routeをkeyboard操作でき、overflowと44px未満targetがない",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1069,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:50.466Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-6fca9a61b7bd8eda4ecb",
+          "file": "f002-multi-author.spec.ts",
+          "line": 108,
+          "column": 3
+        },
+        {
+          "title": "reduced motionは宮沢の情報と再生操作を保ったまま演出だけを止める",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5670,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.work-panel')\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m6\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.work-panel')\u001b[22m\n\u001b[2m    14 × locator resolved to 6 elements\u001b[22m\n\u001b[2m       - unexpected value \"6\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.work-panel')\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m6\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.work-panel')\u001b[22m\n\u001b[2m    14 × locator resolved to 6 elements\u001b[22m\n\u001b[2m       - unexpected value \"6\"\u001b[22m\n\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts:138:45",
+                    "location": {
+                      "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                      "column": 45,
+                      "line": 138
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 136 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.motion-toggle'\u001b[39m))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m 137 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.motion-toggle'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'端末設定により動きを停止中'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 138 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.work-panel'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m3\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 139 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.work-panel[open]'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 140 |\u001b[39m   \u001b[36mawait\u001b[39m expandFirstWork(page)\u001b[33m;\u001b[39m\n \u001b[90m 141 |\u001b[39m   \u001b[36mconst\u001b[39m play \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.dialogue-card'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/^再生：/\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                        "column": 45,
+                        "line": 138
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.work-panel')\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m6\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.work-panel')\u001b[22m\n\u001b[2m    14 × locator resolved to 6 elements\u001b[22m\n\u001b[2m       - unexpected value \"6\"\u001b[22m\n\n\n  136 |   await expect(page.locator('.motion-toggle')).toBeDisabled();\n  137 |   await expect(page.locator('.motion-toggle')).toContainText('端末設定により動きを停止中');\n> 138 |   await expect(page.locator('.work-panel')).toHaveCount(3);\n      |                                             ^\n  139 |   await expect(page.locator('.work-panel[open]')).toHaveCount(0);\n  140 |   await expandFirstWork(page);\n  141 |   const play = page.locator('.dialogue-card').first().getByRole('button', { name: /^再生：/ });\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts:138:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:51.540Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-reduced-motionは宮沢の情報と再生操作を保ったまま演出だけを止める-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-reduced-motionは宮沢の情報と再生操作を保ったまま演出だけを止める-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-reduced-motionは宮沢の情報と再生操作を保ったまま演出だけを止める-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\f002-multi-author-reduced-motionは宮沢の情報と再生操作を保ったまま演出だけを止める-chromium-pages-preview\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\f002-multi-author.spec.ts",
+                    "column": 45,
+                    "line": 138
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-b995ea95940c3f67d23e",
+          "file": "f002-multi-author.spec.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "宮沢画像とcreditを同一originの公開実体へ結合する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 718,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:57.729Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-a12520317555c33cade4",
+          "file": "f002-multi-author.spec.ts",
+          "line": 149,
+          "column": 1
+        },
+        {
+          "title": "3作者の主要routeで許可外通信・CSP・Cookie・storage・formが0件",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:58.514Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d899c0d67bdbaa20543c-be0a249a0845db5b8501",
+          "file": "f002-multi-author.spec.ts",
+          "line": 176,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "favorites.spec.ts",
+      "file": "favorites.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "お気に入りを音声再生なしで切替し、再読込・一覧・解除へ永続化する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2741,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:30:59.338Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-29ee3cb3c6baf09067dc",
+          "file": "favorites.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "複数作者をCatalog順に一覧化し、元作品へ一度だけ展開・focusする",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4005,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:02.084Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-43781f05569779cd682d",
+          "file": "favorites.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "破損・重複・未知IDを正規化し、storage書込失敗時もmemoryで操作を継続する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:06.095Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16966837d6a9b32aed7f-69f02e5c7139c0b520c4",
+          "file": "favorites.spec.ts",
+          "line": 81,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "navigation-and-delivery.spec.ts",
+      "file": "navigation-and-delivery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Pages subpathでhash routeの直開き・再読込・履歴・キーボード遷移が成立する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 637,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:08.258Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-0f70333e85aad0abd47f",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "catalog異常を再試行可能な全体エラーへ隔離する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 214,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:08.900Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-26d66372de501dbd170c",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "production buildの全公開assetがPages base配下で200を返す",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2530,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:09.119Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "867e11f9b3875ceba465-cc9d8544616aaab49b3c",
+          "file": "navigation-and-delivery.spec.ts",
+          "line": 43,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "responsive-accessibility-security.spec.ts",
+      "file": "responsive-accessibility-security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mobile-portraitで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 581,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:11.665Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-569817e24bd9bd593617",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "mobile-landscapeで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 604,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:12.252Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-f6eeb3c4678e3e9d0dee",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "desktopで3操作以内・overflowなし・keyboard/44px targetを満たす",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 722,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:12.861Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-407cf8b4bc7848f81531",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 16,
+          "column": 3
+        },
+        {
+          "title": "主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 679,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m59\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m59\u001b[39m\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\responsive-accessibility-security.spec.ts:56:111",
+                    "location": {
+                      "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\responsive-accessibility-security.spec.ts",
+                      "column": 111,
+                      "line": 56
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 54 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'main'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'button:not([aria-label]):not(:has-text(\"演出を\")):not(:has-text(\"停止\"))'\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'img:not([alt])'\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 58 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'a[href=\"\"]'\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m     \u001b[36mconst\u001b[39m duplicateIds \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\responsive-accessibility-security.spec.ts",
+                        "column": 111,
+                        "line": 56
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m59\u001b[39m\n\n  54 |     await expect(page.locator('main')).toBeVisible();\n  55 |     expect(await page.locator('h1').count()).toBe(1);\n> 56 |     expect(await page.locator('button:not([aria-label]):not(:has-text(\"演出を\")):not(:has-text(\"停止\"))').count()).toBe(0);\n     |                                                                                                               ^\n  57 |     expect(await page.locator('img:not([alt])').count()).toBe(0);\n  58 |     expect(await page.locator('a[href=\"\"]').count()).toBe(0);\n  59 |     const duplicateIds = await page.evaluate(() => {\n    at C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\responsive-accessibility-security.spec.ts:56:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:13.588Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\responsive-accessibility-s-5c4be-ton名・画像代替・focus順に重大な構造欠陥がない-chromium-pages-preview\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\responsive-accessibility-s-5c4be-ton名・画像代替・focus順に重大な構造欠陥がない-chromium-pages-preview\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\responsive-accessibility-s-5c4be-ton名・画像代替・focus順に重大な構造欠陥がない-chromium-pages-preview\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\test-results\\playwright\\responsive-accessibility-s-5c4be-ton名・画像代替・focus順に重大な構造欠陥がない-chromium-pages-preview\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\owner\\Desktop\\ProjectFactory\\bungo-zundamon\\tests\\e2e\\responsive-accessibility-security.spec.ts",
+                    "column": 111,
+                    "line": 56
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-05fe64a24d56c71d644c",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 51,
+          "column": 1
+        },
+        {
+          "title": "OS設定とサイト内設定でreduced motionを有効化し情報を保持する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:14.977Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-1748d88554e93470214d",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 68,
+          "column": 1
+        },
+        {
+          "title": "footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 720,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:15.688Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-fe62674ea2535c8157cc",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "外部request・Cookie・storage・form・CSP違反が0件で主要操作を完遂する",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-pages-preview",
+              "projectName": "chromium-pages-preview",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3369,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-28T17:31:16.414Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d76de14b20658fb1bac-ad81262aad48a3fe48c8",
+          "file": "responsive-accessibility-security.spec.ts",
+          "line": 119,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-28T17:30:32.411Z",
+    "duration": 47755.212999999996,
+    "expected": 21,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

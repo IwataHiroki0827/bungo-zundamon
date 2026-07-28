@@ -47,13 +47,23 @@ for (const viewport of viewports) {
   });
 }
 
-// IT-F001-010 / QT-F001-014（semantic/ARIA契約の自動構造検査）
+// IT-F001-010 / QT-F001-014 / IT-F004-013 / QT-F004-013（semantic/ARIA契約の自動構造検査）
 test('主要routeの見出し・list・button名・画像代替・focus順に重大な構造欠陥がない', async ({ page }) => {
-  for (const route of ['#/', '#/authors/akutagawa-zunnosuke', '#/credits']) {
+  for (const route of [
+    '#/',
+    '#/authors/akutagawa-zunnosuke',
+    '#/authors/miyazawa-zunji',
+    '#/authors/dazai-osamu',
+    '#/favorites',
+    '#/credits',
+  ]) {
     await page.goto(route);
     await expect(page.locator('main')).toBeVisible();
     expect(await page.locator('h1').count()).toBe(1);
-    expect(await page.locator('button:not([aria-label]):not(:has-text("演出を")):not(:has-text("停止"))').count()).toBe(0);
+    const unnamedButtons = await page.locator('button').evaluateAll((buttons) =>
+      buttons.filter((button) =>
+        !(button.getAttribute('aria-label')?.trim() || button.textContent?.trim())).length);
+    expect(unnamedButtons).toBe(0);
     expect(await page.locator('img:not([alt])').count()).toBe(0);
     expect(await page.locator('a[href=""]').count()).toBe(0);
     const duplicateIds = await page.evaluate(() => {
@@ -86,9 +96,17 @@ test('OS設定とサイト内設定でreduced motionを有効化し情報を保�
   expect(Number.parseFloat(osDuration)).toBeLessThanOrEqual(0.001);
 });
 
-// IT-F001-012 / QT-F001-011 / QT-F001-017
+// IT-F001-012 / QT-F001-011 / QT-F001-017 / IT-F004-013 / QT-F004-013
 test('footer・クレジット・出典・外部link属性とプライバシー表示が全routeで安全である', async ({ page }) => {
-  for (const route of ['#/', '#/authors/akutagawa-zunnosuke', '#/credits', '#/unknown']) {
+  for (const route of [
+    '#/',
+    '#/authors/akutagawa-zunnosuke',
+    '#/authors/miyazawa-zunji',
+    '#/authors/dazai-osamu',
+    '#/favorites',
+    '#/credits',
+    '#/unknown',
+  ]) {
     await page.goto(route);
     await expect(page.locator('.site-footer')).toContainText('VOICEVOX:ずんだもん');
     await expect(page.locator('.site-footer')).toContainText('非公式ファンサイト');
