@@ -39,6 +39,7 @@ import {
   loadPublishedV030Baseline,
 } from '../src/content/f004-baseline.ts';
 import { buildPagesPreview } from '../src/content/pages-preview.ts';
+import type { CatalogV2 } from '../src/content/processing.ts';
 import { validateCatalogV2 } from '../src/ui/catalog-loader.ts';
 
 const execFile = promisify(execFileCallback);
@@ -288,7 +289,18 @@ async function main(): Promise<void> {
 
     assertEqual('authors projection', catalog.authors, finalCatalog.authors);
     assertEqual('works projection', catalog.works, finalCatalog.works);
-    assertEqual('audio projection', catalog.audioAssets, finalCatalog.audioAssets);
+    const normalizedAudio = (assets: CatalogV2['audioAssets']) =>
+      assets.map((asset) => ({
+        ...asset,
+        ...(asset.candidateIds
+          ? { candidateIds: [...asset.candidateIds].sort((left, right) => left.localeCompare(right, 'en')) }
+          : {}),
+      })).sort((left, right) => left.audioId.localeCompare(right.audioId, 'en'));
+    assertEqual(
+      'audio projection',
+      normalizedAudio(catalog.audioAssets),
+      normalizedAudio(finalCatalog.audioAssets),
+    );
     assertEqual('candidate counts', catalog.candidateCounts, finalCatalog.candidateCounts);
     assertEqual('credits ref', catalog.creditsRef, finalCatalog.creditsRef);
     assertEqual(
