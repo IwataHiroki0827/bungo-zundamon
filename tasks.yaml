@@ -1347,3 +1347,16 @@ tasks:
   model: *model_f004
   completed_at: '2026-07-28T01:06:31+09:00'
   result: 全公開台詞のお気に入り切替、固定key/version/上限付き端末内保存、memory縮退、共有controller、作者横断route、one-shot元作品移動、限定security許可を実装。全54ファイル918試験・495ファイルbuild・独立受入PASS
+- id: T-063
+  title: F005夏目漱石・代表3作品の要求・QT仕様を確定
+  feature: F005
+  phase: requirements
+  state: doing
+  depends:
+  - T-061
+  tags: []
+  mode: advisor
+  mode_reason: 公開済みv0.4.0を固定baselineにし、知名度・権利・台詞密度・容量から次作者と3作品を選定するため
+  model:
+    lead: opus
+    workers: sonnet
