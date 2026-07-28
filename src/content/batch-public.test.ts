@@ -13,6 +13,7 @@ import { validateArtworkProvenance, type ArtworkProvenanceV2 } from '../notices/
 import type { BatchId, BatchManifest, PublishableBatch, ReleasePreparationContext, Sha256, WorkspaceRelativePath } from './batch.ts';
 import {
   buildIntegratedPublicTree,
+  mergeCatalogWorksByAuthor,
   promoteIntegratedTree,
   type BatchCatalogFragment,
   type F001BaselineBundle,
@@ -332,6 +333,34 @@ async function promotionFixture(publicAudioOwners: readonly string[]): Promise<{
 
 // Direct trace tags: IT-F002-009 QT-F002-006 QT-F002-014
 describe('UT-F002-018/UT-F002-019 batch public integration', () => {
+  /** @des DES-F004-007 @fun FUN-F004-022 @ut UT-F004-022 */
+  it('既存作者への追加作品を後続の別作者より前にまとめ、作者内の末尾へ挿入する', async () => {
+    const value = await fixture();
+    const baseWorks = value.f001.catalog.works!;
+    const introduced = value.batchCatalogs.F002!;
+    const baseWork = baseWorks[0]!;
+    const reusedWork = {
+      ...baseWork,
+      workId: 'reuse-work',
+      batchId: 'F004',
+      dialogues: [],
+    };
+    const reused: BatchCatalogFragment = {
+      authors: [],
+      works: [reusedWork],
+      audioAssets: [],
+      candidateCounts: {
+        total: 0,
+        published: 0,
+        editorialExcluded: 0,
+        audioExcluded: 0,
+      },
+    };
+
+    expect(mergeCatalogWorksByAuthor(baseWorks, [introduced, reused]).map((work) => work.workId))
+      .toEqual([...baseWorks.map((work) => work.workId), 'reuse-work', ...introduced.works.map((work) => work.workId)]);
+  });
+
   it.each(['EBUSY', 'EPERM'] as const)('%sを0/100/250/500 ms境界でretryしてpublic昇格を完了する', async (code) => {
     const prepared = await promotionFixture(['F001', 'F002']);
     const delays: number[] = [];

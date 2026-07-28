@@ -430,6 +430,38 @@ function normalizeBatchAudio(batchId: string, fragment: BatchCatalogFragment): N
   };
 }
 
+/**
+ * 新規作者はbatch順に末尾へ、既存作者への追加作品はその作者の最終作品直後へ統合する。
+ * @des DES-F004-007 @fun FUN-F004-022 @ut UT-F004-022
+ */
+export function mergeCatalogWorksByAuthor(
+  baseWorks: CatalogV2['works'],
+  fragments: readonly BatchCatalogFragment[],
+): CatalogV2['works'] {
+  const mergedWorks = [...baseWorks];
+  for (const fragment of fragments) {
+    const authorIds = new Set(fragment.works.map((work) => work.authorId));
+    if (authorIds.size !== 1) {
+      throw new PublicIntegrationError('PUBLIC_CROSS_AUTHOR_REFERENCE', 'batch fragmentの作者が単一ではありません');
+    }
+    const authorId = fragment.works[0]?.authorId;
+    const introducesAuthor = fragment.authors.some((author) => author.authorId === authorId);
+    if (introducesAuthor) {
+      mergedWorks.push(...fragment.works);
+      continue;
+    }
+    let insertionIndex = -1;
+    for (let index = 0; index < mergedWorks.length; index += 1) {
+      if (mergedWorks[index]?.authorId === authorId) insertionIndex = index + 1;
+    }
+    if (insertionIndex < 0) {
+      throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', `既存作者の作品挿入先がありません: ${authorId ?? 'missing'}`);
+    }
+    mergedWorks.splice(insertionIndex, 0, ...fragment.works);
+  }
+  return mergedWorks;
+}
+
 async function referencedPublicEvidence(
   workspace: string,
   batchId: string,
@@ -567,10 +599,11 @@ function catalogFor(
     };
   });
   if (active) catalogBatches.push(active.catalogBatch);
+  const mergedWorks = mergeCatalogWorksByAuthor(base.works, added);
   const catalog: CatalogV2 = {
     schemaVersion: '2.0.0',
     authors: mergedAuthors,
-    works: [...base.works, ...added.flatMap((fragment) => fragment.works)],
+    works: mergedWorks,
     audioAssets: [...base.audioAssets, ...added.flatMap((fragment) => fragment.audioAssets)],
     batches: [
       ...existing,
