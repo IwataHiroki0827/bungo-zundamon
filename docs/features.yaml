@@ -19,6 +19,6 @@ features:
 - id: F004
   title: 宮沢賢治「雪渡り」ほか3作品・お気に入り
   branch: feature/F004
-  state: implement
+  state: test
   merge_after:
   - F003

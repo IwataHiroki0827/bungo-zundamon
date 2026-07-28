@@ -1257,7 +1257,7 @@ tasks:
   title: F004最終Catalog統合・既存不変・全asset整合を確認
   feature: F004
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-058
   - T-062
@@ -1275,6 +1275,8 @@ tasks:
   mode: advisor
   mode_reason: 固定baselineと追記結果を単一candidateへ統合するため
   model: *model_f004
+  completed_at: '2026-07-29T02:10:23+09:00'
+  result: FinalCatalogのみで3作者・12作品・674台詞・662音声、694 content/697 distを再現。宮沢既存3作の直後へF004 3作を追記し、全asset・固定v0.3.0不変・画像reuse新規0・public差分0を独立受入High/Medium/Low 0でPASS
 - id: T-060
   title: F004 UT・IT・QT・自動ブラウザ・権利・容量受入を実施
   feature: F004
