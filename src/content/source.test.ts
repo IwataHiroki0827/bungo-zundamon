@@ -407,6 +407,36 @@ describe('原典選定・取得・由来', () => {
     expect(socket).toHaveBeenCalledTimes(1);
   });
 
+  /** @des DES-F002-004 DES-F002-009 DES-F002-016 @fun FUN-F002-036 @test UT-F002-036 */
+  it('対象作品の権利行が同一なら公式書誌全体の更新だけではblockedにしない', async () => {
+    const rows = miyazawaRows();
+    const raw = bibliographyCsv(rows);
+    const selection = selectBatchWorks(rows, MIYAZAWA_MANIFEST, new Date('2026-07-20T01:00:00.000Z'), {
+      sha256: hash(raw),
+    }).observation;
+    const updatedRaw = new Uint8Array([...raw, 0x0a]);
+    const { transport } = productionTransport({
+      status: 200,
+      headers: { 'content-type': 'application/zip' },
+      body: zipFixture(updatedRaw),
+      fetchedAt: '2026-07-20T02:00:00.000Z',
+    });
+
+    const decision = await revalidateWorkRights(
+      MIYAZAWA_MANIFEST,
+      'a'.repeat(40),
+      'release-F002-global-csv-update',
+      transport,
+      selection,
+    );
+    expect(decision).toMatchObject({
+      result: 'unchanged',
+      reasons: [],
+      selection: { bibliographySha256: hash(raw) },
+      predeploy: { bibliographySha256: hash(updatedRaw) },
+    });
+  });
+
   /** @des DES-F002-004 DES-F002-014 @fun FUN-F002-007 @test UT-F002-007 */
   it('manifest由来allowlistでF002作品を既存安全transportから取得する', async () => {
     const workspace = await temporaryWorkspace();

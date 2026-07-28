@@ -663,7 +663,9 @@ export function selectBatchWorks(
 }
 
 function rightsComparable(observation: WorkRightsObservation): string {
-  return JSON.stringify({ bibliographySha256: observation.bibliographySha256, works: observation.works });
+  // 公式拡充CSVは全作家・全作品を含むため、対象外の更新でもfile SHAは変化する。
+  // deploy可否はmanifestで選定した作品の権利行だけを比較し、新旧file SHAは観測証跡として保持する。
+  return JSON.stringify({ works: observation.works });
 }
 
 function validSelectionObservation(selection: WorkRightsObservation, manifest: BatchSelectionManifest): boolean {
