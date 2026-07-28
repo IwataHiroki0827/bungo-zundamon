@@ -1,0 +1,1078 @@
+{
+  "approvedReasonCodes": [
+    "SPOKEN_DIALOGUE",
+    "INNER_MONOLOGUE"
+  ],
+  "batchId": "F004",
+  "candidatePath": "data/batches/F004/work-artifacts/001918/intermediate/001918/candidates.json",
+  "candidateSha256": "fb3b76e08cd3b494f8a3b6d1231b752fde09f86267b16efe894f68caabf1d6f6",
+  "decisions": [
+    "approved",
+    "rejected",
+    "ambiguous"
+  ],
+  "differences": [
+    {
+      "candidateId": "LW1oIIPBSkqwrtjI_dOuyEb7mvK07iaXOJA5hl-TyIU",
+      "order": 1,
+      "primary": {
+        "candidateId": "LW1oIIPBSkqwrtjI_dOuyEb7mvK07iaXOJA5hl-TyIU",
+        "decision": "approved",
+        "inputSha256": "f3374d3f8f1a0b8a2660d4e7adbd41c3b2848e3651510dfd2829d380e9037a59",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:872-898",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "LW1oIIPBSkqwrtjI_dOuyEb7mvK07iaXOJA5hl-TyIU",
+        "decision": "approved",
+        "inputSha256": "f3374d3f8f1a0b8a2660d4e7adbd41c3b2848e3651510dfd2829d380e9037a59",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:872-898",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "vVldUxxQswpdrvIb2XVwwaWvasbuS3MiRRCqjOVrKhQ",
+      "order": 3,
+      "primary": {
+        "candidateId": "vVldUxxQswpdrvIb2XVwwaWvasbuS3MiRRCqjOVrKhQ",
+        "decision": "approved",
+        "inputSha256": "908390fd663b62e58e0cbd607618f9f50b675cee4c7718c693d889f17db3f6bb",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:958-992",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "vVldUxxQswpdrvIb2XVwwaWvasbuS3MiRRCqjOVrKhQ",
+        "decision": "approved",
+        "inputSha256": "908390fd663b62e58e0cbd607618f9f50b675cee4c7718c693d889f17db3f6bb",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:958-992",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "7NJzo_-qZRq8Cbp8P1ArUn9xZr_N58kkOCfmy59SAfc",
+      "order": 6,
+      "primary": {
+        "candidateId": "7NJzo_-qZRq8Cbp8P1ArUn9xZr_N58kkOCfmy59SAfc",
+        "decision": "approved",
+        "inputSha256": "ef5b66a801abf7760bb8e9d31673103a6b15c64482e2e873c4767bae26eee21a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1136-1162",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "7NJzo_-qZRq8Cbp8P1ArUn9xZr_N58kkOCfmy59SAfc",
+        "decision": "approved",
+        "inputSha256": "ef5b66a801abf7760bb8e9d31673103a6b15c64482e2e873c4767bae26eee21a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1136-1162",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "LdgF8hds_E093pBm1qpYKO0SkCqEJegTyoBU9hvDoHk",
+      "order": 8,
+      "primary": {
+        "candidateId": "LdgF8hds_E093pBm1qpYKO0SkCqEJegTyoBU9hvDoHk",
+        "decision": "approved",
+        "inputSha256": "f4d24b51a30fb520d0cd8d9ca93babc65d0ecc947e9af2559878672bddc9818d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1179-1208",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "LdgF8hds_E093pBm1qpYKO0SkCqEJegTyoBU9hvDoHk",
+        "decision": "approved",
+        "inputSha256": "f4d24b51a30fb520d0cd8d9ca93babc65d0ecc947e9af2559878672bddc9818d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1179-1208",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "dYUsdbmYF8PAFkjHfzIZYi1IIjxUDltflQdYg3AeHh0",
+      "order": 11,
+      "primary": {
+        "candidateId": "dYUsdbmYF8PAFkjHfzIZYi1IIjxUDltflQdYg3AeHh0",
+        "decision": "approved",
+        "inputSha256": "d3633a41163b36d9c9082448580e85d182a02d1b77979b42489d7a4d1a4f406f",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1258-1272",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "dYUsdbmYF8PAFkjHfzIZYi1IIjxUDltflQdYg3AeHh0",
+        "decision": "approved",
+        "inputSha256": "d3633a41163b36d9c9082448580e85d182a02d1b77979b42489d7a4d1a4f406f",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1258-1272",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "E5wwBIZ6DXEs_Lg7730WvTpu5mydvuXYQcKu2Y1TUD0",
+      "order": 16,
+      "primary": {
+        "candidateId": "E5wwBIZ6DXEs_Lg7730WvTpu5mydvuXYQcKu2Y1TUD0",
+        "decision": "approved",
+        "inputSha256": "ce2b97a82e106dc6e51356ce5c197f77ae83840e4e8ec86c7b181b16e32722e9",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1319-1370",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "E5wwBIZ6DXEs_Lg7730WvTpu5mydvuXYQcKu2Y1TUD0",
+        "decision": "approved",
+        "inputSha256": "ce2b97a82e106dc6e51356ce5c197f77ae83840e4e8ec86c7b181b16e32722e9",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1319-1370",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "sNOCr2rXyHTZmawGX9KgeZbF1wi7831JY-FlAQBZPAU",
+      "order": 21,
+      "primary": {
+        "candidateId": "sNOCr2rXyHTZmawGX9KgeZbF1wi7831JY-FlAQBZPAU",
+        "decision": "approved",
+        "inputSha256": "3d4039dc18a5b16016e8935adbc8467c9407cea0ad5ed660240772f85aeed2d1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1590-1629",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "sNOCr2rXyHTZmawGX9KgeZbF1wi7831JY-FlAQBZPAU",
+        "decision": "approved",
+        "inputSha256": "3d4039dc18a5b16016e8935adbc8467c9407cea0ad5ed660240772f85aeed2d1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1590-1629",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "6DPmtkUEpnmrECdvNd7sKEzT2cGSWSoLYY7xbxWSj4o",
+      "order": 23,
+      "primary": {
+        "candidateId": "6DPmtkUEpnmrECdvNd7sKEzT2cGSWSoLYY7xbxWSj4o",
+        "decision": "approved",
+        "inputSha256": "f6d9cae950505930dea9c2ff3ffccb0b952e811ffbe1f11051a5e7fd21585f30",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1652-1673",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "6DPmtkUEpnmrECdvNd7sKEzT2cGSWSoLYY7xbxWSj4o",
+        "decision": "approved",
+        "inputSha256": "f6d9cae950505930dea9c2ff3ffccb0b952e811ffbe1f11051a5e7fd21585f30",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:1652-1673",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "s3aACfTDoAwt0W8HSF0LqmQPZWSOBjCRk3l3tAN75J0",
+      "order": 26,
+      "primary": {
+        "candidateId": "s3aACfTDoAwt0W8HSF0LqmQPZWSOBjCRk3l3tAN75J0",
+        "decision": "approved",
+        "inputSha256": "7568ae804101ddc70cddf4f24e7c50adc83d726b588083b2255632472e0b1620",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2035-2055",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "s3aACfTDoAwt0W8HSF0LqmQPZWSOBjCRk3l3tAN75J0",
+        "decision": "approved",
+        "inputSha256": "7568ae804101ddc70cddf4f24e7c50adc83d726b588083b2255632472e0b1620",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2035-2055",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "IRUotUUqgHOcAYj339Eu7KAqb2FragWYC7PiXiNRa88",
+      "order": 28,
+      "primary": {
+        "candidateId": "IRUotUUqgHOcAYj339Eu7KAqb2FragWYC7PiXiNRa88",
+        "decision": "approved",
+        "inputSha256": "c2a273d62b50ddab9d78d4999198c493180afba8a72d099cc0909603c66feb7a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2093-2102",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "IRUotUUqgHOcAYj339Eu7KAqb2FragWYC7PiXiNRa88",
+        "decision": "approved",
+        "inputSha256": "c2a273d62b50ddab9d78d4999198c493180afba8a72d099cc0909603c66feb7a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2093-2102",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "p0PHC1urV0xHP-uPOJKXgvgYXNk3hENrMlIbXA-Gpx0",
+      "order": 30,
+      "primary": {
+        "candidateId": "p0PHC1urV0xHP-uPOJKXgvgYXNk3hENrMlIbXA-Gpx0",
+        "decision": "approved",
+        "inputSha256": "535045583ed8cc61aa0c8c26778bd952737cdce67cbc625ee102dcba2a72111d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2131-2162",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "p0PHC1urV0xHP-uPOJKXgvgYXNk3hENrMlIbXA-Gpx0",
+        "decision": "approved",
+        "inputSha256": "535045583ed8cc61aa0c8c26778bd952737cdce67cbc625ee102dcba2a72111d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2131-2162",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "t8FrPnVp8_O3BFH-VU1r0a1E_75X5ydASqYgtsUHx74",
+      "order": 31,
+      "primary": {
+        "candidateId": "t8FrPnVp8_O3BFH-VU1r0a1E_75X5ydASqYgtsUHx74",
+        "decision": "approved",
+        "inputSha256": "c7138a8d2d7a4c293377dae24eb83a828716b9d4f8f461d527360059f45d696c",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2196-2241",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "t8FrPnVp8_O3BFH-VU1r0a1E_75X5ydASqYgtsUHx74",
+        "decision": "approved",
+        "inputSha256": "c7138a8d2d7a4c293377dae24eb83a828716b9d4f8f461d527360059f45d696c",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2196-2241",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "07JFn2bbNpBUzcZZeBaifwoc0f54kkmJcxq3z5aFnCA",
+      "order": 33,
+      "primary": {
+        "candidateId": "07JFn2bbNpBUzcZZeBaifwoc0f54kkmJcxq3z5aFnCA",
+        "decision": "approved",
+        "inputSha256": "b6eac6e9a51275d1fb24b3265cb3104cfbaf2f1b2c286a937c827d53d9239765",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2261-2276",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "07JFn2bbNpBUzcZZeBaifwoc0f54kkmJcxq3z5aFnCA",
+        "decision": "approved",
+        "inputSha256": "b6eac6e9a51275d1fb24b3265cb3104cfbaf2f1b2c286a937c827d53d9239765",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2261-2276",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "D_ol1RmMCpZlm2qGBa49hrhykidYm6YnQxthmeOxZmM",
+      "order": 35,
+      "primary": {
+        "candidateId": "D_ol1RmMCpZlm2qGBa49hrhykidYm6YnQxthmeOxZmM",
+        "decision": "approved",
+        "inputSha256": "8ab77880d1c12027c4855259dd9c7083769b272f18c15024dbdfd3096b5ad35b",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2316-2343",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "D_ol1RmMCpZlm2qGBa49hrhykidYm6YnQxthmeOxZmM",
+        "decision": "approved",
+        "inputSha256": "8ab77880d1c12027c4855259dd9c7083769b272f18c15024dbdfd3096b5ad35b",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2316-2343",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "zcm-4M1zXtxMfzeX4EWLIGHqwbFfyH6T17xktV8Zc6w",
+      "order": 37,
+      "primary": {
+        "candidateId": "zcm-4M1zXtxMfzeX4EWLIGHqwbFfyH6T17xktV8Zc6w",
+        "decision": "approved",
+        "inputSha256": "0e41af9f033898433839f01cbc3e547ecdeb11397635549659d457e0084d99ca",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2360-2373",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "zcm-4M1zXtxMfzeX4EWLIGHqwbFfyH6T17xktV8Zc6w",
+        "decision": "approved",
+        "inputSha256": "0e41af9f033898433839f01cbc3e547ecdeb11397635549659d457e0084d99ca",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2360-2373",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "aJoLeSohvxDh5YKgkjeZB7P6IFOl8vDOUp1DdpOdaqk",
+      "order": 38,
+      "primary": {
+        "candidateId": "aJoLeSohvxDh5YKgkjeZB7P6IFOl8vDOUp1DdpOdaqk",
+        "decision": "approved",
+        "inputSha256": "9b8a09bd01048d8bf7fe1b9ea8737344e5410c701f737d6cc0b9cc7f1f731ad4",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2495-2516",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "aJoLeSohvxDh5YKgkjeZB7P6IFOl8vDOUp1DdpOdaqk",
+        "decision": "approved",
+        "inputSha256": "9b8a09bd01048d8bf7fe1b9ea8737344e5410c701f737d6cc0b9cc7f1f731ad4",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2495-2516",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "hzw5oRuSlgeFXt1lrhMuWPN-dSptY3E2ch2zJWFhEB4",
+      "order": 40,
+      "primary": {
+        "candidateId": "hzw5oRuSlgeFXt1lrhMuWPN-dSptY3E2ch2zJWFhEB4",
+        "decision": "approved",
+        "inputSha256": "5bb1b7aa00fcecae7eae91cac66de1d9834d3db81755bb5a7b8057a6628698de",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2546-2579",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "hzw5oRuSlgeFXt1lrhMuWPN-dSptY3E2ch2zJWFhEB4",
+        "decision": "approved",
+        "inputSha256": "5bb1b7aa00fcecae7eae91cac66de1d9834d3db81755bb5a7b8057a6628698de",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2546-2579",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "9Ob7ZSTfQosw0rwPGmIxFfXY-2oxp-Nl0D01QYHd-Ec",
+      "order": 42,
+      "primary": {
+        "candidateId": "9Ob7ZSTfQosw0rwPGmIxFfXY-2oxp-Nl0D01QYHd-Ec",
+        "decision": "approved",
+        "inputSha256": "8f670d34c27bbcdfa5f77ff77783530ab78d701c453a3446836eff0d4cf2620a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2616-2640",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "9Ob7ZSTfQosw0rwPGmIxFfXY-2oxp-Nl0D01QYHd-Ec",
+        "decision": "approved",
+        "inputSha256": "8f670d34c27bbcdfa5f77ff77783530ab78d701c453a3446836eff0d4cf2620a",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2616-2640",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "DyuqCqbW6fi1_m0aVGP5UCAbVRVT_-RCIu-IYKUuK2o",
+      "order": 44,
+      "primary": {
+        "candidateId": "DyuqCqbW6fi1_m0aVGP5UCAbVRVT_-RCIu-IYKUuK2o",
+        "decision": "approved",
+        "inputSha256": "11f2f6a8a8f6dd41a57506e84d63a2685c520abb92575fdd9c3b02b0f62d5651",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2671-2703",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "DyuqCqbW6fi1_m0aVGP5UCAbVRVT_-RCIu-IYKUuK2o",
+        "decision": "approved",
+        "inputSha256": "11f2f6a8a8f6dd41a57506e84d63a2685c520abb92575fdd9c3b02b0f62d5651",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2671-2703",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "G11yV_jHrA6eLYFEb0nDwF8iql25JmbAG1c1fYCtW64",
+      "order": 46,
+      "primary": {
+        "candidateId": "G11yV_jHrA6eLYFEb0nDwF8iql25JmbAG1c1fYCtW64",
+        "decision": "approved",
+        "inputSha256": "1185e2e5b2d17a198bbb21d34d9058dea0f8e9966c0531b7a1d79c98f634f048",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2792-2919",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "G11yV_jHrA6eLYFEb0nDwF8iql25JmbAG1c1fYCtW64",
+        "decision": "approved",
+        "inputSha256": "1185e2e5b2d17a198bbb21d34d9058dea0f8e9966c0531b7a1d79c98f634f048",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2792-2919",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "cdN1y2qgoqut-poXLPwq6bdZhn7CuM6_GT3dLlLSuRk",
+      "order": 48,
+      "primary": {
+        "candidateId": "cdN1y2qgoqut-poXLPwq6bdZhn7CuM6_GT3dLlLSuRk",
+        "decision": "approved",
+        "inputSha256": "dcf264c3574e3d431e255aaf6fa49456b8843ffab1881c5e713374eb7aad24d5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2935-2950",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "cdN1y2qgoqut-poXLPwq6bdZhn7CuM6_GT3dLlLSuRk",
+        "decision": "approved",
+        "inputSha256": "dcf264c3574e3d431e255aaf6fa49456b8843ffab1881c5e713374eb7aad24d5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2935-2950",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "HQuOSdVY6Nl8XgHdz5piQR0afZdL8mz3wIbHblWz7DA",
+      "order": 50,
+      "primary": {
+        "candidateId": "HQuOSdVY6Nl8XgHdz5piQR0afZdL8mz3wIbHblWz7DA",
+        "decision": "approved",
+        "inputSha256": "db448b74cbdfda311c4e1c3018db5173d9fac6a6aa82fd4b481f137f90990f46",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2973-2985",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "HQuOSdVY6Nl8XgHdz5piQR0afZdL8mz3wIbHblWz7DA",
+        "decision": "approved",
+        "inputSha256": "db448b74cbdfda311c4e1c3018db5173d9fac6a6aa82fd4b481f137f90990f46",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:2973-2985",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "V-tAzJZBGYW6ZWjBNM7eEvvUhrcTIbto5jIby-EXRvo",
+      "order": 53,
+      "primary": {
+        "candidateId": "V-tAzJZBGYW6ZWjBNM7eEvvUhrcTIbto5jIby-EXRvo",
+        "decision": "approved",
+        "inputSha256": "19ec7a690833223e751e5aa3766834bf32f8c99f88f62f5d21ac04369d084bc0",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3625-3704",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "V-tAzJZBGYW6ZWjBNM7eEvvUhrcTIbto5jIby-EXRvo",
+        "decision": "approved",
+        "inputSha256": "19ec7a690833223e751e5aa3766834bf32f8c99f88f62f5d21ac04369d084bc0",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3625-3704",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "ZaOKI9nX7SX0_pc-fjW8Vhz7dmRZK2_Ychsm9yG6wXg",
+      "order": 54,
+      "primary": {
+        "candidateId": "ZaOKI9nX7SX0_pc-fjW8Vhz7dmRZK2_Ychsm9yG6wXg",
+        "decision": "approved",
+        "inputSha256": "82dfd272a1c9434a60d9b1c178487c81ecb8df3708445a930738ac971b2c7c10",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3761-3835",
+        "speaker": "とのさまがえる（酒屋）"
+      },
+      "secondary": {
+        "candidateId": "ZaOKI9nX7SX0_pc-fjW8Vhz7dmRZK2_Ychsm9yG6wXg",
+        "decision": "approved",
+        "inputSha256": "82dfd272a1c9434a60d9b1c178487c81ecb8df3708445a930738ac971b2c7c10",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:3761-3835",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "JkZjwNXy_6OC6DPhZOM8R0Rf5HgOpyycyVZkec1UekA",
+      "order": 58,
+      "primary": {
+        "candidateId": "JkZjwNXy_6OC6DPhZOM8R0Rf5HgOpyycyVZkec1UekA",
+        "decision": "approved",
+        "inputSha256": "f840c50ccba75813a1b048a9b718c9eb0f612f87dd1459dc26df99632f60d332",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4059-4123",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "JkZjwNXy_6OC6DPhZOM8R0Rf5HgOpyycyVZkec1UekA",
+        "decision": "approved",
+        "inputSha256": "f840c50ccba75813a1b048a9b718c9eb0f612f87dd1459dc26df99632f60d332",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4059-4123",
+        "speaker": "とのさまがえる"
+      }
+    },
+    {
+      "candidateId": "m5b_25kEdbsFD7ZfJ6uD-kUKpynvVMiatlRYGE0GGpg",
+      "order": 60,
+      "primary": {
+        "candidateId": "m5b_25kEdbsFD7ZfJ6uD-kUKpynvVMiatlRYGE0GGpg",
+        "decision": "approved",
+        "inputSha256": "7df7e2654ef6e4088c39cad0627f59ebdc35a28b55828824f3ad890dfd6c4a5d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4356-4639",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "m5b_25kEdbsFD7ZfJ6uD-kUKpynvVMiatlRYGE0GGpg",
+        "decision": "approved",
+        "inputSha256": "7df7e2654ef6e4088c39cad0627f59ebdc35a28b55828824f3ad890dfd6c4a5d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:4356-4639",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "trxju372JB5_DwxxMf6uytO-vfMx8TrOwqcxNFF1w-0",
+      "order": 63,
+      "primary": {
+        "candidateId": "trxju372JB5_DwxxMf6uytO-vfMx8TrOwqcxNFF1w-0",
+        "decision": "approved",
+        "inputSha256": "0e8e254a7b201548cd83fd27a0033debc1b204946a139e062a579d7acf56d80d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5017-5026",
+        "speaker": "蟻"
+      },
+      "secondary": {
+        "candidateId": "trxju372JB5_DwxxMf6uytO-vfMx8TrOwqcxNFF1w-0",
+        "decision": "rejected",
+        "inputSha256": "0e8e254a7b201548cd83fd27a0033debc1b204946a139e062a579d7acf56d80d",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:5017-5026",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "0MW3csmwCKxyeHvEiONRmlpWvvDDSnx0iYBz1OOfoA4",
+      "order": 65,
+      "primary": {
+        "candidateId": "0MW3csmwCKxyeHvEiONRmlpWvvDDSnx0iYBz1OOfoA4",
+        "decision": "approved",
+        "inputSha256": "94dfa600a8fe95581149b6a57e83843643b1d8d8d91693348c5815a2e40774de",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5220-5259",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "0MW3csmwCKxyeHvEiONRmlpWvvDDSnx0iYBz1OOfoA4",
+        "decision": "approved",
+        "inputSha256": "94dfa600a8fe95581149b6a57e83843643b1d8d8d91693348c5815a2e40774de",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5220-5259",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "1d_9XNRMxqiPoreH8tEDTERy5gBDqYwTeTD0sSrUOrQ",
+      "order": 66,
+      "primary": {
+        "candidateId": "1d_9XNRMxqiPoreH8tEDTERy5gBDqYwTeTD0sSrUOrQ",
+        "decision": "approved",
+        "inputSha256": "d0b2e13e2d20d552b84aada94d1129177fb530c829ab83076ae236076de55d0e",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5357-5533",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "1d_9XNRMxqiPoreH8tEDTERy5gBDqYwTeTD0sSrUOrQ",
+        "decision": "approved",
+        "inputSha256": "d0b2e13e2d20d552b84aada94d1129177fb530c829ab83076ae236076de55d0e",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5357-5533",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "C9vtAym_4BMvtTAvyWN4GHupSff_itPdojKXS7AHRU4",
+      "order": 68,
+      "primary": {
+        "candidateId": "C9vtAym_4BMvtTAvyWN4GHupSff_itPdojKXS7AHRU4",
+        "decision": "approved",
+        "inputSha256": "d35a552a23ae81f7a6c269ad4a97204876ddb0a2110fcaf773036d04b99a08b1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5692-5725",
+        "speaker": "ビチュコ（あまがえる）"
+      },
+      "secondary": {
+        "candidateId": "C9vtAym_4BMvtTAvyWN4GHupSff_itPdojKXS7AHRU4",
+        "decision": "approved",
+        "inputSha256": "d35a552a23ae81f7a6c269ad4a97204876ddb0a2110fcaf773036d04b99a08b1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5692-5725",
+        "speaker": "ビチュコ"
+      }
+    },
+    {
+      "candidateId": "qDjvuHTdkegJEaEzSAZfjwO1_X9dgScT_JgUcELmNAI",
+      "order": 70,
+      "primary": {
+        "candidateId": "qDjvuHTdkegJEaEzSAZfjwO1_X9dgScT_JgUcELmNAI",
+        "decision": "approved",
+        "inputSha256": "a987f306c1741303a7c8990d8c81ba0aa8db229b61976399554882bbfc354e2d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5763-5795",
+        "speaker": "ビチュコ（あまがえる）"
+      },
+      "secondary": {
+        "candidateId": "qDjvuHTdkegJEaEzSAZfjwO1_X9dgScT_JgUcELmNAI",
+        "decision": "approved",
+        "inputSha256": "a987f306c1741303a7c8990d8c81ba0aa8db229b61976399554882bbfc354e2d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5763-5795",
+        "speaker": "ビチュコ"
+      }
+    },
+    {
+      "candidateId": "YdBNJIuSPVKnRAJXRNslgeY0nEuCAjAubxfhzpE1xAg",
+      "order": 72,
+      "primary": {
+        "candidateId": "YdBNJIuSPVKnRAJXRNslgeY0nEuCAjAubxfhzpE1xAg",
+        "decision": "approved",
+        "inputSha256": "01ed9a5270379c17ca263ebd0e4f0f13ef13bd1c44c698f28a44b82a581b8ce1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5830-5911",
+        "speaker": "ビチュコ（あまがえる）"
+      },
+      "secondary": {
+        "candidateId": "YdBNJIuSPVKnRAJXRNslgeY0nEuCAjAubxfhzpE1xAg",
+        "decision": "approved",
+        "inputSha256": "01ed9a5270379c17ca263ebd0e4f0f13ef13bd1c44c698f28a44b82a581b8ce1",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5830-5911",
+        "speaker": "ビチュコ"
+      }
+    },
+    {
+      "candidateId": "RRIF_r21C9MuyXjPofRhr1hBuN0rocVfhB1iNYMWxYI",
+      "order": 74,
+      "primary": {
+        "candidateId": "RRIF_r21C9MuyXjPofRhr1hBuN0rocVfhB1iNYMWxYI",
+        "decision": "approved",
+        "inputSha256": "bf512d880f2c38bccb6aed75daf9bc9f4b47fa128446e15158eb457e33eadac2",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5936-5943",
+        "speaker": "ビチュコ（あまがえる）"
+      },
+      "secondary": {
+        "candidateId": "RRIF_r21C9MuyXjPofRhr1hBuN0rocVfhB1iNYMWxYI",
+        "decision": "approved",
+        "inputSha256": "bf512d880f2c38bccb6aed75daf9bc9f4b47fa128446e15158eb457e33eadac2",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:5936-5943",
+        "speaker": "ビチュコ"
+      }
+    },
+    {
+      "candidateId": "TWGGh64PKBpk4YUb92Wf8mjwspxfXE1-OZ8A_XmnWQM",
+      "order": 75,
+      "primary": {
+        "candidateId": "TWGGh64PKBpk4YUb92Wf8mjwspxfXE1-OZ8A_XmnWQM",
+        "decision": "approved",
+        "inputSha256": "2780006de3520267069c6add1bfb740e86f4cd74d86182daae331940fc59e138",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6031-6066",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "TWGGh64PKBpk4YUb92Wf8mjwspxfXE1-OZ8A_XmnWQM",
+        "decision": "approved",
+        "inputSha256": "2780006de3520267069c6add1bfb740e86f4cd74d86182daae331940fc59e138",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6031-6066",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "x6Qviiib3bp1kQcq9L2yOjj2nKcqNAv42pTh2i_qWOU",
+      "order": 76,
+      "primary": {
+        "candidateId": "x6Qviiib3bp1kQcq9L2yOjj2nKcqNAv42pTh2i_qWOU",
+        "decision": "approved",
+        "inputSha256": "5482f44b700f74eec77e3ecc1eb1470def2703c43f938eb2b1a133ff5663d791",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6194-6237",
+        "speaker": "訪問者のとのさまがえる"
+      },
+      "secondary": {
+        "candidateId": "x6Qviiib3bp1kQcq9L2yOjj2nKcqNAv42pTh2i_qWOU",
+        "decision": "approved",
+        "inputSha256": "5482f44b700f74eec77e3ecc1eb1470def2703c43f938eb2b1a133ff5663d791",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6194-6237",
+        "speaker": "もう一ぴきのとのさまがえる"
+      }
+    },
+    {
+      "candidateId": "LC3CyeU49rWQyeLZzASgwWFaehrlVlXBtv1BcyOilo4",
+      "order": 77,
+      "primary": {
+        "candidateId": "LC3CyeU49rWQyeLZzASgwWFaehrlVlXBtv1BcyOilo4",
+        "decision": "approved",
+        "inputSha256": "6bccfe5827e4674cc172aa0aeab3413629821006fbbb64918e6adcff2ba340f7",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6239-6270",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "LC3CyeU49rWQyeLZzASgwWFaehrlVlXBtv1BcyOilo4",
+        "decision": "approved",
+        "inputSha256": "6bccfe5827e4674cc172aa0aeab3413629821006fbbb64918e6adcff2ba340f7",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6239-6270",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "8VoGN6l8_kJeV1p2C1e4RkSBJALKvKsHcn-MMZMdUVw",
+      "order": 78,
+      "primary": {
+        "candidateId": "8VoGN6l8_kJeV1p2C1e4RkSBJALKvKsHcn-MMZMdUVw",
+        "decision": "approved",
+        "inputSha256": "a2177aedfaff3e81bdffe8061f126c22207072fc40a1fe7d6e7cd7c3e0c79ce8",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6272-6291",
+        "speaker": "訪問者のとのさまがえる"
+      },
+      "secondary": {
+        "candidateId": "8VoGN6l8_kJeV1p2C1e4RkSBJALKvKsHcn-MMZMdUVw",
+        "decision": "approved",
+        "inputSha256": "a2177aedfaff3e81bdffe8061f126c22207072fc40a1fe7d6e7cd7c3e0c79ce8",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6272-6291",
+        "speaker": "もう一ぴきのとのさまがえる"
+      }
+    },
+    {
+      "candidateId": "TFDLqQcbCT4XuyC8cnTamWT1oMRvTxPUvcrwAvbYKyQ",
+      "order": 79,
+      "primary": {
+        "candidateId": "TFDLqQcbCT4XuyC8cnTamWT1oMRvTxPUvcrwAvbYKyQ",
+        "decision": "approved",
+        "inputSha256": "557c5212fab54d9d6616d5f72ca0b614d65f427e202ebb21b7405565607a308d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6293-6344",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "TFDLqQcbCT4XuyC8cnTamWT1oMRvTxPUvcrwAvbYKyQ",
+        "decision": "approved",
+        "inputSha256": "557c5212fab54d9d6616d5f72ca0b614d65f427e202ebb21b7405565607a308d",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6293-6344",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "kGxFHzD8aNO0dz2p8jBy1fw7tEzIRqQ2lR9LmP4O2uM",
+      "order": 80,
+      "primary": {
+        "candidateId": "kGxFHzD8aNO0dz2p8jBy1fw7tEzIRqQ2lR9LmP4O2uM",
+        "decision": "approved",
+        "inputSha256": "a10ac376f08c92f1704c504f403fa26d203dcd5f51483bf1eed0eb700778e380",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6346-6363",
+        "speaker": "訪問者のとのさまがえる"
+      },
+      "secondary": {
+        "candidateId": "kGxFHzD8aNO0dz2p8jBy1fw7tEzIRqQ2lR9LmP4O2uM",
+        "decision": "approved",
+        "inputSha256": "a10ac376f08c92f1704c504f403fa26d203dcd5f51483bf1eed0eb700778e380",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6346-6363",
+        "speaker": "もう一ぴきのとのさまがえる"
+      }
+    },
+    {
+      "candidateId": "cIOZmv2tM8CoXfKMYTzK9notLS3l4ZpyQA0CIDPRi8U",
+      "order": 81,
+      "primary": {
+        "candidateId": "cIOZmv2tM8CoXfKMYTzK9notLS3l4ZpyQA0CIDPRi8U",
+        "decision": "approved",
+        "inputSha256": "02c606137de23d41508f06cbefa205eab5bfce32d444db75d1d61ace514dadc0",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6365-6422",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "cIOZmv2tM8CoXfKMYTzK9notLS3l4ZpyQA0CIDPRi8U",
+        "decision": "approved",
+        "inputSha256": "02c606137de23d41508f06cbefa205eab5bfce32d444db75d1d61ace514dadc0",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6365-6422",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "SfBK2guRafVIcT6qWiBOp0x8zrhHzhwZSX58EJOZIeo",
+      "order": 82,
+      "primary": {
+        "candidateId": "SfBK2guRafVIcT6qWiBOp0x8zrhHzhwZSX58EJOZIeo",
+        "decision": "approved",
+        "inputSha256": "c13fd2705ef3cc88f487e659d15c5ce48e57df76c8768460423622b579fd6c44",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6424-6444",
+        "speaker": "訪問者のとのさまがえる"
+      },
+      "secondary": {
+        "candidateId": "SfBK2guRafVIcT6qWiBOp0x8zrhHzhwZSX58EJOZIeo",
+        "decision": "approved",
+        "inputSha256": "c13fd2705ef3cc88f487e659d15c5ce48e57df76c8768460423622b579fd6c44",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6424-6444",
+        "speaker": "もう一ぴきのとのさまがえる"
+      }
+    },
+    {
+      "candidateId": "nn3AwFF6PK-NQphr5jjq_7ukFLflb5UuJXf4uJ7kH2Q",
+      "order": 83,
+      "primary": {
+        "candidateId": "nn3AwFF6PK-NQphr5jjq_7ukFLflb5UuJXf4uJ7kH2Q",
+        "decision": "approved",
+        "inputSha256": "93bed6d4a0ad90e4d3c471cb93738423b7c33aa51f642702090f08aab000b5b8",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6446-6569",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "nn3AwFF6PK-NQphr5jjq_7ukFLflb5UuJXf4uJ7kH2Q",
+        "decision": "approved",
+        "inputSha256": "93bed6d4a0ad90e4d3c471cb93738423b7c33aa51f642702090f08aab000b5b8",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:6446-6569",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "tQI3fc32zi9XLTicSezThBea6oOC0pcLPaUyHLeF3hI",
+      "order": 84,
+      "primary": {
+        "candidateId": "tQI3fc32zi9XLTicSezThBea6oOC0pcLPaUyHLeF3hI",
+        "decision": "approved",
+        "inputSha256": "076e38b9e23969e37f15e3358d5f2834eb43fafac32a25d99f2d9218d3b9c3fe",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7421-7495",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "tQI3fc32zi9XLTicSezThBea6oOC0pcLPaUyHLeF3hI",
+        "decision": "approved",
+        "inputSha256": "076e38b9e23969e37f15e3358d5f2834eb43fafac32a25d99f2d9218d3b9c3fe",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7421-7495",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "EvybDMmUWSCbLVOwlxf1L8wp8vfRK8iBmr-xzGOyfnM",
+      "order": 86,
+      "primary": {
+        "candidateId": "EvybDMmUWSCbLVOwlxf1L8wp8vfRK8iBmr-xzGOyfnM",
+        "decision": "approved",
+        "inputSha256": "8e8a06354881c0d1337a453bcbc839ed68a8aac6326f465b91dba93ef2a4e38c",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7528-7591",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "EvybDMmUWSCbLVOwlxf1L8wp8vfRK8iBmr-xzGOyfnM",
+        "decision": "approved",
+        "inputSha256": "8e8a06354881c0d1337a453bcbc839ed68a8aac6326f465b91dba93ef2a4e38c",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7528-7591",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "O0MeqAJhWBUwys4n4FeovzqYV3rSQbP8eSsaNCD_U3s",
+      "order": 88,
+      "primary": {
+        "candidateId": "O0MeqAJhWBUwys4n4FeovzqYV3rSQbP8eSsaNCD_U3s",
+        "decision": "approved",
+        "inputSha256": "ed52273f166a7111d2f8a8be699d876b0e2b364813277ec72d3f0c6229f189b5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7689-7723",
+        "speaker": "カイロ団長（とのさまがえる）"
+      },
+      "secondary": {
+        "candidateId": "O0MeqAJhWBUwys4n4FeovzqYV3rSQbP8eSsaNCD_U3s",
+        "decision": "approved",
+        "inputSha256": "ed52273f166a7111d2f8a8be699d876b0e2b364813277ec72d3f0c6229f189b5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7689-7723",
+        "speaker": "カイロ団長"
+      }
+    },
+    {
+      "candidateId": "CU2kFGG_pS4Gq6dUbZMyZ4env4kRggg7srZ8rEHIvwU",
+      "order": 89,
+      "primary": {
+        "candidateId": "CU2kFGG_pS4Gq6dUbZMyZ4env4kRggg7srZ8rEHIvwU",
+        "decision": "approved",
+        "inputSha256": "e8cb25a678932b4696223cfbbafa1a904ddfbdfac60dee388b129c2bad573796",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7754-7765",
+        "speaker": "かたつむり（メガホーン）"
+      },
+      "secondary": {
+        "candidateId": "CU2kFGG_pS4Gq6dUbZMyZ4env4kRggg7srZ8rEHIvwU",
+        "decision": "rejected",
+        "inputSha256": "e8cb25a678932b4696223cfbbafa1a904ddfbdfac60dee388b129c2bad573796",
+        "reasonCode": "NON_SPEECH",
+        "sourceAnchor": ".main_text:7754-7765",
+        "speaker": null
+      }
+    },
+    {
+      "candidateId": "BIcmia_k8hDFGKen6WEV1I6Kl3ZzVCEJ_U4QyBUqfAg",
+      "order": 90,
+      "primary": {
+        "candidateId": "BIcmia_k8hDFGKen6WEV1I6Kl3ZzVCEJ_U4QyBUqfAg",
+        "decision": "approved",
+        "inputSha256": "957157def2c84a8c949eff5f6d3cce023c3ff67403cba68b4b812d4e6c411874",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7858-7873",
+        "speaker": "あまがえる"
+      },
+      "secondary": {
+        "candidateId": "BIcmia_k8hDFGKen6WEV1I6Kl3ZzVCEJ_U4QyBUqfAg",
+        "decision": "approved",
+        "inputSha256": "957157def2c84a8c949eff5f6d3cce023c3ff67403cba68b4b812d4e6c411874",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7858-7873",
+        "speaker": "あまがえるたち・カイロ団長"
+      }
+    },
+    {
+      "candidateId": "tidYzBTKn85oT31e5iNvlenOgX1xtz6D8XubQckbOhs",
+      "order": 91,
+      "primary": {
+        "candidateId": "tidYzBTKn85oT31e5iNvlenOgX1xtz6D8XubQckbOhs",
+        "decision": "approved",
+        "inputSha256": "9aa10996dba989b11dbeb3b3a46d3bc4811071f3dc00de55054a4fdd260dafca",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7939-8112",
+        "speaker": "かたつむり（メガホーン）"
+      },
+      "secondary": {
+        "candidateId": "tidYzBTKn85oT31e5iNvlenOgX1xtz6D8XubQckbOhs",
+        "decision": "approved",
+        "inputSha256": "9aa10996dba989b11dbeb3b3a46d3bc4811071f3dc00de55054a4fdd260dafca",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:7939-8112",
+        "speaker": "かたつむり"
+      }
+    },
+    {
+      "candidateId": "puZjtIPD2LfIC9Pr-NhEfvPP52c0O1-VL_8H6vUVjFI",
+      "order": 92,
+      "primary": {
+        "candidateId": "puZjtIPD2LfIC9Pr-NhEfvPP52c0O1-VL_8H6vUVjFI",
+        "decision": "approved",
+        "inputSha256": "1605d08ae73386f43bf9a12d219672c970e7eb66e6cb833707dbdf2f125614b5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:8239-8254",
+        "speaker": "チェッコ（あまがえる）"
+      },
+      "secondary": {
+        "candidateId": "puZjtIPD2LfIC9Pr-NhEfvPP52c0O1-VL_8H6vUVjFI",
+        "decision": "approved",
+        "inputSha256": "1605d08ae73386f43bf9a12d219672c970e7eb66e6cb833707dbdf2f125614b5",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:8239-8254",
+        "speaker": "チェッコ"
+      }
+    },
+    {
+      "candidateId": "CEphNovGexpMm8PAaohoKhqU9S2xQ9GVo6JmNcamaHA",
+      "order": 98,
+      "primary": {
+        "candidateId": "CEphNovGexpMm8PAaohoKhqU9S2xQ9GVo6JmNcamaHA",
+        "decision": "approved",
+        "inputSha256": "4075a21c16dd5e5cdc3a348255428e0dc61f86c63678325b8bf46a19ab4d5cbb",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9044-9115",
+        "speaker": "かたつむり（メガホーン）"
+      },
+      "secondary": {
+        "candidateId": "CEphNovGexpMm8PAaohoKhqU9S2xQ9GVo6JmNcamaHA",
+        "decision": "approved",
+        "inputSha256": "4075a21c16dd5e5cdc3a348255428e0dc61f86c63678325b8bf46a19ab4d5cbb",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9044-9115",
+        "speaker": "かたつむり"
+      }
+    },
+    {
+      "candidateId": "LtRQIOmZeWxQnf5PEVt6cyFF1CtV018we03fhuHUP6U",
+      "order": 99,
+      "primary": {
+        "candidateId": "LtRQIOmZeWxQnf5PEVt6cyFF1CtV018we03fhuHUP6U",
+        "decision": "approved",
+        "inputSha256": "9a37b2c29c70996ff4ee04134fd469ab5863b02be310602efaff99214cdb4150",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9130-9143",
+        "speaker": "かたつむり（メガホーン）"
+      },
+      "secondary": {
+        "candidateId": "LtRQIOmZeWxQnf5PEVt6cyFF1CtV018we03fhuHUP6U",
+        "decision": "approved",
+        "inputSha256": "9a37b2c29c70996ff4ee04134fd469ab5863b02be310602efaff99214cdb4150",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9130-9143",
+        "speaker": "かたつむり"
+      }
+    },
+    {
+      "candidateId": "o2rSpDBMm2KNpQ9ElZe4aygJ2UDOgNmyxSPASemeDyQ",
+      "order": 100,
+      "primary": {
+        "candidateId": "o2rSpDBMm2KNpQ9ElZe4aygJ2UDOgNmyxSPASemeDyQ",
+        "decision": "approved",
+        "inputSha256": "40ef1f9e8bed2beee051b64c324e6bb57f2c77c908e4ed404edb0782906c7620",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9255-9326",
+        "speaker": "とのさまがえる（元カイロ団長）"
+      },
+      "secondary": {
+        "candidateId": "o2rSpDBMm2KNpQ9ElZe4aygJ2UDOgNmyxSPASemeDyQ",
+        "decision": "approved",
+        "inputSha256": "40ef1f9e8bed2beee051b64c324e6bb57f2c77c908e4ed404edb0782906c7620",
+        "reasonCode": "SPOKEN_DIALOGUE",
+        "sourceAnchor": ".main_text:9255-9326",
+        "speaker": "カイロ団長"
+      }
+    }
+  ],
+  "feature": "F004",
+  "instruction": "候補102件を裁定し、差分52件は本文文脈から最終判断を一つ選ぶ。agreement候補も全集合としてexact出力する。",
+  "kind": "f004-independent-adjudication-prompt",
+  "outputPath": ".cache/f004-review/001918-adjudicator.json",
+  "primaryArtifactSha256": "41aa90ce6ecb61e65a5b9863ee4cdd95768c404c39529fe96dd6a00da738a8e9",
+  "primaryFileSha256": "84bd3a64cde8a2e48c623cf03785ef22b3f6cf1ce78b274dbc86fb03ede0b2bf",
+  "primarySealPath": "content/editorial/authorization-transaction/seals/f004-001918-primary.json",
+  "producerTaskPath": "/root/f004_t058_adjudicator",
+  "rejectedReasonCodes": [
+    "QUOTED_MATERIAL",
+    "EXPRESSION_EXAMPLE",
+    "NON_SPEECH",
+    "EXTRACTION_ARTIFACT",
+    "POLICY_EXCLUDED"
+  ],
+  "role": "adjudicator",
+  "runId": "adjudicator-001918-20260729-01",
+  "schemaVersion": "1.0.0",
+  "secondaryArtifactSha256": "12e2a2cf48609e656e5cac4cf8671d600a65f672729f816d87cb5df8c0598a73",
+  "secondaryFileSha256": "4286a0c9cb237d4242baf69c468b382303838aaa2b41d900d68eb60e19e78568",
+  "secondarySealPath": "content/editorial/authorization-transaction/seals/f004-001918-secondary.json",
+  "workId": "001918"
+}

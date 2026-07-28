@@ -1,0 +1,1892 @@
+{
+  "batchId": "F004",
+  "kind": "f004-candidate-safety",
+  "profilePath": "content/baselines/F002-voice-estimate-profile.json",
+  "profileSha256": "bbdd37182e6650fbc24c418826f8c3c0ba07bc6cc63d8dd3a0df64a86e224ccc",
+  "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+  "reports": [
+    {
+      "candidateId": "LW1oIIPBSkqwrtjI_dOuyEb7mvK07iaXOJA5hl-TyIU",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "90cc1c5a0d968d18a64f176a0718f8ffbb505d4e2426efd0528083257071eae6",
+      "speechText": "「へい、いらっしゃい。みなさん。ちょっとおやすみなさい。」",
+      "wavBytes": 271388,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "Agy8-faIFO0FKoDEOz4UoFRuzPQvsAGpvRqOl0bXL9E",
+      "codePoints": 56,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 10915,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "dfca0c2846112a6c6a2c0b110c263037b2aadc700311bd1a726d7cd267f36020",
+      "speechText": "「なんですか。舶来のウェクーというものがあるそうですね。どんなもんですか。ためしに一杯のませて下さいませんか。」",
+      "wavBytes": 523964,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "vVldUxxQswpdrvIb2XVwwaWvasbuS3MiRRCqjOVrKhQ",
+      "codePoints": 34,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6627,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "a3e36308076aaaf4d73306e92adeec4412457a60f1d6a0f800bb671ce8b0c31a",
+      "speechText": "「へい、舶来のウェスキイですか。一杯二厘半ですよ。ようござんすか。」",
+      "wavBytes": 318140,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "Fg6fUQFtIGB1DT32gqOYtJeh2kBzvz2QqOYoXpyA9MY",
+      "codePoints": 11,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2144,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "b3b5c2e3e65c067604772797f3c4983338d912440acae1975fdfbd45b7548656",
+      "speechText": "「ええ、よござんす。」",
+      "wavBytes": 102956,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "4jv7WA1lsoT76XEk6eLzt_afOK740X3BadCRHXBdj0I",
+      "codePoints": 88,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 17152,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "a67f8e5503db1139c8e262e307c54fa6cc3d0722434d725ad33061900997113d",
+      "speechText": "「ウーイ。これはどうもひどいもんだ。腹がやけるようだ。ウーイ。おい、みんな、これはきたいなもんだよ。のどへはいると急に熱くなるんだ。ああ、いい気分だ。もう一杯下さいませんか。」",
+      "wavBytes": 823340,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "7NJzo_-qZRq8Cbp8P1ArUn9xZr_N58kkOCfmy59SAfc",
+      "codePoints": 26,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5068,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d723b17fd170c012892e9acf3ee002b697b76cab33d17d3ef47f2401c4fd05a8",
+      "speechText": "「はいはい。こちらが一ぺんすんでからさしあげます。」",
+      "wavBytes": 243308,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "88qAP1QqI2L3pDUIBswTwn6g1OFsMFw7svsLT4TUWwE",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d1e9f8202b06a6aafc10a5dc9fc758149f205ca2c3faa9f6f9ca785ac62505d8",
+      "speechText": "「こっちへも早く下さい。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "LdgF8hds_E093pBm1qpYKO0SkCqEJegTyoBU9hvDoHk",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "46f8b180c0b311c9f1538f0ca01a1a086062d2ecffe567c4cedb1671ca552241",
+      "speechText": "「はいはい。お声の順にさしあげます。さあ、これはあなた。」",
+      "wavBytes": 271388,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "F6Ga9Y50rZsAtkM0z829-lS1pBhcE0Tn6AbAFUMC_V4",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "e20a6e0d88d3eaec12250933f3eaf3ba6e2be3f252a858bfd6b3529c8e22ff2f",
+      "speechText": "「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」",
+      "wavBytes": 290108,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "pQsPffBXp-qQOdL1qb37bK9Lb0WP2g7HzHRR8o66tQU",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d1e9f8202b06a6aafc10a5dc9fc758149f205ca2c3faa9f6f9ca785ac62505d8",
+      "speechText": "「こっちへも早く下さい。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "dYUsdbmYF8PAFkjHfzIZYi1IIjxUDltflQdYg3AeHh0",
+      "codePoints": 14,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2729,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "82f42471ddb9e3f936626b0013fb6c4d032d799cedb2f516ab66e98cef560f34",
+      "speechText": "「はい、これはあなたです。」",
+      "wavBytes": 131036,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "PxWTIRPASdUbfU9nM4F1Ij8Yq2IELMRkoK7RxuF5x6Y",
+      "codePoints": 6,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1170,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "cf86eafef8c4d29307c5927bbd09d53b171271cd97e700d6d9cfbe4941ad0d66",
+      "speechText": "「ウウイ。」",
+      "wavBytes": 56204,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "fETUla7CpvRi-NYmC6cm_FSTAQGaz7Pa1bipY9WFa78",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "bf95d4ee4bdb6a7abe2dba6a3637c6ca1fc43032238e24ddbfc26c81cad4a9b6",
+      "speechText": "「おいもう一杯お呉れ。」",
+      "wavBytes": 112316,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "wsewhprv6Z4igBFKGW5fQCSlRlwZQJu2EYEl76FfDec",
+      "codePoints": 10,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1950,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "607e2f230ac97c448e91ef44fa6ce109097eab4030ba0a34eb24b51964849023",
+      "speechText": "「こっちへ早くよ。」",
+      "wavBytes": 93644,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "jc1vfAOBaZCwqBfOtjYQbKSji9Yiotv7azw9yVSP5Fw",
+      "codePoints": 9,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1755,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "99de08de41638717b472f31bb4885a81fe24de754d3cf57b942409249f4468d3",
+      "speechText": "「もう一杯早く。」",
+      "wavBytes": 84284,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "E5wwBIZ6DXEs_Lg7730WvTpu5mydvuXYQcKu2Y1TUD0",
+      "codePoints": 54,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 10525,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ab17bc1230ad3715738454e34859bf0102e08d13d85046c41a8b174246f556b7",
+      "speechText": "「へい、へい。どうぞおせきにならないで下さい。せっかく、はかったのがこぼれますから。へいと、これはあなた。」",
+      "wavBytes": 505244,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "TXEDj4O5ap544wYxSA91maoszTWjetb3RV8M3oVK3Pw",
+      "codePoints": 35,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6822,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "8793d87b46dc961dea0440742b08020f50302489ed4acd2847c2d19fab957de8",
+      "speechText": "「いや、ありがとう、ウーイ、ケホン、ケホン、ウーイうまいね。どうも。」",
+      "wavBytes": 327500,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "lu1XcJNx7vSF8xls5vAcPI3rmLjmVdo5nzrvSpRhAzg",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d01040e49d1185b406049257d15e3167b9546da40b0af06e6251933c048db086",
+      "speechText": "「おいもう一杯おくれ。」",
+      "wavBytes": 112316,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "WuW_75HL048ymqYxNfPT4aqz5hyBw4i5rZPhik_w6LA",
+      "codePoints": 19,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3704,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d5c97e754566945cdfb629db81851c4bcc4e5f6dc5b6325e94610ca7e7bdc02a",
+      "speechText": "「も一杯お呉れったらよう。早くよう。」",
+      "wavBytes": 177836,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "MMHiCeK4_rQdfoQRgrBd9UJfYpzq6d86MRk53dbmBV4",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ca219b5b23c9a7e47cc643690b7b9abfc6c19dbfef04e7c2c02dea4d83cbeadf",
+      "speechText": "「さあ、早くお呉れよう。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "sNOCr2rXyHTZmawGX9KgeZbF1wi7831JY-FlAQBZPAU",
+      "codePoints": 39,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7602,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "34146fe4ffd95bbc8cbb1588ccfe4816bcd4f167712d7d6342801da7b8c5c377",
+      "speechText": "「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」",
+      "wavBytes": 364940,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "cp7jICLwFEY3aVj-3HNENKVb-1TJLmLcdBUw8e7zfxc",
+      "codePoints": 19,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3704,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "220d952c4649e84bb38fd51218d332f71039a64ceeb4e0c9a3c595424a544e36",
+      "speechText": "「いいよう。お呉れったらお呉れよう。」",
+      "wavBytes": 177836,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "6DPmtkUEpnmrECdvNd7sKEzT2cGSWSoLYY7xbxWSj4o",
+      "codePoints": 21,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4093,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6784444c26d82aef460ca962b9f76c38821fb5d5cf2d8ae6e2c8df0fc4d9e1c3",
+      "speechText": "「へいへい。よければさし上げます。さあ、」",
+      "wavBytes": 196508,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "bU941v3XDEDuRsXNa1tfRNnKd-5CqTtvV0FQu5ICzrY",
+      "codePoints": 10,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1950,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d2224dc8e481373a7f5b91053921e5e2e9139298377cf6cb562418d75d7f54c3",
+      "speechText": "「ウーイ、うまい。」",
+      "wavBytes": 93644,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "UP8V0OLJi_HKFIEW3LQe3xM0RtAQF03BwdnVbyk9muY",
+      "codePoints": 16,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3119,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "064009ad02a931f8284e0a015b2bb76d433edf1225d454defbe220b3908162ff",
+      "speechText": "「おい、早くこっちへもお呉れ。」",
+      "wavBytes": 149756,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "s3aACfTDoAwt0W8HSF0LqmQPZWSOBjCRk3l3tAN75J0",
+      "codePoints": 25,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4873,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "403577c21eb25b5cbafe85cbc7a6fc7bfbaa9976fe6aa288de355ad68828f833",
+      "speechText": "「おい。起きな。かんじょうをはらうんだよ。さあ。」",
+      "wavBytes": 233948,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "taTcKHHBWNZvOfXSarPbTUmeJxuouz5-auRnUVwMJsE",
+      "codePoints": 36,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7017,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "f5229f3e961eb30e6347691347ba436e9ef8620067f0dc3bc10a161f719e3345",
+      "speechText": "「キーイ、キーイ、クヮア、あ、痛い、たれだい。ひとの頭をなぐるやつは。」",
+      "wavBytes": 336860,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "IRUotUUqgHOcAYj339Eu7KAqb2FragWYC7PiXiNRa88",
+      "codePoints": 9,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1755,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ded2331793be053026bdd68711e44c6bfc6d1929e85522047fb4e54e2f73a4c6",
+      "speechText": "「勘定を払いな。」",
+      "wavBytes": 84284,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "61NgbopBcLLkdncfdBi6kYR5-dZV3Cig8mKug0BaTq0",
+      "codePoints": 25,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4873,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "26b85fdd5887ebd41f9587cf68d298cc49c6becd6e9af98e7ad15f90abf2c0b8",
+      "speechText": "「あっ、そうそう。勘定はいくらになっていますか。」",
+      "wavBytes": 233948,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "p0PHC1urV0xHP-uPOJKXgvgYXNk3hENrMlIbXA-Gpx0",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "167a018dd092c7d9ecf132d05aabf09e134d3e91702a860769826c3271ebc356",
+      "speechText": "「お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」",
+      "wavBytes": 290108,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "t8FrPnVp8_O3BFH-VU1r0a1E_75X5ydASqYgtsUHx74",
+      "codePoints": 46,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 8966,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "52d272ff2e4ad157bb07d6293b9abb397655f9cb756f4aff73873d3eff362181",
+      "speechText": "「何だい。おまえは三銭二厘しかないのか。あきれたやつだ。さあどうするんだ。警察へ届けるよ。」",
+      "wavBytes": 430412,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "wiHwKoZtf0pPdJ71DMG8X-1H7k3Xox_AULwr4CBBEcY",
+      "codePoints": 16,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3119,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "626962301cbec343fa2a2f6576d802f084523bc33d31b1b7aeee5c4eb43fbb0e",
+      "speechText": "「許して下さい。許して下さい。」",
+      "wavBytes": 149756,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "07JFn2bbNpBUzcZZeBaifwoc0f54kkmJcxq3z5aFnCA",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "5014f2363a0c685039d1d59b4d5520accd1be05e16d3f005328b8d6da54a3b9b",
+      "speechText": "「いいや、いかん。さあ払え。」",
+      "wavBytes": 140396,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "iYFUvnpRtKS6LqHnF8Y6YroEHjrVKpQqYPsgXLmrbWg",
+      "codePoints": 36,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 7017,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "4139a3741cdb64ff5cbfba59bc1c747ecc00f3832d2cb861144960c53d848ca9",
+      "speechText": "「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」",
+      "wavBytes": 336860,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "D_ol1RmMCpZlm2qGBa49hrhykidYm6YnQxthmeOxZmM",
+      "codePoints": 27,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5263,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ef5fda1dec2222bc408d6e2110c6d51afb52ea1a029a8403cac8538daf6b70a8",
+      "speechText": "「そうか。よかろう。それじゃお前はおれのけらいだぞ。」",
+      "wavBytes": 252668,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "OM_ehya09u5e1YZQgPaihoOJamYq6auj5iHDQI4uzDc",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c476bfd3e5b15d42145550c494ea774eb010ee187d8712e55effb84ad190f736",
+      "speechText": "「へい。仕方ありません。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "zcm-4M1zXtxMfzeX4EWLIGHqwbFfyH6T17xktV8Zc6w",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "79832703db3a3dae5e4fbe504b641ce26ed8d997f3e0205fa9e3ecf588f382bb",
+      "speechText": "「よし、この中にはいれ。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "aJoLeSohvxDh5YKgkjeZB7P6IFOl8vDOUp1DdpOdaqk",
+      "codePoints": 21,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4093,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "b30b08b96824d68876875096a1ff1959017825a4b9384895acf7cce0415a1743",
+      "speechText": "「おいおい。起きるんだよ。勘定だ勘定だ。」",
+      "wavBytes": 196508,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "fjTeHfyjJAny89MF9zudXGuac4JZn2ntvC13SnCUFPE",
+      "codePoints": 26,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5068,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c871a2ba4db4bfebc314bbb241ad9b87a73cdc261eaaa3d7e49ec672066c94a7",
+      "speechText": "「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」",
+      "wavBytes": 243308,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "hzw5oRuSlgeFXt1lrhMuWPN-dSptY3E2ch2zJWFhEB4",
+      "codePoints": 33,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6432,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "f8acb316f531f7ae877077e579168b44ef0c9c8b9cd0e596a7c24debdaff1b80",
+      "speechText": "「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」",
+      "wavBytes": 308780,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "FDZKvQ7oQCxZWJWzvW12mxFE8gvfOW1EINKzWy_YUMA",
+      "codePoints": 33,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6432,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "98e6ce25a741aee67c97f0052ea382178d327a1d951270a87d3da857195bd079",
+      "speechText": "「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」",
+      "wavBytes": 308780,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "9Ob7ZSTfQosw0rwPGmIxFfXY-2oxp-Nl0D01QYHd-Ec",
+      "codePoints": 24,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4678,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "0c6416fafd5c7fe8f6280e094d5801bef7e2fca70722afdd1fffbb0fb4760675",
+      "speechText": "「いつまでねぼけてんだよ。勘定を払え。勘定を。」",
+      "wavBytes": 224588,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "mbXteI88GwHkWHLwnmxOAEid-5C2pzod0YIkAclhokk",
+      "codePoints": 27,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5263,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "43a7f3d74347ba14e5959cee506fc6728ed697ff281786e8855d20a1a8a5b179",
+      "speechText": "「あっ、そうそう。そうでしたね。いくらになりますか。」",
+      "wavBytes": 252668,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "DyuqCqbW6fi1_m0aVGP5UCAbVRVT_-RCIu-IYKUuK2o",
+      "codePoints": 32,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6237,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "f44aa7fe468c51ecca76bc2da85991f6fcdf5d5959e431c96e41853cb4f2e9e7",
+      "speechText": "「お前のは六百杯で、一円五十銭だよ。どうだい、それ位あるかい。」",
+      "wavBytes": 299420,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "SJYMlCFQmEvMD7cDDuvW8wFbDB9GUCbQtnvmQq16p_Q",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "0ae56dd6b95be56cc11845ed8eb96619d211d74258ca50ae685e64339c96d073",
+      "speechText": "「ある位みんな出しますからどうかこれだけに負けて下さい。」",
+      "wavBytes": 271388,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "G11yV_jHrA6eLYFEb0nDwF8iql25JmbAG1c1fYCtW64",
+      "codePoints": 127,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 24753,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6c1db961572b9482877d83f0a2cfda7588f6b7a0329bed24ad2b232b146526d6",
+      "speechText": "「うん、一円二十銭もあるかい。おや、これはたった一銭二厘じゃないか。あんまり人をばかにするんじゃないぞ。勘定の百分の一に負けろとはよくも云えたもんだ。外国のことばで云えば、一パーセントに負けて呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」",
+      "wavBytes": 1188188,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "tfqr25Ez6ElPYbLKXcNWmsrGxcQeM23kMbMzvLjCTx8",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "1a786dccd6a9783482ea96bae5e8a234c677881482dec6059c80370199bc5229",
+      "speechText": "「だって無いんだもの。」",
+      "wavBytes": 112316,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "cdN1y2qgoqut-poXLPwq6bdZhn7CuM6_GT3dLlLSuRk",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "02b6b9ab58a8709dc637b21f6aa91ee795c2927b8ec8f349259c772168bfb60e",
+      "speechText": "「なきゃおれのけらいになれ。」",
+      "wavBytes": 140396,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "Egyvq8gWJK3ozurEiU4nrff8DChfdilARqhF4qcMfCo",
+      "codePoints": 19,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3704,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "f801200896f73120f4b828c0e49aaf837a9a2cb02ed1e58c11ee4705a19591fc",
+      "speechText": "「仕方ない。そいじゃそうして下さい。」",
+      "wavBytes": 177836,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "HQuOSdVY6Nl8XgHdz5piQR0afZdL8mz3wIbHblWz7DA",
+      "codePoints": 12,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2339,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "cd2858146c678ccbd4ff5feadc5165b532d1ac17e3253c4163aac068a98a8986",
+      "speechText": "「さあ、こっちへ来い。」",
+      "wavBytes": 112316,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "ve6ViNQ74eZD6EE_E1-LGXcwc9V6RbAYx0IOuWqWw9o",
+      "codePoints": 14,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2729,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c4e0b21650abc4803da6ba4f78acc7d1ca5536cf4312c7951641e5e3111e7f20",
+      "speechText": "「あ痛っ、あ痛っ。誰だい。」",
+      "wavBytes": 131036,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "t5akoxyeHnc1o6ee00IkP0vMtabRi9ioRaCgibIDjUI",
+      "codePoints": 22,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4288,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "62775a0d6195620282a7e9684db2244d94fd79259d47480f305adbd06fefb1e9",
+      "speechText": "「何だい。おやじ。よくもひとをなぐったな。」",
+      "wavBytes": 205868,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "V-tAzJZBGYW6ZWjBNM7eEvvUhrcTIbto5jIby-EXRvo",
+      "codePoints": 79,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 15398,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "f5dbf673bfe0957c937efb92048a792c537c8b7ae3d7cc1da56e2ef21af88eea",
+      "speechText": "「お前たちはわしの酒をのんだ。どの勘定も八十銭より下のはない。ところがお前らは五銭より多く持っているやつは一人もない。どうじゃ。誰かあるか。無かろう。うん。」",
+      "wavBytes": 739148,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "ZaOKI9nX7SX0_pc-fjW8Vhz7dmRZK2_Ychsm9yG6wXg",
+      "codePoints": 77,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 15008,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "b411baad0a9c3232bfaca4dbe45cc95085b7e928888615d28c872aedd85a9046",
+      "speechText": "「どうじゃ。無かろう。あるか。無かろう。そこでお前たちの仲間は、前に二人お金を払うかわりに、おれのけらいになるというやくそくをしたがお前たちはどうじゃ。」",
+      "wavBytes": 720428,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "nI8-4hD_H2HrTRLKzLNPmiML9ITo8vW2Z_z3s4cFLBM",
+      "codePoints": 17,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3314,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "86cb46b241b503d1fac8dac45d5f2ba10cc846fc1429dca105ce5ad816938a11",
+      "speechText": "「どうも仕方ない。そうしようか。」",
+      "wavBytes": 159116,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "RmKSiCChAXW9YmjxkmOTokys4NgsnyjQ7SzX7R-lb-4",
+      "codePoints": 11,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2144,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "81bd9db8c1d5398f8b4c651c2c8532aebb6b3f20af8398f7ad8cf0b1f907120c",
+      "speechText": "「そうお願いしよう。」",
+      "wavBytes": 102956,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "QFSPbONCmuocGtUt7f7etOA4HKBlR6HzNIwjrqIEAss",
+      "codePoints": 16,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3119,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "cb145029cc116a280cadf504aab91253fc9ad2dff4f36b214e3c277bd6d8e431",
+      "speechText": "「どうかそうお願いいたします。」",
+      "wavBytes": 149756,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "JkZjwNXy_6OC6DPhZOM8R0Rf5HgOpyycyVZkec1UekA",
+      "codePoints": 64,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 12474,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d4f6ee4fc3345837adf76b8f6b57b0195c7f64fcf3bce64e9b3515cf71cb7696",
+      "speechText": "「いいか。この団体はカイロ団ということにしよう。わしはカイロ団長じゃ。あしたからはみんな、おれの命令にしたがうんだぞ。いいか。」",
+      "wavBytes": 598796,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "02oBynQNCGFrSQfT3ENbPDqzZ27KEnlUk7Pd5_OLP04",
+      "codePoints": 10,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1950,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "40df2ed84d42e9b1e422f8f8c29d05e9df95fd3c26d428ee47607dcaba4cb45b",
+      "speechText": "「仕方ありません。」",
+      "wavBytes": 93644,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "m5b_25kEdbsFD7ZfJ6uD-kUKpynvVMiatlRYGE0GGpg",
+      "codePoints": 290,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 56523,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "3d3a4ae0a58225fb55f7621a9a669c9c46bb40a328cd8bf914d6dcdf0d5bb9b1",
+      "speechText": "「さっぱり誰も仕事を頼みに来んな。どうもこう仕事がなくちゃ、お前たちを養っておいても仕方ない。おれもとうとう飛んだことになったよ。それにつけても仕事のない時に、いそがしい時のしたくをして置くことが、最必要だ。つまりその仕事の材料を、こんな時に集めて置かないといかんな。ついてはまず第一が木だがな。今日はみんな出て行って立派な木を十本だけ、十本じゃすくない、ええと、百本、百本でもすくないな、千本だけ集めて来い。もし千本集まらなかったらすぐ警察へうったえるぞ。貴様らはみんなしけいになるぞ。その太い首をスポンと切られるぞ。首が太いからスポンとはいかない、シュッポォンと切られるぞ。」",
+      "wavBytes": 2713148,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "1NxQlYjbuIFYxKUmKdGEAfDUelbhNProsk3ajxqHIdw",
+      "codePoints": 33,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6432,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "9e6666c956a37e668e39fa1bea13ce2fbd5d1cdbaeb39d1cdca5577ba812246a",
+      "speechText": "「あまがえるさん。昨日はどうもありがとう。一体どうしたのですか。」",
+      "wavBytes": 308780,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "D2gia-bMBYjzJO7qAdLaQtNhOwywP-BZOvWIfL2cjXs",
+      "codePoints": 48,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9356,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "1c277501916f892a95f1922800f63c2b050ef3da09c88f3f1eb54ffb6d623f8f",
+      "speechText": "「今日は木を千本、とのさまがえるに持っていかないといけないのです。まだ九本しか見つかりません。」",
+      "wavBytes": 449132,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "oJ_XzyN08V-HmBA_wBlU-RpwM3atViXXiK7fWmMF3is",
+      "codePoints": 81,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 15788,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "185d9ef486ac9ae7dcb39b3585ef2c8e51e1b60f4bce37ed6fba82929c4905a0",
+      "speechText": "「千本持って来いというのなら、千本持って行ったらいいじゃありませんか。そら、そこにあるそのけむりのようなかびの木などは、一つかみ五百本にもなるじゃありませんか。」",
+      "wavBytes": 757868,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "0MW3csmwCKxyeHvEiONRmlpWvvDDSnx0iYBz1OOfoA4",
+      "codePoints": 45,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 8771,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "cf96d367223d2b6df22deaba3218db7f9eff90a35775ac5818bc4ff94a420a7e",
+      "speechText": "「ふんふん。よし、よし。さあ、みんなはくらいウィスキーをいっぱいずつ飲んでやすむんだよ。」",
+      "wavBytes": 421052,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "1d_9XNRMxqiPoreH8tEDTERy5gBDqYwTeTD0sSrUOrQ",
+      "codePoints": 181,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 35278,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c0f75a786fe16f286362f4fbb7a8dcf49f565eb095e607a4d17042f8b0b88734",
+      "speechText": "「おい、みんな。集れ。今日もどこからも仕事をたのみに来ない。いいか、今日はな、あちこち花畑へ出て行って花の種をひろって来るんだ。一人が百つぶずつ、いや百つぶではすくない。千つぶずつ、いや、千つぶもこんな日の長い時にあんまり少い。万つぶずつがいいかな。万粒ずつひろって来い。いいか、もし、来なかったらすぐお前らをじゅんさにわたすぞ。巡査は首をシュッポンと切るぞ。」",
+      "wavBytes": 1693388,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "gpwzz1Z7OLpbcIxRWGNegWiTDlVEzkRK0MmgPxlcAtE",
+      "codePoints": 22,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4288,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ef2b7fb72304750f04b961ebd4a050d6d64aeb39de85f4d3dddfe7c3cb2bf9a5",
+      "speechText": "「おい、ビチュコ。一万つぶひろえそうかい。」",
+      "wavBytes": 205868,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "C9vtAym_4BMvtTAvyWN4GHupSff_itPdojKXS7AHRU4",
+      "codePoints": 33,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6432,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "15e617fe4cf2e09d724ec2e20b7a15af0596dbe45c2dfca3772a63ff228d5aba",
+      "speechText": "「いそがないとだめそうだよ、まだ三百つぶにしかならないんだもの。」",
+      "wavBytes": 308780,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "7uGqFc4jjbmIBfsFNGkjZzyhMdh6-4De6AR5nmfSzWQ",
+      "codePoints": 34,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6627,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "3e5366c913cfc6af933e5de9af6af8a2ea438f96749be80c7da220a16ac49d98",
+      "speechText": "「さっき団長が百粒ってはじめに云ったねい。百つぶならよかったねい。」",
+      "wavBytes": 318140,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "qDjvuHTdkegJEaEzSAZfjwO1_X9dgScT_JgUcELmNAI",
+      "codePoints": 32,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6237,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "2d833c9aed90e2507105c79c987d21d6e7c2fc1b06f672d74a0f1502c11bbadd",
+      "speechText": "「うん。その次に千つぶって云ったねい。千つぶでもよかったねい。」",
+      "wavBytes": 299420,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "3rTOwGVMCHpzU5XOhcCkEnSQrpZ5REfTDfxZaBCCqF8",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "13f107acc0eef67b7f05db1b3473faaf4c8fb937d037d04fdef50b7300afe916",
+      "speechText": "「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうなあ。」",
+      "wavBytes": 290108,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "YdBNJIuSPVKnRAJXRNslgeY0nEuCAjAubxfhzpE1xAg",
+      "codePoints": 81,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 15788,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "638c50c106d0ae30bce9acc6b682c42232e8755e2171a32ddc05d4b676cfe13a",
+      "speechText": "「おいらもそいつを考えているんだよ。どうも一ぱい目と二杯目、二杯目と三杯目、みんな順ぐりに糸か何かついていたよ。三百五十杯つながって居たとおいら今考えてるんだ。」",
+      "wavBytes": 757868,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "adXBLhlErszPTrSRpmu4n5sd_Bu2h3pEQ-djy1V3ses",
+      "codePoints": 21,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4093,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "d764e5110bbb793f529a99e0347721c2dff0174e904ae192b128e1a48b7d8df2",
+      "speechText": "「全くだよ。おっと、急がないと大へんだ。」",
+      "wavBytes": 196508,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "RRIF_r21C9MuyXjPofRhr1hBuN0rocVfhB1iNYMWxYI",
+      "codePoints": 7,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 1365,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6ffcf04a6d118ff55889a4043b86fbd1e836b9c6ac2594f520bec4eb5322fea8",
+      "speechText": "「そうそう。」",
+      "wavBytes": 65564,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "TWGGh64PKBpk4YUb92Wf8mjwspxfXE1-OZ8A_XmnWQM",
+      "codePoints": 35,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6822,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "2bb59c30bf435f7186d1a57da9e438d8503fc0866b07949b6fe3d42939f8a402",
+      "speechText": "「うん。よし。さあ、みんな舶来ウェスキーを一杯ずつのんでねるんだよ。」",
+      "wavBytes": 327500,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "x6Qviiib3bp1kQcq9L2yOjj2nKcqNAv42pTh2i_qWOU",
+      "codePoints": 44,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 8576,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "3707a5051302207be0565461670882532888c880dadcd70f4361184a418f3096",
+      "speechText": "「とにかく大いにさかんにやらないといかんね。そうでないと笑いものになってしまうだけだ。」",
+      "wavBytes": 411692,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "LC3CyeU49rWQyeLZzASgwWFaehrlVlXBtv1BcyOilo4",
+      "codePoints": 31,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6043,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c5a3a7c329ba8397cccd75c1babe1fa11e200349b9f255277c63bc0320cee1fc",
+      "speechText": "「全くだよ。どうだろう、一人前九十円ずつということにしたら。」",
+      "wavBytes": 290108,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "8VoGN6l8_kJeV1p2C1e4RkSBJALKvKsHcn-MMZMdUVw",
+      "codePoints": 19,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3704,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "1afbeb337f81517b2b08f4a72c373a862f5ba8d451aba071cc90b7344286c6b7",
+      "speechText": "「うん。それ位ならまあよかろうかな。」",
+      "wavBytes": 177836,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "TFDLqQcbCT4XuyC8cnTamWT1oMRvTxPUvcrwAvbYKyQ",
+      "codePoints": 51,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 9941,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "8573f4da797ff9a8237e76ac056a7cbc24bbaeca38e53bbe35f552fcf265dea2",
+      "speechText": "「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」",
+      "wavBytes": 477212,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "kGxFHzD8aNO0dz2p8jBy1fw7tEzIRqQ2lR9LmP4O2uM",
+      "codePoints": 17,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3314,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "382105ac1fa9f6e17601722ac28969daa6d8bbf3eff74fbb0380702a32e43236",
+      "speechText": "「うん。それは大いに同情するね。」",
+      "wavBytes": 159116,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "cIOZmv2tM8CoXfKMYTzK9notLS3l4ZpyQA0CIDPRi8U",
+      "codePoints": 59,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 11500,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "0a60d926cfab817fa937d405f3cef5c620911bc541d1c9b56e06492a0cc195d9",
+      "speechText": "「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十もんめずつ運んで来い。いや、九十匁じゃあまり少いかな。」",
+      "wavBytes": 552044,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "SfBK2guRafVIcT6qWiBOp0x8zrhHzhwZSX58EJOZIeo",
+      "codePoints": 20,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 3899,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c7c9411b1c32ec9724c53b28b266455097a131ed9e687614bb3a4657abfd7fad",
+      "speechText": "「うん。九百貫という方が口調がいいね。」",
+      "wavBytes": 187196,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "nn3AwFF6PK-NQphr5jjq_7ukFLflb5UuJXf4uJ7kH2Q",
+      "codePoints": 123,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 23974,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ae48613a8806042ea47a5399bfb80fac122dfa3bd3cc9a58f2334a19bd8975a4",
+      "speechText": "「そうだ、そうだ。どれだけいいか知れないね。おい、みんな。今日は石を一人につき九百貫ずつ運んで来い。もし来なかったら早速警察へ貴様らを引き渡すぞ。ここには裁判の方のお方もおいでになるのだ。首をシュッポオンと切ってしまう位、実にわけないはなしだ。」",
+      "wavBytes": 1150796,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "tQI3fc32zi9XLTicSezThBea6oOC0pcLPaUyHLeF3hI",
+      "codePoints": 76,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 14813,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "8dcc261fc4c0e37b31c2113b53f9909c85da27eee94e0b3e9dc76fbbc911bb90",
+      "speechText": "「何だ。のろまども。今までかかってたったこれだけしか運ばないのか。何という貴様らはいくじなしだ。おれなどは石の九百貫やそこら、三十分で運んで見せるぞ。」",
+      "wavBytes": 711068,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "5vKME8639lFoX_9eGV8R7vRbr-_iRxJW11_VZJIzZi8",
+      "codePoints": 29,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 5653,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "dd6894a1ca0c51d18e2f3fa0c2ca491845aa431a9333c81dd295200c1fca57d6",
+      "speechText": "「とても私らにはできません。私らはもう死にそうなんです。」",
+      "wavBytes": 271388,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "EvybDMmUWSCbLVOwlxf1L8wp8vfRK8iBmr-xzGOyfnM",
+      "codePoints": 63,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 12279,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "c944069eeea188a04d833c10c398473488dda6e33978f5039c17e28e94e422d5",
+      "speechText": "「えい、意気地なしめ。早く運べ。晩までに出来なかったら、みんな警察へやってしまうぞ。警察ではシュッポンと首を切るぞ。ばかめ。」",
+      "wavBytes": 589436,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "x4CwWFRG4h_Y7vwBF4nYjzyb5DFg8Cm3h8jg58hnE8k",
+      "codePoints": 52,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 10135,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "62255fb9cef8c31d844a69bfb671aee5a2c58ecb1429523c4af22b1035327503",
+      "speechText": "「どうか早く警察へやって下さい。シュッポン、シュッポンと聞いていると何だかおもしろいような気がします。」",
+      "wavBytes": 486524,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "O0MeqAJhWBUwys4n4FeovzqYV3rSQbP8eSsaNCD_U3s",
+      "codePoints": 32,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6237,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "19aa78e3060afd49e5651df137682d85f41608aa61b55d117e520bb8d9935ff0",
+      "speechText": "「えい、馬鹿者め意気地なしめ。 えい、ガーアアアアアアアアア。」",
+      "wavBytes": 299420,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "BIcmia_k8hDFGKen6WEV1I6Kl3ZzVCEJ_U4QyBUqfAg",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "ee4b474a95d89697e5bccf905cdd4cb223f1afabaed1111fe644d952b61f40f7",
+      "speechText": "「そら、あたらしいご命令だ。」",
+      "wavBytes": 140396,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "tidYzBTKn85oT31e5iNvlenOgX1xtz6D8XubQckbOhs",
+      "codePoints": 173,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 33719,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "00b4e3ff5e5b0809505e503188c9ae2e16da85daf567d27ecdf1b6203e9f75af",
+      "speechText": "「王さまの新らしいご命令。王さまの新らしいご命令。一個条。ひとに物を云いつける方法。ひとに物を云いつける方法。第一、ひとにものを云いつけるときはそのいいつけられるものの目方で自分のからだの目方を割って答を見つける。第二、云いつける仕事にその答をかける。第三、その仕事を一ぺん自分で二日間やって見る。以上。その通りやらないものは鳥の国へ引き渡す。」",
+      "wavBytes": 1618556,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "puZjtIPD2LfIC9Pr-NhEfvPP52c0O1-VL_8H6vUVjFI",
+      "codePoints": 15,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2924,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "e1d5a44889318d7b33583c04bfb5c0f58e5972c4c42924ab8240cc47e04e0ce8",
+      "speechText": "「九千貫だよ。おい。みんな。」",
+      "wavBytes": 140396,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "C9tTzBn1KraaAYKfCbio2J-pRWsCYHUkIGuPEpjte4Y",
+      "codePoints": 35,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 6822,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "9c77fa5adaeb4121ff5ebeac3678fee0ad9597b04f70d96fe367618b6e1875ae",
+      "speechText": "「団長さん。さあこれから晩までに四千五百貫目、石をひっぱって下さい。」",
+      "wavBytes": 327500,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "EtFacCfTMTsXCd8ciFG7efZ5p4i17sLC1gbQH4huJno",
+      "codePoints": 21,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4093,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "7b941eb6c3a0fcb58e1b9fe63a605f74c9b5e2d5e4ba7284f157627e795b306f",
+      "speechText": "「さあ王様の命令です。引っぱって下さい。」",
+      "wavBytes": 196508,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "essnSfyQjJfrmi5xVTWJ_nL-VJxu9sfDrg3MD0X2L68",
+      "codePoints": 25,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4873,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "36a54a9ce340c5e88e9e3fe16299348942aaad6acb4173409f6480c947090209",
+      "speechText": "「さあ、これを晩までに四千五百運べばいいのです。」",
+      "wavBytes": 233948,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "xO9RJKyTgbwZtXuKx-O3FwYQYEayeGjsPrvHyO5iCbE",
+      "codePoints": 24,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4678,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6c75923812f995c01389c82af8ea87a2cccb49ff50fd8e62533d660e0d6e650b",
+      "speechText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+      "wavBytes": 224588,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "XxBt6Hre8kD4XVw9cF9wUwofoM8dsNBWsVH9yOft_Ig",
+      "codePoints": 24,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 4678,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6c75923812f995c01389c82af8ea87a2cccb49ff50fd8e62533d660e0d6e650b",
+      "speechText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+      "wavBytes": 224588,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "CEphNovGexpMm8PAaohoKhqU9S2xQ9GVo6JmNcamaHA",
+      "codePoints": 72,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 14034,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "06d6f199de9dac5648825ceaaa00feb264e3f5f19435bdefad674e4ec17a8643",
+      "speechText": "「王様の新らしいご命令。王様の新らしいご命令。すべてあらゆるいきものはみんな気のいい、かあいそうなものである。けっしてにくんではならん。以上。」",
+      "wavBytes": 673676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "LtRQIOmZeWxQnf5PEVt6cyFF1CtV018we03fhuHUP6U",
+      "codePoints": 13,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 2534,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "6d579172cb0b1e211ff15aa2e2657a6cb884d6637c11fe8d7d936202778beaba",
+      "speechText": "「王様の新らしいご命令。」",
+      "wavBytes": 121676,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "o2rSpDBMm2KNpQ9ElZe4aygJ2UDOgNmyxSPASemeDyQ",
+      "codePoints": 73,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 14228,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "a95ac551b21735382090c87320f7babb8842a49450a0e2d0b9c25d8b53322b33",
+      "speechText": "「ああ、みなさん、私がわるかったのです。私はもうあなた方の団長でもなんでもありません。私はやっぱりただのかえるです。あしたから仕立屋をやります。」",
+      "wavBytes": 682988,
+      "workId": "001918"
+    },
+    {
+      "candidateId": "wOUC3nGsITZ3XFe39ndU26AFRfNALi-PrUtKf6V71OQ",
+      "codePoints": 171,
+      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+      "durationMs": 33329,
+      "limits": {
+        "codePoints": 500,
+        "durationMs": 120000,
+        "wavBytes": 5760044
+      },
+      "profileSha256": "f3d23c29a03d140e9203360923caaacb5a42c805990c81fe7593850559b298b0",
+      "reasons": [],
+      "reconciliationDigest": "d274336be54b2806751e0b76890dd87f6dcf7386860a08ba3f696826eda55e4b",
+      "result": "pass",
+      "speechSha256": "4521b7d327785423773dce968d19a28840cd3c5817ce5891cde4569bb385c1b4",
+      "speechText": "「おい。ベッコ。そこんとこをも少しよくならしてくれ。いいともさ。おいおい。ここへ植えるのはすずめのかたびらじゃない、すずめのてっぽうだよ。そうそう。どっちもすずめなもんだからついまちがえてね。ハッハッハ。よう。ビチュコ。おい。ビチュコ、そこの穴うめて呉れ。いいかい。そら、投げるよ。ようし来た。ああ、しまった。さあひっぱって呉れ。よいしょ。」",
+      "wavBytes": 1599836,
+      "workId": "001918"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "workId": "001918"
+}

@@ -14,7 +14,7 @@ import {
 } from './f004-acceptance.ts';
 
 const sourceRoot = resolve(process.cwd());
-const workId = '045679';
+const workId = '001918';
 const paths = [
   'content/batches/F004/batch.json',
   `content/batches/F004/capacity-actual/${workId}.json`,
@@ -70,7 +70,7 @@ describe('F004 acceptance facade [DES-F004-006]', () => {
     await expect(prepareF004WorkAcceptance(
       sourceRoot,
       'content/batches/F004/batch.json',
-      '001918',
+      '045679',
     )).rejects.toMatchObject({ code: 'F004_WORK_ORDER' });
 
     const mismatched = await fixture();

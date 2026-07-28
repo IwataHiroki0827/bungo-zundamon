@@ -1,0 +1,31 @@
+{
+  "approvedReasonCodes": [
+    "SPOKEN_DIALOGUE",
+    "INNER_MONOLOGUE"
+  ],
+  "batchId": "F004",
+  "candidatePath": "data/batches/F004/work-artifacts/001918/intermediate/001918/candidates.json",
+  "candidateSha256": "fb3b76e08cd3b494f8a3b6d1231b752fde09f86267b16efe894f68caabf1d6f6",
+  "decisions": [
+    "approved",
+    "rejected",
+    "ambiguous"
+  ],
+  "feature": "F004",
+  "independence": "他方reviewerの判断・出力を参照せず、候補全集合を独立判定する",
+  "kind": "f004-independent-review-prompt",
+  "outputPath": ".cache/f004-review/001918-secondary.json",
+  "producerTaskPath": "/root/f004_t058_secondary_review",
+  "rejectedReasonCodes": [
+    "QUOTED_MATERIAL",
+    "EXPRESSION_EXAMPLE",
+    "NON_SPEECH",
+    "EXTRACTION_ARTIFACT",
+    "POLICY_EXCLUDED"
+  ],
+  "role": "secondary",
+  "runId": "secondary-001918-20260729-01",
+  "schemaVersion": "1.0.0",
+  "speakerRule": "approvedはspeaker必須、rejected/ambiguousはspeaker=null",
+  "workId": "001918"
+}

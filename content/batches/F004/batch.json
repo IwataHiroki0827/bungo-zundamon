@@ -1,4 +1,6 @@
 {
+  "acceptedAt": "2026-07-28T16:43:33.644Z",
+  "acceptedBy": "content-acceptance-transaction",
   "approvalGateRefs": {
     "design": "docs/design/DD-F004.md",
     "release": "docs/evidence/release/F004-approval.json",
@@ -78,7 +80,7 @@
       "toolVersion": "f004-fixed-source-rights/1.0.0"
     }
   ],
-  "status": "rights-verified",
+  "status": "accepted",
   "voiceConfigRef": "content/batches/F004/voice-config.json",
   "workIds": [
     "000466",
@@ -1249,8 +1251,1000 @@
       "workId": "045679"
     },
     {
-      "stageRecords": [],
-      "status": "pending",
+      "acceptedAt": "2026-07-28T16:43:33.644Z",
+      "acceptedAudioSources": [
+        {
+          "bytes": 145964,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/015724fc8e85050f71b68acbdf31f7d737a27885f9b880f7a952b371085f5be9.wav",
+          "sha256": "9f623b9b30170b9b78a2e9b0fa4a5b7fea598fa2e9236b3b03f75c549bc1eb47"
+        },
+        {
+          "bytes": 253484,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/02af366e8dabfcfee833e12fb13e7e3cc31179f037a13f7eb69b4385bad50f4e.wav",
+          "sha256": "02a59cfc9f324887404f770407599685cdbb6a049667e08ce249e7bbe400ac79"
+        },
+        {
+          "bytes": 289324,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/03e26ebde49d6ac6322e58258e5add62c8f82e7a653d7c65a0acc5673a730b64.wav",
+          "sha256": "d5d1728fe571dc142dd36b9478f3dceb8d4b1cf05f64f0f54645500f6f61e8eb"
+        },
+        {
+          "bytes": 432172,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/042b59d9842edbc4fb32ffa3dcf21e465bf0ced2d2bbe9a5dae725c2654479f7.wav",
+          "sha256": "3876d0bf97780e25ade6eed400dcaf0127c9ca586c025fd756df38fa2624e4e1"
+        },
+        {
+          "bytes": 207404,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/066439dfa32c989aeddf015748dfa3091028c2a25c4b605a8d14a49baa9a0caa.wav",
+          "sha256": "63a12f902ba270d7bf34162fe5b67f1a3136c78a0d1729b396690e25fa095d95"
+        },
+        {
+          "bytes": 527404,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/074adb7b72657587f220e50c58dd9961740f3811362de9cc70e6ca6c59af9413.wav",
+          "sha256": "186d97924798d0b79240328a2e655d924b5377f37ec35e92646ecb69a1852e61"
+        },
+        {
+          "bytes": 624684,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/0a6be33814962ccf59d0c2b0350d85e39d8112dfaff4eb53e9456f9ea274ec6b.wav",
+          "sha256": "e246ae567a104e968382f02b6feb35b47ef7170c310cf131749726d4300d805a"
+        },
+        {
+          "bytes": 71212,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/10df7522334003fa2b65d001b391dd79ae454bc71c0f86a279775037eb1794e8.wav",
+          "sha256": "76d01b98900dc63afd18b78dbb3c806e2a5b8d72664ec2814e0234fb57a2100a"
+        },
+        {
+          "bytes": 402988,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/1143297cdd02b11394779d4de775bc82eb5786d1eed1a22abe18cdb7316a821c.wav",
+          "sha256": "6aa3f0d833ffc0a2d996b632b5ade8e5805ef17040fbb7f86fc6e282a91201a6"
+        },
+        {
+          "bytes": 128556,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/11872c369d51696f67bbd2a47fa7f99e0c63f52ca46b22dfac4c263d484d1153.wav",
+          "sha256": "f346586d398ff46b0aca076502a28f85ded5b2b3814bd2ae0d9019ea07b338d5"
+        },
+        {
+          "bytes": 205356,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/1203ca45e1ac4d2646f113a8a66962c50324bc1f7ec08427b25aca7c97ef24c5.wav",
+          "sha256": "dc0c61c8c02af2561fefede75d763882e7a972ad7cf9a43d8527e8eec76d6841"
+        },
+        {
+          "bytes": 110124,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/125aa61fb75578f45d26365a80b1c78d52ed45b98ae06d90c88d04035a5653d5.wav",
+          "sha256": "79f17ecb879a64fe6412f6be98c5cddba884c2b143f0fc5b1b48a63db56a5f15"
+        },
+        {
+          "bytes": 117804,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/13d55b7dc822a989c7abce4ef21710a0aaebe730475b1351d6d20f22b09d9b5c.wav",
+          "sha256": "30606181ca13073215fcfa9524137ac894115395a317b7c1ccf60f22e1c75fc5"
+        },
+        {
+          "bytes": 144940,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/16b7b1db50079bdc91aa13a95779f41027a5629b13d08f1400378d53bac4d5ec.wav",
+          "sha256": "1839417e243a1833b8da60f8199fe687dd18f26ec719d6279f8c2042a320c49e"
+        },
+        {
+          "bytes": 198700,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/176bd6a0210660b0aabe6d6901d2b6e99cb2b94addc9ac4181e915d9977f7882.wav",
+          "sha256": "9865201ad7ddd567314fbef6a8845ef72b2305b71fb36045d9690c1609d3832d"
+        },
+        {
+          "bytes": 112172,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/1d6dfb9224276101632c1a9aea385582d4e098c4b165351f3470d55de845ad72.wav",
+          "sha256": "d72143b92e53a30b981af1387178a5be28cf4987370d3961d1cf0b245dea3a36"
+        },
+        {
+          "bytes": 73260,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/1d7e0c6818500e4b203588ba9173ab43271dee5c146642fc05f7a81f24af3151.wav",
+          "sha256": "f9c5c4a76a2e7f20b60fabd8fd856eb83031b80a47dbf1c5b7641227ca4777d7"
+        },
+        {
+          "bytes": 196140,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/2012b46ae2e8bb60afb872dc6a53dcd269b05ac7638d6e5ecd9b4dce1e291e8d.wav",
+          "sha256": "74158c7e059d8c3923871996d05e8dfc285eccccc662ad103227dfae1373fcb4"
+        },
+        {
+          "bytes": 191020,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/21ac4f69d8880c52f23bbbaf9177f3f6c1a6420067d8374fb93f5522c9e215ad.wav",
+          "sha256": "e521c320bf4c9149d157c9908718939caf44bb1982430308714930d2cdb73bbe"
+        },
+        {
+          "bytes": 180268,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/227e73f9d8955525f701318b300f095110f55eaedc71ac6dc55492e77ef1702a.wav",
+          "sha256": "7a6dcdc540ca35ccce83c5a9a6106774357dd0ef22bd16fa87bb513c392ff7ab"
+        },
+        {
+          "bytes": 107052,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/238c3db08aae5af21f8d86b253c19893e0be56e0b56fb6a38d2f06d378e978aa.wav",
+          "sha256": "939959946a9b114e82e45673c661ea099a8b65ffbd8ca4f8d38d59c5555e560b"
+        },
+        {
+          "bytes": 300076,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/24b3ef2576b7a7684287d9fd5ae58b633b31e9f477baba6452995ec21e27c615.wav",
+          "sha256": "a0974c3ea7b275f1bb3b0aef3e4c61627400b073714c82ecdedef5ca7f14709d"
+        },
+        {
+          "bytes": 41516,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/26c5dfdeb15234b38343567fcbf03c212b704793af960187165535a78a3cdcfe.wav",
+          "sha256": "5f0a05c1e1763f815039d2e1b8499e396af95269ed583cb1a809a843d595412b"
+        },
+        {
+          "bytes": 268332,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/2f3d7312eed3f8dae4ae25aa3571a1dfa37c1214a00a498c8aecfbc477f8969f.wav",
+          "sha256": "908f2c9f8082be4a5b1f0fa99ba908c861068f5ec601f10dae10742813f23b2b"
+        },
+        {
+          "bytes": 71724,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/33f224d17e624a1ecf57e0e05dacd26fad31223671f577e4d148d472619cba6f.wav",
+          "sha256": "bc8476b8a57573194248ca7013bdf745ce455cfcb2a52b909c9fdad9619d89d6"
+        },
+        {
+          "bytes": 685100,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/355384253e8b5fe498693babefe2ca8f36228d2eedbb811e08673e8217ee6ba3.wav",
+          "sha256": "e07bec1958bfcf5d2261334718f8c5af4341a1d71024e288c1fa9e90f1150ca0"
+        },
+        {
+          "bytes": 96300,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/35d9e42d068da3c19758d965b6f34ee0767a3c30da643a7050aab05e43687d96.wav",
+          "sha256": "888357d270368d99cdb3a96bb535731de5c2868ae4d8dc7f4d3895bacfcbe34f"
+        },
+        {
+          "bytes": 307244,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/36e2dce8dc238edbfcbed693f2cc337bc1a29c79062b39e8354c03250bdf79d0.wav",
+          "sha256": "3d7af322a2507f3f9eaf79e3cfa6fe6c3b3b3ff0b589a73f79c72a4de5f137eb"
+        },
+        {
+          "bytes": 159276,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/39a22fbc77a27252df30ed6280e465ea9ea786002cd44f587bbee60610f1c0c3.wav",
+          "sha256": "280fadd30093cc9d6469f4c7f4ba82eb38a3b7c2b2a973e5e01ca661d111a42b"
+        },
+        {
+          "bytes": 201260,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/3a675f1f5e45787027f8e5aef5a6695022510a5211ca8b7ca29352a03de6d417.wav",
+          "sha256": "942d832f25eda582d3e8f6d0ecd946c2174fea5ed2f388ae3f29827c4e23301b"
+        },
+        {
+          "bytes": 263212,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/3a7fdb80edb535a3ddcf7a1163c57d46ecf156f3471d6b9f43366cb4c218784f.wav",
+          "sha256": "8b159944679612b35485ea19b1fa35461106349a1bee4c94f81b8e5cc9d12918"
+        },
+        {
+          "bytes": 1484844,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/40aa2825612016f39d5b72d91ffc119a9e42c25e58293e382d47c209e3c7b374.wav",
+          "sha256": "60604235d671839799c073ac88d9704f194198c01a82c2b9d32c44c1ae4a9b8f"
+        },
+        {
+          "bytes": 358444,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/412397f5f4a1d63b6b807792b9a217f576bfc73554d9475ad21e895bdde85dcf.wav",
+          "sha256": "dc9434685c2b044dc9f13dd21f7d8fab7ac6bd2a50f258815e440b9be71c65e0"
+        },
+        {
+          "bytes": 209964,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/455dd283f4eb723429286817fb8ef04fc49d09cde9c0bd232a4593f91808bd2f.wav",
+          "sha256": "578b8a9d439364c13e59b76c04d7b2cb4f49fb41653d611d99eee789905ecf2b"
+        },
+        {
+          "bytes": 349740,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/46cea29e242035403cb434096ccc7eb31f061f6a1e275e951774632594c5cb5f.wav",
+          "sha256": "1bcaa9d5612fb999c307302c0713a331e3191e3434509eb376d04bdaaff8c614"
+        },
+        {
+          "bytes": 252972,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/478930741a2b56a239ca1648f612b4cae58b4216e4e46c9666de1b7c00a10ac4.wav",
+          "sha256": "b65772b32206317cb8923785b0ab27b9b4a53ebbe97de15ae1b66e3206b90ec0"
+        },
+        {
+          "bytes": 123948,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/4ead8b2f15bb1d6ff4abcc36f8d4dd87b7e7ffcebebb2e1e3d4b99665155097a.wav",
+          "sha256": "150b26ae724c379892437ccc64caf236d6e83b46ee5c656d2cc94c69d9ff29c5"
+        },
+        {
+          "bytes": 383532,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/4f53d9989b7aee76840fce61c208ccd0431fa77883b9d9bb55a623f5533f4e7f.wav",
+          "sha256": "8460a22da20148e469ca78dbbe28fd53b87ffdd35173e4dcb377ec22bd297103"
+        },
+        {
+          "bytes": 272428,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/505224b2e93046fb78f02ac2d60ab88bdf4dc281e880ee3e48ea03a5e1db7b57.wav",
+          "sha256": "6599c7382e7f5eed5a39f6b34ee9202eff1aa09ef0e8762bc126cf4f2577c951"
+        },
+        {
+          "bytes": 96812,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/50ac78242c1ad4c62bdbecd6ca2773b65e9c875e6abf65afb56a8b20e84c1969.wav",
+          "sha256": "abad4b6faedf28a3bf515fd50af004d99829449adb057af14e4f8e73f2bca007"
+        },
+        {
+          "bytes": 410156,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/5373c76a0dd1d2f69b4c791bc45991965ba2b1bfb33c39c377c730a82e591846.wav",
+          "sha256": "2c61754f05c99d9f4ec2f9d2b73f223ec8b1a8fe3fda148eddbaa3d34f12322c"
+        },
+        {
+          "bytes": 79916,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/56c4d245c4b171a2ba0f4be05a6bff1695aeb77e619d233a907394970cd74766.wav",
+          "sha256": "3a57cfc2be27d246e2ec08290ddf21731ffce85a40640a2d7eee5c1d5fc4e9b8"
+        },
+        {
+          "bytes": 72748,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/5ba730f0f1ea051b5e185bab247765100d2976ed495dce7c74c1efa365079707.wav",
+          "sha256": "935cf5398aa23a2c489387757dc263ebcb6b935a954356d1d1627748ea4b7791"
+        },
+        {
+          "bytes": 88620,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/5bbd8e0ff1cacc96a80c1bbbe441abc13a874da03eb95e3e1a2ccfce6cab07e8.wav",
+          "sha256": "966a0783e7ef3b8e4375d38cf7ed408f9d2a112b79e29c300ab909e59561459f"
+        },
+        {
+          "bytes": 174124,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/5bc8437cf593fc1cc9d11b25c39573665719c21e2653629b8aec69e926390a27.wav",
+          "sha256": "787ee262a845cb54c507f2a021789db6329e79d68dc7f9ce46dc30e4c6c1d505"
+        },
+        {
+          "bytes": 356908,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/60bc208c0a9abfbc4d066496ec36564617c4d1e0095bb4f09d796d8068b0fe9b.wav",
+          "sha256": "d8bbfde38993e7644754531fae0eb1b1f1e3e7293f78873962d52d331cf54557"
+        },
+        {
+          "bytes": 181292,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/60fc56054897b85a8f7f34164e6fa51d404a777a0fe33d2bd00617d69718b2b6.wav",
+          "sha256": "5ae7e2b6b33701461a03a6166f14c63acf4ce7fbf11f805b3d17fe4dca83a4eb"
+        },
+        {
+          "bytes": 285228,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/628bad2ef02783029b4ccd48e0d8ce7c889797ac7c349b7ac1e956b456f21557.wav",
+          "sha256": "4c83518a2d73f40ec40c94fc76ed5cc8feae6af79f5031df03447a2f90f3ef5f"
+        },
+        {
+          "bytes": 130604,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/68fa212528a91ca0b09de40b70fe7c9826bd5626bf2c710d2d726db54c277de0.wav",
+          "sha256": "51609c5ecb1f4bd262e42c2e932b26b92b80ed7d7a37f546365df18e506e0634"
+        },
+        {
+          "bytes": 125484,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/6ba65915cf1b408f5c5032237b73e11d04c7b4c37f36097fff97b9cb7f9cac58.wav",
+          "sha256": "06d483ae591d968e3e6c3ce617ffb379eefc54342200639fc5fb66dd45fecb44"
+        },
+        {
+          "bytes": 212524,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/6cc7135ebff9e0d4fc62398d6563ebf1c8ae69d3a7153ed88cdd1af55a365d03.wav",
+          "sha256": "d47c0c1da44bad4b9d0596b8eff63155a37f3bc87f08b45084e031e33c702367"
+        },
+        {
+          "bytes": 558124,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/6eec910a20f9bcd497c7bb694ee1e029c882188e43aa212a9762adefcee25233.wav",
+          "sha256": "e56b0581cdccef2ee03d1d437f23c3cb58ba0118bd5e11e5050b5083e9d378a5"
+        },
+        {
+          "bytes": 279596,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/7102ca271831f50dc01c5af25376ab885334ac9dd5bd1db3fd26368b5c570eaf.wav",
+          "sha256": "0fb71c16aebf1073c6cc405c3632de62bd9b564469eb7c45902ce31672d056ab"
+        },
+        {
+          "bytes": 302124,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/71c21ea3dd8f6505a9b9d1da97e9d0054f8c7fff5af48fe830a1763ffcec53b5.wav",
+          "sha256": "4fc886fda7782f339f8176b0017297064f75712d773fdef880bb04fc1f13f233"
+        },
+        {
+          "bytes": 72236,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/72d70e2be183b3993a71f318125feeac6c8bd9abf2e5656883f67b50a401f1ba.wav",
+          "sha256": "79ca8d34f7b7f7024c03fb7aacf8c084b07ed9b17db8e2b45883de403340cca9"
+        },
+        {
+          "bytes": 231980,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/733cfe7ce0f512012d058bc852105674e1eabd9259258edaec915c539c303cae.wav",
+          "sha256": "cd4c8a81f8e8512c93d18899f3cadbb69d0cac4a1ca60a1b74b27ce3c01597c5"
+        },
+        {
+          "bytes": 291884,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/7949dba373e5b3bfbf07dfbec0f7648ff2877e7f91da56fee08843861de6d883.wav",
+          "sha256": "126bfb1f831c86f6c6300723e3835477f99622f0173613d40e863989d9a8e799"
+        },
+        {
+          "bytes": 103468,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/7972396eaba069407b0f21b567c0c362a3d5d6c1f881f163448add34c31e89a2.wav",
+          "sha256": "ab77e60e68d95041a609bea0f13583fe46c9056483eeb9d4ec049c2c2dae3288"
+        },
+        {
+          "bytes": 1041964,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/7dc5a8cd56f3c5b49131ba0f8b0763f788bb8acfb94eb926d9b9b4a9c9a6b0aa.wav",
+          "sha256": "1d17ec05a69242ebbcc53aa9ef53efb846ec132e194b59e4e483a28ac1307d46"
+        },
+        {
+          "bytes": 64556,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/7e2c06f1a463e8a7d40bdbe707a8091f9cb00176882c03cce71583273968c5e9.wav",
+          "sha256": "277d358d2fc257584b034cb95e3152d36445edfade626c299ea019ff6fa0f58c"
+        },
+        {
+          "bytes": 95276,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/80a9b1c0d193eee05072809b1b0bbef809ccc298f70d01e0a1cbcdb553900878.wav",
+          "sha256": "e2e8ec7ce5a1263982cecdac9257dc502d6f3fef4ff70c5692df78e84a7abd28"
+        },
+        {
+          "bytes": 112172,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/956d795891e55d57ac89e434d7f64fb6d30f13e24f89566f7a94fdc443468d61.wav",
+          "sha256": "0d38ffc715284f9fee514c7763b5374125739b2bdb3cb993f8840052dc3ee6d6"
+        },
+        {
+          "bytes": 133164,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/967f0a7eb934f29a28c9237880e3363d5ee325ed6d0067d75735fd78dbaad5a6.wav",
+          "sha256": "574d7813954e7f17663778cae026a9d3ef2a06ab2ca4b4d970a0a882a5152e42"
+        },
+        {
+          "bytes": 1108012,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/96fad53e3cc803b0be7520b23a9c18750148a224d019f62fc918f3d9915c4556.wav",
+          "sha256": "7a827817434b1cbaa01f5c757ed472ac24c13c90d0203f06211cd2485844dcfa"
+        },
+        {
+          "bytes": 621100,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/99d5a6cbb0769cbc10b7c83b40d88c7ab858aff808f0a5a5a8162422e0493382.wav",
+          "sha256": "c3501514318fae8c274c3cfe6d3fff633f9bee41d8c47f184cac68d00cfd98bf"
+        },
+        {
+          "bytes": 616492,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/9bd372a897d48c89b43dfbd1783eb960a664cd3f0a226e6814c5d8de139729a4.wav",
+          "sha256": "09131a63f44602cf22835987aeac94426f9c8050a076edd787d01d4db2270af7"
+        },
+        {
+          "bytes": 233516,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/9cbdedac58acc011b766b098857a746ed2792b962a53fed0e725c648d3c85559.wav",
+          "sha256": "6ea9cfccc5c085284c9a4dcb7dbad3121c8aac458c11a3cee23f964dc6d770ea"
+        },
+        {
+          "bytes": 560684,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/a44737639a2b45d061e118a59dd535f14180f462cec2cd9c9a9f0adc3bf05204.wav",
+          "sha256": "7992d1933ea820dd2cee183906c1ee1061c0469bea7560c5ec84ae584d43cf5d"
+        },
+        {
+          "bytes": 821804,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/a7cfdb68e0a7510d49b70cf13b454aa0fc9b54cc4fc9a5e25f1342e0d5838a2f.wav",
+          "sha256": "6987a2e9c576b75ee0f0da785772367c33d5b1fd9ea2de85af7899a1ac3508cf"
+        },
+        {
+          "bytes": 315436,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/a8b2d31b1426f619594817d1363b7e3ef8055d55bbe25cda1e14b51d9e52bc16.wav",
+          "sha256": "4317166a701a2bca43806c42370f055d913bd7c3905814c1b6cbb77a9f97b58d"
+        },
+        {
+          "bytes": 137260,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/ac11ced7aecbeaa2bff3b408ab0b323518173f88edc5c2a162e3cf6278d5222d.wav",
+          "sha256": "43593b6685681badbcd236ddb2a1149c2d2710e56140a8df07024aab22b04a82"
+        },
+        {
+          "bytes": 308780,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/b32d5e13d644bf6f07d38cd63bb1a75ac22965d81699f9f76d6cd955431484d6.wav",
+          "sha256": "9ab8478e09d488d41046d28951f1519ae8127d0935aceb41aa71fef4ea90448a"
+        },
+        {
+          "bytes": 100396,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/b85a4590f5f60a00fe25d793db128e95e9df85cceddded7d8ab78516163d83f3.wav",
+          "sha256": "ee40cada124258b34666f333fe7e5acd9867b46746cf264182a562b102fe462f"
+        },
+        {
+          "bytes": 200236,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/bcc3039de6f6d14adb1f57e7f4fb3b553ab988568ad7b86965c8f7a16dfb3eb8.wav",
+          "sha256": "f8d39b4ddf8a8302e0b04458b334fd667883cefb27c1c18fc7d546f3ebf0f714"
+        },
+        {
+          "bytes": 147500,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/bfc5ef7616b85842e2a00da2d158da97e4aa00e53c794d24d87850981202ae6a.wav",
+          "sha256": "6461e93564da633fc4c965b8d0265df910b204ed2d290ec2a4eeca0653b0e75a"
+        },
+        {
+          "bytes": 233516,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/c11327ed5c94f595fc15128c6f6f415fbea87b82077cf49b8c6740ec5660c5d6.wav",
+          "sha256": "06f361df132527880c419cc9fda7abec86bb75f0b743e88d50aa37357f589249"
+        },
+        {
+          "bytes": 370220,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/c300a0aed9c82eb8c932845c253628dfd8a717049c8d9f1f212c3fcde6012b83.wav",
+          "sha256": "74ca5320e95ba7508fa5ebe1629e9923b3a1f0af17dab48c233f639b7639cb5a"
+        },
+        {
+          "bytes": 467500,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/c3cf25d06c9f4d958d41c84bd023356e2329badaa96081b81439ab0d38b4c155.wav",
+          "sha256": "19c732967a5ca45708c0115e55f6964c64b08849f8742204b8047000cd5e0aba"
+        },
+        {
+          "bytes": 107564,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/c93f60a90ba71e3bec91485a5a93dcde07d6bdb107ac6e1c76a725838b940640.wav",
+          "sha256": "416e9c212d53dbca90ac55dc8eb96fccc90f2f5fb7124e4d3ead8dbd2ffbfd55"
+        },
+        {
+          "bytes": 671276,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/ca7d286a92a2d8c6fb98a8eb56dbe6fe7f6bf11477000cf3de63ea51847c4027.wav",
+          "sha256": "f42cad205c6f1a94f9b8b1dca217a4aea96f366f179cf3dde5af5ecec07306cf"
+        },
+        {
+          "bytes": 419372,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/cabf6d2b8bce4e2ecf9c68ddf8dda138e30e83b6dddbe28cfb12c0bbcdbcb71d.wav",
+          "sha256": "311a5ba8155fa33288455016a0b78e729417da1ac410cf0d2f366109ecc6bd25"
+        },
+        {
+          "bytes": 136748,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/d33a45c3a759493f4a76717470b7a9678ea110e3f8a5a640c83b4670c0f1b3fc.wav",
+          "sha256": "55b0ac7d5d3db7398ed8959ea01a8a89c41faa37dabe6ce99bf1174295138c83"
+        },
+        {
+          "bytes": 1553964,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/d5d8cb984a9eb51934fc37704bdfbcc24166ef02fe0ed0de3225397d2a94877c.wav",
+          "sha256": "0052ecb7cf437bdc466d8794358c4c05e6961371db29838eb136bf75b3617b36"
+        },
+        {
+          "bytes": 79916,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/d7974421e38d5191f7136fbe43a372afd23c9780e7cad574ccb3e14103143e69.wav",
+          "sha256": "44e59db1a606ff90d426a5b1b7390b4123fd1d32d85934d87bd695f53b8a8450"
+        },
+        {
+          "bytes": 228396,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/d95cd1e321ea50b12671698fadd17d5c69dcf9fb53b1319e5aaf7390b89889e1.wav",
+          "sha256": "1ad36773354abee9118d7e480d1342b84c20f674455d6678ce2e78220944dc26"
+        },
+        {
+          "bytes": 1620524,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/dc8d4555f905e4e7de36088ef2c436508cab7c54f880d25b7f18606e749973aa.wav",
+          "sha256": "8fc225e91c0eca81d8140208a1b5e6a3b1e2c4b2e115b45ea7635b08f11605f8"
+        },
+        {
+          "bytes": 196140,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/e0e334698e5aa5b10679b99305e0dd14a71afbcc4b55a862877050be995dca18.wav",
+          "sha256": "8e48e90e4fc553d04e499531b79a9e9c07fbf3f29aaebac1079ac45dc1f0b1f9"
+        },
+        {
+          "bytes": 598572,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/e2a7a7208806a204a5c11daa83d0b49dc1005d912f1ead9178be93de9b2eeafc.wav",
+          "sha256": "170ade785c0443900b773ddea71554010319d0765cbbdb6631485eaff8b6799a"
+        },
+        {
+          "bytes": 633900,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/e63259e8726daa39c5109e6d5891aa9b55d6f3dbfb6c3a8b51f9a63ddf91dfc1.wav",
+          "sha256": "10581ca62d74a41932f954e2a33057f7d1eb1ab7a7d140947477cb039cf6248d"
+        },
+        {
+          "bytes": 311340,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/ee2305fc9c0f21aa8b382d16674199280d330be1f7c34aed7acf837df6e7ac3d.wav",
+          "sha256": "64add0f2ba17a780c6403e0caa13c3154a031b47d20af8ad57a14a0c11cd0867"
+        },
+        {
+          "bytes": 180780,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f1937d591603d4cfc777c67402bb1df9955d6b85f02a5a46a6d2c2bc09e7a6e9.wav",
+          "sha256": "056f2a5c4b05836ee8514a80689a55337eec1f0cb14f951aa1e9bdb92895d490"
+        },
+        {
+          "bytes": 2442284,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f34ebcbd24c9342e2a10b3393848f1b1b97d1cf665b6b78a1298dd5b26bd018e.wav",
+          "sha256": "1cf26c21512ff8a97315f3c6753c511a23958a36491da432ae97d44e7ae3f543"
+        },
+        {
+          "bytes": 271916,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f7075a198a0a7638b8bc0dd03067ee286091901daa668aa4c850bddeb307241d.wav",
+          "sha256": "63e5332cb914b1d83531bb02550c233d79171f471341ea5f3f0f5c23d46997af"
+        },
+        {
+          "bytes": 184876,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f717e21d62216d7126792c5e1acff473721430d7d22bf3f469505657e05f4e82.wav",
+          "sha256": "6c4edb86995e396f8ce813306b4d3704652c8756051268176e49e63345950538"
+        },
+        {
+          "bytes": 181804,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f7be21c9fb732172119f4b3bdcc864993cb19b9a6e754ce49dc8158d6d7475b4.wav",
+          "sha256": "da4b8b1355b08566e288afe96a1fe9dc0fe2e2b03add06ea668909e56b2a38a4"
+        },
+        {
+          "bytes": 272940,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/f9088ca3952f62b7c26e7438834f33a343dd13cb741255f241ce8aad77236322.wav",
+          "sha256": "67011a9b5dfab2ccb46f3b9f60a362c6605b8f0f30df72721ee67e79fab3e867"
+        },
+        {
+          "bytes": 39468,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F004/accepted-audio/001918/fe1e84d35c7577980e8dbc5e600160b2e5b48e6cd46655c1a2796a2bf8444bd5.wav",
+          "sha256": "65122be6dcae724ff4609186353a60d7a3c14878b72084ed7e1588ada294d4b7"
+        }
+      ],
+      "acceptedBy": "content-acceptance-transaction",
+      "actualCapacityRef": "content/batches/F004/capacity-actual/001918.json",
+      "forecastRef": "content/batches/F004/capacity-forecast/001918.json",
+      "stageRecords": [
+        {
+          "completedAt": "2026-07-28T16:26:34.971Z",
+          "count": 102,
+          "inputHashes": [
+            "848146c4b519141c0a77e6e424932bcf174ce2c24cea01ab09b2dd65de81ddf1",
+            "2f3962dd396e0375327e32501929ebe6be3dc9d347f74558c511b097120d7adb",
+            "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4"
+          ],
+          "outputHashes": [
+            "420b86f0504bdbd85a5f128d36b2b9b94fc5496370e43599e890eb58213a21ce",
+            "fa672e76709ea8f23d7dd716d899cd4ca521c17065f7224f2c4d7de87990f910",
+            "f3374d3f8f1a0b8a2660d4e7adbd41c3b2848e3651510dfd2829d380e9037a59",
+            "7b2ac58b1901415ccf444fa79aa0840f0a1331a5786773d2e3abaa66db7e43a6",
+            "908390fd663b62e58e0cbd607618f9f50b675cee4c7718c693d889f17db3f6bb",
+            "8486861332dcb1d0500b40d5c5552beb795f4761ec4633653f7b5fda08d4f3de",
+            "9db4e2658522debf082f081b13b7b3a74b605e61b689b75253f92a4afc7ee24f",
+            "ef5b66a801abf7760bb8e9d31673103a6b15c64482e2e873c4767bae26eee21a",
+            "13cc343445520d3acb0cc96d685593580c4de73906bccdf8696e89997706b628",
+            "f4d24b51a30fb520d0cd8d9ca93babc65d0ecc947e9af2559878672bddc9818d",
+            "39c0de352b501665c783c5f5af5c37e652dc954e5c34baf23633fcc9f1265d92",
+            "488508333a7e5c3b5532dd6b060de8de35c22a77b5afe78c84997ca4c8546d47",
+            "d3633a41163b36d9c9082448580e85d182a02d1b77979b42489d7a4d1a4f406f",
+            "4d08fe24980ba5864d8ec4c039d70ddc33ce2cc851a06e5a7768c8cc29b1a3e1",
+            "9e9371004c83f51acac5ce664a2ea431640bb159c52e11f22b8071827c725eac",
+            "7188310e33900e805b6389f75e1f2bfa779f4bff8a6848a67712ccfe0b52ef40",
+            "a5e8cbaa9d2f5163b77147ec91afcc14c03cfd50c819f824737ca005ddd52717",
+            "ce2b97a82e106dc6e51356ce5c197f77ae83840e4e8ec86c7b181b16e32722e9",
+            "94f8b60c8bd405552b090b709ae4c2c3d37977c2fbe91517665f75fca58b890d",
+            "5e3714b4961fa238363ef2f10d003bde04327cd865de7014820b52fce22b2c48",
+            "12fbb8a42898e35491bc930e5e08a2f59a124e3c3fd4c36224d01129127e30f5",
+            "32571472a95468115ec3fc88ebbe34d668d01524133c90413e78e820e23fbab8",
+            "3d4039dc18a5b16016e8935adbc8467c9407cea0ad5ed660240772f85aeed2d1",
+            "1c183cf1bf70e8daef979376612bba49b47c450eec5c02a7f9cae5fe963c783a",
+            "f6d9cae950505930dea9c2ff3ffccb0b952e811ffbe1f11051a5e7fd21585f30",
+            "cd7966d51bb1211d16bb7c3a2b065be8204e9f003510cd9a4e24e8568eb460d0",
+            "935503448d9d0e36a4d7af7e66c3feb31f0f40f0d6de0c4fca1565d0ffd240a1",
+            "7568ae804101ddc70cddf4f24e7c50adc83d726b588083b2255632472e0b1620",
+            "652559413baef0ea6d42e8cdbdc4a9e49d44a7ddb98151b011dab222b8c1dade",
+            "c2a273d62b50ddab9d78d4999198c493180afba8a72d099cc0909603c66feb7a",
+            "e56f874d29cda85073b70367110750c8794ec2f5090aeba9219164669fed0a77",
+            "535045583ed8cc61aa0c8c26778bd952737cdce67cbc625ee102dcba2a72111d",
+            "c7138a8d2d7a4c293377dae24eb83a828716b9d4f8f461d527360059f45d696c",
+            "2789079441b33ea02dbec044d01c52f086d0b4a747c07c7ae953a54860273f49",
+            "b6eac6e9a51275d1fb24b3265cb3104cfbaf2f1b2c286a937c827d53d9239765",
+            "52f5ead963cd6cc6f7ca32977abe166eccc4ec0a248a15af3e1fabdb84e6fd9a",
+            "8ab77880d1c12027c4855259dd9c7083769b272f18c15024dbdfd3096b5ad35b",
+            "a69110c432f55404999b43835387986b2dd1d51e6e7709eb018a5209f6e5c669",
+            "0e41af9f033898433839f01cbc3e547ecdeb11397635549659d457e0084d99ca",
+            "9b8a09bd01048d8bf7fe1b9ea8737344e5410c701f737d6cc0b9cc7f1f731ad4",
+            "591a1cdce339fb132d34824b9b48230ea798459f7305a1180f186bcd65a69dad",
+            "5bb1b7aa00fcecae7eae91cac66de1d9834d3db81755bb5a7b8057a6628698de",
+            "305b159feeccf4223859f19a8cf5cc0fcb9ec7173b0130df6ac4c3915c68849b",
+            "8f670d34c27bbcdfa5f77ff77783530ab78d701c453a3446836eff0d4cf2620a",
+            "b2dcd9b7f87d7477995c4e4282a6baa6ba5ba3c41113d1254fb0544daa179cb3",
+            "11f2f6a8a8f6dd41a57506e84d63a2685c520abb92575fdd9c3b02b0f62d5651",
+            "51111932c55ae733a257ae4abcee16496c165816ed41d371d25a395c86c6dca0",
+            "1185e2e5b2d17a198bbb21d34d9058dea0f8e9966c0531b7a1d79c98f634f048",
+            "f591c8ac7eab97e9033cbb137f9983cb34bd9c8d00d325b931473e621407fc44",
+            "dcf264c3574e3d431e255aaf6fa49456b8843ffab1881c5e713374eb7aad24d5",
+            "4900caa3f64efeb69972c43fc48616c27c4cdf9298b4921443d9ae7bd5adc07d",
+            "db448b74cbdfda311c4e1c3018db5173d9fac6a6aa82fd4b481f137f90990f46",
+            "1c6a096634f622c36b803f6be560e7ca7498df59562ec48f668a8fdcdfd8c681",
+            "1b556c4ddcc4e6bd969b80b97914511cc093603bd064d586592e8461f64253c9",
+            "19ec7a690833223e751e5aa3766834bf32f8c99f88f62f5d21ac04369d084bc0",
+            "82dfd272a1c9434a60d9b1c178487c81ecb8df3708445a930738ac971b2c7c10",
+            "bba4a469f9d50de6c605183f528a8e943590f539d1114401fab3e3eef02aec81",
+            "147c60ee69554371342fcf2f6f17eba44d2d7d3b0a66bad97591a39a4f2e2afc",
+            "ac79bb0337b9c484310ba2f67374df157667a774ec4e028b7cc30fedbab24bc5",
+            "f840c50ccba75813a1b048a9b718c9eb0f612f87dd1459dc26df99632f60d332",
+            "7941abc624b098aa8350d6dacb14a5ab1ae355d4248a679becea1cb014d4f778",
+            "7df7e2654ef6e4088c39cad0627f59ebdc35a28b55828824f3ad890dfd6c4a5d",
+            "0456fb1d2078e0fcd8c43e302ef32cd2aa238b6c102de7373544406f758d55ab",
+            "fea0d2bbfff9d0942fe4a8919528b54f0ac099aa6b8067825d3d8bca744aba5a",
+            "0e8e254a7b201548cd83fd27a0033debc1b204946a139e062a579d7acf56d80d",
+            "14ff425b5b1a0db7c210149ce06f28fbbad91a79ddcd9396e00de13eae19e4f3",
+            "94dfa600a8fe95581149b6a57e83843643b1d8d8d91693348c5815a2e40774de",
+            "d0b2e13e2d20d552b84aada94d1129177fb530c829ab83076ae236076de55d0e",
+            "7d98a9859136c9ca0f64fe4f6e46d9bdbc71423c15e88c23123df354485d2737",
+            "d35a552a23ae81f7a6c269ad4a97204876ddb0a2110fcaf773036d04b99a08b1",
+            "5d44fb999a9ae7c772d309d09992580532a9826e6bf34a2f403ac8d16b6e6cfc",
+            "a987f306c1741303a7c8990d8c81ba0aa8db229b61976399554882bbfc354e2d",
+            "1c929efca2932c6295e0e77b1bc7b1bacecded31430a4ec25e776acc0f4158ea",
+            "01ed9a5270379c17ca263ebd0e4f0f13ef13bd1c44c698f28a44b82a581b8ce1",
+            "d08a65680fae0f6d3e41740e74a4ffc8b24e6777bbb7b04ca9b7fc268025cb2a",
+            "bf512d880f2c38bccb6aed75daf9bc9f4b47fa128446e15158eb457e33eadac2",
+            "2780006de3520267069c6add1bfb740e86f4cd74d86182daae331940fc59e138",
+            "5482f44b700f74eec77e3ecc1eb1470def2703c43f938eb2b1a133ff5663d791",
+            "6bccfe5827e4674cc172aa0aeab3413629821006fbbb64918e6adcff2ba340f7",
+            "a2177aedfaff3e81bdffe8061f126c22207072fc40a1fe7d6e7cd7c3e0c79ce8",
+            "557c5212fab54d9d6616d5f72ca0b614d65f427e202ebb21b7405565607a308d",
+            "a10ac376f08c92f1704c504f403fa26d203dcd5f51483bf1eed0eb700778e380",
+            "02c606137de23d41508f06cbefa205eab5bfce32d444db75d1d61ace514dadc0",
+            "c13fd2705ef3cc88f487e659d15c5ce48e57df76c8768460423622b579fd6c44",
+            "93bed6d4a0ad90e4d3c471cb93738423b7c33aa51f642702090f08aab000b5b8",
+            "076e38b9e23969e37f15e3358d5f2834eb43fafac32a25d99f2d9218d3b9c3fe",
+            "4be3ae69f5df79a11a029520acc63b67a4ec5b178ae7d3c9504aba1db4fe4a0a",
+            "8e8a06354881c0d1337a453bcbc839ed68a8aac6326f465b91dba93ef2a4e38c",
+            "48351517741cec5de965d4c0316067bf35c61ae0724cdb2e5866307be0c22b60",
+            "ed52273f166a7111d2f8a8be699d876b0e2b364813277ec72d3f0c6229f189b5",
+            "e8cb25a678932b4696223cfbbafa1a904ddfbdfac60dee388b129c2bad573796",
+            "957157def2c84a8c949eff5f6d3cce023c3ff67403cba68b4b812d4e6c411874",
+            "9aa10996dba989b11dbeb3b3a46d3bc4811071f3dc00de55054a4fdd260dafca",
+            "1605d08ae73386f43bf9a12d219672c970e7eb66e6cb833707dbdf2f125614b5",
+            "b83ac0e45960088b2db742b02f9f12882357a18b40f059c1340be670d1bba4e6",
+            "a5b17c2de077229cde67d62d6580a1730395b06b8e240fccde1d967405f1aea5",
+            "ced3922528bbac8c9908488c7c031e5eeb2ec573c8e4d5b968033d2c084d48b0",
+            "5cf081611437ebfd2ec2e2d439e5ac57cb0cfe7c796728f7a3e75b08a4d5888d",
+            "17d76674746d583fc20f0a0dbdb3225a236b54891a0e96dde74685e099fb76b4",
+            "4075a21c16dd5e5cdc3a348255428e0dc61f86c63678325b8bf46a19ab4d5cbb",
+            "9a37b2c29c70996ff4ee04134fd469ab5863b02be310602efaff99214cdb4150",
+            "40ef1f9e8bed2beee051b64c324e6bb57f2c77c908e4ed404edb0782906c7620",
+            "afee83ab880115044b808a89daf0396ca6813676d6f251903eb282d27dea3ec7"
+          ],
+          "stage": "extracted",
+          "toolVersion": "batch-runtime-source/1.0.0"
+        },
+        {
+          "completedAt": "2026-07-28T16:37:27.365Z",
+          "count": 102,
+          "inputHashes": [
+            "b87339ad5d6a0b5ace9fa050493136e8dcbe4ba5f22bace7969cdeacf1a04241",
+            "420b86f0504bdbd85a5f128d36b2b9b94fc5496370e43599e890eb58213a21ce",
+            "fa672e76709ea8f23d7dd716d899cd4ca521c17065f7224f2c4d7de87990f910",
+            "f3374d3f8f1a0b8a2660d4e7adbd41c3b2848e3651510dfd2829d380e9037a59",
+            "7b2ac58b1901415ccf444fa79aa0840f0a1331a5786773d2e3abaa66db7e43a6",
+            "908390fd663b62e58e0cbd607618f9f50b675cee4c7718c693d889f17db3f6bb",
+            "8486861332dcb1d0500b40d5c5552beb795f4761ec4633653f7b5fda08d4f3de",
+            "9db4e2658522debf082f081b13b7b3a74b605e61b689b75253f92a4afc7ee24f",
+            "ef5b66a801abf7760bb8e9d31673103a6b15c64482e2e873c4767bae26eee21a",
+            "13cc343445520d3acb0cc96d685593580c4de73906bccdf8696e89997706b628",
+            "f4d24b51a30fb520d0cd8d9ca93babc65d0ecc947e9af2559878672bddc9818d",
+            "39c0de352b501665c783c5f5af5c37e652dc954e5c34baf23633fcc9f1265d92",
+            "488508333a7e5c3b5532dd6b060de8de35c22a77b5afe78c84997ca4c8546d47",
+            "d3633a41163b36d9c9082448580e85d182a02d1b77979b42489d7a4d1a4f406f",
+            "4d08fe24980ba5864d8ec4c039d70ddc33ce2cc851a06e5a7768c8cc29b1a3e1",
+            "9e9371004c83f51acac5ce664a2ea431640bb159c52e11f22b8071827c725eac",
+            "7188310e33900e805b6389f75e1f2bfa779f4bff8a6848a67712ccfe0b52ef40",
+            "a5e8cbaa9d2f5163b77147ec91afcc14c03cfd50c819f824737ca005ddd52717",
+            "ce2b97a82e106dc6e51356ce5c197f77ae83840e4e8ec86c7b181b16e32722e9",
+            "94f8b60c8bd405552b090b709ae4c2c3d37977c2fbe91517665f75fca58b890d",
+            "5e3714b4961fa238363ef2f10d003bde04327cd865de7014820b52fce22b2c48",
+            "12fbb8a42898e35491bc930e5e08a2f59a124e3c3fd4c36224d01129127e30f5",
+            "32571472a95468115ec3fc88ebbe34d668d01524133c90413e78e820e23fbab8",
+            "3d4039dc18a5b16016e8935adbc8467c9407cea0ad5ed660240772f85aeed2d1",
+            "1c183cf1bf70e8daef979376612bba49b47c450eec5c02a7f9cae5fe963c783a",
+            "f6d9cae950505930dea9c2ff3ffccb0b952e811ffbe1f11051a5e7fd21585f30",
+            "cd7966d51bb1211d16bb7c3a2b065be8204e9f003510cd9a4e24e8568eb460d0",
+            "935503448d9d0e36a4d7af7e66c3feb31f0f40f0d6de0c4fca1565d0ffd240a1",
+            "7568ae804101ddc70cddf4f24e7c50adc83d726b588083b2255632472e0b1620",
+            "652559413baef0ea6d42e8cdbdc4a9e49d44a7ddb98151b011dab222b8c1dade",
+            "c2a273d62b50ddab9d78d4999198c493180afba8a72d099cc0909603c66feb7a",
+            "e56f874d29cda85073b70367110750c8794ec2f5090aeba9219164669fed0a77",
+            "535045583ed8cc61aa0c8c26778bd952737cdce67cbc625ee102dcba2a72111d",
+            "c7138a8d2d7a4c293377dae24eb83a828716b9d4f8f461d527360059f45d696c",
+            "2789079441b33ea02dbec044d01c52f086d0b4a747c07c7ae953a54860273f49",
+            "b6eac6e9a51275d1fb24b3265cb3104cfbaf2f1b2c286a937c827d53d9239765",
+            "52f5ead963cd6cc6f7ca32977abe166eccc4ec0a248a15af3e1fabdb84e6fd9a",
+            "8ab77880d1c12027c4855259dd9c7083769b272f18c15024dbdfd3096b5ad35b",
+            "a69110c432f55404999b43835387986b2dd1d51e6e7709eb018a5209f6e5c669",
+            "0e41af9f033898433839f01cbc3e547ecdeb11397635549659d457e0084d99ca",
+            "9b8a09bd01048d8bf7fe1b9ea8737344e5410c701f737d6cc0b9cc7f1f731ad4",
+            "591a1cdce339fb132d34824b9b48230ea798459f7305a1180f186bcd65a69dad",
+            "5bb1b7aa00fcecae7eae91cac66de1d9834d3db81755bb5a7b8057a6628698de",
+            "305b159feeccf4223859f19a8cf5cc0fcb9ec7173b0130df6ac4c3915c68849b",
+            "8f670d34c27bbcdfa5f77ff77783530ab78d701c453a3446836eff0d4cf2620a",
+            "b2dcd9b7f87d7477995c4e4282a6baa6ba5ba3c41113d1254fb0544daa179cb3",
+            "11f2f6a8a8f6dd41a57506e84d63a2685c520abb92575fdd9c3b02b0f62d5651",
+            "51111932c55ae733a257ae4abcee16496c165816ed41d371d25a395c86c6dca0",
+            "1185e2e5b2d17a198bbb21d34d9058dea0f8e9966c0531b7a1d79c98f634f048",
+            "f591c8ac7eab97e9033cbb137f9983cb34bd9c8d00d325b931473e621407fc44",
+            "dcf264c3574e3d431e255aaf6fa49456b8843ffab1881c5e713374eb7aad24d5",
+            "4900caa3f64efeb69972c43fc48616c27c4cdf9298b4921443d9ae7bd5adc07d",
+            "db448b74cbdfda311c4e1c3018db5173d9fac6a6aa82fd4b481f137f90990f46",
+            "1c6a096634f622c36b803f6be560e7ca7498df59562ec48f668a8fdcdfd8c681",
+            "1b556c4ddcc4e6bd969b80b97914511cc093603bd064d586592e8461f64253c9",
+            "19ec7a690833223e751e5aa3766834bf32f8c99f88f62f5d21ac04369d084bc0",
+            "82dfd272a1c9434a60d9b1c178487c81ecb8df3708445a930738ac971b2c7c10",
+            "bba4a469f9d50de6c605183f528a8e943590f539d1114401fab3e3eef02aec81",
+            "147c60ee69554371342fcf2f6f17eba44d2d7d3b0a66bad97591a39a4f2e2afc",
+            "ac79bb0337b9c484310ba2f67374df157667a774ec4e028b7cc30fedbab24bc5",
+            "f840c50ccba75813a1b048a9b718c9eb0f612f87dd1459dc26df99632f60d332",
+            "7941abc624b098aa8350d6dacb14a5ab1ae355d4248a679becea1cb014d4f778",
+            "7df7e2654ef6e4088c39cad0627f59ebdc35a28b55828824f3ad890dfd6c4a5d",
+            "0456fb1d2078e0fcd8c43e302ef32cd2aa238b6c102de7373544406f758d55ab",
+            "fea0d2bbfff9d0942fe4a8919528b54f0ac099aa6b8067825d3d8bca744aba5a",
+            "0e8e254a7b201548cd83fd27a0033debc1b204946a139e062a579d7acf56d80d",
+            "14ff425b5b1a0db7c210149ce06f28fbbad91a79ddcd9396e00de13eae19e4f3",
+            "94dfa600a8fe95581149b6a57e83843643b1d8d8d91693348c5815a2e40774de",
+            "d0b2e13e2d20d552b84aada94d1129177fb530c829ab83076ae236076de55d0e",
+            "7d98a9859136c9ca0f64fe4f6e46d9bdbc71423c15e88c23123df354485d2737",
+            "d35a552a23ae81f7a6c269ad4a97204876ddb0a2110fcaf773036d04b99a08b1",
+            "5d44fb999a9ae7c772d309d09992580532a9826e6bf34a2f403ac8d16b6e6cfc",
+            "a987f306c1741303a7c8990d8c81ba0aa8db229b61976399554882bbfc354e2d",
+            "1c929efca2932c6295e0e77b1bc7b1bacecded31430a4ec25e776acc0f4158ea",
+            "01ed9a5270379c17ca263ebd0e4f0f13ef13bd1c44c698f28a44b82a581b8ce1",
+            "d08a65680fae0f6d3e41740e74a4ffc8b24e6777bbb7b04ca9b7fc268025cb2a",
+            "bf512d880f2c38bccb6aed75daf9bc9f4b47fa128446e15158eb457e33eadac2",
+            "2780006de3520267069c6add1bfb740e86f4cd74d86182daae331940fc59e138",
+            "5482f44b700f74eec77e3ecc1eb1470def2703c43f938eb2b1a133ff5663d791",
+            "6bccfe5827e4674cc172aa0aeab3413629821006fbbb64918e6adcff2ba340f7",
+            "a2177aedfaff3e81bdffe8061f126c22207072fc40a1fe7d6e7cd7c3e0c79ce8",
+            "557c5212fab54d9d6616d5f72ca0b614d65f427e202ebb21b7405565607a308d",
+            "a10ac376f08c92f1704c504f403fa26d203dcd5f51483bf1eed0eb700778e380",
+            "02c606137de23d41508f06cbefa205eab5bfce32d444db75d1d61ace514dadc0",
+            "c13fd2705ef3cc88f487e659d15c5ce48e57df76c8768460423622b579fd6c44",
+            "93bed6d4a0ad90e4d3c471cb93738423b7c33aa51f642702090f08aab000b5b8",
+            "076e38b9e23969e37f15e3358d5f2834eb43fafac32a25d99f2d9218d3b9c3fe",
+            "4be3ae69f5df79a11a029520acc63b67a4ec5b178ae7d3c9504aba1db4fe4a0a",
+            "8e8a06354881c0d1337a453bcbc839ed68a8aac6326f465b91dba93ef2a4e38c",
+            "48351517741cec5de965d4c0316067bf35c61ae0724cdb2e5866307be0c22b60",
+            "ed52273f166a7111d2f8a8be699d876b0e2b364813277ec72d3f0c6229f189b5",
+            "e8cb25a678932b4696223cfbbafa1a904ddfbdfac60dee388b129c2bad573796",
+            "957157def2c84a8c949eff5f6d3cce023c3ff67403cba68b4b812d4e6c411874",
+            "9aa10996dba989b11dbeb3b3a46d3bc4811071f3dc00de55054a4fdd260dafca",
+            "1605d08ae73386f43bf9a12d219672c970e7eb66e6cb833707dbdf2f125614b5",
+            "b83ac0e45960088b2db742b02f9f12882357a18b40f059c1340be670d1bba4e6",
+            "a5b17c2de077229cde67d62d6580a1730395b06b8e240fccde1d967405f1aea5",
+            "ced3922528bbac8c9908488c7c031e5eeb2ec573c8e4d5b968033d2c084d48b0",
+            "5cf081611437ebfd2ec2e2d439e5ac57cb0cfe7c796728f7a3e75b08a4d5888d",
+            "17d76674746d583fc20f0a0dbdb3225a236b54891a0e96dde74685e099fb76b4",
+            "4075a21c16dd5e5cdc3a348255428e0dc61f86c63678325b8bf46a19ab4d5cbb",
+            "9a37b2c29c70996ff4ee04134fd469ab5863b02be310602efaff99214cdb4150",
+            "40ef1f9e8bed2beee051b64c324e6bb57f2c77c908e4ed404edb0782906c7620",
+            "afee83ab880115044b808a89daf0396ca6813676d6f251903eb282d27dea3ec7",
+            "2db001839cf048b009569b42dfc77b807d0740a9da90eb299c056a42f5f574dc"
+          ],
+          "outputHashes": [
+            "8632fd7ba70e104531f9d0bae1d8662bf286d0238f0ad86aa2daa19da016755a"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "batch-runtime-review/1.0.0"
+        },
+        {
+          "completedAt": "2026-07-28T16:38:23.152Z",
+          "count": 97,
+          "inputHashes": [
+            "2584701d92e94a883ca8fd9303dcd8fe457d440a2e9c7b79252ef09055992b22",
+            "8632fd7ba70e104531f9d0bae1d8662bf286d0238f0ad86aa2daa19da016755a",
+            "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+            "005c065a9bd1f2df2ad43eff1bb7454235509cd4904e3c8ace3c5e39352222b6"
+          ],
+          "outputHashes": [
+            "7292bc44c869c54b393cb2263583ca614df4536ca0332957437c0b6df421887b",
+            "daacc9eec368036d9a48b5c5190f8781f52e82cb8c103e0febc7186470bad8bd"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "batch-runtime-capacity/1.0.0"
+        },
+        {
+          "completedAt": "2026-07-28T16:42:40.610Z",
+          "count": 97,
+          "inputHashes": [
+            "7539b696e9931a48d9f6694363b5e22e5b3187a9936e9d2b19a58ad7b7908b1e",
+            "2584701d92e94a883ca8fd9303dcd8fe457d440a2e9c7b79252ef09055992b22",
+            "7292bc44c869c54b393cb2263583ca614df4536ca0332957437c0b6df421887b",
+            "daacc9eec368036d9a48b5c5190f8781f52e82cb8c103e0febc7186470bad8bd",
+            "d82e35446a8e0c6e16eb55919300a6876070c024dc7b7615f3c73b24359d0fb2",
+            "4e18c3887a9e12606d0042735fe71bdbb1ff322abe15d42d09ba3bf4cd7a6df2"
+          ],
+          "outputHashes": [
+            "b1ea9b41a2b9b68ab9a981c92b078b178017ee6d0f896489ee9d5d8e588cce04",
+            "fc76206bb16f250f6f1e0976706607c00e295b30cdb9046a0b63a791cda79f9a"
+          ],
+          "stage": "voiced",
+          "toolVersion": "batch-runtime-voice/1.0.0"
+        },
+        {
+          "completedAt": "2026-07-28T16:43:24.274Z",
+          "count": 199,
+          "inputHashes": [
+            "6b7882e49a4eadf99f44502ee0fcf3ad356ea3b5f33ebb35f47ddc6a92c15a76",
+            "b1ea9b41a2b9b68ab9a981c92b078b178017ee6d0f896489ee9d5d8e588cce04",
+            "fc76206bb16f250f6f1e0976706607c00e295b30cdb9046a0b63a791cda79f9a",
+            "d42ae4f7164b08eac0651819a515e3b48eb5c0feb382b6e5eec55fd4d60fde53",
+            "b459f9bd996f981db4f8d7dc179ebe5b452365a154205b9738f949b2130df424"
+          ],
+          "outputHashes": [
+            "b9bc9b9c9038f421ca1fbc80d08ad9773c3254c3959f8df3d33c7dadf6ff600b",
+            "71bf6e9f13f7b9e398eb0add1c49a1e6e8c9299e7365a2850bf8e2a932261a45",
+            "faaaff4b9b43ff06be62b5d96dcc0df307f74321f06788128cde21f2b23b88a0",
+            "6e6453ea855caf89a64cb3cb527d324d4db080b0566d4e8f232e163b435ffdd6",
+            "8f50b75d03511d375320ae6d3c3ff546ddf276921f12ed1321d0afaaa341ef54"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "batch-runtime-capacity/1.0.0"
+        },
+        {
+          "completedAt": "2026-07-28T16:43:33.644Z",
+          "count": 97,
+          "inputHashes": [
+            "8e9f6ecb4c193661d8f2d5a48ce368b8a21414e4e797d52dd57dab540bca05f1",
+            "919fb97e9de6a7de08dd21e25ab5bad5f6f9607f3adc9326dd74efdc8fcd4829",
+            "d42ae4f7164b08eac0651819a515e3b48eb5c0feb382b6e5eec55fd4d60fde53",
+            "d42ae4f7164b08eac0651819a515e3b48eb5c0feb382b6e5eec55fd4d60fde53",
+            "71bf6e9f13f7b9e398eb0add1c49a1e6e8c9299e7365a2850bf8e2a932261a45",
+            "b9bc9b9c9038f421ca1fbc80d08ad9773c3254c3959f8df3d33c7dadf6ff600b",
+            "faaaff4b9b43ff06be62b5d96dcc0df307f74321f06788128cde21f2b23b88a0",
+            "8f50b75d03511d375320ae6d3c3ff546ddf276921f12ed1321d0afaaa341ef54"
+          ],
+          "outputHashes": [
+            "29819f7646913280a9aa6640dfaa7f430fe8ac597358699ca7c79dccd9621462",
+            "9f623b9b30170b9b78a2e9b0fa4a5b7fea598fa2e9236b3b03f75c549bc1eb47",
+            "02a59cfc9f324887404f770407599685cdbb6a049667e08ce249e7bbe400ac79",
+            "d5d1728fe571dc142dd36b9478f3dceb8d4b1cf05f64f0f54645500f6f61e8eb",
+            "3876d0bf97780e25ade6eed400dcaf0127c9ca586c025fd756df38fa2624e4e1",
+            "63a12f902ba270d7bf34162fe5b67f1a3136c78a0d1729b396690e25fa095d95",
+            "186d97924798d0b79240328a2e655d924b5377f37ec35e92646ecb69a1852e61",
+            "e246ae567a104e968382f02b6feb35b47ef7170c310cf131749726d4300d805a",
+            "76d01b98900dc63afd18b78dbb3c806e2a5b8d72664ec2814e0234fb57a2100a",
+            "6aa3f0d833ffc0a2d996b632b5ade8e5805ef17040fbb7f86fc6e282a91201a6",
+            "f346586d398ff46b0aca076502a28f85ded5b2b3814bd2ae0d9019ea07b338d5",
+            "dc0c61c8c02af2561fefede75d763882e7a972ad7cf9a43d8527e8eec76d6841",
+            "79f17ecb879a64fe6412f6be98c5cddba884c2b143f0fc5b1b48a63db56a5f15",
+            "30606181ca13073215fcfa9524137ac894115395a317b7c1ccf60f22e1c75fc5",
+            "1839417e243a1833b8da60f8199fe687dd18f26ec719d6279f8c2042a320c49e",
+            "9865201ad7ddd567314fbef6a8845ef72b2305b71fb36045d9690c1609d3832d",
+            "d72143b92e53a30b981af1387178a5be28cf4987370d3961d1cf0b245dea3a36",
+            "f9c5c4a76a2e7f20b60fabd8fd856eb83031b80a47dbf1c5b7641227ca4777d7",
+            "74158c7e059d8c3923871996d05e8dfc285eccccc662ad103227dfae1373fcb4",
+            "e521c320bf4c9149d157c9908718939caf44bb1982430308714930d2cdb73bbe",
+            "7a6dcdc540ca35ccce83c5a9a6106774357dd0ef22bd16fa87bb513c392ff7ab",
+            "939959946a9b114e82e45673c661ea099a8b65ffbd8ca4f8d38d59c5555e560b",
+            "a0974c3ea7b275f1bb3b0aef3e4c61627400b073714c82ecdedef5ca7f14709d",
+            "5f0a05c1e1763f815039d2e1b8499e396af95269ed583cb1a809a843d595412b",
+            "908f2c9f8082be4a5b1f0fa99ba908c861068f5ec601f10dae10742813f23b2b",
+            "bc8476b8a57573194248ca7013bdf745ce455cfcb2a52b909c9fdad9619d89d6",
+            "e07bec1958bfcf5d2261334718f8c5af4341a1d71024e288c1fa9e90f1150ca0",
+            "888357d270368d99cdb3a96bb535731de5c2868ae4d8dc7f4d3895bacfcbe34f",
+            "3d7af322a2507f3f9eaf79e3cfa6fe6c3b3b3ff0b589a73f79c72a4de5f137eb",
+            "280fadd30093cc9d6469f4c7f4ba82eb38a3b7c2b2a973e5e01ca661d111a42b",
+            "942d832f25eda582d3e8f6d0ecd946c2174fea5ed2f388ae3f29827c4e23301b",
+            "8b159944679612b35485ea19b1fa35461106349a1bee4c94f81b8e5cc9d12918",
+            "60604235d671839799c073ac88d9704f194198c01a82c2b9d32c44c1ae4a9b8f",
+            "dc9434685c2b044dc9f13dd21f7d8fab7ac6bd2a50f258815e440b9be71c65e0",
+            "578b8a9d439364c13e59b76c04d7b2cb4f49fb41653d611d99eee789905ecf2b",
+            "1bcaa9d5612fb999c307302c0713a331e3191e3434509eb376d04bdaaff8c614",
+            "b65772b32206317cb8923785b0ab27b9b4a53ebbe97de15ae1b66e3206b90ec0",
+            "150b26ae724c379892437ccc64caf236d6e83b46ee5c656d2cc94c69d9ff29c5",
+            "8460a22da20148e469ca78dbbe28fd53b87ffdd35173e4dcb377ec22bd297103",
+            "6599c7382e7f5eed5a39f6b34ee9202eff1aa09ef0e8762bc126cf4f2577c951",
+            "abad4b6faedf28a3bf515fd50af004d99829449adb057af14e4f8e73f2bca007",
+            "2c61754f05c99d9f4ec2f9d2b73f223ec8b1a8fe3fda148eddbaa3d34f12322c",
+            "3a57cfc2be27d246e2ec08290ddf21731ffce85a40640a2d7eee5c1d5fc4e9b8",
+            "935cf5398aa23a2c489387757dc263ebcb6b935a954356d1d1627748ea4b7791",
+            "966a0783e7ef3b8e4375d38cf7ed408f9d2a112b79e29c300ab909e59561459f",
+            "787ee262a845cb54c507f2a021789db6329e79d68dc7f9ce46dc30e4c6c1d505",
+            "d8bbfde38993e7644754531fae0eb1b1f1e3e7293f78873962d52d331cf54557",
+            "5ae7e2b6b33701461a03a6166f14c63acf4ce7fbf11f805b3d17fe4dca83a4eb",
+            "4c83518a2d73f40ec40c94fc76ed5cc8feae6af79f5031df03447a2f90f3ef5f",
+            "51609c5ecb1f4bd262e42c2e932b26b92b80ed7d7a37f546365df18e506e0634",
+            "06d483ae591d968e3e6c3ce617ffb379eefc54342200639fc5fb66dd45fecb44",
+            "d47c0c1da44bad4b9d0596b8eff63155a37f3bc87f08b45084e031e33c702367",
+            "e56b0581cdccef2ee03d1d437f23c3cb58ba0118bd5e11e5050b5083e9d378a5",
+            "0fb71c16aebf1073c6cc405c3632de62bd9b564469eb7c45902ce31672d056ab",
+            "4fc886fda7782f339f8176b0017297064f75712d773fdef880bb04fc1f13f233",
+            "79ca8d34f7b7f7024c03fb7aacf8c084b07ed9b17db8e2b45883de403340cca9",
+            "cd4c8a81f8e8512c93d18899f3cadbb69d0cac4a1ca60a1b74b27ce3c01597c5",
+            "126bfb1f831c86f6c6300723e3835477f99622f0173613d40e863989d9a8e799",
+            "ab77e60e68d95041a609bea0f13583fe46c9056483eeb9d4ec049c2c2dae3288",
+            "1d17ec05a69242ebbcc53aa9ef53efb846ec132e194b59e4e483a28ac1307d46",
+            "277d358d2fc257584b034cb95e3152d36445edfade626c299ea019ff6fa0f58c",
+            "e2e8ec7ce5a1263982cecdac9257dc502d6f3fef4ff70c5692df78e84a7abd28",
+            "0d38ffc715284f9fee514c7763b5374125739b2bdb3cb993f8840052dc3ee6d6",
+            "574d7813954e7f17663778cae026a9d3ef2a06ab2ca4b4d970a0a882a5152e42",
+            "7a827817434b1cbaa01f5c757ed472ac24c13c90d0203f06211cd2485844dcfa",
+            "c3501514318fae8c274c3cfe6d3fff633f9bee41d8c47f184cac68d00cfd98bf",
+            "09131a63f44602cf22835987aeac94426f9c8050a076edd787d01d4db2270af7",
+            "6ea9cfccc5c085284c9a4dcb7dbad3121c8aac458c11a3cee23f964dc6d770ea",
+            "7992d1933ea820dd2cee183906c1ee1061c0469bea7560c5ec84ae584d43cf5d",
+            "6987a2e9c576b75ee0f0da785772367c33d5b1fd9ea2de85af7899a1ac3508cf",
+            "4317166a701a2bca43806c42370f055d913bd7c3905814c1b6cbb77a9f97b58d",
+            "43593b6685681badbcd236ddb2a1149c2d2710e56140a8df07024aab22b04a82",
+            "9ab8478e09d488d41046d28951f1519ae8127d0935aceb41aa71fef4ea90448a",
+            "ee40cada124258b34666f333fe7e5acd9867b46746cf264182a562b102fe462f",
+            "f8d39b4ddf8a8302e0b04458b334fd667883cefb27c1c18fc7d546f3ebf0f714",
+            "6461e93564da633fc4c965b8d0265df910b204ed2d290ec2a4eeca0653b0e75a",
+            "06f361df132527880c419cc9fda7abec86bb75f0b743e88d50aa37357f589249",
+            "74ca5320e95ba7508fa5ebe1629e9923b3a1f0af17dab48c233f639b7639cb5a",
+            "19c732967a5ca45708c0115e55f6964c64b08849f8742204b8047000cd5e0aba",
+            "416e9c212d53dbca90ac55dc8eb96fccc90f2f5fb7124e4d3ead8dbd2ffbfd55",
+            "f42cad205c6f1a94f9b8b1dca217a4aea96f366f179cf3dde5af5ecec07306cf",
+            "311a5ba8155fa33288455016a0b78e729417da1ac410cf0d2f366109ecc6bd25",
+            "55b0ac7d5d3db7398ed8959ea01a8a89c41faa37dabe6ce99bf1174295138c83",
+            "0052ecb7cf437bdc466d8794358c4c05e6961371db29838eb136bf75b3617b36",
+            "44e59db1a606ff90d426a5b1b7390b4123fd1d32d85934d87bd695f53b8a8450",
+            "1ad36773354abee9118d7e480d1342b84c20f674455d6678ce2e78220944dc26",
+            "8fc225e91c0eca81d8140208a1b5e6a3b1e2c4b2e115b45ea7635b08f11605f8",
+            "8e48e90e4fc553d04e499531b79a9e9c07fbf3f29aaebac1079ac45dc1f0b1f9",
+            "170ade785c0443900b773ddea71554010319d0765cbbdb6631485eaff8b6799a",
+            "10581ca62d74a41932f954e2a33057f7d1eb1ab7a7d140947477cb039cf6248d",
+            "64add0f2ba17a780c6403e0caa13c3154a031b47d20af8ad57a14a0c11cd0867",
+            "056f2a5c4b05836ee8514a80689a55337eec1f0cb14f951aa1e9bdb92895d490",
+            "1cf26c21512ff8a97315f3c6753c511a23958a36491da432ae97d44e7ae3f543",
+            "63e5332cb914b1d83531bb02550c233d79171f471341ea5f3f0f5c23d46997af",
+            "6c4edb86995e396f8ce813306b4d3704652c8756051268176e49e63345950538",
+            "da4b8b1355b08566e288afe96a1fe9dc0fe2e2b03add06ea668909e56b2a38a4",
+            "67011a9b5dfab2ccb46f3b9f60a362c6605b8f0f30df72721ee67e79fab3e867",
+            "65122be6dcae724ff4609186353a60d7a3c14878b72084ed7e1588ada294d4b7"
+          ],
+          "stage": "accepted",
+          "toolVersion": "accepted-audio-transaction-v1"
+        }
+      ],
+      "status": "accepted",
+      "voiceEvidenceRef": "content/batches/F004/voice-evidence/001918.json",
       "workId": "001918"
     }
   ]

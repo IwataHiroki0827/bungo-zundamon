@@ -1,0 +1,2348 @@
+[
+  {
+    "candidateId": "y_moDf6aPiSdWUz6YV2ptzDvrsbAknyXf0fhHSoMH5Y",
+    "contextAfter": "と書いてありました。\n\n　あまがえるは珍らしいものですから、ぞろぞろ店の中へはいって行きました。すると店にはうすぐろいとのさまが",
+    "contextBefore": "ろこんで一まず本部へ引きあげる途中で、一本の桃の木の下を通りますと、そこへ新らしい店が一軒出ていました。そして看板がかかって、\n\n",
+    "displayText": "「舶来ウェスキイ　一杯、二厘半。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 740,
+      "start": 724
+    },
+    "revisions": [],
+    "sha256": "fa672e76709ea8f23d7dd716d899cd4ca521c17065f7224f2c4d7de87990f910",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 740,
+      "startToken": 724
+    },
+    "speechText": "「はくらいウェスキイ 一ぱい、二りん半。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "LW1oIIPBSkqwrtjI_dOuyEb7mvK07iaXOJA5hl-TyIU",
+    "contextAfter": "\n\n「なんですか。舶来のウェクーというものがあるそうですね。どんなもんですか。ためしに一杯呑ませて下さいませんか。」\n\n「へい、",
+    "contextBefore": "のっそりとすわって退くつそうにひとりでべろべろ舌を出して遊んでいましたが、みんなの来たのを見て途方もないいい声で云いました。\n\n",
+    "displayText": "「へい、いらっしゃい。みなさん。一寸おやすみなさい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 898,
+      "start": 872
+    },
+    "revisions": [],
+    "sha256": "f3374d3f8f1a0b8a2660d4e7adbd41c3b2848e3651510dfd2829d380e9037a59",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 898,
+      "startToken": 872
+    },
+    "speechText": "「へい、いらっしゃい。みなさん。ちょっとおやすみなさい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "Agy8-faIFO0FKoDEOz4UoFRuzPQvsAGpvRqOl0bXL9E",
+    "contextAfter": "\n\n「へい、舶来のウェスキイですか。一杯二厘半ですよ。ようござんすか。」\n\n「ええ、よござんす。」\n\n　とのさまがえるは粟つぶを",
+    "contextBefore": "遊んでいましたが、みんなの来たのを見て途方もないいい声で云いました。\n\n「へい、いらっしゃい。みなさん。一寸おやすみなさい。」\n\n",
+    "displayText": "「なんですか。舶来のウェクーというものがあるそうですね。どんなもんですか。ためしに一杯呑ませて下さいませんか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 956,
+      "start": 900
+    },
+    "revisions": [],
+    "sha256": "7b2ac58b1901415ccf444fa79aa0840f0a1331a5786773d2e3abaa66db7e43a6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 956,
+      "startToken": 900
+    },
+    "speechText": "「なんですか。舶来のウェクーというものがあるそうですね。どんなもんですか。ためしに一杯のませて下さいませんか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "vVldUxxQswpdrvIb2XVwwaWvasbuS3MiRRCqjOVrKhQ",
+    "contextAfter": "\n\n「ええ、よござんす。」\n\n　とのさまがえるは粟つぶをくり抜いたコップにその強いお酒を汲んで出しました。\n\n「ウーイ。これはど",
+    "contextBefore": "さい。」\n\n「なんですか。舶来のウェクーというものがあるそうですね。どんなもんですか。ためしに一杯呑ませて下さいませんか。」\n\n",
+    "displayText": "「へい、舶来のウェスキイですか。一杯二厘半ですよ。ようござんすか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 992,
+      "start": 958
+    },
+    "revisions": [],
+    "sha256": "908390fd663b62e58e0cbd607618f9f50b675cee4c7718c693d889f17db3f6bb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 992,
+      "startToken": 958
+    },
+    "speechText": "「へい、舶来のウェスキイですか。一杯二厘半ですよ。ようござんすか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "Fg6fUQFtIGB1DT32gqOYtJeh2kBzvz2QqOYoXpyA9MY",
+    "contextAfter": "\n\n　とのさまがえるは粟つぶをくり抜いたコップにその強いお酒を汲んで出しました。\n\n「ウーイ。これはどうもひどいもんだ。腹がやけ",
+    "contextBefore": "なもんですか。ためしに一杯呑ませて下さいませんか。」\n\n「へい、舶来のウェスキイですか。一杯二厘半ですよ。ようござんすか。」\n\n",
+    "displayText": "「ええ、よござんす。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1005,
+      "start": 994
+    },
+    "revisions": [],
+    "sha256": "8486861332dcb1d0500b40d5c5552beb795f4761ec4633653f7b5fda08d4f3de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1005,
+      "startToken": 994
+    },
+    "speechText": "「ええ、よござんす。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "4jv7WA1lsoT76XEk6eLzt_afOK740X3BadCRHXBdj0I",
+    "contextAfter": "\n\n「はいはい。こちらが一ぺんすんでからさしあげます。」\n\n「こっちへも早く下さい。」\n\n「はいはい。お声の順にさしあげます。さ",
+    "contextBefore": "ようござんすか。」\n\n「ええ、よござんす。」\n\n　とのさまがえるは粟つぶをくり抜いたコップにその強いお酒を汲んで出しました。\n\n",
+    "displayText": "「ウーイ。これはどうもひどいもんだ。腹がやけるようだ。ウーイ。おい、みんな、これはきたいなもんだよ。咽喉へはいると急に熱くなるんだ。ああ、いい気分だ。もう一杯下さいませんか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1134,
+      "start": 1047
+    },
+    "revisions": [],
+    "sha256": "9db4e2658522debf082f081b13b7b3a74b605e61b689b75253f92a4afc7ee24f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1134,
+      "startToken": 1047
+    },
+    "speechText": "「ウーイ。これはどうもひどいもんだ。腹がやけるようだ。ウーイ。おい、みんな、これはきたいなもんだよ。のどへはいると急に熱くなるんだ。ああ、いい気分だ。もう一杯下さいませんか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "7NJzo_-qZRq8Cbp8P1ArUn9xZr_N58kkOCfmy59SAfc",
+    "contextAfter": "\n\n「こっちへも早く下さい。」\n\n「はいはい。お声の順にさしあげます。さあ、これはあなた。」\n\n「いやありがとう、ウーイ。ウフッ",
+    "contextBefore": "だ。ウーイ。おい、みんな、これはきたいなもんだよ。咽喉へはいると急に熱くなるんだ。ああ、いい気分だ。もう一杯下さいませんか。」\n\n",
+    "displayText": "「はいはい。こちらが一ぺんすんでからさしあげます。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1162,
+      "start": 1136
+    },
+    "revisions": [],
+    "sha256": "ef5b66a801abf7760bb8e9d31673103a6b15c64482e2e873c4767bae26eee21a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1162,
+      "startToken": 1136
+    },
+    "speechText": "「はいはい。こちらが一ぺんすんでからさしあげます。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "88qAP1QqI2L3pDUIBswTwn6g1OFsMFw7svsLT4TUWwE",
+    "contextAfter": "\n\n「はいはい。お声の順にさしあげます。さあ、これはあなた。」\n\n「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」",
+    "contextBefore": "いると急に熱くなるんだ。ああ、いい気分だ。もう一杯下さいませんか。」\n\n「はいはい。こちらが一ぺんすんでからさしあげます。」\n\n",
+    "displayText": "「こっちへも早く下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1177,
+      "start": 1164
+    },
+    "revisions": [],
+    "sha256": "13cc343445520d3acb0cc96d685593580c4de73906bccdf8696e89997706b628",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1177,
+      "startToken": 1164
+    },
+    "speechText": "「こっちへも早く下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "LdgF8hds_E093pBm1qpYKO0SkCqEJegTyoBU9hvDoHk",
+    "contextAfter": "\n\n「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」\n\n「こっちへも早く下さい。」\n\n「はい、これはあなたです。」",
+    "contextBefore": "いい気分だ。もう一杯下さいませんか。」\n\n「はいはい。こちらが一ぺんすんでからさしあげます。」\n\n「こっちへも早く下さい。」\n\n",
+    "displayText": "「はいはい。お声の順にさしあげます。さあ、これはあなた。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1208,
+      "start": 1179
+    },
+    "revisions": [],
+    "sha256": "f4d24b51a30fb520d0cd8d9ca93babc65d0ecc947e9af2559878672bddc9818d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1208,
+      "startToken": 1179
+    },
+    "speechText": "「はいはい。お声の順にさしあげます。さあ、これはあなた。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "F6Ga9Y50rZsAtkM0z829-lS1pBhcE0Tn6AbAFUMC_V4",
+    "contextAfter": "\n\n「こっちへも早く下さい。」\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。",
+    "contextBefore": "一ぺんすんでからさしあげます。」\n\n「こっちへも早く下さい。」\n\n「はいはい。お声の順にさしあげます。さあ、これはあなた。」\n\n",
+    "displayText": "「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1241,
+      "start": 1210
+    },
+    "revisions": [],
+    "sha256": "39c0de352b501665c783c5f5af5c37e652dc954e5c34baf23633fcc9f1265d92",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1241,
+      "startToken": 1210
+    },
+    "speechText": "「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "pQsPffBXp-qQOdL1qb37bK9Lb0WP2g7HzHRR8o66tQU",
+    "contextAfter": "\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。」\n\n「もう一杯早く。」\n\n「",
+    "contextBefore": "「はいはい。お声の順にさしあげます。さあ、これはあなた。」\n\n「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」\n\n",
+    "displayText": "「こっちへも早く下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1256,
+      "start": 1243
+    },
+    "revisions": [],
+    "sha256": "488508333a7e5c3b5532dd6b060de8de35c22a77b5afe78c84997ca4c8546d47",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1256,
+      "startToken": 1243
+    },
+    "speechText": "「こっちへも早く下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "dYUsdbmYF8PAFkjHfzIZYi1IIjxUDltflQdYg3AeHh0",
+    "contextAfter": "\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。」\n\n「もう一杯早く。」\n\n「へい、へい。どうぞお急きにならな",
+    "contextBefore": "ます。さあ、これはあなた。」\n\n「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」\n\n「こっちへも早く下さい。」\n\n",
+    "displayText": "「はい、これはあなたです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1272,
+      "start": 1258
+    },
+    "revisions": [],
+    "sha256": "d3633a41163b36d9c9082448580e85d182a02d1b77979b42489d7a4d1a4f406f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1272,
+      "startToken": 1258
+    },
+    "speechText": "「はい、これはあなたです。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "PxWTIRPASdUbfU9nM4F1Ij8Yq2IELMRkoK7RxuF5x6Y",
+    "contextAfter": "\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。」\n\n「もう一杯早く。」\n\n「へい、へい。どうぞお急きにならないで下さい。折角、",
+    "contextBefore": "「いやありがとう、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」\n\n「こっちへも早く下さい。」\n\n「はい、これはあなたです。」\n\n",
+    "displayText": "「ウウイ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1280,
+      "start": 1274
+    },
+    "revisions": [],
+    "sha256": "4d08fe24980ba5864d8ec4c039d70ddc33ce2cc851a06e5a7768c8cc29b1a3e1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1280,
+      "startToken": 1274
+    },
+    "speechText": "「ウウイ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "fETUla7CpvRi-NYmC6cm_FSTAQGaz7Pa1bipY9WFa78",
+    "contextAfter": "\n\n「こっちへ早くよ。」\n\n「もう一杯早く。」\n\n「へい、へい。どうぞお急きにならないで下さい。折角、はかったのがこぼれますから。",
+    "contextBefore": "、ウーイ。ウフッ、ウウ、どうもうまいもんだ。」\n\n「こっちへも早く下さい。」\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n",
+    "displayText": "「おいもう一杯お呉れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1294,
+      "start": 1282
+    },
+    "revisions": [],
+    "sha256": "9e9371004c83f51acac5ce664a2ea431640bb159c52e11f22b8071827c725eac",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1294,
+      "startToken": 1282
+    },
+    "speechText": "「おいもう一杯お呉れ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "wsewhprv6Z4igBFKGW5fQCSlRlwZQJu2EYEl76FfDec",
+    "contextAfter": "\n\n「もう一杯早く。」\n\n「へい、へい。どうぞお急きにならないで下さい。折角、はかったのがこぼれますから。へいと、これはあなた。」",
+    "contextBefore": "もうまいもんだ。」\n\n「こっちへも早く下さい。」\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n",
+    "displayText": "「こっちへ早くよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1306,
+      "start": 1296
+    },
+    "revisions": [],
+    "sha256": "7188310e33900e805b6389f75e1f2bfa779f4bff8a6848a67712ccfe0b52ef40",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1306,
+      "startToken": 1296
+    },
+    "speechText": "「こっちへ早くよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "jc1vfAOBaZCwqBfOtjYQbKSji9Yiotv7azw9yVSP5Fw",
+    "contextAfter": "\n\n「へい、へい。どうぞお急きにならないで下さい。折角、はかったのがこぼれますから。へいと、これはあなた。」\n\n「いや、ありがとう",
+    "contextBefore": "こっちへも早く下さい。」\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。」\n\n",
+    "displayText": "「もう一杯早く。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1317,
+      "start": 1308
+    },
+    "revisions": [],
+    "sha256": "a5e8cbaa9d2f5163b77147ec91afcc14c03cfd50c819f824737ca005ddd52717",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1317,
+      "startToken": 1308
+    },
+    "speechText": "「もう一杯早く。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "E5wwBIZ6DXEs_Lg7730WvTpu5mydvuXYQcKu2Y1TUD0",
+    "contextAfter": "\n\n「いや、ありがとう、ウーイ、ケホン、ケホン、ウーイうまいね。どうも。」\n\n　さてこんな工合で、あまがえるはお代りお代りで、沢山",
+    "contextBefore": "」\n\n「はい、これはあなたです。」\n\n「ウウイ。」\n\n「おいもう一杯お呉れ。」\n\n「こっちへ早くよ。」\n\n「もう一杯早く。」\n\n",
+    "displayText": "「へい、へい。どうぞお急きにならないで下さい。折角、はかったのがこぼれますから。へいと、これはあなた。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1370,
+      "start": 1319
+    },
+    "revisions": [],
+    "sha256": "ce2b97a82e106dc6e51356ce5c197f77ae83840e4e8ec86c7b181b16e32722e9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1370,
+      "startToken": 1319
+    },
+    "speechText": "「へい、へい。どうぞおせきにならないで下さい。せっかく、はかったのがこぼれますから。へいと、これはあなた。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "TXEDj4O5ap544wYxSA91maoszTWjetb3RV8M3oVK3Pw",
+    "contextAfter": "\n\n　さてこんな工合で、あまがえるはお代りお代りで、沢山お酒を呑みましたが、呑めば呑むほどもっと呑みたくなります。\n\n　もっとも、",
+    "contextBefore": "「もう一杯早く。」\n\n「へい、へい。どうぞお急きにならないで下さい。折角、はかったのがこぼれますから。へいと、これはあなた。」\n\n",
+    "displayText": "「いや、ありがとう、ウーイ、ケホン、ケホン、ウーイうまいね。どうも。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1407,
+      "start": 1372
+    },
+    "revisions": [],
+    "sha256": "94f8b60c8bd405552b090b709ae4c2c3d37977c2fbe91517665f75fca58b890d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1407,
+      "startToken": 1372
+    },
+    "speechText": "「いや、ありがとう、ウーイ、ケホン、ケホン、ウーイうまいね。どうも。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "lu1XcJNx7vSF8xls5vAcPI3rmLjmVdo5nzrvSpRhAzg",
+    "contextAfter": "\n\n「も一杯お呉れったらよう。早くよう。」\n\n「さあ、早くお呉れよう。」\n\n「へいへい。あなたさまはもう三百二杯目でございますが",
+    "contextBefore": "えるのウィスキーは、石油缶に一ぱいありましたから、粟つぶをくりぬいたコップで一万べんはかっても、一分もへりはしませんでした。\n\n",
+    "displayText": "「おいもう一杯おくれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1552,
+      "start": 1540
+    },
+    "revisions": [],
+    "sha256": "5e3714b4961fa238363ef2f10d003bde04327cd865de7014820b52fce22b2c48",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1552,
+      "startToken": 1540
+    },
+    "speechText": "「おいもう一杯おくれ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "WuW_75HL048ymqYxNfPT4aqz5hyBw4i5rZPhik_w6LA",
+    "contextAfter": "\n\n「さあ、早くお呉れよう。」\n\n「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」\n\n「いいよう。",
+    "contextBefore": "一ぱいありましたから、粟つぶをくりぬいたコップで一万べんはかっても、一分もへりはしませんでした。\n\n「おいもう一杯おくれ。」\n\n",
+    "displayText": "「も一杯お呉れったらよう。早くよう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1573,
+      "start": 1554
+    },
+    "revisions": [],
+    "sha256": "12fbb8a42898e35491bc930e5e08a2f59a124e3c3fd4c36224d01129127e30f5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1573,
+      "startToken": 1554
+    },
+    "speechText": "「も一杯お呉れったらよう。早くよう。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "MMHiCeK4_rQdfoQRgrBd9UJfYpzq6d86MRk53dbmBV4",
+    "contextAfter": "\n\n「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」\n\n「いいよう。お呉れったらお呉れよう。」\n\n",
+    "contextBefore": "ップで一万べんはかっても、一分もへりはしませんでした。\n\n「おいもう一杯おくれ。」\n\n「も一杯お呉れったらよう。早くよう。」\n\n",
+    "displayText": "「さあ、早くお呉れよう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1588,
+      "start": 1575
+    },
+    "revisions": [],
+    "sha256": "32571472a95468115ec3fc88ebbe34d668d01524133c90413e78e820e23fbab8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1588,
+      "startToken": 1575
+    },
+    "speechText": "「さあ、早くお呉れよう。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "sNOCr2rXyHTZmawGX9KgeZbF1wi7831JY-FlAQBZPAU",
+    "contextAfter": "\n\n「いいよう。お呉れったらお呉れよう。」\n\n「へいへい。よければさし上げます。さあ、」\n\n「ウーイ、うまい。」\n\n「おい、早く",
+    "contextBefore": "もへりはしませんでした。\n\n「おいもう一杯おくれ。」\n\n「も一杯お呉れったらよう。早くよう。」\n\n「さあ、早くお呉れよう。」\n\n",
+    "displayText": "「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1629,
+      "start": 1590
+    },
+    "revisions": [],
+    "sha256": "3d4039dc18a5b16016e8935adbc8467c9407cea0ad5ed660240772f85aeed2d1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1629,
+      "startToken": 1590
+    },
+    "speechText": "「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "cp7jICLwFEY3aVj-3HNENKVb-1TJLmLcdBUw8e7zfxc",
+    "contextAfter": "\n\n「へいへい。よければさし上げます。さあ、」\n\n「ウーイ、うまい。」\n\n「おい、早くこっちへもお呉れ。」\n\n　そのうちにあまが",
+    "contextBefore": "早くよう。」\n\n「さあ、早くお呉れよう。」\n\n「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」\n\n",
+    "displayText": "「いいよう。お呉れったらお呉れよう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1650,
+      "start": 1631
+    },
+    "revisions": [],
+    "sha256": "1c183cf1bf70e8daef979376612bba49b47c450eec5c02a7f9cae5fe963c783a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1650,
+      "startToken": 1631
+    },
+    "speechText": "「いいよう。お呉れったらお呉れよう。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "6DPmtkUEpnmrECdvNd7sKEzT2cGSWSoLYY7xbxWSj4o",
+    "contextAfter": "\n\n「ウーイ、うまい。」\n\n「おい、早くこっちへもお呉れ。」\n\n　そのうちにあまがえるは、だんだん酔がまわって来て、あっちでもこ",
+    "contextBefore": "\n\n「へいへい。あなたさまはもう三百二杯目でございますがよろしゅうございますか。」\n\n「いいよう。お呉れったらお呉れよう。」\n\n",
+    "displayText": "「へいへい。よければさし上げます。さあ、」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1673,
+      "start": 1652
+    },
+    "revisions": [],
+    "sha256": "f6d9cae950505930dea9c2ff3ffccb0b952e811ffbe1f11051a5e7fd21585f30",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1673,
+      "startToken": 1652
+    },
+    "speechText": "「へいへい。よければさし上げます。さあ、」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "bU941v3XDEDuRsXNa1tfRNnKd-5CqTtvV0FQu5ICzrY",
+    "contextAfter": "\n\n「おい、早くこっちへもお呉れ。」\n\n　そのうちにあまがえるは、だんだん酔がまわって来て、あっちでもこっちでも、キーイキーイと",
+    "contextBefore": "ざいますがよろしゅうございますか。」\n\n「いいよう。お呉れったらお呉れよう。」\n\n「へいへい。よければさし上げます。さあ、」\n\n",
+    "displayText": "「ウーイ、うまい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1685,
+      "start": 1675
+    },
+    "revisions": [],
+    "sha256": "cd7966d51bb1211d16bb7c3a2b065be8204e9f003510cd9a4e24e8568eb460d0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1685,
+      "startToken": 1675
+    },
+    "speechText": "「ウーイ、うまい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "UP8V0OLJi_HKFIEW3LQe3xM0RtAQF03BwdnVbyk9muY",
+    "contextAfter": "\n\n　そのうちにあまがえるは、だんだん酔がまわって来て、あっちでもこっちでも、キーイキーイといびきをかいて寝てしまいました。\n\n",
+    "contextBefore": "いますか。」\n\n「いいよう。お呉れったらお呉れよう。」\n\n「へいへい。よければさし上げます。さあ、」\n\n「ウーイ、うまい。」\n\n",
+    "displayText": "「おい、早くこっちへもお呉れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 1703,
+      "start": 1687
+    },
+    "revisions": [],
+    "sha256": "935503448d9d0e36a4d7af7e66c3feb31f0f40f0d6de0c4fca1565d0ffd240a1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1703,
+      "startToken": 1687
+    },
+    "speechText": "「おい、早くこっちへもお呉れ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "s3aACfTDoAwt0W8HSF0LqmQPZWSOBjCRk3l3tAN75J0",
+    "contextAfter": "\n\n「キーイ、キーイ、クヮア、あ、痛い、誰だい。ひとの頭を撲るやつは。」\n\n「勘定を払いな。」\n\n「あっ、そうそう。勘定はいくら",
+    "contextBefore": "た。\n\n　それから棚から鉄の棒をおろして来て椅子へどっかり座って一ばんはじのあまがえるの緑色のあたまをこつんとたたきました。\n\n",
+    "displayText": "「おい。起きな。勘定を払うんだよ。さあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2055,
+      "start": 2035
+    },
+    "revisions": [],
+    "sha256": "7568ae804101ddc70cddf4f24e7c50adc83d726b588083b2255632472e0b1620",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2055,
+      "startToken": 2035
+    },
+    "speechText": "「おい。起きな。かんじょうをはらうんだよ。さあ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "taTcKHHBWNZvOfXSarPbTUmeJxuouz5-auRnUVwMJsE",
+    "contextAfter": "\n\n「勘定を払いな。」\n\n「あっ、そうそう。勘定はいくらになっていますか。」\n\n「お前のは三百四十二杯で、八十五銭五厘だ。どうだ",
+    "contextBefore": "椅子へどっかり座って一ばんはじのあまがえるの緑色のあたまをこつんとたたきました。\n\n「おい。起きな。勘定を払うんだよ。さあ。」\n\n",
+    "displayText": "「キーイ、キーイ、クヮア、あ、痛い、誰だい。ひとの頭を撲るやつは。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2091,
+      "start": 2057
+    },
+    "revisions": [],
+    "sha256": "652559413baef0ea6d42e8cdbdc4a9e49d44a7ddb98151b011dab222b8c1dade",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2091,
+      "startToken": 2057
+    },
+    "speechText": "「キーイ、キーイ、クヮア、あ、痛い、たれだい。ひとの頭をなぐるやつは。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "IRUotUUqgHOcAYj339Eu7KAqb2FragWYC7PiXiNRa88",
+    "contextAfter": "\n\n「あっ、そうそう。勘定はいくらになっていますか。」\n\n「お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」\n\n　あ",
+    "contextBefore": "ました。\n\n「おい。起きな。勘定を払うんだよ。さあ。」\n\n「キーイ、キーイ、クヮア、あ、痛い、誰だい。ひとの頭を撲るやつは。」\n\n",
+    "displayText": "「勘定を払いな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2102,
+      "start": 2093
+    },
+    "revisions": [],
+    "sha256": "c2a273d62b50ddab9d78d4999198c493180afba8a72d099cc0909603c66feb7a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2102,
+      "startToken": 2093
+    },
+    "speechText": "「勘定を払いな。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "61NgbopBcLLkdncfdBi6kYR5-dZV3Cig8mKug0BaTq0",
+    "contextAfter": "\n\n「お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」\n\n　あまがえるは財布を出して見ましたが、三銭二厘しかありません",
+    "contextBefore": "きな。勘定を払うんだよ。さあ。」\n\n「キーイ、キーイ、クヮア、あ、痛い、誰だい。ひとの頭を撲るやつは。」\n\n「勘定を払いな。」\n\n",
+    "displayText": "「あっ、そうそう。勘定はいくらになっていますか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2129,
+      "start": 2104
+    },
+    "revisions": [],
+    "sha256": "e56f874d29cda85073b70367110750c8794ec2f5090aeba9219164669fed0a77",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2129,
+      "startToken": 2104
+    },
+    "speechText": "「あっ、そうそう。勘定はいくらになっていますか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "p0PHC1urV0xHP-uPOJKXgvgYXNk3hENrMlIbXA-Gpx0",
+    "contextAfter": "\n\n　あまがえるは財布を出して見ましたが、三銭二厘しかありません。\n\n「何だい。おまえは三銭二厘しかないのか。呆れたやつだ。さあど",
+    "contextBefore": "ヮア、あ、痛い、誰だい。ひとの頭を撲るやつは。」\n\n「勘定を払いな。」\n\n「あっ、そうそう。勘定はいくらになっていますか。」\n\n",
+    "displayText": "「お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2162,
+      "start": 2131
+    },
+    "revisions": [],
+    "sha256": "535045583ed8cc61aa0c8c26778bd952737cdce67cbc625ee102dcba2a72111d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2162,
+      "startToken": 2131
+    },
+    "speechText": "「お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "t8FrPnVp8_O3BFH-VU1r0a1E_75X5ydASqYgtsUHx74",
+    "contextAfter": "\n\n「許して下さい。許して下さい。」\n\n「いいや、いかん。さあ払え。」\n\n「ないんですよ。許して下さい。そのかわりあなたのけらい",
+    "contextBefore": "お前のは三百四十二杯で、八十五銭五厘だ。どうだ。払えるか。」\n\n　あまがえるは財布を出して見ましたが、三銭二厘しかありません。\n\n",
+    "displayText": "「何だい。おまえは三銭二厘しかないのか。呆れたやつだ。さあどうするんだ。警察へ届けるよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2241,
+      "start": 2196
+    },
+    "revisions": [],
+    "sha256": "c7138a8d2d7a4c293377dae24eb83a828716b9d4f8f461d527360059f45d696c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2241,
+      "startToken": 2196
+    },
+    "speechText": "「何だい。おまえは三銭二厘しかないのか。あきれたやつだ。さあどうするんだ。警察へ届けるよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "wiHwKoZtf0pPdJ71DMG8X-1H7k3Xox_AULwr4CBBEcY",
+    "contextAfter": "\n\n「いいや、いかん。さあ払え。」\n\n「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」\n\n「そうか。よか",
+    "contextBefore": "たが、三銭二厘しかありません。\n\n「何だい。おまえは三銭二厘しかないのか。呆れたやつだ。さあどうするんだ。警察へ届けるよ。」\n\n",
+    "displayText": "「許して下さい。許して下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2259,
+      "start": 2243
+    },
+    "revisions": [],
+    "sha256": "2789079441b33ea02dbec044d01c52f086d0b4a747c07c7ae953a54860273f49",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2259,
+      "startToken": 2243
+    },
+    "speechText": "「許して下さい。許して下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "07JFn2bbNpBUzcZZeBaifwoc0f54kkmJcxq3z5aFnCA",
+    "contextAfter": "\n\n「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」\n\n「そうか。よかろう。それじゃお前はおれのけらいだ",
+    "contextBefore": "何だい。おまえは三銭二厘しかないのか。呆れたやつだ。さあどうするんだ。警察へ届けるよ。」\n\n「許して下さい。許して下さい。」\n\n",
+    "displayText": "「いいや、いかん。さあ払え。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2276,
+      "start": 2261
+    },
+    "revisions": [],
+    "sha256": "b6eac6e9a51275d1fb24b3265cb3104cfbaf2f1b2c286a937c827d53d9239765",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2276,
+      "startToken": 2261
+    },
+    "speechText": "「いいや、いかん。さあ払え。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "iYFUvnpRtKS6LqHnF8Y6YroEHjrVKpQqYPsgXLmrbWg",
+    "contextAfter": "\n\n「そうか。よかろう。それじゃお前はおれのけらいだぞ。」\n\n「へい。仕方ありません。」\n\n「よし、この中にはいれ。」\n\n　との",
+    "contextBefore": "か。呆れたやつだ。さあどうするんだ。警察へ届けるよ。」\n\n「許して下さい。許して下さい。」\n\n「いいや、いかん。さあ払え。」\n\n",
+    "displayText": "「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2314,
+      "start": 2278
+    },
+    "revisions": [],
+    "sha256": "52f5ead963cd6cc6f7ca32977abe166eccc4ec0a248a15af3e1fabdb84e6fd9a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2314,
+      "startToken": 2278
+    },
+    "speechText": "「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "D_ol1RmMCpZlm2qGBa49hrhykidYm6YnQxthmeOxZmM",
+    "contextAfter": "\n\n「へい。仕方ありません。」\n\n「よし、この中にはいれ。」\n\n　とのさまがえるは次の室の戸を開いてその閉口したあまがえるを押し",
+    "contextBefore": "して下さい。」\n\n「いいや、いかん。さあ払え。」\n\n「ないんですよ。許して下さい。そのかわりあなたのけらいになりますから。」\n\n",
+    "displayText": "「そうか。よかろう。それじゃお前はおれのけらいだぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2343,
+      "start": 2316
+    },
+    "revisions": [],
+    "sha256": "8ab77880d1c12027c4855259dd9c7083769b272f18c15024dbdfd3096b5ad35b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2343,
+      "startToken": 2316
+    },
+    "speechText": "「そうか。よかろう。それじゃお前はおれのけらいだぞ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "OM_ehya09u5e1YZQgPaihoOJamYq6auj5iHDQI4uzDc",
+    "contextAfter": "\n\n「よし、この中にはいれ。」\n\n　とのさまがえるは次の室の戸を開いてその閉口したあまがえるを押し込んで、戸をぴたんとしめました",
+    "contextBefore": "んですよ。許して下さい。そのかわりあなたのけらいになりますから。」\n\n「そうか。よかろう。それじゃお前はおれのけらいだぞ。」\n\n",
+    "displayText": "「へい。仕方ありません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2358,
+      "start": 2345
+    },
+    "revisions": [],
+    "sha256": "a69110c432f55404999b43835387986b2dd1d51e6e7709eb018a5209f6e5c669",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2358,
+      "startToken": 2345
+    },
+    "speechText": "「へい。仕方ありません。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "zcm-4M1zXtxMfzeX4EWLIGHqwbFfyH6T17xktV8Zc6w",
+    "contextAfter": "\n\n　とのさまがえるは次の室の戸を開いてその閉口したあまがえるを押し込んで、戸をぴたんとしめました。そしてにやりと笑って、又どっ",
+    "contextBefore": "わりあなたのけらいになりますから。」\n\n「そうか。よかろう。それじゃお前はおれのけらいだぞ。」\n\n「へい。仕方ありません。」\n\n",
+    "displayText": "「よし、この中にはいれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2373,
+      "start": 2360
+    },
+    "revisions": [],
+    "sha256": "0e41af9f033898433839f01cbc3e547ecdeb11397635549659d457e0084d99ca",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2373,
+      "startToken": 2360
+    },
+    "speechText": "「よし、この中にはいれ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "aJoLeSohvxDh5YKgkjeZB7P6IFOl8vDOUp1DdpOdaqk",
+    "contextAfter": "\n\n「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」\n\n「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」\n",
+    "contextBefore": "って、又どっしりと椅子へ座りました。それから例の鉄の棒を持ち直して、二番目のあま蛙の緑青いろの頭をこつんとたたいて云いました。\n\n",
+    "displayText": "「おいおい。起きるんだよ。勘定だ勘定だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2516,
+      "start": 2495
+    },
+    "revisions": [],
+    "sha256": "9b8a09bd01048d8bf7fe1b9ea8737344e5410c701f737d6cc0b9cc7f1f731ad4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2516,
+      "startToken": 2495
+    },
+    "speechText": "「おいおい。起きるんだよ。勘定だ勘定だ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "fjTeHfyjJAny89MF9zudXGuac4JZn2ntvC13SnCUFPE",
+    "contextAfter": "\n\n「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」\n\n「ううい、あああっ。ううい。何だい。なぜひとの頭をたた",
+    "contextBefore": "の鉄の棒を持ち直して、二番目のあま蛙の緑青いろの頭をこつんとたたいて云いました。\n\n「おいおい。起きるんだよ。勘定だ勘定だ。」\n\n",
+    "displayText": "「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2544,
+      "start": 2518
+    },
+    "revisions": [],
+    "sha256": "591a1cdce339fb132d34824b9b48230ea798459f7305a1180f186bcd65a69dad",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2544,
+      "startToken": 2518
+    },
+    "speechText": "「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "hzw5oRuSlgeFXt1lrhMuWPN-dSptY3E2ch2zJWFhEB4",
+    "contextAfter": "\n\n「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」\n\n「いつまでねぼけてんだよ。勘定を払え。勘定を。」\n\n「",
+    "contextBefore": "とたたいて云いました。\n\n「おいおい。起きるんだよ。勘定だ勘定だ。」\n\n「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」\n\n",
+    "displayText": "「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2579,
+      "start": 2546
+    },
+    "revisions": [],
+    "sha256": "5bb1b7aa00fcecae7eae91cac66de1d9834d3db81755bb5a7b8057a6628698de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2579,
+      "startToken": 2546
+    },
+    "speechText": "「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "FDZKvQ7oQCxZWJWzvW12mxFE8gvfOW1EINKzWy_YUMA",
+    "contextAfter": "\n\n「いつまでねぼけてんだよ。勘定を払え。勘定を。」\n\n「あっ、そうそう。そうでしたね。いくらになりますか。」\n\n「お前のは六百",
+    "contextBefore": "\n「キーイ、キーイ、クワァ、ううい。もう一杯お呉れ。」\n\n「何をねぼけてんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」\n\n",
+    "displayText": "「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2614,
+      "start": 2581
+    },
+    "revisions": [],
+    "sha256": "305b159feeccf4223859f19a8cf5cc0fcb9ec7173b0130df6ac4c3915c68849b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2614,
+      "startToken": 2581
+    },
+    "speechText": "「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "9Ob7ZSTfQosw0rwPGmIxFfXY-2oxp-Nl0D01QYHd-Ec",
+    "contextAfter": "\n\n「あっ、そうそう。そうでしたね。いくらになりますか。」\n\n「お前のは六百杯で、一円五十銭だよ。どうだい、それ位あるかい。」\n",
+    "contextBefore": "てんだよ。起きるんだよ。目をさますんだよ。勘定だよ。」\n\n「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」\n\n",
+    "displayText": "「いつまでねぼけてんだよ。勘定を払え。勘定を。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2640,
+      "start": 2616
+    },
+    "revisions": [],
+    "sha256": "8f670d34c27bbcdfa5f77ff77783530ab78d701c453a3446836eff0d4cf2620a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2640,
+      "startToken": 2616
+    },
+    "speechText": "「いつまでねぼけてんだよ。勘定を払え。勘定を。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "mbXteI88GwHkWHLwnmxOAEid-5C2pzod0YIkAclhokk",
+    "contextAfter": "\n\n「お前のは六百杯で、一円五十銭だよ。どうだい、それ位あるかい。」\n\n　あまがえるはすきとおる位青くなって、財布をひっくりかえ",
+    "contextBefore": "」\n\n「ううい、あああっ。ううい。何だい。なぜひとの頭をたたくんだい。」\n\n「いつまでねぼけてんだよ。勘定を払え。勘定を。」\n\n",
+    "displayText": "「あっ、そうそう。そうでしたね。いくらになりますか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2669,
+      "start": 2642
+    },
+    "revisions": [],
+    "sha256": "b2dcd9b7f87d7477995c4e4282a6baa6ba5ba3c41113d1254fb0544daa179cb3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2669,
+      "startToken": 2642
+    },
+    "speechText": "「あっ、そうそう。そうでしたね。いくらになりますか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "DyuqCqbW6fi1_m0aVGP5UCAbVRVT_-RCIu-IYKUuK2o",
+    "contextAfter": "\n\n　あまがえるはすきとおる位青くなって、財布をひっくりかえして見ましたが、たった一銭二厘しかありませんでした。\n\n「ある位みん",
+    "contextBefore": "たくんだい。」\n\n「いつまでねぼけてんだよ。勘定を払え。勘定を。」\n\n「あっ、そうそう。そうでしたね。いくらになりますか。」\n\n",
+    "displayText": "「お前のは六百杯で、一円五十銭だよ。どうだい、それ位あるかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2703,
+      "start": 2671
+    },
+    "revisions": [],
+    "sha256": "11f2f6a8a8f6dd41a57506e84d63a2685c520abb92575fdd9c3b02b0f62d5651",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2703,
+      "startToken": 2671
+    },
+    "speechText": "「お前のは六百杯で、一円五十銭だよ。どうだい、それ位あるかい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "SJYMlCFQmEvMD7cDDuvW8wFbDB9GUCbQtnvmQq16p_Q",
+    "contextAfter": "\n\n「うん、一円二十銭もあるかい。おや、これはたった一銭二厘じゃないか。あんまり人をばかにするんじゃないぞ。勘定の百分の一に負け",
+    "contextBefore": "あるかい。」\n\n　あまがえるはすきとおる位青くなって、財布をひっくりかえして見ましたが、たった一銭二厘しかありませんでした。\n\n",
+    "displayText": "「ある位みんな出しますからどうかこれだけに負けて下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2790,
+      "start": 2761
+    },
+    "revisions": [],
+    "sha256": "51111932c55ae733a257ae4abcee16496c165816ed41d371d25a395c86c6dca0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2790,
+      "startToken": 2761
+    },
+    "speechText": "「ある位みんな出しますからどうかこれだけに負けて下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "G11yV_jHrA6eLYFEb0nDwF8iql25JmbAG1c1fYCtW64",
+    "contextAfter": "\n\n「だって無いんだもの。」\n\n「なきゃおれのけらいになれ。」\n\n「仕方ない。そいじゃそうして下さい。」\n\n「さあ、こっちへ来い",
+    "contextBefore": "っくりかえして見ましたが、たった一銭二厘しかありませんでした。\n\n「ある位みんな出しますからどうかこれだけに負けて下さい。」\n\n",
+    "displayText": "「うん、一円二十銭もあるかい。おや、これはたった一銭二厘じゃないか。あんまり人をばかにするんじゃないぞ。勘定の百分の一に負けろとはよくも云えたもんだ。外国のことばで云えば、一パーセントに負けて呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2919,
+      "start": 2792
+    },
+    "revisions": [],
+    "sha256": "1185e2e5b2d17a198bbb21d34d9058dea0f8e9966c0531b7a1d79c98f634f048",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2919,
+      "startToken": 2792
+    },
+    "speechText": "「うん、一円二十銭もあるかい。おや、これはたった一銭二厘じゃないか。あんまり人をばかにするんじゃないぞ。勘定の百分の一に負けろとはよくも云えたもんだ。外国のことばで云えば、一パーセントに負けて呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "tfqr25Ez6ElPYbLKXcNWmsrGxcQeM23kMbMzvLjCTx8",
+    "contextAfter": "\n\n「なきゃおれのけらいになれ。」\n\n「仕方ない。そいじゃそうして下さい。」\n\n「さあ、こっちへ来い。」とのさまがえるはあまがえ",
+    "contextBefore": "よくも云えたもんだ。外国のことばで云えば、一パーセントに負けて呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」\n\n",
+    "displayText": "「だって無いんだもの。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2933,
+      "start": 2921
+    },
+    "revisions": [],
+    "sha256": "f591c8ac7eab97e9033cbb137f9983cb34bd9c8d00d325b931473e621407fc44",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2933,
+      "startToken": 2921
+    },
+    "speechText": "「だって無いんだもの。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "cdN1y2qgoqut-poXLPwq6bdZhn7CuM6_GT3dLlLSuRk",
+    "contextAfter": "\n\n「仕方ない。そいじゃそうして下さい。」\n\n「さあ、こっちへ来い。」とのさまがえるはあまがえるを又次の室に追い込みました。それ",
+    "contextBefore": "とばで云えば、一パーセントに負けて呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」\n\n「だって無いんだもの。」\n\n",
+    "displayText": "「なきゃおれのけらいになれ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 48,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2950,
+      "start": 2935
+    },
+    "revisions": [],
+    "sha256": "dcf264c3574e3d431e255aaf6fa49456b8843ffab1881c5e713374eb7aad24d5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2950,
+      "startToken": 2935
+    },
+    "speechText": "「なきゃおれのけらいになれ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "Egyvq8gWJK3ozurEiU4nrff8DChfdilARqhF4qcMfCo",
+    "contextAfter": "\n\n「さあ、こっちへ来い。」とのさまがえるはあまがえるを又次の室に追い込みました。それから又どっかりと椅子へかけようとしましたが",
+    "contextBefore": "呉れと云うんだろう。人を馬鹿にするなよ。さあ払え。早く払え。」\n\n「だって無いんだもの。」\n\n「なきゃおれのけらいになれ。」\n\n",
+    "displayText": "「仕方ない。そいじゃそうして下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2971,
+      "start": 2952
+    },
+    "revisions": [],
+    "sha256": "4900caa3f64efeb69972c43fc48616c27c4cdf9298b4921443d9ae7bd5adc07d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2971,
+      "startToken": 2952
+    },
+    "speechText": "「仕方ない。そいじゃそうして下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "HQuOSdVY6Nl8XgHdz5piQR0afZdL8mz3wIbHblWz7DA",
+    "contextAfter": "とのさまがえるはあまがえるを又次の室に追い込みました。それから又どっかりと椅子へかけようとしましたが何か考えついたらしく、いきな",
+    "contextBefore": "あ払え。早く払え。」\n\n「だって無いんだもの。」\n\n「なきゃおれのけらいになれ。」\n\n「仕方ない。そいじゃそうして下さい。」\n\n",
+    "displayText": "「さあ、こっちへ来い。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 2985,
+      "start": 2973
+    },
+    "revisions": [],
+    "sha256": "db448b74cbdfda311c4e1c3018db5173d9fac6a6aa82fd4b481f137f90990f46",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2985,
+      "startToken": 2973
+    },
+    "speechText": "「さあ、こっちへ来い。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "ve6ViNQ74eZD6EE_E1-LGXcwc9V6RbAYx0IOuWqWw9o",
+    "contextAfter": "なんて云いながら目をさまして、しばらくきょろきょろきょろきょろしていましたが、いよいよそれが酒屋のおやじのとのさまがえるの仕業だと",
+    "contextBefore": "にこにこにこ笑って、棒を取り直し、片っぱしからあまがえるの緑色の頭をポンポンポンポンたたきつけました。さあ、大へん、みんな、\n\n",
+    "displayText": "「あ痛っ、あ痛っ。誰だい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3287,
+      "start": 3273
+    },
+    "revisions": [],
+    "sha256": "1c6a096634f622c36b803f6be560e7ca7498df59562ec48f668a8fdcdfd8c681",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3287,
+      "startToken": 3273
+    },
+    "speechText": "「あ痛っ、あ痛っ。誰だい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "t5akoxyeHnc1o6ee00IkP0vMtabRi9ioRaCgibIDjUI",
+    "contextAfter": "と云いながら、四方八方から、飛びかかりましたが、何分とのさまがえるは三十がえる力あるのですし、くさりかたびらは着ていますし、それ",
+    "contextBefore": "ばらくきょろきょろきょろきょろしていましたが、いよいよそれが酒屋のおやじのとのさまがえるの仕業だとわかると、もうみな一ぺんに、\n\n",
+    "displayText": "「何だい。おやじ。よくもひとをなぐったな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3389,
+      "start": 3367
+    },
+    "revisions": [],
+    "sha256": "1b556c4ddcc4e6bd969b80b97914511cc093603bd064d586592e8461f64253c9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3389,
+      "startToken": 3367
+    },
+    "speechText": "「何だい。おやじ。よくもひとをなぐったな。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "V-tAzJZBGYW6ZWjBNM7eEvvUhrcTIbto5jIby-EXRvo",
+    "contextAfter": "\n\n　あまがえるは一同ふうふうと息をついて顔を見合せるばかりです。とのさまがえるは得意になって又はじめました。\n\n「どうじゃ。無",
+    "contextBefore": "はすっかり恐れ入って、ふるえて、すきとおる位青くなって、その辺に平伏いたしました。そこでとのさまがえるがおごそかに云いました。\n\n",
+    "displayText": "「お前たちはわしの酒を呑んだ。どの勘定も八十銭より下のはない。ところがお前らは五銭より多く持っているやつは一人もない。どうじゃ。誰かあるか。無かろう。うん。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3704,
+      "start": 3625
+    },
+    "revisions": [],
+    "sha256": "19ec7a690833223e751e5aa3766834bf32f8c99f88f62f5d21ac04369d084bc0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3704,
+      "startToken": 3625
+    },
+    "speechText": "「お前たちはわしの酒をのんだ。どの勘定も八十銭より下のはない。ところがお前らは五銭より多く持っているやつは一人もない。どうじゃ。誰かあるか。無かろう。うん。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "ZaOKI9nX7SX0_pc-fjW8Vhz7dmRZK2_Ychsm9yG6wXg",
+    "contextAfter": "この時です、みなさんもご存じの通り向うの室の中の二疋が戸のすきまから目だけ出してキーと低く鳴いたのは。\n\n　みんなは顔を見合せま",
+    "contextBefore": "ろう。うん。」\n\n　あまがえるは一同ふうふうと息をついて顔を見合せるばかりです。とのさまがえるは得意になって又はじめました。\n\n",
+    "displayText": "「どうじゃ。無かろう。あるか。無かろう。そこでお前たちの仲間は、前に二人お金を払うかわりに、おれのけらいになるという約束をしたがお前たちはどうじゃ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3835,
+      "start": 3761
+    },
+    "revisions": [],
+    "sha256": "82dfd272a1c9434a60d9b1c178487c81ecb8df3708445a930738ac971b2c7c10",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3835,
+      "startToken": 3761
+    },
+    "speechText": "「どうじゃ。無かろう。あるか。無かろう。そこでお前たちの仲間は、前に二人お金を払うかわりに、おれのけらいになるというやくそくをしたがお前たちはどうじゃ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "nI8-4hD_H2HrTRLKzLNPmiML9ITo8vW2Z_z3s4cFLBM",
+    "contextAfter": "\n\n「そうお願いしよう。」\n\n「どうかそうお願いいたします。」\n\n　どうです。あまがえるなんというものは人のいいものですからすぐ",
+    "contextBefore": "、みなさんもご存じの通り向うの室の中の二疋が戸のすきまから目だけ出してキーと低く鳴いたのは。\n\n　みんなは顔を見合せました。\n\n",
+    "displayText": "「どうも仕方ない。そうしようか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3921,
+      "start": 3904
+    },
+    "revisions": [],
+    "sha256": "bba4a469f9d50de6c605183f528a8e943590f539d1114401fab3e3eef02aec81",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3921,
+      "startToken": 3904
+    },
+    "speechText": "「どうも仕方ない。そうしようか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "RmKSiCChAXW9YmjxkmOTokys4NgsnyjQ7SzX7R-lb-4",
+    "contextAfter": "\n\n「どうかそうお願いいたします。」\n\n　どうです。あまがえるなんというものは人のいいものですからすぐとのさまがえるのけらいにな",
+    "contextBefore": "二疋が戸のすきまから目だけ出してキーと低く鳴いたのは。\n\n　みんなは顔を見合せました。\n\n「どうも仕方ない。そうしようか。」\n\n",
+    "displayText": "「そうお願いしよう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3934,
+      "start": 3923
+    },
+    "revisions": [],
+    "sha256": "147c60ee69554371342fcf2f6f17eba44d2d7d3b0a66bad97591a39a4f2e2afc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3934,
+      "startToken": 3923
+    },
+    "speechText": "「そうお願いしよう。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "QFSPbONCmuocGtUt7f7etOA4HKBlR6HzNIwjrqIEAss",
+    "contextAfter": "\n\n　どうです。あまがえるなんというものは人のいいものですからすぐとのさまがえるのけらいになりました。そこでとのさまがえるは、う",
+    "contextBefore": "出してキーと低く鳴いたのは。\n\n　みんなは顔を見合せました。\n\n「どうも仕方ない。そうしようか。」\n\n「そうお願いしよう。」\n\n",
+    "displayText": "「どうかそうお願いいたします。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 3952,
+      "start": 3936
+    },
+    "revisions": [],
+    "sha256": "ac79bb0337b9c484310ba2f67374df157667a774ec4e028b7cc30fedbab24bc5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 3952,
+      "startToken": 3936
+    },
+    "speechText": "「どうかそうお願いいたします。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "JkZjwNXy_6OC6DPhZOM8R0Rf5HgOpyycyVZkec1UekA",
+    "contextAfter": "\n\n「仕方ありません。」とみんなは答えました。すると、とのさまがえるは立ちあがって、家をぐるっと一まわしまわしました。すると酒屋",
+    "contextBefore": "いになりました。そこでとのさまがえるは、うしろの戸をあけて、前の二人を引っぱり出しました。そして一同へおごそかに云いました。\n\n",
+    "displayText": "「いいか。この団体はカイロ団ということにしよう。わしはカイロ団長じゃ。あしたからはみんな、おれの命令にしたがうんだぞ。いいか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 4123,
+      "start": 4059
+    },
+    "revisions": [],
+    "sha256": "f840c50ccba75813a1b048a9b718c9eb0f612f87dd1459dc26df99632f60d332",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4123,
+      "startToken": 4059
+    },
+    "speechText": "「いいか。この団体はカイロ団ということにしよう。わしはカイロ団長じゃ。あしたからはみんな、おれの命令にしたがうんだぞ。いいか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "02oBynQNCGFrSQfT3ENbPDqzZ27KEnlUk7Pd5_OLP04",
+    "contextAfter": "とみんなは答えました。すると、とのさまがえるは立ちあがって、家をぐるっと一まわしまわしました。すると酒屋はたちまちカイロ団長の本",
+    "contextBefore": "いか。この団体はカイロ団ということにしよう。わしはカイロ団長じゃ。あしたからはみんな、おれの命令にしたがうんだぞ。いいか。」\n\n",
+    "displayText": "「仕方ありません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 4135,
+      "start": 4125
+    },
+    "revisions": [],
+    "sha256": "7941abc624b098aa8350d6dacb14a5ab1ae355d4248a679becea1cb014d4f778",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4135,
+      "startToken": 4125
+    },
+    "speechText": "「仕方ありません。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "m5b_25kEdbsFD7ZfJ6uD-kUKpynvVMiatlRYGE0GGpg",
+    "contextAfter": "\n\n　あまがえるどもは緑色の手足をぶるぶるぶるっとけいれんさせました。そしてこそこそこそこそ、逃げるようにおもてに出てひとりが三",
+    "contextBefore": "出し、空はまっ青にひかりましたが、誰もカイロ団に仕事を頼みに来ませんでした。そこでとのさまがえるはみんなを集めて云いました。\n\n",
+    "displayText": "「さっぱり誰も仕事を頼みに来んな。どうもこう仕事がなくちゃ、お前たちを養っておいても仕方ない。俺もとうとう飛んだことになったよ。それにつけても仕事のない時に、いそがしい時の仕度をして置くことが、最必要だ。つまりその仕事の材料を、こんな時に集めて置かないといかんな。ついてはまず第一が木だがな。今日はみんな出て行って立派な木を十本だけ、十本じゃすくない、ええと、百本、百本でもすくないな、千本だけ集めて来い。もし千本集まらなかったらすぐ警察へ訴えるぞ。貴様らはみんな死刑になるぞ。その太い首をスポンと切られるぞ。首が太いからスポンとはいかない、シュッポォンと切られるぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 4639,
+      "start": 4356
+    },
+    "revisions": [],
+    "sha256": "7df7e2654ef6e4088c39cad0627f59ebdc35a28b55828824f3ad890dfd6c4a5d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4639,
+      "startToken": 4356
+    },
+    "speechText": "「さっぱり誰も仕事を頼みに来んな。どうもこう仕事がなくちゃ、お前たちを養っておいても仕方ない。おれもとうとう飛んだことになったよ。それにつけても仕事のない時に、いそがしい時のしたくをして置くことが、最必要だ。つまりその仕事の材料を、こんな時に集めて置かないといかんな。ついてはまず第一が木だがな。今日はみんな出て行って立派な木を十本だけ、十本じゃすくない、ええと、百本、百本でもすくないな、千本だけ集めて来い。もし千本集まらなかったらすぐ警察へうったえるぞ。貴様らはみんなしけいになるぞ。その太い首をスポンと切られるぞ。首が太いからスポンとはいかない、シュッポォンと切られるぞ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "1NxQlYjbuIFYxKUmKdGEAfDUelbhNProsk3ajxqHIdw",
+    "contextAfter": "\n\n「今日は木を千本、とのさまがえるに持っていかないといけないのです。まだ九本しか見つかりません。」\n\n　蟻はこれを聞いて「ケッ",
+    "contextBefore": "。そこへ丁度一ぴきの蟻が通りかかりました。そしてみんなが飴色の夕日にまっ青にすきとおって泣いているのを見て驚いてたずねました。\n\n",
+    "displayText": "「あまがえるさん。昨日はどうもありがとう。一体どうしたのですか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 4956,
+      "start": 4923
+    },
+    "revisions": [],
+    "sha256": "0456fb1d2078e0fcd8c43e302ef32cd2aa238b6c102de7373544406f758d55ab",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 4956,
+      "startToken": 4923
+    },
+    "speechText": "「あまがえるさん。昨日はどうもありがとう。一体どうしたのですか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "D2gia-bMBYjzJO7qAdLaQtNhOwywP-BZOvWIfL2cjXs",
+    "contextAfter": "\n\n　蟻はこれを聞いて「ケッケッケッケ」と大笑いに笑いはじめました。それから申しました。\n\n「千本持って来いというのなら、千本持",
+    "contextBefore": "青にすきとおって泣いているのを見て驚いてたずねました。\n\n「あまがえるさん。昨日はどうもありがとう。一体どうしたのですか。」\n\n",
+    "displayText": "「今日は木を千本、とのさまがえるに持っていかないといけないのです。まだ九本しか見つかりません。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 62,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5006,
+      "start": 4958
+    },
+    "revisions": [],
+    "sha256": "fea0d2bbfff9d0942fe4a8919528b54f0ac099aa6b8067825d3d8bca744aba5a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5006,
+      "startToken": 4958
+    },
+    "speechText": "「今日は木を千本、とのさまがえるに持っていかないといけないのです。まだ九本しか見つかりません。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "trxju372JB5_DwxxMf6uytO-vfMx8TrOwqcxNFF1w-0",
+    "contextAfter": "と大笑いに笑いはじめました。それから申しました。\n\n「千本持って来いというのなら、千本持って行ったらいいじゃありませんか。そら、",
+    "contextBefore": "か。」\n\n「今日は木を千本、とのさまがえるに持っていかないといけないのです。まだ九本しか見つかりません。」\n\n　蟻はこれを聞いて",
+    "displayText": "「ケッケッケッケ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 63,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5026,
+      "start": 5017
+    },
+    "revisions": [],
+    "sha256": "0e8e254a7b201548cd83fd27a0033debc1b204946a139e062a579d7acf56d80d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5026,
+      "startToken": 5017
+    },
+    "speechText": "「ケッケッケッケ」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "oJ_XzyN08V-HmBA_wBlU-RpwM3atViXXiK7fWmMF3is",
+    "contextAfter": "\n\n　なるほどとみんなはよろこんでそのけむりのようなかびの木を一人が三十三本三分三厘ずつ取って、蟻にお礼を云って、カイロ団長のと",
+    "contextBefore": "です。まだ九本しか見つかりません。」\n\n　蟻はこれを聞いて「ケッケッケッケ」と大笑いに笑いはじめました。それから申しました。\n\n",
+    "displayText": "「千本持って来いというのなら、千本持って行ったらいいじゃありませんか。そら、そこにあるそのけむりのようなかびの木などは、一つかみ五百本にもなるじゃありませんか。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 64,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5133,
+      "start": 5052
+    },
+    "revisions": [],
+    "sha256": "14ff425b5b1a0db7c210149ce06f28fbbad91a79ddcd9396e00de13eae19e4f3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5133,
+      "startToken": 5052
+    },
+    "speechText": "「千本持って来いというのなら、千本持って行ったらいいじゃありませんか。そら、そこにあるそのけむりのようなかびの木などは、一つかみ五百本にもなるじゃありませんか。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "0MW3csmwCKxyeHvEiONRmlpWvvDDSnx0iYBz1OOfoA4",
+    "contextAfter": "\n\n　そこでみんなは粟つぶのコップで舶来ウィスキーを一杯ずつ呑んで、くらくら、キーイキーイと、ねむってしまいました。\n\n　次の朝",
+    "contextBefore": "ようなかびの木を一人が三十三本三分三厘ずつ取って、蟻にお礼を云って、カイロ団長のところへ帰って来ました。すると団長は大機嫌です。\n\n",
+    "displayText": "「ふんふん。よし、よし。さあ、みんな舶来ウィスキーを一杯ずつ飲んでやすむんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 65,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5259,
+      "start": 5220
+    },
+    "revisions": [],
+    "sha256": "94dfa600a8fe95581149b6a57e83843643b1d8d8d91693348c5815a2e40774de",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5259,
+      "startToken": 5220
+    },
+    "speechText": "「ふんふん。よし、よし。さあ、みんなはくらいウィスキーをいっぱいずつ飲んでやすむんだよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "1d_9XNRMxqiPoreH8tEDTERy5gBDqYwTeTD0sSrUOrQ",
+    "contextAfter": "\n\n　あまがえるどもはみんな、お日さまにまっさおにすきとおりながら、花畑の方へ参りました。ところが丁度幸に花のたねは雨のようにこ",
+    "contextBefore": "くらくら、キーイキーイと、ねむってしまいました。\n\n　次の朝またお日さまがおのぼりになりますと、とのさまがえるは云いました。\n\n",
+    "displayText": "「おい、みんな。集れ。今日もどこからも仕事をたのみに来ない。いいか、今日はな、あちこち花畑へ出て行って花の種をひろって来るんだ。一人が百つぶずつ、いや百つぶではすくない。千つぶずつ、いや、千つぶもこんな日の長い時にあんまり少い。万粒ずつがいいかな。万粒ずつひろって来い。いいか、もし、来なかったらすぐお前らを巡査に渡すぞ。巡査は首をシュッポンと切るぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 66,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5533,
+      "start": 5357
+    },
+    "revisions": [],
+    "sha256": "d0b2e13e2d20d552b84aada94d1129177fb530c829ab83076ae236076de55d0e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5533,
+      "startToken": 5357
+    },
+    "speechText": "「おい、みんな。集れ。今日もどこからも仕事をたのみに来ない。いいか、今日はな、あちこち花畑へ出て行って花の種をひろって来るんだ。一人が百つぶずつ、いや百つぶではすくない。千つぶずつ、いや、千つぶもこんな日の長い時にあんまり少い。万つぶずつがいいかな。万粒ずつひろって来い。いいか、もし、来なかったらすぐお前らをじゅんさにわたすぞ。巡査は首をシュッポンと切るぞ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "gpwzz1Z7OLpbcIxRWGNegWiTDlVEzkRK0MmgPxlcAtE",
+    "contextAfter": "\n\n「いそがないとだめそうだよ、まだ三百つぶにしかならないんだもの。」\n\n「さっき団長が百粒ってはじめに云ったねい。百つぶならよ",
+    "contextBefore": "し蜂もぶんぶん鳴いていましたのであまがえるはみんなしゃがんで一生けん命ひろいました。ひろいながらこんなことを云っていました。\n\n",
+    "displayText": "「おい、ビチュコ。一万つぶひろえそうかい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 67,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5690,
+      "start": 5668
+    },
+    "revisions": [],
+    "sha256": "7d98a9859136c9ca0f64fe4f6e46d9bdbc71423c15e88c23123df354485d2737",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5690,
+      "startToken": 5668
+    },
+    "speechText": "「おい、ビチュコ。一万つぶひろえそうかい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "C9vtAym_4BMvtTAvyWN4GHupSff_itPdojKXS7AHRU4",
+    "contextAfter": "\n\n「さっき団長が百粒ってはじめに云ったねい。百つぶならよかったねい。」\n\n「うん。その次に千つぶって云ったねい。千つぶでもよか",
+    "contextBefore": "なしゃがんで一生けん命ひろいました。ひろいながらこんなことを云っていました。\n\n「おい、ビチュコ。一万つぶひろえそうかい。」\n\n",
+    "displayText": "「いそがないとだめそうだよ、まだ三百つぶにしかならないんだもの。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 68,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5725,
+      "start": 5692
+    },
+    "revisions": [],
+    "sha256": "d35a552a23ae81f7a6c269ad4a97204876ddb0a2110fcaf773036d04b99a08b1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5725,
+      "startToken": 5692
+    },
+    "speechText": "「いそがないとだめそうだよ、まだ三百つぶにしかならないんだもの。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "7uGqFc4jjbmIBfsFNGkjZzyhMdh6-4De6AR5nmfSzWQ",
+    "contextAfter": "\n\n「うん。その次に千つぶって云ったねい。千つぶでもよかったねい。」\n\n「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうな",
+    "contextBefore": "した。\n\n「おい、ビチュコ。一万つぶひろえそうかい。」\n\n「いそがないとだめそうだよ、まだ三百つぶにしかならないんだもの。」\n\n",
+    "displayText": "「さっき団長が百粒ってはじめに云ったねい。百つぶならよかったねい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 69,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5761,
+      "start": 5727
+    },
+    "revisions": [],
+    "sha256": "5d44fb999a9ae7c772d309d09992580532a9826e6bf34a2f403ac8d16b6e6cfc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5761,
+      "startToken": 5727
+    },
+    "speechText": "「さっき団長が百粒ってはじめに云ったねい。百つぶならよかったねい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "qDjvuHTdkegJEaEzSAZfjwO1_X9dgScT_JgUcELmNAI",
+    "contextAfter": "\n\n「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうなあ。」\n\n「おいらもそいつを考えているんだよ。どうも一ぱい目と二杯目",
+    "contextBefore": "だめそうだよ、まだ三百つぶにしかならないんだもの。」\n\n「さっき団長が百粒ってはじめに云ったねい。百つぶならよかったねい。」\n\n",
+    "displayText": "「うん。その次に千つぶって云ったねい。千つぶでもよかったねい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 70,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5795,
+      "start": 5763
+    },
+    "revisions": [],
+    "sha256": "a987f306c1741303a7c8990d8c81ba0aa8db229b61976399554882bbfc354e2d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5795,
+      "startToken": 5763
+    },
+    "speechText": "「うん。その次に千つぶって云ったねい。千つぶでもよかったねい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "3rTOwGVMCHpzU5XOhcCkEnSQrpZ5REfTDfxZaBCCqF8",
+    "contextAfter": "\n\n「おいらもそいつを考えているんだよ。どうも一ぱい目と二杯目、二杯目と三杯目、みんな順ぐりに糸か何かついていたよ。三百五十杯つ",
+    "contextBefore": "が百粒ってはじめに云ったねい。百つぶならよかったねい。」\n\n「うん。その次に千つぶって云ったねい。千つぶでもよかったねい。」\n\n",
+    "displayText": "「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうなあ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 71,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5828,
+      "start": 5797
+    },
+    "revisions": [],
+    "sha256": "1c929efca2932c6295e0e77b1bc7b1bacecded31430a4ec25e776acc0f4158ea",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5828,
+      "startToken": 5797
+    },
+    "speechText": "「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうなあ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "YdBNJIuSPVKnRAJXRNslgeY0nEuCAjAubxfhzpE1xAg",
+    "contextAfter": "\n\n「全くだよ。おっと、急がないと大へんだ。」\n\n「そうそう。」\n\n　さて、みんなはひろってひろってひろって、夕方までにやっと一",
+    "contextBefore": "。その次に千つぶって云ったねい。千つぶでもよかったねい。」\n\n「ほんとうにねい。おいら、お酒をなぜあんなにのんだろうなあ。」\n\n",
+    "displayText": "「おいらもそいつを考えているんだよ。どうも一ぱい目と二杯目、二杯目と三杯目、みんな順ぐりに糸か何かついていたよ。三百五十杯つながって居たとおいら今考えてるんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 72,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5911,
+      "start": 5830
+    },
+    "revisions": [],
+    "sha256": "01ed9a5270379c17ca263ebd0e4f0f13ef13bd1c44c698f28a44b82a581b8ce1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5911,
+      "startToken": 5830
+    },
+    "speechText": "「おいらもそいつを考えているんだよ。どうも一ぱい目と二杯目、二杯目と三杯目、みんな順ぐりに糸か何かついていたよ。三百五十杯つながって居たとおいら今考えてるんだ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "adXBLhlErszPTrSRpmu4n5sd_Bu2h3pEQ-djy1V3ses",
+    "contextAfter": "\n\n「そうそう。」\n\n　さて、みんなはひろってひろってひろって、夕方までにやっと一万つぶずつあつめて、カイロ団長のところへ帰って",
+    "contextBefore": "うも一ぱい目と二杯目、二杯目と三杯目、みんな順ぐりに糸か何かついていたよ。三百五十杯つながって居たとおいら今考えてるんだ。」\n\n",
+    "displayText": "「全くだよ。おっと、急がないと大へんだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 73,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5934,
+      "start": 5913
+    },
+    "revisions": [],
+    "sha256": "d08a65680fae0f6d3e41740e74a4ffc8b24e6777bbb7b04ca9b7fc268025cb2a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5934,
+      "startToken": 5913
+    },
+    "speechText": "「全くだよ。おっと、急がないと大へんだ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "RRIF_r21C9MuyXjPofRhr1hBuN0rocVfhB1iNYMWxYI",
+    "contextAfter": "\n\n　さて、みんなはひろってひろってひろって、夕方までにやっと一万つぶずつあつめて、カイロ団長のところへ帰って来ました。\n\n　す",
+    "contextBefore": "ぐりに糸か何かついていたよ。三百五十杯つながって居たとおいら今考えてるんだ。」\n\n「全くだよ。おっと、急がないと大へんだ。」\n\n",
+    "displayText": "「そうそう。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 74,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 5943,
+      "start": 5936
+    },
+    "revisions": [],
+    "sha256": "bf512d880f2c38bccb6aed75daf9bc9f4b47fa128446e15158eb457e33eadac2",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 5943,
+      "startToken": 5936
+    },
+    "speechText": "「そうそう。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "TWGGh64PKBpk4YUb92Wf8mjwspxfXE1-OZ8A_XmnWQM",
+    "contextAfter": "と云いました。\n\n　あまがえるどもも大よろこびでみんな粟のこっぷで舶来ウィスキイを一杯ずつ呑んで、キーイキーイと寝てしまいました",
+    "contextBefore": "方までにやっと一万つぶずつあつめて、カイロ団長のところへ帰って来ました。\n\n　するととのさまがえるのカイロ団長はよろこんで、\n\n",
+    "displayText": "「うん。よし。さあ、みんな舶来ウェスキーを一杯ずつのんで寝るんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 75,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6066,
+      "start": 6031
+    },
+    "revisions": [],
+    "sha256": "2780006de3520267069c6add1bfb740e86f4cd74d86182daae331940fc59e138",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6066,
+      "startToken": 6031
+    },
+    "speechText": "「うん。よし。さあ、みんな舶来ウェスキーを一杯ずつのんでねるんだよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "x6Qviiib3bp1kQcq9L2yOjj2nKcqNAv42pTh2i_qWOU",
+    "contextAfter": "\n\n「全くだよ。どうだろう、一人前九十円ずつということにしたら。」\n\n「うん。それ位ならまあよかろうかな。」\n\n「よかろうよ。お",
+    "contextBefore": "。\n\n　次の朝あまがえるどもは眼をさまして見ますと、もう一ぴきのとのさまがえるが来ていて、団長とこんなはなしをしていました。\n\n",
+    "displayText": "「とにかく大いに盛んにやらないといかんね。そうでないと笑いものになってしまうだけだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 76,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6237,
+      "start": 6194
+    },
+    "revisions": [],
+    "sha256": "5482f44b700f74eec77e3ecc1eb1470def2703c43f938eb2b1a133ff5663d791",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6237,
+      "startToken": 6194
+    },
+    "speechText": "「とにかく大いにさかんにやらないといかんね。そうでないと笑いものになってしまうだけだ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "LC3CyeU49rWQyeLZzASgwWFaehrlVlXBtv1BcyOilo4",
+    "contextAfter": "\n\n「うん。それ位ならまあよかろうかな。」\n\n「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事が",
+    "contextBefore": "団長とこんなはなしをしていました。\n\n「とにかく大いに盛んにやらないといかんね。そうでないと笑いものになってしまうだけだ。」\n\n",
+    "displayText": "「全くだよ。どうだろう、一人前九十円ずつということにしたら。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 77,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6270,
+      "start": 6239
+    },
+    "revisions": [],
+    "sha256": "6bccfe5827e4674cc172aa0aeab3413629821006fbbb64918e6adcff2ba340f7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6270,
+      "startToken": 6239
+    },
+    "speechText": "「全くだよ。どうだろう、一人前九十円ずつということにしたら。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "8VoGN6l8_kJeV1p2C1e4RkSBJALKvKsHcn-MMZMdUVw",
+    "contextAfter": "\n\n「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」\n\n「うん。それは大い",
+    "contextBefore": "いといかんね。そうでないと笑いものになってしまうだけだ。」\n\n「全くだよ。どうだろう、一人前九十円ずつということにしたら。」\n\n",
+    "displayText": "「うん。それ位ならまあよかろうかな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 78,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6291,
+      "start": 6272
+    },
+    "revisions": [],
+    "sha256": "a2177aedfaff3e81bdffe8061f126c22207072fc40a1fe7d6e7cd7c3e0c79ce8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6291,
+      "startToken": 6272
+    },
+    "speechText": "「うん。それ位ならまあよかろうかな。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "TFDLqQcbCT4XuyC8cnTamWT1oMRvTxPUvcrwAvbYKyQ",
+    "contextAfter": "\n\n「うん。それは大いに同情するね。」\n\n「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十匁ずつ運んで来い。いや、",
+    "contextBefore": "しまうだけだ。」\n\n「全くだよ。どうだろう、一人前九十円ずつということにしたら。」\n\n「うん。それ位ならまあよかろうかな。」\n\n",
+    "displayText": "「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 79,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6344,
+      "start": 6293
+    },
+    "revisions": [],
+    "sha256": "557c5212fab54d9d6616d5f72ca0b614d65f427e202ebb21b7405565607a308d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6344,
+      "startToken": 6293
+    },
+    "speechText": "「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "kGxFHzD8aNO0dz2p8jBy1fw7tEzIRqQ2lR9LmP4O2uM",
+    "contextAfter": "\n\n「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十匁ずつ運んで来い。いや、九十匁じゃあまり少いかな。」\n\n「うん",
+    "contextBefore": "あよかろうかな。」\n\n「よかろうよ。おや、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」\n\n",
+    "displayText": "「うん。それは大いに同情するね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 80,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6363,
+      "start": 6346
+    },
+    "revisions": [],
+    "sha256": "a10ac376f08c92f1704c504f403fa26d203dcd5f51483bf1eed0eb700778e380",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6363,
+      "startToken": 6346
+    },
+    "speechText": "「うん。それは大いに同情するね。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "cIOZmv2tM8CoXfKMYTzK9notLS3l4ZpyQA0CIDPRi8U",
+    "contextAfter": "\n\n「うん。九百貫という方が口調がいいね。」\n\n「そうだ、そうだ。どれだけいいか知れないね。おい、みんな。今日は石を一人につき九",
+    "contextBefore": "や、みんな起きたね、今日は何の仕事をさせようかな。どうも毎日仕事がなくて困るんだよ。」\n\n「うん。それは大いに同情するね。」\n\n",
+    "displayText": "「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十匁ずつ運んで来い。いや、九十匁じゃあまり少いかな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 81,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6422,
+      "start": 6365
+    },
+    "revisions": [],
+    "sha256": "02c606137de23d41508f06cbefa205eab5bfce32d444db75d1d61ace514dadc0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6422,
+      "startToken": 6365
+    },
+    "speechText": "「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十もんめずつ運んで来い。いや、九十匁じゃあまり少いかな。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "SfBK2guRafVIcT6qWiBOp0x8zrhHzhwZSX58EJOZIeo",
+    "contextAfter": "\n\n「そうだ、そうだ。どれだけいいか知れないね。おい、みんな。今日は石を一人につき九百貫ずつ運んで来い。もし来なかったら早速警察",
+    "contextBefore": "ね。」\n\n「今日は石を運ばせてやろうか。おい。みんな今日は石を一人で九十匁ずつ運んで来い。いや、九十匁じゃあまり少いかな。」\n\n",
+    "displayText": "「うん。九百貫という方が口調がいいね。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 82,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6444,
+      "start": 6424
+    },
+    "revisions": [],
+    "sha256": "c13fd2705ef3cc88f487e659d15c5ce48e57df76c8768460423622b579fd6c44",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6444,
+      "startToken": 6424
+    },
+    "speechText": "「うん。九百貫という方が口調がいいね。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "nn3AwFF6PK-NQphr5jjq_7ukFLflb5UuJXf4uJ7kH2Q",
+    "contextAfter": "\n\n　あまがえるはみなすきとおってまっ青になってしまいました。それはその筈です。一人九百貫の石なんて、人間でさえ出来るもんじゃあ",
+    "contextBefore": "。みんな今日は石を一人で九十匁ずつ運んで来い。いや、九十匁じゃあまり少いかな。」\n\n「うん。九百貫という方が口調がいいね。」\n\n",
+    "displayText": "「そうだ、そうだ。どれだけいいか知れないね。おい、みんな。今日は石を一人につき九百貫ずつ運んで来い。もし来なかったら早速警察へ貴様らを引き渡すぞ。ここには裁判の方のお方もお出でになるのだ。首をシュッポオンと切ってしまう位、実にわけないはなしだ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 83,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 6569,
+      "start": 6446
+    },
+    "revisions": [],
+    "sha256": "93bed6d4a0ad90e4d3c471cb93738423b7c33aa51f642702090f08aab000b5b8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 6569,
+      "startToken": 6446
+    },
+    "speechText": "「そうだ、そうだ。どれだけいいか知れないね。おい、みんな。今日は石を一人につき九百貫ずつ運んで来い。もし来なかったら早速警察へ貴様らを引き渡すぞ。ここには裁判の方のお方もおいでになるのだ。首をシュッポオンと切ってしまう位、実にわけないはなしだ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "tQI3fc32zi9XLTicSezThBea6oOC0pcLPaUyHLeF3hI",
+    "contextAfter": "\n\n「とても私らにはできません。私らはもう死にそうなんです。」\n\n「えい、意気地なしめ。早く運べ。晩までに出来なかったら、みんな",
+    "contextBefore": "たあまがえるは、寝ていたものをゆり起して、団長が又出て来たときは、もうみんなちゃんと立っていました。カイロ団長が申しました。\n\n",
+    "displayText": "「何だ。のろまども。今までかかってたったこれだけしか運ばないのか。何という貴様らは意気地なしだ。おれなどは石の九百貫やそこら、三十分で運んで見せるぞ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 84,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7495,
+      "start": 7421
+    },
+    "revisions": [],
+    "sha256": "076e38b9e23969e37f15e3358d5f2834eb43fafac32a25d99f2d9218d3b9c3fe",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7495,
+      "startToken": 7421
+    },
+    "speechText": "「何だ。のろまども。今までかかってたったこれだけしか運ばないのか。何という貴様らはいくじなしだ。おれなどは石の九百貫やそこら、三十分で運んで見せるぞ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "5vKME8639lFoX_9eGV8R7vRbr-_iRxJW11_VZJIzZi8",
+    "contextAfter": "\n\n「えい、意気地なしめ。早く運べ。晩までに出来なかったら、みんな警察へやってしまうぞ。警察ではシュッポンと首を切るぞ。ばかめ。",
+    "contextBefore": "でかかってたったこれだけしか運ばないのか。何という貴様らは意気地なしだ。おれなどは石の九百貫やそこら、三十分で運んで見せるぞ。」\n\n",
+    "displayText": "「とても私らにはできません。私らはもう死にそうなんです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 85,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7526,
+      "start": 7497
+    },
+    "revisions": [],
+    "sha256": "4be3ae69f5df79a11a029520acc63b67a4ec5b178ae7d3c9504aba1db4fe4a0a",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7526,
+      "startToken": 7497
+    },
+    "speechText": "「とても私らにはできません。私らはもう死にそうなんです。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "EvybDMmUWSCbLVOwlxf1L8wp8vfRK8iBmr-xzGOyfnM",
+    "contextAfter": "\n\n　あまがえるはみんなやけ糞になって叫びました。\n\n「どうか早く警察へやって下さい。シュッポン、シュッポンと聞いていると何だか",
+    "contextBefore": "しだ。おれなどは石の九百貫やそこら、三十分で運んで見せるぞ。」\n\n「とても私らにはできません。私らはもう死にそうなんです。」\n\n",
+    "displayText": "「えい、意気地なしめ。早く運べ。晩までに出来なかったら、みんな警察へやってしまうぞ。警察ではシュッポンと首を切るぞ。ばかめ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 86,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7591,
+      "start": 7528
+    },
+    "revisions": [],
+    "sha256": "8e8a06354881c0d1337a453bcbc839ed68a8aac6326f465b91dba93ef2a4e38c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7591,
+      "startToken": 7528
+    },
+    "speechText": "「えい、意気地なしめ。早く運べ。晩までに出来なかったら、みんな警察へやってしまうぞ。警察ではシュッポンと首を切るぞ。ばかめ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "x4CwWFRG4h_Y7vwBF4nYjzyb5DFg8Cm3h8jg58hnE8k",
+    "contextAfter": "\n\n　カイロ団長は怒って叫び出しました。\n\n「えい、馬鹿者め意気地なしめ。\n\n　えい、ガーアアアアアアアアア。」カイロ団長は何だ",
+    "contextBefore": "ら、みんな警察へやってしまうぞ。警察ではシュッポンと首を切るぞ。ばかめ。」\n\n　あまがえるはみんなやけ糞になって叫びました。\n\n",
+    "displayText": "「どうか早く警察へやって下さい。シュッポン、シュッポンと聞いていると何だか面白いような気がします。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 87,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7667,
+      "start": 7618
+    },
+    "revisions": [],
+    "sha256": "48351517741cec5de965d4c0316067bf35c61ae0724cdb2e5866307be0c22b60",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7667,
+      "startToken": 7618
+    },
+    "speechText": "「どうか早く警察へやって下さい。シュッポン、シュッポンと聞いていると何だかおもしろいような気がします。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "O0MeqAJhWBUwys4n4FeovzqYV3rSQbP8eSsaNCD_U3s",
+    "contextAfter": "カイロ団長は何だか変な顔をして口をパタンと閉じました。ところが「ガーアアアアアアア」と云う音はまだつづいています。それは全くカイ",
+    "contextBefore": "察へやって下さい。シュッポン、シュッポンと聞いていると何だか面白いような気がします。」\n\n　カイロ団長は怒って叫び出しました。\n\n",
+    "displayText": "「えい、馬鹿者め意気地なしめ。\n\n　えい、ガーアアアアアアアアア。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 88,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7723,
+      "start": 7689
+    },
+    "revisions": [],
+    "sha256": "ed52273f166a7111d2f8a8be699d876b0e2b364813277ec72d3f0c6229f189b5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7723,
+      "startToken": 7689
+    },
+    "speechText": "「えい、馬鹿者め意気地なしめ。 えい、ガーアアアアアアアアア。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "CU2kFGG_pS4Gq6dUbZMyZ4env4kRggg7srZ8rEHIvwU",
+    "contextAfter": "と云う音はまだつづいています。それは全くカイロ団長の咽喉から出たのではありませんでした。かの青空高くひびきわたるかたつむりのメガホ",
+    "contextBefore": "えい、馬鹿者め意気地なしめ。\n\n　えい、ガーアアアアアアアアア。」カイロ団長は何だか変な顔をして口をパタンと閉じました。ところが",
+    "displayText": "「ガーアアアアアアア」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 89,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7765,
+      "start": 7754
+    },
+    "revisions": [],
+    "sha256": "e8cb25a678932b4696223cfbbafa1a904ddfbdfac60dee388b129c2bad573796",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7765,
+      "startToken": 7754
+    },
+    "speechText": "「ガーアアアアアアア」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "BIcmia_k8hDFGKen6WEV1I6Kl3ZzVCEJ_U4QyBUqfAg",
+    "contextAfter": "と、あまがえるもとのさまがえるも、急いでしゃんと立ちました。かたつむりの吹くメガホーンの声はいともほがらかにひびきわたりました。",
+    "contextBefore": "出たのではありませんでした。かの青空高くひびきわたるかたつむりのメガホーンの声でした。王さまの新らしい命令のさきぶれでした。\n\n",
+    "displayText": "「そら、あたらしいご命令だ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 90,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 7873,
+      "start": 7858
+    },
+    "revisions": [],
+    "sha256": "957157def2c84a8c949eff5f6d3cce023c3ff67403cba68b4b812d4e6c411874",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 7873,
+      "startToken": 7858
+    },
+    "speechText": "「そら、あたらしいご命令だ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "tidYzBTKn85oT31e5iNvlenOgX1xtz6D8XubQckbOhs",
+    "contextAfter": "\n\n　さああまがえるどもはよろこんだのなんのって、チェッコという算術のうまいかえるなどは、もうすぐ暗算をはじめました。云いつけら",
+    "contextBefore": "あまがえるもとのさまがえるも、急いでしゃんと立ちました。かたつむりの吹くメガホーンの声はいともほがらかにひびきわたりました。\n\n",
+    "displayText": "「王さまの新らしいご命令。王さまの新らしいご命令。一個条。ひとに物を云いつける方法。ひとに物を云いつける方法。第一、ひとにものを云いつけるときはそのいいつけられるものの目方で自分のからだの目方を割って答を見つける。第二、云いつける仕事にその答をかける。第三、その仕事を一ぺん自分で二日間やって見る。以上。その通りやらないものは鳥の国へ引き渡す。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 91,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8112,
+      "start": 7939
+    },
+    "revisions": [],
+    "sha256": "9aa10996dba989b11dbeb3b3a46d3bc4811071f3dc00de55054a4fdd260dafca",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8112,
+      "startToken": 7939
+    },
+    "speechText": "「王さまの新らしいご命令。王さまの新らしいご命令。一個条。ひとに物を云いつける方法。ひとに物を云いつける方法。第一、ひとにものを云いつけるときはそのいいつけられるものの目方で自分のからだの目方を割って答を見つける。第二、云いつける仕事にその答をかける。第三、その仕事を一ぺん自分で二日間やって見る。以上。その通りやらないものは鳥の国へ引き渡す。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "puZjtIPD2LfIC9Pr-NhEfvPP52c0O1-VL_8H6vUVjFI",
+    "contextAfter": "\n\n「団長さん。さあこれから晩までに四千五百貫目、石をひっぱって下さい。」\n\n「さあ王様の命令です。引っぱって下さい。」\n\n　今",
+    "contextBefore": "られるわれわれの目方は拾匁、云いつける団長のめがたは百匁、百匁割る十匁、答十。仕事は九百貫目、九百貫目掛ける十、答九千貫目。\n\n",
+    "displayText": "「九千貫だよ。おい。みんな。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 92,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8254,
+      "start": 8239
+    },
+    "revisions": [],
+    "sha256": "1605d08ae73386f43bf9a12d219672c970e7eb66e6cb833707dbdf2f125614b5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8254,
+      "startToken": 8239
+    },
+    "speechText": "「九千貫だよ。おい。みんな。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "C9tTzBn1KraaAYKfCbio2J-pRWsCYHUkIGuPEpjte4Y",
+    "contextAfter": "\n\n「さあ王様の命令です。引っぱって下さい。」\n\n　今度は、とのさまがえるは、だんだん色がさめて、飴色にすきとおって、そしてブルブ",
+    "contextBefore": "ける団長のめがたは百匁、百匁割る十匁、答十。仕事は九百貫目、九百貫目掛ける十、答九千貫目。\n\n「九千貫だよ。おい。みんな。」\n\n",
+    "displayText": "「団長さん。さあこれから晩までに四千五百貫目、石をひっぱって下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 93,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8291,
+      "start": 8256
+    },
+    "revisions": [],
+    "sha256": "b83ac0e45960088b2db742b02f9f12882357a18b40f059c1340be670d1bba4e6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8291,
+      "startToken": 8256
+    },
+    "speechText": "「団長さん。さあこれから晩までに四千五百貫目、石をひっぱって下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "EtFacCfTMTsXCd8ciFG7efZ5p4i17sLC1gbQH4huJno",
+    "contextAfter": "\n\n　今度は、とのさまがえるは、だんだん色がさめて、飴色にすきとおって、そしてブルブルふるえて参りました。\n\n　あまがえるはみんな",
+    "contextBefore": "十、答九千貫目。\n\n「九千貫だよ。おい。みんな。」\n\n「団長さん。さあこれから晩までに四千五百貫目、石をひっぱって下さい。」\n\n",
+    "displayText": "「さあ王様の命令です。引っぱって下さい。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 94,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8314,
+      "start": 8293
+    },
+    "revisions": [],
+    "sha256": "a5b17c2de077229cde67d62d6580a1730395b06b8e240fccde1d967405f1aea5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8314,
+      "startToken": 8293
+    },
+    "speechText": "「さあ王様の命令です。引っぱって下さい。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "essnSfyQjJfrmi5xVTWJ_nL-VJxu9sfDrg3MD0X2L68",
+    "contextAfter": "と云いながらカイロ団長の肩に綱のさきを引っかけてやりました。団長もやっと覚悟がきまったと見えて、持っていた鉄の棒を投げすてて、眼を",
+    "contextBefore": "。\n\n　あまがえるはみんなでとのさまがえるを囲んで、石のある処へ連れて行きました。そして一貫目ばかりある石へ、綱を結びつけて\n\n",
+    "displayText": "「さあ、これを晩までに四千五百運べばいいのです。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 95,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8454,
+      "start": 8429
+    },
+    "revisions": [],
+    "sha256": "ced3922528bbac8c9908488c7c031e5eeb2ec573c8e4d5b968033d2c084d48b0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8454,
+      "startToken": 8429
+    },
+    "speechText": "「さあ、これを晩までに四千五百運べばいいのです。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "xO9RJKyTgbwZtXuKx-O3FwYQYEayeGjsPrvHyO5iCbE",
+    "contextAfter": "\n\n　カイロ団長は、はやしにつりこまれて、五へんばかり足をテクテクふんばってつなを引っ張りましたが、石はびくとも動きません。\n\n",
+    "contextBefore": "で行く方角を見定めましたがまだどうも本当に引っぱる気にはなりませんでした。そこであまがえるは声をそろえてはやしてやりました。\n\n",
+    "displayText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 96,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8618,
+      "start": 8594
+    },
+    "revisions": [],
+    "sha256": "5cf081611437ebfd2ec2e2d439e5ac57cb0cfe7c796728f7a3e75b08a4d5888d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8618,
+      "startToken": 8594
+    },
+    "speechText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "XxBt6Hre8kD4XVw9cF9wUwofoM8dsNBWsVH9yOft_Ig",
+    "contextAfter": "\n\n　とのさまがえるは又四へんばかり足をふんばりましたが、おしまいの時は足がキクッと鳴ってくにゃりと曲ってしまいました。あまがえ",
+    "contextBefore": "ク汗を流して、口をあらんかぎりあけて、フウフウといきをしました。全くあたりがみんなくらくらして、茶色に見えてしまったのです。\n\n",
+    "displayText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 97,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 8782,
+      "start": 8758
+    },
+    "revisions": [],
+    "sha256": "17d76674746d583fc20f0a0dbdb3225a236b54891a0e96dde74685e099fb76b4",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 8782,
+      "startToken": 8758
+    },
+    "speechText": "「ヨウイト、ヨウイト、ヨウイト、ヨウイトショ。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "CEphNovGexpMm8PAaohoKhqU9S2xQ9GVo6JmNcamaHA",
+    "contextAfter": "それから声が又向うの方へ行って「王様の新らしいご命令。」とひびきわたって居ります。\n\n　そこであまがえるは、みんな走り寄って、と",
+    "contextBefore": "なった時のこのさびしいことです。\n\n　ところが丁度その時、又もや青ぞら高く、かたつむりのメガホーンの声がひびきわたりました。\n\n",
+    "displayText": "「王様の新らしいご命令。王様の新らしいご命令。すべてあらゆるいきものはみんな気のいい、かあいそうなものである。けっして憎んではならん。以上。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 98,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 9115,
+      "start": 9044
+    },
+    "revisions": [],
+    "sha256": "4075a21c16dd5e5cdc3a348255428e0dc61f86c63678325b8bf46a19ab4d5cbb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9115,
+      "startToken": 9044
+    },
+    "speechText": "「王様の新らしいご命令。王様の新らしいご命令。すべてあらゆるいきものはみんな気のいい、かあいそうなものである。けっしてにくんではならん。以上。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "LtRQIOmZeWxQnf5PEVt6cyFF1CtV018we03fhuHUP6U",
+    "contextAfter": "とひびきわたって居ります。\n\n　そこであまがえるは、みんな走り寄って、とのさまがえるに水をやったり、曲った足をなおしてやったり、",
+    "contextBefore": "。すべてあらゆるいきものはみんな気のいい、かあいそうなものである。けっして憎んではならん。以上。」それから声が又向うの方へ行って",
+    "displayText": "「王様の新らしいご命令。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 99,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 9143,
+      "start": 9130
+    },
+    "revisions": [],
+    "sha256": "9a37b2c29c70996ff4ee04134fd469ab5863b02be310602efaff99214cdb4150",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9143,
+      "startToken": 9130
+    },
+    "speechText": "「王様の新らしいご命令。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "o2rSpDBMm2KNpQ9ElZe4aygJ2UDOgNmyxSPASemeDyQ",
+    "contextAfter": "\n\n　あまがえるは、みんなよろこんで、手をパチパチたたきました。\n\n　次の日から、あまがえるはもとのように愉快にやりはじめました。",
+    "contextBefore": "り、曲った足をなおしてやったり、とんとんせなかをたたいたりいたしました。\n\n　とのさまがえるはホロホロ悔悟のなみだをこぼして、\n\n",
+    "displayText": "「ああ、みなさん、私がわるかったのです。私はもうあなた方の団長でもなんでもありません。私はやっぱりただの蛙です。あしたから仕立屋をやります。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 100,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 9326,
+      "start": 9255
+    },
+    "revisions": [],
+    "sha256": "40ef1f9e8bed2beee051b64c324e6bb57f2c77c908e4ed404edb0782906c7620",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9326,
+      "startToken": 9255
+    },
+    "speechText": "「ああ、みなさん、私がわるかったのです。私はもうあなた方の団長でもなんでもありません。私はやっぱりただのかえるです。あしたから仕立屋をやります。」",
+    "workId": "001918"
+  },
+  {
+    "candidateId": "wOUC3nGsITZ3XFe39ndU26AFRfNALi-PrUtKf6V71OQ",
+    "contextAfter": "\n\n\n\n\n\n\n\n",
+    "contextBefore": "まあがりや、風の次の日、そうでなくてもお天気のいい日に、畑の中や花壇のかげでこんなようなさらさらさらさら云う声を聞きませんか。\n\n",
+    "displayText": "「おい。ベッコ。そこん処をも少しよくならして呉れ。いいともさ。おいおい。ここへ植えるのはすずめのかたびらじゃない、すずめのてっぽうだよ。そうそう。どっちもすずめなもんだからつい間違えてね。ハッハッハ。よう。ビチュコ。おい。ビチュコ、そこの穴うめて呉れ。いいかい。そら、投げるよ。ようし来た。ああ、しまった。さあひっぱって呉れ。よいしょ。」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 101,
+    "rawSourceSha256": "b880ad3ea0a0ef4f2d183b2bc91e4c530939f8bf925f76180d96255537499ef4",
+    "rawTokenRange": {
+      "end": 9631,
+      "start": 9463
+    },
+    "revisions": [],
+    "sha256": "afee83ab880115044b808a89daf0396ca6813676d6f251903eb282d27dea3ec7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 9631,
+      "startToken": 9463
+    },
+    "speechText": "「おい。ベッコ。そこんとこをも少しよくならしてくれ。いいともさ。おいおい。ここへ植えるのはすずめのかたびらじゃない、すずめのてっぽうだよ。そうそう。どっちもすずめなもんだからついまちがえてね。ハッハッハ。よう。ビチュコ。おい。ビチュコ、そこの穴うめて呉れ。いいかい。そら、投げるよ。ようし来た。ああ、しまった。さあひっぱって呉れ。よいしょ。」",
+    "workId": "001918"
+  }
+]
