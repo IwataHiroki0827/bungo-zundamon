@@ -226,6 +226,57 @@ jobs:
             )
             Write-Host "$Name=$encoded"
           }
+          function Write-SafeFailureAnnotation([string] $Stderr) {
+            $lines = @($Stderr -split '\r?\n')
+            $summary = @(
+              $lines |
+                Where-Object {
+                  $_ -match '^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'
+                } |
+                Select-Object -Last 2
+            )
+            $nativeFailure = @(
+              $lines |
+                Where-Object {
+                  $_ -match '^F005_NATIVE_START_FAILURE=[A-Z0-9_]+$'
+                } |
+                Select-Object -Last 1
+            )
+            $summary += $nativeFailure
+            $failurePrefix = 'F005_FAILURE_JSON='
+            $failureLine = @(
+              $lines |
+                Where-Object { $_.StartsWith($failurePrefix) } |
+                Select-Object -Last 1
+            )
+            if ($failureLine.Count -eq 1) {
+              try {
+                $failure = $failureLine[0].Substring(
+                  $failurePrefix.Length
+                ) | ConvertFrom-Json
+                if ($failure.name -match '^[A-Za-z][A-Za-z0-9]{0,63}$') {
+                  $summary += "failureName=$($failure.name)"
+                }
+                if ($failure.code -match '^[A-Z][A-Z0-9_]{0,127}$') {
+                  $summary += "failureCode=$($failure.code)"
+                }
+                if ($failure.cause.name -match '^[A-Za-z][A-Za-z0-9]{0,63}$') {
+                  $summary += "causeName=$($failure.cause.name)"
+                }
+                if ($failure.cause.code -match '^[A-Z][A-Z0-9_]{0,127}$') {
+                  $summary += "causeCode=$($failure.cause.code)"
+                }
+              } catch {
+                # 自由文やparse errorはannotationへ出さない。
+              }
+            }
+            if ($summary.Count -eq 0) {
+              $summary = @('fixedDiagnostic=unavailable')
+            }
+            $annotation = ($summary -join ' ').Replace('%', '%25').
+              Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=F005 production diagnostic::$annotation"
+          }
           $runPath = '${{ steps.engine.outputs.run_path }}'
           $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
           $resultPath = Join-Path $logRoot 'f005-hosted-production-result.json'
@@ -289,6 +340,7 @@ jobs:
             ''
           }
           if ($runnerExitCode -ne 0) {
+            Write-SafeFailureAnnotation $stderr
             Write-BoundedBase64Diagnostic `
               'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
             Write-BoundedBase64Diagnostic `

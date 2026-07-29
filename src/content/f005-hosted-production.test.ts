@@ -97,6 +97,16 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).not.toContain('git ls-remote --exit-code');
     expect(scripts).toContain("F005_RESULT_JSON=");
     expect(scripts).toContain('F005_RUNNER_STDERR_BASE64');
+    expect(scripts).toContain('function Write-SafeFailureAnnotation');
+    expect(scripts).toContain('::error title=F005 production diagnostic::');
+    expect(scripts).toContain(
+      "'^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'",
+    );
+    expect(scripts).toContain(
+      "'^F005_NATIVE_START_FAILURE=[A-Z0-9_]+$'",
+    );
+    expect(scripts).toContain("'^[A-Z][A-Z0-9_]{0,127}$'");
+    expect(scripts).not.toContain('$failure.frames');
     expect(scripts).toContain('$limit = 65536');
     expect(scripts.match(/F005_RUNNER_STDOUT_BASE64/gu)).toHaveLength(3);
     expect(scripts).toContain('$runnerProcess = Start-Process');
