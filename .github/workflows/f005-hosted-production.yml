@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; the authenticated root reuses its Job membership proof.
+# Source bytes are LF-pinned; identity failures expose only fixed event/stage codes.
 on:
   push:
     branches:

@@ -82,7 +82,13 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
   it('ETW callback例外を自由文字列/HRESULTなしの固定分類へ変換する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     expect(program).toContain(
-      ': ClassifyEtwCallbackFailure(error, callbackStage));',
+      '? ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)',
+    );
+    expect(program).toContain('return $"ETW_FILE_IDENTITY_MISSING_{safeEvent}_{safeStage}"');
+    expect(program).toContain('PoisonLocked(ClassifyEtwGuardFailure(');
+    expect(program).toContain('var target = InspectDeferredRenameTarget(notice.To)');
+    expect(program).toContain(
+      'catch (GuardException error) when (error.Code == "ETW_FILE_IDENTITY_MISSING")',
     );
     expect(program).toContain('IOException => "ETW_CALLBACK_IO_FAILED"');
     expect(program).toContain('OverflowException => "ETW_CALLBACK_OVERFLOW"');

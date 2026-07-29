@@ -1476,7 +1476,10 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     if (source is null)
                     {
-                        PoisonLocked("ETW_FILE_IDENTITY_MISSING");
+                        PoisonLocked(ClassifyEtwGuardFailure(
+                            "ETW_FILE_IDENTITY_MISSING",
+                            eventName,
+                            callbackStage));
                         return;
                     }
                     if (current is not null && source.Identity != current.Identity)
@@ -1516,7 +1519,10 @@ sealed class CapacityGuardSession : IDisposable
                 var effective = current ?? filesByPath.GetValueOrDefault(normalized) ?? prior;
                 if (effective is null)
                 {
-                    PoisonLocked("ETW_FILE_IDENTITY_MISSING");
+                    PoisonLocked(ClassifyEtwGuardFailure(
+                        "ETW_FILE_IDENTITY_MISSING",
+                        eventName,
+                        callbackStage));
                     return;
                 }
                 if (current is not null)
@@ -1581,9 +1587,31 @@ sealed class CapacityGuardSession : IDisposable
         catch (Exception error)
         {
             Poison(error is GuardException guard
-                ? guard.Code
+                ? ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)
                 : ClassifyEtwCallbackFailure(error, callbackStage));
         }
+    }
+
+    private static string ClassifyEtwGuardFailure(
+        string code,
+        string eventName,
+        string stage)
+    {
+        if (code != "ETW_FILE_IDENTITY_MISSING") return code;
+        var safeEvent = eventName switch {
+            "create" => "CREATE",
+            "write" => "WRITE",
+            "setinfo" => "SETINFO",
+            "rename" => "RENAME",
+            "delete" => "DELETE",
+            _ => "UNKNOWN",
+        };
+        var safeStage = stage switch {
+            "IDENTITY" => "IDENTITY",
+            "CORRELATION" => "CORRELATION",
+            _ => "UNKNOWN",
+        };
+        return $"ETW_FILE_IDENTITY_MISSING_{safeEvent}_{safeStage}";
     }
 
     private static string ClassifyEtwCallbackFailure(Exception error, string stage) =>
@@ -1613,8 +1641,7 @@ sealed class CapacityGuardSession : IDisposable
         {
             throw new GuardException("ETW_RENAME_IDENTITY_MISMATCH");
         }
-        var target = TryInspect(notice.To)
-            ?? throw new GuardException("ETW_FILE_IDENTITY_MISSING");
+        var target = InspectDeferredRenameTarget(notice.To);
         if (target.Identity != deferred.Source.Identity)
             throw new GuardException("ETW_RENAME_IDENTITY_MISMATCH");
 
@@ -1661,6 +1688,22 @@ sealed class CapacityGuardSession : IDisposable
         observations.Add(observation);
         deferredRenames.Remove(deferred);
         Monitor.PulseAll(gate);
+    }
+
+    private FileSnapshot InspectDeferredRenameTarget(string path)
+    {
+        try
+        {
+            return TryInspect(path)
+                ?? throw new GuardException("ETW_FILE_IDENTITY_MISSING");
+        }
+        catch (GuardException error) when (error.Code == "ETW_FILE_IDENTITY_MISSING")
+        {
+            throw new GuardException(ClassifyEtwGuardFailure(
+                error.Code,
+                "rename",
+                "CORRELATION"));
+        }
     }
 
     private FileSnapshot? TryInspect(string relativePath)
