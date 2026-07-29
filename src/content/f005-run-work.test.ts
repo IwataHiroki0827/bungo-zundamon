@@ -11,6 +11,8 @@ import {
   createF005OfflineBuildArtifactPayloads,
   enterF005ProductionSession,
   F005_RUNNER_PHASE_ORDER,
+  F005_RUNNER_RESULT_PREFIX,
+  formatF005RunnerResult,
   parseF005RunWorkArguments,
   runOfflineBuild,
   selectF005CurrentWork,
@@ -160,6 +162,29 @@ describe('F005 production work runner', () => {
       new Set(['voice', 'build', 'preview', 'accept']),
     );
     expect(vi.isMockFunction(enterF005ProductionSession)).toBe(false);
+  });
+
+  it('build logと混在しても一意marker付き1行JSONから結果を抽出できる', () => {
+    const line = formatF005RunnerResult({
+      ok: true,
+      workId: '000799',
+      status: 'accepted',
+      journalId: H('journal'),
+    });
+    expect(line.split('\n')).toHaveLength(2);
+    expect(line.startsWith(F005_RUNNER_RESULT_PREFIX)).toBe(true);
+    expect(JSON.parse(line.slice(F005_RUNNER_RESULT_PREFIX.length))).toMatchObject({
+      ok: true,
+      workId: '000799',
+      status: 'accepted',
+    });
+    const mixed = `vite build output\n${line}`;
+    const resultLines = mixed.split(/\r?\n/u)
+      .filter((entry) => entry.startsWith(F005_RUNNER_RESULT_PREFIX));
+    expect(resultLines).toHaveLength(1);
+    expect(JSON.parse(
+      resultLines[0]!.slice(F005_RUNNER_RESULT_PREFIX.length),
+    )).toMatchObject({ workId: '000799', status: 'accepted' });
   });
 
   it('offline buildはspawn後PID登録を行わず、Job継承worker契約だけで起動する', async () => {

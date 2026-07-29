@@ -1,4 +1,22 @@
 changes:
+- id: CHG-F005-004
+  date: '2026-07-29'
+  trigger: CHG-F005-003のhosted Windows kernel ETW正常系PASSにより、手動昇格なしでT-070 production runnerを実行できる環境を確保
+  level: design
+  affected:
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - DES-F005-012
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - QT-F005-009
+  - T-070
+  - T-078
+  status: in-review
 - id: CHG-F005-003
   date: '2026-07-29'
   trigger: GitHub hosted Windows probeで、native single-file binaryの固定SHAがcheckout絶対pathとGit commit SHAに依存して不一致となることを検出

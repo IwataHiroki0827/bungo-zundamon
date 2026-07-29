@@ -67,6 +67,7 @@ import type { VoicevoxSpeaker } from '../src/voice/types.ts';
 const WORK_IDS = ['000799', '001076', '001104'] as const;
 const MANIFEST_PATH = 'content/batches/F005/batch.json';
 const OWNER = 'f005-production-runner';
+export const F005_RUNNER_RESULT_PREFIX = 'F005_RESULT_JSON=';
 
 function sha(value: string | Uint8Array): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
@@ -265,6 +266,10 @@ export function verifyF005RunnerCandidateBinding(
     throw new Error('capacity forecastのcandidate SHAがApproved Contextと一致しません');
   }
   return forecastCandidateSha256;
+}
+
+export function formatF005RunnerResult(value: Readonly<Record<string, unknown>>): string {
+  return `${F005_RUNNER_RESULT_PREFIX}${JSON.stringify(value)}\n`;
 }
 
 export async function runOfflineBuild(
@@ -701,7 +706,7 @@ async function main(): Promise<void> {
     );
     const publicAfter = await treeDigest(publicRoot);
     if (publicAfter !== publicBefore) throw new Error('runnerがpublic treeを変更しました');
-    process.stdout.write(canonicalJson({
+    process.stdout.write(formatF005RunnerResult({
       ok: true,
       workId,
       status: accepted.workProgress[accepted.workIds.indexOf(workId)]?.status,

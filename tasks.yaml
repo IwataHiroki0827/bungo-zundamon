@@ -1661,3 +1661,26 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-29T19:55:09+09:00'
   result: PathMapとsource revision非埋込みで固定binary SHA 1846897e...9813へ統一。local/source-only/hosted Windows、重点97件・全1241件、型・lint・build・audit・public差分0、独立再レビューHigh/Medium/Low 0をPASS。Actions run 30445446783でkernel ETW正常系もPASS
+- id: T-078
+  title: CHG-F005-004 hosted Windows候補生成workflowと夢十夜実受入
+  feature: F005
+  phase: implement
+  state: doing
+  depends:
+  - T-077
+  tags:
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - DES-F005-012
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - QT-F005-009
+  mode: orchestration
+  mode_reason: 固定VOICEVOX取得、kernel ETW監視、作品受入、候補branch永続化、公開禁止を独立検証するため
+  model:
+    lead: opus
+    workers: sonnet

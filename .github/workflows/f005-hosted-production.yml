@@ -1,0 +1,279 @@
+name: F005 hosted production candidate
+
+on:
+  push:
+    branches:
+      - feature/F005
+    paths:
+      - .github/workflows/f005-hosted-production.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: f005-hosted-production-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  produce-candidate:
+    if: github.repository == 'IwataHiroki0827/bungo-zundamon' && github.ref == 'refs/heads/feature/F005'
+    runs-on: windows-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify clean source identity
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ((git rev-parse HEAD).Trim() -ne $env:GITHUB_SHA) {
+            throw 'checkout HEAD does not match GITHUB_SHA'
+          }
+          if (git status --porcelain=v1) {
+            throw 'checkout is not clean'
+          }
+          $branch = "candidate/f005-t070-$env:GITHUB_SHA"
+          git ls-remote --exit-code --heads origin "refs/heads/$branch" | Out-Null
+          if ($LASTEXITCODE -eq 0) {
+            throw "candidate branch already exists: $branch"
+          }
+          if ($LASTEXITCODE -ne 2) {
+            throw "candidate branch existence check failed: $LASTEXITCODE"
+          }
+
+      - name: Preflight workspace disk
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $driveName = [IO.Path]::GetPathRoot($PWD.Path).TrimEnd('\').TrimEnd(':')
+          $drive = Get-PSDrive -Name $driveName
+          if ($drive.Free -lt 10GB) {
+            throw "production開始前の空き容量が10GiB未満です: $($drive.Free)"
+          }
+
+      - name: Set up fixed Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build and verify pinned native guard
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1
+
+      - name: Download and verify fixed VOICEVOX ENGINE
+        id: engine
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $ProgressPreference = 'SilentlyContinue'
+          $assetName = 'voicevox_engine-windows-cpu-0.25.2.7z.001'
+          $assetUrl =
+            "https://github.com/VOICEVOX/voicevox_engine/releases/download/0.25.2/$assetName"
+          $expectedSha256 =
+            '2ab86e4bf29448e3317ee97327efb3211c4ecc1063b03a62ab72b15a92ec531d'
+          $cacheRoot = Join-Path $PWD '.cache\voicevox-hosted'
+          $archive = Join-Path $cacheRoot $assetName
+          $engineRoot = Join-Path $cacheRoot 'engine'
+          $driveName = [IO.Path]::GetPathRoot($PWD.Path).TrimEnd('\').TrimEnd(':')
+          $drive = Get-PSDrive -Name $driveName
+          if ($drive.Free -lt 10GB) {
+            throw "VOICEVOX取得前の空き容量が10GiB未満です: $($drive.Free)"
+          }
+          New-Item -ItemType Directory -Force -Path $cacheRoot, $engineRoot | Out-Null
+          Invoke-WebRequest -Uri $assetUrl -OutFile $archive
+          $actualSha256 =
+            (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualSha256 -ne $expectedSha256) {
+            throw "VOICEVOX asset SHA-256 mismatch: $actualSha256"
+          }
+          & 7z x $archive "-o$engineRoot" -y | Out-Null
+          if ($LASTEXITCODE -ne 0) {
+            throw "VOICEVOX asset extraction failed: $LASTEXITCODE"
+          }
+          Remove-Item -LiteralPath $archive -Force
+          $drive = Get-PSDrive -Name $driveName
+          if ($drive.Free -lt 5GB) {
+            throw "VOICEVOX展開後の空き容量が5GiB未満です: $($drive.Free)"
+          }
+          $executables = @(Get-ChildItem -LiteralPath $engineRoot -Recurse -Filter run.exe -File)
+          if ($executables.Count -ne 1) {
+            throw "VOICEVOX run.exe must be unique: $($executables.Count)"
+          }
+          "run_path=$($executables[0].FullName)" >> $env:GITHUB_OUTPUT
+          "asset_sha256=$actualSha256" >> $env:GITHUB_OUTPUT
+
+      - name: Start fixed loopback VOICEVOX ENGINE
+        id: start-engine
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $runPath = '${{ steps.engine.outputs.run_path }}'
+          $logRoot = Join-Path $PWD '.cache\voicevox-hosted'
+          $engineProcess = Start-Process `
+            -FilePath $runPath `
+            -ArgumentList '--host', '127.0.0.1', '--port', '50021' `
+            -WorkingDirectory (Split-Path -Parent $runPath) `
+            -WindowStyle Hidden `
+            -RedirectStandardOutput (Join-Path $logRoot 'engine.stdout.log') `
+            -RedirectStandardError (Join-Path $logRoot 'engine.stderr.log') `
+            -PassThru
+          "engine_pid=$($engineProcess.Id)" >> $env:GITHUB_OUTPUT
+          $version = $null
+          for ($attempt = 0; $attempt -lt 120; $attempt += 1) {
+            if ($engineProcess.HasExited) {
+              throw "VOICEVOX ENGINE exited early: $($engineProcess.ExitCode)"
+            }
+            try {
+              $version = Invoke-RestMethod -Uri 'http://127.0.0.1:50021/version'
+              break
+            } catch {
+              Start-Sleep -Seconds 1
+            }
+          }
+          if ($version -ne '0.25.2') {
+            throw "VOICEVOX ENGINE version mismatch: $version"
+          }
+
+      - name: Run T-070 production pipeline
+        id: production
+        shell: pwsh
+        env:
+          VOICEVOX_URL: http://127.0.0.1:50021/
+          NO_PROXY: 127.0.0.1,localhost
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $resultPath = Join-Path $PWD '.cache\f005-hosted-production-result.json'
+          $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
+          $raw = & node --experimental-transform-types scripts/f005-run-work.ts `
+            --work 000799 2> $stderrPath
+          if ($LASTEXITCODE -ne 0) {
+            throw "F005 production runner failed: $LASTEXITCODE"
+          }
+          $raw | Set-Content -LiteralPath `
+            '.cache\f005-hosted-production.stdout.log' -Encoding utf8
+          $prefix = 'F005_RESULT_JSON='
+          $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
+          if ($resultLines.Count -ne 1) {
+            throw "F005 production runner result marker count is $($resultLines.Count)"
+          }
+          $result = $resultLines[0].Substring($prefix.Length) | ConvertFrom-Json
+          if ($result.ok -ne $true -or $result.workId -ne '000799' -or
+            $result.status -ne 'accepted') {
+            throw 'F005 production runner result is not accepted'
+          }
+          $json = ($result | ConvertTo-Json -Depth 20) + "`n"
+          [IO.File]::WriteAllText(
+            $resultPath,
+            $json.Replace("`r`n", "`n"),
+            [Text.UTF8Encoding]::new($false)
+          )
+
+      - name: Stop VOICEVOX ENGINE
+        if: always()
+        shell: pwsh
+        run: |
+          $enginePid = '${{ steps.start-engine.outputs.engine_pid }}'
+          if ($enginePid -match '^[1-9][0-9]*$') {
+            Stop-Process -Id ([int]$enginePid) -Force -ErrorAction SilentlyContinue
+          }
+
+      - name: Validate and persist isolated candidate
+        shell: pwsh
+        env:
+          GITHUB_PUSH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          git diff --exit-code -- public
+          $manifest = Get-Content -LiteralPath 'content\batches\F005\batch.json' -Raw |
+            ConvertFrom-Json
+          $work = @($manifest.workProgress | Where-Object { $_.workId -eq '000799' })
+          if ($work.Count -ne 1 -or $work[0].status -ne 'accepted' -or
+            @($work[0].acceptedAudioSources).Count -ne 62) {
+            throw 'accepted manifest tuple is incomplete'
+          }
+          $audio = @(Get-ChildItem `
+            -LiteralPath 'content\batches\F005\accepted-audio\000799' `
+            -Filter '*.wav' -File)
+          if ($audio.Count -ne 62) {
+            throw "accepted WAV count mismatch: $($audio.Count)"
+          }
+          $changed = @(
+            git diff --name-only
+            git ls-files --others --exclude-standard
+          ) | Where-Object { $_ } | Sort-Object -Unique
+          $allowed = @(
+            '^content/batches/F005/batch\.json$',
+            '^content/batches/F005/accepted-audio/000799/[0-9a-f]{64}\.wav$',
+            '^content/batches/F005/work-artifacts/000799/runs/[0-9a-f]{64}/[-a-z]+\.json$',
+            '^content/batches/F005/capacity-actual/000799/[0-9a-f]{64}\.json$'
+          )
+          foreach ($path in $changed) {
+            if (-not ($allowed | Where-Object { $path -match $_ })) {
+              throw "production changed an allowlist-external path: $path"
+            }
+          }
+          if (git diff --diff-filter=D --name-only) {
+            throw 'production deleted a tracked file'
+          }
+          $runnerResult = Get-Content `
+            -LiteralPath '.cache\f005-hosted-production-result.json' -Raw |
+            ConvertFrom-Json
+          $nativeEvidence = Get-Content `
+            -LiteralPath 'native\f005-guard\build-evidence.json' -Raw |
+            ConvertFrom-Json
+          $evidence = [ordered]@{
+            schemaVersion = '1.0.0'
+            kind = 'f005-hosted-production-candidate'
+            sourceCommit = $env:GITHUB_SHA
+            workflowRunId = $env:GITHUB_RUN_ID
+            workflowRunAttempt = [int]$env:GITHUB_RUN_ATTEMPT
+            runnerOs = $env:RUNNER_OS
+            runnerArch = $env:RUNNER_ARCH
+            voicevoxVersion = '0.25.2'
+            voicevoxAssetSha256 = '${{ steps.engine.outputs.asset_sha256 }}'
+            nativeBinarySha256 = $nativeEvidence.outputBinarySha256
+            workId = '000799'
+            acceptedWavCount = $audio.Count
+            result = $runnerResult
+            changedPaths = $changed
+          }
+          $evidencePath =
+            'docs\evidence\implementation\F005-hosted-production-candidate.json'
+          $json = ($evidence | ConvertTo-Json -Depth 30) + "`n"
+          [IO.File]::WriteAllText(
+            (Join-Path $PWD $evidencePath),
+            $json.Replace("`r`n", "`n"),
+            [Text.UTF8Encoding]::new($false)
+          )
+          git add -- `
+            content/batches/F005/batch.json `
+            content/batches/F005/accepted-audio/000799 `
+            content/batches/F005/work-artifacts/000799/runs `
+            content/batches/F005/capacity-actual/000799 `
+            $evidencePath
+          $remaining = @(
+            git diff --name-only
+            git ls-files --others --exclude-standard
+          ) | Where-Object { $_ }
+          if ($remaining) {
+            throw 'unstaged production output remains'
+          }
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'feat(f005): accept hosted production work 000799'
+          $branch = "candidate/f005-t070-$env:GITHUB_SHA"
+          $credential = [Convert]::ToBase64String(
+            [Text.Encoding]::ASCII.GetBytes("x-access-token:$env:GITHUB_PUSH_TOKEN")
+          )
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $credential" `
+            push origin "HEAD:refs/heads/$branch"
