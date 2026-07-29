@@ -516,6 +516,7 @@ export interface F005NativeCapacitySessionOptions {
   readonly candidateSha256: string;
   readonly executable?: string;
   readonly sessionNonce?: string;
+  readonly onStartupFailure?: (code: F005NativeCapacityErrorCode) => Promise<void>;
 }
 
 export interface F005NativeCapacityCloseResult {
@@ -878,10 +879,21 @@ export async function startF005NativeCapacitySession(
       abort,
     });
   } catch (error) {
+    const failure = error instanceof F005NativeCapacityError
+      ? error
+      : new F005NativeCapacityError(
+          'F005_CAPACITY_IPC_FAILED',
+          'native capacity sessionの開始に失敗しました',
+          { cause: error },
+        );
+    try {
+      await options.onStartupFailure?.(failure.code);
+    } catch {
+      // 診断出力失敗でもcleanupと元の固定codeを優先する。
+    }
     pipe?.close();
     guard.terminate();
-    if (error instanceof F005NativeCapacityError) throw error;
-    return fail('F005_CAPACITY_IPC_FAILED', 'native capacity sessionの開始に失敗しました', error);
+    throw failure;
   }
 }
 

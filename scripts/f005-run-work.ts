@@ -52,6 +52,7 @@ import {
 import {
   flushF005ArtifactDirectory,
   startF005NativeCapacitySession,
+  type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
 import {
   createF005CapacityRecorder,
@@ -402,6 +403,11 @@ const F005_FAILURE_CODES = new Set([
   'F005_VOICE_NATIVE_OBSERVE_FAILED',
   'F005_VOICE_PLAN_INVALID',
   'F005_ETW_PRIVILEGE_REQUIRED',
+  'F005_ETW_PROCESS_START_KEY_MISSING',
+  'F005_ETW_PROCESS_START_KEY_PROBE_FAILED',
+  'F005_ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH',
+  'F005_ETW_PROCESS_START_KEY_PROBE_REQUIRED',
+  'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT',
   'F005_ETW_ALLOCATED_LENGTH_MISSING',
   'F005_ETW_BUFFER_LOSS',
   'F005_ETW_CALLBACK_FAILED',
@@ -771,7 +777,19 @@ async function main(): Promise<void> {
     f005CapacityCandidateSha256(context),
   );
   const session = await enterF005ProductionSession(
-    async () => ({ workspace, owner: OWNER, workId, candidateSha256 }),
+    async () => ({
+      workspace,
+      owner: OWNER,
+      workId,
+      candidateSha256,
+      onStartupFailure: (code: F005NativeCapacityErrorCode) =>
+        new Promise<void>((resolveWrite, rejectWrite) => {
+          process.stderr.write(
+            `F005_NATIVE_START_FAILURE=${code}\n`,
+            (error) => error ? rejectWrite(error) : resolveWrite(),
+          );
+        }),
+    }),
     (tuple) => startF005NativeCapacitySession(tuple),
     async (_tuple, startedSession) => startedSession,
   );

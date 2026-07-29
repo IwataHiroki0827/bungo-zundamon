@@ -222,6 +222,12 @@ describe('F005 production work runner', () => {
     expect(calls).toEqual(['read-only', 'preflight/start', 'mutation']);
   });
 
+  it('native session開始失敗は固定codeだけをguard停止前にstderrへflushする', async () => {
+    const source = await readFile(resolve('scripts/f005-run-work.ts'), 'utf8');
+    expect(source).toContain('F005_NATIVE_START_FAILURE=${code}');
+    expect(source).toContain('onStartupFailure: (code: F005NativeCapacityErrorCode)');
+  });
+
   it('capacity candidateは候補file SHAではなくApproved Context結合SHAとして照合する', () => {
     const candidateText = canonicalJson([{ candidateId: 'candidate-1' }]);
     const approvedContextSha = H('approved-context');

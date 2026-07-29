@@ -189,6 +189,17 @@ function validJournal(): Record<string, unknown> {
   };
 }
 
+it('startup失敗の固定codeをflushしてからkill-on-close guardを停止する', async () => {
+  const source = await readFile(resolve('src/content/f005-native-guard.ts'), 'utf8');
+  const failurePath = source.slice(
+    source.indexOf('const failure = error instanceof F005NativeCapacityError'),
+    source.indexOf('export interface CapacityJournalV3'),
+  );
+  expect(failurePath).toContain('await options.onStartupFailure?.(failure.code)');
+  expect(failurePath.indexOf('await options.onStartupFailure?.(failure.code)'))
+    .toBeLessThan(failurePath.indexOf('guard.terminate()'));
+});
+
 describe('F005 native ETW capacity guard', () => {
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-019 FUN-F005-047 @test UT-F005-019 UT-F005-047 */
   it('closed CapacityJournalV3のETW・notice・容量・body sealを再計算する', () => {
