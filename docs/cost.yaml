@@ -512,3 +512,10 @@ entries:
   agents: 2
   est_tokens: 12000
   note: capacity candidateを台詞候補file SHAと誤比較する実データ不整合をApproved Context結合SHA正本へ統一。重点44件・全1241件、型・lint・build・audit・独立受入をPASSしcommit 7329f55をpush。clean HEAD実行はF005_ETW_PRIVILEGE_REQUIREDで音声生成前に安全停止、public差分0
+- date: '2026-07-29'
+  phase: test
+  task: T-077 CHG-F005-003 native再現build・hosted ETW検証
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: PathMapとsource revision非埋込みでcheckout path・Git commit非依存の固定binary SHA 1846897e...9813へ統一。local/source-only/hosted Windows、重点97件・全1241件、型・lint・697 files build・audit 0・public差分0、独立再レビューHigh/Medium/Low 0をPASS。Actions run 30445446783でkernel FileIO ETW正常系を確認

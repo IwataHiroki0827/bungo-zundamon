@@ -8,9 +8,10 @@
 - 最新原典再確認commit: `d086208`
 - 二段受入commit: `8e0aa42`
 - runner SHA正本修正・実preflight commit: `7329f55`
+- native再現build・hosted ETW commit: `196260407b99bed8f6978016d659b3847683c4bb`
 - 判定: **継続中（T-070は未完了）**
 - 二段作品受入・runner独立受け入れ: High 0 / Medium 0 / Low 0
-- 残件: 手動昇格なしでkernel ETWを利用できる環境での実音声生成・作品受入
+- 残件: kernel ETW正常系を確認したhosted Windowsでの実音声生成・作品受入
 
 ## 完了した作業
 
@@ -34,6 +35,7 @@
 - commit `7329f55`のclean HEADでproduction runnerを実行し、Approved Context SHA照合まで通過した。
 - 固定native binaryの実preflightは`F005_ETW_PRIVILEGE_REQUIRED`で停止した。現在のCodex processはMedium integrityであり、kernel ETW正常系を開始できない。
 - 手動UACや監視なしfallbackは使用していない。したがって音声生成、accepted audio、manifest `accepted`、`public`更新は行っていない。
+- 後続CHG-F005-003でnative buildからcheckout pathとGit commit SHAを排除した。Actions run `30445446783`は固定binary SHA `1846897e...9813`、容量ABI `f005-capacity-pipe-v3`、ETW `kernel-fileio`をすべてPASSし、手動操作不要の実行環境を確保した。
 
 ## 検証結果
 
@@ -56,6 +58,6 @@
 
 ## 次の作業
 
-1. 手動操作なしでkernel ETWを利用できる実行環境になった時点でproduction runnerを再実行する。
+1. commit固定・候補branch限定・Pages非公開のhosted Windows workflowでproduction runnerを再実行する。
 2. runner内の容量再計測を通過した場合だけ、62音声を生成する。
 3. native closed journalと全証拠を再読込し、`000799`を作品単位でatomic acceptedへ昇格する。

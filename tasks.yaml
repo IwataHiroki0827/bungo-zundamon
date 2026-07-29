@@ -1645,7 +1645,7 @@ tasks:
   title: CHG-F005-003 native buildのcheckout path・commit非依存化と影響再試験
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-069
   tags:
@@ -1659,3 +1659,5 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-29T19:55:09+09:00'
+  result: PathMapとsource revision非埋込みで固定binary SHA 1846897e...9813へ統一。local/source-only/hosted Windows、重点97件・全1241件、型・lint・build・audit・public差分0、独立再レビューHigh/Medium/Low 0をPASS。Actions run 30445446783でkernel ETW正常系もPASS

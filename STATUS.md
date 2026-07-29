@@ -1,11 +1,10 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-29T18:35:00+09:00
+updated: 2026-07-29T19:55:09+09:00
 next_actions:
-  - "手動昇格なしでkernel ETWを利用できる実行環境になった時点で、T-070 production runnerを再実行して夢十夜62音声を生成・受入する"
-blocked_by:
-  - "現在のMedium integrity processでは固定native guardがETW_PRIVILEGE_REQUIREDでfail-closedする"
+  - "kernel ETW正常系を確認したGitHub hosted WindowsでT-070 production runnerを実行し、夢十夜62音声を候補branchへ生成・作品単位受入する"
+blocked_by: []
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
@@ -50,20 +49,21 @@ blocked_by:
 - T-069で`proofreader: null`をF005「夢十夜」だけに限定してCatalog/UI/creditsへ「記載なし」で統合した。mint済みfinal Catalog、独自生成した夏目漱石画像とcanonical provenance、exact 7 route、通常入口全閉・お気に入りone-shot展開・自動再生0を実装した。全65 files・1105 tests、重点310 tests、型・lint・697 files build、audit 0、独立受入High/Medium/Low 0をPASSし、public差分0を確認した。
 - T-070は「夢十夜」65候補を独立二重レビューし、63採用・2除外・保留0、62音声、追加見積り12,521,800 bytesを確定した。保存selectionの再開検証、最新predeploy権利`allow`、planned audio込み容量予測、native ETW台帳、preview/受入証拠の意味結合に加え、production runnerを実装した。commit `7329f55`のclean HEADで実行し、Approved Context SHA照合を通過後、native ETW preflightが`F005_ETW_PRIVILEGE_REQUIRED`で音声生成前に安全停止した。
 - CHG-F005-002で、closed容量actualを同一session内のaccept前に要求していた循環を、1作品1sessionのartifact stage→session close→actual→metadata finalizeへ分離した。native identity必須CAS、全transaction事前走査、phase別crash回復を実装し、重点180件・全1240件、型・lint・build・audit・公開tree不変、独立受入High/Medium/Low 0をPASSしてT-076と変更管理を完了した。
+- CHG-F005-003/T-077でnative buildからcheckout絶対pathとGit commit SHAを排除し、固定binary SHA `1846897e...9813`へ統一した。local/source-only/hosted Windows build、全1241試験、独立再レビューをPASSし、Actions run `30445446783`で容量ABI v3とkernel FileIO ETW正常系を確認した。
 
 ## 直近の作業（最新5件）
 
+- T-077でnative buildをcheckout path・commit非依存化し、Actions run 30445446783でhosted Windows kernel ETW正常系までPASS
 - T-070 runnerのcapacity candidate SHAをApproved Context正本へ統一し、全1241試験・独立受入をPASS。clean HEAD実行はETW権限不足で音声生成前に安全停止
 - T-076で二段作品受入、native identity必須CAS、全transaction事前走査、phase別回復を実装し、全1240試験・独立受入を完了
 - T-070で夢十夜の原典・二重レビュー・62音声plan・容量予測・native ETW/受入基盤・production runnerを実装し、実音声生成前で安全停止
 - T-069でnullable書誌・夏目Catalog・独自画像・7 route・お気に入り統合を実装し、全1105試験・独立受入を完了
-- T-068でF005基盤とnative path guardを実装し、registry三段階migration・全1053試験・独立受入を完了
 
 ## 次のアクション
 
-- 手動操作なしでkernel ETWを利用できる実行環境になった時点でproduction runnerを再実行し、「夢十夜」62音声・作品単位atomic受入を実施する。
+- hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行し、「夢十夜」62音声・作品単位atomic受入を実施する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerは実装済み。commit `7329f55`のclean HEADで固定native guardが`F005_ETW_PRIVILEGE_REQUIRED`により停止した。監視なしfallbackと手動UACは使用しない。
+- T-070 production runnerは実装済みで、hosted Windowsのkernel ETW preflightはPASSした。VOICEVOX取得、生成物永続化、候補branch限定、公開禁止を固定したworkflowから実音声生成する必要がある。

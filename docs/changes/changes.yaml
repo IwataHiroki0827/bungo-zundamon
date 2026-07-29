@@ -11,7 +11,10 @@ changes:
   - UT-F005-043
   - T-070
   - T-077
-  status: in-review
+  status: done
+  approved_by: 設計独立再レビューHigh/Medium/Low 0、local/source-only/hosted再現buildとkernel ETW preflight PASS
+  completed_at: '2026-07-29T19:55:09+09:00'
+  result: checkout path・Git commit非依存binary SHAを固定。全1241試験、重点97試験、型、lint、build、audit、公開tree不変をPASSし、Actions run 30445446783でhosted Windows kernel ETW正常系を確認
 - id: CHG-F005-002
   date: '2026-07-29'
   trigger: T-070 production runner設計照合で、closed容量actualのSHAをETW監視session内のaccept前に要求する循環を検出
