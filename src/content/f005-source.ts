@@ -57,6 +57,7 @@ const SHUMI_ENTITY_CONTEXT = '<td>&nbsp;&nbsp;</td>';
 const SHUMI_NORMALIZED_CONTEXT = '<td>&#160;&#160;</td>';
 const WINDOWS_RESERVED = /^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/iu;
 const PERCENT_SEPARATOR = /%(?:2f|5c)/iu;
+const NATIVE_FILE_IDENTITY = /^[0-9a-f]{8}:[0-9a-f]{16}$/u;
 const F005_POLICY_IDS = Object.freeze([
   'voicevox-terms',
   'zundamon-audio-terms',
@@ -68,6 +69,7 @@ export const F005_SELECTION_SNAPSHOT_PATH =
 
 export const F005_NATIVE_GUARD_PINS = Object.freeze({
   abi: 'f005-guard-jsonl-v1',
+  capacityAbi: 'f005-capacity-pipe-v3',
   rid: 'win-x64',
   sdkVersion: '9.0.316',
   runtimeVersion: '9.0.18',
@@ -76,7 +78,7 @@ export const F005_NATIVE_GUARD_PINS = Object.freeze({
   runtimeZipSha512:
     '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8',
   outputBinarySha256:
-    '57b08db339714b8c44462bb12cd9bd16cc32e4af2fe07169233d6b2b69c7390b',
+    'a184eaa2fa9936dc63079a499fb3c062c040cec986e0b71c6d0664a3f9b23277',
 } as const);
 
 export const F005_WORKS = Object.freeze([
@@ -268,11 +270,22 @@ export interface SafeFileIdentity {
   readonly mtimeMs: number;
 }
 
+export type F005NativeFileIdentity = `${string}:${string}`;
+
+export interface SafeWorkspaceFileSnapshot {
+  readonly relativePosixPath: string;
+  readonly byteLength: number;
+  readonly contentSha256: string;
+  readonly nativeIdentity: F005NativeFileIdentity;
+}
+
 export interface SafeFileHandle {
   readonly __brand: 'SafeFileCapability';
   readonly relativePosixPath: string;
-  readonly operation: 'read' | 'rename-source';
+  readonly operation: 'read' | 'rename-source' | 'delete-source';
   readonly exists: boolean;
+  readonly contentSha256: string;
+  readonly nativeIdentity: F005NativeFileIdentity;
   readonly identity: SafeFileIdentity | null;
   readonly parentIdentity: SafeFileIdentity;
 }
@@ -280,6 +293,7 @@ export interface SafeFileHandle {
 export interface F005NativeGuardBuildEvidence {
   readonly schemaVersion: '1.0.0';
   readonly abi: typeof F005_NATIVE_GUARD_PINS.abi;
+  readonly capacityAbi: typeof F005_NATIVE_GUARD_PINS.capacityAbi;
   readonly rid: typeof F005_NATIVE_GUARD_PINS.rid;
   readonly sdkVersion: typeof F005_NATIVE_GUARD_PINS.sdkVersion;
   readonly runtimeVersion: typeof F005_NATIVE_GUARD_PINS.runtimeVersion;
@@ -311,6 +325,7 @@ const safeCapabilityState = new WeakMap<object, {
   readonly capabilityId: string;
   readonly bytes: number;
   readonly sha256: string;
+  readonly nativeIdentity: F005NativeFileIdentity;
   active: boolean;
 }>();
 
@@ -1623,7 +1638,11 @@ export async function normalizeAozoraXhtmlEntities(
         stagingRelativePath,
         'rename-source',
       );
-      await renameSafeWorkspaceFile(stagingCapability, relativePath);
+      await renameSafeWorkspaceFile(
+        stagingCapability,
+        relativePath,
+        stagingCapability.nativeIdentity,
+      );
     } finally {
       await rm(stagingPath, { force: true });
       try {
@@ -1938,6 +1957,10 @@ class F005NativeGuardClient {
   async closeCapability(capabilityId: string): Promise<void> {
     const reply = await this.command({ op: 'close', capabilityId });
     if (!reply.ok) throw new Error(`guard close rejected: ${String(reply.error)}`);
+    await this.finishAfterCapabilityConsumed();
+  }
+
+  async finishAfterCapabilityConsumed(): Promise<void> {
     this.child.stdin.end();
     const exit = await this.waitForExit();
     if (exit.code !== 0) throw new Error(`guard exit ${String(exit.code)} signal=${String(exit.signal)}`);
@@ -1994,8 +2017,12 @@ export async function resolveSafeWorkspaceFile(
   rootHandle: string,
   relativePosixPath: string,
   operation: SafeFileHandle['operation'],
+  expectedNativeIdentity?: F005NativeFileIdentity,
 ): Promise<SafeFileHandle> {
-  if (!isAbsolute(rootHandle) || !['read', 'rename-source'].includes(operation)) {
+  if (!isAbsolute(rootHandle) ||
+    !['read', 'rename-source', 'delete-source'].includes(operation) ||
+    (expectedNativeIdentity !== undefined &&
+      !NATIVE_FILE_IDENTITY.test(expectedNativeIdentity))) {
     throw guardFailure('rootまたはoperationが不正です');
   }
   safePathSegments(relativePosixPath);
@@ -2010,16 +2037,30 @@ export async function resolveSafeWorkspaceFile(
     });
     if (
       !reply.ok ||
+      !hasExactKeys(reply, [
+        'bytes',
+        'capabilityId',
+        'nativeIdentity',
+        'ok',
+        'sha256',
+      ]) ||
+      reply.capabilityId !== capabilityId ||
       !Number.isSafeInteger(reply.bytes) ||
       (reply.bytes as number) < 0 ||
       typeof reply.sha256 !== 'string' ||
-      !/^[0-9a-f]{64}$/u.test(reply.sha256)
+      !/^[0-9a-f]{64}$/u.test(reply.sha256) ||
+      typeof reply.nativeIdentity !== 'string' ||
+      !NATIVE_FILE_IDENTITY.test(reply.nativeIdentity) ||
+      (expectedNativeIdentity !== undefined &&
+        reply.nativeIdentity !== expectedNativeIdentity)
     ) {
       throw new Error(`guard open rejected: ${String(reply.error)}`);
     }
+    const nativeIdentity = reply.nativeIdentity as F005NativeFileIdentity;
+    const [volumeSerial, fileIndex] = nativeIdentity.split(':') as [string, string];
     const fileIdentity = deepFreeze({
-      dev: 'native-guard',
-      ino: reply.sha256,
+      dev: volumeSerial,
+      ino: fileIndex,
       size: reply.bytes as number,
       mtimeMs: 0,
     });
@@ -2028,6 +2069,8 @@ export async function resolveSafeWorkspaceFile(
       relativePosixPath,
       operation,
       exists: true,
+      contentSha256: reply.sha256,
+      nativeIdentity,
       identity: fileIdentity,
       parentIdentity: deepFreeze({
         dev: 'native-guard',
@@ -2041,6 +2084,7 @@ export async function resolveSafeWorkspaceFile(
       capabilityId,
       bytes: reply.bytes as number,
       sha256: reply.sha256,
+      nativeIdentity,
       active: true,
     });
     return capability;
@@ -2056,6 +2100,25 @@ export async function assertSafeWorkspaceFileCapability(capability: SafeFileHand
   if (!state || capability.__brand !== 'SafeFileCapability' || !state.active || !state.client.alive) {
     throw guardFailure('有効なnative SafeFile capabilityが必要です');
   }
+}
+
+/** pre-scanと後続CASをcontent SHAとnative file identityへ別々に結合する。 */
+export function snapshotSafeWorkspaceFileCapability(
+  capability: SafeFileHandle,
+): Readonly<SafeWorkspaceFileSnapshot> {
+  const state = isRecord(capability) ? safeCapabilityState.get(capability) : undefined;
+  if (!state || capability.__brand !== 'SafeFileCapability' ||
+    !state.active || !state.client.alive ||
+    capability.contentSha256 !== state.sha256 ||
+    capability.nativeIdentity !== state.nativeIdentity) {
+    throw guardFailure('有効なnative SafeFile capability snapshotが必要です');
+  }
+  return deepFreeze({
+    relativePosixPath: capability.relativePosixPath,
+    byteLength: state.bytes,
+    contentSha256: state.sha256,
+    nativeIdentity: state.nativeIdentity,
+  });
 }
 
 /** 同一native handleから一度だけreadし、SHA/bytes検証後にcloseする。 */
@@ -2091,12 +2154,18 @@ export async function readSafeWorkspaceFile(capability: SafeFileHandle): Promise
 export async function renameSafeWorkspaceFile(
   capability: SafeFileHandle,
   relativeTarget: string,
+  expectedNativeIdentity: F005NativeFileIdentity,
 ): Promise<void> {
   await assertSafeWorkspaceFileCapability(capability);
   const state = safeCapabilityState.get(capability)!;
   try {
     safePathSegments(relativeTarget);
-    if (capability.operation !== 'rename-source') throw guardFailure('rename-source capabilityではありません');
+    if (capability.operation !== 'rename-source' ||
+      !NATIVE_FILE_IDENTITY.test(expectedNativeIdentity) ||
+      capability.nativeIdentity !== expectedNativeIdentity ||
+      state.nativeIdentity !== expectedNativeIdentity) {
+      throw guardFailure('rename-source native identityが一致しません');
+    }
     const reply = await state.client.command({
       op: 'rename',
       capabilityId: state.capabilityId,
@@ -2111,6 +2180,45 @@ export async function renameSafeWorkspaceFile(
     state.active = false;
     await state.client.abortAndWait();
     throw guardFailure('native guard rename/closeに失敗しました', error);
+  }
+}
+
+/**
+ * open時からwrite/delete共有を拒否した同一native handleのidentityとSHAを再検証し、
+ * FileDispositionInfoでそのidentityだけをdelete-pendingにしてhandleをcloseする。
+ * path名へのunlink fallbackは持たない。
+ * @des DES-F005-006 DES-F005-011 @fun FUN-F005-043 @ut UT-F005-043
+ */
+export async function deleteSafeWorkspaceFile(
+  capability: SafeFileHandle,
+  expectedNativeIdentity: F005NativeFileIdentity,
+): Promise<void> {
+  await assertSafeWorkspaceFileCapability(capability);
+  const state = safeCapabilityState.get(capability)!;
+  try {
+    if (capability.operation !== 'delete-source' ||
+      !NATIVE_FILE_IDENTITY.test(expectedNativeIdentity) ||
+      capability.nativeIdentity !== expectedNativeIdentity ||
+      state.nativeIdentity !== expectedNativeIdentity) {
+      throw guardFailure('delete-source native identityが一致しません');
+    }
+    const reply = await state.client.command({
+      op: 'delete',
+      capabilityId: state.capabilityId,
+    });
+    if (!reply.ok ||
+      !hasExactKeys(reply, ['capabilityId', 'ok', 'relativePath', 'sha256']) ||
+      reply.capabilityId !== state.capabilityId ||
+      reply.relativePath !== capability.relativePosixPath ||
+      reply.sha256 !== state.sha256) {
+      throw new Error(`guard delete rejected: ${String(reply.error)}`);
+    }
+    state.active = false;
+    await state.client.finishAfterCapabilityConsumed();
+  } catch (error) {
+    state.active = false;
+    await state.client.abortAndWait();
+    throw guardFailure('native guard identity deleteに失敗しました', error);
   }
 }
 
@@ -2171,11 +2279,12 @@ export function verifyF005NativeGuardBuildEvidence(
   if (
     !isRecord(evidence) ||
     Object.keys(evidence).sort().join(',') !==
-      'abi,apphostSha256,globalJsonSha256,outputBinarySha256,outputBytes,programSha256,projectSha256,rid,runtimeVersion,runtimeZipSha512,schemaVersion,sdkVersion,sdkZipSha512' ||
+      'abi,apphostSha256,capacityAbi,globalJsonSha256,outputBinarySha256,outputBytes,programSha256,projectSha256,rid,runtimeVersion,runtimeZipSha512,schemaVersion,sdkVersion,sdkZipSha512' ||
     evidence.schemaVersion !== '1.0.0' ||
     inputs.apphost.byteLength === 0 ||
     inputs.outputBinary.byteLength === 0 ||
     evidence.abi !== F005_NATIVE_GUARD_PINS.abi ||
+    evidence.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
     evidence.rid !== F005_NATIVE_GUARD_PINS.rid ||
     evidence.sdkVersion !== F005_NATIVE_GUARD_PINS.sdkVersion ||
     evidence.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||

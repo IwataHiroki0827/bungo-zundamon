@@ -1,16 +1,18 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
+import { execFile } from 'node:child_process';
 import {
   lstat,
   mkdir,
+  open,
   readFile,
   readdir,
   realpath,
-  rename,
   rm,
   rmdir,
   writeFile,
 } from 'node:fs/promises';
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { promisify } from 'node:util';
 
 import {
   hashBatchManifest,
@@ -26,7 +28,20 @@ import {
   isMintedF005ApprovedBatchContext,
   type F005ApprovedBatchContext,
 } from './f005-context.ts';
-import { isMintedF005NativeCapacityBackend } from './f005-native-guard.ts';
+import {
+  flushF005ArtifactDirectory,
+  isMintedF005NativeCapacityBackend,
+  readF005NativeCapacityJournalFile,
+} from './f005-native-guard.ts';
+import {
+  assertSafeWorkspaceFileCapability,
+  closeSafeWorkspaceFile,
+  deleteSafeWorkspaceFile,
+  renameSafeWorkspaceFile,
+  resolveSafeWorkspaceFile,
+  snapshotSafeWorkspaceFileCapability,
+  type F005NativeFileIdentity,
+} from './f005-source.ts';
 import type { V040Baseline } from './f005-foundation.ts';
 
 const WORK_IDS = ['000799', '001076', '001104'] as const;
@@ -37,14 +52,17 @@ const PREVIEW_ARTIFACT_KINDS = [
   'content-build',
   'content-staging',
   'dist',
-  'actual-capacity-report',
   'f001-content-invariant-report',
   'f001-dist-invariant-report',
 ] as const;
 const EVIDENCE_KINDS = ['source', 'review', 'audio', 'license', 'notice', 'artwork'] as const;
 const previews = new WeakSet<object>();
 const preparedValues = new WeakSet<object>();
+const promotedValues = new WeakSet<object>();
 const recorders = new WeakSet<object>();
+const execFileAsync = promisify(execFile);
+const CURRENT_PROCESS_START_EPOCH_MS =
+  Math.floor(Date.now() - process.uptime() * 1000);
 
 export type F005AcceptanceErrorCode =
   | 'F005_PREVIEW_INVALID'
@@ -134,11 +152,32 @@ async function readSafeFile(
       const info = await lstat(cursor);
       if (info.isSymbolicLink()) fail(code, 'pathにlink/reparseがあります');
     }
-    const info = await lstat(target);
-    if (!info.isFile() || await realpath(target) !== target) {
+    const before = await lstat(target);
+    if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1 ||
+      await realpath(target) !== target) {
       fail(code, 'canonical regular fileではありません');
     }
-    return new Uint8Array(await readFile(target));
+    const handle = await open(target, 'r');
+    try {
+      const during = await handle.stat();
+      if (!during.isFile() || during.nlink !== 1 ||
+        during.dev !== before.dev || during.ino !== before.ino ||
+        during.size !== before.size || during.mtimeMs !== before.mtimeMs) {
+        fail(code, 'artifact identityがread前に変化しました');
+      }
+      const bytes = new Uint8Array(await handle.readFile());
+      const [afterHandle, afterPath] = await Promise.all([handle.stat(), lstat(target)]);
+      if (!afterPath.isFile() || afterPath.isSymbolicLink() || afterPath.nlink !== 1 ||
+        afterHandle.dev !== during.dev || afterHandle.ino !== during.ino ||
+        afterHandle.size !== during.size || afterHandle.mtimeMs !== during.mtimeMs ||
+        afterPath.dev !== during.dev || afterPath.ino !== during.ino ||
+        afterPath.size !== during.size || afterPath.mtimeMs !== during.mtimeMs) {
+        fail(code, 'artifact identityがread中に変化しました');
+      }
+      return bytes;
+    } finally {
+      await handle.close();
+    }
   } catch (error) {
     if (error instanceof F005AcceptanceError) throw error;
     return fail(code, 'canonical artifact実体を検証できません', error);
@@ -265,7 +304,6 @@ export interface F005PreviewArtifacts {
   readonly contentBuild: F005ArtifactRef<'content-build'>;
   readonly contentStaging: F005ArtifactRef<'content-staging'>;
   readonly dist: F005ArtifactRef<'dist'>;
-  readonly actualCapacityReport: F005ArtifactRef<'actual-capacity-report'>;
   readonly f001ContentInvariantReport: F005ArtifactRef<'f001-content-invariant-report'>;
   readonly f001DistInvariantReport: F005ArtifactRef<'f001-dist-invariant-report'>;
 }
@@ -352,7 +390,6 @@ function previewArtifactRefs(
     ['content-build', artifacts.contentBuild],
     ['content-staging', artifacts.contentStaging],
     ['dist', artifacts.dist],
-    ['actual-capacity-report', artifacts.actualCapacityReport],
     ['f001-content-invariant-report', artifacts.f001ContentInvariantReport],
     ['f001-dist-invariant-report', artifacts.f001DistInvariantReport],
   ];
@@ -435,7 +472,7 @@ export async function prepareF005WorkPreview(
   exactDataObject(stagedWork, ['mode', 'workId', 'files'], 'F005_PREVIEW_INVALID', 'stagedWork');
   exactDataObject(artifacts, [
     'workspaceRoot', 'previewRoot', 'contentBuild', 'contentStaging', 'dist',
-    'actualCapacityReport', 'f001ContentInvariantReport', 'f001DistInvariantReport',
+    'f001ContentInvariantReport', 'f001DistInvariantReport',
   ], 'F005_PREVIEW_INVALID', 'preview artifacts');
   if (stagedWork.mode !== 'staged' || !WORK_IDS.includes(stagedWork.workId as typeof WORK_IDS[number]) ||
     !isAbsolute(artifacts.workspaceRoot) || !isAbsolute(artifacts.previewRoot) ||
@@ -466,11 +503,10 @@ export async function prepareF005WorkPreview(
     contentBuild: verifiedArtifactRefs[0] as F005ArtifactRef<'content-build'>,
     contentStaging: verifiedArtifactRefs[1] as F005ArtifactRef<'content-staging'>,
     dist: verifiedArtifactRefs[2] as F005ArtifactRef<'dist'>,
-    actualCapacityReport: verifiedArtifactRefs[3] as F005ArtifactRef<'actual-capacity-report'>,
     f001ContentInvariantReport:
-      verifiedArtifactRefs[4] as F005ArtifactRef<'f001-content-invariant-report'>,
+      verifiedArtifactRefs[3] as F005ArtifactRef<'f001-content-invariant-report'>,
     f001DistInvariantReport:
-      verifiedArtifactRefs[5] as F005ArtifactRef<'f001-dist-invariant-report'>,
+      verifiedArtifactRefs[4] as F005ArtifactRef<'f001-dist-invariant-report'>,
   });
   const stagedIndex = WORK_IDS.indexOf(stagedWork.workId as typeof WORK_IDS[number]);
   if (acceptedWorks.length !== stagedIndex || acceptedWorks.some((work, index) => {
@@ -590,7 +626,10 @@ export interface PreparedF005WorkAcceptance {
     readonly bytes: number;
     readonly configHash: Sha256;
   }[];
-  readonly transitionEvidence: Omit<PreparedWorkAcceptanceEvidence, 'acceptedAt' | 'acceptedBy'>;
+  readonly transitionEvidence: Omit<
+    PreparedWorkAcceptanceEvidence,
+    'acceptedAt' | 'acceptedBy' | 'actualCapacityReportSha'
+  >;
   readonly preparedSha256: Sha256;
 }
 
@@ -726,7 +765,7 @@ export async function prepareF005WorkAcceptance(
     bytes: file.bytes,
     configHash: file.configHash,
   }));
-  const transitionEvidence: Omit<PreparedWorkAcceptanceEvidence, 'acceptedAt' | 'acceptedBy'> = freezeDeep({
+  const transitionEvidence: PreparedF005WorkAcceptance['transitionEvidence'] = freezeDeep({
     kind: 'accepted' as const,
     batchId: 'F005' as PreparedWorkAcceptanceEvidence['batchId'],
     workId: id,
@@ -737,7 +776,6 @@ export async function prepareF005WorkAcceptance(
     contentBuildSha: preview.artifacts.contentBuild.sha256,
     contentStagingSha: preview.artifacts.contentStaging.sha256,
     distSha: preview.artifacts.dist.sha256,
-    actualCapacityReportSha: preview.artifacts.actualCapacityReport.sha256,
     f001ContentInvariantReportSha: preview.artifacts.f001ContentInvariantReport.sha256,
     f001DistInvariantReportSha: preview.artifacts.f001DistInvariantReport.sha256,
     journalId: capacityRecorder.journalId,
@@ -763,29 +801,52 @@ export async function prepareF005WorkAcceptance(
   return prepared;
 }
 
-type AcceptanceJournalPhase = 'prepared' | 'artifacts-committed' | 'manifest-committed' | 'closed';
+type AcceptanceJournalPhase =
+  | 'prepared'
+  | 'artifacts-committed'
+  | 'capacity-measured'
+  | 'manifest-committed'
+  | 'closed';
 
-interface F005LogicalAcceptanceJournal {
-  readonly schemaVersion: 1;
-  readonly phase: AcceptanceJournalPhase;
+interface WorkAcceptanceJournalV3 {
+  readonly schemaVersion: 3;
   readonly owner: string;
-  readonly recorderJournalId: Sha256;
-  readonly phaseInstanceId: Sha256;
   readonly workId: WorkId;
-  readonly expectedManifestSha: Sha256;
-  readonly nextManifestSha: Sha256;
+  readonly candidateSha256: Sha256;
+  readonly recorderJournalId: Sha256;
+  readonly phase: AcceptanceJournalPhase;
+  readonly previousPhaseJournalSha256: Sha256 | null;
+  readonly journalSha256: Sha256;
+  readonly expectedManifestSha256: Sha256;
+  readonly nextManifestSha256: Sha256 | null;
+  readonly manifestPath: string;
   readonly manifestBackupPath: string;
   readonly manifestNextPath: string;
-  readonly operations: PreparedF005WorkAcceptance['operations'];
-  readonly journalSha256: Sha256;
+  readonly entries: readonly {
+    readonly path: string;
+    readonly oldSha256: Sha256 | null;
+    readonly newSha256: Sha256;
+    readonly stagedPath: string;
+    readonly backupPath: string | null;
+  }[];
+  readonly evidenceRefs: readonly { readonly path: string; readonly sha256: Sha256 }[];
+  readonly capacityJournalPath: string;
+  readonly capacityJournalSha256: Sha256 | null;
+  readonly actualCapacityReportPath: string;
+  readonly actualCapacityReportSha256: Sha256 | null;
 }
 
-type F005LogicalAcceptanceJournalBase =
-  Omit<F005LogicalAcceptanceJournal, 'schemaVersion' | 'phase' | 'journalSha256'>;
-
-function journalCore(value: Omit<F005LogicalAcceptanceJournal, 'journalSha256'>): Omit<F005LogicalAcceptanceJournal, 'journalSha256'> {
-  return value;
-}
+const JOURNAL_KEYS = [
+  'schemaVersion', 'owner', 'workId', 'candidateSha256', 'recorderJournalId',
+  'phase', 'previousPhaseJournalSha256', 'journalSha256',
+  'expectedManifestSha256', 'nextManifestSha256',
+  'manifestPath', 'manifestBackupPath', 'manifestNextPath',
+  'entries', 'evidenceRefs', 'capacityJournalPath', 'capacityJournalSha256',
+  'actualCapacityReportPath', 'actualCapacityReportSha256',
+] as const;
+const JOURNAL_PHASES = [
+  'prepared', 'artifacts-committed', 'capacity-measured', 'manifest-committed', 'closed',
+] as const;
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -800,10 +861,693 @@ async function exists(path: string): Promise<boolean> {
 async function fileSha(path: string): Promise<Sha256 | null> {
   if (!await exists(path)) return null;
   const info = await lstat(path);
-  if (!info.isFile() || info.isSymbolicLink()) {
+  if (!info.isFile() || info.isSymbolicLink() || info.nlink !== 1 || await realpath(path) !== path) {
     fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transaction pathがregular fileではありません');
   }
   return sha(new Uint8Array(await readFile(path)));
+}
+
+async function nativeRenameTargetAbsent(
+  root: string,
+  sourceRelativePath: string,
+  targetRelativePath: string,
+  expectedSourceSha256: Sha256,
+  code: F005AcceptanceErrorCode,
+  expectedNativeIdentity: F005NativeFileIdentity,
+): Promise<F005NativeFileIdentity> {
+  if (!SAFE_PATH.test(sourceRelativePath) || !SAFE_PATH.test(targetRelativePath) ||
+    sourceRelativePath === targetRelativePath || !SHA256.test(expectedSourceSha256)) {
+    fail(code, 'native rename tupleが不正です');
+  }
+  let capability: Awaited<ReturnType<typeof resolveSafeWorkspaceFile>> | undefined;
+  let renamedNativeIdentity: F005NativeFileIdentity | undefined;
+  try {
+    capability = await resolveSafeWorkspaceFile(
+      root,
+      sourceRelativePath,
+      'rename-source',
+      expectedNativeIdentity,
+    );
+    await assertSafeWorkspaceFileCapability(capability);
+    const snapshot = snapshotSafeWorkspaceFileCapability(capability);
+    if (snapshot.contentSha256 !== expectedSourceSha256 ||
+      snapshot.nativeIdentity !== expectedNativeIdentity) {
+      fail(code, 'native rename source SHAがexpected CASと一致しません');
+    }
+    renamedNativeIdentity = snapshot.nativeIdentity;
+    await renameSafeWorkspaceFile(
+      capability,
+      targetRelativePath,
+      snapshot.nativeIdentity,
+    );
+  } catch (error) {
+    if (error instanceof F005AcceptanceError) throw error;
+    return fail(code, 'native target-absent rename CASに失敗しました', error);
+  } finally {
+    if (capability !== undefined) {
+      await closeSafeWorkspaceFile(capability).catch(() => undefined);
+    }
+  }
+  const sourceDirectory = dirname(join(root, ...sourceRelativePath.split('/')));
+  const targetDirectory = dirname(join(root, ...targetRelativePath.split('/')));
+  await syncDirectory(root, sourceDirectory, code);
+  if (targetDirectory !== sourceDirectory) {
+    await syncDirectory(root, targetDirectory, code);
+  }
+  if (await fileSha(join(root, ...targetRelativePath.split('/'))) !== expectedSourceSha256 ||
+    await fileSha(join(root, ...sourceRelativePath.split('/'))) !== null) {
+    fail(code, 'native rename post-read tupleが一致しません');
+  }
+  if (!renamedNativeIdentity) {
+    fail(code, 'native rename確定identityがありません');
+  }
+  await snapshotNativeFileIdentity(
+    root,
+    targetRelativePath,
+    expectedSourceSha256,
+    (await readSafeFile(root, targetRelativePath, code)).byteLength,
+    code,
+    renamedNativeIdentity,
+  );
+  return renamedNativeIdentity;
+}
+
+async function nativeDeleteExact(
+  root: string,
+  relativePath: string,
+  expectedSha256: Sha256,
+  code: F005AcceptanceErrorCode,
+  expectedNativeIdentity: F005NativeFileIdentity,
+): Promise<void> {
+  if (!SAFE_PATH.test(relativePath) || !SHA256.test(expectedSha256)) {
+    fail(code, 'native delete tupleが不正です');
+  }
+  let capability: Awaited<ReturnType<typeof resolveSafeWorkspaceFile>> | undefined;
+  try {
+    capability = await resolveSafeWorkspaceFile(
+      root,
+      relativePath,
+      'delete-source',
+      expectedNativeIdentity,
+    );
+    await assertSafeWorkspaceFileCapability(capability);
+    const snapshot = snapshotSafeWorkspaceFileCapability(capability);
+    if (snapshot.contentSha256 !== expectedSha256 ||
+      snapshot.nativeIdentity !== expectedNativeIdentity) {
+      fail(code, 'native delete source SHAがexpected identityと一致しません');
+    }
+    await deleteSafeWorkspaceFile(capability, snapshot.nativeIdentity);
+  } catch (error) {
+    if (error instanceof F005AcceptanceError) throw error;
+    return fail(code, 'held native exact identity deleteに失敗しました', error);
+  } finally {
+    if (capability !== undefined) {
+      await closeSafeWorkspaceFile(capability).catch(() => undefined);
+    }
+  }
+  const path = join(root, ...relativePath.split('/'));
+  await syncDirectory(root, dirname(path), code);
+  if (await fileSha(path) !== null) {
+    fail(code, 'native delete後のcanonical pathがexpected-absentではありません');
+  }
+}
+
+async function snapshotNativeFileIdentity(
+  root: string,
+  relativePath: string,
+  expectedSha256: Sha256,
+  expectedBytes: number,
+  code: F005AcceptanceErrorCode,
+  expectedNativeIdentity?: F005NativeFileIdentity,
+): Promise<F005NativeFileIdentity> {
+  let capability: Awaited<ReturnType<typeof resolveSafeWorkspaceFile>> | undefined;
+  try {
+    capability = await resolveSafeWorkspaceFile(
+      root,
+      relativePath,
+      'read',
+      expectedNativeIdentity,
+    );
+    await assertSafeWorkspaceFileCapability(capability);
+    const snapshot = snapshotSafeWorkspaceFileCapability(capability);
+    if (snapshot.relativePosixPath !== relativePath ||
+      snapshot.contentSha256 !== expectedSha256 ||
+      snapshot.byteLength !== expectedBytes ||
+      (expectedNativeIdentity !== undefined &&
+        snapshot.nativeIdentity !== expectedNativeIdentity)) {
+      fail(code, 'native identity snapshotのpath/SHA/bytesが一致しません');
+    }
+    return snapshot.nativeIdentity;
+  } catch (error) {
+    if (error instanceof F005AcceptanceError) throw error;
+    return fail(code, 'native identity snapshotに失敗しました', error);
+  } finally {
+    if (capability !== undefined) {
+      await closeSafeWorkspaceFile(capability).catch(() => undefined);
+    }
+  }
+}
+
+async function nativeRenameCurrentTargetAbsent(
+  root: string,
+  sourceRelativePath: string,
+  targetRelativePath: string,
+  expectedSourceSha256: Sha256,
+  code: F005AcceptanceErrorCode,
+): Promise<F005NativeFileIdentity> {
+  const bytes = await readSafeFile(root, sourceRelativePath, code);
+  if (sha(bytes) !== expectedSourceSha256) {
+    fail(code, 'rename pre-snapshot source SHAが一致しません');
+  }
+  const expectedNativeIdentity = await snapshotNativeFileIdentity(
+    root,
+    sourceRelativePath,
+    expectedSourceSha256,
+    bytes.byteLength,
+    code,
+  );
+  return nativeRenameTargetAbsent(
+    root,
+    sourceRelativePath,
+    targetRelativePath,
+    expectedSourceSha256,
+    code,
+    expectedNativeIdentity,
+  );
+}
+
+async function mutationNativeIdentity(
+  root: string,
+  relativePath: string,
+  expectedSha256: Sha256,
+  code: F005AcceptanceErrorCode,
+  plannedIdentities?: ReadonlyMap<string, F005NativeFileIdentity>,
+): Promise<F005NativeFileIdentity> {
+  const direct = plannedIdentities?.get(relativePath);
+  if (direct) return direct;
+  if (plannedIdentities) {
+    const prefix =
+      `${dirname(relativePath).replace(/\\/gu, '/')}/.${basename(relativePath)}.`;
+    for (const [candidate, identity] of plannedIdentities) {
+      if (candidate.startsWith(prefix) && candidate.endsWith('.tmp')) return identity;
+    }
+  }
+  const bytes = await readSafeFile(root, relativePath, code);
+  if (sha(bytes) !== expectedSha256) {
+    fail(code, 'mutation sourceのcurrent SHAが一致しません');
+  }
+  return snapshotNativeFileIdentity(
+    root,
+    relativePath,
+    expectedSha256,
+    bytes.byteLength,
+    code,
+  );
+}
+
+async function syncDirectory(
+  root: string,
+  path: string,
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+): Promise<void> {
+  try {
+    await flushF005ArtifactDirectory(root, resolve(path));
+  } catch (error) {
+    return fail(code, 'pinned native directory FlushFileBuffersに失敗しました', error);
+  }
+}
+
+interface CanonicalDurableTemp {
+  readonly relativePath: string;
+  readonly path: string;
+  readonly sha256: Sha256;
+  readonly bytes: Uint8Array;
+  readonly text: string;
+}
+
+function durableTempName(path: string, contentSha256: Sha256): string {
+  return `.${basename(path)}.${contentSha256}.tmp`;
+}
+
+async function findCanonicalDurableTemp(
+  root: string,
+  path: string,
+  code: F005AcceptanceErrorCode,
+): Promise<CanonicalDurableTemp | null> {
+  const parent = dirname(path);
+  const prefix = `.${basename(path)}.`;
+  const candidates = (await readdir(parent, { withFileTypes: true }))
+    .filter((entry) => entry.name.startsWith(prefix) && entry.name.endsWith('.tmp'))
+    .sort((left, right) => left.name.localeCompare(right.name, 'en'));
+  if (candidates.length > 1) {
+    fail(code, `${basename(path)} canonical tempが複数あります`);
+  }
+  const candidate = candidates[0];
+  if (!candidate) return null;
+  const matched = new RegExp(
+    `^\\.${basename(path).replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')}\\.([0-9a-f]{64})\\.tmp$`,
+    'u',
+  ).exec(candidate.name);
+  if (!matched || !candidate.isFile() || candidate.isSymbolicLink()) {
+    fail(code, `${basename(path)} canonical temp名/種別が不正です`);
+  }
+  const temporary = join(parent, candidate.name);
+  const relativePath = workspaceRelative(root, temporary);
+  const bytes = await readSafeFile(root, relativePath, code);
+  const actualSha256 = sha(bytes);
+  if (actualSha256 !== matched[1]) {
+    fail(code, `${basename(path)} canonical temp filename SHAが実体と一致しません`);
+  }
+  let text: string;
+  try {
+    text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  } catch (error) {
+    return fail(code, `${basename(path)} canonical tempがUTF-8ではありません`, error);
+  }
+  return {
+    relativePath,
+    path: temporary,
+    sha256: actualSha256,
+    bytes,
+    text,
+  };
+}
+
+async function discardCanonicalDurableTemp(
+  root: string,
+  temporary: CanonicalDurableTemp,
+  targetPath: string | null,
+  code: F005AcceptanceErrorCode,
+  expectedNativeIdentity: F005NativeFileIdentity,
+): Promise<void> {
+  const trashDirectory = join(root, '.cache', 'recovery-trash', 'f005');
+  const missing: string[] = [];
+  let cursor = trashDirectory;
+  while (cursor !== root && !await exists(cursor)) {
+    missing.push(cursor);
+    cursor = dirname(cursor);
+  }
+  if (!isInside(root, cursor)) fail(code, 'recovery trash parentがworkspace外です');
+  for (const directory of missing.reverse()) {
+    await mkdir(directory, { recursive: false });
+    await syncDirectory(root, dirname(directory), code);
+    await syncDirectory(root, directory, code);
+  }
+  const trashInfo = await lstat(trashDirectory);
+  if (!trashInfo.isDirectory() || trashInfo.isSymbolicLink() ||
+    await realpath(trashDirectory) !== trashDirectory) {
+    fail(code, 'recovery trash directoryがcanonicalではありません');
+  }
+  const discardRelativePath =
+    `.cache/recovery-trash/f005/discard-${sha(temporary.relativePath)}` +
+    `-${temporary.sha256}-${randomUUID()}.tmp`;
+  const renamedNativeIdentity = await nativeRenameTargetAbsent(
+    root,
+    temporary.relativePath,
+    discardRelativePath,
+    temporary.sha256,
+    code,
+    expectedNativeIdentity,
+  );
+  await nativeDeleteExact(
+    root,
+    discardRelativePath,
+    temporary.sha256,
+    code,
+    renamedNativeIdentity,
+  );
+  if (targetPath !== null) {
+    await syncDirectory(root, dirname(targetPath), code);
+    const targetBytes = await readSafeFile(root, workspaceRelative(root, targetPath), code);
+    if (sha(targetBytes) !== temporary.sha256) {
+      fail(code, 'identical target durability再確立後のSHAが一致しません');
+    }
+  }
+}
+
+interface F005RecoveryTrashPlanEntry {
+  readonly relativePath: string;
+  readonly sha256: Sha256;
+  readonly nativeIdentity: F005NativeFileIdentity;
+}
+
+async function preScanF005RecoveryTrash(
+  root: string,
+  code: F005AcceptanceErrorCode,
+): Promise<readonly F005RecoveryTrashPlanEntry[]> {
+  const directory = join(root, '.cache', 'recovery-trash', 'f005');
+  if (!await exists(directory)) return [];
+  const info = await lstat(directory);
+  if (!info.isDirectory() || info.isSymbolicLink() ||
+    await realpath(directory) !== directory) {
+    fail(code, 'recovery trash directoryがcanonicalではありません');
+  }
+  const entries = (await readdir(directory, { withFileTypes: true }))
+    .sort((left, right) => left.name.localeCompare(right.name, 'en'));
+  if (entries.length > 128) {
+    fail(code, 'recovery trashが保持上限128件を超えています');
+  }
+  const plan: F005RecoveryTrashPlanEntry[] = [];
+  for (const entry of entries) {
+    const matched = /^discard-[0-9a-f]{64}-([0-9a-f]{64})-[0-9a-f-]{36}\.tmp$/u
+      .exec(entry.name);
+    if (!matched || !entry.isFile() || entry.isSymbolicLink()) {
+      fail(code, `未知recovery trashがあります: ${entry.name}`);
+    }
+    const relativePath = `.cache/recovery-trash/f005/${entry.name}`;
+    const bytes = await readSafeFile(root, relativePath, code);
+    if (sha(bytes) !== matched[1]) {
+      fail(code, `recovery trash filename SHAが実体と一致しません: ${entry.name}`);
+    }
+    plan.push({
+      relativePath,
+      sha256: matched[1] as Sha256,
+      nativeIdentity: await snapshotNativeFileIdentity(
+        root,
+        relativePath,
+        matched[1] as Sha256,
+        bytes.byteLength,
+        code,
+      ),
+    });
+  }
+  return plan;
+}
+
+async function cleanupF005RecoveryTrash(
+  root: string,
+  plan: readonly F005RecoveryTrashPlanEntry[],
+  code: F005AcceptanceErrorCode,
+): Promise<void> {
+  for (const entry of plan) {
+    await nativeDeleteExact(
+      root,
+      entry.relativePath,
+      entry.sha256,
+      code,
+      entry.nativeIdentity,
+    );
+  }
+}
+
+async function recoverCanonicalDurableTemp(
+  root: string,
+  path: string,
+  validate: (temporary: CanonicalDurableTemp) => void | Promise<void>,
+  code: F005AcceptanceErrorCode,
+  expectedNativeIdentities?: ReadonlyMap<string, F005NativeFileIdentity>,
+): Promise<'none' | 'promoted' | 'discarded'> {
+  const temporary = await findCanonicalDurableTemp(root, path, code);
+  if (!temporary) return 'none';
+  await validate(temporary);
+  let expectedNativeIdentity = expectedNativeIdentities?.get(temporary.relativePath);
+  if (expectedNativeIdentities && !expectedNativeIdentity) {
+    fail(code, `${basename(path)} tempのpre-scan native identityがありません`);
+  }
+  expectedNativeIdentity ??= await snapshotNativeFileIdentity(
+    root,
+    temporary.relativePath,
+    temporary.sha256,
+    temporary.bytes.byteLength,
+    code,
+  );
+  const targetSha256 = await fileSha(path);
+  if (targetSha256 === null) {
+    await nativeRenameTargetAbsent(
+      root,
+      temporary.relativePath,
+      workspaceRelative(root, path),
+      temporary.sha256,
+      code,
+      expectedNativeIdentity,
+    );
+    return 'promoted';
+  }
+  if (targetSha256 !== temporary.sha256) {
+    fail(code, `${basename(path)} targetとcanonical tempが競合しています`);
+  }
+  const targetBytes = await readSafeFile(root, workspaceRelative(root, path), code);
+  const targetText = new TextDecoder('utf-8', { fatal: true }).decode(targetBytes);
+  if (targetText !== temporary.text) {
+    fail(code, `${basename(path)} targetとcanonical temp bytesが一致しません`);
+  }
+  await discardCanonicalDurableTemp(
+    root,
+    temporary,
+    path,
+    code,
+    expectedNativeIdentity,
+  );
+  return 'discarded';
+}
+
+async function writeDurableExclusive(
+  root: string,
+  path: string,
+  text: string,
+  afterFileSync?: () => void | Promise<void>,
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+): Promise<void> {
+  const expectedSha256 = sha(text);
+  const temporary = join(dirname(path), durableTempName(path, expectedSha256));
+  await recoverCanonicalDurableTemp(
+    root,
+    path,
+    (candidate) => {
+      if (candidate.text !== text || candidate.sha256 !== expectedSha256) {
+        fail(code, `${basename(path)} canonical temp bytesがexpected値と一致しません`);
+      }
+    },
+    code,
+  );
+  const existingSha256 = await fileSha(path);
+  if (existingSha256 !== null) {
+    if (existingSha256 !== expectedSha256) {
+      fail(code, `${basename(path)} durable targetがexpected値と競合しています`);
+    }
+    await syncDirectory(root, dirname(path), code);
+    const existing = await readSafeFile(root, workspaceRelative(root, path), code);
+    if (new TextDecoder('utf-8', { fatal: true }).decode(existing) !== text) {
+      fail(code, 'durable target canonical bytesが一致しません');
+    }
+    return;
+  }
+  let created = false;
+  try {
+    const handle = await open(temporary, 'wx');
+    created = true;
+    try {
+      await handle.writeFile(text, 'utf8');
+      await handle.sync();
+      await afterFileSync?.();
+    } finally {
+      await handle.close();
+    }
+    await nativeRenameCurrentTargetAbsent(
+      root,
+      workspaceRelative(root, temporary),
+      workspaceRelative(root, path),
+      expectedSha256,
+      code,
+    );
+  } finally {
+    if (created && await exists(temporary)) {
+      const owned = await findCanonicalDurableTemp(root, path, code);
+      if (owned?.path !== temporary || owned.sha256 !== expectedSha256 || owned.text !== text) {
+        fail(code, 'cleanup対象canonical temp identityが変化しました');
+      }
+      const ownedNativeIdentity = await snapshotNativeFileIdentity(
+        root,
+        owned.relativePath,
+        owned.sha256,
+        owned.bytes.byteLength,
+        code,
+      );
+      await discardCanonicalDurableTemp(
+        root,
+        owned,
+        null,
+        code,
+        ownedNativeIdentity,
+      );
+    }
+  }
+  const bytes = await readSafeFile(root, workspaceRelative(root, path), code);
+  if (new TextDecoder('utf-8', { fatal: true }).decode(bytes) !== text) {
+    fail(code, 'durable write post-read bytesが一致しません');
+  }
+}
+
+function workspaceRelative(root: string, target: string): string {
+  const value = relative(root, resolve(target)).replace(/\\/gu, '/');
+  if (!SAFE_PATH.test(value) || !isInside(root, target)) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'workspace相対pathへ正規化できません');
+  }
+  return value;
+}
+
+function canonicalTransactionPaths(root: string, workId: WorkId, journalId: Sha256) {
+  const journalDirectory =
+    `.cache/transactions/f005-promote/${workId}-${journalId}`;
+  return {
+    journalDirectory,
+    directory: join(root, ...journalDirectory.split('/')),
+    manifestPath: MANIFEST_PATH,
+    manifestBackupPath: `${journalDirectory}/manifest-old.json`,
+    manifestNextPath: `${journalDirectory}/manifest-next.json`,
+    transitionEvidencePath: `${journalDirectory}/transition-evidence.json`,
+    capacityJournalPath: `.cache/f005-capacity/${journalId}.json`,
+    actualCapacityReportPath:
+      `content/batches/F005/capacity-actual/${workId}/${journalId}.json`,
+    lockPath: `.cache/locks/f005-accept-${workId}.lock`,
+  };
+}
+
+function journalCore(value: WorkAcceptanceJournalV3): Omit<WorkAcceptanceJournalV3, 'journalSha256'> {
+  return Object.fromEntries(
+    Object.entries(value).filter(([key]) => key !== 'journalSha256'),
+  ) as unknown as Omit<WorkAcceptanceJournalV3, 'journalSha256'>;
+}
+
+function journalPhaseBase(
+  value: WorkAcceptanceJournalV3,
+): Omit<WorkAcceptanceJournalV3, 'phase' | 'previousPhaseJournalSha256' | 'journalSha256'> {
+  return Object.fromEntries(
+    Object.entries(value).filter(([key]) =>
+      !['phase', 'previousPhaseJournalSha256', 'journalSha256'].includes(key)),
+  ) as unknown as Omit<
+    WorkAcceptanceJournalV3,
+    'phase' | 'previousPhaseJournalSha256' | 'journalSha256'
+  >;
+}
+
+function sealJournalPhase(
+  base: Omit<
+    WorkAcceptanceJournalV3,
+    'phase' | 'previousPhaseJournalSha256' | 'journalSha256'
+  >,
+  phase: AcceptanceJournalPhase,
+  previousPhaseWholeFileSha256: Sha256 | null,
+): WorkAcceptanceJournalV3 {
+  const core = { ...base, phase, previousPhaseJournalSha256: previousPhaseWholeFileSha256 };
+  return freezeDeep({
+    ...core,
+    journalSha256: sha(canonicalJson(core)),
+  }) as WorkAcceptanceJournalV3;
+}
+
+function validateWorkAcceptanceJournalV3(
+  value: unknown,
+  text: string,
+  expectedPhase: AcceptanceJournalPhase,
+  expectedPreviousWholeFileSha: Sha256 | null,
+  root: string,
+  directory: string,
+): WorkAcceptanceJournalV3 {
+  exactDataObject(
+    value,
+    JOURNAL_KEYS,
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    `${expectedPhase} journal`,
+  );
+  const journal = value as WorkAcceptanceJournalV3;
+  if (canonicalJson(journal) !== text || journal.schemaVersion !== 3 ||
+    journal.phase !== expectedPhase ||
+    journal.previousPhaseJournalSha256 !== expectedPreviousWholeFileSha ||
+    !journal.owner.trim() || !WORK_IDS.includes(journal.workId as typeof WORK_IDS[number]) ||
+    !SHA256.test(journal.candidateSha256) || !SHA256.test(journal.recorderJournalId) ||
+    !SHA256.test(journal.expectedManifestSha256) ||
+    journal.journalSha256 !== sha(canonicalJson(journalCore(journal)))) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} journal seal/schemaが不正です`);
+  }
+  const paths = canonicalTransactionPaths(root, journal.workId, journal.recorderJournalId);
+  if (resolve(directory) !== paths.directory ||
+    journal.manifestPath !== paths.manifestPath ||
+    journal.manifestBackupPath !== paths.manifestBackupPath ||
+    journal.manifestNextPath !== paths.manifestNextPath ||
+    journal.capacityJournalPath !== paths.capacityJournalPath ||
+    journal.actualCapacityReportPath !== paths.actualCapacityReportPath) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} canonical pathが不正です`);
+  }
+  const hasMeasuredCapacity = JOURNAL_PHASES.indexOf(expectedPhase) >=
+    JOURNAL_PHASES.indexOf('capacity-measured');
+  if (hasMeasuredCapacity
+    ? !SHA256.test(journal.nextManifestSha256 ?? '') ||
+      !SHA256.test(journal.capacityJournalSha256 ?? '') ||
+      !SHA256.test(journal.actualCapacityReportSha256 ?? '')
+    : journal.nextManifestSha256 !== null ||
+      journal.capacityJournalSha256 !== null ||
+      journal.actualCapacityReportSha256 !== null) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} nullable fieldが不正です`);
+  }
+  if (!Array.isArray(journal.entries) || journal.entries.length === 0 ||
+    !Array.isArray(journal.evidenceRefs) || journal.evidenceRefs.length === 0) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} entries/evidenceRefsが不正です`);
+  }
+  const seenPaths = new Set<string>();
+  for (const [index, entry] of journal.entries.entries()) {
+    exactDataObject(
+      entry,
+      ['path', 'oldSha256', 'newSha256', 'stagedPath', 'backupPath'],
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      `${expectedPhase}.entries[${index}]`,
+    );
+    if (!SAFE_PATH.test(entry.path) || !SAFE_PATH.test(entry.stagedPath) ||
+      !SHA256.test(entry.newSha256) || seenPaths.has(entry.path) ||
+      (entry.oldSha256 === null
+        ? entry.backupPath !== null
+        : !SHA256.test(entry.oldSha256) || entry.backupPath === null ||
+          !SAFE_PATH.test(entry.backupPath))) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} entry tupleが不正です`);
+    }
+    seenPaths.add(entry.path);
+  }
+  const seenEvidence = new Set<string>();
+  for (const [index, ref] of journal.evidenceRefs.entries()) {
+    exactDataObject(
+      ref,
+      ['path', 'sha256'],
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      `${expectedPhase}.evidenceRefs[${index}]`,
+    );
+    if (!SAFE_PATH.test(ref.path) || !SHA256.test(ref.sha256) || seenEvidence.has(ref.path)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${expectedPhase} evidence refが不正です`);
+    }
+    seenEvidence.add(ref.path);
+  }
+  return journal;
+}
+
+async function readJournalPhase(
+  root: string,
+  directory: string,
+  phase: AcceptanceJournalPhase,
+  previousWholeFileSha: Sha256 | null,
+): Promise<{ journal: WorkAcceptanceJournalV3; text: string; wholeFileSha256: Sha256 } | null> {
+  const path = join(directory, `${phase}.json`);
+  if (!await exists(path)) return null;
+  await syncDirectory(root, dirname(path), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+  const relativePath = workspaceRelative(root, path);
+  const bytes = await readSafeFile(root, relativePath, 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+  const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch (error) {
+    return fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `${phase} journal JSONが不正です`, error);
+  }
+  return {
+    journal: validateWorkAcceptanceJournalV3(
+      value,
+      text,
+      phase,
+      previousWholeFileSha,
+      root,
+      directory,
+    ),
+    text,
+    wholeFileSha256: sha(bytes),
+  };
 }
 
 async function ensureDirectoryNoticed(
@@ -827,58 +1571,68 @@ async function ensureDirectoryNoticed(
   }
   for (const path of missing.reverse()) {
     await mkdir(path, { recursive: false });
+    await syncDirectory(root, dirname(path));
+    await syncDirectory(root, path);
     await notice('create', path, null, 0, null);
   }
-}
-
-async function writeJournalPhase(
-  directory: string,
-  phase: AcceptanceJournalPhase,
-  base: F005LogicalAcceptanceJournalBase,
-  notice: ReturnType<typeof notifier>,
-): Promise<void> {
-  const core = journalCore({ schemaVersion: 1, phase, ...base });
-  const value = freezeDeep({ ...core, journalSha256: sha(canonicalJson(core)) });
-  const path = join(directory, `${phase}.json`);
-  const bytes = canonicalJson(value);
-  await writeFile(path, bytes, { flag: 'wx' });
-  await notice('create', path, null, Buffer.byteLength(bytes), sha(bytes));
 }
 
 export interface F005AcceptOptions {
   readonly now?: () => string;
   readonly afterPhase?: (phase: AcceptanceJournalPhase) => void | Promise<void>;
+  readonly actualCapacityReportSha?: Sha256;
+}
+
+export interface PromotedF005WorkAcceptance {
+  readonly __brand: 'PromotedF005WorkAcceptance';
+  readonly workId: WorkId;
+  readonly expectedManifestSha: Sha256;
+  readonly recorderJournalId: Sha256;
+  readonly recorderOwner: string;
+  readonly preparedSha256: Sha256;
+  readonly candidateSha256: Sha256;
+  readonly transitionEvidence: PreparedF005WorkAcceptance['transitionEvidence'];
+  readonly journalPath: string;
+  readonly promotionSha256: Sha256;
+}
+
+export interface F005ActualCapacityReportRef {
+  readonly kind: 'actual-capacity-report';
+  readonly path: string;
+  readonly sha256: Sha256;
+  readonly candidateSha256: Sha256;
+  readonly journalId: Sha256;
+  readonly journalSha256: Sha256;
 }
 
 /**
- * staged filesとmanifestをlogical transactionで昇格し、post-read後だけphaseを閉じる。
+ * 音声実体だけをnative監視中に昇格し、live manifestはvoicedのまま保つ。
+ * actual容量はaccept phaseを含むjournal close後にしか確定しないため、accepted CASは
+ * finalizeF005WorkAcceptanceへ分離する。
  * @des DES-F005-006 @fun FUN-F005-022 @ut UT-F005-022
  */
-export async function acceptF005Work(
+export async function stageF005WorkAcceptance(
   workspace: string,
   prepared: PreparedF005WorkAcceptance,
   expectedManifestSha: Sha256 | string,
   capacityRecorder: F005AcceptanceCapacityRecorder,
-  options: F005AcceptOptions = {},
-): Promise<BatchManifest> {
+  candidateSha256: Sha256 = prepared.contextSha256,
+  options: {
+    readonly afterPhase?: (
+      phase: 'prepared' | 'artifacts-committed'
+    ) => void | Promise<void>;
+    readonly afterTransactionDirectory?: () => void | Promise<void>;
+    readonly beforeArtifactRename?: (index: number) => void | Promise<void>;
+    readonly afterArtifactRename?: (index: number) => void | Promise<void>;
+  } = {},
+): Promise<PromotedF005WorkAcceptance> {
   const root = await verifiedWorkspace(workspace);
   assertRecorder(capacityRecorder);
   if (!preparedValues.has(prepared) || prepared.__brand !== 'PreparedF005WorkAcceptance' ||
+    !SHA256.test(candidateSha256) ||
     prepared.expectedManifestSha !== expectedManifestSha ||
     prepared.recorderJournalId !== capacityRecorder.journalId ||
-    prepared.recorderOwner !== capacityRecorder.owner ||
-    prepared.preparedSha256 !== sha(canonicalJson({
-      workId: prepared.workId,
-      expectedManifestSha: prepared.expectedManifestSha,
-      contextSha256: prepared.contextSha256,
-      previewSha256: prepared.previewSha256,
-      recorderJournalId: prepared.recorderJournalId,
-      recorderOwner: prepared.recorderOwner,
-      previewArtifacts: prepared.previewArtifacts,
-      evidenceRefs: prepared.evidenceRefs,
-      operations: prepared.operations,
-      transitionEvidence: prepared.transitionEvidence,
-    }))) {
+    prepared.recorderOwner !== capacityRecorder.owner) {
     fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'mint済みprepared/manifest/recorder tupleが必要です');
   }
   await Promise.all(previewArtifactRefs(prepared.previewArtifacts).map(([kind, ref]) =>
@@ -905,82 +1659,858 @@ export async function acceptF005Work(
   if (hashBatchManifest(manifest) !== expectedManifestSha) {
     fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'manifest CASがstaleです');
   }
-  const acceptedAt = options.now?.() ?? new Date().toISOString();
-  if (!Number.isFinite(Date.parse(acceptedAt))) fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'acceptedAtが不正です');
-  const evidence: PreparedWorkAcceptanceEvidence = freezeDeep({
-    ...prepared.transitionEvidence,
-    acceptedAt,
-    acceptedBy: capacityRecorder.owner,
-  });
-  let next: BatchManifest;
-  try {
-    next = transitionWorkState(manifest, prepared.workId, 'accepted', evidence);
-  } catch (error) {
-    return fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'accepted transitionを構築できません', error);
-  }
-  const nextManifestSha = hashBatchManifest(next);
-  const phaseInstanceId = sha(`${prepared.preparedSha256}\0${nextManifestSha}\0accept`);
-  const transactionDirectory = join(root, '.cache', 'transactions', 'f005-accept',
-    `${prepared.workId}-${capacityRecorder.journalId}`);
-  const backup = join(transactionDirectory, 'manifest-old.json');
-  const manifestNext = join(transactionDirectory, 'manifest-next.json');
-  const manifestPath = join(root, ...MANIFEST_PATH.split('/'));
+  assertWorkOrder(manifest, prepared.workId);
+  const phaseInstanceId = sha(`${prepared.preparedSha256}\0${expectedManifestSha}\0promote`);
   const notice = notifier(capacityRecorder, 'accept', phaseInstanceId);
-  const journalBase = {
+  const paths = canonicalTransactionPaths(root, prepared.workId, capacityRecorder.journalId);
+  const directory = paths.directory;
+  const transitionEvidenceText = canonicalJson(prepared.transitionEvidence);
+  const transitionEvidenceSha256 = sha(transitionEvidenceText);
+  const journalBase: Omit<
+    WorkAcceptanceJournalV3,
+    'phase' | 'previousPhaseJournalSha256' | 'journalSha256'
+  > = {
+    schemaVersion: 3,
     owner: capacityRecorder.owner,
-    recorderJournalId: capacityRecorder.journalId,
-    phaseInstanceId,
     workId: prepared.workId,
-    expectedManifestSha: prepared.expectedManifestSha,
-    nextManifestSha,
-    manifestBackupPath: relative(root, backup).replace(/\\/gu, '/'),
-    manifestNextPath: relative(root, manifestNext).replace(/\\/gu, '/'),
-    operations: prepared.operations,
+    candidateSha256,
+    recorderJournalId: capacityRecorder.journalId,
+    expectedManifestSha256: prepared.expectedManifestSha,
+    nextManifestSha256: null,
+    manifestPath: paths.manifestPath,
+    manifestBackupPath: paths.manifestBackupPath,
+    manifestNextPath: paths.manifestNextPath,
+    entries: prepared.operations.map((operation) => ({
+      path: operation.targetPath,
+      oldSha256: null,
+      newSha256: operation.sha256,
+      stagedPath: workspaceRelative(root, operation.sourcePath),
+      backupPath: null,
+    })),
+    evidenceRefs: [
+      ...prepared.evidenceRefs.map((ref) => ({ path: ref.path, sha256: ref.sha256 })),
+      { path: paths.transitionEvidencePath, sha256: transitionEvidenceSha256 },
+    ],
+    capacityJournalPath: paths.capacityJournalPath,
+    capacityJournalSha256: null,
+    actualCapacityReportPath: paths.actualCapacityReportPath,
+    actualCapacityReportSha256: null,
   };
   await capacityRecorder.beginPhase('accept', prepared.workId, phaseInstanceId);
   try {
-    await ensureDirectoryNoticed(root, transactionDirectory, notice);
-    await writeJournalPhase(transactionDirectory, 'prepared', journalBase, notice);
+    await ensureDirectoryNoticed(root, directory, notice);
+    await options.afterTransactionDirectory?.();
+    const preparedPath = join(directory, 'prepared.json');
+    const preparedPhase = sealJournalPhase(journalBase, 'prepared', null);
+    const preparedBytes = canonicalJson(preparedPhase);
+    await writeDurableExclusive(root, preparedPath, preparedBytes);
+    await notice('create', preparedPath, null, Buffer.byteLength(preparedBytes), sha(preparedBytes));
     await options.afterPhase?.('prepared');
-    for (const operation of prepared.operations) {
+    const transitionEvidencePath = join(root, ...paths.transitionEvidencePath.split('/'));
+    await writeDurableExclusive(root, transitionEvidencePath, transitionEvidenceText);
+    await notice(
+      'create',
+      transitionEvidencePath,
+      null,
+      Buffer.byteLength(transitionEvidenceText),
+      transitionEvidenceSha256,
+    );
+    for (const [index, operation] of prepared.operations.entries()) {
       const target = join(root, ...operation.targetPath.split('/'));
       if (!isInside(root, target)) fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'promotion targetがworkspace外です');
       await ensureDirectoryNoticed(root, dirname(target), notice);
-      const sourceDigest = await fileSha(operation.sourcePath);
-      const targetDigest = await fileSha(target);
-      if (sourceDigest !== operation.sha256 || targetDigest !== null) {
+      if (await fileSha(operation.sourcePath) !== operation.sha256 || await fileSha(target) !== null) {
         fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'source/targetがprepared tupleと一致しません');
       }
-      await rename(operation.sourcePath, target);
+      await options.beforeArtifactRename?.(index);
+      await nativeRenameCurrentTargetAbsent(
+        root,
+        workspaceRelative(root, operation.sourcePath),
+        operation.targetPath,
+        operation.sha256,
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      );
+      await syncDirectory(root, dirname(operation.sourcePath));
+      await syncDirectory(root, dirname(target));
       await notice('rename', operation.sourcePath, target, operation.bytes, operation.sha256);
+      await options.afterArtifactRename?.(index);
     }
-    await writeJournalPhase(transactionDirectory, 'artifacts-committed', journalBase, notice);
+    if (hashBatchManifest(await readManifest(root)) !== expectedManifestSha) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'artifact promotionがlive manifestを変更しました');
+    }
+    const committedPath = join(directory, 'artifacts-committed.json');
+    const committedPhase = sealJournalPhase(
+      journalBase,
+      'artifacts-committed',
+      sha(preparedBytes),
+    );
+    const committedBytes = canonicalJson(committedPhase);
+    await writeDurableExclusive(root, committedPath, committedBytes);
+    await notice('create', committedPath, null, Buffer.byteLength(committedBytes), sha(committedBytes));
     await options.afterPhase?.('artifacts-committed');
-    const nextBytes = canonicalJson(next);
-    await writeFile(manifestNext, nextBytes, { flag: 'wx' });
-    await notice('create', manifestNext, null, Buffer.byteLength(nextBytes), sha(nextBytes));
-    await rename(manifestPath, backup);
-    await notice('rename', manifestPath, backup, Buffer.byteLength(canonicalJson(manifest)), expectedManifestSha as Sha256);
-    await rename(manifestNext, manifestPath);
-    await notice('rename', manifestNext, manifestPath, Buffer.byteLength(nextBytes), nextManifestSha);
-    await writeJournalPhase(transactionDirectory, 'manifest-committed', journalBase, notice);
-    await options.afterPhase?.('manifest-committed');
-    const postManifest = await readManifest(root);
-    if (hashBatchManifest(postManifest) !== nextManifestSha) {
-      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'manifest post-readが一致しません');
-    }
-    for (const operation of prepared.operations) {
-      if (await fileSha(join(root, ...operation.targetPath.split('/'))) !== operation.sha256) {
-        fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'artifact post-readが一致しません');
-      }
-    }
-    await writeJournalPhase(transactionDirectory, 'closed', journalBase, notice);
-    await options.afterPhase?.('closed');
     await capacityRecorder.endPhase('accept', phaseInstanceId);
-    return postManifest;
+    const payload = {
+      workId: prepared.workId,
+      expectedManifestSha: prepared.expectedManifestSha,
+      recorderJournalId: prepared.recorderJournalId,
+      recorderOwner: prepared.recorderOwner,
+      preparedSha256: prepared.preparedSha256,
+      candidateSha256,
+      transitionEvidence: prepared.transitionEvidence,
+      journalPath: relative(root, directory).replace(/\\/gu, '/'),
+    };
+    const promoted = freezeDeep({
+      __brand: 'PromotedF005WorkAcceptance' as const,
+      ...payload,
+      promotionSha256: sha(canonicalJson(payload)),
+    });
+    promotedValues.add(promoted);
+    return promoted;
   } catch (error) {
     if (error instanceof F005AcceptanceError) throw error;
-    return fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'accept transactionはpending journalを残して停止しました', error);
+    return fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'artifact promotionはpending journalを残して停止しました', error);
+  }
+}
+
+function immutableJournalTuple(value: WorkAcceptanceJournalV3): string {
+  return canonicalJson({
+    schemaVersion: value.schemaVersion,
+    owner: value.owner,
+    workId: value.workId,
+    candidateSha256: value.candidateSha256,
+    recorderJournalId: value.recorderJournalId,
+    expectedManifestSha256: value.expectedManifestSha256,
+    manifestPath: value.manifestPath,
+    manifestBackupPath: value.manifestBackupPath,
+    manifestNextPath: value.manifestNextPath,
+    entries: value.entries,
+    evidenceRefs: value.evidenceRefs,
+    capacityJournalPath: value.capacityJournalPath,
+    actualCapacityReportPath: value.actualCapacityReportPath,
+  });
+}
+
+async function verifyJournalEvidenceRefs(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+): Promise<void> {
+  for (const ref of journal.evidenceRefs) {
+    const bytes = await readSafeFile(root, ref.path, 'F005_ACCEPTANCE_TRANSACTION_INVALID');
+    if (sha(bytes) !== ref.sha256) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'journal evidence実体SHAが一致しません');
+    }
+  }
+}
+
+async function readTransitionEvidence(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+): Promise<PreparedF005WorkAcceptance['transitionEvidence']> {
+  const paths = canonicalTransactionPaths(root, journal.workId, journal.recorderJournalId);
+  const ref = journal.evidenceRefs.find((item) => item.path === paths.transitionEvidencePath);
+  if (!ref) fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transition evidence refがありません');
+  const bytes = await readSafeFile(
+    root,
+    paths.transitionEvidencePath,
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  );
+  if (sha(bytes) !== ref.sha256) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transition evidence SHAが一致しません');
+  }
+  const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch (error) {
+    return fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transition evidence JSONが不正です', error);
+  }
+  if (canonicalJson(value) !== text) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transition evidenceがcanonicalではありません');
+  }
+  return value as PreparedF005WorkAcceptance['transitionEvidence'];
+}
+
+const CAPACITY_BUCKET_KINDS = [
+  'audio', 'artifact', 'repository', 'object', 'workspace-peak', 'free-after-peak',
+] as const;
+
+function validateActualCapacityBuckets(
+  value: unknown,
+  minimumObservedFreeBytes: number,
+  peakLiveBytes: number,
+  expectedAudio: readonly {
+    readonly path: string;
+    readonly sha256: Sha256;
+    readonly bytes: number;
+  }[],
+  code: F005AcceptanceErrorCode,
+): void {
+  if (!Array.isArray(value) || value.length !== CAPACITY_BUCKET_KINDS.length) {
+    fail(code, 'actual capacity bucketsが6種exactではありません');
+  }
+  let actualAudio: { path: string; sha256: Sha256; bytes: number }[] = [];
+  for (const [index, rawBucket] of value.entries()) {
+    exactDataObject(rawBucket, ['kind', 'entries', 'totalBytes'], code, `capacity bucket[${index}]`);
+    const bucket = rawBucket as {
+      kind: unknown;
+      entries: unknown;
+      totalBytes: unknown;
+    };
+    const expectedKind = CAPACITY_BUCKET_KINDS[index];
+    if (bucket.kind !== expectedKind || !Array.isArray(bucket.entries) ||
+      !Number.isSafeInteger(bucket.totalBytes) || Number(bucket.totalBytes) < 0) {
+      fail(code, `capacity bucket ${String(expectedKind)} schemaが不正です`);
+    }
+    const bytes: number[] = [];
+    const identities = new Set<string>();
+    for (const [entryIndex, rawEntry] of bucket.entries.entries()) {
+      if (rawEntry === null || typeof rawEntry !== 'object' || Array.isArray(rawEntry)) {
+        fail(code, `capacity entry[${entryIndex}]がobjectではありません`);
+      }
+      const entry = rawEntry as Record<string, unknown>;
+      const kind = String(entry.kind);
+      const expectedKeys = kind === 'path'
+        ? ['kind', 'path', 'bytes', 'sha256']
+        : kind === 'planned-audio'
+          ? ['kind', 'path', 'bytes', 'sha256', 'planSha256']
+          : kind === 'git-index'
+            ? ['kind', 'path', 'oid', 'bytes', 'sha256']
+            : kind === 'git-object'
+              ? ['kind', 'oid', 'bytes', 'sha256']
+              : [];
+      if (expectedKeys.length === 0) fail(code, 'capacity entry kindが不正です');
+      exactDataObject(entry, expectedKeys, code, `capacity entry[${entryIndex}]`);
+      const kindAllowed = expectedKind === 'audio'
+        ? kind === 'path'
+        : expectedKind === 'artifact' || expectedKind === 'workspace-peak'
+          ? kind === 'path'
+          : expectedKind === 'repository'
+            ? kind === 'git-index'
+            : expectedKind === 'object'
+              ? kind === 'git-object'
+              : false;
+      const pathValid = kind === 'path' || kind === 'planned-audio' || kind === 'git-index'
+        ? SAFE_PATH.test(String(entry.path))
+        : true;
+      const oidValid = kind === 'git-index' || kind === 'git-object'
+        ? /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/u.test(String(entry.oid))
+        : true;
+      if (!kindAllowed || !pathValid || !oidValid ||
+        !SHA256.test(String(entry.sha256)) ||
+        (kind === 'planned-audio' && !SHA256.test(String(entry.planSha256))) ||
+        !Number.isSafeInteger(entry.bytes) || Number(entry.bytes) < 0) {
+        fail(code, `capacity entry[${entryIndex}] schema/値が不正です`);
+      }
+      const identity = kind === 'git-object'
+        ? `${kind}:${String(entry.oid)}`
+        : kind === 'git-index'
+          ? `${kind}:${String(entry.path)}:${String(entry.oid)}`
+          : `${kind}:${String(entry.path)}`;
+      if (identities.has(identity)) fail(code, 'capacity entry identityが重複しています');
+      identities.add(identity);
+      bytes.push(Number(entry.bytes));
+      if (expectedKind === 'audio') {
+        actualAudio.push({
+          path: String(entry.path),
+          sha256: String(entry.sha256) as Sha256,
+          bytes: Number(entry.bytes),
+        });
+      }
+    }
+    const expectedTotal = expectedKind === 'object'
+      ? Math.max(0, ...bytes)
+      : expectedKind === 'workspace-peak'
+        ? peakLiveBytes
+        : expectedKind === 'free-after-peak'
+          ? minimumObservedFreeBytes
+          : bytes.reduce((sum, item) => sum + item, 0);
+    if (!Number.isSafeInteger(expectedTotal) || bucket.totalBytes !== expectedTotal ||
+      (expectedKind === 'free-after-peak' && bucket.entries.length !== 0)) {
+      fail(code, `capacity bucket ${String(expectedKind)} totalが不正です`);
+    }
+  }
+  actualAudio = actualAudio.sort((left, right) => left.path.localeCompare(right.path, 'en'));
+  const expected = [...expectedAudio]
+    .sort((left, right) => left.path.localeCompare(right.path, 'en'));
+  if (canonicalJson(actualAudio) !== canonicalJson(expected)) {
+    fail(code, 'actual audio bucketが昇格済み音声artifact exact setと一致しません');
+  }
+}
+
+async function verifyActualCapacityBinding(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+  actualRef: F005ActualCapacityReportRef,
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+): Promise<void> {
+  exactDataObject(
+    actualRef,
+    ['kind', 'path', 'sha256', 'candidateSha256', 'journalId', 'journalSha256'],
+    code,
+    'actual capacity ref',
+  );
+  if (actualRef.kind !== 'actual-capacity-report' ||
+    actualRef.path !== journal.actualCapacityReportPath ||
+    actualRef.candidateSha256 !== journal.candidateSha256 ||
+    actualRef.journalId !== journal.recorderJournalId ||
+    !SHA256.test(actualRef.sha256) || !SHA256.test(actualRef.journalSha256)) {
+    fail(code, 'actual ref canonical tupleが不正です');
+  }
+  const actualBytes = await readSafeFile(
+    root,
+    journal.actualCapacityReportPath,
+    code,
+  );
+  const actualText = new TextDecoder('utf-8', { fatal: true }).decode(actualBytes);
+  let actual: unknown;
+  try {
+    actual = JSON.parse(actualText);
+  } catch (error) {
+    return fail(code, 'actual容量JSONが不正です', error);
+  }
+  exactDataObject(
+    actual,
+    ['schemaVersion', 'kind', 'workId', 'journalId', 'payload'],
+    code,
+    'actual capacity report',
+  );
+  const report = actual as {
+    schemaVersion: unknown;
+    kind: unknown;
+    workId: unknown;
+    journalId: unknown;
+    payload: Record<string, unknown>;
+  };
+  exactDataObject(
+    report.payload,
+    [
+      'schemaVersion', 'workId', 'candidateSha256', 'journalId', 'journalSha256',
+      'minimumObservedFreeBytes', 'peakLiveBytes', 'buckets', 'state',
+    ],
+    code,
+    'actual capacity payload',
+  );
+  const minimumObservedFreeBytes = report.payload.minimumObservedFreeBytes;
+  const peakLiveBytes = report.payload.peakLiveBytes;
+  if (report.payload.schemaVersion !== 3 ||
+    !Number.isSafeInteger(minimumObservedFreeBytes) || Number(minimumObservedFreeBytes) < 0 ||
+    !Number.isSafeInteger(peakLiveBytes) || Number(peakLiveBytes) < 0 ||
+    report.payload.state !== 'closed') {
+    fail(code, 'actual容量payload version/integer/stateが不正です');
+  }
+  const transitionEvidence = await readTransitionEvidence(root, journal);
+  const expectedAudio = transitionEvidence.acceptedSources
+    .filter((source) =>
+      source.path.startsWith(`content/batches/F005/accepted-audio/${journal.workId}/`) &&
+      source.path.endsWith('.wav'))
+    .map((source) => ({
+      path: source.path,
+      sha256: source.sha256,
+      bytes: source.bytes,
+    }));
+  const journalAudio = journal.entries
+    .filter((entry) =>
+      entry.path.startsWith(`content/batches/F005/accepted-audio/${journal.workId}/`) &&
+      entry.path.endsWith('.wav'))
+    .map((entry) => ({ path: entry.path, sha256: entry.newSha256 }))
+    .sort((left, right) => left.path.localeCompare(right.path, 'en'));
+  const transitionAudio = expectedAudio
+    .map(({ path, sha256 }) => ({ path, sha256 }))
+    .sort((left, right) => left.path.localeCompare(right.path, 'en'));
+  if (expectedAudio.length === 0 ||
+    canonicalJson(journalAudio) !== canonicalJson(transitionAudio)) {
+    fail(code, 'journal entriesとtransition acceptedSourcesの音声tupleが一致しません');
+  }
+  validateActualCapacityBuckets(
+    report.payload.buckets,
+    Number(minimumObservedFreeBytes),
+    Number(peakLiveBytes),
+    expectedAudio,
+    code,
+  );
+  if (canonicalJson(actual) !== actualText || sha(actualBytes) !== actualRef.sha256 ||
+    report.schemaVersion !== '1.0.0' || report.kind !== actualRef.kind ||
+    report.workId !== journal.workId || report.journalId !== journal.recorderJournalId ||
+    report.payload.state !== 'closed' || report.payload.workId !== journal.workId ||
+    report.payload.candidateSha256 !== journal.candidateSha256 ||
+    report.payload.journalId !== journal.recorderJournalId ||
+    report.payload.journalSha256 !== actualRef.journalSha256) {
+    fail(code, 'actual容量reportのjournal/work/SHAが一致しません');
+  }
+  const nativeBytes = await readSafeFile(
+    root,
+    journal.capacityJournalPath,
+    code,
+  );
+  const nativeJournal =
+    await readF005NativeCapacityJournalFile(root, journal.capacityJournalPath);
+  const derivedRecorderJournalId = sha(
+    `${nativeJournal.sessionNonce}\0${nativeJournal.owner}\0${nativeJournal.workId}` +
+    `\0${nativeJournal.candidateSha256}\0f005-capacity-v3`,
+  );
+  if (nativeJournal.state !== 'closed' ||
+    nativeJournal.workId !== journal.workId ||
+    nativeJournal.candidateSha256 !== journal.candidateSha256 ||
+    nativeJournal.owner !== journal.owner ||
+    !SHA256.test(nativeJournal.sessionNonce) ||
+    derivedRecorderJournalId !== journal.recorderJournalId ||
+    nativeJournal.minimumObservedFreeBytes !== minimumObservedFreeBytes ||
+    nativeJournal.peakLiveBytes !== peakLiveBytes ||
+    sha(nativeBytes) !== actualRef.journalSha256) {
+    fail(code, 'closed native journal実体が一致しません');
+  }
+}
+
+interface FinalizeLockRecord {
+  readonly schemaVersion: 1;
+  readonly pid: number;
+  readonly processStartIdentity: Sha256;
+  readonly token: string;
+  readonly workId: WorkId;
+  readonly recorderJournalId: Sha256;
+  readonly sealSha256: Sha256;
+}
+
+function validateFinalizeLockText(
+  text: string,
+  workId: WorkId,
+  journalId: Sha256,
+  code: F005AcceptanceErrorCode,
+): FinalizeLockRecord {
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch (error) {
+    return fail(code, 'finalize lock JSONが不正です', error);
+  }
+  exactDataObject(
+    value,
+    [
+      'schemaVersion', 'pid', 'processStartIdentity', 'token', 'workId',
+      'recorderJournalId', 'sealSha256',
+    ],
+    code,
+    'finalize lock',
+  );
+  const lock = value as Record<string, unknown>;
+  const core = Object.fromEntries(
+    Object.entries(lock).filter(([key]) => key !== 'sealSha256'),
+  );
+  if (canonicalJson(value) !== text || lock.schemaVersion !== 1 ||
+    !Number.isSafeInteger(lock.pid) || Number(lock.pid) <= 0 ||
+    !SHA256.test(String(lock.processStartIdentity)) ||
+    typeof lock.token !== 'string' || !/^[0-9a-f-]{36}$/u.test(lock.token) ||
+    lock.workId !== workId || lock.recorderJournalId !== journalId ||
+    !SHA256.test(String(lock.recorderJournalId)) ||
+    lock.sealSha256 !== sha(canonicalJson(core))) {
+    fail(code, 'finalize lock seal/tupleが不正です');
+  }
+  return value as FinalizeLockRecord;
+}
+
+async function acquireFinalizeLock(
+  root: string,
+  workId: WorkId,
+  journalId: Sha256,
+): Promise<{
+  root: string;
+  relativePath: string;
+  path: string;
+  text: string;
+}> {
+  const paths = canonicalTransactionPaths(root, workId, journalId);
+  const path = join(root, ...paths.lockPath.split('/'));
+  await mkdir(dirname(path), { recursive: true });
+  await syncDirectory(root, dirname(dirname(path)));
+  await syncDirectory(root, dirname(path));
+  const parentInfo = await lstat(dirname(path));
+  if (!parentInfo.isDirectory() || parentInfo.isSymbolicLink() ||
+    await realpath(dirname(path)) !== dirname(path)) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'finalize lock directoryが不正です');
+  }
+  const recoveryTrashPlan = await preScanF005RecoveryTrash(
+    root,
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  );
+  await cleanupF005RecoveryTrash(
+    root,
+    recoveryTrashPlan,
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  );
+  const pendingTemp = await findCanonicalDurableTemp(
+    root,
+    path,
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  );
+  if (pendingTemp) {
+    const pendingLock = validateFinalizeLockText(
+      pendingTemp.text,
+      workId,
+      journalId,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+    );
+    if (await exists(path)) {
+      fail(
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+        'canonical lockとlock tempが競合しています',
+      );
+    }
+    const observedIdentity = await readProcessStartIdentity(pendingLock.pid);
+    if (observedIdentity === pendingLock.processStartIdentity ||
+      (observedIdentity === null && processAlive(pendingLock.pid))) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', '生存processのlock tempがあります');
+    }
+    const pendingTempNativeIdentity = await snapshotNativeFileIdentity(
+      root,
+      pendingTemp.relativePath,
+      pendingTemp.sha256,
+      pendingTemp.bytes.byteLength,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+    );
+    await discardCanonicalDurableTemp(
+      root,
+      pendingTemp,
+      null,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      pendingTempNativeIdentity,
+    );
+  }
+  const processStartIdentity = await readProcessStartIdentity(process.pid);
+  if (processStartIdentity === null) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'current process start identityを取得できません');
+  }
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const core = {
+      schemaVersion: 1,
+      pid: process.pid,
+      processStartIdentity,
+      token: randomUUID(),
+      workId,
+      recorderJournalId: journalId,
+    };
+    const text = canonicalJson({ ...core, sealSha256: sha(canonicalJson(core)) });
+    try {
+      if (await exists(path)) {
+        const collision = new Error('finalize lock exists') as NodeJS.ErrnoException;
+        collision.code = 'EEXIST';
+        throw collision;
+      }
+      await writeDurableExclusive(root, path, text);
+      return { root, relativePath: paths.lockPath, path, text };
+    } catch (error) {
+      if (!await exists(path) || attempt !== 0) {
+        return fail(
+          'F005_ACCEPTANCE_TRANSACTION_INVALID',
+          'finalize exclusive lockを取得できません',
+          error,
+        );
+      }
+      const lockRelativePath = paths.lockPath;
+      await syncDirectory(root, dirname(path));
+      const bytes = await readSafeFile(
+        root,
+        lockRelativePath,
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      );
+      const existingText = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+      const lock = validateFinalizeLockText(
+        existingText,
+        workId,
+        journalId,
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      );
+      const observedIdentity = await readProcessStartIdentity(lock.pid);
+      if (observedIdentity === lock.processStartIdentity ||
+        (observedIdentity === null && processAlive(lock.pid))) {
+        fail('F005_ACCEPTANCE_TRANSACTION_INVALID', '生存processがfinalize lockを保持しています');
+      }
+      const staleRelativePath =
+        `.cache/locks/f005-accept-${workId}.stale-${lock.token}`;
+      const staleNativeIdentity = await nativeRenameCurrentTargetAbsent(
+        root,
+        lockRelativePath,
+        staleRelativePath,
+        sha(bytes),
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      );
+      const staleBytes = await readSafeFile(
+        root,
+        staleRelativePath,
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      );
+      if (sha(staleBytes) !== sha(bytes)) {
+        fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'stale lock CAS post-readが不正です');
+      }
+      await nativeDeleteExact(
+        root,
+        staleRelativePath,
+        sha(bytes),
+        'F005_ACCEPTANCE_TRANSACTION_INVALID',
+        staleNativeIdentity,
+      );
+    }
+  }
+  return fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'finalize lock retry上限です');
+}
+
+function processAlive(pid: number): boolean {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return (error as NodeJS.ErrnoException).code === 'EPERM';
+  }
+}
+
+async function readProcessStartIdentity(pid: number): Promise<Sha256 | null> {
+  if (!Number.isSafeInteger(pid) || pid <= 0) return null;
+  if (process.platform !== 'win32') {
+    if (!processAlive(pid)) return null;
+    return pid === process.pid
+      ? sha(`${pid}\0${CURRENT_PROCESS_START_EPOCH_MS}\0process-start-v1`)
+      : sha(`${pid}\0live-unverified\0process-start-v1`);
+  }
+  try {
+    const command =
+      `$value=Get-Process -Id ${pid} -ErrorAction Stop;` +
+      '[Console]::Out.Write($value.StartTime.ToUniversalTime().Ticks)';
+    const result = await execFileAsync(
+      'powershell.exe',
+      ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', command],
+      { windowsHide: true, timeout: 5_000, maxBuffer: 4_096 },
+    );
+    const ticks = result.stdout.trim();
+    if (!/^[0-9]{10,20}$/u.test(ticks)) return null;
+    return sha(`${pid}\0${ticks}\0process-start-v1`);
+  } catch {
+    return null;
+  }
+}
+
+async function releaseFinalizeLock(
+  lock: {
+    root: string;
+    relativePath: string;
+    path: string;
+    text: string;
+  },
+): Promise<void> {
+  const releaseRelativePath =
+    `${lock.relativePath}.release-${sha(lock.text)}`;
+  const releaseNativeIdentity = await nativeRenameCurrentTargetAbsent(
+    lock.root,
+    lock.relativePath,
+    releaseRelativePath,
+    sha(lock.text),
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  );
+  await nativeDeleteExact(
+    lock.root,
+    releaseRelativePath,
+    sha(lock.text),
+    'F005_ACCEPTANCE_TRANSACTION_INVALID',
+    releaseNativeIdentity,
+  );
+}
+
+/**
+ * closed journalから生成されたactual artifactを再読込し、metadata-only CASでacceptedを確定する。
+ * @des DES-F005-006 @fun FUN-F005-019 FUN-F005-022 @ut UT-F005-019 UT-F005-022
+ */
+export async function finalizeF005WorkAcceptance(
+  workspace: string,
+  promoted: PromotedF005WorkAcceptance,
+  actualRef: F005ActualCapacityReportRef,
+  expectedManifestSha: Sha256 | string,
+  options: {
+    readonly now?: () => string;
+    readonly afterPhase?: (
+      phase: 'capacity-measured' | 'manifest-renamed' | 'manifest-committed' | 'closed'
+    ) => void | Promise<void>;
+    readonly afterFileSync?: (
+      artifact: 'manifest-next' | 'capacity-measured' | 'manifest-committed' | 'closed'
+    ) => void | Promise<void>;
+    readonly afterManifestOldRenamed?: () => void | Promise<void>;
+    readonly recoveryNativeIdentities?: ReadonlyMap<string, F005NativeFileIdentity>;
+  } = {},
+): Promise<BatchManifest> {
+  const root = await verifiedWorkspace(workspace);
+  const paths = canonicalTransactionPaths(root, promoted.workId, promoted.recorderJournalId);
+  if (promoted.__brand !== 'PromotedF005WorkAcceptance' ||
+    promoted.promotionSha256 !== sha(canonicalJson({
+      workId: promoted.workId,
+      expectedManifestSha: promoted.expectedManifestSha,
+      recorderJournalId: promoted.recorderJournalId,
+      recorderOwner: promoted.recorderOwner,
+      preparedSha256: promoted.preparedSha256,
+      candidateSha256: promoted.candidateSha256,
+      transitionEvidence: promoted.transitionEvidence,
+      journalPath: promoted.journalPath,
+    })) ||
+    promoted.journalPath !== paths.journalDirectory ||
+    expectedManifestSha !== promoted.expectedManifestSha) {
+    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'promoted/actual ref bindingが不正です');
+  }
+  const lock = await acquireFinalizeLock(root, promoted.workId, promoted.recorderJournalId);
+  try {
+    const prepared = await readJournalPhase(root, paths.directory, 'prepared', null);
+    if (!prepared) fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'prepared journalがありません');
+    const committed = await readJournalPhase(
+      root,
+      paths.directory,
+      'artifacts-committed',
+      prepared.wholeFileSha256,
+    );
+    if (!committed ||
+      immutableJournalTuple(committed.journal) !== immutableJournalTuple(prepared.journal) ||
+      prepared.journal.workId !== promoted.workId ||
+      prepared.journal.recorderJournalId !== promoted.recorderJournalId ||
+      prepared.journal.candidateSha256 !== promoted.candidateSha256 ||
+      prepared.journal.owner !== promoted.recorderOwner ||
+      prepared.journal.expectedManifestSha256 !== promoted.expectedManifestSha) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'promotion journal phase chainが不正です');
+    }
+    await verifyJournalEvidenceRefs(root, prepared.journal);
+    const storedTransition = await readTransitionEvidence(root, prepared.journal);
+    if (canonicalJson(storedTransition) !== canonicalJson(promoted.transitionEvidence)) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'promoted transition evidenceがstaleです');
+    }
+    for (const entry of prepared.journal.entries) {
+      if (await fileSha(join(root, ...entry.path.split('/'))) !== entry.newSha256 ||
+        await fileSha(join(root, ...entry.stagedPath.split('/'))) !== null) {
+        fail('F005_ACCEPTANCE_TRANSACTION_INVALID', '昇格済みartifact tupleが一致しません');
+      }
+    }
+    await verifyActualCapacityBinding(root, prepared.journal, actualRef);
+    const manifest = await readManifest(root);
+    if (hashBatchManifest(manifest) !== promoted.expectedManifestSha) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'finalize manifest CASがstaleです');
+    }
+    const acceptedAt = options.now?.() ?? new Date().toISOString();
+    if (!Number.isFinite(Date.parse(acceptedAt))) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'acceptedAtが不正です');
+    }
+    const evidence: PreparedWorkAcceptanceEvidence = freezeDeep({
+      ...storedTransition,
+      actualCapacityReportSha: actualRef.sha256,
+      acceptedAt,
+      acceptedBy: promoted.recorderOwner,
+    });
+    const next = transitionWorkState(manifest, promoted.workId, 'accepted', evidence);
+    const nextManifestSha256 = hashBatchManifest(next);
+    const nextBytes = canonicalJson(next);
+    const manifestPath = join(root, ...paths.manifestPath.split('/'));
+    const nextPath = join(root, ...paths.manifestNextPath.split('/'));
+    const backupPath = join(root, ...paths.manifestBackupPath.split('/'));
+    if (await exists(backupPath)) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'manifest backupがexpected-absentではありません');
+    }
+    const existingNextSha = await fileSha(nextPath);
+    if (existingNextSha === null) {
+      await writeDurableExclusive(
+        root,
+        nextPath,
+        nextBytes,
+        () => options.afterFileSync?.('manifest-next'),
+      );
+    } else if (existingNextSha === nextManifestSha256) {
+      await syncDirectory(root, dirname(nextPath));
+    } else {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', '既存manifest-nextがsealed bytesと一致しません');
+    }
+    if (await fileSha(nextPath) !== nextManifestSha256) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'sealed next manifest post-readが不正です');
+    }
+    const measuredBase = {
+      ...journalPhaseBase(prepared.journal),
+      nextManifestSha256,
+      capacityJournalSha256: actualRef.journalSha256,
+      actualCapacityReportSha256: actualRef.sha256,
+    };
+    const capacityPhase = sealJournalPhase(
+      measuredBase,
+      'capacity-measured',
+      committed.wholeFileSha256,
+    );
+    const capacityBytes = canonicalJson(capacityPhase);
+    await writeDurableExclusive(
+      root,
+      join(paths.directory, 'capacity-measured.json'),
+      capacityBytes,
+      () => options.afterFileSync?.('capacity-measured'),
+    );
+    await options.afterPhase?.('capacity-measured');
+
+    if (hashBatchManifest(await readManifest(root)) !== promoted.expectedManifestSha) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'manifest CAS直前のexpected SHAが変化しました');
+    }
+    const manifestOldNativeIdentity = await mutationNativeIdentity(
+      root,
+      paths.manifestPath,
+      promoted.expectedManifestSha,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      options.recoveryNativeIdentities,
+    );
+    const manifestNextNativeIdentity = await mutationNativeIdentity(
+      root,
+      paths.manifestNextPath,
+      nextManifestSha256,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      options.recoveryNativeIdentities,
+    );
+    await nativeRenameTargetAbsent(
+      root,
+      paths.manifestPath,
+      paths.manifestBackupPath,
+      promoted.expectedManifestSha,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      manifestOldNativeIdentity,
+    );
+    await options.afterManifestOldRenamed?.();
+    await nativeRenameTargetAbsent(
+      root,
+      paths.manifestNextPath,
+      paths.manifestPath,
+      nextManifestSha256,
+      'F005_ACCEPTANCE_TRANSACTION_INVALID',
+      manifestNextNativeIdentity,
+    );
+    await syncDirectory(root, dirname(manifestPath));
+    await syncDirectory(root, dirname(nextPath));
+    await options.afterPhase?.('manifest-renamed');
+    const post = await readManifest(root);
+    if (hashBatchManifest(post) !== nextManifestSha256 ||
+      await fileSha(backupPath) !== promoted.expectedManifestSha) {
+      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'metadata-only finalize post-readが一致しません');
+    }
+    const manifestPhase = sealJournalPhase(
+      measuredBase,
+      'manifest-committed',
+      sha(capacityBytes),
+    );
+    const manifestPhaseBytes = canonicalJson(manifestPhase);
+    await writeDurableExclusive(
+      root,
+      join(paths.directory, 'manifest-committed.json'),
+      manifestPhaseBytes,
+      () => options.afterFileSync?.('manifest-committed'),
+    );
+    await options.afterPhase?.('manifest-committed');
+    const closedPhase = sealJournalPhase(
+      measuredBase,
+      'closed',
+      sha(manifestPhaseBytes),
+    );
+    await writeDurableExclusive(
+      root,
+      join(paths.directory, 'closed.json'),
+      canonicalJson(closedPhase),
+      () => options.afterFileSync?.('closed'),
+    );
+    await options.afterPhase?.('closed');
+    return post;
+  } finally {
+    await releaseFinalizeLock(lock);
   }
 }
 
@@ -990,170 +2520,1139 @@ export interface F005RecoveryResult {
   readonly journalCount: number;
 }
 
-function parseJournal(bytes: Uint8Array, expectedPhase: AcceptanceJournalPhase): F005LogicalAcceptanceJournal {
+
+/**
+ * CHG-F005-002の二段journalを回復する。payload promotionだけが完了した場合は旧版へ戻し、
+ * manifest CAS済みならactual結合済みの完成新版だけへ収束する。
+ */
+
+export async function recoverF005WorkAcceptance(workspace: string): Promise<F005RecoveryResult> {
+  return recoverStrictF005WorkAcceptance(workspace);
+}
+async function actualRefFromJournal(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+): Promise<F005ActualCapacityReportRef | null> {
+  if (!await exists(join(root, ...journal.actualCapacityReportPath.split('/')))) return null;
+  const bytes = await readSafeFile(
+    root,
+    journal.actualCapacityReportPath,
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  );
   const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
   let value: unknown;
   try {
     value = JSON.parse(text);
   } catch (error) {
-    return fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal JSONが不正です', error);
+    return fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'actual容量JSONが不正です', error);
   }
-  exactDataObject(value, [
-    'schemaVersion', 'phase', 'owner', 'recorderJournalId', 'phaseInstanceId', 'workId',
-    'expectedManifestSha', 'nextManifestSha', 'manifestBackupPath', 'manifestNextPath',
-    'operations', 'journalSha256',
-  ], 'F005_ACCEPTANCE_RECOVERY_CONFLICT', 'acceptance journal');
-  const journal = value as unknown as F005LogicalAcceptanceJournal;
-  const { journalSha256, ...core } = journal;
-  if (journal.schemaVersion !== 1 || journal.phase !== expectedPhase || !journal.owner.trim() ||
-    !SHA256.test(journal.recorderJournalId) || !SHA256.test(journal.phaseInstanceId) ||
-    !WORK_IDS.includes(journal.workId as typeof WORK_IDS[number]) ||
-    !SHA256.test(journal.expectedManifestSha) || !SHA256.test(journal.nextManifestSha) ||
-    journalSha256 !== sha(canonicalJson(core)) || canonicalJson(journal) !== text ||
-    !Array.isArray(journal.operations) || journal.operations.length === 0) {
-    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal seal/tupleが不正です');
+  if (canonicalJson(value) !== text || value === null || typeof value !== 'object') {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'actual容量JSONがcanonicalではありません');
   }
-  return journal;
-}
-
-function journalBinding(journal: F005LogicalAcceptanceJournal): unknown {
+  const report = value as {
+    kind?: unknown;
+    payload?: {
+      candidateSha256?: unknown;
+      journalId?: unknown;
+      journalSha256?: unknown;
+    };
+  };
+  if (report.kind !== 'actual-capacity-report' ||
+    !SHA256.test(String(report.payload?.candidateSha256)) ||
+    !SHA256.test(String(report.payload?.journalId)) ||
+    !SHA256.test(String(report.payload?.journalSha256))) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'actual容量bindingが不正です');
+  }
   return {
-    schemaVersion: journal.schemaVersion,
-    owner: journal.owner,
-    recorderJournalId: journal.recorderJournalId,
-    phaseInstanceId: journal.phaseInstanceId,
-    workId: journal.workId,
-    expectedManifestSha: journal.expectedManifestSha,
-    nextManifestSha: journal.nextManifestSha,
-    manifestBackupPath: journal.manifestBackupPath,
-    manifestNextPath: journal.manifestNextPath,
-    operations: journal.operations,
+    kind: 'actual-capacity-report',
+    path: journal.actualCapacityReportPath,
+    sha256: sha(bytes),
+    candidateSha256: report.payload!.candidateSha256 as Sha256,
+    journalId: report.payload!.journalId as Sha256,
+    journalSha256: report.payload!.journalSha256 as Sha256,
   };
 }
 
-/**
- * trusted journal rootを内部列挙し、第三者値を上書きせず旧版または完成新版へ収束する。
- * @des DES-F005-006 @fun FUN-F005-023 @ut UT-F005-023
- */
-export async function recoverF005WorkAcceptance(workspace: string): Promise<F005RecoveryResult> {
-  const root = await verifiedWorkspace(workspace);
-  const journalRoot = join(root, '.cache', 'transactions', 'f005-accept');
-  if (!await exists(journalRoot)) return freezeDeep({ result: 'no-op' as const, recoveredWorkIds: [], journalCount: 0 });
-  const rootInfo = await lstat(journalRoot);
-  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()) {
-    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'trusted journal rootが不正です');
+async function readStrictJournalChain(
+  root: string,
+  directory: string,
+): Promise<readonly {
+  phase: AcceptanceJournalPhase;
+  journal: WorkAcceptanceJournalV3;
+  text: string;
+  wholeFileSha256: Sha256;
+}[]> {
+  const result: {
+    phase: AcceptanceJournalPhase;
+    journal: WorkAcceptanceJournalV3;
+    text: string;
+    wholeFileSha256: Sha256;
+  }[] = [];
+  let previous: Sha256 | null = null;
+  let missingSeen = false;
+  for (const phase of JOURNAL_PHASES) {
+    const loaded = await readJournalPhase(root, directory, phase, previous);
+    if (!loaded) {
+      missingSeen = true;
+      continue;
+    }
+    if (missingSeen) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `journal phaseが飛越しています: ${phase}`);
+    }
+    result.push({ phase, ...loaded });
+    previous = loaded.wholeFileSha256;
   }
-  const directories = (await readdir(journalRoot, { withFileTypes: true }))
-    .sort((a, b) => a.name.localeCompare(b.name, 'en'));
-  const recovered: WorkId[] = [];
-  let rolledBack = false;
-  for (const entry of directories) {
-    if (!entry.isDirectory() || entry.isSymbolicLink() ||
-      !/^(000799|001076|001104)-[0-9a-f]{64}$/u.test(entry.name)) {
-      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '未知journal entryがあります');
+  if (result.length === 0 || result[0]!.phase !== 'prepared') {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'prepared journalがありません');
+  }
+  const first = result[0]!.journal;
+  for (const item of result.slice(1)) {
+    if (immutableJournalTuple(item.journal) !== immutableJournalTuple(first)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal immutable tupleがphase間で変化しました');
+    }
+    const measured = JOURNAL_PHASES.indexOf(item.phase) >=
+      JOURNAL_PHASES.indexOf('capacity-measured');
+    if (measured &&
+      (item.journal.nextManifestSha256 !==
+        result.find((entry) => entry.phase === 'capacity-measured')?.journal.nextManifestSha256 ||
+        item.journal.capacityJournalSha256 !==
+        result.find((entry) => entry.phase === 'capacity-measured')?.journal.capacityJournalSha256 ||
+        item.journal.actualCapacityReportSha256 !==
+        result.find((entry) => entry.phase === 'capacity-measured')?.journal
+          .actualCapacityReportSha256)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal measured tupleがphase間で変化しました');
+    }
+  }
+  return result;
+}
+
+function parseCanonicalTempJson(
+  temporary: CanonicalDurableTemp,
+  label: string,
+  code: F005AcceptanceErrorCode,
+): unknown {
+  let value: unknown;
+  try {
+    value = JSON.parse(temporary.text);
+  } catch (error) {
+    return fail(code, `${label} canonical temp JSONが不正です`, error);
+  }
+  if (canonicalJson(value) !== temporary.text) {
+    fail(code, `${label} canonical temp bytesがcanonical JSONではありません`);
+  }
+  return value;
+}
+
+function validateTransitionEvidenceValue(
+  value: unknown,
+  journal: WorkAcceptanceJournalV3,
+  text: string,
+  code: F005AcceptanceErrorCode,
+): void {
+  exactDataObject(
+    value,
+    [
+      'kind', 'batchId', 'workId', 'expectedManifestSha', 'acceptedSources',
+      'preTreeDigest', 'postTreeDigest', 'contentBuildSha', 'contentStagingSha',
+      'distSha', 'f001ContentInvariantReportSha', 'f001DistInvariantReportSha',
+      'journalId',
+    ],
+    code,
+    'transition evidence',
+  );
+  const evidence = value as Record<string, unknown>;
+  const shaFields = [
+    'expectedManifestSha', 'preTreeDigest', 'postTreeDigest', 'contentBuildSha',
+    'contentStagingSha', 'distSha', 'f001ContentInvariantReportSha',
+    'f001DistInvariantReportSha', 'journalId',
+  ];
+  if (canonicalJson(value) !== text || evidence.kind !== 'accepted' ||
+    evidence.batchId !== 'F005' || evidence.workId !== journal.workId ||
+    evidence.expectedManifestSha !== journal.expectedManifestSha256 ||
+    evidence.journalId !== journal.recorderJournalId ||
+    shaFields.some((field) => !SHA256.test(String(evidence[field]))) ||
+    !Array.isArray(evidence.acceptedSources) || evidence.acceptedSources.length === 0) {
+    fail(code, 'transition evidence schema/tupleが不正です');
+  }
+  const expectedEntries = new Map(journal.entries.map((entry) => [
+    entry.path,
+    entry,
+  ]));
+  const seen = new Set<string>();
+  for (const [index, source] of evidence.acceptedSources.entries()) {
+    exactDataObject(
+      source,
+      ['path', 'sha256', 'bytes', 'configHash'],
+      code,
+      `transition evidence acceptedSources[${index}]`,
+    );
+    const accepted = source as Record<string, unknown>;
+    const path = String(accepted.path);
+    const entry = expectedEntries.get(path);
+    if (!SAFE_PATH.test(path) || seen.has(path) || !entry ||
+      accepted.sha256 !== entry.newSha256 ||
+      !Number.isSafeInteger(accepted.bytes) || Number(accepted.bytes) < 0 ||
+      !SHA256.test(String(accepted.configHash))) {
+      fail(code, 'transition evidence accepted source tupleが不正です');
+    }
+    seen.add(path);
+  }
+  if (seen.size !== journal.entries.length) {
+    fail(code, 'transition evidenceとjournal entry集合が一致しません');
+  }
+}
+
+async function recoverJournalDurableTemp(
+  root: string,
+  directory: string,
+  phase: AcceptanceJournalPhase,
+  previousWholeFileSha256: Sha256 | null,
+  expectedNativeIdentities?: ReadonlyMap<string, F005NativeFileIdentity>,
+): Promise<void> {
+  const path = join(directory, `${phase}.json`);
+  await recoverCanonicalDurableTemp(
+    root,
+    path,
+    (temporary) => {
+      const value = parseCanonicalTempJson(
+        temporary,
+        `${phase} journal`,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      );
+      validateWorkAcceptanceJournalV3(
+        value,
+        temporary.text,
+        phase,
+        previousWholeFileSha256,
+        root,
+        directory,
+      );
+    },
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    expectedNativeIdentities,
+  );
+}
+
+async function validateManifestNextTemp(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+  temporary: CanonicalDurableTemp,
+  transitionEvidenceOverride?: PreparedF005WorkAcceptance['transitionEvidence'],
+): Promise<void> {
+  const value = parseCanonicalTempJson(
+    temporary,
+    'manifest-next',
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  );
+  const checked = validateBatchManifest(value);
+  if (!checked.ok || checked.value.batchId !== 'F005' ||
+    canonicalJson(checked.value) !== temporary.text) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next schemaが不正です');
+  }
+  const acceptedWork = checked.value.workProgress.find(
+    (work) => work.workId === journal.workId,
+  );
+  const acceptedAt = acceptedWork?.acceptedAt;
+  const actualRef = await actualRefFromJournal(root, journal);
+  if (!actualRef || acceptedWork?.status !== 'accepted' ||
+    acceptedWork.acceptedBy !== journal.owner ||
+    typeof acceptedAt !== 'string' || !Number.isFinite(Date.parse(acceptedAt)) ||
+    !acceptedWork.stageRecords.at(-1)?.inputHashes.includes(actualRef.sha256)) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next acceptance tupleが不正です');
+  }
+  const transitionEvidence = transitionEvidenceOverride ??
+    await readTransitionEvidence(root, journal);
+  const evidence: PreparedWorkAcceptanceEvidence = {
+    ...transitionEvidence,
+    actualCapacityReportSha: actualRef.sha256,
+    acceptedAt,
+    acceptedBy: journal.owner,
+  };
+  const manifestPath = join(root, ...journal.manifestPath.split('/'));
+  const backupPath = join(root, ...journal.manifestBackupPath.split('/'));
+  const manifestSha256 = await fileSha(manifestPath);
+  const backupSha256 = await fileSha(backupPath);
+  let base: BatchManifest;
+  if (manifestSha256 === journal.expectedManifestSha256) {
+    base = await readManifest(root);
+  } else if (backupSha256 === journal.expectedManifestSha256) {
+    const bytes = await readSafeFile(
+      root,
+      journal.manifestBackupPath,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    let backupValue: unknown;
+    try {
+      backupValue = JSON.parse(text);
+    } catch (error) {
+      return fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest backup JSONが不正です', error);
+    }
+    const backup = validateBatchManifest(backupValue);
+    if (!backup.ok || canonicalJson(backup.value) !== text) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest backup schemaが不正です');
+    }
+    base = backup.value;
+  } else {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next base manifestがありません');
+  }
+  const expected = transitionWorkState(base, journal.workId, 'accepted', evidence);
+  if (canonicalJson(expected) !== temporary.text) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next bytesがexact transitionと一致しません');
+  }
+}
+
+const TRANSACTION_TARGET_BASENAMES = [
+  'transition-evidence.json',
+  'prepared.json',
+  'artifacts-committed.json',
+  'capacity-measured.json',
+  'manifest-next.json',
+  'manifest-old.json',
+  'manifest-committed.json',
+  'closed.json',
+] as const;
+const TRANSACTION_TEMP_BASENAMES = TRANSACTION_TARGET_BASENAMES.filter(
+  (name) => name !== 'manifest-old.json',
+);
+
+interface ScannedTransactionFile extends CanonicalDurableTemp {
+  readonly basename: string;
+  readonly isTemporary: boolean;
+  readonly nativeIdentity: F005NativeFileIdentity;
+}
+
+interface TransactionRecoveryPlan {
+  readonly directory: string;
+  readonly nativeIdentities: ReadonlyMap<string, F005NativeFileIdentity>;
+}
+
+function plannedNativeIdentity(
+  plan: TransactionRecoveryPlan,
+  relativePath: string,
+): F005NativeFileIdentity | undefined {
+  const direct = plan.nativeIdentities.get(relativePath);
+  if (direct) return direct;
+  const prefix = `${dirname(relativePath).replace(/\\/gu, '/')}/.${basename(relativePath)}.`;
+  for (const [candidate, identity] of plan.nativeIdentities) {
+    if (candidate.startsWith(prefix) && candidate.endsWith('.tmp')) return identity;
+  }
+  return undefined;
+}
+
+function requirePlannedNativeIdentity(
+  plan: TransactionRecoveryPlan,
+  relativePath: string,
+): F005NativeFileIdentity {
+  const identity = plannedNativeIdentity(plan, relativePath);
+  if (!identity) {
+    fail(
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      `mutation sourceのpre-scan native identityがありません: ${relativePath}`,
+    );
+  }
+  return identity;
+}
+
+async function preScanTransactionRecovery(
+  root: string,
+  directory: string,
+): Promise<TransactionRecoveryPlan> {
+  const targets = new Map<string, ScannedTransactionFile>();
+  const temporaries = new Map<string, ScannedTransactionFile>();
+  const entries = (await readdir(directory, { withFileTypes: true }))
+    .sort((left, right) => left.name.localeCompare(right.name, 'en'));
+  for (const entry of entries) {
+    let targetBasename: string | undefined;
+    let filenameSha256: Sha256 | undefined;
+    if (TRANSACTION_TARGET_BASENAMES.includes(
+      entry.name as typeof TRANSACTION_TARGET_BASENAMES[number],
+    )) {
+      targetBasename = entry.name;
+    } else {
+      for (const allowed of TRANSACTION_TEMP_BASENAMES) {
+        const matched = new RegExp(
+          `^\\.${allowed.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')}\\.([0-9a-f]{64})\\.tmp$`,
+          'u',
+        ).exec(entry.name);
+        if (matched) {
+          targetBasename = allowed;
+          filenameSha256 = matched[1] as Sha256;
+          break;
+        }
+      }
+    }
+    if (!targetBasename || !entry.isFile() || entry.isSymbolicLink()) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `未知transaction fileがあります: ${entry.name}`);
+    }
+    const collection = filenameSha256 === undefined ? targets : temporaries;
+    if (collection.has(targetBasename)) {
+      fail(
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        `${targetBasename} canonical target/tempが複数あります`,
+      );
+    }
+    const path = join(directory, entry.name);
+    const relativePath = workspaceRelative(root, path);
+    const bytes = await readSafeFile(
+      root,
+      relativePath,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    const actualSha256 = sha(bytes);
+    if (filenameSha256 !== undefined && filenameSha256 !== actualSha256) {
+      fail(
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        `${targetBasename} temp filename SHAが実体と一致しません`,
+      );
+    }
+    let text: string;
+    try {
+      text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    } catch (error) {
+      return fail(
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        `${targetBasename} transaction fileがUTF-8ではありません`,
+        error,
+      );
+    }
+    collection.set(targetBasename, {
+      basename: targetBasename,
+      isTemporary: filenameSha256 !== undefined,
+      relativePath,
+      path,
+      sha256: actualSha256,
+      bytes,
+      text,
+      nativeIdentity: await snapshotNativeFileIdentity(
+        root,
+        relativePath,
+        actualSha256,
+        bytes.byteLength,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      ),
+    });
+  }
+  for (const basename of TRANSACTION_TEMP_BASENAMES) {
+    const target = targets.get(basename);
+    const temporary = temporaries.get(basename);
+    if (target && temporary &&
+      (target.sha256 !== temporary.sha256 || target.text !== temporary.text)) {
+      fail(
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        `${basename} targetとcanonical temp bytesが競合しています`,
+      );
+    }
+  }
+  const virtual = (basename: string): ScannedTransactionFile | undefined =>
+    targets.get(basename) ?? temporaries.get(basename);
+  const preparedFile = virtual('prepared.json');
+  if (!preparedFile) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'prepared target/tempがありません');
+  }
+  const journalFiles = new Map<AcceptanceJournalPhase, ScannedTransactionFile>();
+  let previousWholeFileSha256: Sha256 | null = null;
+  let previousPhaseIndex = -1;
+  let virtualPhaseGap = false;
+  let preparedJournal: WorkAcceptanceJournalV3 | undefined;
+  let measuredJournal: WorkAcceptanceJournalV3 | undefined;
+  for (const [phaseIndex, phase] of JOURNAL_PHASES.entries()) {
+    const candidate = virtual(`${phase}.json`);
+    if (!candidate) continue;
+    const value = parseCanonicalTempJson(
+      candidate,
+      `${phase} journal`,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    const linkedToPrevious = phaseIndex === 0 ||
+      previousPhaseIndex === phaseIndex - 1;
+    if (!linkedToPrevious) virtualPhaseGap = true;
+    const expectedPrevious = linkedToPrevious
+      ? previousWholeFileSha256
+      : (value as Partial<WorkAcceptanceJournalV3>).previousPhaseJournalSha256 ?? null;
+    const journal = validateWorkAcceptanceJournalV3(
+      value,
+      candidate.text,
+      phase,
+      expectedPrevious,
+      root,
+      directory,
+    );
+    if (preparedJournal &&
+      immutableJournalTuple(journal) !== immutableJournalTuple(preparedJournal)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'virtual journal immutable tupleが変化しました');
+    }
+    if (phase === 'prepared') preparedJournal = journal;
+    if (phase === 'capacity-measured') measuredJournal = journal;
+    if (measuredJournal && JOURNAL_PHASES.indexOf(phase) >=
+      JOURNAL_PHASES.indexOf('capacity-measured') &&
+      (journal.nextManifestSha256 !== measuredJournal.nextManifestSha256 ||
+        journal.capacityJournalSha256 !== measuredJournal.capacityJournalSha256 ||
+        journal.actualCapacityReportSha256 !== measuredJournal.actualCapacityReportSha256)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'virtual measured tupleがphase間で変化しました');
+    }
+    journalFiles.set(phase, candidate);
+    previousWholeFileSha256 = candidate.sha256;
+    previousPhaseIndex = phaseIndex;
+  }
+  if (virtualPhaseGap) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'virtual journal phaseが飛越しています');
+  }
+  if (!preparedJournal) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'prepared journal temp validationに失敗しました');
+  }
+  const transitionFile = virtual('transition-evidence.json');
+  let transitionEvidence:
+    PreparedF005WorkAcceptance['transitionEvidence'] | undefined;
+  if (transitionFile) {
+    const ref = preparedJournal.evidenceRefs.find(
+      (item) => item.path === workspaceRelative(root, join(directory, 'transition-evidence.json')),
+    );
+    if (!ref || ref.sha256 !== transitionFile.sha256) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'virtual transition evidence SHA refが不正です');
+    }
+    const value = parseCanonicalTempJson(
+      transitionFile,
+      'transition evidence',
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    validateTransitionEvidenceValue(
+      value,
+      preparedJournal,
+      transitionFile.text,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    transitionEvidence =
+      value as PreparedF005WorkAcceptance['transitionEvidence'];
+  }
+  if (journalFiles.has('artifacts-committed') && !transitionEvidence) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'artifacts phaseにtransition evidenceがありません');
+  }
+  const actualPath = join(
+    root,
+    ...preparedJournal.actualCapacityReportPath.split('/'),
+  );
+  const actualRef = await exists(actualPath)
+    ? await actualRefFromJournal(root, preparedJournal)
+    : null;
+  if (actualRef) {
+    await verifyActualCapacityBinding(
+      root,
+      preparedJournal,
+      actualRef,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+  }
+  if (measuredJournal &&
+    (!actualRef ||
+      measuredJournal.actualCapacityReportSha256 !== actualRef.sha256 ||
+      measuredJournal.capacityJournalSha256 !== actualRef.journalSha256)) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'measured phaseとactual/native full bindingが不正です');
+  }
+  const manifestNextFile = virtual('manifest-next.json');
+  if (manifestNextFile) {
+    if (!journalFiles.has('artifacts-committed') || !transitionEvidence) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '先行phaseなしのmanifest-nextです');
+    }
+    await validateManifestNextTemp(
+      root,
+      preparedJournal,
+      manifestNextFile,
+      transitionEvidence,
+    );
+    if (measuredJournal?.nextManifestSha256 !== null &&
+      measuredJournal?.nextManifestSha256 !== undefined &&
+      measuredJournal.nextManifestSha256 !== manifestNextFile.sha256) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-nextとmeasured SHAが一致しません');
+    }
+  }
+  const manifestOldFile = targets.get('manifest-old.json');
+  if (manifestOldFile) {
+    const value = parseCanonicalTempJson(
+      manifestOldFile,
+      'manifest-old',
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    const checked = validateBatchManifest(value);
+    if (!checked.ok || canonicalJson(checked.value) !== manifestOldFile.text ||
+      manifestOldFile.sha256 !== preparedJournal.expectedManifestSha256) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-old exact tupleが不正です');
+    }
+  }
+  if (measuredJournal) {
+    const manifestPath = join(root, ...preparedJournal.manifestPath.split('/'));
+    const backupPath = join(root, ...preparedJournal.manifestBackupPath.split('/'));
+    const liveSha256 = await fileSha(manifestPath);
+    const backupSha256 = await fileSha(backupPath);
+    const nextSha256 = manifestNextFile?.sha256 ?? null;
+    const expectedSha256 = preparedJournal.expectedManifestSha256;
+    const measuredNextSha256 = measuredJournal.nextManifestSha256!;
+    const beforeCas = liveSha256 === expectedSha256 &&
+      backupSha256 === null && nextSha256 === measuredNextSha256;
+    const oldRenamed = liveSha256 === null &&
+      backupSha256 === expectedSha256 && nextSha256 === measuredNextSha256;
+    const nextLive = liveSha256 === measuredNextSha256 &&
+      backupSha256 === expectedSha256 && nextSha256 === null;
+    if (!beforeCas && !oldRenamed && !nextLive) {
+      fail(
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        'capacity phaseのlive/backup/next状態が許可3状態外です',
+      );
+    }
+    if (nextLive) {
+      const liveBytes = await readSafeFile(
+        root,
+        preparedJournal.manifestPath,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      );
+      const liveText = new TextDecoder('utf-8', { fatal: true }).decode(liveBytes);
+      await validateManifestNextTemp(
+        root,
+        preparedJournal,
+        {
+          relativePath: preparedJournal.manifestPath,
+          path: manifestPath,
+          sha256: sha(liveBytes),
+          bytes: liveBytes,
+          text: liveText,
+        },
+        transitionEvidence,
+      );
+    }
+  }
+  const nativeIdentities = new Map<string, F005NativeFileIdentity>();
+  for (const file of [...targets.values(), ...temporaries.values()]) {
+    nativeIdentities.set(file.relativePath, file.nativeIdentity);
+  }
+  for (const relativePath of [
+    preparedJournal.manifestPath,
+    preparedJournal.manifestBackupPath,
+    preparedJournal.actualCapacityReportPath,
+    preparedJournal.capacityJournalPath,
+    ...preparedJournal.entries.flatMap((entry) => [
+      entry.path,
+      entry.stagedPath,
+      ...(entry.backupPath === null ? [] : [entry.backupPath]),
+    ]),
+  ]) {
+    if (nativeIdentities.has(relativePath)) continue;
+    const path = join(root, ...relativePath.split('/'));
+    if (!await exists(path)) continue;
+    const bytes = await readSafeFile(
+      root,
+      relativePath,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    nativeIdentities.set(
+      relativePath,
+      await snapshotNativeFileIdentity(
+        root,
+        relativePath,
+        sha(bytes),
+        bytes.byteLength,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      ),
+    );
+  }
+  return { directory, nativeIdentities };
+}
+
+async function recoverTransactionDurableTemps(
+  root: string,
+  directory: string,
+  plan: TransactionRecoveryPlan,
+): Promise<void> {
+  await recoverJournalDurableTemp(
+    root,
+    directory,
+    'prepared',
+    null,
+    plan.nativeIdentities,
+  );
+  const prepared = await readJournalPhase(root, directory, 'prepared', null);
+  if (!prepared) return;
+  const paths = canonicalTransactionPaths(
+    root,
+    prepared.journal.workId,
+    prepared.journal.recorderJournalId,
+  );
+  const transitionPath = join(root, ...paths.transitionEvidencePath.split('/'));
+  await recoverCanonicalDurableTemp(
+    root,
+    transitionPath,
+    (temporary) => {
+      const ref = prepared.journal.evidenceRefs.find(
+        (item) => item.path === paths.transitionEvidencePath,
+      );
+      if (!ref || ref.sha256 !== temporary.sha256) {
+        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'transition evidence temp SHA refが不正です');
+      }
+      const value = parseCanonicalTempJson(
+        temporary,
+        'transition evidence',
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      );
+      validateTransitionEvidenceValue(
+        value,
+        prepared.journal,
+        temporary.text,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      );
+    },
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    plan.nativeIdentities,
+  );
+  await recoverJournalDurableTemp(
+    root,
+    directory,
+    'artifacts-committed',
+    prepared.wholeFileSha256,
+    plan.nativeIdentities,
+  );
+  const committed = await readJournalPhase(
+    root,
+    directory,
+    'artifacts-committed',
+    prepared.wholeFileSha256,
+  );
+  if (!committed) {
+    if (await findCanonicalDurableTemp(
+      root,
+      join(directory, 'manifest-next.json'),
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    ) || await findCanonicalDurableTemp(
+      root,
+      join(directory, 'capacity-measured.json'),
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    )) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '先行journalなしの後続canonical tempです');
+    }
+    return;
+  }
+  if (immutableJournalTuple(committed.journal) !==
+    immutableJournalTuple(prepared.journal)) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'artifacts journal immutable tupleが不正です');
+  }
+  const manifestNextPath = join(directory, 'manifest-next.json');
+  await recoverCanonicalDurableTemp(
+    root,
+    manifestNextPath,
+    (temporary) => validateManifestNextTemp(root, committed.journal, temporary),
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    plan.nativeIdentities,
+  );
+  await recoverJournalDurableTemp(
+    root,
+    directory,
+    'capacity-measured',
+    committed.wholeFileSha256,
+    plan.nativeIdentities,
+  );
+  const measured = await readJournalPhase(
+    root,
+    directory,
+    'capacity-measured',
+    committed.wholeFileSha256,
+  );
+  if (!measured) return;
+  await recoverJournalDurableTemp(
+    root,
+    directory,
+    'manifest-committed',
+    measured.wholeFileSha256,
+    plan.nativeIdentities,
+  );
+  const manifestCommitted = await readJournalPhase(
+    root,
+    directory,
+    'manifest-committed',
+    measured.wholeFileSha256,
+  );
+  if (!manifestCommitted) return;
+  await recoverJournalDurableTemp(
+    root,
+    directory,
+    'closed',
+    manifestCommitted.wholeFileSha256,
+    plan.nativeIdentities,
+  );
+}
+
+async function verifyPromotedArtifactStates(
+  root: string,
+  journal: WorkAcceptanceJournalV3,
+): Promise<void> {
+  for (const entry of journal.entries) {
+    if (await fileSha(join(root, ...entry.path.split('/'))) !== entry.newSha256 ||
+      await fileSha(join(root, ...entry.stagedPath.split('/'))) !== null ||
+      (entry.backupPath !== null &&
+        await fileSha(join(root, ...entry.backupPath.split('/'))) !== entry.oldSha256)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'promoted artifact/backup実体が不正です');
+    }
+  }
+}
+
+async function rollbackPromotedArtifacts(
+  root: string,
+  directory: string,
+  journal: WorkAcceptanceJournalV3,
+  plan: TransactionRecoveryPlan,
+): Promise<void> {
+  if (hashBatchManifest(await readManifest(root)) !== journal.expectedManifestSha256 ||
+    await exists(join(root, ...journal.manifestBackupPath.split('/'))) ||
+    await exists(join(root, ...journal.manifestNextPath.split('/')))) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'rollback対象manifest tupleが不正です');
+  }
+  for (const entry of [...journal.entries].reverse()) {
+    const target = join(root, ...entry.path.split('/'));
+    const staged = join(root, ...entry.stagedPath.split('/'));
+    const targetSha = await fileSha(target);
+    const stagedSha = await fileSha(staged);
+    if (targetSha === entry.newSha256 && stagedSha === null) {
+      await mkdir(dirname(staged), { recursive: true });
+      await syncDirectory(root, dirname(dirname(staged)), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+      await syncDirectory(root, dirname(staged), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+      await nativeRenameTargetAbsent(
+        root,
+        entry.path,
+        entry.stagedPath,
+        entry.newSha256,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        requirePlannedNativeIdentity(plan, entry.path),
+      );
+      await syncDirectory(root, dirname(target), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+      await syncDirectory(root, dirname(staged), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+    } else if (targetSha !== null || stagedSha !== entry.newSha256) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '第三者変更のためrollbackできません');
+    }
+  }
+  for (const name of [
+    'artifacts-committed.json',
+    'prepared.json',
+    'transition-evidence.json',
+  ]) {
+    const path = join(directory, name);
+    const expectedSha256 = await fileSha(path);
+    if (expectedSha256 !== null) {
+      await nativeDeleteExact(
+        root,
+        workspaceRelative(root, path),
+        expectedSha256,
+        'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+        requirePlannedNativeIdentity(plan, workspaceRelative(root, path)),
+      );
+    }
+  }
+  await syncDirectory(root, directory, 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+  try {
+    await rmdir(directory);
+    await syncDirectory(root, dirname(directory), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+    if (await exists(directory)) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'rollback directory削除後も実体が残っています');
+    }
+  } catch (error) {
+    return fail(
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      '未知fileを削除せずtransaction directoryを保持しました',
+      error,
+    );
+  }
+}
+
+async function rollForwardManifestMetadata(
+  root: string,
+  directory: string,
+  chain: readonly {
+    phase: AcceptanceJournalPhase;
+    journal: WorkAcceptanceJournalV3;
+    text: string;
+    wholeFileSha256: Sha256;
+  }[],
+  plan: TransactionRecoveryPlan,
+): Promise<void> {
+  const capacity = chain.find((item) => item.phase === 'capacity-measured');
+  if (!capacity) fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'capacity phaseがありません');
+  const journal = capacity.journal;
+  const actualRef = await actualRefFromJournal(root, journal);
+  if (!actualRef) fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'actual容量実体がありません');
+  await verifyActualCapacityBinding(
+    root,
+    journal,
+    actualRef,
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  );
+  if (journal.actualCapacityReportSha256 !== actualRef.sha256 ||
+    journal.capacityJournalSha256 !== actualRef.journalSha256) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'capacity phaseとactual/native SHAが一致しません');
+  }
+  await verifyJournalEvidenceRefs(root, journal);
+  await verifyPromotedArtifactStates(root, journal);
+  const manifestPath = join(root, ...journal.manifestPath.split('/'));
+  const backupPath = join(root, ...journal.manifestBackupPath.split('/'));
+  const nextPath = join(root, ...journal.manifestNextPath.split('/'));
+  const manifestSha = await fileSha(manifestPath);
+  const backupSha = await fileSha(backupPath);
+  const nextSha = await fileSha(nextPath);
+  if (manifestSha === journal.expectedManifestSha256 &&
+    backupSha === null && nextSha === journal.nextManifestSha256) {
+    await nativeRenameTargetAbsent(
+      root,
+      journal.manifestPath,
+      journal.manifestBackupPath,
+      journal.expectedManifestSha256,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      requirePlannedNativeIdentity(plan, journal.manifestPath),
+    );
+    await nativeRenameTargetAbsent(
+      root,
+      journal.manifestNextPath,
+      journal.manifestPath,
+      journal.nextManifestSha256!,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      requirePlannedNativeIdentity(plan, journal.manifestNextPath),
+    );
+    await syncDirectory(root, dirname(manifestPath), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+    await syncDirectory(root, dirname(nextPath), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+  } else if (manifestSha === null &&
+    backupSha === journal.expectedManifestSha256 &&
+    nextSha === journal.nextManifestSha256) {
+    await nativeRenameTargetAbsent(
+      root,
+      journal.manifestNextPath,
+      journal.manifestPath,
+      journal.nextManifestSha256!,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+      requirePlannedNativeIdentity(plan, journal.manifestNextPath),
+    );
+    await syncDirectory(root, dirname(manifestPath), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+    await syncDirectory(root, dirname(nextPath), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+  } else if (!(manifestSha === journal.nextManifestSha256 &&
+    backupSha === journal.expectedManifestSha256 &&
+    nextSha === null)) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest old/new/backup tuple外です');
+  }
+  const post = await readManifest(root);
+  if (hashBatchManifest(post) !== journal.nextManifestSha256 ||
+    post.workProgress.find((item) => item.workId === journal.workId)?.status !== 'accepted' ||
+    await fileSha(backupPath) !== journal.expectedManifestSha256) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'roll-forward post-readが不正です');
+  }
+  const manifestCommitted = chain.find((item) => item.phase === 'manifest-committed');
+  let previousWholeFileSha256: Sha256;
+  if (!manifestCommitted) {
+    const phase = sealJournalPhase(
+      journalPhaseBase(journal),
+      'manifest-committed',
+      capacity.wholeFileSha256,
+    );
+    const text = canonicalJson(phase);
+    await writeDurableExclusive(
+      root,
+      join(directory, 'manifest-committed.json'),
+      text,
+      undefined,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    previousWholeFileSha256 = sha(text);
+  } else {
+    previousWholeFileSha256 = manifestCommitted.wholeFileSha256;
+  }
+  if (!chain.some((item) => item.phase === 'closed')) {
+    const closed = sealJournalPhase(
+      journalPhaseBase(journal),
+      'closed',
+      previousWholeFileSha256,
+    );
+    await writeDurableExclusive(
+      root,
+      join(directory, 'closed.json'),
+      canonicalJson(closed),
+      undefined,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+  }
+}
+
+async function recoverStrictF005WorkAcceptance(workspace: string): Promise<F005RecoveryResult> {
+  const root = await verifiedWorkspace(workspace);
+  const journalRoot = join(root, '.cache', 'transactions', 'f005-promote');
+  if (!await exists(journalRoot)) {
+    const recoveryTrashPlan = await preScanF005RecoveryTrash(
+      root,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    await cleanupF005RecoveryTrash(
+      root,
+      recoveryTrashPlan,
+      'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+    );
+    return freezeDeep({ result: 'no-op' as const, recoveredWorkIds: [], journalCount: 0 });
+  }
+  const rootInfo = await lstat(journalRoot);
+  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() ||
+    await realpath(journalRoot) !== journalRoot) {
+    fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'promotion journal rootが不正です');
+  }
+  const directoryEntries = (await readdir(journalRoot, { withFileTypes: true }))
+    .sort((left, right) => left.name.localeCompare(right.name, 'en'));
+  const transactionPlans = new Map<string, TransactionRecoveryPlan>();
+  for (const entry of directoryEntries) {
+    const matched = /^(000799|001076|001104)-([0-9a-f]{64})$/u.exec(entry.name);
+    if (!matched || !entry.isDirectory() || entry.isSymbolicLink()) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `未知promotion journalがあります: ${entry.name}`);
     }
     const directory = join(journalRoot, entry.name);
-    const phaseOrder: AcceptanceJournalPhase[] =
-      ['prepared', 'artifacts-committed', 'manifest-committed', 'closed'];
-    const present: AcceptanceJournalPhase[] = [];
-    let journal: F005LogicalAcceptanceJournal | null = null;
-    for (const phase of phaseOrder) {
-      const path = join(directory, `${phase}.json`);
-      if (!await exists(path)) continue;
-      const parsed = parseJournal(new Uint8Array(await readFile(path)), phase);
-      if (journal && canonicalJson(journalBinding(journal)) !== canonicalJson(journalBinding(parsed))) {
-        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal phase間tupleが一致しません');
+    if (await realpath(directory) !== directory) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'promotion journal directoryがcanonicalではありません');
+    }
+    if ((await readdir(directory)).length > 0) {
+      transactionPlans.set(
+        directory,
+        await preScanTransactionRecovery(root, directory),
+      );
+    }
+  }
+  const recoveryTrashPlan = await preScanF005RecoveryTrash(
+    root,
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  );
+  await cleanupF005RecoveryTrash(
+    root,
+    recoveryTrashPlan,
+    'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  );
+  const recovered: WorkId[] = [];
+  let rolledBack = false;
+  for (const entry of directoryEntries) {
+    const matched = /^(000799|001076|001104)-([0-9a-f]{64})$/u.exec(entry.name);
+    if (!matched || !entry.isDirectory() || entry.isSymbolicLink()) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', `未知promotion journalがあります: ${entry.name}`);
+    }
+    const directory = join(journalRoot, entry.name);
+    if (await realpath(directory) !== directory) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'promotion journal directoryがcanonicalではありません');
+    }
+    let bootstrapEntries = await readdir(directory, { withFileTypes: true });
+    if (bootstrapEntries.length === 0) {
+      await rmdir(directory);
+      await syncDirectory(root, journalRoot, 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+      if (await exists(directory)) {
+        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'bootstrap directory削除後も実体が残っています');
       }
-      journal = parsed;
-      present.push(phase);
+      rolledBack = true;
+      recovered.push(matched[1] as WorkId);
+      continue;
     }
-    if (!journal || present[0] !== 'prepared' ||
-      present.some((phase, index) => phase !== phaseOrder[index])) {
-      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal phaseが欠落または順序違反です');
+    const transactionPlan = transactionPlans.get(directory);
+    if (!transactionPlan) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'transaction pre-scan planがありません');
     }
-    const expectedDirectoryName = `${journal.workId}-${journal.recorderJournalId}`;
-    const expectedBackup = `${relative(root, directory).replace(/\\/gu, '/')}/manifest-old.json`;
-    const expectedNext = `${relative(root, directory).replace(/\\/gu, '/')}/manifest-next.json`;
-    const operationTargets = new Set<string>();
-    if (entry.name !== expectedDirectoryName || journal.manifestBackupPath !== expectedBackup ||
-      journal.manifestNextPath !== expectedNext) {
-      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal path/owner tupleがtrusted rootと一致しません');
-    }
-    for (const [index, operation] of journal.operations.entries()) {
-      exactDataObject(operation, ['sourcePath', 'targetPath', 'sha256', 'bytes', 'configHash'],
-        'F005_ACCEPTANCE_RECOVERY_CONFLICT', `journal.operations[${index}]`);
-      const targetPrefix = `content/batches/F005/accepted-audio/${journal.workId}/`;
-      if (!isAbsolute(operation.sourcePath) || !isInside(root, operation.sourcePath) ||
-        !SAFE_PATH.test(operation.targetPath) || !operation.targetPath.startsWith(targetPrefix) ||
-        !SHA256.test(operation.sha256) || !SHA256.test(operation.configHash) ||
-        !Number.isSafeInteger(operation.bytes) || operation.bytes <= 44 ||
-        operationTargets.has(operation.targetPath)) {
-        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'journal operationがunsafeまたは重複です');
+    await recoverTransactionDurableTemps(root, directory, transactionPlan);
+    bootstrapEntries = await readdir(directory, { withFileTypes: true });
+    if (bootstrapEntries.length === 0) {
+      await rmdir(directory);
+      await syncDirectory(root, journalRoot, 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+      if (await exists(directory)) {
+        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'bootstrap directory削除後も実体が残っています');
       }
-      operationTargets.add(operation.targetPath);
+      rolledBack = true;
+      recovered.push(matched[1] as WorkId);
+      continue;
     }
-    const manifestPath = join(root, ...MANIFEST_PATH.split('/'));
-    const backup = join(root, ...journal.manifestBackupPath.split('/'));
-    const manifestNext = join(root, ...journal.manifestNextPath.split('/'));
-    const manifestDigest = await fileSha(manifestPath);
-    const backupDigest = await fileSha(backup);
-    const manifestNextDigest = await fileSha(manifestNext);
-    const targetStates = await Promise.all(journal.operations.map(async (operation) => ({
-      operation,
-      source: await fileSha(operation.sourcePath),
-      target: await fileSha(join(root, ...operation.targetPath.split('/'))),
-    })));
-    if (targetStates.some(({ operation, source, target }) =>
-      ![null, operation.sha256].includes(source) || ![null, operation.sha256].includes(target) ||
-      source === operation.sha256 && target === operation.sha256)) {
-      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '第三者変更または複製artifactを検出しました');
+    const chain = await readStrictJournalChain(root, directory);
+    const prepared = chain[0]!.journal;
+    if (prepared.workId !== matched[1] || prepared.recorderJournalId !== matched[2]) {
+      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'directory名とjournal tupleが一致しません');
     }
-    const allNew = targetStates.every(({ operation, source, target }) => source === null && target === operation.sha256);
-    if (present.includes('closed')) {
-      if (manifestDigest !== journal.nextManifestSha || backupDigest !== journal.expectedManifestSha ||
-        manifestNextDigest !== null || !allNew) {
-        fail(
-          'F005_ACCEPTANCE_RECOVERY_CONFLICT',
-          'closed journalのmanifest/backup/target実SHAが完成新版tupleと一致しません',
+    const capacity = chain.find((item) => item.phase === 'capacity-measured');
+    if (!capacity) {
+      const actualRef = await actualRefFromJournal(root, prepared);
+      if (actualRef && chain.some((item) => item.phase === 'artifacts-committed')) {
+        const transitionEvidence = await readTransitionEvidence(root, prepared);
+        const nextPath = join(root, ...prepared.manifestNextPath.split('/'));
+        let recoveredAcceptedAt: string | undefined;
+        if (await exists(nextPath)) {
+          await syncDirectory(root, dirname(nextPath), 'F005_ACCEPTANCE_RECOVERY_CONFLICT');
+          const nextBytes = await readSafeFile(
+            root,
+            prepared.manifestNextPath,
+            'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+          );
+          const nextText = new TextDecoder('utf-8', { fatal: true }).decode(nextBytes);
+          let nextValue: unknown;
+          try {
+            nextValue = JSON.parse(nextText);
+          } catch (error) {
+            return fail(
+              'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+              'manifest-next JSONが不正です',
+              error,
+            );
+          }
+          const checked = validateBatchManifest(nextValue);
+          const acceptedWork = checked.ok
+            ? checked.value.workProgress.find((work) => work.workId === prepared.workId)
+            : undefined;
+          const acceptedRecord = acceptedWork?.stageRecords.at(-1);
+          if (!checked.ok || canonicalJson(checked.value) !== nextText ||
+            acceptedWork?.status !== 'accepted' ||
+            acceptedWork.acceptedBy !== prepared.owner ||
+            typeof acceptedWork.acceptedAt !== 'string' ||
+            !Number.isFinite(Date.parse(acceptedWork.acceptedAt)) ||
+            !acceptedRecord?.inputHashes.includes(actualRef.sha256)) {
+            fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', '既存manifest-next acceptance tupleが不正です');
+          }
+          recoveredAcceptedAt = acceptedWork.acceptedAt;
+        }
+        const payload = {
+          workId: prepared.workId,
+          expectedManifestSha: prepared.expectedManifestSha256,
+          recorderJournalId: prepared.recorderJournalId,
+          recorderOwner: prepared.owner,
+          preparedSha256: sha(canonicalJson(transitionEvidence)),
+          candidateSha256: prepared.candidateSha256,
+          transitionEvidence,
+          journalPath:
+            canonicalTransactionPaths(root, prepared.workId, prepared.recorderJournalId)
+              .journalDirectory,
+        };
+        await finalizeF005WorkAcceptance(
+          root,
+          {
+            __brand: 'PromotedF005WorkAcceptance',
+            ...payload,
+            promotionSha256: sha(canonicalJson(payload)),
+          },
+          actualRef,
+          prepared.expectedManifestSha256,
+          recoveredAcceptedAt === undefined
+            ? { recoveryNativeIdentities: transactionPlan.nativeIdentities }
+            : {
+                now: () => recoveredAcceptedAt!,
+                recoveryNativeIdentities: transactionPlan.nativeIdentities,
+              },
         );
+        recovered.push(prepared.workId);
+        continue;
       }
-      const completedManifest = await readManifest(root);
-      const completedWork = completedManifest.workProgress
-        .find((work) => work.workId === journal.workId);
-      if (hashBatchManifest(completedManifest) !== journal.nextManifestSha ||
-        completedWork?.status !== 'accepted') {
-        fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'closed journalのcompleted manifestが不正です');
-      }
-      recovered.push(journal.workId);
+      await rollbackPromotedArtifacts(root, directory, prepared, transactionPlan);
+      rolledBack = true;
+      recovered.push(prepared.workId);
       continue;
     }
-    if (manifestDigest === journal.nextManifestSha && allNew) {
-      recovered.push(journal.workId);
-      continue;
+    const lock = await acquireFinalizeLock(root, prepared.workId, prepared.recorderJournalId);
+    try {
+      await rollForwardManifestMetadata(root, directory, chain, transactionPlan);
+    } finally {
+      await releaseFinalizeLock(lock);
     }
-    const manifestCanRollback = manifestDigest === journal.expectedManifestSha ||
-      manifestDigest === null && backupDigest === journal.expectedManifestSha;
-    if (!manifestCanRollback ||
-      backupDigest !== null && backupDigest !== journal.expectedManifestSha ||
-      manifestNextDigest !== null && manifestNextDigest !== journal.nextManifestSha ||
-      manifestDigest === journal.expectedManifestSha && backupDigest !== null) {
-      fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifestが旧版/完成新版のどちらにも一致しません');
-    }
-    if (manifestDigest === null && backupDigest === journal.expectedManifestSha) {
-      await rename(backup, manifestPath);
-    }
-    for (const { operation, source, target } of targetStates.reverse()) {
-      if (source === null && target === operation.sha256) {
-        await rename(join(root, ...operation.targetPath.split('/')), operation.sourcePath);
-      }
-    }
-    await rm(directory, { recursive: true, force: false });
-    rolledBack = true;
-    recovered.push(journal.workId);
+    recovered.push(prepared.workId);
   }
   return freezeDeep({
-    result: rolledBack ? 'rolled-back' as const : recovered.length > 0 ? 'completed' as const : 'no-op' as const,
+    result: rolledBack
+      ? 'rolled-back' as const
+      : recovered.length > 0 ? 'completed' as const : 'no-op' as const,
     recoveredWorkIds: recovered,
-    journalCount: directories.length,
+    journalCount: directoryEntries.length,
   });
 }

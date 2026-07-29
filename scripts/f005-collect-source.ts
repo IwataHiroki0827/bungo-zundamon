@@ -98,7 +98,11 @@ export async function writeF005SourceArtifactOnce(
     }
     await writeFile(temporary, bytes, { flag: 'wx' });
     temporaryCapability = await resolveSafeWorkspaceFile(workspace, temporaryRelative, 'rename-source');
-    await renameSafeWorkspaceFile(temporaryCapability, relativePath);
+    await renameSafeWorkspaceFile(
+      temporaryCapability,
+      relativePath,
+      temporaryCapability.nativeIdentity,
+    );
     const persistedCapability = await resolveSafeWorkspaceFile(workspace, relativePath, 'read');
     try {
       const persisted = await readSafeWorkspaceFile(persistedCapability);

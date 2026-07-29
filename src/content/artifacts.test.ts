@@ -1,9 +1,11 @@
-import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
   ArtifactWriteError,
+  canonicalJson,
+  ensureJsonArtifactDurable,
   fingerprintArtifact,
   writeJsonArtifactAtomic,
   writeJsonArtifactTreeAtomic,
@@ -40,6 +42,54 @@ describe('production artifactのatomic writer [DES-F001-017][DES-F001-019]', () 
       beforeCommit: async () => writeFile(target, '{"owner":"modified"}\n', 'utf8'),
     })).rejects.toEqual(expect.objectContaining<Partial<ArtifactWriteError>>({ code: 'ARTIFACT_CONFLICT' }));
     expect(await readFile(target, 'utf8')).toBe('{"owner":"modified"}\n');
+  });
+
+  it('temp fsync→rename→native directory flush→post-readのdurability順を固定する', async () => {
+    const root = await workspace();
+    const target = join(root, 'data', 'durable.json');
+    const phases: string[] = [];
+    await writeJsonArtifactAtomic(root, target, { durable: true }, {
+      directorySync: (workspaceRoot, directory) => {
+        expect(workspaceRoot).toBe(root);
+        expect(directory).toBe(join(root, 'data'));
+        phases.push('native-directory-flush');
+      },
+      expectedFingerprint: null,
+      onDurabilityPhase: (phase) => { phases.push(phase); },
+    });
+    expect(phases).toEqual([
+      'temporary-synced',
+      'renamed',
+      'native-directory-flush',
+      'directory-synced',
+      'post-read-verified',
+    ]);
+    expect(await readFile(target, 'utf8')).toBe(canonicalJson({ durable: true }));
+  });
+
+  it('rename前faultはtargetを残さず、rename後faultは同一bytesのdurabilityを再確立できる', async () => {
+    const root = await workspace();
+    const beforeRename = join(root, 'data', 'before.json');
+    await expect(writeJsonArtifactAtomic(root, beforeRename, { state: 'before' }, {
+      expectedFingerprint: null,
+      onDurabilityPhase: (phase) => {
+        if (phase === 'temporary-synced') throw new Error('fault-before-rename');
+      },
+    })).rejects.toThrow(/fault-before-rename/u);
+    expect(await readdir(join(root, 'data'))).toEqual([]);
+
+    const afterRename = join(root, 'data', 'after.json');
+    const bytes = canonicalJson({ state: 'after' });
+    await expect(writeJsonArtifactAtomic(root, afterRename, { state: 'after' }, {
+      expectedFingerprint: null,
+      onDurabilityPhase: (phase) => {
+        if (phase === 'renamed') throw new Error('fault-after-rename');
+      },
+    })).rejects.toThrow(/fault-after-rename/u);
+    expect(await readFile(afterRename, 'utf8')).toBe(bytes);
+    await expect(ensureJsonArtifactDurable(root, afterRename, bytes)).resolves.toBeUndefined();
+    await expect(ensureJsonArtifactDurable(root, afterRename, canonicalJson({ state: 'tampered' })))
+      .rejects.toEqual(expect.objectContaining<Partial<ArtifactWriteError>>({ code: 'ARTIFACT_CONFLICT' }));
   });
 
   it('tree内のworkspace逸脱pathと重複pathを拒否する', async () => {

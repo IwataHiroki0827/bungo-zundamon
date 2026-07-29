@@ -191,10 +191,32 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       workerPid: process.pid,
     }, recorderBackend(nonce, calls));
     const plan = planF005VoiceDiff([speech('生成')], F002_VOICE_CONFIG, { entries: [] });
-    const evidence = await generateF005Voice(plan, engine(wav(1)), stage, recorder);
+    const evidence = await generateF005Voice(plan, engine(wav(1)), stage, recorder, '000799');
     expect(calls).toEqual(['begin', 'create', 'create', 'rename', 'end']);
     expect(evidence.assets).toMatchObject([{ source: 'staging', durationMs: 1 }]);
     await expect(readFile(evidence.assets[0]!.path)).resolves.toHaveLength(92);
+  });
+
+  it('voice phaseを対象work IDへ結合し、nullや別workへ落とさない', async () => {
+    const parent = await mkdtemp(join(tmpdir(), 'f005-voice-work-binding-'));
+    temporaryDirectories.push(parent);
+    const nonce = H('work-binding-nonce');
+    const begun: Array<{ phase: string; workId: string | null }> = [];
+    const backend = recorderBackend(nonce);
+    const recorder = createF005CapacityRecorder({
+      journalId: H('work-binding-journal'),
+      owner: 'worker',
+      sessionNonce: nonce,
+      workerPid: process.pid,
+    }, {
+      ...backend,
+      beginPhase: async (phase: 'voice', workId: string | null) => {
+        begun.push({ phase, workId });
+      },
+    });
+    const plan = planF005VoiceDiff([speech('作品結合')], F002_VOICE_CONFIG, { entries: [] });
+    await generateF005Voice(plan, engine(wav(1)), join(parent, 'stage'), recorder, '001076');
+    expect(begun).toEqual([{ phase: 'voice', workId: '001076' }]);
   });
 
   it('clone plan、concurrency>1、engine差、非WAV、notice欠落をfail-closedにする', async () => {
@@ -205,15 +227,21 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
     const recorder = createF005CapacityRecorder({
       journalId: H('journal'), owner: 'worker', sessionNonce: nonce, workerPid: process.pid,
     }, recorderBackend(nonce));
-    await expect(generateF005Voice({ ...basePlan }, engine(wav(1)), join(parent, 'clone'), recorder))
+    await expect(generateF005Voice({ ...basePlan }, engine(wav(1)), join(parent, 'clone'), recorder, '000799'))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
-    await expect(generateF005Voice(basePlan, engine(wav(1)), join(parent, 'parallel'), recorder, 2))
+    await expect(generateF005Voice(basePlan, engine(wav(1)), join(parent, 'parallel'), recorder, '000799', 2))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
     const wrongEngine = engine(wav(1));
     wrongEngine.getVersion = async () => '0.25.3';
-    await expect(generateF005Voice(basePlan, wrongEngine, join(parent, 'engine'), recorder))
+    await expect(generateF005Voice(basePlan, wrongEngine, join(parent, 'engine'), recorder, '000799'))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
-    await expect(generateF005Voice(basePlan, engine(new Uint8Array([1, 2])), join(parent, 'wav'), recorder))
+    await expect(generateF005Voice(
+      basePlan,
+      engine(new Uint8Array([1, 2])),
+      join(parent, 'wav'),
+      recorder,
+      '000799',
+    ))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
     const lostRecorder = createF005CapacityRecorder({
       journalId: H('lost'), owner: 'worker', sessionNonce: H('lost-nonce'), workerPid: process.pid,
@@ -221,7 +249,7 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       ...recorderBackend(H('lost-nonce')),
       observeMutation: async () => { throw new Error('ETW match missing'); },
     });
-    await expect(generateF005Voice(basePlan, engine(wav(1)), join(parent, 'lost'), lostRecorder))
+    await expect(generateF005Voice(basePlan, engine(wav(1)), join(parent, 'lost'), lostRecorder, '000799'))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
   });
 
@@ -236,7 +264,13 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       workerPid: process.pid,
     }, recorderBackend(boundaryNonce));
     const plan = planF005VoiceDiff([speech('境界')], F002_VOICE_CONFIG, { entries: [] });
-    const exact = await generateF005Voice(plan, engine(wav(120_000)), join(parent, 'exact'), recorder);
+    const exact = await generateF005Voice(
+      plan,
+      engine(wav(120_000)),
+      join(parent, 'exact'),
+      recorder,
+      '000799',
+    );
     expect(exact.assets[0]).toMatchObject({ bytes: 5_760_044, durationMs: 120_000 });
 
     const overNonce = H('over-nonce');
@@ -246,7 +280,13 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       sessionNonce: overNonce,
       workerPid: process.pid,
     }, recorderBackend(overNonce));
-    await expect(generateF005Voice(plan, engine(wav(120_001)), join(parent, 'over'), secondRecorder))
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(120_001)),
+      join(parent, 'over'),
+      secondRecorder,
+      '000799',
+    ))
       .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
   });
 });
@@ -269,9 +309,10 @@ describe('UT-F005-019 closed actual capacity [DES-F005-006][FUN-F005-019]', () =
   }
 
   function journal(workspace: string, dist: string): F005ClosedCapacityJournal {
-    const phases = (['voice', 'preview', 'accept', 'build'] as const).map((phase, index) => ({
+    const phases = (['voice', 'build', 'preview', 'build', 'accept'] as const).map((phase, index) => ({
       phase,
-      phaseInstanceId: H(phase),
+      workId: '000799',
+      phaseInstanceId: H(`${phase}-${index}`),
       beganAt: `2026-07-29T00:00:0${index}.000Z`,
       endedAt: `2026-07-29T00:00:1${index}.000Z`,
     }));
@@ -279,12 +320,17 @@ describe('UT-F005-019 closed actual capacity [DES-F005-006][FUN-F005-019]', () =
       schemaVersion: 3,
       state: 'closed',
       journalId: H('journal'),
+      nativeJournalSha256: H('native-journal'),
+      workId: '000799',
       candidateSha256: H('candidate'),
       workspaceRoot: workspace,
       distRoot: dist,
       allowedWorkerPids: [process.pid],
       phases,
-      events: phases.map((phase, index) => event(index + 1, phase.phase)),
+      events: phases.map((phase, index) => ({
+        ...event(index + 1, phase.phase),
+        phaseInstanceId: phase.phaseInstanceId,
+      })),
       entries: [{
         bucket: 'audio',
         kind: 'path',
@@ -296,7 +342,7 @@ describe('UT-F005-019 closed actual capacity [DES-F005-006][FUN-F005-019]', () =
     });
   }
 
-  it('4 phaseのclosed unionとETW-only eventからpeak/minimum/6区分を導く', async () => {
+  it('作品結合済みexact 5 phaseとETW-only eventからpeak/minimum/6区分を導く', async () => {
     const workspace = resolve('C:/f005-workspace');
     const dist = resolve(workspace, 'dist');
     const sealed = journal(workspace, dist);
@@ -309,8 +355,8 @@ describe('UT-F005-019 closed actual capacity [DES-F005-006][FUN-F005-019]', () =
     expect(actual).toMatchObject({
       schemaVersion: 3,
       state: 'closed',
-      peakLiveBytes: 400,
-      minimumObservedFreeBytes: 5 * 1024 ** 3 - 4,
+      peakLiveBytes: 500,
+      minimumObservedFreeBytes: 5 * 1024 ** 3 - 5,
     });
     expect(actual.buckets.map((bucket) => bucket.kind)).toEqual([
       'audio', 'artifact', 'repository', 'object', 'workspace-peak', 'free-after-peak',
@@ -334,6 +380,46 @@ describe('UT-F005-019 closed actual capacity [DES-F005-006][FUN-F005-019]', () =
         dist,
         accepted,
         { readClosedCapacityJournal: async () => invalid as F005ClosedCapacityJournal },
+      )).rejects.toMatchObject({ code: 'F005_CAPACITY_ACTUAL_INVALID' });
+    }
+  });
+
+  it('phaseの順序差・余分・別workをすべて拒否する', async () => {
+    const workspace = resolve('C:/f005-workspace');
+    const dist = resolve(workspace, 'dist');
+    const valid = journal(workspace, dist);
+    const accepted = [{ path: 'public/audio/F005/a.wav', sha256: H('audio') }];
+    const reseal = (
+      phases: F005ClosedCapacityJournal['phases'],
+    ): F005ClosedCapacityJournal => sealF005CapacityJournal({
+      schemaVersion: valid.schemaVersion,
+      state: valid.state,
+      journalId: valid.journalId,
+      nativeJournalSha256: valid.nativeJournalSha256,
+      workId: valid.workId,
+      candidateSha256: valid.candidateSha256,
+      workspaceRoot: valid.workspaceRoot,
+      distRoot: valid.distRoot,
+      allowedWorkerPids: valid.allowedWorkerPids,
+      phases,
+      events: valid.events,
+      entries: valid.entries,
+      initialFreeBytes: valid.initialFreeBytes,
+    });
+    const reversed = reseal([valid.phases[1]!, valid.phases[0]!, ...valid.phases.slice(2)]);
+    const extra = reseal([...valid.phases, {
+      ...valid.phases[4]!,
+      phaseInstanceId: H('extra'),
+    }]);
+    const otherWork = reseal(valid.phases.map((phase, index) =>
+      index === 2 ? { ...phase, workId: '001076' } : phase));
+    for (const invalid of [reversed, extra, otherWork]) {
+      await expect(measureF005ActualCapacity(
+        workspace,
+        dist,
+        accepted,
+        { readClosedCapacityJournal: async () => invalid },
+        '000799',
       )).rejects.toMatchObject({ code: 'F005_CAPACITY_ACTUAL_INVALID' });
     }
   });

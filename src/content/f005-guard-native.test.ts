@@ -1,4 +1,5 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -7,8 +8,14 @@ import { createInterface } from 'node:readline';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import {
+  deleteSafeWorkspaceFile,
+  readSafeWorkspaceFile,
+  renameSafeWorkspaceFile,
+  resolveSafeWorkspaceFile,
+  snapshotSafeWorkspaceFileCapability,
   verifyF005NativeGuardBuildEvidence,
   type F005NativeGuardBuildEvidence,
+  type SafeFileHandle,
 } from './f005-source.ts';
 
 const PROJECT_ROOT = resolve('.');
@@ -141,6 +148,182 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       join(root, 'content', 'renamed.txt'),
       join(root, 'content', 'after-close.txt'),
     )).resolves.toBeUndefined();
+  });
+
+  /** @des DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
+  it('held identityだけをdeleteし、reply後の同名replacement・replay・未知capabilityを保護する', async () => {
+    const root = await temporaryRoot('f005-native-delete-race-');
+    await mkdir(join(root, 'cleanup'));
+    const target = join(root, 'cleanup', 'target.json');
+    const original = '{"owner":"pipeline"}\n';
+    const replacement = '{"owner":"third-party"}\n';
+    await writeFile(target, original);
+    const client = new GuardClient();
+    await expect(client.command({
+      op: 'open',
+      capabilityId: 'delete-held',
+      root,
+      relativePath: 'cleanup/target.json',
+    })).resolves.toMatchObject({
+      ok: true,
+      sha256: createHash('sha256').update(original).digest('hex'),
+    });
+
+    // open〜disposition間はShareWriteを外し、検証済みbytesの差替えを拒否する。
+    await expect(writeFile(target, replacement)).rejects.toBeDefined();
+    await expect(client.command({
+      op: 'delete',
+      capabilityId: 'delete-held',
+    })).resolves.toEqual({
+      ok: true,
+      capabilityId: 'delete-held',
+      relativePath: 'cleanup/target.json',
+      sha256: createHash('sha256').update(original).digest('hex'),
+    });
+    await expect(readFile(target)).rejects.toMatchObject({ code: 'ENOENT' });
+
+    // delete opは元handleをclose済み。同名replacementをhelper終了前に作っても触れない。
+    await writeFile(target, replacement);
+    await expect(client.command({
+      op: 'delete',
+      capabilityId: 'delete-held',
+    })).resolves.toEqual({ ok: false, error: 'CAPABILITY_UNKNOWN' });
+    await expect(client.command({
+      op: 'delete',
+      capabilityId: 'never-opened',
+    })).resolves.toEqual({ ok: false, error: 'CAPABILITY_UNKNOWN' });
+    await client.close();
+    await expect(readFile(target, 'utf8')).resolves.toBe(replacement);
+  });
+
+  /** @des DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
+  it('TS bridgeはmint済みdelete-source capabilityだけを一度消費する', async () => {
+    const root = await temporaryRoot('f005-native-delete-bridge-');
+    await mkdir(join(root, 'cleanup'));
+    const target = join(root, 'cleanup', 'target.json');
+    await writeFile(target, '{"state":"old"}\n');
+    const capability = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/target.json',
+      'delete-source',
+    );
+    await expect(deleteSafeWorkspaceFile(
+      capability,
+      capability.nativeIdentity,
+    )).resolves.toBeUndefined();
+    await expect(readFile(target)).rejects.toMatchObject({ code: 'ENOENT' });
+    await writeFile(target, '{"state":"replacement"}\n');
+    await expect(deleteSafeWorkspaceFile(
+      capability,
+      capability.nativeIdentity,
+    )).rejects.toBeDefined();
+    await expect(deleteSafeWorkspaceFile(
+      {} as SafeFileHandle,
+      '00000000:0000000000000000',
+    )).rejects.toBeDefined();
+    await expect(readFile(target, 'utf8')).resolves.toBe('{"state":"replacement"}\n');
+  });
+
+  /** @des DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
+  it('pre-scan後の同SHA別identityをdelete/rename CASで拒否し、同identityだけ許可する', async () => {
+    const root = await temporaryRoot('f005-native-identity-cas-');
+    await mkdir(join(root, 'cleanup'));
+    const content = '{"same":"sha"}\n';
+
+    const deleteTarget = join(root, 'cleanup', 'delete.json');
+    await writeFile(deleteTarget, content);
+    const deleteScan = await resolveSafeWorkspaceFile(root, 'cleanup/delete.json', 'read');
+    const deleteSnapshot = snapshotSafeWorkspaceFileCapability(deleteScan);
+    await readSafeWorkspaceFile(deleteScan);
+    await rename(deleteTarget, join(root, 'cleanup', 'delete-old.json'));
+    await writeFile(deleteTarget, content);
+    await expect(resolveSafeWorkspaceFile(
+      root,
+      'cleanup/delete.json',
+      'delete-source',
+      deleteSnapshot.nativeIdentity,
+    )).rejects.toBeDefined();
+    const replacedDeleteCapability = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/delete.json',
+      'delete-source',
+    );
+    await expect(deleteSafeWorkspaceFile(
+      replacedDeleteCapability,
+      deleteSnapshot.nativeIdentity,
+    )).rejects.toBeDefined();
+    await expect(readFile(deleteTarget, 'utf8')).resolves.toBe(content);
+
+    const renameSource = join(root, 'cleanup', 'rename.json');
+    await writeFile(renameSource, content);
+    const renameScan = await resolveSafeWorkspaceFile(root, 'cleanup/rename.json', 'read');
+    const renameSnapshot = snapshotSafeWorkspaceFileCapability(renameScan);
+    await readSafeWorkspaceFile(renameScan);
+    await rename(renameSource, join(root, 'cleanup', 'rename-old.json'));
+    await writeFile(renameSource, content);
+    await expect(resolveSafeWorkspaceFile(
+      root,
+      'cleanup/rename.json',
+      'rename-source',
+      renameSnapshot.nativeIdentity,
+    )).rejects.toBeDefined();
+    const replacedRenameCapability = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/rename.json',
+      'rename-source',
+    );
+    await expect(renameSafeWorkspaceFile(
+      replacedRenameCapability,
+      'cleanup/renamed.json',
+      renameSnapshot.nativeIdentity,
+    )).rejects.toBeDefined();
+    await expect(readFile(renameSource, 'utf8')).resolves.toBe(content);
+    await expect(readFile(join(root, 'cleanup', 'renamed.json')))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+
+    const stableDelete = join(root, 'cleanup', 'stable-delete.json');
+    await writeFile(stableDelete, content);
+    const stableDeleteScan = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/stable-delete.json',
+      'read',
+    );
+    const stableDeleteSnapshot = snapshotSafeWorkspaceFileCapability(stableDeleteScan);
+    await readSafeWorkspaceFile(stableDeleteScan);
+    const stableDeleteCapability = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/stable-delete.json',
+      'delete-source',
+      stableDeleteSnapshot.nativeIdentity,
+    );
+    await deleteSafeWorkspaceFile(
+      stableDeleteCapability,
+      stableDeleteSnapshot.nativeIdentity,
+    );
+    await expect(readFile(stableDelete)).rejects.toMatchObject({ code: 'ENOENT' });
+
+    const stableRename = join(root, 'cleanup', 'stable-rename.json');
+    await writeFile(stableRename, content);
+    const stableRenameScan = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/stable-rename.json',
+      'read',
+    );
+    const stableRenameSnapshot = snapshotSafeWorkspaceFileCapability(stableRenameScan);
+    await readSafeWorkspaceFile(stableRenameScan);
+    const stableRenameCapability = await resolveSafeWorkspaceFile(
+      root,
+      'cleanup/stable-rename.json',
+      'rename-source',
+      stableRenameSnapshot.nativeIdentity,
+    );
+    await renameSafeWorkspaceFile(
+      stableRenameCapability,
+      'cleanup/stable-renamed.json',
+      stableRenameSnapshot.nativeIdentity,
+    );
+    await expect(readFile(join(root, 'cleanup', 'stable-renamed.json'), 'utf8'))
+      .resolves.toBe(content);
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */

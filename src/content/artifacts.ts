@@ -3,6 +3,7 @@ import {
   lstat,
   mkdir,
   mkdtemp,
+  open,
   readdir,
   readFile,
   realpath,
@@ -24,7 +25,16 @@ export interface JsonArtifactEntry {
 export interface AtomicArtifactOptions {
   readonly expectedFingerprint?: ArtifactFingerprint | null;
   readonly beforeCommit?: () => void | Promise<void>;
+  readonly directorySync?: ArtifactDirectorySync;
+  readonly onDurabilityPhase?: (
+    phase: 'temporary-synced' | 'renamed' | 'directory-synced' | 'post-read-verified',
+  ) => void | Promise<void>;
 }
+
+export type ArtifactDirectorySync = (
+  workspace: string,
+  directory: string,
+) => void | Promise<void>;
 
 export class ArtifactWriteError extends Error {
   constructor(
@@ -139,6 +149,63 @@ export async function fingerprintArtifact(path: string): Promise<ArtifactFingerp
   return walkFingerprint(resolve(path));
 }
 
+async function syncRegularFile(path: string): Promise<void> {
+  const handle = await open(path, 'r+');
+  try {
+    await handle.sync();
+  } finally {
+    await handle.close();
+  }
+}
+
+async function syncDirectory(
+  workspace: string,
+  directory: string,
+  committedFile: string,
+  nativeDirectorySync?: ArtifactDirectorySync,
+): Promise<void> {
+  if (process.platform === 'win32' && nativeDirectorySync) {
+    await nativeDirectorySync(workspace, directory);
+    return;
+  }
+  let handle;
+  try {
+    handle = await open(directory, 'r');
+    await handle.sync();
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (process.platform !== 'win32' ||
+      !['EPERM', 'EINVAL', 'EBADF', 'ENOTSUP'].includes(code ?? '')) {
+      throw error;
+    }
+    // Node/Windowsはdirectory handleのfsyncをEPERMにする。rename後fileの
+    // FlushFileBuffersを再実行し、NTFSのfile name metadataを含むcommitを待つ。
+    await syncRegularFile(committedFile);
+  } finally {
+    await handle?.close();
+  }
+}
+
+/** canonical bytesが既にrename済みのrecovery経路でもdurabilityを再確立する。 */
+export async function ensureJsonArtifactDurable(
+  workspace: string,
+  path: string,
+  expectedCanonicalBytes: string,
+  directorySync?: ArtifactDirectorySync,
+): Promise<void> {
+  const root = await verifiedWorkspace(workspace);
+  const target = descendant(root, path);
+  await assertNoSymbolicLink(root, target);
+  if (await readFile(target, 'utf8') !== expectedCanonicalBytes) {
+    throw new ArtifactWriteError('ARTIFACT_CONFLICT', '既存artifact bytesが期待値と一致しません');
+  }
+  await syncRegularFile(target);
+  await syncDirectory(root, dirname(target), target, directorySync);
+  if (await readFile(target, 'utf8') !== expectedCanonicalBytes) {
+    throw new ArtifactWriteError('ARTIFACT_CONFLICT', 'durability確立後のartifact bytesが一致しません');
+  }
+}
+
 /** @des DES-F001-017 DES-F001-019 @fun FUN-F001-033 */
 export async function writeJsonArtifactAtomic(
   workspace: string,
@@ -156,13 +223,28 @@ export async function writeJsonArtifactAtomic(
   await mkdir(dirname(target), { recursive: true });
   await assertNoSymbolicLink(root, dirname(target));
   const temporary = join(dirname(target), `.${basename(target)}.${randomUUID()}.tmp`);
+  const bytes = canonicalJson(value);
   try {
-    await writeFile(temporary, canonicalJson(value), { encoding: 'utf8', flag: 'wx' });
+    const temporaryHandle = await open(temporary, 'wx');
+    try {
+      await temporaryHandle.writeFile(bytes, { encoding: 'utf8' });
+      await temporaryHandle.sync();
+    } finally {
+      await temporaryHandle.close();
+    }
+    await options.onDurabilityPhase?.('temporary-synced');
     await options.beforeCommit?.();
     if (!sameFingerprint(initial, await walkFingerprint(target))) {
       throw new ArtifactWriteError('ARTIFACT_CONFLICT', 'artifactが書込中に変更されています');
     }
     await rename(temporary, target);
+    await options.onDurabilityPhase?.('renamed');
+    await syncDirectory(root, dirname(target), target, options.directorySync);
+    await options.onDurabilityPhase?.('directory-synced');
+    if (await readFile(target, 'utf8') !== bytes) {
+      throw new ArtifactWriteError('ARTIFACT_CONFLICT', 'artifact post-readが一致しません');
+    }
+    await options.onDurabilityPhase?.('post-read-verified');
   } finally {
     await rm(temporary, { force: true });
   }

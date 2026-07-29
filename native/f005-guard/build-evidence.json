@@ -1,15 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "abi": "f005-guard-jsonl-v1",
+  "capacityAbi": "f005-capacity-pipe-v3",
   "rid": "win-x64",
   "sdkVersion": "9.0.316",
   "runtimeVersion": "9.0.18",
   "sdkZipSha512": "871d655b07f05aa5844a27a0dc742ccb6ca1e6df11be1c1251d6e967505595f455fd1160165048e3348f8dd2412ca82d414d0402c8acab30f997e30897a9040f",
   "runtimeZipSha512": "38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8",
-  "programSha256": "55bcd2b81a1b0406430558e3896558b672169e21993be3fccc520c1d9f8ff1a9",
+  "programSha256": "35dbe5796b4dc50ccbde92dbcef1df2f0b82f2678bea40498c34b75f2a1d97ad",
   "projectSha256": "9667ab4b3f0f1a36e03211562018fad72d0ca308af3108dc4427c8a33c0b8a3d",
   "globalJsonSha256": "9c69ebf15e08f944921f34b4cadf50e879d3467bb847d609b6ae079fc120d192",
-  "apphostSha256": "57b08db339714b8c44462bb12cd9bd16cc32e4af2fe07169233d6b2b69c7390b",
-  "outputBinarySha256": "57b08db339714b8c44462bb12cd9bd16cc32e4af2fe07169233d6b2b69c7390b",
-  "outputBytes": 74950492
+  "apphostSha256": "a184eaa2fa9936dc63079a499fb3c062c040cec986e0b71c6d0664a3f9b23277",
+  "outputBinarySha256": "a184eaa2fa9936dc63079a499fb3c062c040cec986e0b71c6d0664a3f9b23277",
+  "outputBytes": 74958684
 }

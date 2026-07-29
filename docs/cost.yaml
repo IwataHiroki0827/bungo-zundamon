@@ -498,3 +498,10 @@ entries:
   agents: 4
   est_tokens: 52000
   note: 65候補を独立二重レビューで63採用/2除外、62音声・12,521,800 bytesへ確定。selection再開、最新predeploy権利allow、容量予測、native Job/ETW/IPC/journal、preview/accept証拠結合を実装。production runner High 1とETW_PRIVILEGE_REQUIREDのため実音声・atomic受入前で安全停止し、public差分0
+- date: '2026-07-29'
+  phase: test
+  task: T-076 CHG-F005-002 二段作品受入の影響再試験
+  model: GPT-5
+  agents: 4
+  est_tokens: 64000
+  note: 1作品1sessionのstage→close→actual→metadata finalize、V3全file SHA chain、native identity必須rename/delete CAS、全transaction事前走査、同一SHA別identity差替え保持、phase別回復を実装。重点180件・全1240件、型・lint・697 files build・audit 0・public差分0、最終独立受入High/Medium/Low 0でPASS

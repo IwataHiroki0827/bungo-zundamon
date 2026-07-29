@@ -1124,7 +1124,11 @@ describe('F005 Windows安全path', () => {
       await writeFile(stagingPath, 'trusted');
       renameCapability = await resolveSafeWorkspaceFile(root, 'content/staging.tmp', 'rename-source');
       await writeFile(join(root, 'content', 'new.json'), 'attacker');
-      await expect(renameSafeWorkspaceFile(renameCapability, 'content/new.json'))
+      await expect(renameSafeWorkspaceFile(
+        renameCapability,
+        'content/new.json',
+        renameCapability.nativeIdentity,
+      ))
         .rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
       expect(renameCapability).not.toHaveProperty('absolutePath');
       expect(renameCapability).not.toHaveProperty('root');
@@ -1149,7 +1153,11 @@ describe('F005 Windows安全path', () => {
     expect(getF005NativeGuardProcessCountForTest()).toBe(0);
 
     const readCapability = await resolveSafeWorkspaceFile(root, 'source.json', 'read');
-    await expect(renameSafeWorkspaceFile(readCapability, '../outside.json'))
+    await expect(renameSafeWorkspaceFile(
+      readCapability,
+      '../outside.json',
+      readCapability.nativeIdentity,
+    ))
       .rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
     expect(getF005NativeGuardProcessCountForTest()).toBe(0);
   });

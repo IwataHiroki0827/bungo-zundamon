@@ -24,14 +24,14 @@ const SHA256 = /^[0-9a-f]{64}$/u;
 const SAFE_PATH = /^(?!\/)(?!.*(?:^|\/)\.\.?\/)(?!.*[\\:\0])[\p{L}\p{N}._/-]+$/u;
 const PHASES = new Set(['voice', 'preview', 'accept', 'build']);
 const WORK_IDS = new Set(['000799', '001076', '001104']);
-const CAPACITY_ABI = 'f005-capacity-pipe-v1';
 const mintedNativeBackends = new WeakSet<object>();
 
 export type F005NativeCapacityErrorCode =
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_ETW_PRIVILEGE_REQUIRED'
   | 'F005_CAPACITY_IPC_FAILED'
-  | 'F005_CAPACITY_JOURNAL_INVALID';
+  | 'F005_CAPACITY_JOURNAL_INVALID'
+  | 'F005_DIRECTORY_SYNC_FAILED';
 
 export class F005NativeCapacityError extends Error {
   constructor(
@@ -105,6 +105,90 @@ export function normalizeF005CapacityNoticePath(workspace: string, value: unknow
   return normalized;
 }
 
+/**
+ * WindowsでNodeから開けないdirectory write handleを固定native guardで開き、
+ * accepted manifest参照artifactのrenameをFlushFileBuffersで永続化する。
+ * @des DES-F005-006 @fun FUN-F005-022 @ut UT-F005-022
+ */
+export async function flushF005ArtifactDirectory(
+  workspace: string,
+  directory: string,
+  options: { readonly executable?: string } = {},
+): Promise<void> {
+  if (!isAbsolute(workspace) || resolve(workspace) !== workspace ||
+    !isAbsolute(directory) || resolve(directory) !== directory) {
+    return fail('F005_DIRECTORY_SYNC_FAILED', 'directory sync pathが非canonicalです');
+  }
+  const relativeDirectory = relative(workspace, directory).split(sep).join('/');
+  if (!relativeDirectory || relativeDirectory === '..' ||
+    relativeDirectory.startsWith('../') || isAbsolute(relativeDirectory) ||
+    !safeRelativePath(relativeDirectory)) {
+    return fail('F005_DIRECTORY_SYNC_FAILED', 'directory sync pathがworkspace外です');
+  }
+  const [workspaceInfo, directoryInfo, workspaceReal, directoryReal] = await Promise.all([
+    lstat(workspace),
+    lstat(directory),
+    realpath(workspace),
+    realpath(directory),
+  ]).catch((error) =>
+    fail('F005_DIRECTORY_SYNC_FAILED', 'directory sync対象を検証できません', error));
+  if (!workspaceInfo.isDirectory() || workspaceInfo.isSymbolicLink() ||
+    !directoryInfo.isDirectory() || directoryInfo.isSymbolicLink() ||
+    workspaceReal !== workspace || directoryReal !== directory) {
+    return fail('F005_DIRECTORY_SYNC_FAILED', 'directory sync対象の実体が不正です');
+  }
+
+  const executable = options.executable ??
+    join(workspace, '.cache', 'dotnet-f005', 'publish', 'f005-guard.exe');
+  if (!isAbsolute(executable) || resolve(executable) !== executable) {
+    return fail('F005_NATIVE_GUARD_INVALID', 'native guard pathが非canonicalです');
+  }
+  const binary = await readFile(executable).catch((error) =>
+    fail('F005_NATIVE_GUARD_INVALID', 'native guard binaryを読めません', error));
+  if (sha256(binary) !== F005_NATIVE_GUARD_PINS.outputBinarySha256) {
+    return fail('F005_NATIVE_GUARD_INVALID', 'native guard binary pinが一致しません');
+  }
+
+  const guard = new NativeGuardProcess(executable, workspace);
+  let closed = false;
+  try {
+    const hello = await guard.channel.command({ op: 'hello' });
+    if (!hello.ok ||
+      hello.abi !== F005_NATIVE_GUARD_PINS.abi ||
+      hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
+      hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
+      hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion) {
+      return fail('F005_NATIVE_GUARD_INVALID', 'native guard ABI/toolchainが一致しません');
+    }
+    const synced = await guard.channel.command({
+      op: 'sync-directory',
+      root: workspace,
+      relativePath: relativeDirectory,
+    });
+    if (!synced.ok || !exactKeys(synced, ['durability', 'ok']) ||
+      synced.durability !== 'directory-flush-file-buffers') {
+      const nativeCode = typeof synced.error === 'string'
+        ? synced.error
+        : 'DIRECTORY_SYNC_INVALID_REPLY';
+      return fail(
+        'F005_DIRECTORY_SYNC_FAILED',
+        `native directory syncが${nativeCode}で停止しました`,
+      );
+    }
+    await guard.close();
+    closed = true;
+  } catch (error) {
+    if (error instanceof F005NativeCapacityError) throw error;
+    return fail(
+      'F005_DIRECTORY_SYNC_FAILED',
+      'native directory syncを完了できません',
+      error,
+    );
+  } finally {
+    if (!closed) guard.terminate();
+  }
+}
+
 interface GuardReply {
   readonly ok: boolean;
   readonly error?: string;
@@ -114,7 +198,7 @@ interface GuardReply {
 interface NativeNotice {
   readonly noticeId: string;
   readonly sequence: number;
-  readonly phase: 'voice' | 'preview' | 'accept';
+  readonly phase: F005CapacityPhase;
   readonly phaseInstanceId: string;
   readonly kind: 'create' | 'write' | 'rename' | 'delete';
   readonly path: string;
@@ -279,6 +363,8 @@ class NativePipeClient {
 export interface F005NativeCapacitySessionOptions {
   readonly workspace: string;
   readonly owner: string;
+  readonly workId: string;
+  readonly candidateSha256: string;
   readonly executable?: string;
   readonly sessionNonce?: string;
 }
@@ -294,12 +380,29 @@ export interface F005NativeCapacitySession {
   readonly journalId: string;
   readonly journalPath: string;
   readonly owner: string;
+  readonly workId: string;
+  readonly candidateSha256: string;
   readonly sessionNonce: string;
   readonly workerPid: number;
   readonly voiceBackend: F005CapacityRecorderBackend;
   readonly acceptanceBackend: F005AcceptanceCapacityBackend;
-  registerWorkerPid(pid: number): Promise<void>;
+  runInheritedWorker(
+    executable: string,
+    args: readonly string[],
+    cwd: string,
+  ): Promise<{ readonly pid: number; readonly exitCode: number }>;
   beginPhase(phase: F005CapacityPhase, workId: string | null, phaseInstanceId: string): Promise<void>;
+  observeMutation(notice: {
+    readonly noticeId: string;
+    readonly sequence: number;
+    readonly phase: F005CapacityPhase;
+    readonly phaseInstanceId: string;
+    readonly kind: 'create' | 'rename' | 'delete';
+    readonly path: string;
+    readonly targetPath: string | null;
+    readonly sha256: string | null;
+    readonly bytes: number;
+  }): Promise<void>;
   endPhase(phase: F005CapacityPhase, phaseInstanceId: string): Promise<void>;
   close(): Promise<F005NativeCapacityCloseResult>;
   abort(): Promise<void>;
@@ -322,14 +425,17 @@ export async function startF005NativeCapacitySession(
   options: F005NativeCapacitySessionOptions,
 ): Promise<F005NativeCapacitySession> {
   if (!isAbsolute(options.workspace) || resolve(options.workspace) !== options.workspace ||
-    !safeString(options.owner) || options.owner.length > 256) {
-    return fail('F005_NATIVE_GUARD_INVALID', 'workspaceまたはownerが不正です');
+    !safeString(options.owner) || options.owner.length > 256 ||
+    !WORK_IDS.has(options.workId) || !SHA256.test(options.candidateSha256)) {
+    return fail('F005_NATIVE_GUARD_INVALID', 'workspace/owner/work/candidateが不正です');
   }
   const sessionNonce = options.sessionNonce ?? randomBytes(32).toString('hex');
   if (!SHA256.test(sessionNonce)) {
     return fail('F005_NATIVE_GUARD_INVALID', 'session nonceが不正です');
   }
-  const journalId = sha256(`${sessionNonce}\0${options.owner}\0f005-capacity-v3`);
+  const journalId = sha256(
+    `${sessionNonce}\0${options.owner}\0${options.workId}\0${options.candidateSha256}\0f005-capacity-v3`,
+  );
   const journalPath = `.cache/f005-capacity/${journalId}.json`;
   const executable = options.executable ??
     join(options.workspace, '.cache', 'dotnet-f005', 'publish', 'f005-guard.exe');
@@ -345,7 +451,7 @@ export async function startF005NativeCapacitySession(
     const hello = await guard.channel.command({ op: 'hello' });
     if (!hello.ok ||
       hello.abi !== F005_NATIVE_GUARD_PINS.abi ||
-      hello.capacityAbi !== CAPACITY_ABI ||
+      hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
       hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
       hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion) {
       return fail('F005_NATIVE_GUARD_INVALID', 'native guard ABI/toolchainが一致しません');
@@ -366,9 +472,11 @@ export async function startF005NativeCapacitySession(
       journalRelativePath: journalPath,
       owner: options.owner,
       sessionNonce,
+      workId: options.workId,
+      candidateSha256: options.candidateSha256,
     });
     if (!started.ok ||
-      started.capacityAbi !== CAPACITY_ABI ||
+      started.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
       typeof started.pipeName !== 'string' ||
       typeof started.authToken !== 'string') {
       const nativeCode = typeof started.error === 'string' ? started.error : 'CAPACITY_START_FAILED';
@@ -380,7 +488,10 @@ export async function startF005NativeCapacitySession(
       );
     }
     pipe = await NativePipeClient.connect(started.pipeName, started.authToken, sessionNonce);
-    await pipe.command({ op: 'registerPid', pid: process.pid });
+    const registered = await pipe.command({ op: 'registerSelf' });
+    if (registered.pid !== process.pid || registered.jobIdentity !== started.jobIdentity) {
+      return fail('F005_CAPACITY_IPC_FAILED', 'root workerのJob結合が不正です');
+    }
 
     let activePhase: {
       readonly phase: F005CapacityPhase;
@@ -389,11 +500,39 @@ export async function startF005NativeCapacitySession(
     } | null = null;
     let nextApplicationNoticeSequence = 1;
     let lastNativeNoticeSequence = 0;
-    const registerWorkerPid = async (pid: number): Promise<void> => {
-      if (!Number.isSafeInteger(pid) || pid <= 0) {
-        return fail('F005_CAPACITY_IPC_FAILED', 'worker PIDが不正です');
+    let closed = false;
+    const runInheritedWorker = async (
+      executable: string,
+      args: readonly string[],
+      cwd: string,
+    ): Promise<{ readonly pid: number; readonly exitCode: number }> => {
+      const expectedEntry = join(options.workspace, 'scripts', 'build-offline.mjs');
+      if (closed || activePhase?.phase !== 'build' ||
+        activePhase.workId !== options.workId ||
+        executable !== process.execPath || cwd !== options.workspace ||
+        !Array.isArray(args) || args.length !== 1 || args[0] !== expectedEntry) {
+        return fail('F005_CAPACITY_IPC_FAILED', 'inherited worker起動tupleが不正です');
       }
-      await pipe?.command({ op: 'registerPid', pid });
+      const child = spawn(executable, [...args], {
+        cwd,
+        env: {
+          ...process.env,
+          npm_config_offline: 'true',
+          npm_config_audit: 'false',
+          npm_config_fund: 'false',
+        },
+        windowsHide: true,
+        stdio: ['ignore', 'inherit', 'inherit'],
+      });
+      if (!child.pid) return fail('F005_CAPACITY_IPC_FAILED', 'inherited worker PIDを取得できません');
+      const pid = child.pid;
+      const exitCode = await new Promise<number>((resolveExit, reject) => {
+        child.once('error', reject);
+        child.once('exit', (code) =>
+          code === null ? reject(new Error('inherited worker exit codeがありません')) : resolveExit(code));
+      }).catch((error) =>
+        fail('F005_CAPACITY_IPC_FAILED', 'inherited workerを完了できません', error));
+      return Object.freeze({ pid, exitCode });
     };
     const beginPhase = async (
       phase: F005CapacityPhase,
@@ -401,7 +540,7 @@ export async function startF005NativeCapacitySession(
       phaseInstanceId: string,
     ): Promise<void> => {
       if (!PHASES.has(phase) || !SHA256.test(phaseInstanceId) ||
-        (workId !== null && !WORK_IDS.has(workId))) {
+        workId !== options.workId) {
         return fail('F005_CAPACITY_IPC_FAILED', 'phase tupleが不正です');
       }
       await pipe?.command({ op: 'beginPhase', phase, workId, phaseInstanceId });
@@ -505,7 +644,6 @@ export async function startF005NativeCapacitySession(
     });
     mintedNativeBackends.add(voiceBackend);
     mintedNativeBackends.add(acceptanceBackend);
-    let closed = false;
     const close = async (): Promise<F005NativeCapacityCloseResult> => {
       if (closed) return fail('F005_CAPACITY_IPC_FAILED', 'capacity sessionは既に終了しています');
       const reply = await pipe?.command({ op: 'close' });
@@ -518,6 +656,12 @@ export async function startF005NativeCapacitySession(
         return fail('F005_CAPACITY_JOURNAL_INVALID', 'journal実体SHAが応答と一致しません');
       }
       const journal = validateF005CapacityJournalV3(JSON.parse(raw) as unknown, true);
+      if (journal.workId !== options.workId ||
+        journal.candidateSha256 !== options.candidateSha256 ||
+        journal.owner !== options.owner ||
+        journal.sessionNonce !== sessionNonce) {
+        return fail('F005_CAPACITY_JOURNAL_INVALID', 'journal開始tupleがsessionと一致しません');
+      }
       closed = true;
       pipe?.close();
       await guard.close();
@@ -538,12 +682,19 @@ export async function startF005NativeCapacitySession(
       journalId,
       journalPath,
       owner: options.owner,
+      workId: options.workId,
+      candidateSha256: options.candidateSha256,
       sessionNonce,
       workerPid: process.pid,
       voiceBackend,
       acceptanceBackend,
-      registerWorkerPid,
+      runInheritedWorker,
       beginPhase,
+      observeMutation: async (
+        notice: Parameters<F005NativeCapacitySession['observeMutation']>[0],
+      ): Promise<void> => {
+        await observe(notice);
+      },
       endPhase,
       close,
       abort,
@@ -559,12 +710,15 @@ export async function startF005NativeCapacitySession(
 export interface CapacityJournalV3 {
   readonly schemaVersion: 3;
   readonly owner: string;
+  readonly workId: string;
+  readonly candidateSha256: string;
   readonly initialFreeBytes: number;
   readonly minimumObservedFreeBytes: number;
   readonly sessionNonce: string;
   readonly jobIdentity: string;
   readonly etwSessionIdentity: string;
   readonly peakLiveBytes: number;
+  readonly registeredWorkerPids: readonly number[];
   readonly phases: readonly Record<string, unknown>[];
   readonly notices: readonly Record<string, unknown>[];
   readonly observations: readonly Record<string, unknown>[];
@@ -626,6 +780,7 @@ export function validateF005CapacityJournalV3(
   requireClosed = true,
 ): CapacityJournalV3 {
   if (!record(value) || !exactKeys(value, [
+    'candidateSha256',
     'closedSeal',
     'etwSessionIdentity',
     'initialFreeBytes',
@@ -636,12 +791,16 @@ export function validateF005CapacityJournalV3(
     'owner',
     'peakLiveBytes',
     'phases',
+    'registeredWorkerPids',
     'schemaVersion',
     'sessionNonce',
     'state',
+    'workId',
   ]) ||
     value.schemaVersion !== 3 ||
     !safeString(value.owner) ||
+    !WORK_IDS.has(String(value.workId)) ||
+    !SHA256.test(String(value.candidateSha256)) ||
     !safeInteger(value.initialFreeBytes) ||
     !safeInteger(value.minimumObservedFreeBytes) ||
     !safeInteger(value.peakLiveBytes) ||
@@ -650,6 +809,10 @@ export function validateF005CapacityJournalV3(
     !safeString(value.jobIdentity) ||
     !safeString(value.etwSessionIdentity) ||
     !Array.isArray(value.phases) ||
+    !Array.isArray(value.registeredWorkerPids) ||
+    value.registeredWorkerPids.some((pid) => !safeInteger(pid) || Number(pid) <= 0) ||
+    value.registeredWorkerPids.some((pid, index, values) =>
+      index > 0 && Number(values[index - 1]) >= Number(pid)) ||
     !Array.isArray(value.notices) ||
     !Array.isArray(value.observations) ||
     !['open', 'closed'].includes(String(value.state))) {
@@ -672,7 +835,8 @@ export function validateF005CapacityJournalV3(
     !safeInteger(value.closedSeal.firstEtwSequence) ||
     !safeInteger(value.closedSeal.lastEtwSequence) ||
     !SHA256.test(String(value.closedSeal.journalBodySha256)) ||
-    value.closedSeal.producerBinarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256) {
+    value.closedSeal.producerBinarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
+    value.registeredWorkerPids.length === 0) {
     return fail('F005_CAPACITY_JOURNAL_INVALID', 'closed sealが不正です');
   }
 
@@ -749,6 +913,7 @@ export function validateF005CapacityJournalV3(
       observation.etwSequence !== expectedEtwSequence++ ||
       !safeInteger(observation.workerPid) ||
       Number(observation.workerPid) <= 0 ||
+      !value.registeredWorkerPids.includes(observation.workerPid) ||
       !PHASES.has(String(observation.phase)) ||
       !SHA256.test(String(observation.phaseInstanceId)) ||
       !safeInteger(observation.logicalLengthBytes) ||

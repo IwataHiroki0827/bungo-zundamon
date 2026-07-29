@@ -13,7 +13,7 @@ using Microsoft.Diagnostics.Tracing.Session;
 using Microsoft.Win32.SafeHandles;
 
 const string Abi = "f005-guard-jsonl-v1";
-const string CapacityAbi = "f005-capacity-pipe-v1";
+const string CapacityAbi = "f005-capacity-pipe-v3";
 const int MaxRequestChars = 65_536;
 var capabilities = new Dictionary<string, HeldCapability>(StringComparer.Ordinal);
 CapacityGuardSession? capacitySession = null;
@@ -63,13 +63,23 @@ while (Console.ReadLine() is { } line)
                 break;
             case "capacity-start":
             {
-                RequireExactKeys(root, "journalRelativePath", "op", "owner", "root", "sessionNonce");
+                RequireExactKeys(
+                    root,
+                    "candidateSha256",
+                    "journalRelativePath",
+                    "op",
+                    "owner",
+                    "root",
+                    "sessionNonce",
+                    "workId");
                 if (capacitySession is not null) throw new GuardException("CAPACITY_SESSION_ACTIVE");
                 capacitySession = CapacityGuardSession.Start(
                     RequiredString(root, "root"),
                     RequiredString(root, "journalRelativePath"),
                     RequiredString(root, "owner"),
-                    RequiredSha256(root, "sessionNonce"));
+                    RequiredSha256(root, "sessionNonce"),
+                    RequiredWorkId(root, "workId"),
+                    RequiredSha256(root, "candidateSha256"));
                 Reply(new {
                     ok = true,
                     capacityAbi = CapacityAbi,
@@ -79,6 +89,15 @@ while (Console.ReadLine() is { } line)
                     jobIdentity = capacitySession.JobIdentity,
                     etwSessionIdentity = capacitySession.EtwSessionIdentity,
                 });
+                break;
+            }
+            case "sync-directory":
+            {
+                RequireExactKeys(root, "op", "relativePath", "root");
+                DirectoryDurability.Flush(
+                    RequiredString(root, "root"),
+                    RequiredString(root, "relativePath"));
+                Reply(new { ok = true, durability = "directory-flush-file-buffers" });
                 break;
             }
             case "open":
@@ -93,6 +112,7 @@ while (Console.ReadLine() is { } line)
                     ok = true,
                     capabilityId = id,
                     bytes = capability.Length,
+                    nativeIdentity = capability.NativeIdentity,
                     sha256 = capability.ReadSha256(),
                 });
                 break;
@@ -122,6 +142,30 @@ while (Console.ReadLine() is { } line)
                     relativePath = capability.RelativePath,
                     sha256 = capability.ReadSha256(),
                 });
+                break;
+            }
+            case "delete":
+            {
+                RequireExactKeys(root, "capabilityId", "op");
+                var id = RequiredId(root, "capabilityId");
+                if (!capabilities.Remove(id, out var capability))
+                    throw new GuardException("CAPABILITY_UNKNOWN");
+                try
+                {
+                    var deleted = capability.Delete();
+                    capability.Dispose();
+                    Reply(new {
+                        ok = true,
+                        capabilityId = id,
+                        relativePath = deleted.RelativePath,
+                        sha256 = deleted.Sha256,
+                    });
+                }
+                catch
+                {
+                    capability.Dispose();
+                    throw;
+                }
                 break;
             }
             case "close":
@@ -181,6 +225,16 @@ static string RequiredSha256(JsonElement value, string property)
     return result;
 }
 
+static string RequiredWorkId(JsonElement value, string property)
+{
+    var result = RequiredString(value, property);
+    if (result is not ("000799" or "001076" or "001104"))
+    {
+        throw new GuardException("REQUEST_INVALID");
+    }
+    return result;
+}
+
 static string RequiredString(JsonElement value, string property)
 {
     if (value.ValueKind != JsonValueKind.Object ||
@@ -217,6 +271,223 @@ sealed class GuardException(string code) : Exception(code)
     public string Code { get; } = code;
 }
 
+/// <summary>
+/// accepted manifestから参照されるartifactのrenameを永続化するため、
+/// workspace配下の実directory handleだけをFlushFileBuffersする。
+/// @des DES-F005-006 @fun FUN-F005-022
+/// </summary>
+static class DirectoryDurability
+{
+    private const uint GenericWrite = 0x40000000;
+    private const uint ShareRead = 0x00000001;
+    private const uint ShareWrite = 0x00000002;
+    private const uint OpenExisting = 3;
+    private const uint FileFlagBackupSemantics = 0x02000000;
+    private const uint FileFlagOpenReparsePoint = 0x00200000;
+    private const uint FileAttributeDirectory = 0x00000010;
+    private const uint FileAttributeReparsePoint = 0x00000400;
+
+    private static readonly HashSet<string> Reserved = new(StringComparer.OrdinalIgnoreCase) {
+        "CON", "PRN", "AUX", "NUL",
+        "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+        "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
+    };
+
+    public static void Flush(string requestedRoot, string relativePath)
+    {
+        if (!OperatingSystem.IsWindows()) throw new GuardException("PLATFORM_UNSUPPORTED");
+        var root = CanonicalRoot(requestedRoot);
+        var segments = SafeSegments(relativePath);
+        var target = Path.Combine(root, Path.Combine(segments));
+        EnsureWithinRoot(root, target);
+
+        var heldDirectories = new List<SafeFileHandle>();
+        try
+        {
+            var cursor = root;
+            heldDirectories.Add(OpenDirectory(cursor, write: false));
+            for (var index = 0; index < segments.Length; index++)
+            {
+                cursor = Path.Combine(cursor, segments[index]);
+                heldDirectories.Add(OpenDirectory(
+                    cursor,
+                    write: index == segments.Length - 1));
+            }
+            if (!FlushFileBuffers(heldDirectories[^1]))
+                throw Win32("DIRECTORY_SYNC_FAILED");
+        }
+        finally
+        {
+            foreach (var handle in heldDirectories) handle.Dispose();
+        }
+    }
+
+    private static string CanonicalRoot(string requestedRoot)
+    {
+        if (string.IsNullOrWhiteSpace(requestedRoot) ||
+            !Path.IsPathFullyQualified(requestedRoot) ||
+            requestedRoot.Contains('\0'))
+        {
+            throw new GuardException("ROOT_INVALID");
+        }
+        string canonical;
+        try
+        {
+            canonical = Path.GetFullPath(requestedRoot);
+        }
+        catch
+        {
+            throw new GuardException("ROOT_INVALID");
+        }
+        if (!string.Equals(canonical, requestedRoot, StringComparison.Ordinal) ||
+            !Directory.Exists(canonical))
+        {
+            throw new GuardException("ROOT_INVALID");
+        }
+        return canonical;
+    }
+
+    private static string[] SafeSegments(string relativePath)
+    {
+        if (string.IsNullOrWhiteSpace(relativePath) ||
+            Path.IsPathFullyQualified(relativePath) ||
+            relativePath.Contains('\\') ||
+            relativePath.Contains(':') ||
+            relativePath.Contains('\0') ||
+            relativePath.Contains("%2f", StringComparison.OrdinalIgnoreCase) ||
+            relativePath.Contains("%5c", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new GuardException("PATH_INVALID");
+        }
+        var segments = relativePath.Split('/');
+        foreach (var segment in segments)
+        {
+            var stem = segment.Split('.')[0];
+            if (segment.Length == 0 || segment is "." or ".." ||
+                segment.EndsWith('.') || segment.EndsWith(' ') ||
+                Reserved.Contains(stem) ||
+                segment.Any(char.IsControl) ||
+                !segment.IsNormalized(NormalizationForm.FormC))
+            {
+                throw new GuardException("PATH_INVALID");
+            }
+        }
+        return segments;
+    }
+
+    private static SafeFileHandle OpenDirectory(string path, bool write)
+    {
+        var handle = CreateFileW(
+            path,
+            write ? GenericWrite : 0,
+            ShareRead | ShareWrite,
+            IntPtr.Zero,
+            OpenExisting,
+            FileFlagBackupSemantics | FileFlagOpenReparsePoint,
+            IntPtr.Zero);
+        if (handle.IsInvalid) throw Win32("DIRECTORY_OPEN_FAILED");
+        if (!GetFileInformationByHandle(handle, out var information))
+        {
+            handle.Dispose();
+            throw Win32("DIRECTORY_IDENTITY_FAILED");
+        }
+        if ((information.FileAttributes & FileAttributeReparsePoint) != 0)
+        {
+            handle.Dispose();
+            throw new GuardException("REPARSE_REJECTED");
+        }
+        if ((information.FileAttributes & FileAttributeDirectory) == 0)
+        {
+            handle.Dispose();
+            throw new GuardException("DIRECTORY_REQUIRED");
+        }
+        var finalPath = FinalPath(handle);
+        if (!string.Equals(finalPath, path, StringComparison.Ordinal))
+        {
+            handle.Dispose();
+            throw new GuardException("DIRECTORY_IDENTITY_MISMATCH");
+        }
+        return handle;
+    }
+
+    private static string FinalPath(SafeFileHandle handle)
+    {
+        var buffer = new StringBuilder(32_768);
+        var length = GetFinalPathNameByHandleW(handle, buffer, (uint)buffer.Capacity, 0);
+        if (length == 0) throw Win32("DIRECTORY_FINAL_PATH_FAILED");
+        if (length >= buffer.Capacity) throw new GuardException("DIRECTORY_FINAL_PATH_TOO_LONG");
+        var value = buffer.ToString();
+        if (value.StartsWith(@"\\?\UNC\", StringComparison.Ordinal))
+            value = $@"\\{value[8..]}";
+        else if (value.StartsWith(@"\\?\", StringComparison.Ordinal))
+            value = value[4..];
+        try
+        {
+            return Path.GetFullPath(value);
+        }
+        catch
+        {
+            throw new GuardException("DIRECTORY_FINAL_PATH_INVALID");
+        }
+    }
+
+    private static void EnsureWithinRoot(string root, string target)
+    {
+        var relation = Path.GetRelativePath(root, target);
+        if (relation == "." || relation == ".." ||
+            relation.StartsWith($"..{Path.DirectorySeparatorChar}", StringComparison.Ordinal) ||
+            Path.IsPathFullyQualified(relation))
+        {
+            throw new GuardException("PATH_INVALID");
+        }
+    }
+
+    private static GuardException Win32(string code) =>
+        new($"{code}_{Marshal.GetLastWin32Error()}");
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct ByHandleFileInformation
+    {
+        public uint FileAttributes;
+        public System.Runtime.InteropServices.ComTypes.FILETIME CreationTime;
+        public System.Runtime.InteropServices.ComTypes.FILETIME LastAccessTime;
+        public System.Runtime.InteropServices.ComTypes.FILETIME LastWriteTime;
+        public uint VolumeSerialNumber;
+        public uint FileSizeHigh;
+        public uint FileSizeLow;
+        public uint NumberOfLinks;
+        public uint FileIndexHigh;
+        public uint FileIndexLow;
+    }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern SafeFileHandle CreateFileW(
+        string fileName,
+        uint desiredAccess,
+        uint shareMode,
+        IntPtr securityAttributes,
+        uint creationDisposition,
+        uint flagsAndAttributes,
+        IntPtr templateFile);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetFileInformationByHandle(
+        SafeFileHandle file,
+        out ByHandleFileInformation information);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern uint GetFinalPathNameByHandleW(
+        SafeFileHandle file,
+        StringBuilder filePath,
+        uint filePathLength,
+        uint flags);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool FlushFileBuffers(SafeFileHandle file);
+}
+
 sealed class HeldCapability : IDisposable
 {
     private const uint GenericRead = 0x80000000;
@@ -228,6 +499,7 @@ sealed class HeldCapability : IDisposable
     private const uint FileFlagOpenReparsePoint = 0x00200000;
     private const uint FileAttributeReparsePoint = 0x00000400;
     private const int FileRenameInfo = 3;
+    private const int FileDispositionInfo = 4;
 
     private static readonly HashSet<string> Reserved = new(StringComparer.OrdinalIgnoreCase) {
         "CON", "PRN", "AUX", "NUL",
@@ -240,6 +512,7 @@ sealed class HeldCapability : IDisposable
     private readonly List<SafeFileHandle> directoryHandles;
     private SafeFileHandle fileHandle;
     private FileIdentity identity;
+    private string openedSha256 = "";
 
     private HeldCapability(
         string root,
@@ -259,6 +532,8 @@ sealed class HeldCapability : IDisposable
 
     public string RelativePath { get; private set; }
     public long Length => RandomAccess.GetLength(fileHandle);
+    public string NativeIdentity =>
+        $"{identity.VolumeSerial:x8}:{identity.FileIndex:x16}";
 
     public static HeldCapability Open(string requestedRoot, string relativePath)
     {
@@ -285,7 +560,7 @@ sealed class HeldCapability : IDisposable
             var fileHandle = CreateFileW(
                 target,
                 GenericRead | DeleteAccess,
-                ShareRead | ShareWrite,
+                ShareRead,
                 IntPtr.Zero,
                 OpenExisting,
                 FileFlagOpenReparsePoint,
@@ -300,7 +575,15 @@ sealed class HeldCapability : IDisposable
                 fileHandle.Dispose();
                 throw new GuardException("HARDLINK_REJECTED");
             }
-            return new HeldCapability(root, relativePath, rootHandle, directoryHandles, fileHandle, identity);
+            var capability = new HeldCapability(
+                root,
+                relativePath,
+                rootHandle,
+                directoryHandles,
+                fileHandle,
+                identity);
+            capability.openedSha256 = capability.ReadSha256();
+            return capability;
         }
         catch
         {
@@ -328,6 +611,35 @@ sealed class HeldCapability : IDisposable
     }
 
     public string ReadSha256() => Convert.ToHexStringLower(SHA256.HashData(ReadAll()));
+
+    public DeletedArtifact Delete()
+    {
+        AssertIdentity();
+        var currentSha256 = ReadSha256();
+        if (!string.Equals(currentSha256, openedSha256, StringComparison.Ordinal))
+            throw new GuardException("CONTENT_CHANGED");
+        AssertIdentity();
+        var disposition = new FileDispositionInformation { DeleteFile = 1 };
+        var length = Marshal.SizeOf<FileDispositionInformation>();
+        var pointer = Marshal.AllocHGlobal(length);
+        try
+        {
+            Marshal.StructureToPtr(disposition, pointer, false);
+            if (!SetFileInformationByHandle(
+                fileHandle,
+                FileDispositionInfo,
+                pointer,
+                (uint)length))
+            {
+                throw Win32("DELETE_FAILED");
+            }
+            return new DeletedArtifact(RelativePath, currentSha256);
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(pointer);
+        }
+    }
 
     public void Rename(string relativeTarget)
     {
@@ -474,6 +786,13 @@ sealed class HeldCapability : IDisposable
         new($"{code}_{Marshal.GetLastWin32Error()}");
 
     private sealed record FileIdentity(uint VolumeSerial, ulong FileIndex, uint Links, uint Attributes);
+    public sealed record DeletedArtifact(string RelativePath, string Sha256);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct FileDispositionInformation
+    {
+        public byte DeleteFile;
+    }
 
     [StructLayout(LayoutKind.Sequential)]
     private struct ByHandleFileInformation
@@ -567,6 +886,8 @@ sealed class CapacityGuardSession : IDisposable
         string journalPath,
         string owner,
         string sessionNonce,
+        string workId,
+        string candidateSha256,
         JobObject job,
         TraceEventSession etwSession)
     {
@@ -576,6 +897,8 @@ sealed class CapacityGuardSession : IDisposable
             ?? throw new GuardException("JOURNAL_PATH_INVALID");
         Owner = owner;
         SessionNonce = sessionNonce;
+        WorkId = workId;
+        CandidateSha256 = candidateSha256;
         JobIdentity = $"f005-job-{Guid.NewGuid():N}";
         EtwSessionIdentity = etwSession.SessionName;
         PipeName = $"f005-capacity-{Guid.NewGuid():N}";
@@ -600,6 +923,8 @@ sealed class CapacityGuardSession : IDisposable
 
     public string Owner { get; }
     public string SessionNonce { get; }
+    public string WorkId { get; }
+    public string CandidateSha256 { get; }
     public string JobIdentity { get; }
     public string EtwSessionIdentity { get; }
     public string PipeName { get; }
@@ -610,7 +935,9 @@ sealed class CapacityGuardSession : IDisposable
         string requestedRoot,
         string journalRelativePath,
         string owner,
-        string sessionNonce)
+        string sessionNonce,
+        string workId,
+        string candidateSha256)
     {
         if (!OperatingSystem.IsWindows()) throw new GuardException("PLATFORM_UNSUPPORTED");
         if (TraceEventSession.IsElevated() != true) throw new GuardException("ETW_PRIVILEGE_REQUIRED");
@@ -651,7 +978,15 @@ sealed class CapacityGuardSession : IDisposable
             session.EnableKernelProvider(
                 KernelTraceEventParser.Keywords.FileIO |
                 KernelTraceEventParser.Keywords.FileIOInit);
-            return new CapacityGuardSession(root, journalPath, owner, sessionNonce, job, session);
+            return new CapacityGuardSession(
+                root,
+                journalPath,
+                owner,
+                sessionNonce,
+                workId,
+                candidateSha256,
+                job,
+                session);
         }
         catch (UnauthorizedAccessException error)
         {
@@ -706,7 +1041,7 @@ sealed class CapacityGuardSession : IDisposable
         }
         lock (gate)
         {
-            if (registeredPids.Contains(data.ProcessID))
+            if (AuthorizeJobMemberLocked(data.ProcessID))
                 PoisonLocked("ETW_UNKNOWN_EVENT");
         }
     }
@@ -806,8 +1141,8 @@ sealed class CapacityGuardSession : IDisposable
         var operation = PipeString(rootElement, "op");
         switch (operation)
         {
-            case "registerPid":
-                RequireExactPipeKeys(rootElement, "authToken", "op", "pid", "sessionNonce");
+            case "registerSelf":
+                RequireExactPipeKeys(rootElement, "authToken", "op", "sessionNonce");
                 break;
             case "beginPhase":
                 RequireExactPipeKeys(rootElement, "authToken", "op", "phase", "phaseInstanceId", "sessionNonce", "workId");
@@ -835,7 +1170,7 @@ sealed class CapacityGuardSession : IDisposable
         {
             ThrowIfClosed();
             return operation switch {
-                "registerPid" => RegisterPid(PipePositiveInt(rootElement, "pid")),
+                "registerSelf" => RegisterSelf(clientPid),
                 "beginPhase" => BeginPhase(
                     PipeString(rootElement, "phase"),
                     PipeNullableWorkId(rootElement, "workId"),
@@ -864,10 +1199,11 @@ sealed class CapacityGuardSession : IDisposable
             throw new GuardException("IPC_AUTHENTICATION_FAILED");
     }
 
-    private object RegisterPid(int pid)
+    private object RegisterSelf(int pid)
     {
         if (failureCode is not null) throw new GuardException(failureCode);
-        if (registeredPids.Contains(pid)) throw new GuardException("PID_REPLAY");
+        if (registeredPids.Count != 0 || registeredPids.Contains(pid))
+            throw new GuardException("ROOT_PID_REPLAY");
         job.Assign(pid);
         if (!job.Contains(pid)) throw new GuardException("JOB_ASSIGNMENT_FAILED");
         registeredPids.Add(pid);
@@ -879,6 +1215,8 @@ sealed class CapacityGuardSession : IDisposable
     {
         if (failureCode is not null) throw new GuardException(failureCode);
         ValidatePhase(phase, workId);
+        if (!string.Equals(workId, WorkId, StringComparison.Ordinal))
+            throw new GuardException("PHASE_WORK_MISMATCH");
         if (activePhase is not null) throw new GuardException("PHASE_ALREADY_ACTIVE");
         activePhase = new ActivePhase(phase, workId, phaseInstanceId);
         var free = ReadFreeBytes(root);
@@ -1039,14 +1377,9 @@ sealed class CapacityGuardSession : IDisposable
             lock (gate)
             {
                 if (journalClosed || failureCode is not null) return;
-                if (!registeredPids.Contains(pid))
+                if (!AuthorizeJobMemberLocked(pid))
                 {
-                    PoisonLocked("ETW_PID_NOT_REGISTERED");
-                    return;
-                }
-                if (!job.Contains(pid))
-                {
-                    PoisonLocked("JOB_PROCESS_ESCAPE");
+                    PoisonLocked("ETW_PID_NOT_JOB_MEMBER");
                     return;
                 }
                 if (activePhase is null)
@@ -1188,8 +1521,18 @@ sealed class CapacityGuardSession : IDisposable
     private bool IsJournalPath(string relative) =>
         relative.StartsWith(".cache/f005-capacity/", StringComparison.Ordinal);
 
+    private bool AuthorizeJobMemberLocked(int pid)
+    {
+        if (!job.Contains(pid)) return false;
+        // Job handleはguardだけが保持し、breakawayを許可しない。root workerの子孫は
+        // CreateProcess時点から同じJobへ自動加入するため、最初のETW eventで認可する。
+        registeredPids.Add(pid);
+        return true;
+    }
+
     private void AssertRegisteredProcessesContained()
     {
+        foreach (var pid in job.MemberPids()) registeredPids.Add(pid);
         foreach (var pid in registeredPids)
         {
             if (ProcessExists(pid) && !job.Contains(pid))
@@ -1240,6 +1583,7 @@ sealed class CapacityGuardSession : IDisposable
 
     private SortedDictionary<string, object?> JournalBody() =>
         new(StringComparer.Ordinal) {
+            ["candidateSha256"] = CandidateSha256,
             ["etwSessionIdentity"] = EtwSessionIdentity,
             ["initialFreeBytes"] = InitialFreeBytes,
             ["jobIdentity"] = JobIdentity,
@@ -1249,8 +1593,10 @@ sealed class CapacityGuardSession : IDisposable
             ["owner"] = Owner,
             ["peakLiveBytes"] = peakLiveBytes,
             ["phases"] = phaseRecords.Select(item => item.ToJournal()).ToArray(),
+            ["registeredWorkerPids"] = registeredPids.Order().ToArray(),
             ["schemaVersion"] = 3,
             ["sessionNonce"] = SessionNonce,
+            ["workId"] = WorkId,
         };
 
     private void Poison(string code)
@@ -1329,16 +1675,6 @@ sealed class CapacityGuardSession : IDisposable
         var result = PipeString(value, property);
         if (result.Length != 64 || result.Any(character =>
             !(character is >= '0' and <= '9' or >= 'a' and <= 'f')))
-            throw new GuardException("REQUEST_INVALID");
-        return result;
-    }
-
-    private static int PipePositiveInt(JsonElement value, string property)
-    {
-        if (!value.TryGetProperty(property, out var child) ||
-            child.ValueKind != JsonValueKind.Number ||
-            !child.TryGetInt32(out var result) ||
-            result <= 0)
             throw new GuardException("REQUEST_INVALID");
         return result;
     }
@@ -1733,7 +2069,9 @@ sealed class CapacityGuardSession : IDisposable
 sealed class JobObject : IDisposable
 {
     private const uint JobObjectLimitKillOnJobClose = 0x00002000;
+    private const int JobObjectBasicProcessIdListClass = 3;
     private const int JobObjectExtendedLimitInformationClass = 9;
+    private const int ErrorMoreData = 234;
     private readonly SafeJobHandle handle;
 
     private JobObject(SafeJobHandle handle) => this.handle = handle;
@@ -1790,6 +2128,49 @@ sealed class JobObject : IDisposable
         {
             return false;
         }
+    }
+
+    public IReadOnlyList<int> MemberPids()
+    {
+        var capacity = 16;
+        while (capacity <= 65_536)
+        {
+            var bytes = checked(8 + capacity * IntPtr.Size);
+            var pointer = Marshal.AllocHGlobal(bytes);
+            try
+            {
+                if (!QueryInformationJobObject(
+                    handle,
+                    JobObjectBasicProcessIdListClass,
+                    pointer,
+                    (uint)bytes,
+                    out _))
+                {
+                    var error = Marshal.GetLastWin32Error();
+                    if (error == ErrorMoreData)
+                    {
+                        capacity = checked(capacity * 2);
+                        continue;
+                    }
+                    throw new GuardException($"JOB_ENUMERATION_FAILED_{error}");
+                }
+                var count = Marshal.ReadInt32(pointer, 4);
+                if (count < 0 || count > capacity) throw new GuardException("JOB_ENUMERATION_INVALID");
+                var result = new List<int>(count);
+                for (var index = 0; index < count; index++)
+                {
+                    var raw = Marshal.ReadIntPtr(pointer, 8 + index * IntPtr.Size).ToInt64();
+                    if (raw is <= 0 or > int.MaxValue) throw new GuardException("JOB_ENUMERATION_INVALID");
+                    result.Add((int)raw);
+                }
+                return result;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pointer);
+            }
+        }
+        throw new GuardException("JOB_ENUMERATION_LIMIT");
     }
 
     public void DisarmAfterSuccessfulClose()
@@ -1887,6 +2268,15 @@ sealed class JobObject : IDisposable
         IntPtr process,
         SafeJobHandle job,
         [MarshalAs(UnmanagedType.Bool)] out bool result);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool QueryInformationJobObject(
+        SafeJobHandle job,
+        int informationClass,
+        IntPtr information,
+        uint informationLength,
+        out uint returnLength);
 }
 
 sealed class SafeJobHandle : SafeHandleZeroOrMinusOneIsInvalid

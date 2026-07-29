@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, rename, rm, rmdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, rm, rmdir, writeFile } from 'node:fs/promises';
 import { basename, isAbsolute, join, relative, resolve } from 'node:path';
 
 import {
@@ -467,6 +467,7 @@ export async function generateF005Voice(
   loopbackEngine: F005LoopbackEngine,
   stageRoot: string,
   capacityRecorder: F005CapacityRecorder,
+  workId: string,
   concurrency = 1,
   timeoutMs = 120_000,
 ): Promise<F005VoiceGenerationEvidence> {
@@ -480,6 +481,7 @@ export async function generateF005Voice(
       generateCount: plan.generateCount,
       estimatedGenerateBytes: plan.estimatedGenerateBytes,
     })) || !capacityRecorders.has(capacityRecorder) || concurrency !== 1 ||
+    !/^(000799|001076|001104)$/u.test(workId) ||
     !Number.isSafeInteger(timeoutMs) || timeoutMs <= 0) {
     fail('F005_VOICE_GENERATION_INVALID', 'mint済みplan/recorderとconcurrency=1が必要です');
   }
@@ -541,7 +543,7 @@ export async function generateF005Voice(
     if (version !== F002_VOICE_CONFIG.engineVersion || speaker.length !== 1 || style?.length !== 1) {
       fail('F005_VOICE_GENERATION_INVALID', 'VOICEVOX engine/speaker/styleが固定tupleと一致しません');
     }
-    await capacityRecorder.beginPhase('voice', null, phaseInstanceId);
+    await capacityRecorder.beginPhase('voice', workId, phaseInstanceId);
     begun = true;
     await mkdir(root, { recursive: false });
     rootCreated = true;
@@ -645,12 +647,15 @@ export interface F005ClosedCapacityJournal {
   readonly schemaVersion: 3;
   readonly state: 'closed';
   readonly journalId: string;
+  readonly nativeJournalSha256: string;
+  readonly workId: string;
   readonly candidateSha256: string;
   readonly workspaceRoot: string;
   readonly distRoot: string;
   readonly allowedWorkerPids: readonly number[];
   readonly phases: readonly {
     readonly phase: F005CapacityPhase;
+    readonly workId: string;
     readonly phaseInstanceId: string;
     readonly beganAt: string;
     readonly endedAt: string;
@@ -667,7 +672,9 @@ export interface F005CapacityJournalReader {
 
 export interface F005NativeCapacityJournalBinding {
   readonly journalId: string;
+  readonly journalSha256: string;
   readonly journalPath: string;
+  readonly workId: string;
   readonly candidateSha256: string;
   readonly workspaceRoot: string;
   readonly distRoot: string;
@@ -676,7 +683,9 @@ export interface F005NativeCapacityJournalBinding {
 
 export interface CapacityActualV3 {
   readonly schemaVersion: 3;
+  readonly workId: string;
   readonly candidateSha256: string;
+  readonly journalId: string;
   readonly journalSha256: string;
   readonly minimumObservedFreeBytes: number;
   readonly peakLiveBytes: number;
@@ -701,6 +710,7 @@ export function sealF005CapacityJournal(
 function nativeJournalPhaseRows(journal: CapacityJournalV3): F005ClosedCapacityJournal['phases'] {
   const pairs = new Map<string, {
     phase: F005CapacityPhase;
+    workId: string;
     beganAt?: string;
     endedAt?: string;
   }>();
@@ -720,15 +730,17 @@ function nativeJournalPhaseRows(journal: CapacityJournalV3): F005ClosedCapacityJ
     const phaseInstanceId = row.phaseInstanceId;
     const state = row.state;
     const observedAt = row.observedAt;
+    const workId = row.workId;
     if (!['voice', 'preview', 'accept', 'build'].includes(String(phase)) ||
       typeof phaseInstanceId !== 'string' || !SHA256.test(phaseInstanceId) ||
+      typeof workId !== 'string' || !/^(000799|001076|001104)$/u.test(workId) ||
       !['started', 'finished'].includes(String(state)) ||
       typeof observedAt !== 'string' || !Number.isFinite(Date.parse(observedAt))) {
       fail('F005_CAPACITY_ACTUAL_INVALID', 'native phase rowが不正です');
     }
     const key = phaseInstanceId;
-    const existing = pairs.get(key) ?? { phase: phase as F005CapacityPhase };
-    if (existing.phase !== phase ||
+    const existing = pairs.get(key) ?? { phase: phase as F005CapacityPhase, workId };
+    if (existing.phase !== phase || existing.workId !== workId ||
       (state === 'started' ? existing.beganAt !== undefined : existing.endedAt !== undefined)) {
       fail('F005_CAPACITY_ACTUAL_INVALID', 'native phase pairが重複または不一致です');
     }
@@ -746,6 +758,7 @@ function nativeJournalPhaseRows(journal: CapacityJournalV3): F005ClosedCapacityJ
     }
     return freezeDeep({
       phase: pair.phase,
+      workId: pair.workId,
       phaseInstanceId,
       beganAt: pair.beganAt,
       endedAt: pair.endedAt,
@@ -767,6 +780,8 @@ export function createF005NativeCapacityJournalReader(
     'entries',
     'journalId',
     'journalPath',
+    'journalSha256',
+    'workId',
     'workspaceRoot',
   ], 'F005_CAPACITY_ACTUAL_INVALID', 'native journal binding');
   const workspaceRoot = resolve(binding.workspaceRoot);
@@ -775,7 +790,9 @@ export function createF005NativeCapacityJournalReader(
   if (!isAbsolute(binding.workspaceRoot) || workspaceRoot !== binding.workspaceRoot ||
     !isAbsolute(binding.distRoot) || distRoot !== binding.distRoot ||
     !distRelative || distRelative === '..' || distRelative.startsWith('../') ||
-    !SHA256.test(binding.journalId) || !SHA256.test(binding.candidateSha256) ||
+    !SHA256.test(binding.journalId) || !SHA256.test(binding.journalSha256) ||
+    !SHA256.test(binding.candidateSha256) ||
+    !/^(000799|001076|001104)$/u.test(binding.workId) ||
     binding.journalPath !== `.cache/f005-capacity/${binding.journalId}.json` ||
     !Array.isArray(binding.entries)) {
     fail('F005_CAPACITY_ACTUAL_INVALID', 'native journal bindingが不正です');
@@ -790,6 +807,17 @@ export function createF005NativeCapacityJournalReader(
         fixed.workspaceRoot,
         fixed.journalPath,
       );
+      const nativeJournalText = await readFile(join(
+        fixed.workspaceRoot,
+        ...fixed.journalPath.split('/'),
+      ), 'utf8');
+      if (hash(nativeJournalText) !== fixed.journalSha256) {
+        fail('F005_CAPACITY_ACTUAL_INVALID', 'native journal実体SHAがbindingと一致しません');
+      }
+      if (journal.workId !== fixed.workId ||
+        journal.candidateSha256 !== fixed.candidateSha256) {
+        fail('F005_CAPACITY_ACTUAL_INVALID', 'native journalのwork/candidate開始tupleが一致しません');
+      }
       const phases = nativeJournalPhaseRows(journal);
       const noticeIds = new Map<number, string>();
       for (const envelope of journal.notices) {
@@ -826,12 +854,13 @@ export function createF005NativeCapacityJournalReader(
           liveBytes: Number(observation.liveBytes),
         });
       });
-      const allowedWorkerPids = [...new Set(events.map((event) => event.workerPid))]
-        .sort((left, right) => left - right);
+      const allowedWorkerPids = [...journal.registeredWorkerPids];
       return sealF005CapacityJournal({
         schemaVersion: 3,
         state: 'closed',
         journalId: fixed.journalId,
+        nativeJournalSha256: fixed.journalSha256,
+        workId: fixed.workId,
         candidateSha256: fixed.candidateSha256,
         workspaceRoot: fixed.workspaceRoot,
         distRoot: fixed.distRoot,
@@ -861,8 +890,10 @@ export async function measureF005ActualCapacity(
   dist: string,
   acceptedAudio: readonly { readonly path: string; readonly sha256: string }[],
   gitAdapter: F005CapacityJournalReader,
+  workId = '000799',
 ): Promise<CapacityActualV3> {
-  if (!isAbsolute(workspace) || !isAbsolute(dist) || !Array.isArray(acceptedAudio)) {
+  if (!isAbsolute(workspace) || !isAbsolute(dist) || !Array.isArray(acceptedAudio) ||
+    !/^(000799|001076|001104)$/u.test(workId)) {
     fail('F005_CAPACITY_ACTUAL_INVALID', 'workspace/dist/acceptedAudioが不正です');
   }
   let journal: F005ClosedCapacityJournal;
@@ -873,11 +904,15 @@ export async function measureF005ActualCapacity(
   }
   if (!closedJournals.has(journal) || journal.state !== 'closed' || journal.schemaVersion !== 3 ||
     journal.workspaceRoot !== resolve(workspace) || journal.distRoot !== resolve(dist) ||
-    !SHA256.test(journal.journalId) || !SHA256.test(journal.candidateSha256) ||
+    journal.workId !== workId ||
+    !SHA256.test(journal.journalId) || !SHA256.test(journal.nativeJournalSha256) ||
+    !SHA256.test(journal.candidateSha256) ||
     journal.sealSha256 !== hash(journalPayload({
       schemaVersion: journal.schemaVersion,
       state: journal.state,
       journalId: journal.journalId,
+      nativeJournalSha256: journal.nativeJournalSha256,
+      workId: journal.workId,
       candidateSha256: journal.candidateSha256,
       workspaceRoot: journal.workspaceRoot,
       distRoot: journal.distRoot,
@@ -889,12 +924,14 @@ export async function measureF005ActualCapacity(
     }))) {
     fail('F005_CAPACITY_ACTUAL_INVALID', 'journalのbrand/binding/sealが不正です');
   }
-  const phaseKinds = new Set(journal.phases.map((phase) => phase.phase));
-  if (!(['voice', 'preview', 'accept', 'build'] as const).every((phase) => phaseKinds.has(phase)) ||
+  const exactPhaseOrder = ['voice', 'build', 'preview', 'build', 'accept'] as const;
+  if (journal.phases.length !== exactPhaseOrder.length ||
+    journal.phases.some((phase, index) =>
+      phase.phase !== exactPhaseOrder[index] || phase.workId !== workId) ||
     journal.allowedWorkerPids.length === 0 ||
     !journal.allowedWorkerPids.every((pid) => Number.isSafeInteger(pid) && pid > 0) ||
     !Number.isSafeInteger(journal.initialFreeBytes) || journal.initialFreeBytes < 0) {
-    fail('F005_CAPACITY_ACTUAL_INVALID', 'journalのphase/PID/initial freeが不完全です');
+    fail('F005_CAPACITY_ACTUAL_INVALID', 'journalのphase順/件数/work/PID/initial freeが不完全です');
   }
   const phaseInstances = new Map<string, F005CapacityPhase>();
   for (const phase of journal.phases) {
@@ -987,8 +1024,10 @@ export async function measureF005ActualCapacity(
   });
   const payload = {
     schemaVersion: 3 as const,
+    workId,
     candidateSha256: journal.candidateSha256,
-    journalSha256: journal.sealSha256,
+    journalId: journal.journalId,
+    journalSha256: journal.nativeJournalSha256,
     minimumObservedFreeBytes,
     peakLiveBytes,
     buckets,

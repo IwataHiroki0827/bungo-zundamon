@@ -1623,3 +1623,21 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-29T07:48:18+09:00'
   result: T-065〜T-075の11タスクへ分解しREQ 18/18をcoverage。既存CLI・VOICEVOX 0.25.2・Playwright 6環境を再利用し追加MCP不要。型・lint・936 tests・697 files build・audit 0をPASS
+- id: T-076
+  title: CHG-F005-002 二段作品受入の影響再試験
+  feature: F005
+  phase: test
+  state: done
+  depends:
+  - T-069
+  tags:
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  mode: orchestration
+  mode_reason: capacity actual、stage/finalize、crash回復、production runnerの境界を独立して再検証するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-07-29T18:20:00+09:00'
+  result: 1作品1sessionのstage→close→actual→metadata finalize、V3全file SHA chain、全transaction事前走査、native identity必須rename/delete CAS、phase別crash回復を実装。重点180件・全1240件、型・lint・697 files build・audit 0・public差分0をPASSし、独立受入High/Medium/Low 0

@@ -7,8 +7,8 @@
 - 容量予測commit: `1715397`
 - 最新原典再確認commit: `d086208`
 - 判定: **継続中（T-070は未完了）**
-- 独立受け入れ: High 1 / Medium 0 / Low 0
-- High残件: production runnerが未実装
+- 二段作品受入・runner独立受け入れ: High 0 / Medium 0 / Low 0
+- 残件: clean checkpoint後の実native preflightと、許可された場合の実音声生成・作品受入
 
 ## 完了した作業
 
@@ -23,23 +23,25 @@
 - Windows native guardへJob Object、kernel ETW FileIO、認証named pipe、session通算sequence、相対path、durable journalを実装した。
 - native journalのphase、notice、ETW observation、producer pin、path/from/to、容量集計をTypeScript側でも再計算し、actual容量測定へ接続した。
 - preview 6証跡と受入6証跡を実path・SHA・kind・workId・preview SHAへ結合し、closed recoveryでもmanifest・backup・targetを再検証する。
+- `scripts/f005-run-work.ts`へvoice→build→preview→build→stageの監視session内5 phase、session close後のactual測定、metadata-only finalizeを接続した。
+- native identity必須のrename/delete CAS、全transaction事前走査、同一SHA・別identity差替えの保持、phase別crash回復を実装し、CHG-F005-002とT-076を完了した。
 
 ## 安全停止理由
 
-- production runnerがまだなく、`startF005NativeCapacitySession`、音声生成、preview、actual容量測定、atomic acceptを一本の実運用経路で接続できていない。
-- 固定native binaryの実preflightは`ETW_PRIVILEGE_REQUIRED`で停止した。現在のCodex processはMedium integrityであり、kernel ETW正常系を開始できない。
+- production runnerの実行にはclean HEADが必要であるため、変更一式を安全なcheckpointへ固定してから実native preflightを再実行する。
+- 固定native binaryの直近実preflightは`ETW_PRIVILEGE_REQUIRED`で停止した。現在のCodex processはMedium integrityであり、kernel ETW正常系を開始できない見込みである。
 - 手動UACや監視なしfallbackは使用していない。したがって音声生成、accepted audio、manifest `accepted`、`public`更新は行っていない。
 
 ## 検証結果
 
-- F005重点回帰: context/source/foundation/review/voice/native/acceptanceの8 files / 182 tests PASS
+- 二段受入重点回帰: 7 files / 180 tests PASS
 - 独立再開受入: High 0 / Medium 0 / Low 0
-- 独立T-070全体受入: 修正済み5論点PASS、production runner High 1のためREDO
+- 二段受入・production runner独立受入: High 0 / Medium 0 / Low 0
 - `npm run typecheck`: PASS
 - `npm run lint`: PASS
 - `npm run build`: PASS、697 files / 229,936,251 bytes
 - `npm audit --audit-level=high`: 脆弱性0
-- 全体回帰: 1,160 PASS / 5 timeout。timeout 5件は単独再実行79/79 PASSで、機能失敗は0件
+- 全体回帰: 70 files / 1,240 tests PASS
 - `git diff --check`: PASS
 
 ## 非変更範囲
@@ -50,6 +52,6 @@
 
 ## 次の作業
 
-1. production runnerを実装し、forecast・voice・preview・build・accept・actualの循環しない証拠順序を確定する。
-2. 手動操作なしでkernel ETWを利用できる実行環境を用意できた場合だけ、62音声を生成する。
+1. 変更一式をclean checkpointへ固定し、production runnerの実native preflightを実行する。
+2. 手動操作なしでkernel ETWを利用できる場合だけ、62音声を生成する。
 3. native closed journalと全証拠を再読込し、`000799`を作品単位でatomic acceptedへ昇格する。

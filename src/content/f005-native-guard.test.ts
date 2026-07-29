@@ -10,6 +10,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { canonicalJson } from './artifacts.ts';
 import {
   F005NativeCapacityError,
+  flushF005ArtifactDirectory,
   normalizeF005CapacityNoticePath,
   validateF005CapacityJournalV3,
 } from './f005-native-guard.ts';
@@ -70,6 +71,7 @@ function validJournal(): Record<string, unknown> {
     workerPid: 1234,
   };
   const body = {
+    candidateSha256: 'b'.repeat(64),
     etwSessionIdentity: 'F005Capacity-fixture',
     initialFreeBytes: 100_000,
     jobIdentity: 'f005-job-fixture',
@@ -98,8 +100,10 @@ function validJournal(): Record<string, unknown> {
         workId: '000799',
       },
     ],
+    registeredWorkerPids: [1234],
     schemaVersion: 3,
     sessionNonce: SHA,
+    workId: '000799',
   };
   return {
     ...body,
@@ -183,10 +187,13 @@ describe('F005 native ETW capacity guard', () => {
     const journalId = 'a'.repeat(64);
     const journalPath = `.cache/f005-capacity/${journalId}.json`;
     await mkdir(join(workspace, '.cache', 'f005-capacity'), { recursive: true });
-    await writeFile(join(workspace, ...journalPath.split('/')), canonicalJson(validJournal()), 'utf8');
+    const journalText = canonicalJson(validJournal());
+    await writeFile(join(workspace, ...journalPath.split('/')), journalText, 'utf8');
     const reader = createF005NativeCapacityJournalReader({
       journalId,
       journalPath,
+      journalSha256: createHash('sha256').update(journalText).digest('hex'),
+      workId: '000799',
       candidateSha256: 'b'.repeat(64),
       workspaceRoot: workspace,
       distRoot: join(workspace, 'dist'),
@@ -204,6 +211,18 @@ describe('F005 native ETW capacity guard', () => {
         noticeId: '3'.repeat(64),
       }],
     });
+    const mismatchedReader = createF005NativeCapacityJournalReader({
+      journalId,
+      journalPath,
+      journalSha256: createHash('sha256').update(journalText).digest('hex'),
+      workId: '000799',
+      candidateSha256: 'c'.repeat(64),
+      workspaceRoot: workspace,
+      distRoot: join(workspace, 'dist'),
+      entries: [],
+    });
+    await expect(mismatchedReader.readClosedCapacityJournal(workspace))
+      .rejects.toMatchObject({ code: 'F005_CAPACITY_ACTUAL_INVALID' });
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 IT-F005-005 */
@@ -236,7 +255,7 @@ describe('F005 native ETW capacity guard', () => {
       ).toEqual(reply.ok === true
         ? expect.objectContaining({
             ok: true,
-            capacityAbi: 'f005-capacity-pipe-v1',
+            capacityAbi: 'f005-capacity-pipe-v3',
             etw: 'kernel-fileio',
           })
         : { ok: false, error: 'ETW_PRIVILEGE_REQUIRED' });
@@ -249,4 +268,41 @@ describe('F005 native ETW capacity guard', () => {
       });
     },
   );
+
+  /** @des DES-F005-006 @fun FUN-F005-022 @test UT-F005-022 IT-F005-006 */
+  it.runIf(process.platform === 'win32')(
+    '固定native sync-directory opでworkspace配下directoryを実flushする',
+    async () => {
+      const workspace = resolve(await mkdtemp(join(tmpdir(), 'f005-native-directory-sync-')));
+      temporaryRoots.push(workspace);
+      const directory = join(workspace, 'evidence', 'voice');
+      await mkdir(directory, { recursive: true });
+      await expect(flushF005ArtifactDirectory(workspace, directory, {
+        executable: GUARD_EXE,
+      })).resolves.toBeUndefined();
+      await expect(flushF005ArtifactDirectory(
+        workspace,
+        resolve(workspace, '..', 'escape'),
+        { executable: GUARD_EXE },
+      )).rejects.toMatchObject({ code: 'F005_DIRECTORY_SYNC_FAILED' });
+    },
+  );
+
+  it('rootだけを明示Job登録し、子workerはbreakaway禁止Job継承でETW認可する', async () => {
+    const source = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    expect(source).toContain('case "registerSelf":');
+    expect(source).not.toContain('case "registerPid":');
+    expect(source).toContain('AuthorizeJobMemberLocked(data.ProcessID)');
+    expect(source).toContain('AuthorizeJobMemberLocked(pid)');
+    expect(source).toContain('foreach (var pid in job.MemberPids())');
+    expect(source).toContain('QueryInformationJobObject(');
+    expect(source).toContain('LimitFlags = JobObjectLimitKillOnJobClose');
+    expect(source).not.toContain('JobObjectLimitBreakawayOk');
+    expect(source).not.toContain('JobObjectLimitSilentBreakawayOk');
+    expect(source).toContain('case "sync-directory":');
+    expect(source).toContain('GetFinalPathNameByHandleW(');
+    expect(source).toContain('FileFlagOpenReparsePoint');
+    expect(source).toContain('ShareRead | ShareWrite');
+    expect(source).toContain('FlushFileBuffers(heldDirectories[^1])');
+  });
 });
