@@ -166,6 +166,22 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).not.toContain('private static bool ProcessExists(');
   });
 
+  it('capacity-start応答前にnamed pipe instanceを同期生成する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const constructor = program.slice(
+      program.indexOf('private CapacityGuardSession('),
+      program.indexOf('public string Owner'),
+    );
+    expect(constructor.indexOf('var initialPipe = CreatePipeServer()'))
+      .toBeLessThan(constructor.indexOf('Task.Run(() => PipeLoopAsync(initialPipe))'));
+    expect(program).toContain('private async Task PipeLoopAsync(NamedPipeServerStream initialPipe)');
+    expect(program).toContain('await using (var pipe = nextPipe)');
+    expect(program).toContain('nextPipe = CreatePipeServer()');
+    expect(constructor).toContain('initialPipe.Dispose()');
+    expect(program).toContain('Poison("IPC_PEER_IDENTITY_UNAVAILABLE");\n                        return;');
+    expect(program).toContain('while (true)');
+  });
+
   it('PID再利用raceでは新旧どちらのFileIOも別世代へ取り違えない', () => {
     const authorize = (
       birth: { sequenceNumber: bigint; startedAtQpc: number } | undefined,

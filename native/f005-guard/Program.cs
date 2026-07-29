@@ -932,12 +932,23 @@ sealed class CapacityGuardSession : IDisposable
 
         ConfigureEtwCallbacks();
         PersistJournal(closed: false);
+        // Named pipe instanceを同期生成してからcapacity-startへ応答できる状態にする。
+        // Task schedulerよりclient接続が先行するreadiness raceを許さない。
+        var initialPipe = CreatePipeServer();
         etwThread = new Thread(ProcessEtw) {
             IsBackground = true,
             Name = "f005-capacity-etw",
         };
-        etwThread.Start();
-        pipeTask = Task.Run(PipeLoopAsync);
+        try
+        {
+            etwThread.Start();
+            pipeTask = Task.Run(() => PipeLoopAsync(initialPipe));
+        }
+        catch
+        {
+            initialPipe.Dispose();
+            throw;
+        }
     }
 
     public string Owner { get; }
@@ -1179,84 +1190,94 @@ sealed class CapacityGuardSession : IDisposable
         }
     }
 
-    private async Task PipeLoopAsync()
+    private NamedPipeServerStream CreatePipeServer() =>
+        new(
+            PipeName,
+            PipeDirection.InOut,
+            1,
+            PipeTransmissionMode.Byte,
+            PipeOptions.Asynchronous | PipeOptions.CurrentUserOnly);
+
+    private async Task PipeLoopAsync(NamedPipeServerStream initialPipe)
     {
-        while (!cancellation.IsCancellationRequested)
+        var nextPipe = initialPipe;
+        // while条件でcancelを判定すると、次instance生成直後のcancel時に未使用pipeを
+        // disposeせず抜け得る。取得済みinstanceは必ずawait usingへ入れて破棄する。
+        while (true)
         {
-            await using var pipe = new NamedPipeServerStream(
-                PipeName,
-                PipeDirection.InOut,
-                1,
-                PipeTransmissionMode.Byte,
-                PipeOptions.Asynchronous | PipeOptions.CurrentUserOnly);
-            try
+            await using (var pipe = nextPipe)
             {
-                await pipe.WaitForConnectionAsync(cancellation.Token).ConfigureAwait(false);
-                if (!GetNamedPipeClientProcessId(pipe.SafePipeHandle, out var clientPid) ||
-                    clientPid is 0 or > int.MaxValue)
+                try
                 {
-                    Poison("IPC_PEER_IDENTITY_UNAVAILABLE");
-                    continue;
-                }
-                using var reader = new StreamReader(pipe, new UTF8Encoding(false, true), false, 4096, leaveOpen: true);
-                await using var writer = new StreamWriter(pipe, new UTF8Encoding(false), 4096, leaveOpen: true) {
-                    AutoFlush = true,
-                    NewLine = "\n",
-                };
-                while (!cancellation.IsCancellationRequested &&
-                    await reader.ReadLineAsync(cancellation.Token).ConfigureAwait(false) is { } line)
-                {
-                    object reply;
-                    if (line.Length is 0 or > MaxPipeRequestChars)
+                    await pipe.WaitForConnectionAsync(cancellation.Token).ConfigureAwait(false);
+                    if (!GetNamedPipeClientProcessId(pipe.SafePipeHandle, out var clientPid) ||
+                        clientPid is 0 or > int.MaxValue)
                     {
-                        reply = Error("REQUEST_INVALID");
+                        Poison("IPC_PEER_IDENTITY_UNAVAILABLE");
+                        return;
                     }
-                    else
+                    using var reader = new StreamReader(pipe, new UTF8Encoding(false, true), false, 4096, leaveOpen: true);
+                    await using var writer = new StreamWriter(pipe, new UTF8Encoding(false), 4096, leaveOpen: true) {
+                        AutoFlush = true,
+                        NewLine = "\n",
+                    };
+                    while (!cancellation.IsCancellationRequested &&
+                        await reader.ReadLineAsync(cancellation.Token).ConfigureAwait(false) is { } line)
                     {
-                        try
+                        object reply;
+                        if (line.Length is 0 or > MaxPipeRequestChars)
                         {
-                            using var document = JsonDocument.Parse(line, new JsonDocumentOptions {
-                                AllowTrailingCommas = false,
-                                CommentHandling = JsonCommentHandling.Disallow,
-                                MaxDepth = 8,
-                            });
-                            reply = DispatchPipe(document.RootElement, checked((int)clientPid));
-                        }
-                        catch (GuardException error)
-                        {
-                            Poison(error.Code);
-                            reply = Error(error.Code);
-                        }
-                        catch (JsonException)
-                        {
-                            Poison("REQUEST_INVALID");
                             reply = Error("REQUEST_INVALID");
                         }
-                        catch (Exception error)
+                        else
                         {
-                            Poison($"CAPACITY_GUARD_FAILURE_{error.HResult:x8}");
-                            reply = Error("CAPACITY_GUARD_FAILURE");
+                            try
+                            {
+                                using var document = JsonDocument.Parse(line, new JsonDocumentOptions {
+                                    AllowTrailingCommas = false,
+                                    CommentHandling = JsonCommentHandling.Disallow,
+                                    MaxDepth = 8,
+                                });
+                                reply = DispatchPipe(document.RootElement, checked((int)clientPid));
+                            }
+                            catch (GuardException error)
+                            {
+                                Poison(error.Code);
+                                reply = Error(error.Code);
+                            }
+                            catch (JsonException)
+                            {
+                                Poison("REQUEST_INVALID");
+                                reply = Error("REQUEST_INVALID");
+                            }
+                            catch (Exception error)
+                            {
+                                Poison($"CAPACITY_GUARD_FAILURE_{error.HResult:x8}");
+                                reply = Error("CAPACITY_GUARD_FAILURE");
+                            }
+                        }
+                        await writer.WriteLineAsync(JsonSerializer.Serialize(reply)).ConfigureAwait(false);
+                    }
+                    if (!cancellation.IsCancellationRequested)
+                    {
+                        lock (gate)
+                        {
+                            if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED");
                         }
                     }
-                    await writer.WriteLineAsync(JsonSerializer.Serialize(reply)).ConfigureAwait(false);
                 }
-                if (!cancellation.IsCancellationRequested)
+                catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
                 {
-                    lock (gate)
-                    {
-                        if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED");
-                    }
+                    break;
+                }
+                catch (IOException error)
+                {
+                    if (!cancellation.IsCancellationRequested)
+                        Poison($"IPC_FAILURE_{error.HResult:x8}");
                 }
             }
-            catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
-            {
-                break;
-            }
-            catch (IOException error)
-            {
-                if (!cancellation.IsCancellationRequested)
-                    Poison($"IPC_FAILURE_{error.HResult:x8}");
-            }
+            if (cancellation.IsCancellationRequested) break;
+            nextPipe = CreatePipeServer();
         }
     }
 
