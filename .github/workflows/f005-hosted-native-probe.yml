@@ -27,8 +27,10 @@ jobs:
 
       - name: Build and verify pinned native guard
         id: build
+        continue-on-error: true
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Continue'
           $output = & pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1 2>&1
           $exitCode = $LASTEXITCODE
           $output | Set-Content -LiteralPath '.cache\f005-hosted-native-build.log' -Encoding utf8
@@ -36,15 +38,18 @@ jobs:
 
       - name: Probe kernel ETW capability
         id: probe
+        if: always()
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
           $guard = Join-Path $PWD '.cache\dotnet-f005\publish\f005-guard.exe'
           $buildPassed = '${{ steps.build.outputs.passed }}' -eq 'true'
-          $buildLogTail = @(
-            Get-Content -LiteralPath '.cache\f005-hosted-native-build.log' |
-              Select-Object -Last 24
-          )
+          $buildLogPath = Join-Path $PWD '.cache\f005-hosted-native-build.log'
+          $buildLogTail = if (Test-Path -LiteralPath $buildLogPath) {
+            @(Get-Content -LiteralPath $buildLogPath | Select-Object -Last 24)
+          } else {
+            @('native build log was not created')
+          }
           if ($buildPassed) {
             $raw = '{"op":"capacity-preflight"}' | & $guard
             $exitCode = $LASTEXITCODE
@@ -88,6 +93,7 @@ jobs:
           "passed=$($passed.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
 
       - name: Publish probe evidence branch
+        if: always()
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -98,6 +104,6 @@ jobs:
           git push origin "HEAD:refs/heads/evidence/f005-hosted-native-$env:GITHUB_SHA"
 
       - name: Enforce probe result
-        if: steps.probe.outputs.passed != 'true'
+        if: always() && steps.probe.outputs.passed != 'true'
         shell: pwsh
         run: throw 'Hosted Windows runner cannot start the pinned kernel ETW guard.'
