@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+	
+	<meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+	
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<link href="./css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="./css/zuncommon.css?13" rel="stylesheet">
+	<link href="./css/guidline.css?14" rel="stylesheet">
+	
+	<script src="./js/jquery-2.0.3.min.js" type="text/javascript"></script>
+	<script src="./js/bootstrap.js" type="text/javascript"></script>
+	<title>ずんずんPJ　キャラクター利用のガイドライン</title>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+	<script>
+		$(function(){$("nav").load("./import_navbar.html?9");});
+	</script>
+</nav>
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-10">
+
+			<!-- キャラクター利用の手引き 【ここから】-->
+			<div class="row guidline" style="max-width: 700px; margin: 0 auto;">
+				<div class="section">
+					<div class="row d-flex align-items-center">
+						<div class="col-md-6">
+							<img src="./img/guidline/image1.png" alt="">
+						</div>
+						<div class="col-md-6">
+							<h2 class="text-darkgreen text-center font-size-45">
+								<strong>東北ずん子<br>ずんだもん<br>プロジェクト<br><br>キャラクター<br>利用の手引き</strong>
+							</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-blue font-size-25">
+								<strong>目次</strong>
+							</p>
+							<div class="divider"></div>
+							<p class="font-size-20 margin-none">
+								<strong>東北企業、四国企業の利用について</strong>
+							</p>
+							<p class="font-size-20">&nbsp;&nbsp;&nbsp;&nbsp;商用利用ケース</p>
+							<p class="font-size-20 margin-none">
+								<strong>クリエイターの利用について</strong>
+							</p>
+							<p class="font-size-20">&nbsp;&nbsp;&nbsp;&nbsp;非商用利用のケース</p>
+							<p class="font-size-20 margin-none">
+								<strong>イラストの利用方法について</strong>
+							</p>
+							<p class="font-size-20">&nbsp;&nbsp;&nbsp;&nbsp;商用利用、非商用利用共通</p>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<h2 class="text-darkgreen font-size-45 text-center">
+							<strong>東北企業の<br>利用について</strong>
+						</h2>
+						<img src="./img/guidline/image2.png" alt="">
+					</div>
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="font-size-25">
+								<strong>
+									<span class="text-blue">東北の企業は商用利用</span>ができます。
+								</strong>
+							</p>
+							<div class="divider"></div>
+							<p class="font-size-20">東北ずん子、東北イタコ、東北きりたん、ずんだもんは東北企業が利用する際には<span class="text-blue">申請は必要ありません</span>。</p>
+							<p class="font-size-20">東北企業とは、東北6県（青森、秋田、岩手、山形、宮城、福島）にある本籍を置く法人、公共団体、および東北6県に住民票の住所を置く個人事業主、およびクリエイター（事業をしていない人も含む）を指します。</p>
+							<p class="font-size-20">使用する際には商品パッケージなどに<span class="text-blue">「自社名、住所（県、市町村まで）」を書いて「東北企業であること」を示してください</span>。</p>
+							<p class="font-size-20">他のキャラクターについては<a href="#hoka_local">こちら</a>をご確認ください。</p>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 本当に申請はいらないの？</p>
+								<p class="qanda-a">A : できれば申請無しでお願いします</p>
+								<div class="spacer"></div>
+								<p>運営の事務処理が間に合わないでの、申請されても回答できないケースがあります。</p>
+								<p>この利用手引を見て自身で確認してください。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : ライセンス費用は本当にいらないの？</p>
+								<p class="qanda-a">A : 東北企業なら無料で使用できます</p>
+								<div class="spacer"></div>
+								<p>本当に無料です。</p>
+								<p>必要なのは東北ずん子ちゃんへの愛です。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : たくさん利益が出たらどうしたらいいの？</p>
+								<p class="qanda-a">A : 地元でお金を使ってください</p>
+								<div class="spacer"></div>
+								<p>地元でたくさんお金を使ってもらえればそれが結局みんなのためになります。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 2次創作の利用は可能？</p>
+								<p class="qanda-a">A : 自社で創ったものなら可能です</p>
+								<div class="spacer"></div>
+								<p>公式のガイドラインページにあるイラストは自由に使ってかまいませんが、2次創作に関しては2次創作者にも権利が発生するので基本NGになります。</p>
+								<p>自社で2次創作するものであれば大丈夫です。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : クリエイターから東北企業への提案は？</p>
+								<p class="qanda-a">A : 可能です</p>
+								<div class="spacer"></div>
+								<p>東北企業の利益を作る目的でクリエイターから東北企業に東北ずん子2次創作の商品やサービス企画を行うことは可能です。</p>
+								<p>仕事をウケたクリエイターは報酬を受け取ることができます。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : アプリやWebページに使ってもいいの？</p>
+								<p class="qanda-a">A : どうぞ使ってください</p>
+								<div class="spacer"></div>
+								<p>携帯のアプリやWebページに使うことも可能です。</p>
+								<p>商品に使うことも可能です。</p>
+								<p>動画に使うことも可能です。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a name="hoka_local" id="hoka_local"></a>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 東北ずん子、ずんだもん、東北イタコ、東北きりたん以外のキャラは？</p>
+								<p class="qanda-a">A : 指定された地域毎に同様に無償で商用利用可能です</p>
+								<div class="spacer"></div>
+								<p class="font-size-20">
+									<table class="table table-bordered table-hover table-responsive-xl">
+										<tr><th>キャラ名</th><th>商用利用できる地域</th></tr>
+										<tr><td>東北ずん子、ずんだもん<br>東北イタコ、東北きりたん</td><td>東北地方（青森、秋田、岩手、山形、宮城、福島）</td></tr>
+										<tr><td>四国めたん</td><td>四国地方（香川、徳島、愛媛、高知）</td></tr>
+										<tr><td>九州そら</td><td>九州地方（福岡、佐賀、長崎、熊本、大分、宮崎、鹿児島）</td></tr>
+										<tr><td>中国うさぎ</td><td>中国地方（鳥取、島根、岡山、広島、山口）</td></tr>
+										<tr><td>中部つるぎ</td><td>中部地方（富山、石川、新潟、長野、山梨、岐阜、静岡、愛知）</td></tr>
+									</table><br>
+									東北の企業が無償、と記載されている部分を各地域毎に替えてこのガイドラインを読んでください。<br>
+									※あんこもんは、東北企業無償の対象外です。東北企業が利用する場合は小口ライセンスのシールなどをご利用ください。
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="section">
+					<div class="row">
+						<h2 class="text-darkgreen font-size-45">
+							<strong>非商用利用について</strong>
+						</h2>
+						<img src="./img/guidline/image3.png" alt="">
+					</div>
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="font-size-25">
+								<strong>
+									<span class="text-blue">クリエイターは非商用利用</span>ができます。
+								</strong>
+							</p>
+							<div class="divider"></div>
+							<p class="font-size-20">クリエイターが利用する場合は非商用利用が可能です。（同人誌もOKですが、原価を回収する目的で節度を守ってやってくださいね）</p>
+							<p class="font-size-20">利用時に申請は必要ありません。</p>
+							<p class="font-size-20">フィギュアなどの1日版権などでも使えます。</p>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								非商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content clearfix">
+								<p class="qanda-q">Q : 2次創作を東北企業に使ってもらいたい</p>
+								<p class="qanda-a">A : （ず・ω・きょ）と書いてください​</p>
+								<div class="spacer"></div>
+								<p>（ず・ω・きょ）と書いてあると「東北ずん子・ずんだもんプロジェクトガイドライン準拠」という意味になります。​</p>
+								<p>東北企業さん、クリエイターさんが自由に使えることになります。​</p>
+								<p>クレジットの記入が任意だったり、申請無しで使われるのでどこで誰にどんな風に使われるかわからないのでわりと自由に使われます。​</p>
+								<p>ロゴもあるので使ってください。​</p>
+								<div class="col-md-4">
+									<img class="text-right" src="./img/guidline/image4.png" alt="">
+								</div>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 2次創作が思いのほか流行ったので商用利用（商業出版など）したいのですが​</p>
+								<p class="qanda-a">A : 別途ライセンス契約をさせていただきます​</p>
+								<div class="spacer"></div>
+								<p>商用利用になる場合には別途ライセンス契約が必要です。​</p>
+								<p>詳細を記入して問い合わせをお願いします。​</p>
+								<p>わかりにくい内容だった場合には問い合わせに回答できない可能性もありますのでしっかりと内容を書いてください。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : N次創作時の注意点は？</p>
+								<p class="qanda-a">A : 2次創作者の権利も考えて使いましょう​</p>
+								<div class="spacer"></div>
+								<p>イラストページにあるものは使っても大丈夫ですが、2次創作者のイラスト、ボカロ曲は別です。​</p>
+								<p>個別に許可を取る必要があったり、クレジットが必要なものがあったりさまざまなので2次創作に関しては2次創作者の意向を確認しましょう。​</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								非商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							
+							<div class="qanda-content">
+								<p class="qanda-q">Q : ストリーマーが配信に使って大丈夫？</p>
+								<p class="qanda-a">A : 大丈夫です​</p>
+								<div class="spacer"></div>
+								<p>企業に属しているYouTuber、VTuber問わず、配信での利用（また配信内容を編集した動画）も非商用利用の範囲として無料で利用できます。​</p>
+								<p>ただし、Youtuber、VTuberが所属する企業以外からのスポンサーのつく案件では有償利用となりますのでお問い合わせください。</p>
+							</div>
+							
+							<div class="qanda-content qanda-content-with-image">
+								<div class="qanda-text">
+										<p class="qanda-q">Q : エッチなことに使っていいの？​</p>
+										<p class="qanda-a kossori">A : そういうのは<a href="con_secret.php" >こっそり</a>やるものです​</p>
+										<p>堂々とやらずに、運営に見つからないように、そして​一般の人に見つからないようにこっそりやるのが紳士​のたしなみですよね。​​</p>
+								</div>
+								<img src="./image/kossori.png">
+							</div>
+
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 東北ずん子の以外のキャラを使いたい​</p>
+								<p class="qanda-a">A : 非商用での利用はOKです</p>
+								<div class="spacer"></div>
+								<p>東北３姉妹以外の東北ずん子プロジェクトのキャラも使って大丈夫です。​</p>
+								<p>ずん子ちゃんを盛り上げるために上手く使っていってください。​</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								非商用利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 技術紹介でWebページや書籍に使いたい</p>
+								<p class="qanda-a">A : この場合は例外的に商用利用はOKです</p>
+								<div class="spacer"></div>
+								<p>プログラミングや3Dなどの利用方法を解説するといった目的で、東北ずん子をWebページや書籍で使うことは例外的に商用利用が可能です。<br>（東北ずん子の使い方を広げる目的に合致するからです）</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 広告などは大丈夫？​</p>
+								<p class="qanda-a">A : サイトの広告掲載、動画サイトでの広告などOKです</p>
+								<div class="spacer"></div>
+								<p>個人が自分のBlogやYoutubeに広告を出すスーパーチャットを受け取る、ニコニコ動画でクリエイター奨励プログラムに参加する程度は非商用の範囲とさせていただきます。<br>
+									クリエイター奨励プログラムを利用する場合はコンテンツツリーに以下の動画を親登録してください。<br>
+									<iframe width="312" height="176" src="https://ext.nicovideo.jp/thumb/sm33517192" scrolling="no" style="border:solid 1px #ccc;" frameborder="0"><a href="https://www.nicovideo.jp/watch/sm33517192">東北ずん子プロジェクトのクリエイター奨励プログラムについて</a></iframe>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="section">
+					<div class="row">
+						<h2 class="text-darkgreen font-size-45 text-center">
+							<strong>イラスト、素材の<br>利用方法について</strong>
+						</h2>
+						<img src="./img/guidline/image5.png" alt="">
+					</div>
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="font-size-25">
+								<strong>
+									<span class="text-blue">各種素材の利用</span>ができます。
+								</strong>
+							</p>
+							<div class="divider"></div>
+							<p class="font-size-20">公式HPの素材ページに設置されているイラスト、３Ｄデータがかなり自由に使えます。​</p>
+							<p class="font-size-20">また、2次創作でも利用可能です。</p>
+							<p class="font-size-20">キャラクターの改変は「東北ずん子」とわかるレベルで、イメージを極端に悪くするものでなければ大丈夫です。​</p>
+							<p class="font-size-20">商用、非商用の利用共にこちらの「イラスト、素材の利用方法ついて」を参考にしてくださいね。</p>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : キャラクターの切り出しはＯＫですか？​</p>
+								<p class="qanda-a">A : OKです</p>
+								<img src="./img/guidline/image6.png" alt="">
+								<p>キャラクターを切り出して使っても大丈夫です。</p>
+								<p>枝豆カチューシャが見えなくなってしまっても問題ありません。</p>
+								<p>ただし、元のキャラが誰かわかるようにはしてください。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 色の変更、効果の付け足しはＯＫですか？</p>
+								<p class="qanda-a">A : OKです</p>
+								<img src="./img/guidline/image7.png" alt="">
+								<p>商品パッケージや創作物に合わせて多少色を変更しても大丈夫です。</p>
+								<p>東北ずん子ちゃんだとわかる範囲でお願いします。</p>
+								<p>画像にいわゆる「フィルタ」をかけて効果をつけるのも大丈夫です。</p>
+								<p>白黒、グレースケール化も大丈夫です。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 吹き出しなどが画像にかぶってもいい？​</p>
+								<p class="qanda-a">A : OKです</p>
+								<img src="./img/guidline/image8.png" alt="">
+								<p>画像に吹き出しや他の画像、図形などがかぶっても大丈夫です。</p>
+								<p>一般的なキャラクターだとＮＧが出やすい部分ですが気にせずかぶせてください。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 縦横比をかえてもいい？</p>
+								<p class="qanda-a">A : 少しくらいなら･･･でもやり過ぎは注意！</p>
+								<img src="./img/guidline/image9.png" alt="">
+								<p>少しくらいなら縦横比をかえてもいいですけど、ファンの人は割としっかりとチェックしています。​</p>
+								<p>ファンの皆さんに喜んでもらえるよう、やり過ぎには注意しましょう。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 2次創作でちょっとキャラのイメージが少し変わっても大丈夫？</p>
+								<p class="qanda-a">A : キャラのイメージを著しく悪化させなければＯＫです。​</p>
+								<img src="./img/guidline/image10.png" alt="">
+								<p>面白ネタでちょっとくらいイメージが変わっても大丈夫です。​</p>
+								<p>東北ずん子ちゃんである、というのがわかるくらいの改変にしておいてください。</p>
+								<p>（注１：ちなみに右の画像は『自家製麺キリンジ　湯切り道　〜極めろ、湯切りバースト〜』というiPhoneアプリの画像を例として使っています）</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 好きなポーズをとらせたいのですが​</p>
+								<p class="qanda-a">A : 3Dモデルを使えばイラストを描かなくてもなんとかなります。</p>
+								<img src="./img/guidline/image11.png" alt="">
+								<p>3Dモデル（MMDモデルなど）も配布しています。</p>
+								<p>3Dモデルを使えば、イラストが描けなくてもいろいろなポーズやある程度の表情に対応することができます。</p>
+								<p>使い方は３Ｄモデルの使い方はネットで各自調べてやってください。<br>（３Ｄモデルの使用法については運営ではサポートできません）​</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 3Dモデルを改造して再配布してもいい？​</p>
+								<p class="qanda-a">A : OKです​</p>
+								<p>公式が配信している3Dモデルを改造して再配布しても大丈夫です。​​</p>
+								<p>他人の著作を取り込むのではなく自身で改造したものに限ります。</p>
+								<p>服装の変更、セッティングの変更、3Dの形式変更など自由にやって大丈夫です。</p>
+								<p>どんどんいいモデルに成長させてくださいね</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 服装の変更はしても良い？​</p>
+								<p class="qanda-a">A : OKです</p>
+								<img src="./img/guidline/image12.png" alt="">
+								<p>利用用途に応じて服装やアクセサリーなどを変更して大丈夫です。</p>
+								<p>商品画像、動画に使う画像、アプリに使う画像、それぞれ使いやすいように服装をいろいろかえていってください。</p>
+								<p>ただし、東北ずん子ちゃんであると認識できる範囲でお願いします。​</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 他のキャラとタイアップしても良い？​</p>
+								<p class="qanda-a">A : OKです​</p>
+								<img src="./img/guidline/image13.png" alt="">
+								<p>例えば自社キャラクターとタイアップするなどは可能です。​</p>
+								<p>自社が権利を持っていないキャラクターとのタイアップ時にはそのタイアップキャラクターとの権利調整は別途必要になります。​<br>（このタイアップキャラは萌え発電「きららとふうか」です）​</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+
+							<div class="qanda-content">
+								<p class="qanda-q">Q : イベントで展示品などに使いたい​</p>
+								<p class="qanda-a">A : 売らない物であれば無料で使えます​</p>
+								<div class="spacer"></div>
+								<p>イベントや展示会などでサンプルの展示物としてずんずんPJのキャラクターを使う分には企業でも無償利用可能です。​​<br>
+								サンプル品は数個程度なら配布可能です。<br>（多数の配布はプロモーション目的として商用利用となります）<br>2次創作イラストは対象外です。</p>
+							</div>
+							
+							<div class="qanda-content">
+								<p class="qanda-q">Q : POPやパネルで実店舗での販促に利用したい</p>
+								<p class="qanda-a">A : 実店舗でのPOPやパネルの利用は無償利用可能です</p>
+								<div class="spacer"></div>
+								<p>実店舗でPOPやパネル、等身大パネルを販促目的で利用することは公式イラストであれば無償利用で大丈夫です。（2次創作イラストは対象外です）<br>
+									ただし、商品とのコラボを行う場合は有償での商用利用となりますのでご注意ください。</p>
+							</div>
+							
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 社内報や社内マニュアル、サンプル制作などで利用したい</p>
+								<p class="qanda-a">A : 社外に出ないものなら無償利用OKです</p>
+								<div class="spacer"></div>
+								<p>企業利用であっても、社外に出ない利用なら無償での利用OKです。<br>
+									社内※で閉じる範囲で文章、動画、サンプル制作など様々使ってください。<br>
+									社外に出るマニュアルなどに利用する場合はライセンス料が必要です。<br>
+									※<span class="small">グループ企業やプロジェクト内での共有もOKです</span></p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="section">
+					<div class="row">
+						<div class="block bg-white border-radius">
+							<p class="text-darkgreen font-size-30 qanda-title">
+								イラスト利用の<span class="text-orange font-size-40">Q</span>&<span class="text-red font-size-40">A</span>
+							</p>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : コピーライト表示はいるの？​</p>
+								<p class="qanda-a">A : なくても大丈夫です</p>
+								<p>東北ずん子・ずんだもんプロジェクトの著作権は運営（SSS LLC.）が管理することには代わりありませんが、コピーライト表記(c)は必要ありません。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 使ってはいけないのはどんなケース？​​</p>
+								<p class="qanda-a">A : イメージが悪くなるもの、公序良俗に反するもの、政治、宗教が関係するものです​​</p>
+								<p>軽いパロディなどは問題ありません。​</p>
+								<p>風俗や公序良俗に反するもの、虐待をする/される、凶悪な殺人鬼になるなどキャラクターイメージを著しく悪化させるものに関してはＮＧです。特定の個人、政党、宗教団体を支援、又は支援するおそれがあると認められるものもＮＧです。また、特定の個人・団体を非難する、誹謗中傷する目的での利用もＮＧとなります。</p>
+							</div>
+							<div class="qanda-content">
+								<p class="qanda-q">Q : 公式以外の画像を使いたい​</p>
+								<p class="qanda-a">A : 自身での2次創作は可能です。他人の2次創作を使うときは注意してください</p>
+								<p>公式以外のイラストを使うときは、自分でイラストを制作する場合には大丈夫です。</p>
+								<p>他人の2次創作を利用するときには、イラスト制作者に権利が別途発生するのでそれぞれ許可を取る必要があります。​</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 東北ずん子プロジェクト キャラクター利用の手引き 【ここまで】-->
+
+			<h3>（ず・ω・きょ）のロゴはこちら</h3>
+			<p>
+				<a href="./sozai/FAQ/zunkyo_m.png"><img src="./sozai/FAQ/zunkyo_s.png" /></a><br />
+				<a href="./sozai/FAQ/zunkyo.png">高解像度版はこちら</a><br /><br />
+			</p>
+			
+			<h3>ニコニコクリエイター奨励プログラムについて</h3>
+			<p>
+				ニコニコ動画でクリエイター奨励プログラムを利用する際にはこちらの動画を親動画に登録してください。
+				<div class="youtube-container">
+					<script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm33517192/script?w=640&h=360"></script><noscript><a href="http://www.nicovideo.jp/watch/sm33517192">東北ずん子プロジェクトのクリエイター奨励プログラムについて</a></noscript>
+				</div>
+				<br /><br />
+			</p>
+
+			<h3>twitterで公式が「見ない」情報について</h3>
+			
+			<p>
+				<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">iPhoneだと半角入力が難しいという話があったので全角の「コッショリ」もミュート設定しましたヽ(o&#39;∀&#39;o)ﾉ<br><br>ずん子公式に見られたくないものは「ｺｯｼｮﾘ」や「コッショリ」の文字をツイートに入れてくださいね(∩´∀`)∩ <a href="https://t.co/asXyO2xC4w">pic.twitter.com/asXyO2xC4w</a></p>&mdash; 東北ずん子(公式) (@t_zunko) <a href="https://twitter.com/t_zunko/status/1030320453791805440?ref_src=twsrc%5Etfw">2018年8月17日</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<br /><br />
+
+			</p>
+			
+			<h3>キャラクターイラスト利用のガイドライン</h3>
+			<p>本規約の解釈及び適用は、日本法に準拠するものとします。</p>
+			<p>
+				■許諾内容<br>
+				<br>
+				１、非商用の場合は事前申請無しに、自由にご利用いただけます。<br>
+				<br>
+				同人などの二次創作（非営利）につきまして、特別な禁止事項を除いて、ほとんど制限を設けておりません。クリエイターの方が自由に創作して頂けます。<br>
+				<br>
+				２、東北の企業なら、商用利用も可能です。<br>
+				<br>
+				東北支援の一環として、東北の企業様には商用も含めて自由にご利用頂く事が可能です。東北地方（青森県、岩手県、宮城県、秋田県、山形県、福島県の6県）に本社を置く企業、公共団体であれば、広告など営利目的でこのキャラクターを使用して頂く事が出来ます。<br>
+				また運営会社のＳＳＳ合同会社にも商用・非商用問わずキャラクターの使用を許諾します。<br>
+				<br>
+				３、クリエイターの二次創作は原則非営利での活動に限らせて頂きます。ただし個人による同人即売会などの非営利有償販売活動は許諾致します。<br>
+				<br>
+				同人誌の出版など、製造に原価がかかるものを個人のクリエイターが同人誌即売会や同人ショップで発表する場合は、その原価を回収する目的において、このキャラクターを含む作品を有償にて販売することを許諾致します。ただし、営利目的の大規模な販売や、一般の商流を使った販売は東北企業以外には許諾しておりません。営利、非営利の基準につきましては、明確な数値等は設けておりませんが、クリエイターの方の節度ある対応を望みます。<br>
+				<br>
+				<br>
+				■禁止事項<br>
+				<br>
+				次のような使用方法は禁止させて頂きます。<br>
+				<br>
+				１、原作の利用がわからなくなってしまうようなキャラクターの改変<br>
+				<br>
+				二次創作においてクリエイターの解釈が明らかに原作の解釈を超えているような、原作の利用が分からない物はクリエイターの判断でオリジナル作品として公開して下さい。「東北ずん子」と無関係のオリジナルの創作物によるトラブルは弊社ではいっさい関知いたしません。<br>
+				<br>
+				２、二次創作されたキャラクターの無断使用<br>
+				<br>
+				クリエイターの二次創作したキャラクターを無断使用する事は避けて下さい。SSSの許諾のもとに作成された二次創作であっても、クリエイターの著作物ですので、弊社の許諾の範囲を超えていると判断しております。イラストを利用する場合は弊社から提供している素材をご使用下さい。<br>
+				ただし、東北ずん子ガイドライン（このページのガイドライン）に準拠したイラストであれば二次創作イラストを使用することができます。<br>
+				<br>
+				３、キャラクターの無許可による独占使用<br>
+				<br>
+				東北ずん子や東北ずん子に登場するキャラクターを使った商標や意匠を登録するといった「独占利用」については当ガイドラインでは許諾しておりません。<br>
+				<br>
+				４、キャラクター素材そのものの販売<br>
+				<br>
+				当Webページに掲載されている、もしくは当社が販売しているキャラクターのイラスト、３Ｄモデル、音声そのもの、もしくは素材が主たるものになっているケースでは販売することは禁止させていただきます。<br>
+				たとえば当Webページに掲載されているイラストをＮＦＴやスタンプとして販売することは事前に当社の許諾確認が必要となります。（２次創作の場合でも創作者への確認が必要となります）<br>
+				<br>
+				５、キャラクターのイメージを損なう利用<br>
+				<br>
+				・利用する作品の著作者の社会的な評価を損なうような利用<br>
+				・他者の権利を侵害する、または侵害のおそれがある利用 <br>
+				・他者や特定組織（国家、特定の集団を含む）を非難したり、強く批判する形での利用<br>
+				・他者や特定組織（国家、特定の集団を含む）に被害を及ぼす利用<br>
+				・キャラクターが残虐な行為をする、されるといった利用<br>
+				・公序良俗に反する利用<br>
+				・その他、キャラクターのイメージを損なうと当社が判断した利用<br>
+				<br>
+				６、政治、宗教およびそれらの団体に関する利用<br>
+				・特定の政治家、政治団体、宗教家、宗教団体、それに類する人物、団体に対する応援、支援を目的とする利用<br>
+				・特定の政治家、政治団体、宗教家、宗教団体、それに類する人物、団体に対する批評、批判、非難を目的とする利用<br>
+				・特定の政治家、政治団体、宗教家、宗教団体、それに類する人物、団体の情報を提供する目的とする利用<br>
+				・上記に該当すると当社が判断した利用<br>
+				<br>
+				７、いわゆる情報商材の販売<br>
+				<br>
+				情報商材や仮想通貨、Cript Coinに関しては販売NGとなります。小口電子データライセンスやライセンスシールでの販売は許諾しておりません。またそれらの宣伝もNGです。<br>
+				<br>
+				８、嘘やフェイク<br>
+				<br>
+				意図的に虚偽の情報や誤解を招く内容を作成、共有、または拡散する目的での利用は禁止となります。<br>
+				<br>
+				９、風俗営業等業種の分類で以下に当てはまるもの<br>
+				<br>
+				風俗営業　接待飲食等の１号、２号、３号営業に当てはまる業態、および、性風俗関連特殊営業に当てはまる業態での利用は禁止となります。<br>
+				<br>
+				１０、再許諾<br>
+				<br>
+				本規約に基づいて付与されたライセンス権の全部または一部を、再許諾することは禁止となります。<br>
+				<br>
+				１１、著作物を守る上で当社がNGと判断した利用<br>
+				<br>
+				当社が著作物を守る上でNGと判断した利用についても、個別に利用の禁止を求めることがあります。<br>
+				<br>
+				１２、反社会的勢力の利用<br>
+				<br>
+				暴力団、暴力団員、暴力団準構成員、暴力団関係者、総会屋等、社会運動標ぼうゴロ、特殊知能暴力集団その他の反社会的勢力（以下「反社会的勢力」という）の利用、及び反社会的勢力と協力・関与する者、反社会的勢力を利用する者の利用を禁止します。<br>
+				暴力的な要求行為、法的責任を超えた不当な要求行為、脅迫的な言動をしたり暴力を用いる行為、風説を流布し偽計を用いたり威力を用いて相手方の信用を毀損したり業務を妨害する行為をするものの利用も禁止します。
+				<br>
+				１３、上記の禁止事項を助長するの内容での利用<br>
+				<br>
+				禁止事項に記載された項目を助長する内容での利用も、禁止させていただきます。<br>
+				<br>
+				<br>
+				<br>
+				上記のような利用があった場合、また当社が上記に該当すると判断した場合にはキャラクターの利用許諾を特定団体、個人に対して許諾を中止します。<br>
+				<br>
+				<br>
+				<br>
+				■免責条項<br>
+				<br>
+				１．東北ずん子・ずんだもんプロジェクトのイラスト、3Dモデル、合成音声、その他一切の創作物が付けられた商品や取引が原因となって損害が発生したとしても、当社はこれに対して一切責任を負いかねます。<br>
+				<br>
+				２．運営に依頼し有償で作成された企業専用のイラストおよび一度購入されましたライセンスシールを使用しないことになっても、当社は返金には応じかねます。<br>
+				<br>
+				３．当社は、東北ずん子・ずんだもんプロジェクトのキャラクターを利用した商品や取引について一切保証いたしかねます。企業とお客様との間で発生したいかなるトラブルについても当社は責任を負いかねますので、企業とお客様の間で直接解決していただくことになります。<br>
+				<br>
+				４．当社は、東北ずん子・ずんだもんプロジェクトのキャラクターを利用した商品や取引について当社以外のクリエイターが企画した物については一切保証いたしかねます。企業とクリエイター間で発生したいかなるトラブルについても当社は責任を負いかねますので、企業とクリエイターの間で直接解決していただくことになります。<br>
+				<br>
+				５．当社は、当社以外が制作、販売した東北ずん子・ずんだもんプロジェクトのキャラクターを利用した商品や取引に関して、お客様から企業に向けられた質問やクレームに対しての回答をいたしかねます。<br>
+				<br>
+				６．当社が必要と判断した場合には、あらかじめ通知することなくいつでも本ガイドラインを変更することができるものとします。<br>
+				<br>
+				７．本ガイドラインに従って創作された２次的著作物に関しては、配信や放送への利用をSSS社に許諾されることとなることなります。<br>
+				利用目的としては、２次的著作物を盛り上げるための活動となります。<br>
+				<br>
+				８．本ガイドラインに該当するかどうかのご質問、特に無料で利用する場合については原則お答えしておりません。<br>
+				（問い合わせ回答に対して人件費が発生して無料利用の継続を困難にしてしまうため）<br>
+				できるかぎりガイドラインを自身で読み込んだ上での判断をお願いいたします。<br>
+				<br>
+				<br>
+				上記内容を守って頂く限り、事前申請や登録は一切必要ありません。<br>
+				<br>
+				ただ、もしよろしければ、このキャラクターを生み出した「江戸村ににこ」氏やSSSという会社の事を時々は思い出してやってください。
+				スタッフ一同皆様に愛されるキャラクターになればと思っております。<br>
+				<br>
+				<br>
+
+				
+			</p>
+			<br /><br /><br /><br />
+			<h4>ご連絡は以下にお願いします</h4>
+			<p>
+				<a href="https://forms.gle/VokPDe1m4VfYiRvZ8">お問い合わせはこちらから</a><br>
+				<br>
+				<br>
+				※無料で利用できるかどうかについての問い合わせは現在回答しておりません。<br>
+				無償利用が可能かどうかについては利用規約の確認をお願いします。<br>
+			</p>
+			<br /><br /><br /><br />
+			<h4>動画の通報は以下にお願いします</h4>
+			<p>
+				<a href="https://forms.gle/hrVBXhVVqn9DPcEy9">動画通報フォーム</a>
+			</p>
+			<br /><br /><br /><br />
+			<h4>東北企業以外の商用利用について</h4>
+			<p>
+				東北企業以外の商用利用を希望する場合は<a href="con_shoushi.html">こちらのページ</a>をご覧ください。
+			</p>
+			<br /><br /><br /><br />
+			
+			<h3>プライバシーポリシー</h3>
+			<p>
+				<textarea class="form-control" rows="5">
+当社は、以下のとおり個人情報保護方針を定め、個人情報保護の仕組みを構築し、全従業員に個人情報保護の重要性の認識と取組みを徹底させることにより、個人情報の保護を推進致します。
+
+個人情報の管理
+当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。
+
+個人情報の利用目的
+本ウェブサイトでは、お客様からのお問い合わせ時に、お名前、e-mailアドレス、電話番号等の個人情報をご登録いただく場合がございますが、これらの個人情報はご提供いただく際の目的以外では利用いたしません。
+お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。
+
+個人情報の第三者への開示・提供の禁止
+当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。
+・お客さまの同意がある場合
+・お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合
+・法令に基づき開示することが必要である場合
+
+個人情報の安全対策
+当社は、個人情報の正確性及び安全性確保のために、セキュリティに対策を講じます。
+
+個人情報の削除について
+削除を希望される方は、本ページの連絡先に削除希望の内容を記載して送付してください。
+
+お問い合せ
+当社の個人情報の取扱に関するお問い合せは本ページの連絡先におねがいします。
+
+ご本人の照会
+お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。
+
+法令、規範の遵守と見直し
+当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。
+
+
+
+				</textarea>
+			</p>
+				
+			<br><br><br><br>	
+			<h4>東北ずん子・ずんだもん公式のtwitterです＼（○ず・ω・だ○）／</h4>
+			<p>
+				<blockquote class="twitter-tweet"><p>東北ずん子です＼（ず・ω・だ）／　フォローしてくださいねヽ( ・▽・ )ﾉ</p>&mdash; 東北ずん子 (@t_zunko) <a href="https://twitter.com/t_zunko/statuses/385425207323680768">October 2, 2013</a></blockquote>
+					<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</p>
+		</div>
+	</div>
+
+</div>
+
+<div id="footer">
+	<div class="container">
+		<p class="text-muted">Copyright (C) <script language="javascript">document.write(new Date().getFullYear())</script> SSS LLC. All Rights Reserved.</p>
+	</div>
+</div>
+</body>
+</html>

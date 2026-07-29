@@ -1,0 +1,436 @@
+{
+  "authorId": "000148",
+  "authorPage": {
+    "byteLength": 19451,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-07-29T05:39:33.358Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-author-page.html",
+    "sha256": "120137200f380e21041be4d278c9badda91f452115ef09a328ce7333f82f6acf",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/person148.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "batchId": "F005",
+  "bibliographyArchive": {
+    "byteLength": 2092213,
+    "charset": null,
+    "fetchedAt": "2026-07-29T05:39:32.944Z",
+    "mediaType": "application/zip",
+    "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-bibliography.zip",
+    "sha256": "39d74f2aa5ab718feb3ba87e6173e11ad8e5bdf7a16a6844478f617dbe99c1fd",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "bibliographyCsv": {
+    "byteLength": 17156699,
+    "charset": "UTF-8",
+    "derivedFromSha256": "39d74f2aa5ab718feb3ba87e6173e11ad8e5bdf7a16a6844478f617dbe99c1fd",
+    "fetchedAt": "2026-07-29T05:39:32.944Z",
+    "mediaType": "text/csv",
+    "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-bibliography.zip",
+    "sha256": "2f3962dd396e0375327e32501929ebe6be3dc9d347f74558c511b097120d7adb",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "derived",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "kind": "f005-source-predeploy-snapshot",
+  "observedAt": "2026-07-29T05:39:32.444Z",
+  "phase": "predeploy",
+  "policies": [
+    {
+      "artifact": {
+        "byteLength": 28598,
+        "charset": null,
+        "fetchedAt": "2026-07-29T05:39:33.596Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-policies-voicevox-terms.raw",
+        "sha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "sourceUrl": "https://voicevox.hiroshiba.jp/term/",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "185.199.109.153",
+          "dnsAddresses": [
+            "185.199.109.153",
+            "185.199.111.153",
+            "185.199.108.153",
+            "185.199.110.153"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F005PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "voicevox-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "decision": "allow",
+        "policyId": "voicevox-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "voicevox-terms",
+      "versionOrLabel": "VOICEVOX 利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 8169,
+        "charset": null,
+        "fetchedAt": "2026-07-29T05:39:33.753Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-policies-zundamon-audio-terms.raw",
+        "sha256": "d249b088ad9562edd123397422864d32765f183d7e4f60c857a100f4228572ec",
+        "sourceUrl": "https://zunko.jp/con_ongen_kiyaku.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F005PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "audio-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "d249b088ad9562edd123397422864d32765f183d7e4f60c857a100f4228572ec",
+        "decision": "allow",
+        "policyId": "zundamon-audio-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-audio-terms",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト 音源利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 47088,
+        "charset": null,
+        "fetchedAt": "2026-07-29T05:39:33.818Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-policies-zundamon-character-guideline.raw",
+        "sha256": "d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d",
+        "sourceUrl": "https://zunko.jp/guideline.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F005PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "character-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-unofficial",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d",
+        "decision": "allow",
+        "policyId": "zundamon-character-guideline",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-character-guideline",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト キャラクター利用ガイドライン"
+    }
+  ],
+  "rights": {
+    "decision": "allow",
+    "observedAt": "2026-07-29T05:39:32.444Z",
+    "phase": "predeploy",
+    "reasons": []
+  },
+  "schemaVersion": "2.0.0",
+  "works": [
+    {
+      "bibliography": {
+        "baseEdition": "夏目漱石全集10",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "夏目漱石全集10",
+        "inputter": "野口英司",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000148",
+        "proofreader": "",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html",
+        "status": "公開中",
+        "title": "夢十夜",
+        "workId": "000799"
+      },
+      "card": {
+        "byteLength": 9747,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-07-29T05:39:33.860Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-000799-card.html",
+        "sha256": "6b62b5acd806fcbd2a3024232342484d63c20e530f4c46b0f836bd958edd85af",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "夢十夜",
+      "workId": "000799",
+      "xhtml": {
+        "byteLength": 79144,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-07-29T05:39:33.926Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-000799-source.raw",
+        "sha256": "d92a8aa62607a8269324f95a7ba8fe6ff71cd56de25b42af566679832109ff04",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "夏目漱石全集2",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "夏目漱石全集2",
+        "inputter": "柴田卓治",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000148",
+        "proofreader": "LUNA CAT",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html",
+        "status": "公開中",
+        "title": "倫敦塔",
+        "workId": "001076"
+      },
+      "card": {
+        "byteLength": 9470,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-07-29T05:39:33.972Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-001076-card.html",
+        "sha256": "8ece3bd1b38ef44dbcc53a2847b60d819d9af8730dd9d1109b3b7c4e5b4a8dd8",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "倫敦塔",
+      "workId": "001076",
+      "xhtml": {
+        "byteLength": 82297,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-07-29T05:39:34.045Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-001076-source.raw",
+        "sha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "夏目漱石全集2",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "夏目漱石全集2",
+        "inputter": "柴田卓治",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000148",
+        "proofreader": "LUNA CAT",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+        "status": "公開中",
+        "title": "趣味の遺伝",
+        "workId": "001104"
+      },
+      "card": {
+        "byteLength": 9725,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-07-29T05:39:34.087Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-001104-card.html",
+        "sha256": "5c5c1228fb5b1430bc6fa00ecbb4b6b125a244d1e61fb14eefbfae083c856201",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "趣味の遺伝",
+      "workId": "001104",
+      "xhtml": {
+        "byteLength": 161913,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-07-29T05:39:34.176Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F005/source-snapshots/selection/predeploy-2026-07-29T05-39-32-444Z-works-001104-source.raw",
+        "sha256": "91209534d37abf5fc66a4720eb167b0315aefbd5ea8842cccd731d4155e982ef",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    }
+  ]
+}
