@@ -867,10 +867,12 @@ sealed class CapacityGuardSession : IDisposable
     private readonly Task pipeTask;
     private readonly HashSet<int> registeredPids = [];
     private readonly Dictionary<ulong, FileSnapshot> filesByObject = [];
+    private readonly Dictionary<string, FileSnapshot> filesByPath = new(StringComparer.Ordinal);
     private readonly Dictionary<string, long> allocatedByIdentity = new(StringComparer.Ordinal);
     private readonly List<PhaseRecord> phaseRecords = [];
     private readonly List<NoticeRecord> notices = [];
     private readonly List<ObservationRecord> observations = [];
+    private readonly List<DeferredRenameRecord> deferredRenames = [];
     private long etwSequence;
     private long noticeSequence;
     private long peakLiveBytes;
@@ -1271,17 +1273,32 @@ sealed class CapacityGuardSession : IDisposable
             from,
             to);
         var floor = DateTimeOffset.UtcNow - ObservationMatchWindow;
-        var match = observations.LastOrDefault(item =>
-            item.NoticeSequence is null &&
-            item.WorkerPid == clientPid &&
-            item.Phase == phase &&
-            item.PhaseInstanceId == phaseInstanceId &&
-            item.ObservedAtValue >= floor &&
-            item.Matches(eventName, path, from, to));
-        if (match is not null)
+        if (eventName == "rename")
         {
-            record.Match(match.EtwSequence);
-            match.NoticeSequence = record.NoticeSequence;
+            var deferred = deferredRenames.LastOrDefault(item =>
+                item.WorkerPid == clientPid &&
+                item.Phase == phase &&
+                item.PhaseInstanceId == phaseInstanceId &&
+                item.ObservedAtValue >= floor &&
+                item.Source.RelativePath == from &&
+                (item.ObservedTarget is null || item.ObservedTarget == to));
+            if (deferred is not null)
+                CompleteDeferredRename(deferred, record);
+        }
+        if (record.State != "matched")
+        {
+            var match = observations.LastOrDefault(item =>
+                item.NoticeSequence is null &&
+                item.WorkerPid == clientPid &&
+                item.Phase == phase &&
+                item.PhaseInstanceId == phaseInstanceId &&
+                item.ObservedAtValue >= floor &&
+                item.Matches(eventName, path, from, to));
+            if (match is not null)
+            {
+                record.Match(match.EtwSequence);
+                match.NoticeSequence = record.NoticeSequence;
+            }
         }
         notices.Add(record);
         PersistJournal(closed: false);
@@ -1318,6 +1335,8 @@ sealed class CapacityGuardSession : IDisposable
         {
             throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
         }
+        if (deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId))
+            throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
         AssertRegisteredProcessesContained();
         var free = ReadFreeBytes(root);
         minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
@@ -1336,6 +1355,8 @@ sealed class CapacityGuardSession : IDisposable
             if (failureCode is not null) throw new GuardException(failureCode);
             if (activePhase is not null) throw new GuardException("PHASE_STILL_ACTIVE");
             if (notices.Any(item => item.State != "matched"))
+                throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
+            if (deferredRenames.Count != 0)
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
             AssertRegisteredProcessesContained();
         }
@@ -1387,14 +1408,77 @@ sealed class CapacityGuardSession : IDisposable
                     PoisonLocked("ETW_EVENT_OUTSIDE_PHASE");
                     return;
                 }
+                if (deferredRenames.Count != 0)
+                {
+                    PoisonLocked("ETW_RENAME_IDENTITY_MISMATCH");
+                    return;
+                }
                 var prior = filesByObject.GetValueOrDefault(fileObject);
                 FileSnapshot? current = null;
                 if (eventName != "delete")
                     current = TryInspect(normalized);
-                if (eventName == "rename" && prior is not null && current is not null &&
-                    prior.Identity != current.Identity)
+                if (eventName == "rename")
                 {
-                    PoisonLocked("ETW_RENAME_IDENTITY_MISMATCH");
+                    var source = prior ?? filesByPath.GetValueOrDefault(normalized);
+                    string? observedTarget = null;
+                    if (current is not null)
+                    {
+                        var identityMatches = filesByPath.Values
+                            .Where(item =>
+                                item.Identity == current.Identity &&
+                                item.RelativePath != normalized)
+                            .GroupBy(item => item.RelativePath, StringComparer.Ordinal)
+                            .Select(group => group.First())
+                            .ToArray();
+                        if ((source is null || source.RelativePath == normalized) &&
+                            identityMatches.Length == 1)
+                        {
+                            source = identityMatches[0];
+                            observedTarget = normalized;
+                        }
+                        else if (source is not null &&
+                            source.Identity == current.Identity &&
+                            source.RelativePath != normalized)
+                        {
+                            observedTarget = normalized;
+                        }
+                    }
+                    if (source is null)
+                    {
+                        PoisonLocked("ETW_FILE_IDENTITY_MISSING");
+                        return;
+                    }
+                    if (current is not null && source.Identity != current.Identity)
+                    {
+                        PoisonLocked("ETW_RENAME_IDENTITY_MISMATCH");
+                        return;
+                    }
+                    var deferred = new DeferredRenameRecord(
+                        pid,
+                        fileObject,
+                        checked(++etwSequence),
+                        activePhase.Phase,
+                        activePhase.WorkId,
+                        activePhase.PhaseInstanceId,
+                        new DateTimeOffset(timestamp.ToUniversalTime()).ToString("O"),
+                        source,
+                        observedTarget);
+                    var pendingRename = notices.FirstOrDefault(item =>
+                        item.State == "pending" &&
+                        item.WorkerPid == pid &&
+                        item.PhaseInstanceId == activePhase.PhaseInstanceId &&
+                        item.EventName == "rename" &&
+                        item.From == source.RelativePath &&
+                        (observedTarget is null || item.To == observedTarget));
+                    if (pendingRename is null)
+                    {
+                        deferredRenames.Add(deferred);
+                    }
+                    else
+                    {
+                        CompleteDeferredRename(deferred, pendingRename);
+                        PersistJournal(closed: false);
+                    }
                     return;
                 }
                 var effective = current ?? prior;
@@ -1403,8 +1487,16 @@ sealed class CapacityGuardSession : IDisposable
                     PoisonLocked("ETW_FILE_IDENTITY_MISSING");
                     return;
                 }
-                if (current is not null) filesByObject[fileObject] = current;
-                if (eventName == "delete") filesByObject.Remove(fileObject);
+                if (current is not null)
+                {
+                    filesByObject[fileObject] = current;
+                    filesByPath[current.RelativePath] = current;
+                }
+                if (eventName == "delete")
+                {
+                    filesByObject.Remove(fileObject);
+                    filesByPath.Remove(effective.RelativePath);
+                }
 
                 var oldAllocated = allocatedByIdentity.GetValueOrDefault(effective.Identity);
                 var newAllocated = eventName == "delete" ? 0 : effective.AllocatedLengthBytes;
@@ -1416,14 +1508,11 @@ sealed class CapacityGuardSession : IDisposable
                 var free = ReadFreeBytes(root);
                 minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
                 var sequence = checked(++etwSequence);
-                var from = eventName == "rename" ? prior?.RelativePath : null;
-                var to = eventName == "rename" ? normalized : null;
-                var path = eventName == "rename" ? null : normalized;
                 var observation = new ObservationRecord(
                     eventName,
-                    path,
-                    from,
-                    to,
+                    normalized,
+                    null,
+                    null,
                     activePhase.Phase,
                     activePhase.WorkId,
                     activePhase.PhaseInstanceId,
@@ -1458,6 +1547,66 @@ sealed class CapacityGuardSession : IDisposable
         {
             Poison(error is GuardException guard ? guard.Code : $"ETW_OBSERVATION_FAILED_{error.HResult:x8}");
         }
+    }
+
+    private void CompleteDeferredRename(DeferredRenameRecord deferred, NoticeRecord notice)
+    {
+        if (notice.EventName != "rename" ||
+            notice.From != deferred.Source.RelativePath ||
+            notice.To is null ||
+            (deferred.ObservedTarget is not null && deferred.ObservedTarget != notice.To))
+        {
+            throw new GuardException("ETW_RENAME_IDENTITY_MISMATCH");
+        }
+        var target = TryInspect(notice.To)
+            ?? throw new GuardException("ETW_FILE_IDENTITY_MISSING");
+        if (target.Identity != deferred.Source.Identity)
+            throw new GuardException("ETW_RENAME_IDENTITY_MISMATCH");
+
+        var oldAllocated = allocatedByIdentity.GetValueOrDefault(deferred.Source.Identity);
+        allocatedByIdentity[target.Identity] = target.AllocatedLengthBytes;
+        var delta = checked(target.AllocatedLengthBytes - oldAllocated);
+        var live = CurrentLiveBytes();
+        peakLiveBytes = Math.Max(peakLiveBytes, live);
+        var free = ReadFreeBytes(root);
+        minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
+        foreach (var objectId in filesByObject
+            .Where(pair => pair.Value.Identity == deferred.Source.Identity)
+            .Select(pair => pair.Key)
+            .ToArray())
+        {
+            filesByObject[objectId] = target;
+        }
+        filesByObject[deferred.FileObject] = target;
+        filesByPath.Remove(deferred.Source.RelativePath);
+        filesByPath[target.RelativePath] = target;
+
+        var sequence = deferred.EtwSequence;
+        var observation = new ObservationRecord(
+            "rename",
+            null,
+            notice.From,
+            notice.To,
+            deferred.Phase,
+            deferred.WorkId,
+            deferred.PhaseInstanceId,
+            sequence,
+            deferred.ObservedAt,
+            deferred.WorkerPid,
+            target.VolumeId,
+            target.FileId128,
+            target.LogicalLengthBytes,
+            target.AllocatedLengthBytes,
+            delta,
+            live,
+            free,
+            new DriveInfo(Path.GetPathRoot(root)!).TotalFreeSpace,
+            producerBinarySha256);
+        notice.Match(sequence);
+        observation.NoticeSequence = notice.NoticeSequence;
+        observations.Add(observation);
+        deferredRenames.Remove(deferred);
+        Monitor.PulseAll(gate);
     }
 
     private FileSnapshot? TryInspect(string relativePath)
@@ -1808,6 +1957,20 @@ sealed class CapacityGuardSession : IDisposable
     }
 
     private sealed record ActivePhase(string Phase, string? WorkId, string PhaseInstanceId);
+
+    private sealed record DeferredRenameRecord(
+        int WorkerPid,
+        ulong FileObject,
+        long EtwSequence,
+        string Phase,
+        string? WorkId,
+        string PhaseInstanceId,
+        string ObservedAt,
+        FileSnapshot Source,
+        string? ObservedTarget)
+    {
+        public DateTimeOffset ObservedAtValue { get; } = DateTimeOffset.Parse(ObservedAt);
+    }
 
     private sealed record PhaseRecord(
         string Phase,
