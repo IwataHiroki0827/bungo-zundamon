@@ -26,8 +26,13 @@ jobs:
           fetch-depth: 0
 
       - name: Build and verify pinned native guard
+        id: build
         shell: pwsh
-        run: pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1
+        run: |
+          $output = & pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1 2>&1
+          $exitCode = $LASTEXITCODE
+          $output | Set-Content -LiteralPath '.cache\f005-hosted-native-build.log' -Encoding utf8
+          "passed=$(($exitCode -eq 0).ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
 
       - name: Probe kernel ETW capability
         id: probe
@@ -35,11 +40,28 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $guard = Join-Path $PWD '.cache\dotnet-f005\publish\f005-guard.exe'
-          $raw = '{"op":"capacity-preflight"}' | & $guard
-          $exitCode = $LASTEXITCODE
-          $reply = $raw | ConvertFrom-Json
-          $binarySha256 = (Get-FileHash -LiteralPath $guard -Algorithm SHA256).Hash.ToLowerInvariant()
-          $passed = $exitCode -eq 0 -and $reply.ok -eq $true
+          $buildPassed = '${{ steps.build.outputs.passed }}' -eq 'true'
+          $buildLogTail = @(
+            Get-Content -LiteralPath '.cache\f005-hosted-native-build.log' |
+              Select-Object -Last 24
+          )
+          if ($buildPassed) {
+            $raw = '{"op":"capacity-preflight"}' | & $guard
+            $exitCode = $LASTEXITCODE
+            $reply = $raw | ConvertFrom-Json
+            $binarySha256 =
+              (Get-FileHash -LiteralPath $guard -Algorithm SHA256).Hash.ToLowerInvariant()
+            $passed = $exitCode -eq 0 -and $reply.ok -eq $true
+          } else {
+            $reply = [pscustomobject]@{
+              ok = $false
+              error = 'NATIVE_BUILD_FAILED'
+              capacityAbi = $null
+              etw = $null
+            }
+            $binarySha256 = $null
+            $passed = $false
+          }
           $evidence = [ordered]@{
             schemaVersion = '1.0.0'
             kind = 'f005-hosted-native-probe'
@@ -49,6 +71,8 @@ jobs:
             runnerOs = $env:RUNNER_OS
             runnerArch = $env:RUNNER_ARCH
             nativeBinarySha256 = $binarySha256
+            nativeBuildResult = if ($buildPassed) { 'pass' } else { 'blocked' }
+            nativeBuildLogTail = $buildLogTail
             capacityAbi = if ($reply.capacityAbi) { $reply.capacityAbi } else { $null }
             etw = if ($reply.etw) { $reply.etw } else { $null }
             result = if ($passed) { 'pass' } else { 'blocked' }
