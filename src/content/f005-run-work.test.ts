@@ -5,6 +5,7 @@ import { join, resolve } from 'node:path';
 
 import { describe, expect, it, vi } from 'vitest';
 
+import { canonicalJson } from './artifacts.ts';
 import { validateBatchManifest, type BatchManifest, type Sha256, type WorkId } from './batch.ts';
 import {
   createF005OfflineBuildArtifactPayloads,
@@ -13,6 +14,7 @@ import {
   parseF005RunWorkArguments,
   runOfflineBuild,
   selectF005CurrentWork,
+  verifyF005RunnerCandidateBinding,
   writeCanonicalArtifact,
 } from '../../scripts/f005-run-work.ts';
 
@@ -83,6 +85,27 @@ describe('F005 production work runner', () => {
       },
     );
     expect(calls).toEqual(['read-only', 'preflight/start', 'mutation']);
+  });
+
+  it('capacity candidateは候補file SHAではなくApproved Context結合SHAとして照合する', () => {
+    const candidateText = canonicalJson([{ candidateId: 'candidate-1' }]);
+    const approvedContextSha = H('approved-context');
+    expect(H(candidateText)).not.toBe(approvedContextSha);
+    expect(verifyF005RunnerCandidateBinding(
+      candidateText,
+      approvedContextSha,
+      approvedContextSha,
+    )).toBe(approvedContextSha);
+    expect(() => verifyF005RunnerCandidateBinding(
+      candidateText,
+      H('stale-forecast'),
+      approvedContextSha,
+    )).toThrow(/Approved Context/u);
+    expect(() => verifyF005RunnerCandidateBinding(
+      `${candidateText} `,
+      approvedContextSha,
+      approvedContextSha,
+    )).toThrow(/canonical JSON/u);
   });
 
   it('空distや自己申告値ではなく実測public/dist treeをformal artifactへ結合する', () => {

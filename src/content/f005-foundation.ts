@@ -1025,7 +1025,8 @@ function inventoryClaim(entry: F005CapacityInventoryEntry): F005CandidateHashCla
   return freezeDeep({ kind: entry.kind, bucket: entry.bucket, oid: entry.oid, sha256: entry.sha256 });
 }
 
-function contextCandidateSha256(context: F005ApprovedBatchContext): string {
+export function f005CapacityCandidateSha256(context: F005ApprovedBatchContext): string {
+  assertContext(context);
   return sha256(canonicalJson({
     candidate: context.candidate,
     definition: context.definition,
@@ -1057,7 +1058,7 @@ export async function discoverF005CapacityInventory(
   const entries = freezeDeep([...audio, ...artifact, ...repository, ...objects, ...workspacePeak]);
   normalizeClaims(entries.map(inventoryClaim));
   const payload = {
-    candidateSha256: contextCandidateSha256(context),
+    candidateSha256: f005CapacityCandidateSha256(context),
     baselineDescriptorSha256: baseline.descriptorSha256,
     entries,
   };
@@ -1079,7 +1080,7 @@ export function createF005CapacityPlan(
 ): F005CapacityPlan {
   assertContext(context);
   if (!baselines.has(baseline) || !capacityInventories.has(inventory) ||
-    inventory.candidateSha256 !== contextCandidateSha256(context) ||
+    inventory.candidateSha256 !== f005CapacityCandidateSha256(context) ||
     inventory.baselineDescriptorSha256 !== baseline.descriptorSha256 ||
     inventory.inventoryDigest !== sha256(canonicalJson({
       candidateSha256: inventory.candidateSha256,

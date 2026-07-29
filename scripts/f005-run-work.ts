@@ -43,6 +43,7 @@ import {
 } from '../src/content/f005-acceptance.ts';
 import { loadVerifiedF005Definition } from '../src/content/f005-context.ts';
 import {
+  f005CapacityCandidateSha256,
   loadV040Baseline,
   type CapacityEntry,
   type CapacityForecastV3,
@@ -246,6 +247,26 @@ export async function enterF005ProductionSession<Prepared, Session, Result>(
   return mutate(prepared, session);
 }
 
+export function verifyF005RunnerCandidateBinding(
+  candidateText: string,
+  forecastCandidateSha256: Sha256,
+  approvedContextCandidateSha256: string,
+): Sha256 {
+  let candidateValue: unknown;
+  try {
+    candidateValue = JSON.parse(candidateText) as unknown;
+  } catch {
+    throw new Error('candidate artifact JSONが不正です');
+  }
+  if (canonicalJson(candidateValue) !== candidateText) {
+    throw new Error('candidate artifactがcanonical JSONではありません');
+  }
+  if (forecastCandidateSha256 !== approvedContextCandidateSha256) {
+    throw new Error('capacity forecastのcandidate SHAがApproved Contextと一致しません');
+  }
+  return forecastCandidateSha256;
+}
+
 export async function runOfflineBuild(
   workspace: string,
   runInheritedWorker: (
@@ -327,16 +348,11 @@ async function main(): Promise<void> {
   const plan = planF005VoiceDiff(speechItems, F002_VOICE_CONFIG, { entries: [] });
 
   // この呼出しがproductionの最初のmutation境界。ETW権限がなければ何も変更せず停止する。
-  const candidateSha256 = forecastArtifact.value.forecast.candidateSha256 as Sha256;
-  let candidateValue: unknown;
-  try {
-    candidateValue = JSON.parse(candidateText) as unknown;
-  } catch {
-    throw new Error('candidate artifact JSONが不正です');
-  }
-  if (canonicalJson(candidateValue) !== candidateText || sha(candidateText) !== candidateSha256) {
-    throw new Error('capacity forecastのcandidate SHAがcanonical候補実体と一致しません');
-  }
+  const candidateSha256 = verifyF005RunnerCandidateBinding(
+    candidateText,
+    forecastArtifact.value.forecast.candidateSha256 as Sha256,
+    f005CapacityCandidateSha256(context),
+  );
   const session = await enterF005ProductionSession(
     async () => ({ workspace, owner: OWNER, workId, candidateSha256 }),
     (tuple) => startF005NativeCapacitySession(tuple),
