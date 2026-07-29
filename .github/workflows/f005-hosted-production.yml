@@ -235,7 +235,10 @@ jobs:
             $summary = @(
               $lines |
                 Where-Object {
-                  $_ -match '^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'
+                  $_ -match (
+                    '^F005_(?:PROGRESS|VOICE_PROGRESS|HOST_PROGRESS)=' +
+                    '[a-z0-9-]+$'
+                  )
                 } |
                 Select-Object -Last 2
             )
@@ -283,17 +286,6 @@ jobs:
               "$safeSummary`n",
               [Text.UTF8Encoding]::new($false)
             )
-            $annotation = $safeSummary.Replace('%', '%25').
-              Replace("`r", '%0D').Replace("`n", '%0A')
-            Write-Host (
-              '::error file=.github/workflows/f005-hosted-production.yml,' +
-              "line=1,col=1,title=F005 production diagnostic::$annotation"
-            )
-            if ($env:GITHUB_STEP_SUMMARY) {
-              Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value (
-                "### F005 production diagnostic`n`n$annotation"
-              )
-            }
           }
           $runPath = '${{ steps.engine.outputs.run_path }}'
           $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
@@ -302,7 +294,9 @@ jobs:
           $stderrPath = Join-Path $logRoot 'f005-hosted-production.stderr.log'
           $diagnosticPath = Join-Path $logRoot 'f005-safe-diagnostic.txt'
           $engineProcess = $null
+          $hostProgress = 'initializing'
           try {
+          $hostProgress = 'engine-start'
           $engineProcess = Start-Process `
             -FilePath $runPath `
             -ArgumentList '--host', '127.0.0.1', '--port', '50021' `
@@ -311,6 +305,7 @@ jobs:
             -RedirectStandardOutput (Join-Path $logRoot 'engine.stdout.log') `
             -RedirectStandardError (Join-Path $logRoot 'engine.stderr.log') `
             -PassThru
+          $hostProgress = 'engine-probe'
           $version = $null
           $probeDeadlineSeconds = 120
           $probeTimer = [Diagnostics.Stopwatch]::StartNew()
@@ -333,6 +328,7 @@ jobs:
           if ($version -ne '0.25.2') {
             throw "VOICEVOX ENGINE version mismatch: $version"
           }
+          $hostProgress = 'runner-start'
           $runnerProcess = Start-Process `
             -FilePath (Get-Command node).Source `
             -ArgumentList @(
@@ -347,6 +343,7 @@ jobs:
             -RedirectStandardError $stderrPath `
             -Wait `
             -PassThru
+          $hostProgress = 'runner-finished'
           $runnerExitCode = $runnerProcess.ExitCode
           $raw = if (Test-Path -LiteralPath $stdoutPath) {
             @(Get-Content -LiteralPath $stdoutPath)
@@ -366,6 +363,7 @@ jobs:
               'F005_RUNNER_STDERR_BASE64' $stderr
             throw "F005 production runner failed: $runnerExitCode"
           }
+          $hostProgress = 'result-parse'
           $prefix = 'F005_RESULT_JSON='
           $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
           if ($resultLines.Count -ne 1) {
@@ -384,6 +382,7 @@ jobs:
               'F005_RUNNER_STDERR_BASE64' $stderr
             throw 'F005 production runner result is not accepted'
           }
+          $hostProgress = 'result-write'
           $json = ($result | ConvertTo-Json -Depth 20) + "`n"
           [IO.File]::WriteAllText(
             $resultPath,
@@ -392,7 +391,9 @@ jobs:
           )
           } catch {
             if (-not (Test-Path -LiteralPath $diagnosticPath -PathType Leaf)) {
-              Write-SafeFailureAnnotation '' $diagnosticPath
+              Write-SafeFailureAnnotation (
+                "F005_HOST_PROGRESS=$hostProgress"
+              ) $diagnosticPath
             }
             throw
           } finally {
@@ -418,7 +419,7 @@ jobs:
             'fixedDiagnostic=unavailable'
           }
           $token = (
-            '(?:F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+|' +
+            '(?:F005_(?:PROGRESS|VOICE_PROGRESS|HOST_PROGRESS)=[a-z0-9-]+|' +
             'F005_NATIVE_START_FAILURE=[A-Z0-9_]+|' +
             '(?:failureName|causeName)=[A-Za-z][A-Za-z0-9]{0,63}|' +
             '(?:failureCode|causeCode)=[A-Z][A-Z0-9_]{0,127}|' +

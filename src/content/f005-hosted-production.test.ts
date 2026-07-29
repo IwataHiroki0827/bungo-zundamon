@@ -122,8 +122,16 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$env:GITHUB_STEP_SUMMARY');
     expect(scripts).toContain('[IO.File]::WriteAllText(');
     expect(scripts).toContain(
-      "'^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'",
+      "'^F005_(?:PROGRESS|VOICE_PROGRESS|HOST_PROGRESS)='",
     );
+    expect(production?.run).toContain("$hostProgress = 'engine-start'");
+    expect(production?.run).toContain("$hostProgress = 'engine-probe'");
+    expect(production?.run).toContain("$hostProgress = 'runner-start'");
+    expect(production?.run).toContain("$hostProgress = 'runner-finished'");
+    expect(production?.run).toContain("$hostProgress = 'result-parse'");
+    expect(production?.run).toContain("$hostProgress = 'result-write'");
+    expect(production?.run).not.toContain('title=F005 production diagnostic::');
+    expect(diagnostic?.run).toContain('title=F005 production diagnostic::');
     expect(scripts).toContain(
       "'^F005_NATIVE_START_FAILURE=[A-Z0-9_]+$'",
     );
