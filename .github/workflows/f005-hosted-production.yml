@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes including .nojekyll are LF-pinned; ETW failures use bounded categories.
+# Source bytes are LF-pinned; ETW callback exceptions use bounded type categories.
 on:
   push:
     branches:

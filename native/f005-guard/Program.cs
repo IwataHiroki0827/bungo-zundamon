@@ -1553,9 +1553,20 @@ sealed class CapacityGuardSession : IDisposable
         }
         catch (Exception error)
         {
-            Poison(error is GuardException guard ? guard.Code : $"ETW_OBSERVATION_FAILED_{error.HResult:x8}");
+            Poison(error is GuardException guard ? guard.Code : ClassifyEtwCallbackFailure(error));
         }
     }
+
+    private static string ClassifyEtwCallbackFailure(Exception error) =>
+        error switch {
+            UnauthorizedAccessException => "ETW_CALLBACK_ACCESS_FAILED",
+            IOException => "ETW_CALLBACK_IO_FAILED",
+            OverflowException => "ETW_CALLBACK_OVERFLOW",
+            ObjectDisposedException => "ETW_CALLBACK_DISPOSED",
+            InvalidOperationException => "ETW_CALLBACK_STATE_FAILED",
+            ArgumentException => "ETW_CALLBACK_ARGUMENT_FAILED",
+            _ => "ETW_CALLBACK_FAILED",
+        };
 
     private void CompleteDeferredRename(DeferredRenameRecord deferred, NoticeRecord notice)
     {

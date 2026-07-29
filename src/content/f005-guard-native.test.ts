@@ -79,6 +79,17 @@ afterAll(async () => {
 });
 
 describe.runIf(process.platform === 'win32')('F005 native Windows handle guard', () => {
+  it('ETW callback例外を自由文字列/HRESULTなしの固定分類へ変換する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    expect(program).toContain(
+      'Poison(error is GuardException guard ? guard.Code : ClassifyEtwCallbackFailure(error));',
+    );
+    expect(program).toContain('IOException => "ETW_CALLBACK_IO_FAILED"');
+    expect(program).toContain('OverflowException => "ETW_CALLBACK_OVERFLOW"');
+    expect(program).toContain('_ => "ETW_CALLBACK_FAILED"');
+    expect(program).not.toContain('ETW_OBSERVATION_FAILED_{error.HResult');
+  });
+
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
   it('SDK/runtime固定build evidenceを実sourceと70MiB self-contained binaryで検証する', async () => {
     const [evidenceRaw, program, project, globalJson, binary] = await Promise.all([
