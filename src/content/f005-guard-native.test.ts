@@ -132,7 +132,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain(
       'new RegisteredWorkerProcess(\n                pid,\n                process,\n                actualStartKey,\n                birth.ProcessSequenceNumber,\n                birth.StartedAtQpc)',
     );
-    expect(program).toContain('rootWorkerStartKey == eventProcessStartKey');
+    expect(program).toContain('rootWorkerStartKey != eventProcessStartKey');
     expect(program).toContain('actualStartKey != eventProcessStartKey');
     expect(program).toContain('ProcessTelemetryIdInformation = 64');
     expect(program).toContain('headerSize < 48 || headerSize > required');
@@ -146,7 +146,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('data.PayloadByName("ProcessSequenceNumber")');
     expect(program).toContain('actualIdentity.ProcessSequenceNumber != birth.ProcessSequenceNumber');
     expect(program).toContain('eventTimestampQpc <= birth.StartedAtQpc');
-    expect(program).toContain('eventProcessStartKey == 0 ||');
+    expect(program).toContain('rejection = "BIRTH_MISSING"');
+    expect(program).toContain('rejection = "EVENT_BEFORE_BIRTH"');
+    expect(program).toContain('rejection = "PROCESS_UNAVAILABLE"');
+    expect(program).toContain('rejection = "SEQUENCE_MISMATCH"');
+    expect(program).toContain('ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}');
+    expect(program).toContain('eventProcessStartKey != 0 &&');
     expect(program).toContain('22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716');
     expect(program).toContain('KernelProcessKeyword = 0x0000000000000010');
     expect(program).toContain('KernelProcessStartEventId = 1');

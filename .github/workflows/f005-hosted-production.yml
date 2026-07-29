@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; the initial pipe exists before startup returns.
+# Source bytes are LF-pinned; authorization failures retain a fixed reason.
 on:
   push:
     branches:

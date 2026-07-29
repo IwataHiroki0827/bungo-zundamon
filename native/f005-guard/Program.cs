@@ -1133,7 +1133,11 @@ sealed class CapacityGuardSession : IDisposable
         {
             var processStartKey = TraceEventProcessIdentity.ProcessStartKey(data);
 #pragma warning disable CS0618 // process generation境界は同一QPC clockで照合する。
-            if (AuthorizeJobMemberLocked(data.ProcessID, processStartKey, data.TimeStampQPC))
+            if (AuthorizeJobMemberLocked(
+                data.ProcessID,
+                processStartKey,
+                data.TimeStampQPC,
+                out _))
                 PoisonLocked("ETW_UNKNOWN_EVENT");
 #pragma warning restore CS0618
         }
@@ -1676,9 +1680,13 @@ sealed class CapacityGuardSession : IDisposable
                     return;
                 }
                 callbackStage = "AUTHORIZATION";
-                if (!AuthorizeJobMemberLocked(pid, processStartKey, timestampQpc))
+                if (!AuthorizeJobMemberLocked(
+                    pid,
+                    processStartKey,
+                    timestampQpc,
+                    out var authorizationFailure))
                 {
-                    PoisonLocked("ETW_PID_NOT_JOB_MEMBER");
+                    PoisonLocked($"ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}");
                     return;
                 }
                 callbackStage = "PHASE";
@@ -2042,19 +2050,35 @@ sealed class CapacityGuardSession : IDisposable
     private bool AuthorizeJobMemberLocked(
         int pid,
         ulong eventProcessStartKey,
-        long eventTimestampQpc)
+        long eventTimestampQpc,
+        out string rejection)
     {
         if (rootWorkerPid == pid)
         {
             // session開始時点ですでに生存するrootは保持handleがPID再利用を防ぐ。
             // System Providerが拡張keyを付ける環境では追加で完全一致を要求する。
-            return RootWorkerAliveLocked(pid) &&
-                (eventProcessStartKey == 0 ||
-                    rootWorkerStartKey == eventProcessStartKey);
+            if (!RootWorkerAliveLocked(pid))
+            {
+                rejection = "ROOT_INACTIVE";
+                return false;
+            }
+            if (eventProcessStartKey != 0 &&
+                rootWorkerStartKey != eventProcessStartKey)
+            {
+                rejection = "EVENT_KEY_MISMATCH";
+                return false;
+            }
+            rejection = "NONE";
+            return true;
         }
-        if (!processBirthByPid.TryGetValue(pid, out var birth) ||
-            eventTimestampQpc <= birth.StartedAtQpc)
+        if (!processBirthByPid.TryGetValue(pid, out var birth))
         {
+            rejection = "BIRTH_MISSING";
+            return false;
+        }
+        if (eventTimestampQpc <= birth.StartedAtQpc)
+        {
+            rejection = "EVENT_BEFORE_BIRTH";
             return false;
         }
         var retained = registeredWorkerProcesses.Values
@@ -2063,12 +2087,26 @@ sealed class CapacityGuardSession : IDisposable
                 item.ProcessSequenceNumber == birth.ProcessSequenceNumber);
         if (retained is not null)
         {
-            return job.Contains(retained.Process) &&
-                (eventProcessStartKey == 0 ||
-                    retained.ProcessStartKey == eventProcessStartKey);
+            if (!job.Contains(retained.Process))
+            {
+                rejection = "RETAINED_OUTSIDE_JOB";
+                return false;
+            }
+            if (eventProcessStartKey != 0 &&
+                retained.ProcessStartKey != eventProcessStartKey)
+            {
+                rejection = "EVENT_KEY_MISMATCH";
+                return false;
+            }
+            rejection = "NONE";
+            return true;
         }
         var process = job.OpenContainedProcess(pid);
-        if (process is null) return false;
+        if (process is null)
+        {
+            rejection = "PROCESS_UNAVAILABLE";
+            return false;
+        }
         ulong actualStartKey;
         try
         {
@@ -2077,17 +2115,20 @@ sealed class CapacityGuardSession : IDisposable
             if (actualIdentity.ProcessSequenceNumber != birth.ProcessSequenceNumber)
             {
                 process.Dispose();
+                rejection = "SEQUENCE_MISMATCH";
                 return false;
             }
         }
         catch
         {
             process.Dispose();
+            rejection = "PROCESS_IDENTITY_UNAVAILABLE";
             return false;
         }
         if (eventProcessStartKey != 0 && actualStartKey != eventProcessStartKey)
         {
             process.Dispose();
+            rejection = "EVENT_KEY_MISMATCH";
             return false;
         }
         // Job handleはguardだけが保持し、breakawayを許可しない。root workerの子孫は
@@ -2101,6 +2142,7 @@ sealed class CapacityGuardSession : IDisposable
                 birth.ProcessSequenceNumber,
                 birth.StartedAtQpc));
         registeredPids.Add(pid);
+        rejection = "NONE";
         return true;
     }
 

@@ -408,17 +408,15 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('var processIdentity = job.ProcessIdentity(process)');
     expect(source).toContain('rootWorkerStartKey = processIdentity.ProcessStartKey');
     expect(source).toContain('rootWorkerSequenceNumber = processIdentity.ProcessSequenceNumber');
-    expect(source).toContain('rootWorkerStartKey == eventProcessStartKey');
+    expect(source).toContain('rootWorkerStartKey != eventProcessStartKey');
     expect(source).toContain('if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))');
     expect(source).toContain('if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED")');
     expect(source).toContain('job.Contains(rootWorkerProcess)');
     expect(source).toContain('rootWorkerProcess?.Dispose()');
     expect(source.match(/ROOT_PID_NOT_RUNNING/gu)).toHaveLength(2);
     expect(source).not.toContain('case "registerPid":');
-    expect(source).toContain(
-      'AuthorizeJobMemberLocked(data.ProcessID, processStartKey, data.TimeStampQPC)',
-    );
-    expect(source).toContain('AuthorizeJobMemberLocked(pid, processStartKey, timestampQpc)');
+    expect(source).toContain('AuthorizeJobMemberLocked(\n                data.ProcessID,');
+    expect(source).toContain('AuthorizeJobMemberLocked(\n                    pid,');
     expect(source).toContain('etwSource.Registered.All += ObserveProcessBirth');
     expect(source).toContain('eventTimestampQpc <= birth.StartedAtQpc');
     expect(source).toContain('identity.ProcessSequenceNumber != birth.ProcessSequenceNumber');
