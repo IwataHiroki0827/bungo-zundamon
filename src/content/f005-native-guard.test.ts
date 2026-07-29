@@ -366,11 +366,14 @@ describe('F005 native ETW capacity guard', () => {
     const source = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     expect(source).toContain('private readonly Dictionary<string, FileSnapshot> filesByPath');
     expect(source).toContain('private readonly List<DeferredRenameRecord> deferredRenames');
+    expect(source).toContain('kernel.FileIOCleanup += data => ForgetFileObject(data.FileObject)');
+    expect(source).toContain('var source = filesByPath.GetValueOrDefault(normalized) ?? prior');
+    expect(source).not.toContain('filesByObject[deferred.FileObject] = target');
     expect(source).toContain('item.Source.RelativePath == from');
     expect(source).toContain('var target = TryInspect(notice.To)');
     expect(source).toContain('if (target.Identity != deferred.Source.Identity)');
     expect(source).toContain('deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId)');
-    expect(source).toMatch(/DeferredRenameRecord\(\s*pid,\s*fileObject,\s*checked\(\+\+etwSequence\)/u);
+    expect(source).toMatch(/DeferredRenameRecord\(\s*pid,\s*checked\(\+\+etwSequence\)/u);
     expect(source).toContain('var sequence = deferred.EtwSequence');
     expect(source).toMatch(
       /if \(deferredRenames\.Count != 0\)\s*\{\s*PoisonLocked\("ETW_RENAME_IDENTITY_MISMATCH"\)/u,

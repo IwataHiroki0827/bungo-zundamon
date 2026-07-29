@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; rename ETW is correlated by reserved sequence and fixed FileId.
+# Source bytes are LF-pinned; stale FileObject mappings are dropped before rename correlation.
 on:
   push:
     branches:

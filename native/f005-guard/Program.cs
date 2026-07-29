@@ -1021,8 +1021,17 @@ sealed class CapacityGuardSession : IDisposable
             ObserveEtw("rename", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
         kernel.FileIODelete += data =>
             ObserveEtw("delete", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+        kernel.FileIOCleanup += data => ForgetFileObject(data.FileObject);
         kernel.LostEvent += _ => Poison("ETW_BUFFER_LOSS");
         kernel.All += ObserveUnknownEtw;
+    }
+
+    private void ForgetFileObject(ulong fileObject)
+    {
+        lock (gate)
+        {
+            filesByObject.Remove(fileObject);
+        }
     }
 
     private void ObserveUnknownEtw(TraceEvent data)
@@ -1419,7 +1428,7 @@ sealed class CapacityGuardSession : IDisposable
                     current = TryInspect(normalized);
                 if (eventName == "rename")
                 {
-                    var source = prior ?? filesByPath.GetValueOrDefault(normalized);
+                    var source = filesByPath.GetValueOrDefault(normalized) ?? prior;
                     string? observedTarget = null;
                     if (current is not null)
                     {
@@ -1455,7 +1464,6 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     var deferred = new DeferredRenameRecord(
                         pid,
-                        fileObject,
                         checked(++etwSequence),
                         activePhase.Phase,
                         activePhase.WorkId,
@@ -1577,7 +1585,6 @@ sealed class CapacityGuardSession : IDisposable
         {
             filesByObject[objectId] = target;
         }
-        filesByObject[deferred.FileObject] = target;
         filesByPath.Remove(deferred.Source.RelativePath);
         filesByPath[target.RelativePath] = target;
 
@@ -1960,7 +1967,6 @@ sealed class CapacityGuardSession : IDisposable
 
     private sealed record DeferredRenameRecord(
         int WorkerPid,
-        ulong FileObject,
         long EtwSequence,
         string Phase,
         string? WorkId,
