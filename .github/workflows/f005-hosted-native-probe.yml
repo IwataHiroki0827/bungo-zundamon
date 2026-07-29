@@ -1,0 +1,79 @@
+name: F005 hosted native probe
+
+on:
+  push:
+    branches:
+      - feature/F005
+    paths:
+      - .github/workflows/f005-hosted-native-probe.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: f005-hosted-native-probe-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+
+      - name: Build and verify pinned native guard
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1
+
+      - name: Probe kernel ETW capability
+        id: probe
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $guard = Join-Path $PWD '.cache\dotnet-f005\publish\f005-guard.exe'
+          $raw = '{"op":"capacity-preflight"}' | & $guard
+          $exitCode = $LASTEXITCODE
+          $reply = $raw | ConvertFrom-Json
+          $binarySha256 = (Get-FileHash -LiteralPath $guard -Algorithm SHA256).Hash.ToLowerInvariant()
+          $passed = $exitCode -eq 0 -and $reply.ok -eq $true
+          $evidence = [ordered]@{
+            schemaVersion = '1.0.0'
+            kind = 'f005-hosted-native-probe'
+            sourceCommit = $env:GITHUB_SHA
+            workflowRunId = $env:GITHUB_RUN_ID
+            workflowRunAttempt = [int]$env:GITHUB_RUN_ATTEMPT
+            runnerOs = $env:RUNNER_OS
+            runnerArch = $env:RUNNER_ARCH
+            nativeBinarySha256 = $binarySha256
+            capacityAbi = if ($reply.capacityAbi) { $reply.capacityAbi } else { $null }
+            etw = if ($reply.etw) { $reply.etw } else { $null }
+            result = if ($passed) { 'pass' } else { 'blocked' }
+            error = if ($reply.error) { $reply.error } else { $null }
+          }
+          $path = Join-Path $PWD 'docs\evidence\implementation\F005-hosted-native-probe.json'
+          $json = ($evidence | ConvertTo-Json) + "`n"
+          [System.IO.File]::WriteAllText(
+            $path,
+            $json.Replace("`r`n", "`n"),
+            [System.Text.UTF8Encoding]::new($false)
+          )
+          "passed=$($passed.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+
+      - name: Publish probe evidence branch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- docs/evidence/implementation/F005-hosted-native-probe.json
+          git commit -m 'test(f005): record hosted native probe'
+          git push origin "HEAD:refs/heads/evidence/f005-hosted-native-$env:GITHUB_SHA"
+
+      - name: Enforce probe result
+        if: steps.probe.outputs.passed != 'true'
+        shell: pwsh
+        run: throw 'Hosted Windows runner cannot start the pinned kernel ETW guard.'
