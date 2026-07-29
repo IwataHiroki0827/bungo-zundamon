@@ -1,5 +1,6 @@
 name: F005 hosted production candidate
 
+# Canonical JSON and native guard source bytes are pinned to LF by .gitattributes.
 on:
   push:
     branches:
