@@ -302,6 +302,8 @@ const F005_FAILURE_NAMES = new Set([
   'AbortError',
   'AggregateError',
   'Error',
+  'F005RunnerEngineError',
+  'F005VoiceError',
   'RangeError',
   'SyntaxError',
   'TypeError',
@@ -318,6 +320,14 @@ const F005_FAILURE_CODES = new Set([
   'EPIPE',
   'ETIMEDOUT',
   'ERR_INVALID_ARG_TYPE',
+  'F005_CANDIDATE_UNSAFE',
+  'F005_CAPACITY_ACTUAL_INVALID',
+  'F005_ENGINE_AUDIO_QUERY_FAILED',
+  'F005_ENGINE_SPEAKERS_FAILED',
+  'F005_ENGINE_SYNTHESIS_FAILED',
+  'F005_ENGINE_VERSION_FAILED',
+  'F005_VOICE_GENERATION_INVALID',
+  'F005_VOICE_PLAN_INVALID',
   'UND_ERR_CONNECT_TIMEOUT',
 ]);
 const F005_FAILURE_FRAME_PATHS = new Set([
@@ -456,6 +466,19 @@ export async function runOfflineBuild(
 
 function loopbackEngine(): F005LoopbackEngine {
   const baseUrl = new URL(process.env.VOICEVOX_URL ?? 'http://127.0.0.1:50021/');
+  const engineFailure = (
+    code:
+      | 'F005_ENGINE_VERSION_FAILED'
+      | 'F005_ENGINE_SPEAKERS_FAILED'
+      | 'F005_ENGINE_AUDIO_QUERY_FAILED'
+      | 'F005_ENGINE_SYNTHESIS_FAILED',
+    cause: unknown,
+  ): never => {
+    const failure = new Error('F005 runner engine operation failed', { cause });
+    failure.name = 'F005RunnerEngineError';
+    Object.assign(failure, { code });
+    throw failure;
+  };
   const request = async (path: string, init?: RequestInit): Promise<Response> => {
     const response = await fetch(new URL(path, baseUrl), init);
     if (!response.ok) throw new Error(`VOICEVOX ${path}: HTTP ${response.status}`);
@@ -464,18 +487,44 @@ function loopbackEngine(): F005LoopbackEngine {
   return Object.freeze({
     baseUrl,
     config: F002_VOICE_CONFIG,
-    getVersion: async () => (await request('version')).json() as Promise<string>,
-    getSpeakers: async () => (await request('speakers')).json() as Promise<readonly VoicevoxSpeaker[]>,
-    createAudioQuery: async (text: string) =>
-      (await request(`audio_query?text=${encodeURIComponent(text)}&speaker=3`, { method: 'POST' })).json(),
-    synthesize: async (query: unknown) => new Uint8Array(await (await request(
-      'synthesis?speaker=3',
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(query),
-      },
-    )).arrayBuffer()),
+    getVersion: async () => {
+      try {
+        return await (await request('version')).json() as string;
+      } catch (error) {
+        return engineFailure('F005_ENGINE_VERSION_FAILED', error);
+      }
+    },
+    getSpeakers: async () => {
+      try {
+        return await (await request('speakers')).json() as readonly VoicevoxSpeaker[];
+      } catch (error) {
+        return engineFailure('F005_ENGINE_SPEAKERS_FAILED', error);
+      }
+    },
+    createAudioQuery: async (text: string) => {
+      try {
+        return await (await request(
+          `audio_query?text=${encodeURIComponent(text)}&speaker=3`,
+          { method: 'POST' },
+        )).json();
+      } catch (error) {
+        return engineFailure('F005_ENGINE_AUDIO_QUERY_FAILED', error);
+      }
+    },
+    synthesize: async (query: unknown) => {
+      try {
+        return new Uint8Array(await (await request(
+          'synthesis?speaker=3',
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(query),
+          },
+        )).arrayBuffer());
+      } catch (error) {
+        return engineFailure('F005_ENGINE_SYNTHESIS_FAILED', error);
+      }
+    },
   });
 }
 
