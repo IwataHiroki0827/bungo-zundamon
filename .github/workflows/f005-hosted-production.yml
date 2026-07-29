@@ -39,12 +39,12 @@ jobs:
             throw 'checkout is not clean'
           }
           $branch = "candidate/f005-t070-$env:GITHUB_SHA"
-          git ls-remote --exit-code --heads origin "refs/heads/$branch" | Out-Null
-          if ($LASTEXITCODE -eq 0) {
-            throw "candidate branch already exists: $branch"
-          }
-          if ($LASTEXITCODE -ne 2) {
+          $existing = @(git ls-remote --heads origin "refs/heads/$branch")
+          if ($LASTEXITCODE -ne 0) {
             throw "candidate branch existence check failed: $LASTEXITCODE"
+          }
+          if ($existing.Count -ne 0) {
+            throw "candidate branch already exists: $branch"
           }
 
       - name: Preflight workspace disk

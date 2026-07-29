@@ -62,6 +62,8 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain("Remove-Item -LiteralPath $archive");
     expect(scripts).toContain("'127.0.0.1'");
     expect(scripts).toContain('--work 000799');
+    expect(scripts).toContain('git ls-remote --heads origin');
+    expect(scripts).not.toContain('git ls-remote --exit-code');
     expect(scripts).toContain("F005_RESULT_JSON=");
     expect(scripts).toContain('$resultLines.Count -ne 1');
     expect(scripts).toContain("git diff --exit-code -- public");
