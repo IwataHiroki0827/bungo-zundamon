@@ -911,7 +911,7 @@ async function discoverRootFiles(
       { cause: error },
     );
   }
-  return Promise.all(paths.map(async (path) => {
+  return mapWithConcurrency(paths, 8, async (path) => {
     const bytes = await readSafeWorkspaceFile(root, path);
     return freezeDeep({
       kind: 'path' as const,
@@ -920,7 +920,7 @@ async function discoverRootFiles(
       bytes: bytes.byteLength,
       sha256: sha256(bytes),
     });
-  }));
+  });
 }
 
 async function readGitBlob(root: string, oid: string): Promise<Uint8Array> {
