@@ -61,6 +61,8 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$drive.Free -lt 10GB');
     expect(scripts).toContain('$drive.Free -lt 5GB');
     expect(scripts).toContain("Remove-Item -LiteralPath $archive");
+    expect(scripts).toContain('native build evidence semantic drift');
+    expect(scripts).toContain('[IO.File]::WriteAllBytes($evidencePath, $expectedBytes)');
     expect(scripts).toContain("'127.0.0.1'");
     expect(scripts).toMatch(/'--work',\s*'000799'/u);
     expect(scripts).toContain('git ls-remote --heads origin');
