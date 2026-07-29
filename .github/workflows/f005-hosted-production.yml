@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; System I/O retains a fixed operation/path class.
+# Source bytes are LF-pinned; WAV temporary bytes are fsynced before rename.
 on:
   push:
     branches:

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, rename, rm, rmdir, writeFile } from 'node:fs/promises';
+import { mkdir, open, readFile, rename, rm, rmdir } from 'node:fs/promises';
 import { basename, isAbsolute, join, relative, resolve } from 'node:path';
 
 import {
@@ -636,8 +636,16 @@ export async function generateF005Voice(
       const digest = hash(wav);
       const temporary = join(root, `.${entry.audioId}.${phaseInstanceId}.tmp`);
       const destination = join(root, `${entry.audioId}.wav`);
-      await writeFile(temporary, wav, { flag: 'wx' });
+      // rename前にdirty pageを明示flushし、Cache Manager/Lazy Writerの
+      // PID 0/4遅延writeをactive phaseへ持ち越さない。
+      const temporaryHandle = await open(temporary, 'wx');
       created.push(temporary);
+      try {
+        await temporaryHandle.writeFile(wav);
+        await temporaryHandle.sync();
+      } finally {
+        await temporaryHandle.close();
+      }
       progress('temporary-written');
       await notice('create', temporary, null, wav.byteLength, digest);
       progress('temporary-observed');

@@ -220,6 +220,18 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
     ]);
     expect(evidence.assets).toMatchObject([{ source: 'staging', durationMs: 1 }]);
     await expect(readFile(evidence.assets[0]!.path)).resolves.toHaveLength(92);
+    const source = await readFile(join(process.cwd(), 'src/content/f005-voice.ts'), 'utf8');
+    const opened = source.indexOf("open(temporary, 'wx')");
+    const registered = source.indexOf('created.push(temporary)', opened);
+    const written = source.indexOf('temporaryHandle.writeFile(wav)', registered);
+    const synced = source.indexOf('temporaryHandle.sync()', written);
+    const closed = source.indexOf('temporaryHandle.close()', synced);
+    const noticed = source.indexOf("notice('create', temporary", closed);
+    const renamed = source.indexOf('rename(temporary, destination)', noticed);
+    expect([opened, registered, written, synced, closed, noticed, renamed])
+      .toEqual([...new Set([opened, registered, written, synced, closed, noticed, renamed])]
+        .sort((left, right) => left - right));
+    expect(opened).toBeGreaterThanOrEqual(0);
   });
 
   it('voice phaseを対象work IDへ結合し、nullや別workへ落とさない', async () => {
