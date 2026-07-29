@@ -1,0 +1,14 @@
+{
+  "controlCommit": "3a5620fe63270278613d928bd5558326328097ea",
+  "createdAt": "2026-07-29T11:54:45+09:00",
+  "integratedEvidenceSha256": "8dcabe24d02ca2c6c1a660f8eacd4bb2d03b9aed84ade2b4a3fccbba0f698ac5",
+  "loaderTestEvidenceSha256": "c75e7f7f8636cdcffb268af663b8d07a22a0e48ec54a6429957d4d8a58c28546",
+  "requirementApprovalSnapshot": "18e3fa50edfe5214480a65ed2e840fe49a663ee2",
+  "schemaVersion": 1,
+  "sealSha256": "233d8f627dc792d213bf87f6cc360f1dc98af9ac61779094191e66c1aa6b2c87",
+  "testedFeatures": [
+    "F003",
+    "F004",
+    "F005"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "controlCommit": "3a5620fe63270278613d928bd5558326328097ea",
+  "createdAt": "2026-07-29T11:54:45+09:00",
+  "integratedRegistrySha256": "f36eb7fcc735dad6fa33e429fa88828d9075d6ee23c0c9e1aed0dcc1c21fc607",
+  "requirementApprovalSnapshot": "18e3fa50edfe5214480a65ed2e840fe49a663ee2",
+  "schemaVersion": 1,
+  "sealSha256": "0d5aab5f39e9891b36ae039f8178cd620846a14e97b58bfe12d0dae688f7d76f",
+  "tests": [
+    {
+      "candidateSha256": "3999d39bcd917d0ae9cee605b5e5abd5f8f18301d7996eca8bd82280f7a0c922",
+      "feature": "F003",
+      "result": "pass",
+      "testId": "F005-REGISTRY-LOADER-F003"
+    },
+    {
+      "candidateSha256": "a137198ff873309a0dc2af0f0cdf28fb415bc5b0563a1a3c002d7569f1bb5739",
+      "feature": "F004",
+      "result": "pass",
+      "testId": "F005-REGISTRY-LOADER-F004"
+    },
+    {
+      "candidateSha256": "e508077d28a39bf807ba5e8aac8f25bfd356ca26d9db6938024174c0c12378ab",
+      "feature": "F005",
+      "result": "pass",
+      "testId": "F005-REGISTRY-LOADER-F005"
+    }
+  ]
+}
