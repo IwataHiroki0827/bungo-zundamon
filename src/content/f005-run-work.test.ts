@@ -7,8 +7,15 @@ import { join, resolve } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 
 import { canonicalJson } from './artifacts.ts';
-import { validateBatchManifest, type BatchManifest, type Sha256, type WorkId } from './batch.ts';
 import {
+  validateBatchManifest,
+  type BatchManifest,
+  type Sha256,
+  type WorkId,
+  type WorkspaceRelativePath,
+} from './batch.ts';
+import {
+  advanceF005RunnerManifest,
   createF005OfflineBuildArtifactPayloads,
   createF005LoopbackEngine,
   enterF005ProductionSession,
@@ -62,6 +69,94 @@ describe('F005 production work runner', () => {
       workId: '001076',
       acceptedWorkIds: ['000799'],
     });
+  });
+
+  it('manifest段階証跡を直前outputへ結合してvoicedまで連続遷移する', async () => {
+    const workId = '000799' as WorkId;
+    let value = await manifest();
+    value = advanceF005RunnerManifest(
+      value,
+      workId,
+      'extracted',
+      H('source'),
+      63,
+      {},
+      '2026-07-29T00:00:00.000Z',
+    );
+    value = advanceF005RunnerManifest(
+      value,
+      workId,
+      'reviewed',
+      H('review'),
+      63,
+      { pendingCount: 0 },
+      '2026-07-29T00:01:00.000Z',
+    );
+    value = advanceF005RunnerManifest(
+      value,
+      workId,
+      'budget-approved',
+      H('forecast'),
+      63,
+      {
+        forecastRef:
+          'content/batches/F005/capacity-forecast/000799.json' as WorkspaceRelativePath,
+      },
+      '2026-07-29T00:02:00.000Z',
+    );
+    value = advanceF005RunnerManifest(
+      value,
+      workId,
+      'voiced',
+      H('voice'),
+      62,
+      {
+        voiceEvidenceRef:
+          'content/batches/F005/work-artifacts/000799/voice-generation.json' as WorkspaceRelativePath,
+      },
+      '2026-07-29T00:03:00.000Z',
+    );
+    const progress = value.workProgress[0];
+    expect(progress.status).toBe('voiced');
+    expect(progress.stageRecords).toHaveLength(4);
+    for (let index = 1; index < progress.stageRecords.length; index += 1) {
+      const previous = progress.stageRecords[index - 1];
+      const current = progress.stageRecords[index];
+      expect(current?.inputHashes).toContain(previous?.outputHashes[0]);
+    }
+    expect(advanceF005RunnerManifest(
+      value,
+      workId,
+      'voiced',
+      H('voice'),
+      62,
+      {
+        voiceEvidenceRef:
+          'content/batches/F005/work-artifacts/000799/voice-generation.json' as WorkspaceRelativePath,
+      },
+    )).toBe(value);
+    expect(() => advanceF005RunnerManifest(
+      value,
+      workId,
+      'voiced',
+      H('different-voice'),
+      62,
+      {
+        voiceEvidenceRef:
+          'content/batches/F005/work-artifacts/000799/new-run.json' as WorkspaceRelativePath,
+      },
+    )).toThrow(/再開証跡/u);
+    expect(() => advanceF005RunnerManifest(
+      value,
+      workId,
+      'budget-approved',
+      H('forecast'),
+      64,
+      {
+        forecastRef:
+          'content/batches/F005/capacity-forecast/000799.json' as WorkspaceRelativePath,
+      },
+    )).toThrow(/再開証跡/u);
   });
 
   it('read-only準備→native preflight/session開始→mutationの順を崩さない', async () => {

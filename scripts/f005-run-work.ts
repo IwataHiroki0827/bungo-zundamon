@@ -298,6 +298,57 @@ export function formatF005VoiceProgress(stage: F005VoiceGenerationProgress): str
   return `${F005_VOICE_PROGRESS_PREFIX}${stage}\n`;
 }
 
+type F005RunnerStageExtra = Pick<
+  StageEvidence,
+  'pendingCount' | 'forecastRef' | 'voiceEvidenceRef'
+>;
+
+export function advanceF005RunnerManifest(
+  manifest: BatchManifest,
+  workId: WorkId,
+  stage: 'extracted' | 'reviewed' | 'budget-approved' | 'voiced',
+  output: Sha256,
+  count: number,
+  extra: F005RunnerStageExtra = {},
+  completedAt: string = new Date().toISOString(),
+): BatchManifest {
+  const stageOrder = ['pending', 'extracted', 'reviewed', 'budget-approved', 'voiced'] as const;
+  const current = manifest.workProgress[manifest.workIds.indexOf(workId)];
+  if (!current) throw new Error('current workがmanifestにありません');
+  const currentRank = stageOrder.indexOf(current.status as typeof stageOrder[number]);
+  const nextRank = stageOrder.indexOf(stage);
+  if (currentRank >= nextRank) {
+    const existing = current.stageRecords.find((record) => record.stage === stage);
+    const sameOutput = existing?.outputHashes.length === 1 && existing.outputHashes[0] === output;
+    const sameStageBinding =
+      existing?.count === count &&
+      existing.toolVersion === 'f005-production-runner-v1' &&
+      (stage !== 'reviewed' || extra.pendingCount === 0) &&
+      (stage !== 'budget-approved' || current.forecastRef === extra.forecastRef) &&
+      (stage !== 'voiced' || current.voiceEvidenceRef === extra.voiceEvidenceRef);
+    if (!sameOutput || !sameStageBinding) {
+      throw new Error('runner stage再開証跡が今回入力と一致しません');
+    }
+    return manifest;
+  }
+  if (nextRank !== currentRank + 1) throw new Error('runner stage順が不正です');
+  const expectedManifestSha = hashBatchManifest(manifest);
+  const previousOutputs = current.stageRecords.at(-1)?.outputHashes ?? [];
+  return transitionWorkState(manifest, workId, stage, {
+    ...extra,
+    kind: 'stage',
+    stage,
+    expectedManifestSha,
+    workId,
+    result: 'pass',
+    inputHashes: [expectedManifestSha, ...previousOutputs],
+    outputHashes: [output],
+    count,
+    toolVersion: 'f005-production-runner-v1',
+    completedAt,
+  });
+}
+
 function readErrorField(error: Error, field: 'name' | 'stack' | 'cause' | 'code'): unknown {
   try {
     return (error as unknown as Record<string, unknown>)[field];
@@ -769,29 +820,16 @@ async function main(): Promise<void> {
     )));
     const forecastSha = sha(forecastArtifact.text);
     let manifest: BatchManifest = checkedManifest.value;
-    const stageOrder = ['pending', 'extracted', 'reviewed', 'budget-approved', 'voiced'] as const;
     const advance = (stage: 'extracted' | 'reviewed' | 'budget-approved' | 'voiced',
-      output: Sha256, extra: Partial<StageEvidence> = {}): void => {
-      const current = manifest.workProgress[manifest.workIds.indexOf(workId)];
-      if (!current) throw new Error('current workがmanifestにありません');
-      const currentRank = stageOrder.indexOf(current.status as typeof stageOrder[number]);
-      const nextRank = stageOrder.indexOf(stage);
-      if (currentRank >= nextRank) return;
-      if (nextRank !== currentRank + 1) throw new Error('runner stage順が不正です');
-      const expectedManifestSha = hashBatchManifest(manifest);
-      manifest = transitionWorkState(manifest, workId, stage, {
-        kind: 'stage',
-        stage,
-        expectedManifestSha,
+      output: Sha256, extra: F005RunnerStageExtra = {}): void => {
+      manifest = advanceF005RunnerManifest(
+        manifest,
         workId,
-        result: 'pass',
-        inputHashes: [expectedManifestSha],
-        outputHashes: [output],
-        count: stage === 'voiced' ? voice.assets.length : speechItems.length,
-        toolVersion: 'f005-production-runner-v1',
-        completedAt: new Date().toISOString(),
-        ...extra,
-      });
+        stage,
+        output,
+        stage === 'voiced' ? voice.assets.length : speechItems.length,
+        extra,
+      );
     };
     advance('extracted', sourceSha);
     advance('reviewed', reviewSha, { pendingCount: 0 });

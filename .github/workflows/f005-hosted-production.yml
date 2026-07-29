@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; stale FileObject mappings are dropped before rename correlation.
+# Source bytes are LF-pinned; manifest stage evidence preserves the prior output chain.
 on:
   push:
     branches:
