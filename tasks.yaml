@@ -1641,3 +1641,21 @@ tasks:
     workers: sonnet
   completed_at: '2026-07-29T18:20:00+09:00'
   result: 1作品1sessionのstage→close→actual→metadata finalize、V3全file SHA chain、全transaction事前走査、native identity必須rename/delete CAS、phase別crash回復を実装。重点180件・全1240件、型・lint・697 files build・audit 0・public差分0をPASSし、独立受入High/Medium/Low 0
+- id: T-077
+  title: CHG-F005-003 native buildのcheckout path非依存化と影響再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-069
+  tags:
+  - DES-F005-001
+  - DES-F005-006
+  - DES-F005-011
+  - FUN-F005-043
+  - UT-F005-043
+  mode: orchestration
+  mode_reason: ローカル2絶対pathとhosted Windowsの再現buildを独立証跡で照合するため
+  model:
+    lead: opus
+    workers: sonnet

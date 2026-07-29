@@ -6,6 +6,8 @@ on:
       - feature/F005
     paths:
       - .github/workflows/f005-hosted-native-probe.yml
+      - native/f005-guard/**
+      - src/content/f005-source.ts
 
 permissions:
   contents: read
