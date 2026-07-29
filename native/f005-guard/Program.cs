@@ -1511,12 +1511,15 @@ sealed class CapacityGuardSession : IDisposable
             Interlocked.Increment(ref etwRelevantEventCount);
             lock (gate)
             {
+                callbackStage = "STATE";
                 if (journalClosed || failureCode is not null) return;
+                callbackStage = "AUTHORIZATION";
                 if (!AuthorizeJobMemberLocked(pid))
                 {
                     PoisonLocked("ETW_PID_NOT_JOB_MEMBER");
                     return;
                 }
+                callbackStage = "PHASE";
                 if (activePhase is null)
                 {
                     PoisonLocked("ETW_EVENT_OUTSIDE_PHASE");
@@ -1532,6 +1535,7 @@ sealed class CapacityGuardSession : IDisposable
                     PoisonLocked("ETW_RENAME_IDENTITY_MISMATCH");
                     return;
                 }
+                callbackStage = "CORRELATION";
                 var prior = filesByObject.GetValueOrDefault(fileObject);
                 FileSnapshot? current = null;
                 callbackStage = "IDENTITY";
@@ -1711,6 +1715,9 @@ sealed class CapacityGuardSession : IDisposable
             ArgumentException => "ETW_CALLBACK_ARGUMENT_FAILED",
             _ => stage switch {
                 "IDENTITY" => "ETW_CALLBACK_IDENTITY_FAILED",
+                "STATE" => "ETW_CALLBACK_LOCK_STATE_FAILED",
+                "AUTHORIZATION" => "ETW_CALLBACK_AUTHORIZATION_FAILED",
+                "PHASE" => "ETW_CALLBACK_PHASE_FAILED",
                 "CORRELATION" => "ETW_CALLBACK_CORRELATION_FAILED",
                 "CAPACITY" => "ETW_CALLBACK_CAPACITY_FAILED",
                 "RECORD" => "ETW_CALLBACK_RECORD_FAILED",

@@ -93,6 +93,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('IOException => "ETW_CALLBACK_IO_FAILED"');
     expect(program).toContain('OverflowException => "ETW_CALLBACK_OVERFLOW"');
     expect(program).toContain('"JOURNAL" => "ETW_CALLBACK_JOURNAL_FAILED"');
+    expect(program).toContain('"AUTHORIZATION" => "ETW_CALLBACK_AUTHORIZATION_FAILED"');
+    expect(program).toContain('"PHASE" => "ETW_CALLBACK_PHASE_FAILED"');
     expect(program).toContain('_ => "ETW_CALLBACK_NORMALIZE_FAILED"');
     expect(program).not.toContain('ETW_OBSERVATION_FAILED_{error.HResult');
   });

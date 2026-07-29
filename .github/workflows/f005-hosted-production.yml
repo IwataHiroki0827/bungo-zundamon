@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; ETW identity capture drains before phase persistence.
+# Source bytes are LF-pinned; ETW pre-identity failures use fixed safe stages.
 on:
   push:
     branches:
