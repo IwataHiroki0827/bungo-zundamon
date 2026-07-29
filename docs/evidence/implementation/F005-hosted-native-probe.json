@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "f005-hosted-native-probe",
+  "sourceCommit": "d26ce1d6aa085fc2a74e91780852be324bac1e43",
+  "workflowRunId": "30478227609",
+  "workflowRunAttempt": 1,
+  "runnerOs": "Windows",
+  "runnerArch": "X64",
+  "nativeBinarySha256": "7c47f7cc15a628e82fdfb1c4f84b70c5749755bdab8a247096226aea362d002a",
+  "nativeBuildResult": "pass",
+  "nativeBuildLogTail": [
+    "公式配布物を取得: https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.316/dotnet-sdk-9.0.316-win-x64.zip",
+    "公式配布物を取得: https://builds.dotnet.microsoft.com/dotnet/Runtime/9.0.18/dotnet-runtime-9.0.18-win-x64.zip",
+    "  Determining projects to restore...",
+    "  Restored D:\\a\\bungo-zundamon\\bungo-zundamon\\native\\f005-guard\\F005Guard.csproj (in 3.64 sec).",
+    "  F005Guard -> D:\\a\\bungo-zundamon\\bungo-zundamon\\native\\f005-guard\\bin\\Release\\net9.0\\win-x64\\f005-guard.dll",
+    "  F005Guard -> D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\dotnet-f005\\publish\\",
+    "F005 native guard build/verify PASS",
+    "binary: D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\dotnet-f005\\publish\\f005-guard.exe",
+    "sha256: 7c47f7cc15a628e82fdfb1c4f84b70c5749755bdab8a247096226aea362d002a"
+  ],
+  "capacityAbi": "f005-capacity-pipe-v3",
+  "etw": "kernel-fileio",
+  "result": "pass",
+  "error": null
+}
