@@ -1689,10 +1689,20 @@ sealed class CapacityGuardSession : IDisposable
                     if (authorizationFailure == "BIRTH_MISSING")
                     {
                         var boundFileObject = filesByObject.ContainsKey(fileObject);
+                        var knownPath = filesByPath.ContainsKey(normalized);
+                        var operationClass = eventName switch {
+                            "create" => "CREATE",
+                            "write" => "WRITE",
+                            "setinfo" => "SETINFO",
+                            "rename" => "RENAME",
+                            "delete" => "DELETE",
+                            _ => "UNKNOWN",
+                        };
                         authorizationFailure = pid is 0 or 4
                             ? boundFileObject
                                 ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
-                                : "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT"
+                                : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
+                                    (knownPath ? "KNOWN_PATH" : "UNKNOWN_PATH")
                             : boundFileObject
                                 ? "BIRTH_MISSING_BOUND_FILE_OBJECT"
                                 : authorizationFailure;

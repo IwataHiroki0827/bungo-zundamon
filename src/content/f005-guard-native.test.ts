@@ -153,8 +153,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}');
     expect(program).toContain('filesByObject.ContainsKey(fileObject)');
     expect(program).toContain('"SYSTEM_PROCESS_BOUND_FILE_OBJECT"');
-    expect(program).toContain('"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT"');
+    expect(program).toContain('$"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_"');
     expect(program).toContain('"BIRTH_MISSING_BOUND_FILE_OBJECT"');
+    expect(program).toContain('"create" => "CREATE"');
+    expect(program).toContain('"delete" => "DELETE"');
+    expect(program).toContain('(knownPath ? "KNOWN_PATH" : "UNKNOWN_PATH")');
     expect(program).toContain('eventProcessStartKey != 0 &&');
     expect(program).toContain('22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716');
     expect(program).toContain('KernelProcessKeyword = 0x0000000000000010');
