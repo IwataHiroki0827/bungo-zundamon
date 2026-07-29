@@ -477,3 +477,10 @@ entries:
   agents: 4
   est_tokens: 22000
   note: UT 48件・IT 15件、セキュリティ境界subcase、有限fault 15件を作成。REQ 18/DES 13/FUN 48/QT 20をcoverage 100%で網羅し、独立3観点レビューHigh/Medium/Low 0でゲート③通過
+- date: '2026-07-29'
+  phase: implement
+  task: T-068 F005候補・固定baseline・権利原典・entity正規化基盤
+  model: GPT-5
+  agents: 4
+  est_tokens: 46000
+  note: F005候補、固定v0.4.0 baseline、Git全object容量inventory、3規約原文評価、entity正規化、固定SHAのWindows native handle guardを実装。registry三段階migration、全62 files 1053 tests、修正後重点5 files 131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASS

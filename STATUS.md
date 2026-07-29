@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-29T09:39:30+09:00
+updated: 2026-07-29T11:55:31+09:00
 next_actions:
-  - "T-068でF005候補定義・固定baseline・権利原典・entity正規化基盤を実装する"
+  - "T-069でnullable書誌・夏目Catalog・独自画像・route・お気に入り統合を実装する"
 blocked_by: []
 ---
 
@@ -45,21 +45,21 @@ blocked_by: []
 - T-064でF005をT-065〜T-075の11タスクへ分解し、REQ 18/18のWBS coverageと依存循環0を確認した。既存CLI、VOICEVOX 0.25.2、Playwright 6環境を再利用し追加MCPは不要である。typecheck・lint・Vitest 936件・697ファイルbuild・audit 0件をPASSした。C:空き56.58 GiBは空き率6.1%の警告域だが、F005の5 GiB停止基準と安全側69.23 MiB追加予測には十分であり、音声生成前に再確認する。
 - T-065/T-066でFD-F005のDES 13件、DD-F005のFUN 48件を作成した。requirement approval snapshot、ETW正本容量監視、registry三段階migration、nullable書誌、原典・画像・path防御を固定し、独立3観点レビューHigh/Medium/Low 0、Q-032の包括承認でゲート②を通過した。traceの残り13件はT-067で作るUT/ITだけである。
 - T-067でUT-F005 48件、IT-F005 15件を作成した。セキュリティ境界subcaseと15件の有限fault matrixを追加し、REQ 18・DES 13・FUN 48・QT 20をcoverage 100%で網羅した。独立3観点レビューHigh/Medium/Low 0、Q-033の包括承認でテストファーストゲート③を通過した。
+- T-068でF005候補、固定v0.4.0 baseline、Git全object容量inventory、3規約原文のfail-closed評価、XHTML entity正規化、固定SHAのWindows native handle guardを実装した。共有registryは実装`ffdb47f`、移行証跡`3a5620f`、loader受入`0c4c5ba`の3段階で固定し、production controlのGit object再計算、全62 files・1053 tests、修正後重点5 files・131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASSした。
 
 ## 直近の作業（最新5件）
 
+- T-068でF005基盤とnative path guardを実装し、registry三段階migration・全1053試験・独立受入を完了
 - T-067でUT 48件・IT 15件と境界subcase/fault matrixを確定し、coverage 100%・ゲート③承認を完了
 - T-065/T-066でF005設計をDES 13件・FUN 48件へ展開し、独立3観点レビューPASS・ゲート②承認を完了
 - T-064でF005を11タスクへ分解し、REQ 18/18、既存環境、936試験、build、依存監査を確認
 - T-063で夏目漱石3作品のREQ 18件・QT 15件を確定し、独立レビュー指摘を全解消してゲート①を通過
 - T-061でv0.4.0を段階公開し、公開6 routeスモーク・deploy変数無効化・published遷移・tagを完了
-- T-060のUT・IT・QT・4環境・権利・容量・セキュリティを同一exact候補へ結合し、独立受入PASS
-- T-059の最終Catalog統合を3作者・12作品・674台詞・662音声で再現し、全931試験・独立受入PASS
 
 ## 次のアクション
 
-- T-068でF005候補定義・固定baseline・権利原典・entity正規化基盤を実装する。
+- T-069でnullable書誌・夏目Catalog・独自画像・route・お気に入り統合を実装する。
 
 ## 未解決事項
 
-- C:の空きはF005要求調査時実測で60,728,377,344 bytes。安全側追加音声予測72,589,906 bytesと5 GiB停止基準に十分な余裕があり、各作品の音声生成前にも再計測する。
+- C:の空きはT-068完了時実測で49,493,008,384 bytes（46.09 GiB）。安全側追加音声予測72,589,906 bytesと5 GiB停止基準に十分な余裕があり、各作品の音声生成前にも再計測する。

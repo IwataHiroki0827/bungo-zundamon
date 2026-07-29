@@ -150,7 +150,7 @@ tasks:
   title: F005候補定義・固定baseline・権利原典・entity正規化基盤を実装
   feature: F005
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-067
   tags:
@@ -170,11 +170,13 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-29T11:55:31+09:00'
+  result: F005候補・固定v0.4.0 baseline・Git全object容量inventory・3規約原文評価・entity正規化・Windows native handle guardを実装。registryを実装/移行証跡/loader受入の3 commitで固定し、全62 files 1053 tests、修正後重点5 files 131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASS
 - id: T-069
   title: nullable書誌・夏目Catalog・独自画像・route・お気に入り統合を実装
   feature: F005
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-067
   tags:
