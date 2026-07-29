@@ -1,10 +1,11 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-29T12:59:43+09:00
+updated: 2026-07-29T14:41:00+09:00
 next_actions:
-  - "T-070で夢十夜の全候補レビュー・差分音声・作品単位atomic受入を実施する"
-blocked_by: []
+  - "T-070のproduction runnerを実装し、ETW正常環境で夢十夜62音声・atomic受入を実施する"
+blocked_by:
+  - "現在のMedium integrity processでは固定native guardがETW_PRIVILEGE_REQUIREDでfail-closedする"
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
@@ -47,19 +48,21 @@ blocked_by: []
 - T-067でUT-F005 48件、IT-F005 15件を作成した。セキュリティ境界subcaseと15件の有限fault matrixを追加し、REQ 18・DES 13・FUN 48・QT 20をcoverage 100%で網羅した。独立3観点レビューHigh/Medium/Low 0、Q-033の包括承認でテストファーストゲート③を通過した。
 - T-068でF005候補、固定v0.4.0 baseline、Git全object容量inventory、3規約原文のfail-closed評価、XHTML entity正規化、固定SHAのWindows native handle guardを実装した。共有registryは実装`ffdb47f`、移行証跡`3a5620f`、loader受入`0c4c5ba`の3段階で固定し、production controlのGit object再計算、全62 files・1053 tests、修正後重点5 files・131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASSした。
 - T-069で`proofreader: null`をF005「夢十夜」だけに限定してCatalog/UI/creditsへ「記載なし」で統合した。mint済みfinal Catalog、独自生成した夏目漱石画像とcanonical provenance、exact 7 route、通常入口全閉・お気に入りone-shot展開・自動再生0を実装した。全65 files・1105 tests、重点310 tests、型・lint・697 files build、audit 0、独立受入High/Medium/Low 0をPASSし、public差分0を確認した。
+- T-070は「夢十夜」65候補を独立二重レビューし、63採用・2除外・保留0、62音声、追加見積り12,521,800 bytesを確定した。保存selectionの再開検証、最新predeploy権利`allow`、planned audio込み容量予測、native ETW台帳、preview/受入証拠の意味結合まで実装・検証済み。production runnerが未実装で、実native preflightも`ETW_PRIVILEGE_REQUIRED`のため、音声生成・atomic受入・public変更は行わず安全停止している。
 
 ## 直近の作業（最新5件）
 
+- T-070で夢十夜の原典・二重レビュー・62音声plan・容量予測・native ETW/受入基盤を実装し、runner未実装とETW権限不足で安全停止
 - T-069でnullable書誌・夏目Catalog・独自画像・7 route・お気に入り統合を実装し、全1105試験・独立受入を完了
 - T-068でF005基盤とnative path guardを実装し、registry三段階migration・全1053試験・独立受入を完了
 - T-067でUT 48件・IT 15件と境界subcase/fault matrixを確定し、coverage 100%・ゲート③承認を完了
 - T-065/T-066でF005設計をDES 13件・FUN 48件へ展開し、独立3観点レビューPASS・ゲート②承認を完了
-- T-064でF005を11タスクへ分解し、REQ 18/18、既存環境、936試験、build、依存監査を確認
 
 ## 次のアクション
 
-- T-070で「夢十夜」の全候補レビュー、差分音声生成、作品単位atomic受入を実施する。
+- T-070のproduction runnerを実装し、手動操作なしでkernel ETWを利用できる環境で「夢十夜」62音声・作品単位atomic受入を実施する。
 
 ## 未解決事項
 
-- C:の空きはT-069完了時実測で46,142,918,656 bytes（42.97 GiB）。安全側追加音声予測72,589,906 bytesと5 GiB停止基準に十分な余裕があり、T-070の音声生成直前に再計測する。
+- C:はT-070容量予測時のpeak後空き7,816,679,096 bytesで5 GiB停止基準を上回るが、余裕は大きくない。音声生成直前に再計測する。
+- T-070 production runnerは未実装。現在のMedium integrity processでは固定native guardが`ETW_PRIVILEGE_REQUIRED`で停止し、監視なしfallbackは禁止している。

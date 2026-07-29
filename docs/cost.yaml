@@ -491,3 +491,10 @@ entries:
   agents: 4
   est_tokens: 40000
   note: F005夢十夜だけのproofreader null、UI/creditsの「記載なし」、mint済みfinal Catalog、入力画像0件の夏目独自画像とcanonical provenance、exact 7 route、通常入口全閉・お気に入りone-shot遷移を実装。全65 files 1105 tests、重点310 tests、697 files build、audit 0、独立受入High/Medium/Low 0をPASSしpublic差分0
+- date: '2026-07-29'
+  phase: implement
+  task: T-070 夢十夜レビュー・音声受入基盤（継続中）
+  model: GPT-5
+  agents: 4
+  est_tokens: 52000
+  note: 65候補を独立二重レビューで63採用/2除外、62音声・12,521,800 bytesへ確定。selection再開、最新predeploy権利allow、容量予測、native Job/ETW/IPC/journal、preview/accept証拠結合を実装。production runner High 1とETW_PRIVILEGE_REQUIREDのため実音声・atomic受入前で安全停止し、public差分0
