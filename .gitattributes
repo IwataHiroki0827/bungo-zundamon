@@ -2,3 +2,4 @@
 *.csv binary
 content/batches/F005/sealed/**/*.xhtml binary
 data/batches/F005/source-snapshots/**/*.html binary
+native/f005-guard/** text eol=lf

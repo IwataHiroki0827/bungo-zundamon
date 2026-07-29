@@ -32,6 +32,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
   it('固定source・最小権限・容量guard・候補branchだけで夢十夜を生成する', async () => {
     const path = resolve('.github/workflows/f005-hosted-production.yml');
     const raw = await readFile(path, 'utf8');
+    const attributes = await readFile(resolve('.gitattributes'), 'utf8');
     const workflow = parse(raw) as HostedWorkflow;
     const job = workflow.jobs['produce-candidate'];
     const scripts = job.steps.flatMap((step) => step.run ? [step.run] : []).join('\n');
@@ -62,7 +63,9 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$drive.Free -lt 5GB');
     expect(scripts).toContain("Remove-Item -LiteralPath $archive");
     expect(scripts).toContain('native build evidence semantic drift');
+    expect(scripts).toContain('F005_NATIVE_EVIDENCE_DRIFT_FIELDS_BASE64');
     expect(scripts).toContain('[IO.File]::WriteAllBytes($evidencePath, $expectedBytes)');
+    expect(attributes).toContain('native/f005-guard/** text eol=lf');
     expect(scripts).toContain("'127.0.0.1'");
     expect(scripts).toMatch(/'--work',\s*'000799'/u);
     expect(scripts).toContain('git ls-remote --heads origin');

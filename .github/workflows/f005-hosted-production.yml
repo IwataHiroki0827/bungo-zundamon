@@ -73,18 +73,31 @@ jobs:
           $evidencePath = Join-Path $PWD 'native\f005-guard\build-evidence.json'
           $expectedBytes = [IO.File]::ReadAllBytes($evidencePath)
           $expectedRaw = [Text.Encoding]::UTF8.GetString($expectedBytes)
-          $expectedSemantic = $expectedRaw |
-            ConvertFrom-Json |
-            ConvertTo-Json -Depth 20 -Compress
+          $expectedObject = $expectedRaw | ConvertFrom-Json
+          $expectedSemantic = $expectedObject | ConvertTo-Json -Depth 20 -Compress
           & pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1
           if ($LASTEXITCODE -ne 0) {
             throw "native guard build failed: $LASTEXITCODE"
           }
           $actualRaw = Get-Content -LiteralPath $evidencePath -Raw
-          $actualSemantic = $actualRaw |
-            ConvertFrom-Json |
-            ConvertTo-Json -Depth 20 -Compress
+          $actualObject = $actualRaw | ConvertFrom-Json
+          $actualSemantic = $actualObject | ConvertTo-Json -Depth 20 -Compress
           if ($actualSemantic -cne $expectedSemantic) {
+            $names = @(
+              $expectedObject.PSObject.Properties.Name
+              $actualObject.PSObject.Properties.Name
+            ) | Sort-Object -Unique
+            $drift = @($names | Where-Object {
+              $expectedValue = ConvertTo-Json `
+                -InputObject $expectedObject.$_ -Depth 20 -Compress
+              $actualValue = ConvertTo-Json `
+                -InputObject $actualObject.$_ -Depth 20 -Compress
+              $expectedValue -cne $actualValue
+            })
+            $encodedDrift = [Convert]::ToBase64String(
+              [Text.Encoding]::UTF8.GetBytes($drift -join ',')
+            )
+            Write-Host "F005_NATIVE_EVIDENCE_DRIFT_FIELDS_BASE64=$encodedDrift"
             throw 'native build evidence semantic drift'
           }
           [IO.File]::WriteAllBytes($evidencePath, $expectedBytes)
