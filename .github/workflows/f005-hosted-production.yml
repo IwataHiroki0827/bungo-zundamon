@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Canonical JSON, approval docs, ProjectFactory YAML, and native source bytes are LF-pinned.
+# Source bytes are LF-pinned; native guard exit is awaited before result validation.
 on:
   push:
     branches:

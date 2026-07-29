@@ -288,6 +288,30 @@ describe('F005 native ETW capacity guard', () => {
     },
   );
 
+  it.runIf(process.platform === 'win32')(
+    '高速native guard終了でもexit listenerを取り逃がさない',
+    async () => {
+      const workspace = resolve(await mkdtemp(join(tmpdir(), 'f005-native-fast-exit-')));
+      temporaryRoots.push(workspace);
+      const directory = join(workspace, 'evidence');
+      await mkdir(directory, { recursive: true });
+      for (let attempt = 0; attempt < 16; attempt += 1) {
+        await expect(flushF005ArtifactDirectory(workspace, directory, {
+          executable: GUARD_EXE,
+        })).resolves.toBeUndefined();
+      }
+      const source = await readFile(resolve('src/content/f005-native-guard.ts'), 'utf8');
+      const closeBody = source.slice(
+        source.indexOf('async close(): Promise<void>'),
+        source.indexOf('terminate(): void'),
+      );
+      expect(closeBody.indexOf("this.process.once('exit', onExit)"))
+        .toBeLessThan(closeBody.indexOf('this.process.stdin.end()'));
+      expect(closeBody.indexOf('const observedExitCode = this.process.exitCode'))
+        .toBeLessThan(closeBody.indexOf('this.process.stdin.end()'));
+    },
+  );
+
   it('rootだけを明示Job登録し、子workerはbreakaway禁止Job継承でETW認可する', async () => {
     const source = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     expect(source).toContain('case "registerSelf":');

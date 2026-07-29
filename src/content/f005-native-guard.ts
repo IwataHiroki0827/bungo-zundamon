@@ -281,11 +281,40 @@ class NativeGuardProcess {
   }
 
   async close(): Promise<void> {
-    this.process.stdin.end();
+    if (this.process.exitCode !== null) {
+      if (this.process.exitCode !== 0) {
+        throw new Error(`native guard exited: ${String(this.process.exitCode)}`);
+      }
+      this.channel.end();
+      return;
+    }
     await new Promise<void>((resolveExit, reject) => {
-      this.process.once('exit', (code) =>
-        code === 0 ? resolveExit() : reject(new Error(`native guard exited: ${String(code)}`)));
-      this.process.once('error', reject);
+      let settled = false;
+      const cleanup = (): void => {
+        this.process.off('exit', onExit);
+        this.process.off('error', onError);
+      };
+      const onExit = (code: number | null): void => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        if (code === 0) resolveExit();
+        else reject(new Error(`native guard exited: ${String(code)}`));
+      };
+      const onError = (error: Error): void => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(error);
+      };
+      this.process.once('exit', onExit);
+      this.process.once('error', onError);
+      const observedExitCode = this.process.exitCode;
+      if (observedExitCode !== null) {
+        onExit(observedExitCode);
+        return;
+      }
+      this.process.stdin.end();
     });
     this.channel.end();
   }
