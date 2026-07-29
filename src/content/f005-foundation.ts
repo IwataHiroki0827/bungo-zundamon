@@ -757,12 +757,6 @@ function normalizeClaims(claims: readonly F005CandidateHashClaim[]): readonly F0
     }
     values.set(key, freezeDeep({ ...claim }));
   }
-  const buckets = new Set([...values.values()].map((claim) => claim.bucket));
-  for (const bucket of ['audio', 'artifact', 'repository', 'object', 'workspace-peak'] as const) {
-    if (!buckets.has(bucket)) {
-      throw new F005FoundationError('F005_CAPACITY_ENTRY_INVALID', `capacity bucketがありません: ${bucket}`);
-    }
-  }
   return [...values.values()].sort((left, right) => claimKey(left).localeCompare(claimKey(right), 'en'));
 }
 
@@ -888,6 +882,7 @@ async function discoverRootFiles(
   root: string,
   relativeRoot: string,
   bucket: 'audio' | 'artifact' | 'workspace-peak',
+  allowMissing = false,
 ): Promise<readonly F005CapacityInventoryEntry[]> {
   const base = join(root, ...relativeRoot.split('/'));
   const paths: string[] = [];
@@ -909,6 +904,7 @@ async function discoverRootFiles(
     if (!info.isDirectory() || info.isSymbolicLink() || await realpath(base) !== base) throw new Error('unsafe root');
     await visit(base, relativeRoot);
   } catch (error) {
+    if (allowMissing && (error as NodeJS.ErrnoException).code === 'ENOENT') return [];
     throw new F005FoundationError(
       'F005_CAPACITY_ENTRY_INVALID',
       `canonical capacity rootを完全列挙できません: ${relativeRoot}`,
@@ -1052,7 +1048,7 @@ export async function discoverF005CapacityInventory(
   }
   const root = await verifiedWorkspace(workspace);
   const [audio, artifact, repository, objects, workspacePeak] = await Promise.all([
-    discoverRootFiles(root, F005_CAPACITY_ROOTS.audio, 'audio'),
+    discoverRootFiles(root, F005_CAPACITY_ROOTS.audio, 'audio', true),
     discoverRootFiles(root, F005_CAPACITY_ROOTS.artifact, 'artifact'),
     discoverGitIndex(root),
     discoverGitObjects(root),

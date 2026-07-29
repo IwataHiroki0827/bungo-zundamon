@@ -366,6 +366,30 @@ describe('UT-F005-018 CapacityForecastV3', () => {
   });
 
   /** @des DES-F005-006 @fun FUN-F005-018 @test UT-F005-018 */
+  it('初回作品のF005 audio rootが未作成でもplanned audioだけで予測する', async () => {
+    await rm(join(capacityWorkspace, 'public', 'audio', 'F005'), { recursive: true });
+    inventory = await discoverF005CapacityInventory(capacityWorkspace, context, baseline);
+    plan = createF005CapacityPlan(context, baseline, inventory, {
+      planSha256: HASH('9'),
+      entries: [{
+        audioId: HASH('8'),
+        speechSha256: HASH('7'),
+        estimatedBytes: 1_000,
+      }],
+    });
+    const forecast = await forecastF005Capacity(
+      capacityWorkspace,
+      plan,
+      baseline,
+      candidateHashes(),
+    );
+    expect(forecast.buckets.find((bucket) => bucket.kind === 'audio')).toMatchObject({
+      totalBytes: 1_000,
+      entries: [expect.objectContaining({ kind: 'planned-audio', bytes: 1_000 })],
+    });
+  });
+
+  /** @des DES-F005-006 @fun FUN-F005-018 @test UT-F005-018 */
   it('callerが各bucketの小file 1件だけを申告して他fileを隠す操作を拒否する', async () => {
     const onePerBucket = ['audio', 'artifact', 'repository', 'object', 'workspace-peak']
       .map((bucket) => plan.expectedClaims.find((claim) => claim.bucket === bucket)!)
