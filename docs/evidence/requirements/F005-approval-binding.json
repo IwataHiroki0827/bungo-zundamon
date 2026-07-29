@@ -24,6 +24,10 @@
     {
       "approvalItemSha256": "dab52612f2ba3ed416e3e409a968aa253454b6eea0c12ef92104ef029d2705e3",
       "queueId": "Q-030"
+    },
+    {
+      "approvalItemSha256": "a719f1528c28bae739713a829686389eab06f264130a5ed062568b1a738afd7f",
+      "queueId": "Q-031"
     }
   ],
   "changes": [
@@ -44,12 +48,12 @@
     },
     {
       "path": "docs/changes/CHG-F005-001.md",
-      "sha256": "7bb6afa0c5d3606dcaf227842bfa02f0b6500f92ca3ff36c163297090e3d204f"
+      "sha256": "cbdd8ac651ac345a2c1f75d5fd34419c3298aa767914f495faaec20c5c5379e3"
     }
   ],
   "feature": "F005",
   "migratedAt": "2026-07-29T08:55:00+09:00",
   "queuePath": "queue.yaml",
-  "queueSha256AtMigration": "bfbf7034edfaf88bb9f793f24e82ed8904e2927e2f26b63a91dcddf346ace5b5",
+  "queueSha256AtMigration": "052fcc020339897d9caeb69b9dfe1bae100c0ee87b0c95533e6ac8dfac0ffb00",
   "schemaVersion": "1.1.0"
 }

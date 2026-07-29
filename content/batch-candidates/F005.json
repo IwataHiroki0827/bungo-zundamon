@@ -1,0 +1,71 @@
+{
+  "candidates": [
+    {
+      "approvalBinding": {
+        "approvalItemSha256s": {
+          "Q-027": "571ce73c56fa2efb4d4907663eb6268ddac1ba2e4a2136c0e95d86ff70f7b7c2",
+          "Q-028": "4fd668157479929c6efd14885177fadb1c78684d95fee2d0ab7a930b856825c1",
+          "Q-029": "141ec8270bcdb76b45bb47bf0ceb93afa771336be092d2f3ca16ef3501e76231",
+          "Q-030": "dab52612f2ba3ed416e3e409a968aa253454b6eea0c12ef92104ef029d2705e3",
+          "Q-031": "a719f1528c28bae739713a829686389eab06f264130a5ed062568b1a738afd7f"
+        },
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F005.md",
+            "sha256": "46a6edbe93c0f5c7e24493e4fe09be3305ef8eefdfdbc6e09c4647fecea005bc"
+          },
+          {
+            "path": "docs/tests/qt/QT-F005.md",
+            "sha256": "70ef3dbb27bdf053308a2dbbcbf0a11ecf221de10884acb9742bc9bf6408e907"
+          },
+          {
+            "path": "docs/changes/CHG-F005-001.md",
+            "sha256": "cbdd8ac651ac345a2c1f75d5fd34419c3298aa767914f495faaec20c5c5379e3"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F005-approval-binding.json",
+        "evidenceSha256": "d4a67a934859c8e9eaa77fd1d3e8d916afa845d472ebaf277d9a3b39fdc7e1d8",
+        "queueIds": [
+          "Q-027",
+          "Q-028",
+          "Q-029",
+          "Q-030",
+          "Q-031"
+        ]
+      },
+      "author": {
+        "authorId": "000148",
+        "identitySha256": "8eadb891d1440952f33b0bae4fccae91db8cf48a1688df607ee6a80c65870f4f",
+        "name": "なつめそうせき",
+        "originalName": "夏目漱石",
+        "slug": "natsume-soseki"
+      },
+      "batchId": "F005",
+      "feature": "F005",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+          "order": 1,
+          "title": "夢十夜",
+          "workId": "000799",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+          "order": 2,
+          "title": "倫敦塔",
+          "workId": "001076",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+          "order": 3,
+          "title": "趣味の遺伝",
+          "workId": "001104",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

@@ -1015,3 +1015,26 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-29T08:56:54+09:00'
   processed_note: F005 candidate registry、approval policy、binding evidenceを追加し、F005設計を継続した。
+- id: Q-031
+  type: approval
+  status: closed
+  title: CHG-F005-001 候補registry互換移行の承認
+  body: >-
+    F005候補を承認スナップショット専用registryへ隔離し、実装時にF005 policy/schema対応と共有registry統合を同一互換migrationとして適用する。既存F003/F004 loaderの回帰0を統合前提とし、作者・作品・順序・公開目的は変更しない。
+  target: docs/changes/CHG-F005-001.md
+  target_mode: reference
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+  created: '2026-07-29T09:04:26+09:00'
+  source: pf-change
+  resume:
+    task: T-065
+    next: pf-design
+  approved_at: '2026-07-29T09:04:26+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T09:04:26+09:00'
+  processed_note: F005候補をsnapshot専用registryへ隔離し、互換migrationを設計契約へ追加してF005設計を継続した。
