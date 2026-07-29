@@ -1400,6 +1400,7 @@ sealed class CapacityGuardSession : IDisposable
         ulong fileObject,
         DateTime timestamp)
     {
+        var callbackStage = "NORMALIZE";
         try
         {
             var normalized = NormalizeObservedPath(eventPath);
@@ -1424,8 +1425,10 @@ sealed class CapacityGuardSession : IDisposable
                 }
                 var prior = filesByObject.GetValueOrDefault(fileObject);
                 FileSnapshot? current = null;
+                callbackStage = "IDENTITY";
                 if (eventName != "delete")
                     current = TryInspect(normalized);
+                callbackStage = "CORRELATION";
                 if (eventName == "rename")
                 {
                     var source = filesByPath.GetValueOrDefault(normalized) ?? prior;
@@ -1508,6 +1511,7 @@ sealed class CapacityGuardSession : IDisposable
                     filesByPath.Remove(effective.RelativePath);
                 }
 
+                callbackStage = "CAPACITY";
                 var oldAllocated = allocatedByIdentity.GetValueOrDefault(effective.Identity);
                 var newAllocated = eventName == "delete" ? 0 : effective.AllocatedLengthBytes;
                 allocatedByIdentity[effective.Identity] = newAllocated;
@@ -1518,6 +1522,7 @@ sealed class CapacityGuardSession : IDisposable
                 var free = ReadFreeBytes(root);
                 minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
                 var sequence = checked(++etwSequence);
+                callbackStage = "RECORD";
                 var observation = new ObservationRecord(
                     eventName,
                     normalized,
@@ -1550,16 +1555,19 @@ sealed class CapacityGuardSession : IDisposable
                     Monitor.PulseAll(gate);
                 }
                 observations.Add(observation);
+                callbackStage = "JOURNAL";
                 PersistJournal(closed: false);
             }
         }
         catch (Exception error)
         {
-            Poison(error is GuardException guard ? guard.Code : ClassifyEtwCallbackFailure(error));
+            Poison(error is GuardException guard
+                ? guard.Code
+                : ClassifyEtwCallbackFailure(error, callbackStage));
         }
     }
 
-    private static string ClassifyEtwCallbackFailure(Exception error) =>
+    private static string ClassifyEtwCallbackFailure(Exception error, string stage) =>
         error switch {
             UnauthorizedAccessException => "ETW_CALLBACK_ACCESS_FAILED",
             IOException => "ETW_CALLBACK_IO_FAILED",
@@ -1567,7 +1575,14 @@ sealed class CapacityGuardSession : IDisposable
             ObjectDisposedException => "ETW_CALLBACK_DISPOSED",
             InvalidOperationException => "ETW_CALLBACK_STATE_FAILED",
             ArgumentException => "ETW_CALLBACK_ARGUMENT_FAILED",
-            _ => "ETW_CALLBACK_FAILED",
+            _ => stage switch {
+                "IDENTITY" => "ETW_CALLBACK_IDENTITY_FAILED",
+                "CORRELATION" => "ETW_CALLBACK_CORRELATION_FAILED",
+                "CAPACITY" => "ETW_CALLBACK_CAPACITY_FAILED",
+                "RECORD" => "ETW_CALLBACK_RECORD_FAILED",
+                "JOURNAL" => "ETW_CALLBACK_JOURNAL_FAILED",
+                _ => "ETW_CALLBACK_NORMALIZE_FAILED",
+            },
         };
 
     private void CompleteDeferredRename(DeferredRenameRecord deferred, NoticeRecord notice)

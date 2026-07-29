@@ -78,7 +78,7 @@ export const F005_NATIVE_GUARD_PINS = Object.freeze({
   runtimeZipSha512:
     '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8',
   outputBinarySha256:
-    '19647970f409781ab6d2382d873abde52a98a4a21fe3b41eb20c8d25a3298218',
+    '4ed12d179364012a01adeff3082698a4af08d5609702e662951b3c6455b468e3',
 } as const);
 
 export const F005_WORKS = Object.freeze([
