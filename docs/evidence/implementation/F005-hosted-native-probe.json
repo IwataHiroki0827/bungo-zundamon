@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "f005-hosted-native-probe",
+  "sourceCommit": "313dbaf81baf237806f064285c3ffc434b5a4f59",
+  "workflowRunId": "30443634913",
+  "workflowRunAttempt": 1,
+  "runnerOs": "Windows",
+  "runnerArch": "X64",
+  "nativeBinarySha256": null,
+  "nativeBuildResult": "blocked",
+  "nativeBuildLogTail": [
+    "公式配布物を取得: https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.316/dotnet-sdk-9.0.316-win-x64.zip",
+    "公式配布物を取得: https://builds.dotnet.microsoft.com/dotnet/Runtime/9.0.18/dotnet-runtime-9.0.18-win-x64.zip",
+    "  Determining projects to restore...",
+    "  Restored D:\\a\\bungo-zundamon\\bungo-zundamon\\native\\f005-guard\\F005Guard.csproj (in 4.09 sec).",
+    "  F005Guard -> D:\\a\\bungo-zundamon\\bungo-zundamon\\native\\f005-guard\\bin\\Release\\net9.0\\win-x64\\f005-guard.dll",
+    "  F005Guard -> D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\dotnet-f005\\publish\\",
+    "\u001b[31;1mException: \u001b[0mD:\\a\\bungo-zundamon\\bungo-zundamon\\native\\f005-guard\\build.ps1:73\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1mLine |\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m  73 | \u001b[0m     \u001b[36;1mthrow \"$Path の${Algorithm}が固定値と一致しません。expected=$Expected actual=$\u001b[0m …\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m     | \u001b[31;1m     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1mD:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\dotnet-f005\\publish\\f005-guard.exe\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1mのSHA256が固定値と一致しません。expected=a184eaa2fa9936dc63079a499fb3c062c040cec986e0b71c6d0664a3f9b23277\u001b[0m",
+    "\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m\u001b[31;1m\u001b[36;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1mactual=fc73dbfff165693ff29caac5a7449dadae8842e0a90e70e0bcf269fe5883398d\u001b[0m"
+  ],
+  "capacityAbi": null,
+  "etw": null,
+  "result": "blocked",
+  "error": "NATIVE_BUILD_FAILED"
+}
