@@ -5,6 +5,7 @@ import {
   readdir,
   realpath,
 } from 'node:fs/promises';
+import { request as requestHttp } from 'node:http';
 import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -55,6 +56,7 @@ import {
 import {
   createF005CapacityRecorder,
   createF005NativeCapacityJournalReader,
+  F005_VOICE_LIMITS,
   generateF005Voice,
   measureF005ActualCapacity,
   planF005VoiceDiff,
@@ -468,8 +470,9 @@ export async function runOfflineBuild(
   }
 }
 
-function loopbackEngine(): F005LoopbackEngine {
-  const baseUrl = new URL(process.env.VOICEVOX_URL ?? 'http://127.0.0.1:50021/');
+export function createF005LoopbackEngine(
+  baseUrl = new URL(process.env.VOICEVOX_URL ?? 'http://127.0.0.1:50021/'),
+): F005LoopbackEngine {
   type EngineFailureCode =
     | 'F005_ENGINE_VERSION_REQUEST_FAILED'
     | 'F005_ENGINE_VERSION_PARSE_FAILED'
@@ -491,62 +494,120 @@ function loopbackEngine(): F005LoopbackEngine {
   const request = async (
     path: string,
     code: EngineFailureCode,
-    init?: RequestInit,
-  ): Promise<Response> => {
+    options: {
+      readonly method?: 'GET' | 'POST';
+      readonly headers?: Readonly<Record<string, string>>;
+      readonly body?: string;
+      readonly maxBytes: number;
+    },
+  ): Promise<Uint8Array> => {
     try {
-      const response = await fetch(new URL(path, baseUrl), init);
-      if (!response.ok) throw new Error('VOICEVOX HTTP response was not successful');
-      return response;
+      return await new Promise<Uint8Array>((resolveRequest, rejectRequest) => {
+        let settled = false;
+        const finish = (error: Error | null, value?: Uint8Array): void => {
+          if (settled) return;
+          settled = true;
+          if (error) rejectRequest(error);
+          else resolveRequest(value ?? new Uint8Array());
+        };
+        const target = new URL(path, baseUrl);
+        const outgoing = requestHttp(target, {
+          method: options.method ?? 'GET',
+          headers: options.headers,
+        }, (incoming) => {
+          if (
+            incoming.statusCode === undefined
+            || incoming.statusCode < 200
+            || incoming.statusCode >= 300
+          ) {
+            incoming.resume();
+            finish(new Error('VOICEVOX HTTP response was not successful'));
+            return;
+          }
+          const chunks: Buffer[] = [];
+          let totalBytes = 0;
+          incoming.on('data', (chunk: Buffer) => {
+            if (settled) return;
+            totalBytes += chunk.byteLength;
+            if (totalBytes > options.maxBytes) {
+              finish(new Error('VOICEVOX HTTP response exceeded its fixed limit'));
+              incoming.destroy();
+              return;
+            }
+            chunks.push(chunk);
+          });
+          incoming.once('error', (error) => finish(error));
+          incoming.once('end', () => finish(null, new Uint8Array(Buffer.concat(chunks))));
+        });
+        outgoing.once('error', (error) => finish(error));
+        outgoing.setTimeout(120_000, () => {
+          outgoing.destroy(new Error('VOICEVOX HTTP request timed out'));
+        });
+        if (options.body === undefined) outgoing.end();
+        else outgoing.end(options.body, 'utf8');
+      });
     } catch (error) {
       return engineFailure(code, error);
     }
   };
+  const parseJson = (bytes: Uint8Array): unknown =>
+    JSON.parse(Buffer.from(bytes).toString('utf8')) as unknown;
   return Object.freeze({
     baseUrl,
     config: F002_VOICE_CONFIG,
     getVersion: async () => {
-      const response = await request('version', 'F005_ENGINE_VERSION_REQUEST_FAILED');
+      const bytes = await request('version', 'F005_ENGINE_VERSION_REQUEST_FAILED', {
+        maxBytes: 1_024,
+      });
       try {
-        return await response.json() as string;
+        const value = parseJson(bytes);
+        if (typeof value !== 'string') throw new TypeError('version response is not a string');
+        return value;
       } catch (error) {
         return engineFailure('F005_ENGINE_VERSION_PARSE_FAILED', error);
       }
     },
     getSpeakers: async () => {
-      const response = await request('speakers', 'F005_ENGINE_SPEAKERS_REQUEST_FAILED');
+      const bytes = await request('speakers', 'F005_ENGINE_SPEAKERS_REQUEST_FAILED', {
+        maxBytes: 1_048_576,
+      });
       try {
-        return await response.json() as readonly VoicevoxSpeaker[];
+        const value = parseJson(bytes);
+        if (!Array.isArray(value)) throw new TypeError('speakers response is not an array');
+        return value as readonly VoicevoxSpeaker[];
       } catch (error) {
         return engineFailure('F005_ENGINE_SPEAKERS_PARSE_FAILED', error);
       }
     },
     createAudioQuery: async (text: string) => {
-      const response = await request(
+      const bytes = await request(
         `audio_query?text=${encodeURIComponent(text)}&speaker=3`,
         'F005_ENGINE_AUDIO_QUERY_REQUEST_FAILED',
-        { method: 'POST' },
+        { method: 'POST', maxBytes: 1_048_576 },
       );
       try {
-        return await response.json();
+        return parseJson(bytes);
       } catch (error) {
         return engineFailure('F005_ENGINE_AUDIO_QUERY_PARSE_FAILED', error);
       }
     },
     synthesize: async (query: unknown) => {
-      const response = await request(
+      let body: string;
+      try {
+        body = JSON.stringify(query);
+      } catch (error) {
+        return engineFailure('F005_ENGINE_SYNTHESIS_BODY_FAILED', error);
+      }
+      return request(
         'synthesis?speaker=3',
         'F005_ENGINE_SYNTHESIS_REQUEST_FAILED',
         {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(query),
+          body,
+          maxBytes: F005_VOICE_LIMITS.wavBytes,
         },
       );
-      try {
-        return new Uint8Array(await response.arrayBuffer());
-      } catch (error) {
-        return engineFailure('F005_ENGINE_SYNTHESIS_BODY_FAILED', error);
-      }
     },
   });
 }
@@ -617,7 +678,7 @@ async function main(): Promise<void> {
   try {
     const voice = await generateF005Voice(
       plan,
-      loopbackEngine(),
+      createF005LoopbackEngine(),
       voiceRoot,
       voiceRecorder,
       workId,

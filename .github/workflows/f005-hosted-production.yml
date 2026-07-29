@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; engine request/parse failures precede bounded native Job abort.
+# Source bytes are LF-pinned; bounded node:http loopback precedes bounded native Job abort.
 on:
   push:
     branches:

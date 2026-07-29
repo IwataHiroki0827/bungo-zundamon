@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -9,6 +10,7 @@ import { canonicalJson } from './artifacts.ts';
 import { validateBatchManifest, type BatchManifest, type Sha256, type WorkId } from './batch.ts';
 import {
   createF005OfflineBuildArtifactPayloads,
+  createF005LoopbackEngine,
   enterF005ProductionSession,
   F005_RUNNER_FAILURE_PREFIX,
   F005_RUNNER_PROGRESS_PREFIX,
@@ -268,6 +270,48 @@ describe('F005 production work runner', () => {
       10,
     );
     expect(abort).toHaveBeenCalledTimes(1);
+  });
+
+  it('固定上限付きnode:http transportでloopback engineの4 APIを処理する', async () => {
+    const server = createServer((request, response) => {
+      if (request.url === '/version') {
+        response.setHeader('content-type', 'application/json');
+        response.end(JSON.stringify('0.25.2'));
+      } else if (request.url === '/speakers') {
+        response.setHeader('content-type', 'application/json');
+        response.end('[]');
+      } else if (request.url?.startsWith('/audio_query?')) {
+        response.setHeader('content-type', 'application/json');
+        response.end('{"accent_phrases":[]}');
+      } else if (request.url === '/synthesis?speaker=3') {
+        response.setHeader('content-type', 'audio/wav');
+        response.end(Buffer.from([82, 73, 70, 70]));
+      } else {
+        response.statusCode = 404;
+        response.end();
+      }
+    });
+    await new Promise<void>((resolveListen) => server.listen(0, '127.0.0.1', resolveListen));
+    try {
+      const address = server.address();
+      if (address === null || typeof address === 'string') throw new Error('test server address missing');
+      const engine = createF005LoopbackEngine(
+        new URL(`http://127.0.0.1:${String(address.port)}/`),
+      );
+      await expect(engine.getVersion()).resolves.toBe('0.25.2');
+      await expect(engine.getSpeakers()).resolves.toEqual([]);
+      await expect(engine.createAudioQuery('吾輩')).resolves.toEqual({ accent_phrases: [] });
+      await expect(engine.synthesize({ speedScale: 1 })).resolves.toEqual(
+        new Uint8Array([82, 73, 70, 70]),
+      );
+    } finally {
+      await new Promise<void>((resolveClose, rejectClose) => {
+        server.close((error) => {
+          if (error) rejectClose(error);
+          else resolveClose();
+        });
+      });
+    }
   });
 
   it('offline buildはspawn後PID登録を行わず、Job継承worker契約だけで起動する', async () => {
