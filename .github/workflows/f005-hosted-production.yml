@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; authorization failures retain a fixed reason.
+# Source bytes are LF-pinned; preexisting writers retain a fixed binding class.
 on:
   push:
     branches:

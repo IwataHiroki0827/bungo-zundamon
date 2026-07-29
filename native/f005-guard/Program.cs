@@ -1686,6 +1686,17 @@ sealed class CapacityGuardSession : IDisposable
                     timestampQpc,
                     out var authorizationFailure))
                 {
+                    if (authorizationFailure == "BIRTH_MISSING")
+                    {
+                        var boundFileObject = filesByObject.ContainsKey(fileObject);
+                        authorizationFailure = pid is 0 or 4
+                            ? boundFileObject
+                                ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
+                                : "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT"
+                            : boundFileObject
+                                ? "BIRTH_MISSING_BOUND_FILE_OBJECT"
+                                : authorizationFailure;
+                    }
                     PoisonLocked($"ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}");
                     return;
                 }
