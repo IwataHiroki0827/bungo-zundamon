@@ -10,8 +10,10 @@ import { validateBatchManifest, type BatchManifest, type Sha256, type WorkId } f
 import {
   createF005OfflineBuildArtifactPayloads,
   enterF005ProductionSession,
+  F005_RUNNER_PROGRESS_PREFIX,
   F005_RUNNER_PHASE_ORDER,
   F005_RUNNER_RESULT_PREFIX,
+  formatF005RunnerProgress,
   formatF005RunnerResult,
   parseF005RunWorkArguments,
   runOfflineBuild,
@@ -186,6 +188,8 @@ describe('F005 production work runner', () => {
     expect(JSON.parse(
       resultLines[0]!.slice(F005_RUNNER_RESULT_PREFIX.length),
     )).toMatchObject({ workId: '000799', status: 'accepted' });
+    expect(formatF005RunnerProgress('session-close-start'))
+      .toBe(`${F005_RUNNER_PROGRESS_PREFIX}session-close-start\n`);
   });
 
   it('offline buildはspawn後PID登録を行わず、Job継承worker契約だけで起動する', async () => {

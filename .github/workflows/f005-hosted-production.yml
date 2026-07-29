@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; native guard exit is awaited before result validation.
+# Source bytes are LF-pinned; fixed progress checkpoints diagnose production boundaries.
 on:
   push:
     branches:

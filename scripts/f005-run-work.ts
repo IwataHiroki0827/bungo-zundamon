@@ -68,6 +68,19 @@ const WORK_IDS = ['000799', '001076', '001104'] as const;
 const MANIFEST_PATH = 'content/batches/F005/batch.json';
 const OWNER = 'f005-production-runner';
 export const F005_RUNNER_RESULT_PREFIX = 'F005_RESULT_JSON=';
+export const F005_RUNNER_PROGRESS_PREFIX = 'F005_PROGRESS=';
+
+type F005RunnerProgress =
+  | 'context-loaded'
+  | 'voice-generated'
+  | 'offline-build-complete'
+  | 'preview-prepared'
+  | 'acceptance-staged'
+  | 'session-close-start'
+  | 'session-closed'
+  | 'actual-measured'
+  | 'acceptance-finalized'
+  | 'result-writing';
 
 function sha(value: string | Uint8Array): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
@@ -272,6 +285,10 @@ export function formatF005RunnerResult(value: Readonly<Record<string, unknown>>)
   return `\n${F005_RUNNER_RESULT_PREFIX}${JSON.stringify(value)}\n`;
 }
 
+export function formatF005RunnerProgress(stage: F005RunnerProgress): string {
+  return `${F005_RUNNER_PROGRESS_PREFIX}${stage}\n`;
+}
+
 export async function runOfflineBuild(
   workspace: string,
   runInheritedWorker: (
@@ -319,6 +336,7 @@ async function main(): Promise<void> {
   const publicBefore = await treeDigest(publicRoot);
   const context = await loadVerifiedF005Definition(workspace);
   const baseline = await loadV040Baseline(workspace, context);
+  process.stderr.write(formatF005RunnerProgress('context-loaded'));
   const [speech, forecastArtifact, candidateText, manifestText] = await Promise.all([
     canonicalArtifact<readonly (F005SpeechItem & Record<string, unknown>)[]>(
       workspace,
@@ -382,6 +400,7 @@ async function main(): Promise<void> {
       voiceRecorder,
       workId,
     );
+    process.stderr.write(formatF005RunnerProgress('voice-generated'));
 
     const formalPhase = sha(`${session.journalId}\0${workId}\0formal-build`);
     buildSequence = 0;
@@ -511,6 +530,7 @@ async function main(): Promise<void> {
       workspace,
       (executable, args, cwd) => session.runInheritedWorker(executable, args, cwd),
     );
+    process.stderr.write(formatF005RunnerProgress('offline-build-complete'));
     const distRoot = join(workspace, 'dist');
     const [publicMeasurement, distMeasurement] = await Promise.all([
       measureTree(publicRoot),
@@ -597,6 +617,7 @@ async function main(): Promise<void> {
       artifacts,
       acceptanceRecorder,
     );
+    process.stderr.write(formatF005RunnerProgress('preview-prepared'));
 
     const evidencePhase = sha(`${session.journalId}\0${workId}\0evidence-build`);
     buildSequence = 0;
@@ -640,7 +661,10 @@ async function main(): Promise<void> {
       acceptanceRecorder,
       forecastArtifact.value.forecast.candidateSha256 as Sha256,
     );
+    process.stderr.write(formatF005RunnerProgress('acceptance-staged'));
+    process.stderr.write(formatF005RunnerProgress('session-close-start'));
     const closed = await session.close();
+    process.stderr.write(formatF005RunnerProgress('session-closed'));
     const actualAudioEntries = voice.assets.map((asset) => ({
       kind: 'path' as const,
       bucket: 'audio' as const,
@@ -678,6 +702,7 @@ async function main(): Promise<void> {
       reader,
       workId,
     );
+    process.stderr.write(formatF005RunnerProgress('actual-measured'));
     if (actual.journalId !== session.journalId || actual.journalSha256 !== closed.journalSha256) {
       throw new Error('actual capacityとclosed native journalが一致しません');
     }
@@ -704,8 +729,10 @@ async function main(): Promise<void> {
       },
       voicedManifestSha,
     );
+    process.stderr.write(formatF005RunnerProgress('acceptance-finalized'));
     const publicAfter = await treeDigest(publicRoot);
     if (publicAfter !== publicBefore) throw new Error('runnerがpublic treeを変更しました');
+    process.stderr.write(formatF005RunnerProgress('result-writing'));
     process.stdout.write(formatF005RunnerResult({
       ok: true,
       workId,
