@@ -31,7 +31,7 @@ $SdkUrl = "https://builds.dotnet.microsoft.com/dotnet/Sdk/$SdkVersion/dotnet-sdk
 $RuntimeUrl = "https://builds.dotnet.microsoft.com/dotnet/Runtime/$RuntimeVersion/dotnet-runtime-$RuntimeVersion-win-x64.zip"
 $SdkSha512 = '871d655b07f05aa5844a27a0dc742ccb6ca1e6df11be1c1251d6e967505595f455fd1160165048e3348f8dd2412ca82d414d0402c8acab30f997e30897a9040f'
 $RuntimeSha512 = '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8'
-$ExpectedExeSha256 = 'feeab7bfe2bbfa6e2ab9915dd2d9ff65ef30e8a479edabdaa5bef4406c0dca34'
+$ExpectedExeSha256 = '00d93c987643361e8f5a51643da9792f5bb17745ca0a3e2edf781a106482e860'
 
 $NativeRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $ProjectRoot = [System.IO.Path]::GetFullPath((Join-Path $NativeRoot '..\..'))

@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; retained root/child handle liveness uses a nonthrowing wait.
+# Source bytes are LF-pinned; Job authorization requires boot-unique ProcessStartKey.
 on:
   push:
     branches:

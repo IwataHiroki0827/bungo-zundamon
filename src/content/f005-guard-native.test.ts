@@ -114,7 +114,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT")');
   });
 
-  it('保持済みroot process handleの生存確認は例外化し得るHasExitedを再照会しない', async () => {
+  it('Job所属はPIDではなくboot一意ProcessStartKeyと保持handleで認可する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const rootAlive = program.slice(
       program.indexOf('private bool RootWorkerAliveLocked('),
@@ -128,9 +128,30 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(jobContains).not.toContain('HasExited');
     expect(jobContains).toContain('IsAlive(process)');
     expect(program).toContain('WaitForSingleObject(process.Handle, 0) == WaitTimeout');
-    expect(program).toContain('registeredWorkerProcesses.Add(pid, process)');
-    expect(program).toContain('job.IsAliveOutsideJob(process)');
+    expect(program).toContain('Dictionary<ulong, RegisteredWorkerProcess>');
+    expect(program).toContain(
+      'registeredWorkerProcesses.Add(processStartKey, new RegisteredWorkerProcess(pid, process))',
+    );
+    expect(program).toContain('rootWorkerStartKey == processStartKey');
+    expect(program).toContain('actualStartKey != processStartKey');
+    expect(program).toContain('ProcessTelemetryIdInformation = 64');
+    expect(program).toContain('headerSize < 16 || headerSize > required');
+    expect(program).toContain('WaitForSingleObject(process.Handle, 0) == 0');
+    expect(program).toContain('job.IsAliveOutsideJob(worker.Process)');
     expect(program).toContain('if (waitResult != WaitTimeout) return true');
+    expect(program).toContain('TraceEventProcessIdentity.ProcessStartKey(data)');
+    expect(program).toContain('PoisonLocked("ETW_PROCESS_START_KEY_MISSING")');
+    expect(program).toContain('EventEnablePropertyProcessStartKey = 0x00000080');
+    expect(program).toContain('SystemIoFileKeywords = 0x0000000000000414');
+    expect(program).toContain('session.EnableKernelProvider(KernelTraceEventParser.Keywords.None)');
+    expect(program).toContain('DangerousGetHandleMethod.Invoke(sessionHandle, null)');
+    expect(program).toContain('lock (session)');
+    expect(program).not.toContain('is not SafeHandle sessionHandle');
+    expect(program).toContain('EnableProviderTimeoutMilliseconds = 10_000');
+    expect(program).toContain('catch (GuardException)');
+    expect(program).toContain('ETW_PROCESS_START_KEY_PROBE_TIMEOUT');
+    expect(program).toContain('if (!processIdentityProbed)');
+    expect(program).not.toContain('EnableKernelProvider(\n                KernelTraceEventParser.Keywords.FileIO');
     expect(program).not.toContain('private static bool ProcessExists(');
   });
 

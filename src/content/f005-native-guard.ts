@@ -1,6 +1,6 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
-import { lstat, readFile, realpath } from 'node:fs/promises';
+import { lstat, readFile, realpath, unlink, writeFile } from 'node:fs/promises';
 import { createConnection, type Socket } from 'node:net';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { createInterface } from 'node:readline';
@@ -71,6 +71,11 @@ export type F005NativeCapacityErrorCode =
   | 'F005_ETW_FILE_IDENTITY_UNSAFE'
   | 'F005_ETW_OBSERVATION_MISSING'
   | 'F005_ETW_PID_NOT_JOB_MEMBER'
+  | 'F005_ETW_PROCESS_START_KEY_MISSING'
+  | 'F005_ETW_PROCESS_START_KEY_PROBE_FAILED'
+  | 'F005_ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH'
+  | 'F005_ETW_PROCESS_START_KEY_PROBE_REQUIRED'
+  | 'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT'
   | 'F005_ETW_RENAME_IDENTITY_MISMATCH'
   | 'F005_ETW_SEQUENCE_GAP'
   | 'F005_ETW_SESSION_STOP_FAILED'
@@ -139,6 +144,11 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
   ['ETW_FILE_IDENTITY_UNSAFE', 'F005_ETW_FILE_IDENTITY_UNSAFE'],
   ['ETW_OBSERVATION_MISSING', 'F005_ETW_OBSERVATION_MISSING'],
   ['ETW_PID_NOT_JOB_MEMBER', 'F005_ETW_PID_NOT_JOB_MEMBER'],
+  ['ETW_PROCESS_START_KEY_MISSING', 'F005_ETW_PROCESS_START_KEY_MISSING'],
+  ['ETW_PROCESS_START_KEY_PROBE_FAILED', 'F005_ETW_PROCESS_START_KEY_PROBE_FAILED'],
+  ['ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH', 'F005_ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH'],
+  ['ETW_PROCESS_START_KEY_PROBE_REQUIRED', 'F005_ETW_PROCESS_START_KEY_PROBE_REQUIRED'],
+  ['ETW_PROCESS_START_KEY_PROBE_TIMEOUT', 'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT'],
   ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
   ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
   ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
@@ -628,8 +638,37 @@ export async function startF005NativeCapacitySession(
     }
     pipe = await NativePipeClient.connect(started.pipeName, started.authToken, sessionNonce);
     const registered = await pipe.command({ op: 'registerSelf' });
-    if (registered.pid !== process.pid || registered.jobIdentity !== started.jobIdentity) {
+    const processIdentityProbePath = `.cache/f005-capacity/${journalId}.probe`;
+    if (registered.pid !== process.pid ||
+      registered.jobIdentity !== started.jobIdentity ||
+      registered.processIdentityProbePath !== processIdentityProbePath) {
       return fail('F005_CAPACITY_IPC_FAILED', 'root workerのJob結合が不正です');
+    }
+    const absoluteProcessIdentityProbePath =
+      join(options.workspace, ...processIdentityProbePath.split('/'));
+    const armedProbe = await pipe.command({
+      op: 'armProcessIdentityProbe',
+      path: processIdentityProbePath,
+    });
+    if (armedProbe.state !== 'armed' || armedProbe.path !== processIdentityProbePath) {
+      return fail('F005_CAPACITY_IPC_FAILED', 'ETW process identity probeを開始できません');
+    }
+    try {
+      await writeFile(
+        absoluteProcessIdentityProbePath,
+        randomBytes(32),
+        { flag: 'wx' },
+      );
+      const verifiedProbe = await pipe.command({
+        op: 'verifyProcessIdentityProbe',
+        path: processIdentityProbePath,
+      });
+      if (verifiedProbe.state !== 'verified' ||
+        verifiedProbe.path !== processIdentityProbePath) {
+        return fail('F005_CAPACITY_IPC_FAILED', 'ETW process identity probeを確認できません');
+      }
+    } finally {
+      await unlink(absoluteProcessIdentityProbePath).catch(() => undefined);
     }
 
     let activePhase: {

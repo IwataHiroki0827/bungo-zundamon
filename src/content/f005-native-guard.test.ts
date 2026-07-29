@@ -63,6 +63,11 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     ['ETW_FILE_IDENTITY_UNSAFE', 'F005_ETW_FILE_IDENTITY_UNSAFE'],
     ['ETW_OBSERVATION_MISSING', 'F005_ETW_OBSERVATION_MISSING'],
     ['ETW_PID_NOT_JOB_MEMBER', 'F005_ETW_PID_NOT_JOB_MEMBER'],
+    ['ETW_PROCESS_START_KEY_MISSING', 'F005_ETW_PROCESS_START_KEY_MISSING'],
+    ['ETW_PROCESS_START_KEY_PROBE_FAILED', 'F005_ETW_PROCESS_START_KEY_PROBE_FAILED'],
+    ['ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH', 'F005_ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH'],
+    ['ETW_PROCESS_START_KEY_PROBE_REQUIRED', 'F005_ETW_PROCESS_START_KEY_PROBE_REQUIRED'],
+    ['ETW_PROCESS_START_KEY_PROBE_TIMEOUT', 'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT'],
     ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
     ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
     ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
@@ -322,7 +327,7 @@ describe('F005 native ETW capacity guard', () => {
         ? expect.objectContaining({
             ok: true,
             capacityAbi: 'f005-capacity-pipe-v3',
-            etw: 'kernel-fileio',
+            etw: 'system-io-process-start-key',
           })
         : { ok: false, error: 'ETW_PRIVILEGE_REQUIRED' });
       child.stdin.end();
@@ -383,15 +388,16 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('case "registerSelf":');
     expect(source).toContain('rootWorkerPid = pid');
     expect(source).toContain('rootWorkerProcess = process');
-    expect(source).toContain('if (rootWorkerPid == pid) return RootWorkerAliveLocked(pid)');
+    expect(source).toContain('rootWorkerStartKey = job.ProcessStartKey(process)');
+    expect(source).toContain('rootWorkerStartKey == processStartKey');
     expect(source).toContain('if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))');
     expect(source).toContain('if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED")');
     expect(source).toContain('job.Contains(rootWorkerProcess)');
     expect(source).toContain('rootWorkerProcess?.Dispose()');
     expect(source.match(/ROOT_PID_NOT_RUNNING/gu)).toHaveLength(2);
     expect(source).not.toContain('case "registerPid":');
-    expect(source).toContain('AuthorizeJobMemberLocked(data.ProcessID)');
-    expect(source).toContain('AuthorizeJobMemberLocked(pid)');
+    expect(source).toContain('AuthorizeJobMemberLocked(data.ProcessID, processStartKey)');
+    expect(source).toContain('AuthorizeJobMemberLocked(pid, processStartKey)');
     expect(source).toContain('foreach (var pid in job.MemberPids())');
     expect(source).toContain('QueryInformationJobObject(');
     expect(source).toContain('LimitFlags = JobObjectLimitKillOnJobClose');
