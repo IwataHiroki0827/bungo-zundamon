@@ -6,6 +6,8 @@
 # Node.js
 node_modules/
 dist/
+native/**/bin/
+native/**/obj/
 build/
 .cache/
 npm-debug.log*

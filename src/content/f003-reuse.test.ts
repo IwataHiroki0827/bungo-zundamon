@@ -226,6 +226,9 @@ function response(body: Uint8Array, mediaType: string): TransportResponse {
     body,
     elapsedMs: 14_999,
     fetchedAt: WHEN,
+    complete: true,
+    peerAddress: '8.8.8.8',
+    socketSecurity: { tlsAuthorized: true, hostnameVerified: true },
   };
 }
 

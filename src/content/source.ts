@@ -4,7 +4,7 @@ import { lstat, mkdir, mkdtemp, readFile, realpath, rename, rm, writeFile } from
 import { request as httpsRequest } from 'node:https';
 import { BlockList, isIP } from 'node:net';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
-import { checkServerIdentity } from 'node:tls';
+import { checkServerIdentity, type TLSSocket } from 'node:tls';
 import { inflateRawSync } from 'node:zlib';
 import { validateBatchManifest, type BatchManifest } from './batch.ts';
 
@@ -221,6 +221,29 @@ export interface TransportResponse {
   body: Uint8Array;
   elapsedMs?: number;
   fetchedAt?: string;
+  /** end eventまで受信したresponseだけtrue。partial/abortedをproduction snapshotへ入れない。 */
+  complete?: boolean;
+  /** production adapterがsocket実体から採取する接続先IP。caller指定値は証跡として使わない。 */
+  peerAddress?: string;
+  /** default HTTPS socketが実TLS sessionから採取する。test DIも明示し、省略fallbackを許さない。 */
+  socketSecurity?: {
+    readonly tlsAuthorized: boolean;
+    readonly hostnameVerified: boolean;
+  };
+  /** ProductionAozoraTransportだけがDNS/TLS/socket境界からmintする取得証跡。 */
+  security?: TransportSecurityEvidence;
+}
+
+export interface TransportSecurityEvidence {
+  readonly dnsAddresses: readonly string[];
+  readonly connectedAddress: string;
+  readonly hostHeader: string;
+  readonly serverName: string;
+  readonly tlsAuthorized: true;
+  readonly hostnameVerified: true;
+  readonly redirectsFollowed: 0;
+  readonly proxyUsed: false;
+  readonly attempts: 1;
 }
 
 export interface TransportPolicy {
@@ -928,6 +951,15 @@ export class ProductionAozoraTransport implements AozoraTransport {
     Pick<ProductionAozoraTransportOptions, 'clock'>;
 
   constructor(options: ProductionAozoraTransportOptions = {}) {
+    if (
+      process.env.NODE_ENV !== 'test' &&
+      (options.resolver !== undefined || options.pinnedSocketFactory !== undefined || options.clock !== undefined)
+    ) {
+      throw new SourcePipelineError(
+        'PRODUCTION_TRANSPORT_REQUIRED',
+        'ProductionAozoraTransportのDIはNODE_ENV=testだけで許可されます',
+      );
+    }
     this.options = {
       resolver: options.resolver ?? defaultResolver,
       pinnedSocketFactory: options.pinnedSocketFactory ?? defaultPinnedSocketFactory,
@@ -971,7 +1003,35 @@ export class ProductionAozoraTransport implements AozoraTransport {
         userAgent: AOZORA_USER_AGENT,
       });
       const elapsedMs = response.elapsedMs ?? (this.options.clock?.() ?? Date.now()) - startedAt;
-      const completed = { ...response, elapsedMs };
+      const connectedAddress = response.peerAddress;
+      if (response.complete !== true) {
+        throw new SourcePipelineError('PARTIAL_RESPONSE', 'HTTP responseがcompleteではありません');
+      }
+      if (
+        typeof connectedAddress !== 'string' ||
+        response.socketSecurity?.tlsAuthorized !== true ||
+        response.socketSecurity.hostnameVerified !== true
+      ) {
+        throw new SourcePipelineError('TLS_INVALID', '実socketのpeer/TLS/hostname証跡がありません');
+      }
+      if (!addresses.some(({ address }) => address === connectedAddress) || !isPublicAddress(connectedAddress)) {
+        throw new SourcePipelineError('UNSAFE_RESOLVED_ADDRESS', '接続peerが検証済みDNS回答と一致しません');
+      }
+      const completed = {
+        ...response,
+        elapsedMs,
+        security: Object.freeze({
+          dnsAddresses: Object.freeze(addresses.map(({ address }) => address)),
+          connectedAddress,
+          hostHeader: url.hostname,
+          serverName: url.hostname,
+          tlsAuthorized: response.socketSecurity.tlsAuthorized,
+          hostnameVerified: response.socketSecurity.hostnameVerified,
+          redirectsFollowed: 0 as const,
+          proxyUsed: false as const,
+          attempts: 1 as const,
+        }),
+      };
       validateResponse(completed, policy);
       return completed;
     } catch (error) {
@@ -1028,9 +1088,14 @@ async function defaultPinnedSocketFactory(input: PinnedRequest): Promise<Transpo
         chunks.push(Buffer.from(chunk));
       });
       response.once('error', finishError);
+      response.once('aborted', () => finishError(new SourcePipelineError('PARTIAL_RESPONSE', 'HTTP responseが途中で切断されました')));
+      response.once('close', () => finishError(new SourcePipelineError('PARTIAL_RESPONSE', 'HTTP responseがcomplete前にcloseしました')));
       response.once('end', () => {
         if (settled) return;
         settled = true;
+        const socket = response.socket as TLSSocket;
+        const certificate = socket.getPeerCertificate();
+        const hostnameVerified = checkServerIdentity(input.serverName, certificate) === undefined;
         resolveResponse({
           status: response.statusCode ?? 0,
           headers: Object.fromEntries(Object.entries(response.headers).map(([name, value]) => [
@@ -1039,6 +1104,12 @@ async function defaultPinnedSocketFactory(input: PinnedRequest): Promise<Transpo
           ])),
           body: Buffer.concat(chunks),
           fetchedAt: new Date().toISOString(),
+          complete: true,
+          peerAddress: socket.remoteAddress,
+          socketSecurity: {
+            tlsAuthorized: socket.authorized === true,
+            hostnameVerified,
+          },
         });
       });
     });

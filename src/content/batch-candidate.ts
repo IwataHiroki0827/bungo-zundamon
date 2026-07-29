@@ -96,6 +96,13 @@ export interface BatchCandidateRegistry {
   readonly candidates: readonly ApprovedBatchCandidateDefinition[];
 }
 
+export interface LoadedBatchCandidateProjection {
+  readonly __brand: 'LoadedBatchCandidateProjection';
+  readonly feature: BatchId;
+  readonly registrySha256: Sha256;
+  readonly candidate: ApprovedBatchCandidateDefinition;
+}
+
 export interface VerifiedClosedApproval {
   readonly __brand: 'VerifiedClosedApproval';
   /** F003互換用。複数承認では静的policy上の先頭承認を表す。 */
@@ -153,6 +160,7 @@ const verifiedBatchDefinitions = new WeakSet<object>();
 const verifiedApprovalPolicies = new WeakSet<object>();
 const approvedBatchContexts = new WeakSet<object>();
 const existingAuthorIdentities = new WeakSet<object>();
+const loadedBatchCandidateProjections = new WeakSet<object>();
 
 export type CandidateValidationResult =
   | { readonly ok: true; readonly value: BatchCandidateRegistry }
@@ -210,7 +218,7 @@ interface ApprovalPolicy {
   readonly approvals: readonly {
     readonly queueId: string;
     readonly target: WorkspaceRelativePath;
-    readonly targetMode: 'document';
+    readonly targetMode: 'document' | 'reference';
   }[];
   readonly documents: readonly {
     readonly path: WorkspaceRelativePath;
@@ -304,6 +312,68 @@ const APPROVAL_POLICIES = Object.freeze({
       Object.freeze({ id: 'CHG-F004-001', level: 'requirement', status: 'in-review' }),
     ]),
     existingFeatureIds: Object.freeze(['F001', 'F002', 'F003'] as BatchId[]),
+  }),
+  /**
+   * F005はrequirement snapshot専用registryから共有registryへ互換移行する。
+   * production contextのmintはf005-context.tsが内部取得する三段階controlだけが行う。
+   * @des DES-F005-001 @des DES-F005-012 @fun FUN-F005-001 @fun FUN-F005-045
+   * @fun FUN-F005-048 @ut UT-F005-001 @ut UT-F005-045 @ut UT-F005-048
+   */
+  F005: Object.freeze({
+    feature: 'F005',
+    authorExpectation: 'introduce',
+    evidencePath: 'docs/evidence/requirements/F005-approval-binding.json' as WorkspaceRelativePath,
+    evidenceSchemaVersion: '1.1.0',
+    approvals: Object.freeze([
+      Object.freeze({
+        queueId: 'Q-027',
+        target: 'docs/srs/SRS-F005.md' as WorkspaceRelativePath,
+        targetMode: 'document',
+      }),
+      Object.freeze({
+        queueId: 'Q-028',
+        target: 'docs/changes/CHG-F005-001.md' as WorkspaceRelativePath,
+        targetMode: 'reference',
+      }),
+      Object.freeze({
+        queueId: 'Q-029',
+        target: 'docs/changes/CHG-F005-001.md' as WorkspaceRelativePath,
+        targetMode: 'reference',
+      }),
+      Object.freeze({
+        queueId: 'Q-030',
+        target: 'docs/changes/CHG-F005-001.md' as WorkspaceRelativePath,
+        targetMode: 'reference',
+      }),
+      Object.freeze({
+        queueId: 'Q-031',
+        target: 'docs/changes/CHG-F005-001.md' as WorkspaceRelativePath,
+        targetMode: 'reference',
+      }),
+    ]),
+    documents: Object.freeze([
+      Object.freeze({
+        path: 'docs/srs/SRS-F005.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F005', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/tests/qt/QT-F005.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F005', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/changes/CHG-F005-001.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({
+          id: 'CHG-F005-001',
+          feature: 'F005',
+          level: 'requirement',
+          status: 'in-review',
+        }),
+      }),
+    ]),
+    changes: Object.freeze([
+      Object.freeze({ id: 'CHG-F005-001', level: 'requirement', status: 'in-review' }),
+    ]),
+    existingFeatureIds: Object.freeze(['F001', 'F002', 'F003', 'F004'] as BatchId[]),
   }),
 } satisfies Readonly<Record<string, ApprovalPolicy>>);
 
@@ -991,6 +1061,55 @@ export async function loadAndVerifyBatchCandidate(
   });
   approvedBatchContexts.add(context);
   return context;
+}
+
+/**
+ * 共有registryの実production parserを通し、一意なfeature projectionを返す。
+ * Approval contextはmintせず、registry migrationのloader回帰にも同じlogicを使う。
+ * @des DES-F003-001 @des DES-F004-001 @des DES-F005-001
+ * @fun FUN-F003-001 @fun FUN-F004-001 @fun FUN-F005-048
+ * @ut UT-F003-001 @ut UT-F004-001 @ut UT-F005-048
+ */
+export async function loadBatchCandidateRegistryProjection(
+  workspace: string,
+  feature: BatchId,
+): Promise<LoadedBatchCandidateProjection> {
+  if (approvalPolicyForFeature(feature) === null) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', '未登録featureです');
+  }
+  const registryFile = await verifiedWorkspaceFile(workspace, 'content/batch-candidates.json' as WorkspaceRelativePath);
+  const raw = await readFile(registryFile, 'utf8');
+  let value: unknown;
+  try {
+    value = JSON.parse(raw) as unknown;
+  } catch {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'candidate registry JSONが不正です');
+  }
+  if (raw !== canonicalJson(value)) {
+    throw new BatchCandidateError('CANDIDATE_REGISTRY_INVALID', 'candidate registryがcanonical JSONではありません');
+  }
+  const checked = validateBatchCandidateRegistry(value);
+  if (!checked.ok) throw new BatchCandidateError(checked.code, checked.message);
+  const matches = checked.value.candidates.filter((candidate) => candidate.feature === feature);
+  const candidate = matches[0];
+  if (matches.length !== 1 || !candidate) {
+    throw new BatchCandidateError('CANDIDATE_DUPLICATE', 'feature candidateが一意ではありません');
+  }
+  const projection = freezeDeep({
+    __brand: 'LoadedBatchCandidateProjection' as const,
+    feature,
+    registrySha256: hash(raw),
+    candidate: structuredClone(candidate),
+  });
+  loadedBatchCandidateProjections.add(projection);
+  return projection;
+}
+
+export function isMintedLoadedBatchCandidateProjection(
+  value: unknown,
+): value is LoadedBatchCandidateProjection {
+  return isRecord(value) && loadedBatchCandidateProjections.has(value) &&
+    value.__brand === 'LoadedBatchCandidateProjection';
 }
 
 /**

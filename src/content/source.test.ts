@@ -263,7 +263,12 @@ function productionTransport(response: TransportResponse | Error): {
 } {
   const socket = vi.fn(async () => {
     if (response instanceof Error) throw response;
-    return response;
+    return {
+      ...response,
+      complete: response.complete ?? true,
+      peerAddress: response.peerAddress ?? '8.8.8.8',
+      socketSecurity: response.socketSecurity ?? { tlsAuthorized: true, hostnameVerified: true },
+    };
   });
   return {
     transport: new ProductionAozoraTransport({
@@ -525,6 +530,9 @@ describe('原典選定・取得・由来', () => {
           headers: { 'content-type': 'application/xhtml+xml; charset=UTF-8' },
           body: new TextEncoder().encode('<html/>'),
           elapsedMs: AOZORA_TIMEOUT_MS - 1,
+          complete: true,
+          peerAddress: '8.8.8.8',
+          socketSecurity: { tlsAuthorized: true, hostnameVerified: true },
         };
       },
     });

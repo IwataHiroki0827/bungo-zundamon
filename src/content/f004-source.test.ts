@@ -148,6 +148,9 @@ function response(body: Uint8Array, mediaType: string): TransportResponse {
     body,
     elapsedMs: 14_999,
     fetchedAt: '2026-07-27T14:33:06.149Z',
+    complete: true,
+    peerAddress: '8.8.8.8',
+    socketSecurity: { tlsAuthorized: true, hostnameVerified: true },
   };
 }
 
