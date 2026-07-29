@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; fixed voice checkpoints precede bounded native Job abort.
+# Source bytes are LF-pinned; rename ETW is correlated by reserved sequence and fixed FileId.
 on:
   push:
     branches:
