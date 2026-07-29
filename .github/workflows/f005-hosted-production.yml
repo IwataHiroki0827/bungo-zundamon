@@ -206,6 +206,7 @@ jobs:
 
       - name: Run T-070 production pipeline
         id: production
+        continue-on-error: true
         shell: pwsh
         env:
           VOICEVOX_URL: http://127.0.0.1:50021/
@@ -226,7 +227,10 @@ jobs:
             )
             Write-Host "$Name=$encoded"
           }
-          function Write-SafeFailureAnnotation([string] $Stderr) {
+          function Write-SafeFailureAnnotation(
+            [string] $Stderr,
+            [string] $DiagnosticPath
+          ) {
             $lines = @($Stderr -split '\r?\n')
             $summary = @(
               $lines |
@@ -273,7 +277,13 @@ jobs:
             if ($summary.Count -eq 0) {
               $summary = @('fixedDiagnostic=unavailable')
             }
-            $annotation = ($summary -join ' ').Replace('%', '%25').
+            $safeSummary = $summary -join ' '
+            [IO.File]::WriteAllText(
+              $DiagnosticPath,
+              "$safeSummary`n",
+              [Text.UTF8Encoding]::new($false)
+            )
+            $annotation = $safeSummary.Replace('%', '%25').
               Replace("`r", '%0D').Replace("`n", '%0A')
             Write-Host (
               '::error file=.github/workflows/f005-hosted-production.yml,' +
@@ -290,6 +300,7 @@ jobs:
           $resultPath = Join-Path $logRoot 'f005-hosted-production-result.json'
           $stdoutPath = Join-Path $logRoot 'f005-hosted-production.stdout.log'
           $stderrPath = Join-Path $logRoot 'f005-hosted-production.stderr.log'
+          $diagnosticPath = Join-Path $logRoot 'f005-safe-diagnostic.txt'
           $engineProcess = $null
           try {
           $engineProcess = Start-Process `
@@ -348,7 +359,7 @@ jobs:
             ''
           }
           if ($runnerExitCode -ne 0) {
-            Write-SafeFailureAnnotation $stderr
+            Write-SafeFailureAnnotation $stderr $diagnosticPath
             Write-BoundedBase64Diagnostic `
               'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
             Write-BoundedBase64Diagnostic `
@@ -379,11 +390,60 @@ jobs:
             $json.Replace("`r`n", "`n"),
             [Text.UTF8Encoding]::new($false)
           )
+          } catch {
+            if (-not (Test-Path -LiteralPath $diagnosticPath -PathType Leaf)) {
+              Write-SafeFailureAnnotation '' $diagnosticPath
+            }
+            throw
           } finally {
             if ($null -ne $engineProcess -and -not $engineProcess.HasExited) {
               Stop-Process -Id $engineProcess.Id -Force -ErrorAction SilentlyContinue
             }
           }
+
+      - name: Publish safe production diagnostic
+        if: steps.production.outcome == 'failure'
+        shell: pwsh
+        env:
+          F005_ENGINE_CACHE_ROOT: ${{ steps.engine.outputs.cache_root }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
+          $diagnosticPath = Join-Path $logRoot 'f005-safe-diagnostic.txt'
+          $diagnostic = if (
+            Test-Path -LiteralPath $diagnosticPath -PathType Leaf
+          ) {
+            (Get-Content -LiteralPath $diagnosticPath -Raw).Trim()
+          } else {
+            'fixedDiagnostic=unavailable'
+          }
+          $token = (
+            '(?:F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+|' +
+            'F005_NATIVE_START_FAILURE=[A-Z0-9_]+|' +
+            '(?:failureName|causeName)=[A-Za-z][A-Za-z0-9]{0,63}|' +
+            '(?:failureCode|causeCode)=[A-Z][A-Z0-9_]{0,127}|' +
+            'fixedDiagnostic=unavailable)'
+          )
+          if ($diagnostic -notmatch "^$token(?: $token)*$") {
+            $diagnostic = 'fixedDiagnostic=unavailable'
+          }
+          $annotation = $diagnostic.Replace('%', '%25').
+            Replace("`r", '%0D').Replace("`n", '%0A')
+          Write-Output (
+            '::error file=.github/workflows/f005-hosted-production.yml,' +
+            "line=1,col=1,title=F005 production diagnostic::$annotation"
+          )
+          if ($env:GITHUB_STEP_SUMMARY) {
+            Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value (
+              "### F005 production diagnostic`n`n$annotation"
+            )
+          }
+
+      - name: Fail closed after production diagnostic
+        if: steps.production.outcome == 'failure'
+        shell: pwsh
+        run: |
+          throw 'F005 production pipeline failed safely'
 
       - name: Validate and persist isolated candidate
         shell: pwsh

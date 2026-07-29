@@ -25,6 +25,8 @@ interface HostedWorkflow {
         readonly name?: string;
         readonly uses?: string;
         readonly run?: string;
+        readonly if?: string;
+        readonly 'continue-on-error'?: boolean;
         readonly with?: Readonly<Record<string, unknown>>;
         readonly env?: Readonly<Record<string, string>>;
       }>;
@@ -44,6 +46,12 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const checkout = job.steps.find((step) => step.uses?.startsWith('actions/checkout@'));
     const persist = job.steps.find((step) => step.name === 'Validate and persist isolated candidate');
     const production = job.steps.find((step) => step.name === 'Run T-070 production pipeline');
+    const diagnostic = job.steps.find(
+      (step) => step.name === 'Publish safe production diagnostic',
+    );
+    const failureGate = job.steps.find(
+      (step) => step.name === 'Fail closed after production diagnostic',
+    );
 
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -75,6 +83,15 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('VOICEVOX cache must stay outside the guarded workspace');
     expect(production?.env?.F005_ENGINE_CACHE_ROOT)
       .toBe('${{ steps.engine.outputs.cache_root }}');
+    expect(production?.['continue-on-error']).toBe(true);
+    expect(diagnostic?.if).toBe("steps.production.outcome == 'failure'");
+    expect(failureGate?.if).toBe("steps.production.outcome == 'failure'");
+    expect(diagnostic?.run).toContain(
+      "Join-Path $logRoot 'f005-safe-diagnostic.txt'",
+    );
+    expect(diagnostic?.run).toContain('fixedDiagnostic=unavailable');
+    expect(diagnostic?.run).toContain('Write-Output (');
+    expect(failureGate?.run).toContain('failed safely');
     expect(production?.run).not.toContain("Join-Path $PWD '.cache\\f005-hosted-production");
     expect(production?.run).toContain(
       "Join-Path $logRoot 'f005-hosted-production-result.json'",
@@ -103,6 +120,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
     expect(scripts).toContain('title=F005 production diagnostic::');
     expect(scripts).toContain('$env:GITHUB_STEP_SUMMARY');
+    expect(scripts).toContain('[IO.File]::WriteAllText(');
     expect(scripts).toContain(
       "'^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'",
     );
