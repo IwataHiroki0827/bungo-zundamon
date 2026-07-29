@@ -2,7 +2,7 @@ import { isValidatedLicenseManifest } from './release-notices';
 import { resolveTrustedExternalLink } from './trusted-links';
 import { REQUIRED_NOTICE_TEXT } from './types';
 import { WORK_NOTICE_TEXT } from './work-notice-text';
-import type { UICatalogV2 } from '../ui/types';
+import { formatDisplayProofreader, type UICatalogV2 } from '../ui/types';
 import type { ValidatedNoticeBundle } from './manifest-loader';
 import type { CreditsCatalog, LicenseManifest, TrustedExternalLink } from './types';
 
@@ -179,12 +179,16 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
       source?.attribution,
       source?.baseEdition,
       source?.inputter,
-      source?.proofreader,
       source?.fetchedAt,
       source?.transformation,
       source?.provenancePath,
       source?.provenanceSha256,
     ]) requireCreditText(value, 'CREDITS_PROVENANCE_MISSING');
+    if (work.batchId === 'F005' && work.workId === '000799') {
+      if (source.proofreader !== null) throw new CreditsRenderError('CREDITS_PROVENANCE_MISSING');
+    } else {
+      requireCreditText(source.proofreader, 'CREDITS_PROVENANCE_MISSING');
+    }
     if (!SHA256.test(source.provenanceSha256)) throw new CreditsRenderError('CREDITS_PROVENANCE_MISSING');
     try {
       resolveTrustedExternalLink(source.cardUrl, 'aozora-card');
@@ -263,7 +267,7 @@ export function renderCreditsV2(catalog: UICatalogV2, notices: ValidatedNoticeBu
   const sourceList = document.createElement('ul');
   for (const work of catalog.works) {
     const author = authorById.get(work.authorId)!;
-    const label = `${work.title} — ${author.name}（原著者: ${author.originalName}）／${work.source.attribution}／底本: ${work.source.baseEdition}／入力者: ${work.source.inputter}／校正者: ${work.source.proofreader}／取得日: ${work.source.fetchedAt}／加工内容: ${work.source.transformation}／由来証跡: ${work.source.provenancePath}（SHA-256: ${work.source.provenanceSha256}）`;
+    const label = `${work.title} — ${author.name}（原著者: ${author.originalName}）／${work.source.attribution}／底本: ${work.source.baseEdition}／入力者: ${work.source.inputter}／校正者: ${formatDisplayProofreader(work.source.proofreader)}／取得日: ${work.source.fetchedAt}／加工内容: ${work.source.transformation}／由来証跡: ${work.source.provenancePath}（SHA-256: ${work.source.provenanceSha256}）`;
     sourceList.append(listItem(label, resolveTrustedExternalLink(work.source.cardUrl, 'aozora-card')));
     for (const notice of work.notices ?? []) {
       if (notice.placements.includes('credits')) {

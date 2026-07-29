@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F005.md",
+    "release": "docs/evidence/release/F005-approval.json",
+    "requirements": "docs/srs/SRS-F005.md",
+    "testspec": "docs/tests/ut/UT-F005.md"
+  },
+  "artworkProvenanceRef": "content/batches/F005/artwork-provenance.json",
+  "author": {
+    "authorId": "000148",
+    "identitySha256": "8eadb891d1440952f33b0bae4fccae91db8cf48a1688df607ee6a80c65870f4f",
+    "name": "なつめそうせき",
+    "originalName": "夏目漱石",
+    "slug": "natsume-soseki"
+  },
+  "batchId": "F005",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "000799"
+      ],
+      "preferredWorkId": "000799",
+      "reason": "承認済み代表作",
+      "title": "夢十夜"
+    },
+    {
+      "allowedWorkIds": [
+        "001076"
+      ],
+      "preferredWorkId": "001076",
+      "reason": "承認済み代表作",
+      "title": "倫敦塔"
+    },
+    {
+      "allowedWorkIds": [
+        "001104"
+      ],
+      "preferredWorkId": "001104",
+      "reason": "承認済み代表作",
+      "title": "趣味の遺伝"
+    }
+  ],
+  "feature": "F005",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F005/voice-config.json",
+  "workIds": [
+    "000799",
+    "001076",
+    "001104"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000799"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "001076"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "001104"
+    }
+  ]
+}

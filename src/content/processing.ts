@@ -315,7 +315,8 @@ export interface CatalogAuthorV2 extends CatalogAuthor {
   identitySha256: string;
 }
 
-export interface CatalogSourceV2 extends CatalogSource {
+export interface CatalogSourceV2 extends Omit<CatalogSource, 'proofreader'> {
+  proofreader: string | null;
   provenancePath: string;
   provenanceSha256: string;
   /** canonical source-index/record projection for batch acceptance. */

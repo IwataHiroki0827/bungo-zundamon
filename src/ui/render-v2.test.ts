@@ -113,6 +113,70 @@ describe('UT-F002-022 FUN-F002-022 renderAuthorIndex', () => {
     expect((items[1]!.querySelector('img') as HTMLImageElement).src).toBe('https://example.test/bungo-zundamon/artwork/miyazawa.png');
   });
 
+  /** @des DES-F005-003 @des DES-F005-010 @fun FUN-F005-024 @ut UT-F005-024 */
+  it('夢十夜のnullable校正者を実作者画面へ「校正: 記載なし」のtext nodeで描画する', () => {
+    const catalog = catalogFixture();
+    catalog.authors.push({
+      authorId: '000148',
+      name: 'なつめそうせき',
+      originalName: '夏目漱石',
+      slug: 'natsume-soseki',
+      artwork: {
+        path: 'artwork/natsume-zundamon.png',
+        alt: '夏目漱石をイメージしたずんだもん',
+        sha256: '7'.repeat(64),
+      },
+      introducedByBatchId: 'F005',
+      identitySha256: '8'.repeat(64),
+    });
+    catalog.works.push({
+      workId: '000799',
+      authorId: '000148',
+      batchId: 'F005',
+      title: '夢十夜',
+      cardLink: 'https://www.aozora.gr.jp/cards/000148/card799.html',
+      source: {
+        cardUrl: 'https://www.aozora.gr.jp/cards/000148/card799.html',
+        textUrl: 'https://www.aozora.gr.jp/cards/000148/files/799_14972.html',
+        attribution: '青空文庫',
+        baseEdition: '底本',
+        inputter: '入力者',
+        proofreader: null,
+        fetchedAt: '2026-07-29T00:00:00.000Z',
+        transformation: '変換',
+        sourceSha256: '9'.repeat(64),
+        provenancePath: 'content/provenance/F005/000799.json',
+        provenanceSha256: '6'.repeat(64),
+      },
+      dialogues: [],
+    });
+    catalog.batches.push({
+      batchId: 'F005',
+      feature: 'F005',
+      status: 'accepted',
+      authorId: '000148',
+      workIds: ['000799'],
+      acceptedAt: '2026-07-29T00:00:00.000Z',
+      evidenceSha256: '5'.repeat(64),
+    });
+    catalog.candidateCounts.byBatch.F005 = {
+      total: 0,
+      published: 0,
+      editorialExcluded: 0,
+      audioExcluded: 0,
+    };
+    const page = renderAuthorPageV2(
+      '000148',
+      catalog,
+      controllerFixture().controller,
+      new URL('https://example.test/app/'),
+    );
+    const contributor = page.querySelector('.source-contributors');
+    expect(contributor?.textContent).toBe('入力: 入力者・校正: 記載なし');
+    expect(contributor?.childNodes).toHaveLength(1);
+    expect(contributor?.firstChild?.nodeType).toBe(document.TEXT_NODE);
+  });
+
   it.each([
     ['0作品author', (catalog: UICatalogV2) => ({ ...catalog, works: catalog.works.filter((work) => work.authorId !== '000081') })],
     ['cross-author batch', (catalog: UICatalogV2) => ({ ...catalog, works: catalog.works.map((work, index) => index === 0 ? { ...work, authorId: '000081' } : work) })],

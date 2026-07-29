@@ -1,0 +1,71 @@
+{
+  "approvalBinding": {
+    "candidateIdentitySha256": "8eadb891d1440952f33b0bae4fccae91db8cf48a1688df607ee6a80c65870f4f",
+    "definitionSha256": "6d8edca9efb8aabc096021a7b263176decaa03cf8416750bb98cc25d3ffdbcf4",
+    "implementationCommit": "ffdb47f08e5969bccb6d275f5bcb61052c7e7c77",
+    "requirementApprovalSnapshot": "18e3fa50edfe5214480a65ed2e840fe49a663ee2"
+  },
+  "authorId": "000148",
+  "authorIdentity": {
+    "authorId": "000148",
+    "identitySha256": "8eadb891d1440952f33b0bae4fccae91db8cf48a1688df607ee6a80c65870f4f",
+    "name": "なつめそうせき",
+    "originalName": "夏目漱石",
+    "slug": "natsume-soseki"
+  },
+  "batchId": "F005",
+  "creationMethod": "original-generation",
+  "credit": "夏目漱石ずんだもん：OpenAI built-in image_genによる独自生成（入力・参照画像なし）",
+  "generation": {
+    "characterGuideline": {
+      "contentSha256": "d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d",
+      "decision": "allowed-original-fan-art",
+      "fetchedAt": "2026-07-25T10:50:10.493Z",
+      "policyId": "zundamon-character-guideline",
+      "url": "https://zunko.jp/guideline.html"
+    },
+    "generatedAt": "2026-07-29T03:09:36Z",
+    "generator": "OpenAI",
+    "generatorVersion": "not exposed by built-in tool",
+    "negativePrompt": "photorealism, exact human likeness, round eyeglasses, plum blossoms, flower field, large ink-circle halo, centered standing full-body pose, red scarf, bow tie, cigarette, alcohol, weapons, military insignia, recognizable brand marks, extra people, extra fingers, distorted hands, cropped head, neon cyberpunk effects.",
+    "negativePromptSha256": "7004a6d54f2ba3f114c0f43927411b2ba7534f43397260a2763aa16c9c131c87",
+    "originalImageBytes": 2921223,
+    "originalImageSha256": "79f5e9b49446a29bdd6793cdaf6eee22e57974a60e5b90e1fa126502bdc61e9b",
+    "prompt": "Use case: illustration-story\nAsset type: square author card illustration for a Japanese literature web app\nPrimary request: Create an entirely original chibi illustration of a green bean-themed fictional mascot reimagined as a calm, observant Meiji-era Japanese novelist, evoking the dreamlike literary atmosphere associated with Natsume Soseki without copying any real photograph, identifiable face, existing character artwork, pose, or costume.\nScene/backdrop: deep indigo night over softly textured Japanese paper; a large pale crescent moon, drifting silver mist, a small warm brass reading lantern, and a distant abstract Victorian clock-tower silhouette suggesting London; no readable writing and no exact real landmark reproduction.\nSubject: one fictional mascot character only; vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout; large amber-green eyes; quietly curious expression; seated three-quarter pose beside a low writing desk; dark teal Meiji-era scholar coat over a cream high-collar shirt and muted gold vest; one hand holds a closed plain navy notebook, the other rests naturally beside the lantern.\nStyle/medium: polished hand-drawn anime chibi illustration with watercolor, gouache, and colored-pencil texture; clean expressive outlines; literary book-cover quality.\nComposition/framing: centered square composition, character slightly right of center, crescent and tower creating a strong asymmetric background, generous edge padding, both hands clearly visible and anatomically natural.\nLighting/mood: cool moonlight with one warm lantern accent; mysterious, contemplative, gentle, dreamlike.\nColor palette: indigo, midnight blue, smoky violet, leaf green, cream, antique gold; substantially darker and cooler than a parchment-beige portrait.\nConstraints: entirely original generated image; zero input or reference images; no depiction or tracing of Natsume Soseki or any real person; no third-party artwork, copyrighted costume, logo, readable text, signature, or watermark.\nAvoid: photorealism, exact human likeness, round eyeglasses, plum blossoms, flower field, large ink-circle halo, centered standing full-body pose, red scarf, bow tie, cigarette, alcohol, weapons, military insignia, recognizable brand marks, extra people, extra fingers, distorted hands, cropped head, neon cyberpunk effects.",
+    "promptSha256": "8d866c9eaf995579d75a6886593faa766d68d8f388940a85393c817667d55bcb",
+    "providerTerms": {
+      "contentSha256": "043449f1a2b1c49d3fd644449e895ce8971469b45eefbca38771195854288496",
+      "decision": "allow",
+      "fetchedAt": "2026-07-25T10:50:10.610Z",
+      "policyId": "openai-terms",
+      "url": "https://openai.com/policies/terms-of-use/"
+    },
+    "tool": "built-in image_gen"
+  },
+  "inputs": {
+    "allInputLineageSha256": "a758ea38eacb55d92fcb9e862476cebdddd6f8b9a1280b6503fb3594403d3e74",
+    "finalInputBytes": 2921223,
+    "finalInputSha256": "79f5e9b49446a29bdd6793cdaf6eee22e57974a60e5b90e1fa126502bdc61e9b",
+    "generatedOriginal": {
+      "bytes": 2921223,
+      "sha256": "79f5e9b49446a29bdd6793cdaf6eee22e57974a60e5b90e1fa126502bdc61e9b"
+    },
+    "processingInputs": [],
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F005-000148-v1",
+  "output": {
+    "bitDepth": 8,
+    "bytes": 2921223,
+    "colorType": 2,
+    "dHash64": "654b8f8adc692684",
+    "height": 1254,
+    "mediaType": "image/png",
+    "publicPath": "artwork/natsume-zundamon.png",
+    "sha256": "79f5e9b49446a29bdd6793cdaf6eee22e57974a60e5b90e1fa126502bdc61e9b",
+    "sourcePath": "content/batches/F005/public-files/artwork/natsume-zundamon.png",
+    "width": 1254
+  },
+  "provenanceSha256": "cc2cd3af9a05d1b650e5c136499cc9af90338b209710a598899cf2770e8d2fcb",
+  "schemaVersion": "4.0.0"
+}

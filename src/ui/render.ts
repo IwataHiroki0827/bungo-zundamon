@@ -9,6 +9,7 @@ import {
 } from './favorites';
 import { observeAudioLazyLoading } from './lazy-loading';
 import { hasUnsafeTextControl } from './text-safety';
+import { formatDisplayProofreader } from './types';
 import type {
   CatalogDialogue,
   DisplayAuthor,
@@ -486,7 +487,11 @@ function renderWork(
   if (authorId) {
     intro.append(
       textElement('p', `出典: ${work.source.attribution}（${work.source.baseEdition}）`, 'source-attribution'),
-      textElement('p', `入力: ${work.source.inputter}・校正: ${work.source.proofreader}`, 'source-contributors'),
+      textElement(
+        'p',
+        `入力: ${work.source.inputter}・校正: ${formatDisplayProofreader(work.source.proofreader)}`,
+        'source-contributors',
+      ),
     );
   }
   intro.append(source);

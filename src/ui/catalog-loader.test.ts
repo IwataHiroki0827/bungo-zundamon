@@ -175,6 +175,60 @@ function rawCatalogV2(includeSecondAuthor = true): Record<string, unknown> {
   };
 }
 
+function rawF005NullableCatalog(): Record<string, unknown> {
+  const catalog = rawCatalogV2();
+  (catalog.authors as Array<Record<string, unknown>>).push({
+    authorId: '000148',
+    name: 'なつめそうせき',
+    originalName: '夏目漱石',
+    slug: 'natsume-soseki',
+    artwork: {
+      path: 'artwork/natsume-zundamon.png',
+      alt: '夏目漱石をイメージしたずんだもん',
+      sha256: '9'.repeat(64),
+    },
+    introducedByBatchId: 'F005',
+    identitySha256: '8'.repeat(64),
+  });
+  const cardUrl = 'https://www.aozora.gr.jp/cards/000148/card799.html';
+  (catalog.works as Array<Record<string, unknown>>).push({
+    workId: '000799',
+    authorId: '000148',
+    batchId: 'F005',
+    title: '夢十夜',
+    cardLink: cardUrl,
+    source: {
+      cardUrl,
+      textUrl: 'https://www.aozora.gr.jp/cards/000148/files/799_14972.html',
+      attribution: '青空文庫',
+      baseEdition: '底本',
+      inputter: '入力者',
+      proofreader: null,
+      fetchedAt: '2026-07-29T00:00:00Z',
+      transformation: '原典から決定的に変換',
+      sourceSha256: '7'.repeat(64),
+      provenancePath: 'content/provenance/F005/000799.json',
+      provenanceSha256: '6'.repeat(64),
+    },
+    dialogues: [],
+  });
+  (catalog.batches as Array<Record<string, unknown>>).push({
+    batchId: 'F005',
+    feature: 'F005',
+    status: 'accepted',
+    authorId: '000148',
+    workIds: ['000799'],
+    acceptedAt: '2026-07-29T00:00:00Z',
+    evidenceSha256: '5'.repeat(64),
+  });
+  const counts = catalog.candidateCounts as Record<string, unknown>;
+  counts.byBatch = {
+    ...(counts.byBatch as Record<string, unknown>),
+    F005: { total: 0, published: 0, editorialExcluded: 0, audioExcluded: 0 },
+  };
+  return catalog;
+}
+
 describe('routeとcatalog境界', () => {
   /** @des DES-F001-001 @ut UT-F001-001 */
   it('固定hashだけをrouteとして受理する', () => {
@@ -430,6 +484,32 @@ describe('FUN-F002-004 CatalogV2検証 [DES-F002-001][DES-F002-006][DES-F002-012
     expect(result.value.works).toHaveLength(2);
     expect(result.value.audioAssets).toHaveLength(1);
     expect(validateCatalog(rawCatalogV2(), 4096).works).toHaveLength(2);
+  });
+
+  /** @des DES-F005-003 @des DES-F005-007 @fun FUN-F005-024 @ut UT-F005-024 */
+  it('F005夢十夜だけproofreader nullを受理し、他作品へのnull拡大と推測文字列を拒否する', () => {
+    const valid = rawF005NullableCatalog();
+    const checked = validateCatalogV2(valid, 8_388_608);
+    expect(checked.ok).toBe(true);
+    if (checked.ok) {
+      expect(checked.value.works.find((work) => work.workId === '000799')?.source.proofreader)
+        .toBeNull();
+    }
+
+    const guessed = structuredClone(valid);
+    const dream = (guessed.works as Array<Record<string, unknown>>)
+      .find((work) => work.workId === '000799')!;
+    (dream.source as Record<string, unknown>).proofreader = '推測した校正者';
+    expect(validateCatalogV2(guessed, 8_388_608)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_ORPHAN_REFERENCE' },
+    });
+
+    const existingNull = structuredClone(valid);
+    (((existingNull.works as Array<Record<string, unknown>>)[0]!.source) as Record<string, unknown>)
+      .proofreader = null;
+    expect(validateCatalogV2(existingNull, 8_388_608)).toMatchObject({
+      ok: false, error: { code: 'CATALOG_ORPHAN_REFERENCE' },
+    });
   });
 
   it('3配置を持つ作品noticeを受理し、scope欠落・未完不整合・unknown keyを拒否する', () => {

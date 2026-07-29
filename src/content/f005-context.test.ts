@@ -29,6 +29,7 @@ import * as publicContextApi from './f005-context.ts';
 
 const execFile = promisify(execFileCallback);
 const sourceWorkspace = resolve('.');
+const preMigrationFixtureCommit = 'f687e367d748178bfe0a15a444c0ca65bdf11298';
 const temporaryRoots: string[] = [];
 
 async function git(workspace: string, ...args: string[]): Promise<string> {
@@ -137,6 +138,7 @@ async function cloneFixture(): Promise<string> {
   ], {
     windowsHide: true,
   });
+  await git(workspace, 'checkout', '--quiet', '-b', 'f005-context-fixture', preMigrationFixtureCommit);
   await git(workspace, 'config', 'user.name', 'F005 Context Test');
   await git(workspace, 'config', 'user.email', 'f005-context@example.invalid');
   return workspace;

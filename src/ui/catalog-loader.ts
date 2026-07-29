@@ -597,7 +597,13 @@ function parseCatalogV2(value: unknown): UICatalogV2 {
     v2Record(work.source);
     if (v2AozoraUrl(work.source.cardUrl, authorId, workId, 'card') !== cardLink) failV2('CATALOG_PATH_UNSAFE');
     v2AozoraUrl(work.source.textUrl, authorId, workId, 'text');
-    for (const field of ['attribution', 'baseEdition', 'inputter', 'proofreader', 'transformation'] as const) v2String(work.source[field]);
+    for (const field of ['attribution', 'baseEdition', 'inputter', 'transformation'] as const) v2String(work.source[field]);
+    // @des DES-F005-003 @des DES-F005-007 @fun FUN-F005-024
+    if (batchId === 'F005' && workId === '000799') {
+      if (work.source.proofreader !== null) failV2('CATALOG_ORPHAN_REFERENCE');
+    } else {
+      v2String(work.source.proofreader);
+    }
     v2Instant(work.source.fetchedAt);
     v2Hash(work.source.sourceSha256);
     v2Path(work.source.provenancePath);

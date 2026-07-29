@@ -135,7 +135,7 @@ export interface CreditsCatalog {
       attribution: string;
       baseEdition: string;
       inputter: string;
-      proofreader: string;
+      proofreader: string | null;
       fetchedAt: string;
       transformation: string;
     };

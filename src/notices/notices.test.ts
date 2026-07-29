@@ -578,6 +578,88 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
       link.protocol === 'https:' && link.target === '_blank' && link.rel === 'noopener noreferrer')).toBe(true);
   });
 
+  /** @des DES-F005-003 @des DES-F005-010 @fun FUN-F005-024 @fun FUN-F005-032 */
+  it('夢十夜のnullable校正者を実creditsへ「校正者: 記載なし」のtext nodeで描画する', () => {
+    const catalog: UICatalogV2 = {
+      ...catalogV2Fixture(),
+      authors: [{
+        authorId: '000148',
+        name: 'なつめそうせき',
+        originalName: '夏目漱石',
+        slug: 'natsume-soseki',
+        artwork: {
+          path: 'artwork/natsume-zundamon.png',
+          alt: '夏目漱石をイメージしたずんだもん',
+          sha256: '7'.repeat(64),
+        },
+        introducedByBatchId: 'F005',
+        identitySha256: '8'.repeat(64),
+      }],
+      works: [{
+        workId: '000799',
+        authorId: '000148',
+        batchId: 'F005',
+        title: '夢十夜',
+        cardLink: 'https://www.aozora.gr.jp/cards/000148/card799.html',
+        source: {
+          cardUrl: 'https://www.aozora.gr.jp/cards/000148/card799.html',
+          textUrl: 'https://www.aozora.gr.jp/cards/000148/files/799_14972.html',
+          attribution: '青空文庫',
+          baseEdition: '底本',
+          inputter: '入力者',
+          proofreader: null,
+          fetchedAt: CHECKED_AT,
+          transformation: '台詞抽出・構造化',
+          sourceSha256: '6'.repeat(64),
+          provenancePath: 'content/provenance/F005/000799.json',
+          provenanceSha256: '5'.repeat(64),
+        },
+        dialogues: [],
+      }],
+      audioAssets: [],
+      batches: [{
+        batchId: 'F005',
+        feature: 'F005',
+        status: 'accepted',
+        authorId: '000148',
+        workIds: ['000799'],
+        acceptedAt: CHECKED_AT,
+        evidenceSha256: '4'.repeat(64),
+      }],
+      candidateCounts: {
+        total: 0,
+        published: 0,
+        editorialExcluded: 0,
+        audioExcluded: 0,
+        byBatch: {
+          F005: { total: 0, published: 0, editorialExcluded: 0, audioExcluded: 0 },
+        },
+      },
+    };
+    const bundle = validatedBundle();
+    const page = renderCreditsV2(catalog, {
+      ...bundle,
+      artworks: [{
+        authorId: '000148',
+        batchId: 'F005',
+        manifestId: 'artwork-F005-001',
+        provenanceRef: 'content/artwork-provenance/F005.json',
+        provenanceSha256: '3'.repeat(64),
+        output: {
+          path: 'artwork/natsume-zundamon.png',
+          sha256: '7'.repeat(64),
+        },
+        credit: '独自生成画像',
+      }],
+    });
+    const sourceItem = page.querySelector('section:nth-of-type(2) li');
+    expect(sourceItem?.textContent).toContain('校正者: 記載なし');
+    expect(sourceItem?.childNodes).toHaveLength(1);
+    expect(sourceItem?.firstChild?.nodeName).toBe('A');
+    expect(sourceItem?.querySelector('a')?.childNodes).toHaveLength(1);
+    expect(sourceItem?.querySelector('a')?.firstChild?.nodeType).toBe(document.TEXT_NODE);
+  });
+
   it('作品noticeをクレジット配置へ固定文言で描画する', () => {
     const catalog = catalogV2Fixture();
     catalog.works[0]!.completionStatus = 'unfinished';

@@ -17,7 +17,7 @@ export interface DisplayCatalogSource {
   readonly attribution: string;
   readonly baseEdition: string;
   readonly inputter: string;
-  readonly proofreader: string;
+  readonly proofreader: string | null;
   readonly fetchedAt: string;
   readonly transformation: string;
   readonly sourceSha256: string;
@@ -43,6 +43,11 @@ export type UICatalogV2 = Omit<CatalogV2, 'authors' | 'works'> & {
 };
 
 export type DialogueCard = HTMLElement;
+
+/** @des DES-F005-003 @des DES-F005-010 @fun FUN-F005-024 */
+export function formatDisplayProofreader(value: string | null): string {
+  return value === null ? '記載なし' : value;
+}
 
 export interface LazyLoadPlan {
   readonly strategy: 'intersection-observer' | 'immediate-text';
