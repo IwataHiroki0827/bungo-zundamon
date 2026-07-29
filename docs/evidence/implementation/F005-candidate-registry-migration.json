@@ -1,0 +1,20 @@
+{
+  "createdAt": "2026-07-29T11:54:25+09:00",
+  "expectedOldRegistrySha256": "7af12bb0226e7347584a97bd34c5b6d2311475d8aacc44bdbb2e87269785724d",
+  "f005CandidateSha256": "e508077d28a39bf807ba5e8aac8f25bfd356ca26d9db6938024174c0c12378ab",
+  "implementationCommit": "ffdb47f08e5969bccb6d275f5bcb61052c7e7c77",
+  "integratedRegistrySha256": "f36eb7fcc735dad6fa33e429fa88828d9075d6ee23c0c9e1aed0dcc1c21fc607",
+  "priorCandidateProjectionSha256": [
+    {
+      "feature": "F003",
+      "sha256": "3999d39bcd917d0ae9cee605b5e5abd5f8f18301d7996eca8bd82280f7a0c922"
+    },
+    {
+      "feature": "F004",
+      "sha256": "a137198ff873309a0dc2af0f0cdf28fb415bc5b0563a1a3c002d7569f1bb5739"
+    }
+  ],
+  "requirementApprovalSnapshot": "18e3fa50edfe5214480a65ed2e840fe49a663ee2",
+  "schemaVersion": 1,
+  "sealSha256": "7dfc003f0e84f4a6d4380c842647ab105b2b6af6fc45778b9e6702e0e5581634"
+}
