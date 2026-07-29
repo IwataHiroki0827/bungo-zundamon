@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; process generations require exact sequence identity.
+# Source bytes are LF-pinned; startup transport failures retain a fixed stage.
 on:
   push:
     branches:

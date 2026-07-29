@@ -28,8 +28,14 @@ const mintedNativeBackends = new WeakSet<object>();
 
 export type F005NativeCapacityErrorCode =
   | 'F005_NATIVE_GUARD_INVALID'
+  | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_ETW_PRIVILEGE_REQUIRED'
   | 'F005_CAPACITY_IPC_FAILED'
+  | 'F005_CAPACITY_IPC_CONNECT_FAILED'
+  | 'F005_CAPACITY_REGISTER_SELF_FAILED'
+  | 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_ARM_FAILED'
+  | 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_WRITE_FAILED'
+  | 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_VERIFY_FAILED'
   | 'F005_CAPACITY_GUARD_REJECTED'
   | 'F005_CAPACITY_ETW_OBSERVATION_FAILED'
   | 'F005_CAPACITY_NOTICE_UNMATCHED'
@@ -595,10 +601,19 @@ export async function startF005NativeCapacitySession(
     return fail('F005_NATIVE_GUARD_INVALID', 'native guard binary pinが一致しません');
   }
 
-  const guard = new NativeGuardProcess(executable, options.workspace);
+  let guard: NativeGuardProcess | undefined;
   let pipe: NativePipeClient | undefined;
+  let startupStage:
+    | 'guard-channel'
+    | 'pipe-connect'
+    | 'register-self'
+    | 'probe-arm'
+    | 'probe-write'
+    | 'probe-verify' = 'guard-channel';
   try {
-    const hello = await guard.channel.command({ op: 'hello' });
+    guard = new NativeGuardProcess(executable, options.workspace);
+    const activeGuard = guard;
+    const hello = await activeGuard.channel.command({ op: 'hello' });
     if (!hello.ok ||
       hello.abi !== F005_NATIVE_GUARD_PINS.abi ||
       hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
@@ -606,7 +621,7 @@ export async function startF005NativeCapacitySession(
       hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion) {
       return fail('F005_NATIVE_GUARD_INVALID', 'native guard ABI/toolchainが一致しません');
     }
-    const preflight = await guard.channel.command({ op: 'capacity-preflight' });
+    const preflight = await activeGuard.channel.command({ op: 'capacity-preflight' });
     if (!preflight.ok) {
       const nativeCode = typeof preflight.error === 'string' ? preflight.error : 'ETW_PREFLIGHT_FAILED';
       return fail(
@@ -616,7 +631,7 @@ export async function startF005NativeCapacitySession(
         `ETW preflightが${nativeCode}で停止しました`,
       );
     }
-    const started = await guard.channel.command({
+    const started = await activeGuard.channel.command({
       op: 'capacity-start',
       root: options.workspace,
       journalRelativePath: journalPath,
@@ -637,7 +652,9 @@ export async function startF005NativeCapacitySession(
         `native capacity sessionが${nativeCode}で停止しました`,
       );
     }
+    startupStage = 'pipe-connect';
     pipe = await NativePipeClient.connect(started.pipeName, started.authToken, sessionNonce);
+    startupStage = 'register-self';
     const registered = await pipe.command({ op: 'registerSelf' });
     const processIdentityProbePath = `.cache/f005-capacity/${journalId}.probe`;
     if (registered.pid !== process.pid ||
@@ -647,6 +664,7 @@ export async function startF005NativeCapacitySession(
     }
     const absoluteProcessIdentityProbePath =
       join(options.workspace, ...processIdentityProbePath.split('/'));
+    startupStage = 'probe-arm';
     const armedProbe = await pipe.command({
       op: 'armProcessIdentityProbe',
       path: processIdentityProbePath,
@@ -655,11 +673,13 @@ export async function startF005NativeCapacitySession(
       return fail('F005_CAPACITY_IPC_FAILED', 'ETW process identity probeを開始できません');
     }
     try {
+      startupStage = 'probe-write';
       await writeFile(
         absoluteProcessIdentityProbePath,
         randomBytes(32),
         { flag: 'wx' },
       );
+      startupStage = 'probe-verify';
       const verifiedProbe = await pipe.command({
         op: 'verifyProcessIdentityProbe',
         path: processIdentityProbePath,
@@ -843,7 +863,7 @@ export async function startF005NativeCapacitySession(
       }
       closed = true;
       pipe?.close();
-      await guard.close();
+      await activeGuard.close();
       return Object.freeze({
         journalId,
         journalPath,
@@ -855,7 +875,7 @@ export async function startF005NativeCapacitySession(
       if (closed) return;
       closed = true;
       pipe?.close();
-      guard.terminate();
+      activeGuard.terminate();
     };
     return Object.freeze({
       journalId,
@@ -882,7 +902,17 @@ export async function startF005NativeCapacitySession(
     const failure = error instanceof F005NativeCapacityError
       ? error
       : new F005NativeCapacityError(
-          'F005_CAPACITY_IPC_FAILED',
+          startupStage === 'guard-channel'
+            ? 'F005_NATIVE_GUARD_CHANNEL_FAILED'
+            : startupStage === 'pipe-connect'
+              ? 'F005_CAPACITY_IPC_CONNECT_FAILED'
+              : startupStage === 'register-self'
+                ? 'F005_CAPACITY_REGISTER_SELF_FAILED'
+                : startupStage === 'probe-arm'
+                  ? 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_ARM_FAILED'
+                  : startupStage === 'probe-write'
+                    ? 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_WRITE_FAILED'
+                    : 'F005_CAPACITY_PROCESS_IDENTITY_PROBE_VERIFY_FAILED',
           'native capacity sessionの開始に失敗しました',
           { cause: error },
         );
@@ -892,7 +922,7 @@ export async function startF005NativeCapacitySession(
       // 診断出力失敗でもcleanupと元の固定codeを優先する。
     }
     pipe?.close();
-    guard.terminate();
+    guard?.terminate();
     throw failure;
   }
 }

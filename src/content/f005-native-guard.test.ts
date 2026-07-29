@@ -197,7 +197,13 @@ it('startup失敗の固定codeをflushしてからkill-on-close guardを停止�
   );
   expect(failurePath).toContain('await options.onStartupFailure?.(failure.code)');
   expect(failurePath.indexOf('await options.onStartupFailure?.(failure.code)'))
-    .toBeLessThan(failurePath.indexOf('guard.terminate()'));
+    .toBeLessThan(failurePath.indexOf('guard?.terminate()'));
+  expect(failurePath).toContain("startupStage === 'pipe-connect'");
+  expect(failurePath).toContain("'F005_CAPACITY_IPC_CONNECT_FAILED'");
+  expect(failurePath).toContain("'F005_CAPACITY_REGISTER_SELF_FAILED'");
+  expect(failurePath).toContain("'F005_CAPACITY_PROCESS_IDENTITY_PROBE_ARM_FAILED'");
+  expect(failurePath).toContain("'F005_CAPACITY_PROCESS_IDENTITY_PROBE_WRITE_FAILED'");
+  expect(failurePath).toContain("'F005_CAPACITY_PROCESS_IDENTITY_PROBE_VERIFY_FAILED'");
 });
 
 describe('F005 native ETW capacity guard', () => {
