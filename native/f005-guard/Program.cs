@@ -1467,7 +1467,7 @@ sealed class CapacityGuardSession : IDisposable
         EnsureWithinRoot(root, absolute);
         using var handle = CreateFileW(
             absolute,
-            0x80000000,
+            0,
             0x00000001 | 0x00000002 | 0x00000004,
             IntPtr.Zero,
             3,

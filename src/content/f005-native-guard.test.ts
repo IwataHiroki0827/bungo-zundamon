@@ -358,6 +358,7 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('GetFinalPathNameByHandleW(');
     expect(source).toContain('FileFlagOpenReparsePoint');
     expect(source).toContain('ShareRead | ShareWrite');
+    expect(source).toMatch(/CreateFileW\(\s*absolute,\s*0,\s*0x00000001 \| 0x00000002 \| 0x00000004/u);
     expect(source).toContain('FlushFileBuffers(heldDirectories[^1])');
   });
 });
