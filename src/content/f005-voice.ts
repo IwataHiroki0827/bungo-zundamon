@@ -51,6 +51,9 @@ export type F005VoiceErrorCode =
   | 'F005_CANDIDATE_UNSAFE'
   | 'F005_VOICE_PLAN_INVALID'
   | 'F005_VOICE_GENERATION_INVALID'
+  | 'F005_VOICE_NATIVE_BEGIN_FAILED'
+  | 'F005_VOICE_NATIVE_OBSERVE_FAILED'
+  | 'F005_VOICE_NATIVE_END_FAILED'
   | 'F005_CAPACITY_ACTUAL_INVALID';
 
 export class F005VoiceError extends Error {
@@ -398,8 +401,24 @@ export function createF005CapacityRecorder(
     typeof backend.endPhase !== 'function') {
     fail('F005_VOICE_GENERATION_INVALID', 'capacity recorder identity/backendが不正です');
   }
+  const beginPhase = async (
+    phase: 'voice',
+    workId: string | null,
+    phaseInstanceId: string,
+  ): Promise<void> => {
+    try {
+      await backend.beginPhase(phase, workId, phaseInstanceId);
+    } catch (error) {
+      return fail('F005_VOICE_NATIVE_BEGIN_FAILED', 'native voice phaseを開始できません', error);
+    }
+  };
   const observeMutation = async (notice: F005MutationNotice): Promise<void> => {
-    const observation = await backend.observeMutation(notice);
+    let observation: F005MutationObservation;
+    try {
+      observation = await backend.observeMutation(notice);
+    } catch (error) {
+      return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native voice mutationを照合できません', error);
+    }
     assertDataObject(observation, 'F005_VOICE_GENERATION_INVALID', 'native ETW observation');
     assertExactKeys(observation, ['noticeId', 'sessionNonce', 'sequence', 'workerPid', 'matchedEtw'],
       'F005_VOICE_GENERATION_INVALID', 'native ETW observation');
@@ -409,12 +428,19 @@ export function createF005CapacityRecorder(
       fail('F005_VOICE_GENERATION_INVALID', 'noticeに対応する認証済みETW観測がありません');
     }
   };
+  const endPhase = async (phase: 'voice', phaseInstanceId: string): Promise<void> => {
+    try {
+      await backend.endPhase(phase, phaseInstanceId);
+    } catch (error) {
+      return fail('F005_VOICE_NATIVE_END_FAILED', 'native voice phaseを終了できません', error);
+    }
+  };
   const recorder = freezeDeep({
     __brand: 'F005CapacityRecorder' as const,
     ...identity,
-    beginPhase: backend.beginPhase.bind(backend),
+    beginPhase,
     observeMutation,
-    endPhase: backend.endPhase.bind(backend),
+    endPhase,
   });
   capacityRecorders.add(recorder);
   return recorder;

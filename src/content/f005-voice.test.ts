@@ -15,6 +15,7 @@ import {
   sealF005CapacityJournal,
   validateF005CandidateSafety,
   type F005CapacityJournalEvent,
+  type F005CapacityRecorderBackend,
   type F005ClosedCapacityJournal,
   type F005LoopbackEngine,
 } from './f005-voice.ts';
@@ -250,7 +251,52 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       observeMutation: async () => { throw new Error('ETW match missing'); },
     });
     await expect(generateF005Voice(basePlan, engine(wav(1)), join(parent, 'lost'), lostRecorder, '000799'))
-      .rejects.toMatchObject({ code: 'F005_VOICE_GENERATION_INVALID' });
+      .rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_OBSERVE_FAILED' });
+  });
+
+  it('native recorderのbegin/observe/end失敗を固定境界codeへ分類する', async () => {
+    const parent = await mkdtemp(join(tmpdir(), 'f005-voice-native-boundary-'));
+    temporaryDirectories.push(parent);
+    const plan = planF005VoiceDiff([speech('境界分類')], F002_VOICE_CONFIG, { entries: [] });
+    const createRecorder = (
+      label: string,
+      overrides: Partial<F005CapacityRecorderBackend>,
+    ) => {
+      const nonce = H(`${label}-nonce`);
+      return createF005CapacityRecorder({
+        journalId: H(`${label}-journal`),
+        owner: 'worker',
+        sessionNonce: nonce,
+        workerPid: process.pid,
+      }, { ...recorderBackend(nonce), ...overrides });
+    };
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      join(parent, 'begin'),
+      createRecorder('begin', {
+        beginPhase: async () => { throw new Error('native begin detail'); },
+      }),
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_BEGIN_FAILED' });
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      join(parent, 'observe'),
+      createRecorder('observe', {
+        observeMutation: async () => { throw new Error('native observe detail'); },
+      }),
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_OBSERVE_FAILED' });
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      join(parent, 'end'),
+      createRecorder('end', {
+        endPhase: async () => { throw new Error('native end detail'); },
+      }),
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_END_FAILED' });
   });
 
   it('120000 ms/5760044 bytesを許し、1 ms超過を拒否する', async () => {

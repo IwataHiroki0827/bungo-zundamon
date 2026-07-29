@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; engine and runner share one bounded try/finally step.
+# Source bytes are LF-pinned; native voice boundaries precede bounded Job abort.
 on:
   push:
     branches:
