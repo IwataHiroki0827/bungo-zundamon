@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
@@ -61,10 +62,15 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$drive.Free -lt 5GB');
     expect(scripts).toContain("Remove-Item -LiteralPath $archive");
     expect(scripts).toContain("'127.0.0.1'");
-    expect(scripts).toContain('--work 000799');
+    expect(scripts).toMatch(/'--work',\s*'000799'/u);
     expect(scripts).toContain('git ls-remote --heads origin');
     expect(scripts).not.toContain('git ls-remote --exit-code');
     expect(scripts).toContain("F005_RESULT_JSON=");
+    expect(scripts).toContain('F005_RUNNER_STDERR_BASE64');
+    expect(scripts).toContain('$limit = 65536');
+    expect(scripts).toContain('$runnerProcess = Start-Process');
+    expect(scripts).toContain('$runnerProcess.ExitCode');
+    expect(scripts).not.toContain('$raw = & node');
     expect(scripts).toContain('$resultLines.Count -ne 1');
     expect(scripts).toContain("git diff --exit-code -- public");
     expect(scripts).toContain('candidate/f005-t070-$env:GITHUB_SHA');
@@ -74,4 +80,30 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(raw).not.toMatch(/\bdeploy-pages\b|\bpages:\s*write\b|\bid-token:\s*write\b/u);
     expect(raw).not.toMatch(/\bworkflow_dispatch\b|\bschedule:\b|\bsecrets:\b/u);
   });
+
+  it.runIf(process.platform === 'win32')(
+    'ErrorActionPreference StopでもStart-Processからnative非0終了値を回収する',
+    () => {
+      const script = [
+        "$ErrorActionPreference = 'Stop'",
+        "$stdoutPath = [IO.Path]::GetTempFileName()",
+        "$stderrPath = [IO.Path]::GetTempFileName()",
+        'try {',
+        "  $payload = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes('exit 7'))",
+        '  $process = Start-Process -FilePath (Get-Command pwsh).Source `',
+        "    -ArgumentList @('-NoProfile', '-NonInteractive', '-EncodedCommand', $payload) `",
+        '    -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath `',
+        '    -Wait -PassThru',
+        "  if ($process.ExitCode -ne 7) { throw \"unexpected exit: $($process.ExitCode)\" }",
+        '} finally {',
+        '  Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue',
+        '}',
+      ].join('\n');
+      expect(() => execFileSync(
+        'pwsh',
+        ['-NoProfile', '-NonInteractive', '-Command', script],
+        { stdio: 'pipe' },
+      )).not.toThrow();
+    },
+  );
 });

@@ -152,15 +152,54 @@ jobs:
           NO_PROXY: 127.0.0.1,localhost
         run: |
           $ErrorActionPreference = 'Stop'
-          $resultPath = Join-Path $PWD '.cache\f005-hosted-production-result.json'
-          $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
-          $raw = & node --experimental-transform-types scripts/f005-run-work.ts `
-            --work 000799 2> $stderrPath
-          if ($LASTEXITCODE -ne 0) {
-            throw "F005 production runner failed: $LASTEXITCODE"
+          function Write-BoundedBase64Diagnostic(
+            [string] $Name,
+            [string] $Value
+          ) {
+            $limit = 65536
+            if ($Value.Length -gt $limit) {
+              $Value = $Value.Substring($Value.Length - $limit)
+            }
+            $encoded = [Convert]::ToBase64String(
+              [Text.Encoding]::UTF8.GetBytes($Value)
+            )
+            Write-Host "$Name=$encoded"
           }
-          $raw | Set-Content -LiteralPath `
-            '.cache\f005-hosted-production.stdout.log' -Encoding utf8
+          $resultPath = Join-Path $PWD '.cache\f005-hosted-production-result.json'
+          $stdoutPath = Join-Path $PWD '.cache\f005-hosted-production.stdout.log'
+          $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
+          $runnerProcess = Start-Process `
+            -FilePath (Get-Command node).Source `
+            -ArgumentList @(
+              '--experimental-transform-types',
+              'scripts/f005-run-work.ts',
+              '--work',
+              '000799'
+            ) `
+            -WorkingDirectory $PWD `
+            -NoNewWindow `
+            -RedirectStandardOutput $stdoutPath `
+            -RedirectStandardError $stderrPath `
+            -Wait `
+            -PassThru
+          $runnerExitCode = $runnerProcess.ExitCode
+          $raw = if (Test-Path -LiteralPath $stdoutPath) {
+            @(Get-Content -LiteralPath $stdoutPath)
+          } else {
+            @()
+          }
+          if ($runnerExitCode -ne 0) {
+            $stderr = if (Test-Path -LiteralPath $stderrPath) {
+              Get-Content -LiteralPath $stderrPath -Raw
+            } else {
+              ''
+            }
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDERR_BASE64' $stderr
+            throw "F005 production runner failed: $runnerExitCode"
+          }
           $prefix = 'F005_RESULT_JSON='
           $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
           if ($resultLines.Count -ne 1) {
