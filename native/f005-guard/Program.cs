@@ -877,6 +877,8 @@ sealed class CapacityGuardSession : IDisposable
     private long noticeSequence;
     private long peakLiveBytes;
     private long minimumObservedFreeBytes;
+    private int? rootWorkerPid;
+    private Process? rootWorkerProcess;
     private string? failureCode;
     private ActivePhase? activePhase;
     private bool etwStopped;
@@ -1133,6 +1135,13 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     await writer.WriteLineAsync(JsonSerializer.Serialize(reply)).ConfigureAwait(false);
                 }
+                if (!cancellation.IsCancellationRequested)
+                {
+                    lock (gate)
+                    {
+                        if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED");
+                    }
+                }
             }
             catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
             {
@@ -1215,8 +1224,14 @@ sealed class CapacityGuardSession : IDisposable
         if (failureCode is not null) throw new GuardException(failureCode);
         if (registeredPids.Count != 0 || registeredPids.Contains(pid))
             throw new GuardException("ROOT_PID_REPLAY");
-        job.Assign(pid);
-        if (!job.Contains(pid)) throw new GuardException("JOB_ASSIGNMENT_FAILED");
+        var process = job.Assign(pid);
+        if (!job.Contains(process))
+        {
+            process.Dispose();
+            throw new GuardException("JOB_ASSIGNMENT_FAILED");
+        }
+        rootWorkerPid = pid;
+        rootWorkerProcess = process;
         registeredPids.Add(pid);
         PersistJournal(closed: false);
         return new { ok = true, pid, jobIdentity = JobIdentity };
@@ -1242,7 +1257,7 @@ sealed class CapacityGuardSession : IDisposable
     {
         if (failureCode is not null) throw new GuardException(failureCode);
         if (activePhase is null) throw new GuardException("PHASE_NOT_ACTIVE");
-        if (!registeredPids.Contains(clientPid) || !job.Contains(clientPid))
+        if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
             throw new GuardException("NOTICE_PID_NOT_REGISTERED");
         var noticeId = PipeSha256(rootElement, "noticeId");
         if (notices.Any(item => item.NoticeId == noticeId)) throw new GuardException("NOTICE_REPLAY");
@@ -1367,11 +1382,15 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
             if (deferredRenames.Count != 0)
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
+            if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
+                throw new GuardException("ROOT_PID_NOT_RUNNING");
             AssertRegisteredProcessesContained();
         }
         StopEtw();
         lock (gate)
         {
+            if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
+                throw new GuardException("ROOT_PID_NOT_RUNNING");
             if (etwSession.EventsLost != 0) throw new GuardException("ETW_BUFFER_LOSS");
             if (failureCode is not null) throw new GuardException(failureCode);
             if (observations.Count == 0) throw new GuardException("ETW_OBSERVATION_MISSING");
@@ -1707,12 +1726,19 @@ sealed class CapacityGuardSession : IDisposable
 
     private bool AuthorizeJobMemberLocked(int pid)
     {
+        if (rootWorkerPid == pid) return RootWorkerAliveLocked(pid);
         if (!job.Contains(pid)) return false;
         // Job handleはguardだけが保持し、breakawayを許可しない。root workerの子孫は
         // CreateProcess時点から同じJobへ自動加入するため、最初のETW eventで認可する。
         registeredPids.Add(pid);
         return true;
     }
+
+    private bool RootWorkerAliveLocked(int pid) =>
+        rootWorkerPid == pid &&
+        rootWorkerProcess is not null &&
+        !rootWorkerProcess.HasExited &&
+        job.Contains(rootWorkerProcess);
 
     private void AssertRegisteredProcessesContained()
     {
@@ -1827,6 +1853,7 @@ sealed class CapacityGuardSession : IDisposable
         try { pipeTask.Wait(TimeSpan.FromSeconds(5)); } catch { }
         etwSource.Dispose();
         etwSession.Dispose();
+        rootWorkerProcess?.Dispose();
         job.Dispose();
         cancellation.Dispose();
     }
@@ -2304,13 +2331,27 @@ sealed class JobObject : IDisposable
         return new JobObject(handle);
     }
 
-    public void Assign(int pid)
+    public Process Assign(int pid)
     {
-        using var process = Process.GetProcessById(pid);
-        if (process.HasExited) throw new GuardException("PID_NOT_RUNNING");
-        if (!AssignProcessToJobObject(handle, process.Handle))
-            throw new GuardException($"JOB_ASSIGNMENT_FAILED_{Marshal.GetLastWin32Error()}");
+        var process = Process.GetProcessById(pid);
+        try
+        {
+            if (process.HasExited) throw new GuardException("PID_NOT_RUNNING");
+            if (!AssignProcessToJobObject(handle, process.Handle))
+                throw new GuardException($"JOB_ASSIGNMENT_FAILED_{Marshal.GetLastWin32Error()}");
+            return process;
+        }
+        catch
+        {
+            process.Dispose();
+            throw;
+        }
     }
+
+    public bool Contains(Process process) =>
+        !process.HasExited &&
+        IsProcessInJob(process.Handle, handle, out var result) &&
+        result;
 
     public bool Contains(int pid)
     {

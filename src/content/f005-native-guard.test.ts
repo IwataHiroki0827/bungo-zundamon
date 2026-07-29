@@ -365,6 +365,14 @@ describe('F005 native ETW capacity guard', () => {
   it('rootだけを明示Job登録し、子workerはbreakaway禁止Job継承でETW認可する', async () => {
     const source = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     expect(source).toContain('case "registerSelf":');
+    expect(source).toContain('rootWorkerPid = pid');
+    expect(source).toContain('rootWorkerProcess = process');
+    expect(source).toContain('if (rootWorkerPid == pid) return RootWorkerAliveLocked(pid)');
+    expect(source).toContain('if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))');
+    expect(source).toContain('if (!journalClosed) PoisonLocked("IPC_PEER_DISCONNECTED")');
+    expect(source).toContain('job.Contains(rootWorkerProcess)');
+    expect(source).toContain('rootWorkerProcess?.Dispose()');
+    expect(source.match(/ROOT_PID_NOT_RUNNING/gu)).toHaveLength(2);
     expect(source).not.toContain('case "registerPid":');
     expect(source).toContain('AuthorizeJobMemberLocked(data.ProcessID)');
     expect(source).toContain('AuthorizeJobMemberLocked(pid)');
