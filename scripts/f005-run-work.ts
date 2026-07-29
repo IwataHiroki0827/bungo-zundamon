@@ -269,7 +269,7 @@ export function verifyF005RunnerCandidateBinding(
 }
 
 export function formatF005RunnerResult(value: Readonly<Record<string, unknown>>): string {
-  return `${F005_RUNNER_RESULT_PREFIX}${JSON.stringify(value)}\n`;
+  return `\n${F005_RUNNER_RESULT_PREFIX}${JSON.stringify(value)}\n`;
 }
 
 export async function runOfflineBuild(

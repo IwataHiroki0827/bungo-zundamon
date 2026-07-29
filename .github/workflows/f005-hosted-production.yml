@@ -266,12 +266,12 @@ jobs:
           } else {
             @()
           }
+          $stderr = if (Test-Path -LiteralPath $stderrPath) {
+            Get-Content -LiteralPath $stderrPath -Raw
+          } else {
+            ''
+          }
           if ($runnerExitCode -ne 0) {
-            $stderr = if (Test-Path -LiteralPath $stderrPath) {
-              Get-Content -LiteralPath $stderrPath -Raw
-            } else {
-              ''
-            }
             Write-BoundedBase64Diagnostic `
               'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
             Write-BoundedBase64Diagnostic `
@@ -281,11 +281,19 @@ jobs:
           $prefix = 'F005_RESULT_JSON='
           $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
           if ($resultLines.Count -ne 1) {
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDERR_BASE64' $stderr
             throw "F005 production runner result marker count is $($resultLines.Count)"
           }
           $result = $resultLines[0].Substring($prefix.Length) | ConvertFrom-Json
           if ($result.ok -ne $true -or $result.workId -ne '000799' -or
             $result.status -ne 'accepted') {
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
+            Write-BoundedBase64Diagnostic `
+              'F005_RUNNER_STDERR_BASE64' $stderr
             throw 'F005 production runner result is not accepted'
           }
           $json = ($result | ConvertTo-Json -Depth 20) + "`n"

@@ -171,14 +171,15 @@ describe('F005 production work runner', () => {
       status: 'accepted',
       journalId: H('journal'),
     });
-    expect(line.split('\n')).toHaveLength(2);
-    expect(line.startsWith(F005_RUNNER_RESULT_PREFIX)).toBe(true);
-    expect(JSON.parse(line.slice(F005_RUNNER_RESULT_PREFIX.length))).toMatchObject({
+    expect(line.split('\n')).toHaveLength(3);
+    expect(line.startsWith(`\n${F005_RUNNER_RESULT_PREFIX}`)).toBe(true);
+    const markerLine = line.split('\n')[1]!;
+    expect(JSON.parse(markerLine.slice(F005_RUNNER_RESULT_PREFIX.length))).toMatchObject({
       ok: true,
       workId: '000799',
       status: 'accepted',
     });
-    const mixed = `vite build output\n${line}`;
+    const mixed = `vite build output without trailing newline${line}`;
     const resultLines = mixed.split(/\r?\n/u)
       .filter((entry) => entry.startsWith(F005_RUNNER_RESULT_PREFIX));
     expect(resultLines).toHaveLength(1);
