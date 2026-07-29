@@ -71,6 +71,11 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$runnerProcess = Start-Process');
     expect(scripts).toContain('$runnerProcess.ExitCode');
     expect(scripts).not.toContain('$raw = & node');
+    expect(job.steps.map((step) => step.name)).toContain('Verify prepared source remains clean');
+    expect(scripts).toContain('F005_PREFLIGHT_STATUS_BASE64');
+    expect(scripts).toMatch(/'status',\s*'--porcelain=v1',\s*'--untracked-files=all'/u);
+    expect(scripts).toContain('function Invoke-CapturedGit');
+    expect(scripts).toContain('$process.ExitCode -ne 0');
     expect(scripts).toContain('$resultLines.Count -ne 1');
     expect(scripts).toContain("git diff --exit-code -- public");
     expect(scripts).toContain('candidate/f005-t070-$env:GITHUB_SHA');
@@ -94,7 +99,13 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
         "    -ArgumentList @('-NoProfile', '-NonInteractive', '-EncodedCommand', $payload) `",
         '    -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath `',
         '    -Wait -PassThru',
-        "  if ($process.ExitCode -ne 7) { throw \"unexpected exit: $($process.ExitCode)\" }",
+        '  $stopped = $false',
+        '  try {',
+        "    if ($process.ExitCode -ne 0) { throw \"captured nonzero: $($process.ExitCode)\" }",
+        '  } catch {',
+        '    $stopped = $true',
+        '  }',
+        "  if (-not $stopped) { throw 'native nonzero was not stopped' }",
         '} finally {',
         '  Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue',
         '}',

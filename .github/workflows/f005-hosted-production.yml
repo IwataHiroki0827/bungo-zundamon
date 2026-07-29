@@ -70,6 +70,51 @@ jobs:
         shell: pwsh
         run: pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1
 
+      - name: Verify prepared source remains clean
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Invoke-CapturedGit([string[]] $Arguments) {
+            $stdoutPath = [IO.Path]::GetTempFileName()
+            $stderrPath = [IO.Path]::GetTempFileName()
+            try {
+              $process = Start-Process `
+                -FilePath (Get-Command git).Source `
+                -ArgumentList $Arguments `
+                -WorkingDirectory $PWD `
+                -NoNewWindow `
+                -RedirectStandardOutput $stdoutPath `
+                -RedirectStandardError $stderrPath `
+                -Wait `
+                -PassThru
+              $stdout = Get-Content -LiteralPath $stdoutPath -Raw
+              if ($process.ExitCode -ne 0) {
+                throw "Git preflight command failed: $($process.ExitCode)"
+              }
+              return $stdout
+            } finally {
+              Remove-Item -LiteralPath $stdoutPath, $stderrPath `
+                -Force -ErrorAction SilentlyContinue
+            }
+          }
+          $head = (Invoke-CapturedGit @('rev-parse', 'HEAD')).Trim()
+          $symbolic = (Invoke-CapturedGit @('symbolic-ref', '-q', 'HEAD')).Trim()
+          $statusRaw = Invoke-CapturedGit @(
+            'status',
+            '--porcelain=v1',
+            '--untracked-files=all'
+          )
+          $status = @($statusRaw -split '\r?\n' | Where-Object { $_ })
+          if ($head -ne $env:GITHUB_SHA -or
+            -not $symbolic.StartsWith('refs/heads/') -or
+            $status.Count -ne 0) {
+            $encodedStatus = [Convert]::ToBase64String(
+              [Text.Encoding]::UTF8.GetBytes($status -join "`n")
+            )
+            Write-Host "F005_PREFLIGHT_STATUS_BASE64=$encodedStatus"
+            throw 'prepared source is not a clean branch at GITHUB_SHA'
+          }
+
       - name: Download and verify fixed VOICEVOX ENGINE
         id: engine
         shell: pwsh
