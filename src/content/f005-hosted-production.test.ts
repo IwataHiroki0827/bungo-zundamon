@@ -98,7 +98,11 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain("F005_RESULT_JSON=");
     expect(scripts).toContain('F005_RUNNER_STDERR_BASE64');
     expect(scripts).toContain('function Write-SafeFailureAnnotation');
-    expect(scripts).toContain('::error title=F005 production diagnostic::');
+    expect(scripts).toContain(
+      '::error file=.github/workflows/f005-hosted-production.yml,',
+    );
+    expect(scripts).toContain('title=F005 production diagnostic::');
+    expect(scripts).toContain('$env:GITHUB_STEP_SUMMARY');
     expect(scripts).toContain(
       "'^F005_(?:PROGRESS|VOICE_PROGRESS)=[a-z0-9-]+$'",
     );

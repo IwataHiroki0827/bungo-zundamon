@@ -275,7 +275,15 @@ jobs:
             }
             $annotation = ($summary -join ' ').Replace('%', '%25').
               Replace("`r", '%0D').Replace("`n", '%0A')
-            Write-Host "::error title=F005 production diagnostic::$annotation"
+            Write-Host (
+              '::error file=.github/workflows/f005-hosted-production.yml,' +
+              "line=1,col=1,title=F005 production diagnostic::$annotation"
+            )
+            if ($env:GITHUB_STEP_SUMMARY) {
+              Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value (
+                "### F005 production diagnostic`n`n$annotation"
+              )
+            }
           }
           $runPath = '${{ steps.engine.outputs.run_path }}'
           $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
