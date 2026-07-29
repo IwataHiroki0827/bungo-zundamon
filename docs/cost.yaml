@@ -484,3 +484,10 @@ entries:
   agents: 4
   est_tokens: 46000
   note: F005候補、固定v0.4.0 baseline、Git全object容量inventory、3規約原文評価、entity正規化、固定SHAのWindows native handle guardを実装。registry三段階migration、全62 files 1053 tests、修正後重点5 files 131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASS
+- date: '2026-07-29'
+  phase: implement
+  task: T-069 nullable書誌・夏目Catalog・独自画像・route・お気に入り統合
+  model: GPT-5
+  agents: 4
+  est_tokens: 40000
+  note: F005夢十夜だけのproofreader null、UI/creditsの「記載なし」、mint済みfinal Catalog、入力画像0件の夏目独自画像とcanonical provenance、exact 7 route、通常入口全閉・お気に入りone-shot遷移を実装。全65 files 1105 tests、重点310 tests、697 files build、audit 0、独立受入High/Medium/Low 0をPASSしpublic差分0

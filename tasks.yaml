@@ -176,7 +176,7 @@ tasks:
   title: nullable書誌・夏目Catalog・独自画像・route・お気に入り統合を実装
   feature: F005
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-067
   tags:
@@ -192,11 +192,13 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  completed_at: '2026-07-29T12:59:43+09:00'
+  result: proofreader nullをF005夢十夜だけに限定してUI/creditsへ「記載なし」で統合。mint済みCatalog/画像来歴、夏目画像、7 route、お気に入りone-shot遷移を実装し、全65 files 1105 tests、重点310 tests、型・lint・697 files build・audit 0、独立受入High/Medium/Low 0をPASS。public差分0
 - id: T-070
   title: 夢十夜の全候補レビュー・差分音声・作品単位atomic受入
   feature: F005
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-068
   - T-069
