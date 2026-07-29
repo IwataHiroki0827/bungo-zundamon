@@ -1,9 +1,13 @@
+import { execFile, execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
+import { createServer, type Socket } from 'node:net';
 import { resolve } from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { promisify } from 'node:util';
 
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
+
+const execFileAsync = promisify(execFile);
 
 interface HostedWorkflow {
   readonly on: {
@@ -39,6 +43,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const actions = job.steps.flatMap((step) => step.uses ? [step.uses] : []);
     const checkout = job.steps.find((step) => step.uses?.startsWith('actions/checkout@'));
     const persist = job.steps.find((step) => step.name === 'Validate and persist isolated candidate');
+    const production = job.steps.find((step) => step.name === 'Run T-070 production pipeline');
 
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -81,6 +86,17 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$runnerProcess = Start-Process');
     expect(scripts).toContain('$runnerProcess.ExitCode');
     expect(scripts).not.toContain('$raw = & node');
+    expect(job.steps.map((step) => step.name)).not.toContain('Start fixed loopback VOICEVOX ENGINE');
+    expect(job.steps.map((step) => step.name)).not.toContain('Stop VOICEVOX ENGINE');
+    expect(production?.run).toContain('$engineProcess = Start-Process');
+    expect(production?.run?.indexOf('$engineProcess = Start-Process')).toBeLessThan(
+      production?.run?.indexOf('$runnerProcess = Start-Process') ?? -1,
+    );
+    expect(production?.run).toContain('} finally {');
+    expect(production?.run).toContain('Stop-Process -Id $engineProcess.Id');
+    expect(production?.run).toContain('[Diagnostics.Stopwatch]::StartNew()');
+    expect(production?.run).toContain('-ConnectionTimeoutSeconds 2');
+    expect(production?.run).toContain('-OperationTimeoutSeconds 2');
     expect(job.steps.map((step) => step.name)).toContain('Verify prepared source remains clean');
     expect(scripts).toContain('F005_PREFLIGHT_STATUS_BASE64');
     expect(scripts).toMatch(/'status',\s*'--porcelain=v1',\s*'--untracked-files=all'/u);
@@ -95,6 +111,60 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(raw).not.toMatch(/\bdeploy-pages\b|\bpages:\s*write\b|\bid-token:\s*write\b/u);
     expect(raw).not.toMatch(/\bworkflow_dispatch\b|\bschedule:\b|\bsecrets:\b/u);
   });
+
+  it.runIf(process.platform === 'win32')(
+    '応答停止したprobeもdeadline後にfinallyでengine processを停止する',
+    async () => {
+      const sockets = new Set<Socket>();
+      const server = createServer((socket) => {
+        sockets.add(socket);
+        socket.once('close', () => sockets.delete(socket));
+      });
+      await new Promise<void>((resolveListen) => server.listen(0, '127.0.0.1', resolveListen));
+      try {
+        const address = server.address();
+        if (address === null || typeof address === 'string') {
+          throw new Error('stall server address missing');
+        }
+        const sleeperPayload = Buffer.from('Start-Sleep -Seconds 30', 'utf16le').toString('base64');
+        const script = [
+          "$ErrorActionPreference = 'Stop'",
+          `$engineProcess = Start-Process -FilePath (Get-Command pwsh).Source -ArgumentList @('-NoProfile', '-NonInteractive', '-EncodedCommand', '${sleeperPayload}') -WindowStyle Hidden -PassThru`,
+          '$probeDeadlineSeconds = 3',
+          '$probeTimer = [Diagnostics.Stopwatch]::StartNew()',
+          'try {',
+          '  while ($probeTimer.Elapsed.TotalSeconds -lt $probeDeadlineSeconds) {',
+          '    try {',
+          `      Invoke-RestMethod -Uri 'http://127.0.0.1:${String(address.port)}/version' -ConnectionTimeoutSeconds 1 -OperationTimeoutSeconds 1 | Out-Null`,
+          '      break',
+          '    } catch {',
+          '      if ($probeTimer.Elapsed.TotalSeconds -lt $probeDeadlineSeconds) {',
+          '        Start-Sleep -Milliseconds 100',
+          '      }',
+          '    }',
+          '  }',
+          '} finally {',
+          '  if (-not $engineProcess.HasExited) {',
+          '    Stop-Process -Id $engineProcess.Id -Force',
+          '  }',
+          '}',
+          'if (-not $engineProcess.WaitForExit(5000)) { exit 9 }',
+        ].join('\n');
+        const payload = Buffer.from(script, 'utf16le').toString('base64');
+        const startedAt = Date.now();
+        await execFileAsync(
+          'pwsh',
+          ['-NoProfile', '-NonInteractive', '-EncodedCommand', payload],
+          { timeout: 10_000, windowsHide: true },
+        );
+        expect(Date.now() - startedAt).toBeLessThan(8_000);
+      } finally {
+        for (const socket of sockets) socket.destroy();
+        await new Promise<void>((resolveClose) => server.close(() => resolveClose()));
+      }
+    },
+    15_000,
+  );
 
   it.runIf(process.platform === 'win32')(
     'ErrorActionPreference StopでもStart-Processからnative非0終了値を回収する',

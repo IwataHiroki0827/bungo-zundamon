@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; bounded node:http loopback precedes bounded native Job abort.
+# Source bytes are LF-pinned; engine and runner share one bounded try/finally step.
 on:
   push:
     branches:
@@ -190,38 +190,6 @@ jobs:
           "run_path=$($executables[0].FullName)" >> $env:GITHUB_OUTPUT
           "asset_sha256=$actualSha256" >> $env:GITHUB_OUTPUT
 
-      - name: Start fixed loopback VOICEVOX ENGINE
-        id: start-engine
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Stop'
-          $runPath = '${{ steps.engine.outputs.run_path }}'
-          $logRoot = Join-Path $PWD '.cache\voicevox-hosted'
-          $engineProcess = Start-Process `
-            -FilePath $runPath `
-            -ArgumentList '--host', '127.0.0.1', '--port', '50021' `
-            -WorkingDirectory (Split-Path -Parent $runPath) `
-            -WindowStyle Hidden `
-            -RedirectStandardOutput (Join-Path $logRoot 'engine.stdout.log') `
-            -RedirectStandardError (Join-Path $logRoot 'engine.stderr.log') `
-            -PassThru
-          "engine_pid=$($engineProcess.Id)" >> $env:GITHUB_OUTPUT
-          $version = $null
-          for ($attempt = 0; $attempt -lt 120; $attempt += 1) {
-            if ($engineProcess.HasExited) {
-              throw "VOICEVOX ENGINE exited early: $($engineProcess.ExitCode)"
-            }
-            try {
-              $version = Invoke-RestMethod -Uri 'http://127.0.0.1:50021/version'
-              break
-            } catch {
-              Start-Sleep -Seconds 1
-            }
-          }
-          if ($version -ne '0.25.2') {
-            throw "VOICEVOX ENGINE version mismatch: $version"
-          }
-
       - name: Run T-070 production pipeline
         id: production
         shell: pwsh
@@ -246,6 +214,40 @@ jobs:
           $resultPath = Join-Path $PWD '.cache\f005-hosted-production-result.json'
           $stdoutPath = Join-Path $PWD '.cache\f005-hosted-production.stdout.log'
           $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
+          $runPath = '${{ steps.engine.outputs.run_path }}'
+          $logRoot = Join-Path $PWD '.cache\voicevox-hosted'
+          $engineProcess = $null
+          try {
+          $engineProcess = Start-Process `
+            -FilePath $runPath `
+            -ArgumentList '--host', '127.0.0.1', '--port', '50021' `
+            -WorkingDirectory (Split-Path -Parent $runPath) `
+            -WindowStyle Hidden `
+            -RedirectStandardOutput (Join-Path $logRoot 'engine.stdout.log') `
+            -RedirectStandardError (Join-Path $logRoot 'engine.stderr.log') `
+            -PassThru
+          $version = $null
+          $probeDeadlineSeconds = 120
+          $probeTimer = [Diagnostics.Stopwatch]::StartNew()
+          while ($probeTimer.Elapsed.TotalSeconds -lt $probeDeadlineSeconds) {
+            if ($engineProcess.HasExited) {
+              throw "VOICEVOX ENGINE exited early: $($engineProcess.ExitCode)"
+            }
+            try {
+              $version = Invoke-RestMethod `
+                -Uri 'http://127.0.0.1:50021/version' `
+                -ConnectionTimeoutSeconds 2 `
+                -OperationTimeoutSeconds 2
+              break
+            } catch {
+              if ($probeTimer.Elapsed.TotalSeconds -lt $probeDeadlineSeconds) {
+                Start-Sleep -Seconds 1
+              }
+            }
+          }
+          if ($version -ne '0.25.2') {
+            throw "VOICEVOX ENGINE version mismatch: $version"
+          }
           $runnerProcess = Start-Process `
             -FilePath (Get-Command node).Source `
             -ArgumentList @(
@@ -302,14 +304,10 @@ jobs:
             $json.Replace("`r`n", "`n"),
             [Text.UTF8Encoding]::new($false)
           )
-
-      - name: Stop VOICEVOX ENGINE
-        if: always()
-        shell: pwsh
-        run: |
-          $enginePid = '${{ steps.start-engine.outputs.engine_pid }}'
-          if ($enginePid -match '^[1-9][0-9]*$') {
-            Stop-Process -Id ([int]$enginePid) -Force -ErrorAction SilentlyContinue
+          } finally {
+            if ($null -ne $engineProcess -and -not $engineProcess.HasExited) {
+              Stop-Process -Id $engineProcess.Id -Force -ErrorAction SilentlyContinue
+            }
           }
 
       - name: Validate and persist isolated candidate
