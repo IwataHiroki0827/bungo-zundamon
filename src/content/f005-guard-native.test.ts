@@ -114,6 +114,26 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT")');
   });
 
+  it('保持済みroot process handleの生存確認は例外化し得るHasExitedを再照会しない', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const rootAlive = program.slice(
+      program.indexOf('private bool RootWorkerAliveLocked('),
+      program.indexOf('private void AssertRegisteredProcessesContained('),
+    );
+    const jobContains = program.slice(
+      program.indexOf('public bool Contains(Process process)'),
+      program.indexOf('public IReadOnlyList<int> MemberPids()'),
+    );
+    expect(rootAlive).not.toContain('HasExited');
+    expect(jobContains).not.toContain('HasExited');
+    expect(jobContains).toContain('IsAlive(process)');
+    expect(program).toContain('WaitForSingleObject(process.Handle, 0) == WaitTimeout');
+    expect(program).toContain('registeredWorkerProcesses.Add(pid, process)');
+    expect(program).toContain('job.IsAliveOutsideJob(process)');
+    expect(program).toContain('if (waitResult != WaitTimeout) return true');
+    expect(program).not.toContain('private static bool ProcessExists(');
+  });
+
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
   it('SDK/runtime固定build evidenceを実sourceと70MiB self-contained binaryで検証する', async () => {
     const [evidenceRaw, program, project, globalJson, binary] = await Promise.all([

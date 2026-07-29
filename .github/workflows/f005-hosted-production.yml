@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; ETW pre-identity failures use fixed safe stages.
+# Source bytes are LF-pinned; retained root/child handle liveness uses a nonthrowing wait.
 on:
   push:
     branches:

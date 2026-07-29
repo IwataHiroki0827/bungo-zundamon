@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
@@ -866,6 +867,7 @@ sealed class CapacityGuardSession : IDisposable
     private readonly Thread etwThread;
     private readonly Task pipeTask;
     private readonly HashSet<int> registeredPids = [];
+    private readonly Dictionary<int, Process> registeredWorkerProcesses = [];
     private readonly Dictionary<ulong, FileSnapshot> filesByObject = [];
     private readonly Dictionary<string, FileSnapshot> filesByPath = new(StringComparer.Ordinal);
     private readonly Dictionary<string, long> allocatedByIdentity = new(StringComparer.Ordinal);
@@ -1864,9 +1866,13 @@ sealed class CapacityGuardSession : IDisposable
     private bool AuthorizeJobMemberLocked(int pid)
     {
         if (rootWorkerPid == pid) return RootWorkerAliveLocked(pid);
-        if (!job.Contains(pid)) return false;
+        if (registeredWorkerProcesses.TryGetValue(pid, out var retained))
+            return job.Contains(retained);
+        var process = job.OpenContainedProcess(pid);
+        if (process is null) return false;
         // Job handleはguardだけが保持し、breakawayを許可しない。root workerの子孫は
         // CreateProcess時点から同じJobへ自動加入するため、最初のETW eventで認可する。
+        registeredWorkerProcesses.Add(pid, process);
         registeredPids.Add(pid);
         return true;
     }
@@ -1874,15 +1880,20 @@ sealed class CapacityGuardSession : IDisposable
     private bool RootWorkerAliveLocked(int pid) =>
         rootWorkerPid == pid &&
         rootWorkerProcess is not null &&
-        !rootWorkerProcess.HasExited &&
         job.Contains(rootWorkerProcess);
 
     private void AssertRegisteredProcessesContained()
     {
-        foreach (var pid in job.MemberPids()) registeredPids.Add(pid);
-        foreach (var pid in registeredPids)
+        foreach (var pid in job.MemberPids())
         {
-            if (ProcessExists(pid) && !job.Contains(pid))
+            registeredPids.Add(pid);
+            if (pid == rootWorkerPid || registeredWorkerProcesses.ContainsKey(pid)) continue;
+            var process = job.OpenContainedProcess(pid);
+            if (process is not null) registeredWorkerProcesses.Add(pid, process);
+        }
+        foreach (var process in registeredWorkerProcesses.Values)
+        {
+            if (job.IsAliveOutsideJob(process))
                 throw new GuardException("JOB_PROCESS_ESCAPE");
         }
     }
@@ -1990,6 +2001,7 @@ sealed class CapacityGuardSession : IDisposable
         try { pipeTask.Wait(TimeSpan.FromSeconds(5)); } catch { }
         etwSource.Dispose();
         etwSession.Dispose();
+        foreach (var process in registeredWorkerProcesses.Values) process.Dispose();
         rootWorkerProcess?.Dispose();
         job.Dispose();
         cancellation.Dispose();
@@ -2087,19 +2099,6 @@ sealed class CapacityGuardSession : IDisposable
     private static long ReadFreeBytes(string root) =>
         new DriveInfo(Path.GetPathRoot(root) ?? throw new GuardException("ROOT_INVALID"))
             .AvailableFreeSpace;
-
-    private static bool ProcessExists(int pid)
-    {
-        try
-        {
-            using var process = Process.GetProcessById(pid);
-            return !process.HasExited;
-        }
-        catch (ArgumentException)
-        {
-            return false;
-        }
-    }
 
     private static string CanonicalJson(object value)
     {
@@ -2435,6 +2434,7 @@ sealed class CapacityGuardSession : IDisposable
 sealed class JobObject : IDisposable
 {
     private const uint JobObjectLimitKillOnJobClose = 0x00002000;
+    private const uint WaitTimeout = 0x00000102;
     private const int JobObjectBasicProcessIdListClass = 3;
     private const int JobObjectExtendedLimitInformationClass = 9;
     private const int ErrorMoreData = 234;
@@ -2478,7 +2478,7 @@ sealed class JobObject : IDisposable
         var process = Process.GetProcessById(pid);
         try
         {
-            if (process.HasExited) throw new GuardException("PID_NOT_RUNNING");
+            if (!IsAlive(process)) throw new GuardException("PID_NOT_RUNNING");
             if (!AssignProcessToJobObject(handle, process.Handle))
                 throw new GuardException($"JOB_ASSIGNMENT_FAILED_{Marshal.GetLastWin32Error()}");
             return process;
@@ -2491,23 +2491,35 @@ sealed class JobObject : IDisposable
     }
 
     public bool Contains(Process process) =>
-        !process.HasExited &&
+        IsAlive(process) &&
         IsProcessInJob(process.Handle, handle, out var result) &&
         result;
 
-    public bool Contains(int pid)
+    public Process? OpenContainedProcess(int pid)
     {
+        Process? process = null;
         try
         {
-            using var process = Process.GetProcessById(pid);
-            return !process.HasExited &&
-                IsProcessInJob(process.Handle, handle, out var result) &&
-                result;
+            process = Process.GetProcessById(pid);
+            if (Contains(process)) return process;
+            process.Dispose();
+            return null;
         }
-        catch (ArgumentException)
+        catch (Exception error) when (error is
+            ArgumentException or InvalidOperationException or Win32Exception)
         {
-            return false;
+            process?.Dispose();
+            return null;
         }
+    }
+
+    public bool IsAliveOutsideJob(Process process)
+    {
+        var processHandle = process.Handle;
+        var waitResult = WaitForSingleObject(processHandle, 0);
+        if (waitResult == 0) return false;
+        if (waitResult != WaitTimeout) return true;
+        return !IsProcessInJob(processHandle, handle, out var result) || !result;
     }
 
     public IReadOnlyList<int> MemberPids()
@@ -2559,6 +2571,9 @@ sealed class JobObject : IDisposable
     }
 
     public void Dispose() => handle.Dispose();
+
+    private static bool IsAlive(Process process) =>
+        WaitForSingleObject(process.Handle, 0) == WaitTimeout;
 
     private void SetLimits(uint limitFlags)
     {
@@ -2648,6 +2663,9 @@ sealed class JobObject : IDisposable
         IntPtr process,
         SafeJobHandle job,
         [MarshalAs(UnmanagedType.Bool)] out bool result);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern uint WaitForSingleObject(IntPtr handle, uint milliseconds);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
