@@ -67,6 +67,11 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('$drive.Free -lt 10GB');
     expect(scripts).toContain('$drive.Free -lt 5GB');
     expect(scripts).toContain("Remove-Item -LiteralPath $archive");
+    expect(scripts).toContain('[IO.Path]::GetFullPath($env:RUNNER_TEMP)');
+    expect(scripts).not.toContain("Join-Path $PWD '.cache\\voicevox-hosted'");
+    expect(scripts).toContain('VOICEVOX cache must stay outside the guarded workspace');
+    expect(production?.env?.F005_ENGINE_CACHE_ROOT)
+      .toBe('${{ steps.engine.outputs.cache_root }}');
     expect(scripts).toContain('native build evidence semantic drift');
     expect(scripts).toContain('F005_NATIVE_EVIDENCE_DRIFT_FIELDS_BASE64');
     expect(scripts).toContain('[IO.File]::WriteAllBytes($evidencePath, $expectedBytes)');

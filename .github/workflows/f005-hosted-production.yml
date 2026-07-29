@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; fixed native reply classes precede bounded Job abort.
+# Source bytes are LF-pinned; untrusted engine I/O stays outside the guarded workspace.
 on:
   push:
     branches:
@@ -159,10 +159,23 @@ jobs:
             "https://github.com/VOICEVOX/voicevox_engine/releases/download/0.25.2/$assetName"
           $expectedSha256 =
             '2ab86e4bf29448e3317ee97327efb3211c4ecc1063b03a62ab72b15a92ec531d'
-          $cacheRoot = Join-Path $PWD '.cache\voicevox-hosted'
+          $workspaceRoot = [IO.Path]::GetFullPath($PWD.Path).TrimEnd('\')
+          $cacheRoot = [IO.Path]::GetFullPath((
+            Join-Path ([IO.Path]::GetFullPath($env:RUNNER_TEMP)) `
+              'f005-voicevox-hosted'
+          )).TrimEnd('\')
+          if ($cacheRoot.Equals(
+            $workspaceRoot,
+            [StringComparison]::OrdinalIgnoreCase
+          ) -or $cacheRoot.StartsWith(
+            "$workspaceRoot\",
+            [StringComparison]::OrdinalIgnoreCase
+          )) {
+            throw 'VOICEVOX cache must stay outside the guarded workspace'
+          }
           $archive = Join-Path $cacheRoot $assetName
           $engineRoot = Join-Path $cacheRoot 'engine'
-          $driveName = [IO.Path]::GetPathRoot($PWD.Path).TrimEnd('\').TrimEnd(':')
+          $driveName = [IO.Path]::GetPathRoot($cacheRoot).TrimEnd('\').TrimEnd(':')
           $drive = Get-PSDrive -Name $driveName
           if ($drive.Free -lt 10GB) {
             throw "VOICEVOX取得前の空き容量が10GiB未満です: $($drive.Free)"
@@ -189,6 +202,7 @@ jobs:
           }
           "run_path=$($executables[0].FullName)" >> $env:GITHUB_OUTPUT
           "asset_sha256=$actualSha256" >> $env:GITHUB_OUTPUT
+          "cache_root=$cacheRoot" >> $env:GITHUB_OUTPUT
 
       - name: Run T-070 production pipeline
         id: production
@@ -196,6 +210,7 @@ jobs:
         env:
           VOICEVOX_URL: http://127.0.0.1:50021/
           NO_PROXY: 127.0.0.1,localhost
+          F005_ENGINE_CACHE_ROOT: ${{ steps.engine.outputs.cache_root }}
         run: |
           $ErrorActionPreference = 'Stop'
           function Write-BoundedBase64Diagnostic(
@@ -215,7 +230,7 @@ jobs:
           $stdoutPath = Join-Path $PWD '.cache\f005-hosted-production.stdout.log'
           $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
           $runPath = '${{ steps.engine.outputs.run_path }}'
-          $logRoot = Join-Path $PWD '.cache\voicevox-hosted'
+          $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
           $engineProcess = $null
           try {
           $engineProcess = Start-Process `
