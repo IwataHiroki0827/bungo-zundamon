@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; Job authorization requires boot-unique ProcessStartKey.
+# Source bytes are LF-pinned; startup diagnostics precede kill-on-close cleanup.
 on:
   push:
     branches:
