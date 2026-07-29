@@ -1,9 +1,10 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { link, mkdir, mkdtemp, readFile, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
+import { setTimeout as delay } from 'node:timers/promises';
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -33,8 +34,8 @@ class GuardClient {
   private readonly process: ChildProcessWithoutNullStreams;
   private readonly replies: Array<(value: GuardReply) => void> = [];
 
-  constructor() {
-    this.process = spawn(GUARD_EXE, [], {
+  constructor(args: readonly string[] = []) {
+    this.process = spawn(GUARD_EXE, args, {
       cwd: PROJECT_ROOT,
       windowsHide: true,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -61,6 +62,15 @@ class GuardClient {
       this.process.once('exit', (code) => code === 0 ? resolveExit() : reject(new Error(`guard exit ${code}`)));
       this.process.once('error', reject);
     });
+  }
+
+  async killAndWait(): Promise<void> {
+    const exited = new Promise<void>((resolveExit, reject) => {
+      this.process.once('exit', () => resolveExit());
+      this.process.once('error', reject);
+    });
+    if (!this.process.kill()) throw new Error('guard kill failed');
+    await exited;
   }
 }
 
@@ -176,6 +186,16 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('if (!processIdentityProbed)');
     expect(program).not.toContain('EnableKernelProvider(\n                KernelTraceEventParser.Keywords.FileIO');
     expect(program).not.toContain('private static bool ProcessExists(');
+    expect(program).toContain('var producerPid = PipePositiveInt(rootElement, "producerPid")');
+    expect(program).toContain('using var producerProcess = job.OpenContainedProcess(producerPid)');
+    expect(program).toContain('job.ProcessIdentity(producerProcess).ProcessSequenceNumber');
+    expect(program).toContain('item.WorkerPid == producerPid');
+    expect(program).toContain('item.ProducerSequenceNumber == producerSequenceNumber');
+    expect(program).toContain('ProducerSequenceNumber == observation.ProducerSequenceNumber');
+    const bridge = await readFile(resolve('src/content/f005-native-guard.ts'), 'utf8');
+    expect(bridge).toContain('producerPid: notice.producerPid');
+    expect(bridge).toContain('const producerPid = Number(hello.processId)');
+    expect(bridge).toContain('Number(hello.processId) !== writer.process.pid');
   });
 
   it('capacity-start応答前にnamed pipe instanceを同期生成する', async () => {
@@ -212,6 +232,21 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(authorize(generationB, 1_500, 102n)).toBe(false);
     expect(authorize(generationB, 2_500, 102n)).toBe(true);
     expect(authorize(undefined, 2_500, 102n)).toBe(false);
+
+    const noticeMatches = (
+      notice: { pid: number; sequenceNumber: bigint },
+      observation: { pid: number; sequenceNumber: bigint },
+    ): boolean =>
+      notice.pid === observation.pid &&
+      notice.sequenceNumber === observation.sequenceNumber;
+    expect(noticeMatches(
+      { pid: 1234, sequenceNumber: generationA.sequenceNumber },
+      { pid: 1234, sequenceNumber: generationA.sequenceNumber },
+    )).toBe(true);
+    expect(noticeMatches(
+      { pid: 1234, sequenceNumber: generationB.sequenceNumber },
+      { pid: 1234, sequenceNumber: generationA.sequenceNumber },
+    )).toBe(false);
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
@@ -249,6 +284,200 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       runtimeVersion: '9.0.18',
     });
     await client.close();
+  });
+
+  /** @des DES-F005-006 @fun FUN-F005-017 @test UT-F005-047 */
+  it('Job継承helperがWAVをwrite-throughし、衝突とhash不一致をfail-closedにする', async () => {
+    const root = await temporaryRoot('f005-native-write-through-');
+    await mkdir(join(root, 'stage'));
+    const body = Buffer.from('f005-write-through');
+    const digest = createHash('sha256').update(body).digest('hex');
+    const oneShot = async (): Promise<GuardClient> => {
+      const client = new GuardClient(['--write-through-once']);
+      await expect(client.command({ op: 'hello' }))
+        .resolves.toMatchObject({ ok: true, abi: 'f005-guard-jsonl-v1' });
+      return client;
+    };
+    const ordinary = new GuardClient();
+    await expect(ordinary.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/forbidden.wav',
+      expectedSha256: digest,
+      bodyBase64: body.toString('base64'),
+    })).resolves.toMatchObject({ ok: false, error: 'OPERATION_INVALID' });
+    await ordinary.close();
+
+    const uninitialized = new GuardClient(['--write-through-once']);
+    await expect(uninitialized.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/uninitialized.wav',
+      expectedSha256: digest,
+      bodyBase64: body.toString('base64'),
+    })).resolves.toMatchObject({ ok: false, error: 'WRITE_THROUGH_HELLO_REQUIRED' });
+    await uninitialized.close();
+
+    const restricted = await oneShot();
+    await expect(restricted.command({
+      op: 'open',
+      capabilityId: 'forbidden',
+      root,
+      relativePath: 'stage/voice.wav',
+    })).resolves.toMatchObject({ ok: false, error: 'OPERATION_INVALID' });
+    await restricted.close();
+
+    const committed = await oneShot();
+    await expect(committed.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/voice.wav',
+      expectedSha256: digest,
+      bodyBase64: body.toString('base64'),
+    })).resolves.toMatchObject({
+      ok: true,
+      bytes: body.byteLength,
+      relativePath: 'stage/voice.wav',
+      sha256: digest,
+      nativeIdentity: expect.stringMatching(/^[0-9a-f]{8}:[0-9a-f]{16}$/u),
+      durability: 'file-flag-write-through-flush-file-buffers-delete-on-close',
+    });
+    await expect(readFile(join(root, 'stage', 'voice.wav'))).resolves.toEqual(body);
+    await expect(rename(
+      join(root, 'stage', 'voice.wav'),
+      join(root, 'stage', 'before-commit.wav'),
+    )).rejects.toBeDefined();
+    await expect(committed.command({
+      op: 'write-commit',
+      relativePath: 'stage/voice.wav',
+      expectedSha256: digest,
+    })).resolves.toMatchObject({ ok: false, error: 'WRITE_THROUGH_RENAME_REQUIRED' });
+    await expect(committed.command({
+      op: 'write-rename',
+      relativePath: 'stage/voice.wav',
+      relativeTarget: 'stage/voice-final.wav',
+      expectedSha256: digest,
+    })).resolves.toMatchObject({
+      ok: true,
+      state: 'renamed',
+      relativePath: 'stage/voice-final.wav',
+      sha256: digest,
+    });
+    await expect(committed.command({
+      op: 'write-rename',
+      relativePath: 'stage/voice-final.wav',
+      relativeTarget: 'stage/voice-second.wav',
+      expectedSha256: digest,
+    })).resolves.toMatchObject({ ok: false, error: 'WRITE_THROUGH_RENAME_ALREADY_USED' });
+    await expect(committed.command({
+      op: 'write-commit',
+      relativePath: 'stage/voice-final.wav',
+      expectedSha256: digest,
+    })).resolves.toMatchObject({ ok: true, state: 'committed' });
+    await committed.close();
+    await expect(readFile(join(root, 'stage', 'voice-final.wav'))).resolves.toEqual(body);
+
+    const collisionClient = await oneShot();
+    const collision = await collisionClient.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/voice-final.wav',
+      expectedSha256: digest,
+      bodyBase64: body.toString('base64'),
+    });
+    expect(collision.ok).toBe(false);
+    expect(collision.error).toMatch(/^WRITE_THROUGH_OPEN_FAILED_/u);
+    await collisionClient.close();
+    await expect(readFile(join(root, 'stage', 'voice-final.wav'))).resolves.toEqual(body);
+
+    const invalidHash = await oneShot();
+    await expect(invalidHash.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/bad.wav',
+      expectedSha256: '0'.repeat(64),
+      bodyBase64: body.toString('base64'),
+    })).resolves.toMatchObject({
+      ok: false,
+      error: 'WRITE_THROUGH_HASH_MISMATCH',
+    });
+    await invalidHash.close();
+    await expect(readFile(join(root, 'stage', 'bad.wav'))).rejects.toBeDefined();
+
+    const boundaryBody = Buffer.alloc(5_760_044, 0x5a);
+    const boundaryDigest = createHash('sha256').update(boundaryBody).digest('hex');
+    const boundary = await oneShot();
+    await expect(boundary.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/boundary.wav',
+      expectedSha256: boundaryDigest,
+      bodyBase64: boundaryBody.toString('base64'),
+    })).resolves.toMatchObject({
+      ok: true,
+      bytes: boundaryBody.byteLength,
+      sha256: boundaryDigest,
+    });
+    await expect(boundary.command({ op: 'write-abort' }))
+      .resolves.toMatchObject({ ok: true, state: 'aborted' });
+    await boundary.close();
+    await expect(readFile(join(root, 'stage', 'boundary.wav'))).rejects.toBeDefined();
+
+    const disconnected = await oneShot();
+    await expect(disconnected.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/disconnected.wav',
+      expectedSha256: digest,
+      bodyBase64: body.toString('base64'),
+    })).resolves.toMatchObject({ ok: true, sha256: digest });
+    await expect(disconnected.command({
+      op: 'write-rename',
+      relativePath: 'stage/disconnected.wav',
+      relativeTarget: 'stage/disconnected-final.wav',
+      expectedSha256: digest,
+    })).resolves.toMatchObject({ ok: true, state: 'renamed' });
+    await disconnected.close();
+    await expect(readFile(join(root, 'stage', 'disconnected.wav'))).rejects.toBeDefined();
+    await expect(readFile(join(root, 'stage', 'disconnected-final.wav'))).rejects.toBeDefined();
+
+    const killed = await oneShot();
+    const killBody = Buffer.alloc(5_760_044, 0x6b);
+    const killDigest = createHash('sha256').update(killBody).digest('hex');
+    void killed.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/killed-before-reply.wav',
+      expectedSha256: killDigest,
+      bodyBase64: killBody.toString('base64'),
+    });
+    const killPath = join(root, 'stage', 'killed-before-reply.wav');
+    for (let attempt = 0; attempt < 2_000; attempt += 1) {
+      try {
+        await stat(killPath);
+        break;
+      } catch {
+        if (attempt === 1_999) throw new Error('write-through create was not observed');
+        await delay(1);
+      }
+    }
+    await killed.killAndWait();
+    await expect(readFile(killPath)).rejects.toBeDefined();
+
+    const overBody = Buffer.alloc(5_760_045, 0x5a);
+    const over = await oneShot();
+    await expect(over.command({
+      op: 'write-through',
+      root,
+      relativePath: 'stage/over.wav',
+      expectedSha256: createHash('sha256').update(overBody).digest('hex'),
+      bodyBase64: overBody.toString('base64'),
+    })).resolves.toMatchObject({
+      ok: false,
+      error: 'WRITE_THROUGH_BODY_INVALID',
+    });
+    await over.close();
+    await expect(readFile(join(root, 'stage', 'over.wav'))).rejects.toBeDefined();
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */

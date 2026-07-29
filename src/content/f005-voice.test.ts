@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -87,13 +87,37 @@ function engine(bytes: Uint8Array): F005LoopbackEngine {
 function recorderBackend(sessionNonce: string, calls?: string[]) {
   return {
     beginPhase: async () => { calls?.push('begin'); },
-    observeMutation: async (notice: { noticeId: string; sequence: number; kind: string }) => {
+    writeTemporary: async (path: string, bytes: Uint8Array, sha256: string) => {
+      expect(H(bytes)).toBe(sha256);
+      await writeFile(path, bytes, { flag: 'wx' });
+      let currentPath = path;
+      return {
+        producerPid: process.pid,
+        nativeIdentity: '00000001:0000000000000001' as const,
+        rename: async (targetPath: string) => {
+          calls?.push('write-rename');
+          await rename(currentPath, targetPath);
+          currentPath = targetPath;
+        },
+        commit: async () => { calls?.push('write-commit'); },
+        abort: async () => {
+          calls?.push('write-abort');
+          await rm(currentPath, { force: true });
+        },
+      };
+    },
+    observeMutation: async (notice: {
+      noticeId: string;
+      sequence: number;
+      kind: string;
+      producerPid: number;
+    }) => {
       calls?.push(notice.kind);
       return {
         noticeId: notice.noticeId,
         sessionNonce,
         sequence: notice.sequence,
-        workerPid: process.pid,
+        workerPid: notice.producerPid,
         matchedEtw: true as const,
       };
     },
@@ -203,7 +227,15 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       120_000,
       (stageName) => progress.push(stageName),
     );
-    expect(calls).toEqual(['begin', 'create', 'create', 'rename', 'end']);
+    expect(calls).toEqual([
+      'begin',
+      'create',
+      'create',
+      'write-rename',
+      'rename',
+      'write-commit',
+      'end',
+    ]);
     expect(progress).toEqual([
       'engine-verified',
       'native-phase-begun',
@@ -221,17 +253,18 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
     expect(evidence.assets).toMatchObject([{ source: 'staging', durationMs: 1 }]);
     await expect(readFile(evidence.assets[0]!.path)).resolves.toHaveLength(92);
     const source = await readFile(join(process.cwd(), 'src/content/f005-voice.ts'), 'utf8');
-    const opened = source.indexOf("open(temporary, 'wx')");
-    const registered = source.indexOf('created.push(temporary)', opened);
-    const written = source.indexOf('temporaryHandle.writeFile(wav)', registered);
-    const synced = source.indexOf('temporaryHandle.sync()', written);
-    const closed = source.indexOf('temporaryHandle.close()', synced);
-    const noticed = source.indexOf("notice('create', temporary", closed);
-    const renamed = source.indexOf('rename(temporary, destination)', noticed);
-    expect([opened, registered, written, synced, closed, noticed, renamed])
-      .toEqual([...new Set([opened, registered, written, synced, closed, noticed, renamed])]
+    const written = source.indexOf('capacityRecorder.writeTemporary(temporary, wav, digest)');
+    const noticed = source.indexOf("await notice(\n          'create',\n          temporary", written);
+    const renamed = source.indexOf('temporaryWrite.rename(destination)', noticed);
+    const registered = source.indexOf('created.push(Object.freeze', renamed);
+    const renameNoticed = source.indexOf("await notice(\n          'rename'", registered);
+    const committed = source.indexOf('temporaryWrite.commit()', renameNoticed);
+    expect([written, noticed, renamed, registered, renameNoticed, committed])
+      .toEqual([...new Set([written, noticed, renamed, registered, renameNoticed, committed])]
         .sort((left, right) => left - right));
-    expect(opened).toBeGreaterThanOrEqual(0);
+    expect(written).toBeGreaterThanOrEqual(0);
+    expect(source).not.toContain('rm(root, { recursive: true');
+    expect(source).not.toContain('rename(temporary, destination)');
   });
 
   it('voice phaseを対象work IDへ結合し、nullや別workへ落とさない', async () => {
@@ -254,6 +287,38 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
     const plan = planF005VoiceDiff([speech('作品結合')], F002_VOICE_CONFIG, { entries: [] });
     await generateF005Voice(plan, engine(wav(1)), join(parent, 'stage'), recorder, '001076');
     expect(begun).toEqual([{ phase: 'voice', workId: '001076' }]);
+  });
+
+  it('temporaryのETW認証失敗時はcommitせずnative leaseをabortする', async () => {
+    const parent = await mkdtemp(join(tmpdir(), 'f005-voice-write-abort-'));
+    temporaryDirectories.push(parent);
+    const calls: string[] = [];
+    const nonce = H('write-abort-nonce');
+    const backend = recorderBackend(nonce, calls);
+    let observations = 0;
+    const recorder = createF005CapacityRecorder({
+      journalId: H('write-abort-journal'),
+      owner: 'worker',
+      sessionNonce: nonce,
+      workerPid: process.pid,
+    }, {
+      ...backend,
+      observeMutation: async (notice) => {
+        observations += 1;
+        if (observations === 2) throw new Error('temporary ETW match missing');
+        return backend.observeMutation(notice);
+      },
+    });
+    const plan = planF005VoiceDiff([speech('中断')], F002_VOICE_CONFIG, { entries: [] });
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      join(parent, 'stage'),
+      recorder,
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_OBSERVE_FAILED' });
+    expect(calls).toContain('write-abort');
+    expect(calls).not.toContain('write-commit');
   });
 
   it('clone plan、concurrency>1、engine差、非WAV、notice欠落をfail-closedにする', async () => {
@@ -315,6 +380,43 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       }),
       '000799',
     )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_BEGIN_FAILED' });
+    const writeFailureStage = join(parent, 'write-through');
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      writeFailureStage,
+      createRecorder('write-through', {
+        writeTemporary: async (path) => {
+          await writeFile(path, 'orphan-before-reply', { flag: 'wx' });
+          throw new Error('native write-through detail');
+        },
+      }),
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_OBSERVE_FAILED' });
+    await expect(stat(writeFailureStage)).resolves.toMatchObject({});
+    const untrustedOrphans = await readdir(writeFailureStage);
+    expect(untrustedOrphans).toHaveLength(1);
+    await expect(readFile(join(writeFailureStage, untrustedOrphans[0]!), 'utf8'))
+      .resolves.toBe('orphan-before-reply');
+    const replacementStage = join(parent, 'replacement-stage');
+    const movedOriginalStage = join(parent, 'replacement-stage-original');
+    await expect(generateF005Voice(
+      plan,
+      engine(wav(1)),
+      replacementStage,
+      createRecorder('replacement-stage', {
+        writeTemporary: async () => {
+          await rename(replacementStage, movedOriginalStage);
+          await mkdir(replacementStage);
+          await writeFile(join(replacementStage, 'replacement.txt'), 'preserve-me', { flag: 'wx' });
+          throw new Error('native helper terminated before reply');
+        },
+      }),
+      '000799',
+    )).rejects.toMatchObject({ code: 'F005_VOICE_NATIVE_OBSERVE_FAILED' });
+    await expect(readFile(join(replacementStage, 'replacement.txt'), 'utf8'))
+      .resolves.toBe('preserve-me');
+    await expect(stat(movedOriginalStage)).resolves.toMatchObject({});
     await expect(generateF005Voice(
       plan,
       engine(wav(1)),

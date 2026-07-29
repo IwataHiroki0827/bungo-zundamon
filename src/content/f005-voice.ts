@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, open, readFile, rename, rm, rmdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { basename, isAbsolute, join, relative, resolve } from 'node:path';
 
 import {
@@ -21,6 +21,11 @@ import {
   readF005NativeCapacityJournalFile,
   type CapacityJournalV3,
 } from './f005-native-guard.ts';
+import {
+  deleteSafeWorkspaceFile,
+  resolveSafeWorkspaceFile,
+  type F005NativeFileIdentity,
+} from './f005-source.ts';
 import { F002_VOICE_CONFIG } from '../voice/f003.ts';
 import {
   canonicalVoiceConfigV2,
@@ -353,6 +358,7 @@ export interface F005MutationNotice {
   readonly targetPath: string | null;
   readonly sha256: string | null;
   readonly bytes: number;
+  readonly producerPid: number;
 }
 
 export interface F005MutationObservation {
@@ -363,8 +369,21 @@ export interface F005MutationObservation {
   readonly matchedEtw: true;
 }
 
+export interface F005TemporaryWriteLease {
+  readonly producerPid: number;
+  readonly nativeIdentity: F005NativeFileIdentity;
+  rename(targetPath: string): Promise<void>;
+  commit(): Promise<void>;
+  abort(): Promise<void>;
+}
+
 export interface F005CapacityRecorderBackend {
   beginPhase(phase: 'voice', workId: string | null, phaseInstanceId: string): Promise<void>;
+  writeTemporary(
+    path: string,
+    bytes: Uint8Array,
+    sha256: string,
+  ): Promise<F005TemporaryWriteLease>;
   observeMutation(notice: F005MutationNotice): Promise<F005MutationObservation>;
   endPhase(phase: 'voice', phaseInstanceId: string): Promise<void>;
 }
@@ -376,6 +395,11 @@ export interface F005CapacityRecorder {
   readonly sessionNonce: string;
   readonly workerPid: number;
   beginPhase(phase: 'voice', workId: string | null, phaseInstanceId: string): Promise<void>;
+  writeTemporary(
+    path: string,
+    bytes: Uint8Array,
+    sha256: string,
+  ): Promise<F005TemporaryWriteLease>;
   observeMutation(notice: F005MutationNotice): Promise<void>;
   endPhase(phase: 'voice', phaseInstanceId: string): Promise<void>;
 }
@@ -397,7 +421,8 @@ export function createF005CapacityRecorder(
   assertDataObject(backend, 'F005_VOICE_GENERATION_INVALID', 'capacity recorder backend');
   if (!SHA256.test(identity.journalId) || !SHA256.test(identity.sessionNonce) || !identity.owner.trim() ||
     !Number.isSafeInteger(identity.workerPid) || identity.workerPid <= 0 ||
-    typeof backend.beginPhase !== 'function' || typeof backend.observeMutation !== 'function' ||
+    typeof backend.beginPhase !== 'function' || typeof backend.writeTemporary !== 'function' ||
+    typeof backend.observeMutation !== 'function' ||
     typeof backend.endPhase !== 'function') {
     fail('F005_VOICE_GENERATION_INVALID', 'capacity recorder identity/backendが不正です');
   }
@@ -423,9 +448,61 @@ export function createF005CapacityRecorder(
     assertExactKeys(observation, ['noticeId', 'sessionNonce', 'sequence', 'workerPid', 'matchedEtw'],
       'F005_VOICE_GENERATION_INVALID', 'native ETW observation');
     if (observation.noticeId !== notice.noticeId || observation.sessionNonce !== identity.sessionNonce ||
-      observation.sequence !== notice.sequence || observation.workerPid !== identity.workerPid ||
+      observation.sequence !== notice.sequence || observation.workerPid !== notice.producerPid ||
       observation.matchedEtw !== true) {
       fail('F005_VOICE_GENERATION_INVALID', 'noticeに対応する認証済みETW観測がありません');
+    }
+  };
+  const writeTemporary = async (
+    path: string,
+    bytes: Uint8Array,
+    sha256: string,
+  ): Promise<F005TemporaryWriteLease> => {
+    try {
+      const lease = await backend.writeTemporary(path, bytes, sha256);
+      if (!lease || !Number.isSafeInteger(lease.producerPid) || lease.producerPid <= 0 ||
+        !/^[0-9a-f]{8}:[0-9a-f]{16}$/u.test(lease.nativeIdentity) ||
+        typeof lease.rename !== 'function' ||
+        typeof lease.commit !== 'function' || typeof lease.abort !== 'function') {
+        return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through leaseが不正です');
+      }
+      let settled = false;
+      return Object.freeze({
+        producerPid: lease.producerPid,
+        nativeIdentity: lease.nativeIdentity,
+        rename: async (targetPath: string): Promise<void> => {
+          if (settled) {
+            return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through leaseは消費済みです');
+          }
+          try {
+            await lease.rename(targetPath);
+          } catch (error) {
+            return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through renameに失敗しました', error);
+          }
+        },
+        commit: async (): Promise<void> => {
+          if (settled) {
+            return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through leaseは消費済みです');
+          }
+          try {
+            await lease.commit();
+            settled = true;
+          } catch (error) {
+            return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through commitに失敗しました', error);
+          }
+        },
+        abort: async (): Promise<void> => {
+          if (settled) return;
+          try {
+            await lease.abort();
+            settled = true;
+          } catch (error) {
+            return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-through abortに失敗しました', error);
+          }
+        },
+      });
+    } catch (error) {
+      return fail('F005_VOICE_NATIVE_OBSERVE_FAILED', 'native write-throughに失敗しました', error);
     }
   };
   const endPhase = async (phase: 'voice', phaseInstanceId: string): Promise<void> => {
@@ -439,6 +516,7 @@ export function createF005CapacityRecorder(
     __brand: 'F005CapacityRecorder' as const,
     ...identity,
     beginPhase,
+    writeTemporary,
     observeMutation,
     endPhase,
   });
@@ -545,9 +623,11 @@ export async function generateF005Voice(
   const root = resolve(stageRoot);
   const phaseInstanceId = hash(`${plan.planSha256}\0${capacityRecorder.journalId}\0voice`);
   const assets: F005VoiceGenerationEvidence['assets'][number][] = [];
-  const created: string[] = [];
+  const created: Array<Readonly<{
+    path: string;
+    nativeIdentity: F005NativeFileIdentity;
+  }>> = [];
   let stagedBytes = 0;
-  let rootCreated = false;
   let sequence = 0;
   let begun = false;
   const progress = (stage: F005VoiceGenerationProgress): void => {
@@ -563,6 +643,7 @@ export async function generateF005Voice(
     targetPath: string | null,
     bytes: number,
     sha256: string | null,
+    producerPid = capacityRecorder.workerPid,
   ): Promise<void> => {
     sequence += 1;
     const noticeId = hash(`${phaseInstanceId}\0${sequence}\0${kind}\0${path}\0${targetPath ?? ''}`);
@@ -576,6 +657,7 @@ export async function generateF005Voice(
       targetPath,
       sha256,
       bytes,
+      producerPid,
     }));
   };
   try {
@@ -596,7 +678,6 @@ export async function generateF005Voice(
     begun = true;
     progress('native-phase-begun');
     await mkdir(root, { recursive: false });
-    rootCreated = true;
     progress('staging-root-created');
     await notice('create', root, null, 0, null);
     progress('staging-root-observed');
@@ -638,23 +719,42 @@ export async function generateF005Voice(
       const destination = join(root, `${entry.audioId}.wav`);
       // rename前にdirty pageを明示flushし、Cache Manager/Lazy Writerの
       // PID 0/4遅延writeをactive phaseへ持ち越さない。
-      const temporaryHandle = await open(temporary, 'wx');
-      created.push(temporary);
-      try {
-        await temporaryHandle.writeFile(wav);
-        await temporaryHandle.sync();
-      } finally {
-        await temporaryHandle.close();
-      }
+      const temporaryWrite = await capacityRecorder.writeTemporary(temporary, wav, digest);
       progress('temporary-written');
-      await notice('create', temporary, null, wav.byteLength, digest);
-      progress('temporary-observed');
-      await rename(temporary, destination);
-      created.splice(created.indexOf(temporary), 1);
-      created.push(destination);
+      try {
+        await notice(
+          'create',
+          temporary,
+          null,
+          wav.byteLength,
+          digest,
+          temporaryWrite.producerPid,
+        );
+        await temporaryWrite.rename(destination);
+        created.push(Object.freeze({
+          path: destination,
+          nativeIdentity: temporaryWrite.nativeIdentity,
+        }));
+        progress('temporary-observed');
+        progress('audio-renamed');
+        await notice(
+          'rename',
+          temporary,
+          destination,
+          wav.byteLength,
+          digest,
+          temporaryWrite.producerPid,
+        );
+        await temporaryWrite.commit();
+      } catch (error) {
+        try {
+          await temporaryWrite.abort();
+        } catch {
+          // delete-on-closeが同じnative identityを回収し、phaseは未完了のままにする。
+        }
+        throw error;
+      }
       stagedBytes += wav.byteLength;
-      progress('audio-renamed');
-      await notice('rename', temporary, destination, wav.byteLength, digest);
       progress('rename-observed');
       assets.push({
         audioId: entry.audioId,
@@ -674,22 +774,22 @@ export async function generateF005Voice(
       evidenceSha256: hash(canonical(payload)),
     });
   } catch (error) {
-    for (const path of created.reverse()) {
+    for (const artifact of created.reverse()) {
       try {
-        await rm(path, { force: true });
-        if (begun) await notice('delete', path, null, 0, null);
+        const capability = await resolveSafeWorkspaceFile(
+          root,
+          basename(artifact.path),
+          'delete-source',
+          artifact.nativeIdentity,
+        );
+        await deleteSafeWorkspaceFile(capability, artifact.nativeIdentity);
+        if (begun) await notice('delete', artifact.path, null, 0, null);
       } catch {
-        // cleanup/notice失敗もphase未完了のままにし、元のcache/publicは変更しない。
+        // identity不一致や第三者entryは削除せず、phaseをfail-closedのまま残す。
       }
     }
-    if (rootCreated) {
-      try {
-        await rmdir(root);
-        if (begun) await notice('delete', root, null, 0, null);
-      } catch {
-        // phaseは未完了のままにする。
-      }
-    }
+    // staging rootはpathname-only recursive deleteしない。空rootまたは第三者treeを
+    // fail-closedで残し、後続の明示的なidentity保持cleanupへ委ねる。
     if (error instanceof F005VoiceError) throw error;
     return fail('F005_VOICE_GENERATION_INVALID', '音声生成phaseを完了できません', error);
   }

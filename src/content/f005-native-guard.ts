@@ -7,12 +7,16 @@ import { createInterface } from 'node:readline';
 
 import { canonicalJson } from './artifacts.ts';
 import type { Sha256 } from './batch.ts';
-import { F005_NATIVE_GUARD_PINS } from './f005-source.ts';
+import {
+  F005_NATIVE_GUARD_PINS,
+  type F005NativeFileIdentity,
+} from './f005-source.ts';
 import type {
   F005CapacityRecorderBackend,
   F005CapacityPhase,
   F005MutationNotice,
   F005MutationObservation,
+  F005TemporaryWriteLease,
 } from './f005-voice.ts';
 import type {
   F005AcceptanceCapacityBackend,
@@ -21,6 +25,7 @@ import type {
 } from './f005-acceptance.ts';
 
 const SHA256 = /^[0-9a-f]{64}$/u;
+const NATIVE_FILE_IDENTITY = /^[0-9a-f]{8}:[0-9a-f]{16}$/u;
 const SAFE_PATH = /^(?!\/)(?!.*(?:^|\/)\.\.?\/)(?!.*[\\:\0])[\p{L}\p{N}._/-]+$/u;
 const PHASES = new Set(['voice', 'preview', 'accept', 'build']);
 const WORK_IDS = new Set(['000799', '001076', '001104']);
@@ -373,6 +378,7 @@ interface NativeNotice {
   readonly kind: 'create' | 'write' | 'rename' | 'delete';
   readonly path: string;
   readonly targetPath: string | null;
+  readonly producerPid: number;
 }
 
 class JsonLineChannel {
@@ -430,8 +436,8 @@ class NativeGuardProcess {
   readonly process: ChildProcessWithoutNullStreams;
   readonly channel: JsonLineChannel;
 
-  constructor(executable: string, workspace: string) {
-    this.process = spawn(executable, [], {
+  constructor(executable: string, workspace: string, args: readonly string[] = []) {
+    this.process = spawn(executable, args, {
       cwd: workspace,
       windowsHide: true,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -492,6 +498,33 @@ class NativeGuardProcess {
   terminate(): void {
     this.channel.end();
     this.process.kill();
+  }
+
+  async terminateAndWait(): Promise<void> {
+    this.channel.end();
+    if (this.process.exitCode !== null) return;
+    await new Promise<void>((resolveExit, reject) => {
+      const cleanup = (): void => {
+        this.process.off('exit', onExit);
+        this.process.off('error', onError);
+      };
+      const onExit = (): void => {
+        cleanup();
+        resolveExit();
+      };
+      const onError = (error: Error): void => {
+        cleanup();
+        reject(error);
+      };
+      this.process.once('exit', onExit);
+      this.process.once('error', onError);
+      if (!this.process.kill() && this.process.exitCode === null) {
+        cleanup();
+        reject(new Error('native guard termination failed'));
+      } else if (this.process.exitCode !== null) {
+        onExit();
+      }
+    });
   }
 }
 
@@ -804,6 +837,7 @@ export async function startF005NativeCapacitySession(
     }> => {
       if (!SHA256.test(notice.noticeId) || !SHA256.test(notice.phaseInstanceId) ||
         !Number.isSafeInteger(notice.sequence) ||
+        !Number.isSafeInteger(notice.producerPid) || notice.producerPid <= 0 ||
         notice.sequence !== nextApplicationNoticeSequence ||
         (notice.kind === 'rename' ? typeof notice.targetPath !== 'string' : notice.targetPath !== null)) {
         return fail('F005_CAPACITY_IPC_FAILED', 'mutation noticeが不正です');
@@ -824,6 +858,7 @@ export async function startF005NativeCapacitySession(
             phase: notice.phase,
             workId: activePhase.workId,
             phaseInstanceId: notice.phaseInstanceId,
+            producerPid: notice.producerPid,
             event: 'rename',
             from: path,
             to: targetPath,
@@ -834,6 +869,7 @@ export async function startF005NativeCapacitySession(
             phase: notice.phase,
             workId: activePhase.workId,
             phaseInstanceId: notice.phaseInstanceId,
+            producerPid: notice.producerPid,
             event: notice.kind,
             path,
           };
@@ -850,13 +886,115 @@ export async function startF005NativeCapacitySession(
         noticeId: notice.noticeId,
         sessionNonce,
         sequence: notice.sequence,
-        workerPid: process.pid,
+        workerPid: notice.producerPid,
         matchedEtw: true as const,
       });
+    };
+    const writeTemporary = async (
+      path: string,
+      bytes: Uint8Array,
+      expectedSha256: string,
+    ): Promise<F005TemporaryWriteLease> => {
+      if (closed || activePhase?.phase !== 'voice' ||
+        activePhase.workId !== options.workId ||
+        !(bytes instanceof Uint8Array) ||
+        bytes.byteLength === 0 || bytes.byteLength > 5_760_044 ||
+        !SHA256.test(expectedSha256) ||
+        sha256(bytes) !== expectedSha256) {
+        return fail('F005_CAPACITY_IPC_FAILED', 'native write-through tupleが不正です');
+      }
+      const relativePath = normalizeF005CapacityNoticePath(options.workspace, path);
+      const writer = new NativeGuardProcess(
+        executable,
+        options.workspace,
+        ['--write-through-once'],
+      );
+      try {
+        const hello = await writer.channel.command({ op: 'hello' });
+        if (!hello.ok || hello.abi !== F005_NATIVE_GUARD_PINS.abi ||
+          !Number.isSafeInteger(hello.processId) || Number(hello.processId) <= 0 ||
+          Number(hello.processId) !== writer.process.pid ||
+          Number(hello.processId) === process.pid) {
+          return fail('F005_NATIVE_GUARD_INVALID', 'write-through helper ABIが一致しません');
+        }
+        const producerPid = Number(hello.processId);
+        const reply = await writer.channel.command({
+          op: 'write-through',
+          root: options.workspace,
+          relativePath,
+          expectedSha256,
+          bodyBase64: Buffer.from(bytes).toString('base64'),
+        });
+        if (!reply.ok ||
+          reply.relativePath !== relativePath ||
+          reply.bytes !== bytes.byteLength ||
+          reply.sha256 !== expectedSha256 ||
+          typeof reply.nativeIdentity !== 'string' ||
+          !NATIVE_FILE_IDENTITY.test(reply.nativeIdentity) ||
+          reply.durability !== 'file-flag-write-through-flush-file-buffers-delete-on-close') {
+          const code = typeof reply.error === 'string' ? reply.error : 'WRITE_THROUGH_FAILED';
+          return fail('F005_CAPACITY_IPC_FAILED', `native write-throughが${code}で停止しました`);
+        }
+        const nativeIdentity = reply.nativeIdentity as F005NativeFileIdentity;
+        let currentRelativePath = relativePath;
+        let settled = false;
+        return Object.freeze({
+          producerPid,
+          nativeIdentity,
+          rename: async (targetPath: string): Promise<void> => {
+            if (settled) return fail('F005_CAPACITY_IPC_FAILED', 'write-through leaseは消費済みです');
+            const relativeTarget = normalizeF005CapacityNoticePath(options.workspace, targetPath);
+            const renamed = await writer.channel.command({
+              op: 'write-rename',
+              relativePath: currentRelativePath,
+              relativeTarget,
+              expectedSha256,
+            });
+            if (!renamed.ok || renamed.state !== 'renamed' ||
+              renamed.relativePath !== relativeTarget ||
+              renamed.sha256 !== expectedSha256 ||
+              renamed.nativeIdentity !== nativeIdentity) {
+              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through renameに失敗しました');
+            }
+            currentRelativePath = relativeTarget;
+          },
+          commit: async (): Promise<void> => {
+            if (settled) return fail('F005_CAPACITY_IPC_FAILED', 'write-through leaseは消費済みです');
+            const committed = await writer.channel.command({
+              op: 'write-commit',
+              relativePath: currentRelativePath,
+              expectedSha256,
+            });
+            if (!committed.ok || committed.state !== 'committed') {
+              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through commitに失敗しました');
+            }
+            await writer.close();
+            settled = true;
+          },
+          abort: async (): Promise<void> => {
+            if (settled) return;
+            try {
+              const aborted = await writer.channel.command({ op: 'write-abort' });
+              if (!aborted.ok || aborted.state !== 'aborted') {
+                return fail('F005_CAPACITY_IPC_FAILED', 'native write-through abortに失敗しました');
+              }
+              await writer.close();
+              settled = true;
+            } catch (error) {
+              await writer.terminateAndWait();
+              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through abortを完了できません', error);
+            }
+          },
+        });
+      } catch (error) {
+        await writer.terminateAndWait();
+        return fail('F005_CAPACITY_IPC_FAILED', 'native write-through helperを完了できません', error);
+      }
     };
 
     const voiceBackend: F005CapacityRecorderBackend = Object.freeze({
       beginPhase,
+      writeTemporary,
       observeMutation: (notice: F005MutationNotice): Promise<F005MutationObservation> =>
         observe(notice),
       endPhase,
@@ -874,6 +1012,7 @@ export async function startF005NativeCapacitySession(
           kind: notice.kind === 'rename' ? 'rename' : notice.kind,
           path: notice.path,
           targetPath: notice.targetPath,
+          producerPid: process.pid,
         }).then((observation) => Object.freeze({
           noticeId: notice.noticeId,
           sessionNonce: observation.sessionNonce as Sha256,
@@ -934,7 +1073,7 @@ export async function startF005NativeCapacitySession(
       observeMutation: async (
         notice: Parameters<F005NativeCapacitySession['observeMutation']>[0],
       ): Promise<void> => {
-        await observe(notice);
+        await observe({ ...notice, producerPid: process.pid });
       },
       endPhase,
       close,

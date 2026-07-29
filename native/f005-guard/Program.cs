@@ -15,7 +15,19 @@ using Microsoft.Win32.SafeHandles;
 
 const string Abi = "f005-guard-jsonl-v1";
 const string CapacityAbi = "f005-capacity-pipe-v3";
-const int MaxRequestChars = 65_536;
+const int DefaultMaxRequestChars = 65_536;
+const int WriteThroughMaxRequestChars = 8_000_000;
+var writeThroughOnly = args.Length == 1 &&
+    string.Equals(args[0], "--write-through-once", StringComparison.Ordinal);
+if (args.Length != 0 && !writeThroughOnly)
+{
+    ReplyError("MODE_INVALID");
+    return;
+}
+var maxRequestChars = writeThroughOnly ? WriteThroughMaxRequestChars : DefaultMaxRequestChars;
+var writeHelloAccepted = false;
+var writeCommandAccepted = false;
+HeldCapability.PendingWrittenArtifact? pendingWrittenArtifact = null;
 var capabilities = new Dictionary<string, HeldCapability>(StringComparer.Ordinal);
 CapacityGuardSession? capacitySession = null;
 
@@ -24,7 +36,7 @@ Console.OutputEncoding = new UTF8Encoding(false, true);
 
 while (Console.ReadLine() is { } line)
 {
-    if (line.Length == 0 || line.Length > MaxRequestChars)
+    if (line.Length == 0 || line.Length > maxRequestChars)
     {
         ReplyError("REQUEST_INVALID");
         continue;
@@ -38,9 +50,22 @@ while (Console.ReadLine() is { } line)
         });
         var root = document.RootElement;
         var operation = RequiredString(root, "op");
+        if (writeThroughOnly &&
+            operation is not ("hello" or "write-through" or "write-rename" or "write-commit" or "write-abort"))
+            throw new GuardException("OPERATION_INVALID");
+        if (!writeThroughOnly &&
+            operation is "write-through" or "write-rename" or "write-commit" or "write-abort")
+            throw new GuardException("OPERATION_INVALID");
         switch (operation)
         {
             case "hello":
+                RequireExactKeys(root, "op");
+                if (writeThroughOnly)
+                {
+                    if (writeHelloAccepted || writeCommandAccepted)
+                        throw new GuardException("WRITE_THROUGH_HELLO_INVALID");
+                    writeHelloAccepted = true;
+                }
                 Reply(new {
                     ok = true,
                     abi = Abi,
@@ -99,6 +124,87 @@ while (Console.ReadLine() is { } line)
                     RequiredString(root, "root"),
                     RequiredString(root, "relativePath"));
                 Reply(new { ok = true, durability = "directory-flush-file-buffers" });
+                break;
+            }
+            case "write-through":
+            {
+                if (!writeHelloAccepted)
+                    throw new GuardException("WRITE_THROUGH_HELLO_REQUIRED");
+                if (writeCommandAccepted || pendingWrittenArtifact is not null)
+                    throw new GuardException("WRITE_THROUGH_ALREADY_USED");
+                writeCommandAccepted = true;
+                RequireExactKeys(root, "bodyBase64", "expectedSha256", "op", "relativePath", "root");
+                byte[] body;
+                try
+                {
+                    body = Convert.FromBase64String(RequiredString(root, "bodyBase64"));
+                }
+                catch (FormatException)
+                {
+                    throw new GuardException("WRITE_THROUGH_BODY_INVALID");
+                }
+                if (body.Length is 0 or > 5_760_044)
+                    throw new GuardException("WRITE_THROUGH_BODY_INVALID");
+                var expectedSha256 = RequiredSha256(root, "expectedSha256");
+                if (!CryptographicOperations.FixedTimeEquals(
+                    Encoding.ASCII.GetBytes(expectedSha256),
+                    Encoding.ASCII.GetBytes(Convert.ToHexStringLower(SHA256.HashData(body)))))
+                {
+                    throw new GuardException("WRITE_THROUGH_HASH_MISMATCH");
+                }
+                pendingWrittenArtifact = HeldCapability.CreateWriteThrough(
+                    RequiredString(root, "root"),
+                    RequiredString(root, "relativePath"),
+                    body,
+                    expectedSha256);
+                Reply(new {
+                    ok = true,
+                    bytes = pendingWrittenArtifact.Bytes,
+                    nativeIdentity = pendingWrittenArtifact.NativeIdentity,
+                    relativePath = pendingWrittenArtifact.RelativePath,
+                    sha256 = pendingWrittenArtifact.Sha256,
+                    durability = "file-flag-write-through-flush-file-buffers-delete-on-close",
+                });
+                break;
+            }
+            case "write-rename":
+            {
+                RequireExactKeys(root, "expectedSha256", "op", "relativePath", "relativeTarget");
+                if (pendingWrittenArtifact is null)
+                    throw new GuardException("WRITE_THROUGH_PENDING_MISSING");
+                pendingWrittenArtifact.Rename(
+                    RequiredString(root, "relativePath"),
+                    RequiredString(root, "relativeTarget"),
+                    RequiredSha256(root, "expectedSha256"));
+                Reply(new {
+                    ok = true,
+                    nativeIdentity = pendingWrittenArtifact.NativeIdentity,
+                    relativePath = pendingWrittenArtifact.RelativePath,
+                    sha256 = pendingWrittenArtifact.Sha256,
+                    state = "renamed",
+                });
+                break;
+            }
+            case "write-commit":
+            {
+                RequireExactKeys(root, "expectedSha256", "op", "relativePath");
+                if (pendingWrittenArtifact is null)
+                    throw new GuardException("WRITE_THROUGH_PENDING_MISSING");
+                pendingWrittenArtifact.Commit(
+                    RequiredString(root, "relativePath"),
+                    RequiredSha256(root, "expectedSha256"));
+                pendingWrittenArtifact = null;
+                Reply(new { ok = true, state = "committed" });
+                break;
+            }
+            case "write-abort":
+            {
+                RequireExactKeys(root, "op");
+                if (pendingWrittenArtifact is null)
+                    throw new GuardException("WRITE_THROUGH_PENDING_MISSING");
+                pendingWrittenArtifact.Abort();
+                pendingWrittenArtifact = null;
+                Reply(new { ok = true, state = "aborted" });
                 break;
             }
             case "open":
@@ -196,6 +302,7 @@ while (Console.ReadLine() is { } line)
 }
 
 foreach (var capability in capabilities.Values) capability.Dispose();
+pendingWrittenArtifact?.Abort();
 capacitySession?.Dispose();
 
 static HeldCapability RequireCapability(Dictionary<string, HeldCapability> values, string id)
@@ -492,15 +599,21 @@ static class DirectoryDurability
 sealed class HeldCapability : IDisposable
 {
     private const uint GenericRead = 0x80000000;
+    private const uint GenericWrite = 0x40000000;
     private const uint DeleteAccess = 0x00010000;
     private const uint ShareRead = 0x00000001;
     private const uint ShareWrite = 0x00000002;
     private const uint OpenExisting = 3;
+    private const uint CreateNew = 1;
+    private const uint FileFlagWriteThrough = 0x80000000;
+    private const uint FileFlagDeleteOnClose = 0x04000000;
     private const uint FileFlagBackupSemantics = 0x02000000;
     private const uint FileFlagOpenReparsePoint = 0x00200000;
     private const uint FileAttributeReparsePoint = 0x00000400;
     private const int FileRenameInfo = 3;
     private const int FileDispositionInfo = 4;
+    private const int FileDispositionInfoEx = 21;
+    private const uint FileDispositionOnClose = 0x00000008;
 
     private static readonly HashSet<string> Reserved = new(StringComparer.OrdinalIgnoreCase) {
         "CON", "PRN", "AUX", "NUL",
@@ -591,6 +704,231 @@ sealed class HeldCapability : IDisposable
             foreach (var handle in directoryHandles) handle.Dispose();
             rootHandle.Dispose();
             throw;
+        }
+    }
+
+    public static PendingWrittenArtifact CreateWriteThrough(
+        string requestedRoot,
+        string relativePath,
+        byte[] body,
+        string expectedSha256)
+    {
+        if (!OperatingSystem.IsWindows()) throw new GuardException("PLATFORM_UNSUPPORTED");
+        var root = Path.GetFullPath(requestedRoot);
+        if (!Path.IsPathFullyQualified(requestedRoot) ||
+            !string.Equals(root, requestedRoot, StringComparison.Ordinal))
+            throw new GuardException("ROOT_INVALID");
+        var segments = SafeSegments(relativePath);
+        SafeFileHandle? rootHandle = null;
+        var directoryHandles = new List<SafeFileHandle>();
+        SafeFileHandle? fileHandle = null;
+        try
+        {
+            rootHandle = OpenDirectory(root);
+            var cursor = root;
+            for (var index = 0; index < segments.Length - 1; index++)
+            {
+                cursor = Path.Combine(cursor, segments[index]);
+                directoryHandles.Add(OpenDirectory(cursor));
+            }
+            var target = Path.Combine(root, Path.Combine(segments));
+            EnsureWithinRoot(root, target);
+            fileHandle = CreateFileW(
+                target,
+                GenericRead | GenericWrite | DeleteAccess,
+                ShareRead,
+                IntPtr.Zero,
+                CreateNew,
+                FileFlagWriteThrough | FileFlagDeleteOnClose | FileFlagOpenReparsePoint,
+                IntPtr.Zero);
+            if (fileHandle.IsInvalid) throw Win32("WRITE_THROUGH_OPEN_FAILED");
+            var identity = Inspect(fileHandle);
+            if ((identity.Attributes & FileAttributeReparsePoint) != 0 ||
+                identity.Links != 1)
+                throw new GuardException("WRITE_THROUGH_IDENTITY_UNSAFE");
+            RandomAccess.Write(fileHandle, body, 0);
+            if (!FlushFileBuffers(fileHandle)) throw Win32("WRITE_THROUGH_FLUSH_FAILED");
+            if (RandomAccess.GetLength(fileHandle) != body.LongLength)
+                throw new GuardException("WRITE_THROUGH_LENGTH_MISMATCH");
+            var readBack = new byte[body.Length];
+            var offset = 0;
+            while (offset < readBack.Length)
+            {
+                var read = RandomAccess.Read(fileHandle, readBack.AsSpan(offset), offset);
+                if (read == 0) throw new GuardException("WRITE_THROUGH_PARTIAL_READ");
+                offset += read;
+            }
+            var sha256 = Convert.ToHexStringLower(SHA256.HashData(readBack));
+            if (!CryptographicOperations.FixedTimeEquals(
+                Encoding.ASCII.GetBytes(expectedSha256),
+                Encoding.ASCII.GetBytes(sha256)))
+                throw new GuardException("WRITE_THROUGH_READBACK_MISMATCH");
+            var written = new PendingWrittenArtifact(
+                root,
+                relativePath,
+                body.LongLength,
+                sha256,
+                rootHandle,
+                directoryHandles.ToArray(),
+                fileHandle);
+            rootHandle = null;
+            directoryHandles.Clear();
+            fileHandle = null;
+            return written;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            fileHandle?.Dispose();
+            foreach (var handle in directoryHandles) handle.Dispose();
+            rootHandle?.Dispose();
+        }
+    }
+
+    private static void ClearDeleteOnClose(SafeFileHandle fileHandle)
+    {
+        var disposition = new FileDispositionInformationEx {
+            Flags = FileDispositionOnClose,
+        };
+        var length = Marshal.SizeOf<FileDispositionInformationEx>();
+        var pointer = Marshal.AllocHGlobal(length);
+        try
+        {
+            Marshal.StructureToPtr(disposition, pointer, false);
+            if (!SetFileInformationByHandle(
+                fileHandle,
+                FileDispositionInfoEx,
+                pointer,
+                (uint)length))
+                throw Win32("WRITE_THROUGH_DELETE_ON_CLOSE_CLEAR_FAILED");
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(pointer);
+        }
+    }
+
+    private static void MarkDelete(SafeFileHandle fileHandle)
+    {
+        try
+        {
+            var disposition = new FileDispositionInformation { DeleteFile = 1 };
+            var length = Marshal.SizeOf<FileDispositionInformation>();
+            var pointer = Marshal.AllocHGlobal(length);
+            try
+            {
+                Marshal.StructureToPtr(disposition, pointer, false);
+                if (!SetFileInformationByHandle(
+                    fileHandle,
+                    FileDispositionInfo,
+                    pointer,
+                    (uint)length))
+                    throw new GuardException("WRITE_THROUGH_CLEANUP_FAILED");
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pointer);
+            }
+        }
+        catch (GuardException) { throw; }
+        catch { throw new GuardException("WRITE_THROUGH_CLEANUP_FAILED"); }
+    }
+
+    public sealed class PendingWrittenArtifact
+    {
+        private readonly string root;
+        private readonly SafeFileHandle rootHandle;
+        private readonly SafeFileHandle[] directoryHandles;
+        private readonly SafeFileHandle fileHandle;
+        private bool renamed;
+        private bool settled;
+
+        internal PendingWrittenArtifact(
+            string root,
+            string relativePath,
+            long bytes,
+            string sha256,
+            SafeFileHandle rootHandle,
+            SafeFileHandle[] directoryHandles,
+            SafeFileHandle fileHandle)
+        {
+            this.root = root;
+            RelativePath = relativePath;
+            Bytes = bytes;
+            Sha256 = sha256;
+            this.rootHandle = rootHandle;
+            this.directoryHandles = directoryHandles;
+            this.fileHandle = fileHandle;
+        }
+
+        public string RelativePath { get; private set; }
+        public long Bytes { get; }
+        public string Sha256 { get; }
+        public string NativeIdentity
+        {
+            get
+            {
+                var current = Inspect(fileHandle);
+                return $"{current.VolumeSerial:x8}:{current.FileIndex:x16}";
+            }
+        }
+
+        public void Rename(string relativePath, string relativeTarget, string sha256)
+        {
+            AssertTuple(relativePath, sha256, "WRITE_THROUGH_RENAME_MISMATCH");
+            if (renamed) throw new GuardException("WRITE_THROUGH_RENAME_ALREADY_USED");
+            var targetSegments = SafeSegments(relativeTarget);
+            var sourceSegments = SafeSegments(relativePath);
+            if (targetSegments.Length != sourceSegments.Length ||
+                !targetSegments[..^1].SequenceEqual(sourceSegments[..^1], StringComparer.Ordinal))
+                throw new GuardException("WRITE_THROUGH_RENAME_TARGET_INVALID");
+            var target = Path.Combine(root, Path.Combine(targetSegments));
+            EnsureWithinRoot(root, target);
+            RenameByHandle(fileHandle, target);
+            RelativePath = relativeTarget;
+            renamed = true;
+        }
+
+        public void Commit(string relativePath, string sha256)
+        {
+            AssertTuple(relativePath, sha256, "WRITE_THROUGH_COMMIT_MISMATCH");
+            if (!renamed) throw new GuardException("WRITE_THROUGH_RENAME_REQUIRED");
+            ClearDeleteOnClose(fileHandle);
+            settled = true;
+            DisposeHandles();
+        }
+
+        public void Abort()
+        {
+            if (settled) return;
+            try
+            {
+                settled = true;
+            }
+            finally
+            {
+                DisposeHandles();
+            }
+        }
+
+        private void AssertTuple(string relativePath, string sha256, string code)
+        {
+            if (settled ||
+                !string.Equals(RelativePath, relativePath, StringComparison.Ordinal) ||
+                !CryptographicOperations.FixedTimeEquals(
+                    Encoding.ASCII.GetBytes(Sha256),
+                    Encoding.ASCII.GetBytes(sha256)))
+                throw new GuardException(code);
+        }
+
+        private void DisposeHandles()
+        {
+            fileHandle.Dispose();
+            foreach (var handle in directoryHandles) handle.Dispose();
+            rootHandle.Dispose();
         }
     }
 
@@ -796,6 +1134,12 @@ sealed class HeldCapability : IDisposable
     }
 
     [StructLayout(LayoutKind.Sequential)]
+    private struct FileDispositionInformationEx
+    {
+        public uint Flags;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
     private struct ByHandleFileInformation
     {
         public uint FileAttributes;
@@ -833,6 +1177,10 @@ sealed class HeldCapability : IDisposable
         int fileInformationClass,
         IntPtr fileInformation,
         uint bufferSize);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool FlushFileBuffers(SafeFileHandle file);
 }
 
 /// <summary>
@@ -1137,6 +1485,7 @@ sealed class CapacityGuardSession : IDisposable
                 data.ProcessID,
                 processStartKey,
                 data.TimeStampQPC,
+                out _,
                 out _))
                 PoisonLocked("ETW_UNKNOWN_EVENT");
 #pragma warning restore CS0618
@@ -1305,8 +1654,8 @@ sealed class CapacityGuardSession : IDisposable
             {
                 var eventName = PipeString(rootElement, "event");
                 RequireExactPipeKeys(rootElement, eventName == "rename"
-                    ? ["authToken", "event", "from", "noticeId", "op", "phase", "phaseInstanceId", "sessionNonce", "to", "workId"]
-                    : ["authToken", "event", "noticeId", "op", "path", "phase", "phaseInstanceId", "sessionNonce", "workId"]);
+                    ? ["authToken", "event", "from", "noticeId", "op", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "to", "workId"]
+                    : ["authToken", "event", "noticeId", "op", "path", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "workId"]);
                 break;
             }
             case "endPhase":
@@ -1458,6 +1807,27 @@ sealed class CapacityGuardSession : IDisposable
         if (activePhase is null) throw new GuardException("PHASE_NOT_ACTIVE");
         if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
             throw new GuardException("NOTICE_PID_NOT_REGISTERED");
+        var producerPid = PipePositiveInt(rootElement, "producerPid");
+        ulong producerSequenceNumber;
+        if (producerPid != clientPid)
+        {
+            using var producerProcess = job.OpenContainedProcess(producerPid);
+            if (producerProcess is null)
+                throw new GuardException("NOTICE_PRODUCER_NOT_JOB_MEMBER");
+            try
+            {
+                producerSequenceNumber = job.ProcessIdentity(producerProcess).ProcessSequenceNumber;
+            }
+            catch
+            {
+                throw new GuardException("NOTICE_PRODUCER_IDENTITY_UNAVAILABLE");
+            }
+        }
+        else
+        {
+            producerSequenceNumber = rootWorkerSequenceNumber
+                ?? throw new GuardException("NOTICE_PRODUCER_IDENTITY_UNAVAILABLE");
+        }
         var noticeId = PipeSha256(rootElement, "noticeId");
         if (notices.Any(item => item.NoticeId == noticeId)) throw new GuardException("NOTICE_REPLAY");
         var phase = PipeString(rootElement, "phase");
@@ -1486,7 +1856,8 @@ sealed class CapacityGuardSession : IDisposable
         var record = new NoticeRecord(
             SessionNonce,
             checked(++noticeSequence),
-            clientPid,
+            producerPid,
+            producerSequenceNumber,
             phase,
             workId,
             phaseInstanceId,
@@ -1499,7 +1870,8 @@ sealed class CapacityGuardSession : IDisposable
         if (eventName == "rename")
         {
             var deferred = deferredRenames.LastOrDefault(item =>
-                item.WorkerPid == clientPid &&
+                item.WorkerPid == producerPid &&
+                item.ProducerSequenceNumber == producerSequenceNumber &&
                 item.Phase == phase &&
                 item.PhaseInstanceId == phaseInstanceId &&
                 item.ObservedAtValue >= floor &&
@@ -1512,7 +1884,8 @@ sealed class CapacityGuardSession : IDisposable
         {
             var match = observations.LastOrDefault(item =>
                 item.NoticeSequence is null &&
-                item.WorkerPid == clientPid &&
+                item.WorkerPid == producerPid &&
+                item.ProducerSequenceNumber == producerSequenceNumber &&
                 item.Phase == phase &&
                 item.PhaseInstanceId == phaseInstanceId &&
                 item.ObservedAtValue >= floor &&
@@ -1684,6 +2057,7 @@ sealed class CapacityGuardSession : IDisposable
                     pid,
                     processStartKey,
                     timestampQpc,
+                    out var producerSequenceNumber,
                     out var authorizationFailure))
                 {
                     if (authorizationFailure == "BIRTH_MISSING")
@@ -1774,6 +2148,7 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     var deferred = new DeferredRenameRecord(
                         pid,
+                        producerSequenceNumber,
                         checked(++etwSequence),
                         activePhase.Phase,
                         activePhase.WorkId,
@@ -1784,6 +2159,7 @@ sealed class CapacityGuardSession : IDisposable
                     var pendingRename = notices.FirstOrDefault(item =>
                         item.State == "pending" &&
                         item.WorkerPid == pid &&
+                        item.ProducerSequenceNumber == producerSequenceNumber &&
                         item.PhaseInstanceId == activePhase.PhaseInstanceId &&
                         item.EventName == "rename" &&
                         item.From == source.RelativePath &&
@@ -1843,6 +2219,7 @@ sealed class CapacityGuardSession : IDisposable
                     sequence,
                     new DateTimeOffset(timestamp.ToUniversalTime()).ToString("O"),
                     pid,
+                    producerSequenceNumber,
                     effective.VolumeId,
                     effective.FileId128,
                     eventName == "delete" ? 0 : effective.LogicalLengthBytes,
@@ -1855,6 +2232,7 @@ sealed class CapacityGuardSession : IDisposable
                 var pending = notices.FirstOrDefault(item =>
                     item.State == "pending" &&
                     item.WorkerPid == pid &&
+                    item.ProducerSequenceNumber == producerSequenceNumber &&
                     item.PhaseInstanceId == activePhase.PhaseInstanceId &&
                     item.Matches(observation));
                 if (pending is not null)
@@ -1975,6 +2353,7 @@ sealed class CapacityGuardSession : IDisposable
             sequence,
             deferred.ObservedAt,
             deferred.WorkerPid,
+            deferred.ProducerSequenceNumber,
             target.VolumeId,
             target.FileId128,
             target.LogicalLengthBytes,
@@ -2072,8 +2451,10 @@ sealed class CapacityGuardSession : IDisposable
         int pid,
         ulong eventProcessStartKey,
         long eventTimestampQpc,
+        out ulong processSequenceNumber,
         out string rejection)
     {
+        processSequenceNumber = 0;
         if (rootWorkerPid == pid)
         {
             // session開始時点ですでに生存するrootは保持handleがPID再利用を防ぐ。
@@ -2089,6 +2470,8 @@ sealed class CapacityGuardSession : IDisposable
                 rejection = "EVENT_KEY_MISMATCH";
                 return false;
             }
+            processSequenceNumber = rootWorkerSequenceNumber
+                ?? throw new GuardException("ETW_PROCESS_IDENTITY_UNAVAILABLE");
             rejection = "NONE";
             return true;
         }
@@ -2119,6 +2502,7 @@ sealed class CapacityGuardSession : IDisposable
                 rejection = "EVENT_KEY_MISMATCH";
                 return false;
             }
+            processSequenceNumber = retained.ProcessSequenceNumber;
             rejection = "NONE";
             return true;
         }
@@ -2129,10 +2513,12 @@ sealed class CapacityGuardSession : IDisposable
             return false;
         }
         ulong actualStartKey;
+        ulong actualSequenceNumber;
         try
         {
             var actualIdentity = job.ProcessIdentity(process);
             actualStartKey = actualIdentity.ProcessStartKey;
+            actualSequenceNumber = actualIdentity.ProcessSequenceNumber;
             if (actualIdentity.ProcessSequenceNumber != birth.ProcessSequenceNumber)
             {
                 process.Dispose();
@@ -2163,6 +2549,7 @@ sealed class CapacityGuardSession : IDisposable
                 birth.ProcessSequenceNumber,
                 birth.StartedAtQpc));
         registeredPids.Add(pid);
+        processSequenceNumber = actualSequenceNumber;
         rejection = "NONE";
         return true;
     }
@@ -2345,6 +2732,17 @@ sealed class CapacityGuardSession : IDisposable
         return child.GetString() ?? throw new GuardException("REQUEST_INVALID");
     }
 
+    private static int PipePositiveInt(JsonElement value, string property)
+    {
+        if (value.ValueKind != JsonValueKind.Object ||
+            !value.TryGetProperty(property, out var child) ||
+            child.ValueKind != JsonValueKind.Number ||
+            !child.TryGetInt32(out var result) ||
+            result <= 0)
+            throw new GuardException("REQUEST_INVALID");
+        return result;
+    }
+
     private static void RequireExactPipeKeys(JsonElement value, params string[] expected)
     {
         if (value.ValueKind != JsonValueKind.Object) throw new GuardException("REQUEST_INVALID");
@@ -2501,6 +2899,7 @@ sealed class CapacityGuardSession : IDisposable
 
     private sealed record DeferredRenameRecord(
         int WorkerPid,
+        ulong ProducerSequenceNumber,
         long EtwSequence,
         string Phase,
         string? WorkId,
@@ -2536,6 +2935,7 @@ sealed class CapacityGuardSession : IDisposable
         string sessionNonce,
         long noticeSequence,
         int workerPid,
+        ulong producerSequenceNumber,
         string phase,
         string? workId,
         string phaseInstanceId,
@@ -2548,6 +2948,7 @@ sealed class CapacityGuardSession : IDisposable
         public string SessionNonce { get; } = sessionNonce;
         public long NoticeSequence { get; } = noticeSequence;
         public int WorkerPid { get; } = workerPid;
+        public ulong ProducerSequenceNumber { get; } = producerSequenceNumber;
         public string Phase { get; } = phase;
         public string? WorkId { get; } = workId;
         public string PhaseInstanceId { get; } = phaseInstanceId;
@@ -2567,6 +2968,7 @@ sealed class CapacityGuardSession : IDisposable
         }
 
         public bool Matches(ObservationRecord observation) =>
+            ProducerSequenceNumber == observation.ProducerSequenceNumber &&
             Matches(observation.EventName, observation.Path, observation.From, observation.To);
 
         public bool Matches(string eventName, string? path, string? from, string? to) =>
@@ -2615,6 +3017,7 @@ sealed class CapacityGuardSession : IDisposable
         long etwSequence,
         string observedAt,
         int workerPid,
+        ulong producerSequenceNumber,
         string volumeId,
         string fileId128,
         long logicalLengthBytes,
@@ -2637,6 +3040,7 @@ sealed class CapacityGuardSession : IDisposable
         public string ObservedAt { get; } = observedAt;
         public DateTimeOffset ObservedAtValue { get; } = DateTimeOffset.Parse(observedAt);
         public int WorkerPid { get; } = workerPid;
+        public ulong ProducerSequenceNumber { get; } = producerSequenceNumber;
         public string VolumeId { get; } = volumeId;
         public string FileId128 { get; } = fileId128;
         public long LogicalLengthBytes { get; } = logicalLengthBytes;

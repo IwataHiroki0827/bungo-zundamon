@@ -447,7 +447,9 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('var target = InspectDeferredRenameTarget(notice.To)');
     expect(source).toContain('if (target.Identity != deferred.Source.Identity)');
     expect(source).toContain('deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId)');
-    expect(source).toMatch(/DeferredRenameRecord\(\s*pid,\s*checked\(\+\+etwSequence\)/u);
+    expect(source).toMatch(
+      /DeferredRenameRecord\(\s*pid,\s*producerSequenceNumber,\s*checked\(\+\+etwSequence\)/u,
+    );
     expect(source).toContain('var sequence = deferred.EtwSequence');
     expect(source).toMatch(
       /if \(deferredRenames\.Count != 0\)\s*\{\s*PoisonLocked\("ETW_RENAME_IDENTITY_MISMATCH"\)/u,
