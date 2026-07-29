@@ -218,7 +218,7 @@ tasks:
   model:
     lead: opus
     workers: sonnet
-  progress: 夢十夜65候補を63採用・2除外へ確定し、62音声plan、最新predeploy権利allow、planned audio込み容量予測、native ETW台帳、受入証拠結合まで完了。production runner未実装かつ現processはETW_PRIVILEGE_REQUIREDのため、音声生成・atomic受入前で安全停止
+  progress: 夢十夜65候補を63採用・2除外、62音声planへ確定。production runnerと二段受入を実装し、全1241試験・独立受入をPASS。commit 7329f55のclean HEAD実行はApproved Context SHA照合通過後、F005_ETW_PRIVILEGE_REQUIREDで音声生成・atomic受入前に安全停止
 - id: T-071
   title: 倫敦塔の全候補レビュー・差分音声・作品単位atomic受入
   feature: F005

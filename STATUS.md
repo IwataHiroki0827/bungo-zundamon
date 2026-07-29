@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-29T18:20:00+09:00
+updated: 2026-07-29T18:35:00+09:00
 next_actions:
-  - "clean checkpoint後にT-070 production runnerの実native preflightを実行し、手動昇格なしでETWを利用できる場合だけ夢十夜62音声を生成・受入する"
+  - "手動昇格なしでkernel ETWを利用できる実行環境になった時点で、T-070 production runnerを再実行して夢十夜62音声を生成・受入する"
 blocked_by:
   - "現在のMedium integrity processでは固定native guardがETW_PRIVILEGE_REQUIREDでfail-closedする"
 ---
@@ -48,23 +48,22 @@ blocked_by:
 - T-067でUT-F005 48件、IT-F005 15件を作成した。セキュリティ境界subcaseと15件の有限fault matrixを追加し、REQ 18・DES 13・FUN 48・QT 20をcoverage 100%で網羅した。独立3観点レビューHigh/Medium/Low 0、Q-033の包括承認でテストファーストゲート③を通過した。
 - T-068でF005候補、固定v0.4.0 baseline、Git全object容量inventory、3規約原文のfail-closed評価、XHTML entity正規化、固定SHAのWindows native handle guardを実装した。共有registryは実装`ffdb47f`、移行証跡`3a5620f`、loader受入`0c4c5ba`の3段階で固定し、production controlのGit object再計算、全62 files・1053 tests、修正後重点5 files・131 tests、型・lint・697 files build、独立受入High/Medium/Low 0をPASSした。
 - T-069で`proofreader: null`をF005「夢十夜」だけに限定してCatalog/UI/creditsへ「記載なし」で統合した。mint済みfinal Catalog、独自生成した夏目漱石画像とcanonical provenance、exact 7 route、通常入口全閉・お気に入りone-shot展開・自動再生0を実装した。全65 files・1105 tests、重点310 tests、型・lint・697 files build、audit 0、独立受入High/Medium/Low 0をPASSし、public差分0を確認した。
-- T-070は「夢十夜」65候補を独立二重レビューし、63採用・2除外・保留0、62音声、追加見積り12,521,800 bytesを確定した。保存selectionの再開検証、最新predeploy権利`allow`、planned audio込み容量予測、native ETW台帳、preview/受入証拠の意味結合に加え、production runnerを実装した。実native preflightはclean checkpoint後に再実行する。
+- T-070は「夢十夜」65候補を独立二重レビューし、63採用・2除外・保留0、62音声、追加見積り12,521,800 bytesを確定した。保存selectionの再開検証、最新predeploy権利`allow`、planned audio込み容量予測、native ETW台帳、preview/受入証拠の意味結合に加え、production runnerを実装した。commit `7329f55`のclean HEADで実行し、Approved Context SHA照合を通過後、native ETW preflightが`F005_ETW_PRIVILEGE_REQUIRED`で音声生成前に安全停止した。
 - CHG-F005-002で、closed容量actualを同一session内のaccept前に要求していた循環を、1作品1sessionのartifact stage→session close→actual→metadata finalizeへ分離した。native identity必須CAS、全transaction事前走査、phase別crash回復を実装し、重点180件・全1240件、型・lint・build・audit・公開tree不変、独立受入High/Medium/Low 0をPASSしてT-076と変更管理を完了した。
 
 ## 直近の作業（最新5件）
 
+- T-070 runnerのcapacity candidate SHAをApproved Context正本へ統一し、全1241試験・独立受入をPASS。clean HEAD実行はETW権限不足で音声生成前に安全停止
 - T-076で二段作品受入、native identity必須CAS、全transaction事前走査、phase別回復を実装し、全1240試験・独立受入を完了
 - T-070で夢十夜の原典・二重レビュー・62音声plan・容量予測・native ETW/受入基盤・production runnerを実装し、実音声生成前で安全停止
 - T-069でnullable書誌・夏目Catalog・独自画像・7 route・お気に入り統合を実装し、全1105試験・独立受入を完了
 - T-068でF005基盤とnative path guardを実装し、registry三段階migration・全1053試験・独立受入を完了
-- T-067でUT 48件・IT 15件と境界subcase/fault matrixを確定し、coverage 100%・ゲート③承認を完了
-- T-065/T-066でF005設計をDES 13件・FUN 48件へ展開し、独立3観点レビューPASS・ゲート②承認を完了
 
 ## 次のアクション
 
-- clean checkpointを作成後、production runnerの実native preflightを再実行する。手動操作なしでkernel ETWを利用できる場合だけ「夢十夜」62音声・作品単位atomic受入を実施する。
+- 手動操作なしでkernel ETWを利用できる実行環境になった時点でproduction runnerを再実行し、「夢十夜」62音声・作品単位atomic受入を実施する。
 
 ## 未解決事項
 
-- C:はT-070容量予測時のpeak後空き7,816,679,096 bytesで5 GiB停止基準を上回るが、余裕は大きくない。音声生成直前に再計測する。
-- T-070 production runnerは実装済み。現在のMedium integrity processでは固定native guardが`ETW_PRIVILEGE_REQUIRED`で停止する見込みであり、監視なしfallbackと手動UACは使用しない。
+- C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
+- T-070 production runnerは実装済み。commit `7329f55`のclean HEADで固定native guardが`F005_ETW_PRIVILEGE_REQUIRED`により停止した。監視なしfallbackと手動UACは使用しない。
