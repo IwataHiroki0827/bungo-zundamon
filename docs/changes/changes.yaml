@@ -1,7 +1,7 @@
 changes:
 - id: CHG-F005-003
   date: '2026-07-29'
-  trigger: GitHub hosted Windows probeで、native single-file binaryの固定SHAがcheckout絶対pathに依存して不一致となることを検出
+  trigger: GitHub hosted Windows probeで、native single-file binaryの固定SHAがcheckout絶対pathとGit commit SHAに依存して不一致となることを検出
   level: design
   affected:
   - DES-F005-001

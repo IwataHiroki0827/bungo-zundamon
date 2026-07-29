@@ -31,7 +31,7 @@ $SdkUrl = "https://builds.dotnet.microsoft.com/dotnet/Sdk/$SdkVersion/dotnet-sdk
 $RuntimeUrl = "https://builds.dotnet.microsoft.com/dotnet/Runtime/$RuntimeVersion/dotnet-runtime-$RuntimeVersion-win-x64.zip"
 $SdkSha512 = '871d655b07f05aa5844a27a0dc742ccb6ca1e6df11be1c1251d6e967505595f455fd1160165048e3348f8dd2412ca82d414d0402c8acab30f997e30897a9040f'
 $RuntimeSha512 = '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8'
-$ExpectedExeSha256 = 'fc73dbfff165693ff29caac5a7449dadae8842e0a90e70e0bcf269fe5883398d'
+$ExpectedExeSha256 = '1846897edcc399e62ce91a6075e0271e60c9bd431123aa965586eafdc4069813'
 
 $NativeRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $ProjectRoot = [System.IO.Path]::GetFullPath((Join-Path $NativeRoot '..\..'))
@@ -158,6 +158,7 @@ try {
     --self-contained true `
     --output $PublishRoot `
     -p:RuntimeFrameworkVersion=$RuntimeVersion `
+    -p:IncludeSourceRevisionInInformationalVersion=false `
     "-p:PathMap=$NativeRoot=/_/native/f005-guard"
   if ($LASTEXITCODE -ne 0) {
     throw "dotnet publishがexit code $LASTEXITCODE で失敗しました"
