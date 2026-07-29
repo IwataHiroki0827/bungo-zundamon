@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; untrusted engine I/O stays outside the guarded workspace.
+# Source bytes are LF-pinned; exact known ETW classes precede bounded Job abort.
 on:
   push:
     branches:

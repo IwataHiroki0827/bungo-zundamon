@@ -25,9 +25,22 @@ const PRODUCER_SHA = F005_NATIVE_GUARD_PINS.outputBinarySha256;
 const temporaryRoots: string[] = [];
 
 it('native reply自由文字列を固定capacity error codeへ分類する', () => {
+  for (const [value, expected] of [
+    ['ETW_ALLOCATED_LENGTH_MISSING', 'F005_ETW_ALLOCATED_LENGTH_MISSING'],
+    ['ETW_BUFFER_LOSS', 'F005_ETW_BUFFER_LOSS'],
+    ['ETW_EVENT_OUTSIDE_PHASE', 'F005_ETW_EVENT_OUTSIDE_PHASE'],
+    ['ETW_FILE_IDENTITY_MISSING', 'F005_ETW_FILE_IDENTITY_MISSING'],
+    ['ETW_FILE_IDENTITY_UNSAFE', 'F005_ETW_FILE_IDENTITY_UNSAFE'],
+    ['ETW_OBSERVATION_MISSING', 'F005_ETW_OBSERVATION_MISSING'],
+    ['ETW_PID_NOT_JOB_MEMBER', 'F005_ETW_PID_NOT_JOB_MEMBER'],
+    ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
+    ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
+  ] as const) {
+    expect(classifyF005NativeCapacityReplyError(value)).toBe(expected);
+  }
   expect(classifyF005NativeCapacityReplyError('F005_CAPACITY_NOTICE_UNMATCHED'))
     .toBe('F005_CAPACITY_NOTICE_UNMATCHED');
-  expect(classifyF005NativeCapacityReplyError('ETW_FILE_IDENTITY_MISSING'))
+  expect(classifyF005NativeCapacityReplyError('ETW_OBSERVATION_FAILED_secret'))
     .toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   expect(classifyF005NativeCapacityReplyError('ETW_PRIVILEGE_REQUIRED_5'))
     .toBe('F005_ETW_PRIVILEGE_REQUIRED');
@@ -35,6 +48,10 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     .toBe('F005_CAPACITY_GUARD_REJECTED');
   expect(classifyF005NativeCapacityReplyError(null))
     .toBe('F005_CAPACITY_GUARD_REJECTED');
+  for (const prototypeKey of ['toString', 'constructor', '__proto__']) {
+    expect(classifyF005NativeCapacityReplyError(prototypeKey))
+      .toBe('F005_CAPACITY_GUARD_REJECTED');
+  }
 });
 
 afterEach(async () => {
