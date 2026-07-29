@@ -25,6 +25,6 @@ features:
 - id: F005
   title: 夏目漱石「夢十夜」ほか3作品追加
   branch: feature/F005
-  state: testspec
+  state: implement
   merge_after:
   - F004

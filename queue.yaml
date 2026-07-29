@@ -1061,3 +1061,26 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-29T09:26:21+09:00'
   processed_note: FD-F005/DD-F005をApproved v1.0.0へ更新し、T-065/T-066を完了。F005をtestspecへ移行した。
+- id: Q-033
+  type: approval
+  status: closed
+  title: F005 テスト仕様承認（ゲート③）
+  body: >-
+    UT-F005 48件、IT-F005 15件、QT-F005 20件は、REQ 18・DES 13・FUN 48をcoverage 100%で網羅し、独立レビューHigh/Medium/Low 0件となった。本承認は実装開始の前提となるテストファーストゲート③である。
+  target: docs/tests/ut/UT-F005.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+  created: '2026-07-29T09:39:30+09:00'
+  source: pf-testspec
+  resume:
+    task: T-068
+    next: pf-implement
+  approved_at: '2026-07-29T09:39:30+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T09:39:30+09:00'
+  processed_note: UT-F005/IT-F005をApprovedへ更新し、T-067を完了。ゲート③通過によりF005をimplementへ移行した。

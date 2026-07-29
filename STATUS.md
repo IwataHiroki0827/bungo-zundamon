@@ -1,9 +1,9 @@
 ---
-phase: testspec
+phase: implement
 feature: F005
-updated: 2026-07-29T09:26:21+09:00
+updated: 2026-07-29T09:39:30+09:00
 next_actions:
-  - "T-067でUT-F005・IT-F005を作成し、QT-F005と合わせてDES 13件・FUN 48件を網羅する"
+  - "T-068でF005候補定義・固定baseline・権利原典・entity正規化基盤を実装する"
 blocked_by: []
 ---
 
@@ -44,9 +44,11 @@ blocked_by: []
 - T-063で知名度順の次作者を夏目漱石（人物ID`000148`）とし、「夢十夜」「倫敦塔」「趣味の遺伝」を確定した。REQ 18件・QT 15件はQA未回答0、独立レビューHigh/Medium/Low 0、REQ→QT欠落0である。校正者欄なしの`null`、XHTML entity正規化、公式表現注意、規約fail-closed、容量6区分、追加作者10人の順位式まで固定し、Q-027の包括承認でゲート①を通過した。
 - T-064でF005をT-065〜T-075の11タスクへ分解し、REQ 18/18のWBS coverageと依存循環0を確認した。既存CLI、VOICEVOX 0.25.2、Playwright 6環境を再利用し追加MCPは不要である。typecheck・lint・Vitest 936件・697ファイルbuild・audit 0件をPASSした。C:空き56.58 GiBは空き率6.1%の警告域だが、F005の5 GiB停止基準と安全側69.23 MiB追加予測には十分であり、音声生成前に再確認する。
 - T-065/T-066でFD-F005のDES 13件、DD-F005のFUN 48件を作成した。requirement approval snapshot、ETW正本容量監視、registry三段階migration、nullable書誌、原典・画像・path防御を固定し、独立3観点レビューHigh/Medium/Low 0、Q-032の包括承認でゲート②を通過した。traceの残り13件はT-067で作るUT/ITだけである。
+- T-067でUT-F005 48件、IT-F005 15件を作成した。セキュリティ境界subcaseと15件の有限fault matrixを追加し、REQ 18・DES 13・FUN 48・QT 20をcoverage 100%で網羅した。独立3観点レビューHigh/Medium/Low 0、Q-033の包括承認でテストファーストゲート③を通過した。
 
 ## 直近の作業（最新5件）
 
+- T-067でUT 48件・IT 15件と境界subcase/fault matrixを確定し、coverage 100%・ゲート③承認を完了
 - T-065/T-066でF005設計をDES 13件・FUN 48件へ展開し、独立3観点レビューPASS・ゲート②承認を完了
 - T-064でF005を11タスクへ分解し、REQ 18/18、既存環境、936試験、build、依存監査を確認
 - T-063で夏目漱石3作品のREQ 18件・QT 15件を確定し、独立レビュー指摘を全解消してゲート①を通過
@@ -56,7 +58,7 @@ blocked_by: []
 
 ## 次のアクション
 
-- T-067でUT-F005・IT-F005を作成し、QT-F005と合わせて全REQ/DES/FUNを網羅する。
+- T-068でF005候補定義・固定baseline・権利原典・entity正規化基盤を実装する。
 
 ## 未解決事項
 

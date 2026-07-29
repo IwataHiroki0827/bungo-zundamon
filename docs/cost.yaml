@@ -463,3 +463,17 @@ entries:
   agents: 1
   est_tokens: 8000
   note: T-065〜T-075の11タスクへ分解しREQ 18/18をcoverage。既存CLI・VOICEVOX 0.25.2・Playwright 6環境を再利用し追加MCP不要。C:空き56.58 GiBを確認し、typecheck・lint・Vitest 936件・697ファイルbuild・audit 0件をPASS
+- date: '2026-07-29'
+  phase: design
+  task: T-065/T-066 F005 FD・DD設計
+  model: GPT-5
+  agents: 4
+  est_tokens: 36000
+  note: DES 13件・FUN 48件、ETW正本容量監視、registry三段階migration、nullable書誌、原典/画像/path防御を設計。変更管理Q-028〜031を反映し、独立3観点レビューHigh/Medium/Low 0、traceの設計欠落0でゲート②通過
+- date: '2026-07-29'
+  phase: testspec
+  task: T-067 F005 UT・IT仕様
+  model: GPT-5
+  agents: 4
+  est_tokens: 22000
+  note: UT 48件・IT 15件、セキュリティ境界subcase、有限fault 15件を作成。REQ 18/DES 13/FUN 48/QT 20をcoverage 100%で網羅し、独立3観点レビューHigh/Medium/Low 0でゲート③通過
