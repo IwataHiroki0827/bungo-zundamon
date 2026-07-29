@@ -232,13 +232,13 @@ describe('F005 production work runner', () => {
     });
     const engine = Object.assign(
       new Error('fixed runner boundary'),
-      { name: 'F005RunnerEngineError', code: 'F005_ENGINE_SYNTHESIS_FAILED' },
+      { name: 'F005RunnerEngineError', code: 'F005_ENGINE_VERSION_REQUEST_FAILED' },
     );
     expect(JSON.parse(
       formatF005RunnerFailure(engine).slice(F005_RUNNER_FAILURE_PREFIX.length),
     )).toMatchObject({
       name: 'F005RunnerEngineError',
-      code: 'F005_ENGINE_SYNTHESIS_FAILED',
+      code: 'F005_ENGINE_VERSION_REQUEST_FAILED',
     });
   });
 
