@@ -89,6 +89,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(attributes).toContain('*.md text eol=lf');
     expect(attributes).toContain('*.yaml text eol=lf');
     expect(attributes).toContain('*.yml text eol=lf');
+    expect(attributes).toContain('public/.nojekyll text eol=lf');
     expect(attributes).toContain('native/f005-guard/** text eol=lf');
     expect(scripts).toContain("'127.0.0.1'");
     expect(scripts).toMatch(/'--work',\s*'000799'/u);
