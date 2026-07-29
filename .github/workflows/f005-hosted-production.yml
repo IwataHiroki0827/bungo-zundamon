@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; native voice boundaries precede bounded Job abort.
+# Source bytes are LF-pinned; fixed native reply classes precede bounded Job abort.
 on:
   push:
     branches:

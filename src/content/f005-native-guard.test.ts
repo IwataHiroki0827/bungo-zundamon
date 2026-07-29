@@ -9,6 +9,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { canonicalJson } from './artifacts.ts';
 import {
+  classifyF005NativeCapacityReplyError,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
   normalizeF005CapacityNoticePath,
@@ -22,6 +23,19 @@ const GUARD_EXE = resolve('.cache/dotnet-f005/publish/f005-guard.exe');
 const SHA = '1'.repeat(64);
 const PRODUCER_SHA = F005_NATIVE_GUARD_PINS.outputBinarySha256;
 const temporaryRoots: string[] = [];
+
+it('native reply自由文字列を固定capacity error codeへ分類する', () => {
+  expect(classifyF005NativeCapacityReplyError('F005_CAPACITY_NOTICE_UNMATCHED'))
+    .toBe('F005_CAPACITY_NOTICE_UNMATCHED');
+  expect(classifyF005NativeCapacityReplyError('ETW_FILE_IDENTITY_MISSING'))
+    .toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  expect(classifyF005NativeCapacityReplyError('ETW_PRIVILEGE_REQUIRED_5'))
+    .toBe('F005_ETW_PRIVILEGE_REQUIRED');
+  expect(classifyF005NativeCapacityReplyError('NOTICE_PHASE_MISMATCH_secret'))
+    .toBe('F005_CAPACITY_GUARD_REJECTED');
+  expect(classifyF005NativeCapacityReplyError(null))
+    .toBe('F005_CAPACITY_GUARD_REJECTED');
+});
 
 afterEach(async () => {
   await Promise.all(temporaryRoots.splice(0).map((path) =>

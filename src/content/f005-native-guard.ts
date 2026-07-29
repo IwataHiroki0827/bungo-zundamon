@@ -30,6 +30,9 @@ export type F005NativeCapacityErrorCode =
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_ETW_PRIVILEGE_REQUIRED'
   | 'F005_CAPACITY_IPC_FAILED'
+  | 'F005_CAPACITY_GUARD_REJECTED'
+  | 'F005_CAPACITY_ETW_OBSERVATION_FAILED'
+  | 'F005_CAPACITY_NOTICE_UNMATCHED'
   | 'F005_CAPACITY_JOURNAL_INVALID'
   | 'F005_DIRECTORY_SYNC_FAILED';
 
@@ -54,6 +57,17 @@ function fail(
     message,
     cause === undefined ? undefined : { cause },
   );
+}
+
+export function classifyF005NativeCapacityReplyError(value: unknown): F005NativeCapacityErrorCode {
+  if (value === 'F005_CAPACITY_NOTICE_UNMATCHED') return 'F005_CAPACITY_NOTICE_UNMATCHED';
+  if (typeof value === 'string' && value.startsWith('ETW_PRIVILEGE_REQUIRED')) {
+    return 'F005_ETW_PRIVILEGE_REQUIRED';
+  }
+  if (typeof value === 'string' && value.startsWith('ETW_')) {
+    return 'F005_CAPACITY_ETW_OBSERVATION_FAILED';
+  }
+  return 'F005_CAPACITY_GUARD_REJECTED';
 }
 
 function sha256(value: string | Uint8Array): string {
@@ -373,9 +387,7 @@ class NativePipeClient {
     if (!reply.ok) {
       const code = typeof reply.error === 'string' ? reply.error : 'CAPACITY_GUARD_FAILURE';
       return fail(
-        code.startsWith('ETW_PRIVILEGE_REQUIRED')
-          ? 'F005_ETW_PRIVILEGE_REQUIRED'
-          : 'F005_CAPACITY_IPC_FAILED',
+        classifyF005NativeCapacityReplyError(code),
         `native capacity guardが${code}で停止しました`,
       );
     }
