@@ -192,8 +192,32 @@ describe('UT-F005-017 generation/native recorder [DES-F005-006][FUN-F005-017]', 
       workerPid: process.pid,
     }, recorderBackend(nonce, calls));
     const plan = planF005VoiceDiff([speech('生成')], F002_VOICE_CONFIG, { entries: [] });
-    const evidence = await generateF005Voice(plan, engine(wav(1)), stage, recorder, '000799');
+    const progress: string[] = [];
+    const evidence = await generateF005Voice(
+      plan,
+      engine(wav(1)),
+      stage,
+      recorder,
+      '000799',
+      1,
+      120_000,
+      (stageName) => progress.push(stageName),
+    );
     expect(calls).toEqual(['begin', 'create', 'create', 'rename', 'end']);
+    expect(progress).toEqual([
+      'engine-verified',
+      'native-phase-begun',
+      'staging-root-created',
+      'staging-root-observed',
+      'audio-query-created',
+      'synthesis-complete',
+      'wav-validated',
+      'temporary-written',
+      'temporary-observed',
+      'audio-renamed',
+      'rename-observed',
+      'native-phase-ended',
+    ]);
     expect(evidence.assets).toMatchObject([{ source: 'staging', durationMs: 1 }]);
     await expect(readFile(evidence.assets[0]!.path)).resolves.toHaveLength(92);
   });

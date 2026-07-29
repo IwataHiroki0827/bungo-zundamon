@@ -470,6 +470,20 @@ export interface F005VoiceGenerationEvidence {
   readonly evidenceSha256: string;
 }
 
+export type F005VoiceGenerationProgress =
+  | 'engine-verified'
+  | 'native-phase-begun'
+  | 'staging-root-created'
+  | 'staging-root-observed'
+  | 'audio-query-created'
+  | 'synthesis-complete'
+  | 'wav-validated'
+  | 'temporary-written'
+  | 'temporary-observed'
+  | 'audio-renamed'
+  | 'rename-observed'
+  | 'native-phase-ended';
+
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
@@ -496,6 +510,7 @@ export async function generateF005Voice(
   workId: string,
   concurrency = 1,
   timeoutMs = 120_000,
+  onProgress: (stage: F005VoiceGenerationProgress) => void = () => undefined,
 ): Promise<F005VoiceGenerationEvidence> {
   if (!voicePlans.has(plan) || plan.__brand !== 'F005VoicePlan' ||
     plan.planSha256 !== hash(canonical({
@@ -535,6 +550,13 @@ export async function generateF005Voice(
   let rootCreated = false;
   let sequence = 0;
   let begun = false;
+  const progress = (stage: F005VoiceGenerationProgress): void => {
+    try {
+      onProgress(stage);
+    } catch {
+      // 診断sink失敗でproduction mutationの意味を変えない。
+    }
+  };
   const notice = async (
     kind: F005MutationKind,
     path: string,
@@ -569,11 +591,15 @@ export async function generateF005Voice(
     if (version !== F002_VOICE_CONFIG.engineVersion || speaker.length !== 1 || style?.length !== 1) {
       fail('F005_VOICE_GENERATION_INVALID', 'VOICEVOX engine/speaker/styleが固定tupleと一致しません');
     }
+    progress('engine-verified');
     await capacityRecorder.beginPhase('voice', workId, phaseInstanceId);
     begun = true;
+    progress('native-phase-begun');
     await mkdir(root, { recursive: false });
     rootCreated = true;
+    progress('staging-root-created');
     await notice('create', root, null, 0, null);
+    progress('staging-root-observed');
     for (const entry of plan.entries) {
       if (entry.action === 'reuse') {
         if (!entry.existing) fail('F005_VOICE_GENERATION_INVALID', 'reuse実体がありません');
@@ -588,7 +614,9 @@ export async function generateF005Voice(
         continue;
       }
       const query = await withTimeout(loopbackEngine.createAudioQuery(entry.speechText), timeoutMs);
+      progress('audio-query-created');
       const wav = await withTimeout(loopbackEngine.synthesize(query), timeoutMs);
+      progress('synthesis-complete');
       if (!(wav instanceof Uint8Array) || wav.byteLength > F005_VOICE_LIMITS.wavBytes) {
         fail('F005_VOICE_GENERATION_INVALID', 'VOICEVOX responseがWAV上限を超えるか不正です');
       }
@@ -601,6 +629,7 @@ export async function generateF005Voice(
       } catch (error) {
         return fail('F005_VOICE_GENERATION_INVALID', 'VOICEVOX responseがPCM WAVではありません', error);
       }
+      progress('wav-validated');
       if (durationMs > F005_VOICE_LIMITS.durationMs) {
         fail('F005_VOICE_GENERATION_INVALID', 'VOICEVOX responseがduration上限を超えます');
       }
@@ -609,12 +638,16 @@ export async function generateF005Voice(
       const destination = join(root, `${entry.audioId}.wav`);
       await writeFile(temporary, wav, { flag: 'wx' });
       created.push(temporary);
+      progress('temporary-written');
       await notice('create', temporary, null, wav.byteLength, digest);
+      progress('temporary-observed');
       await rename(temporary, destination);
       created.splice(created.indexOf(temporary), 1);
       created.push(destination);
       stagedBytes += wav.byteLength;
+      progress('audio-renamed');
       await notice('rename', temporary, destination, wav.byteLength, digest);
+      progress('rename-observed');
       assets.push({
         audioId: entry.audioId,
         path: destination,
@@ -625,6 +658,7 @@ export async function generateF005Voice(
       });
     }
     await capacityRecorder.endPhase('voice', phaseInstanceId);
+    progress('native-phase-ended');
     const payload = { planSha256: plan.planSha256, phaseInstanceId, assets };
     return freezeDeep({
       __brand: 'F005VoiceGenerationEvidence' as const,

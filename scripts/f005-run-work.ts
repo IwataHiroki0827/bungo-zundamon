@@ -62,6 +62,7 @@ import {
   planF005VoiceDiff,
   type F005LoopbackEngine,
   type F005SpeechItem,
+  type F005VoiceGenerationProgress,
 } from '../src/content/f005-voice.ts';
 import { F002_VOICE_CONFIG } from '../src/voice/f003.ts';
 import type { VoicevoxSpeaker } from '../src/voice/types.ts';
@@ -72,6 +73,7 @@ const OWNER = 'f005-production-runner';
 export const F005_RUNNER_RESULT_PREFIX = 'F005_RESULT_JSON=';
 export const F005_RUNNER_PROGRESS_PREFIX = 'F005_PROGRESS=';
 export const F005_RUNNER_FAILURE_PREFIX = 'F005_FAILURE_JSON=';
+export const F005_VOICE_PROGRESS_PREFIX = 'F005_VOICE_PROGRESS=';
 
 type F005RunnerProgress =
   | 'context-loaded'
@@ -290,6 +292,10 @@ export function formatF005RunnerResult(value: Readonly<Record<string, unknown>>)
 
 export function formatF005RunnerProgress(stage: F005RunnerProgress): string {
   return `${F005_RUNNER_PROGRESS_PREFIX}${stage}\n`;
+}
+
+export function formatF005VoiceProgress(stage: F005VoiceGenerationProgress): string {
+  return `${F005_VOICE_PROGRESS_PREFIX}${stage}\n`;
 }
 
 function readErrorField(error: Error, field: 'name' | 'stack' | 'cause' | 'code'): unknown {
@@ -703,6 +709,9 @@ async function main(): Promise<void> {
       voiceRoot,
       voiceRecorder,
       workId,
+      1,
+      120_000,
+      (stage) => process.stderr.write(formatF005VoiceProgress(stage)),
     );
     process.stderr.write(formatF005RunnerProgress('voice-generated'));
 

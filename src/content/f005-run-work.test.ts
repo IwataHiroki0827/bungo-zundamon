@@ -16,9 +16,11 @@ import {
   F005_RUNNER_PROGRESS_PREFIX,
   F005_RUNNER_PHASE_ORDER,
   F005_RUNNER_RESULT_PREFIX,
+  F005_VOICE_PROGRESS_PREFIX,
   formatF005RunnerProgress,
   formatF005RunnerFailure,
   formatF005RunnerResult,
+  formatF005VoiceProgress,
   parseF005RunWorkArguments,
   reportF005RunnerFailureBeforeAbort,
   runOfflineBuild,
@@ -195,6 +197,8 @@ describe('F005 production work runner', () => {
     )).toMatchObject({ workId: '000799', status: 'accepted' });
     expect(formatF005RunnerProgress('session-close-start'))
       .toBe(`${F005_RUNNER_PROGRESS_PREFIX}session-close-start\n`);
+    expect(formatF005VoiceProgress('staging-root-created'))
+      .toBe(`${F005_VOICE_PROGRESS_PREFIX}staging-root-created\n`);
     const unsafe = new Error(
       `https://runner:ghp_secret@example.invalid/repo SECRET=value ${'x'.repeat(100_000)}`,
     );

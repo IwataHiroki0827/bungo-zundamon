@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; native metadata-only identity checks precede bounded Job abort.
+# Source bytes are LF-pinned; fixed voice checkpoints precede bounded native Job abort.
 on:
   push:
     branches:
@@ -226,11 +226,11 @@ jobs:
             )
             Write-Host "$Name=$encoded"
           }
-          $resultPath = Join-Path $PWD '.cache\f005-hosted-production-result.json'
-          $stdoutPath = Join-Path $PWD '.cache\f005-hosted-production.stdout.log'
-          $stderrPath = Join-Path $PWD '.cache\f005-hosted-production.stderr.log'
           $runPath = '${{ steps.engine.outputs.run_path }}'
           $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
+          $resultPath = Join-Path $logRoot 'f005-hosted-production-result.json'
+          $stdoutPath = Join-Path $logRoot 'f005-hosted-production.stdout.log'
+          $stderrPath = Join-Path $logRoot 'f005-hosted-production.stderr.log'
           $engineProcess = $null
           try {
           $engineProcess = Start-Process `
@@ -329,6 +329,7 @@ jobs:
         shell: pwsh
         env:
           GITHUB_PUSH_TOKEN: ${{ github.token }}
+          F005_ENGINE_CACHE_ROOT: ${{ steps.engine.outputs.cache_root }}
         run: |
           $ErrorActionPreference = 'Stop'
           git diff --exit-code -- public
@@ -363,8 +364,9 @@ jobs:
           if (git diff --diff-filter=D --name-only) {
             throw 'production deleted a tracked file'
           }
-          $runnerResult = Get-Content `
-            -LiteralPath '.cache\f005-hosted-production-result.json' -Raw |
+          $logRoot = [IO.Path]::GetFullPath($env:F005_ENGINE_CACHE_ROOT)
+          $resultPath = Join-Path $logRoot 'f005-hosted-production-result.json'
+          $runnerResult = Get-Content -LiteralPath $resultPath -Raw |
             ConvertFrom-Json
           $nativeEvidence = Get-Content `
             -LiteralPath 'native\f005-guard\build-evidence.json' -Raw |

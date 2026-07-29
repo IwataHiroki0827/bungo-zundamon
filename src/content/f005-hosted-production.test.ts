@@ -61,7 +61,10 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       'fetch-depth': 0,
       'persist-credentials': false,
     });
-    expect(persist?.env).toEqual({ GITHUB_PUSH_TOKEN: '${{ github.token }}' });
+    expect(persist?.env).toEqual({
+      GITHUB_PUSH_TOKEN: '${{ github.token }}',
+      F005_ENGINE_CACHE_ROOT: '${{ steps.engine.outputs.cache_root }}',
+    });
     expect(scripts).toContain('voicevox_engine-windows-cpu-0.25.2.7z.001');
     expect(scripts).toContain('2ab86e4bf29448e3317ee97327efb3211c4ecc1063b03a62ab72b15a92ec531d');
     expect(scripts).toContain('$drive.Free -lt 10GB');
@@ -72,6 +75,13 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('VOICEVOX cache must stay outside the guarded workspace');
     expect(production?.env?.F005_ENGINE_CACHE_ROOT)
       .toBe('${{ steps.engine.outputs.cache_root }}');
+    expect(production?.run).not.toContain("Join-Path $PWD '.cache\\f005-hosted-production");
+    expect(production?.run).toContain(
+      "Join-Path $logRoot 'f005-hosted-production-result.json'",
+    );
+    expect(persist?.run).toContain(
+      "Join-Path $logRoot 'f005-hosted-production-result.json'",
+    );
     expect(scripts).toContain('native build evidence semantic drift');
     expect(scripts).toContain('F005_NATIVE_EVIDENCE_DRIFT_FIELDS_BASE64');
     expect(scripts).toContain('[IO.File]::WriteAllBytes($evidencePath, $expectedBytes)');
