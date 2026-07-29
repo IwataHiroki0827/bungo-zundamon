@@ -404,6 +404,9 @@ const F005_FAILURE_CODES = new Set([
   'F005_ETW_PRIVILEGE_REQUIRED',
   'F005_ETW_ALLOCATED_LENGTH_MISSING',
   'F005_ETW_BUFFER_LOSS',
+  'F005_ETW_CALLBACK_FAILED',
+  'F005_ETW_CONSUMER_FAILED',
+  'F005_ETW_CONSUMER_STOP_TIMEOUT',
   'F005_ETW_EVENT_OUTSIDE_PHASE',
   'F005_ETW_FILE_IDENTITY_MISSING',
   'F005_ETW_FILE_IDENTITY_UNSAFE',
@@ -411,6 +414,8 @@ const F005_FAILURE_CODES = new Set([
   'F005_ETW_PID_NOT_JOB_MEMBER',
   'F005_ETW_RENAME_IDENTITY_MISMATCH',
   'F005_ETW_SEQUENCE_GAP',
+  'F005_ETW_SESSION_STOP_FAILED',
+  'F005_ETW_UNKNOWN_EVENT',
   'F005_NATIVE_GUARD_INVALID',
   'UND_ERR_CONNECT_TIMEOUT',
 ]);
@@ -1107,5 +1112,8 @@ async function main(): Promise<void> {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
-  await main();
+  await main().catch(() => {
+    // main内でallowlist済み診断をflushする。未処理例外のraw message/絶対pathはstderrへ再出力しない。
+    process.exitCode = 1;
+  });
 }

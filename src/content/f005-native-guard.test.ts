@@ -28,6 +28,7 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   for (const [value, expected] of [
     ['ETW_ALLOCATED_LENGTH_MISSING', 'F005_ETW_ALLOCATED_LENGTH_MISSING'],
     ['ETW_BUFFER_LOSS', 'F005_ETW_BUFFER_LOSS'],
+    ['ETW_CONSUMER_STOP_TIMEOUT', 'F005_ETW_CONSUMER_STOP_TIMEOUT'],
     ['ETW_EVENT_OUTSIDE_PHASE', 'F005_ETW_EVENT_OUTSIDE_PHASE'],
     ['ETW_FILE_IDENTITY_MISSING', 'F005_ETW_FILE_IDENTITY_MISSING'],
     ['ETW_FILE_IDENTITY_UNSAFE', 'F005_ETW_FILE_IDENTITY_UNSAFE'],
@@ -35,13 +36,18 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     ['ETW_PID_NOT_JOB_MEMBER', 'F005_ETW_PID_NOT_JOB_MEMBER'],
     ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
     ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
+    ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
   ] as const) {
     expect(classifyF005NativeCapacityReplyError(value)).toBe(expected);
   }
   expect(classifyF005NativeCapacityReplyError('F005_CAPACITY_NOTICE_UNMATCHED'))
     .toBe('F005_CAPACITY_NOTICE_UNMATCHED');
   expect(classifyF005NativeCapacityReplyError('ETW_OBSERVATION_FAILED_secret'))
-    .toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+    .toBe('F005_ETW_CALLBACK_FAILED');
+  expect(classifyF005NativeCapacityReplyError('ETW_CONSUMER_FAILED_secret'))
+    .toBe('F005_ETW_CONSUMER_FAILED');
+  expect(classifyF005NativeCapacityReplyError('ETW_SESSION_STOP_FAILED_secret'))
+    .toBe('F005_ETW_SESSION_STOP_FAILED');
   expect(classifyF005NativeCapacityReplyError('ETW_PRIVILEGE_REQUIRED_5'))
     .toBe('F005_ETW_PRIVILEGE_REQUIRED');
   expect(classifyF005NativeCapacityReplyError('NOTICE_PHASE_MISMATCH_secret'))

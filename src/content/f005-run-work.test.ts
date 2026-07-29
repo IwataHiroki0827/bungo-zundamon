@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { execFile } from 'node:child_process';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
@@ -50,6 +51,34 @@ async function manifest(): Promise<BatchManifest> {
 }
 
 describe('F005 production work runner', () => {
+  it('CLI終端はraw例外messageと絶対pathをstderrへ再出力しない', async () => {
+    const secret = 'ETW_OBSERVATION_FAILED_80070005_secret';
+    const result = await new Promise<{ code: number | null; stderr: string }>((resolveChild) => {
+      execFile(
+        process.execPath,
+        [
+          '--no-warnings',
+          '--experimental-transform-types',
+          resolve('scripts/f005-run-work.ts'),
+          '--work',
+          secret,
+        ],
+        { cwd: resolve('.') },
+        (error, _stdout, stderr) => {
+          resolveChild({
+            code: error && typeof error === 'object' && 'code' in error &&
+              typeof error.code === 'number' ? error.code : null,
+            stderr,
+          });
+        },
+      );
+    });
+    expect(result.code).toBe(1);
+    expect(result.stderr).toBe('');
+    expect(result.stderr).not.toContain(secret);
+    expect(result.stderr).not.toContain(resolve('.'));
+  });
+
   it('CLI work IDを必須化しmanifest順の現在workだけを選ぶ', async () => {
     const value = await manifest();
     expect(parseF005RunWorkArguments(['--work', '000799'])).toBe('000799');

@@ -35,6 +35,9 @@ export type F005NativeCapacityErrorCode =
   | 'F005_CAPACITY_NOTICE_UNMATCHED'
   | 'F005_ETW_ALLOCATED_LENGTH_MISSING'
   | 'F005_ETW_BUFFER_LOSS'
+  | 'F005_ETW_CALLBACK_FAILED'
+  | 'F005_ETW_CONSUMER_FAILED'
+  | 'F005_ETW_CONSUMER_STOP_TIMEOUT'
   | 'F005_ETW_EVENT_OUTSIDE_PHASE'
   | 'F005_ETW_FILE_IDENTITY_MISSING'
   | 'F005_ETW_FILE_IDENTITY_UNSAFE'
@@ -42,6 +45,8 @@ export type F005NativeCapacityErrorCode =
   | 'F005_ETW_PID_NOT_JOB_MEMBER'
   | 'F005_ETW_RENAME_IDENTITY_MISMATCH'
   | 'F005_ETW_SEQUENCE_GAP'
+  | 'F005_ETW_SESSION_STOP_FAILED'
+  | 'F005_ETW_UNKNOWN_EVENT'
   | 'F005_CAPACITY_JOURNAL_INVALID'
   | 'F005_DIRECTORY_SYNC_FAILED';
 
@@ -71,6 +76,7 @@ function fail(
 const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCode> = new Map([
   ['ETW_ALLOCATED_LENGTH_MISSING', 'F005_ETW_ALLOCATED_LENGTH_MISSING'],
   ['ETW_BUFFER_LOSS', 'F005_ETW_BUFFER_LOSS'],
+  ['ETW_CONSUMER_STOP_TIMEOUT', 'F005_ETW_CONSUMER_STOP_TIMEOUT'],
   ['ETW_EVENT_OUTSIDE_PHASE', 'F005_ETW_EVENT_OUTSIDE_PHASE'],
   ['ETW_FILE_IDENTITY_MISSING', 'F005_ETW_FILE_IDENTITY_MISSING'],
   ['ETW_FILE_IDENTITY_UNSAFE', 'F005_ETW_FILE_IDENTITY_UNSAFE'],
@@ -78,6 +84,7 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
   ['ETW_PID_NOT_JOB_MEMBER', 'F005_ETW_PID_NOT_JOB_MEMBER'],
   ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
   ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
+  ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
 ]);
 
 export function classifyF005NativeCapacityReplyError(value: unknown): F005NativeCapacityErrorCode {
@@ -89,6 +96,15 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
     ? FIXED_F005_ETW_REPLY_CODES.get(value)
     : undefined;
   if (fixedCode !== undefined) return fixedCode;
+  if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
+    return 'F005_ETW_CONSUMER_FAILED';
+  }
+  if (typeof value === 'string' && value.startsWith('ETW_OBSERVATION_FAILED_')) {
+    return 'F005_ETW_CALLBACK_FAILED';
+  }
+  if (typeof value === 'string' && value.startsWith('ETW_SESSION_STOP_FAILED_')) {
+    return 'F005_ETW_SESSION_STOP_FAILED';
+  }
   if (typeof value === 'string' && value.startsWith('ETW_')) {
     return 'F005_CAPACITY_ETW_OBSERVATION_FAILED';
   }

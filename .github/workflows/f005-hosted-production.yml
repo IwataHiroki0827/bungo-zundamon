@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes including .nojekyll are LF-pinned; manifest stage evidence preserves the prior output chain.
+# Source bytes including .nojekyll are LF-pinned; ETW failures use bounded categories.
 on:
   push:
     branches:
