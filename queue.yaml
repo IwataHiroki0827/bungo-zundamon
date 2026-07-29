@@ -1038,3 +1038,26 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-29T09:04:26+09:00'
   processed_note: F005候補をsnapshot専用registryへ隔離し、互換migrationを設計契約へ追加してF005設計を継続した。
+- id: Q-032
+  type: approval
+  status: closed
+  title: F005 設計承認
+  body: >-
+    FD-F005 v1.0.0とDD-F005 v1.0.0は、REQ 18件をDES 13件・FUN 48件へ展開し、独立3観点レビューHigh/Medium/Low 0件、REQ→DES→FUN→QT欠落0件となった。ゲート②を承認してT-067のテスト仕様作成へ進む。
+  target: docs/design/FD-F005.md
+  target_mode: document
+  options:
+  - 承認
+  - 修正指示
+  allow_freeform: false
+  answer: 承認
+  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+  created: '2026-07-29T09:26:21+09:00'
+  source: pf-design
+  resume:
+    task: T-067
+    next: pf-testspec
+  approved_at: '2026-07-29T09:26:21+09:00'
+  approval_answer_normalized: 承認
+  processed_at: '2026-07-29T09:26:21+09:00'
+  processed_note: FD-F005/DD-F005をApproved v1.0.0へ更新し、T-065/T-066を完了。F005をtestspecへ移行した。

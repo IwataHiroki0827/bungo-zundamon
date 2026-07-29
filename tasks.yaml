@@ -93,7 +93,7 @@ tasks:
   title: 機能設計書(FD-F005)を作成しREQ全18件を夏目漱石追加設計へ展開
   feature: F005
   phase: design
-  state: doing
+  state: done
   depends:
   - T-064
   tags: &id005
@@ -124,7 +124,7 @@ tasks:
   title: 関数設計書(DD-F005)を作成しデータ・関数・状態遷移契約へ展開
   feature: F005
   phase: design
-  state: todo
+  state: done
   depends:
   - T-065
   tags: *id005
@@ -137,7 +137,7 @@ tasks:
   title: UT-F005・IT-F005を作成しQT-F005との網羅性を確認
   feature: F005
   phase: testspec
-  state: todo
+  state: doing
   depends:
   - T-066
   tags: *id005
