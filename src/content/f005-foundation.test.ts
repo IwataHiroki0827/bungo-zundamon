@@ -241,8 +241,8 @@ describe('UT-F005-018 CapacityForecastV3', () => {
       ['public/audio/F005/hidden.wav', 'audio-b'],
       ['dist/index.html', 'artifact-a'],
       ['dist/hidden.bin', 'artifact-b'],
-      ['.cache/f005-stage/declared.tmp', 'peak-a'],
-      ['.cache/f005-stage/hidden.tmp', 'peak-b'],
+      ['.cache/f005/stage/declared.tmp', 'peak-a'],
+      ['.cache/f005/stage/hidden.tmp', 'peak-b'],
       ['src/tracked-a.ts', 'repository-a'],
       ['src/tracked-b.ts', 'repository-b'],
       ['objects/largest.bin', 'x'.repeat(128)],
@@ -367,7 +367,10 @@ describe('UT-F005-018 CapacityForecastV3', () => {
 
   /** @des DES-F005-006 @fun FUN-F005-018 @test UT-F005-018 */
   it('初回作品のF005 audio rootが未作成でもplanned audioだけで予測する', async () => {
-    await rm(join(capacityWorkspace, 'public', 'audio', 'F005'), { recursive: true });
+    await Promise.all([
+      rm(join(capacityWorkspace, 'public', 'audio', 'F005'), { recursive: true }),
+      rm(join(capacityWorkspace, '.cache', 'f005'), { recursive: true }),
+    ]);
     inventory = await discoverF005CapacityInventory(capacityWorkspace, context, baseline);
     plan = createF005CapacityPlan(context, baseline, inventory, {
       planSha256: HASH('9'),
@@ -433,7 +436,7 @@ describe('UT-F005-018 CapacityForecastV3', () => {
   it.each([
     ['未追跡WAV', async () => writeFixture('public/audio/F005/late.wav', 'late-audio')],
     ['artifact追加', async () => writeFixture('dist/late.bin', 'late-artifact')],
-    ['workspace staging追加', async () => writeFixture('.cache/f005-stage/late.tmp', 'late-peak')],
+    ['workspace staging追加', async () => writeFixture('.cache/f005/stage/late.tmp', 'late-peak')],
     ['path rename', async () => rename(
       join(capacityWorkspace, 'dist', 'hidden.bin'),
       join(capacityWorkspace, 'dist', 'renamed.bin'),

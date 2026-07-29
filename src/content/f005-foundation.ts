@@ -46,7 +46,7 @@ export const F005_CAPACITY_LIMITS = Object.freeze({
 export const F005_CAPACITY_ROOTS = Object.freeze({
   audio: 'public/audio/F005',
   artifact: 'dist',
-  workspacePeak: '.cache',
+  workspacePeak: '.cache/f005',
 } as const);
 
 export const F005_RANKING_POLICY_VERSION = 'aozora-author-ranking-2022-v1' as const;
@@ -1052,7 +1052,7 @@ export async function discoverF005CapacityInventory(
     discoverRootFiles(root, F005_CAPACITY_ROOTS.artifact, 'artifact'),
     discoverGitIndex(root),
     discoverGitObjects(root),
-    discoverRootFiles(root, F005_CAPACITY_ROOTS.workspacePeak, 'workspace-peak'),
+    discoverRootFiles(root, F005_CAPACITY_ROOTS.workspacePeak, 'workspace-peak', true),
   ]);
   const entries = freezeDeep([...audio, ...artifact, ...repository, ...objects, ...workspacePeak]);
   normalizeClaims(entries.map(inventoryClaim));
