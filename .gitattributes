@@ -1,6 +1,9 @@
 *.raw binary
 *.csv binary
 *.json text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
 content/batches/F005/sealed/**/*.xhtml binary
 data/batches/F005/source-snapshots/**/*.html binary
 native/f005-guard/** text eol=lf
