@@ -871,6 +871,7 @@ sealed class CapacityGuardSession : IDisposable
     private readonly Task pipeTask;
     private readonly HashSet<int> registeredPids = [];
     private readonly Dictionary<ulong, RegisteredWorkerProcess> registeredWorkerProcesses = [];
+    private readonly Dictionary<int, ProcessBirthRecord> processBirthByPid = [];
     private readonly Dictionary<ulong, FileSnapshot> filesByObject = [];
     private readonly Dictionary<string, FileSnapshot> filesByPath = new(StringComparer.Ordinal);
     private readonly Dictionary<string, long> allocatedByIdentity = new(StringComparer.Ordinal);
@@ -886,6 +887,7 @@ sealed class CapacityGuardSession : IDisposable
     private int? rootWorkerPid;
     private Process? rootWorkerProcess;
     private ulong? rootWorkerStartKey;
+    private ulong? rootWorkerSequenceNumber;
     private string? failureCode;
     private ActivePhase? activePhase;
     private bool etwStopped;
@@ -929,13 +931,13 @@ sealed class CapacityGuardSession : IDisposable
         minimumObservedFreeBytes = InitialFreeBytes;
 
         ConfigureEtwCallbacks();
+        PersistJournal(closed: false);
         etwThread = new Thread(ProcessEtw) {
             IsBackground = true,
             Name = "f005-capacity-etw",
         };
         etwThread.Start();
         pipeTask = Task.Run(PipeLoopAsync);
-        PersistJournal(closed: false);
     }
 
     public string Owner { get; }
@@ -995,6 +997,13 @@ sealed class CapacityGuardSession : IDisposable
             TraceEventProcessIdentity.ValidateAbi();
             session.EnableKernelProvider(KernelTraceEventParser.Keywords.None);
             TraceEventSystemController.EnableSystemIoProcessStartKey(session);
+            // TraceEventの戻り値は「既存sessionを再起動したか」であり成否ではない。
+            // provider有効化失敗は例外として扱われるため、timeoutを明示して呼び出す。
+            session.EnableProviderTimeoutMSec = 10_000;
+            session.EnableProvider(
+                TraceEventProcessIdentity.KernelProcessProvider,
+                TraceEventLevel.Informational,
+                TraceEventProcessIdentity.KernelProcessKeyword);
             return new CapacityGuardSession(
                 root,
                 journalPath,
@@ -1029,6 +1038,7 @@ sealed class CapacityGuardSession : IDisposable
     private void ConfigureEtwCallbacks()
     {
         var kernel = etwSource.Kernel;
+        etwSource.Registered.All += ObserveProcessBirth;
         kernel.FileIOCreate += data => {
             if (data.CreateDisposition != CreateDisposition.OPEN_EXISTING)
             {
@@ -1111,13 +1121,46 @@ sealed class CapacityGuardSession : IDisposable
         lock (gate)
         {
             var processStartKey = TraceEventProcessIdentity.ProcessStartKey(data);
-            if (processStartKey == 0)
-            {
-                if (processIdentityProbed) PoisonLocked("ETW_PROCESS_START_KEY_MISSING");
-                return;
-            }
-            if (AuthorizeJobMemberLocked(data.ProcessID, processStartKey))
+#pragma warning disable CS0618 // process generation境界は同一QPC clockで照合する。
+            if (AuthorizeJobMemberLocked(data.ProcessID, processStartKey, data.TimeStampQPC))
                 PoisonLocked("ETW_UNKNOWN_EVENT");
+#pragma warning restore CS0618
+        }
+    }
+
+    private void ObserveProcessBirth(TraceEvent data)
+    {
+        if (data.ProviderGuid != TraceEventProcessIdentity.KernelProcessProvider ||
+            (int)data.ID != TraceEventProcessIdentity.KernelProcessStartEventId)
+        {
+            return;
+        }
+        try
+        {
+            var pid = checked(Convert.ToInt32(data.PayloadByName("ProcessID")));
+            var sequenceNumber = checked(Convert.ToUInt64(
+                data.PayloadByName("ProcessSequenceNumber")));
+#pragma warning disable CS0618 // process世代境界は同一QPC clockで照合する。
+            var timestampQpc = data.TimeStampQPC;
+#pragma warning restore CS0618
+            if (pid <= 0 || sequenceNumber == 0 || timestampQpc <= 0)
+                throw new GuardException("ETW_PROCESS_START_PAYLOAD_INVALID");
+            lock (gate)
+            {
+                if (journalClosed || failureCode is not null) return;
+                if (!processBirthByPid.TryGetValue(pid, out var prior) ||
+                    timestampQpc > prior.StartedAtQpc)
+                {
+                    // ProcessSequenceNumberはboot内で再利用されない。PID再利用時も
+                    // FileIO eventと現在handleを同じ世代へ完全結合できる。
+                    processBirthByPid[pid] =
+                        new ProcessBirthRecord(sequenceNumber, timestampQpc);
+                }
+            }
+        }
+        catch
+        {
+            Poison("ETW_PROCESS_START_PAYLOAD_INVALID");
         }
     }
 
@@ -1310,7 +1353,9 @@ sealed class CapacityGuardSession : IDisposable
         }
         rootWorkerPid = pid;
         rootWorkerProcess = process;
-        rootWorkerStartKey = job.ProcessStartKey(process);
+        var processIdentity = job.ProcessIdentity(process);
+        rootWorkerStartKey = processIdentity.ProcessStartKey;
+        rootWorkerSequenceNumber = processIdentity.ProcessSequenceNumber;
         registeredPids.Add(pid);
         PersistJournal(closed: false);
         return new {
@@ -1610,12 +1655,7 @@ sealed class CapacityGuardSession : IDisposable
                     return;
                 }
                 callbackStage = "AUTHORIZATION";
-                if (processStartKey == 0)
-                {
-                    PoisonLocked("ETW_PROCESS_START_KEY_MISSING");
-                    return;
-                }
-                if (!AuthorizeJobMemberLocked(pid, processStartKey))
+                if (!AuthorizeJobMemberLocked(pid, processStartKey, timestampQpc))
                 {
                     PoisonLocked("ETW_PID_NOT_JOB_MEMBER");
                     return;
@@ -1787,15 +1827,10 @@ sealed class CapacityGuardSession : IDisposable
     private void ObserveProcessIdentityProbeLocked(int pid, ulong processStartKey)
     {
         if (!processIdentityProbeArmed || processIdentityProbed) return;
-        if (processStartKey == 0)
-        {
-            PoisonLocked("ETW_PROCESS_START_KEY_MISSING");
-            processIdentityProbeObserved.Set();
-            return;
-        }
         if (pid != rootWorkerPid ||
-            rootWorkerStartKey != processStartKey ||
-            !AuthorizeJobMemberLocked(pid, processStartKey))
+            !RootWorkerAliveLocked(pid) ||
+            rootWorkerSequenceNumber is null or 0 ||
+            (processStartKey != 0 && rootWorkerStartKey != processStartKey))
         {
             PoisonLocked("ETW_PROCESS_START_KEY_PROBE_IDENTITY_MISMATCH");
             processIdentityProbeObserved.Set();
@@ -1983,36 +2018,67 @@ sealed class CapacityGuardSession : IDisposable
     private bool IsJournalPath(string relative) =>
         relative.StartsWith(".cache/f005-capacity/", StringComparison.Ordinal);
 
-    private bool AuthorizeJobMemberLocked(int pid, ulong processStartKey)
+    private bool AuthorizeJobMemberLocked(
+        int pid,
+        ulong eventProcessStartKey,
+        long eventTimestampQpc)
     {
         if (rootWorkerPid == pid)
         {
-            return rootWorkerStartKey == processStartKey &&
-                RootWorkerAliveLocked(pid);
+            // session開始時点ですでに生存するrootは保持handleがPID再利用を防ぐ。
+            // System Providerが拡張keyを付ける環境では追加で完全一致を要求する。
+            return RootWorkerAliveLocked(pid) &&
+                (eventProcessStartKey == 0 ||
+                    rootWorkerStartKey == eventProcessStartKey);
         }
-        if (registeredWorkerProcesses.TryGetValue(processStartKey, out var retained))
-            return retained.Pid == pid &&
-                (job.IsSignaled(retained.Process) || job.Contains(retained.Process));
+        if (!processBirthByPid.TryGetValue(pid, out var birth) ||
+            eventTimestampQpc <= birth.StartedAtQpc)
+        {
+            return false;
+        }
+        var retained = registeredWorkerProcesses.Values
+            .FirstOrDefault(item =>
+                item.Pid == pid &&
+                item.ProcessSequenceNumber == birth.ProcessSequenceNumber);
+        if (retained is not null)
+        {
+            return job.Contains(retained.Process) &&
+                (eventProcessStartKey == 0 ||
+                    retained.ProcessStartKey == eventProcessStartKey);
+        }
         var process = job.OpenContainedProcess(pid);
         if (process is null) return false;
         ulong actualStartKey;
         try
         {
-            actualStartKey = job.ProcessStartKey(process);
+            var actualIdentity = job.ProcessIdentity(process);
+            actualStartKey = actualIdentity.ProcessStartKey;
+            if (actualIdentity.ProcessSequenceNumber != birth.ProcessSequenceNumber)
+            {
+                process.Dispose();
+                return false;
+            }
         }
         catch
         {
             process.Dispose();
             return false;
         }
-        if (actualStartKey != processStartKey)
+        if (eventProcessStartKey != 0 && actualStartKey != eventProcessStartKey)
         {
             process.Dispose();
             return false;
         }
         // Job handleはguardだけが保持し、breakawayを許可しない。root workerの子孫は
         // CreateProcess時点から同じJobへ自動加入するため、最初のETW eventで認可する。
-        registeredWorkerProcesses.Add(processStartKey, new RegisteredWorkerProcess(pid, process));
+        registeredWorkerProcesses.Add(
+            actualStartKey,
+            new RegisteredWorkerProcess(
+                pid,
+                process,
+                actualStartKey,
+                birth.ProcessSequenceNumber,
+                birth.StartedAtQpc));
         registeredPids.Add(pid);
         return true;
     }
@@ -2030,24 +2096,41 @@ sealed class CapacityGuardSession : IDisposable
             if (pid == rootWorkerPid) continue;
             var process = job.OpenContainedProcess(pid)
                 ?? throw new GuardException("JOB_PROCESS_IDENTITY_UNAVAILABLE");
-            ulong processStartKey;
+            JobObject.ProcessIdentityRecord identity;
             try
             {
-                processStartKey = job.ProcessStartKey(process);
+                identity = job.ProcessIdentity(process);
             }
             catch
             {
                 process.Dispose();
                 throw new GuardException("JOB_PROCESS_IDENTITY_UNAVAILABLE");
             }
+            var processStartKey = identity.ProcessStartKey;
             if (registeredWorkerProcesses.ContainsKey(processStartKey))
             {
                 process.Dispose();
                 continue;
             }
+            if (!processBirthByPid.TryGetValue(pid, out var birth) ||
+                birth.StartedAtQpc <= 0)
+            {
+                process.Dispose();
+                throw new GuardException("JOB_PROCESS_IDENTITY_UNAVAILABLE");
+            }
+            if (identity.ProcessSequenceNumber != birth.ProcessSequenceNumber)
+            {
+                process.Dispose();
+                throw new GuardException("JOB_PROCESS_IDENTITY_UNAVAILABLE");
+            }
             registeredWorkerProcesses.Add(
                 processStartKey,
-                new RegisteredWorkerProcess(pid, process));
+                new RegisteredWorkerProcess(
+                    pid,
+                    process,
+                    processStartKey,
+                    birth.ProcessSequenceNumber,
+                    birth.StartedAtQpc));
         }
         foreach (var worker in registeredWorkerProcesses.Values)
         {
@@ -2321,7 +2404,16 @@ sealed class CapacityGuardSession : IDisposable
         DateTime StartedAtUtc,
         long StartedAtQpc);
 
-    private sealed record RegisteredWorkerProcess(int Pid, Process Process);
+    private sealed record ProcessBirthRecord(
+        ulong ProcessSequenceNumber,
+        long StartedAtQpc);
+
+    private sealed record RegisteredWorkerProcess(
+        int Pid,
+        Process Process,
+        ulong ProcessStartKey,
+        ulong ProcessSequenceNumber,
+        long StartedAtQpc);
 
     private sealed record DeferredRenameRecord(
         int WorkerPid,
@@ -2595,6 +2687,10 @@ sealed class CapacityGuardSession : IDisposable
 /// </summary>
 static class TraceEventProcessIdentity
 {
+    public static readonly Guid KernelProcessProvider =
+        new("22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716");
+    public const ulong KernelProcessKeyword = 0x0000000000000010;
+    public const int KernelProcessStartEventId = 1;
     private const ushort ProcessStartKeyExtendedType = 0x000d;
     private const int EventRecordExtendedDataCountOffset = 84;
     private const int EventRecordExtendedDataOffset = 88;
@@ -2840,7 +2936,7 @@ sealed class JobObject : IDisposable
     public bool IsSignaled(Process process) =>
         WaitForSingleObject(process.Handle, 0) == 0;
 
-    public ulong ProcessStartKey(Process process)
+    public ProcessIdentityRecord ProcessIdentity(Process process)
     {
         var size = 4096;
         while (size <= 65_536)
@@ -2859,16 +2955,22 @@ sealed class JobObject : IDisposable
                     size = Math.Max(checked(size * 2), checked(required + 4096));
                     continue;
                 }
-                if (status < 0 || required < 16 || required > size)
+                if (status < 0 || required < 48 || required > size)
                     throw new GuardException("PROCESS_START_KEY_QUERY_FAILED");
                 var headerSize = unchecked((uint)Marshal.ReadInt32(buffer, 0));
-                if (headerSize < 16 || headerSize > required)
+                if (headerSize < 48 || headerSize > required)
                     throw new GuardException("PROCESS_START_KEY_QUERY_FAILED");
                 var processId = unchecked((uint)Marshal.ReadInt32(buffer, 4));
                 var processStartKey = unchecked((ulong)Marshal.ReadInt64(buffer, 8));
-                if (processId != process.Id || processStartKey == 0)
+                var processSequenceNumber =
+                    unchecked((ulong)Marshal.ReadInt64(buffer, 40));
+                if (processId != process.Id ||
+                    processStartKey == 0 ||
+                    processSequenceNumber == 0)
                     throw new GuardException("PROCESS_START_KEY_QUERY_FAILED");
-                return processStartKey;
+                return new ProcessIdentityRecord(
+                    processStartKey,
+                    processSequenceNumber);
             }
             finally
             {
@@ -2877,6 +2979,10 @@ sealed class JobObject : IDisposable
         }
         throw new GuardException("PROCESS_START_KEY_QUERY_FAILED");
     }
+
+    public readonly record struct ProcessIdentityRecord(
+        ulong ProcessStartKey,
+        ulong ProcessSequenceNumber);
 
     public IReadOnlyList<int> MemberPids()
     {

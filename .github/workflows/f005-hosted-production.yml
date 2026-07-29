@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; startup diagnostics precede kill-on-close cleanup.
+# Source bytes are LF-pinned; process generations require exact sequence identity.
 on:
   push:
     branches:

@@ -114,7 +114,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT")');
   });
 
-  it('Job所属はPIDではなくboot一意ProcessStartKeyと保持handleで認可する', async () => {
+  it('Job所属はProcessSequenceNumberとQPC境界で同一process世代だけを認可する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const rootAlive = program.slice(
       program.indexOf('private bool RootWorkerAliveLocked('),
@@ -130,20 +130,31 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('WaitForSingleObject(process.Handle, 0) == WaitTimeout');
     expect(program).toContain('Dictionary<ulong, RegisteredWorkerProcess>');
     expect(program).toContain(
-      'registeredWorkerProcesses.Add(processStartKey, new RegisteredWorkerProcess(pid, process))',
+      'new RegisteredWorkerProcess(\n                pid,\n                process,\n                actualStartKey,\n                birth.ProcessSequenceNumber,\n                birth.StartedAtQpc)',
     );
-    expect(program).toContain('rootWorkerStartKey == processStartKey');
-    expect(program).toContain('actualStartKey != processStartKey');
+    expect(program).toContain('rootWorkerStartKey == eventProcessStartKey');
+    expect(program).toContain('actualStartKey != eventProcessStartKey');
     expect(program).toContain('ProcessTelemetryIdInformation = 64');
-    expect(program).toContain('headerSize < 16 || headerSize > required');
+    expect(program).toContain('headerSize < 48 || headerSize > required');
+    expect(program).toContain('Marshal.ReadInt64(buffer, 40)');
     expect(program).toContain('WaitForSingleObject(process.Handle, 0) == 0');
     expect(program).toContain('job.IsAliveOutsideJob(worker.Process)');
     expect(program).toContain('if (waitResult != WaitTimeout) return true');
     expect(program).toContain('TraceEventProcessIdentity.ProcessStartKey(data)');
-    expect(program).toContain('PoisonLocked("ETW_PROCESS_START_KEY_MISSING")');
+    expect(program).toContain('etwSource.Registered.All += ObserveProcessBirth');
+    expect(program).toContain('Dictionary<int, ProcessBirthRecord> processBirthByPid');
+    expect(program).toContain('data.PayloadByName("ProcessSequenceNumber")');
+    expect(program).toContain('actualIdentity.ProcessSequenceNumber != birth.ProcessSequenceNumber');
+    expect(program).toContain('eventTimestampQpc <= birth.StartedAtQpc');
+    expect(program).toContain('eventProcessStartKey == 0 ||');
+    expect(program).toContain('22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716');
+    expect(program).toContain('KernelProcessKeyword = 0x0000000000000010');
+    expect(program).toContain('KernelProcessStartEventId = 1');
     expect(program).toContain('EventEnablePropertyProcessStartKey = 0x00000080');
     expect(program).toContain('SystemIoFileKeywords = 0x0000000000000414');
+    expect(program).toContain('session.EnableProviderTimeoutMSec = 10_000');
     expect(program).toContain('session.EnableKernelProvider(KernelTraceEventParser.Keywords.None)');
+    expect(program).not.toContain('if (!session.EnableProvider(');
     expect(program).toContain('DangerousGetHandleMethod.Invoke(sessionHandle, null)');
     expect(program).toContain('lock (session)');
     expect(program).not.toContain('is not SafeHandle sessionHandle');
@@ -153,6 +164,26 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('if (!processIdentityProbed)');
     expect(program).not.toContain('EnableKernelProvider(\n                KernelTraceEventParser.Keywords.FileIO');
     expect(program).not.toContain('private static bool ProcessExists(');
+  });
+
+  it('PID再利用raceでは新旧どちらのFileIOも別世代へ取り違えない', () => {
+    const authorize = (
+      birth: { sequenceNumber: bigint; startedAtQpc: number } | undefined,
+      eventQpc: number,
+      currentHandleSequenceNumber: bigint,
+    ): boolean =>
+      birth !== undefined &&
+      eventQpc > birth.startedAtQpc &&
+      currentHandleSequenceNumber === birth.sequenceNumber;
+
+    const generationA = { sequenceNumber: 101n, startedAtQpc: 1_000 };
+    const generationB = { sequenceNumber: 102n, startedAtQpc: 2_000 };
+
+    expect(authorize(generationA, 1_500, 101n)).toBe(true);
+    expect(authorize(generationA, 1_500, 102n)).toBe(false);
+    expect(authorize(generationB, 1_500, 102n)).toBe(false);
+    expect(authorize(generationB, 2_500, 102n)).toBe(true);
+    expect(authorize(undefined, 2_500, 102n)).toBe(false);
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
