@@ -874,6 +874,7 @@ sealed class CapacityGuardSession : IDisposable
     private readonly List<ObservationRecord> observations = [];
     private readonly List<DeferredRenameRecord> deferredRenames = [];
     private long etwSequence;
+    private long etwRelevantEventCount;
     private long noticeSequence;
     private long peakLiveBytes;
     private long minimumObservedFreeBytes;
@@ -1006,27 +1007,59 @@ sealed class CapacityGuardSession : IDisposable
         }
     }
 
+#pragma warning disable CS0618 // phase境界は同一QPC clockで比較するためTimeStampQPCを意図的に使う。
     private void ConfigureEtwCallbacks()
     {
         var kernel = etwSource.Kernel;
         kernel.FileIOCreate += data => {
             if (data.CreateDisposition != CreateDisposition.OPEN_EXISTING)
             {
-                ObserveEtw("create", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+                ObserveEtw(
+                    "create",
+                    data.ProcessID,
+                    data.FileName,
+                    data.FileObject,
+                    data.TimeStamp,
+                    data.TimeStampQPC);
             }
         };
         kernel.FileIOWrite += data =>
-            ObserveEtw("write", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+            ObserveEtw(
+                "write",
+                data.ProcessID,
+                data.FileName,
+                data.FileObject,
+                data.TimeStamp,
+                data.TimeStampQPC);
         kernel.FileIOSetInfo += data =>
-            ObserveEtw("setinfo", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+            ObserveEtw(
+                "setinfo",
+                data.ProcessID,
+                data.FileName,
+                data.FileObject,
+                data.TimeStamp,
+                data.TimeStampQPC);
         kernel.FileIORename += data =>
-            ObserveEtw("rename", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+            ObserveEtw(
+                "rename",
+                data.ProcessID,
+                data.FileName,
+                data.FileObject,
+                data.TimeStamp,
+                data.TimeStampQPC);
         kernel.FileIODelete += data =>
-            ObserveEtw("delete", data.ProcessID, data.FileName, data.FileObject, data.TimeStamp);
+            ObserveEtw(
+                "delete",
+                data.ProcessID,
+                data.FileName,
+                data.FileObject,
+                data.TimeStamp,
+                data.TimeStampQPC);
         kernel.FileIOCleanup += data => ForgetFileObject(data.FileObject);
         kernel.LostEvent += _ => Poison("ETW_BUFFER_LOSS");
         kernel.All += ObserveUnknownEtw;
     }
+#pragma warning restore CS0618
 
     private void ForgetFileObject(ulong fileObject)
     {
@@ -1186,6 +1219,12 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException("OPERATION_INVALID");
         }
         if (operation == "close") return CloseJournal();
+        if (operation == "endPhase")
+        {
+            return EndPhaseAfterEtwDrain(
+                PipeString(rootElement, "phase"),
+                PipeSha256(rootElement, "phaseInstanceId"));
+        }
         lock (gate)
         {
             ThrowIfClosed();
@@ -1196,9 +1235,6 @@ sealed class CapacityGuardSession : IDisposable
                     PipeNullableWorkId(rootElement, "workId"),
                     PipeSha256(rootElement, "phaseInstanceId")),
                 "notice" => ReceiveNotice(rootElement, clientPid),
-                "endPhase" => EndPhase(
-                    PipeString(rootElement, "phase"),
-                    PipeSha256(rootElement, "phaseInstanceId")),
                 "status" => new {
                     ok = true,
                     state = journalClosed ? "closed" : "open",
@@ -1244,11 +1280,17 @@ sealed class CapacityGuardSession : IDisposable
         if (!string.Equals(workId, WorkId, StringComparison.Ordinal))
             throw new GuardException("PHASE_WORK_MISMATCH");
         if (activePhase is not null) throw new GuardException("PHASE_ALREADY_ACTIVE");
-        activePhase = new ActivePhase(phase, workId, phaseInstanceId);
+        var startedAtUtc = DateTime.UtcNow;
+        activePhase = new ActivePhase(
+            phase,
+            workId,
+            phaseInstanceId,
+            startedAtUtc,
+            Stopwatch.GetTimestamp());
         var free = ReadFreeBytes(root);
         minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
         phaseRecords.Add(new PhaseRecord(phase, workId, phaseInstanceId, "started",
-            DateTimeOffset.UtcNow.ToString("O"), CurrentLiveBytes(), free));
+            new DateTimeOffset(startedAtUtc).ToString("O"), CurrentLiveBytes(), free));
         PersistJournal(closed: false);
         return new { ok = true, phase, workId, phaseInstanceId };
     }
@@ -1371,6 +1413,47 @@ sealed class CapacityGuardSession : IDisposable
         return new { ok = true, phase, phaseInstanceId };
     }
 
+    private object EndPhaseAfterEtwDrain(string phase, string phaseInstanceId)
+    {
+        lock (gate)
+        {
+            ThrowIfClosed();
+            if (failureCode is not null) throw new GuardException(failureCode);
+            if (activePhase is null ||
+                activePhase.Phase != phase ||
+                activePhase.PhaseInstanceId != phaseInstanceId)
+            {
+                throw new GuardException("PHASE_MISMATCH");
+            }
+        }
+        try
+        {
+            var drain = Stopwatch.StartNew();
+            while (drain.Elapsed < TimeSpan.FromSeconds(2))
+            {
+                etwSession.Flush();
+                var before = Interlocked.Read(ref etwRelevantEventCount);
+                Thread.Sleep(100);
+                if (Interlocked.Read(ref etwRelevantEventCount) != before) continue;
+                etwSession.Flush();
+                Thread.Sleep(100);
+                if (Interlocked.Read(ref etwRelevantEventCount) == before)
+                {
+                    lock (gate) return EndPhase(phase, phaseInstanceId);
+                }
+            }
+        }
+        catch (GuardException)
+        {
+            throw;
+        }
+        catch
+        {
+            throw new GuardException("ETW_CONSUMER_DRAIN_FAILED");
+        }
+        throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT");
+    }
+
     private object CloseJournal()
     {
         lock (gate)
@@ -1417,13 +1500,15 @@ sealed class CapacityGuardSession : IDisposable
         int pid,
         string eventPath,
         ulong fileObject,
-        DateTime timestamp)
+        DateTime timestamp,
+        long timestampQpc)
     {
         var callbackStage = "NORMALIZE";
         try
         {
             var normalized = NormalizeObservedPath(eventPath);
             if (normalized is null || IsJournalPath(normalized)) return;
+            Interlocked.Increment(ref etwRelevantEventCount);
             lock (gate)
             {
                 if (journalClosed || failureCode is not null) return;
@@ -1435,6 +1520,11 @@ sealed class CapacityGuardSession : IDisposable
                 if (activePhase is null)
                 {
                     PoisonLocked("ETW_EVENT_OUTSIDE_PHASE");
+                    return;
+                }
+                if (timestampQpc <= activePhase.StartedAtQpc)
+                {
+                    PoisonLocked("ETW_EVENT_PHASE_TIMESTAMP_MISMATCH");
                     return;
                 }
                 if (deferredRenames.Count != 0)
@@ -1510,7 +1600,6 @@ sealed class CapacityGuardSession : IDisposable
                     else
                     {
                         CompleteDeferredRename(deferred, pendingRename);
-                        PersistJournal(closed: false);
                     }
                     return;
                 }
@@ -1580,8 +1669,6 @@ sealed class CapacityGuardSession : IDisposable
                     Monitor.PulseAll(gate);
                 }
                 observations.Add(observation);
-                callbackStage = "JOURNAL";
-                PersistJournal(closed: false);
             }
         }
         catch (Exception error)
@@ -2061,7 +2148,12 @@ sealed class CapacityGuardSession : IDisposable
         }
     }
 
-    private sealed record ActivePhase(string Phase, string? WorkId, string PhaseInstanceId);
+    private sealed record ActivePhase(
+        string Phase,
+        string? WorkId,
+        string PhaseInstanceId,
+        DateTime StartedAtUtc,
+        long StartedAtQpc);
 
     private sealed record DeferredRenameRecord(
         int WorkerPid,

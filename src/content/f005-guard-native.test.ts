@@ -97,6 +97,21 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).not.toContain('ETW_OBSERVATION_FAILED_{error.HResult');
   });
 
+  it('ETW callbackはidentityを即時捕捉し、journal永続化はdrain後のphase境界で行う', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const observe = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private static string ClassifyEtwGuardFailure('),
+    );
+    expect(observe).not.toContain('PersistJournal(');
+    expect(program).toContain('private object EndPhaseAfterEtwDrain(');
+    expect(program).toContain('Interlocked.Read(ref etwRelevantEventCount)');
+    expect(program).toContain('Stopwatch.GetTimestamp()');
+    expect(program).toContain('timestampQpc <= activePhase.StartedAtQpc');
+    expect(program).toContain('PoisonLocked("ETW_EVENT_PHASE_TIMESTAMP_MISMATCH")');
+    expect(program).toContain('throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT")');
+  });
+
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
   it('SDK/runtime固定build evidenceを実sourceと70MiB self-contained binaryで検証する', async () => {
     const [evidenceRaw, program, project, globalJson, binary] = await Promise.all([
