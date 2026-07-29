@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; fixed progress checkpoints diagnose production boundaries.
+# Source bytes are LF-pinned; allowlisted runner failure is bounded-flushed before native Job abort.
 on:
   push:
     branches:

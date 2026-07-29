@@ -10,12 +10,15 @@ import { validateBatchManifest, type BatchManifest, type Sha256, type WorkId } f
 import {
   createF005OfflineBuildArtifactPayloads,
   enterF005ProductionSession,
+  F005_RUNNER_FAILURE_PREFIX,
   F005_RUNNER_PROGRESS_PREFIX,
   F005_RUNNER_PHASE_ORDER,
   F005_RUNNER_RESULT_PREFIX,
   formatF005RunnerProgress,
+  formatF005RunnerFailure,
   formatF005RunnerResult,
   parseF005RunWorkArguments,
+  reportF005RunnerFailureBeforeAbort,
   runOfflineBuild,
   selectF005CurrentWork,
   verifyF005RunnerCandidateBinding,
@@ -190,6 +193,71 @@ describe('F005 production work runner', () => {
     )).toMatchObject({ workId: '000799', status: 'accepted' });
     expect(formatF005RunnerProgress('session-close-start'))
       .toBe(`${F005_RUNNER_PROGRESS_PREFIX}session-close-start\n`);
+    const unsafe = new Error(
+      `https://runner:ghp_secret@example.invalid/repo SECRET=value ${'x'.repeat(100_000)}`,
+    );
+    Object.assign(unsafe, {
+      name: 'github_pat_AAAAAAAAAAAAAAAAAAAAAAAA',
+      code: 'GITHUB_PAT_SECRET_VALUE',
+    });
+    unsafe.stack = [
+      'Error: ghp_secret SECRET=value',
+      `${resolve('src/github_pat_secret.ts')}:123456789:123456789`,
+      `    at generate (${resolve('scripts/f005-run-work.ts')}:401:12)`,
+      '    at outside (C:\\Users\\owner\\.env:1:1)',
+    ].join('\n');
+    const failure = formatF005RunnerFailure(unsafe, resolve('.'));
+    expect(failure.startsWith(F005_RUNNER_FAILURE_PREFIX)).toBe(true);
+    expect(JSON.parse(failure.slice(F005_RUNNER_FAILURE_PREFIX.length))).toMatchObject({
+      name: 'Error',
+      code: null,
+      frames: ['scripts/f005-run-work.ts'],
+      cause: null,
+    });
+    expect(failure).not.toContain('ghp_secret');
+    expect(failure).not.toContain('github_pat');
+    expect(failure).not.toContain('SECRET=value');
+    expect(failure).not.toContain('C:\\Users\\owner');
+    expect(failure.length).toBeLessThan(1_024);
+
+    const connection = new TypeError('fetch failed', {
+      cause: Object.assign(new Error('connect ECONNREFUSED token'), { code: 'ECONNREFUSED' }),
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(connection).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      name: 'TypeError',
+      code: null,
+      cause: { name: 'Error', code: 'ECONNREFUSED' },
+    });
+  });
+
+  it.each([
+    ['callback error', (callback: (error?: Error | null) => void) => callback(new Error('closed'))],
+    ['writer throw', () => { throw new Error('closed'); }],
+    ['no callback', () => undefined],
+  ])('診断が%sでもtimeout後までにnative abortを必ず実行する', async (_label, behavior) => {
+    const abort = vi.fn(async () => undefined);
+    await reportF005RunnerFailureBeforeAbort(
+      new Error('do not leak this message'),
+      resolve('.'),
+      (_value, callback) => behavior(callback),
+      abort,
+      10,
+    );
+    expect(abort).toHaveBeenCalledTimes(1);
+  });
+
+  it('診断flush成功後にnative abortを一度だけ実行する', async () => {
+    const abort = vi.fn(async () => undefined);
+    await reportF005RunnerFailureBeforeAbort(
+      new Error('voice failed'),
+      resolve('.'),
+      (_value, callback) => callback(),
+      abort,
+      10,
+    );
+    expect(abort).toHaveBeenCalledTimes(1);
   });
 
   it('offline buildはspawn後PID登録を行わず、Job継承worker契約だけで起動する', async () => {

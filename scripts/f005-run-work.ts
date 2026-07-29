@@ -69,6 +69,7 @@ const MANIFEST_PATH = 'content/batches/F005/batch.json';
 const OWNER = 'f005-production-runner';
 export const F005_RUNNER_RESULT_PREFIX = 'F005_RESULT_JSON=';
 export const F005_RUNNER_PROGRESS_PREFIX = 'F005_PROGRESS=';
+export const F005_RUNNER_FAILURE_PREFIX = 'F005_FAILURE_JSON=';
 
 type F005RunnerProgress =
   | 'context-loaded'
@@ -287,6 +288,155 @@ export function formatF005RunnerResult(value: Readonly<Record<string, unknown>>)
 
 export function formatF005RunnerProgress(stage: F005RunnerProgress): string {
   return `${F005_RUNNER_PROGRESS_PREFIX}${stage}\n`;
+}
+
+function readErrorField(error: Error, field: 'name' | 'stack' | 'cause' | 'code'): unknown {
+  try {
+    return (error as unknown as Record<string, unknown>)[field];
+  } catch {
+    return undefined;
+  }
+}
+
+const F005_FAILURE_NAMES = new Set([
+  'AbortError',
+  'AggregateError',
+  'Error',
+  'RangeError',
+  'SyntaxError',
+  'TypeError',
+]);
+const F005_FAILURE_CODES = new Set([
+  'EACCES',
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'EEXIST',
+  'EIO',
+  'ENOENT',
+  'ENOSPC',
+  'EPERM',
+  'EPIPE',
+  'ETIMEDOUT',
+  'ERR_INVALID_ARG_TYPE',
+  'UND_ERR_CONNECT_TIMEOUT',
+]);
+const F005_FAILURE_FRAME_PATHS = new Set([
+  'scripts/f005-run-work.ts',
+  'src/content/artifacts.ts',
+  'src/content/batch.ts',
+  'src/content/f005-acceptance.ts',
+  'src/content/f005-context.ts',
+  'src/content/f005-foundation.ts',
+  'src/content/f005-native-guard.ts',
+  'src/content/f005-voice.ts',
+  'src/voice/f003.ts',
+]);
+
+function safeFailureName(value: unknown, fallback: 'Error' | 'NonError'): string {
+  return typeof value === 'string' && F005_FAILURE_NAMES.has(value)
+    ? value
+    : fallback;
+}
+
+function safeFailureCode(value: unknown): string | null {
+  return typeof value === 'string' && F005_FAILURE_CODES.has(value)
+    ? value
+    : null;
+}
+
+function safeWorkspaceFrames(stack: unknown, workspace: string): readonly string[] {
+  if (typeof stack !== 'string') return [];
+  const root = resolve(workspace).replaceAll('\\', '/').replace(/\/+$/u, '');
+  const rootKey = root.toLocaleLowerCase('en-US');
+  const frames: string[] = [];
+  for (const rawLine of stack.slice(0, 65_536).split(/\r?\n/u)) {
+    const line = rawLine.replaceAll('\\', '/');
+    const start = line.toLocaleLowerCase('en-US').indexOf(`${rootKey}/`);
+    if (start < 0) continue;
+    const relativeFrame = line.slice(start + root.length + 1);
+    const match = /^([A-Za-z0-9_./-]+\.[cm]?[jt]sx?):([1-9][0-9]*):([1-9][0-9]*)/u
+      .exec(relativeFrame);
+    if (!match) continue;
+    const path = match[1]!;
+    if (
+      path.length > 512
+      || path.split('/').some((segment) => segment === '..' || segment === '')
+    ) continue;
+    if (!F005_FAILURE_FRAME_PATHS.has(path) || frames.includes(path)) continue;
+    frames.push(path);
+    if (frames.length === 8) break;
+  }
+  return frames;
+}
+
+function safeFailure(error: Error, workspace: string): Readonly<Record<string, unknown>> {
+  const cause = readErrorField(error, 'cause');
+  return {
+    name: safeFailureName(readErrorField(error, 'name'), 'Error'),
+    code: safeFailureCode(readErrorField(error, 'code')),
+    frames: safeWorkspaceFrames(readErrorField(error, 'stack'), workspace),
+    cause: cause instanceof Error
+      ? {
+          name: safeFailureName(readErrorField(cause, 'name'), 'Error'),
+          code: safeFailureCode(readErrorField(cause, 'code')),
+          frames: safeWorkspaceFrames(readErrorField(cause, 'stack'), workspace),
+        }
+      : null,
+  };
+}
+
+export function formatF005RunnerFailure(error: unknown, workspace = resolve('.')): string {
+  const payload = error instanceof Error
+    ? safeFailure(error, workspace)
+    : {
+        name: 'NonError',
+        code: null,
+        frames: [],
+        cause: null,
+      };
+  return `${F005_RUNNER_FAILURE_PREFIX}${JSON.stringify(payload)}\n`;
+}
+
+type F005DiagnosticWriter = (
+  value: string,
+  callback: (error?: Error | null) => void,
+) => unknown;
+
+export async function reportF005RunnerFailureBeforeAbort(
+  error: unknown,
+  workspace: string,
+  writeDiagnostic: F005DiagnosticWriter,
+  abort: () => Promise<void>,
+  timeoutMs = 1_000,
+): Promise<void> {
+  try {
+    await new Promise<void>((resolveWrite, rejectWrite) => {
+      let settled = false;
+      const finish = (writeError?: unknown): void => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        if (writeError === undefined || writeError === null) resolveWrite();
+        else rejectWrite(writeError);
+      };
+      const timer = setTimeout(
+        () => finish(new Error('F005 failure diagnostic write timed out')),
+        Math.max(1, Math.min(timeoutMs, 5_000)),
+      );
+      try {
+        writeDiagnostic(
+          formatF005RunnerFailure(error, workspace),
+          (writeError) => finish(writeError),
+        );
+      } catch (writeError) {
+        finish(writeError);
+      }
+    });
+  } catch {
+    // 診断失敗時もcontainmentを優先し、finallyで必ずJobを停止する。
+  } finally {
+    await abort();
+  }
 }
 
 export async function runOfflineBuild(
@@ -742,7 +892,12 @@ async function main(): Promise<void> {
       publicTreeSha256: publicAfter,
     }));
   } catch (error) {
-    await session.abort();
+    await reportF005RunnerFailureBeforeAbort(
+      error,
+      workspace,
+      (value, callback) => process.stderr.write(value, callback),
+      () => session.abort(),
+    );
     if (await treeDigest(publicRoot) !== publicBefore) {
       throw new Error('失敗経路でpublic treeが変化しました', { cause: error });
     }
