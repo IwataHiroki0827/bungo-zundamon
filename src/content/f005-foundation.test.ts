@@ -261,7 +261,14 @@ describe('UT-F005-018 CapacityForecastV3', () => {
       { windowsHide: true },
     );
     inventory = await discoverF005CapacityInventory(capacityWorkspace, context, baseline);
-    plan = createF005CapacityPlan(context, baseline, inventory);
+    plan = createF005CapacityPlan(context, baseline, inventory, {
+      planSha256: HASH('9'),
+      entries: [{
+        audioId: HASH('8'),
+        speechSha256: HASH('7'),
+        estimatedBytes: 1_000,
+      }],
+    });
   });
 
   afterEach(async () => {
@@ -336,7 +343,6 @@ describe('UT-F005-018 CapacityForecastV3', () => {
     expect(forecast.buckets.map((bucket) => bucket.kind)).toEqual([
       'audio', 'artifact', 'repository', 'object', 'workspace-peak', 'free-after-peak',
     ]);
-    expect(forecast.buckets.find((bucket) => bucket.kind === 'audio')?.entries).toHaveLength(2);
     expect(forecast.buckets.find((bucket) => bucket.kind === 'artifact')?.entries).toHaveLength(2);
     expect(forecast.buckets.find((bucket) => bucket.kind === 'repository')?.entries)
       .toEqual(expect.arrayContaining([
@@ -344,7 +350,14 @@ describe('UT-F005-018 CapacityForecastV3', () => {
         expect.objectContaining({ kind: 'git-index', path: 'src/tracked-b.ts' }),
       ]));
     expect(forecast.buckets.find((bucket) => bucket.kind === 'object')?.totalBytes).toBe(128);
-    expect(forecast.buckets.find((bucket) => bucket.kind === 'workspace-peak')?.entries).toHaveLength(2);
+    expect(forecast.buckets.find((bucket) => bucket.kind === 'audio')?.entries).toHaveLength(3);
+    expect(forecast.buckets.find((bucket) => bucket.kind === 'audio')?.entries)
+      .toContainEqual(expect.objectContaining({
+        kind: 'planned-audio',
+        bytes: 1_000,
+        planSha256: HASH('9'),
+      }));
+    expect(forecast.buckets.find((bucket) => bucket.kind === 'workspace-peak')?.entries).toHaveLength(3);
     expect(capacityWarnings(forecast)).toEqual([]);
     expect(Object.keys(forecast).sort()).toEqual([
       'buckets', 'candidateSha256', 'freeAfterPeakBytes', 'initialFreeBytes',
@@ -368,6 +381,9 @@ describe('UT-F005-018 CapacityForecastV3', () => {
     expect(() => createF005CapacityPlan(context, baseline, {
       ...inventory,
       entries: inventory.entries.slice(0, 5),
+    }, {
+      planSha256: HASH('9'),
+      entries: [],
     })).toThrow(expect.objectContaining({ code: 'F005_CAPACITY_PLAN_MISMATCH' }));
   });
 

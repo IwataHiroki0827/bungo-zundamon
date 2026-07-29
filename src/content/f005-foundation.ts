@@ -146,6 +146,13 @@ export interface VerifiedNewAuthor {
 export type CapacityEntry =
   | { readonly kind: 'path'; readonly path: string; readonly bytes: number; readonly sha256: string }
   | {
+    readonly kind: 'planned-audio';
+    readonly path: string;
+    readonly bytes: number;
+    readonly sha256: string;
+    readonly planSha256: string;
+  }
+  | {
     readonly kind: 'git-index';
     readonly path: string;
     readonly oid: string;
@@ -217,7 +224,20 @@ export interface F005CapacityPlan {
   readonly baselineDescriptorSha256: string;
   readonly inventoryDigest: string;
   readonly expectedClaims: readonly F005CandidateHashClaim[];
+  readonly plannedAudio: readonly F005PlannedAudioEntry[];
+  readonly voicePlanSha256: string;
   readonly planDigest: string;
+}
+
+export interface F005PlannedAudioEntry {
+  readonly audioId: string;
+  readonly speechSha256: string;
+  readonly estimatedBytes: number;
+}
+
+export interface F005VoiceCapacityProjection {
+  readonly planSha256: string;
+  readonly entries: readonly F005PlannedAudioEntry[];
 }
 
 export interface F005CandidateHashes {
@@ -752,6 +772,8 @@ function capacityPlanPayload(
   baselineDescriptorSha256: string,
   inventoryDigest: string,
   expectedClaims: readonly F005CandidateHashClaim[],
+  voicePlanSha256: string,
+  plannedAudio: readonly F005PlannedAudioEntry[],
 ): string {
   return sha256(canonicalJson({
     candidateSha256,
@@ -759,7 +781,33 @@ function capacityPlanPayload(
     baselineDescriptorSha256,
     inventoryDigest,
     expectedClaims,
+    voicePlanSha256,
+    plannedAudio,
   }));
+}
+
+function normalizePlannedAudio(
+  projection: F005VoiceCapacityProjection,
+): readonly F005PlannedAudioEntry[] {
+  if (!SHA256.test(projection.planSha256) || !Array.isArray(projection.entries)) {
+    throw new F005FoundationError('F005_CAPACITY_PLAN_MISMATCH', 'voice容量projectionが不正です');
+  }
+  const seen = new Set<string>();
+  const entries = projection.entries.map((entry) => {
+    if (!SHA256.test(entry.audioId) || !SHA256.test(entry.speechSha256) ||
+      !Number.isSafeInteger(entry.estimatedBytes) || entry.estimatedBytes <= 44 ||
+      entry.estimatedBytes > F005_CAPACITY_LIMITS.audioStopBytes ||
+      seen.has(entry.audioId)) {
+      throw new F005FoundationError('F005_CAPACITY_PLAN_MISMATCH', 'planned audio entryが不正です');
+    }
+    seen.add(entry.audioId);
+    return freezeDeep({
+      audioId: entry.audioId,
+      speechSha256: entry.speechSha256,
+      estimatedBytes: entry.estimatedBytes,
+    });
+  }).sort((left, right) => left.audioId.localeCompare(right.audioId, 'en'));
+  return freezeDeep(entries);
 }
 
 export function evaluateF005CapacityThresholds(
@@ -1031,6 +1079,7 @@ export function createF005CapacityPlan(
   context: F005ApprovedBatchContext,
   baseline: V040Baseline,
   inventory: F005CapacityInventory,
+  voiceProjection: F005VoiceCapacityProjection,
 ): F005CapacityPlan {
   assertContext(context);
   if (!baselines.has(baseline) || !capacityInventories.has(inventory) ||
@@ -1044,6 +1093,7 @@ export function createF005CapacityPlan(
     throw new F005FoundationError('F005_CAPACITY_PLAN_MISMATCH', 'canonical inventoryからだけplanを作成できます');
   }
   const claims = normalizeClaims(inventory.entries.map(inventoryClaim));
+  const plannedAudio = normalizePlannedAudio(voiceProjection);
   const payload = {
     __brand: 'F005CapacityPlan' as const,
     candidateSha256: inventory.candidateSha256,
@@ -1051,12 +1101,16 @@ export function createF005CapacityPlan(
     baselineDescriptorSha256: baseline.descriptorSha256,
     inventoryDigest: inventory.inventoryDigest,
     expectedClaims: claims,
+    plannedAudio,
+    voicePlanSha256: voiceProjection.planSha256,
     planDigest: capacityPlanPayload(
       inventory.candidateSha256,
       inventory.measuredAt,
       baseline.descriptorSha256,
       inventory.inventoryDigest,
       claims,
+      voiceProjection.planSha256,
+      plannedAudio,
     ),
   };
   const plan = freezeDeep(payload);
@@ -1086,6 +1140,8 @@ export async function forecastF005Capacity(
       plan.baselineDescriptorSha256,
       plan.inventoryDigest,
       plan.expectedClaims,
+      plan.voicePlanSha256,
+      plan.plannedAudio,
     )) {
     throw new F005FoundationError('F005_CAPACITY_PLAN_MISMATCH', 'mint済みcapacity planとbaselineが必要です');
   }
@@ -1124,11 +1180,18 @@ export async function forecastF005Capacity(
   });
   const entries = (bucket: CapacityMeasuredKind): readonly CapacityEntry[] =>
     measured.filter((item) => item.claim.bucket === bucket).map((item) => item.entry);
-  const audio = entries('audio');
+  const plannedAudio: readonly CapacityEntry[] = plan.plannedAudio.map((entry) => freezeDeep({
+    kind: 'planned-audio' as const,
+    path: `public/audio/F005/${entry.audioId}.wav`,
+    bytes: entry.estimatedBytes,
+    sha256: entry.speechSha256,
+    planSha256: plan.voicePlanSha256,
+  }));
+  const audio = freezeDeep([...entries('audio'), ...plannedAudio]);
   const artifact = entries('artifact');
   const repository = entries('repository');
   const objects = entries('object');
-  const peakEntries = entries('workspace-peak');
+  const peakEntries = freezeDeep([...entries('workspace-peak'), ...plannedAudio]);
   const audioBytes = total(audio);
   const artifactBytes = total(artifact);
   const repositoryBytes = total(repository);

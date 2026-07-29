@@ -420,6 +420,43 @@ describe('F005 approved context and registry migration', () => {
   }, 120_000);
 
   /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  it('保護artifactが不変なclean descendant HEADからproduction contextを再生成する', async () => {
+    const workspace = await cloneFixture();
+    const implementationCommit = await installImplementation(workspace);
+    const controlCommit = await commitControl(workspace);
+    await commitAcceptance(workspace);
+    const acceptanceCommit = await git(workspace, 'rev-parse', 'HEAD');
+
+    await writeFile(join(workspace, 'post-acceptance.txt'), '後続実装\n', 'utf8');
+    await git(workspace, 'add', 'post-acceptance.txt');
+    await git(workspace, 'commit', '-m', 'test: post acceptance implementation');
+
+    const context = await loadVerifiedF005Definition(workspace);
+    expect(context.implementationControl).toMatchObject({
+      acceptanceCommit,
+      controlCommit,
+      implementationCommit,
+    });
+    expect(context.candidate.works.map((work) => work.workId))
+      .toEqual(['000799', '001076', '001104']);
+  }, 120_000);
+
+  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  it('clean descendantでも保護artifactの変更を拒否する', async () => {
+    const workspace = await cloneFixture();
+    await installImplementation(workspace);
+    await commitControl(workspace);
+    await commitAcceptance(workspace);
+    const registryPath = join(workspace, 'content', 'batch-candidates.json');
+    await writeFile(registryPath, `${await readFile(registryPath, 'utf8')} `, 'utf8');
+    await git(workspace, 'add', 'content/batch-candidates.json');
+    await git(workspace, 'commit', '-m', 'test: mutate protected registry');
+
+    await expect(loadVerifiedF005Definition(workspace))
+      .rejects.toMatchObject({ code: 'F005_REGISTRY_CONTROL_INVALID' });
+  }, 120_000);
+
+  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
   it('old registryのままのimplementation commitを拒否する', async () => {
     const workspace = await cloneFixture();
     await installImplementation(workspace, { integrateRegistry: false });

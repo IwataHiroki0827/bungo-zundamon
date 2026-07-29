@@ -1,11 +1,13 @@
-import { createHash } from 'node:crypto';
-import { link, mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
+import { createHash, randomBytes } from 'node:crypto';
+import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { deflateRawSync } from 'node:zlib';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { canonicalJson } from './artifacts.ts';
+import { writeF005SourceArtifactOnce } from '../../scripts/f005-collect-source.ts';
 const mintedTestContexts = vi.hoisted(() => new WeakSet<object>());
 
 vi.mock('./f005-context.ts', async (importOriginal) => {
@@ -34,6 +36,7 @@ import {
 import type { F005ApprovedBatchContext } from './f005-context.ts';
 import {
   F005SourceError,
+  F005_SELECTION_SNAPSHOT_PATH,
   F005_WORKS,
   closeSafeWorkspaceFile,
   collectF005SourceSnapshot,
@@ -47,6 +50,7 @@ import {
   parseBibliographyV2,
   parseF005SourceRecord,
   readSafeWorkspaceFile,
+  rehydrateF005SelectionSnapshot,
   renameSafeWorkspaceFile,
   resolveSafeWorkspaceFile,
 } from './f005-source.ts';
@@ -155,13 +159,19 @@ function response(body: Uint8Array, contentType: string): TransportResponse {
 function standardResponses(): TransportResponse[] {
   return [
     response(zipCsv(csvFixture()), 'application/zip'),
-    response(new TextEncoder().encode('<html>author</html>'), 'text/html; charset=UTF-8'),
+    response(
+      new TextEncoder().encode('<html><head><meta charset="utf-8"></head><body>author</body></html>'),
+      'text/html',
+    ),
     ...F005_WORKS.flatMap(() => [
       response(
-        new TextEncoder().encode('<html><body><p>最終更新日：2026-07-29</p></body></html>'),
-        'text/html; charset=UTF-8',
+        new TextEncoder().encode(
+          '<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"></head>' +
+          '<body><p>最終更新日：2026-07-29</p></body></html>',
+        ),
+        'text/html',
       ),
-      response(VALID_XHTML, 'text/html; charset=Shift_JIS'),
+      response(VALID_XHTML, 'text/html'),
     ]),
   ];
 }
@@ -270,7 +280,121 @@ const USAGE = Object.freeze({
   voiceCredit: 'VOICEVOX:ずんだもん',
 });
 
+async function persistSelectionSnapshot(
+  root: string,
+  snapshot: Awaited<ReturnType<typeof collectF005SourceSnapshot>>,
+): Promise<Record<string, unknown>> {
+  const entries = [
+    {
+      path: 'data/batches/F005/source-snapshots/selection/bibliography.zip',
+      artifact: snapshot.bibliographyArchive,
+    },
+    {
+      path: 'data/batches/F005/source-snapshots/selection/bibliography.csv',
+      artifact: snapshot.bibliographyCsv,
+    },
+    {
+      path: 'data/batches/F005/source-snapshots/selection/author-page.html',
+      artifact: snapshot.authorPage,
+    },
+    ...snapshot.policies.map((policy) => ({
+      path: `data/batches/F005/source-snapshots/selection/policies/${policy.policyId}.raw`,
+      artifact: policy.artifact,
+    })),
+    ...snapshot.works.flatMap((work) => [
+      {
+        path: `data/batches/F005/source-snapshots/selection/works/${work.workId}/card.html`,
+        artifact: work.card,
+      },
+      {
+        path: `data/batches/F005/source-snapshots/selection/works/${work.workId}/source.raw`,
+        artifact: work.xhtml,
+      },
+    ]),
+  ];
+  for (const entry of entries) {
+    const target = join(root, ...entry.path.split('/'));
+    await mkdir(join(target, '..'), { recursive: true });
+    await writeFile(target, entry.artifact.bytes);
+  }
+  const metadata = (
+    artifact: (typeof entries)[number]['artifact'],
+    path: string,
+  ): Record<string, unknown> => ({
+    storage: 'sealed',
+    path,
+    sourceUrl: artifact.sourceUrl,
+    fetchedAt: artifact.fetchedAt,
+    mediaType: artifact.mediaType,
+    charset: artifact.charset,
+    byteLength: artifact.byteLength,
+    sha256: artifact.sha256,
+    transport: artifact.transport,
+  });
+  const artifact = {
+    schemaVersion: '2.0.0',
+    kind: 'f005-source-selection-snapshot',
+    batchId: 'F005',
+    authorId: snapshot.authorId,
+    phase: snapshot.phase,
+    observedAt: snapshot.observedAt,
+    rights: evaluateF005RightsAndUsage(snapshot, USAGE),
+    bibliographyArchive: metadata(snapshot.bibliographyArchive, entries[0]!.path),
+    bibliographyCsv: metadata(snapshot.bibliographyCsv, entries[1]!.path),
+    authorPage: metadata(snapshot.authorPage, entries[2]!.path),
+    policies: snapshot.policies.map((policy) => {
+      const entry = entries.find((item) => item.artifact === policy.artifact)!;
+      return {
+        policyId: policy.policyId,
+        versionOrLabel: policy.versionOrLabel,
+        artifact: metadata(policy.artifact, entry.path),
+        decision: policy.decision,
+      };
+    }),
+    works: snapshot.works.map((work) => {
+      const card = entries.find((item) => item.artifact === work.card)!;
+      const xhtml = entries.find((item) => item.artifact === work.xhtml)!;
+      return {
+        workId: work.workId,
+        title: work.title,
+        bibliography: work.bibliography,
+        card: metadata(work.card, card.path),
+        xhtml: metadata(work.xhtml, xhtml.path),
+      };
+    }),
+  };
+  const snapshotPath = join(root, ...F005_SELECTION_SNAPSHOT_PATH.split('/'));
+  await mkdir(join(snapshotPath, '..'), { recursive: true });
+  await writeFile(snapshotPath, canonicalJson(artifact));
+  return artifact;
+}
+
 describe('F005公式原典snapshotと権利・書誌', () => {
+  /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it('初回selection archive/JSONを既存root anchorからbootstrapし、後続anchorへ切り替える', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-source-bootstrap-'));
+    temporaryDirectories.push(root);
+    await Promise.all([
+      mkdir(join(root, 'data', 'batches', 'F005', 'source-snapshots', 'selection'), { recursive: true }),
+      mkdir(join(root, 'content', 'batches', 'F005', 'source-snapshots'), { recursive: true }),
+    ]);
+    await writeFile(join(root, 'package.json'), '{"private":true}\n');
+    const archivePath = 'data/batches/F005/source-snapshots/selection/bibliography.zip';
+    const selectionPath = F005_SELECTION_SNAPSHOT_PATH;
+    const followupDataPath =
+      'data/batches/F005/source-snapshots/selection/predeploy-bootstrap-author-page.html';
+    const followupJsonPath =
+      'content/batches/F005/source-snapshots/predeploy-bootstrap.json';
+    await writeF005SourceArtifactOnce(root, archivePath, Uint8Array.of(1, 2, 3));
+    await writeF005SourceArtifactOnce(root, selectionPath, new TextEncoder().encode('{}\n'));
+    await writeF005SourceArtifactOnce(root, followupDataPath, Uint8Array.of(4, 5, 6));
+    await writeF005SourceArtifactOnce(root, followupJsonPath, new TextEncoder().encode('{"ok":true}\n'));
+    await expect(readFile(join(root, ...archivePath.split('/')))).resolves.toEqual(Buffer.from([1, 2, 3]));
+    await expect(readFile(join(root, ...selectionPath.split('/')), 'utf8')).resolves.toBe('{}\n');
+    await expect(readFile(join(root, ...followupDataPath.split('/')))).resolves.toEqual(Buffer.from([4, 5, 6]));
+    await expect(readFile(join(root, ...followupJsonPath.split('/')), 'utf8')).resolves.toBe('{"ok":true}\n');
+  });
+
   /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
   it('構造clone contextとrequest overrideされた擬似production transportを取得前に拒否する', async () => {
     const clonedContext = structuredClone(CONTEXT);
@@ -348,6 +472,166 @@ describe('F005公式原典snapshotと権利・書誌', () => {
       () => new Date('2026-07-29T00:01:00.000Z'),
       collectionOptions(process.cwd(), changed, selection),
     )).rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+  });
+
+  /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it('永続化selectionを実物とApproved Contextへ再結合し、process再開相当のpredeployへ渡す', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-'));
+    temporaryDirectories.push(root);
+    const original = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(root),
+    );
+    await persistSelectionSnapshot(root, original);
+    const rehydrated = await rehydrateF005SelectionSnapshot(root, CONTEXT);
+    expect(rehydrated).not.toBe(original);
+    expect(rehydrated).toEqual(original);
+    await expect(collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'predeploy',
+      () => new Date('2026-07-29T00:01:00.000Z'),
+      collectionOptions(root, POLICY_BODIES, rehydrated),
+    )).resolves.toMatchObject({ phase: 'predeploy' });
+    await expect(rehydrateF005SelectionSnapshot(root, structuredClone(CONTEXT)))
+      .rejects.toMatchObject({ code: 'F005_CONTEXT_INVALID' });
+  });
+
+  /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it('8MiB超の永続化書誌CSVも同一FileHandle identityから再結合する', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-large-'));
+    temporaryDirectories.push(root);
+    const base = csvFixture();
+    const chunks: Uint8Array[] = [base];
+    let largeBytes = base.byteLength;
+    while (largeBytes <= 8_388_608) {
+      const filler = new TextEncoder().encode(
+        `${randomBytes(96).toString('hex')}${','.repeat(AOZORA_BIBLIOGRAPHY_REQUIRED_COLUMNS.length - 1)}\n`,
+      );
+      chunks.push(filler);
+      largeBytes += filler.byteLength;
+    }
+    const largeCsv = Buffer.concat(chunks);
+    const responses = standardResponses();
+    responses[0] = response(zipCsv(largeCsv), 'application/zip');
+    const original = await collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(root),
+    );
+    const artifact = await persistSelectionSnapshot(root, original);
+    const rehydrated = await rehydrateF005SelectionSnapshot(root, CONTEXT);
+    expect(rehydrated.bibliographyCsv.byteLength).toBe(largeCsv.byteLength);
+    expect(rehydrated.bibliographyCsv.sha256).toBe(original.bibliographyCsv.sha256);
+    const derived = structuredClone(artifact) as {
+      bibliographyArchive: { path: string; sha256: string };
+      bibliographyCsv: Record<string, unknown>;
+    };
+    derived.bibliographyCsv = {
+      ...derived.bibliographyCsv,
+      storage: 'derived',
+      path: derived.bibliographyArchive.path,
+      derivedFromSha256: derived.bibliographyArchive.sha256,
+    };
+    await rm(join(root, 'data', 'batches', 'F005', 'source-snapshots', 'selection', 'bibliography.csv'));
+    await writeFile(
+      join(root, ...F005_SELECTION_SNAPSHOT_PATH.split('/')),
+      canonicalJson(derived),
+    );
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .resolves.toMatchObject({ bibliographyCsv: { byteLength: largeCsv.byteLength } });
+  }, 30_000);
+
+  /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it('永続化selectionの非canonical JSON・未知key・path・decision・実体SHA改変を拒否する', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-tamper-'));
+    temporaryDirectories.push(root);
+    const original = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(root),
+    );
+    const artifact = await persistSelectionSnapshot(root, original);
+    const snapshotPath = join(root, ...F005_SELECTION_SNAPSHOT_PATH.split('/'));
+
+    await writeFile(snapshotPath, JSON.stringify(artifact));
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+
+    const unknown = structuredClone(artifact);
+    unknown.unexpected = true;
+    await writeFile(snapshotPath, canonicalJson(unknown));
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+
+    const unsafePath = structuredClone(artifact) as {
+      works: Array<{ card: { path: string } }>;
+    };
+    unsafePath.works[0]!.card.path = '../card.html';
+    await writeFile(snapshotPath, canonicalJson(unsafePath));
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+
+    const changedDecision = structuredClone(artifact) as {
+      policies: Array<{ decision: { decision: string } }>;
+    };
+    changedDecision.policies[0]!.decision.decision = 'blocked';
+    await writeFile(snapshotPath, canonicalJson(changedDecision));
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+
+    await writeFile(snapshotPath, canonicalJson(artifact));
+    const sourcePath = join(
+      root,
+      'data',
+      'batches',
+      'F005',
+      'source-snapshots',
+      'selection',
+      'works',
+      '000799',
+      'source.raw',
+    );
+    await writeFile(sourcePath, Uint8Array.of(1, 2, 3));
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+  });
+
+  /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it.runIf(process.platform === 'win32')('永続化selectionの参照実体がsymlinkなら拒否する', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-link-'));
+    temporaryDirectories.push(root);
+    const original = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(root),
+    );
+    await persistSelectionSnapshot(root, original);
+    const workDirectory = join(
+      root,
+      'data',
+      'batches',
+      'F005',
+      'source-snapshots',
+      'selection',
+      'works',
+      '000799',
+    );
+    const external = join(root, 'external-work');
+    await mkdir(external);
+    await rm(workDirectory, { recursive: true });
+    await symlink(external, workDirectory, 'junction');
+    await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
+      .rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
   });
 
   /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
@@ -443,6 +727,56 @@ describe('F005公式原典snapshotと権利・書誌', () => {
       () => new Date('2026-07-29T00:00:00.000Z'),
       collectionOptions(process.cwd(), POLICY_BODIES, undefined, 15_000),
     )).rejects.toMatchObject({ code: 'F005_SOURCE_RESPONSE_INVALID' });
+  });
+
+  /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  it('HTTP charset欠落時は本文宣言だけを採用し、宣言不一致を拒否する', async () => {
+    const accepted = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    expect(accepted.authorPage.charset).toBe('UTF-8');
+    expect(accepted.works[0]!.card.charset).toBe('UTF-8');
+    expect(accepted.works[0]!.xhtml.charset).toBe('Shift_JIS');
+
+    const responses = standardResponses();
+    responses[1] = response(
+      new TextEncoder().encode('<html><head><meta charset="shift_jis"></head></html>'),
+      'text/html',
+    );
+    await expect(collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    )).rejects.toMatchObject({ code: 'F005_SOURCE_RESPONSE_INVALID' });
+  });
+
+  /** @des DES-F005-003 @fun FUN-F005-008 @test UT-F005-008 */
+  it('図書カード表の対象XHTML行から最終更新日を一意に固定する', async () => {
+    const responses = standardResponses();
+    responses[2] = response(
+      new TextEncoder().encode(
+        '<html><head><meta charset="utf-8"></head><body>' +
+        '<table><tr><th>初登録日</th><th>最終更新日</th></tr>' +
+        '<tr><td><a href="./files/799_14972.html">XHTML</a></td>' +
+        '<td>2004-02-29</td><td>2013-07-17</td></tr></table></body></html>',
+      ),
+      'text/html',
+    );
+    const snapshot = await collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    expect(parseF005SourceRecord(snapshot.works[0]!, '000799').updatedAt)
+      .toBe('2013-07-17');
   });
 
   /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */

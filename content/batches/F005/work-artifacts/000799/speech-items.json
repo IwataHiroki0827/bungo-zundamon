@@ -1,0 +1,632 @@
+[
+  {
+    "approved": true,
+    "candidateId": "9MPlH28eWyUQVIZ2QGWPe80uWmcFvhRZcsv09c73OuU",
+    "displayText": "「死んだら、埋めて下さい。大きな真珠貝で穴を掘って。そうして天から落ちて来る星の破片を墓標に置いて下さい。そうして墓の傍に待っていて下さい。また逢いに来ますから」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "8c1511ebab357dab1bbcbe57e5c5c10a2ecdec0d96503f61d243b14886a023a4",
+    "speechText": "「死んだら、うめて下さい。大きな真珠貝で穴を掘って。そうして天から落ちて来る星のかけをはかじるしに置いて下さい。そうして墓の傍に待っていて下さい。またあいに来ますから」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "xSsrSYhwoKKf-iTgaFS4KDCqh4-IpTIVOgYZSh6h5jc",
+    "displayText": "「日が出るでしょう。それから日が沈むでしょう。それからまた出るでしょう、そうしてまた沈むでしょう。――赤い日が東から西へ、東から西へと落ちて行くうちに、――あなた、待っていられますか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "13f18c6df2202fd08e79fc78c7f4cb79cabf5afb51a0bdcbe2c71b871818173c",
+    "speechText": "「日が出るでしょう。それから日が沈むでしょう。それからまた出るでしょう、そうしてまた沈むでしょう。――赤い日が東から西へ、東から西へと落ちて行くうちに、――あなた、待っていられますか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "nyQlIxkQvoSPspGi8Z5v65UrMm5uvXwpigypjnJLGZE",
+    "displayText": "「百年待っていて下さい」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "5cff8887f8a3f1fc341b2f60ec448cab8b8cc20e60ff18a66d1bc084969ad9e9",
+    "speechText": "「百年待っていて下さい」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "O0XFE_bOAD6ia9jEILa8BL2LAjtFSJFOJCdvejvNIuA",
+    "displayText": "「百年、私の墓の傍に坐って待っていて下さい。きっと逢いに来ますから」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "99035f41c032d1871904a32e7905980f8e40d7700b161d487e2eb1617faf44b0",
+    "speechText": "「百年、私の墓のそばに坐って待っていて下さい。きっと逢いに来ますから」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "89cTLLhcO7Ki5xWZvofIr2OhSRVtF4aEd_qfwi_G18g",
+    "displayText": "「百年はもう来ていたんだな」",
+    "reasonCode": "INNER_MONOLOGUE",
+    "speaker": "自分",
+    "speechSha256": "36d29ad4854ed21b4b310bae5d3d12383903cd0b554d9c3d4bc1a6726b3138d1",
+    "speechText": "「百年はもう来ていたんだな」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "qfL1jCdiSpMyQ3jEeq0WJYy__tyZfBxrO2ZM3ECHnb0",
+    "displayText": "「田圃へかかったね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "175412057b72dd6ac2bb51fe44c131eba0aa40ce2098ebbdd1ef127f92446daa",
+    "speechText": "「たんぼへかかったね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "LS3o3GVPfGeopWzqb_Nf3y0sTahJHebzjzwNImwtdaQ",
+    "displayText": "「どうして解る」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "8db2a6b61b440efe23d81e7fc6cd4b4e50ecf655e2e0f60c52307c5459632449",
+    "speechText": "「どうして解る」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "Z18Wrw21kae-PxdpG7i8LSNodfyWSjWOzgLZRB-nZDU",
+    "displayText": "「だって鷺が鳴くじゃないか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "3df048cde67d3da87fcfba8df785345934600ed5e8cdfd95fd72ebd7f9b799ae",
+    "speechText": "「だってさぎが鳴くじゃないか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "3JTeUGxNns5LN0f6_w--zu09rGgyI-PJAOnlfY9jaO4",
+    "displayText": "「ふふん」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "5b8bdf10287bfafd78429877ccf058150965c1b2a2c7bc9b152e11020f2fc156",
+    "speechText": "「ふふん」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "zcmj2uI9mY_QB5x2s4pPF_MjCK3bSLv9A8tSmuhKA7I",
+    "displayText": "「何を笑うんだ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "e4e03a7be73a7b80e6b058259ad1c5e950aaf28990097f07bd86b736899b8194",
+    "speechText": "「何を笑うんだ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "ZtjcFxbyYU3ftUkRjlhiinXHwwXyNwckMKsGz8GtML8",
+    "displayText": "「御父さん、重いかい」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "8fa5671105d41bf0c3dc73b6bb2548db13e0117e034d67571d44c2564c576094",
+    "speechText": "「おとっさん、重いかい」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "QUXAfc-xFigCmbMAcnuIIc5CPP46B1lzgq16ozjprAA",
+    "displayText": "「重かあない」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "1c5450e69d784a8102386277f702b861672d99b6156485ec757ff52de003e776",
+    "speechText": "「重かあない」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "HRSpRhUZQTjmfja16wKtcA-n2lrxH5bFmWZBCcXT9NA",
+    "displayText": "「今に重くなるよ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "1f3a505d7b7ea8d5041aad80cc2caa2f5fd5566b621aad940339e8fde26da714",
+    "speechText": "「今に重くなるよ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "_8S218eY_QRHqRyghZImj-gAesMeJ95_sUdgukDBwlM",
+    "displayText": "「石が立ってるはずだがな」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "7c549dd22b84b3dced176de20b15a7e850595ad10dd1b8ab86409c6c0fd5bccc",
+    "speechText": "「石が立ってるはずだがな」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "-I3F5_i4k0bSY4K5pJySgbHPA9RwRlOjbsa67jln6LQ",
+    "displayText": "「左が好いだろう」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "535a4e14b0f7a49352c81a36f8687f2e222a83c1bebb934127bb6e16d4aa935f",
+    "speechText": "「左が好いだろう」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "-j3kKlvEzNgFPPcyzdskfLZW9hf3KihxOoIggu-I3yE",
+    "displayText": "「遠慮しないでもいい」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "4f6576ef8660b9b4a3b9699589c42ca4f90177bbdaa24049f55629db0cb97881",
+    "speechText": "「遠慮しないでもいい」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "5dpoWgQQqXtYNP7c6cJ-bBx28mhO_urD0iYbe78YU8k",
+    "displayText": "「どうも盲目は不自由でいけないね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "b9f85aa5c9d1fb4dbf667c37001fcd12157f429246e3b88b6b44ccedd330928e",
+    "speechText": "「どうも盲目は不自由でいけないね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "Su_6wzanYiGgEvGqWyjZp_FGOV6LbxCRLPMiPo8gq6o",
+    "displayText": "「だから負ってやるからいいじゃないか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "c9e3e10a6e2bbf2e190518dc5a40951cab52bd0f14a3bc67d43e82b8b35357ff",
+    "speechText": "「だからおぶってやるからいいじゃないか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "9wwWCBmRYIu0VDTubPmzarP_VypC3FW2pyWXq_Cb00s",
+    "displayText": "「負ぶって貰ってすまないが、どうも人に馬鹿にされていけない。親にまで馬鹿にされるからいけない」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "cc8c155c44fc34b4a590af6d11051b12673be69dc8984bc88fe729a8d6d20f44",
+    "speechText": "「負ぶってもらってすまないが、どうも人に馬鹿にされていけない。親にまで馬鹿にされるからいけない」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "Gbe1EMVL1cqYlRThwzpdEQdEK4nZW0fln8SrDKyrczM",
+    "displayText": "「もう少し行くと解る。――ちょうどこんな晩だったな」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "61768c51b4b065fcf65a70d27abedcf79ad357bc76b56cfb6451799b23b560b8",
+    "speechText": "「もう少し行くと解る。――ちょうどこんな晩だったな」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "JBjA9c6xXXPbV63URxjyWm_rpMrh70L3E7h4SgO0Sig",
+    "displayText": "「何が」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "ecef301cb04d76d6a410b33854f5e722c5d35cd31ba57e0199df2518842aade4",
+    "speechText": "「何が」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "hLBRDwIiB1ycXEAcF0Ipx5je3pIU6O5GBn5Ki9njJV4",
+    "displayText": "「何がって、知ってるじゃないか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "83c05331e66de5c1d0fbc33d20f0493fbd4e44587f799d635d7dee39dea48434",
+    "speechText": "「何がって、知ってるじゃないか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "zADWC9-m6rJaiNAss3pRSkivT85ySqWtOefX0LwYRIw",
+    "displayText": "「ここだ、ここだ。ちょうどその杉の根の処だ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "879bd5162b2ca75d69f634e8525125df7f210d82d1642d962aed73e5d26e7aa7",
+    "speechText": "「ここだ、ここだ。ちょうどその杉の根の処だ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "p9X4qD4KycJLi6KNEdifxhhDIetPu9QRoC5Uw6hlA90",
+    "displayText": "「御父さん、その杉の根の処だったね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "ab882b119f0d4a44ef1972162b53848e5dea1de688f61cb997984849bb260933",
+    "speechText": "「おとっさん、その杉の根の処だったね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "yzjDtE6sTYWJ7u3HCm57e1j9IF7obDSqjUNiti_2o5U",
+    "displayText": "「うん、そうだ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "父",
+    "speechSha256": "da1f41d33220647fda3f59bc975aede6f715a9616268f56620af14e13243a340",
+    "speechText": "「うん、そうだ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "ttEnW2XR7MTZAsMQr-UCkMCTTpi9fT67KY4mGCU1ojk",
+    "displayText": "「文化五年辰年だろう」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "f24628d15165eafac39b51a061bff63863cab5336e666cd68305ff206fdbe08c",
+    "speechText": "「文化五年たつどしだろう」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "zv1zYkOUdHyOSJAsL5vuPXJcdF0GQepXmH9XMKDLa0o",
+    "displayText": "「御前がおれを殺したのは今からちょうど百年前だね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "背中の子供",
+    "speechSha256": "fc7fbb2ab7cdbe032572b345cf5e9c8e2db6c7945e76fd837eb1dea848b88607",
+    "speechText": "「御前がおれを殺したのは今からちょうど百年前だね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "F7FAn6-zYiAQ0oAe5cJQyvnX9GHw2rZHZir2jQ6aTEk",
+    "displayText": "「御爺さんはいくつかね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "070dc2d4f09c343bc12e367791f7db0da0536b7de5534e06e321f4f9c2e7856b",
+    "speechText": "「御爺さんはいくつかね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "7mRcWhS1mxZu-ftpt6zTCl3UQvLfnhq1iX107dcMMH4",
+    "displayText": "「いくつか忘れたよ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "老人",
+    "speechSha256": "103d90b212734aa8d70e758d7e3f59feb198698148c5a9f0bc8930d1ac084a0e",
+    "speechText": "「いくつか忘れたよ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "4t3_WePhl5o0Iin8wZ_zKr7495jCsxSWoTg7SAcGVCk",
+    "displayText": "「御爺さんの家はどこかね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "9debb81a344572b032affc1042b8d46e64b081069cce69f2eb007d733990a661",
+    "speechText": "「御爺さんのうちはどこかね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "d8zqBqtjKl7CrYGDWDfuOoHrBYNUdVxiC9lHtdOXmEo",
+    "displayText": "「臍の奥だよ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "老人",
+    "speechSha256": "b7ab7b289ceb3a4438268f58265c7575444e44b9f248695d66d9397a170f34b0",
+    "speechText": "「へその奥だよ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "S0osbiQVfxsu4588Y83Fm-RL-qljo7AN0CCvPjwggVg",
+    "displayText": "「どこへ行くかね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "2b2f991aed9a2290cb4be42a01332643fc03deed61f4f88f65f3a7df541ea2fc",
+    "speechText": "「どこへ行くかね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "LQMKnowDBh3WK8RYSLOXC7NyMGo0U5syotNf84iKvJk",
+    "displayText": "「あっちへ行くよ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "老人",
+    "speechSha256": "d2ead7a85db8fe57cc3583a71bd43604ca197426858ad1204b7b79a385ad18a0",
+    "speechText": "「あっちへ行くよ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "ZGbM5Yd80W4sfON8OHHpSzm__cIyToPTN-nSaoFKFbw",
+    "displayText": "「真直かい」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "女",
+    "speechSha256": "0c38bc1da0e81e230a3cd5e5ff07130c8cf5497ac3ca459eb6919013c8dfcca3",
+    "speechText": "「まっすぐかい」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "_lroyd6pN0XnJKnJikQL3bredC4gCoinS_VqisB_htc",
+    "displayText": "「今にその手拭が蛇になるから、見ておろう。見ておろう」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "a2cff0b6798d68004f8ebf4b1943c6097e0c3e7e80d34a345e3ab960489071d2",
+    "speechText": "「今にその手拭がへびになるから、見ておろう。見ておろう」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "mAbEvxbQvNhtzYRVngXdfBliOiFRRfNeBnYfrX3pqL0",
+    "displayText": "「見ておろう、見ておろう、好いか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "a509bdf42552afbe3ed93a6fc0431e6b1f41401ae96adfb167a134cfe163efa2",
+    "speechText": "「見ておろう、見ておろう、好いか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "G2rPtY8XRULbPJ1vsIjm9LgBN2HXgF4Jacej6ObkGRo",
+    "displayText": "「こうしておくと、箱の中で蛇になる。今に見せてやる。今に見せてやる」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "85aaf471ddfc6284e6f5843d1e3a95bcc53592e01b73aacccb7df49d38b049ad",
+    "speechText": "「こうしておくと、箱の中でへびになる。今に見せてやる。今に見せてやる」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "pXERW8UIbgCMjDdszQ833nKuSnroDqmE7AphTrh5Lo8",
+    "displayText": "「今になる」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "ab80128a1ebc9ba170393dccd427fc121a5cb124ffd2a2919dccf1afa3721441",
+    "speechText": "「今になる」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "-8QhqVTEuNYe2aGISaGML7m46M77NCaltmhBoJM4b6Q",
+    "displayText": "「蛇になる」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "d2402823e61dd42b3308c84291a6a8e3f434d34a00a5ceca5e386962345d2c34",
+    "speechText": "「蛇になる」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "Su69JFtf-46zCX7CZgpIfRXZxRnz7-Y9cYP8pMN7MjI",
+    "displayText": "「今になる、蛇になる、\n\n　　きっとなる、笛が鳴る、」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "71d64cd5950e8b3c77a5164d79ba0d16ffc396dd9434b7d347cb239878d828e1",
+    "speechText": "「今になる、蛇になる、 きっとなる、笛が鳴る、」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "AzRcMHbBRwDmuCAtEjviHGF4BEY9q25cNEgLRI10p-I",
+    "displayText": "「深くなる、夜になる、\n\n　　真直になる」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "香具師",
+    "speechSha256": "c2c06174e850b3410fa30e3ef04cb0357ce3a29d4054716c17fc292d2f2565c1",
+    "speechText": "「深くなる、夜になる、 真直になる」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "a_FQq2AtiPkVS0VRy_nBDTyvtOktJUI5lCISmzcEBYg",
+    "displayText": "「大きなもんだなあ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "3ff49306a264fc8663e8d29bead4907dc91940b827f54ac43accba50e6f566df",
+    "speechText": "「大きなもんだなあ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "xc8goMNo27ef0LJotF4JAdKEtb-gYtYzfUwoC1_vs_A",
+    "displayText": "「人間を拵えるよりもよっぽど骨が折れるだろう」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "84e22e436293a61e215c4504a4d1561a8e8411a85606127d1329fb73a4be0d25",
+    "speechText": "「人間をこしらえるよりもよっぽど骨が折れるだろう」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "KQD_XGglvL1O14ilMz948jYinjEeY6Pt9NKAHLUSq0o",
+    "displayText": "「へえ仁王だね。今でも仁王を彫るのかね。へえそうかね。私ゃまた仁王はみんな古いのばかりかと思ってた」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "03b5a9c804608731771567c2826521ff3e18b9d5fa98a0016635f42389c571ae",
+    "speechText": "「へえ仁王だね。今でも仁王をほるのかね。へえそうかね。わっしゃまた仁王はみんな古いのばかりかと思ってた」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "rBwuyxurZocMzETe4ditTouQDpCvGK5TScM-UkuVIgA",
+    "displayText": "「どうも強そうですね。なんだってえますぜ。昔から誰が強いって、仁王ほど強い人あ無いって云いますぜ。何でも日本武尊よりも強いんだってえからね」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "0a3fd2361791494c6c5b662257c196f7210c4deac47027180303850a55ac58e8",
+    "speechText": "「どうも強そうですね。なんだってえますぜ。昔から誰が強いって、仁王ほど強い人あ無いって云いますぜ。何でもやまとだけのみことよりも強いんだってえからね」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "iUNVvLO1IjLgxozRPzDmVobhOv1iMlEG3pjelxkc7EQ",
+    "displayText": "「さすがは運慶だな。眼中に我々なしだ。天下の英雄はただ仁王と我れとあるのみと云う態度だ。天晴れだ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "b31b70c969189d6fd4197e07614460d465e86e886a0e52772867a456cf3645cf",
+    "speechText": "「さすがは運慶だな。眼中に我々なしだ。天下の英雄はただ仁王とわれとあるのみと云う態度だ。あっぱれだ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "DLKJcN2UdSkQ4-Q4Z4rtD09ms1o06ylnrQgjSzxcOvM",
+    "displayText": "「あの鑿と槌の使い方を見たまえ。大自在の妙境に達している」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "9bf5a85e0fd1c2a8f06b1765d579a258e0987fdfa838af4d3293720f6302e63d",
+    "speechText": "「あの鑿と槌の使い方を見たまえ。だいじざいの妙境に達している」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "iYBdsDHujKhhzfJnp4CbX-wRv5Xk4us953jmTA9cJLI",
+    "displayText": "「よくああ無造作に鑿を使って、思うような眉や鼻ができるものだな」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "4d043c40d0e8ca822ea5868fe1e6432c5d8e0819f2cb86222ab835adeba4ef1a",
+    "speechText": "「よくああむぞうさに鑿を使って、思うようなまみえや鼻ができるものだな」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "QRfwDXFJhaqNsK1nAPIf6JFkAJR6YarrWTZicep1jqM",
+    "displayText": "「なに、あれは眉や鼻を鑿で作るんじゃない。あの通りの眉や鼻が木の中に埋っているのを、鑿と槌の力で掘り出すまでだ。まるで土の中から石を掘り出すようなものだからけっして間違うはずはない」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "見物人",
+    "speechSha256": "b6ec70f4af99f79c77cbe91fca9bcc561d3e1a25f2fcf4bcaaf750aab897b700",
+    "speechText": "「なに、あれは眉や鼻を鑿で作るんじゃない。あの通りの眉や鼻が木の中にうまっているのを、のみとつちの力で掘り出すまでだ。まるで土の中から石を掘り出すようなものだからけっして間違うはずはない」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "sLYZF63dHtiFW1T8vbPndW2IpLat2CPhU3kxNOBVi5M",
+    "displayText": "「この船は西へ行くんですか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "乗客",
+    "speechSha256": "490c75b8482527b866af9957ad683d3f81bae713fd2096ce1917ec3cbac04c15",
+    "speechText": "「この船は西へ行くんですか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "d94x27hCPvNvgPbVkEdFCE59H9hUaAa1DQtqQ2fsioA",
+    "displayText": "「なぜ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "船の男",
+    "speechSha256": "b70b02c98d3f4c116731660d381a76234e39f8644690a90db6ce9697dd51c9e0",
+    "speechText": "「なぜ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "OB9pGh3djiav4BKZWIBtgGIhPQ_Qd9hwLSzZ877LrUE",
+    "displayText": "「落ちて行く日を追かけるようだから」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "乗客",
+    "speechSha256": "012084345be078287b436728d99840a7db87dd7b318f8fd2c38a9b4fe227f6f3",
+    "speechText": "「落ちて行く日を追かけるようだから」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "kedCuu7dGqfEtqoknQYQAqbo28JQXIKmXuqqhkKpUhY",
+    "displayText": "「西へ行く日の、果は東か。それは本真か。東出る日の、御里は西か。それも本真か。身は波の上。枕。流せ流せ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "船の男",
+    "speechSha256": "925cd7907fa143101a53e1c010717c13e0dde43de8ee6b6e7e7b7b6238bea9aa",
+    "speechText": "「西へ行く日の、はては東か。それはほんまか。ひがし出る日の、おさとは西か。それも本真か。身は波の上。かじまくら。流せ流せ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "fqE4RoZ7K8dL5BQV80UiOhBBfEiCJxa7CPsvVA75UiM",
+    "displayText": "「さあ、頭もだが、どうだろう、物になるだろうか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "客",
+    "speechSha256": "c692636fb884c2c61a0a357e0b38ba5f934441b79d3b7e0725845dd95f94ba10",
+    "speechText": "「さあ、頭もだが、どうだろう、物になるだろうか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "pDow8sz5xmwwM9OECuU4n6d5vPdjmIKPFZz7Jrs4ngo",
+    "displayText": "「旦那は表の金魚売を御覧なすったか」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "床屋",
+    "speechSha256": "c1a0b5d8cfbc55e74574ab18e86cb8af5723ab96947813a5cce9f84bef2089c3",
+    "speechText": "「だんなは表の金魚売を御覧なすったか」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "WcfJeD-kcvYOuUKNwUZ66cpUCUcW-qKz35Dv83fWP5I",
+    "displayText": "「洗いましょう」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "床屋",
+    "speechSha256": "3716326d947b581a4a08bdd80113b1db692c1844d485f362921f7639ca2ce97c",
+    "speechText": "「洗いましょう」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "sjPa02gUZVGgmmNY0PN9pIAGnlc4JHXjuLlULPrQdEs",
+    "displayText": "「御父様は」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "母",
+    "speechSha256": "60c35d7ac1c64594568123fa7a73f7787b27ad341f849c683da4ac3d233cbc8a",
+    "speechText": "「御父様は」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "Ig0uUaq4m5g5mPsVfjgc_cH3mlm7eaPdr-3jiGdMWnc",
+    "displayText": "「あっち」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "子供",
+    "speechSha256": "e50b4d9d8cbc4b401d3d914bf2cdd27c073237eae135fd042ff337e7ff530141",
+    "speechText": "「あっち」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "lh36g3rtpWGBLOgdI-BQJhT_1gS-Tl3ufNLWNj7QNfg",
+    "displayText": "「いつ御帰り」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "母",
+    "speechSha256": "e939a60fbb53327a82f4d678987a69ea5cc6529e401331e288429ad275f37ca6",
+    "speechText": "「いつ御帰り」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "1Y8ZrKk2QZx0x513XasxAq5U1-6OWOng1O3hBKJEYx8",
+    "displayText": "「あっち」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "子供",
+    "speechSha256": "e50b4d9d8cbc4b401d3d914bf2cdd27c073237eae135fd042ff337e7ff530141",
+    "speechText": "「あっち」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "nOKFQwdgOQCwzU27AGQb-XgOOrlvk0FO-qJNFx3jEJg",
+    "displayText": "「御父様はどこ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "母",
+    "speechSha256": "8375b4160c00f7aa5518cd06600e4cb341bc8fe1621e160d6d0fec0aabfe202a",
+    "speechText": "「御父様はどこ」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "yJuhw-ZlbvyT-n9yVQAfBQ9kcQXEFqpeJhBJnmqKxQ0",
+    "displayText": "「今に」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "子供",
+    "speechSha256": "785bc82580c50934bf11e46bb3c0aaaf4879f461e18e77210b16ec3cc1e923ce",
+    "speechText": "「今に」",
+    "workId": "000799"
+  },
+  {
+    "approved": true,
+    "candidateId": "RXDlARWzZUi7lHP4hTwuAJnzwEJhQobP7UDAJZo6JNc",
+    "displayText": "「好い子だから、少しの間、待っておいでよ」",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "speaker": "母",
+    "speechSha256": "f9e9d1a56fa43cb4f89b0ed6945128652e8da8844433175a2b928a4043f619d2",
+    "speechText": "「好い子だから、少しのま、待っておいでよ」",
+    "workId": "000799"
+  }
+]

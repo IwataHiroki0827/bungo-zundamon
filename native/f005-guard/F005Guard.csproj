@@ -15,4 +15,7 @@
     <AssemblyName>f005-guard</AssemblyName>
     <RootNamespace>F005Guard</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.2.5" />
+  </ItemGroup>
 </Project>

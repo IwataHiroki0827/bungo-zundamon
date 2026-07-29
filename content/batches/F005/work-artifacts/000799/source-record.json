@@ -1,0 +1,79 @@
+{
+  "bibliography": {
+    "baseEdition": "夏目漱石全集10",
+    "inputter": "野口英司",
+    "proofreader": null
+  },
+  "bibliographyCharset": "Shift_JIS",
+  "bodySelector": ".main_text",
+  "card": {
+    "byteLength": 9747,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-07-29T04:18:46.451Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/000799/card.html",
+    "sha256": "6b62b5acd806fcbd2a3024232342484d63c20e530f4c46b0f836bd958edd85af",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "cardUrl": "https://www.aozora.gr.jp/cards/000148/card799.html",
+  "fetchedAt": "2026-07-29T04:18:46.525Z",
+  "normalization": {
+    "policyVersion": "aozora-xhtml-passthrough-v1",
+    "processed": {
+      "byteLength": 79144,
+      "charset": "Shift_JIS",
+      "fetchedAt": "2026-07-29T04:18:46.525Z",
+      "mediaType": "text/html",
+      "path": "content/batches/F005/sealed/xhtml/000799-d92a8aa62607a8269324f95a7ba8fe6ff71cd56de25b42af566679832109ff04.xhtml",
+      "sha256": "d92a8aa62607a8269324f95a7ba8fe6ff71cd56de25b42af566679832109ff04",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html",
+      "storage": "sealed"
+    },
+    "rawSha256": "d92a8aa62607a8269324f95a7ba8fe6ff71cd56de25b42af566679832109ff04",
+    "replacements": [],
+    "schemaVersion": "1.0.0",
+    "variant": "passthrough"
+  },
+  "raw": {
+    "byteLength": 79144,
+    "charset": "Shift_JIS",
+    "fetchedAt": "2026-07-29T04:18:46.525Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/000799/source.raw",
+    "sha256": "d92a8aa62607a8269324f95a7ba8fe6ff71cd56de25b42af566679832109ff04",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/799_14972.html",
+  "title": "夢十夜",
+  "updatedAt": "2013-07-17",
+  "workId": "000799"
+}

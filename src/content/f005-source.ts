@@ -12,6 +12,7 @@ import {
 } from 'node:fs/promises';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 
+import { canonicalJson } from './artifacts.ts';
 import {
   EXTRACTOR_VERSION,
   extractDialogueCandidates,
@@ -21,9 +22,11 @@ import {
   AOZORA_BIBLIOGRAPHY_URL,
   AOZORA_TIMEOUT_MS,
   MAX_BIBLIOGRAPHY_ARCHIVE_BYTES,
+  MAX_BIBLIOGRAPHY_CSV_BYTES,
   MAX_SOURCE_BYTES,
   ProductionAozoraTransport,
   extractVerifiedBibliographyCsv,
+  isPublicAddress,
   parseAozoraBibliography,
   type BibliographyRow,
   type TransportPolicy,
@@ -60,6 +63,9 @@ const F005_POLICY_IDS = Object.freeze([
   'zundamon-character-guideline',
 ] as const satisfies readonly PolicyId[]);
 
+export const F005_SELECTION_SNAPSHOT_PATH =
+  'content/batches/F005/source-snapshots/selection.json';
+
 export const F005_NATIVE_GUARD_PINS = Object.freeze({
   abi: 'f005-guard-jsonl-v1',
   rid: 'win-x64',
@@ -70,7 +76,7 @@ export const F005_NATIVE_GUARD_PINS = Object.freeze({
   runtimeZipSha512:
     '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8',
   outputBinarySha256:
-    '6583d83e655906bee64ca6a48fe449e485d80d3be8ecdcd85a8bcef7de680dd5',
+    '57b08db339714b8c44462bb12cd9bd16cc32e4af2fe07169233d6b2b69c7390b',
 } as const);
 
 export const F005_WORKS = Object.freeze([
@@ -316,6 +322,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
+function hasExactKeys(value: Record<string, unknown>, keys: readonly string[]): boolean {
+  const actual = Object.keys(value).sort((left, right) => left.localeCompare(right, 'en'));
+  const expected = [...keys].sort((left, right) => left.localeCompare(right, 'en'));
+  return actual.length === expected.length &&
+    actual.every((key, index) => key === expected[index]);
+}
+
 function nonBlank(value: unknown): value is string {
   return typeof value === 'string' && value.trim() === value && value.length > 0;
 }
@@ -360,6 +373,17 @@ function normalizeHttpCharset(value: string | null): 'UTF-8' | 'Shift_JIS' | nul
   if (normalized === 'utf8') return 'UTF-8';
   if (normalized === 'shiftjis' || normalized === 'sjis') return 'Shift_JIS';
   return null;
+}
+
+function declaredDocumentCharsets(bytes: Uint8Array): readonly ('UTF-8' | 'Shift_JIS')[] {
+  const ascii = new TextDecoder('windows-1252').decode(bytes.subarray(0, Math.min(bytes.byteLength, 16_384)));
+  const declarations = [
+    ...ascii.matchAll(/\bcharset\s*=\s*["']?\s*([A-Za-z0-9_-]+)/giu),
+    ...ascii.matchAll(/<\?xml\b[^>]*\bencoding\s*=\s*["']([^"']+)["']/giu),
+  ]
+    .map((match) => normalizeHttpCharset(match[1] ?? null))
+    .filter((value): value is 'UTF-8' | 'Shift_JIS' => value !== null);
+  return [...new Set(declarations)];
 }
 
 function policyPlainText(raw: Uint8Array): string | null {
@@ -494,7 +518,17 @@ function artifact(
   fallbackFetchedAt: string,
 ): RawArtifactRef {
   const observed = mediaTypeAndCharset(response);
-  const charset = normalizeHttpCharset(observed.charset);
+  const httpCharset = normalizeHttpCharset(observed.charset);
+  const declaredCharsets = declaredDocumentCharsets(response.body);
+  const charsetMatches = expectedCharset === null
+    ? httpCharset === null
+    : (
+      (httpCharset === expectedCharset ||
+        (httpCharset === null &&
+          declaredCharsets.length === 1 &&
+          declaredCharsets[0] === expectedCharset)) &&
+      declaredCharsets.every((value) => value === expectedCharset)
+    );
   if (
     response.status !== 200 ||
     response.elapsedMs === undefined ||
@@ -502,7 +536,7 @@ function artifact(
     response.elapsedMs >= AOZORA_TIMEOUT_MS ||
     response.body.byteLength > maxBytes ||
     observed.mediaType !== expectedMediaType ||
-    charset !== expectedCharset
+    !charsetMatches
   ) {
     throw new F005SourceError('F005_SOURCE_RESPONSE_INVALID', '公式取得responseが固定条件を満たしません');
   }
@@ -530,7 +564,7 @@ function artifact(
     sourceUrl,
     fetchedAt,
     mediaType: observed.mediaType,
-    charset,
+    charset: expectedCharset,
     bytes,
     byteLength: bytes.byteLength,
     sha256: sha256(bytes),
@@ -555,6 +589,242 @@ async function requestArtifact(
   };
   const response = await transport.request(new URL(sourceUrl), policy);
   return artifact(sourceUrl, response, mediaType, charset, maxBytes, fallbackFetchedAt);
+}
+
+async function readStablePersistedFile(
+  workspace: string,
+  relativePosixPath: string,
+  maxBytes: number,
+): Promise<Uint8Array> {
+  if (!isAbsolute(workspace)) {
+    throw new F005SourceError('F005_PATH_UNSAFE', 'snapshot workspaceは絶対pathが必要です');
+  }
+  safePathSegments(relativePosixPath);
+  if (maxBytes > MAX_SOURCE_BYTES) {
+    const root = resolve(workspace);
+    const target = join(root, ...relativePosixPath.split('/'));
+    let handle: Awaited<ReturnType<typeof open>> | undefined;
+    try {
+      const [rootInfo, rootReal] = await Promise.all([lstat(root), realpath(root)]);
+      if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || rootReal !== root) {
+        throw new F005SourceError('F005_PATH_UNSAFE', 'snapshot workspace実体が不正です');
+      }
+      handle = await open(target, fsConstants.O_RDONLY);
+      const before = await handle.stat();
+      const [pathInfo, targetReal] = await Promise.all([lstat(target), realpath(target)]);
+      if (
+        !before.isFile() ||
+        before.nlink !== 1 ||
+        before.size <= 0 ||
+        before.size > maxBytes ||
+        !pathInfo.isFile() ||
+        pathInfo.isSymbolicLink() ||
+        pathInfo.nlink !== 1 ||
+        targetReal !== target ||
+        before.dev !== pathInfo.dev ||
+        before.ino !== pathInfo.ino ||
+        before.size !== pathInfo.size ||
+        before.mtimeMs !== pathInfo.mtimeMs
+      ) {
+        throw new F005SourceError('F005_PATH_UNSAFE', 'large snapshot artifactのhandle/path identityが一致しません');
+      }
+      const bytes = new Uint8Array(await handle.readFile());
+      const after = await handle.stat();
+      const [current, currentReal] = await Promise.all([lstat(target), realpath(target)]);
+      if (
+        before.dev !== after.dev ||
+        before.ino !== after.ino ||
+        before.size !== after.size ||
+        before.mtimeMs !== after.mtimeMs ||
+        after.nlink !== 1 ||
+        before.dev !== current.dev ||
+        before.ino !== current.ino ||
+        before.size !== current.size ||
+        before.mtimeMs !== current.mtimeMs ||
+        current.nlink !== 1 ||
+        currentReal !== target ||
+        bytes.byteLength !== before.size
+      ) {
+        throw new F005SourceError('F005_SOURCE_DRIFT', 'large snapshot artifactが読込中に変化しました');
+      }
+      return bytes;
+    } catch (error) {
+      if (error instanceof F005SourceError) throw error;
+      throw new F005SourceError('F005_PATH_UNSAFE', 'large snapshot artifactを安全に読み込めません', { cause: error });
+    } finally {
+      await handle?.close();
+    }
+  }
+  let capability: SafeFileHandle | undefined;
+  try {
+    capability = await resolveSafeWorkspaceFile(resolve(workspace), relativePosixPath, 'read');
+    const bytes = await readSafeWorkspaceFile(capability);
+    if (bytes.byteLength <= 0 || bytes.byteLength > maxBytes) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', 'snapshot artifactのbyte数が上限外です');
+    }
+    return bytes;
+  } catch (error) {
+    if (error instanceof F005SourceError) throw error;
+    throw new F005SourceError('F005_PATH_UNSAFE', 'snapshot artifactを安全に読み込めません', { cause: error });
+  } finally {
+    if (capability) await closeSafeWorkspaceFile(capability);
+  }
+}
+
+function assertPersistedTransport(
+  value: unknown,
+  sourceUrl: string,
+  policy: boolean,
+): asserts value is TransportSecurityEvidence | PolicySecurityProof {
+  if (!isRecord(value)) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted transport証跡がobjectではありません');
+  }
+  const commonKeys = [
+    'dnsAddresses',
+    'connectedAddress',
+    'tlsAuthorized',
+    'hostnameVerified',
+    'redirectsFollowed',
+    'proxyUsed',
+    'attempts',
+  ];
+  const expectedKeys = policy ? commonKeys : [...commonKeys, 'hostHeader', 'serverName'];
+  const addresses = value.dnsAddresses;
+  if (
+    !hasExactKeys(value, expectedKeys) ||
+    !Array.isArray(addresses) ||
+    addresses.length === 0 ||
+    addresses.some((address) => !nonBlank(address) || !isPublicAddress(address)) ||
+    new Set(addresses).size !== addresses.length ||
+    !nonBlank(value.connectedAddress) ||
+    !isPublicAddress(value.connectedAddress) ||
+    !addresses.includes(value.connectedAddress) ||
+    value.tlsAuthorized !== true ||
+    value.hostnameVerified !== true ||
+    value.redirectsFollowed !== 0 ||
+    value.proxyUsed !== false ||
+    value.attempts !== 1
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted transport証跡が固定条件と一致しません');
+  }
+  if (!policy) {
+    const hostname = new URL(sourceUrl).hostname;
+    if (value.hostHeader !== hostname || value.serverName !== hostname) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted transportのhost bindingが一致しません');
+    }
+  }
+}
+
+async function rehydratePersistedArtifact(
+  workspace: string,
+  value: unknown,
+  expected: {
+    readonly path: string;
+    readonly sourceUrl: string;
+    readonly mediaType: string;
+    readonly charset: 'UTF-8' | 'Shift_JIS' | null;
+    readonly maxBytes: number;
+    readonly policy: boolean;
+  },
+): Promise<RawArtifactRef> {
+  if (!isRecord(value) || !hasExactKeys(value, [
+    'storage',
+    'path',
+    'sourceUrl',
+    'fetchedAt',
+    'mediaType',
+    'charset',
+    'byteLength',
+    'sha256',
+    'transport',
+  ])) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted artifact metadata schemaが一致しません');
+  }
+  if (
+    value.storage !== 'sealed' ||
+    value.path !== expected.path ||
+    value.sourceUrl !== expected.sourceUrl ||
+    value.mediaType !== expected.mediaType ||
+    value.charset !== expected.charset ||
+    !nonBlank(value.fetchedAt) ||
+    !Number.isFinite(Date.parse(value.fetchedAt)) ||
+    !Number.isSafeInteger(value.byteLength) ||
+    Number(value.byteLength) <= 0 ||
+    Number(value.byteLength) > expected.maxBytes ||
+    typeof value.sha256 !== 'string' ||
+    !/^[0-9a-f]{64}$/u.test(value.sha256)
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted artifact metadataが固定tupleと一致しません');
+  }
+  assertPersistedTransport(value.transport, expected.sourceUrl, expected.policy);
+  const bytes = await readStablePersistedFile(workspace, expected.path, expected.maxBytes);
+  if (bytes.byteLength !== value.byteLength || sha256(bytes) !== value.sha256) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted artifact実体のSHAまたはbyte数が一致しません');
+  }
+  return deepFreeze({
+    storage: 'inline' as const,
+    sourceUrl: expected.sourceUrl,
+    fetchedAt: value.fetchedAt,
+    mediaType: expected.mediaType,
+    charset: expected.charset,
+    bytes,
+    byteLength: bytes.byteLength,
+    sha256: value.sha256,
+    transport: deepFreeze(structuredClone(value.transport)),
+  });
+}
+
+function rehydrateDerivedArtifact(
+  value: unknown,
+  bytes: Uint8Array,
+  expected: {
+    readonly path: string;
+    readonly derivedFromSha256: string;
+    readonly sourceUrl: string;
+    readonly mediaType: string;
+    readonly charset: 'UTF-8' | 'Shift_JIS' | null;
+    readonly maxBytes: number;
+    readonly fetchedAt: string;
+    readonly transport: Readonly<TransportSecurityEvidence | PolicySecurityProof>;
+  },
+): RawArtifactRef {
+  if (!isRecord(value) || !hasExactKeys(value, [
+    'storage',
+    'path',
+    'derivedFromSha256',
+    'sourceUrl',
+    'fetchedAt',
+    'mediaType',
+    'charset',
+    'byteLength',
+    'sha256',
+    'transport',
+  ]) ||
+    value.storage !== 'derived' ||
+    value.path !== expected.path ||
+    value.derivedFromSha256 !== expected.derivedFromSha256 ||
+    value.sourceUrl !== expected.sourceUrl ||
+    value.fetchedAt !== expected.fetchedAt ||
+    value.mediaType !== expected.mediaType ||
+    value.charset !== expected.charset ||
+    value.byteLength !== bytes.byteLength ||
+    value.byteLength > expected.maxBytes ||
+    value.sha256 !== sha256(bytes) ||
+    canonicalJson(value.transport) !== canonicalJson(expected.transport)
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'derived artifact metadataが親実体と一致しません');
+  }
+  return deepFreeze({
+    storage: 'inline' as const,
+    sourceUrl: expected.sourceUrl,
+    fetchedAt: expected.fetchedAt,
+    mediaType: expected.mediaType,
+    charset: expected.charset,
+    bytes: cloneBytes(bytes),
+    byteLength: bytes.byteLength,
+    sha256: sha256(bytes),
+    transport: deepFreeze(structuredClone(expected.transport)),
+  });
 }
 
 function assertExpectedRow(row: BibliographyRow, expected: (typeof F005_WORKS)[number], allRows: readonly BibliographyRow[]): void {
@@ -770,6 +1040,254 @@ export async function collectF005SourceSnapshot(
 }
 
 /**
+ * 永続化済みselection snapshotを実ファイル・承認context・公式固定tupleへ再結合して再mintする。
+ * process再起動後のpredeployで、保存JSONだけをbrandとして信用しない。
+ * @des DES-F005-003 @fun FUN-F005-006 @ut UT-F005-006
+ */
+export async function rehydrateF005SelectionSnapshot(
+  workspace: string,
+  context: F005ApprovedBatchContext,
+): Promise<F005SourceSnapshot> {
+  requireExactContext(context);
+  const documentBytes = await readStablePersistedFile(
+    workspace,
+    F005_SELECTION_SNAPSHOT_PATH,
+    MAX_SOURCE_BYTES,
+  );
+  let documentText: string;
+  let persisted: unknown;
+  try {
+    documentText = new TextDecoder('utf-8', { fatal: true }).decode(documentBytes);
+    persisted = JSON.parse(documentText);
+  } catch (error) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'selection snapshot JSONが不正です', { cause: error });
+  }
+  if (documentText !== canonicalJson(persisted) || !isRecord(persisted) ||
+    !hasExactKeys(persisted, [
+      'schemaVersion',
+      'kind',
+      'batchId',
+      'authorId',
+      'phase',
+      'observedAt',
+      'rights',
+      'bibliographyArchive',
+      'bibliographyCsv',
+      'authorPage',
+      'policies',
+      'works',
+    ]) ||
+    persisted.schemaVersion !== '2.0.0' ||
+    persisted.kind !== 'f005-source-selection-snapshot' ||
+    persisted.batchId !== 'F005' ||
+    persisted.authorId !== AUTHOR_ID ||
+    persisted.phase !== 'selection' ||
+    !nonBlank(persisted.observedAt) ||
+    !Number.isFinite(Date.parse(persisted.observedAt)) ||
+    !Array.isArray(persisted.policies) ||
+    persisted.policies.length !== F005_POLICY_IDS.length ||
+    !Array.isArray(persisted.works) ||
+    persisted.works.length !== F005_WORKS.length
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'selection snapshotのcanonical schemaが一致しません');
+  }
+
+  const bibliographyArchive = await rehydratePersistedArtifact(
+    workspace,
+    persisted.bibliographyArchive,
+    {
+      path: 'data/batches/F005/source-snapshots/selection/bibliography.zip',
+      sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+      mediaType: 'application/zip',
+      charset: null,
+      maxBytes: MAX_BIBLIOGRAPHY_ARCHIVE_BYTES,
+      policy: false,
+    },
+  );
+  let extractedCsv: Uint8Array;
+  let rows: BibliographyRow[];
+  try {
+    extractedCsv = extractVerifiedBibliographyCsv(bibliographyArchive.bytes);
+  } catch (error) {
+    throw new F005SourceError('F005_BIBLIOGRAPHY_INVALID', 'persisted公式書誌を再検証できません', { cause: error });
+  }
+  const bibliographyCsv = isRecord(persisted.bibliographyCsv) &&
+    persisted.bibliographyCsv.storage === 'derived'
+    ? rehydrateDerivedArtifact(persisted.bibliographyCsv, extractedCsv, {
+      path: 'data/batches/F005/source-snapshots/selection/bibliography.zip',
+      derivedFromSha256: bibliographyArchive.sha256,
+      sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+      mediaType: 'text/csv',
+      charset: 'UTF-8',
+      maxBytes: MAX_BIBLIOGRAPHY_CSV_BYTES,
+      fetchedAt: bibliographyArchive.fetchedAt,
+      transport: bibliographyArchive.transport,
+    })
+    : await rehydratePersistedArtifact(
+      workspace,
+      persisted.bibliographyCsv,
+      {
+        path: 'data/batches/F005/source-snapshots/selection/bibliography.csv',
+        sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+        mediaType: 'text/csv',
+        charset: 'UTF-8',
+        maxBytes: MAX_BIBLIOGRAPHY_CSV_BYTES,
+        policy: false,
+      },
+    );
+  try {
+    rows = parseAozoraBibliography(bibliographyCsv.bytes);
+  } catch (error) {
+    throw new F005SourceError('F005_BIBLIOGRAPHY_INVALID', 'persisted公式書誌CSVを解析できません', { cause: error });
+  }
+  if (
+    extractedCsv.byteLength !== bibliographyCsv.bytes.byteLength ||
+    sha256(extractedCsv) !== bibliographyCsv.sha256 ||
+    bibliographyCsv.fetchedAt !== bibliographyArchive.fetchedAt ||
+    canonicalJson(bibliographyCsv.transport) !== canonicalJson(bibliographyArchive.transport)
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted ZIP/CSV bindingが一致しません');
+  }
+  const selectedRows = F005_WORKS.map((expected) => {
+    const matches = rows.filter((row) =>
+      row.workId === expected.workId && row.personId === AUTHOR_ID && row.role === '著者',
+    );
+    if (matches.length !== 1) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted書誌の対象行が一意ではありません: ${expected.workId}`);
+    }
+    assertExpectedRow(matches[0]!, expected, rows);
+    return deepFreeze(structuredClone(matches[0]!));
+  });
+  const authorPage = await rehydratePersistedArtifact(
+    workspace,
+    persisted.authorPage,
+    {
+      path: 'data/batches/F005/source-snapshots/selection/author-page.html',
+      sourceUrl: AUTHOR_PAGE_URL,
+      mediaType: 'text/html',
+      charset: 'UTF-8',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    },
+  );
+
+  const definitions = createPolicyDefinitions(workspace, workspace, 'F005')
+    .filter((definition): definition is typeof definition & {
+      readonly policyId: (typeof F005_POLICY_IDS)[number];
+    } => F005_POLICY_IDS.includes(definition.policyId as (typeof F005_POLICY_IDS)[number]));
+  const policies: F005PolicySnapshot[] = [];
+  for (const [index, policyId] of F005_POLICY_IDS.entries()) {
+    const rawPolicy = persisted.policies[index];
+    const definition = definitions.find((item) => item.policyId === policyId);
+    if (!definition || !isRecord(rawPolicy) || !hasExactKeys(rawPolicy, [
+      'policyId',
+      'versionOrLabel',
+      'artifact',
+      'decision',
+    ]) ||
+      rawPolicy.policyId !== policyId ||
+      rawPolicy.versionOrLabel !== definition.versionOrLabel
+    ) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted規約tupleが一致しません: ${policyId}`);
+    }
+    const policyArtifact = await rehydratePersistedArtifact(
+      workspace,
+      rawPolicy.artifact,
+      {
+        path: `data/batches/F005/source-snapshots/selection/policies/${policyId}.raw`,
+        sourceUrl: definition.url,
+        mediaType: 'text/html',
+        charset: null,
+        maxBytes: MAX_SOURCE_BYTES,
+        policy: true,
+      },
+    );
+    const decision = evaluateF005PolicyClauses(policyId, policyArtifact.bytes);
+    if (canonicalJson(rawPolicy.decision) !== canonicalJson(decision)) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted規約decisionが本文と一致しません: ${policyId}`);
+    }
+    policies.push(deepFreeze({
+      policyId,
+      versionOrLabel: definition.versionOrLabel,
+      artifact: policyArtifact,
+      decision,
+    }));
+  }
+
+  const works: F005WorkSnapshot[] = [];
+  for (const [index, expected] of F005_WORKS.entries()) {
+    const rawWork = persisted.works[index];
+    const contextWork = context.candidate.works[index];
+    if (!isRecord(rawWork) || !hasExactKeys(rawWork, [
+      'workId',
+      'title',
+      'bibliography',
+      'card',
+      'xhtml',
+    ]) ||
+      rawWork.workId !== expected.workId ||
+      rawWork.title !== expected.title ||
+      contextWork?.workId !== expected.workId ||
+      contextWork.title !== expected.title ||
+      contextWork.cardUrl !== expected.cardUrl ||
+      contextWork.xhtmlUrl !== expected.sourceUrl ||
+      canonicalJson(rawWork.bibliography) !== canonicalJson(selectedRows[index])
+    ) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted作品とapproved contextが一致しません: ${expected.workId}`);
+    }
+    const card = await rehydratePersistedArtifact(workspace, rawWork.card, {
+      path: `data/batches/F005/source-snapshots/selection/works/${expected.workId}/card.html`,
+      sourceUrl: expected.cardUrl,
+      mediaType: 'text/html',
+      charset: 'UTF-8',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    });
+    const xhtml = await rehydratePersistedArtifact(workspace, rawWork.xhtml, {
+      path: `data/batches/F005/source-snapshots/selection/works/${expected.workId}/source.raw`,
+      sourceUrl: expected.sourceUrl,
+      mediaType: 'text/html',
+      charset: 'Shift_JIS',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    });
+    const work = deepFreeze({
+      workId: expected.workId,
+      title: expected.title,
+      bibliography: selectedRows[index]!,
+      card,
+      xhtml,
+    });
+    mintedWorkSnapshots.add(work);
+    works.push(work);
+  }
+  const snapshot = deepFreeze({
+    schemaVersion: '2.0.0' as const,
+    authorId: '000148' as const,
+    phase: 'selection' as const,
+    observedAt: persisted.observedAt,
+    bibliographyArchive,
+    bibliographyCsv,
+    authorPage,
+    policies,
+    works,
+  });
+  mintedSnapshots.add(snapshot);
+  const rights = evaluateF005RightsAndUsage(snapshot, {
+    free: true,
+    advertising: false,
+    payments: false,
+    sponsorship: false,
+    unofficial: true,
+    voiceCredit: 'VOICEVOX:ずんだもん',
+  });
+  if (rights.decision !== 'allow' || canonicalJson(persisted.rights) !== canonicalJson(rights)) {
+    throw new F005SourceError('F005_USAGE_NOT_ALLOWED', 'persisted rights decisionを再現できません');
+  }
+  return snapshot;
+}
+
+/**
  * 取得済みsnapshotと固定用途profileから、権利・規約条件をfail-closed評価する。
  * @des DES-F005-003 @fun FUN-F005-007 @ut UT-F005-007
  */
@@ -870,7 +1388,7 @@ export function formatProofreader(value: string | null): string {
   return value === null ? '記載なし' : value;
 }
 
-function extractCardUpdatedAt(card: RawArtifactRef): string {
+function extractCardUpdatedAt(card: RawArtifactRef, sourceUrl: string): string {
   if (
     card.charset !== 'UTF-8' ||
     card.sha256 !== sha256(card.bytes) ||
@@ -884,10 +1402,21 @@ function extractCardUpdatedAt(card: RawArtifactRef): string {
   } catch (error) {
     throw new F005SourceError('F005_SOURCE_DRIFT', 'card UTF-8 decodeに失敗しました', { cause: error });
   }
-  const iso = /最終更新日[^0-9]{0,40}(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?/u.exec(text);
-  if (!iso) throw new F005SourceError('F005_SOURCE_DRIFT', 'card最終更新日が一意に取得できません');
   const all = [...text.matchAll(/最終更新日/gu)];
-  if (all.length !== 1) throw new F005SourceError('F005_SOURCE_DRIFT', 'card最終更新日が一意ではありません');
+  if (all.length !== 1) throw new F005SourceError('F005_SOURCE_DRIFT', 'card最終更新日headerが一意ではありません');
+  const sourceFile = new URL(sourceUrl).pathname.split('/').at(-1);
+  const sourceRows = sourceFile
+    ? [...text.matchAll(/<tr\b[^>]*>[\s\S]*?<\/tr>/giu)]
+      .filter((match) => match[0].includes(`./files/${sourceFile}`))
+    : [];
+  if (sourceRows.length > 1) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'cardの対象XHTML行が一意ではありません');
+  }
+  const rowDates = sourceRows[0]?.[0].match(/\d{4}-\d{2}-\d{2}/gu) ?? [];
+  const iso = rowDates.length === 2
+    ? /^(\d{4})-(\d{2})-(\d{2})$/u.exec(rowDates[1]!)
+    : /最終更新日[^0-9]{0,40}(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?/u.exec(text);
+  if (!iso) throw new F005SourceError('F005_SOURCE_DRIFT', 'card最終更新日が一意に取得できません');
   const year = iso[1]!;
   const month = iso[2]!.padStart(2, '0');
   const day = iso[3]!.padStart(2, '0');
@@ -954,7 +1483,7 @@ export function parseF005SourceRecord(
     inputter: snapshot.bibliography.inputter,
     proofreader: snapshot.bibliography.proofreader || null,
   }, expected.workId);
-  const updatedAt = extractCardUpdatedAt(snapshot.card);
+  const updatedAt = extractCardUpdatedAt(snapshot.card, expected.sourceUrl);
   const record = deepFreeze({
     schemaVersion: '2.0.0' as const,
     workId: expected.workId,
@@ -1317,8 +1846,8 @@ class F005NativeGuardClient {
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', (chunk: string) => {
       this.output += chunk;
-      // 8MiB payloadのbase64とJSON metadataを上限内で受信する。
-      if (this.output.length > 12_000_000) {
+      // native読込上限64MiBのbase64とJSON metadataを有界受信する。
+      if (this.output.length > 91_000_000) {
         this.fail(new Error('guard stdout overflow'));
         this.terminate();
         return;

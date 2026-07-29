@@ -317,6 +317,51 @@ async function cleanHead(workspace: string): Promise<GitCommit> {
   return commit as GitCommit;
 }
 
+async function acceptedControlCommitAtCleanDescendant(
+  workspace: string,
+): Promise<GitCommit> {
+  const head = await cleanHead(workspace);
+  const additions = (await git(workspace, [
+    'log',
+    '--first-parent',
+    '--format=%H',
+    '--diff-filter=A',
+    head,
+    '--',
+    F005_ACCEPTANCE_EVIDENCE_PATH,
+  ]))
+    .trim()
+    .split(/\s+/u)
+    .filter((value) => value.length > 0);
+  const acceptanceCommit = additions[0];
+  if (
+    additions.length !== 1 ||
+    !acceptanceCommit ||
+    !FULL_COMMIT.test(acceptanceCommit) ||
+    !await gitSucceeds(workspace, ['merge-base', '--is-ancestor', acceptanceCommit, head])
+  ) {
+    throw new F005ContextError(
+      'F005_REGISTRY_CONTROL_INVALID',
+      'F005 acceptance commitをclean descendantから一意に解決できません',
+    );
+  }
+  const protectedPaths = [
+    F005_MIGRATION_EVIDENCE_PATH,
+    F005_ACCEPTANCE_EVIDENCE_PATH,
+    F005_LOADER_TEST_EVIDENCE_PATH,
+    SHARED_REGISTRY_PATH,
+  ] as const;
+  for (const path of protectedPaths) {
+    if (await blobAt(workspace, head, path) !== await blobAt(workspace, acceptanceCommit, path)) {
+      throw new F005ContextError(
+        'F005_REGISTRY_CONTROL_INVALID',
+        `acceptance後に保護artifactが変更されています: ${path}`,
+      );
+    }
+  }
+  return acceptanceCommit as GitCommit;
+}
+
 async function singleParent(workspace: string, commit: GitCommit): Promise<GitCommit> {
   const parts = (await git(workspace, ['rev-list', '--parents', '-n', '1', commit]))
     .trim()
@@ -895,7 +940,7 @@ async function loadVerifiedF005RegistryControl(
   workspace: string,
 ): Promise<VerifiedImplementationRegistryControl> {
   const root = await verifiedWorkspace(workspace);
-  const acceptanceCommit = await cleanHead(root);
+  const acceptanceCommit = await acceptedControlCommitAtCleanDescendant(root);
   const controlCommit = await singleParent(root, acceptanceCommit);
   const implementationCommit = await singleParent(root, controlCommit);
   await assertSnapshotAncestor(root, implementationCommit);
