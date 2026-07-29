@@ -381,6 +381,9 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('private readonly List<DeferredRenameRecord> deferredRenames');
     expect(source).toContain('kernel.FileIOCleanup += data => ForgetFileObject(data.FileObject)');
     expect(source).toContain('var source = filesByPath.GetValueOrDefault(normalized) ?? prior');
+    expect(source).toContain(
+      'var effective = current ?? filesByPath.GetValueOrDefault(normalized) ?? prior',
+    );
     expect(source).not.toContain('filesByObject[deferred.FileObject] = target');
     expect(source).toContain('item.Source.RelativePath == from');
     expect(source).toContain('var target = TryInspect(notice.To)');

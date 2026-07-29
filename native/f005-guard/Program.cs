@@ -1489,7 +1489,9 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     return;
                 }
-                var effective = current ?? prior;
+                // CleanupはFileObjectを先に破棄し得る。deleteは再open不能なので、
+                // 同じ正規化pathで直前に検証したidentityをpointerより優先して使う。
+                var effective = current ?? filesByPath.GetValueOrDefault(normalized) ?? prior;
                 if (effective is null)
                 {
                     PoisonLocked("ETW_FILE_IDENTITY_MISSING");

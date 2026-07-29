@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; ETW callback exceptions use bounded type categories.
+# Source bytes are LF-pinned; ETW delete correlation survives FileObject cleanup.
 on:
   push:
     branches:
