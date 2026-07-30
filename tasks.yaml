@@ -1953,7 +1953,7 @@ tasks:
   title: CHG-F005-018 完了後500ms限定再結合とhosted再試験
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-091
   tags:
@@ -1966,6 +1966,26 @@ tasks:
   - QT-F005-008
   mode: advisor
   mode_reason: hosted実測の最小bucketだけ時間条件を拡張し完全tupleの安全性を再検証するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-093
+  title: CHG-F005-019 完了後2秒限定再結合とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-092
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: hostedで追加観測した最小bucket上限2秒だけを完全tupleへ反映するため
   model:
     lead: opus
     workers: sonnet

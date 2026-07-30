@@ -581,4 +581,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 9000
-  note: run 30515251601のWITHIN_500MSを根拠に、全完全tuple条件を維持して完了後500ms上限だけを限定拡張。long減算前decimal昇格、極値、上限+1 tickを固定し、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30515251601のWITHIN_500MSを根拠に、全完全tuple条件を維持して完了後500ms上限だけを限定拡張。long減算前decimal昇格、極値、上限+1 tickを固定し、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30516000235はWITHIN_2Sで安全停止
+- date: '2026-07-30'
+  phase: test
+  task: T-093 CHG-F005-019 完了後2秒限定再結合
+  model: GPT-5
+  agents: 2
+  est_tokens: 7000
+  note: run 30516000235のWITHIN_2Sを根拠に、全完全tuple条件を維持して完了後2秒上限だけを限定拡張。2秒+1 tick、long極値、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

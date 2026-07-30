@@ -202,7 +202,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('timestampQpc > completed.ReservedAtQpc');
     expect(program).toContain('CompletedWriteDiagnosticRules.IsWithinCompletionWindow(');
     expect(program).toContain(
-      '((decimal)eventTimestampQpc - completedAtQpc) * 2 <= frequency',
+      '(decimal)eventTimestampQpc - completedAtQpc <= (decimal)frequency * 2',
     );
     expect(program).toContain('prior.RelativePath == normalized');
     expect(program).toContain('prior.Identity == completed.Identity');

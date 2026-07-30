@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; exact completed tuple has a bounded 500 ms window.
+# Native tooling stays outside; exact completed tuple has a bounded 2 s window.
 on:
   push:
     branches:

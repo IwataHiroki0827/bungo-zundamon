@@ -4402,7 +4402,7 @@ public static class CompletedWriteDiagnosticRules
     {
         if (frequency <= 0) return false;
         if (eventTimestampQpc <= completedAtQpc) return true;
-        return ((decimal)eventTimestampQpc - completedAtQpc) * 2 <= frequency;
+        return (decimal)eventTimestampQpc - completedAtQpc <= (decimal)frequency * 2;
     }
 
     public static string AfterCompletionBucket(long deltaQpc, long frequency)

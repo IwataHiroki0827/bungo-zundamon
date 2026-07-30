@@ -142,10 +142,10 @@ Check("完了QPC以前を再結合window内と判定",
     CompletedWriteDiagnosticRules.IsWithinCompletionWindow(10_000, 10_000, 10_000));
 Check("完了QPCの1 tick前を再結合window内と判定",
     CompletedWriteDiagnosticRules.IsWithinCompletionWindow(9_999, 10_000, 10_000));
-Check("完了後500ms上限を再結合window内と判定",
-    CompletedWriteDiagnosticRules.IsWithinCompletionWindow(15_000, 10_000, 10_000));
-Check("完了後500ms超を再結合window外と判定",
-    !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(15_001, 10_000, 10_000));
+Check("完了後2秒上限を再結合window内と判定",
+    CompletedWriteDiagnosticRules.IsWithinCompletionWindow(30_000, 10_000, 10_000));
+Check("完了後2秒超を再結合window外と判定",
+    !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(30_001, 10_000, 10_000));
 Check("極端QPC差をoverflowせず再結合window外と判定",
     !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(
         long.MaxValue, long.MinValue, long.MaxValue));
