@@ -33,6 +33,10 @@ CapacityGuardSession? capacitySession = null;
 
 Console.InputEncoding = new UTF8Encoding(false, true);
 Console.OutputEncoding = new UTF8Encoding(false, true);
+var selfExecutable = Environment.ProcessPath ??
+    throw new GuardException("GUARD_BINARY_UNAVAILABLE");
+var selfBinarySha256 = Convert.ToHexString(
+    SHA256.HashData(File.ReadAllBytes(selfExecutable))).ToLowerInvariant();
 
 while (Console.ReadLine() is { } line)
 {
@@ -73,6 +77,7 @@ while (Console.ReadLine() is { } line)
                     rid = RuntimeInformation.RuntimeIdentifier,
                     runtimeVersion = Environment.Version.ToString(),
                     processId = Environment.ProcessId,
+                    binarySha256 = selfBinarySha256,
                 });
                 break;
             case "capacity-preflight":

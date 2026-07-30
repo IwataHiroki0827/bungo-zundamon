@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -32,6 +32,7 @@ import {
   formatF005VoiceProgress,
   parseF005RunWorkArguments,
   reportF005RunnerFailureBeforeAbort,
+  resolveF005ExternalNativeGuardExecutable,
   runOfflineBuild,
   selectF005CurrentWork,
   verifyF005RunnerCandidateBinding,
@@ -40,6 +41,41 @@ import {
 
 const H = (value: string): Sha256 =>
   createHash('sha256').update(value).digest('hex') as Sha256;
+
+it('hosted native guard overrideをreparse/hardlinkなしのworkspace外pathだけに限定する', async () => {
+  const workspace = resolve('.');
+  const root = await mkdtemp(join(tmpdir(), 'f005-native-outside-'));
+  const external = join(root, 'f005-guard.exe');
+  try {
+    await writeFile(external, 'pinned');
+    await expect(resolveF005ExternalNativeGuardExecutable(workspace, undefined))
+      .resolves.toBeUndefined();
+    await expect(resolveF005ExternalNativeGuardExecutable(workspace, external))
+      .resolves.toBe(external);
+    await expect(resolveF005ExternalNativeGuardExecutable(
+      workspace,
+      resolve(workspace, '.cache', 'dotnet-f005', 'publish', 'f005-guard.exe'),
+    )).rejects.toThrow(/workspace外/u);
+    await expect(resolveF005ExternalNativeGuardExecutable(workspace, 'f005-guard.exe'))
+      .rejects.toThrow(/absolute path/u);
+    const hardlink = join(root, 'hardlink.exe');
+    await link(external, hardlink);
+    await expect(resolveF005ExternalNativeGuardExecutable(workspace, external))
+      .rejects.toThrow(/単一regular file/u);
+    await rm(hardlink, { force: true });
+    const target = join(root, 'target');
+    const junction = join(root, 'junction');
+    await mkdir(target);
+    await writeFile(join(target, 'guard.exe'), 'pinned');
+    await symlink(target, junction, 'junction');
+    await expect(resolveF005ExternalNativeGuardExecutable(
+      workspace,
+      join(junction, 'guard.exe'),
+    )).rejects.toThrow(/単一regular file/u);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
 
 async function manifest(): Promise<BatchManifest> {
   const parsed: unknown = JSON.parse(await readFile(

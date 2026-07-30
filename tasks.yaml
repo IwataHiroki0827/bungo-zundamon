@@ -1769,3 +1769,23 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-083
+  title: CHG-F005-009 native runtime外部配置とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-082
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: orchestration
+  mode_reason: pinned native binaryのworkspace外配置、SHA再検証、artifact監視境界を独立検証するため
+  model:
+    lead: opus
+    workers: sonnet

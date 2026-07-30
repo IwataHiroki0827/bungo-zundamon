@@ -16,6 +16,7 @@ import {
   type ArtifactDirectorySync,
   writeJsonArtifactAtomic,
 } from '../src/content/artifacts.ts';
+import { resolveF005NativeGuardExecutable } from '../src/content/f005-source.ts';
 import {
   hashBatchManifest,
   transitionWorkState,
@@ -297,6 +298,14 @@ export function formatF005RunnerProgress(stage: F005RunnerProgress): string {
 
 export function formatF005VoiceProgress(stage: F005VoiceGenerationProgress): string {
   return `${F005_VOICE_PROGRESS_PREFIX}${stage}\n`;
+}
+
+export async function resolveF005ExternalNativeGuardExecutable(
+  workspace: string,
+  configured: string | undefined,
+): Promise<string | undefined> {
+  if (configured === undefined) return undefined;
+  return resolveF005NativeGuardExecutable(workspace, configured);
 }
 
 type F005RunnerStageExtra = Pick<
@@ -816,6 +825,10 @@ async function main(): Promise<void> {
       owner: OWNER,
       workId,
       candidateSha256,
+      executable: await resolveF005ExternalNativeGuardExecutable(
+        workspace,
+        process.env.F005_NATIVE_GUARD_PATH,
+      ),
       onStartupFailure: (code: F005NativeCapacityErrorCode) =>
         new Promise<void>((resolveWrite, rejectWrite) => {
           process.stderr.write(

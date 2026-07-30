@@ -68,6 +68,7 @@ jobs:
         run: npm ci
 
       - name: Build and verify pinned native guard
+        id: native
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -102,6 +103,39 @@ jobs:
             throw 'native build evidence semantic drift'
           }
           [IO.File]::WriteAllBytes($evidencePath, $expectedBytes)
+          $workspaceRoot = [IO.Path]::GetFullPath($PWD.Path).TrimEnd('\')
+          $externalRoot = [IO.Path]::GetFullPath((
+            Join-Path ([IO.Path]::GetFullPath($env:RUNNER_TEMP)) (
+              "f005-native-hosted-$([Guid]::NewGuid().ToString('N'))"
+            )
+          )).TrimEnd('\')
+          if ($externalRoot.Equals(
+            $workspaceRoot,
+            [StringComparison]::OrdinalIgnoreCase
+          ) -or $externalRoot.StartsWith(
+            "$workspaceRoot\",
+            [StringComparison]::OrdinalIgnoreCase
+          )) {
+            throw 'native guard runtime must stay outside the guarded workspace'
+          }
+          $createdRoot = New-Item -ItemType Directory -Path $externalRoot
+          if (($createdRoot.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+            throw 'external native guard root must not be a reparse point'
+          }
+          $sourceGuard = Join-Path $PWD '.cache\dotnet-f005\publish\f005-guard.exe'
+          $externalGuard = Join-Path $externalRoot 'f005-guard.exe'
+          Copy-Item -LiteralPath $sourceGuard -Destination $externalGuard
+          $externalInfo = Get-Item -LiteralPath $externalGuard
+          if (($externalInfo.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+            throw 'external native guard file must not be a reparse point'
+          }
+          $externalSha256 = (
+            Get-FileHash -LiteralPath $externalGuard -Algorithm SHA256
+          ).Hash.ToLowerInvariant()
+          if ($externalSha256 -ne $expectedObject.outputBinarySha256) {
+            throw 'external native guard SHA-256 mismatch'
+          }
+          "guard_path=$externalGuard" >> $env:GITHUB_OUTPUT
 
       - name: Verify prepared source remains clean
         shell: pwsh
@@ -212,6 +246,7 @@ jobs:
           VOICEVOX_URL: http://127.0.0.1:50021/
           NO_PROXY: 127.0.0.1,localhost
           F005_ENGINE_CACHE_ROOT: ${{ steps.engine.outputs.cache_root }}
+          F005_NATIVE_GUARD_PATH: ${{ steps.native.outputs.guard_path }}
         run: |
           $ErrorActionPreference = 'Stop'
           function Write-BoundedBase64Diagnostic(

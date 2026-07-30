@@ -83,6 +83,16 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(scripts).toContain('VOICEVOX cache must stay outside the guarded workspace');
     expect(production?.env?.F005_ENGINE_CACHE_ROOT)
       .toBe('${{ steps.engine.outputs.cache_root }}');
+    expect(production?.env?.F005_NATIVE_GUARD_PATH)
+      .toBe('${{ steps.native.outputs.guard_path }}');
+    expect(scripts).toContain('native guard runtime must stay outside the guarded workspace');
+    expect(scripts).toContain("[Guid]::NewGuid().ToString('N')");
+    expect(scripts).toContain('New-Item -ItemType Directory -Path $externalRoot');
+    expect(scripts).not.toContain('New-Item -ItemType Directory -Force -Path $externalRoot');
+    expect(scripts).toContain('external native guard root must not be a reparse point');
+    expect(scripts).toContain('external native guard file must not be a reparse point');
+    expect(scripts).toContain('"guard_path=$externalGuard"');
+    expect(scripts).toContain('$externalSha256 -ne $expectedObject.outputBinarySha256');
     expect(production?.['continue-on-error']).toBe(true);
     expect(diagnostic?.if).toBe("steps.production.outcome == 'failure'");
     expect(failureGate?.if).toBe("steps.production.outcome == 'failure'");

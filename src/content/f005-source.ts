@@ -10,7 +10,7 @@ import {
   realpath,
   rm,
 } from 'node:fs/promises';
-import { isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { dirname, isAbsolute, join, parse, relative, resolve, sep } from 'node:path';
 
 import { canonicalJson } from './artifacts.ts';
 import {
@@ -78,7 +78,7 @@ export const F005_NATIVE_GUARD_PINS = Object.freeze({
   runtimeZipSha512:
     '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8',
   outputBinarySha256:
-    '3e1f17643f3d394fade93e308dbc1d2105510a73a2e418cdf1513287d4c88f86',
+    '08899bced4e40b2c8c615a840b943b14389a0b246f09b1ce540c5bad18f90bb1',
 } as const);
 
 export const F005_WORKS = Object.freeze([
@@ -353,6 +353,44 @@ function hasControlCharacter(value: string): boolean {
     const codePoint = character.codePointAt(0) ?? 0;
     return codePoint <= 0x1f || codePoint === 0x7f;
   });
+}
+
+export async function resolveF005NativeGuardExecutable(
+  workspace: string,
+  configured: string | undefined = process.env.F005_NATIVE_GUARD_PATH,
+): Promise<string> {
+  const fallback = join(workspace, '.cache', 'dotnet-f005', 'publish', 'f005-guard.exe');
+  if (configured === undefined) return fallback;
+  if (configured.length === 0 || !isAbsolute(configured) || resolve(configured) !== configured) {
+    throw new F005SourceError(
+      'F005_PATH_UNSAFE',
+      'F005_NATIVE_GUARD_PATHは正規化済みabsolute pathが必要です',
+    );
+  }
+  const [workspaceReal, executableReal, executableInfo] = await Promise.all([
+    realpath(workspace),
+    realpath(configured),
+    lstat(configured),
+  ]);
+  const relation = relative(workspaceReal, executableReal);
+  if (
+    relation === ''
+    || (!relation.startsWith(`..${sep}`) && relation !== '..' && !isAbsolute(relation))
+    || executableReal !== configured
+    || executableInfo.isSymbolicLink()
+    || !executableInfo.isFile()
+    || executableInfo.nlink !== 1
+  ) {
+    throw new F005SourceError('F005_PATH_UNSAFE', 'native guard実体はworkspace外の単一regular fileが必要です');
+  }
+  const root = parse(executableReal).root;
+  for (let cursor = dirname(executableReal); cursor !== root; cursor = dirname(cursor)) {
+    const info = await lstat(cursor);
+    if (!info.isDirectory() || info.isSymbolicLink()) {
+      throw new F005SourceError('F005_PATH_UNSAFE', 'native guard ancestorにreparseを使用できません');
+    }
+  }
+  return executableReal;
 }
 
 function deepFreeze<T>(value: T): T {
@@ -1903,7 +1941,7 @@ class F005NativeGuardClient {
     if (process.platform !== 'win32') {
       throw new F005SourceError('F005_PATH_UNSAFE', 'native guardはWindowsでのみ利用できます');
     }
-    const executable = resolve(process.cwd(), '.cache', 'dotnet-f005', 'publish', 'f005-guard.exe');
+    const executable = await resolveF005NativeGuardExecutable(process.cwd());
     let binary: Uint8Array;
     try {
       binary = new Uint8Array(await readFile(executable));
@@ -1924,8 +1962,10 @@ class F005NativeGuardClient {
       if (
         hello.ok !== true ||
         hello.abi !== F005_NATIVE_GUARD_PINS.abi ||
+        hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
         hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
-        hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion
+        hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||
+        hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256
       ) {
         throw new Error('guard hello pin mismatch');
       }

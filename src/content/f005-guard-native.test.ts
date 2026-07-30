@@ -10,6 +10,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import {
   deleteSafeWorkspaceFile,
+  F005_NATIVE_GUARD_PINS,
   readSafeWorkspaceFile,
   renameSafeWorkspaceFile,
   resolveSafeWorkspaceFile,
@@ -280,8 +281,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     await expect(client.command({ op: 'hello' })).resolves.toMatchObject({
       ok: true,
       abi: 'f005-guard-jsonl-v1',
+      capacityAbi: 'f005-capacity-pipe-v3',
       rid: 'win-x64',
       runtimeVersion: '9.0.18',
+      binarySha256: F005_NATIVE_GUARD_PINS.outputBinarySha256,
     });
     await client.close();
   });
@@ -295,7 +298,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     const oneShot = async (): Promise<GuardClient> => {
       const client = new GuardClient(['--write-through-once']);
       await expect(client.command({ op: 'hello' }))
-        .resolves.toMatchObject({ ok: true, abi: 'f005-guard-jsonl-v1' });
+        .resolves.toMatchObject({
+          ok: true,
+          abi: 'f005-guard-jsonl-v1',
+          binarySha256: F005_NATIVE_GUARD_PINS.outputBinarySha256,
+        });
       return client;
     };
     const ordinary = new GuardClient();
