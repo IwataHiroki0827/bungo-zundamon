@@ -574,4 +574,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 7000
-  note: run 30514533508のAFTER_COMPLETIONを受け、認可を変えず完了後QPC差を100ms・500ms・2秒・10秒の固定bucketへ細分化。全境界上限と1 tick超過、対象124件、native規則84件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30514533508のAFTER_COMPLETIONを受け、認可を変えず完了後QPC差を100ms・500ms・2秒・10秒の固定bucketへ細分化。全境界上限と1 tick超過、対象124件、native規則84件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30515251601でWITHIN_500MSを特定して完了
+- date: '2026-07-30'
+  phase: test
+  task: T-092 CHG-F005-018 完了後500ms限定再結合
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30515251601のWITHIN_500MSを根拠に、全完全tuple条件を維持して完了後500ms上限だけを限定拡張。long減算前decimal昇格、極値、上限+1 tickを固定し、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

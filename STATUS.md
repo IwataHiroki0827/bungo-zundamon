@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T13:56:11+09:00
+updated: 2026-07-30T14:11:56+09:00
 next_actions:
-  - "CHG-F005-017の完了後時間差bucketを検証・独立レビュー・commit/pushし、GitHub hosted Windowsで時間差を特定する"
+  - "CHG-F005-018の完了後500ms限定再結合を検証・独立レビュー・commit/pushし、GitHub hosted Windowsでproductionを継続する"
 blocked_by: []
 ---
 
@@ -22,6 +22,7 @@ blocked_by: []
 - run 30513249202は`LEASE_CLOSED`で安全停止した。active leaseのclosed判定がpath/phase/QPC tupleより先行していたため、CHG-F005-015でtuple一致後だけclosedを評価し、別path遅延eventを完了write fallbackへ流す。対象124件、native規則66件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30513755494はclosed lease誤分類を除いた後も`CACHE_WAV_FILE_DONE_ID`で安全停止した。CHG-F005-016で完了write再結合の不一致条件をraw値なしの固定10 stageへ分類した。対象124件、native規則76件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSし、認可条件は変更していない。
 - run 30514533508は`F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION`で安全停止し、同一WAV・同一identityのSystem SetInfoがwrite完了QPC後であることを確認した。CHG-F005-016/T-090は目的を達成して`done`とした。CHG-F005-017で認可を変えず時間差を固定5 bucketへ細分化し、対象124件、native規則84件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30515251601は`F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION_WITHIN_500MS`で安全停止し、完了後時間差が100ms超500ms以内と確認した。CHG-F005-017/T-091は目的を達成して`done`とした。CHG-F005-018で全完全tuple条件を維持した500ms上限だけを限定拡張し、対象124件、native規則90件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -63,18 +64,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-092/CHG-F005-018で完了後500ms限定再結合を実装
+- run 30515251601でWITHIN_500MSを安全停止し、候補・公開差分0
 - T-091/CHG-F005-017で完了後時間差を固定5 bucketへ細分化
 - run 30514533508でAFTER_COMPLETIONを安全停止し、候補・公開差分0
 - T-090/CHG-F005-016で完了write再結合の拒否条件を固定10 stageへ細分化
-- run 30513755494でDONE_IDを安全停止し、候補・公開差分0
-- T-089/CHG-F005-015でactive reservation tuple一致後だけclosed leaseを評価する順序へ修正
 
 ## 次のアクション
 
-- CHG-F005-017を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- 固定時間差bucketを取得し、時間上限を含む認可変更の可否は次の変更管理で個別に検討する。
+- CHG-F005-018を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- 500ms以内の完全tuple再結合後もidentity・容量・候補保存が不変で処理継続することをhosted証跡で確認する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了済みCACHE WAVのidentity一致確認までPASSしている。CHG-F005-017で完了後System SetInfoの時間差を特定する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了済みCACHE WAVのidentity一致確認までPASSしている。CHG-F005-018の500ms限定再結合でproductionを継続する必要がある。

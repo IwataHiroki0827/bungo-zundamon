@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; post-completion delay exposes fixed safe buckets only.
+# Native tooling stays outside; exact completed tuple has a bounded 500 ms window.
 on:
   push:
     branches:

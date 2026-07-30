@@ -138,6 +138,19 @@ Check("完了後10秒以内を固定分類",
 Check("完了後10秒超を固定分類",
     CompletedWriteDiagnosticRules.AfterCompletionBucket(100_001, 10_000) ==
     "OVER_10S");
+Check("完了QPC以前を再結合window内と判定",
+    CompletedWriteDiagnosticRules.IsWithinCompletionWindow(10_000, 10_000, 10_000));
+Check("完了QPCの1 tick前を再結合window内と判定",
+    CompletedWriteDiagnosticRules.IsWithinCompletionWindow(9_999, 10_000, 10_000));
+Check("完了後500ms上限を再結合window内と判定",
+    CompletedWriteDiagnosticRules.IsWithinCompletionWindow(15_000, 10_000, 10_000));
+Check("完了後500ms超を再結合window外と判定",
+    !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(15_001, 10_000, 10_000));
+Check("極端QPC差をoverflowせず再結合window外と判定",
+    !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(
+        long.MaxValue, long.MinValue, long.MaxValue));
+Check("不正QPC frequencyを再結合window外と判定",
+    !CompletedWriteDiagnosticRules.IsWithinCompletionWindow(10_000, 10_000, 0));
 Check("完了write拒否stage file object binding",
     CompletedWriteDiagnosticRules.Rejection(
         "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, false, true, true) ==
@@ -246,7 +259,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (84 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (90 cases)");
 return 0;
 
 void Check(string name, bool condition)

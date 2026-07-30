@@ -2799,7 +2799,10 @@ sealed class CapacityGuardSession : IDisposable
             fileObject,
             completed.PhaseInstanceId == activePhase.PhaseInstanceId,
             timestampQpc > completed.ReservedAtQpc,
-            timestampQpc <= completed.CompletedAtQpc,
+            CompletedWriteDiagnosticRules.IsWithinCompletionWindow(
+                timestampQpc,
+                completed.CompletedAtQpc,
+                Stopwatch.Frequency),
             prior is null ||
                 (prior.RelativePath == normalized &&
                     prior.Identity == completed.Identity),
@@ -4392,6 +4395,16 @@ public static class SystemSetInfoDiagnosticRules
 
 public static class CompletedWriteDiagnosticRules
 {
+    public static bool IsWithinCompletionWindow(
+        long eventTimestampQpc,
+        long completedAtQpc,
+        long frequency)
+    {
+        if (frequency <= 0) return false;
+        if (eventTimestampQpc <= completedAtQpc) return true;
+        return ((decimal)eventTimestampQpc - completedAtQpc) * 2 <= frequency;
+    }
+
     public static string AfterCompletionBucket(long deltaQpc, long frequency)
     {
         if (deltaQpc <= 0 || frequency <= 0)
@@ -4431,7 +4444,7 @@ public static class CompletedWriteDiagnosticRules
         ulong fileObject,
         bool phaseMatches,
         bool eventAfterReservation,
-        bool eventBeforeOrAtCompletion,
+        bool eventWithinCompletionWindow,
         bool fileObjectCompatible,
         bool currentExists,
         bool identityMatches) =>
@@ -4442,7 +4455,7 @@ public static class CompletedWriteDiagnosticRules
             fileObject,
             phaseMatches,
             eventAfterReservation,
-            eventBeforeOrAtCompletion,
+            eventWithinCompletionWindow,
             fileObjectCompatible,
             currentExists,
             identityMatches) is null;
@@ -4454,7 +4467,7 @@ public static class CompletedWriteDiagnosticRules
         ulong fileObject,
         bool phaseMatches,
         bool eventAfterReservation,
-        bool eventBeforeOrAtCompletion,
+        bool eventWithinCompletionWindow,
         bool fileObjectCompatible,
         bool currentExists,
         bool identityMatches)
@@ -4465,7 +4478,7 @@ public static class CompletedWriteDiagnosticRules
         if (fileObject == 0) return "FILE_OBJECT_ZERO";
         if (!phaseMatches) return "PHASE";
         if (!eventAfterReservation) return "BEFORE_RESERVATION";
-        if (!eventBeforeOrAtCompletion) return "AFTER_COMPLETION";
+        if (!eventWithinCompletionWindow) return "AFTER_COMPLETION";
         if (!fileObjectCompatible) return "FILE_OBJECT_BINDING";
         if (!currentExists) return "CURRENT_MISSING";
         if (!identityMatches) return "IDENTITY_MISMATCH";
