@@ -1235,7 +1235,7 @@ sealed class CapacityGuardSession : IDisposable
     private readonly Dictionary<ulong, FileSnapshot> filesByObject = [];
     private readonly Dictionary<string, FileSnapshot> filesByPath = new(StringComparer.Ordinal);
     private readonly Dictionary<string, long> allocatedByIdentity = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, string> completedWriteIdentities =
+    private readonly Dictionary<string, CompletedWriteRecord> completedWrites =
         new(StringComparer.Ordinal);
     private readonly List<PhaseRecord> phaseRecords = [];
     private readonly List<NoticeRecord> notices = [];
@@ -1852,7 +1852,7 @@ sealed class CapacityGuardSession : IDisposable
         if (!string.Equals(workId, WorkId, StringComparison.Ordinal))
             throw new GuardException("PHASE_WORK_MISMATCH");
         if (activePhase is not null) throw new GuardException("PHASE_ALREADY_ACTIVE");
-        completedWriteIdentities.Clear();
+        completedWrites.Clear();
         var startedAtUtc = DateTime.UtcNow;
         activePhase = new ActivePhase(
             phase,
@@ -2043,9 +2043,15 @@ sealed class CapacityGuardSession : IDisposable
             throw new GuardException("WRITE_LEASE_IDENTITY_MISMATCH");
         if (CompletedWriteDiagnosticRules.ShouldTrack(
             activePhase?.Phase,
-            completedWriteIdentities.Count,
-            completedWriteIdentities.ContainsKey(path)))
-            completedWriteIdentities[path] = current.Identity;
+            completedWrites.Count,
+            completedWrites.ContainsKey(path)))
+            completedWrites[path] = new CompletedWriteRecord(
+                lease.WorkerPid,
+                lease.ProcessSequenceNumber,
+                lease.PhaseInstanceId,
+                lease.CurrentPathReservedAtQpc,
+                Stopwatch.GetTimestamp(),
+                current.Identity);
         lease.Process.Dispose();
         pendingWriteLease = null;
         return new { ok = true, state = "completed", path, producerPid };
@@ -2231,7 +2237,7 @@ sealed class CapacityGuardSession : IDisposable
         phaseRecords.Add(new PhaseRecord(phase, activePhase.WorkId, phaseInstanceId, "finished",
             DateTimeOffset.UtcNow.ToString("O"), CurrentLiveBytes(), free));
         activePhase = null;
-        completedWriteIdentities.Clear();
+        completedWrites.Clear();
         PersistJournal(closed: false);
         return new { ok = true, phase, phaseInstanceId };
     }
@@ -2348,6 +2354,7 @@ sealed class CapacityGuardSession : IDisposable
                     return;
                 }
                 callbackStage = "AUTHORIZATION";
+                string? completedWriteExpectedIdentity = null;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -2370,6 +2377,20 @@ sealed class CapacityGuardSession : IDisposable
                         if (deferred) return;
                         pid = reservedPid;
                         producerSequenceNumber = reservedSequenceNumber;
+                    }
+                    else if (TryAuthorizeCompletedSystemSetInfoLocked(
+                        eventName,
+                        pid,
+                        normalized,
+                        fileObject,
+                        timestampQpc,
+                        authorizationFailure,
+                        out var completedPid,
+                        out var completedSequenceNumber,
+                        out completedWriteExpectedIdentity))
+                    {
+                        pid = completedPid;
+                        producerSequenceNumber = completedSequenceNumber;
                     }
                     else
                     {
@@ -2462,6 +2483,12 @@ sealed class CapacityGuardSession : IDisposable
                 if (eventName != "delete")
                     current = TryInspect(normalized);
                 callbackStage = "CORRELATION";
+                if (completedWriteExpectedIdentity is not null &&
+                    current?.Identity != completedWriteExpectedIdentity)
+                {
+                    PoisonLocked("ETW_COMPLETED_WRITE_IDENTITY_RECHECK_MISMATCH");
+                    return;
+                }
                 if (eventName == "create" &&
                     pendingWriteLease is { } writeLease &&
                     writeLease.WorkerPid == pid &&
@@ -2747,6 +2774,45 @@ sealed class CapacityGuardSession : IDisposable
         return true;
     }
 
+    private bool TryAuthorizeCompletedSystemSetInfoLocked(
+        string eventName,
+        int pid,
+        string normalized,
+        ulong fileObject,
+        long timestampQpc,
+        string authorizationFailure,
+        out int producerPid,
+        out ulong producerSequenceNumber,
+        out string? expectedIdentity)
+    {
+        producerPid = 0;
+        producerSequenceNumber = 0;
+        expectedIdentity = null;
+        if (activePhase is null ||
+            !completedWrites.TryGetValue(normalized, out var completed))
+            return false;
+        var current = TryInspect(normalized);
+        var prior = filesByObject.GetValueOrDefault(fileObject);
+        if (!CompletedWriteDiagnosticRules.CanAuthorize(
+            authorizationFailure,
+            pid,
+            eventName,
+            fileObject,
+            completed.PhaseInstanceId == activePhase.PhaseInstanceId,
+            timestampQpc > completed.ReservedAtQpc,
+            timestampQpc <= completed.CompletedAtQpc,
+            prior is null ||
+                (prior.RelativePath == normalized &&
+                    prior.Identity == completed.Identity),
+            current is not null,
+            current?.Identity == completed.Identity))
+            return false;
+        producerPid = completed.WorkerPid;
+        producerSequenceNumber = completed.ProcessSequenceNumber;
+        expectedIdentity = completed.Identity;
+        return true;
+    }
+
     private bool BindReservedSystemSetInfoLocked(
         int pid,
         ulong producerSequenceNumber,
@@ -2975,7 +3041,7 @@ sealed class CapacityGuardSession : IDisposable
 
     private string CompletedWriteDiagnosticState(string relativePath)
     {
-        if (!completedWriteIdentities.TryGetValue(relativePath, out var expectedIdentity))
+        if (!completedWrites.TryGetValue(relativePath, out var completed))
             return CompletedWriteDiagnosticRules.Classify(
                 activePhase?.Phase,
                 tracked: false,
@@ -2986,7 +3052,7 @@ sealed class CapacityGuardSession : IDisposable
             activePhase?.Phase,
             tracked: true,
             currentExists: current is not null,
-            identityMatches: current?.Identity == expectedIdentity);
+            identityMatches: current?.Identity == completed.Identity);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -3475,6 +3541,14 @@ sealed class CapacityGuardSession : IDisposable
         FileSnapshot Snapshot,
         long FreeBytes,
         long TotalFreeBytes);
+
+    private sealed record CompletedWriteRecord(
+        int WorkerPid,
+        ulong ProcessSequenceNumber,
+        string PhaseInstanceId,
+        long ReservedAtQpc,
+        long CompletedAtQpc,
+        string Identity);
 
     private sealed class PendingWriteLease(
         int workerPid,
@@ -4328,6 +4402,28 @@ public static class CompletedWriteDiagnosticRules
                 : identityMatches
                     ? "DONE_ID"
                     : "DONE_CHANGED";
+
+    public static bool CanAuthorize(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool phaseMatches,
+        bool eventAfterReservation,
+        bool eventBeforeOrAtCompletion,
+        bool fileObjectCompatible,
+        bool currentExists,
+        bool identityMatches) =>
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "setinfo" &&
+        fileObject != 0 &&
+        phaseMatches &&
+        eventAfterReservation &&
+        eventBeforeOrAtCompletion &&
+        fileObjectCompatible &&
+        currentExists &&
+        identityMatches;
 }
 
 public static class SystemSetInfoCorrelationRules

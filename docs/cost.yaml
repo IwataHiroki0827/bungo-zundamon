@@ -547,3 +547,10 @@ entries:
   agents: 2
   est_tokens: 9000
   note: run 30510939972のCACHE WAV FILE NO_LEASEを同一voice phaseの完了済みwrite identityと固定3状態で照合する診断を追加。認可・容量・候補保存条件は不変。上限時はwriteを止めず未追跡へ縮退し、対象124件、native規則52件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+- date: '2026-07-30'
+  phase: test
+  task: T-088 CHG-F005-014 完了write遅延SetInfo再結合
+  model: GPT-5
+  agents: 2
+  est_tokens: 12000
+  note: run 30511757503のDONE_IDを根拠にSystem PID/SetInfo/同一phase/path/identity/予約後からwrite完了までのQPC/互換FileObject binding完全一致だけを元worker世代へ再結合。identity二重照合、単独不一致10系統、PID 0/4正常系を検査し、対象124件、native規則64件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

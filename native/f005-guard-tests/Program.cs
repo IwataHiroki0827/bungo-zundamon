@@ -50,6 +50,42 @@ Check("完了台帳identity差替えを固定分類",
 Check("完了台帳実体欠落を固定分類",
     CompletedWriteDiagnosticRules.Classify("voice", true, false, false) ==
     "DONE_MISSING");
+Check("完了write遅延System SetInfoを完全一致で認可",
+    CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, true, true));
+Check("完了write PID 0遅延System SetInfoを完全一致で認可",
+    CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 0, "setinfo", 31, true, true, true, true, true, true));
+Check("完了write別authorization failureを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "EVENT_BEFORE_BIRTH", 4, "setinfo", 31, true, true, true, true, true, true));
+Check("完了write別PIDを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 5, "setinfo", 31, true, true, true, true, true, true));
+Check("完了write別operationを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true, true, true));
+Check("完了write空FileObjectを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 0, true, true, true, true, true, true));
+Check("完了write別phaseを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, false, true, true, true, true, true));
+Check("完了write予約前eventを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, false, true, true, true, true));
+Check("完了write完了後eventを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, false, true, true, true));
+Check("完了write別FileObject bindingを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, false, true, true));
+Check("完了write実体欠落を拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, false, true));
+Check("完了writeidentity差替えを拒否",
+    !CompletedWriteDiagnosticRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, true, false));
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -140,7 +176,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (52 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (64 cases)");
 return 0;
 
 void Check(string name, bool condition)

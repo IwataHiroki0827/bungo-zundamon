@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T12:27:45+09:00
+updated: 2026-07-30T12:46:12+09:00
 next_actions:
-  - "CHG-F005-013の完了済みwrite固定診断を検証・独立レビュー・commit/pushし、GitHub hosted Windowsで遅延eventのidentity関係を特定する"
+  - "CHG-F005-014の完了write遅延SetInfo再結合を検証・独立レビュー・commit/pushし、GitHub hosted Windowsでproductionを継続する"
 blocked_by: []
 ---
 
@@ -18,6 +18,7 @@ blocked_by: []
 - run 30509193028でも同じunknown System SetInfoで安全停止したため、CHG-F005-011でraw pathを出さないtop-level/extension/実体/leaseの固定bucket診断を追加した。対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30510118610は固定bucket判定を通過し、予約済みwrite path認識後の相関不一致で安全停止した。CHG-F005-012でraw値を出さない固定12段階の相関診断を追加し、対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。認可・容量・候補保存条件は変更していない。
 - run 30510939972は`wav-validated`後の`CACHE_WAV_FILE_NO_LEASE`で安全停止した。CHG-F005-013で同一voice phaseの完了済みwriteとのidentity関係を固定3状態へ細分化し、対象124件、native規則52件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。認可・容量・候補保存条件は変更していない。
+- run 30511757503は`CACHE_WAV_FILE_DONE_ID`で安全停止し、完了済みWAVと同一native identityの遅延System SetInfoであることを確認した。CHG-F005-014でSystem PID/SetInfo/同一phase/path/identity/予約後からwrite完了までのQPC/互換FileObject bindingの完全一致時だけ元worker世代へ再結合し、対象124件、native規則64件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -59,18 +60,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-088/CHG-F005-014でDONE_ID遅延System SetInfoの完全tuple再結合を実装
+- run 30511757503で完了済みCACHE WAVとのnative identity一致を確認し、候補・公開差分0
 - T-087/CHG-F005-013でleaseなしCACHE WAVを完了済みwrite identityとの固定3状態へ細分化
 - run 30510939972でCACHE WAV FILE NO_LEASEを安全停止し、候補・公開差分0を確認
 - T-086/CHG-F005-012で予約済みwrite pathのSystem SetInfo相関不一致を固定12段階へ細分化
-- run 30510118610で固定bucket前段を通過し、相関条件のいずれかで安全停止、候補・公開差分0を確認
-- T-085/CHG-F005-011でunknown System SetInfoをpath非公開の固定bucketへ細分化し、native規則40件をPASS
 
 ## 次のアクション
 
-- CHG-F005-013を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- 固定完了状態で遅延eventのidentity関係を特定し、identity/capacity不変を証明できる場合だけ認可設計を変更する。
+- CHG-F005-014を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- 完全一致遅延eventを通常ETW観測へ再投入し、identity/capacity/sequence不変をhosted証跡で確認する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、unknown path固定bucket判定までPASSしている。leaseなしCACHE WAVが完了済みwriteと同一identityかをCHG-F005-013で特定する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了済みCACHE WAVのidentity一致確認までPASSしている。CHG-F005-014の完全一致再結合でproductionを継続する必要がある。

@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; completed writes expose fixed safe identity states only.
+# Native tooling stays outside; completed write rejoin is bounded by identity, QPC, and binding.
 on:
   push:
     branches:

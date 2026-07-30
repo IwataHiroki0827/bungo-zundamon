@@ -179,10 +179,22 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('"DONE_ID"');
     expect(program).toContain('"DONE_CHANGED"');
     expect(program).toContain('"DONE_MISSING"');
-    expect(program.match(/completedWriteIdentities\.Clear\(\)/gu)).toHaveLength(2);
+    expect(program.match(/completedWrites\.Clear\(\)/gu)).toHaveLength(2);
     expect(program).toContain('CompletedWriteDiagnosticRules.ShouldTrack(');
     expect(program).toContain('CompletedWriteDiagnosticRules.Classify(');
-    expect(program).toContain('completedWriteIdentities[path] = current.Identity');
+    expect(program).toContain('CompletedWriteDiagnosticRules.CanAuthorize(');
+    expect(program.indexOf('if (!AuthorizeJobMemberLocked('))
+      .toBeLessThan(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('));
+    expect(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('))
+      .toBeLessThan(program.indexOf('else if (TryAuthorizeCompletedSystemSetInfoLocked('));
+    expect(program).toContain('completedWrites[path] = new CompletedWriteRecord(');
+    expect(program).toContain('timestampQpc > completed.ReservedAtQpc');
+    expect(program).toContain('timestampQpc <= completed.CompletedAtQpc');
+    expect(program).toContain('prior.RelativePath == normalized');
+    expect(program).toContain('prior.Identity == completed.Identity');
+    expect(program).toContain('current?.Identity == completed.Identity');
+    expect(program).toContain('current?.Identity != completedWriteExpectedIdentity');
+    expect(program).toContain('ETW_COMPLETED_WRITE_IDENTITY_RECHECK_MISMATCH');
     expect(program).not.toContain('WRITE_HISTORY_LIMIT');
     expect(new Set(program.match(
       /ETW_SYSTEM_SETINFO_CORRELATION_[A-Z_]+/gu,

@@ -618,7 +618,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (52 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (64 cases)'),
     });
   }, 120_000);
 });
