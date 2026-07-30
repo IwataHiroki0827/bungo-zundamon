@@ -2491,7 +2491,10 @@ sealed class CapacityGuardSession : IDisposable
                 item.ProcessSequenceNumber == birth.ProcessSequenceNumber);
         if (retained is not null)
         {
-            if (!job.Contains(retained.Process))
+            // @des DES-F005-006 @fun FUN-F005-043 保持handleがsignaledなら、
+            // Job内で認証済みだった同一process世代の
+            // 正常終了後に遅延到着したETWである。生存中だけJob外escapeを拒否する。
+            if (job.IsAliveOutsideJob(retained.Process))
             {
                 rejection = "RETAINED_OUTSIDE_JOB";
                 return false;

@@ -1684,3 +1684,25 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-079
+  title: CHG-F005-005 終了済みJob childの遅延ETW認可と影響再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-077
+  tags:
+  - REQ-F005-011
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-043
+  - UT-F005-043
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: orchestration
+  mode_reason: native process identity、終了済み保持handle、ETW遅延、再現build、hosted正常系を独立して再検証するため
+  model:
+    lead: opus
+    workers: sonnet

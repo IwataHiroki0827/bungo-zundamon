@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; WAV temporary writes use the pinned native write-through helper.
+# Source bytes are LF-pinned; retained child handles distinguish normal exit from live escape.
 on:
   push:
     branches:

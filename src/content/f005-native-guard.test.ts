@@ -420,6 +420,10 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('etwSource.Registered.All += ObserveProcessBirth');
     expect(source).toContain('eventTimestampQpc <= birth.StartedAtQpc');
     expect(source).toContain('identity.ProcessSequenceNumber != birth.ProcessSequenceNumber');
+    expect(source).toContain('if (job.IsAliveOutsideJob(retained.Process))');
+    expect(source).not.toContain('if (!job.Contains(retained.Process))');
+    expect(source).toContain('if (waitResult == 0) return false;');
+    expect(source).toContain('return !IsProcessInJob(processHandle, handle, out var result) || !result;');
     expect(source).toContain('foreach (var pid in job.MemberPids())');
     expect(source).toContain('QueryInformationJobObject(');
     expect(source).toContain('LimitFlags = JobObjectLimitKillOnJobClose');
