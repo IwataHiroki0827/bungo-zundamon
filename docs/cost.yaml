@@ -533,3 +533,10 @@ entries:
   agents: 2
   est_tokens: 9000
   note: raw pathを出さずtop-level、extension、実体、write leaseを固定allowlist bucketへ写像する診断を追加。認可・容量・候補保存条件は不変。dynamic codeのrunner伝播と最大126文字、他operation回帰を固定し、対象124件、native規則40件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+- date: '2026-07-30'
+  phase: test
+  task: T-086 CHG-F005-012 System SetInfo相関段階診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30510118610の予約済みwrite path相関不一致をraw値なしの固定12段階へ分割。認可・容量・候補保存条件は不変。native/TypeScript集合一致、runner伝播、未知suffix拒否、対象124件、native規則40件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASS。全1270件同時実行のWindows I/O timeout 7件は隔離188件全PASSで負荷競合と確認しpublic/data差分0

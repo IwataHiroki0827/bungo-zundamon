@@ -42,6 +42,21 @@ type F005SystemSetInfoEntryState = 'FILE' | 'DIRECTORY' | 'ABSENT';
 type F005SystemSetInfoLeaseState = 'NO_LEASE' | 'BOUND_LEASE' | 'UNBOUND_LEASE';
 export type F005SystemSetInfoDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_${F005SystemSetInfoPathBucket}_${F005SystemSetInfoExtensionBucket}_${F005SystemSetInfoEntryState}_${F005SystemSetInfoLeaseState}`;
+type F005SystemSetInfoCorrelationStage =
+  | 'CREATE_BIND_MISMATCH'
+  | 'CREATE_SNAPSHOT_MISSING'
+  | 'CURRENT_MISSING'
+  | 'DEFERRED_BIND_MISMATCH'
+  | 'DEFERRED_CLEANUP'
+  | 'DEFERRED_SNAPSHOT_MISSING'
+  | 'DEFERRED_TUPLE_MISMATCH'
+  | 'FILE_OBJECT_MISMATCH'
+  | 'IDENTITY_MISMATCH'
+  | 'LEASE_CLOSED'
+  | 'LEASE_SNAPSHOT_MISSING'
+  | 'RENAME_CONSUME';
+export type F005SystemSetInfoCorrelationDiagnosticCode =
+  `F005_ETW_SYSTEM_SETINFO_CORRELATION_${F005SystemSetInfoCorrelationStage}`;
 
 const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
@@ -49,6 +64,14 @@ const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '(?:EXE|JS|JSON|LOG|TMP|TS|WAV|OTHER)_' +
   '(?:FILE|DIRECTORY|ABSENT)_' +
   '(?:NO_LEASE|BOUND_LEASE|UNBOUND_LEASE)$',
+  'u',
+);
+const F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC = new RegExp(
+  '^ETW_SYSTEM_SETINFO_CORRELATION_' +
+  '(?:CREATE_BIND_MISMATCH|CREATE_SNAPSHOT_MISSING|CURRENT_MISSING|' +
+  'DEFERRED_BIND_MISMATCH|DEFERRED_CLEANUP|DEFERRED_SNAPSHOT_MISSING|' +
+  'DEFERRED_TUPLE_MISMATCH|FILE_OBJECT_MISMATCH|IDENTITY_MISMATCH|' +
+  'LEASE_CLOSED|LEASE_SNAPSHOT_MISSING|RENAME_CONSUME)$',
   'u',
 );
 
@@ -61,8 +84,18 @@ export function isF005SystemSetInfoDiagnosticCode(
     F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC.test(value.slice(5));
 }
 
+export function isF005SystemSetInfoCorrelationDiagnosticCode(
+  value: unknown,
+): value is F005SystemSetInfoCorrelationDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC.test(value.slice(5));
+}
+
 export type F005NativeCapacityErrorCode =
   | F005SystemSetInfoDiagnosticCode
+  | F005SystemSetInfoCorrelationDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -265,6 +298,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (fixedCode !== undefined) return fixedCode;
   if (typeof value === 'string' && F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemSetInfoDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005SystemSetInfoCorrelationDiagnosticCode;
   }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';

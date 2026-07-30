@@ -13,6 +13,7 @@ import {
   classifyF005NativeWriteThroughReplyError,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
+  isF005SystemSetInfoCorrelationDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
   normalizeF005CapacityNoticePath,
   preserveF005NativeCapacityFailure,
@@ -112,6 +113,30 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
         : invalid,
     )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   }
+  for (const stage of [
+    'CREATE_BIND_MISMATCH',
+    'CREATE_SNAPSHOT_MISSING',
+    'CURRENT_MISSING',
+    'DEFERRED_BIND_MISMATCH',
+    'DEFERRED_CLEANUP',
+    'DEFERRED_SNAPSHOT_MISSING',
+    'DEFERRED_TUPLE_MISMATCH',
+    'FILE_OBJECT_MISMATCH',
+    'IDENTITY_MISMATCH',
+    'LEASE_CLOSED',
+    'LEASE_SNAPSHOT_MISSING',
+    'RENAME_CONSUME',
+  ] as const) {
+    const code = `F005_ETW_SYSTEM_SETINFO_CORRELATION_${stage}` as const;
+    expect(isF005SystemSetInfoCorrelationDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+  }
+  expect(isF005SystemSetInfoCorrelationDiagnosticCode(
+    'F005_ETW_SYSTEM_SETINFO_CORRELATION_PRIVATE_PATH',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_SYSTEM_SETINFO_CORRELATION_PRIVATE_PATH',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   expect(classifyF005NativeCapacityReplyError('NOTICE_PHASE_MISMATCH_secret'))
     .toBe('F005_CAPACITY_GUARD_REJECTED');
   expect(classifyF005NativeCapacityReplyError(null))
@@ -547,7 +572,7 @@ describe('F005 native ETW capacity guard', () => {
     expect(program).toContain('job.IsSignaled(lease.Process)');
     expect(program).toContain('current.Identity != lease.Snapshot!.Identity');
     expect(program).toContain('pendingWriteLease is not null || deferredSystemSetInfos.Count != 0');
-    expect(program).toContain('ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH');
+    expect(program).toContain('ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_SNAPSHOT_MISSING');
     expect(bridge.indexOf("op: 'reserveWrite'"))
       .toBeLessThan(bridge.indexOf("op: 'write-through'"));
     expect(bridge.indexOf("op: 'prepareWriteRename'"))

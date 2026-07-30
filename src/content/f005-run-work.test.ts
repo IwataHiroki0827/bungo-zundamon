@@ -455,6 +455,22 @@ describe('F005 production work runner', () => {
         code: systemSetInfoCode,
       },
     });
+    const correlationCode =
+      'F005_ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_SNAPSHOT_MISSING';
+    const correlation = new F005NativeCapacityError(
+      correlationCode,
+      'fixed correlation stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: correlation }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: correlationCode,
+      },
+    });
   });
 
   it.each([

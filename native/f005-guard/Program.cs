@@ -1481,7 +1481,7 @@ sealed class CapacityGuardSession : IDisposable
                 return;
             if (deferredMatches)
             {
-                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_CLEANUP");
                 deferredSystemSetInfos.Clear();
             }
             if (lease is { FileObject: { } leasedFileObject } &&
@@ -2183,7 +2183,7 @@ sealed class CapacityGuardSession : IDisposable
                     writeLease.PendingRenamePath,
                     writeLease.RenameReservedAtQpc,
                     out var promotedReservationQpc))
-                    throw new GuardException("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                    throw new GuardException("ETW_SYSTEM_SETINFO_CORRELATION_RENAME_CONSUME");
                 writeLease.RelativePath = record.To!;
                 writeLease.CurrentPathReservedAtQpc = promotedReservationQpc;
                 writeLease.PendingRenamePath = null;
@@ -2423,8 +2423,12 @@ sealed class CapacityGuardSession : IDisposable
                     callbackStage = "IDENTITY";
                     var binding = eventName == "create" ? TryInspect(normalized) : null;
                     callbackStage = "CORRELATION";
-                    if (binding is null ||
-                        !BindReservedSystemSetInfoLocked(
+                    if (binding is null)
+                    {
+                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_CREATE_SNAPSHOT_MISSING");
+                        return;
+                    }
+                    if (!BindReservedSystemSetInfoLocked(
                             pid,
                             producerSequenceNumber,
                             normalized,
@@ -2432,7 +2436,7 @@ sealed class CapacityGuardSession : IDisposable
                             timestampQpc,
                             binding))
                     {
-                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_BIND_MISMATCH");
                         return;
                     }
                 }
@@ -2457,7 +2461,7 @@ sealed class CapacityGuardSession : IDisposable
                 {
                     if (writeLease.FileObjectClosed || fileObject == 0 || current is null)
                     {
-                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_CREATE_BIND_MISMATCH");
                         return;
                     }
                     writeLease.FileObject = fileObject;
@@ -2646,7 +2650,7 @@ sealed class CapacityGuardSession : IDisposable
         producerSequenceNumber = lease.ProcessSequenceNumber;
         if (lease.FileObjectClosed)
         {
-            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED");
             deferred = true;
             return true;
         }
@@ -2675,14 +2679,14 @@ sealed class CapacityGuardSession : IDisposable
                 item.RelativePath != normalized ||
                 item.FileObject != fileObject))
             {
-                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_TUPLE_MISMATCH");
                 deferred = true;
                 return true;
             }
             var snapshot = TryInspect(normalized);
             if (snapshot is null)
             {
-                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_SNAPSHOT_MISSING");
                 deferred = true;
                 return true;
             }
@@ -2704,16 +2708,28 @@ sealed class CapacityGuardSession : IDisposable
             deferred = true;
             return true;
         }
-        if (lease.FileObject != fileObject || lease.Snapshot is null)
+        if (lease.FileObject != fileObject)
         {
-            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_FILE_OBJECT_MISMATCH");
+            deferred = true;
+            return true;
+        }
+        if (lease.Snapshot is null)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_LEASE_SNAPSHOT_MISSING");
             deferred = true;
             return true;
         }
         var current = TryInspect(normalized);
-        if (current is null || current.Identity != lease.Snapshot.Identity)
+        if (current is null)
         {
-            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_CURRENT_MISSING");
+            deferred = true;
+            return true;
+        }
+        if (current.Identity != lease.Snapshot.Identity)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_IDENTITY_MISMATCH");
             deferred = true;
             return true;
         }

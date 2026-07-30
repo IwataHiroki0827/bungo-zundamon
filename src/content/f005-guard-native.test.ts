@@ -176,6 +176,22 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain(': "UNKNOWN_PATH")');
     expect(program).toContain('"NODE_MODULES"');
     expect(program).toContain('"UNBOUND_LEASE"');
+    expect(new Set(program.match(
+      /ETW_SYSTEM_SETINFO_CORRELATION_[A-Z_]+/gu,
+    ) ?? [])).toEqual(new Set([
+      'ETW_SYSTEM_SETINFO_CORRELATION_CREATE_BIND_MISMATCH',
+      'ETW_SYSTEM_SETINFO_CORRELATION_CREATE_SNAPSHOT_MISSING',
+      'ETW_SYSTEM_SETINFO_CORRELATION_CURRENT_MISSING',
+      'ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_BIND_MISMATCH',
+      'ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_CLEANUP',
+      'ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_SNAPSHOT_MISSING',
+      'ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_TUPLE_MISMATCH',
+      'ETW_SYSTEM_SETINFO_CORRELATION_FILE_OBJECT_MISMATCH',
+      'ETW_SYSTEM_SETINFO_CORRELATION_IDENTITY_MISMATCH',
+      'ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED',
+      'ETW_SYSTEM_SETINFO_CORRELATION_LEASE_SNAPSHOT_MISSING',
+      'ETW_SYSTEM_SETINFO_CORRELATION_RENAME_CONSUME',
+    ]));
     expect(program).toContain('eventProcessStartKey != 0 &&');
     expect(program).toContain('22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716');
     expect(program).toContain('KernelProcessKeyword = 0x0000000000000010');
