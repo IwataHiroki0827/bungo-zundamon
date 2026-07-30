@@ -208,6 +208,16 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('prior.Identity == completed.Identity');
     expect(program).toContain('current?.Identity == completed.Identity');
     expect(program).toContain('current?.Identity != completedWriteExpectedIdentity');
+    expect(program).toContain('ClosedLeaseDiagnosticRules.Classify(');
+    expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_{stage}');
+    const closedLeaseBlock = program.slice(
+      program.indexOf('if (lease.FileObjectClosed)'),
+      program.indexOf('if (lease.FileObject is null)'),
+    );
+    expect(closedLeaseBlock.indexOf('if (lease.Snapshot is null)'))
+      .toBeLessThan(closedLeaseBlock.indexOf('TryInspect(normalized)'));
+    expect(closedLeaseBlock.indexOf('if (!fileObjectCompatible)'))
+      .toBeLessThan(closedLeaseBlock.indexOf('TryInspect(normalized)'));
     expect(new Set(program.match(
       /ETW_COMPLETED_WRITE_(?:REJOIN_\{rejection\}|[A-Z_]+)/gu,
     ) ?? [])).toEqual(new Set([
@@ -227,7 +237,6 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_TUPLE_MISMATCH',
       'ETW_SYSTEM_SETINFO_CORRELATION_FILE_OBJECT_MISMATCH',
       'ETW_SYSTEM_SETINFO_CORRELATION_IDENTITY_MISMATCH',
-      'ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED',
       'ETW_SYSTEM_SETINFO_CORRELATION_LEASE_SNAPSHOT_MISSING',
       'ETW_SYSTEM_SETINFO_CORRELATION_RENAME_CONSUME',
     ]));

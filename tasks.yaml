@@ -1973,7 +1973,7 @@ tasks:
   title: CHG-F005-019 完了後2秒限定再結合とhosted再試験
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-092
   tags:
@@ -1986,6 +1986,26 @@ tasks:
   - QT-F005-008
   mode: advisor
   mode_reason: hostedで追加観測した最小bucket上限2秒だけを完全tupleへ反映するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-094
+  title: CHG-F005-020 closed active lease固定診断とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-093
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: closed leaseを許可せずsnapshot・binding・identityの固定候補条件だけを特定するため
   model:
     lead: opus
     workers: sonnet

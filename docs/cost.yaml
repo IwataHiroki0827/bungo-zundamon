@@ -588,4 +588,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 7000
-  note: run 30516000235のWITHIN_2Sを根拠に、全完全tuple条件を維持して完了後2秒上限だけを限定拡張。2秒+1 tick、long極値、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30516000235のWITHIN_2Sを根拠に、全完全tuple条件を維持して完了後2秒上限だけを限定拡張。2秒+1 tick、long極値、対象124件、native規則90件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30516456345はactive LEASE_CLOSEDで安全停止
+- date: '2026-07-30'
+  phase: test
+  task: T-094 CHG-F005-020 closed active lease固定診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 8000
+  note: run 30516456345のLEASE_CLOSEDを受け、認可を変えずsnapshot・FileObject binding・current identityを固定5 stageへ細分化。段階評価、対象124件、native規則95件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

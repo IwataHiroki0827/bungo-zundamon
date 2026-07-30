@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; exact completed tuple has a bounded 2 s window.
+# Native tooling stays outside; closed active lease exposes fixed safe stages only.
 on:
   push:
     branches:

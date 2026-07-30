@@ -80,6 +80,14 @@ type F005CompletedWriteRejoinStage =
   | 'IDENTITY_MISMATCH';
 export type F005CompletedWriteRejoinDiagnosticCode =
   `F005_ETW_COMPLETED_WRITE_REJOIN_${F005CompletedWriteRejoinStage}`;
+type F005ClosedLeaseRejoinStage =
+  | 'SNAPSHOT_MISSING'
+  | 'FILE_OBJECT_BINDING'
+  | 'CURRENT_MISSING'
+  | 'IDENTITY_MISMATCH'
+  | 'CANDIDATE';
+export type F005ClosedLeaseRejoinDiagnosticCode =
+  `F005_ETW_CLOSED_LEASE_REJOIN_${F005ClosedLeaseRejoinStage}`;
 
 const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
@@ -103,6 +111,12 @@ const F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC = new RegExp(
   'BEFORE_RESERVATION|AFTER_COMPLETION_(?:WITHIN_100MS|WITHIN_500MS|' +
   'WITHIN_2S|WITHIN_10S|OVER_10S)|FILE_OBJECT_BINDING|' +
   'CURRENT_MISSING|IDENTITY_MISMATCH)$',
+  'u',
+);
+const F005_NATIVE_CLOSED_LEASE_REJOIN_DIAGNOSTIC = new RegExp(
+  '^ETW_CLOSED_LEASE_REJOIN_' +
+  '(?:SNAPSHOT_MISSING|FILE_OBJECT_BINDING|CURRENT_MISSING|' +
+  'IDENTITY_MISMATCH|CANDIDATE)$',
   'u',
 );
 
@@ -133,10 +147,20 @@ export function isF005CompletedWriteRejoinDiagnosticCode(
     F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC.test(value.slice(5));
 }
 
+export function isF005ClosedLeaseRejoinDiagnosticCode(
+  value: unknown,
+): value is F005ClosedLeaseRejoinDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 96 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_CLOSED_LEASE_REJOIN_DIAGNOSTIC.test(value.slice(5));
+}
+
 export type F005NativeCapacityErrorCode =
   | F005SystemSetInfoDiagnosticCode
   | F005SystemSetInfoCorrelationDiagnosticCode
   | F005CompletedWriteRejoinDiagnosticCode
+  | F005ClosedLeaseRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -347,6 +371,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005CompletedWriteRejoinDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_CLOSED_LEASE_REJOIN_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005ClosedLeaseRejoinDiagnosticCode;
   }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';

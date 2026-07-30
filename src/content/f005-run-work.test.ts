@@ -487,6 +487,21 @@ describe('F005 production work runner', () => {
         code: rejoinCode,
       },
     });
+    const closedLeaseCode = 'F005_ETW_CLOSED_LEASE_REJOIN_CANDIDATE';
+    const closedLease = new F005NativeCapacityError(
+      closedLeaseCode,
+      'fixed closed-lease rejoin stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: closedLease }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: closedLeaseCode,
+      },
+    });
   });
 
   it.each([

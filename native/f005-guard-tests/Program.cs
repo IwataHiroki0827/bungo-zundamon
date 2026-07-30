@@ -163,6 +163,21 @@ Check("完了write拒否stage identity mismatch",
     CompletedWriteDiagnosticRules.Rejection(
         "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, true, false) ==
     "IDENTITY_MISMATCH");
+Check("closed lease snapshot欠落を固定分類",
+    ClosedLeaseDiagnosticRules.Classify(false, true, true, true) ==
+    "SNAPSHOT_MISSING");
+Check("closed lease FileObject非互換を固定分類",
+    ClosedLeaseDiagnosticRules.Classify(true, false, true, true) ==
+    "FILE_OBJECT_BINDING");
+Check("closed lease current欠落を固定分類",
+    ClosedLeaseDiagnosticRules.Classify(true, true, false, false) ==
+    "CURRENT_MISSING");
+Check("closed lease identity差替えを固定分類",
+    ClosedLeaseDiagnosticRules.Classify(true, true, true, false) ==
+    "IDENTITY_MISMATCH");
+Check("closed lease完全候補を固定分類",
+    ClosedLeaseDiagnosticRules.Classify(true, true, true, true) ==
+    "CANDIDATE");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -259,7 +274,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (90 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (95 cases)");
 return 0;
 
 void Check(string name, bool condition)

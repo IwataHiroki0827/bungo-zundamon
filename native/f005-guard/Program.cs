@@ -2704,7 +2704,34 @@ sealed class CapacityGuardSession : IDisposable
             return false;
         if (lease.FileObjectClosed)
         {
-            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED");
+            string stage;
+            if (lease.Snapshot is null)
+            {
+                stage = ClosedLeaseDiagnosticRules.Classify(
+                    false, true, false, false);
+            }
+            else
+            {
+                var prior = filesByObject.GetValueOrDefault(fileObject);
+                var fileObjectCompatible = prior is null ||
+                    (prior.RelativePath == normalized &&
+                        prior.Identity == lease.Snapshot.Identity);
+                if (!fileObjectCompatible)
+                {
+                    stage = ClosedLeaseDiagnosticRules.Classify(
+                        true, false, false, false);
+                }
+                else
+                {
+                    var closedCurrent = TryInspect(normalized);
+                    stage = ClosedLeaseDiagnosticRules.Classify(
+                        true,
+                        true,
+                        closedCurrent is not null,
+                        closedCurrent?.Identity == lease.Snapshot.Identity);
+                }
+            }
+            PoisonLocked($"ETW_CLOSED_LEASE_REJOIN_{stage}");
             deferred = true;
             return true;
         }
@@ -4483,6 +4510,22 @@ public static class CompletedWriteDiagnosticRules
         if (!currentExists) return "CURRENT_MISSING";
         if (!identityMatches) return "IDENTITY_MISMATCH";
         return null;
+    }
+}
+
+public static class ClosedLeaseDiagnosticRules
+{
+    public static string Classify(
+        bool hasSnapshot,
+        bool fileObjectCompatible,
+        bool currentExists,
+        bool identityMatches)
+    {
+        if (!hasSnapshot) return "SNAPSHOT_MISSING";
+        if (!fileObjectCompatible) return "FILE_OBJECT_BINDING";
+        if (!currentExists) return "CURRENT_MISSING";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
+        return "CANDIDATE";
     }
 }
 
