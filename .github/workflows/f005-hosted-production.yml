@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; reserved WAV SetInfo seals identity before deferred ETW replay.
+# Source bytes are LF-pinned; same-handle rename targets are reserved before System SetInfo.
 on:
   push:
     branches:

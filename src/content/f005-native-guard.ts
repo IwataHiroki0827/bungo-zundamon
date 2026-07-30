@@ -959,6 +959,20 @@ export async function startF005NativeCapacitySession(
           rename: async (targetPath: string): Promise<void> => {
             if (settled) return fail('F005_CAPACITY_IPC_FAILED', 'write-through leaseは消費済みです');
             const relativeTarget = normalizeF005CapacityNoticePath(options.workspace, targetPath);
+            const prepared = await pipe?.command({
+              op: 'prepareWriteRename',
+              phase: writePhase.phase,
+              workId: writePhase.workId,
+              phaseInstanceId: writePhase.phaseInstanceId,
+              producerPid,
+              from: currentRelativePath,
+              to: relativeTarget,
+            });
+            if (!prepared || !prepared.ok || prepared.state !== 'rename-prepared' ||
+              prepared.from !== currentRelativePath || prepared.to !== relativeTarget ||
+              prepared.producerPid !== producerPid) {
+              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through rename予約に失敗しました');
+            }
             const renamed = await writer.channel.command({
               op: 'write-rename',
               relativePath: currentRelativePath,

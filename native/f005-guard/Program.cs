@@ -1674,6 +1674,9 @@ sealed class CapacityGuardSession : IDisposable
             case "completeWrite":
                 RequireExactPipeKeys(rootElement, "authToken", "op", "path", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "workId");
                 break;
+            case "prepareWriteRename":
+                RequireExactPipeKeys(rootElement, "authToken", "from", "op", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "to", "workId");
+                break;
             case "notice":
             {
                 var eventName = PipeString(rootElement, "event");
@@ -1733,6 +1736,14 @@ sealed class CapacityGuardSession : IDisposable
                     PipeSha256(rootElement, "phaseInstanceId"),
                     PipePositiveInt(rootElement, "producerPid"),
                     ValidateRelativePath(PipeString(rootElement, "path")),
+                    clientPid),
+                "prepareWriteRename" => PrepareWriteRename(
+                    PipeString(rootElement, "phase"),
+                    PipeNullableWorkId(rootElement, "workId"),
+                    PipeSha256(rootElement, "phaseInstanceId"),
+                    PipePositiveInt(rootElement, "producerPid"),
+                    ValidateRelativePath(PipeString(rootElement, "from")),
+                    ValidateRelativePath(PipeString(rootElement, "to")),
                     clientPid),
                 "notice" => ReceiveNotice(rootElement, clientPid),
                 "status" => new {
@@ -1883,6 +1894,68 @@ sealed class CapacityGuardSession : IDisposable
         }
     }
 
+    private object PrepareWriteRename(
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        int producerPid,
+        string from,
+        string to,
+        int clientPid)
+    {
+        if (failureCode is not null) throw new GuardException(failureCode);
+        var phaseMatches = activePhase is not null &&
+            activePhase.Phase == "voice" &&
+            activePhase.Phase == phase &&
+            activePhase.WorkId == workId &&
+            activePhase.PhaseInstanceId == phaseInstanceId;
+        var rootAuthenticated =
+            RootWorkerAliveLocked(clientPid) && registeredPids.Contains(clientPid);
+        var lease = pendingWriteLease;
+        var tupleMatches = lease is not null &&
+            lease.WorkerPid == producerPid &&
+            lease.PhaseInstanceId == phaseInstanceId &&
+            lease.RelativePath == from;
+        var correlationReady = lease is not null &&
+            !lease.FileObjectClosed &&
+            lease.FileObject is not null &&
+            lease.Snapshot is not null;
+        var processSignaled = lease is null || job.IsSignaled(lease.Process);
+        var processAliveOutsideJob =
+            lease is not null && !processSignaled && job.IsAliveOutsideJob(lease.Process);
+        var targetExists = TryInspect(to) is not null;
+        if (!SystemSetInfoCorrelationRules.CanPrepareRename(
+            phaseMatches,
+            rootAuthenticated,
+            tupleMatches,
+            lease?.PendingRenamePath is not null,
+            correlationReady,
+            processSignaled,
+            processAliveOutsideJob,
+            targetExists))
+        {
+            if (!phaseMatches)
+            throw new GuardException("PHASE_MISMATCH");
+            if (!rootAuthenticated)
+            throw new GuardException("NOTICE_PID_NOT_REGISTERED");
+            if (!tupleMatches || lease is null)
+                throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
+            if (lease.PendingRenamePath is not null)
+            throw new GuardException("WRITE_LEASE_RENAME_ALREADY_PREPARED");
+            if (!correlationReady)
+            throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+            if (processSignaled || processAliveOutsideJob)
+            throw new GuardException("WRITE_LEASE_PRODUCER_NOT_JOB_MEMBER");
+            if (targetExists)
+            throw new GuardException("WRITE_LEASE_PATH_CONFLICT");
+            throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
+        }
+        lease = pendingWriteLease!;
+        lease.PendingRenamePath = to;
+        lease.RenameReservedAtQpc = Stopwatch.GetTimestamp();
+        return new { ok = true, state = "rename-prepared", from, to, producerPid };
+    }
+
     private object CompleteWriteAfterEtwDrain(
         string phase,
         string? workId,
@@ -1942,7 +2015,8 @@ sealed class CapacityGuardSession : IDisposable
             processSignaled,
             lease.FileObject is not null || lease.FileObjectClosed,
             lease.Snapshot is not null,
-            hasDeferredEvents))
+            hasDeferredEvents,
+            lease.PendingRenamePath is not null))
         {
             if (!processSignaled)
                 throw new GuardException("WRITE_LEASE_PROCESS_STILL_RUNNING");
@@ -2088,10 +2162,21 @@ sealed class CapacityGuardSession : IDisposable
                 record.Path == writeLease.RelativePath &&
                 (writeLease.FileObject is null || writeLease.Snapshot is null))
                 throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
-            if (record.EventName == "rename" &&
-                record.From == writeLease.RelativePath &&
-                record.To is not null)
-                writeLease.RelativePath = record.To;
+            if (record.EventName == "rename")
+            {
+                if (!SystemSetInfoCorrelationRules.TryConsumeRename(
+                    record.From ?? "",
+                    record.To ?? "",
+                    writeLease.RelativePath,
+                    writeLease.PendingRenamePath,
+                    writeLease.RenameReservedAtQpc,
+                    out var promotedReservationQpc))
+                    throw new GuardException("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                writeLease.RelativePath = record.To!;
+                writeLease.CurrentPathReservedAtQpc = promotedReservationQpc;
+                writeLease.PendingRenamePath = null;
+                writeLease.RenameReservedAtQpc = null;
+            }
         }
         return new {
             ok = true,
@@ -2535,14 +2620,21 @@ sealed class CapacityGuardSession : IDisposable
             deferred = true;
             return true;
         }
+        var pathMatches = SystemSetInfoCorrelationRules.TryGetReservationQpc(
+            normalized,
+            lease.RelativePath,
+            lease.CurrentPathReservedAtQpc,
+            lease.PendingRenamePath,
+            lease.RenameReservedAtQpc,
+            out var pathReservationQpc);
         if (!SystemSetInfoCorrelationRules.CanAuthorize(
             authorizationFailure,
             pid,
             eventName,
             fileObject,
             lease.PhaseInstanceId == activePhase.PhaseInstanceId &&
-                lease.RelativePath == normalized,
-            timestampQpc > lease.ReservedAtQpc,
+                pathMatches,
+            timestampQpc > pathReservationQpc,
             job.IsAliveOutsideJob(lease.Process),
             lease.FileObjectClosed))
             return false;
@@ -3327,10 +3419,13 @@ sealed class CapacityGuardSession : IDisposable
         public string PhaseInstanceId { get; } = phaseInstanceId;
         public string RelativePath { get; set; } = relativePath;
         public long ReservedAtQpc { get; } = reservedAtQpc;
+        public long CurrentPathReservedAtQpc { get; set; } = reservedAtQpc;
         public Process Process { get; } = process;
         public ulong? FileObject { get; set; }
         public bool FileObjectClosed { get; set; }
         public FileSnapshot? Snapshot { get; set; }
+        public string? PendingRenamePath { get; set; }
+        public long? RenameReservedAtQpc { get; set; }
     }
 
     private sealed record RegisteredWorkerProcess(
@@ -4091,6 +4186,66 @@ sealed class SafeJobHandle : SafeHandleZeroOrMinusOneIsInvalid
 
 public static class SystemSetInfoCorrelationRules
 {
+    public static bool CanPrepareRename(
+        bool phaseMatches,
+        bool rootAuthenticated,
+        bool tupleMatches,
+        bool alreadyPrepared,
+        bool correlationReady,
+        bool processSignaled,
+        bool processAliveOutsideJob,
+        bool targetExists) =>
+        phaseMatches &&
+        rootAuthenticated &&
+        tupleMatches &&
+        !alreadyPrepared &&
+        correlationReady &&
+        !processSignaled &&
+        !processAliveOutsideJob &&
+        !targetExists;
+
+    public static bool TryConsumeRename(
+        string noticeFrom,
+        string noticeTo,
+        string currentPath,
+        string? pendingRenamePath,
+        long? renameReservationQpc,
+        out long promotedReservationQpc)
+    {
+        if (renameReservationQpc is not null &&
+            string.Equals(noticeFrom, currentPath, StringComparison.Ordinal) &&
+            string.Equals(noticeTo, pendingRenamePath, StringComparison.Ordinal))
+        {
+            promotedReservationQpc = renameReservationQpc.Value;
+            return true;
+        }
+        promotedReservationQpc = 0;
+        return false;
+    }
+
+    public static bool TryGetReservationQpc(
+        string observedPath,
+        string currentPath,
+        long writeReservationQpc,
+        string? pendingRenamePath,
+        long? renameReservationQpc,
+        out long reservationQpc)
+    {
+        if (string.Equals(observedPath, currentPath, StringComparison.Ordinal))
+        {
+            reservationQpc = writeReservationQpc;
+            return true;
+        }
+        if (renameReservationQpc is not null &&
+            string.Equals(observedPath, pendingRenamePath, StringComparison.Ordinal))
+        {
+            reservationQpc = renameReservationQpc.Value;
+            return true;
+        }
+        reservationQpc = 0;
+        return false;
+    }
+
     public static bool CanAuthorize(
         string authorizationFailure,
         int systemPid,
@@ -4140,11 +4295,13 @@ public static class SystemSetInfoCorrelationRules
         bool processSignaled,
         bool hasBoundOrClosedFileObject,
         bool hasSnapshot,
-        bool hasDeferredEvents) =>
+        bool hasDeferredEvents,
+        bool hasPendingRename) =>
         processSignaled &&
         hasBoundOrClosedFileObject &&
         hasSnapshot &&
-        !hasDeferredEvents;
+        !hasDeferredEvents &&
+        !hasPendingRename;
 
     public static IEnumerable<T> ReplayInEtwOrder<T>(
         IEnumerable<T> values,

@@ -468,6 +468,7 @@ describe('F005 native ETW capacity guard', () => {
       readFile(resolve('src/content/f005-native-guard.ts'), 'utf8'),
     ]);
     expect(program).toContain('case "reserveWrite":');
+    expect(program).toContain('case "prepareWriteRename":');
     expect(program).toContain('case "completeWrite":');
     expect(program).toContain('job.OpenContainedProcess(producerPid)');
     expect(program).toContain('identity.ProcessSequenceNumber');
@@ -478,12 +479,19 @@ describe('F005 native ETW capacity guard', () => {
     expect(program).toContain('ReplayDeferredSystemSetInfoLocked(deferred)');
     expect(program).toContain('lease.FileObjectClosed = true');
     expect(program).toContain('SystemSetInfoCorrelationRules.CleanupInvalidates(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.TryGetReservationQpc(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.CanPrepareRename(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.TryConsumeRename(');
+    expect(program).toContain('writeLease.CurrentPathReservedAtQpc = promotedReservationQpc');
+    expect(program).toContain('timestampQpc > pathReservationQpc');
     expect(program).toContain('job.IsSignaled(lease.Process)');
     expect(program).toContain('current.Identity != lease.Snapshot!.Identity');
     expect(program).toContain('pendingWriteLease is not null || deferredSystemSetInfos.Count != 0');
     expect(program).toContain('ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH');
     expect(bridge.indexOf("op: 'reserveWrite'"))
       .toBeLessThan(bridge.indexOf("op: 'write-through'"));
+    expect(bridge.indexOf("op: 'prepareWriteRename'"))
+      .toBeLessThan(bridge.indexOf("op: 'write-rename'"));
     expect(bridge.indexOf('await writer.close();'))
       .toBeLessThan(bridge.indexOf("op: 'completeWrite'"));
   });
@@ -519,7 +527,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (18 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (37 cases)'),
     });
   }, 120_000);
 });
