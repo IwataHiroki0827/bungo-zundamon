@@ -15,6 +15,7 @@ import {
   type WorkId,
   type WorkspaceRelativePath,
 } from './batch.ts';
+import { F005NativeCapacityError } from './f005-native-guard.ts';
 import {
   advanceF005RunnerManifest,
   createF005OfflineBuildArtifactPayloads,
@@ -375,6 +376,27 @@ describe('F005 production work runner', () => {
     )).toMatchObject({
       name: 'F005RunnerEngineError',
       code: 'F005_ENGINE_VERSION_REQUEST_FAILED',
+    });
+    const nativeCleanup = new F005NativeCapacityError(
+      'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED',
+      'native fixed category only',
+    );
+    const voice = Object.assign(
+      new Error('voice boundary', { cause: nativeCleanup }),
+      {
+        name: 'F005VoiceError',
+        code: 'F005_VOICE_NATIVE_OBSERVE_FAILED',
+      },
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(voice).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      name: 'F005VoiceError',
+      code: 'F005_VOICE_NATIVE_OBSERVE_FAILED',
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED',
+      },
     });
   });
 

@@ -1,4 +1,18 @@
 changes:
+- id: CHG-F005-008
+  date: '2026-07-30'
+  trigger: Actions run 30506631401でnative write-through helperの固定replyがF005_CAPACITY_IPC_FAILEDへ集約され原因区分を失った
+  level: design
+  affected:
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - T-070
+  - T-081
+  - T-082
+  status: in-review
 - id: CHG-F005-007
   date: '2026-07-30'
   trigger: Actions run 30505547616でtemporary create認証後、same-handle rename中のSystem SetInfoが未予約target pathとして安全停止

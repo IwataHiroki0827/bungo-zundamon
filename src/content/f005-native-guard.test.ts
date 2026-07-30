@@ -10,9 +10,11 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { canonicalJson } from './artifacts.ts';
 import {
   classifyF005NativeCapacityReplyError,
+  classifyF005NativeWriteThroughReplyError,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
   normalizeF005CapacityNoticePath,
+  preserveF005NativeCapacityFailure,
   validateF005CapacityJournalV3,
 } from './f005-native-guard.ts';
 import { F005_NATIVE_GUARD_PINS } from './f005-source.ts';
@@ -92,6 +94,38 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     expect(classifyF005NativeCapacityReplyError(prototypeKey))
       .toBe('F005_CAPACITY_GUARD_REJECTED');
   }
+});
+
+it('write-through helper replyを秘密を含まない固定カテゴリへ分類する', () => {
+  for (const [value, expected] of [
+    ['WRITE_THROUGH_OPEN_FAILED_5', 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'],
+    ['DIRECTORY_OPEN_FAILED_5', 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'],
+    ['WRITE_THROUGH_FLUSH_FAILED_1117', 'F005_NATIVE_WRITE_THROUGH_FLUSH_FAILED'],
+    ['WRITE_THROUGH_IDENTITY_UNSAFE', 'F005_NATIVE_WRITE_THROUGH_IDENTITY_FAILED'],
+    ['IDENTITY_READ_FAILED_6', 'F005_NATIVE_WRITE_THROUGH_IDENTITY_FAILED'],
+    ['WRITE_THROUGH_LENGTH_MISMATCH', 'F005_NATIVE_WRITE_THROUGH_VERIFY_FAILED'],
+    ['WRITE_THROUGH_CLEANUP_FAILED', 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED'],
+    ['WRITE_THROUGH_DELETE_ON_CLOSE_CLEAR_FAILED_50', 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED'],
+    ['WRITE_THROUGH_UNKNOWN', 'F005_NATIVE_WRITE_THROUGH_PROTOCOL_FAILED'],
+  ] as const) {
+    expect(classifyF005NativeWriteThroughReplyError(value)).toBe(expected);
+  }
+  expect(classifyF005NativeWriteThroughReplyError({ path: 'secret' }))
+    .toBe('F005_NATIVE_WRITE_THROUGH_PROTOCOL_FAILED');
+});
+
+it('分類済みwrite-through failureを外側catchでgeneric再包装しない', () => {
+  const classified = new F005NativeCapacityError(
+    'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED',
+    'fixed category',
+  );
+  expect(() => preserveF005NativeCapacityFailure(classified, 'outer'))
+    .toThrow(classified);
+  expect(() => preserveF005NativeCapacityFailure(new Error('channel'), 'outer'))
+    .toThrow(expect.objectContaining({
+      code: 'F005_CAPACITY_IPC_FAILED',
+      cause: expect.any(Error),
+    }));
 });
 
 afterEach(async () => {

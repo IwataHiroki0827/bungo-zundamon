@@ -34,6 +34,12 @@ const mintedNativeBackends = new WeakSet<object>();
 export type F005NativeCapacityErrorCode =
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_FLUSH_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_IDENTITY_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_VERIFY_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED'
+  | 'F005_NATIVE_WRITE_THROUGH_PROTOCOL_FAILED'
   | 'F005_ETW_PRIVILEGE_REQUIRED'
   | 'F005_CAPACITY_IPC_FAILED'
   | 'F005_CAPACITY_IPC_CONNECT_FAILED'
@@ -139,6 +145,14 @@ function fail(
   );
 }
 
+export function preserveF005NativeCapacityFailure(
+  error: unknown,
+  message: string,
+): never {
+  if (error instanceof F005NativeCapacityError) throw error;
+  return fail('F005_CAPACITY_IPC_FAILED', message, error);
+}
+
 const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCode> = new Map([
   ['ETW_ALLOCATED_LENGTH_MISSING', 'F005_ETW_ALLOCATED_LENGTH_MISSING'],
   ['ETW_BUFFER_LOSS', 'F005_ETW_BUFFER_LOSS'],
@@ -231,6 +245,44 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
     return 'F005_CAPACITY_ETW_OBSERVATION_FAILED';
   }
   return 'F005_CAPACITY_GUARD_REJECTED';
+}
+
+export function classifyF005NativeWriteThroughReplyError(
+  value: unknown,
+): F005NativeCapacityErrorCode {
+  if (typeof value !== 'string') return 'F005_NATIVE_WRITE_THROUGH_PROTOCOL_FAILED';
+  if (
+    value.startsWith('WRITE_THROUGH_OPEN_FAILED_')
+    || value.startsWith('DIRECTORY_OPEN_FAILED_')
+  ) {
+    return 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED';
+  }
+  if (value.startsWith('WRITE_THROUGH_FLUSH_FAILED_')) {
+    return 'F005_NATIVE_WRITE_THROUGH_FLUSH_FAILED';
+  }
+  if (
+    value === 'WRITE_THROUGH_IDENTITY_UNSAFE'
+    || value.startsWith('DIRECTORY_IDENTITY_FAILED_')
+    || value.startsWith('DIRECTORY_FINAL_PATH_FAILED_')
+    || value.startsWith('IDENTITY_READ_FAILED_')
+  ) {
+    return 'F005_NATIVE_WRITE_THROUGH_IDENTITY_FAILED';
+  }
+  if (
+    value === 'WRITE_THROUGH_LENGTH_MISMATCH'
+    || value === 'WRITE_THROUGH_PARTIAL_READ'
+    || value === 'WRITE_THROUGH_READBACK_MISMATCH'
+    || value === 'WRITE_THROUGH_HASH_MISMATCH'
+  ) {
+    return 'F005_NATIVE_WRITE_THROUGH_VERIFY_FAILED';
+  }
+  if (
+    value === 'WRITE_THROUGH_CLEANUP_FAILED'
+    || value.startsWith('WRITE_THROUGH_DELETE_ON_CLOSE_CLEAR_FAILED_')
+  ) {
+    return 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED';
+  }
+  return 'F005_NATIVE_WRITE_THROUGH_PROTOCOL_FAILED';
 }
 
 function sha256(value: string | Uint8Array): string {
@@ -948,7 +1000,10 @@ export async function startF005NativeCapacitySession(
           !NATIVE_FILE_IDENTITY.test(reply.nativeIdentity) ||
           reply.durability !== 'file-flag-write-through-flush-file-buffers-delete-on-close') {
           const code = typeof reply.error === 'string' ? reply.error : 'WRITE_THROUGH_FAILED';
-          return fail('F005_CAPACITY_IPC_FAILED', `native write-throughが${code}で停止しました`);
+          return fail(
+            classifyF005NativeWriteThroughReplyError(code),
+            'native write-throughが固定failure categoryで停止しました',
+          );
         }
         const nativeIdentity = reply.nativeIdentity as F005NativeFileIdentity;
         let currentRelativePath = relativePath;
@@ -983,7 +1038,13 @@ export async function startF005NativeCapacitySession(
               renamed.relativePath !== relativeTarget ||
               renamed.sha256 !== expectedSha256 ||
               renamed.nativeIdentity !== nativeIdentity) {
-              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through renameに失敗しました');
+              const code = typeof renamed.error === 'string'
+                ? renamed.error
+                : 'WRITE_THROUGH_RENAME_FAILED';
+              return fail(
+                classifyF005NativeWriteThroughReplyError(code),
+                'native write-through renameが固定failure categoryで停止しました',
+              );
             }
             currentRelativePath = relativeTarget;
           },
@@ -995,7 +1056,13 @@ export async function startF005NativeCapacitySession(
               expectedSha256,
             });
             if (!committed.ok || committed.state !== 'committed') {
-              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through commitに失敗しました');
+              const code = typeof committed.error === 'string'
+                ? committed.error
+                : 'WRITE_THROUGH_COMMIT_FAILED';
+              return fail(
+                classifyF005NativeWriteThroughReplyError(code),
+                'native write-through commitが固定failure categoryで停止しました',
+              );
             }
             await writer.close();
             const completed = await pipe?.command({
@@ -1017,19 +1084,31 @@ export async function startF005NativeCapacitySession(
             try {
               const aborted = await writer.channel.command({ op: 'write-abort' });
               if (!aborted.ok || aborted.state !== 'aborted') {
-                return fail('F005_CAPACITY_IPC_FAILED', 'native write-through abortに失敗しました');
+                const code = typeof aborted.error === 'string'
+                  ? aborted.error
+                  : 'WRITE_THROUGH_ABORT_FAILED';
+                return fail(
+                  classifyF005NativeWriteThroughReplyError(code),
+                  'native write-through abortが固定failure categoryで停止しました',
+                );
               }
               await writer.close();
               settled = true;
             } catch (error) {
               await writer.terminateAndWait();
-              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through abortを完了できません', error);
+              return preserveF005NativeCapacityFailure(
+                error,
+                'native write-through abortを完了できません',
+              );
             }
           },
         });
       } catch (error) {
         await writer.terminateAndWait();
-        return fail('F005_CAPACITY_IPC_FAILED', 'native write-through helperを完了できません', error);
+        return preserveF005NativeCapacityFailure(
+          error,
+          'native write-through helperを完了できません',
+        );
       }
     };
 

@@ -1751,3 +1751,21 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-082
+  title: CHG-F005-008 write-through固定診断とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-081
+  tags:
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  mode: orchestration
+  mode_reason: native helper固定replyの秘密非公開分類とhosted停止点を独立検証するため
+  model:
+    lead: opus
+    workers: sonnet

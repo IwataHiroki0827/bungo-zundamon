@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; same-handle rename targets are reserved before System SetInfo.
+# Source bytes are LF-pinned; native helper failures expose only fixed safe categories.
 on:
   push:
     branches:
