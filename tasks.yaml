@@ -1913,7 +1913,7 @@ tasks:
   title: CHG-F005-016 完了write再結合拒否stage診断とhosted再試験
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-089
   tags:
@@ -1926,6 +1926,26 @@ tasks:
   - QT-F005-008
   mode: advisor
   mode_reason: 認可条件を変えず完了write再結合の拒否条件だけを固定stageで特定するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-091
+  title: CHG-F005-017 完了後時間差bucket診断とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-090
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: 認可を緩めず完了後System SetInfoの時間差だけを固定bucketで特定するため
   model:
     lead: opus
     workers: sonnet

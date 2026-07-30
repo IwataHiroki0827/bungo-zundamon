@@ -184,6 +184,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('CompletedWriteDiagnosticRules.Classify(');
     expect(program).toContain('public static bool CanAuthorize(');
     expect(program).toContain('CompletedWriteDiagnosticRules.Rejection(');
+    expect(program).toContain('CompletedWriteDiagnosticRules.AfterCompletionBucket(');
+    expect(program).toContain('AFTER_COMPLETION_{bucket}');
     expect(program).toContain('ETW_COMPLETED_WRITE_REJOIN_{rejection}');
     expect(program.indexOf('SystemSetInfoCorrelationRules.MatchesReservation('))
       .toBeLessThan(program.indexOf('if (lease.FileObjectClosed)'));

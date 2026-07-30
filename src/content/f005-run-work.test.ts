@@ -471,7 +471,8 @@ describe('F005 production work runner', () => {
         code: correlationCode,
       },
     });
-    const rejoinCode = 'F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION';
+    const rejoinCode =
+      'F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION_WITHIN_100MS';
     const rejoin = new F005NativeCapacityError(
       rejoinCode,
       'fixed completed-write rejoin stage only',

@@ -567,4 +567,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 9000
-  note: run 30513755494のDONE_ID再停止を受け、完了write再結合の固定10拒否stageをnativeからrunnerへ伝播。TOCTOU再照合も同じIDENTITY_MISMATCHへ統合し、first-poisonを回帰固定。対象124件、native規則76件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30513755494のDONE_ID再停止を受け、完了write再結合の固定10拒否stageをnativeからrunnerへ伝播。TOCTOU再照合も同じIDENTITY_MISMATCHへ統合し、first-poisonを回帰固定。対象124件、native規則76件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30514533508でAFTER_COMPLETIONを特定して完了
+- date: '2026-07-30'
+  phase: test
+  task: T-091 CHG-F005-017 完了後時間差bucket診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 7000
+  note: run 30514533508のAFTER_COMPLETIONを受け、認可を変えず完了後QPC差を100ms・500ms・2秒・10秒の固定bucketへ細分化。全境界上限と1 tick超過、対象124件、native規則84件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

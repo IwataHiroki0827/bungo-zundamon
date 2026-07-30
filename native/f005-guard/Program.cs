@@ -2805,6 +2805,13 @@ sealed class CapacityGuardSession : IDisposable
                     prior.Identity == completed.Identity),
             current is not null,
             current?.Identity == completed.Identity);
+        if (rejection == "AFTER_COMPLETION")
+        {
+            var bucket = CompletedWriteDiagnosticRules.AfterCompletionBucket(
+                timestampQpc - completed.CompletedAtQpc,
+                Stopwatch.Frequency);
+            rejection = $"AFTER_COMPLETION_{bucket}";
+        }
         if (rejection is not null)
         {
             PoisonLocked($"ETW_COMPLETED_WRITE_REJOIN_{rejection}");
@@ -4385,6 +4392,17 @@ public static class SystemSetInfoDiagnosticRules
 
 public static class CompletedWriteDiagnosticRules
 {
+    public static string AfterCompletionBucket(long deltaQpc, long frequency)
+    {
+        if (deltaQpc <= 0 || frequency <= 0)
+            throw new ArgumentOutOfRangeException(nameof(deltaQpc));
+        if ((decimal)deltaQpc * 10 <= frequency) return "WITHIN_100MS";
+        if ((decimal)deltaQpc * 2 <= frequency) return "WITHIN_500MS";
+        if ((decimal)deltaQpc <= (decimal)frequency * 2) return "WITHIN_2S";
+        if ((decimal)deltaQpc <= (decimal)frequency * 10) return "WITHIN_10S";
+        return "OVER_10S";
+    }
+
     public static bool ShouldTrack(
         string? phase,
         int trackedCount,

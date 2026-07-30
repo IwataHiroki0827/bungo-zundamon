@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; completed rejoin exposes fixed safe rejection stages only.
+# Native tooling stays outside; post-completion delay exposes fixed safe buckets only.
 on:
   push:
     branches:

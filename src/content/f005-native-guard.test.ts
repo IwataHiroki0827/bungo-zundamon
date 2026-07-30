@@ -151,7 +151,11 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'FILE_OBJECT_ZERO',
     'PHASE',
     'BEFORE_RESERVATION',
-    'AFTER_COMPLETION',
+    'AFTER_COMPLETION_WITHIN_100MS',
+    'AFTER_COMPLETION_WITHIN_500MS',
+    'AFTER_COMPLETION_WITHIN_2S',
+    'AFTER_COMPLETION_WITHIN_10S',
+    'AFTER_COMPLETION_OVER_10S',
     'FILE_OBJECT_BINDING',
     'CURRENT_MISSING',
     'IDENTITY_MISMATCH',
@@ -641,7 +645,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (76 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (84 cases)'),
     });
   }, 120_000);
 });

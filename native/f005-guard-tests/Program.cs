@@ -114,6 +114,30 @@ Check("完了write拒否stage after completion",
     CompletedWriteDiagnosticRules.Rejection(
         "BIRTH_MISSING", 4, "setinfo", 31, true, true, false, true, true, true) ==
     "AFTER_COMPLETION");
+Check("完了後100ms以内を固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(1_000, 10_000) ==
+    "WITHIN_100MS");
+Check("完了後100ms超を次bucketへ固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(1_001, 10_000) ==
+    "WITHIN_500MS");
+Check("完了後500ms以内を固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(5_000, 10_000) ==
+    "WITHIN_500MS");
+Check("完了後500ms超を次bucketへ固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(5_001, 10_000) ==
+    "WITHIN_2S");
+Check("完了後2秒以内を固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(20_000, 10_000) ==
+    "WITHIN_2S");
+Check("完了後2秒超を次bucketへ固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(20_001, 10_000) ==
+    "WITHIN_10S");
+Check("完了後10秒以内を固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(100_000, 10_000) ==
+    "WITHIN_10S");
+Check("完了後10秒超を固定分類",
+    CompletedWriteDiagnosticRules.AfterCompletionBucket(100_001, 10_000) ==
+    "OVER_10S");
 Check("完了write拒否stage file object binding",
     CompletedWriteDiagnosticRules.Rejection(
         "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, false, true, true) ==
@@ -222,7 +246,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (76 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (84 cases)");
 return 0;
 
 void Check(string name, bool condition)
