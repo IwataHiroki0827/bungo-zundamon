@@ -284,6 +284,38 @@ Check("System directory writeroot identity欠落を拒否",
     !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
         "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
         true, true, false, false));
+foreach (var (directoryStage, expected) in new[] {
+    ("SNAPSHOT_MISSING", "DIRECTORY_SNAPSHOT_MISSING"),
+    ("CURRENT_MISSING", "DIRECTORY_CURRENT_MISSING"),
+    ("IDENTITY_MISMATCH", "DIRECTORY_IDENTITY_MISMATCH"),
+    ("OWNER_MISSING", "DIRECTORY_OWNER_MISSING"),
+    ("ROOT_INACTIVE", "DIRECTORY_ROOT_INACTIVE"),
+    ("PRIVATE", "DIRECTORY_UNKNOWN"),
+})
+    Check($"active lease directory {expected}を固定分類",
+        SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+            directoryStage, true, true, true, false, false, false) == expected);
+Check("active lease directory lease欠落を固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", false, false, false, false, false, false) == "LEASE_MISSING");
+Check("active lease directory phase不一致を固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, false, true, false, false, false) == "LEASE_PHASE");
+Check("active lease directory親path不一致を固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, true, false, false, false, false) == "LEASE_PARENT");
+Check("active lease directory結合済みを固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, true, true, true, false, false) == "LEASE_BOUND");
+Check("active lease directoryclosedを固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, true, true, false, true, false) == "LEASE_CLOSED");
+Check("active lease directoryescapeを固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, true, true, false, false, true) == "LEASE_ESCAPE");
+Check("active lease directory完全候補を固定分類",
+    SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+        "CANDIDATE", true, true, true, false, false, false) == "CANDIDATE");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -380,7 +412,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (123 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (136 cases)");
 return 0;
 
 void Check(string name, bool condition)

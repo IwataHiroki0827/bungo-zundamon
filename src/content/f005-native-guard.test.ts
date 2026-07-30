@@ -18,6 +18,7 @@ import {
   isF005SystemSetInfoCorrelationDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
+  isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   normalizeF005CapacityNoticePath,
@@ -187,6 +188,33 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'DIRECTORY_SNAPSHOT_MISSING',
+    'DIRECTORY_CURRENT_MISSING',
+    'DIRECTORY_IDENTITY_MISMATCH',
+    'DIRECTORY_OWNER_MISSING',
+    'DIRECTORY_ROOT_INACTIVE',
+    'DIRECTORY_UNKNOWN',
+    'LEASE_MISSING',
+    'LEASE_PHASE',
+    'LEASE_PARENT',
+    'LEASE_BOUND',
+    'LEASE_CLOSED',
+    'LEASE_ESCAPE',
+    'CANDIDATE',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_${stage}` as const;
+    expect(isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'CREATE_BIND_MISMATCH',
@@ -730,7 +758,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (123 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (136 cases)'),
     });
   }, 120_000);
 });

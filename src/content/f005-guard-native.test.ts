@@ -239,9 +239,44 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'if (bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE")',
     );
     expect(unboundWriteStage).toContain(
+      'if (bucket == "CACHE_OTHER_DIRECTORY_UNBOUND_LEASE")',
+    );
+    expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
     );
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
+    expect(program).toContain(
+      'SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(',
+    );
+    const activeLeaseDirectoryStage = program.slice(
+      program.indexOf('private string SystemDirectoryActiveLeaseWriteRejoinStage('),
+      program.indexOf('private string? NormalizeObservedPath('),
+    );
+    const orderedRuntimeChecks = [
+      'SystemDirectoryWriteRejoinStage(normalized)',
+      'if (directoryStage != "CANDIDATE")',
+      'var lease = pendingWriteLease',
+      'if (lease is null)',
+      'lease.PhaseInstanceId == activePhase.PhaseInstanceId',
+      'if (!phaseMatches)',
+      "lease.RelativePath.LastIndexOf('/')",
+      'lease.RelativePath[..slash] == normalized',
+      'if (!parentMatches)',
+      'if (lease.FileObject is not null)',
+      'if (lease.FileObjectClosed)',
+      'job.IsAliveOutsideJob(lease.Process)',
+    ];
+    for (const runtimeCheck of orderedRuntimeChecks) {
+      expect(activeLeaseDirectoryStage.indexOf(runtimeCheck))
+        .toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedRuntimeChecks.length; index += 1) {
+      expect(activeLeaseDirectoryStage.indexOf(orderedRuntimeChecks[index - 1]!))
+        .toBeLessThan(activeLeaseDirectoryStage.indexOf(orderedRuntimeChecks[index]!));
+    }
+    expect(activeLeaseDirectoryStage.match(
+      /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
+    )).toHaveLength(1);
     const directoryStage = program.slice(
       program.indexOf('private string SystemDirectoryWriteRejoinStage('),
       program.indexOf('private string? NormalizeObservedPath('),

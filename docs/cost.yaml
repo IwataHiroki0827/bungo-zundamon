@@ -630,4 +630,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 9000
-  note: run 30520302499のCANDIDATEを根拠に、exact cache directory完全候補だけをroot worker世代へidentity二重照合付きで再結合。対象124件、native規則123件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30520302499のCANDIDATEを根拠に、exact cache directory完全候補だけをroot worker世代へidentity二重照合付きで再結合。対象124件、native規則123件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30520947829でleaseなし再結合通過
+- date: '2026-07-30'
+  phase: test
+  task: T-100 CHG-F005-026 active lease中System directory write固定診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 8000
+  note: run 30520947829のCACHE_OTHER_DIRECTORY_UNBOUND_LEASEを認可せず、directory候補とlease phase・親path・binding・closed・escapeを固定13 stageへ細分化。初回レビューMedium 1・Low 1を段階returnと評価順試験で解消し、対象124件、native規則136件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASS。public/data差分0

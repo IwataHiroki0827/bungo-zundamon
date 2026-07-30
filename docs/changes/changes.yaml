@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-026
+  date: '2026-07-30'
+  trigger: Actions run 30520947829でSystem directory writeがCACHE_OTHER_DIRECTORY_UNBOUND_LEASEと判明
+  level: design
+  affected:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - T-070
+  - T-099
+  - T-100
+  status: in-review
 - id: CHG-F005-025
   date: '2026-07-30'
   trigger: Actions run 30520302499でSystem directory writeが全安全候補条件一致
@@ -14,7 +30,7 @@ changes:
   - T-070
   - T-098
   - T-099
-  status: in-review
+  status: done
 - id: CHG-F005-024
   date: '2026-07-30'
   trigger: Actions run 30519553414でSystem writeがCACHE_OTHER_DIRECTORY_NO_LEASEと判明

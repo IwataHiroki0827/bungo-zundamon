@@ -593,6 +593,37 @@ describe('F005 production work runner', () => {
         code: 'F005_ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
       },
     });
+    const activeLeaseDirectoryCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_CANDIDATE';
+    const activeLeaseDirectory = new F005NativeCapacityError(
+      activeLeaseDirectoryCode,
+      'fixed active lease directory stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: activeLeaseDirectory }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: activeLeaseDirectoryCode,
+      },
+    });
+    const privateActiveLeaseDirectory = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: privateActiveLeaseDirectory }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
   });
 
   it.each([

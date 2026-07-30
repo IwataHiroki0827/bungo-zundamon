@@ -3246,6 +3246,9 @@ sealed class CapacityGuardSession : IDisposable
         if (bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE")
             return "SYSTEM_DIRECTORY_WRITE_REJOIN_" +
                 SystemDirectoryWriteRejoinStage(normalized);
+        if (bucket == "CACHE_OTHER_DIRECTORY_UNBOUND_LEASE")
+            return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
+                SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
         return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
     }
 
@@ -3283,6 +3286,45 @@ sealed class CapacityGuardSession : IDisposable
             true,
             true,
             RootWorkerAliveLocked(rootPid ?? -1));
+    }
+
+    private string SystemDirectoryActiveLeaseWriteRejoinStage(
+        string normalized)
+    {
+        var directoryStage = SystemDirectoryWriteRejoinStage(normalized);
+        if (directoryStage != "CANDIDATE")
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, false, false, false, false, false, false);
+        var lease = pendingWriteLease;
+        if (lease is null)
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, false, false, false, false, false, false);
+        var phaseMatches = activePhase is not null &&
+            lease.PhaseInstanceId == activePhase.PhaseInstanceId;
+        if (!phaseMatches)
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, false, false, false, false, false);
+        var slash = lease.RelativePath.LastIndexOf('/');
+        var parentMatches = slash > 0 &&
+            lease.RelativePath[..slash] == normalized;
+        if (!parentMatches)
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, false, false, false, false);
+        if (lease.FileObject is not null)
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false, false);
+        if (lease.FileObjectClosed)
+            return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, false, true, false);
+        var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
+        return SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
+            directoryStage,
+            true,
+            true,
+            true,
+            false,
+            false,
+            leaseOutsideJob);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -4794,6 +4836,36 @@ public static class SystemDirectoryWriteRejoinAuthorizationRules
         candidateStage &&
         rootPidAvailable &&
         rootSequenceAvailable;
+}
+
+public static class SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules
+{
+    public static string Classify(
+        string directoryStage,
+        bool hasLease,
+        bool leasePhaseMatches,
+        bool leaseParentMatches,
+        bool leaseBound,
+        bool leaseClosed,
+        bool leaseOutsideJob)
+    {
+        if (directoryStage != "CANDIDATE")
+            return directoryStage switch {
+                "SNAPSHOT_MISSING" => "DIRECTORY_SNAPSHOT_MISSING",
+                "CURRENT_MISSING" => "DIRECTORY_CURRENT_MISSING",
+                "IDENTITY_MISMATCH" => "DIRECTORY_IDENTITY_MISMATCH",
+                "OWNER_MISSING" => "DIRECTORY_OWNER_MISSING",
+                "ROOT_INACTIVE" => "DIRECTORY_ROOT_INACTIVE",
+                _ => "DIRECTORY_UNKNOWN",
+            };
+        if (!hasLease) return "LEASE_MISSING";
+        if (!leasePhaseMatches) return "LEASE_PHASE";
+        if (!leaseParentMatches) return "LEASE_PARENT";
+        if (leaseBound) return "LEASE_BOUND";
+        if (leaseClosed) return "LEASE_CLOSED";
+        if (leaseOutsideJob) return "LEASE_ESCAPE";
+        return "CANDIDATE";
+    }
 }
 
 public static class SystemSetInfoCorrelationRules
