@@ -236,6 +236,54 @@ Check("System directory write root非activeを固定分類",
 Check("System directory write完全候補を固定分類",
     SystemDirectoryWriteRejoinDiagnosticRules.Classify(
         true, true, true, true, true) == "CANDIDATE");
+Check("System directory write完全候補だけを認可",
+    SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, true, true));
+Check("System directory write別auth failureを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "EVENT_BEFORE_BIRTH", 4, "write", 31, true, true, true, true,
+        true, true, true, true));
+Check("System directory write別PIDを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 5, "write", 31, true, true, true, true,
+        true, true, true, true));
+Check("System directory write別eventを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true,
+        true, true, true, true));
+Check("System directory write空FileObjectを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 0, true, true, true, true,
+        true, true, true, true));
+Check("System directory write別phaseを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, false, true, true, true,
+        true, true, true, true));
+Check("System directory writephase開始前を拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, false, true, true,
+        true, true, true, true));
+Check("System directory write既結合FileObjectを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, false, true,
+        true, true, true, true));
+Check("System directory writeactive lease中を拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, false,
+        true, true, true, true));
+Check("System directory write別bucketを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        false, true, true, true));
+Check("System directory write非candidateを拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, false, true, true));
+Check("System directory writeroot identity欠落を拒否",
+    !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, false, false));
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -332,7 +380,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (111 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (123 cases)");
 return 0;
 
 void Check(string name, bool condition)

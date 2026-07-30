@@ -2400,6 +2400,22 @@ sealed class CapacityGuardSession : IDisposable
                         identityRecheckFailureCode =
                             "ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH";
                     }
+                    else if (TryAuthorizeKnownSystemDirectoryWriteLocked(
+                        eventName,
+                        pid,
+                        normalized,
+                        fileObject,
+                        timestampQpc,
+                        authorizationFailure,
+                        out var directoryPid,
+                        out var directorySequenceNumber,
+                        out systemSetInfoExpectedIdentity))
+                    {
+                        pid = directoryPid;
+                        producerSequenceNumber = directorySequenceNumber;
+                        identityRecheckFailureCode =
+                            "ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH";
+                    }
                     else
                     {
                     if (authorizationFailure == "BIRTH_MISSING")
@@ -2870,6 +2886,67 @@ sealed class CapacityGuardSession : IDisposable
         producerPid = completed.WorkerPid;
         producerSequenceNumber = completed.ProcessSequenceNumber;
         expectedIdentity = completed.Identity;
+        return true;
+    }
+
+    private bool TryAuthorizeKnownSystemDirectoryWriteLocked(
+        string eventName,
+        int pid,
+        string normalized,
+        ulong fileObject,
+        long timestampQpc,
+        string authorizationFailure,
+        out int producerPid,
+        out ulong producerSequenceNumber,
+        out string? expectedIdentity)
+    {
+        producerPid = 0;
+        producerSequenceNumber = 0;
+        expectedIdentity = null;
+        var phase = activePhase;
+        var rootPid = rootWorkerPid;
+        var rootSequence = rootWorkerSequenceNumber;
+        if (authorizationFailure != "BIRTH_MISSING" ||
+            pid is not (0 or 4) ||
+            eventName != "write" ||
+            fileObject == 0 ||
+            phase?.Phase != "voice" ||
+            timestampQpc <= phase.StartedAtQpc ||
+            filesByObject.ContainsKey(fileObject) ||
+            pendingWriteLease is not null ||
+            rootPid is null ||
+            rootSequence is null or 0)
+            return false;
+        var absolute = Path.Combine(
+            root,
+            normalized.Replace('/', Path.DirectorySeparatorChar));
+        var bucket = SystemSetInfoDiagnosticRules.Classify(
+            normalized,
+            File.Exists(absolute),
+            Directory.Exists(absolute),
+            pendingWriteLease is not null,
+            pendingWriteLease?.FileObject is not null,
+            "NO_LEASE");
+        var stage = bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE"
+            ? SystemDirectoryWriteRejoinStage(normalized)
+            : null;
+        if (!SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+            authorizationFailure,
+            pid,
+            eventName,
+            fileObject,
+            true,
+            true,
+            !filesByObject.ContainsKey(fileObject),
+            true,
+            bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE",
+            stage == "CANDIDATE",
+            true,
+            true))
+            return false;
+        producerPid = rootPid!.Value;
+        producerSequenceNumber = rootSequence!.Value;
+        expectedIdentity = filesByPath[normalized].Identity;
         return true;
     }
 
@@ -4688,6 +4765,35 @@ public static class SystemDirectoryWriteRejoinDiagnosticRules
         if (!rootActive) return "ROOT_INACTIVE";
         return "CANDIDATE";
     }
+}
+
+public static class SystemDirectoryWriteRejoinAuthorizationRules
+{
+    public static bool CanAuthorize(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool voicePhase,
+        bool eventAfterPhaseStart,
+        bool fileObjectUnbound,
+        bool noActiveLease,
+        bool exactBucket,
+        bool candidateStage,
+        bool rootPidAvailable,
+        bool rootSequenceAvailable) =>
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "write" &&
+        fileObject != 0 &&
+        voicePhase &&
+        eventAfterPhaseStart &&
+        fileObjectUnbound &&
+        noActiveLease &&
+        exactBucket &&
+        candidateStage &&
+        rootPidAvailable &&
+        rootSequenceAvailable;
 }
 
 public static class SystemSetInfoCorrelationRules

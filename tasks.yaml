@@ -2073,7 +2073,7 @@ tasks:
   title: CHG-F005-024 System directory write再結合候補固定診断
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-097
   tags:
@@ -2086,6 +2086,26 @@ tasks:
   - QT-F005-008
   mode: advisor
   mode_reason: cache directory metadata writeを認可せずidentity・root owner固定stageへ細分化するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-099
+  title: CHG-F005-025 System directory write完全候補限定再結合
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-098
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: hostedで全安全候補条件一致を確認したcache directory writeだけをidentity二重照合付きで再結合するため
   model:
     lead: opus
     workers: sonnet

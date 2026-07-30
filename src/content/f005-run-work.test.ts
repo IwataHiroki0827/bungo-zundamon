@@ -579,6 +579,20 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    const directoryIdentityMismatch = new F005NativeCapacityError(
+      'F005_ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
+      'fixed directory identity mismatch only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: directoryIdentityMismatch }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: 'F005_ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
+      },
+    });
   });
 
   it.each([

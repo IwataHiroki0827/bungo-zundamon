@@ -256,6 +256,24 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       .toBeLessThan(directoryStage.indexOf('RootWorkerAliveLocked(rootPid ?? -1)'));
     expect(directoryStage.match(/RootWorkerAliveLocked\(rootPid \?\? -1\)/gu))
       .toHaveLength(1);
+    expect(program).toContain('TryAuthorizeKnownSystemDirectoryWriteLocked(');
+    const directoryAuthorization = program.slice(
+      program.indexOf('private bool TryAuthorizeKnownSystemDirectoryWriteLocked('),
+      program.indexOf('private bool BindReservedSystemSetInfoLocked('),
+    );
+    expect(directoryAuthorization).toContain(
+      'SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(',
+    );
+    expect(directoryAuthorization).toContain('stage == "CANDIDATE"');
+    expect(directoryAuthorization).toContain(
+      'bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE"',
+    );
+    expect(directoryAuthorization).toContain(
+      'expectedIdentity = filesByPath[normalized].Identity',
+    );
+    expect(program).toContain(
+      'ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
+    );
     const closedLeaseBlock = program.slice(
       program.indexOf('if (lease.FileObjectClosed)'),
       program.indexOf('if (lease.FileObject is null)'),

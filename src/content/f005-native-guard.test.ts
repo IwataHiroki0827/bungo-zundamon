@@ -80,6 +80,10 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
     ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
     ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
+    [
+      'ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
+      'F005_ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH',
+    ],
   ] as const) {
     expect(classifyF005NativeCapacityReplyError(value)).toBe(expected);
   }
@@ -726,7 +730,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (111 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (123 cases)'),
     });
   }, 120_000);
 });

@@ -623,4 +623,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 7000
-  note: run 30519553414のcache directory metadata writeを認可せず、snapshot/current identity・同一phase root owner・root activeの固定6 stageへ細分化。対象124件、native規則111件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30519553414のcache directory metadata writeを認可せず、snapshot/current identity・同一phase root owner・root activeの固定6 stageへ細分化。対象124件、native規則111件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30520302499でCANDIDATEを特定
+- date: '2026-07-30'
+  phase: test
+  task: T-099 CHG-F005-025 System directory write完全候補限定再結合
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30520302499のCANDIDATEを根拠に、exact cache directory完全候補だけをroot worker世代へidentity二重照合付きで再結合。対象124件、native規則123件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

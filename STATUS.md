@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T15:39:27+09:00
+updated: 2026-07-30T15:51:21+09:00
 next_actions:
-  - "CHG-F005-024のdirectory write固定stageを独立レビュー・commit/pushし、GitHub hosted Windowsでproductionを継続する"
+  - "CHG-F005-025のdirectory write限定再結合を独立レビュー・commit/pushし、GitHub hosted Windowsでproductionを継続する"
 blocked_by: []
 ---
 
@@ -29,6 +29,7 @@ blocked_by: []
 - run 30517951376はclosed lease限定再結合を通過後、`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH`で安全停止した。CHG-F005-021/T-095は`done`とした。CHG-F005-022で認可を変えず、FileObject、active lease snapshot/current identity、open/closed、完了write関係を固定10 stageへ細分化した。native規則105件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30518908190は`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_OTHER_KNOWN_PATH`で安全停止した。CHG-F005-022/T-096は`done`とした。CHG-F005-023で認可を変えず、その他既知pathをtop-level・拡張子・実体種別・lease状態の固定bucketへ細分化した。native規則105件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30519553414は`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_CACHE_OTHER_DIRECTORY_NO_LEASE`で安全停止した。CHG-F005-023/T-097は`done`とした。CHG-F005-024で認可を変えず、snapshot/current identity・同一phase root owner・root activeを固定6 stageへ細分化した。native規則111件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30520302499は`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_CANDIDATE`で安全停止し、cache directoryの同一identity・同一phase root owner・root activeを確認した。CHG-F005-024/T-098は`done`とした。CHG-F005-025で完全候補だけをroot世代へidentity二重照合付きで再結合し、native規則123件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -70,18 +71,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-099/CHG-F005-025でSystem directory write完全候補を限定再結合
+- run 30520302499でdirectory CANDIDATEを安全停止し、候補・公開差分0
 - T-098/CHG-F005-024でSystem directory writeを固定6 stageへ細分化
 - run 30519553414でCACHE_OTHER_DIRECTORY_NO_LEASEを安全停止し、候補・公開差分0
 - T-097/CHG-F005-023でSystem未結合writeその他既知pathを固定bucket化
-- run 30518908190でOTHER_KNOWN_PATHを安全停止し、候補・公開差分0
-- T-096/CHG-F005-022でSystem未結合write既知pathを固定10 stageへ細分化
 
 ## 次のアクション
 
-- CHG-F005-024を独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- System directory writeのidentity・root owner固定stageを取得し、限定再結合可否を判断する。
+- CHG-F005-025を独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- directory write再結合後もidentity・容量・候補保存が不変で処理継続することをhosted証跡で確認する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了writeの2秒再結合、closed lease完全候補再結合までPASSしている。CHG-F005-024でSystem directory writeの固定stageを取得する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了writeの2秒再結合、closed lease完全候補再結合、System directory write完全候補確認までPASSしている。CHG-F005-025でproductionを継続する必要がある。
