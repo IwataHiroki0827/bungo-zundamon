@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; active-lease directory writes expose safe stages.
+# Native tooling stays outside; bound/unbound active leases expose safe stages.
 on:
   push:
     branches:

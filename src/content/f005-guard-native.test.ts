@@ -242,6 +242,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'if (bucket == "CACHE_OTHER_DIRECTORY_UNBOUND_LEASE")',
     );
     expect(unboundWriteStage).toContain(
+      'if (bucket == "CACHE_OTHER_DIRECTORY_BOUND_LEASE")',
+    );
+    expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
     );
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');

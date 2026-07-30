@@ -3249,6 +3249,9 @@ sealed class CapacityGuardSession : IDisposable
         if (bucket == "CACHE_OTHER_DIRECTORY_UNBOUND_LEASE")
             return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
                 SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
+        if (bucket == "CACHE_OTHER_DIRECTORY_BOUND_LEASE")
+            return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
+                SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
         return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
     }
 
