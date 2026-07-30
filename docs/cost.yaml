@@ -519,3 +519,10 @@ entries:
   agents: 2
   est_tokens: 18000
   note: PathMapとsource revision非埋込みでcheckout path・Git commit非依存の固定binary SHA 1846897e...9813へ統一。local/source-only/hosted Windows、重点97件・全1241件、型・lint・697 files build・audit 0・public差分0、独立再レビューHigh/Medium/Low 0をPASS。Actions run 30445446783でkernel FileIO ETW正常系を確認
+- date: '2026-07-30'
+  phase: test
+  task: T-083/T-084 CHG-F005-009/010 native tooling隔離
+  model: GPT-5
+  agents: 2
+  est_tokens: 22000
+  note: native executableとcwdをworkspace外へ隔離し、GUID新規directory、reparse/hardlink拒否、spawn直前SHA、実process self hash、hello cwd一致booleanを全clientへ固定。対象124件、native規則37件、型・ESLint・再現build・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

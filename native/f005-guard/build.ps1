@@ -31,7 +31,7 @@ $SdkUrl = "https://builds.dotnet.microsoft.com/dotnet/Sdk/$SdkVersion/dotnet-sdk
 $RuntimeUrl = "https://builds.dotnet.microsoft.com/dotnet/Runtime/$RuntimeVersion/dotnet-runtime-$RuntimeVersion-win-x64.zip"
 $SdkSha512 = '871d655b07f05aa5844a27a0dc742ccb6ca1e6df11be1c1251d6e967505595f455fd1160165048e3348f8dd2412ca82d414d0402c8acab30f997e30897a9040f'
 $RuntimeSha512 = '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8'
-$ExpectedExeSha256 = '08899bced4e40b2c8c615a840b943b14389a0b246f09b1ce540c5bad18f90bb1'
+$ExpectedExeSha256 = 'dad0f01ae8358312854670737ec94be1f6d3ba6e3a90d9437ffef27d07e1fa11'
 
 $NativeRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $ProjectRoot = [System.IO.Path]::GetFullPath((Join-Path $NativeRoot '..\..'))
@@ -168,9 +168,14 @@ try {
 }
 
 Assert-Hash -Path $GuardExe -Algorithm SHA256 -Expected $ExpectedExeSha256
-$HelloRaw = '{"op":"hello"}' | & $GuardExe
-if ($LASTEXITCODE -ne 0) {
-  throw "native guard helloがexit code $LASTEXITCODE で失敗しました"
+Push-Location (Split-Path -Parent $GuardExe)
+try {
+  $HelloRaw = '{"op":"hello"}' | & $GuardExe
+  if ($LASTEXITCODE -ne 0) {
+    throw "native guard helloがexit code $LASTEXITCODE で失敗しました"
+  }
+} finally {
+  Pop-Location
 }
 $Hello = $HelloRaw | ConvertFrom-Json
 if (
@@ -179,7 +184,8 @@ if (
   $Hello.capacityAbi -ne $CapacityAbi -or
   $Hello.rid -ne $Rid -or
   $Hello.runtimeVersion -ne $RuntimeVersion -or
-  $Hello.binarySha256 -ne $ExpectedExeSha256
+  $Hello.binarySha256 -ne $ExpectedExeSha256 -or
+  $Hello.workingDirectoryIsExecutableDirectory -ne $true
 ) {
   throw "native guard hello固定値が一致しません: $HelloRaw"
 }

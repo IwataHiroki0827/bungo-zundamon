@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-010
+  date: '2026-07-30'
+  trigger: Actions run 30508494379でexternal native binary使用後もhelper spawn中・write予約前のworkspace System SetInfoが安全停止
+  level: design
+  affected:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - T-070
+  - T-083
+  - T-084
+  status: in-review
 - id: CHG-F005-009
   date: '2026-07-30'
   trigger: Actions run 30507414370でhelper spawn後・artifact予約前にworkspace内native executableへのSystem SetInfoが安全停止

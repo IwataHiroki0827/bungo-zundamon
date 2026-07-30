@@ -78,7 +78,7 @@ export const F005_NATIVE_GUARD_PINS = Object.freeze({
   runtimeZipSha512:
     '38dd0b646bcf8e593d86456b97f75566a902358c437f84ab8b2b21c8f54cc0272910a91330936f02c8eec6e45c1157b716b21d15b91d55187daf19831c32b8a8',
   outputBinarySha256:
-    '08899bced4e40b2c8c615a840b943b14389a0b246f09b1ce540c5bad18f90bb1',
+    'dad0f01ae8358312854670737ec94be1f6d3ba6e3a90d9437ffef27d07e1fa11',
 } as const);
 
 export const F005_WORKS = Object.freeze([
@@ -1952,7 +1952,7 @@ class F005NativeGuardClient {
       throw new F005SourceError('F005_PATH_UNSAFE', 'native guard executableの固定SHAが一致しません');
     }
     const child = spawn(executable, [], {
-      cwd: process.cwd(),
+      cwd: dirname(executable),
       windowsHide: true,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
@@ -1965,7 +1965,8 @@ class F005NativeGuardClient {
         hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
         hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
         hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||
-        hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256
+        hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
+        hello.workingDirectoryIsExecutableDirectory !== true
       ) {
         throw new Error('guard hello pin mismatch');
       }

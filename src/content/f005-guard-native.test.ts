@@ -2,7 +2,7 @@ import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { link, mkdir, mkdtemp, readFile, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 import { setTimeout as delay } from 'node:timers/promises';
 
@@ -35,9 +35,12 @@ class GuardClient {
   private readonly process: ChildProcessWithoutNullStreams;
   private readonly replies: Array<(value: GuardReply) => void> = [];
 
-  constructor(args: readonly string[] = []) {
+  constructor(
+    args: readonly string[] = [],
+    cwd: string = dirname(GUARD_EXE),
+  ) {
     this.process = spawn(GUARD_EXE, args, {
-      cwd: PROJECT_ROOT,
+      cwd,
       windowsHide: true,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
@@ -285,8 +288,16 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       rid: 'win-x64',
       runtimeVersion: '9.0.18',
       binarySha256: F005_NATIVE_GUARD_PINS.outputBinarySha256,
+      workingDirectoryIsExecutableDirectory: true,
     });
     await client.close();
+
+    const wrongCwdClient = new GuardClient([], PROJECT_ROOT);
+    await expect(wrongCwdClient.command({ op: 'hello' })).resolves.toMatchObject({
+      ok: true,
+      workingDirectoryIsExecutableDirectory: false,
+    });
+    await wrongCwdClient.close();
   });
 
   /** @des DES-F005-006 @fun FUN-F005-017 @test UT-F005-047 */
@@ -302,6 +313,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
           ok: true,
           abi: 'f005-guard-jsonl-v1',
           binarySha256: F005_NATIVE_GUARD_PINS.outputBinarySha256,
+          workingDirectoryIsExecutableDirectory: true,
         });
       return client;
     };

@@ -3,7 +3,7 @@ import { createHash, randomBytes } from 'node:crypto';
 import { lstatSync, readFileSync, realpathSync } from 'node:fs';
 import { lstat, readFile, realpath, unlink, writeFile } from 'node:fs/promises';
 import { createConnection, type Socket } from 'node:net';
-import { isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { createInterface } from 'node:readline';
 
 import { canonicalJson } from './artifacts.ts';
@@ -380,7 +380,7 @@ export async function flushF005ArtifactDirectory(
     return fail('F005_NATIVE_GUARD_INVALID', 'native guard binary pinが一致しません');
   }
 
-  const guard = new NativeGuardProcess(executable, workspace);
+  const guard = new NativeGuardProcess(executable);
   let closed = false;
   try {
     const hello = await guard.channel.command({ op: 'hello' });
@@ -389,7 +389,8 @@ export async function flushF005ArtifactDirectory(
       hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
       hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
       hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||
-      hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256) {
+      hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
+      hello.workingDirectoryIsExecutableDirectory !== true) {
       return fail('F005_NATIVE_GUARD_INVALID', 'native guard ABI/toolchainが一致しません');
     }
     const synced = await guard.channel.command({
@@ -493,7 +494,7 @@ class NativeGuardProcess {
   readonly process: ChildProcessWithoutNullStreams;
   readonly channel: JsonLineChannel;
 
-  constructor(executable: string, workspace: string, args: readonly string[] = []) {
+  constructor(executable: string, args: readonly string[] = []) {
     let executableInfo: ReturnType<typeof lstatSync>;
     let binary: Buffer;
     try {
@@ -518,7 +519,7 @@ class NativeGuardProcess {
       );
     }
     this.process = spawn(executable, args, {
-      cwd: workspace,
+      cwd: dirname(executable),
       windowsHide: true,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
@@ -770,7 +771,7 @@ export async function startF005NativeCapacitySession(
     | 'probe-write'
     | 'probe-verify' = 'guard-channel';
   try {
-    guard = new NativeGuardProcess(executable, options.workspace);
+    guard = new NativeGuardProcess(executable);
     const activeGuard = guard;
     const hello = await activeGuard.channel.command({ op: 'hello' });
     if (!hello.ok ||
@@ -778,7 +779,8 @@ export async function startF005NativeCapacitySession(
       hello.capacityAbi !== F005_NATIVE_GUARD_PINS.capacityAbi ||
       hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
       hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||
-      hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256) {
+      hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
+      hello.workingDirectoryIsExecutableDirectory !== true) {
       return fail('F005_NATIVE_GUARD_INVALID', 'native guard ABI/toolchainが一致しません');
     }
     const preflight = await activeGuard.channel.command({ op: 'capacity-preflight' });
@@ -992,7 +994,6 @@ export async function startF005NativeCapacitySession(
       const relativePath = normalizeF005CapacityNoticePath(options.workspace, path);
       const writer = new NativeGuardProcess(
         executable,
-        options.workspace,
         ['--write-through-once'],
       );
       try {
@@ -1002,6 +1003,7 @@ export async function startF005NativeCapacitySession(
           hello.rid !== F005_NATIVE_GUARD_PINS.rid ||
           hello.runtimeVersion !== F005_NATIVE_GUARD_PINS.runtimeVersion ||
           hello.binarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
+          hello.workingDirectoryIsExecutableDirectory !== true ||
           !Number.isSafeInteger(hello.processId) || Number(hello.processId) <= 0 ||
           Number(hello.processId) !== writer.process.pid ||
           Number(hello.processId) === process.pid) {

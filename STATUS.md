@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-29T19:55:09+09:00
+updated: 2026-07-30T11:39:17+09:00
 next_actions:
-  - "kernel ETW正常系を確認したGitHub hosted WindowsでT-070 production runnerを実行し、夢十夜62音声を候補branchへ生成・作品単位受入する"
+  - "CHG-F005-010のnative tooling cwd隔離をcommit/pushし、GitHub hosted WindowsでT-070 production runnerを再実行する"
 blocked_by: []
 ---
 
@@ -12,6 +12,9 @@ blocked_by: []
 ## 現在の状況
 
 - F001はv0.1.0、F002はv0.2.0、F003はv0.3.0、F004はv0.4.0としてGitHub Pagesへ公開済み。公開サイトは3作者・12作品・674台詞・662音声で安定稼働中。
+- F005は公開前の非公開候補生成を継続中で、公開サイト・`public/`・`data/`は変更していない。
+- CHG-F005-009でnative executableをworkspace外のGUID付きRUNNER_TEMPへ隔離し、全起動経路のrealpath/reparse/hardlink/SHA/self hash検証を実装した。run 30508494379では外部binary使用を確認したが、write helper spawn後・予約前のworkspace System SetInfoで安全停止した。
+- CHG-F005-010で全native tooling processのcwdもexternal executable parentへ隔離し、path非公開のhello booleanで実processのcwd一致を全client/buildへ必須化した。対象124件、native規則37件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -53,17 +56,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
-- T-077でnative buildをcheckout path・commit非依存化し、Actions run 30445446783でhosted Windows kernel ETW正常系までPASS
-- T-070 runnerのcapacity candidate SHAをApproved Context正本へ統一し、全1241試験・独立受入をPASS。clean HEAD実行はETW権限不足で音声生成前に安全停止
-- T-076で二段作品受入、native identity必須CAS、全transaction事前走査、phase別回復を実装し、全1240試験・独立受入を完了
-- T-070で夢十夜の原典・二重レビュー・62音声plan・容量予測・native ETW/受入基盤・production runnerを実装し、実音声生成前で安全停止
-- T-069でnullable書誌・夏目Catalog・独自画像・7 route・お気に入り統合を実装し、全1105試験・独立受入を完了
+- T-084/CHG-F005-010でnative tooling cwdをexternal executable parentへ隔離し、hello cwd一致検証と独立レビューをPASS
+- T-083/CHG-F005-009でnative runtimeをworkspace外へ隔離し、起動前後の実体・SHA検証と全client伝播をPASS
+- run 30508494379でexternal binary使用後もwrite予約前のSystem SetInfoが安全停止し、候補・公開差分0を確認
+- CHG-F005-008でnative write helper失敗をopen/flush/identity/verify/cleanup/protocolへ固定分類
+- CHG-F005-007でrename syscall前のexact target予約とQPC境界を実装し、遅延eventをfail-closed化
 
 ## 次のアクション
 
-- hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行し、「夢十夜」62音声・作品単位atomic受入を実施する。
+- CHG-F005-010をcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- helper spawnからwrite予約までのworkspace tooling mutationが0件であることを確認後、「夢十夜」62音声・作品単位atomic受入を継続する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerは実装済みで、hosted Windowsのkernel ETW preflightはPASSした。VOICEVOX取得、生成物永続化、候補branch限定、公開禁止を固定したworkflowから実音声生成する必要がある。
+- T-070 production runnerは実装済みで、hosted Windowsのkernel ETW preflightとVOICEVOX取得はPASSした。CHG-F005-010反映後のhosted正常系を再確認する必要がある。

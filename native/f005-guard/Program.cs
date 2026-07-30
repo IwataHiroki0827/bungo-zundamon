@@ -37,6 +37,12 @@ var selfExecutable = Environment.ProcessPath ??
     throw new GuardException("GUARD_BINARY_UNAVAILABLE");
 var selfBinarySha256 = Convert.ToHexString(
     SHA256.HashData(File.ReadAllBytes(selfExecutable))).ToLowerInvariant();
+var selfDirectory = Path.GetDirectoryName(selfExecutable) ??
+    throw new GuardException("GUARD_BINARY_UNAVAILABLE");
+var workingDirectoryIsExecutableDirectory = string.Equals(
+    Path.GetFullPath(Environment.CurrentDirectory).TrimEnd(Path.DirectorySeparatorChar),
+    Path.GetFullPath(selfDirectory).TrimEnd(Path.DirectorySeparatorChar),
+    StringComparison.OrdinalIgnoreCase);
 
 while (Console.ReadLine() is { } line)
 {
@@ -78,6 +84,7 @@ while (Console.ReadLine() is { } line)
                     runtimeVersion = Environment.Version.ToString(),
                     processId = Environment.ProcessId,
                     binarySha256 = selfBinarySha256,
+                    workingDirectoryIsExecutableDirectory,
                 });
                 break;
             case "capacity-preflight":
