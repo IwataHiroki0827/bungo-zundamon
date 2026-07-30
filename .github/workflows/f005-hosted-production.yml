@@ -363,7 +363,7 @@ jobs:
               'F005_RUNNER_STDERR_BASE64' $stderr
             throw "F005 production runner failed: $runnerExitCode"
           }
-          $hostProgress = 'result-parse'
+          $hostProgress = 'result-marker-check'
           $prefix = 'F005_RESULT_JSON='
           $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
           if ($resultLines.Count -ne 1) {
@@ -373,7 +373,9 @@ jobs:
               'F005_RUNNER_STDERR_BASE64' $stderr
             throw "F005 production runner result marker count is $($resultLines.Count)"
           }
+          $hostProgress = 'result-json-parse'
           $result = $resultLines[0].Substring($prefix.Length) | ConvertFrom-Json
+          $hostProgress = 'result-validation'
           if ($result.ok -ne $true -or $result.workId -ne '000799' -or
             $result.status -ne 'accepted') {
             Write-BoundedBase64Diagnostic `
