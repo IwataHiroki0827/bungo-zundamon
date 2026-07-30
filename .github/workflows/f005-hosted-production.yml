@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; retained child handles distinguish normal exit from live escape.
+# Source bytes are LF-pinned; reserved WAV SetInfo seals identity before deferred ETW replay.
 on:
   push:
     branches:

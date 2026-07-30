@@ -461,4 +461,65 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('filesByPath.Remove(deferred.Source.RelativePath)');
     expect(source).toContain('filesByPath[target.RelativePath] = target');
   });
+
+  it('System SetInfoは予約済みJob childの同一FileObjectへ後着Createで完全相関する', async () => {
+    const [program, bridge] = await Promise.all([
+      readFile(resolve('native/f005-guard/Program.cs'), 'utf8'),
+      readFile(resolve('src/content/f005-native-guard.ts'), 'utf8'),
+    ]);
+    expect(program).toContain('case "reserveWrite":');
+    expect(program).toContain('case "completeWrite":');
+    expect(program).toContain('job.OpenContainedProcess(producerPid)');
+    expect(program).toContain('identity.ProcessSequenceNumber');
+    expect(program).toContain('TryAuthorizeReservedSystemSetInfoLocked(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.CanAuthorize(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.CanBindDeferred(');
+    expect(program).toContain('item.Snapshot.Identity');
+    expect(program).toContain('ReplayDeferredSystemSetInfoLocked(deferred)');
+    expect(program).toContain('lease.FileObjectClosed = true');
+    expect(program).toContain('SystemSetInfoCorrelationRules.CleanupInvalidates(');
+    expect(program).toContain('job.IsSignaled(lease.Process)');
+    expect(program).toContain('current.Identity != lease.Snapshot!.Identity');
+    expect(program).toContain('pendingWriteLease is not null || deferredSystemSetInfos.Count != 0');
+    expect(program).toContain('ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH');
+    expect(bridge.indexOf("op: 'reserveWrite'"))
+      .toBeLessThan(bridge.indexOf("op: 'write-through'"));
+    expect(bridge.indexOf('await writer.close();'))
+      .toBeLessThan(bridge.indexOf("op: 'completeWrite'"));
+  });
+
+  it('System SetInfo相関のnative規則を攻撃ケース込みで実行する', async () => {
+    const dotnet = resolve('.cache/dotnet-f005/sdk/dotnet.exe');
+    const child = spawn(dotnet, [
+      'run',
+      '--project',
+      resolve('native/f005-guard-tests/F005Guard.CorrelationTests.csproj'),
+      '--configuration',
+      'Release',
+    ], {
+      cwd: PROJECT_ROOT,
+      env: {
+        ...process.env,
+        DOTNET_CLI_HOME: resolve('.cache/dotnet-f005/cli-home'),
+        DOTNET_NOLOGO: '1',
+        NUGET_PACKAGES: resolve('.cache/dotnet-f005/nuget'),
+      },
+      windowsHide: true,
+    });
+    let output = '';
+    child.stdout?.on('data', (chunk: Buffer) => {
+      output += chunk.toString('utf8');
+    });
+    child.stderr?.on('data', (chunk: Buffer) => {
+      output += chunk.toString('utf8');
+    });
+    const exitCode = await new Promise<number | null>((resolveExit, reject) => {
+      child.once('error', reject);
+      child.once('exit', resolveExit);
+    });
+    expect({ exitCode, output }).toMatchObject({
+      exitCode: 0,
+      output: expect.stringContaining('System SetInfo correlation tests PASS (18 cases)'),
+    });
+  }, 120_000);
 });

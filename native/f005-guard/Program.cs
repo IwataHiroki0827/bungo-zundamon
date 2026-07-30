@@ -1227,6 +1227,8 @@ sealed class CapacityGuardSession : IDisposable
     private readonly List<NoticeRecord> notices = [];
     private readonly List<ObservationRecord> observations = [];
     private readonly List<DeferredRenameRecord> deferredRenames = [];
+    private readonly List<DeferredSystemSetInfoRecord> deferredSystemSetInfos = [];
+    private PendingWriteLease? pendingWriteLease;
     private long etwSequence;
     private long etwRelevantEventCount;
     private long noticeSequence;
@@ -1458,6 +1460,24 @@ sealed class CapacityGuardSession : IDisposable
         lock (gate)
         {
             filesByObject.Remove(fileObject);
+            var lease = pendingWriteLease;
+            var deferredMatches = deferredSystemSetInfos.Any(item => item.FileObject == fileObject);
+            if (!SystemSetInfoCorrelationRules.CleanupInvalidates(
+                fileObject,
+                lease?.FileObject,
+                deferredSystemSetInfos.Select(item => item.FileObject)))
+                return;
+            if (deferredMatches)
+            {
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                deferredSystemSetInfos.Clear();
+            }
+            if (lease is { FileObject: { } leasedFileObject } &&
+                leasedFileObject == fileObject)
+            {
+                lease.FileObject = null;
+                lease.FileObjectClosed = true;
+            }
         }
     }
 
@@ -1650,6 +1670,10 @@ sealed class CapacityGuardSession : IDisposable
             case "beginPhase":
                 RequireExactPipeKeys(rootElement, "authToken", "op", "phase", "phaseInstanceId", "sessionNonce", "workId");
                 break;
+            case "reserveWrite":
+            case "completeWrite":
+                RequireExactPipeKeys(rootElement, "authToken", "op", "path", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "workId");
+                break;
             case "notice":
             {
                 var eventName = PipeString(rootElement, "event");
@@ -1675,6 +1699,16 @@ sealed class CapacityGuardSession : IDisposable
                 PipeString(rootElement, "phase"),
                 PipeSha256(rootElement, "phaseInstanceId"));
         }
+        if (operation == "completeWrite")
+        {
+            return CompleteWriteAfterEtwDrain(
+                PipeString(rootElement, "phase"),
+                PipeNullableWorkId(rootElement, "workId"),
+                PipeSha256(rootElement, "phaseInstanceId"),
+                PipePositiveInt(rootElement, "producerPid"),
+                ValidateRelativePath(PipeString(rootElement, "path")),
+                clientPid);
+        }
         if (operation == "verifyProcessIdentityProbe")
         {
             return VerifyProcessIdentityProbe(
@@ -1693,6 +1727,13 @@ sealed class CapacityGuardSession : IDisposable
                     PipeString(rootElement, "phase"),
                     PipeNullableWorkId(rootElement, "workId"),
                     PipeSha256(rootElement, "phaseInstanceId")),
+                "reserveWrite" => ReserveWrite(
+                    PipeString(rootElement, "phase"),
+                    PipeNullableWorkId(rootElement, "workId"),
+                    PipeSha256(rootElement, "phaseInstanceId"),
+                    PipePositiveInt(rootElement, "producerPid"),
+                    ValidateRelativePath(PipeString(rootElement, "path")),
+                    clientPid),
                 "notice" => ReceiveNotice(rootElement, clientPid),
                 "status" => new {
                     ok = true,
@@ -1799,6 +1840,135 @@ sealed class CapacityGuardSession : IDisposable
             new DateTimeOffset(startedAtUtc).ToString("O"), CurrentLiveBytes(), free));
         PersistJournal(closed: false);
         return new { ok = true, phase, workId, phaseInstanceId };
+    }
+
+    private object ReserveWrite(
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        int producerPid,
+        string path,
+        int clientPid)
+    {
+        if (failureCode is not null) throw new GuardException(failureCode);
+        if (activePhase is null ||
+            activePhase.Phase != "voice" ||
+            activePhase.Phase != phase ||
+            activePhase.WorkId != workId ||
+            activePhase.PhaseInstanceId != phaseInstanceId)
+            throw new GuardException("PHASE_MISMATCH");
+        if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
+            throw new GuardException("NOTICE_PID_NOT_REGISTERED");
+        if (pendingWriteLease is not null) throw new GuardException("WRITE_LEASE_ALREADY_ACTIVE");
+        if (TryInspect(path) is not null) throw new GuardException("WRITE_LEASE_PATH_CONFLICT");
+        var process = job.OpenContainedProcess(producerPid)
+            ?? throw new GuardException("WRITE_LEASE_PRODUCER_NOT_JOB_MEMBER");
+        try
+        {
+            var identity = job.ProcessIdentity(process);
+            pendingWriteLease = new PendingWriteLease(
+                producerPid,
+                identity.ProcessStartKey,
+                identity.ProcessSequenceNumber,
+                phaseInstanceId,
+                path,
+                Stopwatch.GetTimestamp(),
+                process);
+            process = null!;
+            return new { ok = true, state = "reserved", path, producerPid };
+        }
+        finally
+        {
+            process?.Dispose();
+        }
+    }
+
+    private object CompleteWriteAfterEtwDrain(
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        int producerPid,
+        string path,
+        int clientPid)
+    {
+        lock (gate)
+        {
+            ThrowIfClosed();
+            if (failureCode is not null) throw new GuardException(failureCode);
+            if (activePhase is null ||
+                activePhase.Phase != phase ||
+                activePhase.WorkId != workId ||
+                activePhase.PhaseInstanceId != phaseInstanceId)
+                throw new GuardException("PHASE_MISMATCH");
+            if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
+                throw new GuardException("NOTICE_PID_NOT_REGISTERED");
+            ValidateWriteLeaseTuple(producerPid, phaseInstanceId, path);
+        }
+        try
+        {
+            var drain = Stopwatch.StartNew();
+            while (drain.Elapsed < TimeSpan.FromSeconds(2))
+            {
+                etwSession.Flush();
+                var before = Interlocked.Read(ref etwRelevantEventCount);
+                Thread.Sleep(100);
+                if (Interlocked.Read(ref etwRelevantEventCount) != before) continue;
+                etwSession.Flush();
+                Thread.Sleep(100);
+                if (Interlocked.Read(ref etwRelevantEventCount) == before)
+                {
+                    lock (gate) return CompleteWrite(producerPid, phaseInstanceId, path);
+                }
+            }
+        }
+        catch (GuardException)
+        {
+            throw;
+        }
+        catch
+        {
+            throw new GuardException("ETW_CONSUMER_DRAIN_FAILED");
+        }
+        throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT");
+    }
+
+    private object CompleteWrite(int producerPid, string phaseInstanceId, string path)
+    {
+        var lease = ValidateWriteLeaseTuple(producerPid, phaseInstanceId, path);
+        var processSignaled = job.IsSignaled(lease.Process);
+        var hasDeferredEvents = deferredSystemSetInfos.Any(
+            item => item.PhaseInstanceId == phaseInstanceId);
+        if (!SystemSetInfoCorrelationRules.CanComplete(
+            processSignaled,
+            lease.FileObject is not null || lease.FileObjectClosed,
+            lease.Snapshot is not null,
+            hasDeferredEvents))
+        {
+            if (!processSignaled)
+                throw new GuardException("WRITE_LEASE_PROCESS_STILL_RUNNING");
+            throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+        }
+        var current = TryInspect(path)
+            ?? throw new GuardException("WRITE_LEASE_IDENTITY_MISSING");
+        if (current.Identity != lease.Snapshot!.Identity)
+            throw new GuardException("WRITE_LEASE_IDENTITY_MISMATCH");
+        lease.Process.Dispose();
+        pendingWriteLease = null;
+        return new { ok = true, state = "completed", path, producerPid };
+    }
+
+    private PendingWriteLease ValidateWriteLeaseTuple(
+        int producerPid,
+        string phaseInstanceId,
+        string path)
+    {
+        var lease = pendingWriteLease;
+        if (lease is null ||
+            lease.WorkerPid != producerPid ||
+            lease.PhaseInstanceId != phaseInstanceId ||
+            lease.RelativePath != path)
+            throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
+        return lease;
     }
 
     private object ReceiveNotice(JsonElement rootElement, int clientPid)
@@ -1909,6 +2079,20 @@ sealed class CapacityGuardSession : IDisposable
             }
         }
         if (failureCode is not null) throw new GuardException(failureCode);
+        if (pendingWriteLease is { } writeLease &&
+            writeLease.WorkerPid == record.WorkerPid &&
+            writeLease.ProcessSequenceNumber == record.ProducerSequenceNumber &&
+            writeLease.PhaseInstanceId == record.PhaseInstanceId)
+        {
+            if (record.EventName == "create" &&
+                record.Path == writeLease.RelativePath &&
+                (writeLease.FileObject is null || writeLease.Snapshot is null))
+                throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+            if (record.EventName == "rename" &&
+                record.From == writeLease.RelativePath &&
+                record.To is not null)
+                writeLease.RelativePath = record.To;
+        }
         return new {
             ok = true,
             noticeSequence = record.NoticeSequence,
@@ -1933,6 +2117,9 @@ sealed class CapacityGuardSession : IDisposable
         }
         if (deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId))
             throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
+        if (pendingWriteLease?.PhaseInstanceId == phaseInstanceId ||
+            deferredSystemSetInfos.Any(item => item.PhaseInstanceId == phaseInstanceId))
+            throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
         AssertRegisteredProcessesContained();
         var free = ReadFreeBytes(root);
         minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
@@ -1995,6 +2182,8 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
             if (deferredRenames.Count != 0)
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
+            if (pendingWriteLease is not null || deferredSystemSetInfos.Count != 0)
+                throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
             if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
                 throw new GuardException("ROOT_PID_NOT_RUNNING");
             AssertRegisteredProcessesContained();
@@ -2060,6 +2249,24 @@ sealed class CapacityGuardSession : IDisposable
                     out var producerSequenceNumber,
                     out var authorizationFailure))
                 {
+                    if (TryAuthorizeReservedSystemSetInfoLocked(
+                        eventName,
+                        pid,
+                        normalized,
+                        fileObject,
+                        timestamp,
+                        timestampQpc,
+                        authorizationFailure,
+                        out var reservedPid,
+                        out var reservedSequenceNumber,
+                        out var deferred))
+                    {
+                        if (deferred) return;
+                        pid = reservedPid;
+                        producerSequenceNumber = reservedSequenceNumber;
+                    }
+                    else
+                    {
                     if (authorizationFailure == "BIRTH_MISSING")
                     {
                         var boundFileObject = filesByObject.ContainsKey(fileObject);
@@ -2083,6 +2290,7 @@ sealed class CapacityGuardSession : IDisposable
                     }
                     PoisonLocked($"ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}");
                     return;
+                    }
                 }
                 callbackStage = "PHASE";
                 if (activePhase is null)
@@ -2094,6 +2302,24 @@ sealed class CapacityGuardSession : IDisposable
                 {
                     PoisonLocked("ETW_EVENT_PHASE_TIMESTAMP_MISMATCH");
                     return;
+                }
+                if (deferredSystemSetInfos.Count != 0)
+                {
+                    callbackStage = "IDENTITY";
+                    var binding = eventName == "create" ? TryInspect(normalized) : null;
+                    callbackStage = "CORRELATION";
+                    if (binding is null ||
+                        !BindReservedSystemSetInfoLocked(
+                            pid,
+                            producerSequenceNumber,
+                            normalized,
+                            fileObject,
+                            timestampQpc,
+                            binding))
+                    {
+                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                        return;
+                    }
                 }
                 if (deferredRenames.Count != 0)
                 {
@@ -2107,6 +2333,21 @@ sealed class CapacityGuardSession : IDisposable
                 if (eventName != "delete")
                     current = TryInspect(normalized);
                 callbackStage = "CORRELATION";
+                if (eventName == "create" &&
+                    pendingWriteLease is { } writeLease &&
+                    writeLease.WorkerPid == pid &&
+                    writeLease.ProcessSequenceNumber == producerSequenceNumber &&
+                    writeLease.PhaseInstanceId == activePhase.PhaseInstanceId &&
+                    writeLease.RelativePath == normalized)
+                {
+                    if (writeLease.FileObjectClosed || fileObject == 0 || current is null)
+                    {
+                        PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                        return;
+                    }
+                    writeLease.FileObject = fileObject;
+                    writeLease.Snapshot = current;
+                }
                 if (eventName == "rename")
                 {
                     var source = filesByPath.GetValueOrDefault(normalized) ?? prior;
@@ -2266,6 +2507,168 @@ sealed class CapacityGuardSession : IDisposable
         }
         processIdentityProbed = true;
         processIdentityProbeObserved.Set();
+    }
+
+    private bool TryAuthorizeReservedSystemSetInfoLocked(
+        string eventName,
+        int pid,
+        string normalized,
+        ulong fileObject,
+        DateTime timestamp,
+        long timestampQpc,
+        string authorizationFailure,
+        out int producerPid,
+        out ulong producerSequenceNumber,
+        out bool deferred)
+    {
+        producerPid = 0;
+        producerSequenceNumber = 0;
+        deferred = false;
+        var lease = pendingWriteLease;
+        if (activePhase is null || lease is null)
+            return false;
+        producerPid = lease.WorkerPid;
+        producerSequenceNumber = lease.ProcessSequenceNumber;
+        if (lease.FileObjectClosed)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            deferred = true;
+            return true;
+        }
+        if (!SystemSetInfoCorrelationRules.CanAuthorize(
+            authorizationFailure,
+            pid,
+            eventName,
+            fileObject,
+            lease.PhaseInstanceId == activePhase.PhaseInstanceId &&
+                lease.RelativePath == normalized,
+            timestampQpc > lease.ReservedAtQpc,
+            job.IsAliveOutsideJob(lease.Process),
+            lease.FileObjectClosed))
+            return false;
+        if (lease.FileObject is null)
+        {
+            if (deferredSystemSetInfos.Any(item =>
+                item.PhaseInstanceId != lease.PhaseInstanceId ||
+                item.RelativePath != normalized ||
+                item.FileObject != fileObject))
+            {
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                deferred = true;
+                return true;
+            }
+            var snapshot = TryInspect(normalized);
+            if (snapshot is null)
+            {
+                PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+                deferred = true;
+                return true;
+            }
+            var free = ReadFreeBytes(root);
+            deferredSystemSetInfos.Add(new DeferredSystemSetInfoRecord(
+                lease.WorkerPid,
+                lease.ProcessSequenceNumber,
+                checked(++etwSequence),
+                activePhase.Phase,
+                activePhase.WorkId,
+                lease.PhaseInstanceId,
+                new DateTimeOffset(timestamp.ToUniversalTime()).ToString("O"),
+                normalized,
+                fileObject,
+                timestampQpc,
+                snapshot,
+                free,
+                new DriveInfo(Path.GetPathRoot(root)!).TotalFreeSpace));
+            deferred = true;
+            return true;
+        }
+        if (lease.FileObject != fileObject || lease.Snapshot is null)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            deferred = true;
+            return true;
+        }
+        var current = TryInspect(normalized);
+        if (current is null || current.Identity != lease.Snapshot.Identity)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH");
+            deferred = true;
+            return true;
+        }
+        lease.Snapshot = current;
+        return true;
+    }
+
+    private bool BindReservedSystemSetInfoLocked(
+        int pid,
+        ulong producerSequenceNumber,
+        string normalized,
+        ulong fileObject,
+        long timestampQpc,
+        FileSnapshot snapshot)
+    {
+        var lease = pendingWriteLease;
+        if (lease is null ||
+            deferredSystemSetInfos.Count == 0 ||
+            deferredSystemSetInfos.Any(item =>
+                !SystemSetInfoCorrelationRules.CanBindDeferred(
+                    lease.FileObjectClosed,
+                    lease.WorkerPid == pid &&
+                        lease.ProcessSequenceNumber == producerSequenceNumber,
+                    item.PhaseInstanceId == lease.PhaseInstanceId &&
+                        item.RelativePath == normalized &&
+                        lease.RelativePath == normalized,
+                    fileObject,
+                    item.FileObject,
+                    lease.ReservedAtQpc,
+                    timestampQpc,
+                    item.TimestampQpc,
+                    snapshot.Identity,
+                    item.Snapshot.Identity)))
+            return false;
+        lease.FileObject = fileObject;
+        lease.Snapshot = snapshot;
+        foreach (var deferred in SystemSetInfoCorrelationRules.ReplayInEtwOrder(
+            deferredSystemSetInfos,
+            item => item.EtwSequence))
+            ReplayDeferredSystemSetInfoLocked(deferred);
+        deferredSystemSetInfos.Clear();
+        return true;
+    }
+
+    private void ReplayDeferredSystemSetInfoLocked(DeferredSystemSetInfoRecord deferred)
+    {
+        filesByObject[deferred.FileObject] = deferred.Snapshot;
+        filesByPath[deferred.RelativePath] = deferred.Snapshot;
+        var oldAllocated = allocatedByIdentity.GetValueOrDefault(deferred.Snapshot.Identity);
+        allocatedByIdentity[deferred.Snapshot.Identity] = deferred.Snapshot.AllocatedLengthBytes;
+        if (deferred.Snapshot.AllocatedLengthBytes == 0)
+            allocatedByIdentity.Remove(deferred.Snapshot.Identity);
+        var delta = checked(deferred.Snapshot.AllocatedLengthBytes - oldAllocated);
+        var live = CurrentLiveBytes();
+        peakLiveBytes = Math.Max(peakLiveBytes, live);
+        minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, deferred.FreeBytes);
+        observations.Add(new ObservationRecord(
+            "setinfo",
+            deferred.RelativePath,
+            null,
+            null,
+            deferred.Phase,
+            deferred.WorkId,
+            deferred.PhaseInstanceId,
+            deferred.EtwSequence,
+            deferred.ObservedAt,
+            deferred.WorkerPid,
+            deferred.ProducerSequenceNumber,
+            deferred.Snapshot.VolumeId,
+            deferred.Snapshot.FileId128,
+            deferred.Snapshot.LogicalLengthBytes,
+            deferred.Snapshot.AllocatedLengthBytes,
+            delta,
+            live,
+            deferred.FreeBytes,
+            deferred.TotalFreeBytes,
+            producerBinarySha256));
     }
 
     private static string ClassifyEtwGuardFailure(
@@ -2717,6 +3120,7 @@ sealed class CapacityGuardSession : IDisposable
         try { pipeTask.Wait(TimeSpan.FromSeconds(5)); } catch { }
         etwSource.Dispose();
         etwSession.Dispose();
+        pendingWriteLease?.Process.Dispose();
         foreach (var worker in registeredWorkerProcesses.Values) worker.Process.Dispose();
         rootWorkerProcess?.Dispose();
         job.Dispose();
@@ -2892,6 +3296,42 @@ sealed class CapacityGuardSession : IDisposable
     private sealed record ProcessBirthRecord(
         ulong ProcessSequenceNumber,
         long StartedAtQpc);
+
+    private sealed record DeferredSystemSetInfoRecord(
+        int WorkerPid,
+        ulong ProducerSequenceNumber,
+        long EtwSequence,
+        string Phase,
+        string? WorkId,
+        string PhaseInstanceId,
+        string ObservedAt,
+        string RelativePath,
+        ulong FileObject,
+        long TimestampQpc,
+        FileSnapshot Snapshot,
+        long FreeBytes,
+        long TotalFreeBytes);
+
+    private sealed class PendingWriteLease(
+        int workerPid,
+        ulong processStartKey,
+        ulong processSequenceNumber,
+        string phaseInstanceId,
+        string relativePath,
+        long reservedAtQpc,
+        Process process)
+    {
+        public int WorkerPid { get; } = workerPid;
+        public ulong ProcessStartKey { get; } = processStartKey;
+        public ulong ProcessSequenceNumber { get; } = processSequenceNumber;
+        public string PhaseInstanceId { get; } = phaseInstanceId;
+        public string RelativePath { get; set; } = relativePath;
+        public long ReservedAtQpc { get; } = reservedAtQpc;
+        public Process Process { get; } = process;
+        public ulong? FileObject { get; set; }
+        public bool FileObjectClosed { get; set; }
+        public FileSnapshot? Snapshot { get; set; }
+    }
 
     private sealed record RegisteredWorkerProcess(
         int Pid,
@@ -3647,4 +4087,67 @@ sealed class SafeJobHandle : SafeHandleZeroOrMinusOneIsInvalid
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CloseHandle(IntPtr handle);
+}
+
+public static class SystemSetInfoCorrelationRules
+{
+    public static bool CanAuthorize(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool phaseAndLeaseMatch,
+        bool eventAfterReservation,
+        bool processAliveOutsideJob,
+        bool fileObjectClosed) =>
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "setinfo" &&
+        fileObject != 0 &&
+        phaseAndLeaseMatch &&
+        eventAfterReservation &&
+        !processAliveOutsideJob &&
+        !fileObjectClosed;
+
+    public static bool CanBindDeferred(
+        bool fileObjectClosed,
+        bool workerIdentityMatches,
+        bool pathAndPhaseMatch,
+        ulong createFileObject,
+        ulong deferredFileObject,
+        long reservationQpc,
+        long createQpc,
+        long systemSetInfoQpc,
+        string createIdentity,
+        string systemSetInfoIdentity) =>
+        !fileObjectClosed &&
+        workerIdentityMatches &&
+        pathAndPhaseMatch &&
+        createFileObject != 0 &&
+        createFileObject == deferredFileObject &&
+        createQpc > reservationQpc &&
+        systemSetInfoQpc >= createQpc &&
+        string.Equals(createIdentity, systemSetInfoIdentity, StringComparison.Ordinal);
+
+    public static bool CleanupInvalidates(
+        ulong cleanupFileObject,
+        ulong? leasedFileObject,
+        IEnumerable<ulong> deferredFileObjects) =>
+        leasedFileObject == cleanupFileObject ||
+        deferredFileObjects.Contains(cleanupFileObject);
+
+    public static bool CanComplete(
+        bool processSignaled,
+        bool hasBoundOrClosedFileObject,
+        bool hasSnapshot,
+        bool hasDeferredEvents) =>
+        processSignaled &&
+        hasBoundOrClosedFileObject &&
+        hasSnapshot &&
+        !hasDeferredEvents;
+
+    public static IEnumerable<T> ReplayInEtwOrder<T>(
+        IEnumerable<T> values,
+        Func<T, long> sequence) =>
+        values.OrderBy(sequence);
 }

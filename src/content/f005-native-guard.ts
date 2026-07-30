@@ -110,6 +110,7 @@ export type F005NativeCapacityErrorCode =
   | 'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT'
   | 'F005_ETW_RENAME_IDENTITY_MISMATCH'
   | 'F005_ETW_SEQUENCE_GAP'
+  | 'F005_ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH'
   | 'F005_ETW_SESSION_STOP_FAILED'
   | 'F005_ETW_UNKNOWN_EVENT'
   | 'F005_CAPACITY_JOURNAL_INVALID'
@@ -204,6 +205,7 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
   ['ETW_PROCESS_START_KEY_PROBE_TIMEOUT', 'F005_ETW_PROCESS_START_KEY_PROBE_TIMEOUT'],
   ['ETW_RENAME_IDENTITY_MISMATCH', 'F005_ETW_RENAME_IDENTITY_MISMATCH'],
   ['ETW_SEQUENCE_GAP', 'F005_ETW_SEQUENCE_GAP'],
+  ['ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH', 'F005_ETW_SYSTEM_SETINFO_CORRELATION_MISMATCH'],
   ['ETW_UNKNOWN_EVENT', 'F005_ETW_UNKNOWN_EVENT'],
 ]);
 
@@ -903,6 +905,7 @@ export async function startF005NativeCapacitySession(
         sha256(bytes) !== expectedSha256) {
         return fail('F005_CAPACITY_IPC_FAILED', 'native write-through tupleが不正です');
       }
+      const writePhase = activePhase;
       const relativePath = normalizeF005CapacityNoticePath(options.workspace, path);
       const writer = new NativeGuardProcess(
         executable,
@@ -918,6 +921,18 @@ export async function startF005NativeCapacitySession(
           return fail('F005_NATIVE_GUARD_INVALID', 'write-through helper ABIが一致しません');
         }
         const producerPid = Number(hello.processId);
+        const reserved = await pipe?.command({
+          op: 'reserveWrite',
+          phase: writePhase.phase,
+          workId: writePhase.workId,
+          phaseInstanceId: writePhase.phaseInstanceId,
+          producerPid,
+          path: relativePath,
+        });
+        if (!reserved || !reserved.ok || reserved.state !== 'reserved' ||
+          reserved.path !== relativePath || reserved.producerPid !== producerPid) {
+          return fail('F005_CAPACITY_IPC_FAILED', 'native write-through予約に失敗しました');
+        }
         const reply = await writer.channel.command({
           op: 'write-through',
           root: options.workspace,
@@ -969,6 +984,18 @@ export async function startF005NativeCapacitySession(
               return fail('F005_CAPACITY_IPC_FAILED', 'native write-through commitに失敗しました');
             }
             await writer.close();
+            const completed = await pipe?.command({
+              op: 'completeWrite',
+              phase: writePhase.phase,
+              workId: writePhase.workId,
+              phaseInstanceId: writePhase.phaseInstanceId,
+              producerPid,
+              path: currentRelativePath,
+            });
+            if (!completed || !completed.ok || completed.state !== 'completed' ||
+              completed.path !== currentRelativePath || completed.producerPid !== producerPid) {
+              return fail('F005_CAPACITY_IPC_FAILED', 'native write-through予約を完了できません');
+            }
             settled = true;
           },
           abort: async (): Promise<void> => {
