@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; unknown System SetInfo exposes fixed safe buckets only.
+# Native tooling stays outside; System SetInfo correlation exposes fixed safe stages only.
 on:
   push:
     branches:
