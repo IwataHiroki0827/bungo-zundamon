@@ -367,6 +367,11 @@ jobs:
           $prefix = 'F005_RESULT_JSON='
           $resultLines = @($raw | Where-Object { $_.StartsWith($prefix) })
           if ($resultLines.Count -ne 1) {
+            $hostProgress = if ($resultLines.Count -eq 0) {
+              'result-marker-missing'
+            } else {
+              'result-marker-duplicate'
+            }
             Write-BoundedBase64Diagnostic `
               'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
             Write-BoundedBase64Diagnostic `

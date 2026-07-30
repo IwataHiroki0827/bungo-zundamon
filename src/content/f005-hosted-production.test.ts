@@ -129,6 +129,8 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(production?.run).toContain("$hostProgress = 'runner-start'");
     expect(production?.run).toContain("$hostProgress = 'runner-finished'");
     expect(production?.run).toContain("$hostProgress = 'result-marker-check'");
+    expect(production?.run).toContain("'result-marker-missing'");
+    expect(production?.run).toContain("'result-marker-duplicate'");
     expect(production?.run).toContain("$hostProgress = 'result-json-parse'");
     expect(production?.run).toContain("$hostProgress = 'result-validation'");
     expect(production?.run).toContain("$hostProgress = 'result-write'");
