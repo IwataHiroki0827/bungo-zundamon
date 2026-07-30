@@ -218,6 +218,24 @@ Check("System未結合writeその他known pathを固定分類",
     SystemUnboundWriteDiagnosticRules.Classify(
         true, false, false, false, true, false, "NO_LEASE") ==
     "OTHER_KNOWN_PATH");
+Check("System directory write snapshot欠落を固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        false, true, true, true, true) == "SNAPSHOT_MISSING");
+Check("System directory write current欠落を固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        true, false, true, true, true) == "CURRENT_MISSING");
+Check("System directory write identity差替えを固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        true, true, false, true, true) == "IDENTITY_MISMATCH");
+Check("System directory write owner欠落を固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        true, true, true, false, true) == "OWNER_MISSING");
+Check("System directory write root非activeを固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        true, true, true, true, false) == "ROOT_INACTIVE");
+Check("System directory write完全候補を固定分類",
+    SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+        true, true, true, true, true) == "CANDIDATE");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -314,7 +332,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (105 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (111 cases)");
 return 0;
 
 void Check(string name, bool condition)

@@ -3159,14 +3159,53 @@ sealed class CapacityGuardSession : IDisposable
         var absolute = Path.Combine(
             root,
             normalized.Replace('/', Path.DirectorySeparatorChar));
-        return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" +
-            SystemSetInfoDiagnosticRules.Classify(
+        var bucket = SystemSetInfoDiagnosticRules.Classify(
                 normalized,
                 File.Exists(absolute),
                 Directory.Exists(absolute),
                 pendingWriteLease is not null,
                 pendingWriteLease?.FileObject is not null,
                 "NO_LEASE");
+        if (bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE")
+            return "SYSTEM_DIRECTORY_WRITE_REJOIN_" +
+                SystemDirectoryWriteRejoinStage(normalized);
+        return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
+    }
+
+    private string SystemDirectoryWriteRejoinStage(string normalized)
+    {
+        var snapshot = filesByPath.GetValueOrDefault(normalized);
+        if (snapshot is null)
+            return SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+                false, false, false, false, false);
+        var current = TryInspect(normalized);
+        if (current is null)
+            return SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+                true, false, false, false, false);
+        if (current.Identity != snapshot.Identity)
+            return SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+                true, true, false, false, false);
+        var rootPid = rootWorkerPid;
+        var rootSequence = rootWorkerSequenceNumber;
+        var ownerMatches = activePhase is not null &&
+            rootPid is not null &&
+            rootSequence is not null and not 0 &&
+            observations.Any(item =>
+                item.EventName == "create" &&
+                item.Path == normalized &&
+                item.PhaseInstanceId == activePhase.PhaseInstanceId &&
+                item.WorkerPid == rootPid &&
+                item.ProducerSequenceNumber == rootSequence &&
+                $"{item.VolumeId}:{item.FileId128}" == snapshot.Identity);
+        if (!ownerMatches)
+            return SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+                true, true, true, false, false);
+        return SystemDirectoryWriteRejoinDiagnosticRules.Classify(
+            true,
+            true,
+            true,
+            true,
+            RootWorkerAliveLocked(rootPid ?? -1));
     }
 
     private string? NormalizeObservedPath(string value)
@@ -4630,6 +4669,24 @@ public static class SystemUnboundWriteDiagnosticRules
             "DONE_MISSING" => "COMPLETED_MISSING",
             _ => "OTHER_KNOWN_PATH",
         };
+    }
+}
+
+public static class SystemDirectoryWriteRejoinDiagnosticRules
+{
+    public static string Classify(
+        bool hasSnapshot,
+        bool currentExists,
+        bool identityMatches,
+        bool ownerMatches,
+        bool rootActive)
+    {
+        if (!hasSnapshot) return "SNAPSHOT_MISSING";
+        if (!currentExists) return "CURRENT_MISSING";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
+        if (!ownerMatches) return "OWNER_MISSING";
+        if (!rootActive) return "ROOT_INACTIVE";
+        return "CANDIDATE";
     }
 }
 

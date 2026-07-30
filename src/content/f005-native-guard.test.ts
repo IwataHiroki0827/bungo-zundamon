@@ -17,6 +17,7 @@ import {
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
+  isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   normalizeF005CapacityNoticePath,
@@ -163,6 +164,25 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     `${otherKnownPath.slice(5)}_PRIVATE`,
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'SNAPSHOT_MISSING',
+    'CURRENT_MISSING',
+    'IDENTITY_MISMATCH',
+    'OWNER_MISSING',
+    'ROOT_INACTIVE',
+    'CANDIDATE',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_${stage}` as const;
+    expect(isF005SystemDirectoryWriteRejoinDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+  }
+  expect(isF005SystemDirectoryWriteRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'CREATE_BIND_MISMATCH',
@@ -706,7 +726,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (105 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (111 cases)'),
     });
   }, 120_000);
 });

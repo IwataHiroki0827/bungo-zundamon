@@ -219,7 +219,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('LEASE_OPEN_CANDIDATE');
     const unboundWriteStage = program.slice(
       program.indexOf('private string SystemUnboundWriteKnownPathFailure('),
-      program.indexOf('private string? NormalizeObservedPath('),
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
     );
     expect(unboundWriteStage.indexOf('if (fileObject == 0)'))
       .toBeLessThan(unboundWriteStage.indexOf('var lease = pendingWriteLease'));
@@ -235,6 +235,27 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       '"SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_"',
     );
     expect(unboundWriteStage).toContain('SystemSetInfoDiagnosticRules.Classify(');
+    expect(unboundWriteStage).toContain(
+      'if (bucket == "CACHE_OTHER_DIRECTORY_NO_LEASE")',
+    );
+    expect(unboundWriteStage).toContain(
+      '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
+    );
+    expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
+    const directoryStage = program.slice(
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+      program.indexOf('private string? NormalizeObservedPath('),
+    );
+    expect(directoryStage.indexOf('var snapshot = filesByPath.GetValueOrDefault(normalized)'))
+      .toBeLessThan(directoryStage.indexOf('var current = TryInspect(normalized)'));
+    expect(directoryStage).toContain('item.EventName == "create"');
+    expect(directoryStage).toContain('item.PhaseInstanceId == activePhase.PhaseInstanceId');
+    expect(directoryStage).toContain('item.WorkerPid == rootPid');
+    expect(directoryStage).toContain('item.ProducerSequenceNumber == rootSequence');
+    expect(directoryStage.indexOf('if (!ownerMatches)'))
+      .toBeLessThan(directoryStage.indexOf('RootWorkerAliveLocked(rootPid ?? -1)'));
+    expect(directoryStage.match(/RootWorkerAliveLocked\(rootPid \?\? -1\)/gu))
+      .toHaveLength(1);
     const closedLeaseBlock = program.slice(
       program.indexOf('if (lease.FileObjectClosed)'),
       program.indexOf('if (lease.FileObject is null)'),

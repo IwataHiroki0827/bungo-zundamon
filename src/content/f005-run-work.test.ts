@@ -549,6 +549,36 @@ describe('F005 production work runner', () => {
         code: otherKnownPathCode,
       },
     });
+    const directoryRejoinCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_CANDIDATE';
+    const directoryRejoin = new F005NativeCapacityError(
+      directoryRejoinCode,
+      'fixed directory rejoin stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: directoryRejoin }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: directoryRejoinCode,
+      },
+    });
+    const privateDirectoryRejoin = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code: 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_WRITE_REJOIN_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: privateDirectoryRejoin }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
   });
 
   it.each([
