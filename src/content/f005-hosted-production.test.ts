@@ -125,6 +125,10 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       "'^F005_(?:PROGRESS|VOICE_PROGRESS|HOST_PROGRESS)='",
     );
     expect(production?.run).toContain("$hostProgress = 'engine-start'");
+    expect(production?.run).toContain("$hostProgress = 'runner-entry-probe'");
+    expect(production?.run).toContain("'runner-entry-probe-zero'");
+    expect(production?.run).toContain("'__invalid__'");
+    expect(production?.run).toContain('$entryProbe.ExitCode -eq 0');
     expect(production?.run).toContain("$hostProgress = 'engine-probe'");
     expect(production?.run).toContain("$hostProgress = 'runner-start'");
     expect(production?.run).toContain("$hostProgress = 'runner-finished'");

@@ -293,9 +293,31 @@ jobs:
           $stdoutPath = Join-Path $logRoot 'f005-hosted-production.stdout.log'
           $stderrPath = Join-Path $logRoot 'f005-hosted-production.stderr.log'
           $diagnosticPath = Join-Path $logRoot 'f005-safe-diagnostic.txt'
+          $entryProbeStdoutPath = Join-Path $logRoot 'f005-entry-probe.stdout.log'
+          $entryProbeStderrPath = Join-Path $logRoot 'f005-entry-probe.stderr.log'
           $engineProcess = $null
+          $stderr = ''
           $hostProgress = 'initializing'
           try {
+          $hostProgress = 'runner-entry-probe'
+          $entryProbe = Start-Process `
+            -FilePath (Get-Command node).Source `
+            -ArgumentList @(
+              '--experimental-transform-types',
+              'scripts/f005-run-work.ts',
+              '--work',
+              '__invalid__'
+            ) `
+            -WorkingDirectory $PWD `
+            -NoNewWindow `
+            -RedirectStandardOutput $entryProbeStdoutPath `
+            -RedirectStandardError $entryProbeStderrPath `
+            -Wait `
+            -PassThru
+          if ($entryProbe.ExitCode -eq 0) {
+            $hostProgress = 'runner-entry-probe-zero'
+            throw 'F005 runner entry probe unexpectedly returned zero'
+          }
           $hostProgress = 'engine-start'
           $engineProcess = Start-Process `
             -FilePath $runPath `
@@ -399,7 +421,7 @@ jobs:
           } catch {
             if (-not (Test-Path -LiteralPath $diagnosticPath -PathType Leaf)) {
               Write-SafeFailureAnnotation (
-                "F005_HOST_PROGRESS=$hostProgress"
+                "$stderr`nF005_HOST_PROGRESS=$hostProgress"
               ) $diagnosticPath
             }
             throw
