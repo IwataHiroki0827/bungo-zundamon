@@ -2486,7 +2486,7 @@ sealed class CapacityGuardSession : IDisposable
                 if (completedWriteExpectedIdentity is not null &&
                     current?.Identity != completedWriteExpectedIdentity)
                 {
-                    PoisonLocked("ETW_COMPLETED_WRITE_IDENTITY_RECHECK_MISMATCH");
+                    PoisonLocked("ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH");
                     return;
                 }
                 if (eventName == "create" &&
@@ -2792,7 +2792,7 @@ sealed class CapacityGuardSession : IDisposable
             return false;
         var current = TryInspect(normalized);
         var prior = filesByObject.GetValueOrDefault(fileObject);
-        if (!CompletedWriteDiagnosticRules.CanAuthorize(
+        var rejection = CompletedWriteDiagnosticRules.Rejection(
             authorizationFailure,
             pid,
             eventName,
@@ -2804,8 +2804,12 @@ sealed class CapacityGuardSession : IDisposable
                 (prior.RelativePath == normalized &&
                     prior.Identity == completed.Identity),
             current is not null,
-            current?.Identity == completed.Identity))
+            current?.Identity == completed.Identity);
+        if (rejection is not null)
+        {
+            PoisonLocked($"ETW_COMPLETED_WRITE_REJOIN_{rejection}");
             return false;
+        }
         producerPid = completed.WorkerPid;
         producerSequenceNumber = completed.ProcessSequenceNumber;
         expectedIdentity = completed.Identity;
@@ -4413,16 +4417,42 @@ public static class CompletedWriteDiagnosticRules
         bool fileObjectCompatible,
         bool currentExists,
         bool identityMatches) =>
-        authorizationFailure == "BIRTH_MISSING" &&
-        systemPid is 0 or 4 &&
-        eventName == "setinfo" &&
-        fileObject != 0 &&
-        phaseMatches &&
-        eventAfterReservation &&
-        eventBeforeOrAtCompletion &&
-        fileObjectCompatible &&
-        currentExists &&
-        identityMatches;
+        Rejection(
+            authorizationFailure,
+            systemPid,
+            eventName,
+            fileObject,
+            phaseMatches,
+            eventAfterReservation,
+            eventBeforeOrAtCompletion,
+            fileObjectCompatible,
+            currentExists,
+            identityMatches) is null;
+
+    public static string? Rejection(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool phaseMatches,
+        bool eventAfterReservation,
+        bool eventBeforeOrAtCompletion,
+        bool fileObjectCompatible,
+        bool currentExists,
+        bool identityMatches)
+    {
+        if (authorizationFailure != "BIRTH_MISSING") return "AUTH_FAILURE";
+        if (systemPid is not (0 or 4)) return "SYSTEM_PID";
+        if (eventName != "setinfo") return "EVENT";
+        if (fileObject == 0) return "FILE_OBJECT_ZERO";
+        if (!phaseMatches) return "PHASE";
+        if (!eventAfterReservation) return "BEFORE_RESERVATION";
+        if (!eventBeforeOrAtCompletion) return "AFTER_COMPLETION";
+        if (!fileObjectCompatible) return "FILE_OBJECT_BINDING";
+        if (!currentExists) return "CURRENT_MISSING";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
+        return null;
+    }
 }
 
 public static class SystemSetInfoCorrelationRules

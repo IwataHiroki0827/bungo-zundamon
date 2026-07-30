@@ -52,6 +52,7 @@ import {
 } from '../src/content/f005-foundation.ts';
 import {
   flushF005ArtifactDirectory,
+  isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
   startF005NativeCapacitySession,
@@ -519,6 +520,7 @@ function safeFailureName(value: unknown, fallback: 'Error' | 'NonError'): string
 function safeFailureCode(value: unknown): string | null {
   return typeof value === 'string' && (
     F005_FAILURE_CODES.has(value) ||
+    isF005CompletedWriteRejoinDiagnosticCode(value) ||
     isF005SystemSetInfoDiagnosticCode(value) ||
     isF005SystemSetInfoCorrelationDiagnosticCode(value)
   )

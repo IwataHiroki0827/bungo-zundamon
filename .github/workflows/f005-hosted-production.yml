@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; closed lease applies only after exact reservation match.
+# Native tooling stays outside; completed rejoin exposes fixed safe rejection stages only.
 on:
   push:
     branches:

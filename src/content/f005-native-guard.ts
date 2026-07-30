@@ -63,6 +63,19 @@ type F005SystemSetInfoCorrelationStage =
   | 'RENAME_CONSUME';
 export type F005SystemSetInfoCorrelationDiagnosticCode =
   `F005_ETW_SYSTEM_SETINFO_CORRELATION_${F005SystemSetInfoCorrelationStage}`;
+type F005CompletedWriteRejoinStage =
+  | 'AUTH_FAILURE'
+  | 'SYSTEM_PID'
+  | 'EVENT'
+  | 'FILE_OBJECT_ZERO'
+  | 'PHASE'
+  | 'BEFORE_RESERVATION'
+  | 'AFTER_COMPLETION'
+  | 'FILE_OBJECT_BINDING'
+  | 'CURRENT_MISSING'
+  | 'IDENTITY_MISMATCH';
+export type F005CompletedWriteRejoinDiagnosticCode =
+  `F005_ETW_COMPLETED_WRITE_REJOIN_${F005CompletedWriteRejoinStage}`;
 
 const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
@@ -78,6 +91,13 @@ const F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC = new RegExp(
   'DEFERRED_BIND_MISMATCH|DEFERRED_CLEANUP|DEFERRED_SNAPSHOT_MISSING|' +
   'DEFERRED_TUPLE_MISMATCH|FILE_OBJECT_MISMATCH|IDENTITY_MISMATCH|' +
   'LEASE_CLOSED|LEASE_SNAPSHOT_MISSING|RENAME_CONSUME)$',
+  'u',
+);
+const F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC = new RegExp(
+  '^ETW_COMPLETED_WRITE_REJOIN_' +
+  '(?:AUTH_FAILURE|SYSTEM_PID|EVENT|FILE_OBJECT_ZERO|PHASE|' +
+  'BEFORE_RESERVATION|AFTER_COMPLETION|FILE_OBJECT_BINDING|' +
+  'CURRENT_MISSING|IDENTITY_MISMATCH)$',
   'u',
 );
 
@@ -99,9 +119,19 @@ export function isF005SystemSetInfoCorrelationDiagnosticCode(
     F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC.test(value.slice(5));
 }
 
+export function isF005CompletedWriteRejoinDiagnosticCode(
+  value: unknown,
+): value is F005CompletedWriteRejoinDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 96 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC.test(value.slice(5));
+}
+
 export type F005NativeCapacityErrorCode =
   | F005SystemSetInfoDiagnosticCode
   | F005SystemSetInfoCorrelationDiagnosticCode
+  | F005CompletedWriteRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -308,6 +338,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemSetInfoCorrelationDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_COMPLETED_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005CompletedWriteRejoinDiagnosticCode;
   }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';

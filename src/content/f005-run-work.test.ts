@@ -471,6 +471,21 @@ describe('F005 production work runner', () => {
         code: correlationCode,
       },
     });
+    const rejoinCode = 'F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION';
+    const rejoin = new F005NativeCapacityError(
+      rejoinCode,
+      'fixed completed-write rejoin stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: rejoin }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: rejoinCode,
+      },
+    });
   });
 
   it.each([

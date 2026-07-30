@@ -182,13 +182,20 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program.match(/completedWrites\.Clear\(\)/gu)).toHaveLength(2);
     expect(program).toContain('CompletedWriteDiagnosticRules.ShouldTrack(');
     expect(program).toContain('CompletedWriteDiagnosticRules.Classify(');
-    expect(program).toContain('CompletedWriteDiagnosticRules.CanAuthorize(');
+    expect(program).toContain('public static bool CanAuthorize(');
+    expect(program).toContain('CompletedWriteDiagnosticRules.Rejection(');
+    expect(program).toContain('ETW_COMPLETED_WRITE_REJOIN_{rejection}');
     expect(program.indexOf('SystemSetInfoCorrelationRules.MatchesReservation('))
       .toBeLessThan(program.indexOf('if (lease.FileObjectClosed)'));
     expect(program.indexOf('if (!AuthorizeJobMemberLocked('))
       .toBeLessThan(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('));
     expect(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('))
       .toBeLessThan(program.indexOf('else if (TryAuthorizeCompletedSystemSetInfoLocked('));
+    expect(program.indexOf('else if (TryAuthorizeCompletedSystemSetInfoLocked('))
+      .toBeLessThan(program.indexOf(
+        'PoisonLocked($"ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}")',
+      ));
+    expect(program).toContain('failureCode ??= code');
     expect(program).toContain('completedWrites[path] = new CompletedWriteRecord(');
     expect(program).toContain('timestampQpc > completed.ReservedAtQpc');
     expect(program).toContain('timestampQpc <= completed.CompletedAtQpc');
@@ -196,7 +203,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('prior.Identity == completed.Identity');
     expect(program).toContain('current?.Identity == completed.Identity');
     expect(program).toContain('current?.Identity != completedWriteExpectedIdentity');
-    expect(program).toContain('ETW_COMPLETED_WRITE_IDENTITY_RECHECK_MISMATCH');
+    expect(new Set(program.match(
+      /ETW_COMPLETED_WRITE_(?:REJOIN_\{rejection\}|[A-Z_]+)/gu,
+    ) ?? [])).toEqual(new Set([
+      'ETW_COMPLETED_WRITE_REJOIN_{rejection}',
+      'ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH',
+    ]));
     expect(program).not.toContain('WRITE_HISTORY_LIMIT');
     expect(new Set(program.match(
       /ETW_SYSTEM_SETINFO_CORRELATION_[A-Z_]+/gu,

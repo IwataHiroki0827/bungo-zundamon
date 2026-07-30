@@ -86,6 +86,46 @@ Check("完了write実体欠落を拒否",
 Check("完了writeidentity差替えを拒否",
     !CompletedWriteDiagnosticRules.CanAuthorize(
         "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, true, false));
+Check("完了write拒否stage authorization failure",
+    CompletedWriteDiagnosticRules.Rejection(
+        "EVENT_BEFORE_BIRTH", 4, "setinfo", 31, true, true, true, true, true, true) ==
+    "AUTH_FAILURE");
+Check("完了write拒否stage system PID",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 5, "setinfo", 31, true, true, true, true, true, true) ==
+    "SYSTEM_PID");
+Check("完了write拒否stage event",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true, true, true) ==
+    "EVENT");
+Check("完了write拒否stage file object zero",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 0, true, true, true, true, true, true) ==
+    "FILE_OBJECT_ZERO");
+Check("完了write拒否stage phase",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, false, true, true, true, true, true) ==
+    "PHASE");
+Check("完了write拒否stage before reservation",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, false, true, true, true, true) ==
+    "BEFORE_RESERVATION");
+Check("完了write拒否stage after completion",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, false, true, true, true) ==
+    "AFTER_COMPLETION");
+Check("完了write拒否stage file object binding",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, false, true, true) ==
+    "FILE_OBJECT_BINDING");
+Check("完了write拒否stage current missing",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, false, true) ==
+    "CURRENT_MISSING");
+Check("完了write拒否stage identity mismatch",
+    CompletedWriteDiagnosticRules.Rejection(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true, true, false) ==
+    "IDENTITY_MISMATCH");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -182,7 +222,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (66 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (76 cases)");
 return 0;
 
 void Check(string name, bool condition)

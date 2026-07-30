@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T13:17:00+09:00
+updated: 2026-07-30T13:40:10+09:00
 next_actions:
-  - "CHG-F005-015のclosed lease tuple後段化を検証・独立レビュー・commit/pushし、GitHub hosted Windowsでproductionを継続する"
+  - "CHG-F005-016の完了write再結合拒否stageを検証・独立レビュー・commit/pushし、GitHub hosted Windowsで拒否条件を特定する"
 blocked_by: []
 ---
 
@@ -20,6 +20,7 @@ blocked_by: []
 - run 30510939972は`wav-validated`後の`CACHE_WAV_FILE_NO_LEASE`で安全停止した。CHG-F005-013で同一voice phaseの完了済みwriteとのidentity関係を固定3状態へ細分化し、対象124件、native規則52件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。認可・容量・候補保存条件は変更していない。
 - run 30511757503は`CACHE_WAV_FILE_DONE_ID`で安全停止し、完了済みWAVと同一native identityの遅延System SetInfoであることを確認した。CHG-F005-014でSystem PID/SetInfo/同一phase/path/identity/予約後からwrite完了までのQPC/互換FileObject bindingの完全一致時だけ元worker世代へ再結合し、対象124件、native規則64件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30513249202は`LEASE_CLOSED`で安全停止した。active leaseのclosed判定がpath/phase/QPC tupleより先行していたため、CHG-F005-015でtuple一致後だけclosedを評価し、別path遅延eventを完了write fallbackへ流す。対象124件、native規則66件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30513755494はclosed lease誤分類を除いた後も`CACHE_WAV_FILE_DONE_ID`で安全停止した。CHG-F005-016で完了write再結合の不一致条件をraw値なしの固定10 stageへ分類した。対象124件、native規則76件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSし、認可条件は変更していない。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -61,18 +62,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-090/CHG-F005-016で完了write再結合の拒否条件を固定10 stageへ細分化
+- run 30513755494でDONE_IDを安全停止し、候補・公開差分0
 - T-089/CHG-F005-015でactive reservation tuple一致後だけclosed leaseを評価する順序へ修正
 - run 30513249202でLEASE_CLOSEDを安全停止し、候補・公開差分0
 - T-088/CHG-F005-014でDONE_ID遅延System SetInfoの完全tuple再結合を実装
-- run 30511757503で完了済みCACHE WAVとのnative identity一致を確認し、候補・公開差分0
-- T-087/CHG-F005-013でleaseなしCACHE WAVを完了済みwrite identityとの固定3状態へ細分化
 
 ## 次のアクション
 
-- CHG-F005-015を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- 別path遅延eventが完了write fallbackへ流れ、identity/capacity/sequence不変で処理継続することをhosted証跡で確認する。
+- CHG-F005-016を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- 固定拒否stageで不一致条件を特定し、認可変更が必要な場合だけ次の変更管理で個別に検討する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了済みCACHE WAVのidentity一致確認までPASSしている。CHG-F005-015でclosed lease誤分類を除きproductionを継続する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了済みCACHE WAVのidentity一致確認までPASSしている。CHG-F005-016で再結合拒否条件を特定する必要がある。

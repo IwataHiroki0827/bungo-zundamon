@@ -1909,3 +1909,23 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-090
+  title: CHG-F005-016 完了write再結合拒否stage診断とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-089
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: 認可条件を変えず完了write再結合の拒否条件だけを固定stageで特定するため
+  model:
+    lead: opus
+    workers: sonnet

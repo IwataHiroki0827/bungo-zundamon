@@ -561,3 +561,10 @@ entries:
   agents: 2
   est_tokens: 9000
   note: run 30513249202のLEASE_CLOSEDを受け、active reservation tuple一致後だけclosed判定する順序へ修正。別path closed対象外と一致path専用停止を追加し、対象124件、native規則66件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+- date: '2026-07-30'
+  phase: test
+  task: T-090 CHG-F005-016 完了write再結合拒否stage診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30513755494のDONE_ID再停止を受け、完了write再結合の固定10拒否stageをnativeからrunnerへ伝播。TOCTOU再照合も同じIDENTITY_MISMATCHへ統合し、first-poisonを回帰固定。対象124件、native規則76件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
