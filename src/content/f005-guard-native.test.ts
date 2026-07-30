@@ -176,6 +176,14 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain(': "UNKNOWN_PATH")');
     expect(program).toContain('"NODE_MODULES"');
     expect(program).toContain('"UNBOUND_LEASE"');
+    expect(program).toContain('"DONE_ID"');
+    expect(program).toContain('"DONE_CHANGED"');
+    expect(program).toContain('"DONE_MISSING"');
+    expect(program.match(/completedWriteIdentities\.Clear\(\)/gu)).toHaveLength(2);
+    expect(program).toContain('CompletedWriteDiagnosticRules.ShouldTrack(');
+    expect(program).toContain('CompletedWriteDiagnosticRules.Classify(');
+    expect(program).toContain('completedWriteIdentities[path] = current.Identity');
+    expect(program).not.toContain('WRITE_HISTORY_LIMIT');
     expect(new Set(program.match(
       /ETW_SYSTEM_SETINFO_CORRELATION_[A-Z_]+/gu,
     ) ?? [])).toEqual(new Set([

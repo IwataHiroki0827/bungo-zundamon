@@ -4,16 +4,52 @@ var failures = new List<string>();
 
 Check("安全診断cache wav file no lease",
     SystemSetInfoDiagnosticRules.Classify(
-        ".cache/voice/audio.wav", true, false, false, false) ==
+        ".cache/voice/audio.wav", true, false, false, false, "NO_LEASE") ==
     "CACHE_WAV_FILE_NO_LEASE");
 Check("安全診断content tmp absent unbound lease",
     SystemSetInfoDiagnosticRules.Classify(
-        "content/batches/F005/audio.tmp", false, false, true, false) ==
+        "content/batches/F005/audio.tmp", false, false, true, false, "DONE_ID") ==
     "CONTENT_TMP_ABSENT_UNBOUND_LEASE");
 Check("安全診断unknown directory bound lease",
     SystemSetInfoDiagnosticRules.Classify(
-        "vendor/private-name", false, true, true, true) ==
+        "vendor/private-name", false, true, true, true, "DONE_CHANGED") ==
     "OTHER_OTHER_DIRECTORY_BOUND_LEASE");
+Check("安全診断completed write identity一致",
+    SystemSetInfoDiagnosticRules.Classify(
+        ".cache/voice/audio.wav", true, false, false, false, "DONE_ID") ==
+    "CACHE_WAV_FILE_DONE_ID");
+Check("安全診断completed write identity差替え",
+    SystemSetInfoDiagnosticRules.Classify(
+        ".cache/voice/audio.wav", true, false, false, false, "DONE_CHANGED") ==
+    "CACHE_WAV_FILE_DONE_CHANGED");
+Check("安全診断completed write実体欠落",
+    SystemSetInfoDiagnosticRules.Classify(
+        ".cache/voice/audio.wav", false, false, false, false, "DONE_MISSING") ==
+    "CACHE_WAV_ABSENT_DONE_MISSING");
+Check("安全診断未知completed stateを非公開化",
+    SystemSetInfoDiagnosticRules.Classify(
+        ".cache/voice/audio.wav", true, false, false, false, "PRIVATE_VALUE") ==
+    "CACHE_WAV_FILE_NO_LEASE");
+Check("完了台帳voice新規を追跡",
+    CompletedWriteDiagnosticRules.ShouldTrack("voice", 127, false));
+Check("完了台帳128件後の新規を未追跡",
+    !CompletedWriteDiagnosticRules.ShouldTrack("voice", 128, false));
+Check("完了台帳128件後の既存を更新",
+    CompletedWriteDiagnosticRules.ShouldTrack("voice", 128, true));
+Check("完了台帳non-voiceを未追跡",
+    !CompletedWriteDiagnosticRules.ShouldTrack("build", 0, false));
+Check("完了台帳clear相当をNO_LEASE",
+    CompletedWriteDiagnosticRules.Classify("voice", false, false, false) ==
+    "NO_LEASE");
+Check("完了台帳identity一致を固定分類",
+    CompletedWriteDiagnosticRules.Classify("voice", true, true, true) ==
+    "DONE_ID");
+Check("完了台帳identity差替えを固定分類",
+    CompletedWriteDiagnosticRules.Classify("voice", true, true, false) ==
+    "DONE_CHANGED");
+Check("完了台帳実体欠落を固定分類",
+    CompletedWriteDiagnosticRules.Classify("voice", true, false, false) ==
+    "DONE_MISSING");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -104,7 +140,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (40 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (52 cases)");
 return 0;
 
 void Check(string name, bool condition)

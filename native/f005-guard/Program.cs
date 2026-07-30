@@ -1235,6 +1235,8 @@ sealed class CapacityGuardSession : IDisposable
     private readonly Dictionary<ulong, FileSnapshot> filesByObject = [];
     private readonly Dictionary<string, FileSnapshot> filesByPath = new(StringComparer.Ordinal);
     private readonly Dictionary<string, long> allocatedByIdentity = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, string> completedWriteIdentities =
+        new(StringComparer.Ordinal);
     private readonly List<PhaseRecord> phaseRecords = [];
     private readonly List<NoticeRecord> notices = [];
     private readonly List<ObservationRecord> observations = [];
@@ -1850,6 +1852,7 @@ sealed class CapacityGuardSession : IDisposable
         if (!string.Equals(workId, WorkId, StringComparison.Ordinal))
             throw new GuardException("PHASE_WORK_MISMATCH");
         if (activePhase is not null) throw new GuardException("PHASE_ALREADY_ACTIVE");
+        completedWriteIdentities.Clear();
         var startedAtUtc = DateTime.UtcNow;
         activePhase = new ActivePhase(
             phase,
@@ -2038,6 +2041,11 @@ sealed class CapacityGuardSession : IDisposable
             ?? throw new GuardException("WRITE_LEASE_IDENTITY_MISSING");
         if (current.Identity != lease.Snapshot!.Identity)
             throw new GuardException("WRITE_LEASE_IDENTITY_MISMATCH");
+        if (CompletedWriteDiagnosticRules.ShouldTrack(
+            activePhase?.Phase,
+            completedWriteIdentities.Count,
+            completedWriteIdentities.ContainsKey(path)))
+            completedWriteIdentities[path] = current.Identity;
         lease.Process.Dispose();
         pendingWriteLease = null;
         return new { ok = true, state = "completed", path, producerPid };
@@ -2223,6 +2231,7 @@ sealed class CapacityGuardSession : IDisposable
         phaseRecords.Add(new PhaseRecord(phase, activePhase.WorkId, phaseInstanceId, "finished",
             DateTimeOffset.UtcNow.ToString("O"), CurrentLiveBytes(), free));
         activePhase = null;
+        completedWriteIdentities.Clear();
         PersistJournal(closed: false);
         return new { ok = true, phase, phaseInstanceId };
     }
@@ -2393,11 +2402,12 @@ sealed class CapacityGuardSession : IDisposable
                                                             Path.DirectorySeparatorChar))),
                                                     Directory.Exists(Path.Combine(
                                                         root,
-                                                        normalized.Replace(
-                                                            '/',
-                                                            Path.DirectorySeparatorChar))),
+                                                            normalized.Replace(
+                                                                '/',
+                                                                Path.DirectorySeparatorChar))),
                                                     pendingWriteLease is not null,
-                                                    pendingWriteLease?.FileObject is not null)
+                                                    pendingWriteLease?.FileObject is not null,
+                                                    CompletedWriteDiagnosticState(normalized))
                                             : "UNKNOWN_PATH")
                             : boundFileObject
                                 ? "BIRTH_MISSING_BOUND_FILE_OBJECT"
@@ -2961,6 +2971,22 @@ sealed class CapacityGuardSession : IDisposable
             fileId,
             logical,
             allocated);
+    }
+
+    private string CompletedWriteDiagnosticState(string relativePath)
+    {
+        if (!completedWriteIdentities.TryGetValue(relativePath, out var expectedIdentity))
+            return CompletedWriteDiagnosticRules.Classify(
+                activePhase?.Phase,
+                tracked: false,
+                currentExists: false,
+                identityMatches: false);
+        var current = TryInspect(relativePath);
+        return CompletedWriteDiagnosticRules.Classify(
+            activePhase?.Phase,
+            tracked: true,
+            currentExists: current is not null,
+            identityMatches: current?.Identity == expectedIdentity);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -4237,7 +4263,8 @@ public static class SystemSetInfoDiagnosticRules
         bool fileExists,
         bool directoryExists,
         bool hasWriteLease,
-        bool hasBoundFileObject)
+        bool hasBoundFileObject,
+        string completedWriteState)
     {
         var slash = normalized.IndexOf('/');
         var first = slash < 0 ? normalized : normalized[..slash];
@@ -4268,13 +4295,39 @@ public static class SystemSetInfoDiagnosticRules
             : directoryExists
                 ? "DIRECTORY"
                 : "ABSENT";
-        var lease = !hasWriteLease
-            ? "NO_LEASE"
-            : hasBoundFileObject
+        var lease = hasWriteLease
+            ? hasBoundFileObject
                 ? "BOUND_LEASE"
-                : "UNBOUND_LEASE";
+                : "UNBOUND_LEASE"
+            : completedWriteState is "DONE_ID" or "DONE_CHANGED" or "DONE_MISSING"
+                ? completedWriteState
+                : "NO_LEASE";
         return $"{bucket}_{extension}_{state}_{lease}";
     }
+}
+
+public static class CompletedWriteDiagnosticRules
+{
+    public static bool ShouldTrack(
+        string? phase,
+        int trackedCount,
+        bool alreadyTracked) =>
+        phase == "voice" &&
+        trackedCount is >= 0 and <= 128 &&
+        (trackedCount < 128 || alreadyTracked);
+
+    public static string Classify(
+        string? phase,
+        bool tracked,
+        bool currentExists,
+        bool identityMatches) =>
+        phase != "voice" || !tracked
+            ? "NO_LEASE"
+            : !currentExists
+                ? "DONE_MISSING"
+                : identityMatches
+                    ? "DONE_ID"
+                    : "DONE_CHANGED";
 }
 
 public static class SystemSetInfoCorrelationRules

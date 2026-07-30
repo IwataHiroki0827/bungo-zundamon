@@ -100,6 +100,12 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(isF005SystemSetInfoDiagnosticCode(maximumFixedBucket)).toBe(true);
   expect(classifyF005NativeCapacityReplyError(maximumFixedBucket.slice(5)))
     .toBe(maximumFixedBucket);
+  for (const completedState of ['DONE_ID', 'DONE_CHANGED', 'DONE_MISSING'] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_CACHE_WAV_FILE_${completedState}` as const;
+    expect(isF005SystemSetInfoDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+  }
   for (const invalid of [
     `${fixedBucket}_secret`,
     fixedBucket.replace('_CACHE_', '_PRIVATE_'),
@@ -612,7 +618,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (40 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (52 cases)'),
     });
   }, 120_000);
 });

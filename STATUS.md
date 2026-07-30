@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T12:11:32+09:00
+updated: 2026-07-30T12:27:45+09:00
 next_actions:
-  - "CHG-F005-012の固定相関stage診断を検証・独立レビュー・commit/pushし、GitHub hosted Windowsで不一致段階を特定する"
+  - "CHG-F005-013の完了済みwrite固定診断を検証・独立レビュー・commit/pushし、GitHub hosted Windowsで遅延eventのidentity関係を特定する"
 blocked_by: []
 ---
 
@@ -17,6 +17,7 @@ blocked_by: []
 - CHG-F005-010で全native tooling processのcwdもexternal executable parentへ隔離し、path非公開のhello booleanで実processのcwd一致を全client/buildへ必須化した。対象124件、native規則37件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30509193028でも同じunknown System SetInfoで安全停止したため、CHG-F005-011でraw pathを出さないtop-level/extension/実体/leaseの固定bucket診断を追加した。対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30510118610は固定bucket判定を通過し、予約済みwrite path認識後の相関不一致で安全停止した。CHG-F005-012でraw値を出さない固定12段階の相関診断を追加し、対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。認可・容量・候補保存条件は変更していない。
+- run 30510939972は`wav-validated`後の`CACHE_WAV_FILE_NO_LEASE`で安全停止した。CHG-F005-013で同一voice phaseの完了済みwriteとのidentity関係を固定3状態へ細分化し、対象124件、native規則52件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。認可・容量・候補保存条件は変更していない。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -58,18 +59,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-087/CHG-F005-013でleaseなしCACHE WAVを完了済みwrite identityとの固定3状態へ細分化
+- run 30510939972でCACHE WAV FILE NO_LEASEを安全停止し、候補・公開差分0を確認
 - T-086/CHG-F005-012で予約済みwrite pathのSystem SetInfo相関不一致を固定12段階へ細分化
 - run 30510118610で固定bucket前段を通過し、相関条件のいずれかで安全停止、候補・公開差分0を確認
 - T-085/CHG-F005-011でunknown System SetInfoをpath非公開の固定bucketへ細分化し、native規則40件をPASS
-- run 30509193028でnative executable/cwd隔離後も同じSystem SetInfoが安全停止し、候補・公開差分0を確認
-- T-084/CHG-F005-010でnative tooling cwdをexternal executable parentへ隔離し、hello cwd一致検証と独立レビューをPASS
 
 ## 次のアクション
 
-- CHG-F005-012を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- 固定相関stageで不一致条件を特定し、identity/capacity不変を証明できる場合だけ認可設計を変更する。
+- CHG-F005-013を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- 固定完了状態で遅延eventのidentity関係を特定し、identity/capacity不変を証明できる場合だけ認可設計を変更する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、unknown path固定bucket判定までPASSしている。予約済みwrite pathの相関不一致段階をCHG-F005-012で特定する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、unknown path固定bucket判定までPASSしている。leaseなしCACHE WAVが完了済みwriteと同一identityかをCHG-F005-013で特定する必要がある。

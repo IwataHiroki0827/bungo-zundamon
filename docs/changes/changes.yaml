@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-013
+  date: '2026-07-30'
+  trigger: Actions run 30510939972でvoice phase中のCACHE WAV FILE NO_LEASE System SetInfoが安全停止
+  level: design
+  affected:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - T-070
+  - T-086
+  - T-087
+  status: in-review
 - id: CHG-F005-012
   date: '2026-07-30'
   trigger: Actions run 30510118610で予約済みwrite path認識後にSystem SetInfo相関不一致が安全停止

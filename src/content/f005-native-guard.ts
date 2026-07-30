@@ -39,7 +39,13 @@ type F005SystemSetInfoPathBucket =
 type F005SystemSetInfoExtensionBucket =
   | 'EXE' | 'JS' | 'JSON' | 'LOG' | 'TMP' | 'TS' | 'WAV' | 'OTHER';
 type F005SystemSetInfoEntryState = 'FILE' | 'DIRECTORY' | 'ABSENT';
-type F005SystemSetInfoLeaseState = 'NO_LEASE' | 'BOUND_LEASE' | 'UNBOUND_LEASE';
+type F005SystemSetInfoLeaseState =
+  | 'NO_LEASE'
+  | 'BOUND_LEASE'
+  | 'UNBOUND_LEASE'
+  | 'DONE_ID'
+  | 'DONE_CHANGED'
+  | 'DONE_MISSING';
 export type F005SystemSetInfoDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_${F005SystemSetInfoPathBucket}_${F005SystemSetInfoExtensionBucket}_${F005SystemSetInfoEntryState}_${F005SystemSetInfoLeaseState}`;
 type F005SystemSetInfoCorrelationStage =
@@ -63,7 +69,7 @@ const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '(?:CACHE|CONTENT|DATA|DIST|NATIVE|NODE_MODULES|PUBLIC|SCRIPTS|SRC|OTHER)_' +
   '(?:EXE|JS|JSON|LOG|TMP|TS|WAV|OTHER)_' +
   '(?:FILE|DIRECTORY|ABSENT)_' +
-  '(?:NO_LEASE|BOUND_LEASE|UNBOUND_LEASE)$',
+  '(?:NO_LEASE|BOUND_LEASE|UNBOUND_LEASE|DONE_ID|DONE_CHANGED|DONE_MISSING)$',
   'u',
 );
 const F005_NATIVE_SYSTEM_SETINFO_CORRELATION_DIAGNOSTIC = new RegExp(
