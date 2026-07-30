@@ -97,6 +97,12 @@ Check("process escape", !CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, true, false));
 Check("Cleanup後pointer再利用", !CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, true));
+Check("closed leaseでも別path tupleは対象外",
+    !MatchesReservation(
+        "BIRTH_MISSING", 4, "setinfo", 17, false, true, false));
+Check("closed leaseの一致tupleは専用停止対象",
+    MatchesReservation(
+        "BIRTH_MISSING", 4, "setinfo", 17, true, true, false));
 Check("予約済みrename target", TryGetReservationQpc(
     "audio.wav", "audio.tmp", 100, "audio.wav", 200, out var renameQpc) &&
     renameQpc == 200);
@@ -176,7 +182,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (64 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (66 cases)");
 return 0;
 
 void Check(string name, bool condition)

@@ -564,7 +564,7 @@ describe('F005 native ETW capacity guard', () => {
     expect(program).toContain('job.OpenContainedProcess(producerPid)');
     expect(program).toContain('identity.ProcessSequenceNumber');
     expect(program).toContain('TryAuthorizeReservedSystemSetInfoLocked(');
-    expect(program).toContain('SystemSetInfoCorrelationRules.CanAuthorize(');
+    expect(program).toContain('SystemSetInfoCorrelationRules.MatchesReservation(');
     expect(program).toContain('SystemSetInfoCorrelationRules.CanBindDeferred(');
     expect(program).toContain('item.Snapshot.Identity');
     expect(program).toContain('ReplayDeferredSystemSetInfoLocked(deferred)');
@@ -618,7 +618,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (64 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (66 cases)'),
     });
   }, 120_000);
 });

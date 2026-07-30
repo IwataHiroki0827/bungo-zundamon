@@ -1889,3 +1889,23 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+- id: T-089
+  title: CHG-F005-015 closed lease tuple後段化とhosted再試験
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-088
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: active lease tuple一致後だけclosed判定し別path遅延eventを正しいfallbackへ流すため
+  model:
+    lead: opus
+    workers: sonnet

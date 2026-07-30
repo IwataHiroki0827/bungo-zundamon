@@ -554,3 +554,10 @@ entries:
   agents: 2
   est_tokens: 12000
   note: run 30511757503のDONE_IDを根拠にSystem PID/SetInfo/同一phase/path/identity/予約後からwrite完了までのQPC/互換FileObject binding完全一致だけを元worker世代へ再結合。identity二重照合、単独不一致10系統、PID 0/4正常系を検査し、対象124件、native規則64件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+- date: '2026-07-30'
+  phase: test
+  task: T-089 CHG-F005-015 closed lease tuple後段化
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30513249202のLEASE_CLOSEDを受け、active reservation tuple一致後だけclosed判定する順序へ修正。別path closed対象外と一致path専用停止を追加し、対象124件、native規則66件、型・ESLint・再現build・trace、独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

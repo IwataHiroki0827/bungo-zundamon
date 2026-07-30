@@ -2685,12 +2685,6 @@ sealed class CapacityGuardSession : IDisposable
             return false;
         producerPid = lease.WorkerPid;
         producerSequenceNumber = lease.ProcessSequenceNumber;
-        if (lease.FileObjectClosed)
-        {
-            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED");
-            deferred = true;
-            return true;
-        }
         var pathMatches = SystemSetInfoCorrelationRules.TryGetReservationQpc(
             normalized,
             lease.RelativePath,
@@ -2698,7 +2692,7 @@ sealed class CapacityGuardSession : IDisposable
             lease.PendingRenamePath,
             lease.RenameReservedAtQpc,
             out var pathReservationQpc);
-        if (!SystemSetInfoCorrelationRules.CanAuthorize(
+        if (!SystemSetInfoCorrelationRules.MatchesReservation(
             authorizationFailure,
             pid,
             eventName,
@@ -2706,9 +2700,14 @@ sealed class CapacityGuardSession : IDisposable
             lease.PhaseInstanceId == activePhase.PhaseInstanceId &&
                 pathMatches,
             timestampQpc > pathReservationQpc,
-            job.IsAliveOutsideJob(lease.Process),
-            lease.FileObjectClosed))
+            job.IsAliveOutsideJob(lease.Process)))
             return false;
+        if (lease.FileObjectClosed)
+        {
+            PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_LEASE_CLOSED");
+            deferred = true;
+            return true;
+        }
         if (lease.FileObject is null)
         {
             if (deferredSystemSetInfos.Any(item =>
@@ -4497,14 +4496,31 @@ public static class SystemSetInfoCorrelationRules
         bool eventAfterReservation,
         bool processAliveOutsideJob,
         bool fileObjectClosed) =>
+        MatchesReservation(
+            authorizationFailure,
+            systemPid,
+            eventName,
+            fileObject,
+            phaseAndLeaseMatch,
+            eventAfterReservation,
+            processAliveOutsideJob) &&
+        !fileObjectClosed;
+
+    public static bool MatchesReservation(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool phaseAndLeaseMatch,
+        bool eventAfterReservation,
+        bool processAliveOutsideJob) =>
         authorizationFailure == "BIRTH_MISSING" &&
         systemPid is 0 or 4 &&
         eventName == "setinfo" &&
         fileObject != 0 &&
         phaseAndLeaseMatch &&
         eventAfterReservation &&
-        !processAliveOutsideJob &&
-        !fileObjectClosed;
+        !processAliveOutsideJob;
 
     public static bool CanBindDeferred(
         bool fileObjectClosed,

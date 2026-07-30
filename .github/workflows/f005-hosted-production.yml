@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; completed write rejoin is bounded by identity, QPC, and binding.
+# Native tooling stays outside; closed lease applies only after exact reservation match.
 on:
   push:
     branches:

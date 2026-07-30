@@ -183,6 +183,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('CompletedWriteDiagnosticRules.ShouldTrack(');
     expect(program).toContain('CompletedWriteDiagnosticRules.Classify(');
     expect(program).toContain('CompletedWriteDiagnosticRules.CanAuthorize(');
+    expect(program.indexOf('SystemSetInfoCorrelationRules.MatchesReservation('))
+      .toBeLessThan(program.indexOf('if (lease.FileObjectClosed)'));
     expect(program.indexOf('if (!AuthorizeJobMemberLocked('))
       .toBeLessThan(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('));
     expect(program.indexOf('if (TryAuthorizeReservedSystemSetInfoLocked('))
