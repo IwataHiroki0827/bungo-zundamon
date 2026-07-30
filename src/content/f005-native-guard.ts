@@ -101,6 +101,8 @@ type F005SystemUnboundWriteStage =
   | 'OTHER_KNOWN_PATH';
 export type F005SystemUnboundWriteDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_${F005SystemUnboundWriteStage}`;
+export type F005SystemUnboundWriteOtherKnownPathDiagnosticCode =
+  `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_${F005SystemSetInfoPathBucket}_${F005SystemSetInfoExtensionBucket}_${F005SystemSetInfoEntryState}_${F005SystemSetInfoLeaseState}`;
 
 const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
@@ -137,6 +139,14 @@ const F005_NATIVE_SYSTEM_UNBOUND_WRITE_DIAGNOSTIC = new RegExp(
   '(?:FILE_OBJECT_ZERO|LEASE_(?:SNAPSHOT_MISSING|CURRENT_MISSING|' +
   'IDENTITY_MISMATCH|OPEN_CANDIDATE|CLOSED_CANDIDATE)|' +
   'COMPLETED_(?:ID|CHANGED|MISSING)|OTHER_KNOWN_PATH)$',
+  'u',
+);
+const F005_NATIVE_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_DIAGNOSTIC = new RegExp(
+  '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_' +
+  '(?:CACHE|CONTENT|DATA|DIST|NATIVE|NODE_MODULES|PUBLIC|SCRIPTS|SRC|OTHER)_' +
+  '(?:EXE|JS|JSON|LOG|TMP|TS|WAV|OTHER)_' +
+  '(?:FILE|DIRECTORY|ABSENT)_' +
+  '(?:NO_LEASE|BOUND_LEASE|UNBOUND_LEASE|DONE_ID|DONE_CHANGED|DONE_MISSING)$',
   'u',
 );
 
@@ -185,12 +195,24 @@ export function isF005SystemUnboundWriteDiagnosticCode(
     F005_NATIVE_SYSTEM_UNBOUND_WRITE_DIAGNOSTIC.test(value.slice(5));
 }
 
+export function isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(
+  value: unknown,
+): value is F005SystemUnboundWriteOtherKnownPathDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_DIAGNOSTIC.test(
+      value.slice(5),
+    );
+}
+
 export type F005NativeCapacityErrorCode =
   | F005SystemSetInfoDiagnosticCode
   | F005SystemSetInfoCorrelationDiagnosticCode
   | F005CompletedWriteRejoinDiagnosticCode
   | F005ClosedLeaseRejoinDiagnosticCode
   | F005SystemUnboundWriteDiagnosticCode
+  | F005SystemUnboundWriteOtherKnownPathDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -409,6 +431,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_UNBOUND_WRITE_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemUnboundWriteDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005SystemUnboundWriteOtherKnownPathDiagnosticCode;
   }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';

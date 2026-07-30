@@ -18,6 +18,7 @@ import {
   isF005SystemSetInfoCorrelationDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
+  isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   normalizeF005CapacityNoticePath,
   preserveF005NativeCapacityFailure,
   validateF005CapacityJournalV3,
@@ -145,6 +146,23 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  const otherKnownPath =
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_CACHE_OTHER_DIRECTORY_UNBOUND_LEASE';
+  expect(isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(otherKnownPath))
+    .toBe(true);
+  expect(classifyF005NativeCapacityReplyError(otherKnownPath.slice(5)))
+    .toBe(otherKnownPath);
+  const maximumOtherKnownPath =
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_NODE_MODULES_OTHER_DIRECTORY_UNBOUND_LEASE';
+  expect(isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(maximumOtherKnownPath))
+    .toBe(true);
+  expect(maximumOtherKnownPath.length).toBeLessThanOrEqual(127);
+  expect(isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(
+    `${otherKnownPath}_PRIVATE`,
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    `${otherKnownPath.slice(5)}_PRIVATE`,
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'CREATE_BIND_MISMATCH',

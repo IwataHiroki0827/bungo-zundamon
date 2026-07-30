@@ -2418,10 +2418,9 @@ sealed class CapacityGuardSession : IDisposable
                             ? boundFileObject
                                 ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
                                 : operationClass == "WRITE" && knownPath
-                                    ? "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
-                                        SystemUnboundWriteKnownPathStage(
-                                            normalized,
-                                            fileObject)
+                                    ? SystemUnboundWriteKnownPathFailure(
+                                        normalized,
+                                        fileObject)
                                     : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
                                         (knownPath
                                             ? "KNOWN_PATH"
@@ -3116,13 +3115,14 @@ sealed class CapacityGuardSession : IDisposable
             identityMatches: current?.Identity == completed.Identity);
     }
 
-    private string SystemUnboundWriteKnownPathStage(
+    private string SystemUnboundWriteKnownPathFailure(
         string normalized,
         ulong fileObject)
     {
         if (fileObject == 0)
-            return SystemUnboundWriteDiagnosticRules.Classify(
-                false, false, false, false, false, false, "NO_LEASE");
+            return "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
+                SystemUnboundWriteDiagnosticRules.Classify(
+                    false, false, false, false, false, false, "NO_LEASE");
         var lease = pendingWriteLease;
         var leaseMatches = activePhase is not null &&
             lease is not null &&
@@ -3131,19 +3131,21 @@ sealed class CapacityGuardSession : IDisposable
         if (leaseMatches)
         {
             if (lease!.Snapshot is null)
-                return SystemUnboundWriteDiagnosticRules.Classify(
-                    true, true, lease.FileObjectClosed, false, false, false, "NO_LEASE");
+                return "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
+                    SystemUnboundWriteDiagnosticRules.Classify(
+                        true, true, lease.FileObjectClosed, false, false, false, "NO_LEASE");
             var current = TryInspect(normalized);
-            return SystemUnboundWriteDiagnosticRules.Classify(
-                true,
-                true,
-                lease.FileObjectClosed,
-                true,
-                current is not null,
-                current?.Identity == lease.Snapshot.Identity,
-                "NO_LEASE");
+            return "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
+                SystemUnboundWriteDiagnosticRules.Classify(
+                    true,
+                    true,
+                    lease.FileObjectClosed,
+                    true,
+                    current is not null,
+                    current?.Identity == lease.Snapshot.Identity,
+                    "NO_LEASE");
         }
-        return SystemUnboundWriteDiagnosticRules.Classify(
+        var completedStage = SystemUnboundWriteDiagnosticRules.Classify(
             true,
             false,
             false,
@@ -3151,6 +3153,20 @@ sealed class CapacityGuardSession : IDisposable
             false,
             false,
             CompletedWriteDiagnosticState(normalized));
+        if (completedStage != "OTHER_KNOWN_PATH")
+            return "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
+                completedStage;
+        var absolute = Path.Combine(
+            root,
+            normalized.Replace('/', Path.DirectorySeparatorChar));
+        return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" +
+            SystemSetInfoDiagnosticRules.Classify(
+                normalized,
+                File.Exists(absolute),
+                Directory.Exists(absolute),
+                pendingWriteLease is not null,
+                pendingWriteLease?.FileObject is not null,
+                "NO_LEASE");
     }
 
     private string? NormalizeObservedPath(string value)

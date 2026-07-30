@@ -533,6 +533,22 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    const otherKnownPathCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_CACHE_OTHER_DIRECTORY_UNBOUND_LEASE';
+    const otherKnownPath = new F005NativeCapacityError(
+      otherKnownPathCode,
+      'fixed other known path bucket only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: otherKnownPath }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: otherKnownPathCode,
+      },
+    });
   });
 
   it.each([

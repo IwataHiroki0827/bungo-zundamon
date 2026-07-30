@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; System unbound writes expose fixed safe stages only.
+# Native tooling stays outside; other known writes expose fixed safe buckets only.
 on:
   push:
     branches:

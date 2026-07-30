@@ -213,12 +213,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('if (stage == "CANDIDATE")');
     expect(program).toContain('expectedIdentity = lease.Snapshot!.Identity');
     expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_IDENTITY_MISMATCH');
-    expect(program).toContain('SystemUnboundWriteKnownPathStage(');
+    expect(program).toContain('SystemUnboundWriteKnownPathFailure(');
     expect(program).toContain('SystemUnboundWriteDiagnosticRules.Classify(');
     expect(program).toContain('LEASE_CLOSED_CANDIDATE');
     expect(program).toContain('LEASE_OPEN_CANDIDATE');
     const unboundWriteStage = program.slice(
-      program.indexOf('private string SystemUnboundWriteKnownPathStage('),
+      program.indexOf('private string SystemUnboundWriteKnownPathFailure('),
       program.indexOf('private string? NormalizeObservedPath('),
     );
     expect(unboundWriteStage.indexOf('if (fileObject == 0)'))
@@ -228,6 +228,13 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(unboundWriteStage.indexOf('var current = TryInspect(normalized)'))
       .toBeLessThan(unboundWriteStage.indexOf('CompletedWriteDiagnosticState(normalized)'));
     expect(unboundWriteStage.match(/TryInspect\(normalized\)/gu)).toHaveLength(1);
+    expect(unboundWriteStage).toContain(
+      'if (completedStage != "OTHER_KNOWN_PATH")',
+    );
+    expect(unboundWriteStage).toContain(
+      '"SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_"',
+    );
+    expect(unboundWriteStage).toContain('SystemSetInfoDiagnosticRules.Classify(');
     const closedLeaseBlock = program.slice(
       program.indexOf('if (lease.FileObjectClosed)'),
       program.indexOf('if (lease.FileObject is null)'),
