@@ -213,6 +213,21 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('if (stage == "CANDIDATE")');
     expect(program).toContain('expectedIdentity = lease.Snapshot!.Identity');
     expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_IDENTITY_MISMATCH');
+    expect(program).toContain('SystemUnboundWriteKnownPathStage(');
+    expect(program).toContain('SystemUnboundWriteDiagnosticRules.Classify(');
+    expect(program).toContain('LEASE_CLOSED_CANDIDATE');
+    expect(program).toContain('LEASE_OPEN_CANDIDATE');
+    const unboundWriteStage = program.slice(
+      program.indexOf('private string SystemUnboundWriteKnownPathStage('),
+      program.indexOf('private string? NormalizeObservedPath('),
+    );
+    expect(unboundWriteStage.indexOf('if (fileObject == 0)'))
+      .toBeLessThan(unboundWriteStage.indexOf('var lease = pendingWriteLease'));
+    expect(unboundWriteStage.indexOf('if (lease!.Snapshot is null)'))
+      .toBeLessThan(unboundWriteStage.indexOf('var current = TryInspect(normalized)'));
+    expect(unboundWriteStage.indexOf('var current = TryInspect(normalized)'))
+      .toBeLessThan(unboundWriteStage.indexOf('CompletedWriteDiagnosticState(normalized)'));
+    expect(unboundWriteStage.match(/TryInspect\(normalized\)/gu)).toHaveLength(1);
     const closedLeaseBlock = program.slice(
       program.indexOf('if (lease.FileObjectClosed)'),
       program.indexOf('if (lease.FileObject is null)'),

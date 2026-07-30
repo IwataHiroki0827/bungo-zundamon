@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; only the closed lease exact candidate rejoins.
+# Native tooling stays outside; System unbound writes expose fixed safe stages only.
 on:
   push:
     branches:

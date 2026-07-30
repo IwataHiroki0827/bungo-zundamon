@@ -502,6 +502,37 @@ describe('F005 production work runner', () => {
         code: closedLeaseCode,
       },
     });
+    const unboundWriteCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_LEASE_CLOSED_CANDIDATE';
+    const unboundWrite = new F005NativeCapacityError(
+      unboundWriteCode,
+      'fixed System unbound write stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: unboundWrite }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: unboundWriteCode,
+      },
+    });
+    const privateUnboundWrite = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: privateUnboundWrite }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
   });
 
   it.each([

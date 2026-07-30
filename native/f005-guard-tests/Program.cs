@@ -178,6 +178,46 @@ Check("closed lease identity差替えを固定分類",
 Check("closed lease完全候補を固定分類",
     ClosedLeaseDiagnosticRules.Classify(true, true, true, true) ==
     "CANDIDATE");
+Check("System未結合write空FileObjectを固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        false, true, true, true, true, true, "DONE_ID") ==
+    "FILE_OBJECT_ZERO");
+Check("System未結合write lease snapshot欠落を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, true, false, false, true, false, "NO_LEASE") ==
+    "LEASE_SNAPSHOT_MISSING");
+Check("System未結合write lease current欠落を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, true, false, true, false, false, "NO_LEASE") ==
+    "LEASE_CURRENT_MISSING");
+Check("System未結合write lease identity差替えを固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, true, false, true, true, false, "NO_LEASE") ==
+    "LEASE_IDENTITY_MISMATCH");
+Check("System未結合write open lease完全候補を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, true, false, true, true, true, "NO_LEASE") ==
+    "LEASE_OPEN_CANDIDATE");
+Check("System未結合write closed lease完全候補を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, true, true, true, true, true, "NO_LEASE") ==
+    "LEASE_CLOSED_CANDIDATE");
+Check("System未結合write completed identity一致を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, false, false, false, true, false, "DONE_ID") ==
+    "COMPLETED_ID");
+Check("System未結合write completed identity差替えを固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, false, false, false, true, false, "DONE_CHANGED") ==
+    "COMPLETED_CHANGED");
+Check("System未結合write completed実体欠落を固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, false, false, false, false, false, "DONE_MISSING") ==
+    "COMPLETED_MISSING");
+Check("System未結合writeその他known pathを固定分類",
+    SystemUnboundWriteDiagnosticRules.Classify(
+        true, false, false, false, true, false, "NO_LEASE") ==
+    "OTHER_KNOWN_PATH");
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -274,7 +314,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (95 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (105 cases)");
 return 0;
 
 void Check(string name, bool condition)

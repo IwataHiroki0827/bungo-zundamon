@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-022
+  date: '2026-07-30'
+  trigger: Actions run 30517951376でclosed lease再結合後にSystem未結合write既知pathが安全停止
+  level: design
+  affected:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  - T-070
+  - T-095
+  - T-096
+  status: in-review
 - id: CHG-F005-021
   date: '2026-07-30'
   trigger: Actions run 30517281377でclosed active leaseが全安全候補条件一致
@@ -14,7 +30,7 @@ changes:
   - T-070
   - T-094
   - T-095
-  status: in-review
+  status: done
 - id: CHG-F005-020
   date: '2026-07-30'
   trigger: Actions run 30516456345で2秒完了write再結合後にactive lease closedが安全停止

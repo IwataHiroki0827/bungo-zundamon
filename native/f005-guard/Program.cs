@@ -2417,27 +2417,32 @@ sealed class CapacityGuardSession : IDisposable
                         authorizationFailure = pid is 0 or 4
                             ? boundFileObject
                                 ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
-                                : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
-                                    (knownPath
-                                        ? "KNOWN_PATH"
-                                        : operationClass == "SETINFO"
-                                            ? "UNKNOWN_PATH_" +
-                                                SystemSetInfoDiagnosticRules.Classify(
-                                                    normalized,
-                                                    File.Exists(Path.Combine(
-                                                        root,
-                                                        normalized.Replace(
-                                                            '/',
-                                                            Path.DirectorySeparatorChar))),
-                                                    Directory.Exists(Path.Combine(
-                                                        root,
+                                : operationClass == "WRITE" && knownPath
+                                    ? "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
+                                        SystemUnboundWriteKnownPathStage(
+                                            normalized,
+                                            fileObject)
+                                    : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
+                                        (knownPath
+                                            ? "KNOWN_PATH"
+                                            : operationClass == "SETINFO"
+                                                ? "UNKNOWN_PATH_" +
+                                                    SystemSetInfoDiagnosticRules.Classify(
+                                                        normalized,
+                                                        File.Exists(Path.Combine(
+                                                            root,
                                                             normalized.Replace(
                                                                 '/',
                                                                 Path.DirectorySeparatorChar))),
-                                                    pendingWriteLease is not null,
-                                                    pendingWriteLease?.FileObject is not null,
-                                                    CompletedWriteDiagnosticState(normalized))
-                                            : "UNKNOWN_PATH")
+                                                        Directory.Exists(Path.Combine(
+                                                            root,
+                                                            normalized.Replace(
+                                                                '/',
+                                                                Path.DirectorySeparatorChar))),
+                                                        pendingWriteLease is not null,
+                                                        pendingWriteLease?.FileObject is not null,
+                                                        CompletedWriteDiagnosticState(normalized))
+                                                : "UNKNOWN_PATH")
                             : boundFileObject
                                 ? "BIRTH_MISSING_BOUND_FILE_OBJECT"
                                 : authorizationFailure;
@@ -3109,6 +3114,43 @@ sealed class CapacityGuardSession : IDisposable
             tracked: true,
             currentExists: current is not null,
             identityMatches: current?.Identity == completed.Identity);
+    }
+
+    private string SystemUnboundWriteKnownPathStage(
+        string normalized,
+        ulong fileObject)
+    {
+        if (fileObject == 0)
+            return SystemUnboundWriteDiagnosticRules.Classify(
+                false, false, false, false, false, false, "NO_LEASE");
+        var lease = pendingWriteLease;
+        var leaseMatches = activePhase is not null &&
+            lease is not null &&
+            lease.PhaseInstanceId == activePhase.PhaseInstanceId &&
+            lease.RelativePath == normalized;
+        if (leaseMatches)
+        {
+            if (lease!.Snapshot is null)
+                return SystemUnboundWriteDiagnosticRules.Classify(
+                    true, true, lease.FileObjectClosed, false, false, false, "NO_LEASE");
+            var current = TryInspect(normalized);
+            return SystemUnboundWriteDiagnosticRules.Classify(
+                true,
+                true,
+                lease.FileObjectClosed,
+                true,
+                current is not null,
+                current?.Identity == lease.Snapshot.Identity,
+                "NO_LEASE");
+        }
+        return SystemUnboundWriteDiagnosticRules.Classify(
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            CompletedWriteDiagnosticState(normalized));
     }
 
     private string? NormalizeObservedPath(string value)
@@ -4542,6 +4584,36 @@ public static class ClosedLeaseDiagnosticRules
         if (!currentExists) return "CURRENT_MISSING";
         if (!identityMatches) return "IDENTITY_MISMATCH";
         return "CANDIDATE";
+    }
+}
+
+public static class SystemUnboundWriteDiagnosticRules
+{
+    public static string Classify(
+        bool hasFileObject,
+        bool leaseMatches,
+        bool leaseClosed,
+        bool hasSnapshot,
+        bool currentExists,
+        bool identityMatches,
+        string completedWriteState)
+    {
+        if (!hasFileObject) return "FILE_OBJECT_ZERO";
+        if (leaseMatches)
+        {
+            if (!hasSnapshot) return "LEASE_SNAPSHOT_MISSING";
+            if (!currentExists) return "LEASE_CURRENT_MISSING";
+            if (!identityMatches) return "LEASE_IDENTITY_MISMATCH";
+            return leaseClosed
+                ? "LEASE_CLOSED_CANDIDATE"
+                : "LEASE_OPEN_CANDIDATE";
+        }
+        return completedWriteState switch {
+            "DONE_ID" => "COMPLETED_ID",
+            "DONE_CHANGED" => "COMPLETED_CHANGED",
+            "DONE_MISSING" => "COMPLETED_MISSING",
+            _ => "OTHER_KNOWN_PATH",
+        };
     }
 }
 

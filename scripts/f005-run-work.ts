@@ -56,6 +56,7 @@ import {
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
+  isF005SystemUnboundWriteDiagnosticCode,
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
@@ -524,7 +525,8 @@ function safeFailureCode(value: unknown): string | null {
     isF005ClosedLeaseRejoinDiagnosticCode(value) ||
     isF005CompletedWriteRejoinDiagnosticCode(value) ||
     isF005SystemSetInfoDiagnosticCode(value) ||
-    isF005SystemSetInfoCorrelationDiagnosticCode(value)
+    isF005SystemSetInfoCorrelationDiagnosticCode(value) ||
+    isF005SystemUnboundWriteDiagnosticCode(value)
   )
     ? value
     : null;

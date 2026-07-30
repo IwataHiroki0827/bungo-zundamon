@@ -17,6 +17,7 @@ import {
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
+  isF005SystemUnboundWriteDiagnosticCode,
   normalizeF005CapacityNoticePath,
   preserveF005NativeCapacityFailure,
   validateF005CapacityJournalV3,
@@ -121,6 +122,30 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
         : invalid,
     )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   }
+  for (const stage of [
+    'FILE_OBJECT_ZERO',
+    'LEASE_SNAPSHOT_MISSING',
+    'LEASE_CURRENT_MISSING',
+    'LEASE_IDENTITY_MISMATCH',
+    'LEASE_OPEN_CANDIDATE',
+    'LEASE_CLOSED_CANDIDATE',
+    'COMPLETED_ID',
+    'COMPLETED_CHANGED',
+    'COMPLETED_MISSING',
+    'OTHER_KNOWN_PATH',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_${stage}` as const;
+    expect(isF005SystemUnboundWriteDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005SystemUnboundWriteDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'CREATE_BIND_MISMATCH',
     'CREATE_SNAPSHOT_MISSING',
@@ -663,7 +688,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (95 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (105 cases)'),
     });
   }, 120_000);
 });
