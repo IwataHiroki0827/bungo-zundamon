@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; native helper failures expose only fixed safe categories.
+# Source bytes are LF-pinned; native tooling executable and cwd stay outside the guarded workspace.
 on:
   push:
     branches:
