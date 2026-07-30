@@ -2354,7 +2354,8 @@ sealed class CapacityGuardSession : IDisposable
                     return;
                 }
                 callbackStage = "AUTHORIZATION";
-                string? completedWriteExpectedIdentity = null;
+                string? systemSetInfoExpectedIdentity = null;
+                string? identityRecheckFailureCode = null;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -2372,11 +2373,16 @@ sealed class CapacityGuardSession : IDisposable
                         authorizationFailure,
                         out var reservedPid,
                         out var reservedSequenceNumber,
-                        out var deferred))
+                        out var deferred,
+                        out var reservedExpectedIdentity))
                     {
                         if (deferred) return;
                         pid = reservedPid;
                         producerSequenceNumber = reservedSequenceNumber;
+                        systemSetInfoExpectedIdentity = reservedExpectedIdentity;
+                        if (reservedExpectedIdentity is not null)
+                            identityRecheckFailureCode =
+                                "ETW_CLOSED_LEASE_REJOIN_IDENTITY_MISMATCH";
                     }
                     else if (TryAuthorizeCompletedSystemSetInfoLocked(
                         eventName,
@@ -2387,10 +2393,12 @@ sealed class CapacityGuardSession : IDisposable
                         authorizationFailure,
                         out var completedPid,
                         out var completedSequenceNumber,
-                        out completedWriteExpectedIdentity))
+                        out systemSetInfoExpectedIdentity))
                     {
                         pid = completedPid;
                         producerSequenceNumber = completedSequenceNumber;
+                        identityRecheckFailureCode =
+                            "ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH";
                     }
                     else
                     {
@@ -2483,10 +2491,11 @@ sealed class CapacityGuardSession : IDisposable
                 if (eventName != "delete")
                     current = TryInspect(normalized);
                 callbackStage = "CORRELATION";
-                if (completedWriteExpectedIdentity is not null &&
-                    current?.Identity != completedWriteExpectedIdentity)
+                if (systemSetInfoExpectedIdentity is not null &&
+                    current?.Identity != systemSetInfoExpectedIdentity)
                 {
-                    PoisonLocked("ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH");
+                    PoisonLocked(identityRecheckFailureCode ??
+                        "ETW_SYSTEM_SETINFO_REJOIN_IDENTITY_MISMATCH");
                     return;
                 }
                 if (eventName == "create" &&
@@ -2675,11 +2684,13 @@ sealed class CapacityGuardSession : IDisposable
         string authorizationFailure,
         out int producerPid,
         out ulong producerSequenceNumber,
-        out bool deferred)
+        out bool deferred,
+        out string? expectedIdentity)
     {
         producerPid = 0;
         producerSequenceNumber = 0;
         deferred = false;
+        expectedIdentity = null;
         var lease = pendingWriteLease;
         if (activePhase is null || lease is null)
             return false;
@@ -2730,6 +2741,11 @@ sealed class CapacityGuardSession : IDisposable
                         closedCurrent is not null,
                         closedCurrent?.Identity == lease.Snapshot.Identity);
                 }
+            }
+            if (stage == "CANDIDATE")
+            {
+                expectedIdentity = lease.Snapshot!.Identity;
+                return true;
             }
             PoisonLocked($"ETW_CLOSED_LEASE_REJOIN_{stage}");
             deferred = true;

@@ -207,9 +207,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('prior.RelativePath == normalized');
     expect(program).toContain('prior.Identity == completed.Identity');
     expect(program).toContain('current?.Identity == completed.Identity');
-    expect(program).toContain('current?.Identity != completedWriteExpectedIdentity');
+    expect(program).toContain('current?.Identity != systemSetInfoExpectedIdentity');
     expect(program).toContain('ClosedLeaseDiagnosticRules.Classify(');
     expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_{stage}');
+    expect(program).toContain('if (stage == "CANDIDATE")');
+    expect(program).toContain('expectedIdentity = lease.Snapshot!.Identity');
+    expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_IDENTITY_MISMATCH');
     const closedLeaseBlock = program.slice(
       program.indexOf('if (lease.FileObjectClosed)'),
       program.indexOf('if (lease.FileObject is null)'),

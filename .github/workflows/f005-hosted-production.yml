@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; closed active lease exposes fixed safe stages only.
+# Native tooling stays outside; only the closed lease exact candidate rejoins.
 on:
   push:
     branches:

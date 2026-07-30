@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T14:39:20+09:00
+updated: 2026-07-30T14:53:02+09:00
 next_actions:
-  - "CHG-F005-020のclosed active lease固定診断を検証・独立レビュー・commit/pushし、GitHub hosted Windowsで候補条件を特定する"
+  - "CHG-F005-021をcommit/pushし、GitHub hosted Windowsでidentity二重照合と容量actualを維持したproductionを継続する"
 blocked_by: []
 ---
 
@@ -25,6 +25,7 @@ blocked_by: []
 - run 30515251601は`F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION_WITHIN_500MS`で安全停止し、完了後時間差が100ms超500ms以内と確認した。CHG-F005-017/T-091は目的を達成して`done`とした。CHG-F005-018で全完全tuple条件を維持した500ms上限だけを限定拡張し、対象124件、native規則90件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30516000235は500ms限定再結合後も`F005_ETW_COMPLETED_WRITE_REJOIN_AFTER_COMPLETION_WITHIN_2S`で安全停止し、hosted schedulingにより500ms超2秒以内となる場合を確認した。CHG-F005-018/T-092は`done`とした。CHG-F005-019で全完全tuple条件を維持した2秒上限へ限定拡張し、対象124件、native規則90件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30516456345は完了writeの2秒限定再結合を通過後、現在のactive leaseに一致するSystem SetInfoを`LEASE_CLOSED`で安全停止した。CHG-F005-019/T-093は`done`とした。CHG-F005-020でclosed leaseのsnapshot・binding・current identityを固定5 stageへ分類し、対象124件、native規則95件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30517281377は`F005_ETW_CLOSED_LEASE_REJOIN_CANDIDATE`で安全停止し、snapshot・binding・current identityの全安全候補条件一致を確認した。CHG-F005-020/T-094は`done`とした。CHG-F005-021で完全候補だけをidentity二重照合付きで元worker世代へ再結合し、対象124件、native規則95件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -66,18 +67,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-095/CHG-F005-021でclosed active lease完全候補の限定再結合を実装・独立レビューPASS
+- run 30517281377でCANDIDATEを安全停止し、候補・公開差分0
 - T-094/CHG-F005-020でclosed active leaseを固定5 stageへ細分化
 - run 30516456345でLEASE_CLOSEDを安全停止し、候補・公開差分0
 - T-093/CHG-F005-019で完了後2秒限定再結合を実装
-- run 30516000235でWITHIN_2Sを安全停止し、候補・公開差分0
-- T-092/CHG-F005-018で完了後500ms限定再結合を実装
 
 ## 次のアクション
 
-- CHG-F005-020を検証・独立レビュー後にcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- closed leaseの固定stageで安全候補条件を特定し、認可変更が必要な場合だけ次の変更管理で個別に検討する。
+- CHG-F005-021をcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- closed lease再結合後もidentity・容量・候補保存が不変で処理継続することをhosted証跡で確認する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了writeの2秒再結合までPASSしている。CHG-F005-020でactive closed leaseの候補条件を特定する必要がある。
+- T-070 production runnerはkernel ETW preflight、VOICEVOX取得、完了writeの2秒再結合、closed lease完全候補確認までPASSしている。CHG-F005-021でproductionを継続する必要がある。

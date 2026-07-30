@@ -595,4 +595,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 8000
-  note: run 30516456345のLEASE_CLOSEDを受け、認可を変えずsnapshot・FileObject binding・current identityを固定5 stageへ細分化。段階評価、対象124件、native規則95件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
+  note: run 30516456345のLEASE_CLOSEDを受け、認可を変えずsnapshot・FileObject binding・current identityを固定5 stageへ細分化。段階評価、対象124件、native規則95件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0。run 30517281377でCANDIDATEを特定
+- date: '2026-07-30'
+  phase: test
+  task: T-095 CHG-F005-021 closed active lease完全候補の限定再結合
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30517281377のCANDIDATEを根拠に、closed lease完全候補だけをsnapshot identity二重照合付きで元worker世代へ再結合。対象124件、native規則95件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0
