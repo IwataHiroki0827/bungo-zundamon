@@ -2133,7 +2133,7 @@ tasks:
   title: CHG-F005-027 bound active lease中System directory write固定診断
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-100
   tags:
@@ -2146,6 +2146,26 @@ tasks:
   - QT-F005-008
   mode: advisor
   mode_reason: bound active lease中のcache directory writeを認可せず既存固定13 stageへ接続するため
+  model:
+    lead: opus
+    workers: sonnet
+- id: T-102
+  title: CHG-F005-028 System結合済みFileObject固定診断
+  feature: F005
+  phase: test
+  state: doing
+  depends:
+  - T-101
+  tags:
+  - REQ-F005-012
+  - REQ-F005-013
+  - DES-F005-006
+  - FUN-F005-047
+  - UT-F005-047
+  - IT-F005-005
+  - QT-F005-008
+  mode: advisor
+  mode_reason: System結合済みFileObjectを認可せずsnapshot・lease関係の固定11 stageへ細分化するため
   model:
     lead: opus
     workers: sonnet

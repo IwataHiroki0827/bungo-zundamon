@@ -19,6 +19,7 @@ import {
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
+  isF005SystemBoundFileObjectRejoinDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   normalizeF005CapacityNoticePath,
@@ -215,6 +216,34 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'SNAPSHOT_MISSING',
+    'PATH_MISMATCH',
+    'CURRENT_MISSING',
+    'IDENTITY_MISMATCH',
+    'LEASE_MISSING',
+    'LEASE_PHASE',
+    'LEASE_PATH',
+    'LEASE_BINDING',
+    'LEASE_CLOSED',
+    'LEASE_ESCAPE',
+    'CANDIDATE',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${stage}` as const;
+    expect(isF005SystemBoundFileObjectRejoinDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005SystemBoundFileObjectRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'CREATE_BIND_MISMATCH',
@@ -758,7 +787,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (136 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (147 cases)'),
     });
   }, 120_000);
 });

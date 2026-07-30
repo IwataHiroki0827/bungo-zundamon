@@ -166,7 +166,22 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('rejection = "SEQUENCE_MISMATCH"');
     expect(program).toContain('ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}');
     expect(program).toContain('filesByObject.ContainsKey(fileObject)');
-    expect(program).toContain('"SYSTEM_PROCESS_BOUND_FILE_OBJECT"');
+    expect(program).toContain('"SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_"');
+    expect(program.match(/SystemBoundFileObjectRejoinStage\(/gu)).toHaveLength(2);
+    const observeEtw = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    expect(observeEtw.match(/SystemBoundFileObjectRejoinStage\(/gu))
+      .toHaveLength(1);
+    expect(observeEtw.indexOf('lock (gate)'))
+      .toBeLessThan(observeEtw.indexOf('SystemBoundFileObjectRejoinStage('));
+    expect(observeEtw.indexOf('callbackStage = "AUTHORIZATION"'))
+      .toBeLessThan(observeEtw.indexOf('SystemBoundFileObjectRejoinStage('));
+    expect(observeEtw.indexOf('SystemBoundFileObjectRejoinStage('))
+      .toBeLessThan(observeEtw.indexOf(
+        'PoisonLocked($"ETW_PID_NOT_JOB_MEMBER_{authorizationFailure}")',
+      ));
     expect(program).toContain('$"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_"');
     expect(program).toContain('"BIRTH_MISSING_BOUND_FILE_OBJECT"');
     expect(program).toContain('"create" => "CREATE"');
@@ -219,7 +234,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('LEASE_OPEN_CANDIDATE');
     const unboundWriteStage = program.slice(
       program.indexOf('private string SystemUnboundWriteKnownPathFailure('),
-      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+      program.indexOf('private string SystemBoundFileObjectRejoinStage('),
     );
     expect(unboundWriteStage.indexOf('if (fileObject == 0)'))
       .toBeLessThan(unboundWriteStage.indexOf('var lease = pendingWriteLease'));
@@ -247,6 +262,39 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
     );
+    const boundFileObjectStage = program.slice(
+      program.indexOf('private string SystemBoundFileObjectRejoinStage('),
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+    );
+    const orderedBoundFileObjectChecks = [
+      'filesByObject.TryGetValue(fileObject, out var snapshot)',
+      'if (snapshot.RelativePath != normalized)',
+      'var current = TryInspect(normalized)',
+      'if (current is null)',
+      'if (current.Identity != snapshot.Identity)',
+      'var lease = pendingWriteLease',
+      'if (lease is null)',
+      'lease.PhaseInstanceId == activePhase.PhaseInstanceId',
+      'if (!phaseMatches)',
+      'if (lease.RelativePath != normalized)',
+      'if (lease.FileObject != fileObject)',
+      'if (lease.FileObjectClosed)',
+      'job.IsAliveOutsideJob(lease.Process)',
+    ];
+    for (const runtimeCheck of orderedBoundFileObjectChecks) {
+      expect(boundFileObjectStage.indexOf(runtimeCheck))
+        .toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedBoundFileObjectChecks.length; index += 1) {
+      expect(boundFileObjectStage.indexOf(orderedBoundFileObjectChecks[index - 1]!))
+        .toBeLessThan(boundFileObjectStage.indexOf(orderedBoundFileObjectChecks[index]!));
+    }
+    expect(boundFileObjectStage.match(
+      /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
+    )).toHaveLength(1);
+    expect(boundFileObjectStage.match(
+      /return SystemBoundFileObjectRejoinDiagnosticRules\.Classify\(/gu,
+    )).toHaveLength(10);
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
     expect(program).toContain(
       'SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(',

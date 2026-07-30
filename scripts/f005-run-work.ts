@@ -60,6 +60,7 @@ import {
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
+  isF005SystemBoundFileObjectRejoinDiagnosticCode,
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
@@ -477,7 +478,6 @@ const F005_FAILURE_CODES = new Set([
   'F005_ETW_PID_NOT_JOB_MEMBER_RETAINED_OUTSIDE_JOB',
   'F005_ETW_PID_NOT_JOB_MEMBER_ROOT_INACTIVE',
   'F005_ETW_PID_NOT_JOB_MEMBER_SEQUENCE_MISMATCH',
-  'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT',
   'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT',
   'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_KNOWN_PATH',
   'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_UNKNOWN_PATH',
@@ -533,7 +533,8 @@ function safeFailureCode(value: unknown): string | null {
     isF005SystemUnboundWriteDiagnosticCode(value) ||
     isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(value) ||
     isF005SystemDirectoryWriteRejoinDiagnosticCode(value) ||
-    isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(value)
+    isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(value) ||
+    isF005SystemBoundFileObjectRejoinDiagnosticCode(value)
   )
     ? value
     : null;

@@ -316,6 +316,34 @@ Check("active lease directoryescapeを固定分類",
 Check("active lease directory完全候補を固定分類",
     SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(
         "CANDIDATE", true, true, true, false, false, false) == "CANDIDATE");
+foreach (var (inputs, expected) in new[] {
+    (new[] { false, false, false, false, false, false, false, false, false, false },
+        "SNAPSHOT_MISSING"),
+    (new[] { true, false, false, false, false, false, false, false, false, false },
+        "PATH_MISMATCH"),
+    (new[] { true, true, false, false, false, false, false, false, false, false },
+        "CURRENT_MISSING"),
+    (new[] { true, true, true, false, false, false, false, false, false, false },
+        "IDENTITY_MISMATCH"),
+    (new[] { true, true, true, true, false, false, false, false, false, false },
+        "LEASE_MISSING"),
+    (new[] { true, true, true, true, true, false, false, false, false, false },
+        "LEASE_PHASE"),
+    (new[] { true, true, true, true, true, true, false, false, false, false },
+        "LEASE_PATH"),
+    (new[] { true, true, true, true, true, true, true, false, false, false },
+        "LEASE_BINDING"),
+    (new[] { true, true, true, true, true, true, true, true, true, false },
+        "LEASE_CLOSED"),
+    (new[] { true, true, true, true, true, true, true, true, false, true },
+        "LEASE_ESCAPE"),
+    (new[] { true, true, true, true, true, true, true, true, false, false },
+        "CANDIDATE"),
+})
+    Check($"System bound FileObject {expected}を固定分類",
+        SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+            inputs[0], inputs[1], inputs[2], inputs[3], inputs[4],
+            inputs[5], inputs[6], inputs[7], inputs[8], inputs[9]) == expected);
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -412,7 +440,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (136 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (147 cases)");
 return 0;
 
 void Check(string name, bool condition)

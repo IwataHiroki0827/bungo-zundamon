@@ -2432,7 +2432,10 @@ sealed class CapacityGuardSession : IDisposable
                         };
                         authorizationFailure = pid is 0 or 4
                             ? boundFileObject
-                                ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
+                                ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_" +
+                                    SystemBoundFileObjectRejoinStage(
+                                        normalized,
+                                        fileObject)
                                 : operationClass == "WRITE" && knownPath
                                     ? SystemUnboundWriteKnownPathFailure(
                                         normalized,
@@ -3253,6 +3256,46 @@ sealed class CapacityGuardSession : IDisposable
             return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
                 SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
         return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
+    }
+
+    private string SystemBoundFileObjectRejoinStage(
+        string normalized,
+        ulong fileObject)
+    {
+        if (!filesByObject.TryGetValue(fileObject, out var snapshot))
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                false, false, false, false, false, false, false, false, false, false);
+        if (snapshot.RelativePath != normalized)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, false, false, false, false, false, false, false, false, false);
+        var current = TryInspect(normalized);
+        if (current is null)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, false, false, false, false, false, false, false, false);
+        if (current.Identity != snapshot.Identity)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, false, false, false, false, false, false, false);
+        var lease = pendingWriteLease;
+        if (lease is null)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, true, false, false, false, false, false, false);
+        var phaseMatches = activePhase is not null &&
+            lease.PhaseInstanceId == activePhase.PhaseInstanceId;
+        if (!phaseMatches)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, true, true, false, false, false, false, false);
+        if (lease.RelativePath != normalized)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, true, true, true, false, false, false, false);
+        if (lease.FileObject != fileObject)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, true, true, true, true, false, false, false);
+        if (lease.FileObjectClosed)
+            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+                true, true, true, true, true, true, true, true, true, false);
+        var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
+        return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
+            true, true, true, true, true, true, true, true, false, leaseOutsideJob);
     }
 
     private string SystemDirectoryWriteRejoinStage(string normalized)
@@ -4865,6 +4908,34 @@ public static class SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules
         if (!leasePhaseMatches) return "LEASE_PHASE";
         if (!leaseParentMatches) return "LEASE_PARENT";
         if (leaseBound) return "LEASE_BOUND";
+        if (leaseClosed) return "LEASE_CLOSED";
+        if (leaseOutsideJob) return "LEASE_ESCAPE";
+        return "CANDIDATE";
+    }
+}
+
+public static class SystemBoundFileObjectRejoinDiagnosticRules
+{
+    public static string Classify(
+        bool hasSnapshot,
+        bool pathMatches,
+        bool currentExists,
+        bool identityMatches,
+        bool hasLease,
+        bool leasePhaseMatches,
+        bool leasePathMatches,
+        bool leaseBindingMatches,
+        bool leaseClosed,
+        bool leaseOutsideJob)
+    {
+        if (!hasSnapshot) return "SNAPSHOT_MISSING";
+        if (!pathMatches) return "PATH_MISMATCH";
+        if (!currentExists) return "CURRENT_MISSING";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
+        if (!hasLease) return "LEASE_MISSING";
+        if (!leasePhaseMatches) return "LEASE_PHASE";
+        if (!leasePathMatches) return "LEASE_PATH";
+        if (!leaseBindingMatches) return "LEASE_BINDING";
         if (leaseClosed) return "LEASE_CLOSED";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
         return "CANDIDATE";

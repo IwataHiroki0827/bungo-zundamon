@@ -128,6 +128,20 @@ type F005SystemDirectoryActiveLeaseWriteRejoinStage =
   | 'CANDIDATE';
 export type F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_${F005SystemDirectoryActiveLeaseWriteRejoinStage}`;
+type F005SystemBoundFileObjectRejoinStage =
+  | 'SNAPSHOT_MISSING'
+  | 'PATH_MISMATCH'
+  | 'CURRENT_MISSING'
+  | 'IDENTITY_MISMATCH'
+  | 'LEASE_MISSING'
+  | 'LEASE_PHASE'
+  | 'LEASE_PATH'
+  | 'LEASE_BINDING'
+  | 'LEASE_CLOSED'
+  | 'LEASE_ESCAPE'
+  | 'CANDIDATE';
+export type F005SystemBoundFileObjectRejoinDiagnosticCode =
+  `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${F005SystemBoundFileObjectRejoinStage}`;
 
 const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
@@ -188,6 +202,12 @@ const F005_NATIVE_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_DIAGNOSTIC =
     'BOUND|CLOSED|ESCAPE)|CANDIDATE)$',
     'u',
   );
+const F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC = new RegExp(
+  '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_' +
+  '(?:SNAPSHOT_MISSING|PATH_MISMATCH|CURRENT_MISSING|IDENTITY_MISMATCH|' +
+  'LEASE_(?:MISSING|PHASE|PATH|BINDING|CLOSED|ESCAPE)|CANDIDATE)$',
+  'u',
+);
 
 export function isF005SystemSetInfoDiagnosticCode(
   value: unknown,
@@ -265,6 +285,17 @@ export function isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(
     );
 }
 
+export function isF005SystemBoundFileObjectRejoinDiagnosticCode(
+  value: unknown,
+): value is F005SystemBoundFileObjectRejoinDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC.test(
+      value.slice(5),
+    );
+}
+
 export type F005NativeCapacityErrorCode =
   | F005SystemSetInfoDiagnosticCode
   | F005SystemSetInfoCorrelationDiagnosticCode
@@ -274,6 +305,7 @@ export type F005NativeCapacityErrorCode =
   | F005SystemUnboundWriteOtherKnownPathDiagnosticCode
   | F005SystemDirectoryWriteRejoinDiagnosticCode
   | F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode
+  | F005SystemBoundFileObjectRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -339,7 +371,6 @@ export type F005NativeCapacityErrorCode =
   | 'F005_ETW_PID_NOT_JOB_MEMBER_RETAINED_OUTSIDE_JOB'
   | 'F005_ETW_PID_NOT_JOB_MEMBER_ROOT_INACTIVE'
   | 'F005_ETW_PID_NOT_JOB_MEMBER_SEQUENCE_MISMATCH'
-  | 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT'
   | 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT'
   | 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_KNOWN_PATH'
   | 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_UNKNOWN_PATH'
@@ -443,7 +474,6 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
   ['ETW_PID_NOT_JOB_MEMBER_RETAINED_OUTSIDE_JOB', 'F005_ETW_PID_NOT_JOB_MEMBER_RETAINED_OUTSIDE_JOB'],
   ['ETW_PID_NOT_JOB_MEMBER_ROOT_INACTIVE', 'F005_ETW_PID_NOT_JOB_MEMBER_ROOT_INACTIVE'],
   ['ETW_PID_NOT_JOB_MEMBER_SEQUENCE_MISMATCH', 'F005_ETW_PID_NOT_JOB_MEMBER_SEQUENCE_MISMATCH'],
-  ['ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT', 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT'],
   ['ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT', 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT'],
   ['ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_KNOWN_PATH', 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_KNOWN_PATH'],
   ['ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_UNKNOWN_PATH', 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_CREATE_UNKNOWN_PATH'],
@@ -506,6 +536,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005SystemBoundFileObjectRejoinDiagnosticCode;
   }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';
