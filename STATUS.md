@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T17:13:00+09:00
+updated: 2026-07-30T17:20:00+09:00
 next_actions:
-  - "CHG-F005-030でbound lease rename中directory writeを固定8 stageへ細分化し、独立レビュー後にhosted productionを継続する"
+  - "CHG-F005-031でBEFORE_RESERVATIONをlease予約前・予約後の固定bucketへ分離する"
 blocked_by: []
 ---
 
@@ -35,6 +35,7 @@ blocked_by: []
 - run 30522848642はbound directory固定診断を通過後、`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT`で安全停止した。CHG-F005-027/T-101は`done`とした。CHG-F005-028で認可を変えず、snapshot/path/current identityとactive leaseのphase/path/FileObject binding/closed/Job escapeを固定11 stageへ細分化した。初回レビューLow 1件をgate内配置の構造試験追加で解消し、native規則147件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30523793166は`audio-renamed`まで進み、`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_LEASE_BOUND`で安全停止した。CHG-F005-028/T-102は`done`とした。CHG-F005-029で認可を変えず、directory候補とlease snapshot・FileObject binding・current identity・Job状態を固定18 stageへ細分化した。native規則165件、対象124件、型、ESLint、同一SHA再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30524741788は`audio-renamed`後に`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_CURRENT_MISSING`で安全停止した。CHG-F005-029/T-103は`done`とした。CHG-F005-030でrename予約path・親directory・QPC・target identity・Job状態を固定8 stageへ細分化した。初回レビューLow 2件を試験補強で解消し、native規則173件、対象124件、型、ESLint、再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30525787305は`audio-renamed`後、固定stage `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_BEFORE_RESERVATION`で安全停止した。CHG-F005-030/T-104は`done`とし、CHG-F005-031/T-105でevent QPCをlease予約前・lease予約後〜rename予約前へ分離する。候補・公開差分は0件である。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -76,18 +77,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- run 30525787305でBEFORE_RESERVATIONを安全停止し、候補・公開差分0
 - T-104/CHG-F005-030でbound lease rename中directory writeを固定8 stageへ細分化
 - run 30524741788でLEASE_CURRENT_MISSINGをaudio-renamed後に安全停止
 - T-103/CHG-F005-029でbound active lease directory writeを固定18 stageへ細分化
 - run 30523793166でLEASE_BOUNDをaudio-renamed後に安全停止し、候補・公開差分0
-- T-102/CHG-F005-028でSystem結合済みFileObjectを固定11 stageへ細分化
 
 ## 次のアクション
 
-- CHG-F005-030を独立レビュー後にcommit/pushし、hosted productionを再実行する。
-- rename中directory writeが固定8 stageで停止し、生値・候補・公開差分0を維持することを確認する。
+- CHG-F005-031で`BEFORE_RESERVATION`をlease current-path予約QPCとの関係へ固定分類する。
+- 認可は変更せず、生値・候補・公開差分0を維持する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerは`audio-renamed`まで進み、rename中directory writeのtarget関係だけが未確定である。CHG-F005-030で固定stageを取得する。
+- T-070 production runnerは`audio-renamed`まで進み、rename target identityは確認済みだがevent QPCがrename予約以前である。CHG-F005-031でlease予約との時間関係を確認する。

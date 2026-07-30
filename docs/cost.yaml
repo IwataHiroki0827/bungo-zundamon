@@ -665,4 +665,4 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 8000
-  note: rename予約path・親directory・QPC・target identity・Job状態を固定8 stageへ細分化。初回レビューLow 2を試験補強で解消し、対象124件、native173件、型・ESLint・再現build2回・trace・独立レビューH/M/L0・public/data差分0
+  note: rename予約path・親directory・QPC・target identity・Job状態を固定8 stageへ細分化。初回レビューLow 2を試験補強で解消し、対象124件、native173件、型・ESLint・再現build2回・trace・独立レビューH/M/L0・public/data差分0。run 30525787305でBEFORE_RESERVATIONを取得
