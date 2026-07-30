@@ -700,6 +700,37 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    const boundLeaseRenameCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_CANDIDATE';
+    const boundLeaseRename = new F005NativeCapacityError(
+      boundLeaseRenameCode,
+      'fixed bound lease rename stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: boundLeaseRename }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: boundLeaseRenameCode,
+      },
+    });
+    const privateBoundLeaseRename = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: privateBoundLeaseRename }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
   });
 
   it.each([

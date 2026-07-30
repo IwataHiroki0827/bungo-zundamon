@@ -20,6 +20,7 @@ import {
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
   isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode,
+  isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode,
   isF005SystemBoundFileObjectRejoinDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
@@ -250,6 +251,29 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'PATH_MISSING',
+    'PARENT',
+    'RESERVATION_MISSING',
+    'BEFORE_RESERVATION',
+    'CURRENT_MISSING',
+    'IDENTITY_MISMATCH',
+    'LEASE_ESCAPE',
+    'CANDIDATE',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_${stage}` as const;
+    expect(isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(code))
+      .toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'SNAPSHOT_MISSING',
@@ -821,7 +845,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (165 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (173 cases)'),
     });
   }, 120_000);
 });

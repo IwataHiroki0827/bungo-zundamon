@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; bound lease identity exposes safe stages.
+# Native tooling stays outside; rename identity exposes safe stages.
 on:
   push:
     branches:

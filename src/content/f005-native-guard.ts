@@ -149,6 +149,17 @@ type F005SystemDirectoryBoundLeaseWriteRejoinStage =
   | 'CANDIDATE';
 export type F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_${F005SystemDirectoryBoundLeaseWriteRejoinStage}`;
+type F005SystemDirectoryBoundLeaseRenameWriteRejoinStage =
+  | 'PATH_MISSING'
+  | 'PARENT'
+  | 'RESERVATION_MISSING'
+  | 'BEFORE_RESERVATION'
+  | 'CURRENT_MISSING'
+  | 'IDENTITY_MISMATCH'
+  | 'LEASE_ESCAPE'
+  | 'CANDIDATE';
+export type F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode =
+  `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_${F005SystemDirectoryBoundLeaseRenameWriteRejoinStage}`;
 type F005SystemBoundFileObjectRejoinStage =
   | 'SNAPSHOT_MISSING'
   | 'PATH_MISMATCH'
@@ -230,6 +241,13 @@ const F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_DIAGNOSTIC =
     'OWNER_MISSING|ROOT_INACTIVE|UNKNOWN)|LEASE_(?:MISSING|PHASE|PARENT|' +
     'CLOSED|UNBOUND|SNAPSHOT_MISSING|BINDING_(?:MISSING|MISMATCH)|' +
     'CURRENT_MISSING|IDENTITY_MISMATCH|ESCAPE)|CANDIDATE)$',
+    'u',
+  );
+const F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_DIAGNOSTIC =
+  new RegExp(
+    '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_' +
+    '(?:PATH_MISSING|PARENT|RESERVATION_MISSING|BEFORE_RESERVATION|' +
+    'CURRENT_MISSING|IDENTITY_MISMATCH|LEASE_ESCAPE|CANDIDATE)$',
     'u',
   );
 const F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC = new RegExp(
@@ -326,6 +344,16 @@ export function isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(
     );
 }
 
+export function isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(
+  value: unknown,
+): value is F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_DIAGNOSTIC
+      .test(value.slice(5));
+}
+
 export function isF005SystemBoundFileObjectRejoinDiagnosticCode(
   value: unknown,
 ): value is F005SystemBoundFileObjectRejoinDiagnosticCode {
@@ -347,6 +375,7 @@ export type F005NativeCapacityErrorCode =
   | F005SystemDirectoryWriteRejoinDiagnosticCode
   | F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode
   | F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode
+  | F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode
   | F005SystemBoundFileObjectRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
@@ -582,6 +611,11 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_DIAGNOSTIC
+      .test(value)) {
+    return `F005_${value}` as F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode;
   }
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC.test(value)) {

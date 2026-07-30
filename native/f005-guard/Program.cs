@@ -2439,7 +2439,8 @@ sealed class CapacityGuardSession : IDisposable
                                 : operationClass == "WRITE" && knownPath
                                     ? SystemUnboundWriteKnownPathFailure(
                                         normalized,
-                                        fileObject)
+                                        fileObject,
+                                        timestampQpc)
                                     : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
                                         (knownPath
                                             ? "KNOWN_PATH"
@@ -3197,7 +3198,8 @@ sealed class CapacityGuardSession : IDisposable
 
     private string SystemUnboundWriteKnownPathFailure(
         string normalized,
-        ulong fileObject)
+        ulong fileObject,
+        long timestampQpc)
     {
         if (fileObject == 0)
             return "SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_WRITE_KNOWN_PATH_" +
@@ -3253,8 +3255,15 @@ sealed class CapacityGuardSession : IDisposable
             return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
                 SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
         if (bucket == "CACHE_OTHER_DIRECTORY_BOUND_LEASE")
-            return "SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_" +
-                SystemDirectoryBoundLeaseWriteRejoinStage(normalized);
+        {
+            var stage = SystemDirectoryBoundLeaseWriteRejoinStage(
+                normalized,
+                timestampQpc);
+            if (stage.StartsWith("RENAME_", StringComparison.Ordinal))
+                return "SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_" +
+                    stage["RENAME_".Length..];
+            return "SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_" + stage;
+        }
         return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
     }
 
@@ -3374,7 +3383,8 @@ sealed class CapacityGuardSession : IDisposable
     }
 
     private string SystemDirectoryBoundLeaseWriteRejoinStage(
-        string normalized)
+        string normalized,
+        long timestampQpc)
     {
         var directoryStage = SystemDirectoryWriteRejoinStage(normalized);
         if (directoryStage != "CANDIDATE")
@@ -3425,9 +3435,10 @@ sealed class CapacityGuardSession : IDisposable
                 true, true, false, false, false, false);
         var current = TryInspect(lease.RelativePath);
         if (current is null)
-            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
-                directoryStage, true, true, true, true, false,
-                true, true, true, false, false, false);
+            return "RENAME_" + SystemDirectoryBoundLeaseRenameDiagnosticStage(
+                normalized,
+                lease,
+                timestampQpc);
         if (current.Identity != lease.Snapshot.Identity)
             return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
                 directoryStage, true, true, true, true, false,
@@ -3436,6 +3447,40 @@ sealed class CapacityGuardSession : IDisposable
         return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
             directoryStage, true, true, true, true, false,
             true, true, true, true, true, leaseOutsideJob);
+    }
+
+    private string SystemDirectoryBoundLeaseRenameDiagnosticStage(
+        string normalized,
+        PendingWriteLease lease,
+        long timestampQpc)
+    {
+        var target = lease.PendingRenamePath;
+        if (target is null)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                false, false, false, false, false, false, false);
+        var slash = target.LastIndexOf('/');
+        var parentMatches = slash > 0 && target[..slash] == normalized;
+        if (!parentMatches)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, false, false, false, false, false, false);
+        var reservation = lease.RenameReservedAtQpc;
+        if (reservation is null or <= 0)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, true, false, false, false, false, false);
+        var afterReservation = timestampQpc > reservation.Value;
+        if (!afterReservation)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, true, true, false, false, false, false);
+        var current = TryInspect(target);
+        if (current is null)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, true, true, true, false, false, false);
+        if (current.Identity != lease.Snapshot!.Identity)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, true, true, true, true, false, false);
+        var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
+        return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+            true, true, true, true, true, true, leaseOutsideJob);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -5042,6 +5087,28 @@ public static class SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules
         if (!bindingMatches) return "LEASE_BINDING_MISMATCH";
         if (!currentExists) return "LEASE_CURRENT_MISSING";
         if (!identityMatches) return "LEASE_IDENTITY_MISMATCH";
+        if (leaseOutsideJob) return "LEASE_ESCAPE";
+        return "CANDIDATE";
+    }
+}
+
+public static class SystemDirectoryBoundLeaseRenameDiagnosticRules
+{
+    public static string Classify(
+        bool hasTarget,
+        bool parentMatches,
+        bool hasReservation,
+        bool afterReservation,
+        bool currentExists,
+        bool identityMatches,
+        bool leaseOutsideJob)
+    {
+        if (!hasTarget) return "PATH_MISSING";
+        if (!parentMatches) return "PARENT";
+        if (!hasReservation) return "RESERVATION_MISSING";
+        if (!afterReservation) return "BEFORE_RESERVATION";
+        if (!currentExists) return "CURRENT_MISSING";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
         return "CANDIDATE";
     }

@@ -267,10 +267,13 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_"',
     );
+    expect(unboundWriteStage).toContain(
+      '"SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_"',
+    );
     expect(program.match(/SystemDirectoryBoundLeaseWriteRejoinStage\(/gu))
       .toHaveLength(2);
     expect(unboundWriteStage.match(
-      /SystemDirectoryBoundLeaseWriteRejoinStage\(normalized\)/gu,
+      /SystemDirectoryBoundLeaseWriteRejoinStage\(\s*normalized,\s*timestampQpc\)/gu,
     )).toHaveLength(1);
     expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
@@ -343,7 +346,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     )).toHaveLength(1);
     const boundLeaseDirectoryStage = program.slice(
       program.indexOf('private string SystemDirectoryBoundLeaseWriteRejoinStage('),
-      program.indexOf('private string? NormalizeObservedPath('),
+      program.indexOf('private string SystemDirectoryBoundLeaseRenameDiagnosticStage('),
     );
     const orderedBoundLeaseDirectoryChecks = [
       'SystemDirectoryWriteRejoinStage(normalized)',
@@ -389,7 +392,45 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     )).toHaveLength(1);
     expect(boundLeaseDirectoryStage.match(
       /return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules\.Classify\(/gu,
-    )).toHaveLength(12);
+    )).toHaveLength(11);
+    expect(boundLeaseDirectoryStage.match(
+      /return "RENAME_" \+ SystemDirectoryBoundLeaseRenameDiagnosticStage\(/gu,
+    )).toHaveLength(1);
+    expect(program.match(/SystemDirectoryBoundLeaseRenameDiagnosticStage\(/gu))
+      .toHaveLength(2);
+    const boundLeaseRenameStage = program.slice(
+      program.indexOf('private string SystemDirectoryBoundLeaseRenameDiagnosticStage('),
+      program.indexOf('private string? NormalizeObservedPath('),
+    );
+    const orderedBoundLeaseRenameChecks = [
+      'var target = lease.PendingRenamePath',
+      'if (target is null)',
+      "target.LastIndexOf('/')",
+      'target[..slash] == normalized',
+      'if (!parentMatches)',
+      'var reservation = lease.RenameReservedAtQpc',
+      'if (reservation is null or <= 0)',
+      'timestampQpc > reservation.Value',
+      'if (!afterReservation)',
+      'var current = TryInspect(target)',
+      'if (current is null)',
+      'if (current.Identity != lease.Snapshot!.Identity)',
+      'job.IsAliveOutsideJob(lease.Process)',
+    ];
+    for (const runtimeCheck of orderedBoundLeaseRenameChecks) {
+      expect(boundLeaseRenameStage.indexOf(runtimeCheck))
+        .toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedBoundLeaseRenameChecks.length; index += 1) {
+      expect(boundLeaseRenameStage.indexOf(orderedBoundLeaseRenameChecks[index - 1]!))
+        .toBeLessThan(boundLeaseRenameStage.indexOf(orderedBoundLeaseRenameChecks[index]!));
+    }
+    expect(boundLeaseRenameStage.match(
+      /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
+    )).toHaveLength(1);
+    expect(boundLeaseRenameStage.match(
+      /return SystemDirectoryBoundLeaseRenameDiagnosticRules\.Classify\(/gu,
+    )).toHaveLength(7);
     const directoryStage = program.slice(
       program.indexOf('private string SystemDirectoryWriteRejoinStage('),
       program.indexOf('private string? NormalizeObservedPath('),
