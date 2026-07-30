@@ -52,6 +52,7 @@ import {
 } from '../src/content/f005-foundation.ts';
 import {
   flushF005ArtifactDirectory,
+  isF005SystemSetInfoDiagnosticCode,
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
@@ -515,7 +516,10 @@ function safeFailureName(value: unknown, fallback: 'Error' | 'NonError'): string
 }
 
 function safeFailureCode(value: unknown): string | null {
-  return typeof value === 'string' && F005_FAILURE_CODES.has(value)
+  return typeof value === 'string' && (
+    F005_FAILURE_CODES.has(value) ||
+    isF005SystemSetInfoDiagnosticCode(value)
+  )
     ? value
     : null;
 }

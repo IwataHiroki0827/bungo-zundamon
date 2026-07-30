@@ -33,7 +33,36 @@ const PHASES = new Set(['voice', 'preview', 'accept', 'build']);
 const WORK_IDS = new Set(['000799', '001076', '001104']);
 const mintedNativeBackends = new WeakSet<object>();
 
+type F005SystemSetInfoPathBucket =
+  | 'CACHE' | 'CONTENT' | 'DATA' | 'DIST' | 'NATIVE'
+  | 'NODE_MODULES' | 'PUBLIC' | 'SCRIPTS' | 'SRC' | 'OTHER';
+type F005SystemSetInfoExtensionBucket =
+  | 'EXE' | 'JS' | 'JSON' | 'LOG' | 'TMP' | 'TS' | 'WAV' | 'OTHER';
+type F005SystemSetInfoEntryState = 'FILE' | 'DIRECTORY' | 'ABSENT';
+type F005SystemSetInfoLeaseState = 'NO_LEASE' | 'BOUND_LEASE' | 'UNBOUND_LEASE';
+export type F005SystemSetInfoDiagnosticCode =
+  `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_${F005SystemSetInfoPathBucket}_${F005SystemSetInfoExtensionBucket}_${F005SystemSetInfoEntryState}_${F005SystemSetInfoLeaseState}`;
+
+const F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC = new RegExp(
+  '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_' +
+  '(?:CACHE|CONTENT|DATA|DIST|NATIVE|NODE_MODULES|PUBLIC|SCRIPTS|SRC|OTHER)_' +
+  '(?:EXE|JS|JSON|LOG|TMP|TS|WAV|OTHER)_' +
+  '(?:FILE|DIRECTORY|ABSENT)_' +
+  '(?:NO_LEASE|BOUND_LEASE|UNBOUND_LEASE)$',
+  'u',
+);
+
+export function isF005SystemSetInfoDiagnosticCode(
+  value: unknown,
+): value is F005SystemSetInfoDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC.test(value.slice(5));
+}
+
 export type F005NativeCapacityErrorCode =
+  | F005SystemSetInfoDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
   | 'F005_NATIVE_WRITE_THROUGH_OPEN_FAILED'
@@ -234,6 +263,9 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
     ? FIXED_F005_ETW_REPLY_CODES.get(value)
     : undefined;
   if (fixedCode !== undefined) return fixedCode;
+  if (typeof value === 'string' && F005_NATIVE_SYSTEM_SETINFO_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005SystemSetInfoDiagnosticCode;
+  }
   if (typeof value === 'string' && value.startsWith('ETW_CONSUMER_FAILED_')) {
     return 'F005_ETW_CONSUMER_FAILED';
   }

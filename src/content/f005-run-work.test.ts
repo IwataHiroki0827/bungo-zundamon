@@ -434,6 +434,27 @@ describe('F005 production work runner', () => {
         code: 'F005_NATIVE_WRITE_THROUGH_CLEANUP_FAILED',
       },
     });
+    const systemSetInfoCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_CONTENT_TMP_ABSENT_UNBOUND_LEASE';
+    const systemSetInfo = new F005NativeCapacityError(
+      systemSetInfoCode,
+      'fixed bucket only',
+    );
+    const systemSetInfoVoice = Object.assign(
+      new Error('voice boundary', { cause: systemSetInfo }),
+      {
+        name: 'F005VoiceError',
+        code: 'F005_VOICE_NATIVE_OBSERVE_FAILED',
+      },
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(systemSetInfoVoice).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: systemSetInfoCode,
+      },
+    });
   });
 
   it.each([

@@ -2,6 +2,19 @@ using static SystemSetInfoCorrelationRules;
 
 var failures = new List<string>();
 
+Check("安全診断cache wav file no lease",
+    SystemSetInfoDiagnosticRules.Classify(
+        ".cache/voice/audio.wav", true, false, false, false) ==
+    "CACHE_WAV_FILE_NO_LEASE");
+Check("安全診断content tmp absent unbound lease",
+    SystemSetInfoDiagnosticRules.Classify(
+        "content/batches/F005/audio.tmp", false, false, true, false) ==
+    "CONTENT_TMP_ABSENT_UNBOUND_LEASE");
+Check("安全診断unknown directory bound lease",
+    SystemSetInfoDiagnosticRules.Classify(
+        "vendor/private-name", false, true, true, true) ==
+    "OTHER_OTHER_DIRECTORY_BOUND_LEASE");
+
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
 Check("未予約operation", !CanAuthorize(
@@ -91,7 +104,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (37 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (40 cases)");
 return 0;
 
 void Check(string name, bool condition)

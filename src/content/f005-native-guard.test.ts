@@ -13,6 +13,7 @@ import {
   classifyF005NativeWriteThroughReplyError,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
+  isF005SystemSetInfoDiagnosticCode,
   normalizeF005CapacityNoticePath,
   preserveF005NativeCapacityFailure,
   validateF005CapacityJournalV3,
@@ -86,6 +87,31 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     .toBe('F005_ETW_SESSION_STOP_FAILED');
   expect(classifyF005NativeCapacityReplyError('ETW_PRIVILEGE_REQUIRED_5'))
     .toBe('F005_ETW_PRIVILEGE_REQUIRED');
+  const fixedBucket =
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_CACHE_WAV_FILE_NO_LEASE';
+  expect(classifyF005NativeCapacityReplyError(fixedBucket.slice(5)))
+    .toBe(fixedBucket);
+  expect(isF005SystemSetInfoDiagnosticCode(fixedBucket)).toBe(true);
+  expect(fixedBucket.length).toBeLessThanOrEqual(127);
+  const maximumFixedBucket =
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_NODE_MODULES_OTHER_DIRECTORY_UNBOUND_LEASE';
+  expect(maximumFixedBucket).toHaveLength(126);
+  expect(isF005SystemSetInfoDiagnosticCode(maximumFixedBucket)).toBe(true);
+  expect(classifyF005NativeCapacityReplyError(maximumFixedBucket.slice(5)))
+    .toBe(maximumFixedBucket);
+  for (const invalid of [
+    `${fixedBucket}_secret`,
+    fixedBucket.replace('_CACHE_', '_PRIVATE_'),
+    fixedBucket.replace('_WAV_', '_WAV/path_'),
+    fixedBucket.replace('_FILE_NO_LEASE', '_LINK_NO_LEASE'),
+  ]) {
+    expect(isF005SystemSetInfoDiagnosticCode(invalid)).toBe(false);
+    expect(classifyF005NativeCapacityReplyError(
+      typeof invalid === 'string' && invalid.startsWith('F005_')
+        ? invalid.slice(5)
+        : invalid,
+    )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  }
   expect(classifyF005NativeCapacityReplyError('NOTICE_PHASE_MISMATCH_secret'))
     .toBe('F005_CAPACITY_GUARD_REJECTED');
   expect(classifyF005NativeCapacityReplyError(null))
@@ -561,7 +587,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (37 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (40 cases)'),
     });
   }, 120_000);
 });

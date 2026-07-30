@@ -2380,7 +2380,25 @@ sealed class CapacityGuardSession : IDisposable
                             ? boundFileObject
                                 ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT"
                                 : $"SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_{operationClass}_" +
-                                    (knownPath ? "KNOWN_PATH" : "UNKNOWN_PATH")
+                                    (knownPath
+                                        ? "KNOWN_PATH"
+                                        : operationClass == "SETINFO"
+                                            ? "UNKNOWN_PATH_" +
+                                                SystemSetInfoDiagnosticRules.Classify(
+                                                    normalized,
+                                                    File.Exists(Path.Combine(
+                                                        root,
+                                                        normalized.Replace(
+                                                            '/',
+                                                            Path.DirectorySeparatorChar))),
+                                                    Directory.Exists(Path.Combine(
+                                                        root,
+                                                        normalized.Replace(
+                                                            '/',
+                                                            Path.DirectorySeparatorChar))),
+                                                    pendingWriteLease is not null,
+                                                    pendingWriteLease?.FileObject is not null)
+                                            : "UNKNOWN_PATH")
                             : boundFileObject
                                 ? "BIRTH_MISSING_BOUND_FILE_OBJECT"
                                 : authorizationFailure;
@@ -4194,6 +4212,53 @@ sealed class SafeJobHandle : SafeHandleZeroOrMinusOneIsInvalid
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CloseHandle(IntPtr handle);
+}
+
+public static class SystemSetInfoDiagnosticRules
+{
+    public static string Classify(
+        string normalized,
+        bool fileExists,
+        bool directoryExists,
+        bool hasWriteLease,
+        bool hasBoundFileObject)
+    {
+        var slash = normalized.IndexOf('/');
+        var first = slash < 0 ? normalized : normalized[..slash];
+        var bucket = first switch {
+            ".cache" => "CACHE",
+            "content" => "CONTENT",
+            "data" => "DATA",
+            "dist" => "DIST",
+            "native" => "NATIVE",
+            "node_modules" => "NODE_MODULES",
+            "public" => "PUBLIC",
+            "scripts" => "SCRIPTS",
+            "src" => "SRC",
+            _ => "OTHER",
+        };
+        var extension = Path.GetExtension(normalized).ToLowerInvariant() switch {
+            ".exe" => "EXE",
+            ".js" or ".mjs" or ".cjs" => "JS",
+            ".json" => "JSON",
+            ".log" => "LOG",
+            ".tmp" => "TMP",
+            ".ts" or ".tsx" => "TS",
+            ".wav" => "WAV",
+            _ => "OTHER",
+        };
+        var state = fileExists
+            ? "FILE"
+            : directoryExists
+                ? "DIRECTORY"
+                : "ABSENT";
+        var lease = !hasWriteLease
+            ? "NO_LEASE"
+            : hasBoundFileObject
+                ? "BOUND_LEASE"
+                : "UNBOUND_LEASE";
+        return $"{bucket}_{extension}_{state}_{lease}";
+    }
 }
 
 public static class SystemSetInfoCorrelationRules

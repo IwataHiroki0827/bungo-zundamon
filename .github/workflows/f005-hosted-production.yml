@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Source bytes are LF-pinned; native tooling executable and cwd stay outside the guarded workspace.
+# Native tooling stays outside; unknown System SetInfo exposes fixed safe buckets only.
 on:
   push:
     branches:

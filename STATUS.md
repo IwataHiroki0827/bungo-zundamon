@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-07-30T11:39:17+09:00
+updated: 2026-07-30T11:53:00+09:00
 next_actions:
-  - "CHG-F005-010のnative tooling cwd隔離をcommit/pushし、GitHub hosted WindowsでT-070 production runnerを再実行する"
+  - "CHG-F005-011のfixed bucket診断をcommit/pushし、GitHub hosted Windowsでunknown System SetInfoの対象種別を特定する"
 blocked_by: []
 ---
 
@@ -15,6 +15,7 @@ blocked_by: []
 - F005は公開前の非公開候補生成を継続中で、公開サイト・`public/`・`data/`は変更していない。
 - CHG-F005-009でnative executableをworkspace外のGUID付きRUNNER_TEMPへ隔離し、全起動経路のrealpath/reparse/hardlink/SHA/self hash検証を実装した。run 30508494379では外部binary使用を確認したが、write helper spawn後・予約前のworkspace System SetInfoで安全停止した。
 - CHG-F005-010で全native tooling processのcwdもexternal executable parentへ隔離し、path非公開のhello booleanで実processのcwd一致を全client/buildへ必須化した。対象124件、native規則37件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
+- run 30509193028でも同じunknown System SetInfoで安全停止したため、CHG-F005-011でraw pathを出さないtop-level/extension/実体/leaseの固定bucket診断を追加した。対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -56,18 +57,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-085/CHG-F005-011でunknown System SetInfoをpath非公開の固定bucketへ細分化し、native規則40件をPASS
+- run 30509193028でnative executable/cwd隔離後も同じSystem SetInfoが安全停止し、候補・公開差分0を確認
 - T-084/CHG-F005-010でnative tooling cwdをexternal executable parentへ隔離し、hello cwd一致検証と独立レビューをPASS
 - T-083/CHG-F005-009でnative runtimeをworkspace外へ隔離し、起動前後の実体・SHA検証と全client伝播をPASS
-- run 30508494379でexternal binary使用後もwrite予約前のSystem SetInfoが安全停止し、候補・公開差分0を確認
 - CHG-F005-008でnative write helper失敗をopen/flush/identity/verify/cleanup/protocolへ固定分類
-- CHG-F005-007でrename syscall前のexact target予約とQPC境界を実装し、遅延eventをfail-closed化
 
 ## 次のアクション
 
-- CHG-F005-010をcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
-- helper spawnからwrite予約までのworkspace tooling mutationが0件であることを確認後、「夢十夜」62音声・作品単位atomic受入を継続する。
+- CHG-F005-011をcommit/pushし、hosted Windowsのcommit固定・非公開候補workflowからproduction runnerを再実行する。
+- 固定bucketで遅延System SetInfo対象を特定し、identity/capacity不変を証明できる場合だけ認可設計を変更する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerは実装済みで、hosted Windowsのkernel ETW preflightとVOICEVOX取得はPASSした。CHG-F005-010反映後のhosted正常系を再確認する必要がある。
+- T-070 production runnerはkernel ETW preflightとVOICEVOX取得までPASSしている。unknown System SetInfoの対象をCHG-F005-011の固定bucketで特定する必要がある。
