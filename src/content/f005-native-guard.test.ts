@@ -19,6 +19,7 @@ import {
   isF005SystemSetInfoDiagnosticCode,
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
+  isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode,
   isF005SystemBoundFileObjectRejoinDiagnosticCode,
   isF005SystemUnboundWriteDiagnosticCode,
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
@@ -216,6 +217,39 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'DIRECTORY_SNAPSHOT_MISSING',
+    'DIRECTORY_CURRENT_MISSING',
+    'DIRECTORY_IDENTITY_MISMATCH',
+    'DIRECTORY_OWNER_MISSING',
+    'DIRECTORY_ROOT_INACTIVE',
+    'DIRECTORY_UNKNOWN',
+    'LEASE_MISSING',
+    'LEASE_PHASE',
+    'LEASE_PARENT',
+    'LEASE_CLOSED',
+    'LEASE_UNBOUND',
+    'LEASE_SNAPSHOT_MISSING',
+    'LEASE_BINDING_MISSING',
+    'LEASE_BINDING_MISMATCH',
+    'LEASE_CURRENT_MISSING',
+    'LEASE_IDENTITY_MISMATCH',
+    'LEASE_ESCAPE',
+    'CANDIDATE',
+  ] as const) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_${stage}` as const;
+    expect(isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(code))
+      .toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'SNAPSHOT_MISSING',
@@ -787,7 +821,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (147 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (165 cases)'),
     });
   }, 120_000);
 });

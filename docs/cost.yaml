@@ -651,4 +651,11 @@ entries:
   model: GPT-5
   agents: 2
   est_tokens: 9000
-  note: run 30522848642のSYSTEM_PROCESS_BOUND_FILE_OBJECTを認可せず、snapshot/path/current identityとactive lease phase/path/binding/closed/escapeの固定11 stageへ細分化。初回レビューLow 1をgate内配置の構造試験で解消し、対象124件、native規則147件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASS。public/data差分0
+  note: run 30522848642のSYSTEM_PROCESS_BOUND_FILE_OBJECTを認可せず、snapshot/path/current identityとactive lease phase/path/binding/closed/escapeの固定11 stageへ細分化。初回レビューLow 1をgate内配置の構造試験で解消し、対象124件、native規則147件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASS。public/data差分0。run 30523793166はaudio-renamed後にLEASE_BOUND固定stageで安全停止
+- date: '2026-07-30'
+  phase: test
+  task: T-103 CHG-F005-029 bound active lease directory write完全候補固定診断
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: run 30523793166のLEASE_BOUNDを認可せず、directory候補とlease snapshot・FileObject binding・current identity・Job状態の固定18 stageへ細分化。対象124件、native規則165件、型・ESLint・同一SHA再現build 2回・trace・独立レビューHigh/Medium/Low 0をPASSしpublic/data差分0

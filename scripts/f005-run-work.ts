@@ -60,6 +60,7 @@ import {
   isF005SystemUnboundWriteOtherKnownPathDiagnosticCode,
   isF005SystemDirectoryWriteRejoinDiagnosticCode,
   isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode,
+  isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode,
   isF005SystemBoundFileObjectRejoinDiagnosticCode,
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
@@ -534,6 +535,7 @@ function safeFailureCode(value: unknown): string | null {
     isF005SystemUnboundWriteOtherKnownPathDiagnosticCode(value) ||
     isF005SystemDirectoryWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(value) ||
+    isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(value) ||
     isF005SystemBoundFileObjectRejoinDiagnosticCode(value)
   )
     ? value

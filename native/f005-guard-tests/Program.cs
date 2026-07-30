@@ -344,6 +344,49 @@ foreach (var (inputs, expected) in new[] {
         SystemBoundFileObjectRejoinDiagnosticRules.Classify(
             inputs[0], inputs[1], inputs[2], inputs[3], inputs[4],
             inputs[5], inputs[6], inputs[7], inputs[8], inputs[9]) == expected);
+foreach (var (directoryStage, inputs, expected) in new[] {
+    ("SNAPSHOT_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_SNAPSHOT_MISSING"),
+    ("CURRENT_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_CURRENT_MISSING"),
+    ("IDENTITY_MISMATCH", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_IDENTITY_MISMATCH"),
+    ("OWNER_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_OWNER_MISSING"),
+    ("ROOT_INACTIVE", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_ROOT_INACTIVE"),
+    ("PRIVATE", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "DIRECTORY_UNKNOWN"),
+    ("CANDIDATE", new[] { false, false, false, false, false, false, false, false, false, false, false },
+        "LEASE_MISSING"),
+    ("CANDIDATE", new[] { true, false, false, false, false, false, false, false, false, false, false },
+        "LEASE_PHASE"),
+    ("CANDIDATE", new[] { true, true, false, false, false, false, false, false, false, false, false },
+        "LEASE_PARENT"),
+    ("CANDIDATE", new[] { true, true, true, false, true, false, false, false, false, false, false },
+        "LEASE_CLOSED"),
+    ("CANDIDATE", new[] { true, true, true, false, false, false, false, false, false, false, false },
+        "LEASE_UNBOUND"),
+    ("CANDIDATE", new[] { true, true, true, true, false, false, false, false, false, false, false },
+        "LEASE_SNAPSHOT_MISSING"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, false, false, false, false, false },
+        "LEASE_BINDING_MISSING"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, true, false, false, false, false },
+        "LEASE_BINDING_MISMATCH"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, true, true, false, false, false },
+        "LEASE_CURRENT_MISSING"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, true, true, true, false, false },
+        "LEASE_IDENTITY_MISMATCH"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, true, true, true, true, true },
+        "LEASE_ESCAPE"),
+    ("CANDIDATE", new[] { true, true, true, true, false, true, true, true, true, true, false },
+        "CANDIDATE"),
+})
+    Check($"System bound lease directory {expected}を固定分類",
+        SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+            directoryStage, inputs[0], inputs[1], inputs[2], inputs[3],
+            inputs[4], inputs[5], inputs[6], inputs[7], inputs[8],
+            inputs[9], inputs[10]) == expected);
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -440,7 +483,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (147 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (165 cases)");
 return 0;
 
 void Check(string name, bool condition)

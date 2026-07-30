@@ -229,6 +229,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('expectedIdentity = lease.Snapshot!.Identity');
     expect(program).toContain('ETW_CLOSED_LEASE_REJOIN_IDENTITY_MISMATCH');
     expect(program).toContain('SystemUnboundWriteKnownPathFailure(');
+    expect(program.match(/SystemUnboundWriteKnownPathFailure\(/gu)).toHaveLength(2);
+    expect(observeEtw.match(/SystemUnboundWriteKnownPathFailure\(/gu))
+      .toHaveLength(1);
+    expect(observeEtw.indexOf('lock (gate)'))
+      .toBeLessThan(observeEtw.indexOf('SystemUnboundWriteKnownPathFailure('));
     expect(program).toContain('SystemUnboundWriteDiagnosticRules.Classify(');
     expect(program).toContain('LEASE_CLOSED_CANDIDATE');
     expect(program).toContain('LEASE_OPEN_CANDIDATE');
@@ -259,6 +264,14 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(unboundWriteStage).toContain(
       'if (bucket == "CACHE_OTHER_DIRECTORY_BOUND_LEASE")',
     );
+    expect(unboundWriteStage).toContain(
+      '"SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_"',
+    );
+    expect(program.match(/SystemDirectoryBoundLeaseWriteRejoinStage\(/gu))
+      .toHaveLength(2);
+    expect(unboundWriteStage.match(
+      /SystemDirectoryBoundLeaseWriteRejoinStage\(normalized\)/gu,
+    )).toHaveLength(1);
     expect(unboundWriteStage).toContain(
       '"SYSTEM_DIRECTORY_WRITE_REJOIN_"',
     );
@@ -301,7 +314,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     const activeLeaseDirectoryStage = program.slice(
       program.indexOf('private string SystemDirectoryActiveLeaseWriteRejoinStage('),
-      program.indexOf('private string? NormalizeObservedPath('),
+      program.indexOf('private string SystemDirectoryBoundLeaseWriteRejoinStage('),
     );
     const orderedRuntimeChecks = [
       'SystemDirectoryWriteRejoinStage(normalized)',
@@ -328,6 +341,55 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(activeLeaseDirectoryStage.match(
       /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
     )).toHaveLength(1);
+    const boundLeaseDirectoryStage = program.slice(
+      program.indexOf('private string SystemDirectoryBoundLeaseWriteRejoinStage('),
+      program.indexOf('private string? NormalizeObservedPath('),
+    );
+    const orderedBoundLeaseDirectoryChecks = [
+      'SystemDirectoryWriteRejoinStage(normalized)',
+      'if (directoryStage != "CANDIDATE")',
+      'var lease = pendingWriteLease',
+      'if (lease is null)',
+      'lease.PhaseInstanceId == activePhase.PhaseInstanceId',
+      'if (!phaseMatches)',
+      "lease.RelativePath.LastIndexOf('/')",
+      'lease.RelativePath[..slash] == normalized',
+      'if (!parentMatches)',
+      'if (lease.FileObjectClosed)',
+      'if (lease.FileObject is null)',
+      'if (lease.Snapshot is null)',
+      'filesByObject.GetValueOrDefault(lease.FileObject.Value)',
+      'if (binding is null)',
+      'lease.Snapshot.RelativePath == lease.RelativePath',
+      'binding.RelativePath == lease.RelativePath',
+      'binding.Identity == lease.Snapshot.Identity',
+      'if (!bindingMatches)',
+      'var current = TryInspect(lease.RelativePath)',
+      'if (current is null)',
+      'if (current.Identity != lease.Snapshot.Identity)',
+      'job.IsAliveOutsideJob(lease.Process)',
+    ];
+    for (const runtimeCheck of orderedBoundLeaseDirectoryChecks) {
+      expect(boundLeaseDirectoryStage.indexOf(runtimeCheck))
+        .toBeGreaterThanOrEqual(0);
+    }
+    for (
+      let index = 1;
+      index < orderedBoundLeaseDirectoryChecks.length;
+      index += 1
+    ) {
+      expect(boundLeaseDirectoryStage.indexOf(
+        orderedBoundLeaseDirectoryChecks[index - 1]!,
+      )).toBeLessThan(boundLeaseDirectoryStage.indexOf(
+        orderedBoundLeaseDirectoryChecks[index]!,
+      ));
+    }
+    expect(boundLeaseDirectoryStage.match(
+      /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
+    )).toHaveLength(1);
+    expect(boundLeaseDirectoryStage.match(
+      /return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules\.Classify\(/gu,
+    )).toHaveLength(12);
     const directoryStage = program.slice(
       program.indexOf('private string SystemDirectoryWriteRejoinStage('),
       program.indexOf('private string? NormalizeObservedPath('),

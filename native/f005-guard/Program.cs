@@ -3253,8 +3253,8 @@ sealed class CapacityGuardSession : IDisposable
             return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
                 SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
         if (bucket == "CACHE_OTHER_DIRECTORY_BOUND_LEASE")
-            return "SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_" +
-                SystemDirectoryActiveLeaseWriteRejoinStage(normalized);
+            return "SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_" +
+                SystemDirectoryBoundLeaseWriteRejoinStage(normalized);
         return "SYSTEM_UNBOUND_WRITE_OTHER_KNOWN_PATH_" + bucket;
     }
 
@@ -3371,6 +3371,71 @@ sealed class CapacityGuardSession : IDisposable
             false,
             false,
             leaseOutsideJob);
+    }
+
+    private string SystemDirectoryBoundLeaseWriteRejoinStage(
+        string normalized)
+    {
+        var directoryStage = SystemDirectoryWriteRejoinStage(normalized);
+        if (directoryStage != "CANDIDATE")
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, false, false, false, false, false,
+                false, false, false, false, false, false);
+        var lease = pendingWriteLease;
+        if (lease is null)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, false, false, false, false, false,
+                false, false, false, false, false, false);
+        var phaseMatches = activePhase is not null &&
+            lease.PhaseInstanceId == activePhase.PhaseInstanceId;
+        if (!phaseMatches)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, false, false, false, false,
+                false, false, false, false, false, false);
+        var slash = lease.RelativePath.LastIndexOf('/');
+        var parentMatches = slash > 0 &&
+            lease.RelativePath[..slash] == normalized;
+        if (!parentMatches)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, false, false, false,
+                false, false, false, false, false, false);
+        if (lease.FileObjectClosed)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, false, true,
+                false, false, false, false, false, false);
+        if (lease.FileObject is null)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, false, false,
+                false, false, false, false, false, false);
+        if (lease.Snapshot is null)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false,
+                false, false, false, false, false, false);
+        var binding = filesByObject.GetValueOrDefault(lease.FileObject.Value);
+        if (binding is null)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false,
+                true, false, false, false, false, false);
+        var bindingMatches = lease.Snapshot.RelativePath == lease.RelativePath &&
+            binding.RelativePath == lease.RelativePath &&
+            binding.Identity == lease.Snapshot.Identity;
+        if (!bindingMatches)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false,
+                true, true, false, false, false, false);
+        var current = TryInspect(lease.RelativePath);
+        if (current is null)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false,
+                true, true, true, false, false, false);
+        if (current.Identity != lease.Snapshot.Identity)
+            return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+                directoryStage, true, true, true, true, false,
+                true, true, true, true, false, false);
+        var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
+        return SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules.Classify(
+            directoryStage, true, true, true, true, false,
+            true, true, true, true, true, leaseOutsideJob);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -4937,6 +5002,46 @@ public static class SystemBoundFileObjectRejoinDiagnosticRules
         if (!leasePathMatches) return "LEASE_PATH";
         if (!leaseBindingMatches) return "LEASE_BINDING";
         if (leaseClosed) return "LEASE_CLOSED";
+        if (leaseOutsideJob) return "LEASE_ESCAPE";
+        return "CANDIDATE";
+    }
+}
+
+public static class SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules
+{
+    public static string Classify(
+        string directoryStage,
+        bool hasLease,
+        bool leasePhaseMatches,
+        bool leaseParentMatches,
+        bool leaseBound,
+        bool leaseClosed,
+        bool hasLeaseSnapshot,
+        bool hasBinding,
+        bool bindingMatches,
+        bool currentExists,
+        bool identityMatches,
+        bool leaseOutsideJob)
+    {
+        if (directoryStage != "CANDIDATE")
+            return directoryStage switch {
+                "SNAPSHOT_MISSING" => "DIRECTORY_SNAPSHOT_MISSING",
+                "CURRENT_MISSING" => "DIRECTORY_CURRENT_MISSING",
+                "IDENTITY_MISMATCH" => "DIRECTORY_IDENTITY_MISMATCH",
+                "OWNER_MISSING" => "DIRECTORY_OWNER_MISSING",
+                "ROOT_INACTIVE" => "DIRECTORY_ROOT_INACTIVE",
+                _ => "DIRECTORY_UNKNOWN",
+            };
+        if (!hasLease) return "LEASE_MISSING";
+        if (!leasePhaseMatches) return "LEASE_PHASE";
+        if (!leaseParentMatches) return "LEASE_PARENT";
+        if (leaseClosed) return "LEASE_CLOSED";
+        if (!leaseBound) return "LEASE_UNBOUND";
+        if (!hasLeaseSnapshot) return "LEASE_SNAPSHOT_MISSING";
+        if (!hasBinding) return "LEASE_BINDING_MISSING";
+        if (!bindingMatches) return "LEASE_BINDING_MISMATCH";
+        if (!currentExists) return "LEASE_CURRENT_MISSING";
+        if (!identityMatches) return "LEASE_IDENTITY_MISMATCH";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
         return "CANDIDATE";
     }

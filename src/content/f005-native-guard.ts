@@ -128,6 +128,27 @@ type F005SystemDirectoryActiveLeaseWriteRejoinStage =
   | 'CANDIDATE';
 export type F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_${F005SystemDirectoryActiveLeaseWriteRejoinStage}`;
+type F005SystemDirectoryBoundLeaseWriteRejoinStage =
+  | 'DIRECTORY_SNAPSHOT_MISSING'
+  | 'DIRECTORY_CURRENT_MISSING'
+  | 'DIRECTORY_IDENTITY_MISMATCH'
+  | 'DIRECTORY_OWNER_MISSING'
+  | 'DIRECTORY_ROOT_INACTIVE'
+  | 'DIRECTORY_UNKNOWN'
+  | 'LEASE_MISSING'
+  | 'LEASE_PHASE'
+  | 'LEASE_PARENT'
+  | 'LEASE_CLOSED'
+  | 'LEASE_UNBOUND'
+  | 'LEASE_SNAPSHOT_MISSING'
+  | 'LEASE_BINDING_MISSING'
+  | 'LEASE_BINDING_MISMATCH'
+  | 'LEASE_CURRENT_MISSING'
+  | 'LEASE_IDENTITY_MISMATCH'
+  | 'LEASE_ESCAPE'
+  | 'CANDIDATE';
+export type F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode =
+  `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_${F005SystemDirectoryBoundLeaseWriteRejoinStage}`;
 type F005SystemBoundFileObjectRejoinStage =
   | 'SNAPSHOT_MISSING'
   | 'PATH_MISMATCH'
@@ -200,6 +221,15 @@ const F005_NATIVE_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_DIAGNOSTIC =
     '(?:DIRECTORY_(?:SNAPSHOT_MISSING|CURRENT_MISSING|IDENTITY_MISMATCH|' +
     'OWNER_MISSING|ROOT_INACTIVE|UNKNOWN)|LEASE_(?:MISSING|PHASE|PARENT|' +
     'BOUND|CLOSED|ESCAPE)|CANDIDATE)$',
+    'u',
+  );
+const F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_DIAGNOSTIC =
+  new RegExp(
+    '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_' +
+    '(?:DIRECTORY_(?:SNAPSHOT_MISSING|CURRENT_MISSING|IDENTITY_MISMATCH|' +
+    'OWNER_MISSING|ROOT_INACTIVE|UNKNOWN)|LEASE_(?:MISSING|PHASE|PARENT|' +
+    'CLOSED|UNBOUND|SNAPSHOT_MISSING|BINDING_(?:MISSING|MISMATCH)|' +
+    'CURRENT_MISSING|IDENTITY_MISMATCH|ESCAPE)|CANDIDATE)$',
     'u',
   );
 const F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC = new RegExp(
@@ -285,6 +315,17 @@ export function isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(
     );
 }
 
+export function isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(
+  value: unknown,
+): value is F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_DIAGNOSTIC.test(
+      value.slice(5),
+    );
+}
+
 export function isF005SystemBoundFileObjectRejoinDiagnosticCode(
   value: unknown,
 ): value is F005SystemBoundFileObjectRejoinDiagnosticCode {
@@ -305,6 +346,7 @@ export type F005NativeCapacityErrorCode =
   | F005SystemUnboundWriteOtherKnownPathDiagnosticCode
   | F005SystemDirectoryWriteRejoinDiagnosticCode
   | F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode
+  | F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode
   | F005SystemBoundFileObjectRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
   | 'F005_NATIVE_GUARD_CHANNEL_FAILED'
@@ -536,6 +578,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
     return `F005_${value}` as F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_DIAGNOSTIC.test(value)) {
+    return `F005_${value}` as F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode;
   }
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC.test(value)) {
