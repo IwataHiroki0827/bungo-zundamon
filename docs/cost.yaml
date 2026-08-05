@@ -672,4 +672,4 @@ entries:
   model: GPT-5
   agents: 3
   est_tokens: 9000
-  note: BEFORE_RESERVATIONをBEFORE_LEASE_RESERVATIONとAFTER_LEASE_RESERVATIONへ固定分離。native174件、関連Vitest121件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち
+  note: BEFORE_RESERVATIONをBEFORE_LEASE_RESERVATIONとAFTER_LEASE_RESERVATIONへ固定分離。native174件、関連Vitest121件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31025643577で次のLEASE_PATH固定stageを取得

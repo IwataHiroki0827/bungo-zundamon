@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-06T01:30:00+09:00
+updated: 2026-08-06T01:38:00+09:00
 next_actions:
-  - "CHG-F005-031のcommit固定hosted production影響試験を実行する"
+  - "CHG-F005-032でBOUND_FILE_OBJECT_REJOIN_LEASE_PATHをpending rename関係の固定stageへ細分化する"
 blocked_by: []
 ---
 
@@ -37,6 +37,7 @@ blocked_by: []
 - run 30524741788は`audio-renamed`後に`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_CURRENT_MISSING`で安全停止した。CHG-F005-029/T-103は`done`とした。CHG-F005-030でrename予約path・親directory・QPC・target identity・Job状態を固定8 stageへ細分化した。初回レビューLow 2件を試験補強で解消し、native規則173件、対象124件、型、ESLint、再現build 2回、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30525787305は`audio-renamed`後、固定stage `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_BEFORE_RESERVATION`で安全停止した。CHG-F005-030/T-104は`done`とし、CHG-F005-031/T-105でevent QPCをlease予約前・lease予約後〜rename予約前へ分離する。候補・公開差分は0件である。
 - CHG-F005-031/T-105で`BEFORE_RESERVATION`を`BEFORE_LEASE_RESERVATION`と`AFTER_LEASE_RESERVATION`へ固定分離した。native規則174件、関連Vitest 121件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0をPASSし、認可・容量actual・候補保存・公開条件と`public/`・`data/`は変更していない。
+- run 31025643577はCHG-F005-031のlease時間分類を通過し、`audio-renamed`後に`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_PATH`で安全停止した。native probeはPASS、isolated candidate branchは未作成、Pages deployはskipであり、T-105/CHG-F005-031は`done`とした。CHG-F005-032/T-106でpending renameとlease pathの関係を固定分類する。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -78,18 +79,18 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- run 31025643577でBOUND_FILE_OBJECT_REJOIN_LEASE_PATHを安全停止
 - T-105/CHG-F005-031でlease予約前後を固定9 stageへ分離し独立受入PASS
 - run 30525787305でBEFORE_RESERVATIONを安全停止し、候補・公開差分0
 - T-104/CHG-F005-030でbound lease rename中directory writeを固定8 stageへ細分化
 - run 30524741788でLEASE_CURRENT_MISSINGをaudio-renamed後に安全停止
-- T-103/CHG-F005-029でbound active lease directory writeを固定18 stageへ細分化
 
 ## 次のアクション
 
-- CHG-F005-031をcommit/pushし、hosted productionを再実行する。
-- lease予約前後の固定stage、生値非公開、候補・公開差分0をhosted証跡で確認する。
+- CHG-F005-032で`LEASE_PATH`をpending rename target、lease current path、予約QPC、snapshot・binding・identityの固定関係へ細分化する。
+- 認可を追加せず、生値・候補・公開差分0を維持してhosted productionを継続する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
-- T-070 production runnerは`audio-renamed`まで進み、rename target identityとlease/rename予約の固定時間分類をlocalで確認済みである。CHG-F005-031のhosted固定stageを取得してproductionを継続する。
+- T-070 production runnerは`audio-renamed`まで進み、rename target identityとlease/rename予約の時間分類をhostedで通過した。System結合済みFileObjectとactive lease current pathの不一致をCHG-F005-032で固定分類する。
