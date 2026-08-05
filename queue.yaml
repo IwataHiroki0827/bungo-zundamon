@@ -1104,3 +1104,20 @@ items:
   resolution: CHG-F005-033で継続
   processed_at: '2026-08-06T03:11:00+09:00'
   processed_note: CHG-F005-033の限定再結合後、run 31032629020でT-106専用PATH_MISSINGへ到達したため自動復旧完了として閉じた。
+- id: Q-035
+  type: escalation
+  status: pending
+  title: T-109 hosted影響経路へ3 attemptで未到達
+  body: >-
+    commit ded3117211cb0ad9debf5a45ec564a8f7575d0f4のActions run 31038467173を3 attempt実行したが、attempt 1は既知LEASE_BINDING_MISMATCH、attempt 2は既知LEASE_MISSING、attempt 3は既知bound lease directory CANDIDATEで安全停止し、T-109の専用14 stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-036で前段の完全候補限定再結合を実装してhosted影響試験を再開する。
+  target: T-109
+  target_mode: reference
+  options:
+  - CHG-F005-036で継続
+  - 一時停止
+  allow_freeform: true
+  created: '2026-08-06T04:28:00+09:00'
+  source: pf-test
+  resume:
+    task: T-109
+    next: pf-change
