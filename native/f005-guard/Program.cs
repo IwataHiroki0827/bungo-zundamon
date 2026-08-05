@@ -2435,7 +2435,8 @@ sealed class CapacityGuardSession : IDisposable
                                 ? "SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_" +
                                     SystemBoundFileObjectRejoinStage(
                                         normalized,
-                                        fileObject)
+                                        fileObject,
+                                        timestampQpc)
                                 : operationClass == "WRITE" && knownPath
                                     ? SystemUnboundWriteKnownPathFailure(
                                         normalized,
@@ -3269,42 +3270,119 @@ sealed class CapacityGuardSession : IDisposable
 
     private string SystemBoundFileObjectRejoinStage(
         string normalized,
-        ulong fileObject)
+        ulong fileObject,
+        long timestampQpc)
     {
         if (!filesByObject.TryGetValue(fileObject, out var snapshot))
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                false, false, false, false, false, false, false, false, false, false);
+                false, false, false, false, false, false, false, false, false);
         if (snapshot.RelativePath != normalized)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, false, false, false, false, false, false, false, false, false);
+                true, false, false, false, false, false, false, false, false);
         var current = TryInspect(normalized);
         if (current is null)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, false, false, false, false, false, false, false, false);
+                true, true, false, false, false, false, false, false, false);
         if (current.Identity != snapshot.Identity)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, false, false, false, false, false, false, false);
+                true, true, true, false, false, false, false, false, false);
         var lease = pendingWriteLease;
         if (lease is null)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, true, false, false, false, false, false, false);
+                true, true, true, true, false, false, false, false, false);
         var phaseMatches = activePhase is not null &&
             lease.PhaseInstanceId == activePhase.PhaseInstanceId;
         if (!phaseMatches)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, true, true, false, false, false, false, false);
+                true, true, true, true, true, false, false, false, false);
         if (lease.RelativePath != normalized)
-            return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, true, true, true, false, false, false, false);
+            return "RENAME_LEASE_PATH_" +
+                SystemBoundFileObjectRenameLeasePathDiagnosticStage(
+                    normalized,
+                    fileObject,
+                    timestampQpc,
+                    snapshot,
+                    lease);
         if (lease.FileObject != fileObject)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, true, true, true, true, false, false, false);
+                true, true, true, true, true, true, false, false, false);
         if (lease.FileObjectClosed)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-                true, true, true, true, true, true, true, true, true, false);
+                true, true, true, true, true, true, true, true, false);
         var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
         return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
-            true, true, true, true, true, true, true, true, false, leaseOutsideJob);
+            true, true, true, true, true, true, true, false, leaseOutsideJob);
+    }
+
+    private string SystemBoundFileObjectRenameLeasePathDiagnosticStage(
+        string normalized,
+        ulong fileObject,
+        long timestampQpc,
+        FileSnapshot observedSnapshot,
+        PendingWriteLease lease)
+    {
+        var target = lease.PendingRenamePath;
+        if (target is null)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false);
+        if (!string.Equals(normalized, target, StringComparison.Ordinal))
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, false, false, false, false, false, false,
+                false, false, false, false, false, false);
+        var renameReservationQpc = lease.RenameReservedAtQpc;
+        if (renameReservationQpc is null or <= 0)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, false, false, false, false, false,
+                false, false, false, false, false, false);
+        var reservationOrderValid =
+            renameReservationQpc.Value > lease.CurrentPathReservedAtQpc;
+        if (!reservationOrderValid)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, false, false, false, false,
+                false, false, false, false, false, false);
+        var timeStage =
+            SystemBoundFileObjectRenameLeasePathDiagnosticRules.ClassifyTimeRelation(
+                timestampQpc,
+                lease.CurrentPathReservedAtQpc,
+                renameReservationQpc.Value);
+        if (timeStage == "BEFORE_LEASE_RESERVATION")
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, false, false, false,
+                false, false, false, false, false, false);
+        if (timeStage == "AFTER_LEASE_RESERVATION")
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, false, false,
+                false, false, false, false, false, false);
+        var leaseCurrent = TryInspect(lease.RelativePath);
+        if (leaseCurrent is not null)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, true,
+                false, false, false, false, false, false);
+        if (lease.Snapshot is null)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, false,
+                false, false, false, false, false, false);
+        if (lease.Snapshot.RelativePath != lease.RelativePath)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, false,
+                true, false, false, false, false, false);
+        if (lease.Snapshot.Identity != observedSnapshot.Identity)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, false,
+                true, true, false, false, false, false);
+        if (lease.FileObject != fileObject)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, false,
+                true, true, true, false, false, false);
+        if (lease.FileObjectClosed)
+            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+                true, true, true, true, true, true, false,
+                true, true, true, true, true, false);
+        var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
+        return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
+            true, true, true, true, true, true, false,
+            true, true, true, true, false, leaseOutsideJob);
     }
 
     private string SystemDirectoryWriteRejoinStage(string normalized)
@@ -5037,7 +5115,6 @@ public static class SystemBoundFileObjectRejoinDiagnosticRules
         bool identityMatches,
         bool hasLease,
         bool leasePhaseMatches,
-        bool leasePathMatches,
         bool leaseBindingMatches,
         bool leaseClosed,
         bool leaseOutsideJob)
@@ -5048,8 +5125,52 @@ public static class SystemBoundFileObjectRejoinDiagnosticRules
         if (!identityMatches) return "IDENTITY_MISMATCH";
         if (!hasLease) return "LEASE_MISSING";
         if (!leasePhaseMatches) return "LEASE_PHASE";
-        if (!leasePathMatches) return "LEASE_PATH";
         if (!leaseBindingMatches) return "LEASE_BINDING";
+        if (leaseClosed) return "LEASE_CLOSED";
+        if (leaseOutsideJob) return "LEASE_ESCAPE";
+        return "CANDIDATE";
+    }
+}
+
+public static class SystemBoundFileObjectRenameLeasePathDiagnosticRules
+{
+    // @des DES-F005-006 @fun FUN-F005-047 rename中のlease path不一致を生値なしで固定分類する。
+    public static string? ClassifyTimeRelation(
+        long eventQpc,
+        long leaseReservationQpc,
+        long renameReservationQpc)
+    {
+        if (eventQpc <= leaseReservationQpc) return "BEFORE_LEASE_RESERVATION";
+        if (eventQpc <= renameReservationQpc) return "AFTER_LEASE_RESERVATION";
+        return null;
+    }
+
+    public static string Classify(
+        bool hasPath,
+        bool targetMatches,
+        bool hasReservation,
+        bool reservationOrderValid,
+        bool eventAfterLeaseReservation,
+        bool eventAfterRenameReservation,
+        bool leaseCurrentExists,
+        bool hasSnapshot,
+        bool snapshotPathMatches,
+        bool identityMatches,
+        bool bindingMatches,
+        bool leaseClosed,
+        bool leaseOutsideJob)
+    {
+        if (!hasPath) return "PATH_MISSING";
+        if (!targetMatches) return "TARGET_MISMATCH";
+        if (!hasReservation) return "RESERVATION_MISSING";
+        if (!reservationOrderValid) return "RESERVATION_ORDER";
+        if (!eventAfterLeaseReservation) return "BEFORE_LEASE_RESERVATION";
+        if (!eventAfterRenameReservation) return "AFTER_LEASE_RESERVATION";
+        if (leaseCurrentExists) return "LEASE_CURRENT_EXISTS";
+        if (!hasSnapshot) return "SNAPSHOT_MISSING";
+        if (!snapshotPathMatches) return "SNAPSHOT_PATH";
+        if (!identityMatches) return "IDENTITY_MISMATCH";
+        if (!bindingMatches) return "BINDING_MISMATCH";
         if (leaseClosed) return "LEASE_CLOSED";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
         return "CANDIDATE";

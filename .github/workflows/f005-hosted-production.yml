@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; lease timing exposes safe rename stages.
+# Native tooling stays outside; bound FileObject rename lease paths expose safe stages.
 on:
   push:
     branches:

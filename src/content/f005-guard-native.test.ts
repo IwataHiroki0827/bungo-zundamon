@@ -280,8 +280,13 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     const boundFileObjectStage = program.slice(
       program.indexOf('private string SystemBoundFileObjectRejoinStage('),
-      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+      program.indexOf(
+        'private string SystemBoundFileObjectRenameLeasePathDiagnosticStage(',
+      ),
     );
+    expect(observeEtw.match(
+      /SystemBoundFileObjectRejoinStage\(\s*normalized,\s*fileObject,\s*timestampQpc\)/gu,
+    )).toHaveLength(1);
     const orderedBoundFileObjectChecks = [
       'filesByObject.TryGetValue(fileObject, out var snapshot)',
       'if (snapshot.RelativePath != normalized)',
@@ -293,6 +298,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'lease.PhaseInstanceId == activePhase.PhaseInstanceId',
       'if (!phaseMatches)',
       'if (lease.RelativePath != normalized)',
+      'SystemBoundFileObjectRenameLeasePathDiagnosticStage(',
       'if (lease.FileObject != fileObject)',
       'if (lease.FileObjectClosed)',
       'job.IsAliveOutsideJob(lease.Process)',
@@ -310,7 +316,53 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     )).toHaveLength(1);
     expect(boundFileObjectStage.match(
       /return SystemBoundFileObjectRejoinDiagnosticRules\.Classify\(/gu,
-    )).toHaveLength(10);
+    )).toHaveLength(9);
+    expect(boundFileObjectStage.match(
+      /SystemBoundFileObjectRenameLeasePathDiagnosticStage\(/gu,
+    )).toHaveLength(1);
+    const renameLeasePathStage = program.slice(
+      program.indexOf(
+        'private string SystemBoundFileObjectRenameLeasePathDiagnosticStage(',
+      ),
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+    );
+    const orderedRenameLeasePathChecks = [
+      'var target = lease.PendingRenamePath',
+      'if (target is null)',
+      'string.Equals(normalized, target, StringComparison.Ordinal)',
+      'var renameReservationQpc = lease.RenameReservedAtQpc',
+      'if (renameReservationQpc is null or <= 0)',
+      'renameReservationQpc.Value > lease.CurrentPathReservedAtQpc',
+      'if (!reservationOrderValid)',
+      'SystemBoundFileObjectRenameLeasePathDiagnosticRules.ClassifyTimeRelation(',
+      'if (timeStage == "BEFORE_LEASE_RESERVATION")',
+      'if (timeStage == "AFTER_LEASE_RESERVATION")',
+      'var leaseCurrent = TryInspect(lease.RelativePath)',
+      'if (leaseCurrent is not null)',
+      'if (lease.Snapshot is null)',
+      'lease.Snapshot.RelativePath != lease.RelativePath',
+      'lease.Snapshot.Identity != observedSnapshot.Identity',
+      'lease.FileObject != fileObject',
+      'if (lease.FileObjectClosed)',
+      'job.IsAliveOutsideJob(lease.Process)',
+    ];
+    for (const runtimeCheck of orderedRenameLeasePathChecks) {
+      expect(renameLeasePathStage.indexOf(runtimeCheck))
+        .toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedRenameLeasePathChecks.length; index += 1) {
+      expect(renameLeasePathStage.indexOf(orderedRenameLeasePathChecks[index - 1]!))
+        .toBeLessThan(renameLeasePathStage.indexOf(orderedRenameLeasePathChecks[index]!));
+    }
+    expect(renameLeasePathStage.match(
+      /TryInspect\(lease\.RelativePath\)/gu,
+    )).toHaveLength(1);
+    expect(renameLeasePathStage.match(
+      /job\.IsAliveOutsideJob\(lease\.Process\)/gu,
+    )).toHaveLength(1);
+    expect(renameLeasePathStage.match(
+      /return SystemBoundFileObjectRenameLeasePathDiagnosticRules\.Classify\(/gu,
+    )).toHaveLength(13);
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
     expect(program).toContain(
       'SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(',

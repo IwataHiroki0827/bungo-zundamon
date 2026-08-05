@@ -655,6 +655,37 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    const boundFileObjectRenameLeasePathCode =
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_CANDIDATE';
+    const boundFileObjectRenameLeasePath = new F005NativeCapacityError(
+      boundFileObjectRenameLeasePathCode,
+      'fixed bound FileObject rename lease path stage only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: boundFileObjectRenameLeasePath }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: boundFileObjectRenameLeasePathCode,
+      },
+    });
+    const legacyBoundFileObjectLeasePath = Object.assign(new Error('legacy'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_PATH',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: legacyBoundFileObjectLeasePath }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
     const legacyBoundFileObject = Object.assign(new Error('legacy'), {
       name: 'F005NativeCapacityError',
       code: 'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT',

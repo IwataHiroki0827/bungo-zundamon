@@ -63,6 +63,7 @@ import {
   isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode,
   isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode,
   isF005SystemBoundFileObjectRejoinDiagnosticCode,
+  isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode,
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
@@ -538,7 +539,8 @@ function safeFailureCode(value: unknown): string | null {
     isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(value) ||
-    isF005SystemBoundFileObjectRejoinDiagnosticCode(value)
+    isF005SystemBoundFileObjectRejoinDiagnosticCode(value) ||
+    isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode(value)
   )
     ? value
     : null;
