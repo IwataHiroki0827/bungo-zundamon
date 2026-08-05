@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-06T03:48:00+09:00
+updated: 2026-08-06T04:17:00+09:00
 next_actions:
-  - "CHG-F005-035でNO_PENDING_LEASE_UNBOUNDを予約・current・deferred・保持process状態へ固定分類する"
+  - "T-109/CHG-F005-035をcommit固定しhosted production影響試験を行う"
 blocked_by: []
 ---
 
@@ -44,6 +44,7 @@ blocked_by: []
 - commit `12cc0b9`のrun `31032629020`はCHG-F005-033の限定再結合を通過し、`audio-renamed`後にT-106専用`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_PATH_MISSING`へ安全停止した。T-106/T-107とCHG-F005-032/033を`done`、Q-034を`closed`とし、CHG-F005-034/T-108でpending renameなしのpath関係を認可せず固定分類する。native probeはPASS、candidate branchは未作成、Pages deployはskipである。
 - CHG-F005-034/T-108で旧`PATH_MISSING`だけをexact 19 stageへ細分化した。FILE/OTHER即時停止、directory/root/lease評価順、`STATE_DRIFT`、lease current欠落、`CANDIDATE`を固定し、native 229件、関連Vitest 122件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。認可・容量actual・候補保存・公開条件は変更せず、hosted影響試験待ちである。
 - commit `e3f85b3`のrun `31035627381`はattempt 1で既知`LEASE_BINDING_MISMATCH`へ安全停止し、attempt 2でT-108新stage `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_LEASE_UNBOUND`へ到達した。T-108/CHG-F005-034を`done`とし、CHG-F005-035/T-109でactive unbound leaseの予約・current・deferred・process状態を認可せず固定分類する。native probeはPASS、candidate branchは未作成、Pages deployはskipである。
+- CHG-F005-035/T-109で旧`NO_PENDING_LEASE_UNBOUND`だけをexact 14 stageへ細分化した。event/deferred QPC境界、lease current、deferred完全tuple/current identity、保持process identity/wait/Job/世代を固定し、native 261件、関連Vitest 122件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。認可・lease binding・容量actual・候補保存・公開条件は変更せず、hosted影響試験待ちである。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -85,16 +86,16 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-109/CHG-F005-035でLEASE_UNBOUNDをexact 14 stageへ分離し独立受入PASS
 - run 31035627381 attempt 2でT-108新stage NO_PENDING_LEASE_UNBOUNDへ到達
 - T-108/CHG-F005-034でPATH_MISSINGをexact 19 stageへ分離し独立受入PASS
 - run 31032629020で限定再結合を通過しT-106専用PATH_MISSINGへ到達
 - T-107/CHG-F005-033でAFTER完全tupleを限定再結合し独立受入PASS
-- run 31028376915を3 attempt実行し前段固定分岐で安全停止、Q-034へ記録
 
 ## 次のアクション
 
-- CHG-F005-035で旧`NO_PENDING_LEASE_UNBOUND`だけを固定14 stageへ細分化する。
-- 認可・lease binding・容量actual・候補保存・公開条件を変えず、生値非公開と候補・公開差分0を維持する。
+- CHG-F005-035をcommit/pushし、hosted productionでexact 14 stageの実影響を取得する。
+- 認可・lease binding・容量actual・候補保存・公開条件不変、生値非公開、候補・公開差分0をhosted証跡で確認する。
 
 ## 未解決事項
 

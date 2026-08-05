@@ -491,6 +491,78 @@ Check("pendingなしbound FileObject lease Job escapeを固定分類",
     NoPending(leaseOutsideJob: true) == "NO_PENDING_LEASE_ESCAPE");
 Check("pendingなしbound FileObject完全tupleも診断候補へ固定分類",
     NoPending() == "NO_PENDING_CANDIDATE");
+Check("unbound lease event予約QPC同値を拒否",
+    !SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsEventAfterReservation(100, 100));
+Check("unbound lease event予約1tick後を候補",
+    SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsEventAfterReservation(101, 100));
+Check("unbound lease deferred予約QPC同値を拒否",
+    !SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsDeferredTimestampCandidate(100, 100, 110));
+Check("unbound lease deferred予約1tick後を候補",
+    SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsDeferredTimestampCandidate(101, 100, 110));
+Check("unbound lease deferred event QPC同値を候補",
+    SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsDeferredTimestampCandidate(110, 100, 110));
+Check("unbound lease deferred event QPC1tick後を拒否",
+    !SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .IsDeferredTimestampCandidate(111, 100, 110));
+Check("unbound lease deferred完全tupleを一致判定", DeferredTuple());
+Check("unbound lease deferred worker PID不一致を拒否",
+    !DeferredTuple(deferredWorkerPid: 8));
+Check("unbound lease deferred sequence不一致を拒否",
+    !DeferredTuple(deferredSequence: 18));
+Check("unbound lease deferred phase不一致を拒否",
+    !DeferredTuple(deferredPhase: "preview"));
+Check("unbound lease deferred work不一致を拒否",
+    !DeferredTuple(deferredWorkId: "001076"));
+Check("unbound lease deferred active phase instance不一致を拒否",
+    !DeferredTuple(activePhaseInstanceId: "phase-b"));
+Check("unbound lease deferred lease phase instance不一致を拒否",
+    !DeferredTuple(leasePhaseInstanceId: "phase-b"));
+Check("unbound lease deferred path不一致を拒否",
+    !DeferredTuple(deferredRelativePath: ".cache/other.wav"));
+Check("unbound lease deferred snapshot path不一致を拒否",
+    !DeferredTuple(deferredSnapshotPath: ".cache/other.wav"));
+Check("unbound lease deferred FileObject zeroを拒否",
+    !DeferredTuple(deferredFileObject: 0));
+Check("unbound lease deferred結合済みFileObjectを拒否",
+    !DeferredTuple(deferredFileObjectUnbound: false));
+Check("unbound lease snapshot存在を固定分類",
+    Unbound(leaseSnapshotAbsent: false) == "UNBOUND_SNAPSHOT_PRESENT");
+Check("unbound lease event予約前を固定分類",
+    Unbound(eventAfterReservation: false) == "UNBOUND_BEFORE_RESERVATION");
+Check("unbound lease current取得失敗を固定分類",
+    Unbound(currentInspectionSucceeded: false) ==
+        "UNBOUND_CURRENT_INSPECTION_FAILED");
+Check("unbound lease current欠落を固定分類",
+    Unbound(currentExists: false) == "UNBOUND_CURRENT_MISSING");
+Check("unbound lease deferred欠落を固定分類",
+    Unbound(deferredCount: 0) == "UNBOUND_DEFERRED_MISSING");
+Check("unbound lease deferred複数を固定分類",
+    Unbound(deferredCount: 2) == "UNBOUND_DEFERRED_TUPLE");
+Check("unbound lease deferred tuple不一致を固定分類",
+    Unbound(deferredTupleMatches: false) == "UNBOUND_DEFERRED_TUPLE");
+Check("unbound lease current identity不一致を固定分類",
+    Unbound(currentIdentityMatches: false) == "UNBOUND_CURRENT_ID_MISMATCH");
+Check("unbound lease process wait失敗を固定分類",
+    Unbound(processInspectionFailure: "WAIT") == "UNBOUND_PROCESS_WAIT_FAILED");
+Check("unbound lease process identity失敗を固定分類",
+    Unbound(processInspectionFailure: "IDENTITY") ==
+        "UNBOUND_PROCESS_IDENTITY_FAILED");
+Check("unbound lease Job照会失敗を固定分類",
+    Unbound(processInspectionFailure: "JOB") == "UNBOUND_JOB_QUERY_FAILED");
+Check("unbound lease process tuple不一致を固定分類",
+    Unbound(processTupleMatches: false) == "UNBOUND_PROCESS_TUPLE");
+Check("unbound lease signaled processを固定分類",
+    Unbound(processSignaled: true, processJobMember: false) ==
+        "UNBOUND_PROCESS_SIGNALED");
+Check("unbound lease Job escapeを固定分類",
+    Unbound(processJobMember: false) == "UNBOUND_LEASE_ESCAPE");
+Check("unbound lease完全tupleも診断候補へ固定分類",
+    Unbound() == "UNBOUND_CANDIDATE");
 foreach (var (directoryStage, inputs, expected) in new[] {
     ("SNAPSHOT_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
         "DIRECTORY_SNAPSHOT_MISSING"),
@@ -645,8 +717,66 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (229 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (261 cases)");
 return 0;
+
+bool DeferredTuple(
+    int deferredWorkerPid = 4,
+    ulong deferredSequence = 17,
+    string deferredPhase = "voice",
+    string? deferredWorkId = "001104",
+    string activePhaseInstanceId = "phase-a",
+    string leasePhaseInstanceId = "phase-a",
+    string deferredRelativePath = ".cache/voice.wav",
+    string deferredSnapshotPath = ".cache/voice.wav",
+    ulong deferredFileObject = 31,
+    bool deferredFileObjectUnbound = true) =>
+    SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+        .DeferredTupleMatches(
+            deferredWorkerPid,
+            4,
+            deferredSequence,
+            17,
+            deferredPhase,
+            "voice",
+            deferredWorkId,
+            "001104",
+            "phase-a",
+            activePhaseInstanceId,
+            leasePhaseInstanceId,
+            deferredRelativePath,
+            deferredSnapshotPath,
+            ".cache/voice.wav",
+            deferredFileObject,
+            deferredFileObjectUnbound,
+            101,
+            100,
+            110);
+
+string Unbound(
+    bool leaseSnapshotAbsent = true,
+    bool eventAfterReservation = true,
+    bool currentInspectionSucceeded = true,
+    bool currentExists = true,
+    int deferredCount = 1,
+    bool deferredTupleMatches = true,
+    bool currentIdentityMatches = true,
+    string? processInspectionFailure = null,
+    bool processTupleMatches = true,
+    bool processSignaled = false,
+    bool processJobMember = true) =>
+    SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(
+        leaseSnapshotAbsent,
+        eventAfterReservation,
+        currentInspectionSucceeded,
+        currentExists,
+        deferredCount,
+        deferredTupleMatches,
+        currentIdentityMatches,
+        processInspectionFailure,
+        processTupleMatches,
+        processSignaled,
+        processJobMember);
 
 string NoPending(
     bool pathIsFile = false,

@@ -415,6 +415,72 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(noPendingStage).not.toContain('TryAuthorize');
     expect(noPendingStage).not.toContain('ObservationRecord');
     expect(noPendingStage).not.toContain('allocatedByIdentity');
+    expect(noPendingStage).toContain('return "NO_PENDING_" +');
+    expect(noPendingStage).toContain(
+      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticStage(',
+    );
+    const unboundLeaseStage = program.slice(
+      program.indexOf(
+        'private string SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticStage(',
+      ),
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+    );
+    const orderedUnboundChecks = [
+      'lease.Snapshot is not null',
+      '.IsEventAfterReservation(',
+      'TryInspect(lease.RelativePath)',
+      'if (current is null)',
+      'deferredSystemSetInfos.Count == 0',
+      'deferredSystemSetInfos.Count != 1',
+      'var deferred = deferredSystemSetInfos[0]',
+      '.DeferredTupleMatches(',
+      'current.Identity != deferred.Snapshot.Identity',
+      'job.InspectRetainedProcess(lease.Process)',
+      'processInspection.ProcessId == lease.WorkerPid',
+      'processInspection.ProcessStartKey == lease.ProcessStartKey',
+      'processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber',
+      'if (processInspection.Signaled)',
+      'if (!processInspection.JobMember)',
+      'return Classify()',
+    ];
+    for (const runtimeCheck of orderedUnboundChecks) {
+      expect(unboundLeaseStage.indexOf(runtimeCheck)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedUnboundChecks.length; index += 1) {
+      expect(unboundLeaseStage.indexOf(orderedUnboundChecks[index - 1]!))
+        .toBeLessThan(unboundLeaseStage.indexOf(orderedUnboundChecks[index]!));
+    }
+    for (const tupleField of [
+      'deferred.WorkerPid',
+      'deferred.ProducerSequenceNumber',
+      'deferred.Phase',
+      'deferred.WorkId',
+      'deferred.PhaseInstanceId',
+      'deferred.RelativePath',
+      'deferred.Snapshot.RelativePath',
+      'deferred.FileObject',
+      '!filesByObject.ContainsKey(deferred.FileObject)',
+      'deferred.TimestampQpc',
+      'lease.CurrentPathReservedAtQpc',
+      'eventQpc',
+    ]) {
+      expect(unboundLeaseStage).toContain(tupleField);
+    }
+    expect(unboundLeaseStage).not.toContain('TryAuthorize');
+    expect(unboundLeaseStage).not.toContain('BindReservedSystemSetInfoLocked');
+    expect(unboundLeaseStage).not.toContain('ObservationRecord');
+    expect(unboundLeaseStage).not.toContain('allocatedByIdentity');
+
+    const retainedInspectionForUnbound = program.slice(
+      program.indexOf('public RetainedProcessInspection InspectRetainedProcess('),
+      program.indexOf('public ProcessIdentityRecord ProcessIdentity('),
+    );
+    expect(retainedInspectionForUnbound.indexOf('var identity = ProcessIdentity(process)'))
+      .toBeLessThan(retainedInspectionForUnbound.indexOf(
+        'WaitForSingleObject(process.Handle, 0)',
+      ));
+    expect(retainedInspectionForUnbound.indexOf('if (waitResult == 0)'))
+      .toBeLessThan(retainedInspectionForUnbound.indexOf('IsProcessInJob('));
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
     expect(program).toContain(
       'SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(',

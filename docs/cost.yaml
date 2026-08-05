@@ -694,3 +694,10 @@ entries:
   agents: 3
   est_tokens: 11000
   note: 旧PATH_MISSINGだけをexact19 stageへ認可非変更で分離。FILE/OTHER即時停止、directory/root/lease評価順、STATE_DRIFT、lease current欠落、CANDIDATEを固定し、native229件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31035627381 attempt 2で新stage NO_PENDING_LEASE_UNBOUNDへ到達
+- date: '2026-08-06'
+  phase: test
+  task: T-109 CHG-F005-035 pendingなしbound directory writeとunbound leaseの固定診断
+  model: GPT-5
+  agents: 3
+  est_tokens: 12000
+  note: 旧NO_PENDING_LEASE_UNBOUNDだけをexact14 stageへ認可・binding非変更で分離。event/deferred QPC、current、deferred完全tuple、保持process inspectionを固定し、native261件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち

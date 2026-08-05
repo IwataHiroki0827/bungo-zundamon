@@ -682,7 +682,6 @@ describe('F005 production work runner', () => {
       'NO_PENDING_DIR_UNKNOWN',
       'NO_PENDING_LEASE_PARENT',
       'NO_PENDING_LEASE_CLOSED',
-      'NO_PENDING_LEASE_UNBOUND',
       'NO_PENDING_LEASE_SNAPSHOT_MISSING',
       'NO_PENDING_LEASE_BINDING_MISSING',
       'NO_PENDING_LEASE_BINDING_MISMATCH',
@@ -701,6 +700,49 @@ describe('F005 production work runner', () => {
         ).slice(F005_RUNNER_FAILURE_PREFIX.length),
       )).toMatchObject({
         cause: { name: 'F005NativeCapacityError', code },
+      });
+    }
+    for (const stage of [
+      'NO_PENDING_UNBOUND_SNAPSHOT_PRESENT',
+      'NO_PENDING_UNBOUND_BEFORE_RESERVATION',
+      'NO_PENDING_UNBOUND_CURRENT_INSPECTION_FAILED',
+      'NO_PENDING_UNBOUND_CURRENT_MISSING',
+      'NO_PENDING_UNBOUND_DEFERRED_MISSING',
+      'NO_PENDING_UNBOUND_DEFERRED_TUPLE',
+      'NO_PENDING_UNBOUND_CURRENT_ID_MISMATCH',
+      'NO_PENDING_UNBOUND_PROCESS_WAIT_FAILED',
+      'NO_PENDING_UNBOUND_PROCESS_IDENTITY_FAILED',
+      'NO_PENDING_UNBOUND_JOB_QUERY_FAILED',
+      'NO_PENDING_UNBOUND_PROCESS_TUPLE',
+      'NO_PENDING_UNBOUND_PROCESS_SIGNALED',
+      'NO_PENDING_UNBOUND_LEASE_ESCAPE',
+      'NO_PENDING_UNBOUND_CANDIDATE',
+    ] as const) {
+      const code =
+        `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${stage}` as const;
+      const failure = new F005NativeCapacityError(code, 'fixed stage only');
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code },
+      });
+    }
+    for (const code of [
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_LEASE_UNBOUND',
+      'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_UNBOUND_PRIVATE',
+    ]) {
+      const failure = Object.assign(new Error('legacy or private'), {
+        name: 'F005NativeCapacityError',
+        code,
+      });
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code: null },
       });
     }
     const oldPathMissing = Object.assign(new Error('legacy'), {

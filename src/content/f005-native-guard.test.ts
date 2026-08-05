@@ -343,7 +343,6 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'NO_PENDING_DIR_UNKNOWN',
     'NO_PENDING_LEASE_PARENT',
     'NO_PENDING_LEASE_CLOSED',
-    'NO_PENDING_LEASE_UNBOUND',
     'NO_PENDING_LEASE_SNAPSHOT_MISSING',
     'NO_PENDING_LEASE_BINDING_MISSING',
     'NO_PENDING_LEASE_BINDING_MISMATCH',
@@ -361,7 +360,41 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     expect(code.length).toBeGreaterThanOrEqual(83);
     expect(code.length).toBeLessThanOrEqual(101);
   }
-  expect(noPendingStages).toHaveLength(19);
+  expect(noPendingStages).toHaveLength(18);
+  const noPendingUnboundStages = [
+    'NO_PENDING_UNBOUND_SNAPSHOT_PRESENT',
+    'NO_PENDING_UNBOUND_BEFORE_RESERVATION',
+    'NO_PENDING_UNBOUND_CURRENT_INSPECTION_FAILED',
+    'NO_PENDING_UNBOUND_CURRENT_MISSING',
+    'NO_PENDING_UNBOUND_DEFERRED_MISSING',
+    'NO_PENDING_UNBOUND_DEFERRED_TUPLE',
+    'NO_PENDING_UNBOUND_CURRENT_ID_MISMATCH',
+    'NO_PENDING_UNBOUND_PROCESS_WAIT_FAILED',
+    'NO_PENDING_UNBOUND_PROCESS_IDENTITY_FAILED',
+    'NO_PENDING_UNBOUND_JOB_QUERY_FAILED',
+    'NO_PENDING_UNBOUND_PROCESS_TUPLE',
+    'NO_PENDING_UNBOUND_PROCESS_SIGNALED',
+    'NO_PENDING_UNBOUND_LEASE_ESCAPE',
+    'NO_PENDING_UNBOUND_CANDIDATE',
+  ] as const;
+  for (const stage of noPendingUnboundStages) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${stage}` as const;
+    expect(isF005SystemBoundFileObjectRejoinDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeGreaterThanOrEqual(96);
+    expect(code.length).toBeLessThanOrEqual(112);
+  }
+  expect(noPendingUnboundStages).toHaveLength(14);
+  expect(isF005SystemBoundFileObjectRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_LEASE_UNBOUND',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_LEASE_UNBOUND',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_UNBOUND_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'TARGET_MISMATCH',
     'RESERVATION_MISSING',
@@ -941,7 +974,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (229 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (261 cases)'),
     });
   }, 120_000);
 });
