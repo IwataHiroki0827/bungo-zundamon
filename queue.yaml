@@ -1084,3 +1084,20 @@ items:
   approval_answer_normalized: 承認
   processed_at: '2026-07-29T09:39:30+09:00'
   processed_note: UT-F005/IT-F005をApprovedへ更新し、T-067を完了。ゲート③通過によりF005をimplementへ移行した。
+- id: Q-034
+  type: escalation
+  status: pending
+  title: T-106 hosted影響経路へ3 attemptで未到達
+  body: >-
+    commit f56ca6f1fd970373333f87c331f4ac9fe9fbd3f0のActions run 31028376915を3 attempt実行したが、attempt 1/3はAFTER_LEASE_RESERVATION、attempt 2は既知LEASE_MISSINGで安全停止し、T-106の専用14 stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-033で前段の完全tuple限定再結合を実装してhosted影響試験を再開する。
+  target: T-106
+  target_mode: reference
+  options:
+  - CHG-F005-033で継続
+  - 一時停止
+  allow_freeform: true
+  created: '2026-08-06T02:24:00+09:00'
+  source: pf-test
+  resume:
+    task: T-106
+    next: pf-change
