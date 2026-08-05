@@ -410,8 +410,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'if (!parentMatches)',
       'var reservation = lease.RenameReservedAtQpc',
       'if (reservation is null or <= 0)',
+      'timestampQpc > lease.CurrentPathReservedAtQpc',
+      'if (!afterLeaseReservation)',
       'timestampQpc > reservation.Value',
-      'if (!afterReservation)',
+      'if (!afterRenameReservation)',
       'var current = TryInspect(target)',
       'if (current is null)',
       'if (current.Identity != lease.Snapshot!.Identity)',
@@ -430,7 +432,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     )).toHaveLength(1);
     expect(boundLeaseRenameStage.match(
       /return SystemDirectoryBoundLeaseRenameDiagnosticRules\.Classify\(/gu,
-    )).toHaveLength(7);
+    )).toHaveLength(8);
     const directoryStage = program.slice(
       program.indexOf('private string SystemDirectoryWriteRejoinStage('),
       program.indexOf('private string? NormalizeObservedPath('),

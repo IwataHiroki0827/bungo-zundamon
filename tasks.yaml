@@ -2203,9 +2203,10 @@ tasks:
   title: CHG-F005-031 rename予約前directory writeのlease時間関係固定診断
   feature: F005
   phase: test
-  state: todo
+  state: doing
   depends: [T-104]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: BEFORE_RESERVATIONをlease予約前後の固定bucketへ分離するため
   model: {lead: opus, workers: sonnet}
+  progress: lease予約前後を固定9 stageへ分離し、native 174件・関連Vitest 121件・型・ESLint・再現build 2回・独立受入High/Medium/Low 0をPASS。hosted production影響試験待ち

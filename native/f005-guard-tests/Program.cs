@@ -388,19 +388,20 @@ foreach (var (directoryStage, inputs, expected) in new[] {
             inputs[4], inputs[5], inputs[6], inputs[7], inputs[8],
             inputs[9], inputs[10]) == expected);
 foreach (var (inputs, expected) in new[] {
-    (new[] { false, false, false, false, false, false, false }, "PATH_MISSING"),
-    (new[] { true, false, false, false, false, false, false }, "PARENT"),
-    (new[] { true, true, false, false, false, false, false }, "RESERVATION_MISSING"),
-    (new[] { true, true, true, false, false, false, false }, "BEFORE_RESERVATION"),
-    (new[] { true, true, true, true, false, false, false }, "CURRENT_MISSING"),
-    (new[] { true, true, true, true, true, false, false }, "IDENTITY_MISMATCH"),
-    (new[] { true, true, true, true, true, true, true }, "LEASE_ESCAPE"),
-    (new[] { true, true, true, true, true, true, false }, "CANDIDATE"),
+    (new[] { false, false, false, false, false, false, false, false }, "PATH_MISSING"),
+    (new[] { true, false, false, false, false, false, false, false }, "PARENT"),
+    (new[] { true, true, false, false, false, false, false, false }, "RESERVATION_MISSING"),
+    (new[] { true, true, true, false, false, false, false, false }, "BEFORE_LEASE_RESERVATION"),
+    (new[] { true, true, true, true, false, false, false, false }, "AFTER_LEASE_RESERVATION"),
+    (new[] { true, true, true, true, true, false, false, false }, "CURRENT_MISSING"),
+    (new[] { true, true, true, true, true, true, false, false }, "IDENTITY_MISMATCH"),
+    (new[] { true, true, true, true, true, true, true, true }, "LEASE_ESCAPE"),
+    (new[] { true, true, true, true, true, true, true, false }, "CANDIDATE"),
 })
     Check($"System bound lease rename {expected}を固定分類",
         SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
             inputs[0], inputs[1], inputs[2], inputs[3], inputs[4],
-            inputs[5], inputs[6]) == expected);
+            inputs[5], inputs[6], inputs[7]) == expected);
 
 Check("予約済みSystem SetInfo", CanAuthorize(
     "BIRTH_MISSING", 4, "setinfo", 17, true, true, false, false));
@@ -497,7 +498,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (173 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (174 cases)");
 return 0;
 
 void Check(string name, bool condition)

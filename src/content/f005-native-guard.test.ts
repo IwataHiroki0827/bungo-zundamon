@@ -256,7 +256,8 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'PATH_MISSING',
     'PARENT',
     'RESERVATION_MISSING',
-    'BEFORE_RESERVATION',
+    'BEFORE_LEASE_RESERVATION',
+    'AFTER_LEASE_RESERVATION',
     'CURRENT_MISSING',
     'IDENTITY_MISMATCH',
     'LEASE_ESCAPE',
@@ -274,6 +275,9 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_BEFORE_RESERVATION',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'SNAPSHOT_MISSING',
@@ -845,7 +849,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (173 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (174 cases)'),
     });
   }, 120_000);
 });

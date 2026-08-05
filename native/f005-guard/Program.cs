@@ -3457,30 +3457,34 @@ sealed class CapacityGuardSession : IDisposable
         var target = lease.PendingRenamePath;
         if (target is null)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                false, false, false, false, false, false, false);
+                false, false, false, false, false, false, false, false);
         var slash = target.LastIndexOf('/');
         var parentMatches = slash > 0 && target[..slash] == normalized;
         if (!parentMatches)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                true, false, false, false, false, false, false);
+                true, false, false, false, false, false, false, false);
         var reservation = lease.RenameReservedAtQpc;
         if (reservation is null or <= 0)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                true, true, false, false, false, false, false);
-        var afterReservation = timestampQpc > reservation.Value;
-        if (!afterReservation)
+                true, true, false, false, false, false, false, false);
+        var afterLeaseReservation = timestampQpc > lease.CurrentPathReservedAtQpc;
+        if (!afterLeaseReservation)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                true, true, true, false, false, false, false);
+                true, true, true, false, false, false, false, false);
+        var afterRenameReservation = timestampQpc > reservation.Value;
+        if (!afterRenameReservation)
+            return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
+                true, true, true, true, false, false, false, false);
         var current = TryInspect(target);
         if (current is null)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                true, true, true, true, false, false, false);
+                true, true, true, true, true, false, false, false);
         if (current.Identity != lease.Snapshot!.Identity)
             return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-                true, true, true, true, true, false, false);
+                true, true, true, true, true, true, false, false);
         var leaseOutsideJob = job.IsAliveOutsideJob(lease.Process);
         return SystemDirectoryBoundLeaseRenameDiagnosticRules.Classify(
-            true, true, true, true, true, true, leaseOutsideJob);
+            true, true, true, true, true, true, true, leaseOutsideJob);
     }
 
     private string? NormalizeObservedPath(string value)
@@ -5094,11 +5098,13 @@ public static class SystemDirectoryBoundLeaseWriteRejoinDiagnosticRules
 
 public static class SystemDirectoryBoundLeaseRenameDiagnosticRules
 {
+    // @des DES-F005-006 @fun FUN-F005-047 raw QPCを公開せずlease/rename予約との順序だけを固定分類する。
     public static string Classify(
         bool hasTarget,
         bool parentMatches,
         bool hasReservation,
-        bool afterReservation,
+        bool afterLeaseReservation,
+        bool afterRenameReservation,
         bool currentExists,
         bool identityMatches,
         bool leaseOutsideJob)
@@ -5106,7 +5112,8 @@ public static class SystemDirectoryBoundLeaseRenameDiagnosticRules
         if (!hasTarget) return "PATH_MISSING";
         if (!parentMatches) return "PARENT";
         if (!hasReservation) return "RESERVATION_MISSING";
-        if (!afterReservation) return "BEFORE_RESERVATION";
+        if (!afterLeaseReservation) return "BEFORE_LEASE_RESERVATION";
+        if (!afterRenameReservation) return "AFTER_LEASE_RESERVATION";
         if (!currentExists) return "CURRENT_MISSING";
         if (!identityMatches) return "IDENTITY_MISMATCH";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
