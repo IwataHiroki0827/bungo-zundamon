@@ -1,4 +1,24 @@
 attempts:
+- date: '2026-08-06T03:41:00+09:00'
+  feature: F005
+  scope: T-108-hosted-impact
+  attempt: 1
+  command: Actions run 31035627381 attempt 1
+  result: fail-closed
+  failures: 1
+  cause: wav-validated後に既知LEASE_BINDING_MISMATCHへ安全停止しT-108専用stageへ未到達
+  recovery: 同一commitのfailed jobを再実行してhosted scheduling分岐を再サンプル
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31035627381/attempts/1
+- date: '2026-08-06T03:47:00+09:00'
+  feature: F005
+  scope: T-108-hosted-impact
+  attempt: 2
+  command: Actions run 31035627381 attempt 2
+  result: success
+  failures: 0
+  cause: temporary-written後にT-108新stage NO_PENDING_LEASE_UNBOUNDへ到達
+  recovery: CHG-F005-035でunbound leaseの予約・current・deferred・process状態を固定分類
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31035627381/attempts/2
 - date: '2026-08-06T03:08:00+09:00'
   feature: F005
   scope: T-106-hosted-impact-recovery

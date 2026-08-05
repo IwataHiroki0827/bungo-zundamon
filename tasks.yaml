@@ -2236,10 +2236,20 @@ tasks:
   title: CHG-F005-034 pending rename消費後のbound FileObject path固定診断
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends: [T-107]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: PATH_MISSINGをpath種別と既存directory lease診断へ認可せず固定分類するため
   model: {lead: opus, workers: sonnet}
-  progress: PATH_MISSINGをexact19 stageへ分離。native229件・関連Vitest122件・型・ESLint・再現build2回・独立受入High/Medium/Low 0・public/data差分0をPASS。hosted production影響試験待ち
+  progress: PATH_MISSINGをexact19 stageへ分離。native229件・関連Vitest122件・型・ESLint・再現build2回・独立受入High/Medium/Low 0・public/data差分0をPASS。run 31035627381 attempt 2で新stage NO_PENDING_LEASE_UNBOUNDへ到達
+- id: T-109
+  title: CHG-F005-035 pendingなしbound directory writeとunbound leaseの固定診断
+  feature: F005
+  phase: test
+  state: todo
+  depends: [T-108]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
+  mode: advisor
+  mode_reason: NO_PENDING_LEASE_UNBOUNDを予約・current・deferred・保持process状態へ認可せず固定分類するため
+  model: {lead: opus, workers: sonnet}
