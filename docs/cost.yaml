@@ -686,4 +686,4 @@ entries:
   model: GPT-5
   agents: 3
   est_tokens: 12000
-  note: AFTER_LEASE_RESERVATION完全tupleを元active lease worker世代へ限定再結合。保持process世代、alive時Job、signaled遅延event、QPC5境界、認可後4点再照合を固定し、native210件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち
+  note: AFTER_LEASE_RESERVATION完全tupleを元active lease worker世代へ限定再結合。保持process世代、alive時Job、signaled遅延event、QPC5境界、認可後4点再照合を固定し、native210件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31032629020で限定再結合を通過しT-106専用PATH_MISSINGへ進行

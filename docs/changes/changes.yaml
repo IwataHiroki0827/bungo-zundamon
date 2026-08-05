@@ -1,16 +1,22 @@
 changes:
+- id: CHG-F005-034
+  date: '2026-08-06'
+  trigger: Actions run 31032629020でpending renameなしのbound FileObject pathをPATH_MISSINGとして固定検出
+  level: design
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-106, T-107, T-108]
+  status: in-review
 - id: CHG-F005-033
   date: '2026-08-06'
   trigger: Actions run 31028376915 attempt 1/3でAFTER_LEASE_RESERVATIONへ安全停止しT-106 hosted経路へ未到達
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-106, T-107]
-  status: in-review
+  status: done
 - id: CHG-F005-032
   date: '2026-08-06'
   trigger: Actions run 31025643577でSystem結合済みFileObjectのactive lease path不一致を固定検出
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-105, T-106]
-  status: in-review
+  status: done
 - id: CHG-F005-031
   date: '2026-07-30'
   trigger: Actions run 30525787305でrename directory eventがBEFORE_RESERVATIONと判明

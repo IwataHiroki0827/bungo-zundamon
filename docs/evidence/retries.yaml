@@ -1,4 +1,14 @@
 attempts:
+- date: '2026-08-06T03:08:00+09:00'
+  feature: F005
+  scope: T-106-hosted-impact-recovery
+  attempt: 1
+  command: Actions run 31032629020
+  result: success
+  failures: 0
+  cause: CHG-F005-033の限定再結合を通過しT-106専用PATH_MISSINGへ到達
+  recovery: Q-034を閉じ、CHG-F005-034でpending renameなしのpath関係を固定分類
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31032629020
 - date: '2026-08-06T02:13:00+09:00'
   feature: F005
   scope: T-106-hosted-impact

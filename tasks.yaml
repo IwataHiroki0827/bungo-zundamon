@@ -2214,22 +2214,31 @@ tasks:
   title: CHG-F005-032 System結合済みFileObjectのrename中lease path固定診断
   feature: F005
   phase: test
-  state: blocked
-  blocked_by: [Q-034]
+  state: done
   depends: [T-105]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: LEASE_PATHをpending renameとlease snapshotの固定関係へ細分化するため
   model: {lead: opus, workers: sonnet}
-  progress: LEASE_PATHを専用固定14 stageへ分離しlocal受入PASS。run 31028376915を3回実行したが前段のAFTER_LEASE_RESERVATION 2回・既知LEASE_MISSING 1回で安全停止しhosted対象経路へ未到達
+  progress: LEASE_PATHを専用固定14 stageへ分離しlocal受入PASS。CHG-F005-033後のrun 31032629020で専用PATH_MISSINGへ到達しhosted影響確認を完了
 - id: T-107
   title: CHG-F005-033 lease予約後・rename予約前directory writeの完全候補限定再結合
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends: [T-105]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: AFTER_LEASE_RESERVATIONの完全tupleだけを元lease worker世代へ限定再結合するため
   model: {lead: opus, workers: sonnet}
-  progress: AFTER完全tupleの限定再結合を実装。native210件・関連Vitest122件・型・ESLint・再現build2回・独立受入High/Medium/Low 0・public/data差分0をPASS。hosted production影響試験待ち
+  progress: AFTER完全tupleの限定再結合を実装。native210件・関連Vitest122件・型・ESLint・再現build2回・独立受入High/Medium/Low 0・public/data差分0をPASS。run 31032629020で限定再結合を通過しT-106 PATH_MISSINGへ進行
+- id: T-108
+  title: CHG-F005-034 pending rename消費後のbound FileObject path固定診断
+  feature: F005
+  phase: test
+  state: todo
+  depends: [T-107]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
+  mode: advisor
+  mode_reason: PATH_MISSINGをpath種別と既存directory lease診断へ認可せず固定分類するため
+  model: {lead: opus, workers: sonnet}
