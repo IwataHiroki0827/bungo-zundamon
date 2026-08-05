@@ -332,8 +332,37 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_PATH',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  const noPendingStages = [
+    'NO_PENDING_FILE',
+    'NO_PENDING_OTHER',
+    'NO_PENDING_DIR_SNAPSHOT_MISSING',
+    'NO_PENDING_DIR_CURRENT_MISSING',
+    'NO_PENDING_DIR_ID_MISMATCH',
+    'NO_PENDING_DIR_OWNER_MISSING',
+    'NO_PENDING_DIR_ROOT_INACTIVE',
+    'NO_PENDING_DIR_UNKNOWN',
+    'NO_PENDING_LEASE_PARENT',
+    'NO_PENDING_LEASE_CLOSED',
+    'NO_PENDING_LEASE_UNBOUND',
+    'NO_PENDING_LEASE_SNAPSHOT_MISSING',
+    'NO_PENDING_LEASE_BINDING_MISSING',
+    'NO_PENDING_LEASE_BINDING_MISMATCH',
+    'NO_PENDING_LEASE_CURRENT_MISSING',
+    'NO_PENDING_LEASE_ID_MISMATCH',
+    'NO_PENDING_LEASE_ESCAPE',
+    'NO_PENDING_CANDIDATE',
+    'NO_PENDING_STATE_DRIFT',
+  ] as const;
+  for (const stage of noPendingStages) {
+    const code =
+      `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${stage}` as const;
+    expect(isF005SystemBoundFileObjectRejoinDiagnosticCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeGreaterThanOrEqual(83);
+    expect(code.length).toBeLessThanOrEqual(101);
+  }
+  expect(noPendingStages).toHaveLength(19);
   for (const stage of [
-    'PATH_MISSING',
     'TARGET_MISMATCH',
     'RESERVATION_MISSING',
     'RESERVATION_ORDER',
@@ -360,6 +389,12 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe(false);
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_PRIVATE',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  expect(isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode(
+    'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_PATH_MISSING',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_PATH_MISSING',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT',
@@ -906,7 +941,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (210 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (229 cases)'),
     });
   }, 120_000);
 });

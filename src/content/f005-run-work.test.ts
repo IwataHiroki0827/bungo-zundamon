@@ -671,6 +671,62 @@ describe('F005 production work runner', () => {
         code: boundFileObjectRenameLeasePathCode,
       },
     });
+    for (const stage of [
+      'NO_PENDING_FILE',
+      'NO_PENDING_OTHER',
+      'NO_PENDING_DIR_SNAPSHOT_MISSING',
+      'NO_PENDING_DIR_CURRENT_MISSING',
+      'NO_PENDING_DIR_ID_MISMATCH',
+      'NO_PENDING_DIR_OWNER_MISSING',
+      'NO_PENDING_DIR_ROOT_INACTIVE',
+      'NO_PENDING_DIR_UNKNOWN',
+      'NO_PENDING_LEASE_PARENT',
+      'NO_PENDING_LEASE_CLOSED',
+      'NO_PENDING_LEASE_UNBOUND',
+      'NO_PENDING_LEASE_SNAPSHOT_MISSING',
+      'NO_PENDING_LEASE_BINDING_MISSING',
+      'NO_PENDING_LEASE_BINDING_MISMATCH',
+      'NO_PENDING_LEASE_CURRENT_MISSING',
+      'NO_PENDING_LEASE_ID_MISMATCH',
+      'NO_PENDING_LEASE_ESCAPE',
+      'NO_PENDING_CANDIDATE',
+      'NO_PENDING_STATE_DRIFT',
+    ] as const) {
+      const code =
+        `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_${stage}` as const;
+      const failure = new F005NativeCapacityError(code, 'fixed stage only');
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code },
+      });
+    }
+    const oldPathMissing = Object.assign(new Error('legacy'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_RENAME_LEASE_PATH_PATH_MISSING',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: oldPathMissing }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: { name: 'F005NativeCapacityError', code: null },
+    });
+    const unknownNoPending = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code:
+        'F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_NO_PENDING_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: unknownNoPending }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: { name: 'F005NativeCapacityError', code: null },
+    });
     const legacyBoundFileObjectLeasePath = Object.assign(new Error('legacy'), {
       name: 'F005NativeCapacityError',
       code:

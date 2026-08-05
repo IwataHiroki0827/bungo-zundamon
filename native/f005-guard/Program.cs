@@ -3485,13 +3485,18 @@ sealed class CapacityGuardSession : IDisposable
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
                 true, true, true, true, true, false, false, false, false);
         if (lease.RelativePath != normalized)
-            return "RENAME_LEASE_PATH_" +
+        {
+            var leasePathStage =
                 SystemBoundFileObjectRenameLeasePathDiagnosticStage(
                     normalized,
                     fileObject,
                     timestampQpc,
                     snapshot,
                     lease);
+            return leasePathStage.StartsWith("NO_PENDING_", StringComparison.Ordinal)
+                ? leasePathStage
+                : "RENAME_LEASE_PATH_" + leasePathStage;
+        }
         if (lease.FileObject != fileObject)
             return SystemBoundFileObjectRejoinDiagnosticRules.Classify(
                 true, true, true, true, true, true, false, false, false);
@@ -3512,9 +3517,9 @@ sealed class CapacityGuardSession : IDisposable
     {
         var target = lease.PendingRenamePath;
         if (target is null)
-            return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
-                false, false, false, false, false, false, false,
-                false, false, false, false, false, false);
+            return SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticStage(
+                normalized,
+                lease);
         if (!string.Equals(normalized, target, StringComparison.Ordinal))
             return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
                 true, false, false, false, false, false, false,
@@ -3572,6 +3577,76 @@ sealed class CapacityGuardSession : IDisposable
         return SystemBoundFileObjectRenameLeasePathDiagnosticRules.Classify(
             true, true, true, true, true, true, false,
             true, true, true, true, false, leaseOutsideJob);
+    }
+
+    private string SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticStage(
+        string normalized,
+        PendingWriteLease lease)
+    {
+        static string Classify(
+            bool pathIsFile = false,
+            bool pathIsDirectory = true,
+            string directoryStage = "CANDIDATE",
+            bool leaseStateStable = true,
+            bool leaseParentMatches = true,
+            bool leaseClosed = false,
+            bool leaseBound = true,
+            bool leaseSnapshotAvailable = true,
+            bool leaseBindingAvailable = true,
+            bool leaseBindingMatches = true,
+            bool leaseCurrentExists = true,
+            bool leaseIdentityMatches = true,
+            bool leaseOutsideJob = false) =>
+            SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticRules.Classify(
+                pathIsFile,
+                pathIsDirectory,
+                directoryStage,
+                leaseStateStable,
+                leaseParentMatches,
+                leaseClosed,
+                leaseBound,
+                leaseSnapshotAvailable,
+                leaseBindingAvailable,
+                leaseBindingMatches,
+                leaseCurrentExists,
+                leaseIdentityMatches,
+                leaseOutsideJob);
+
+        var absolute = Path.Combine(
+            root,
+            normalized.Replace('/', Path.DirectorySeparatorChar));
+        if (File.Exists(absolute)) return Classify(pathIsFile: true);
+        if (!Directory.Exists(absolute))
+            return Classify(pathIsDirectory: false);
+
+        var directoryStage = SystemDirectoryWriteRejoinStage(normalized);
+        if (directoryStage != "CANDIDATE")
+            return Classify(directoryStage: directoryStage);
+
+        if (!ReferenceEquals(pendingWriteLease, lease) ||
+            activePhase is null ||
+            lease.PhaseInstanceId != activePhase.PhaseInstanceId)
+            return Classify(leaseStateStable: false);
+        var slash = lease.RelativePath.LastIndexOf('/');
+        if (slash <= 0 || lease.RelativePath[..slash] != normalized)
+            return Classify(leaseParentMatches: false);
+        if (lease.FileObjectClosed) return Classify(leaseClosed: true);
+        if (lease.FileObject is null) return Classify(leaseBound: false);
+        if (lease.Snapshot is null)
+            return Classify(leaseSnapshotAvailable: false);
+        var binding = filesByObject.GetValueOrDefault(lease.FileObject.Value);
+        if (binding is null) return Classify(leaseBindingAvailable: false);
+        if (lease.Snapshot.RelativePath != lease.RelativePath ||
+            binding.RelativePath != lease.RelativePath ||
+            binding.Identity != lease.Snapshot.Identity)
+            return Classify(leaseBindingMatches: false);
+        var current = TryInspect(lease.RelativePath);
+        if (current is null) return Classify(leaseCurrentExists: false);
+        if (current.Identity != lease.Snapshot.Identity)
+            return Classify(leaseIdentityMatches: false);
+        if (job.IsAliveOutsideJob(lease.Process))
+            return Classify(leaseOutsideJob: true);
+        return Classify();
     }
 
     private string SystemDirectoryWriteRejoinStage(string normalized)
@@ -5400,6 +5475,49 @@ public static class SystemBoundFileObjectRejoinDiagnosticRules
         if (leaseClosed) return "LEASE_CLOSED";
         if (leaseOutsideJob) return "LEASE_ESCAPE";
         return "CANDIDATE";
+    }
+}
+
+public static class SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticRules
+{
+    // @des DES-F005-006 @fun FUN-F005-047 pending targetなしのpath種別とdirectory/lease状態を固定分類する。
+    public static string Classify(
+        bool pathIsFile,
+        bool pathIsDirectory,
+        string directoryStage,
+        bool leaseStateStable,
+        bool leaseParentMatches,
+        bool leaseClosed,
+        bool leaseBound,
+        bool leaseSnapshotAvailable,
+        bool leaseBindingAvailable,
+        bool leaseBindingMatches,
+        bool leaseCurrentExists,
+        bool leaseIdentityMatches,
+        bool leaseOutsideJob)
+    {
+        if (pathIsFile) return "NO_PENDING_FILE";
+        if (!pathIsDirectory) return "NO_PENDING_OTHER";
+        if (directoryStage != "CANDIDATE")
+            return directoryStage switch {
+                "SNAPSHOT_MISSING" => "NO_PENDING_DIR_SNAPSHOT_MISSING",
+                "CURRENT_MISSING" => "NO_PENDING_DIR_CURRENT_MISSING",
+                "IDENTITY_MISMATCH" => "NO_PENDING_DIR_ID_MISMATCH",
+                "OWNER_MISSING" => "NO_PENDING_DIR_OWNER_MISSING",
+                "ROOT_INACTIVE" => "NO_PENDING_DIR_ROOT_INACTIVE",
+                _ => "NO_PENDING_DIR_UNKNOWN",
+            };
+        if (!leaseStateStable) return "NO_PENDING_STATE_DRIFT";
+        if (!leaseParentMatches) return "NO_PENDING_LEASE_PARENT";
+        if (leaseClosed) return "NO_PENDING_LEASE_CLOSED";
+        if (!leaseBound) return "NO_PENDING_LEASE_UNBOUND";
+        if (!leaseSnapshotAvailable) return "NO_PENDING_LEASE_SNAPSHOT_MISSING";
+        if (!leaseBindingAvailable) return "NO_PENDING_LEASE_BINDING_MISSING";
+        if (!leaseBindingMatches) return "NO_PENDING_LEASE_BINDING_MISMATCH";
+        if (!leaseCurrentExists) return "NO_PENDING_LEASE_CURRENT_MISSING";
+        if (!leaseIdentityMatches) return "NO_PENDING_LEASE_ID_MISMATCH";
+        if (leaseOutsideJob) return "NO_PENDING_LEASE_ESCAPE";
+        return "NO_PENDING_CANDIDATE";
     }
 }
 

@@ -324,7 +324,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf(
         'private string SystemBoundFileObjectRenameLeasePathDiagnosticStage(',
       ),
-      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+      program.indexOf(
+        'private string SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticStage(',
+      ),
     );
     const orderedRenameLeasePathChecks = [
       'var target = lease.PendingRenamePath',
@@ -362,7 +364,57 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     )).toHaveLength(1);
     expect(renameLeasePathStage.match(
       /return SystemBoundFileObjectRenameLeasePathDiagnosticRules\.Classify\(/gu,
-    )).toHaveLength(13);
+    )).toHaveLength(12);
+    expect(renameLeasePathStage).toContain(
+      'SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticStage(',
+    );
+    expect(renameLeasePathStage).not.toContain('"PATH_MISSING"');
+    expect(boundFileObjectStage).toContain(
+      'leasePathStage.StartsWith("NO_PENDING_", StringComparison.Ordinal)',
+    );
+    const noPendingStage = program.slice(
+      program.indexOf(
+        'private string SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticStage(',
+      ),
+      program.indexOf('private string SystemDirectoryWriteRejoinStage('),
+    );
+    const orderedNoPendingChecks = [
+      'File.Exists(absolute)',
+      'Directory.Exists(absolute)',
+      'SystemDirectoryWriteRejoinStage(normalized)',
+      'if (directoryStage != "CANDIDATE")',
+      'ReferenceEquals(pendingWriteLease, lease)',
+      "lease.RelativePath.LastIndexOf('/')",
+      'lease.FileObjectClosed',
+      'lease.FileObject is null',
+      'lease.Snapshot is null',
+      'filesByObject.GetValueOrDefault(lease.FileObject.Value)',
+      'binding.RelativePath != lease.RelativePath',
+      'TryInspect(lease.RelativePath)',
+      'if (current is null)',
+      'current.Identity != lease.Snapshot.Identity',
+      'job.IsAliveOutsideJob(lease.Process)',
+      'return Classify()',
+    ];
+    for (const runtimeCheck of orderedNoPendingChecks) {
+      expect(noPendingStage.indexOf(runtimeCheck)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedNoPendingChecks.length; index += 1) {
+      expect(noPendingStage.indexOf(orderedNoPendingChecks[index - 1]!))
+        .toBeLessThan(noPendingStage.indexOf(orderedNoPendingChecks[index]!));
+    }
+    expect(noPendingStage.indexOf('File.Exists(absolute)'))
+      .toBeLessThan(noPendingStage.indexOf('SystemDirectoryWriteRejoinStage(normalized)'));
+    expect(noPendingStage.indexOf('Directory.Exists(absolute)'))
+      .toBeLessThan(noPendingStage.indexOf('SystemDirectoryWriteRejoinStage(normalized)'));
+    expect(noPendingStage).toContain('Classify(leaseStateStable: false)');
+    expect(noPendingStage).toContain('Classify(leaseCurrentExists: false)');
+    expect(noPendingStage).toContain(
+      'SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticRules.Classify(',
+    );
+    expect(noPendingStage).not.toContain('TryAuthorize');
+    expect(noPendingStage).not.toContain('ObservationRecord');
+    expect(noPendingStage).not.toContain('allocatedByIdentity');
     expect(program).toContain('SystemDirectoryWriteRejoinDiagnosticRules.Classify(');
     expect(program).toContain(
       'SystemDirectoryActiveLeaseWriteRejoinDiagnosticRules.Classify(',

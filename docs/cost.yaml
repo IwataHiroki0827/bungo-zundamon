@@ -687,3 +687,10 @@ entries:
   agents: 3
   est_tokens: 12000
   note: AFTER_LEASE_RESERVATION完全tupleを元active lease worker世代へ限定再結合。保持process世代、alive時Job、signaled遅延event、QPC5境界、認可後4点再照合を固定し、native210件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31032629020で限定再結合を通過しT-106専用PATH_MISSINGへ進行
+- date: '2026-08-06'
+  phase: test
+  task: T-108 CHG-F005-034 pending rename消費後のbound FileObject path固定診断
+  model: GPT-5
+  agents: 3
+  est_tokens: 11000
+  note: 旧PATH_MISSINGだけをexact19 stageへ認可非変更で分離。FILE/OTHER即時停止、directory/root/lease評価順、STATE_DRIFT、lease current欠落、CANDIDATEを固定し、native229件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち

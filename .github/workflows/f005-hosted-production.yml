@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; AFTER lease directory writes require the full retained tuple.
+# Native tooling stays outside; no-pending bound paths expose fixed fail-closed stages.
 on:
   push:
     branches:

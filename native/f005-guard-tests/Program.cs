@@ -455,6 +455,42 @@ foreach (var (inputs, expected) in new[] {
             inputs[0], inputs[1], inputs[2], inputs[3], inputs[4],
             inputs[5], inputs[6], inputs[7], inputs[8], inputs[9],
             inputs[10], inputs[11], inputs[12]) == expected);
+Check("pendingなしbound FileObject fileを即時固定分類",
+    NoPending(pathIsFile: true) == "NO_PENDING_FILE");
+Check("pendingなしbound FileObject otherを即時固定分類",
+    NoPending(pathIsDirectory: false) == "NO_PENDING_OTHER");
+foreach (var (directoryStage, expected) in new[] {
+    ("SNAPSHOT_MISSING", "NO_PENDING_DIR_SNAPSHOT_MISSING"),
+    ("CURRENT_MISSING", "NO_PENDING_DIR_CURRENT_MISSING"),
+    ("IDENTITY_MISMATCH", "NO_PENDING_DIR_ID_MISMATCH"),
+    ("OWNER_MISSING", "NO_PENDING_DIR_OWNER_MISSING"),
+    ("ROOT_INACTIVE", "NO_PENDING_DIR_ROOT_INACTIVE"),
+    ("PRIVATE", "NO_PENDING_DIR_UNKNOWN"),
+})
+    Check($"pendingなしbound FileObject directory {expected}を固定分類",
+        NoPending(directoryStage: directoryStage) == expected);
+Check("pendingなしbound FileObject state driftを固定分類",
+    NoPending(leaseStateStable: false) == "NO_PENDING_STATE_DRIFT");
+Check("pendingなしbound FileObject lease親不一致を固定分類",
+    NoPending(leaseParentMatches: false) == "NO_PENDING_LEASE_PARENT");
+Check("pendingなしbound FileObject closed leaseを固定分類",
+    NoPending(leaseClosed: true) == "NO_PENDING_LEASE_CLOSED");
+Check("pendingなしbound FileObject unbound leaseを固定分類",
+    NoPending(leaseBound: false) == "NO_PENDING_LEASE_UNBOUND");
+Check("pendingなしbound FileObject lease snapshot欠落を固定分類",
+    NoPending(leaseSnapshotAvailable: false) == "NO_PENDING_LEASE_SNAPSHOT_MISSING");
+Check("pendingなしbound FileObject lease binding欠落を固定分類",
+    NoPending(leaseBindingAvailable: false) == "NO_PENDING_LEASE_BINDING_MISSING");
+Check("pendingなしbound FileObject lease binding不一致を固定分類",
+    NoPending(leaseBindingMatches: false) == "NO_PENDING_LEASE_BINDING_MISMATCH");
+Check("pendingなしbound FileObject lease current欠落を固定分類",
+    NoPending(leaseCurrentExists: false) == "NO_PENDING_LEASE_CURRENT_MISSING");
+Check("pendingなしbound FileObject lease identity不一致を固定分類",
+    NoPending(leaseIdentityMatches: false) == "NO_PENDING_LEASE_ID_MISMATCH");
+Check("pendingなしbound FileObject lease Job escapeを固定分類",
+    NoPending(leaseOutsideJob: true) == "NO_PENDING_LEASE_ESCAPE");
+Check("pendingなしbound FileObject完全tupleも診断候補へ固定分類",
+    NoPending() == "NO_PENDING_CANDIDATE");
 foreach (var (directoryStage, inputs, expected) in new[] {
     ("SNAPSHOT_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
         "DIRECTORY_SNAPSHOT_MISSING"),
@@ -609,8 +645,37 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (210 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (229 cases)");
 return 0;
+
+string NoPending(
+    bool pathIsFile = false,
+    bool pathIsDirectory = true,
+    string directoryStage = "CANDIDATE",
+    bool leaseStateStable = true,
+    bool leaseParentMatches = true,
+    bool leaseClosed = false,
+    bool leaseBound = true,
+    bool leaseSnapshotAvailable = true,
+    bool leaseBindingAvailable = true,
+    bool leaseBindingMatches = true,
+    bool leaseCurrentExists = true,
+    bool leaseIdentityMatches = true,
+    bool leaseOutsideJob = false) =>
+    SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticRules.Classify(
+        pathIsFile,
+        pathIsDirectory,
+        directoryStage,
+        leaseStateStable,
+        leaseParentMatches,
+        leaseClosed,
+        leaseBound,
+        leaseSnapshotAvailable,
+        leaseBindingAvailable,
+        leaseBindingMatches,
+        leaseCurrentExists,
+        leaseIdentityMatches,
+        leaseOutsideJob);
 
 void Check(string name, bool condition)
 {
