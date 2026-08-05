@@ -890,6 +890,60 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    for (const stage of [
+      'INITIAL_TUPLE_INSPECTION_FAILED',
+      'PROCESS_IDENTITY_FAILED',
+      'PROCESS_WAIT_FAILED',
+      'JOB_QUERY_FAILED',
+      'PROCESS_TUPLE_MISMATCH',
+      'PROCESS_SIGNALED',
+      'PROCESS_OUTSIDE_JOB',
+      'ACTIVE_LEASE_CHANGED',
+      'EVENT_FILE_OBJECT_BOUND',
+      'RENAME_STATE_CHANGED',
+      'DIRECTORY_IDENTITY_MISMATCH',
+      'LEASE_CURRENT_IDENTITY_MISMATCH',
+      'BINDING_MISMATCH',
+      'PROCESS_RECHECK_IDENTITY_FAILED',
+      'PROCESS_RECHECK_WAIT_FAILED',
+      'PROCESS_RECHECK_JOB_QUERY_FAILED',
+      'PROCESS_RECHECK_TUPLE_MISMATCH',
+      'PROCESS_RECHECK_SIGNALED',
+      'PROCESS_RECHECK_OUTSIDE_JOB',
+    ] as const) {
+      const code =
+        `F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_${stage}` as const;
+      const failure = new F005NativeCapacityError(code, 'fixed stage only');
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code },
+      });
+    }
+    for (const code of [
+      'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PRIVATE',
+      'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED_EXTRA',
+      'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED'.padEnd(
+        128,
+        'X',
+      ),
+    ]) {
+      const failure = Object.assign(new Error('generic'), {
+        name: 'F005NativeCapacityError',
+        code,
+      });
+      const serialized = formatF005RunnerFailure(
+        new Error('voice boundary', { cause: failure }),
+      );
+      expect(JSON.parse(
+        serialized.slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code: null },
+      });
+      expect(serialized).not.toContain(code);
+    }
   });
 
   it.each([

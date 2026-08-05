@@ -2357,6 +2357,7 @@ sealed class CapacityGuardSession : IDisposable
                 string? systemSetInfoExpectedIdentity = null;
                 string? identityRecheckFailureCode = null;
                 AfterLeaseDirectoryRejoinContext? afterLeaseDirectoryRejoin = null;
+                BoundLeaseDirectoryRejoinContext? boundLeaseDirectoryRejoin = null;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -2400,6 +2401,20 @@ sealed class CapacityGuardSession : IDisposable
                         producerSequenceNumber = completedSequenceNumber;
                         identityRecheckFailureCode =
                             "ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH";
+                    }
+                    else if (TryAuthorizeBoundLeaseDirectoryWriteLocked(
+                        eventName,
+                        pid,
+                        normalized,
+                        fileObject,
+                        timestampQpc,
+                        authorizationFailure,
+                        out var boundLeaseDirectoryPid,
+                        out var boundLeaseDirectorySequenceNumber,
+                        out boundLeaseDirectoryRejoin))
+                    {
+                        pid = boundLeaseDirectoryPid;
+                        producerSequenceNumber = boundLeaseDirectorySequenceNumber;
                     }
                     else if (TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(
                         eventName,
@@ -2641,6 +2656,18 @@ sealed class CapacityGuardSession : IDisposable
                         return;
                     }
                 }
+                if (boundLeaseDirectoryRejoin is not null)
+                {
+                    var recheckFailure = RecheckBoundLeaseDirectoryTupleLocked(
+                        boundLeaseDirectoryRejoin,
+                        timestampQpc,
+                        fileObject);
+                    if (recheckFailure is not null)
+                    {
+                        PoisonLocked(recheckFailure);
+                        return;
+                    }
+                }
                 if (current is not null)
                 {
                     filesByObject[fileObject] = current;
@@ -2664,6 +2691,17 @@ sealed class CapacityGuardSession : IDisposable
                 minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
                 var sequence = checked(++etwSequence);
                 callbackStage = "RECORD";
+                if (boundLeaseDirectoryRejoin is not null)
+                {
+                    var processRecheckFailure =
+                        RecheckBoundLeaseDirectoryProcessLocked(
+                            boundLeaseDirectoryRejoin);
+                    if (processRecheckFailure is not null)
+                    {
+                        PoisonLocked(processRecheckFailure);
+                        return;
+                    }
+                }
                 var observation = new ObservationRecord(
                     eventName,
                     normalized,
@@ -2978,6 +3016,259 @@ sealed class CapacityGuardSession : IDisposable
         producerSequenceNumber = rootSequence!.Value;
         expectedIdentity = filesByPath[normalized].Identity;
         return true;
+    }
+
+    private bool TryAuthorizeBoundLeaseDirectoryWriteLocked(
+        string eventName,
+        int pid,
+        string normalized,
+        ulong fileObject,
+        long eventQpc,
+        string authorizationFailure,
+        out int producerPid,
+        out ulong producerSequenceNumber,
+        out BoundLeaseDirectoryRejoinContext? rejoinContext)
+    {
+        producerPid = 0;
+        producerSequenceNumber = 0;
+        rejoinContext = null;
+        var phase = activePhase;
+        var lease = pendingWriteLease;
+        if (phase is null || lease is null) return false;
+
+        bool cheapPredicatesPass;
+        try
+        {
+            cheapPredicatesPass =
+                SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                    .EvaluateCheapPredicates(
+                        authorizationFailure,
+                        pid,
+                        eventName,
+                        fileObject,
+                        !filesByObject.ContainsKey(fileObject),
+                        phase.Phase == "voice",
+                        lease.PhaseInstanceId == phase.PhaseInstanceId,
+                        phase.StartedAtQpc,
+                        lease.CurrentPathReservedAtQpc,
+                        eventQpc,
+                        () => SystemDirectoryBoundLeaseWriteRejoinStage(
+                            normalized,
+                            eventQpc) == "CANDIDATE",
+                        () => lease.PendingRenamePath is null,
+                        () => lease.RenameReservedAtQpc is null);
+        }
+        catch (GuardException)
+        {
+            PoisonLocked(
+                "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_INITIAL_TUPLE_INSPECTION_FAILED");
+            return false;
+        }
+        if (!cheapPredicatesPass) return false;
+
+        FileSnapshot? directoryCurrent;
+        FileSnapshot? leaseCurrent;
+        try
+        {
+            directoryCurrent = TryInspect(normalized);
+            leaseCurrent = TryInspect(lease.RelativePath);
+        }
+        catch (GuardException)
+        {
+            PoisonLocked(
+                "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_INITIAL_TUPLE_INSPECTION_FAILED");
+            return false;
+        }
+        var directorySnapshot = filesByPath.GetValueOrDefault(normalized);
+        var leaseSnapshot = lease.Snapshot;
+        var leaseFileObject = lease.FileObject;
+        var binding = leaseFileObject is null
+            ? null
+            : filesByObject.GetValueOrDefault(leaseFileObject.Value);
+        var slash = lease.RelativePath.LastIndexOf('/');
+        var initialTupleMatches =
+            SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialTupleMatches(
+                directorySnapshot is not null,
+                directoryCurrent is not null,
+                directoryCurrent?.Identity == directorySnapshot?.Identity,
+                slash > 0 && lease.RelativePath[..slash] == normalized,
+                !lease.FileObjectClosed,
+                leaseSnapshot is not null,
+                leaseFileObject is not null,
+                leaseCurrent is not null,
+                leaseCurrent?.Identity == leaseSnapshot?.Identity,
+                binding is not null,
+                binding?.RelativePath == lease.RelativePath,
+                binding?.Identity == leaseSnapshot?.Identity);
+        if (!initialTupleMatches || directorySnapshot is null ||
+            leaseSnapshot is null || leaseFileObject is null)
+            return false;
+
+        JobObject.RetainedProcessInspection processInspection;
+        try
+        {
+            processInspection = job.InspectRetainedProcess(lease.Process);
+        }
+        catch (GuardException error)
+        {
+            PoisonLocked(
+                SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                    .InitialProcessFailureCode(error.Code));
+            return false;
+        }
+        var processTupleMatches =
+            processInspection.ProcessId == lease.WorkerPid &&
+            processInspection.ProcessStartKey == lease.ProcessStartKey &&
+            processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber;
+        var processFailure =
+            SystemDirectoryBoundLeaseRejoinAuthorizationRules.ProcessRejection(
+                processTupleMatches,
+                processInspection.Signaled,
+                processInspection.JobMember,
+                recheck: false);
+        if (processFailure is not null)
+        {
+            PoisonLocked(processFailure);
+            return false;
+        }
+
+        producerPid = lease.WorkerPid;
+        producerSequenceNumber = lease.ProcessSequenceNumber;
+        rejoinContext = new BoundLeaseDirectoryRejoinContext(
+            phase,
+            lease,
+            normalized,
+            directorySnapshot.Identity,
+            lease.RelativePath,
+            leaseSnapshot.Identity,
+            leaseFileObject.Value,
+            fileObject,
+            phase.StartedAtQpc,
+            lease.CurrentPathReservedAtQpc,
+            lease.WorkerPid,
+            lease.ProcessStartKey,
+            lease.ProcessSequenceNumber);
+        return true;
+    }
+
+    private string? RecheckBoundLeaseDirectoryTupleLocked(
+        BoundLeaseDirectoryRejoinContext context,
+        long eventQpc,
+        ulong eventFileObject)
+    {
+        var phase = activePhase;
+        var lease = pendingWriteLease;
+        var activeLeaseMatches =
+            ReferenceEquals(phase, context.Phase) &&
+            ReferenceEquals(lease, context.Lease) &&
+            phase is not null && lease is not null &&
+            phase.Phase == "voice" &&
+            phase.PhaseInstanceId == lease.PhaseInstanceId &&
+            phase.StartedAtQpc == context.PhaseStartedAtQpc &&
+            lease.CurrentPathReservedAtQpc == context.LeaseReservedAtQpc &&
+            lease.RelativePath == context.LeasePath &&
+            lease.FileObject == context.LeaseFileObject &&
+            !lease.FileObjectClosed &&
+            lease.Snapshot?.Identity == context.LeaseIdentity &&
+            lease.WorkerPid == context.ProducerPid &&
+            lease.ProcessStartKey == context.ProcessStartKey &&
+            lease.ProcessSequenceNumber == context.ProducerSequenceNumber &&
+            SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(
+                phase.StartedAtQpc,
+                lease.CurrentPathReservedAtQpc,
+                eventQpc);
+        var tupleFailure =
+            SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                .TupleRecheckFailure(
+                    activeLeaseMatches, true, true, true, true, true);
+        if (tupleFailure is not null) return tupleFailure;
+
+        var eventFileObjectUnbound =
+            eventFileObject == context.EventFileObject &&
+            eventFileObject != 0 &&
+            !filesByObject.ContainsKey(eventFileObject);
+        tupleFailure = SystemDirectoryBoundLeaseRejoinAuthorizationRules
+            .TupleRecheckFailure(
+                true, eventFileObjectUnbound, true, true, true, true);
+        if (tupleFailure is not null) return tupleFailure;
+
+        var renameStateUnchanged =
+            lease!.PendingRenamePath is null &&
+            lease.RenameReservedAtQpc is null;
+        tupleFailure = SystemDirectoryBoundLeaseRejoinAuthorizationRules
+            .TupleRecheckFailure(
+                true, true, renameStateUnchanged, true, true, true);
+        if (tupleFailure is not null) return tupleFailure;
+
+        FileSnapshot? directoryCurrent;
+        try
+        {
+            directoryCurrent = TryInspect(context.DirectoryPath);
+        }
+        catch (GuardException)
+        {
+            return SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                .TupleRecheckFailure(true, true, true, false, true, true);
+        }
+        var directoryIdentityMatches =
+            filesByPath.GetValueOrDefault(context.DirectoryPath)?.Identity ==
+                context.DirectoryIdentity &&
+            directoryCurrent?.Identity == context.DirectoryIdentity;
+        tupleFailure = SystemDirectoryBoundLeaseRejoinAuthorizationRules
+            .TupleRecheckFailure(
+                true, true, true, directoryIdentityMatches, true, true);
+        if (tupleFailure is not null) return tupleFailure;
+
+        FileSnapshot? leaseCurrent;
+        try
+        {
+            leaseCurrent = TryInspect(context.LeasePath);
+        }
+        catch (GuardException)
+        {
+            return SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                .TupleRecheckFailure(true, true, true, true, false, true);
+        }
+        var leaseCurrentIdentityMatches =
+            leaseCurrent?.Identity == context.LeaseIdentity;
+        tupleFailure = SystemDirectoryBoundLeaseRejoinAuthorizationRules
+            .TupleRecheckFailure(
+                true, true, true, true, leaseCurrentIdentityMatches, true);
+        if (tupleFailure is not null) return tupleFailure;
+
+        var binding = filesByObject.GetValueOrDefault(context.LeaseFileObject);
+        var bindingMatches =
+            binding is not null &&
+            binding.RelativePath == context.LeasePath &&
+            binding.Identity == context.LeaseIdentity;
+        return SystemDirectoryBoundLeaseRejoinAuthorizationRules
+            .TupleRecheckFailure(
+                true, true, true, true, true, bindingMatches);
+    }
+
+    private string? RecheckBoundLeaseDirectoryProcessLocked(
+        BoundLeaseDirectoryRejoinContext context)
+    {
+        JobObject.RetainedProcessInspection processInspection;
+        try
+        {
+            processInspection = job.InspectRetainedProcess(context.Lease.Process);
+        }
+        catch (GuardException error)
+        {
+            return SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                .RecheckProcessFailureCode(error.Code);
+        }
+        var processTupleMatches =
+            processInspection.ProcessId == context.ProducerPid &&
+            processInspection.ProcessStartKey == context.ProcessStartKey &&
+            processInspection.ProcessSequenceNumber ==
+                context.ProducerSequenceNumber;
+        return SystemDirectoryBoundLeaseRejoinAuthorizationRules.ProcessRejection(
+            processTupleMatches,
+            processInspection.Signaled,
+            processInspection.JobMember,
+            recheck: true);
     }
 
     private bool TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(
@@ -4446,6 +4737,21 @@ sealed class CapacityGuardSession : IDisposable
         string LeaseIdentity,
         ulong LeaseFileObject);
 
+    private sealed record BoundLeaseDirectoryRejoinContext(
+        ActivePhase Phase,
+        PendingWriteLease Lease,
+        string DirectoryPath,
+        string DirectoryIdentity,
+        string LeasePath,
+        string LeaseIdentity,
+        ulong LeaseFileObject,
+        ulong EventFileObject,
+        long PhaseStartedAtQpc,
+        long LeaseReservedAtQpc,
+        int ProducerPid,
+        ulong ProcessStartKey,
+        ulong ProducerSequenceNumber);
+
     private sealed class PendingWriteLease(
         int workerPid,
         ulong processStartKey,
@@ -5492,6 +5798,130 @@ public static class SystemDirectoryWriteRejoinAuthorizationRules
         candidateStage &&
         rootPidAvailable &&
         rootSequenceAvailable;
+}
+
+public static class SystemDirectoryBoundLeaseRejoinAuthorizationRules
+{
+    // @des DES-F005-006 @fun FUN-F005-047 bound lease directoryの完全tupleだけを遅延評価で限定認可する。
+    public static bool IsQpcOrderValid(
+        long phaseStartedAtQpc,
+        long leaseReservedAtQpc,
+        long eventQpc) =>
+        phaseStartedAtQpc < leaseReservedAtQpc &&
+        leaseReservedAtQpc < eventQpc;
+
+    public static bool EvaluateCheapPredicates(
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool fileObjectUnbound,
+        bool voicePhase,
+        bool leasePhaseMatches,
+        long phaseStartedAtQpc,
+        long leaseReservedAtQpc,
+        long eventQpc,
+        Func<bool> exactCandidate,
+        Func<bool> pendingRenamePathNull,
+        Func<bool> renameReservationNull) =>
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "write" &&
+        fileObject != 0 &&
+        fileObjectUnbound &&
+        voicePhase &&
+        leasePhaseMatches &&
+        IsQpcOrderValid(phaseStartedAtQpc, leaseReservedAtQpc, eventQpc) &&
+        exactCandidate() &&
+        pendingRenamePathNull() &&
+        renameReservationNull();
+
+    public static bool InitialTupleMatches(
+        bool directorySnapshotAvailable,
+        bool directoryCurrentExists,
+        bool directoryIdentityMatches,
+        bool leaseParentMatches,
+        bool leaseOpen,
+        bool leaseSnapshotAvailable,
+        bool leaseFileObjectAvailable,
+        bool leaseCurrentExists,
+        bool leaseCurrentIdentityMatches,
+        bool leaseBindingAvailable,
+        bool leaseBindingPathMatches,
+        bool leaseBindingIdentityMatches) =>
+        directorySnapshotAvailable &&
+        directoryCurrentExists &&
+        directoryIdentityMatches &&
+        leaseParentMatches &&
+        leaseOpen &&
+        leaseSnapshotAvailable &&
+        leaseFileObjectAvailable &&
+        leaseCurrentExists &&
+        leaseCurrentIdentityMatches &&
+        leaseBindingAvailable &&
+        leaseBindingPathMatches &&
+        leaseBindingIdentityMatches;
+
+    public static string? TupleRecheckFailure(
+        bool activeLeaseMatches,
+        bool eventFileObjectUnbound,
+        bool renameStateUnchanged,
+        bool directoryIdentityMatches,
+        bool leaseCurrentIdentityMatches,
+        bool bindingMatches)
+    {
+        if (!activeLeaseMatches)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_ACTIVE_LEASE_CHANGED";
+        if (!eventFileObjectUnbound)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_EVENT_FILE_OBJECT_BOUND";
+        if (!renameStateUnchanged)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_RENAME_STATE_CHANGED";
+        if (!directoryIdentityMatches)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_DIRECTORY_IDENTITY_MISMATCH";
+        if (!leaseCurrentIdentityMatches)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_LEASE_CURRENT_IDENTITY_MISMATCH";
+        if (!bindingMatches)
+            return "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_BINDING_MISMATCH";
+        return null;
+    }
+
+    public static string InitialProcessFailureCode(string code) => code switch {
+        "PROCESS_WAIT_FAILED" =>
+            "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_WAIT_FAILED",
+        "JOB_QUERY_FAILED" =>
+            "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_JOB_QUERY_FAILED",
+        _ => "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_IDENTITY_FAILED",
+    };
+
+    public static string RecheckProcessFailureCode(string code) => code switch {
+        "PROCESS_WAIT_FAILED" =>
+            "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_WAIT_FAILED",
+        "JOB_QUERY_FAILED" =>
+            "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_JOB_QUERY_FAILED",
+        _ =>
+            "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_IDENTITY_FAILED",
+    };
+
+    public static string? ProcessRejection(
+        bool processTupleMatches,
+        bool processSignaled,
+        bool processJobMember,
+        bool recheck)
+    {
+        if (!processTupleMatches)
+            return recheck
+                ? "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_TUPLE_MISMATCH"
+                : "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_TUPLE_MISMATCH";
+        if (processSignaled)
+            return recheck
+                ? "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_SIGNALED"
+                : "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED";
+        if (!processJobMember)
+            return recheck
+                ? "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_OUTSIDE_JOB"
+                : "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_OUTSIDE_JOB";
+        return null;
+    }
 }
 
 public static class AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules

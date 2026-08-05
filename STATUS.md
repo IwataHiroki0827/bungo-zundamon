@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-06T04:37:00+09:00
+updated: 2026-08-06T05:10:00+09:00
 next_actions:
-  - "CHG-F005-036でbound lease directory CANDIDATE完全tupleを限定再結合する"
+  - "T-110/CHG-F005-036をcommit固定しhosted production影響試験を行う"
 blocked_by: []
 ---
 
@@ -47,6 +47,7 @@ blocked_by: []
 - CHG-F005-035/T-109で旧`NO_PENDING_LEASE_UNBOUND`だけをexact 14 stageへ細分化した。event/deferred QPC境界、lease current、deferred完全tuple/current identity、保持process identity/wait/Job/世代を固定し、native 261件、関連Vitest 122件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。認可・lease binding・容量actual・候補保存・公開条件は変更せず、hosted影響試験待ちである。
 - commit `ded3117`のrun `31038467173`はattempt 1で既知`LEASE_BINDING_MISMATCH`、attempt 2で既知`LEASE_MISSING`、attempt 3で既知`SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_CANDIDATE`へ安全停止し、T-109のhosted対象経路へ未到達だった。retry_limit 3に達したためT-109をQ-035で`blocked`とし、CHG-F005-036/T-110で前段の完全候補限定再結合を進める。native probeはPASS、candidate branchは未作成、Pages deployはskipである。
 - CHG-F005-036/T-110は初回計画レビューHigh 0 / Medium 3 / Low 0を受け、process直前再inspection、exact 19 code、QPC三者境界、rename二値null、false-one-by-oneを追記した。再レビューHigh/Medium/Low 0でPASSし、commit `bbec929`へ再開点を固定して実装を開始した。
+- CHG-F005-036/T-110で既存bound lease directory `CANDIDATE`だけを完全tupleで限定再結合した。初回独立受入High 0 / Medium 2 / Low 0のTOCTOU実行試験・CHG証跡不足を是正し、native 316件、関連Vitest 123件、型、ESLint、同一SHA再現build 2回、独立再受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。Program SHAは`db8e06e9...b3d0c`、binary SHAは`4cb77da0...c791d7`、75,056,988 bytesである。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -88,16 +89,16 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-110/CHG-F005-036の限定再結合を実装し独立再受入PASS
 - CHG-F005-036の計画再レビューPASS、commit bbec929へ再開点を固定
 - run 31038467173を3 attempt実行し前段固定分岐で安全停止、Q-035へ記録
 - T-109/CHG-F005-035でLEASE_UNBOUNDをexact 14 stageへ分離し独立受入PASS
 - run 31035627381 attempt 2でT-108新stage NO_PENDING_LEASE_UNBOUNDへ到達
-- T-108/CHG-F005-034でPATH_MISSINGをexact 19 stageへ分離し独立受入PASS
 
 ## 次のアクション
 
-- CHG-F005-036で既存bound lease directory `CANDIDATE`完全tupleだけをlease worker世代へ限定再結合する。
-- 不一致は既存固定診断へ流し、生値非公開、容量actual再計算、lease binding・候補・公開差分0を維持する。
+- CHG-F005-036をcommit/pushし、hosted productionで完全tuple限定再結合後の固定stageを取得する。
+- 生値非公開、容量actual再計算、lease binding・候補・公開差分0をhosted証跡で確認する。
 
 ## 未解決事項
 

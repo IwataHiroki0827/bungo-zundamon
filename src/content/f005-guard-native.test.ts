@@ -271,7 +271,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       '"SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_"',
     );
     expect(program.match(/SystemDirectoryBoundLeaseWriteRejoinStage\(/gu))
-      .toHaveLength(3);
+      .toHaveLength(4);
     expect(unboundWriteStage.match(
       /SystemDirectoryBoundLeaseWriteRejoinStage\(\s*normalized,\s*timestampQpc\)/gu,
     )).toHaveLength(1);
@@ -776,6 +776,164 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(retainedInspection).toContain('throw new GuardException("PROCESS_WAIT_FAILED")');
     expect(retainedInspection).toContain('throw new GuardException("JOB_QUERY_FAILED")');
     expect(retainedInspection).toContain('identity.ProcessId');
+  });
+
+  it('bound lease directory CANDIDATEだけを二段process再検査付きで限定再結合する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const observeEtw = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    expect(observeEtw.indexOf('TryAuthorizeBoundLeaseDirectoryWriteLocked('))
+      .toBeLessThan(observeEtw.indexOf(
+        'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+      ));
+    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryTupleLocked('))
+      .toBeLessThan(observeEtw.indexOf('filesByObject[fileObject] = current'));
+    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryProcessLocked('))
+      .toBeGreaterThan(observeEtw.indexOf('var sequence = checked(++etwSequence)'));
+    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryProcessLocked('))
+      .toBeLessThan(observeEtw.indexOf('var observation = new ObservationRecord('));
+
+    const authorization = program.slice(
+      program.indexOf('private bool TryAuthorizeBoundLeaseDirectoryWriteLocked('),
+      program.indexOf('private string? RecheckBoundLeaseDirectoryTupleLocked('),
+    );
+    const cheapAuthorization = authorization.slice(
+      authorization.indexOf('.EvaluateCheapPredicates('),
+      authorization.indexOf('if (!cheapPredicatesPass)'),
+    );
+    const orderedCheapChecks = [
+      'authorizationFailure,',
+      'pid,',
+      'eventName,',
+      'fileObject,',
+      '!filesByObject.ContainsKey(fileObject)',
+      'phase.Phase == "voice"',
+      'lease.PhaseInstanceId == phase.PhaseInstanceId',
+      'phase.StartedAtQpc,',
+      'lease.CurrentPathReservedAtQpc,',
+      'eventQpc,',
+      'SystemDirectoryBoundLeaseWriteRejoinStage(',
+      '== "CANDIDATE"',
+      'lease.PendingRenamePath is null',
+      'lease.RenameReservedAtQpc is null',
+    ];
+    for (const check of orderedCheapChecks) {
+      expect(cheapAuthorization.indexOf(check)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedCheapChecks.length; index += 1) {
+      expect(cheapAuthorization.indexOf(orderedCheapChecks[index - 1]!))
+        .toBeLessThan(cheapAuthorization.indexOf(orderedCheapChecks[index]!));
+    }
+    const orderedAuthorizationChecks = [
+      'InitialTupleMatches(',
+      'job.InspectRetainedProcess(lease.Process)',
+      'processInspection.ProcessId == lease.WorkerPid',
+      'processInspection.ProcessStartKey == lease.ProcessStartKey',
+      'processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber',
+      'producerPid = lease.WorkerPid',
+      'producerSequenceNumber = lease.ProcessSequenceNumber',
+    ];
+    for (const check of orderedAuthorizationChecks) {
+      expect(authorization.indexOf(check)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedAuthorizationChecks.length; index += 1) {
+      expect(authorization.indexOf(orderedAuthorizationChecks[index - 1]!))
+        .toBeLessThan(authorization.indexOf(orderedAuthorizationChecks[index]!));
+    }
+    expect(authorization).not.toContain('lease.FileObject =');
+    expect(authorization).not.toContain('BindReservedSystemSetInfoLocked');
+    expect(authorization).not.toContain('allocatedByIdentity');
+
+    const tupleRecheck = program.slice(
+      program.indexOf('private string? RecheckBoundLeaseDirectoryTupleLocked('),
+      program.indexOf('private string? RecheckBoundLeaseDirectoryProcessLocked('),
+    );
+    const orderedTupleRechecks = [
+      'ReferenceEquals(phase, context.Phase)',
+      'ReferenceEquals(lease, context.Lease)',
+      'filesByObject.ContainsKey(eventFileObject)',
+      'lease!.PendingRenamePath is null',
+      'lease.RenameReservedAtQpc is null',
+      'TryInspect(context.DirectoryPath)',
+      'TryInspect(context.LeasePath)',
+      'filesByObject.GetValueOrDefault(context.LeaseFileObject)',
+    ];
+    for (const check of orderedTupleRechecks) {
+      expect(tupleRecheck.indexOf(check)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedTupleRechecks.length; index += 1) {
+      expect(tupleRecheck.indexOf(orderedTupleRechecks[index - 1]!))
+        .toBeLessThan(tupleRecheck.indexOf(orderedTupleRechecks[index]!));
+    }
+    expect(tupleRecheck.match(/\.TupleRecheckFailure\(/gu)?.length)
+      .toBeGreaterThanOrEqual(6);
+
+    const tupleRecheckRule = program.slice(
+      program.indexOf('public static string? TupleRecheckFailure('),
+      program.indexOf('public static string InitialProcessFailureCode('),
+    );
+    const orderedTupleCodes = [
+      'ACTIVE_LEASE_CHANGED',
+      'EVENT_FILE_OBJECT_BOUND',
+      'RENAME_STATE_CHANGED',
+      'DIRECTORY_IDENTITY_MISMATCH',
+      'LEASE_CURRENT_IDENTITY_MISMATCH',
+      'BINDING_MISMATCH',
+    ];
+    for (const code of orderedTupleCodes) {
+      expect(tupleRecheckRule).toContain(code);
+    }
+    for (let index = 1; index < orderedTupleCodes.length; index += 1) {
+      expect(tupleRecheckRule.indexOf(orderedTupleCodes[index - 1]!))
+        .toBeLessThan(tupleRecheckRule.indexOf(orderedTupleCodes[index]!));
+    }
+
+    const processRecheck = program.slice(
+      program.indexOf('private string? RecheckBoundLeaseDirectoryProcessLocked('),
+      program.indexOf('private bool TryAuthorizeAfterLeaseReservationDirectoryWriteLocked('),
+    );
+    expect(processRecheck).toContain(
+      'job.InspectRetainedProcess(context.Lease.Process)',
+    );
+    expect(processRecheck.indexOf('processInspection.ProcessId'))
+      .toBeLessThan(processRecheck.indexOf('ProcessRejection('));
+    expect(processRecheck).not.toContain('ObservationRecord');
+    expect(processRecheck).not.toContain('allocatedByIdentity');
+
+    const retainedInspection = program.slice(
+      program.indexOf('public RetainedProcessInspection InspectRetainedProcess('),
+      program.indexOf('public ProcessIdentityRecord ProcessIdentity('),
+    );
+    expect(retainedInspection.indexOf('var identity = ProcessIdentity(process)'))
+      .toBeLessThan(retainedInspection.indexOf('WaitForSingleObject(process.Handle, 0)'));
+    expect(retainedInspection.indexOf('if (waitResult == 0)'))
+      .toBeLessThan(retainedInspection.indexOf('IsProcessInJob('));
+
+    expect(new Set(program.match(
+      /ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_[A-Z_]+/gu,
+    ) ?? [])).toEqual(new Set([
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_INITIAL_TUPLE_INSPECTION_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_IDENTITY_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_WAIT_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_JOB_QUERY_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_TUPLE_MISMATCH',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_OUTSIDE_JOB',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_ACTIVE_LEASE_CHANGED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_EVENT_FILE_OBJECT_BOUND',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_RENAME_STATE_CHANGED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_DIRECTORY_IDENTITY_MISMATCH',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_LEASE_CURRENT_IDENTITY_MISMATCH',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_BINDING_MISMATCH',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_IDENTITY_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_WAIT_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_JOB_QUERY_FAILED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_TUPLE_MISMATCH',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_SIGNALED',
+      'ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_OUTSIDE_JOB',
+    ]));
   });
 
   it('capacity-start応答前にnamed pipe instanceを同期生成する', async () => {

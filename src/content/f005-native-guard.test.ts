@@ -14,6 +14,7 @@ import {
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
   isF005AfterLeaseReservationDirectoryRejoinFailureCode,
+  isF005SystemDirectoryBoundLeaseRejoinFailureCode,
   isF005ClosedLeaseRejoinDiagnosticCode,
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
@@ -305,6 +306,45 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(classifyF005NativeCapacityReplyError(
     'ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'INITIAL_TUPLE_INSPECTION_FAILED',
+    'PROCESS_IDENTITY_FAILED',
+    'PROCESS_WAIT_FAILED',
+    'JOB_QUERY_FAILED',
+    'PROCESS_TUPLE_MISMATCH',
+    'PROCESS_SIGNALED',
+    'PROCESS_OUTSIDE_JOB',
+    'ACTIVE_LEASE_CHANGED',
+    'EVENT_FILE_OBJECT_BOUND',
+    'RENAME_STATE_CHANGED',
+    'DIRECTORY_IDENTITY_MISMATCH',
+    'LEASE_CURRENT_IDENTITY_MISMATCH',
+    'BINDING_MISMATCH',
+    'PROCESS_RECHECK_IDENTITY_FAILED',
+    'PROCESS_RECHECK_WAIT_FAILED',
+    'PROCESS_RECHECK_JOB_QUERY_FAILED',
+    'PROCESS_RECHECK_TUPLE_MISMATCH',
+    'PROCESS_RECHECK_SIGNALED',
+    'PROCESS_RECHECK_OUTSIDE_JOB',
+  ] as const) {
+    const code =
+      `F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_${stage}` as const;
+    expect(isF005SystemDirectoryBoundLeaseRejoinFailureCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  for (const code of [
+    'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PRIVATE',
+    'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED_EXTRA',
+    'F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED'.padEnd(
+      128,
+      'X',
+    ),
+  ]) {
+    expect(isF005SystemDirectoryBoundLeaseRejoinFailureCode(code)).toBe(false);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5)))
+      .toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  }
   for (const stage of [
     'SNAPSHOT_MISSING',
     'PATH_MISMATCH',
@@ -974,7 +1014,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (261 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (316 cases)'),
     });
   }, 120_000);
 });

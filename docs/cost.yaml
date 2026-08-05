@@ -701,3 +701,10 @@ entries:
   agents: 3
   est_tokens: 12000
   note: 旧NO_PENDING_LEASE_UNBOUNDだけをexact14 stageへ認可・binding非変更で分離。event/deferred QPC、current、deferred完全tuple、保持process inspectionを固定し、native261件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31038467173は3 attemptとも前段安全停止でhosted対象経路へ未到達しQ-035へエスカレーション
+- date: '2026-08-06'
+  phase: test
+  task: T-110 CHG-F005-036 bound lease directory CANDIDATEの完全tuple限定再結合
+  model: GPT-5
+  agents: 3
+  est_tokens: 14000
+  note: 既存exact CANDIDATEだけをlease保存producerへ限定再結合。QPC三者境界、rename二値null、初回/直前process inspection、same-lock再照合、exact19 codeを固定。初回独立受入Medium2件をTOCTOU純粋規則の実行試験とCHG証跡同期で是正し、native316件、関連Vitest123件、型・ESLint・同一SHA再現build2回、独立再受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち

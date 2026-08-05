@@ -563,6 +563,133 @@ Check("unbound lease Job escapeを固定分類",
     Unbound(processJobMember: false) == "UNBOUND_LEASE_ESCAPE");
 Check("unbound lease完全tupleも診断候補へ固定分類",
     Unbound() == "UNBOUND_CANDIDATE");
+Check("bound lease directory完全cheap predicateを候補化", BoundLeaseCheap());
+Check("bound lease directory別failureを拒否",
+    !BoundLeaseCheap(authorizationFailure: "PROCESS_UNKNOWN"));
+Check("bound lease directory別PIDを拒否", !BoundLeaseCheap(systemPid: 8));
+Check("bound lease directory別eventを拒否", !BoundLeaseCheap(eventName: "setinfo"));
+Check("bound lease directory空FileObjectを拒否", !BoundLeaseCheap(fileObject: 0));
+Check("bound lease directory結合済みevent FileObjectを拒否",
+    !BoundLeaseCheap(fileObjectUnbound: false));
+Check("bound lease directory非voice phaseを拒否", !BoundLeaseCheap(voicePhase: false));
+Check("bound lease directoryphase不一致を拒否", !BoundLeaseCheap(leasePhaseMatches: false));
+Check("bound lease directory別exact stageを拒否", !BoundLeaseCheap(exactCandidate: false));
+Check("bound lease directorypending pathありを拒否",
+    !BoundLeaseCheap(pendingRenamePathNull: false));
+Check("bound lease directoryrename予約ありを拒否",
+    !BoundLeaseCheap(renameReservationNull: false));
+var exactEvaluations = 0;
+var pathEvaluations = 0;
+var reservationEvaluations = 0;
+Check("bound lease directorycheap失敗時に後段を未評価",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.EvaluateCheapPredicates(
+        "PRIVATE", 4, "write", 31, true, true, true, 100, 101, 102,
+        () => { exactEvaluations++; return true; },
+        () => { pathEvaluations++; return true; },
+        () => { reservationEvaluations++; return true; }) &&
+    exactEvaluations == 0 && pathEvaluations == 0 && reservationEvaluations == 0);
+exactEvaluations = pathEvaluations = reservationEvaluations = 0;
+Check("bound lease directoryexact失敗時にpendingを未評価",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.EvaluateCheapPredicates(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, 100, 101, 102,
+        () => { exactEvaluations++; return false; },
+        () => { pathEvaluations++; return true; },
+        () => { reservationEvaluations++; return true; }) &&
+    exactEvaluations == 1 && pathEvaluations == 0 && reservationEvaluations == 0);
+exactEvaluations = pathEvaluations = reservationEvaluations = 0;
+Check("bound lease directorypending path失敗時にrename予約を未評価",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.EvaluateCheapPredicates(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, 100, 101, 102,
+        () => { exactEvaluations++; return true; },
+        () => { pathEvaluations++; return false; },
+        () => { reservationEvaluations++; return true; }) &&
+    exactEvaluations == 1 && pathEvaluations == 1 && reservationEvaluations == 0);
+Check("bound lease directory phase/lease QPC同値を拒否",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(100, 100, 102));
+Check("bound lease directory phase/lease QPC +1を候補",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(100, 101, 102));
+Check("bound lease directory lease/event QPC同値を拒否",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(100, 101, 101));
+Check("bound lease directory lease/event QPC +1を候補",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(100, 101, 102));
+Check("bound lease directory phase開始後でも予約逆転を拒否",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(101, 100, 102));
+Check("bound lease directory eventがphase開始同値なら拒否",
+    !SystemDirectoryBoundLeaseRejoinAuthorizationRules.IsQpcOrderValid(100, 101, 100));
+var initialTuple = Enumerable.Repeat(true, 12).ToArray();
+Check("bound lease directory初回tuple all-trueを候補化",
+    BoundLeaseInitialTuple(initialTuple));
+for (var index = 0; index < initialTuple.Length; index++)
+{
+    var oneFalse = initialTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"bound lease directory初回tuple predicate {index} falseを拒否",
+        !BoundLeaseInitialTuple(oneFalse));
+}
+var tupleRecheckCodes = new[] {
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_ACTIVE_LEASE_CHANGED",
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_EVENT_FILE_OBJECT_BOUND",
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_RENAME_STATE_CHANGED",
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_DIRECTORY_IDENTITY_MISMATCH",
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_LEASE_CURRENT_IDENTITY_MISMATCH",
+    "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_BINDING_MISMATCH",
+};
+var tupleRecheck = Enumerable.Repeat(true, tupleRecheckCodes.Length).ToArray();
+Check("bound lease directory再検査tuple all-trueを許可",
+    BoundLeaseTupleRecheck(tupleRecheck) is null);
+for (var index = 0; index < tupleRecheck.Length; index++)
+{
+    var oneFalse = tupleRecheck.ToArray();
+    oneFalse[index] = false;
+    Check($"bound lease directory再検査tuple {index} exact codeを固定",
+        BoundLeaseTupleRecheck(oneFalse) == tupleRecheckCodes[index]);
+}
+Check("bound lease directory再検査tupleは先行falseを優先",
+    BoundLeaseTupleRecheck(Enumerable.Repeat(false, 6).ToArray()) ==
+        tupleRecheckCodes[0]);
+Check("bound lease directory初回identity失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialProcessFailureCode(
+        "PROCESS_START_KEY_QUERY_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_IDENTITY_FAILED");
+Check("bound lease directory初回wait失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialProcessFailureCode(
+        "PROCESS_WAIT_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_WAIT_FAILED");
+Check("bound lease directory初回Job照会失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialProcessFailureCode(
+        "JOB_QUERY_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_JOB_QUERY_FAILED");
+Check("bound lease directory再検査identity失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.RecheckProcessFailureCode(
+        "PROCESS_START_KEY_QUERY_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_IDENTITY_FAILED");
+Check("bound lease directory再検査wait失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.RecheckProcessFailureCode(
+        "PROCESS_WAIT_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_WAIT_FAILED");
+Check("bound lease directory再検査Job照会失敗codeを固定",
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.RecheckProcessFailureCode(
+        "JOB_QUERY_FAILED") ==
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_JOB_QUERY_FAILED");
+foreach (var (tuple, signaled, member, recheck, expected) in new[] {
+    (false, false, true, false,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_TUPLE_MISMATCH"),
+    (true, true, false, false,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_SIGNALED"),
+    (true, false, false, false,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_OUTSIDE_JOB"),
+    (true, false, true, false, (string?)null),
+    (false, false, true, true,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_TUPLE_MISMATCH"),
+    (true, true, false, true,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_SIGNALED"),
+    (true, false, false, true,
+        "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_PROCESS_RECHECK_OUTSIDE_JOB"),
+    (true, false, true, true, (string?)null),
+})
+    Check($"bound lease directory process rejection {recheck}/{expected}を固定",
+        SystemDirectoryBoundLeaseRejoinAuthorizationRules.ProcessRejection(
+            tuple, signaled, member, recheck) == expected);
 foreach (var (directoryStage, inputs, expected) in new[] {
     ("SNAPSHOT_MISSING", new[] { true, true, true, true, false, true, true, true, true, true, false },
         "DIRECTORY_SNAPSHOT_MISSING"),
@@ -717,8 +844,43 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (261 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (316 cases)");
 return 0;
+
+bool BoundLeaseCheap(
+    string authorizationFailure = "BIRTH_MISSING",
+    int systemPid = 4,
+    string eventName = "write",
+    ulong fileObject = 31,
+    bool fileObjectUnbound = true,
+    bool voicePhase = true,
+    bool leasePhaseMatches = true,
+    bool exactCandidate = true,
+    bool pendingRenamePathNull = true,
+    bool renameReservationNull = true) =>
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.EvaluateCheapPredicates(
+        authorizationFailure,
+        systemPid,
+        eventName,
+        fileObject,
+        fileObjectUnbound,
+        voicePhase,
+        leasePhaseMatches,
+        100,
+        101,
+        102,
+        () => exactCandidate,
+        () => pendingRenamePathNull,
+        () => renameReservationNull);
+
+bool BoundLeaseInitialTuple(bool[] inputs) =>
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialTupleMatches(
+        inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5],
+        inputs[6], inputs[7], inputs[8], inputs[9], inputs[10], inputs[11]);
+
+string? BoundLeaseTupleRecheck(bool[] inputs) =>
+    SystemDirectoryBoundLeaseRejoinAuthorizationRules.TupleRecheckFailure(
+        inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5]);
 
 bool DeferredTuple(
     int deferredWorkerPid = 4,
