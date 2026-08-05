@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; bound FileObject rename lease paths expose safe stages.
+# Native tooling stays outside; AFTER lease directory writes require the full retained tuple.
 on:
   push:
     branches:

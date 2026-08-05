@@ -52,6 +52,7 @@ import {
 } from '../src/content/f005-foundation.ts';
 import {
   flushF005ArtifactDirectory,
+  isF005AfterLeaseReservationDirectoryRejoinFailureCode,
   isF005ClosedLeaseRejoinDiagnosticCode,
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoDiagnosticCode,
@@ -539,6 +540,7 @@ function safeFailureCode(value: unknown): string | null {
     isF005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(value) ||
+    isF005AfterLeaseReservationDirectoryRejoinFailureCode(value) ||
     isF005SystemBoundFileObjectRejoinDiagnosticCode(value) ||
     isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode(value)
   )

@@ -271,7 +271,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       '"SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_"',
     );
     expect(program.match(/SystemDirectoryBoundLeaseWriteRejoinStage\(/gu))
-      .toHaveLength(2);
+      .toHaveLength(3);
     expect(unboundWriteStage.match(
       /SystemDirectoryBoundLeaseWriteRejoinStage\(\s*normalized,\s*timestampQpc\)/gu,
     )).toHaveLength(1);
@@ -575,6 +575,89 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(bridge).toContain('producerPid: notice.producerPid');
     expect(bridge).toContain('const producerPid = Number(hello.processId)');
     expect(bridge).toContain('Number(hello.processId) !== writer.process.pid');
+  });
+
+  it('AFTER_LEASE_RESERVATIONのdirectory writeは保存済みlease世代の完全tupleだけを再認可する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const observeEtw = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    expect(observeEtw.indexOf(
+      'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+    )).toBeLessThan(observeEtw.indexOf(
+      'TryAuthorizeKnownSystemDirectoryWriteLocked(',
+    ));
+    expect(observeEtw).toContain('pid = leaseDirectoryPid;');
+    expect(observeEtw).toContain(
+      'producerSequenceNumber = leaseDirectorySequenceNumber;',
+    );
+    expect(observeEtw.indexOf('RecheckAfterLeaseDirectoryRejoinLocked('))
+      .toBeLessThan(observeEtw.indexOf('var observation = new ObservationRecord('));
+
+    const authorization = program.slice(
+      program.indexOf(
+        'private bool TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+      ),
+      program.indexOf('private string? RecheckAfterLeaseDirectoryRejoinLocked('),
+    );
+    for (const check of [
+      'stage != "RENAME_AFTER_LEASE_RESERVATION"',
+      'filesByPath.GetValueOrDefault(normalized)?.Identity == directoryCurrent.Identity',
+      'targetCurrent.Identity == leaseSnapshot.Identity',
+      'binding.RelativePath == lease.RelativePath',
+      'binding.Identity == leaseSnapshot.Identity',
+      'job.InspectRetainedProcess(lease.Process)',
+      'processInspection.ProcessId == lease.WorkerPid',
+      'processInspection.ProcessStartKey == lease.ProcessStartKey',
+      'processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber',
+      '.IsCandidateTimestamp(',
+      'producerPid = lease.WorkerPid;',
+      'producerSequenceNumber = lease.ProcessSequenceNumber;',
+    ]) {
+      expect(authorization).toContain(check);
+    }
+    expect(authorization).toContain(
+      'processInspection.Signaled,\n                processInspection.JobMember,\n                targetTupleMatches',
+    );
+    expect(authorization).toContain(
+      'ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_OUTSIDE_JOB',
+    );
+
+    const recheck = program.slice(
+      program.indexOf('private string? RecheckAfterLeaseDirectoryRejoinLocked('),
+      program.indexOf('private bool BindReservedSystemSetInfoLocked('),
+    );
+    const orderedRechecks = [
+      'TryInspect(context.DirectoryPath)',
+      'TryInspect(context.LeasePath)',
+      'TryInspect(context.PendingTargetPath)',
+      'filesByObject.GetValueOrDefault(context.LeaseFileObject)',
+    ];
+    for (let index = 1; index < orderedRechecks.length; index += 1) {
+      expect(recheck.indexOf(orderedRechecks[index - 1]!))
+        .toBeLessThan(recheck.indexOf(orderedRechecks[index]!));
+    }
+    for (const suffix of [
+      'DIRECTORY_IDENTITY_MISMATCH',
+      'LEASE_CURRENT_EXISTS',
+      'TARGET_IDENTITY_MISMATCH',
+      'BINDING_MISMATCH',
+    ]) {
+      expect(recheck).toContain(
+        `ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_${suffix}`,
+      );
+    }
+
+    const retainedInspection = program.slice(
+      program.indexOf('public RetainedProcessInspection InspectRetainedProcess('),
+      program.indexOf('public ProcessIdentityRecord ProcessIdentity('),
+    );
+    expect(retainedInspection.indexOf('var identity = ProcessIdentity(process)'))
+      .toBeLessThan(retainedInspection.indexOf('WaitForSingleObject(process.Handle, 0)'));
+    expect(retainedInspection).toContain('throw new GuardException("PROCESS_WAIT_FAILED")');
+    expect(retainedInspection).toContain('throw new GuardException("JOB_QUERY_FAILED")');
+    expect(retainedInspection).toContain('identity.ProcessId');
   });
 
   it('capacity-start応答前にnamed pipe instanceを同期生成する', async () => {

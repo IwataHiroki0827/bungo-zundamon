@@ -680,3 +680,10 @@ entries:
   agents: 3
   est_tokens: 11000
   note: BOUND_FILE_OBJECT_REJOIN_LEASE_PATHをpending rename・QPC三境界・旧path・snapshot・binding・closed・Jobの固定14 stageへ分離。native191件、関連Vitest121件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。run 31028376915は3 attemptとも前段安全停止でhosted対象経路へ未到達しQ-034へエスカレーション
+- date: '2026-08-06'
+  phase: test
+  task: T-107 CHG-F005-033 lease予約後・rename予約前directory writeの完全候補限定再結合
+  model: GPT-5
+  agents: 3
+  est_tokens: 12000
+  note: AFTER_LEASE_RESERVATION完全tupleを元active lease worker世代へ限定再結合。保持process世代、alive時Job、signaled遅延event、QPC5境界、認可後4点再照合を固定し、native210件、関連Vitest122件、型・ESLint・同一SHA再現build2回、独立受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち

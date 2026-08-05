@@ -284,6 +284,72 @@ Check("System directory writeroot identity欠落を拒否",
     !SystemDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
         "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
         true, true, false, false));
+Check("AFTER lease eventがlease予約QPC同値なら拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.IsCandidateTimestamp(100, 100, 110));
+Check("AFTER lease eventがlease予約1tick後なら候補",
+    AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.IsCandidateTimestamp(101, 100, 110));
+Check("AFTER lease eventがrename予約QPC同値なら候補",
+    AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.IsCandidateTimestamp(110, 100, 110));
+Check("AFTER lease eventがrename予約1tick後なら拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.IsCandidateTimestamp(111, 100, 110));
+Check("AFTER lease rename予約がlease予約以下なら拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.IsCandidateTimestamp(100, 100, 100));
+Check("AFTER lease生存Job memberの完全tupleを許可",
+    AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease終了済みprocessの完全な遅延tupleを許可",
+    AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, true, true, false, true));
+Check("AFTER lease別failureを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "PROCESS_UNKNOWN", 4, "write", 31, true, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease別pidを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 8, "write", 31, true, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease別eventを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "setinfo", 31, true, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease空FileObjectを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 0, true, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease結合済みevent FileObjectを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, false, true, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease非voice phaseを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, false, true, true,
+        true, true, true, false, true, true));
+Check("AFTER lease phase不一致を拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, false, true,
+        true, true, true, false, true, true));
+Check("AFTER lease別stageを拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, false,
+        true, true, true, false, true, true));
+Check("AFTER lease target tuple不一致を拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, false, true, false, true, true));
+Check("AFTER lease process tuple不一致を拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, false, false, true, true));
+Check("AFTER lease生存processのJob離脱を拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, true, false, false, true));
+Check("AFTER lease終了済みprocessを遅延tupleなしで拒否",
+    !AfterLeaseReservationDirectoryWriteRejoinAuthorizationRules.CanAuthorize(
+        "BIRTH_MISSING", 4, "write", 31, true, true, true, true,
+        true, true, true, true, false, false));
 foreach (var (directoryStage, expected) in new[] {
     ("SNAPSHOT_MISSING", "DIRECTORY_SNAPSHOT_MISSING"),
     ("CURRENT_MISSING", "DIRECTORY_CURRENT_MISSING"),
@@ -543,7 +609,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (191 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (210 cases)");
 return 0;
 
 void Check(string name, bool condition)

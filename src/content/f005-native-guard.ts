@@ -161,6 +161,18 @@ type F005SystemDirectoryBoundLeaseRenameWriteRejoinStage =
   | 'CANDIDATE';
 export type F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode =
   `F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_${F005SystemDirectoryBoundLeaseRenameWriteRejoinStage}`;
+type F005AfterLeaseReservationDirectoryRejoinFailureStage =
+  | 'TUPLE_INSPECTION_FAILED'
+  | 'PROCESS_WAIT_FAILED'
+  | 'PROCESS_IDENTITY_FAILED'
+  | 'JOB_QUERY_FAILED'
+  | 'PROCESS_OUTSIDE_JOB'
+  | 'DIRECTORY_IDENTITY_MISMATCH'
+  | 'LEASE_CURRENT_EXISTS'
+  | 'TARGET_IDENTITY_MISMATCH'
+  | 'BINDING_MISMATCH';
+export type F005AfterLeaseReservationDirectoryRejoinFailureCode =
+  `F005_ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_${F005AfterLeaseReservationDirectoryRejoinFailureStage}`;
 type F005SystemBoundFileObjectRejoinStage =
   | 'SNAPSHOT_MISSING'
   | 'PATH_MISMATCH'
@@ -268,6 +280,13 @@ const F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_DIAGNOSTIC =
     'CURRENT_MISSING|IDENTITY_MISMATCH|LEASE_ESCAPE|CANDIDATE)$',
     'u',
   );
+const F005_NATIVE_AFTER_LEASE_RESERVATION_DIRECTORY_REJOIN_FAILURE = new RegExp(
+  '^ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_' +
+  '(?:TUPLE_INSPECTION_FAILED|PROCESS_WAIT_FAILED|PROCESS_IDENTITY_FAILED|' +
+  'JOB_QUERY_FAILED|PROCESS_OUTSIDE_JOB|DIRECTORY_IDENTITY_MISMATCH|' +
+  'LEASE_CURRENT_EXISTS|TARGET_IDENTITY_MISMATCH|BINDING_MISMATCH)$',
+  'u',
+);
 const F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_' +
   '(?:SNAPSHOT_MISSING|PATH_MISMATCH|CURRENT_MISSING|IDENTITY_MISMATCH|' +
@@ -381,6 +400,17 @@ export function isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(
       .test(value.slice(5));
 }
 
+export function isF005AfterLeaseReservationDirectoryRejoinFailureCode(
+  value: unknown,
+): value is F005AfterLeaseReservationDirectoryRejoinFailureCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    value.startsWith('F005_') &&
+    F005_NATIVE_AFTER_LEASE_RESERVATION_DIRECTORY_REJOIN_FAILURE.test(
+      value.slice(5),
+    );
+}
+
 export function isF005SystemBoundFileObjectRejoinDiagnosticCode(
   value: unknown,
 ): value is F005SystemBoundFileObjectRejoinDiagnosticCode {
@@ -413,6 +443,7 @@ export type F005NativeCapacityErrorCode =
   | F005SystemDirectoryActiveLeaseWriteRejoinDiagnosticCode
   | F005SystemDirectoryBoundLeaseWriteRejoinDiagnosticCode
   | F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode
+  | F005AfterLeaseReservationDirectoryRejoinFailureCode
   | F005SystemBoundFileObjectRejoinDiagnosticCode
   | F005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
@@ -654,6 +685,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
     F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_DIAGNOSTIC
       .test(value)) {
     return `F005_${value}` as F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode;
+  }
+  if (typeof value === 'string' &&
+    F005_NATIVE_AFTER_LEASE_RESERVATION_DIRECTORY_REJOIN_FAILURE.test(value)) {
+    return `F005_${value}` as F005AfterLeaseReservationDirectoryRejoinFailureCode;
   }
   if (typeof value === 'string' &&
     F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_RENAME_LEASE_PATH_REJOIN_DIAGNOSTIC

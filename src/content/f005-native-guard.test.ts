@@ -13,6 +13,7 @@ import {
   classifyF005NativeWriteThroughReplyError,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
+  isF005AfterLeaseReservationDirectoryRejoinFailureCode,
   isF005ClosedLeaseRejoinDiagnosticCode,
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
@@ -279,6 +280,30 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   expect(classifyF005NativeCapacityReplyError(
     'ETW_PID_NOT_JOB_MEMBER_SYSTEM_DIRECTORY_BOUND_LEASE_RENAME_WRITE_REJOIN_BEFORE_RESERVATION',
+  )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
+  for (const stage of [
+    'TUPLE_INSPECTION_FAILED',
+    'PROCESS_WAIT_FAILED',
+    'PROCESS_IDENTITY_FAILED',
+    'JOB_QUERY_FAILED',
+    'PROCESS_OUTSIDE_JOB',
+    'DIRECTORY_IDENTITY_MISMATCH',
+    'LEASE_CURRENT_EXISTS',
+    'TARGET_IDENTITY_MISMATCH',
+    'BINDING_MISMATCH',
+  ] as const) {
+    const code =
+      `F005_ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_${stage}` as const;
+    expect(isF005AfterLeaseReservationDirectoryRejoinFailureCode(code))
+      .toBe(true);
+    expect(classifyF005NativeCapacityReplyError(code.slice(5))).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  expect(isF005AfterLeaseReservationDirectoryRejoinFailureCode(
+    'F005_ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PRIVATE',
+  )).toBe(false);
+  expect(classifyF005NativeCapacityReplyError(
+    'ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PRIVATE',
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
   for (const stage of [
     'SNAPSHOT_MISSING',
@@ -881,7 +906,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (191 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (210 cases)'),
     });
   }, 120_000);
 });

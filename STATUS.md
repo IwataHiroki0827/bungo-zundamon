@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-06T02:24:00+09:00
+updated: 2026-08-06T02:57:00+09:00
 next_actions:
-  - "CHG-F005-033でAFTER_LEASE_RESERVATION完全tupleを元lease worker世代へ限定再結合する"
+  - "T-107/CHG-F005-033をcommit固定しhosted production影響試験を行う"
 blocked_by: []
 ---
 
@@ -40,6 +40,7 @@ blocked_by: []
 - run 31025643577はCHG-F005-031のlease時間分類を通過し、`audio-renamed`後に`F005_ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_PATH`で安全停止した。native probeはPASS、isolated candidate branchは未作成、Pages deployはskipであり、T-105/CHG-F005-031は`done`とした。CHG-F005-032/T-106でpending renameとlease pathの関係を固定分類する。
 - CHG-F005-032/T-106で`BOUND_FILE_OBJECT_REJOIN_LEASE_PATH`をpending rename target、予約順序、QPC三境界、旧path、snapshot、binding、closed、Jobの専用固定14 stageへ分離した。native規則191件、関連Vitest 121件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0をPASSし、認可・容量actual・候補保存・公開条件と`public/`・`data/`は変更していない。
 - commit `f56ca6f`のrun `31028376915`はattempt 1/3で`audio-renamed`後の`AFTER_LEASE_RESERVATION`、attempt 2で`wav-validated`後の既知`LEASE_MISSING`へ安全停止し、T-106のhosted対象経路へ未到達だった。retry_limit 3に達したためT-106をQ-034で`blocked`とし、CHG-F005-033/T-107で前段の完全tuple限定再結合を進める。native probeはPASS、candidate branchは未作成、Pages deployはskipである。
+- CHG-F005-033/T-107で`AFTER_LEASE_RESERVATION`の完全tupleだけを元active lease worker世代へ限定再結合した。保持process handleのPID/start key/sequence、alive時Job、signaled遅延event、QPC 5境界、認可後4点再照合を固定し、native 210件、関連Vitest 122件、型、ESLint、同一SHA再現build 2回、独立受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。hosted影響試験待ちである。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -81,16 +82,16 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- T-107/CHG-F005-033でAFTER完全tupleを限定再結合し独立受入PASS
 - run 31028376915を3 attempt実行し前段固定分岐で安全停止、Q-034へ記録
 - T-106/CHG-F005-032でSystem結合済みFileObjectのlease pathを固定14 stageへ分離
 - run 31025643577でBOUND_FILE_OBJECT_REJOIN_LEASE_PATHを安全停止
 - T-105/CHG-F005-031でlease予約前後を固定9 stageへ分離し独立受入PASS
-- run 30525787305でBEFORE_RESERVATIONを安全停止し、候補・公開差分0
 
 ## 次のアクション
 
-- CHG-F005-033で`AFTER_LEASE_RESERVATION`の完全tupleだけを元のactive lease worker世代へ再結合する。
-- 不一致は既存固定診断へ流し、生値非公開、容量actual再計算、候補・公開差分0を維持する。
+- CHG-F005-033をcommit/pushし、hosted productionで限定再結合後の固定stageを取得する。
+- 生値非公開、容量actual再計算、候補・公開差分0をhosted証跡で確認する。
 
 ## 未解決事項
 

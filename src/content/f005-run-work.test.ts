@@ -762,6 +762,36 @@ describe('F005 production work runner', () => {
         code: null,
       },
     });
+    const afterLeaseFailureCode =
+      'F005_ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_OUTSIDE_JOB';
+    const afterLeaseFailure = new F005NativeCapacityError(
+      afterLeaseFailureCode,
+      'fixed after-lease process state only',
+    );
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: afterLeaseFailure }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: afterLeaseFailureCode,
+      },
+    });
+    const privateAfterLeaseFailure = Object.assign(new Error('private'), {
+      name: 'F005NativeCapacityError',
+      code: 'F005_ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PRIVATE',
+    });
+    expect(JSON.parse(
+      formatF005RunnerFailure(
+        new Error('voice boundary', { cause: privateAfterLeaseFailure }),
+      ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+    )).toMatchObject({
+      cause: {
+        name: 'F005NativeCapacityError',
+        code: null,
+      },
+    });
   });
 
   it.each([
