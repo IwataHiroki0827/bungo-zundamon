@@ -2259,9 +2259,10 @@ tasks:
   title: CHG-F005-036 bound lease directory CANDIDATEの完全tuple限定再結合
   feature: F005
   phase: test
-  state: todo
+  state: doing
   depends: [T-108]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: 既存bound lease directory CANDIDATE完全tupleだけをlease worker世代へ限定再結合するため
   model: {lead: opus, workers: sonnet}
+  progress: 計画レビューHigh/Medium/Low 0でPASS。exact CANDIDATE限定認可、process直前再inspection、exact 19 code、QPC・rename null境界を実装中
