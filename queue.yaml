@@ -1121,3 +1121,20 @@ items:
   resume:
     task: T-109
     next: pf-change
+- id: Q-036
+  type: escalation
+  status: pending
+  title: T-110 hosted完全候補経路へ3 attemptで未到達
+  body: >-
+    commit e4fb086fdc1da4cbafd81221086b832938eb4047のActions run 31042915405を3 attempt実行したが、attempt 1は既知SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_LEASE_CLOSED、attempt 2は既知SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_MISSING、attempt 3は既知SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_BINDING_MISMATCHで安全停止し、T-110の限定再結合対象CANDIDATEへ到達しなかった。local実装・独立再受入はPASS、native probe run 31042915204は成功、candidate branchは未作成、Pages deployはskipである。hosted raceを推測で認可せず、次の進め方を選択する。
+  target: T-110
+  target_mode: reference
+  options:
+  - CHG-F005-037でhosted raceの決定的再現方法を設計
+  - 一時停止
+  allow_freeform: true
+  created: '2026-08-06T05:29:00+09:00'
+  source: pf-test
+  resume:
+    task: T-110
+    next: pf-change

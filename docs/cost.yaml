@@ -707,4 +707,4 @@ entries:
   model: GPT-5
   agents: 3
   est_tokens: 14000
-  note: 既存exact CANDIDATEだけをlease保存producerへ限定再結合。QPC三者境界、rename二値null、初回/直前process inspection、same-lock再照合、exact19 codeを固定。初回独立受入Medium2件をTOCTOU純粋規則の実行試験とCHG証跡同期で是正し、native316件、関連Vitest123件、型・ESLint・同一SHA再現build2回、独立再受入High/Medium/Low 0、public/data差分0をPASS。hosted production影響試験待ち
+  note: 既存exact CANDIDATEだけをlease保存producerへ限定再結合。QPC三者境界、rename二値null、初回/直前process inspection、same-lock再照合、exact19 codeを固定。初回独立受入Medium2件をTOCTOU純粋規則の実行試験とCHG証跡同期で是正し、native316件、関連Vitest123件、型・ESLint・同一SHA再現build2回、独立再受入High/Medium/Low 0、public/data差分0をPASS。run 31042915405は3 attemptとも前段安全停止でhosted対象へ未到達しQ-036へエスカレーション

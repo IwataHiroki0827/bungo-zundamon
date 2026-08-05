@@ -1,4 +1,34 @@
 attempts:
+- date: '2026-08-06T05:19:00+09:00'
+  feature: F005
+  scope: T-110-hosted-impact
+  attempt: 1
+  command: Actions run 31042915405 attempt 1
+  result: fail-closed
+  failures: 1
+  cause: 既知SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_LEASE_CLOSEDへ安全停止しT-110限定再結合へ未到達
+  recovery: 同一commitのfailed jobを再実行してhosted scheduling分岐を再サンプル
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31042915405/attempts/1
+- date: '2026-08-06T05:24:00+09:00'
+  feature: F005
+  scope: T-110-hosted-impact
+  attempt: 2
+  command: Actions run 31042915405 attempt 2
+  result: fail-closed
+  failures: 1
+  cause: 既知SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_MISSINGへ安全停止しT-110限定再結合へ未到達
+  recovery: retry_limit内の最終attemptでhosted scheduling分岐を再サンプル
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31042915405/attempts/2
+- date: '2026-08-06T05:28:00+09:00'
+  feature: F005
+  scope: T-110-hosted-impact
+  attempt: 3
+  command: Actions run 31042915405 attempt 3
+  result: fail-closed
+  failures: 1
+  cause: 既知SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_BINDING_MISMATCHへ安全停止しT-110限定再結合へ未到達
+  recovery: Q-036へエスカレーションし、hosted raceの決定的再現方法を設計するか一時停止する
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31042915405/attempts/3
 - date: '2026-08-06T04:19:00+09:00'
   feature: F005
   scope: T-109-hosted-impact
