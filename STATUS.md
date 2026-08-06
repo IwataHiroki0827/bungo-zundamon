@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-07T02:32:00+09:00
+updated: 2026-08-07T07:45:00+09:00
 next_actions:
-  - "CHG-F005-037の受入済みcommitを固定してhosted production試験を実行する"
+  - "commit 9c6fd375のhosted production run生成と完走を監視し、CHG-F005-037/T-111へ結果を反映する"
 blocked_by: [Q-035]
 ---
 
@@ -52,6 +52,7 @@ blocked_by: [Q-035]
 - Q-036は「CHG-F005-037でhosted raceの決定的再現方法を設計」で回答済みとして閉じた。T-110をunblockし、callback到着時のmutable lease状態ではなくwrite completion準備時のsealed tupleとevent QPCで遅延eventを決定的に分類・drainするCHG-F005-037/T-111を開始した。
 - CHG-F005-037計画レビューのMedium 3+3を反映し、最大128非重複seal、phase-wide ETW順replay、exactly-once accounted、QPC deadline状態機械、3段seal lookup、private IPC exact keysを確定した。最終再レビューHigh/Medium/Low 0、trace_check、YAML、diff checkをPASSし実装へ移行する。
 - CHG-F005-037/T-111を実装し、未適用snapshot queue、replay時identity/capacity適用、root owner native identity、retained tuple、callback admission read/write fenceを固定した。独立受入はH2/M4、再受入はH1/M1を検出して是正し、最終H0/M0/L1でコードPASS。native421件、関連Vitest124件、型・ESLint、trace、同一SHA再現build2回、public/data差分0をPASSした。Programは`30dea0c2...b9a3f4`、binaryは`3a977c28...12b08`、75,089,756 bytesである。
+- commit `7e3388d`のhosted production run `31124038599`はGitHub Actions major outage中にjob step未生成のまま基盤cancelとなった。rerun要求は受理されたが約13時間job未生成で、APIもcancelを`Cannot cancel a workflow re-run that has not yet queued`として409拒否した。workflow自己pathだけを更新したcommit `9c6fd375`をpushして新run生成を再要求し、実装・認可条件・`public/`・`data/`は変更していない。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -93,19 +94,20 @@ blocked_by: [Q-035]
 
 ## 直近の作業（最新5件）
 
+- GitHub Actions障害でstale化したrun 31124038599を証拠化し、commit 9c6fd375でhosted productionを再起動
 - T-111/CHG-F005-037のcompletion drain決定化を実装し独立再々受入PASS
 - Q-036回答を反映しCHG-F005-037/T-111の変更管理を開始
 - run 31042915405を3 attempt実行し前段固定分岐で安全停止、Q-036へ記録
 - T-110/CHG-F005-036の限定再結合を実装し独立再受入PASS
-- CHG-F005-036の計画再レビューPASS、commit bbec929へ再開点を固定
 
 ## 次のアクション
 
-- CHG-F005-037の最終受入済み差分をcommit/pushし、固定commitでhosted productionを実行する。
-- hostedでcompletion drain通過後のT-109/T-110対象stageまたはproduction成功を確認し、失敗時もcandidate未保存・Pages deploy skip・public/data差分0を確認する。
+- commit `9c6fd375`のpush webhookから新hosted production runが生成されるまで監視する。
+- 新runでcompletion drain通過後のT-109/T-110対象stageまたはproduction成功を確認し、失敗時もcandidate未保存・Pages deploy skip・public/data差分0を確認する。
 
 ## 未解決事項
 
 - C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、音声生成直前にもrunner内で再計測する。
+- GitHub Actionsは2026-08-07 07:36 JST時点でmajor outage継続中。開始済みrunの成功率は97%まで回復したがpush webhookはthrottle中で、commit `9c6fd375`の新run生成待ちである。
 - T-109はlocal受入PASS済みだがhosted影響経路へ3 attemptで未到達のためQ-035でblocked。T-070 production runnerの前段bound lease directory `CANDIDATE`をCHG-F005-036で限定再結合し、T-109 hosted確認を再開する。
 - T-110はlocal受入PASS済みだがhosted対象へ3 attemptで未到達。Q-036回答済みのCHG-F005-037でwrite completionのevent-time状態を固定してからhosted確認を再開する。

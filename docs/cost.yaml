@@ -715,3 +715,10 @@ entries:
   agents: 2
   est_tokens: 26000
   note: Q-036回答を受け、callback時のmutable lease状態依存を非重複QPC epoch、未適用snapshot queue/ETW順replay、exactly-once accounted、QPC deadline、3段lookup、callback admission read/write fenceへ置換。計画レビューMedium3+3を解消。独立受入H2/M4、再受入H1/M1を是正し最終H0/M0/L1でコードPASS。native421件、関連Vitest124件、型・ESLint・trace・同一SHA再現build2回をPASSしpublic/data差分0。hosted確認までin-reviewを維持
+- date: '2026-08-07'
+  phase: test
+  task: T-111 CHG-F005-037 hosted production再試験
+  model: GPT-5
+  agents: 1
+  est_tokens: 6000
+  note: commit 7e3388dのrun 31124038599はGitHub Actions major outageでproduction step未生成のまま基盤cancel。rerun要求は受理されたがjob未生成でstale化しcancel APIも409。workflow自己pathコメントだけを更新したcommit 9c6fd375をpushし新run生成待ち。実装・認可・容量・候補保存・公開条件・public/dataは不変
