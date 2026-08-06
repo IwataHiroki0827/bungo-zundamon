@@ -195,6 +195,30 @@ type F005SystemDirectoryBoundLeaseRejoinFailureStage =
   | 'PROCESS_RECHECK_OUTSIDE_JOB';
 export type F005SystemDirectoryBoundLeaseRejoinFailureCode =
   `F005_ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_${F005SystemDirectoryBoundLeaseRejoinFailureStage}`;
+type F005WriteCompletionDrainFailureStage =
+  | 'PREPARE_TUPLE_MISMATCH'
+  | 'PROCESS_IDENTITY_FAILED'
+  | 'PROCESS_WAIT_FAILED'
+  | 'JOB_QUERY_FAILED'
+  | 'PROCESS_TUPLE_MISMATCH'
+  | 'PROCESS_SIGNALED'
+  | 'PROCESS_OUTSIDE_JOB'
+  | 'EVENT_TUPLE_MISMATCH'
+  | 'EVENT_IDENTITY_FAILED'
+  | 'BUFFER_LIMIT'
+  | 'FAILED'
+  | 'TIMEOUT'
+  | 'STATE_CHANGED'
+  | 'DIRECTORY_IDENTITY_MISMATCH'
+  | 'CURRENT_IDENTITY_MISMATCH'
+  | 'BINDING_MISMATCH'
+  | 'RECHECK_PROCESS_IDENTITY_FAILED'
+  | 'RECHECK_PROCESS_WAIT_FAILED'
+  | 'RECHECK_PROCESS_TUPLE_MISMATCH'
+  | 'RECHECK_PROCESS_NOT_SIGNALED'
+  | 'LATE_EVENT_AFTER_SEAL';
+export type F005WriteCompletionDrainFailureCode =
+  `F005_ETW_WRITE_COMPLETION_DRAIN_${F005WriteCompletionDrainFailureStage}`;
 type F005SystemBoundFileObjectRejoinStage =
   | 'SNAPSHOT_MISSING'
   | 'PATH_MISMATCH'
@@ -351,6 +375,17 @@ const F005_NATIVE_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_FAILURE = new RegExp(
   'JOB_QUERY_FAILED|TUPLE_MISMATCH|SIGNALED|OUTSIDE_JOB))$',
   'u',
 );
+const F005_WRITE_COMPLETION_DRAIN_FAILURE = new RegExp(
+  '^F005_ETW_WRITE_COMPLETION_DRAIN_(?:PREPARE_TUPLE_MISMATCH|' +
+  'PROCESS_IDENTITY_FAILED|PROCESS_WAIT_FAILED|JOB_QUERY_FAILED|' +
+  'PROCESS_TUPLE_MISMATCH|PROCESS_SIGNALED|PROCESS_OUTSIDE_JOB|' +
+  'EVENT_TUPLE_MISMATCH|EVENT_IDENTITY_FAILED|BUFFER_LIMIT|FAILED|' +
+  'TIMEOUT|STATE_CHANGED|DIRECTORY_IDENTITY_MISMATCH|' +
+  'CURRENT_IDENTITY_MISMATCH|BINDING_MISMATCH|' +
+  'RECHECK_PROCESS_(?:IDENTITY_FAILED|WAIT_FAILED|TUPLE_MISMATCH|' +
+  'NOT_SIGNALED)|LATE_EVENT_AFTER_SEAL)$',
+  'u',
+);
 const F005_NATIVE_SYSTEM_BOUND_FILE_OBJECT_REJOIN_DIAGNOSTIC = new RegExp(
   '^ETW_PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_' +
   '(?:SNAPSHOT_MISSING|PATH_MISMATCH|CURRENT_MISSING|IDENTITY_MISMATCH|' +
@@ -494,6 +529,14 @@ export function isF005SystemDirectoryBoundLeaseRejoinFailureCode(
     );
 }
 
+export function isF005WriteCompletionDrainFailureCode(
+  value: unknown,
+): value is F005WriteCompletionDrainFailureCode {
+  return typeof value === 'string' &&
+    value.length <= 127 &&
+    F005_WRITE_COMPLETION_DRAIN_FAILURE.test(value);
+}
+
 export function isF005SystemBoundFileObjectRejoinDiagnosticCode(
   value: unknown,
 ): value is F005SystemBoundFileObjectRejoinDiagnosticCode {
@@ -528,6 +571,7 @@ export type F005NativeCapacityErrorCode =
   | F005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode
   | F005AfterLeaseReservationDirectoryRejoinFailureCode
   | F005SystemDirectoryBoundLeaseRejoinFailureCode
+  | F005WriteCompletionDrainFailureCode
   | F005SystemBoundFileObjectRejoinDiagnosticCode
   | F005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
@@ -723,6 +767,7 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
 
 export function classifyF005NativeCapacityReplyError(value: unknown): F005NativeCapacityErrorCode {
   if (value === 'F005_CAPACITY_NOTICE_UNMATCHED') return 'F005_CAPACITY_NOTICE_UNMATCHED';
+  if (isF005WriteCompletionDrainFailureCode(value)) return value;
   if (typeof value === 'string' && value.startsWith('ETW_PRIVILEGE_REQUIRED')) {
     return 'F005_ETW_PRIVILEGE_REQUIRED';
   }
@@ -1640,6 +1685,25 @@ export async function startF005NativeCapacitySession(
           },
           commit: async (): Promise<void> => {
             if (settled) return fail('F005_CAPACITY_IPC_FAILED', 'write-through leaseは消費済みです');
+            const prepared = await pipe?.command({
+              op: 'prepareWriteCompletion',
+              path: currentRelativePath,
+              phase: writePhase.phase,
+              phaseInstanceId: writePhase.phaseInstanceId,
+              producerPid,
+              workId: writePhase.workId,
+            });
+            if (!prepared ||
+              Object.keys(prepared).sort().join(',') !== 'ok,sealSequence,state' ||
+              prepared.ok !== true ||
+              prepared.state !== 'completion-drain-prepared' ||
+              !Number.isSafeInteger(prepared.sealSequence) ||
+              Number(prepared.sealSequence) <= 0) {
+              return fail(
+                'F005_CAPACITY_IPC_FAILED',
+                'write completion drainを準備できません',
+              );
+            }
             const committed = await writer.channel.command({
               op: 'write-commit',
               relativePath: currentRelativePath,

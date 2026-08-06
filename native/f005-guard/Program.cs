@@ -1203,6 +1203,9 @@ sealed class HeldCapability : IDisposable
 sealed class CapacityGuardSession : IDisposable
 {
     private const int MaxPipeRequestChars = 65_536;
+    private const int MaxWriteCompletionSeals = 128;
+    private const int MaxWriteCompletionEventsPerSeal = 64;
+    private const int MaxWriteCompletionEventsPerPhase = 8_192;
     private static readonly TimeSpan ObservationMatchWindow = TimeSpan.FromSeconds(10);
     private static readonly TimeSpan ProcessIdentityProbeTimeout = TimeSpan.FromSeconds(10);
     private static readonly JsonSerializerOptions JournalJson = new() {
@@ -1217,6 +1220,7 @@ sealed class CapacityGuardSession : IDisposable
     };
 
     private readonly object gate = new();
+    private readonly WriteCompletionCallbackAdmission callbackAdmission = new();
     private readonly string root;
     private readonly string journalPath;
     private readonly string journalDirectory;
@@ -1242,9 +1246,15 @@ sealed class CapacityGuardSession : IDisposable
     private readonly List<ObservationRecord> observations = [];
     private readonly List<DeferredRenameRecord> deferredRenames = [];
     private readonly List<DeferredSystemSetInfoRecord> deferredSystemSetInfos = [];
+    private readonly List<WriteCompletionDrainSeal> writeCompletionSeals = [];
+    private readonly List<PendingCallbackSnapshot> writeCompletionReorderQueue = [];
     private PendingWriteLease? pendingWriteLease;
     private long etwSequence;
     private long etwRelevantEventCount;
+    private long etwAccountedEventCount;
+    private long writeCompletionSealSequence;
+    private int writeCompletionPhaseEventCount;
+    private bool writeCompletionReorderActive;
     private long noticeSequence;
     private long peakLiveBytes;
     private long minimumObservedFreeBytes;
@@ -1686,6 +1696,7 @@ sealed class CapacityGuardSession : IDisposable
                 break;
             case "reserveWrite":
             case "completeWrite":
+            case "prepareWriteCompletion":
                 RequireExactPipeKeys(rootElement, "authToken", "op", "path", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "workId");
                 break;
             case "prepareWriteRename":
@@ -1745,6 +1756,13 @@ sealed class CapacityGuardSession : IDisposable
                     PipeNullableWorkId(rootElement, "workId"),
                     PipeSha256(rootElement, "phaseInstanceId")),
                 "reserveWrite" => ReserveWrite(
+                    PipeString(rootElement, "phase"),
+                    PipeNullableWorkId(rootElement, "workId"),
+                    PipeSha256(rootElement, "phaseInstanceId"),
+                    PipePositiveInt(rootElement, "producerPid"),
+                    ValidateRelativePath(PipeString(rootElement, "path")),
+                    clientPid),
+                "prepareWriteCompletion" => PrepareWriteCompletion(
                     PipeString(rootElement, "phase"),
                     PipeNullableWorkId(rootElement, "workId"),
                     PipeSha256(rootElement, "phaseInstanceId"),
@@ -1853,6 +1871,10 @@ sealed class CapacityGuardSession : IDisposable
             throw new GuardException("PHASE_WORK_MISMATCH");
         if (activePhase is not null) throw new GuardException("PHASE_ALREADY_ACTIVE");
         completedWrites.Clear();
+        writeCompletionSeals.Clear();
+        writeCompletionReorderQueue.Clear();
+        writeCompletionPhaseEventCount = 0;
+        writeCompletionReorderActive = false;
         var startedAtUtc = DateTime.UtcNow;
         activePhase = new ActivePhase(
             phase,
@@ -1886,6 +1908,11 @@ sealed class CapacityGuardSession : IDisposable
         if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
             throw new GuardException("NOTICE_PID_NOT_REGISTERED");
         if (pendingWriteLease is not null) throw new GuardException("WRITE_LEASE_ALREADY_ACTIVE");
+        var previousSeal = writeCompletionSeals.LastOrDefault();
+        if (previousSeal is not null &&
+            (previousSeal.State != WriteCompletionDrainState.CompletedRetained ||
+             previousSeal.CompletionRequestedAtQpc is null))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
         if (TryInspect(path) is not null) throw new GuardException("WRITE_LEASE_PATH_CONFLICT");
         var process = job.OpenContainedProcess(producerPid)
             ?? throw new GuardException("WRITE_LEASE_PRODUCER_NOT_JOB_MEMBER");
@@ -1990,22 +2017,47 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException("PHASE_MISMATCH");
             if (!RootWorkerAliveLocked(clientPid) || !registeredPids.Contains(clientPid))
                 throw new GuardException("NOTICE_PID_NOT_REGISTERED");
-            ValidateWriteLeaseTuple(producerPid, phaseInstanceId, path);
+            RequestWriteCompletionLocked(
+                producerPid, phaseInstanceId, path, Stopwatch.GetTimestamp());
         }
         try
         {
-            var drain = Stopwatch.StartNew();
-            while (drain.Elapsed < TimeSpan.FromSeconds(2))
+            while (true)
             {
+                WriteCompletionDrainSeal seal;
+                lock (gate)
+                {
+                    seal = FindCompletionSealLocked(
+                        producerPid, phaseInstanceId, path);
+                    EnsureWriteCompletionDeadlineLocked(seal, Stopwatch.GetTimestamp());
+                }
                 etwSession.Flush();
                 var before = Interlocked.Read(ref etwRelevantEventCount);
-                Thread.Sleep(100);
-                if (Interlocked.Read(ref etwRelevantEventCount) != before) continue;
+                var accountedBefore = Interlocked.Read(ref etwAccountedEventCount);
+                Thread.Sleep(50);
+                if (Interlocked.Read(ref etwRelevantEventCount) != before ||
+                    Interlocked.Read(ref etwAccountedEventCount) != accountedBefore) continue;
                 etwSession.Flush();
-                Thread.Sleep(100);
-                if (Interlocked.Read(ref etwRelevantEventCount) == before)
+                Thread.Sleep(50);
+                if (WriteCompletionDrainRules.CountersStable(
+                    before,
+                    accountedBefore,
+                    Interlocked.Read(ref etwRelevantEventCount),
+                    Interlocked.Read(ref etwAccountedEventCount)))
                 {
-                    lock (gate) return CompleteWrite(producerPid, phaseInstanceId, path);
+                    using (callbackAdmission.EnterFinal())
+                    {
+                        lock (gate)
+                        {
+                            var completed = CompleteWrite(
+                                producerPid,
+                                phaseInstanceId,
+                                path,
+                                before,
+                                accountedBefore);
+                            if (completed is not null) return completed;
+                        }
+                    }
                 }
             }
         }
@@ -2015,32 +2067,280 @@ sealed class CapacityGuardSession : IDisposable
         }
         catch
         {
-            throw new GuardException("ETW_CONSUMER_DRAIN_FAILED");
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
         }
-        throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT");
     }
 
-    private object CompleteWrite(int producerPid, string phaseInstanceId, string path)
+    // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    private object PrepareWriteCompletion(
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        int producerPid,
+        string path,
+        int clientPid)
     {
-        var lease = ValidateWriteLeaseTuple(producerPid, phaseInstanceId, path);
-        var processSignaled = job.IsSignaled(lease.Process);
-        var hasDeferredEvents = deferredSystemSetInfos.Any(
-            item => item.PhaseInstanceId == phaseInstanceId);
-        if (!SystemSetInfoCorrelationRules.CanComplete(
-            processSignaled,
-            lease.FileObject is not null || lease.FileObjectClosed,
-            lease.Snapshot is not null,
-            hasDeferredEvents,
-            lease.PendingRenamePath is not null))
+        if (failureCode is not null) throw new GuardException(failureCode);
+        if (writeCompletionSeals.Count >= MaxWriteCompletionSeals)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
+        if (writeCompletionSeals.Any(item => item.State is
+            WriteCompletionDrainState.Prepared or
+            WriteCompletionDrainState.CompletionRequested))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        var lease = pendingWriteLease;
+        var active = activePhase;
+        if (!WriteCompletionDrainRules.PrepareTupleMatches(
+            active is not null,
+            lease is not null,
+            active?.Phase == "voice",
+            active?.Phase == phase,
+            active?.WorkId == workId,
+            active?.PhaseInstanceId == phaseInstanceId,
+            lease?.PhaseInstanceId == phaseInstanceId,
+            lease?.WorkerPid == producerPid,
+            lease?.RelativePath == path,
+            lease?.FileObjectClosed == false,
+            lease?.PendingRenamePath is null &&
+                lease?.RenameReservedAtQpc is null,
+            RootWorkerAliveLocked(clientPid) && registeredPids.Contains(clientPid)))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        lease = pendingWriteLease!;
+        active = activePhase!;
+        var slash = path.LastIndexOf('/');
+        if (slash <= 0 || lease.Snapshot is null || lease.FileObject is null)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        var parent = path[..slash];
+        FileSnapshot? current;
+        FileSnapshot? directoryCurrent;
+        try
         {
-            if (!processSignaled)
-                throw new GuardException("WRITE_LEASE_PROCESS_STILL_RUNNING");
-            throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+            current = TryInspect(path);
+            directoryCurrent = TryInspect(parent);
         }
+        catch (GuardException)
+        {
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        }
+        var directorySnapshot = filesByPath.GetValueOrDefault(parent);
+        var binding = filesByObject.GetValueOrDefault(lease.FileObject.Value);
+        var directoryOwner = observations.LastOrDefault(item =>
+            item.EventName == "create" &&
+            item.Path == parent &&
+            item.Phase == active.Phase &&
+            item.WorkId == active.WorkId &&
+            item.PhaseInstanceId == active.PhaseInstanceId &&
+            item.WorkerPid == rootWorkerPid &&
+            item.ProducerSequenceNumber == rootWorkerSequenceNumber &&
+            item.VolumeId == directorySnapshot?.VolumeId &&
+            item.FileId128 == directorySnapshot?.FileId128);
+        if (current?.Identity != lease.Snapshot.Identity ||
+            directorySnapshot is null ||
+            directoryCurrent?.Identity != directorySnapshot.Identity ||
+            binding?.RelativePath != path ||
+            binding.Identity != lease.Snapshot.Identity ||
+            directoryOwner is null)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        if (rootWorkerProcess is null || rootWorkerPid is null ||
+            rootWorkerStartKey is null || rootWorkerSequenceNumber is null)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        JobObject.RetainedProcessInspection rootInspection;
+        try { rootInspection = job.InspectRetainedProcess(rootWorkerProcess); }
+        catch (GuardException)
+        {
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        }
+        if (!WriteCompletionDrainRules.PrepareTupleMatches(
+            rootInspection.ProcessId == rootWorkerPid.Value,
+            rootInspection.ProcessStartKey == rootWorkerStartKey.Value,
+            rootInspection.ProcessSequenceNumber == rootWorkerSequenceNumber.Value,
+            !rootInspection.Signaled,
+            rootInspection.JobMember))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        JobObject.RetainedProcessInspection inspection;
+        try { inspection = job.InspectRetainedProcess(lease.Process); }
+        catch (GuardException error)
+        {
+            throw new GuardException(
+                WriteCompletionDrainRules.ProcessFailureCode(error.Code, false));
+        }
+        var processFailure = WriteCompletionDrainRules.ProcessRejection(
+            inspection.ProcessId == lease.WorkerPid &&
+            inspection.ProcessStartKey == lease.ProcessStartKey &&
+            inspection.ProcessSequenceNumber == lease.ProcessSequenceNumber,
+            inspection.Signaled,
+            inspection.JobMember,
+            false);
+        if (processFailure is not null) throw new GuardException(processFailure);
+        var preparedAtQpc = Stopwatch.GetTimestamp();
+        long deadline;
+        try { deadline = checked(preparedAtQpc + Stopwatch.Frequency * 10L); }
+        catch (OverflowException)
+        {
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT");
+        }
+        var previous = writeCompletionSeals.LastOrDefault();
+        if (previous?.CompletionRequestedAtQpc is long previousUpper &&
+            lease.CurrentPathReservedAtQpc <= previousUpper)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        var seal = new WriteCompletionDrainSeal(
+            checked(++writeCompletionSealSequence), active, lease, path, parent,
+            lease.Snapshot.Identity, directorySnapshot.Identity,
+            lease.FileObject.Value, lease.WorkerPid, lease.ProcessStartKey,
+            lease.ProcessSequenceNumber, lease.CurrentPathReservedAtQpc,
+            preparedAtQpc, deadline,
+            Interlocked.Read(ref etwRelevantEventCount));
+        writeCompletionSeals.Add(seal);
+        return new {
+            ok = true,
+            state = "completion-drain-prepared",
+            sealSequence = seal.SealSequence,
+        };
+    }
+
+    private WriteCompletionDrainSeal RequestWriteCompletionLocked(
+        int producerPid, string phaseInstanceId, string path, long now)
+    {
+        var seal = FindCompletionSealLocked(producerPid, phaseInstanceId, path);
+        if (seal.State != WriteCompletionDrainState.Prepared)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        EnsureWriteCompletionDeadlineLocked(seal, now);
+        long deadline;
+        try { deadline = checked(now + Stopwatch.Frequency * 10L); }
+        catch (OverflowException)
+        {
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT");
+        }
+        seal.CompletionRequestedAtQpc = now;
+        seal.DrainDeadlineQpc = deadline;
+        TransitionWriteCompletionSealLocked(
+            seal,
+            WriteCompletionDrainState.Prepared,
+            WriteCompletionDrainState.CompletionRequested);
+        return seal;
+    }
+
+    private WriteCompletionDrainSeal FindCompletionSealLocked(
+        int producerPid, string phaseInstanceId, string path) =>
+        writeCompletionSeals.LastOrDefault(item =>
+            item.ProducerPid == producerPid &&
+            item.Phase.PhaseInstanceId == phaseInstanceId &&
+            item.CurrentPath == path)
+        ?? throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+
+    private static void EnsureWriteCompletionDeadlineLocked(
+        WriteCompletionDrainSeal seal, long now)
+    {
+        var deadline = seal.State switch {
+            WriteCompletionDrainState.Prepared => seal.PreparedDeadlineQpc,
+            WriteCompletionDrainState.CompletionRequested =>
+                seal.DrainDeadlineQpc ?? long.MinValue,
+            _ => long.MaxValue,
+        };
+        if (!WriteCompletionDrainRules.IsDeadlineValid(now, deadline))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT");
+    }
+
+    private void EnsureActiveWriteCompletionDeadlineLocked(long now)
+    {
+        foreach (var seal in writeCompletionSeals.Where(item => item.State is
+            WriteCompletionDrainState.Prepared or
+            WriteCompletionDrainState.CompletionRequested))
+            EnsureWriteCompletionDeadlineLocked(seal, now);
+    }
+
+    private static void TransitionWriteCompletionSealLocked(
+        WriteCompletionDrainSeal seal,
+        WriteCompletionDrainState expected,
+        WriteCompletionDrainState next)
+    {
+        static string Name(WriteCompletionDrainState state) => state switch {
+            WriteCompletionDrainState.Prepared => "prepared",
+            WriteCompletionDrainState.CompletionRequested => "completion-requested",
+            WriteCompletionDrainState.CompletedRetained => "completed-retained",
+            WriteCompletionDrainState.Released => "released",
+            _ => "invalid",
+        };
+        if (seal.State != expected ||
+            !WriteCompletionDrainRules.CanTransition(Name(expected), Name(next)))
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        seal.State = next;
+    }
+
+    private object? CompleteWrite(
+        int producerPid,
+        string phaseInstanceId,
+        string path,
+        long expectedRelevant,
+        long expectedAccounted)
+    {
+        var seal = FindCompletionSealLocked(producerPid, phaseInstanceId, path);
+        if (seal.State != WriteCompletionDrainState.CompletionRequested ||
+            !ReferenceEquals(seal.Phase, activePhase) ||
+            !ReferenceEquals(seal.Lease, pendingWriteLease))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        var lease = seal.Lease;
+        if (lease.WorkerPid != producerPid ||
+            lease.PhaseInstanceId != phaseInstanceId ||
+            lease.RelativePath != path)
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        if (!WriteCompletionDrainRules.CountersStable(
+            expectedRelevant,
+            expectedAccounted,
+            Interlocked.Read(ref etwRelevantEventCount),
+            Interlocked.Read(ref etwAccountedEventCount)))
+            return null;
+        EnsureWriteCompletionDeadlineLocked(seal, Stopwatch.GetTimestamp());
+        FileSnapshot? directory;
+        try { directory = TryInspect(seal.ParentPath); }
+        catch (GuardException)
+        {
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_DIRECTORY_IDENTITY_MISMATCH");
+        }
+        if (directory?.Identity != seal.DirectoryIdentity ||
+            filesByPath.GetValueOrDefault(seal.ParentPath)?.Identity !=
+                seal.DirectoryIdentity)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_DIRECTORY_IDENTITY_MISMATCH");
         var current = TryInspect(path)
-            ?? throw new GuardException("WRITE_LEASE_IDENTITY_MISSING");
-        if (current.Identity != lease.Snapshot!.Identity)
-            throw new GuardException("WRITE_LEASE_IDENTITY_MISMATCH");
+            ?? throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_CURRENT_IDENTITY_MISMATCH");
+        if (current.Identity != seal.CurrentIdentity)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_CURRENT_IDENTITY_MISMATCH");
+        var binding = filesByObject.GetValueOrDefault(seal.LeaseFileObject);
+        if (binding?.RelativePath != seal.CurrentPath ||
+            binding.Identity != seal.CurrentIdentity)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCH");
+        JobObject.RetainedProcessInspection inspection;
+        try { inspection = job.InspectRetainedProcess(lease.Process); }
+        catch (GuardException error)
+        {
+            throw new GuardException(
+                WriteCompletionDrainRules.ProcessFailureCode(error.Code, true));
+        }
+        if (inspection.ProcessId != seal.ProducerPid ||
+            inspection.ProcessStartKey != seal.ProcessStartKey ||
+            inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH");
+        if (!inspection.Signaled)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED");
+        if (ReplayWriteCompletionQueueLocked()) return null;
+        if (!WriteCompletionDrainRules.CanMutateFinalState(
+            callbackAdmission.IsFinalHeld,
+            callbackAdmission.ActiveCallbackCount,
+            writeCompletionReorderQueue.Count == 0,
+            WriteCompletionDrainRules.CountersStable(
+                expectedRelevant,
+                expectedAccounted,
+                Interlocked.Read(ref etwRelevantEventCount),
+                Interlocked.Read(ref etwAccountedEventCount))))
+            return null;
         if (CompletedWriteDiagnosticRules.ShouldTrack(
             activePhase?.Phase,
             completedWrites.Count,
@@ -2052,9 +2352,25 @@ sealed class CapacityGuardSession : IDisposable
                 lease.CurrentPathReservedAtQpc,
                 Stopwatch.GetTimestamp(),
                 current.Identity);
-        lease.Process.Dispose();
+        TransitionWriteCompletionSealLocked(
+            seal,
+            WriteCompletionDrainState.CompletionRequested,
+            WriteCompletionDrainState.CompletedRetained);
         pendingWriteLease = null;
+        writeCompletionReorderActive = false;
         return new { ok = true, state = "completed", path, producerPid };
+    }
+
+    private bool ReplayWriteCompletionQueueLocked()
+    {
+        if (writeCompletionReorderQueue.Count == 0) return false;
+        var pending = writeCompletionReorderQueue
+            .OrderBy(item => item.EtwSequence)
+            .ToArray();
+        writeCompletionReorderQueue.Clear();
+        foreach (var snapshot in pending)
+            ApplyCallbackSnapshotLocked(snapshot);
+        return true;
     }
 
     private PendingWriteLease ValidateWriteLeaseTuple(
@@ -2212,7 +2528,11 @@ sealed class CapacityGuardSession : IDisposable
         };
     }
 
-    private object EndPhase(string phase, string phaseInstanceId)
+    private object? EndPhase(
+        string phase,
+        string phaseInstanceId,
+        long expectedRelevant,
+        long expectedAccounted)
     {
         if (failureCode is not null) throw new GuardException(failureCode);
         if (activePhase is null ||
@@ -2221,6 +2541,27 @@ sealed class CapacityGuardSession : IDisposable
         {
             throw new GuardException("PHASE_MISMATCH");
         }
+        if (!WriteCompletionDrainRules.CountersStable(
+            expectedRelevant,
+            expectedAccounted,
+            Interlocked.Read(ref etwRelevantEventCount),
+            Interlocked.Read(ref etwAccountedEventCount)))
+            return null;
+        if (Interlocked.Read(ref etwRelevantEventCount) !=
+            Interlocked.Read(ref etwAccountedEventCount))
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
+        EnsureActiveWriteCompletionDeadlineLocked(Stopwatch.GetTimestamp());
+        if (ReplayWriteCompletionQueueLocked()) return null;
+        if (!WriteCompletionDrainRules.CanMutateFinalState(
+            callbackAdmission.IsFinalHeld,
+            callbackAdmission.ActiveCallbackCount,
+            writeCompletionReorderQueue.Count == 0,
+            WriteCompletionDrainRules.CountersStable(
+                expectedRelevant,
+                expectedAccounted,
+                Interlocked.Read(ref etwRelevantEventCount),
+                Interlocked.Read(ref etwAccountedEventCount))))
+            return null;
         if (notices.Any(item =>
             item.PhaseInstanceId == phaseInstanceId && item.State != "matched"))
         {
@@ -2228,16 +2569,60 @@ sealed class CapacityGuardSession : IDisposable
         }
         if (deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId))
             throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
+        foreach (var seal in writeCompletionSeals)
+        {
+            if (seal.State != WriteCompletionDrainState.CompletedRetained)
+                throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+            var directory = TryInspect(seal.ParentPath);
+            if (directory?.Identity != seal.DirectoryIdentity)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_DIRECTORY_IDENTITY_MISMATCH");
+            var current = TryInspect(seal.CurrentPath);
+            if (current?.Identity != seal.CurrentIdentity)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_CURRENT_IDENTITY_MISMATCH");
+            var binding = filesByObject.GetValueOrDefault(seal.LeaseFileObject);
+            if (binding?.Identity != seal.CurrentIdentity ||
+                binding.RelativePath != seal.CurrentPath)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCH");
+            JobObject.RetainedProcessInspection inspection;
+            try { inspection = job.InspectRetainedProcess(seal.Lease.Process); }
+            catch (GuardException error)
+            {
+                throw new GuardException(
+                    WriteCompletionDrainRules.ProcessFailureCode(error.Code, true));
+            }
+            if (inspection.ProcessId != seal.ProducerPid ||
+                inspection.ProcessStartKey != seal.ProcessStartKey ||
+                inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH");
+            if (!inspection.Signaled)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED");
+        }
         if (pendingWriteLease?.PhaseInstanceId == phaseInstanceId ||
             deferredSystemSetInfos.Any(item => item.PhaseInstanceId == phaseInstanceId))
             throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
         AssertRegisteredProcessesContained();
         var free = ReadFreeBytes(root);
+        var live = CurrentLiveBytes();
+        foreach (var seal in writeCompletionSeals)
+        {
+            TransitionWriteCompletionSealLocked(
+                seal,
+                WriteCompletionDrainState.CompletedRetained,
+                WriteCompletionDrainState.Released);
+            seal.Lease.Process.Dispose();
+        }
         minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
         phaseRecords.Add(new PhaseRecord(phase, activePhase.WorkId, phaseInstanceId, "finished",
-            DateTimeOffset.UtcNow.ToString("O"), CurrentLiveBytes(), free));
+            DateTimeOffset.UtcNow.ToString("O"), live, free));
         activePhase = null;
         completedWrites.Clear();
+        writeCompletionSeals.Clear();
+        writeCompletionReorderActive = false;
         PersistJournal(closed: false);
         return new { ok = true, phase, phaseInstanceId };
     }
@@ -2254,21 +2639,46 @@ sealed class CapacityGuardSession : IDisposable
             {
                 throw new GuardException("PHASE_MISMATCH");
             }
+            EnsureActiveWriteCompletionDeadlineLocked(
+                Stopwatch.GetTimestamp());
         }
         try
         {
             var drain = Stopwatch.StartNew();
             while (drain.Elapsed < TimeSpan.FromSeconds(2))
             {
+                lock (gate)
+                    EnsureActiveWriteCompletionDeadlineLocked(
+                        Stopwatch.GetTimestamp());
                 etwSession.Flush();
                 var before = Interlocked.Read(ref etwRelevantEventCount);
+                var accountedBefore = Interlocked.Read(ref etwAccountedEventCount);
                 Thread.Sleep(100);
-                if (Interlocked.Read(ref etwRelevantEventCount) != before) continue;
+                if (Interlocked.Read(ref etwRelevantEventCount) != before ||
+                    Interlocked.Read(ref etwAccountedEventCount) != accountedBefore)
+                    continue;
                 etwSession.Flush();
                 Thread.Sleep(100);
-                if (Interlocked.Read(ref etwRelevantEventCount) == before)
+                if (WriteCompletionDrainRules.CountersStable(
+                    before,
+                    accountedBefore,
+                    Interlocked.Read(ref etwRelevantEventCount),
+                    Interlocked.Read(ref etwAccountedEventCount)))
                 {
-                    lock (gate) return EndPhase(phase, phaseInstanceId);
+                    using (callbackAdmission.EnterFinal())
+                    {
+                        lock (gate)
+                        {
+                            EnsureActiveWriteCompletionDeadlineLocked(
+                                Stopwatch.GetTimestamp());
+                            var ended = EndPhase(
+                                phase,
+                                phaseInstanceId,
+                                before,
+                                accountedBefore);
+                            if (ended is not null) return ended;
+                        }
+                    }
                 }
             }
         }
@@ -2278,9 +2688,9 @@ sealed class CapacityGuardSession : IDisposable
         }
         catch
         {
-            throw new GuardException("ETW_CONSUMER_DRAIN_FAILED");
+            throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
         }
-        throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT");
+        throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT");
     }
 
     private object CloseJournal()
@@ -2336,18 +2746,29 @@ sealed class CapacityGuardSession : IDisposable
         long timestampQpc)
     {
         var callbackStage = "NORMALIZE";
+        var relevantCallback = false;
+        var processIdentityProbeCallback = false;
+        var closedOrPoisonedAtEntry = false;
+        IDisposable? callbackAdmissionLease = null;
+        string? callbackTerminal = null;
         try
         {
+            callbackAdmissionLease = callbackAdmission.EnterCallback();
             var normalized = NormalizeObservedPath(eventPath);
             if (normalized is null) return;
             var isProcessIdentityProbe =
                 string.Equals(normalized, processIdentityProbePath, StringComparison.Ordinal);
+            processIdentityProbeCallback = isProcessIdentityProbe;
             if (!isProcessIdentityProbe && IsJournalPath(normalized)) return;
             Interlocked.Increment(ref etwRelevantEventCount);
+            relevantCallback = true;
             lock (gate)
             {
                 callbackStage = "STATE";
-                if (journalClosed || failureCode is not null) return;
+                closedOrPoisonedAtEntry = journalClosed || failureCode is not null;
+                if (closedOrPoisonedAtEntry) return;
+                EnsureActiveWriteCompletionDeadlineLocked(
+                    Stopwatch.GetTimestamp());
                 if (isProcessIdentityProbe)
                 {
                     ObserveProcessIdentityProbeLocked(pid, processStartKey);
@@ -2358,6 +2779,7 @@ sealed class CapacityGuardSession : IDisposable
                 string? identityRecheckFailureCode = null;
                 AfterLeaseDirectoryRejoinContext? afterLeaseDirectoryRejoin = null;
                 BoundLeaseDirectoryRejoinContext? boundLeaseDirectoryRejoin = null;
+                WriteCompletionDrainSeal? completionDrainSeal = null;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -2365,7 +2787,21 @@ sealed class CapacityGuardSession : IDisposable
                     out var producerSequenceNumber,
                     out var authorizationFailure))
                 {
-                    if (TryAuthorizeReservedSystemSetInfoLocked(
+                    if (TryAuthorizeWriteCompletionDrainEventLocked(
+                        eventName,
+                        pid,
+                        normalized,
+                        fileObject,
+                        timestampQpc,
+                        authorizationFailure,
+                        out var drainPid,
+                        out var drainSequence,
+                        out completionDrainSeal))
+                    {
+                        pid = drainPid;
+                        producerSequenceNumber = drainSequence;
+                    }
+                    else if (TryAuthorizeReservedSystemSetInfoLocked(
                         eventName,
                         pid,
                         normalized,
@@ -2542,6 +2978,7 @@ sealed class CapacityGuardSession : IDisposable
                 callbackStage = "CORRELATION";
                 var prior = filesByObject.GetValueOrDefault(fileObject);
                 FileSnapshot? current = null;
+                PendingWriteLease? createLeaseToBind = null;
                 callbackStage = "IDENTITY";
                 if (eventName != "delete")
                     current = TryInspect(normalized);
@@ -2565,8 +3002,7 @@ sealed class CapacityGuardSession : IDisposable
                         PoisonLocked("ETW_SYSTEM_SETINFO_CORRELATION_CREATE_BIND_MISMATCH");
                         return;
                     }
-                    writeLease.FileObject = fileObject;
-                    writeLease.Snapshot = current;
+                    createLeaseToBind = writeLease;
                 }
                 if (eventName == "rename")
                 {
@@ -2617,22 +3053,28 @@ sealed class CapacityGuardSession : IDisposable
                         new DateTimeOffset(timestamp.ToUniversalTime()).ToString("O"),
                         source,
                         observedTarget);
-                    var pendingRename = notices.FirstOrDefault(item =>
-                        item.State == "pending" &&
-                        item.WorkerPid == pid &&
-                        item.ProducerSequenceNumber == producerSequenceNumber &&
-                        item.PhaseInstanceId == activePhase.PhaseInstanceId &&
-                        item.EventName == "rename" &&
-                        item.From == source.RelativePath &&
-                        (observedTarget is null || item.To == observedTarget));
-                    if (pendingRename is null)
-                    {
-                        deferredRenames.Add(deferred);
-                    }
-                    else
-                    {
-                        CompleteDeferredRename(deferred, pendingRename);
-                    }
+                    var renameSnapshot = new PendingCallbackSnapshot(
+                        eventName,
+                        normalized,
+                        fileObject,
+                        timestampQpc,
+                        deferred.EtwSequence,
+                        deferred.ObservedAt,
+                        pid,
+                        producerSequenceNumber,
+                        activePhase,
+                        current,
+                        source,
+                        ReadFreeBytes(root),
+                        new DriveInfo(Path.GetPathRoot(root)!).TotalFreeSpace,
+                        null,
+                        afterLeaseDirectoryRejoin,
+                        boundLeaseDirectoryRejoin,
+                        completionDrainSeal?.SealSequence,
+                        deferred);
+                    callbackTerminal = QueueOrApplyCallbackLocked(
+                        renameSnapshot,
+                        completionDrainSeal);
                     return;
                 }
                 // CleanupはFileObjectを先に破棄し得る。deleteは再open不能なので、
@@ -2646,96 +3088,29 @@ sealed class CapacityGuardSession : IDisposable
                         callbackStage));
                     return;
                 }
-                if (afterLeaseDirectoryRejoin is not null)
-                {
-                    var recheckFailure = RecheckAfterLeaseDirectoryRejoinLocked(
-                        afterLeaseDirectoryRejoin);
-                    if (recheckFailure is not null)
-                    {
-                        PoisonLocked(recheckFailure);
-                        return;
-                    }
-                }
-                if (boundLeaseDirectoryRejoin is not null)
-                {
-                    var recheckFailure = RecheckBoundLeaseDirectoryTupleLocked(
-                        boundLeaseDirectoryRejoin,
-                        timestampQpc,
-                        fileObject);
-                    if (recheckFailure is not null)
-                    {
-                        PoisonLocked(recheckFailure);
-                        return;
-                    }
-                }
-                if (current is not null)
-                {
-                    filesByObject[fileObject] = current;
-                    filesByPath[current.RelativePath] = current;
-                }
-                if (eventName == "delete")
-                {
-                    filesByObject.Remove(fileObject);
-                    filesByPath.Remove(effective.RelativePath);
-                }
-
-                callbackStage = "CAPACITY";
-                var oldAllocated = allocatedByIdentity.GetValueOrDefault(effective.Identity);
-                var newAllocated = eventName == "delete" ? 0 : effective.AllocatedLengthBytes;
-                allocatedByIdentity[effective.Identity] = newAllocated;
-                if (newAllocated == 0) allocatedByIdentity.Remove(effective.Identity);
-                var delta = checked(newAllocated - oldAllocated);
-                var live = CurrentLiveBytes();
-                peakLiveBytes = Math.Max(peakLiveBytes, live);
-                var free = ReadFreeBytes(root);
-                minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
                 var sequence = checked(++etwSequence);
-                callbackStage = "RECORD";
-                if (boundLeaseDirectoryRejoin is not null)
-                {
-                    var processRecheckFailure =
-                        RecheckBoundLeaseDirectoryProcessLocked(
-                            boundLeaseDirectoryRejoin);
-                    if (processRecheckFailure is not null)
-                    {
-                        PoisonLocked(processRecheckFailure);
-                        return;
-                    }
-                }
-                var observation = new ObservationRecord(
+                var callbackSnapshot = new PendingCallbackSnapshot(
                     eventName,
                     normalized,
-                    null,
-                    null,
-                    activePhase.Phase,
-                    activePhase.WorkId,
-                    activePhase.PhaseInstanceId,
+                    fileObject,
+                    timestampQpc,
                     sequence,
                     new DateTimeOffset(timestamp.ToUniversalTime()).ToString("O"),
                     pid,
                     producerSequenceNumber,
-                    effective.VolumeId,
-                    effective.FileId128,
-                    eventName == "delete" ? 0 : effective.LogicalLengthBytes,
-                    eventName == "delete" ? 0 : effective.AllocatedLengthBytes,
-                    delta,
-                    live,
-                    free,
+                    activePhase,
+                    current,
+                    effective,
+                    ReadFreeBytes(root),
                     new DriveInfo(Path.GetPathRoot(root)!).TotalFreeSpace,
-                    producerBinarySha256);
-                var pending = notices.FirstOrDefault(item =>
-                    item.State == "pending" &&
-                    item.WorkerPid == pid &&
-                    item.ProducerSequenceNumber == producerSequenceNumber &&
-                    item.PhaseInstanceId == activePhase.PhaseInstanceId &&
-                    item.Matches(observation));
-                if (pending is not null)
-                {
-                    pending.Match(sequence);
-                    observation.NoticeSequence = pending.NoticeSequence;
-                    Monitor.PulseAll(gate);
-                }
-                observations.Add(observation);
+                    createLeaseToBind,
+                    afterLeaseDirectoryRejoin,
+                    boundLeaseDirectoryRejoin,
+                    completionDrainSeal?.SealSequence,
+                    null);
+                callbackTerminal = QueueOrApplyCallbackLocked(
+                    callbackSnapshot,
+                    completionDrainSeal);
             }
         }
         catch (Exception error)
@@ -2744,6 +3119,340 @@ sealed class CapacityGuardSession : IDisposable
                 ? ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)
                 : ClassifyEtwCallbackFailure(error, callbackStage));
         }
+        finally
+        {
+            if (relevantCallback)
+            {
+                var terminal = callbackTerminal ??
+                    (processIdentityProbeCallback
+                        ? "PROCESS_IDENTITY_PROBE"
+                        : closedOrPoisonedAtEntry
+                            ? "CLOSED_OR_POISONED"
+                            : "FIXED_REFUSAL");
+                Interlocked.Add(
+                    ref etwAccountedEventCount,
+                    WriteCompletionDrainRules.AccountedDelta(terminal));
+            }
+            callbackAdmissionLease?.Dispose();
+        }
+    }
+
+    private string QueueOrApplyCallbackLocked(
+        PendingCallbackSnapshot snapshot,
+        WriteCompletionDrainSeal? completionDrainSeal)
+    {
+        var activeSealedCandidate = completionDrainSeal?.State is
+            WriteCompletionDrainState.Prepared or
+            WriteCompletionDrainState.CompletionRequested;
+        var queueDecision = WriteCompletionDrainRules.QueueDecision(
+            writeCompletionReorderActive,
+            activeSealedCandidate,
+            writeCompletionReorderQueue.Count,
+            MaxWriteCompletionEventsPerPhase);
+        if (completionDrainSeal is not null)
+        {
+            if (completionDrainSeal.EventCount >=
+                    MaxWriteCompletionEventsPerSeal ||
+                writeCompletionPhaseEventCount >=
+                    MaxWriteCompletionEventsPerPhase)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
+            completionDrainSeal.EventCount++;
+            writeCompletionPhaseEventCount++;
+            if (activeSealedCandidate)
+                writeCompletionReorderActive = true;
+        }
+        if (queueDecision == "BUFFER_LIMIT")
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
+        if (queueDecision == "QUEUE")
+        {
+            writeCompletionReorderQueue.Add(snapshot);
+            return "DEFER_OR_REORDER";
+        }
+        ApplyCallbackSnapshotLocked(snapshot);
+        return "NORMAL";
+    }
+
+    private void ApplyCallbackSnapshotLocked(PendingCallbackSnapshot snapshot)
+    {
+        if (!ReferenceEquals(activePhase, snapshot.Phase))
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        if (snapshot.SealSequence is not null)
+            RecheckSealedCallbackLocked(snapshot);
+        if (snapshot.DeferredRename is not null)
+        {
+            ApplyRenameSnapshotLocked(snapshot);
+            return;
+        }
+        if (snapshot.EventName != "delete")
+        {
+            FileSnapshot? identityRecheck;
+            try { identityRecheck = TryInspect(snapshot.NormalizedPath); }
+            catch (GuardException)
+            {
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+            }
+            if (identityRecheck?.Identity != snapshot.Effective.Identity)
+                throw new GuardException(
+                    WriteCompletionDrainRules.ApplicationFailure(
+                        false, true, true)!);
+        }
+        else if (filesByPath.GetValueOrDefault(snapshot.NormalizedPath)?.Identity !=
+                snapshot.Effective.Identity &&
+            filesByObject.GetValueOrDefault(snapshot.FileObject)?.Identity !=
+                snapshot.Effective.Identity)
+        {
+            throw new GuardException(
+                WriteCompletionDrainRules.ApplicationFailure(
+                    false, true, true)!);
+        }
+        if (snapshot.AfterLeaseDirectoryRejoin is not null)
+        {
+            var failure = RecheckAfterLeaseDirectoryRejoinLocked(
+                snapshot.AfterLeaseDirectoryRejoin);
+            if (failure is not null) throw new GuardException(failure);
+        }
+        if (snapshot.BoundLeaseDirectoryRejoin is not null)
+        {
+            var tupleFailure = RecheckBoundLeaseDirectoryTupleLocked(
+                snapshot.BoundLeaseDirectoryRejoin,
+                snapshot.TimestampQpc,
+                snapshot.FileObject);
+            if (tupleFailure is not null) throw new GuardException(tupleFailure);
+            var processFailure = RecheckBoundLeaseDirectoryProcessLocked(
+                snapshot.BoundLeaseDirectoryRejoin);
+            if (processFailure is not null) throw new GuardException(processFailure);
+        }
+        long oldAllocated;
+        long newAllocated;
+        long delta;
+        long live;
+        try
+        {
+            oldAllocated = allocatedByIdentity.GetValueOrDefault(
+                snapshot.Effective.Identity);
+            newAllocated = snapshot.EventName == "delete"
+                ? 0
+                : snapshot.Effective.AllocatedLengthBytes;
+            delta = checked(newAllocated - oldAllocated);
+            live = checked(CurrentLiveBytes() - oldAllocated + newAllocated);
+        }
+        catch (OverflowException)
+        {
+            throw new GuardException(
+                WriteCompletionDrainRules.ApplicationFailure(
+                    true, false, true)!);
+        }
+        if (snapshot.CreateLeaseToBind is not null)
+        {
+            if (!ReferenceEquals(pendingWriteLease, snapshot.CreateLeaseToBind) ||
+                snapshot.Current is null)
+                throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+            snapshot.CreateLeaseToBind.FileObject = snapshot.FileObject;
+            snapshot.CreateLeaseToBind.Snapshot = snapshot.Current;
+        }
+        if (snapshot.Current is not null)
+        {
+            filesByObject[snapshot.FileObject] = snapshot.Current;
+            filesByPath[snapshot.Current.RelativePath] = snapshot.Current;
+        }
+        if (snapshot.EventName == "delete")
+        {
+            filesByObject.Remove(snapshot.FileObject);
+            filesByPath.Remove(snapshot.Effective.RelativePath);
+        }
+        allocatedByIdentity[snapshot.Effective.Identity] = newAllocated;
+        if (newAllocated == 0)
+            allocatedByIdentity.Remove(snapshot.Effective.Identity);
+        peakLiveBytes = Math.Max(peakLiveBytes, live);
+        minimumObservedFreeBytes = Math.Min(
+            minimumObservedFreeBytes,
+            snapshot.FreeBytesAvailable);
+        var observation = new ObservationRecord(
+            snapshot.EventName,
+            snapshot.NormalizedPath,
+            null,
+            null,
+            snapshot.Phase.Phase,
+            snapshot.Phase.WorkId,
+            snapshot.Phase.PhaseInstanceId,
+            snapshot.EtwSequence,
+            snapshot.ObservedAt,
+            snapshot.ProducerPid,
+            snapshot.ProducerSequenceNumber,
+            snapshot.Effective.VolumeId,
+            snapshot.Effective.FileId128,
+            snapshot.EventName == "delete" ? 0 : snapshot.Effective.LogicalLengthBytes,
+            snapshot.EventName == "delete" ? 0 : snapshot.Effective.AllocatedLengthBytes,
+            delta,
+            live,
+            snapshot.FreeBytesAvailable,
+            snapshot.FreeBytesTotal,
+            producerBinarySha256);
+        var pending = notices.FirstOrDefault(item =>
+            item.State == "pending" &&
+            item.WorkerPid == snapshot.ProducerPid &&
+            item.ProducerSequenceNumber == snapshot.ProducerSequenceNumber &&
+            item.PhaseInstanceId == snapshot.Phase.PhaseInstanceId &&
+            item.Matches(observation));
+        if (pending is not null)
+        {
+            pending.Match(snapshot.EtwSequence);
+            observation.NoticeSequence = pending.NoticeSequence;
+            Monitor.PulseAll(gate);
+        }
+        observations.Add(observation);
+    }
+
+    private void RecheckSealedCallbackLocked(PendingCallbackSnapshot snapshot)
+    {
+        var matching = writeCompletionSeals.Where(item =>
+            item.SealSequence == snapshot.SealSequence).ToArray();
+        if (matching.Length != 1)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+        var seal = matching[0];
+        var identity = snapshot.NormalizedPath == seal.CurrentPath
+            ? seal.CurrentIdentity
+            : snapshot.NormalizedPath == seal.ParentPath
+                ? seal.DirectoryIdentity
+                : null;
+        if (!ReferenceEquals(snapshot.Phase, seal.Phase) ||
+            seal.State is not (WriteCompletionDrainState.CompletionRequested or
+                WriteCompletionDrainState.CompletedRetained) ||
+            seal.CompletionRequestedAtQpc is not long upper ||
+            !WriteCompletionDrainRules.IsWithinEpoch(
+                seal.CurrentPathReservedAtQpc, upper, snapshot.TimestampQpc) ||
+            identity != snapshot.Effective.Identity ||
+            !WriteCompletionDrainRules.FileObjectCompatible(
+                snapshot.NormalizedPath == seal.ParentPath,
+                snapshot.FileObject,
+                seal.LeaseFileObject,
+                filesByObject.ContainsKey(snapshot.FileObject)) ||
+            snapshot.ProducerPid != seal.ProducerPid ||
+            snapshot.ProducerSequenceNumber != seal.ProcessSequenceNumber)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+        JobObject.RetainedProcessInspection inspection;
+        try { inspection = job.InspectRetainedProcess(seal.Lease.Process); }
+        catch (GuardException error)
+        {
+            throw new GuardException(
+                error.Code == "PROCESS_WAIT_FAILED"
+                    ? WriteCompletionDrainRules.ProcessFailureCode(error.Code, true)
+                    : WriteCompletionDrainRules.ApplicationFailure(
+                        true, true, false)!);
+        }
+        if (inspection.ProcessId != seal.ProducerPid ||
+            inspection.ProcessStartKey != seal.ProcessStartKey ||
+            inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH");
+        if (!inspection.Signaled)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED");
+    }
+
+    private void ApplyRenameSnapshotLocked(PendingCallbackSnapshot snapshot)
+    {
+        var deferred = snapshot.DeferredRename!;
+        var pendingRename = notices.FirstOrDefault(item =>
+            item.State == "pending" &&
+            item.WorkerPid == deferred.WorkerPid &&
+            item.ProducerSequenceNumber == deferred.ProducerSequenceNumber &&
+            item.PhaseInstanceId == deferred.PhaseInstanceId &&
+            item.EventName == "rename" &&
+            item.From == deferred.Source.RelativePath &&
+            (deferred.ObservedTarget is null || item.To == deferred.ObservedTarget));
+        if (pendingRename is null)
+        {
+            deferredRenames.Add(deferred);
+            return;
+        }
+        CompleteDeferredRename(
+            deferred,
+            pendingRename,
+            snapshot.FreeBytesAvailable);
+    }
+
+    private bool TryAuthorizeWriteCompletionDrainEventLocked(
+        string eventName,
+        int pid,
+        string normalized,
+        ulong fileObject,
+        long eventQpc,
+        string authorizationFailure,
+        out int producerPid,
+        out ulong producerSequenceNumber,
+        out WriteCompletionDrainSeal? selectedSeal)
+    {
+        producerPid = 0;
+        producerSequenceNumber = 0;
+        selectedSeal = null;
+        var broad = writeCompletionSeals.Where(seal =>
+            authorizationFailure == "BIRTH_MISSING" &&
+            pid is 0 or 4 &&
+            eventName is "write" or "setinfo" &&
+            fileObject != 0 &&
+            activePhase?.Phase == "voice" &&
+            ReferenceEquals(activePhase, seal.Phase) &&
+            (normalized == seal.CurrentPath || normalized == seal.ParentPath))
+            .ToArray();
+        if (broad.Length == 0) return false;
+        foreach (var seal in broad.Where(item => item.State is
+            WriteCompletionDrainState.Prepared or
+            WriteCompletionDrainState.CompletionRequested))
+            EnsureWriteCompletionDeadlineLocked(seal, Stopwatch.GetTimestamp());
+        var epoch = broad.Where(seal =>
+            seal.CompletionRequestedAtQpc is null
+                ? eventQpc > seal.CurrentPathReservedAtQpc
+                : WriteCompletionDrainRules.IsWithinEpoch(
+                    seal.CurrentPathReservedAtQpc,
+                    seal.CompletionRequestedAtQpc.Value,
+                    eventQpc))
+            .ToArray();
+        FileSnapshot? current;
+        try { current = TryInspect(normalized); }
+        catch (GuardException)
+        {
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+        }
+        if (epoch.Length == 0)
+        {
+            var late = broad.Any(seal =>
+                seal.CompletionRequestedAtQpc is long upper &&
+                eventQpc > upper &&
+                current?.Identity == (normalized == seal.CurrentPath
+                    ? seal.CurrentIdentity : seal.DirectoryIdentity) &&
+                WriteCompletionDrainRules.FileObjectCompatible(
+                    normalized == seal.ParentPath,
+                    fileObject,
+                    seal.LeaseFileObject,
+                    filesByObject.ContainsKey(fileObject)));
+            throw new GuardException(WriteCompletionDrainRules.LookupFailure(
+                broad.Length, epoch.Length, 0, late)!);
+        }
+        var exact = epoch.Where(seal =>
+            current?.Identity == (normalized == seal.CurrentPath
+                ? seal.CurrentIdentity : seal.DirectoryIdentity) &&
+            WriteCompletionDrainRules.FileObjectCompatible(
+                normalized == seal.ParentPath,
+                fileObject,
+                seal.LeaseFileObject,
+                filesByObject.ContainsKey(fileObject)))
+            .ToArray();
+        var lookupFailure = WriteCompletionDrainRules.LookupFailure(
+            broad.Length, epoch.Length, exact.Length, false);
+        if (lookupFailure is not null) throw new GuardException(lookupFailure);
+        selectedSeal = exact[0];
+        producerPid = selectedSeal.ProducerPid;
+        producerSequenceNumber = selectedSeal.ProcessSequenceNumber;
+        return true;
     }
 
     private void ObserveProcessIdentityProbeLocked(int pid, ulong processStartKey)
@@ -3550,7 +4259,10 @@ sealed class CapacityGuardSession : IDisposable
             },
         };
 
-    private void CompleteDeferredRename(DeferredRenameRecord deferred, NoticeRecord notice)
+    private void CompleteDeferredRename(
+        DeferredRenameRecord deferred,
+        NoticeRecord notice,
+        long? observedFreeBytes = null)
     {
         if (notice.EventName != "rename" ||
             notice.From != deferred.Source.RelativePath ||
@@ -3564,11 +4276,11 @@ sealed class CapacityGuardSession : IDisposable
             throw new GuardException("ETW_RENAME_IDENTITY_MISMATCH");
 
         var oldAllocated = allocatedByIdentity.GetValueOrDefault(deferred.Source.Identity);
-        allocatedByIdentity[target.Identity] = target.AllocatedLengthBytes;
         var delta = checked(target.AllocatedLengthBytes - oldAllocated);
-        var live = CurrentLiveBytes();
+        var live = checked(CurrentLiveBytes() - oldAllocated + target.AllocatedLengthBytes);
+        var free = observedFreeBytes ?? ReadFreeBytes(root);
+        allocatedByIdentity[target.Identity] = target.AllocatedLengthBytes;
         peakLiveBytes = Math.Max(peakLiveBytes, live);
-        var free = ReadFreeBytes(root);
         minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
         foreach (var objectId in filesByObject
             .Where(pair => pair.Value.Identity == deferred.Source.Identity)
@@ -4529,7 +5241,16 @@ sealed class CapacityGuardSession : IDisposable
         try { pipeTask.Wait(TimeSpan.FromSeconds(5)); } catch { }
         etwSource.Dispose();
         etwSession.Dispose();
-        pendingWriteLease?.Process.Dispose();
+        callbackAdmission.Dispose();
+        var retainedProcesses = new List<Process>();
+        foreach (var seal in writeCompletionSeals)
+            if (!retainedProcesses.Any(item =>
+                ReferenceEquals(item, seal.Lease.Process)))
+                retainedProcesses.Add(seal.Lease.Process);
+        foreach (var retained in retainedProcesses) retained.Dispose();
+        if (pendingWriteLease is { } pending &&
+            !retainedProcesses.Any(item => ReferenceEquals(item, pending.Process)))
+            pending.Process.Dispose();
         foreach (var worker in registeredWorkerProcesses.Values) worker.Process.Dispose();
         rootWorkerProcess?.Dispose();
         job.Dispose();
@@ -4751,6 +5472,73 @@ sealed class CapacityGuardSession : IDisposable
         int ProducerPid,
         ulong ProcessStartKey,
         ulong ProducerSequenceNumber);
+
+    private enum WriteCompletionDrainState
+    {
+        Prepared,
+        CompletionRequested,
+        CompletedRetained,
+        Released,
+    }
+
+    private sealed class WriteCompletionDrainSeal(
+        long sealSequence,
+        ActivePhase phase,
+        PendingWriteLease lease,
+        string currentPath,
+        string parentPath,
+        string currentIdentity,
+        string directoryIdentity,
+        ulong leaseFileObject,
+        int producerPid,
+        ulong processStartKey,
+        ulong processSequenceNumber,
+        long currentPathReservedAtQpc,
+        long preparedAtQpc,
+        long preparedDeadlineQpc,
+        long relevantEventCountAtPrepare)
+    {
+        public long SealSequence { get; } = sealSequence;
+        public ActivePhase Phase { get; } = phase;
+        public PendingWriteLease Lease { get; } = lease;
+        public string CurrentPath { get; } = currentPath;
+        public string ParentPath { get; } = parentPath;
+        public string CurrentIdentity { get; } = currentIdentity;
+        public string DirectoryIdentity { get; } = directoryIdentity;
+        public ulong LeaseFileObject { get; } = leaseFileObject;
+        public int ProducerPid { get; } = producerPid;
+        public ulong ProcessStartKey { get; } = processStartKey;
+        public ulong ProcessSequenceNumber { get; } = processSequenceNumber;
+        public long CurrentPathReservedAtQpc { get; } = currentPathReservedAtQpc;
+        public long PreparedAtQpc { get; } = preparedAtQpc;
+        public long PreparedDeadlineQpc { get; } = preparedDeadlineQpc;
+        public long RelevantEventCountAtPrepare { get; } = relevantEventCountAtPrepare;
+        public WriteCompletionDrainState State { get; set; } =
+            WriteCompletionDrainState.Prepared;
+        public long? CompletionRequestedAtQpc { get; set; }
+        public long? DrainDeadlineQpc { get; set; }
+        public int EventCount { get; set; }
+    }
+
+    private sealed record PendingCallbackSnapshot(
+        string EventName,
+        string NormalizedPath,
+        ulong FileObject,
+        long TimestampQpc,
+        long EtwSequence,
+        string ObservedAt,
+        int ProducerPid,
+        ulong ProducerSequenceNumber,
+        ActivePhase Phase,
+        FileSnapshot? Current,
+        FileSnapshot Effective,
+        long FreeBytesAvailable,
+        long FreeBytesTotal,
+        PendingWriteLease? CreateLeaseToBind,
+        AfterLeaseDirectoryRejoinContext? AfterLeaseDirectoryRejoin,
+        BoundLeaseDirectoryRejoinContext? BoundLeaseDirectoryRejoin,
+        long? SealSequence,
+        DeferredRenameRecord? DeferredRename);
 
     private sealed class PendingWriteLease(
         int workerPid,
@@ -5752,6 +6540,228 @@ public static class SystemUnboundWriteDiagnosticRules
         };
     }
 }
+
+public sealed class WriteCompletionCallbackAdmission : IDisposable
+{
+    private readonly ReaderWriterLockSlim admission =
+        new(LockRecursionPolicy.NoRecursion);
+    private int disposed;
+
+    public int ActiveCallbackCount => admission.CurrentReadCount;
+    public int WaitingFinalCount => admission.WaitingWriteCount;
+    public bool IsFinalHeld => admission.IsWriteLockHeld;
+
+    public IDisposable EnterCallback() => Enter(
+        admission.EnterReadLock,
+        admission.ExitReadLock);
+
+    public IDisposable EnterFinal() => Enter(
+        admission.EnterWriteLock,
+        admission.ExitWriteLock);
+
+    private IDisposable Enter(Action enter, Action exit)
+    {
+        ObjectDisposedException.ThrowIf(
+            Volatile.Read(ref disposed) != 0,
+            this);
+        enter();
+        if (Volatile.Read(ref disposed) == 0)
+            return new AdmissionLease(exit);
+        exit();
+        throw new ObjectDisposedException(nameof(WriteCompletionCallbackAdmission));
+    }
+
+    public void Dispose()
+    {
+        if (Interlocked.Exchange(ref disposed, 1) != 0) return;
+        admission.EnterWriteLock();
+        admission.ExitWriteLock();
+        admission.Dispose();
+    }
+
+    private sealed class AdmissionLease(Action exit) : IDisposable
+    {
+        private Action? release = exit;
+
+        public void Dispose() => Interlocked.Exchange(ref release, null)?.Invoke();
+    }
+}
+
+public static class WriteCompletionDrainRules
+{
+    // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    public static bool PrepareTupleMatches(params bool[] predicates) =>
+        predicates.Length > 0 && predicates.All(value => value);
+
+    public static bool CanTransition(string from, string to) =>
+        (from, to) is
+            ("prepared", "completion-requested") or
+            ("completion-requested", "completed-retained") or
+            ("completed-retained", "released");
+
+    public static bool IsWithinEpoch(long reservation, long completion, long eventQpc) =>
+        reservation < eventQpc && eventQpc <= completion;
+
+    public static bool IsDeadlineValid(long now, long deadline) => now <= deadline;
+
+    public static bool IsBufferWithinLimit(
+        int sealCount, int sealEventCount, int phaseEventCount) =>
+        sealCount <= 128 && sealEventCount <= 64 && phaseEventCount <= 8_192;
+
+    public static bool FileObjectCompatible(
+        bool parentPath,
+        ulong eventFileObject,
+        ulong leaseFileObject,
+        bool eventFileObjectBound) =>
+        eventFileObject == leaseFileObject ||
+        parentPath && eventFileObject != 0 && !eventFileObjectBound;
+
+    public static bool CountersStable(
+        long expectedRelevant,
+        long expectedAccounted,
+        long currentRelevant,
+        long currentAccounted) =>
+        expectedRelevant == expectedAccounted &&
+        currentRelevant == expectedRelevant &&
+        currentAccounted == expectedAccounted;
+
+    public static bool CanMutateFinalState(
+        bool exclusiveAdmissionHeld,
+        int activeCallbackReaders,
+        bool queueEmpty,
+        bool countersStable) =>
+        exclusiveAdmissionHeld &&
+        activeCallbackReaders == 0 &&
+        queueEmpty &&
+        countersStable;
+
+    public static string QueueDecision(
+        bool reorderActive,
+        bool sealedCandidate,
+        int queuedCount,
+        int maximumQueued)
+    {
+        if (!reorderActive && !sealedCandidate) return "APPLY";
+        return queuedCount < maximumQueued ? "QUEUE" : "BUFFER_LIMIT";
+    }
+
+    public static int AccountedDelta(string terminal) => terminal switch {
+        "NORMAL" or
+        "DEFER_OR_REORDER" or
+        "FIXED_REFUSAL" or
+        "PROCESS_IDENTITY_PROBE" or
+        "CLOSED_OR_POISONED" => 1,
+        _ => 0,
+    };
+
+    public static string? ApplicationFailure(
+        bool identityRecheckSucceeded,
+        bool capacityApplySucceeded,
+        bool retainedHandleAvailable)
+    {
+        if (!identityRecheckSucceeded)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED";
+        if (!capacityApplySucceeded)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_FAILED";
+        if (!retainedHandleAvailable)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED";
+        return null;
+    }
+
+    public static DrainReplayFixtureResult ReplayFixture(
+        IEnumerable<(long Sequence, long AllocatedBytes)> snapshots)
+    {
+        long allocated = 0;
+        long peak = 0;
+        var order = new List<long>();
+        foreach (var snapshot in snapshots.OrderBy(item => item.Sequence))
+        {
+            allocated = snapshot.AllocatedBytes;
+            peak = Math.Max(peak, allocated);
+            order.Add(snapshot.Sequence);
+        }
+        return new DrainReplayFixtureResult(order.ToArray(), allocated, peak);
+    }
+
+    public static string? LookupFailure(
+        int broadCandidates,
+        int epochCandidates,
+        int exactCandidates,
+        bool exactLateTuple)
+    {
+        if (broadCandidates == 0) return null;
+        if (epochCandidates == 0)
+            return exactLateTuple
+                ? "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL"
+                : "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
+        if (exactCandidates != 1)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
+        return null;
+    }
+
+    public static string ProcessFailureCode(string code, bool recheck) =>
+        (code, recheck) switch {
+            ("PROCESS_WAIT_FAILED", false) =>
+                "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_WAIT_FAILED",
+            ("JOB_QUERY_FAILED", false) =>
+                "F005_ETW_WRITE_COMPLETION_DRAIN_JOB_QUERY_FAILED",
+            (_, false) =>
+                "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_IDENTITY_FAILED",
+            ("PROCESS_WAIT_FAILED", true) =>
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_WAIT_FAILED",
+            (_, true) =>
+                "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED",
+        };
+
+    public static string? ProcessRejection(
+        bool tupleMatches, bool signaled, bool jobMember, bool recheck)
+    {
+        if (!tupleMatches)
+            return recheck
+                ? "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH"
+                : "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_TUPLE_MISMATCH";
+        if (recheck && !signaled)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED";
+        if (!recheck && signaled)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_SIGNALED";
+        if (!recheck && !jobMember)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_OUTSIDE_JOB";
+        return null;
+    }
+
+    public static string? RecheckFailure(
+        bool stateMatches,
+        bool directoryMatches,
+        bool currentMatches,
+        bool bindingMatches,
+        bool processIdentityAvailable,
+        bool processWaitAvailable,
+        bool processTupleMatches,
+        bool processSignaled)
+    {
+        if (!stateMatches) return "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED";
+        if (!directoryMatches)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_DIRECTORY_IDENTITY_MISMATCH";
+        if (!currentMatches)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_CURRENT_IDENTITY_MISMATCH";
+        if (!bindingMatches)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCH";
+        if (!processIdentityAvailable)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED";
+        if (!processWaitAvailable)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_WAIT_FAILED";
+        if (!processTupleMatches)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH";
+        if (!processSignaled)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED";
+        return null;
+    }
+}
+
+public sealed record DrainReplayFixtureResult(
+    IReadOnlyList<long> ObservationOrder,
+    long FinalAllocatedBytes,
+    long PeakAllocatedBytes);
 
 public static class SystemDirectoryWriteRejoinDiagnosticRules
 {

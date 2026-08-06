@@ -944,6 +944,58 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
+    for (const stage of [
+      'PREPARE_TUPLE_MISMATCH',
+      'PROCESS_IDENTITY_FAILED',
+      'PROCESS_WAIT_FAILED',
+      'JOB_QUERY_FAILED',
+      'PROCESS_TUPLE_MISMATCH',
+      'PROCESS_SIGNALED',
+      'PROCESS_OUTSIDE_JOB',
+      'EVENT_TUPLE_MISMATCH',
+      'EVENT_IDENTITY_FAILED',
+      'BUFFER_LIMIT',
+      'FAILED',
+      'TIMEOUT',
+      'STATE_CHANGED',
+      'DIRECTORY_IDENTITY_MISMATCH',
+      'CURRENT_IDENTITY_MISMATCH',
+      'BINDING_MISMATCH',
+      'RECHECK_PROCESS_IDENTITY_FAILED',
+      'RECHECK_PROCESS_WAIT_FAILED',
+      'RECHECK_PROCESS_TUPLE_MISMATCH',
+      'RECHECK_PROCESS_NOT_SIGNALED',
+      'LATE_EVENT_AFTER_SEAL',
+    ] as const) {
+      const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
+      const failure = new F005NativeCapacityError(code, 'fixed drain stage');
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code },
+      });
+    }
+    for (const code of [
+      'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
+    ]) {
+      const failure = Object.assign(new Error('generic'), {
+        name: 'F005NativeCapacityError',
+        code,
+      });
+      const serialized = formatF005RunnerFailure(
+        new Error('voice boundary', { cause: failure }),
+      );
+      expect(JSON.parse(
+        serialized.slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code: null },
+      });
+      expect(serialized).not.toContain(code);
+    }
   });
 
   it.each([

@@ -2276,4 +2276,4 @@ tasks:
   mode: advisor
   mode_reason: hosted ETW配送raceを認可拡張ではなくwrite completionの明示状態とsealed event-time tupleで決定化するため
   model: {lead: opus, workers: sonnet}
-  progress: Q-036回答と影響抽出を反映。計画レビューのMedium 3+3を是正し最終High/Medium/Low 0でPASS、実装へ移行
+  progress: completion drain決定化を実装。独立受入H2/M4→H1/M1を是正し最終H0/M0/L1でコードPASS、native421・関連124・再現build2回PASS。hosted確認待ち

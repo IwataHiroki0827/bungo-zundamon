@@ -838,13 +838,251 @@ var replayed = ReplayInEtwOrder(
     .ToArray();
 Check("保留eventをETW順に再投入", replayed.SequenceEqual(["first", "second"]));
 
+var prepareTuple = Enumerable.Repeat(true, 12).ToArray();
+Check("completion drain prepare完全tuple", WriteCompletionDrainRules.PrepareTupleMatches(prepareTuple));
+for (var index = 0; index < prepareTuple.Length; index++)
+{
+    var oneFalse = prepareTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain prepare tuple {index} false拒否",
+        !WriteCompletionDrainRules.PrepareTupleMatches(oneFalse));
+}
+foreach (var (from, to) in new[] {
+    ("prepared", "completion-requested"),
+    ("completion-requested", "completed-retained"),
+    ("completed-retained", "released"),
+})
+    Check($"completion drain正規遷移 {from}->{to}",
+        WriteCompletionDrainRules.CanTransition(from, to));
+foreach (var (from, to) in new[] {
+    ("prepared", "prepared"),
+    ("prepared", "completed-retained"),
+    ("completion-requested", "released"),
+    ("completed-retained", "completion-requested"),
+    ("released", "prepared"),
+})
+    Check($"completion drain不正遷移 {from}->{to}拒否",
+        !WriteCompletionDrainRules.CanTransition(from, to));
+Check("completion drain lower同値拒否", !WriteCompletionDrainRules.IsWithinEpoch(100, 110, 100));
+Check("completion drain lower+1許可", WriteCompletionDrainRules.IsWithinEpoch(100, 110, 101));
+Check("completion drain upper同値許可", WriteCompletionDrainRules.IsWithinEpoch(100, 110, 110));
+Check("completion drain upper+1拒否", !WriteCompletionDrainRules.IsWithinEpoch(100, 110, 111));
+Check("completion drain deadline同値許可", WriteCompletionDrainRules.IsDeadlineValid(110, 110));
+Check("completion drain deadline+1拒否", !WriteCompletionDrainRules.IsDeadlineValid(111, 110));
+Check("completion drain全上限同値許可", WriteCompletionDrainRules.IsBufferWithinLimit(128, 64, 8192));
+Check("completion drain seal 129拒否", !WriteCompletionDrainRules.IsBufferWithinLimit(129, 64, 8192));
+Check("completion drain seal event 65拒否", !WriteCompletionDrainRules.IsBufferWithinLimit(128, 65, 8192));
+Check("completion drain phase event 8193拒否", !WriteCompletionDrainRules.IsBufferWithinLimit(128, 64, 8193));
+Check("completion drain counter stable", WriteCompletionDrainRules.CountersStable(10, 10, 10, 10));
+Check("completion drain relevant/accounted差拒否", !WriteCompletionDrainRules.CountersStable(10, 9, 10, 9));
+Check("completion drain relevant後発拒否", !WriteCompletionDrainRules.CountersStable(10, 10, 11, 10));
+Check("completion drain accounted後発拒否", !WriteCompletionDrainRules.CountersStable(10, 10, 10, 11));
+Check("completion drain broad 0は既存分類", WriteCompletionDrainRules.LookupFailure(0, 0, 0, false) is null);
+Check("completion drain epoch 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 0, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+Check("completion drain exact late", WriteCompletionDrainRules.LookupFailure(1, 0, 0, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL");
+Check("completion drain exact 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 1, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+Check("completion drain exact 1許可", WriteCompletionDrainRules.LookupFailure(1, 1, 1, false) is null);
+Check("completion drain exact 2 mismatch", WriteCompletionDrainRules.LookupFailure(2, 2, 2, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+Check("completion drain同一parent 2 sealからepoch 1を一意選択",
+    WriteCompletionDrainRules.LookupFailure(2, 1, 1, false) is null);
+Check("completion drain同一parent 2 sealでepoch 0を拒否",
+    WriteCompletionDrainRules.LookupFailure(2, 0, 0, false) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+Check("completion drain初回identity code", WriteCompletionDrainRules.ProcessFailureCode("IDENTITY", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_IDENTITY_FAILED");
+Check("completion drain初回wait code", WriteCompletionDrainRules.ProcessFailureCode("PROCESS_WAIT_FAILED", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_WAIT_FAILED");
+Check("completion drain初回job code", WriteCompletionDrainRules.ProcessFailureCode("JOB_QUERY_FAILED", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_JOB_QUERY_FAILED");
+Check("completion drain初回tuple code", WriteCompletionDrainRules.ProcessRejection(false, false, true, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_TUPLE_MISMATCH");
+Check("completion drain初回signaled code", WriteCompletionDrainRules.ProcessRejection(true, true, true, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_SIGNALED");
+Check("completion drain初回outside code", WriteCompletionDrainRules.ProcessRejection(true, false, false, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_OUTSIDE_JOB");
+Check("completion drain再検査identity code", WriteCompletionDrainRules.ProcessFailureCode("IDENTITY", true) == "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED");
+Check("completion drain再検査wait code", WriteCompletionDrainRules.ProcessFailureCode("PROCESS_WAIT_FAILED", true) == "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_WAIT_FAILED");
+Check("completion drain再検査tuple code", WriteCompletionDrainRules.ProcessRejection(false, true, true, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH");
+Check("completion drain再検査not-signaled code", WriteCompletionDrainRules.ProcessRejection(true, false, true, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED");
+var recheckTuple = Enumerable.Repeat(true, 8).ToArray();
+Check("completion drain再照合all true", DrainRecheck(recheckTuple) is null);
+var recheckCodes = new[] {
+    "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_DIRECTORY_IDENTITY_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_CURRENT_IDENTITY_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_WAIT_FAILED",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED",
+};
+for (var index = 0; index < recheckTuple.Length; index++)
+{
+    var oneFalse = recheckTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain再照合 {index} exact code",
+        DrainRecheck(oneFalse) == recheckCodes[index]);
+}
+Check("completion drain parent owner missing拒否",
+    !WriteCompletionDrainRules.PrepareTupleMatches(true, false, true));
+Check("completion drain parent owner identity mismatch拒否",
+    !WriteCompletionDrainRules.PrepareTupleMatches(true, true, false, true));
+Check("completion drain root inactive拒否",
+    !WriteCompletionDrainRules.PrepareTupleMatches(true, true, false));
+Check("completion drain直列2 seal許可",
+    WriteCompletionDrainRules.IsBufferWithinLimit(2, 64, 128));
+Check("completion drain lease FileObject互換",
+    WriteCompletionDrainRules.FileObjectCompatible(false, 31, 31, true));
+Check("completion drain parent未結合FileObject互換",
+    WriteCompletionDrainRules.FileObjectCompatible(true, 41, 31, false));
+Check("completion drain parent zero FileObject拒否",
+    !WriteCompletionDrainRules.FileObjectCompatible(true, 0, 31, false));
+Check("completion drain parent結合済み別FileObject拒否",
+    !WriteCompletionDrainRules.FileObjectCompatible(true, 41, 31, true));
+Check("completion drain別path別FileObject拒否",
+    !WriteCompletionDrainRules.FileObjectCompatible(false, 41, 31, false));
+Check("completion drain inactive通常eventを即時適用",
+    WriteCompletionDrainRules.QueueDecision(false, false, 0, 8192) == "APPLY");
+Check("completion drain retained単独lateを即時適用",
+    WriteCompletionDrainRules.QueueDecision(false, false, 0, 8192) == "APPLY");
+Check("completion drain sealed eventをqueue",
+    WriteCompletionDrainRules.QueueDecision(false, true, 0, 8192) == "QUEUE");
+Check("completion drain active後通常eventをqueue",
+    WriteCompletionDrainRules.QueueDecision(true, false, 1, 8192) == "QUEUE");
+Check("completion drain queue上限拒否",
+    WriteCompletionDrainRules.QueueDecision(true, false, 8192, 8192) == "BUFFER_LIMIT");
+Check("completion drain排他admission後だけfinal mutation許可",
+    WriteCompletionDrainRules.CanMutateFinalState(true, 0, true, true));
+Check("completion drain active callback中final mutation拒否",
+    !WriteCompletionDrainRules.CanMutateFinalState(true, 1, true, true));
+Check("completion drain callback entry競合中final mutation拒否",
+    !WriteCompletionDrainRules.CanMutateFinalState(false, 0, true, true));
+Check("completion drain queue残存final mutation拒否",
+    !WriteCompletionDrainRules.CanMutateFinalState(true, 0, false, true));
+Check("completion drain counter不安定final mutation拒否",
+    !WriteCompletionDrainRules.CanMutateFinalState(true, 0, true, false));
+var unstableFinalState = "completion-requested";
+if (WriteCompletionDrainRules.CanMutateFinalState(true, 0, true, false))
+    unstableFinalState = "completed-retained";
+Check("completion drain counter不安定時state mutationなし",
+    unstableFinalState == "completion-requested");
+foreach (var terminal in new[] {
+    "NORMAL",
+    "DEFER_OR_REORDER",
+    "FIXED_REFUSAL",
+    "PROCESS_IDENTITY_PROBE",
+    "CLOSED_OR_POISONED",
+})
+    Check($"completion drain {terminal} terminal exactly once",
+        WriteCompletionDrainRules.AccountedDelta(terminal) == 1);
+Check("completion drain unknown terminal未accounted",
+    WriteCompletionDrainRules.AccountedDelta("PRIVATE") == 0);
+Check("completion drain replay identity failure",
+    WriteCompletionDrainRules.ApplicationFailure(false, true, true) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+Check("completion drain replay capacity failure",
+    WriteCompletionDrainRules.ApplicationFailure(true, false, true) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
+Check("completion drain replay retained handle failure",
+    WriteCompletionDrainRules.ApplicationFailure(true, true, false) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_IDENTITY_FAILED");
+Check("completion drain replay apply all true",
+    WriteCompletionDrainRules.ApplicationFailure(true, true, true) is null);
+var replayBaseline = WriteCompletionDrainRules.ReplayFixture(new[] {
+    (Sequence: 1L, AllocatedBytes: 10L),
+    (Sequence: 2L, AllocatedBytes: 30L),
+    (Sequence: 3L, AllocatedBytes: 20L),
+});
+Check("completion drain replay capacity/Observation baseline",
+    replayBaseline.ObservationOrder.SequenceEqual([1L, 2L, 3L]) &&
+    replayBaseline.FinalAllocatedBytes == 20 &&
+    replayBaseline.PeakAllocatedBytes == 30);
+foreach (var (name, fixture) in new[] {
+    ("prepare前", new[] { (3L, 20L), (1L, 10L), (2L, 30L) }),
+    ("prepare直後", new[] { (2L, 30L), (3L, 20L), (1L, 10L) }),
+    ("commit中", new[] { (2L, 30L), (1L, 10L), (3L, 20L) }),
+    ("helper exit直後", new[] { (3L, 20L), (2L, 30L), (1L, 10L) }),
+    ("complete drain中", new[] { (1L, 10L), (3L, 20L), (2L, 30L) }),
+    ("complete後", new[] { (3L, 20L), (1L, 10L), (2L, 30L) }),
+    ("phase end直前", new[] { (1L, 10L), (2L, 30L), (3L, 20L) }),
+})
+{
+    var replay = WriteCompletionDrainRules.ReplayFixture(
+        fixture.Select(item => (
+            Sequence: item.Item1,
+            AllocatedBytes: item.Item2)));
+    Check($"completion drain callback順 {name}を同一replay",
+        replay == replayBaseline ||
+        replay.ObservationOrder.SequenceEqual(replayBaseline.ObservationOrder) &&
+        replay.FinalAllocatedBytes == replayBaseline.FinalAllocatedBytes &&
+        replay.PeakAllocatedBytes == replayBaseline.PeakAllocatedBytes);
+}
+
+using (var admission = new WriteCompletionCallbackAdmission())
+using (var firstCallbackEntered = new ManualResetEventSlim(false))
+using (var releaseFirstCallback = new ManualResetEventSlim(false))
+using (var finalAttempted = new ManualResetEventSlim(false))
+using (var finalEntered = new ManualResetEventSlim(false))
+using (var releaseFinal = new ManualResetEventSlim(false))
+using (var secondCallbackAttempted = new ManualResetEventSlim(false))
+using (var secondCallbackEntered = new ManualResetEventSlim(false))
+{
+    var accounted = 0;
+    var finalMutationAllowed = false;
+    var firstCallback = Task.Run(() => {
+        using (admission.EnterCallback())
+        {
+            firstCallbackEntered.Set();
+            releaseFirstCallback.Wait(TimeSpan.FromSeconds(5));
+            Interlocked.Increment(ref accounted);
+        }
+    });
+    Check("completion admission active callback fixture開始",
+        firstCallbackEntered.Wait(TimeSpan.FromSeconds(5)));
+    var final = Task.Run(() => {
+        finalAttempted.Set();
+        using (admission.EnterFinal())
+        {
+            finalMutationAllowed = WriteCompletionDrainRules.CanMutateFinalState(
+                admission.IsFinalHeld,
+                admission.ActiveCallbackCount,
+                queueEmpty: true,
+                countersStable: Volatile.Read(ref accounted) == 1);
+            finalEntered.Set();
+            releaseFinal.Wait(TimeSpan.FromSeconds(5));
+        }
+    });
+    finalAttempted.Wait(TimeSpan.FromSeconds(5));
+    SpinWait.SpinUntil(
+        () => admission.WaitingFinalCount == 1,
+        TimeSpan.FromSeconds(5));
+    Check("completion admission active callback中final取得不可",
+        !finalEntered.IsSet && admission.WaitingFinalCount == 1);
+    var secondCallback = Task.Run(() => {
+        secondCallbackAttempted.Set();
+        using (admission.EnterCallback())
+        {
+            secondCallbackEntered.Set();
+            Interlocked.Increment(ref accounted);
+        }
+    });
+    secondCallbackAttempted.Wait(TimeSpan.FromSeconds(5));
+    Check("completion admission writer待機後new callback取得不可",
+        !secondCallbackEntered.Wait(TimeSpan.FromMilliseconds(100)));
+    releaseFirstCallback.Set();
+    var finalAcquired = finalEntered.Wait(TimeSpan.FromSeconds(5));
+    Check("completion admission callback解放後final mutation許可",
+        finalAcquired && finalMutationAllowed &&
+        Volatile.Read(ref accounted) == 1 &&
+        !secondCallbackEntered.IsSet);
+    releaseFinal.Set();
+    var secondAcquired = secondCallbackEntered.Wait(TimeSpan.FromSeconds(5));
+    Task.WaitAll([firstCallback, final, secondCallback], TimeSpan.FromSeconds(5));
+    Check("completion admission final解放後callback/accounted進行",
+        secondAcquired && Volatile.Read(ref accounted) == 2);
+}
+
 if (failures.Count != 0)
 {
     Console.Error.WriteLine($"System SetInfo correlation tests failed: {string.Join(", ", failures)}");
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (316 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (421 cases)");
 return 0;
 
 bool BoundLeaseCheap(
@@ -881,6 +1119,10 @@ bool BoundLeaseInitialTuple(bool[] inputs) =>
 string? BoundLeaseTupleRecheck(bool[] inputs) =>
     SystemDirectoryBoundLeaseRejoinAuthorizationRules.TupleRecheckFailure(
         inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5]);
+
+string? DrainRecheck(bool[] inputs) => WriteCompletionDrainRules.RecheckFailure(
+    inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5],
+    inputs[6], inputs[7]);
 
 bool DeferredTuple(
     int deferredWorkerPid = 4,

@@ -125,7 +125,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('Stopwatch.GetTimestamp()');
     expect(program).toContain('timestampQpc <= activePhase.StartedAtQpc');
     expect(program).toContain('PoisonLocked("ETW_EVENT_PHASE_TIMESTAMP_MISMATCH")');
-    expect(program).toContain('throw new GuardException("ETW_CONSUMER_DRAIN_TIMEOUT")');
+    expect(program).toContain(
+      'throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT")',
+    );
   });
 
   it('Job所属はProcessSequenceNumberとQPC境界で同一process世代だけを認可する', async () => {
@@ -788,12 +790,15 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       .toBeLessThan(observeEtw.indexOf(
         'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
       ));
-    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryTupleLocked('))
-      .toBeLessThan(observeEtw.indexOf('filesByObject[fileObject] = current'));
-    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryProcessLocked('))
-      .toBeGreaterThan(observeEtw.indexOf('var sequence = checked(++etwSequence)'));
-    expect(observeEtw.indexOf('RecheckBoundLeaseDirectoryProcessLocked('))
-      .toBeLessThan(observeEtw.indexOf('var observation = new ObservationRecord('));
+    expect(observeEtw).toContain('var sequence = checked(++etwSequence)');
+    const callbackApply = program.slice(
+      program.indexOf('private void ApplyCallbackSnapshotLocked('),
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+    );
+    expect(callbackApply.indexOf('RecheckBoundLeaseDirectoryTupleLocked('))
+      .toBeLessThan(callbackApply.indexOf('filesByObject[snapshot.FileObject]'));
+    expect(callbackApply.indexOf('RecheckBoundLeaseDirectoryProcessLocked('))
+      .toBeLessThan(callbackApply.indexOf('var observation = new ObservationRecord('));
 
     const authorization = program.slice(
       program.indexOf('private bool TryAuthorizeBoundLeaseDirectoryWriteLocked('),
@@ -950,6 +955,177 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(constructor).toContain('initialPipe.Dispose()');
     expect(program).toContain('Poison("IPC_PEER_IDENTITY_UNAVAILABLE");\n                        return;');
     expect(program).toContain('while (true)');
+  });
+
+  it('write completionをprivate sealed epochでprepareしてexactly-once drainする', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const bridge = await readFile(resolve('src/content/f005-native-guard.ts'), 'utf8');
+    const commit = bridge.slice(
+      bridge.indexOf('commit: async (): Promise<void> =>'),
+      bridge.indexOf('abort: async (): Promise<void> =>'),
+    );
+    for (const token of [
+      "op: 'prepareWriteCompletion'",
+      "op: 'write-commit'",
+      'await writer.close()',
+      "op: 'completeWrite'",
+    ]) expect(commit).toContain(token);
+    expect(commit.indexOf("op: 'prepareWriteCompletion'"))
+      .toBeLessThan(commit.indexOf("op: 'write-commit'"));
+    expect(commit.indexOf("op: 'write-commit'"))
+      .toBeLessThan(commit.indexOf('await writer.close()'));
+    expect(commit.indexOf('await writer.close()'))
+      .toBeLessThan(commit.indexOf("op: 'completeWrite'"));
+    expect(commit).toContain("'ok,sealSequence,state'");
+
+    const dispatch = program.slice(
+      program.indexOf('private object DispatchPipe('),
+      program.indexOf('private void Authenticate('),
+    );
+    expect(dispatch).toContain('case "prepareWriteCompletion":');
+    expect(dispatch).toContain(
+      '"authToken", "op", "path", "phase", "phaseInstanceId", "producerPid", "sessionNonce", "workId"',
+    );
+    const prepare = program.slice(
+      program.indexOf('private object PrepareWriteCompletion('),
+      program.indexOf('private WriteCompletionDrainSeal RequestWriteCompletionLocked('),
+    );
+    expect(prepare).toContain('state = "completion-drain-prepared"');
+    expect(prepare).toContain('sealSequence = seal.SealSequence');
+    expect(prepare).toContain('MaxWriteCompletionSeals');
+    expect(prepare).toContain('job.InspectRetainedProcess(lease.Process)');
+    expect(prepare).toContain('item.EventName == "create"');
+    expect(prepare).toContain('item.WorkerPid == rootWorkerPid');
+    expect(prepare).toContain(
+      'item.ProducerSequenceNumber == rootWorkerSequenceNumber',
+    );
+    expect(prepare).toContain('job.InspectRetainedProcess(rootWorkerProcess)');
+    expect(program).toContain('MaxWriteCompletionEventsPerSeal = 64');
+    expect(program).toContain('MaxWriteCompletionEventsPerPhase = 8_192');
+    expect(program).toContain('finally\n        {\n            if (relevantCallback)');
+    expect(program).toContain('Interlocked.Add(\n                    ref etwAccountedEventCount,');
+    expect(program).toContain('WriteCompletionDrainRules.AccountedDelta(terminal)');
+    expect(program).toContain('WriteCompletionDrainRules.CountersStable(');
+    expect(program).toContain('long expectedRelevant,');
+    expect(program).toContain('long expectedAccounted)');
+    expect(program).toContain('WriteCompletionDrainState.CompletedRetained');
+    expect(program).toContain('WriteCompletionDrainState.Released');
+    const queueOrApply = program.slice(
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+      program.indexOf('private void ApplyCallbackSnapshotLocked('),
+    );
+    expect(queueOrApply).toContain('activeSealedCandidate');
+    expect(queueOrApply).toContain('WriteCompletionDrainState.Prepared');
+    expect(queueOrApply).toContain('WriteCompletionDrainState.CompletionRequested');
+    for (const forbidden of [
+      'filesByObject[',
+      'filesByPath[',
+      'allocatedByIdentity[',
+      'peakLiveBytes =',
+      'minimumObservedFreeBytes =',
+      'pending.Match(',
+      'observations.Add(',
+    ]) expect(queueOrApply).not.toContain(forbidden);
+    const apply = program.slice(
+      program.indexOf('private void ApplyCallbackSnapshotLocked('),
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+    );
+    expect(apply.indexOf('TryInspect(snapshot.NormalizedPath)'))
+      .toBeLessThan(apply.indexOf('allocatedByIdentity['));
+    expect(apply.indexOf('live = checked('))
+      .toBeLessThan(apply.indexOf('filesByObject['));
+    expect(apply.indexOf('allocatedByIdentity['))
+      .toBeLessThan(apply.indexOf('new ObservationRecord('));
+    expect(apply.indexOf('new ObservationRecord('))
+      .toBeLessThan(apply.indexOf('observations.Add(observation)'));
+    const complete = program.slice(
+      program.indexOf('private object? CompleteWrite('),
+      program.indexOf('private bool ReplayWriteCompletionQueueLocked('),
+    );
+    expect(complete.indexOf('FindCompletionSealLocked('))
+      .toBeLessThan(complete.indexOf('TryInspect(seal.ParentPath)'));
+    expect(complete.indexOf('FindCompletionSealLocked('))
+      .toBeLessThan(complete.indexOf('WriteCompletionDrainRules.CountersStable('));
+    expect(complete).not.toContain('ValidateWriteLeaseTuple(');
+    expect(complete).toContain('if (ReplayWriteCompletionQueueLocked()) return null;');
+    expect(complete.indexOf('WriteCompletionDrainRules.CanMutateFinalState('))
+      .toBeLessThan(complete.indexOf('completedWrites[path] ='));
+    expect(complete.indexOf('WriteCompletionDrainRules.CanMutateFinalState('))
+      .toBeLessThan(complete.indexOf('TransitionWriteCompletionSealLocked('));
+    expect(complete.indexOf('WriteCompletionDrainRules.CanMutateFinalState('))
+      .toBeLessThan(complete.indexOf('pendingWriteLease = null'));
+    expect(program).toContain('if (completed is not null) return completed;');
+    const completeDrain = program.slice(
+      program.indexOf('private object CompleteWriteAfterEtwDrain('),
+      program.indexOf('private object PrepareWriteCompletion('),
+    );
+    expect(completeDrain.indexOf('using (callbackAdmission.EnterFinal())'))
+      .toBeLessThan(completeDrain.indexOf('lock (gate)', completeDrain.indexOf('using (callbackAdmission.EnterFinal())')));
+    const endPhase = program.slice(
+      program.indexOf('private object? EndPhase('),
+      program.indexOf('private object EndPhaseAfterEtwDrain('),
+    );
+    expect(endPhase.indexOf('WriteCompletionDrainRules.CanMutateFinalState('))
+      .toBeLessThan(endPhase.indexOf('TransitionWriteCompletionSealLocked('));
+    expect(endPhase.indexOf('WriteCompletionDrainRules.CanMutateFinalState('))
+      .toBeLessThan(endPhase.indexOf('activePhase = null'));
+    const observeAdmission = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+    );
+    expect(observeAdmission.indexOf('callbackAdmission.EnterCallback()'))
+      .toBeLessThan(observeAdmission.indexOf('NormalizeObservedPath(eventPath)'));
+    expect(observeAdmission.indexOf('Interlocked.Add('))
+      .toBeLessThan(observeAdmission.indexOf('callbackAdmissionLease?.Dispose()'));
+    const admission = program.slice(
+      program.indexOf('public sealed class WriteCompletionCallbackAdmission'),
+      program.indexOf('public static class WriteCompletionDrainRules'),
+    );
+    expect(admission).toContain('ReaderWriterLockSlim');
+    expect(admission).toContain('public IDisposable EnterCallback()');
+    expect(admission).toContain('public IDisposable EnterFinal()');
+    expect(program).toContain('callbackAdmission.Dispose();');
+    const sealedRecheck = program.slice(
+      program.indexOf('private void RecheckSealedCallbackLocked('),
+      program.indexOf('private void ApplyRenameSnapshotLocked('),
+    );
+    for (const required of [
+      'item.SealSequence == snapshot.SealSequence',
+      'WriteCompletionDrainRules.IsWithinEpoch(',
+      'WriteCompletionDrainRules.FileObjectCompatible(',
+      'job.InspectRetainedProcess(seal.Lease.Process)',
+      'inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber',
+      '!inspection.Signaled',
+    ]) expect(sealedRecheck).toContain(required);
+    expect(program).toContain('callbackTerminal = QueueOrApplyCallbackLocked(\n                        renameSnapshot');
+    const prepareCompletion = program.slice(
+      program.indexOf('private object PrepareWriteCompletion('),
+      program.indexOf('private WriteCompletionDrainSeal RequestWriteCompletionLocked('),
+    );
+    expect(prepareCompletion).toContain('item.VolumeId == directorySnapshot?.VolumeId');
+    expect(prepareCompletion).toContain('item.FileId128 == directorySnapshot?.FileId128');
+    const endPhaseDrain = program.slice(
+      program.indexOf('private object EndPhaseAfterEtwDrain('),
+      program.indexOf('private void ObserveEtw('),
+    );
+    expect(endPhaseDrain.match(/EnsureActiveWriteCompletionDeadlineLocked\(/g)?.length ?? 0)
+      .toBeGreaterThanOrEqual(3);
+    const lateLookup = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private bool TryAuthorizeReservedSystemSetInfoLocked('),
+    );
+    expect(lateLookup).toContain(
+      'WriteCompletionDrainRules.FileObjectCompatible(',
+    );
+    const dispose = program.slice(
+      program.indexOf('public void Dispose()', program.indexOf('sealed class CapacityGuardSession')),
+      program.indexOf('private static object Error(', program.indexOf('sealed class CapacityGuardSession')),
+    );
+    expect(dispose).toContain('writeCompletionSeals');
+    expect(dispose).toContain('ReferenceEquals(item, seal.Lease.Process)');
+    expect(dispose).toContain('retained.Dispose()');
+    expect(program).not.toContain('CreateWriteCompletionSealForTest');
+    expect(program).not.toContain('InjectWriteCompletionEvent');
   });
 
   it('PID再利用raceでは新旧どちらのFileIOも別世代へ取り違えない', () => {
