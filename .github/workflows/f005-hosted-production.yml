@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; write completion uses a bounded event-time sealed drain.
+# Native tooling stays outside; CHG-F005-037 uses a bounded event-time sealed drain.
 on:
   push:
     branches:
