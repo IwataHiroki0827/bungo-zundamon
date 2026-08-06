@@ -708,3 +708,10 @@ entries:
   agents: 3
   est_tokens: 14000
   note: 既存exact CANDIDATEだけをlease保存producerへ限定再結合。QPC三者境界、rename二値null、初回/直前process inspection、same-lock再照合、exact19 codeを固定。初回独立受入Medium2件をTOCTOU純粋規則の実行試験とCHG証跡同期で是正し、native316件、関連Vitest123件、型・ESLint・同一SHA再現build2回、独立再受入High/Medium/Low 0、public/data差分0をPASS。run 31042915405は3 attemptとも前段安全停止でhosted対象へ未到達しQ-036へエスカレーション
+- date: '2026-08-07'
+  phase: change
+  task: T-111 CHG-F005-037 write completion drainのevent-time sealed tuple決定化
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: Q-036回答を受け、callback時のmutable lease状態依存を非重複QPC epoch、phase-wide reorder、exactly-once accounted、QPC deadline状態機械、3段seal lookupへ置換する設計を作成。計画レビューMedium3+3を是正し最終High/Medium/Low 0、trace_check、YAML、diff checkをPASS。実装・影響試験・hosted確認までin-reviewを維持

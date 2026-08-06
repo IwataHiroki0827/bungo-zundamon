@@ -2259,11 +2259,21 @@ tasks:
   title: CHG-F005-036 bound lease directory CANDIDATEの完全tuple限定再結合
   feature: F005
   phase: test
-  state: blocked
-  blocked_by: [Q-036]
+  state: doing
   depends: [T-108]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: 既存bound lease directory CANDIDATE完全tupleだけをlease worker世代へ限定再結合するため
   model: {lead: opus, workers: sonnet}
-  progress: exact CANDIDATE限定再結合を実装しlocal受入PASS。run 31042915405を3 attempt実行したが前段のLEASE_CLOSED・LEASE_MISSING・LEASE_BINDING_MISMATCHで安全停止しhosted対象経路へ未到達
+  progress: exact CANDIDATE限定再結合を実装しlocal受入PASS。Q-036回答によりunblockし、CHG-F005-037のcompletion drain決定化後にhosted確認を再開
+- id: T-111
+  title: CHG-F005-037 write completion drainのevent-time sealed tuple決定化
+  feature: F005
+  phase: test
+  state: doing
+  depends: [T-110]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008]
+  mode: advisor
+  mode_reason: hosted ETW配送raceを認可拡張ではなくwrite completionの明示状態とsealed event-time tupleで決定化するため
+  model: {lead: opus, workers: sonnet}
+  progress: Q-036回答と影響抽出を反映。計画レビューのMedium 3+3を是正し最終High/Medium/Low 0でPASS、実装へ移行

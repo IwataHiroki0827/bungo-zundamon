@@ -1,10 +1,10 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-06T05:29:00+09:00
+updated: 2026-08-07T01:35:00+09:00
 next_actions:
-  - "Q-036でhosted raceの決定的再現方法を設計するか一時停止する"
-blocked_by: [Q-035, Q-036]
+  - "レビューPASS済みのCHG-F005-037に従いwrite completion drainを実装する"
+blocked_by: [Q-035]
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
@@ -49,6 +49,8 @@ blocked_by: [Q-035, Q-036]
 - CHG-F005-036/T-110は初回計画レビューHigh 0 / Medium 3 / Low 0を受け、process直前再inspection、exact 19 code、QPC三者境界、rename二値null、false-one-by-oneを追記した。再レビューHigh/Medium/Low 0でPASSし、commit `bbec929`へ再開点を固定して実装を開始した。
 - CHG-F005-036/T-110で既存bound lease directory `CANDIDATE`だけを完全tupleで限定再結合した。初回独立受入High 0 / Medium 2 / Low 0のTOCTOU実行試験・CHG証跡不足を是正し、native 316件、関連Vitest 123件、型、ESLint、同一SHA再現build 2回、独立再受入High/Medium/Low 0、`public/`・`data/`差分0をPASSした。Program SHAは`db8e06e9...b3d0c`、binary SHAは`4cb77da0...c791d7`、75,056,988 bytesである。
 - commit `e4fb086`のrun `31042915405`はattempt 1で既知`LEASE_CLOSED`、attempt 2で既知`LEASE_MISSING`、attempt 3で既知`LEASE_BINDING_MISMATCH`へ安全停止し、T-110対象へ未到達だった。retry_limit 3に達したためT-110をQ-036で`blocked`とした。native probeはPASS、全attemptでcandidate保存なし、Pages deployはskipである。
+- Q-036は「CHG-F005-037でhosted raceの決定的再現方法を設計」で回答済みとして閉じた。T-110をunblockし、callback到着時のmutable lease状態ではなくwrite completion準備時のsealed tupleとevent QPCで遅延eventを決定的に分類・drainするCHG-F005-037/T-111を開始した。
+- CHG-F005-037計画レビューのMedium 3+3を反映し、最大128非重複seal、phase-wide ETW順replay、exactly-once accounted、QPC deadline状態機械、3段seal lookup、private IPC exact keysを確定した。最終再レビューHigh/Medium/Low 0、trace_check、YAML、diff checkをPASSし実装へ移行する。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -90,19 +92,19 @@ blocked_by: [Q-035, Q-036]
 
 ## 直近の作業（最新5件）
 
+- Q-036回答を反映しCHG-F005-037/T-111の変更管理を開始
 - run 31042915405を3 attempt実行し前段固定分岐で安全停止、Q-036へ記録
 - T-110/CHG-F005-036の限定再結合を実装し独立再受入PASS
 - CHG-F005-036の計画再レビューPASS、commit bbec929へ再開点を固定
 - run 31038467173を3 attempt実行し前段固定分岐で安全停止、Q-035へ記録
-- T-109/CHG-F005-035でLEASE_UNBOUNDをexact 14 stageへ分離し独立受入PASS
 
 ## 次のアクション
 
-- Q-036でhosted raceを決定的に再現する設計変更へ進むか、T-110のhosted確認を一時停止するか決定する。
-- 推測で認可範囲を広げず、CHG-F005-036のlocal受入済み実装と固定pinを保持する。
+- CHG-F005-037のwrite completion準備、sealed event-time tuple、bounded queue/drain/replayをnative/TypeScriptへ実装する。
+- FUN-F005-017/FUN-F005-047とUT-F005-017/UT-F005-047/IT-F005-005/QT-F005-008を同期し、ローカル受入後にhosted確認を再開する。
 
 ## 未解決事項
 
 - C:空きは実preflight後28,600,225,792 bytes（26.64 GiB）で5 GiB停止基準を上回る。音声生成直前にもrunner内で再計測する。
 - T-109はlocal受入PASS済みだがhosted影響経路へ3 attemptで未到達のためQ-035でblocked。T-070 production runnerの前段bound lease directory `CANDIDATE`をCHG-F005-036で限定再結合し、T-109 hosted確認を再開する。
-- T-110もlocal受入PASS済みだがhosted対象へ3 attemptで未到達のためQ-036でblocked。runごとに前段stageが変わるhosted raceを決定的に再現する方法の承認待ちである。
+- T-110はlocal受入PASS済みだがhosted対象へ3 attemptで未到達。Q-036回答済みのCHG-F005-037でwrite completionのevent-time状態を固定してからhosted確認を再開する。
