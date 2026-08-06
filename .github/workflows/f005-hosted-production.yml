@@ -1,6 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; CHG-F005-037 uses a bounded event-time sealed drain.
+# This self-path update refreshes hosted verification after GitHub Actions incident recovery.
 on:
   push:
     branches:
