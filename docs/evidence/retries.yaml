@@ -657,3 +657,13 @@ attempts:
   cause: none
   recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-040-result.md
+- date: '2026-08-08T03:10:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-040-hosted
+  attempt: 1
+  command: GitHub Actions run 31205281066 at commit c58792691b422dd4682d1fe04b2bc1cb50a35691
+  result: fail
+  failures: 1
+  cause: completed-retained seal current pathのexact FileObject generationに対するSystem SetInfoがcompletion drain先行拒否で停止し、既存completed-write認可へ未到達
+  recovery: CHG-F005-041/T-115で単一SETINFO_CURRENT_PATHとrecord/seal不変tuple一致時だけ、既存completed-write認可へ専用handoffする
+  log: docs/evidence/qt/QT-F005-008-009-CHG-040-hosted-attempt-1.md
