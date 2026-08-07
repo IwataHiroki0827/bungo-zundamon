@@ -887,3 +887,33 @@ attempts:
   cause: none
   recovery: ACTIVE_LEASE_MISSINGを次の変更管理入力としてT-120を完了する
   log: docs/evidence/qt/QT-F005-008-009-CHG-046-hosted.md
+- date: '2026-08-08T09:15:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-047-local
+  attempt: 1
+  command: native 743件、関連5 files、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: fail
+  failures: 1
+  cause: queue drift fixtureがtest-local模擬でproduction実queue/ledger/Dispose経路を使用していなかった
+  recovery: bounded WriteCompletionReplayStoreをproduction正本へ接続し、同じstoreと実ledgerの実Task fixtureへ置換する
+  log: docs/evidence/it/IT-F005-005-CHG-047-result.md
+- date: '2026-08-08T09:31:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-047-local
+  attempt: 2
+  command: native 747件、関連5 files / 132件、typecheck、ESLint、trace_check、再現build2回、独立再受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一Program pinのhosted影響試験を実施する
+  log: docs/evidence/it/IT-F005-005-CHG-047-result.md
+- date: '2026-08-08T09:47:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-047-hosted
+  attempt: 1
+  command: GitHub Actions native run 31228015740 / production run 31228038981
+  result: pass
+  failures: 0
+  cause: none
+  recovery: EVENT_TUPLE_MISMATCHを次の変更管理入力としてT-121を完了する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-047-hosted.md
