@@ -881,38 +881,84 @@ Check("completion drain broad 0は既存分類", WriteCompletionDrainRules.Looku
 Check("completion drain epoch 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 0, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
 Check("completion drain exact late", WriteCompletionDrainRules.LookupFailure(1, 0, 0, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL");
 var exactLateTuple = new[] { true, true, true, true, true, true };
-Check("completion drain retained parent post-reservation write exact code",
-    WriteCompletionDrainRules.LateEventFailureCode(
-        "write",
-        exactLateTuple[0],
-        exactLateTuple[1],
-        exactLateTuple[2],
-        exactLateTuple[3],
-        exactLateTuple[4],
-        exactLateTuple[5]) ==
-    WriteCompletionDrainRules.LateRetainedParentWriteFailureCode);
-Check("completion drain retained parent post-reservation setinfo exact code",
-    WriteCompletionDrainRules.LateEventFailureCode(
-        "setinfo", true, true, true, true, true, true) ==
-    WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode);
+LateEventDiagnosticCandidate LateCandidate(bool[] tuple) => new(
+    tuple[0], tuple[1], tuple[2], tuple[3], tuple[4], tuple[5]);
+var exactLateCandidate = LateCandidate(exactLateTuple);
+var exactLateCodes = new Dictionary<string, string>(StringComparer.Ordinal) {
+    ["write"] = WriteCompletionDrainRules.LateRetainedParentWriteFailureCode,
+    ["setinfo"] = WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode,
+};
+var mismatchAxes = new[] {
+    (Index: 0, Suffix: "SEAL_NOT_COMPLETED_RETAINED"),
+    (Index: 1, Suffix: "CURRENT_PATH"),
+    (Index: 2, Suffix: "ACTIVE_LEASE_MISSING"),
+    (Index: 4, Suffix: "ACTIVE_PARENT_MISMATCH"),
+    (Index: 5, Suffix: "AT_OR_BEFORE_ACTIVE_RESERVATION"),
+};
+foreach (var eventName in exactLateCodes.Keys)
+{
+    Check($"completion drain {eventName} retained parent全条件一致code",
+        WriteCompletionDrainRules.LateEventFailureCode(
+            eventName, true, true, true, true, true, true) ==
+        exactLateCodes[eventName]);
+    foreach (var axis in mismatchAxes)
+    {
+        var oneFalse = exactLateTuple.ToArray();
+        oneFalse[axis.Index] = false;
+        Check($"completion drain {eventName}最初不一致{axis.Suffix}",
+            WriteCompletionDrainRules.LateEventFailureCode(
+                eventName,
+                oneFalse[0], oneFalse[1], oneFalse[2],
+                oneFalse[3], oneFalse[4], oneFalse[5]) ==
+            $"F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_{eventName.ToUpperInvariant()}_{axis.Suffix}");
+    }
+    var currentPathTuple = exactLateTuple.ToArray();
+    currentPathTuple[1] = false;
+    var activeMissingTuple = exactLateTuple.ToArray();
+    activeMissingTuple[2] = false;
+    var sameBucket = new[] { LateCandidate(currentPathTuple), LateCandidate(currentPathTuple) };
+    var mixedBuckets = new[] { LateCandidate(currentPathTuple), LateCandidate(activeMissingTuple) };
+    var mixedCode = eventName == "write"
+        ? WriteCompletionDrainRules.LateDiagnosticWriteMixedCausesFailureCode
+        : WriteCompletionDrainRules.LateDiagnosticSetInfoMixedCausesFailureCode;
+    Check($"completion drain {eventName}同一bucket複数は同一code",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(eventName, sameBucket) ==
+        $"F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_{eventName.ToUpperInvariant()}_CURRENT_PATH");
+    Check($"completion drain {eventName}異種bucket複数はmixed",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(eventName, mixedBuckets) == mixedCode);
+    Check($"completion drain {eventName}候補順反転は同一mixed",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(
+            eventName, mixedBuckets.Reverse()) == mixedCode);
+    Check($"completion drain {eventName}完全一致とmismatch混在は完全一致優先",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(
+            eventName, [LateCandidate(currentPathTuple), exactLateCandidate]) ==
+        exactLateCodes[eventName]);
+    var sameLeaseTuple = exactLateTuple.ToArray();
+    sameLeaseTuple[3] = false;
+    Check($"completion drain {eventName}same lease不変条件違反はgeneric LATE",
+        WriteCompletionDrainRules.LateEventFailureCode(
+            eventName, true, true, true, false, true, true) ==
+        WriteCompletionDrainRules.GenericLateEventFailureCode);
+    Check($"completion drain {eventName}generic混在はfail-close",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(
+            eventName, [LateCandidate(currentPathTuple), LateCandidate(sameLeaseTuple)]) ==
+        WriteCompletionDrainRules.GenericLateEventFailureCode);
+    Check($"completion drain {eventName}完全一致はgeneric異常入力より優先",
+        WriteCompletionDrainRules.AggregateLateEventFailureCode(
+            eventName, [LateCandidate(sameLeaseTuple), exactLateCandidate]) ==
+        exactLateCodes[eventName]);
+}
+Check("completion drain late候補0件集約はgeneric LATE",
+    WriteCompletionDrainRules.AggregateLateEventFailureCode(
+        "write", Array.Empty<LateEventDiagnosticCandidate>()) ==
+    WriteCompletionDrainRules.GenericLateEventFailureCode);
+Check("completion drain unknown event集約はgeneric LATE",
+    WriteCompletionDrainRules.AggregateLateEventFailureCode(
+        "delete", [exactLateCandidate]) ==
+    WriteCompletionDrainRules.GenericLateEventFailureCode);
 Check("completion drain retained parent 2 codeは100/102文字",
     WriteCompletionDrainRules.LateRetainedParentWriteFailureCode.Length == 100 &&
     WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode.Length == 102);
-for (var index = 0; index < exactLateTuple.Length; index++)
-{
-    var oneFalse = exactLateTuple.ToArray();
-    oneFalse[index] = false;
-    Check($"completion drain retained parent軸{index} falseはgeneric LATE",
-        WriteCompletionDrainRules.LateEventFailureCode(
-            "write",
-            oneFalse[0],
-            oneFalse[1],
-            oneFalse[2],
-            oneFalse[3],
-            oneFalse[4],
-            oneFalse[5]) ==
-        WriteCompletionDrainRules.GenericLateEventFailureCode);
-}
 Check("completion drain retained parent想定外eventはgeneric LATE",
     WriteCompletionDrainRules.LateEventFailureCode(
         "delete", true, true, true, true, true, true) ==
@@ -928,17 +974,23 @@ _ = WriteCompletionDrainRules.LateEventFailureCode(
     exactLateTuple[5]);
 Check("completion drain pure late ruleは入力state無変更",
     exactLateTuple.SequenceEqual(exactLateBefore));
-Check("completion drain external code集合はexact 23",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 23 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 23 &&
+Check("completion drain external code集合はexact 35",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 35 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 35 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
-Check("completion drain external exact 23 codeはnative replyで不変",
+Check("completion drain追加code最長は81文字",
+    WriteCompletionDrainRules.ExternalFailureCodes
+        .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
+        .Max(code => code.Length) == 81);
+Check("completion drain external exact 35 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 foreach (var code in new[] {
     "F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT".PadRight(128, 'X'),
 })
     Check("completion drain unknown/extra/exact128はnative generic化",
@@ -1488,7 +1540,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (470 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (493 cases)");
 return 0;
 
 bool BoundLeaseCheap(

@@ -3990,21 +3990,17 @@ sealed class CapacityGuardSession : IDisposable
                 var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
                 var sameParent = slash > 0 &&
                     activeLease!.RelativePath[..slash] == normalized;
-                failure = lateCandidates
-                    .Select(seal => WriteCompletionDrainRules
-                        .LateEventFailureCode(
-                            eventName,
-                            seal.State == WriteCompletionDrainState.CompletedRetained,
-                            normalized == seal.ParentPath,
-                            activeLease is not null,
-                            activeLease is not null &&
-                                !ReferenceEquals(activeLease, seal.Lease),
-                            sameParent,
-                            activeLease is not null &&
-                                eventQpc > activeLease.CurrentPathReservedAtQpc))
-                    .FirstOrDefault(code => code !=
-                        WriteCompletionDrainRules.GenericLateEventFailureCode)
-                    ?? failure;
+                failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(
+                    eventName,
+                    lateCandidates.Select(seal => new LateEventDiagnosticCandidate(
+                        seal.State == WriteCompletionDrainState.CompletedRetained,
+                        normalized == seal.ParentPath,
+                        activeLease is not null,
+                        activeLease is not null &&
+                            !ReferenceEquals(activeLease, seal.Lease),
+                        sameParent,
+                        activeLease is not null &&
+                            eventQpc > activeLease.CurrentPathReservedAtQpc)));
             }
             throw new GuardException(failure);
         }
@@ -7877,6 +7873,14 @@ public sealed class WriteCompletionBindingLedger
     }
 }
 
+public readonly record struct LateEventDiagnosticCandidate(
+    bool CompletedRetained,
+    bool ParentPath,
+    bool ActiveLeasePresent,
+    bool OtherActiveLease,
+    bool SameParent,
+    bool PostReservation);
+
 public static class WriteCompletionDrainRules
 {
     public const string GenericLateEventFailureCode =
@@ -7886,6 +7890,12 @@ public static class WriteCompletionDrainRules
     public const string LateRetainedParentSetInfoFailureCode =
         "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_SETINFO";
     private const string FailurePrefix = "F005_ETW_WRITE_COMPLETION_DRAIN_";
+    private const string LateDiagnosticPrefix =
+        "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_";
+    public const string LateDiagnosticWriteMixedCausesFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_MIXED_CAUSES";
+    public const string LateDiagnosticSetInfoMixedCausesFailureCode =
+        $"{LateDiagnosticPrefix}SETINFO_MIXED_CAUSES";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -7910,6 +7920,18 @@ public static class WriteCompletionDrainRules
         GenericLateEventFailureCode,
         LateRetainedParentWriteFailureCode,
         LateRetainedParentSetInfoFailureCode,
+        $"{LateDiagnosticPrefix}WRITE_SEAL_NOT_COMPLETED_RETAINED",
+        $"{LateDiagnosticPrefix}WRITE_CURRENT_PATH",
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_LEASE_MISSING",
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PARENT_MISMATCH",
+        $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION",
+        LateDiagnosticWriteMixedCausesFailureCode,
+        $"{LateDiagnosticPrefix}SETINFO_SEAL_NOT_COMPLETED_RETAINED",
+        $"{LateDiagnosticPrefix}SETINFO_CURRENT_PATH",
+        $"{LateDiagnosticPrefix}SETINFO_ACTIVE_LEASE_MISSING",
+        $"{LateDiagnosticPrefix}SETINFO_ACTIVE_PARENT_MISMATCH",
+        $"{LateDiagnosticPrefix}SETINFO_AT_OR_BEFORE_ACTIVE_RESERVATION",
+        LateDiagnosticSetInfoMixedCausesFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -8041,18 +8063,67 @@ public static class WriteCompletionDrainRules
         bool sameParent,
         bool postReservation)
     {
-        if (!completedRetained || !parentPath || !activeLeasePresent ||
-            !otherActiveLease || !sameParent || !postReservation)
-            return GenericLateEventFailureCode;
-        return eventName switch {
+        var eventKind = eventName switch {
+            "write" => "WRITE",
+            "setinfo" => "SETINFO",
+            _ => null,
+        };
+        if (eventKind is null) return GenericLateEventFailureCode;
+        if (!completedRetained)
+            return $"{LateDiagnosticPrefix}{eventKind}_SEAL_NOT_COMPLETED_RETAINED";
+        if (!parentPath)
+            return $"{LateDiagnosticPrefix}{eventKind}_CURRENT_PATH";
+        if (!activeLeasePresent)
+            return $"{LateDiagnosticPrefix}{eventKind}_ACTIVE_LEASE_MISSING";
+        // CompletedRetained遷移はactive leaseをnull化し、次予約はnew objectを作る。
+        // 先行3軸成立後のsame lease入力はproduction不変条件違反として閉じる。
+        if (!otherActiveLease) return GenericLateEventFailureCode;
+        if (!sameParent)
+            return $"{LateDiagnosticPrefix}{eventKind}_ACTIVE_PARENT_MISMATCH";
+        if (!postReservation)
+            return $"{LateDiagnosticPrefix}{eventKind}_AT_OR_BEFORE_ACTIVE_RESERVATION";
+        return eventName == "write"
+            ? LateRetainedParentWriteFailureCode
+            : LateRetainedParentSetInfoFailureCode;
+    }
+
+    /// <summary>
+    /// exact late候補を完全一致優先、generic混在fail-close、distinct原因で決定的集約する。
+    /// </summary>
+    public static string AggregateLateEventFailureCode(
+        string eventName,
+        IEnumerable<LateEventDiagnosticCandidate> candidates)
+    {
+        var classified = candidates.Select(candidate => LateEventFailureCode(
+            eventName,
+            candidate.CompletedRetained,
+            candidate.ParentPath,
+            candidate.ActiveLeasePresent,
+            candidate.OtherActiveLease,
+            candidate.SameParent,
+            candidate.PostReservation)).ToArray();
+        var exactCode = eventName switch {
             "write" => LateRetainedParentWriteFailureCode,
             "setinfo" => LateRetainedParentSetInfoFailureCode,
+            _ => GenericLateEventFailureCode,
+        };
+        if (exactCode != GenericLateEventFailureCode &&
+            classified.Contains(exactCode, StringComparer.Ordinal))
+            return exactCode;
+        if (classified.Length == 0 || classified.Contains(
+                GenericLateEventFailureCode, StringComparer.Ordinal))
+            return GenericLateEventFailureCode;
+        var distinct = classified.Distinct(StringComparer.Ordinal).ToArray();
+        if (distinct.Length == 1) return distinct[0];
+        return eventName switch {
+            "write" => LateDiagnosticWriteMixedCausesFailureCode,
+            "setinfo" => LateDiagnosticSetInfoMixedCausesFailureCode,
             _ => GenericLateEventFailureCode,
         };
     }
 
     /// <summary>
-    /// write completion drainのnative replyを固定23 codeへ閉じる。
+    /// write completion drainのnative replyを固定35 codeへ閉じる。
     /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-047
     /// </summary>
     public static string NormalizeExternalFailureCode(string code) =>

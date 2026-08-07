@@ -637,3 +637,23 @@ attempts:
   cause: late candidateは存在するが、CompletedRetained parent・別active lease・same parent・現在予約QPC後の複合条件に一致する候補がなくgeneric LATEで停止
   recovery: CHG-F005-040/T-114で認可非変更のevent kind別最初不一致軸とMIXED_CAUSESを固定診断する
   log: docs/evidence/qt/QT-F005-008-009-CHG-039-hosted-attempt-1.md
+- date: '2026-08-08T02:50:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-040-local
+  attempt: 1
+  command: 関連4 filesのVitest初回
+  result: fail
+  failures: 2
+  cause: native harnessの旧件数470期待と、Program変更前のbuild-evidence/binary pin不一致。機能・構造assert失敗なし
+  recovery: 新規則23ケースを含む493件へ期待を同期し、再現buildでevidence/binary/source pinを更新
+  log: docs/evidence/it/IT-F005-005-CHG-040-result.md
+- date: '2026-08-08T02:53:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-040-local
+  attempt: 2
+  command: native rulesと関連4 files / 57件のVitest再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-040-result.md

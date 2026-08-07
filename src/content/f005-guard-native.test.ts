@@ -1235,7 +1235,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(lateBlock).toContain('var lateCandidates = broad.Where(');
     expect(lateBlock).toContain('ProofCandidate(seal)).ToArray()');
-    expect(lateBlock).toContain('WriteCompletionDrainRules\n                        .LateEventFailureCode(');
+    expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');
+    expect(lateBlock).toContain('lateCandidates.Select(seal => new LateEventDiagnosticCandidate(');
     expect(lateBlock).toContain('seal.State == WriteCompletionDrainState.CompletedRetained');
     expect(lateBlock).toContain('normalized == seal.ParentPath');
     expect(lateBlock).toContain('!ReferenceEquals(activeLease, seal.Lease)');
@@ -1269,10 +1270,41 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('public static string LateEventFailureCode('),
       program.indexOf('public static string NormalizeExternalFailureCode('),
     );
-    expect(pureRule).toContain('if (!completedRetained || !parentPath || !activeLeasePresent ||');
-    expect(pureRule).toContain('"write" => LateRetainedParentWriteFailureCode');
-    expect(pureRule).toContain('"setinfo" => LateRetainedParentSetInfoFailureCode');
+    for (const suffix of [
+      'SEAL_NOT_COMPLETED_RETAINED',
+      'CURRENT_PATH',
+      'ACTIVE_LEASE_MISSING',
+      'ACTIVE_PARENT_MISMATCH',
+      'AT_OR_BEFORE_ACTIVE_RESERVATION',
+    ]) expect(pureRule).toContain(suffix);
+    expect(pureRule).toContain('if (!otherActiveLease) return GenericLateEventFailureCode');
+    expect(pureRule).toContain('classified.Contains(exactCode, StringComparer.Ordinal)');
+    expect(pureRule).toContain('classified.Contains(\n                GenericLateEventFailureCode');
+    expect(pureRule).toContain('classified.Distinct(StringComparer.Ordinal)');
+    expect(pureRule).toContain('LateDiagnosticWriteMixedCausesFailureCode');
+    expect(pureRule).toContain('LateDiagnosticSetInfoMixedCausesFailureCode');
     expect(pureRule).not.toMatch(/(?:pendingWriteLease|writeCompletion|filesBy|notices|observations)\s*[.=]/u);
+
+    const completeWrite = program.slice(
+      program.indexOf('private object? CompleteWrite('),
+      program.indexOf('private bool ReplayWriteCompletionQueueLocked('),
+    );
+    expect(completeWrite).toContain(
+      'WriteCompletionDrainState.CompletionRequested,\n' +
+      '            WriteCompletionDrainState.CompletedRetained);\n' +
+      '        pendingWriteLease = null;',
+    );
+    const completeWriteAfterDrain = program.slice(
+      program.indexOf('private object CompleteWriteAfterEtwDrain('),
+      program.indexOf('private object? CompleteWrite('),
+    );
+    expect(completeWriteAfterDrain.indexOf('lock (gate)'))
+      .toBeLessThan(completeWriteAfterDrain.indexOf('var completed = CompleteWrite('));
+    const reserveWrite = program.slice(
+      program.indexOf('private object ReserveWrite('),
+      program.indexOf('private object PrepareWriteRename('),
+    );
+    expect(reserveWrite).toContain('pendingWriteLease = new PendingWriteLease(');
 
     const observe = program.slice(
       program.indexOf('private void ObserveEtw('),

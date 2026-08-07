@@ -947,7 +947,7 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(23);
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(35);
     for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
       const failure = new F005NativeCapacityError(code, 'fixed drain stage');
@@ -962,6 +962,8 @@ describe('F005 production work runner', () => {
     for (const code of [
       'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) {
       const failure = Object.assign(new Error('generic'), {

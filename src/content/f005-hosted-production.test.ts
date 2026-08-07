@@ -67,12 +67,14 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(23);
+    expect(drainCodes).toHaveLength(35);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     for (const code of [
       'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
     expect(job.if).toContain("github.ref == 'refs/heads/feature/F005'");
