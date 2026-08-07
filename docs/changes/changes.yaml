@@ -1,4 +1,10 @@
 changes:
+- id: CHG-F005-043
+  date: '2026-08-08'
+  trigger: Actions run 31211412904がT-116通過後にlate parent writeのWRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONを固定
+  level: design
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-116, T-117]
+  status: in-review
 - id: CHG-F005-042
   date: '2026-08-08'
   trigger: Actions run 31208447007がT-115 handoff通過後にexact late SETINFO_SEAL_NOT_COMPLETED_RETAINEDを固定
