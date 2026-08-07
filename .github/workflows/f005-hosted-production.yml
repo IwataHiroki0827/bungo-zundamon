@@ -23,6 +23,8 @@ jobs:
     timeout-minutes: 90
     permissions:
       contents: write
+    env:
+      F005_WRITE_COMPLETION_DRAIN_FAILURE_PATTERN: '^F005_ETW_WRITE_COMPLETION_DRAIN_(?:PREPARE_TUPLE_MISMATCH|PROCESS_(?:IDENTITY_FAILED|WAIT_FAILED|TUPLE_MISMATCH|SIGNALED|OUTSIDE_JOB)|JOB_QUERY_FAILED|EVENT_(?:TUPLE_MISMATCH|IDENTITY_FAILED)|BUFFER_LIMIT|FAILED|TIMEOUT|STATE_CHANGED|DIRECTORY_IDENTITY_MISMATCH|CURRENT_IDENTITY_MISMATCH|BINDING_MISMATCH|RECHECK_PROCESS_(?:IDENTITY_FAILED|WAIT_FAILED|TUPLE_MISMATCH|NOT_SIGNALED)|LATE_EVENT_AFTER_SEAL|LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_(?:WRITE|SETINFO))$'
     steps:
       - name: Checkout exact candidate
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
@@ -267,6 +269,20 @@ jobs:
             [string] $Stderr,
             [string] $DiagnosticPath
           ) {
+            function Test-SafeFailureCode([object] $Value) {
+              if ($Value -isnot [string] -or
+                $Value -notmatch '^[A-Z][A-Z0-9_]{0,127}$') {
+                return $false
+              }
+              if ($Value.StartsWith(
+                'F005_ETW_WRITE_COMPLETION_DRAIN_',
+                [StringComparison]::Ordinal
+              )) {
+                return $Value -cmatch `
+                  $env:F005_WRITE_COMPLETION_DRAIN_FAILURE_PATTERN
+              }
+              return $true
+            }
             $lines = @($Stderr -split '\r?\n')
             $summary = @(
               $lines |
@@ -300,13 +316,13 @@ jobs:
                 if ($failure.name -match '^[A-Za-z][A-Za-z0-9]{0,63}$') {
                   $summary += "failureName=$($failure.name)"
                 }
-                if ($failure.code -match '^[A-Z][A-Z0-9_]{0,127}$') {
+                if (Test-SafeFailureCode $failure.code) {
                   $summary += "failureCode=$($failure.code)"
                 }
                 if ($failure.cause.name -match '^[A-Za-z][A-Za-z0-9]{0,63}$') {
                   $summary += "causeName=$($failure.cause.name)"
                 }
-                if ($failure.cause.code -match '^[A-Z][A-Z0-9_]{0,127}$') {
+                if (Test-SafeFailureCode $failure.cause.code) {
                   $summary += "causeCode=$($failure.cause.code)"
                 }
               } catch {
@@ -492,6 +508,19 @@ jobs:
           )
           if ($diagnostic -notmatch "^$token(?: $token)*$") {
             $diagnostic = 'fixedDiagnostic=unavailable'
+          }
+          foreach ($item in @($diagnostic -split ' ')) {
+            if ($item -match '^(?:failureCode|causeCode)=(.+)$') {
+              $code = $Matches[1]
+              if ($code.StartsWith(
+                  'F005_ETW_WRITE_COMPLETION_DRAIN_',
+                  [StringComparison]::Ordinal
+                ) -and $code -cnotmatch `
+                  $env:F005_WRITE_COMPLETION_DRAIN_FAILURE_PATTERN) {
+                $diagnostic = 'fixedDiagnostic=unavailable'
+                break
+              }
+            }
           }
           $annotation = $diagnostic.Replace('%', '%25').
             Replace("`r", '%0D').Replace("`n", '%0A')

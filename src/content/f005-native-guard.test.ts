@@ -11,6 +11,7 @@ import { canonicalJson } from './artifacts.ts';
 import {
   classifyF005NativeCapacityReplyError,
   classifyF005NativeWriteThroughReplyError,
+  F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
   isF005AfterLeaseReservationDirectoryRejoinFailureCode,
@@ -177,34 +178,19 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(classifyF005NativeCapacityReplyError(
     `${otherKnownPath.slice(5)}_PRIVATE`,
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
-  for (const stage of [
-    'PREPARE_TUPLE_MISMATCH',
-    'PROCESS_IDENTITY_FAILED',
-    'PROCESS_WAIT_FAILED',
-    'JOB_QUERY_FAILED',
-    'PROCESS_TUPLE_MISMATCH',
-    'PROCESS_SIGNALED',
-    'PROCESS_OUTSIDE_JOB',
-    'EVENT_TUPLE_MISMATCH',
-    'EVENT_IDENTITY_FAILED',
-    'BUFFER_LIMIT',
-    'FAILED',
-    'TIMEOUT',
-    'STATE_CHANGED',
-    'DIRECTORY_IDENTITY_MISMATCH',
-    'CURRENT_IDENTITY_MISMATCH',
-    'BINDING_MISMATCH',
-    'RECHECK_PROCESS_IDENTITY_FAILED',
-    'RECHECK_PROCESS_WAIT_FAILED',
-    'RECHECK_PROCESS_TUPLE_MISMATCH',
-    'RECHECK_PROCESS_NOT_SIGNALED',
-    'LATE_EVENT_AFTER_SEAL',
-  ] as const) {
+  expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(23);
+  for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
     const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
     expect(isF005WriteCompletionDrainFailureCode(code)).toBe(true);
     expect(classifyF005NativeCapacityReplyError(code)).toBe(code);
     expect(code.length).toBeLessThanOrEqual(127);
   }
+  expect(
+    'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITE',
+  ).toHaveLength(100);
+  expect(
+    'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_SETINFO',
+  ).toHaveLength(102);
   for (const code of [
     'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
     'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
@@ -1052,7 +1038,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (454 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (470 cases)'),
     });
   }, 120_000);
 });

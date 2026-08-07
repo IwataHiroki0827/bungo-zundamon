@@ -15,7 +15,10 @@ import {
   type WorkId,
   type WorkspaceRelativePath,
 } from './batch.ts';
-import { F005NativeCapacityError } from './f005-native-guard.ts';
+import {
+  F005NativeCapacityError,
+  F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES,
+} from './f005-native-guard.ts';
 import {
   advanceF005RunnerManifest,
   createF005OfflineBuildArtifactPayloads,
@@ -944,29 +947,8 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    for (const stage of [
-      'PREPARE_TUPLE_MISMATCH',
-      'PROCESS_IDENTITY_FAILED',
-      'PROCESS_WAIT_FAILED',
-      'JOB_QUERY_FAILED',
-      'PROCESS_TUPLE_MISMATCH',
-      'PROCESS_SIGNALED',
-      'PROCESS_OUTSIDE_JOB',
-      'EVENT_TUPLE_MISMATCH',
-      'EVENT_IDENTITY_FAILED',
-      'BUFFER_LIMIT',
-      'FAILED',
-      'TIMEOUT',
-      'STATE_CHANGED',
-      'DIRECTORY_IDENTITY_MISMATCH',
-      'CURRENT_IDENTITY_MISMATCH',
-      'BINDING_MISMATCH',
-      'RECHECK_PROCESS_IDENTITY_FAILED',
-      'RECHECK_PROCESS_WAIT_FAILED',
-      'RECHECK_PROCESS_TUPLE_MISMATCH',
-      'RECHECK_PROCESS_NOT_SIGNALED',
-      'LATE_EVENT_AFTER_SEAL',
-    ] as const) {
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(23);
+    for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
       const failure = new F005NativeCapacityError(code, 'fixed drain stage');
       expect(JSON.parse(

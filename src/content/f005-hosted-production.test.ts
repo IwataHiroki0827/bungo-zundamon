@@ -7,6 +7,8 @@ import { promisify } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 
+import { F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES } from './f005-native-guard.ts';
+
 const execFileAsync = promisify(execFile);
 
 interface HostedWorkflow {
@@ -21,6 +23,7 @@ interface HostedWorkflow {
     readonly 'produce-candidate': {
       readonly if: string;
       readonly permissions: { readonly contents: string };
+      readonly env: Readonly<Record<string, string>>;
       readonly steps: ReadonlyArray<{
         readonly name?: string;
         readonly uses?: string;
@@ -59,6 +62,19 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     });
     expect(workflow.permissions).toEqual({ contents: 'read' });
     expect(job.permissions).toEqual({ contents: 'write' });
+    const drainPattern = job.env.F005_WRITE_COMPLETION_DRAIN_FAILURE_PATTERN;
+    expect(drainPattern).toBeTypeOf('string');
+    const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
+      (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
+    );
+    expect(drainCodes).toHaveLength(23);
+    expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
+      .toBe(true);
+    for (const code of [
+      'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
+    ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
     expect(job.if).toContain("github.ref == 'refs/heads/feature/F005'");
     expect(actions).toEqual([
       'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0',
@@ -154,6 +170,9 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       "'^F005_NATIVE_START_FAILURE=[A-Z0-9_]+$'",
     );
     expect(scripts).toContain("'^[A-Z][A-Z0-9_]{0,127}$'");
+    expect(scripts).toContain('function Test-SafeFailureCode([object] $Value)');
+    expect(scripts).toContain('$env:F005_WRITE_COMPLETION_DRAIN_FAILURE_PATTERN');
+    expect(scripts).toContain('-cnotmatch');
     expect(scripts).not.toContain('$failure.frames');
     expect(scripts).toContain('$limit = 65536');
     expect(scripts.match(/F005_RUNNER_STDOUT_BASE64/gu)).toHaveLength(3);

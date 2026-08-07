@@ -597,3 +597,33 @@ attempts:
   cause: none
   recovery: 全体並列負荷とT-112影響範囲を分離して直列実行
   log: docs/evidence/ut/UT-F005-CHG-038-attempt-2.log
+- date: '2026-08-08T01:33:19+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-038-hosted
+  attempt: 1
+  command: GitHub Actions run 31197869896 at commit 4dc7d2b44c1fefe80b0816185e560917e547755b
+  result: fail
+  failures: 1
+  cause: exact late tupleがgeneric LATE_EVENT_AFTER_SEALで停止。event kind、current/parent、seal state、active lease関係、予約QPC関係は現行診断から未確定
+  recovery: 遮蔽案は旧event誤帰属のHigh指摘で撤回。CHG-F005-039/T-113で認可非変更の複合条件write/setinfo 2 code診断を追加して再観測する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-038-hosted-attempt-1.md
+- date: '2026-08-08T02:20:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-039-independent-acceptance
+  attempt: 1
+  command: 関連4 filesのVitest独立受入初回
+  result: fail
+  failures: 1
+  cause: 既知のWindows高速終了テストが5秒timeout。機能assert失敗なし
+  recovery: 対象単独再試験PASS後、関連4 files / 57件を全件再実行
+  log: docs/evidence/it/IT-F005-005-CHG-039-result.md
+- date: '2026-08-08T02:21:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-039-independent-acceptance
+  attempt: 2
+  command: 対象単独再試験と関連4 files / 57件のVitest再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: native・型・ESLint・trace・再現buildとpin整合を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-039-result.md

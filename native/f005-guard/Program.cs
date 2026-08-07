@@ -3975,12 +3975,38 @@ sealed class CapacityGuardSession : IDisposable
                 : normalized == seal.ParentPath && ledger.IsUnbound(fileObject));
         if (epoch.Length == 0)
         {
-            var late = broad.Any(seal =>
+            var lateCandidates = broad.Where(seal =>
                 seal.CompletionRequestedAtQpc is long upper &&
                 eventQpc > upper &&
-                ProofCandidate(seal));
-            throw new GuardException(WriteCompletionDrainRules.LookupFailure(
-                broad.Length, epoch.Length, 0, late)!);
+                ProofCandidate(seal)).ToArray();
+            var failure = WriteCompletionDrainRules.LookupFailure(
+                broad.Length,
+                epoch.Length,
+                0,
+                lateCandidates.Length != 0)!;
+            if (lateCandidates.Length != 0)
+            {
+                var activeLease = pendingWriteLease;
+                var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
+                var sameParent = slash > 0 &&
+                    activeLease!.RelativePath[..slash] == normalized;
+                failure = lateCandidates
+                    .Select(seal => WriteCompletionDrainRules
+                        .LateEventFailureCode(
+                            eventName,
+                            seal.State == WriteCompletionDrainState.CompletedRetained,
+                            normalized == seal.ParentPath,
+                            activeLease is not null,
+                            activeLease is not null &&
+                                !ReferenceEquals(activeLease, seal.Lease),
+                            sameParent,
+                            activeLease is not null &&
+                                eventQpc > activeLease.CurrentPathReservedAtQpc))
+                    .FirstOrDefault(code => code !=
+                        WriteCompletionDrainRules.GenericLateEventFailureCode)
+                    ?? failure;
+            }
+            throw new GuardException(failure);
         }
         var exact = epoch.Where(ProofCandidate)
             .ToArray();
@@ -6068,7 +6094,10 @@ sealed class CapacityGuardSession : IDisposable
         cancellation.Dispose();
     }
 
-    private static object Error(string code) => new { ok = false, error = code };
+    private static object Error(string code) => new {
+        ok = false,
+        error = WriteCompletionDrainRules.NormalizeExternalFailureCode(code),
+    };
 
     private static string PipeString(JsonElement value, string property)
     {
@@ -7850,6 +7879,45 @@ public sealed class WriteCompletionBindingLedger
 
 public static class WriteCompletionDrainRules
 {
+    public const string GenericLateEventFailureCode =
+        "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL";
+    public const string LateRetainedParentWriteFailureCode =
+        "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITE";
+    public const string LateRetainedParentSetInfoFailureCode =
+        "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_SETINFO";
+    private const string FailurePrefix = "F005_ETW_WRITE_COMPLETION_DRAIN_";
+    private static readonly string[] externalFailureCodes = [
+        $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
+        $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
+        $"{FailurePrefix}PROCESS_WAIT_FAILED",
+        $"{FailurePrefix}JOB_QUERY_FAILED",
+        $"{FailurePrefix}PROCESS_TUPLE_MISMATCH",
+        $"{FailurePrefix}PROCESS_SIGNALED",
+        $"{FailurePrefix}PROCESS_OUTSIDE_JOB",
+        $"{FailurePrefix}EVENT_TUPLE_MISMATCH",
+        $"{FailurePrefix}EVENT_IDENTITY_FAILED",
+        $"{FailurePrefix}BUFFER_LIMIT",
+        $"{FailurePrefix}FAILED",
+        $"{FailurePrefix}TIMEOUT",
+        $"{FailurePrefix}STATE_CHANGED",
+        $"{FailurePrefix}DIRECTORY_IDENTITY_MISMATCH",
+        $"{FailurePrefix}CURRENT_IDENTITY_MISMATCH",
+        $"{FailurePrefix}BINDING_MISMATCH",
+        $"{FailurePrefix}RECHECK_PROCESS_IDENTITY_FAILED",
+        $"{FailurePrefix}RECHECK_PROCESS_WAIT_FAILED",
+        $"{FailurePrefix}RECHECK_PROCESS_TUPLE_MISMATCH",
+        $"{FailurePrefix}RECHECK_PROCESS_NOT_SIGNALED",
+        GenericLateEventFailureCode,
+        LateRetainedParentWriteFailureCode,
+        LateRetainedParentSetInfoFailureCode,
+    ];
+    private static readonly HashSet<string> externalFailureCodeSet = new(
+        externalFailureCodes,
+        StringComparer.Ordinal);
+
+    public static IReadOnlyList<string> ExternalFailureCodes { get; } =
+        Array.AsReadOnly(externalFailureCodes);
+
     // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
     public static bool PrepareTupleMatches(params bool[] predicates) =>
         predicates.Length > 0 && predicates.All(value => value);
@@ -7953,12 +8021,45 @@ public static class WriteCompletionDrainRules
         if (broadCandidates == 0) return null;
         if (epochCandidates == 0)
             return exactLateTuple
-                ? "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL"
+                ? GenericLateEventFailureCode
                 : "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
         if (exactCandidates != 1)
             return "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
         return null;
     }
+
+    /// <summary>
+    /// exact late拒否位置の不変tupleだけから外部診断を選ぶ。候補・認可・stateは変更しない。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string LateEventFailureCode(
+        string eventName,
+        bool completedRetained,
+        bool parentPath,
+        bool activeLeasePresent,
+        bool otherActiveLease,
+        bool sameParent,
+        bool postReservation)
+    {
+        if (!completedRetained || !parentPath || !activeLeasePresent ||
+            !otherActiveLease || !sameParent || !postReservation)
+            return GenericLateEventFailureCode;
+        return eventName switch {
+            "write" => LateRetainedParentWriteFailureCode,
+            "setinfo" => LateRetainedParentSetInfoFailureCode,
+            _ => GenericLateEventFailureCode,
+        };
+    }
+
+    /// <summary>
+    /// write completion drainのnative replyを固定23 codeへ閉じる。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-047
+    /// </summary>
+    public static string NormalizeExternalFailureCode(string code) =>
+        code.StartsWith(FailurePrefix, StringComparison.Ordinal) &&
+        (code.Length > 127 || !externalFailureCodeSet.Contains(code))
+            ? $"{FailurePrefix}FAILED"
+            : code;
 
     public static string ProcessFailureCode(string code, bool recheck) =>
         (code, recheck) switch {

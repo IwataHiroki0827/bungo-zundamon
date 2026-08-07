@@ -880,6 +880,70 @@ Check("completion drain accounted後発拒否", !WriteCompletionDrainRules.Count
 Check("completion drain broad 0は既存分類", WriteCompletionDrainRules.LookupFailure(0, 0, 0, false) is null);
 Check("completion drain epoch 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 0, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
 Check("completion drain exact late", WriteCompletionDrainRules.LookupFailure(1, 0, 0, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL");
+var exactLateTuple = new[] { true, true, true, true, true, true };
+Check("completion drain retained parent post-reservation write exact code",
+    WriteCompletionDrainRules.LateEventFailureCode(
+        "write",
+        exactLateTuple[0],
+        exactLateTuple[1],
+        exactLateTuple[2],
+        exactLateTuple[3],
+        exactLateTuple[4],
+        exactLateTuple[5]) ==
+    WriteCompletionDrainRules.LateRetainedParentWriteFailureCode);
+Check("completion drain retained parent post-reservation setinfo exact code",
+    WriteCompletionDrainRules.LateEventFailureCode(
+        "setinfo", true, true, true, true, true, true) ==
+    WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode);
+Check("completion drain retained parent 2 codeは100/102文字",
+    WriteCompletionDrainRules.LateRetainedParentWriteFailureCode.Length == 100 &&
+    WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode.Length == 102);
+for (var index = 0; index < exactLateTuple.Length; index++)
+{
+    var oneFalse = exactLateTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain retained parent軸{index} falseはgeneric LATE",
+        WriteCompletionDrainRules.LateEventFailureCode(
+            "write",
+            oneFalse[0],
+            oneFalse[1],
+            oneFalse[2],
+            oneFalse[3],
+            oneFalse[4],
+            oneFalse[5]) ==
+        WriteCompletionDrainRules.GenericLateEventFailureCode);
+}
+Check("completion drain retained parent想定外eventはgeneric LATE",
+    WriteCompletionDrainRules.LateEventFailureCode(
+        "delete", true, true, true, true, true, true) ==
+    WriteCompletionDrainRules.GenericLateEventFailureCode);
+var exactLateBefore = exactLateTuple.ToArray();
+_ = WriteCompletionDrainRules.LateEventFailureCode(
+    "write",
+    exactLateTuple[0],
+    exactLateTuple[1],
+    exactLateTuple[2],
+    exactLateTuple[3],
+    exactLateTuple[4],
+    exactLateTuple[5]);
+Check("completion drain pure late ruleは入力state無変更",
+    exactLateTuple.SequenceEqual(exactLateBefore));
+Check("completion drain external code集合はexact 23",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 23 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 23 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
+        code.Length <= 127));
+Check("completion drain external exact 23 codeはnative replyで不変",
+    WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
+        WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
+foreach (var code in new[] {
+    "F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT".PadRight(128, 'X'),
+})
+    Check("completion drain unknown/extra/exact128はnative generic化",
+        WriteCompletionDrainRules.NormalizeExternalFailureCode(code) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
 Check("completion drain exact 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 1, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
 Check("completion drain exact 1許可", WriteCompletionDrainRules.LookupFailure(1, 1, 1, false) is null);
 Check("completion drain exact 2 mismatch", WriteCompletionDrainRules.LookupFailure(2, 2, 2, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
@@ -1424,7 +1488,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (454 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (470 cases)");
 return 0;
 
 bool BoundLeaseCheap(

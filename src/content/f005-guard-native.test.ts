@@ -1223,6 +1223,70 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).not.toContain('InjectWriteCompletionEvent');
   });
 
+  it('exact late throw位置でretained parent診断だけを純粋分類する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const authorize = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    const lateBlock = authorize.slice(
+      authorize.indexOf('if (epoch.Length == 0)'),
+      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+    );
+    expect(lateBlock).toContain('var lateCandidates = broad.Where(');
+    expect(lateBlock).toContain('ProofCandidate(seal)).ToArray()');
+    expect(lateBlock).toContain('WriteCompletionDrainRules\n                        .LateEventFailureCode(');
+    expect(lateBlock).toContain('seal.State == WriteCompletionDrainState.CompletedRetained');
+    expect(lateBlock).toContain('normalized == seal.ParentPath');
+    expect(lateBlock).toContain('!ReferenceEquals(activeLease, seal.Lease)');
+    expect(lateBlock).toContain('activeLease!.RelativePath[..slash] == normalized');
+    expect(lateBlock).toContain('eventQpc > activeLease.CurrentPathReservedAtQpc');
+    expect(lateBlock).toContain('throw new GuardException(failure)');
+    for (const forbidden of [
+      'selectedSeal =',
+      'producerPid =',
+      'producerSequenceNumber =',
+      'writeCompletionBindingLedger =',
+      'writeCompletionReorderQueue.',
+      'filesByObject',
+      'filesByPath',
+      'allocatedByIdentity',
+      'notices.',
+      'observations.',
+      'pendingWriteLease =',
+      'ValidateAndCommit(',
+      'AppliedCursor =',
+      'AdmissionHead =',
+      'peakLiveBytes =',
+      'minimumObservedFreeBytes =',
+      'writeCompletionPhaseEventCount',
+      'writeCompletionSeals.',
+    ]) expect(lateBlock).not.toContain(forbidden);
+    expect(lateBlock).not.toMatch(/\.State\s*=(?!=)/u);
+    expect(lateBlock).not.toMatch(/activeLease!?\.[A-Za-z0-9_]+\s*=(?!=)/u);
+
+    const pureRule = program.slice(
+      program.indexOf('public static string LateEventFailureCode('),
+      program.indexOf('public static string NormalizeExternalFailureCode('),
+    );
+    expect(pureRule).toContain('if (!completedRetained || !parentPath || !activeLeasePresent ||');
+    expect(pureRule).toContain('"write" => LateRetainedParentWriteFailureCode');
+    expect(pureRule).toContain('"setinfo" => LateRetainedParentSetInfoFailureCode');
+    expect(pureRule).not.toMatch(/(?:pendingWriteLease|writeCompletion|filesBy|notices|observations)\s*[.=]/u);
+
+    const observe = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+    );
+    expect(observe.indexOf('TryAuthorizeWriteCompletionDrainEventLocked('))
+      .toBeLessThan(observe.indexOf('TryAuthorizeBoundLeaseDirectoryWriteLocked('));
+    expect(observe.indexOf('TryAuthorizeWriteCompletionDrainEventLocked('))
+      .toBeLessThan(observe.indexOf('TryAuthorizeAfterLeaseReservationDirectoryWriteLocked('));
+    expect(program).toContain(
+      'error = WriteCompletionDrainRules.NormalizeExternalFailureCode(code)',
+    );
+  });
+
   it('PID再利用raceでは新旧どちらのFileIOも別世代へ取り違えない', () => {
     const authorize = (
       birth: { sequenceNumber: bigint; startedAtQpc: number } | undefined,
