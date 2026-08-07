@@ -21,3 +21,5 @@ snapshot後のmap追加・上書き・削除、同一PIDの別sequence callback�
 独立受入の初回Medium指摘後、birth tuple用のinitial reservationとevent上限用のcurrent path reservationを分離した。snapshot initial一致、`phase < birth <= initial`、`current >= initial`、`event <= current`を検査し、initial同値、initial+1/current同値、current+1、current逆転、rename promoteを固定した。rename後の`initial < event <= current`はbirth後codeへ分類し、current逆転とcurrent超過はSTATE_CHANGEDで停止する。
 
 native reply、TypeScript bridge、runner、workflow annotationの43 code集合と127文字上限、unknown/extra code拒否を確認した。実Windows ETWでの到達確認はQT-F005-008/009のhosted再観測へ引き継ぐ。
+
+hosted attempt 1はcommit `4a2152aefda335b0f109c4f3cb2d838669108d6e`で実施した。native probe run `31220780207`はSUCCESS、production run `31220780289`は既存`POST_RESERVATION_WRITE`で安全停止しT-119対象へ未到達だった。candidate branchは作成されず、Pages run `31220780215`はdeploy skipである。同一Program pinのattempt 2へ継続する。
