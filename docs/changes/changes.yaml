@@ -4,13 +4,15 @@ changes:
   trigger: CHG-F005-043 hosted attempt 2/3が同じPOST_RESERVATION_WRITEで停止し、completion drain先行throwで既存active directory認可へ未到達
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-117, T-118]
-  status: in-review
+  status: done
+  result: commit b45db80のproduction run 31217391262で限定handoffを通過し、後段のACTIVE_PRODUCER_RECORD_MISSINGへ安全停止。native probe成功、candidate/公開差分なし
 - id: CHG-F005-043
   date: '2026-08-08'
   trigger: Actions run 31211412904がT-116通過後にlate parent writeのWRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONを固定
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-116, T-117]
-  status: in-review
+  status: done
+  result: CHG-F005-044適用後のproduction run 31217391262でactive producer固定4分類のRECORD_MISSINGへ到達。native probe成功、candidate/公開差分なし
 - id: CHG-F005-042
   date: '2026-08-08'
   trigger: Actions run 31208447007がT-115 handoff通過後にexact late SETINFO_SEAL_NOT_COMPLETED_RETAINEDを固定
