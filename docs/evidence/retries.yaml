@@ -767,3 +767,13 @@ attempts:
   cause: timing差で既存LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止し、T-117対象へ未到達
   recovery: 認可・実装・Program pinを変更せずworkflow自己pathだけで最終attempt 3を起動する
   log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-2.md
+- date: '2026-08-08T05:23:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-043-hosted
+  attempt: 3
+  command: GitHub Actions run 31214432937 at commit 5cf329044ea2eeec74e8068252b05a889a89971e
+  result: fail
+  failures: 1
+  cause: attempt 2と同じ既存LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止し、T-117対象へretry_limit内で未到達
+  recovery: T-117をblockedとしてQ-038へエスカレーションし、前段post-reservation writeの帰属境界を別変更管理で設計する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-3.md
