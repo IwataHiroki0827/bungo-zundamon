@@ -1,0 +1,16 @@
+T-118 / CHG-F005-044 ローカル試験 attempt 2
+
+result: PASS
+
+- native executable rules: 593/593
+- related Vitest: 5 files / 128 tests
+- typecheck: PASS
+- ESLint: PASS
+- trace_check: PASS
+- reproducible build: 2 runs, identical SHA
+- git diff --check: PASS
+- public/data diff: 0
+
+Program SHA-256: f52f120b11a0e8eb1b41c8803afcc070645f2f732fd4c2487b423f3b94df84f6
+binary SHA-256: 5d1b2cc01152acfc2b5bfdac2d79fadad45c2324bdb8e26c4fdb54d7bbcbd247
+binary size: 75,151,196 bytes

@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; CHG-F005-043 classifies one exact active producer birth boundary.
+# Native tooling stays outside; CHG-F005-044 hands one exact parent write to active directory auth.
 # This self-path update starts hosted verification attempt 3 with the same Program pin.
 on:
   push:

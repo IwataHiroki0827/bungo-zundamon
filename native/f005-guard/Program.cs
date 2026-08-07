@@ -2591,6 +2591,10 @@ sealed class CapacityGuardSession : IDisposable
 
     private void PreflightImmutableRejoinLocked(PendingCallbackSnapshot snapshot)
     {
+        if (snapshot.AfterLeaseDirectoryRejoin is not null &&
+            snapshot.BoundLeaseDirectoryRejoin is not null)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
         var proof = snapshot.BindingProof!;
         if (snapshot.AfterLeaseDirectoryRejoin is { } afterLease)
         {
@@ -2613,27 +2617,10 @@ sealed class CapacityGuardSession : IDisposable
                         afterLease.RenameReservedAtQpc))
                 throw new GuardException(
                     "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_BINDING_MISMATCH");
-            JobObject.RetainedProcessInspection inspection;
-            try { inspection = job.InspectRetainedProcess(afterLease.Process); }
-            catch (GuardException error)
-            {
-                var suffix = error.Code switch {
-                    "PROCESS_WAIT_FAILED" => "PROCESS_WAIT_FAILED",
-                    "JOB_QUERY_FAILED" => "JOB_QUERY_FAILED",
-                    _ => "PROCESS_IDENTITY_FAILED",
-                };
-                throw new GuardException(
-                    $"ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_{suffix}");
-            }
-            if (inspection.ProcessId != afterLease.ProducerPid ||
-                inspection.ProcessStartKey != afterLease.ProcessStartKey ||
-                inspection.ProcessSequenceNumber !=
-                    afterLease.ProducerSequenceNumber)
-                throw new GuardException(
-                    "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_IDENTITY_FAILED");
-            if (!inspection.Signaled && !inspection.JobMember)
-                throw new GuardException(
-                    "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_OUTSIDE_JOB");
+            var processFailure =
+                RecheckAfterLeaseDirectoryProcessLocked(afterLease);
+            if (processFailure is not null)
+                throw new GuardException(processFailure);
         }
         if (snapshot.BoundLeaseDirectoryRejoin is { } boundLease)
         {
@@ -3153,6 +3140,7 @@ sealed class CapacityGuardSession : IDisposable
                 BoundLeaseDirectoryRejoinContext? boundLeaseDirectoryRejoin = null;
                 WriteCompletionDrainSeal? completionDrainSeal = null;
                 WriteCompletionDrainSeal? completedWriteHandoff = null;
+                PendingWriteLease? activeDirectoryHandoff = null;
                 var completionReplayKind = WriteCompletionReplayKind.NormalEpoch;
                 if (!AuthorizeJobMemberLocked(
                     pid,
@@ -3172,9 +3160,63 @@ sealed class CapacityGuardSession : IDisposable
                         out var drainSequence,
                         out completionDrainSeal,
                         out completedWriteHandoff,
+                        out activeDirectoryHandoff,
                         out completionReplayKind))
                     {
-                        if (completedWriteHandoff is not null)
+                        if (activeDirectoryHandoff is not null)
+                        {
+                            if (completionDrainSeal is not null ||
+                                completedWriteHandoff is not null ||
+                                completionReplayKind !=
+                                    WriteCompletionReplayKind.NormalEpoch)
+                            {
+                                PoisonLocked(
+                                    "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                                return;
+                            }
+                            if (TryAuthorizeBoundLeaseDirectoryWriteLocked(
+                                eventName,
+                                pid,
+                                normalized,
+                                fileObject,
+                                timestampQpc,
+                                authorizationFailure,
+                                out var boundLeaseDirectoryPid,
+                                out var boundLeaseDirectorySequenceNumber,
+                                out boundLeaseDirectoryRejoin))
+                            {
+                                pid = boundLeaseDirectoryPid;
+                                producerSequenceNumber =
+                                    boundLeaseDirectorySequenceNumber;
+                            }
+                            else
+                            {
+                                if (failureCode is not null) return;
+                                if (TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(
+                                    eventName,
+                                    pid,
+                                    normalized,
+                                    fileObject,
+                                    timestampQpc,
+                                    authorizationFailure,
+                                    out var leaseDirectoryPid,
+                                    out var leaseDirectorySequenceNumber,
+                                    out afterLeaseDirectoryRejoin))
+                                {
+                                    pid = leaseDirectoryPid;
+                                    producerSequenceNumber =
+                                        leaseDirectorySequenceNumber;
+                                }
+                                else
+                                {
+                                    if (failureCode is not null) return;
+                                    PoisonLocked(
+                                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                                    return;
+                                }
+                            }
+                        }
+                        else if (completedWriteHandoff is not null)
                         {
                             if (!TryAuthorizeCompletedSystemSetInfoLocked(
                                 eventName,
@@ -3732,15 +3774,21 @@ sealed class CapacityGuardSession : IDisposable
         {
             ReinspectImmediateSnapshot(snapshot);
         }
-        if (snapshot.BindingProof is null &&
-            snapshot.AfterLeaseDirectoryRejoin is not null)
+        if (snapshot.AfterLeaseDirectoryRejoin is not null &&
+            snapshot.BoundLeaseDirectoryRejoin is not null)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        if (snapshot.AfterLeaseDirectoryRejoin is not null)
         {
             var failure = RecheckAfterLeaseDirectoryRejoinLocked(
                 snapshot.AfterLeaseDirectoryRejoin);
             if (failure is not null) throw new GuardException(failure);
+            var processFailure = RecheckAfterLeaseDirectoryProcessLocked(
+                snapshot.AfterLeaseDirectoryRejoin);
+            if (processFailure is not null)
+                throw new GuardException(processFailure);
         }
-        if (snapshot.BindingProof is null &&
-            snapshot.BoundLeaseDirectoryRejoin is not null)
+        if (snapshot.BoundLeaseDirectoryRejoin is not null)
         {
             var tupleFailure = RecheckBoundLeaseDirectoryTupleLocked(
                 snapshot.BoundLeaseDirectoryRejoin,
@@ -3996,12 +4044,14 @@ sealed class CapacityGuardSession : IDisposable
         out ulong producerSequenceNumber,
         out WriteCompletionDrainSeal? selectedSeal,
         out WriteCompletionDrainSeal? completedWriteHandoff,
+        out PendingWriteLease? activeDirectoryHandoff,
         out WriteCompletionReplayKind replayKind)
     {
         producerPid = 0;
         producerSequenceNumber = 0;
         selectedSeal = null;
         completedWriteHandoff = null;
+        activeDirectoryHandoff = null;
         replayKind = WriteCompletionReplayKind.NormalEpoch;
         var broad = writeCompletionSeals.Where(seal =>
             authorizationFailure == "BIRTH_MISSING" &&
@@ -4125,6 +4175,36 @@ sealed class CapacityGuardSession : IDisposable
                     producerPid = seal.ProducerPid;
                     producerSequenceNumber = seal.ProcessSequenceNumber;
                     replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo;
+                    return true;
+                }
+            }
+            if (lateCandidates.Length == 1)
+            {
+                var seal = lateCandidates[0];
+                var activeSlash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
+                if (WriteCompletionDrainRules.CanHandoffActiveDirectory(
+                    lateCandidates.Length,
+                    failure,
+                    authorizationFailure,
+                    pid,
+                    eventName,
+                    fileObject,
+                    ledger?.IsUnbound(fileObject) == true,
+                    seal.State == WriteCompletionDrainState.CompletedRetained,
+                    activePhase?.Phase == "voice",
+                    ReferenceEquals(activePhase, seal.Phase),
+                    normalized == seal.ParentPath,
+                    activeLease is not null,
+                    activeLease is not null &&
+                        !ReferenceEquals(activeLease, seal.Lease),
+                    activeLease is not null && activePhase is not null &&
+                        activeLease.PhaseInstanceId == activePhase.PhaseInstanceId,
+                    activeSlash > 0 && activeLease!.RelativePath[..activeSlash] ==
+                        normalized,
+                    activeLease is not null &&
+                        eventQpc > activeLease.CurrentPathReservedAtQpc))
+                {
+                    activeDirectoryHandoff = activeLease;
                     return true;
                 }
             }
@@ -4867,6 +4947,32 @@ sealed class CapacityGuardSession : IDisposable
             binding.RelativePath != context.LeasePath ||
             binding.Identity != context.LeaseIdentity)
             return "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_BINDING_MISMATCH";
+        return null;
+    }
+
+    private string? RecheckAfterLeaseDirectoryProcessLocked(
+        AfterLeaseDirectoryRejoinContext context)
+    {
+        JobObject.RetainedProcessInspection inspection;
+        try
+        {
+            inspection = job.InspectRetainedProcess(context.Process);
+        }
+        catch (GuardException error)
+        {
+            var suffix = error.Code switch {
+                "PROCESS_WAIT_FAILED" => "PROCESS_WAIT_FAILED",
+                "JOB_QUERY_FAILED" => "JOB_QUERY_FAILED",
+                _ => "PROCESS_IDENTITY_FAILED",
+            };
+            return $"ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_{suffix}";
+        }
+        if (inspection.ProcessId != context.ProducerPid ||
+            inspection.ProcessStartKey != context.ProcessStartKey ||
+            inspection.ProcessSequenceNumber != context.ProducerSequenceNumber)
+            return "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_IDENTITY_FAILED";
+        if (!inspection.Signaled && !inspection.JobMember)
+            return "ETW_SYSTEM_DIRECTORY_AFTER_LEASE_REJOIN_PROCESS_OUTSIDE_JOB";
         return null;
     }
 
@@ -8216,6 +8322,44 @@ public static class WriteCompletionDrainRules
             ? LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode
             : LateDiagnosticWriteAfterActiveProducerBirthFailureCode;
     }
+
+    /// <summary>
+    /// 単一exact post-reservation parent writeだけをactive directory認可へ渡す。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static bool CanHandoffActiveDirectory(
+        int lateCandidateCount,
+        string aggregateFailureCode,
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool fileObjectUnbound,
+        bool sealCompletedRetained,
+        bool activeVoicePhase,
+        bool sealPhaseMatches,
+        bool sealParentPath,
+        bool activeLeasePresent,
+        bool otherActiveLease,
+        bool phaseInstanceMatches,
+        bool activeParentMatches,
+        bool eventAfterActiveReservation) =>
+        lateCandidateCount == 1 &&
+        aggregateFailureCode == LateRetainedParentWriteFailureCode &&
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "write" &&
+        fileObject != 0 &&
+        fileObjectUnbound &&
+        sealCompletedRetained &&
+        activeVoicePhase &&
+        sealPhaseMatches &&
+        sealParentPath &&
+        activeLeasePresent &&
+        otherActiveLease &&
+        phaseInstanceMatches &&
+        activeParentMatches &&
+        eventAfterActiveReservation;
 
     public static bool IsDeadlineValid(long now, long deadline) => now <= deadline;
 

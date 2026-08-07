@@ -1187,8 +1187,48 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private void PreflightImmutableRejoinLocked('),
       program.indexOf('private void PreflightRenameSnapshotLocked('),
     );
+    const preflightContextExclusion = immutableRejoin.indexOf(
+      'snapshot.AfterLeaseDirectoryRejoin is not null &&',
+    );
+    const preflightProofRead = immutableRejoin.indexOf(
+      'var proof = snapshot.BindingProof!;',
+    );
+    const preflightAfterContext = immutableRejoin.indexOf(
+      'if (snapshot.AfterLeaseDirectoryRejoin is { } afterLease)',
+    );
+    const preflightBoundContext = immutableRejoin.indexOf(
+      'if (snapshot.BoundLeaseDirectoryRejoin is { } boundLease)',
+    );
+    expect(preflightContextExclusion).toBeGreaterThan(-1);
+    expect(preflightContextExclusion).toBeLessThan(preflightProofRead);
+    expect(preflightProofRead).toBeLessThan(preflightAfterContext);
+    expect(preflightContextExclusion).toBeLessThan(preflightBoundContext);
+    const preflightExclusiveReject = immutableRejoin.slice(
+      preflightContextExclusion,
+      preflightProofRead,
+    );
+    expect(preflightExclusiveReject).toContain(
+      'F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED',
+    );
+    expect(preflightExclusiveReject).not.toContain(
+      'RecheckAfterLeaseDirectoryProcessLocked(',
+    );
+    expect(preflightExclusiveReject).not.toContain(
+      'RecheckBoundLeaseDirectoryProcessLocked(',
+    );
+    for (const mutation of [
+      'filesByObject',
+      'filesByPath',
+      'allocatedByIdentity',
+      'pendingWriteLease =',
+      'writeCompletionReorderQueue.',
+      'notices.',
+      'observations.',
+      'peakLiveBytes =',
+      'minimumObservedFreeBytes =',
+    ]) expect(preflightExclusiveReject).not.toContain(mutation);
     expect(immutableRejoin).toContain('proof.Kind == WriteCompletionBindingKind.OtherBound');
-    expect(immutableRejoin).toContain('job.InspectRetainedProcess(afterLease.Process)');
+    expect(immutableRejoin).toContain('RecheckAfterLeaseDirectoryProcessLocked(afterLease)');
     expect(immutableRejoin).toContain('RecheckBoundLeaseDirectoryProcessLocked(boundLease)');
     expect(immutableRejoin).not.toContain('TryInspect(');
     expect(immutableRejoin).not.toContain('filesByObject');
@@ -1201,6 +1241,61 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(boundProcessRecheck).not.toContain('TryInspect(');
     expect(boundProcessRecheck).not.toContain('filesByObject');
     expect(boundProcessRecheck).not.toContain('filesByPath');
+    const afterProcessRecheck = program.slice(
+      program.indexOf('private string? RecheckAfterLeaseDirectoryProcessLocked('),
+      program.indexOf('private bool BindReservedSystemSetInfoLocked('),
+    );
+    expect(afterProcessRecheck).toContain('job.InspectRetainedProcess(context.Process)');
+    expect(afterProcessRecheck).toContain('inspection.ProcessId != context.ProducerPid');
+    expect(afterProcessRecheck).toContain(
+      'inspection.ProcessStartKey != context.ProcessStartKey',
+    );
+    expect(afterProcessRecheck).toContain(
+      'inspection.ProcessSequenceNumber != context.ProducerSequenceNumber',
+    );
+    expect(afterProcessRecheck).toContain('!inspection.Signaled && !inspection.JobMember');
+    expect(afterProcessRecheck).not.toContain('TryInspect(');
+    expect(afterProcessRecheck).not.toContain('filesByObject');
+    const applyCore = program.slice(
+      program.indexOf('private void ApplyCallbackSnapshotCoreLocked('),
+      program.indexOf('private void ReinspectImmediateSnapshot('),
+    );
+    const contextExclusion = applyCore.indexOf(
+      'snapshot.AfterLeaseDirectoryRejoin is not null &&',
+    );
+    const afterTupleRecheck = applyCore.indexOf(
+      'RecheckAfterLeaseDirectoryRejoinLocked(',
+    );
+    const afterProcessRecheckIndex = applyCore.indexOf(
+      'RecheckAfterLeaseDirectoryProcessLocked(',
+    );
+    const boundTupleRecheck = applyCore.indexOf(
+      'RecheckBoundLeaseDirectoryTupleLocked(',
+    );
+    const boundProcessRecheckIndex = applyCore.indexOf(
+      'RecheckBoundLeaseDirectoryProcessLocked(',
+    );
+    const capacityRead = applyCore.indexOf('long oldAllocated;');
+    expect(contextExclusion).toBeGreaterThan(-1);
+    expect(contextExclusion).toBeLessThan(afterTupleRecheck);
+    const applyExclusiveReject = applyCore.slice(
+      contextExclusion,
+      applyCore.indexOf(
+        'if (snapshot.AfterLeaseDirectoryRejoin is not null)',
+        contextExclusion + 1,
+      ),
+    );
+    expect(applyExclusiveReject.trim()).toBe(preflightExclusiveReject.trim());
+    expect(afterTupleRecheck).toBeLessThan(afterProcessRecheckIndex);
+    expect(afterProcessRecheckIndex).toBeLessThan(capacityRead);
+    expect(boundTupleRecheck).toBeLessThan(boundProcessRecheckIndex);
+    expect(boundProcessRecheckIndex).toBeLessThan(capacityRead);
+    expect(applyCore).not.toContain(
+      'snapshot.BindingProof is null && snapshot.AfterLeaseDirectoryRejoin',
+    );
+    expect(applyCore).not.toContain(
+      'snapshot.BindingProof is null && snapshot.BoundLeaseDirectoryRejoin',
+    );
     const preflightedApply = program.slice(
       program.indexOf('private void ApplyPreflightedCallbackSnapshotLocked('),
       program.indexOf('private void ApplyCallbackSnapshotCoreLocked('),
@@ -1272,6 +1367,36 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'throw new GuardException(\n                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED")',
     );
     expect(lateBlock).toContain('completedWriteHandoff = seal;\n                return true;');
+    const activeDirectorySelection = lateBlock.slice(
+      lateBlock.indexOf('if (lateCandidates.Length == 1)',
+        lateBlock.indexOf('CanAuthorizePostRequestSystemSetInfo(')),
+      lateBlock.indexOf(
+        'if (failure == WriteCompletionDrainRules\n' +
+        '                    .LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode)',
+      ),
+    );
+    expect(activeDirectorySelection.match(/CanHandoffActiveDirectory\(/gu))
+      .toHaveLength(1);
+    for (const required of [
+      'lateCandidates.Length',
+      'failure',
+      'authorizationFailure',
+      'ledger?.IsUnbound(fileObject) == true',
+      'seal.State == WriteCompletionDrainState.CompletedRetained',
+      'activePhase?.Phase == "voice"',
+      'ReferenceEquals(activePhase, seal.Phase)',
+      'normalized == seal.ParentPath',
+      '!ReferenceEquals(activeLease, seal.Lease)',
+      'activeLease.PhaseInstanceId == activePhase.PhaseInstanceId',
+      'activeLease!.RelativePath[..activeSlash] ==\n                        normalized',
+      'eventQpc > activeLease.CurrentPathReservedAtQpc',
+    ]) expect(activeDirectorySelection).toContain(required);
+    expect(activeDirectorySelection).toContain(
+      'activeDirectoryHandoff = activeLease;\n                    return true;',
+    );
+    expect(activeDirectorySelection).not.toContain('selectedSeal =');
+    expect(activeDirectorySelection).not.toContain('completedWriteHandoff =');
+    expect(activeDirectorySelection).not.toContain('replayKind =');
     const activeProducerBirth = lateBlock.slice(
       lateBlock.indexOf(
         'if (failure == WriteCompletionDrainRules\n' +
@@ -1340,6 +1465,28 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(pureRule).toContain('classified.Distinct(StringComparer.Ordinal)');
     expect(pureRule).toContain('LateDiagnosticWriteMixedCausesFailureCode');
     expect(pureRule).toContain('LateDiagnosticSetInfoMixedCausesFailureCode');
+    const activeDirectoryRule = program.slice(
+      program.indexOf('public static bool CanHandoffActiveDirectory('),
+      program.indexOf('public static bool IsDeadlineValid('),
+    );
+    for (const required of [
+      'lateCandidateCount == 1',
+      'aggregateFailureCode == LateRetainedParentWriteFailureCode',
+      'authorizationFailure == "BIRTH_MISSING"',
+      'systemPid is 0 or 4',
+      'eventName == "write"',
+      'fileObject != 0',
+      'fileObjectUnbound',
+      'sealCompletedRetained',
+      'activeVoicePhase',
+      'sealPhaseMatches',
+      'sealParentPath',
+      'activeLeasePresent',
+      'otherActiveLease',
+      'phaseInstanceMatches',
+      'activeParentMatches',
+      'eventAfterActiveReservation',
+    ]) expect(activeDirectoryRule).toContain(required);
     expect(pureRule).not.toMatch(/(?:pendingWriteLease|writeCompletion|filesBy|notices|observations)\s*[.=]/u);
 
     const completeWrite = program.slice(
@@ -1369,11 +1516,54 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(observe).toContain('WriteCompletionDrainSeal? completionDrainSeal = null;');
     expect(observe).toContain('WriteCompletionDrainSeal? completedWriteHandoff = null;');
+    expect(observe).toContain('PendingWriteLease? activeDirectoryHandoff = null;');
     expect(observe).toContain(
       'var completionReplayKind = WriteCompletionReplayKind.NormalEpoch;',
     );
     expect(observe).toContain('out completionDrainSeal,\n                        out completedWriteHandoff');
-    expect(observe).toContain('out completedWriteHandoff,\n                        out completionReplayKind');
+    expect(observe).toContain('out completedWriteHandoff,\n                        out activeDirectoryHandoff');
+    expect(observe).toContain('out activeDirectoryHandoff,\n                        out completionReplayKind');
+    const activeDirectoryBranch = observe.slice(
+      observe.indexOf('if (activeDirectoryHandoff is not null)'),
+      observe.indexOf('else if (completedWriteHandoff is not null)'),
+    );
+    expect(activeDirectoryBranch.match(/TryAuthorizeBoundLeaseDirectoryWriteLocked\(/gu))
+      .toHaveLength(1);
+    expect(activeDirectoryBranch.match(
+      /TryAuthorizeAfterLeaseReservationDirectoryWriteLocked\(/gu,
+    )).toHaveLength(1);
+    const boundAuthorize = activeDirectoryBranch.indexOf(
+      'TryAuthorizeBoundLeaseDirectoryWriteLocked(',
+    );
+    const firstPoisonCheck = activeDirectoryBranch.indexOf(
+      'if (failureCode is not null) return;',
+    );
+    const afterAuthorize = activeDirectoryBranch.indexOf(
+      'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+    );
+    const stateChangedPoison = activeDirectoryBranch.lastIndexOf(
+      'F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED',
+    );
+    const secondPoisonCheck = activeDirectoryBranch.lastIndexOf(
+      'if (failureCode is not null) return;',
+    );
+    expect(activeDirectoryBranch.match(/if \(failureCode is not null\) return;/gu))
+      .toHaveLength(2);
+    expect(boundAuthorize).toBeLessThan(firstPoisonCheck);
+    expect(firstPoisonCheck).toBeLessThan(afterAuthorize);
+    expect(afterAuthorize).toBeLessThan(secondPoisonCheck);
+    expect(secondPoisonCheck).toBeLessThan(stateChangedPoison);
+    expect(activeDirectoryBranch).toContain('completionDrainSeal is not null ||');
+    expect(activeDirectoryBranch).toContain('completedWriteHandoff is not null ||');
+    expect(activeDirectoryBranch).toContain(
+      'completionReplayKind !=\n                                    WriteCompletionReplayKind.NormalEpoch',
+    );
+    for (const forbidden of [
+      'TryAuthorizeReservedSystemSetInfoLocked(',
+      'TryAuthorizeCompletedSystemSetInfoLocked(',
+      'TryAuthorizeKnownSystemDirectoryWriteLocked(',
+      'completionDrainSeal =',
+    ]) expect(activeDirectoryBranch).not.toContain(forbidden);
     const handoffBranch = observe.slice(
       observe.indexOf('if (completedWriteHandoff is not null)'),
       observe.indexOf('else\n                        {\n                            pid = drainPid;'),

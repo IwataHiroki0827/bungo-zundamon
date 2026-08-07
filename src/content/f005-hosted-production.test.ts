@@ -57,7 +57,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-043 classifies one exact active producer birth boundary.',
+      '# Native tooling stays outside; CHG-F005-044 hands one exact parent write to active directory auth.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],

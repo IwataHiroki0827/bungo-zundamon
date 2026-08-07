@@ -1019,6 +1019,61 @@ var handoffTupleBefore = handoffTuple.ToArray();
 _ = CanHandoff();
 Check("completion drain completed-write handoff純粋規則は入力state無変更",
     handoffTuple.SequenceEqual(handoffTupleBefore));
+var activeDirectoryTuple = Enumerable.Repeat(true, 10).ToArray();
+bool CanActiveDirectoryHandoff(
+    bool[]? tuple = null,
+    int candidateCount = 1,
+    string? aggregateCode = null,
+    string authorizationFailure = "BIRTH_MISSING",
+    int pid = 4,
+    string eventName = "write",
+    ulong fileObject = 31)
+{
+    var values = tuple ?? activeDirectoryTuple;
+    return WriteCompletionDrainRules.CanHandoffActiveDirectory(
+        candidateCount,
+        aggregateCode ?? WriteCompletionDrainRules.LateRetainedParentWriteFailureCode,
+        authorizationFailure,
+        pid,
+        eventName,
+        fileObject,
+        values[0], values[1], values[2], values[3], values[4],
+        values[5], values[6], values[7], values[8], values[9]);
+}
+Check("completion drain active directory handoff all true", CanActiveDirectoryHandoff());
+Check("completion drain active directory handoff PID 0を許可",
+    CanActiveDirectoryHandoff(pid: 0));
+Check("completion drain active directory handoff候補0件を拒否",
+    !CanActiveDirectoryHandoff(candidateCount: 0));
+Check("completion drain active directory handoff候補2件を拒否",
+    !CanActiveDirectoryHandoff(candidateCount: 2));
+Check("completion drain active directory handoff他bucketを拒否",
+    !CanActiveDirectoryHandoff(aggregateCode:
+        WriteCompletionDrainRules.LateDiagnosticWriteMixedCausesFailureCode));
+Check("completion drain active directory handoff birth以外を拒否",
+    !CanActiveDirectoryHandoff(authorizationFailure: "EVENT_BEFORE_BIRTH"));
+Check("completion drain active directory handoff非System PIDを拒否",
+    !CanActiveDirectoryHandoff(pid: 5));
+Check("completion drain active directory handoff setinfoを拒否",
+    !CanActiveDirectoryHandoff(eventName: "setinfo"));
+Check("completion drain active directory handoff file object 0を拒否",
+    !CanActiveDirectoryHandoff(fileObject: 0));
+var activeDirectoryAxisNames = new[] {
+    "unbound object", "completed retained", "voice phase", "seal phase",
+    "seal parent", "active lease", "other lease", "phase instance",
+    "active parent", "post reservation",
+};
+for (var index = 0; index < activeDirectoryTuple.Length; index++)
+{
+    var oneFalse = activeDirectoryTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain active directory {activeDirectoryAxisNames[index]} falseを拒否",
+        !CanActiveDirectoryHandoff(tuple: oneFalse));
+}
+var activeDirectoryTupleBefore = activeDirectoryTuple.ToArray();
+_ = CanActiveDirectoryHandoff();
+Check("completion drain active directory純粋規則は入力state無変更",
+    activeDirectoryTuple.SequenceEqual(activeDirectoryTupleBefore));
 var postRequestTuple = Enumerable.Repeat(true, 12).ToArray();
 bool CanPostRequest(
     bool[]? tuple = null,
@@ -1751,7 +1806,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (573 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (593 cases)");
 return 0;
 
 bool BoundLeaseCheap(

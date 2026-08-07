@@ -1,0 +1,13 @@
+T-118 / CHG-F005-044 ローカル試験 attempt 1
+
+command:
+npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-run-work.test.ts src/content/f005-source.test.ts
+
+result: FAIL (2 tests, 126/128 pass)
+
+1. 構造fixtureのslice開始点が新`CanHandoffActiveDirectory`より後で空文字となった。production実装assertの失敗ではない。
+2. Program変更後・再現build前のためbuild evidence/native binary pinが旧値で不一致となった。
+
+recovery:
+- 構造sliceをProgram全体の`CanHandoffActiveDirectory`から`IsDeadlineValid`までへ修正する。
+- 最終Programから再現buildを行い、build.ps1、evidence、source pin、DD/CHGを同期する。

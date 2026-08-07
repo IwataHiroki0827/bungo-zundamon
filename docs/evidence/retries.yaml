@@ -777,3 +777,23 @@ attempts:
   cause: attempt 2と同じ既存LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止し、T-117対象へretry_limit内で未到達
   recovery: T-117をblockedとしてQ-038へエスカレーションし、前段post-reservation writeの帰属境界を別変更管理で設計する
   log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-3.md
+- date: '2026-08-08T05:45:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-044-local
+  attempt: 1
+  command: npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-run-work.test.ts src/content/f005-source.test.ts
+  result: fail
+  failures: 2
+  cause: 新ruleより後を開始点にした構造slice誤り1件と、Program更新後・再現build前のpin不一致1件。production機能assert失敗なし
+  recovery: sliceを新ruleの実位置へ修正し、最終Programから再現buildして全pinを同期する
+  log: docs/evidence/ut/UT-F005-CHG-044-attempt-1.log
+- date: '2026-08-08T05:52:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-044-local
+  attempt: 2
+  command: native rules 593件と関連5 files / 128件のVitest再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-044-result.md
