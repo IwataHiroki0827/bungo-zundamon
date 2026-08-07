@@ -1,0 +1,10 @@
+T-116 CHG-F005-042 影響UT attempt 1
+実行日時: 2026-08-08T04:08:00+09:00
+command: npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts
+result: FAIL
+
+失敗2件:
+1. 旧構造試験がlate block内のselectedSeal変更を禁止していた。CHG-F005-042の限定sealed replayはselectedSealを意図的に設定するため、単一候補・marker・QPC・state・generation条件を検査するassertへ更新した。
+2. Program更新直後でbuild evidence/native binary pinが旧値だった。再現buildとpin同期で解消した。
+
+post-request純粋規則・境界・state不変の失敗は0件。

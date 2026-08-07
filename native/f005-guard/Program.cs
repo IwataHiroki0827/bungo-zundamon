@@ -3153,6 +3153,7 @@ sealed class CapacityGuardSession : IDisposable
                 BoundLeaseDirectoryRejoinContext? boundLeaseDirectoryRejoin = null;
                 WriteCompletionDrainSeal? completionDrainSeal = null;
                 WriteCompletionDrainSeal? completedWriteHandoff = null;
+                var completionReplayKind = WriteCompletionReplayKind.NormalEpoch;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -3170,7 +3171,8 @@ sealed class CapacityGuardSession : IDisposable
                         out var drainPid,
                         out var drainSequence,
                         out completionDrainSeal,
-                        out completedWriteHandoff))
+                        out completedWriteHandoff,
+                        out completionReplayKind))
                     {
                         if (completedWriteHandoff is not null)
                         {
@@ -3500,6 +3502,7 @@ sealed class CapacityGuardSession : IDisposable
                         boundLeaseDirectoryRejoin,
                         completionDrainSeal?.SealSequence,
                         renameProof,
+                        WriteCompletionReplayKind.NormalEpoch,
                         deferred);
                     callbackTerminal = QueueOrApplyCallbackLocked(
                         renameSnapshot,
@@ -3543,6 +3546,7 @@ sealed class CapacityGuardSession : IDisposable
                     boundLeaseDirectoryRejoin,
                     completionDrainSeal?.SealSequence,
                     bindingProof,
+                    completionReplayKind,
                     null);
                 callbackTerminal = QueueOrApplyCallbackLocked(
                     callbackSnapshot,
@@ -3854,12 +3858,39 @@ sealed class CapacityGuardSession : IDisposable
         var expectedKind = snapshot.NormalizedPath == seal.CurrentPath
             ? WriteCompletionBindingKind.SealedCurrent
             : WriteCompletionBindingKind.SealedParent;
+        var normalEpoch = snapshot.ReplayKind == WriteCompletionReplayKind.NormalEpoch &&
+            seal.CompletionRequestedAtQpc is long normalUpper &&
+            WriteCompletionDrainRules.IsWithinEpoch(
+                seal.CurrentPathReservedAtQpc, normalUpper, snapshot.TimestampQpc);
+        var postRequestSystemSetInfo =
+            snapshot.ReplayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo &&
+            WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+                snapshot.ReplayKind,
+                snapshot.EventName == "setinfo",
+                snapshot.NormalizedPath == seal.CurrentPath,
+                seal.State == WriteCompletionDrainState.CompletionRequested,
+                seal.CompletionRequestedAtQpc is long,
+                seal.DrainDeadlineQpc is long,
+                seal.CompletionRequestedAtQpc is long completionQpc &&
+                    seal.DrainDeadlineQpc is long deadlineQpc &&
+                    WriteCompletionDrainRules.IsWithinPostRequestEpoch(
+                        completionQpc, deadlineQpc, snapshot.TimestampQpc),
+                !completedWrites.ContainsKey(snapshot.NormalizedPath),
+                proof?.Kind == WriteCompletionBindingKind.SealedCurrent,
+                proof?.GenerationBefore == seal.LeaseFileObjectGeneration,
+                proof?.GenerationAfter == seal.LeaseFileObjectGeneration,
+                proof?.StateBefore is WriteCompletionBindingState.Bound or
+                    WriteCompletionBindingState.Retired,
+                proof?.StateAfter == proof?.StateBefore,
+                proof?.Path == seal.CurrentPath,
+                snapshot.ProducerPid == seal.ProducerPid,
+                snapshot.ProducerSequenceNumber == seal.ProcessSequenceNumber,
+                seal.CurrentIdentity == snapshot.Effective.Identity,
+                proof?.Identity == snapshot.Effective.Identity);
         if (!ReferenceEquals(snapshot.Phase, seal.Phase) ||
             seal.State is not (WriteCompletionDrainState.CompletionRequested or
                 WriteCompletionDrainState.CompletedRetained) ||
-            seal.CompletionRequestedAtQpc is not long upper ||
-            !WriteCompletionDrainRules.IsWithinEpoch(
-                seal.CurrentPathReservedAtQpc, upper, snapshot.TimestampQpc) ||
+            normalEpoch == postRequestSystemSetInfo ||
             proof is null || proof.Kind != expectedKind ||
             proof.FileObject != snapshot.FileObject ||
             expectedKind == WriteCompletionBindingKind.SealedCurrent &&
@@ -3964,12 +3995,14 @@ sealed class CapacityGuardSession : IDisposable
         out int producerPid,
         out ulong producerSequenceNumber,
         out WriteCompletionDrainSeal? selectedSeal,
-        out WriteCompletionDrainSeal? completedWriteHandoff)
+        out WriteCompletionDrainSeal? completedWriteHandoff,
+        out WriteCompletionReplayKind replayKind)
     {
         producerPid = 0;
         producerSequenceNumber = 0;
         selectedSeal = null;
         completedWriteHandoff = null;
+        replayKind = WriteCompletionReplayKind.NormalEpoch;
         var broad = writeCompletionSeals.Where(seal =>
             authorizationFailure == "BIRTH_MISSING" &&
             pid is 0 or 4 &&
@@ -4059,6 +4092,41 @@ sealed class CapacityGuardSession : IDisposable
                 }
                 completedWriteHandoff = seal;
                 return true;
+            }
+            if (lateCandidates.Length == 1 &&
+                failure == WriteCompletionDrainRules
+                    .LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode)
+            {
+                var seal = lateCandidates[0];
+                var completedRecordAbsent = !completedWrites.ContainsKey(normalized);
+                if (!completedRecordAbsent)
+                    throw new GuardException(
+                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                if (WriteCompletionDrainRules.CanAuthorizePostRequestSystemSetInfo(
+                    lateCandidates.Length,
+                    failure,
+                    authorizationFailure,
+                    pid,
+                    eventName,
+                    fileObject,
+                    activePhase?.Phase == "voice",
+                    ReferenceEquals(activePhase, seal.Phase),
+                    normalized == seal.CurrentPath,
+                    fileObject == seal.LeaseFileObject && ProofCandidate(seal),
+                    seal.State == WriteCompletionDrainState.CompletionRequested,
+                    seal.CompletionRequestedAtQpc is long,
+                    seal.CompletionRequestedAtQpc ?? 0,
+                    seal.DrainDeadlineQpc is long,
+                    seal.DrainDeadlineQpc ?? 0,
+                    eventQpc,
+                    completedRecordAbsent))
+                {
+                    selectedSeal = seal;
+                    producerPid = seal.ProducerPid;
+                    producerSequenceNumber = seal.ProcessSequenceNumber;
+                    replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo;
+                    return true;
+                }
             }
             throw new GuardException(failure);
         }
@@ -6452,6 +6520,7 @@ sealed class CapacityGuardSession : IDisposable
         BoundLeaseDirectoryRejoinContext? BoundLeaseDirectoryRejoin,
         long? SealSequence,
         ImmutableBindingProof? BindingProof,
+        WriteCompletionReplayKind ReplayKind,
         DeferredRenameRecord? DeferredRename);
 
     private sealed record PendingCleanupSnapshot(
@@ -7939,6 +8008,12 @@ public readonly record struct LateEventDiagnosticCandidate(
     bool SameParent,
     bool PostReservation);
 
+public enum WriteCompletionReplayKind
+{
+    NormalEpoch,
+    PostRequestSystemSetInfo,
+}
+
 public static class WriteCompletionDrainRules
 {
     public const string GenericLateEventFailureCode =
@@ -7956,6 +8031,8 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}SETINFO_MIXED_CAUSES";
     public const string LateDiagnosticSetInfoCurrentPathFailureCode =
         $"{LateDiagnosticPrefix}SETINFO_CURRENT_PATH";
+    public const string LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode =
+        $"{LateDiagnosticPrefix}SETINFO_SEAL_NOT_COMPLETED_RETAINED";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -7986,7 +8063,7 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PARENT_MISMATCH",
         $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION",
         LateDiagnosticWriteMixedCausesFailureCode,
-        $"{LateDiagnosticPrefix}SETINFO_SEAL_NOT_COMPLETED_RETAINED",
+        LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode,
         LateDiagnosticSetInfoCurrentPathFailureCode,
         $"{LateDiagnosticPrefix}SETINFO_ACTIVE_LEASE_MISSING",
         $"{LateDiagnosticPrefix}SETINFO_ACTIVE_PARENT_MISMATCH",
@@ -8012,6 +8089,55 @@ public static class WriteCompletionDrainRules
 
     public static bool IsWithinEpoch(long reservation, long completion, long eventQpc) =>
         reservation < eventQpc && eventQpc <= completion;
+
+    public static bool IsWithinPostRequestEpoch(
+        long completion, long deadline, long eventQpc) =>
+        completion < eventQpc && eventQpc <= deadline;
+
+    /// <summary>
+    /// CompletionRequested中のexact current SetInfoだけをsealed replayへ接続する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static bool CanAuthorizePostRequestSystemSetInfo(
+        int lateCandidateCount,
+        string aggregateFailureCode,
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool voicePhase,
+        bool sealPhaseMatches,
+        bool currentPathMatches,
+        bool exactGenerationMatches,
+        bool completionRequested,
+        bool completionQpcPresent,
+        long completionQpc,
+        bool drainDeadlinePresent,
+        long drainDeadlineQpc,
+        long eventQpc,
+        bool completedRecordAbsent) =>
+        lateCandidateCount == 1 &&
+        aggregateFailureCode ==
+            LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode &&
+        authorizationFailure == "BIRTH_MISSING" &&
+        systemPid is 0 or 4 &&
+        eventName == "setinfo" &&
+        fileObject != 0 &&
+        voicePhase &&
+        sealPhaseMatches &&
+        currentPathMatches &&
+        exactGenerationMatches &&
+        completionRequested &&
+        completionQpcPresent &&
+        drainDeadlinePresent &&
+        IsWithinPostRequestEpoch(completionQpc, drainDeadlineQpc, eventQpc) &&
+        completedRecordAbsent;
+
+    public static bool PostRequestReplayTupleMatches(
+        WriteCompletionReplayKind replayKind,
+        params bool[] predicates) =>
+        replayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo &&
+        predicates.Length > 0 && predicates.All(value => value);
 
     public static bool IsDeadlineValid(long now, long deadline) => now <= deadline;
 

@@ -1112,6 +1112,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     for (const required of [
       'item.SealSequence == snapshot.SealSequence',
       'WriteCompletionDrainRules.IsWithinEpoch(',
+      'WriteCompletionDrainRules.IsWithinPostRequestEpoch(',
+      'snapshot.ReplayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo',
+      '!completedWrites.ContainsKey(snapshot.NormalizedPath)',
+      'proof?.StateBefore is WriteCompletionBindingState.Bound or',
+      'proof?.Path == seal.CurrentPath',
       'proof.GenerationBefore != seal.LeaseFileObjectGeneration',
       'seal.RetainedCurrent.Reinspect(snapshot.Effective.Identity)',
       'seal.RetainedParent.Reinspect(snapshot.Effective.Identity)',
@@ -1144,6 +1149,14 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateLookup).not.toContain('filesByObject');
     expect(lateLookup).toContain('ledger.MatchesGeneration(');
     expect(lateLookup).toContain('ledger.IsUnbound(fileObject)');
+    expect(lateLookup).toContain(
+      'LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode',
+    );
+    expect(lateLookup).toContain('CanAuthorizePostRequestSystemSetInfo(');
+    expect(lateLookup).toContain('!completedWrites.ContainsKey(normalized)');
+    expect(lateLookup).toContain(
+      'replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo',
+    );
     const forget = program.slice(
       program.indexOf('private void ForgetFileObject('),
       program.indexOf('private void ObserveUnknownEtw('),
@@ -1223,7 +1236,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).not.toContain('InjectWriteCompletionEvent');
   });
 
-  it('exact late throw位置でretained parent診断だけを純粋分類する', async () => {
+  it('exact late位置で固定診断・限定handoff/replayだけを純粋選択する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const authorize = program.slice(
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
@@ -1261,9 +1274,6 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateBlock).toContain('completedWriteHandoff = seal;\n                return true;');
     expect(lateBlock).toContain('throw new GuardException(failure)');
     for (const forbidden of [
-      'selectedSeal =',
-      'producerPid =',
-      'producerSequenceNumber =',
       'writeCompletionBindingLedger =',
       'writeCompletionReorderQueue.',
       'filesByObject',
@@ -1329,7 +1339,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(observe).toContain('WriteCompletionDrainSeal? completionDrainSeal = null;');
     expect(observe).toContain('WriteCompletionDrainSeal? completedWriteHandoff = null;');
+    expect(observe).toContain(
+      'var completionReplayKind = WriteCompletionReplayKind.NormalEpoch;',
+    );
     expect(observe).toContain('out completionDrainSeal,\n                        out completedWriteHandoff');
+    expect(observe).toContain('out completedWriteHandoff,\n                        out completionReplayKind');
     const handoffBranch = observe.slice(
       observe.indexOf('if (completedWriteHandoff is not null)'),
       observe.indexOf('else\n                        {\n                            pid = drainPid;'),
@@ -1371,6 +1385,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(normalProof).toContain('else if (seal is null)');
     expect(normalProof).toContain('kind = WriteCompletionBindingKind.OtherBound;');
     expect(observe).toContain('completionDrainSeal?.SealSequence');
+    expect(observe).toContain('bindingProof,\n                    completionReplayKind,');
+    expect(program).toContain('public enum WriteCompletionReplayKind');
+    expect(program).toContain('PostRequestSystemSetInfo,');
     expect(program).toContain(
       'error = WriteCompletionDrainRules.NormalizeExternalFailureCode(code)',
     );

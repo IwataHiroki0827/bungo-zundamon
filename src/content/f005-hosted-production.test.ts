@@ -57,7 +57,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-041 hands one exact late SetInfo to completed-write auth.',
+      '# Native tooling stays outside; CHG-F005-042 seals one exact post-request current SetInfo replay.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],

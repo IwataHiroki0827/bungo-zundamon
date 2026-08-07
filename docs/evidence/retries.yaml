@@ -697,3 +697,23 @@ attempts:
   cause: T-115対象SETINFO_CURRENT_PATHを通過後、別late candidateがSETINFO_SEAL_NOT_COMPLETED_RETAINEDで安全停止
   recovery: T-115をdoneとし、非CompletedRetained sealの状態・安全境界は別変更管理で判断する
   log: docs/evidence/qt/QT-F005-008-009-CHG-041-hosted-attempt-1.md
+- date: '2026-08-08T04:08:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-042-local
+  attempt: 1
+  command: npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts
+  result: fail
+  failures: 2
+  cause: 旧構造試験がlate blockのselectedSeal変更を禁止し、Program更新前のbuild evidence/native binary pinが旧値。post-request機能規則の失敗なし
+  recovery: CHG042限定条件とmarker接続を検査するassertへ置換し、再現buildでevidence/binary/source pinを同期する
+  log: docs/evidence/ut/UT-F005-CHG-042-attempt-1.log
+- date: '2026-08-08T04:20:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-042-local
+  attempt: 2
+  command: native rules 556件と関連5 files / 126件のVitestをmaxWorkers 1で再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: typecheck、ESLint、trace_check、pin整合、独立受入を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-042-result.md

@@ -1019,6 +1019,98 @@ var handoffTupleBefore = handoffTuple.ToArray();
 _ = CanHandoff();
 Check("completion drain completed-write handoff純粋規則は入力state無変更",
     handoffTuple.SequenceEqual(handoffTupleBefore));
+var postRequestTuple = Enumerable.Repeat(true, 12).ToArray();
+bool CanPostRequest(
+    bool[]? tuple = null,
+    int candidateCount = 1,
+    string? aggregateCode = null,
+    long completionQpc = 100,
+    long deadlineQpc = 110,
+    long eventQpc = 101)
+{
+    var values = tuple ?? postRequestTuple;
+    return WriteCompletionDrainRules.CanAuthorizePostRequestSystemSetInfo(
+        candidateCount,
+        aggregateCode ?? WriteCompletionDrainRules
+            .LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode,
+        values[0] ? "BIRTH_MISSING" : "EVENT_BEFORE_BIRTH",
+        values[1] ? 4 : 5,
+        values[2] ? "setinfo" : "write",
+        values[3] ? 31UL : 0UL,
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8],
+        values[9],
+        completionQpc,
+        values[10],
+        deadlineQpc,
+        eventQpc,
+        values[11]);
+}
+Check("completion drain post-request SetInfo all true", CanPostRequest());
+Check("completion drain post-request候補0件を拒否",
+    !CanPostRequest(candidateCount: 0));
+Check("completion drain post-request候補2件を拒否",
+    !CanPostRequest(candidateCount: 2));
+foreach (var code in new[] {
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SEAL_NOT_COMPLETED_RETAINED",
+    WriteCompletionDrainRules.LateDiagnosticSetInfoCurrentPathFailureCode,
+    WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode,
+    WriteCompletionDrainRules.LateDiagnosticSetInfoMixedCausesFailureCode,
+    WriteCompletionDrainRules.GenericLateEventFailureCode,
+})
+    Check("completion drain post-request write/current/parent/other/mixedを拒否",
+        !CanPostRequest(aggregateCode: code));
+var postRequestAxisNames = new[] {
+    "authorization", "system pid", "setinfo", "file object", "voice phase",
+    "seal phase", "current path", "exact generation", "completion requested",
+    "completion qpc", "drain deadline", "completed record absent",
+};
+for (var index = 0; index < postRequestTuple.Length; index++)
+{
+    var oneFalse = postRequestTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain post-request {postRequestAxisNames[index]} falseを拒否",
+        !CanPostRequest(tuple: oneFalse));
+}
+Check("completion drain post-request completion同値を拒否",
+    !CanPostRequest(eventQpc: 100));
+Check("completion drain post-request completion+1を許可",
+    CanPostRequest(eventQpc: 101));
+Check("completion drain post-request deadline同値を許可",
+    CanPostRequest(eventQpc: 110));
+Check("completion drain post-request deadline+1を拒否",
+    !CanPostRequest(eventQpc: 111));
+var postRequestTupleBefore = postRequestTuple.ToArray();
+_ = CanPostRequest();
+Check("completion drain post-request純粋規則は入力state無変更",
+    postRequestTuple.SequenceEqual(postRequestTupleBefore));
+var postRequestReplayTuple = Enumerable.Repeat(true, 17).ToArray();
+Check("completion drain post-request sealed再検査all true",
+    WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+        WriteCompletionReplayKind.PostRequestSystemSetInfo,
+        postRequestReplayTuple));
+for (var index = 0; index < postRequestReplayTuple.Length; index++)
+{
+    var oneFalse = postRequestReplayTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain post-request sealed再検査軸 {index} falseを拒否",
+        !WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+            WriteCompletionReplayKind.PostRequestSystemSetInfo,
+            oneFalse));
+}
+var postRequestReplayTupleBefore = postRequestReplayTuple.ToArray();
+_ = WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+    WriteCompletionReplayKind.PostRequestSystemSetInfo,
+    postRequestReplayTuple);
+Check("completion drain post-request sealed再検査純粋規則は入力state無変更",
+    postRequestReplayTuple.SequenceEqual(postRequestReplayTupleBefore));
+Check("completion drain flagなしlate sealed再検査を拒否",
+    !WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+        WriteCompletionReplayKind.NormalEpoch,
+        postRequestReplayTuple));
 Check("completion drain external code集合はexact 35",
     WriteCompletionDrainRules.ExternalFailureCodes.Count == 35 &&
     WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 35 &&
@@ -1585,7 +1677,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (511 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (556 cases)");
 return 0;
 
 bool BoundLeaseCheap(
