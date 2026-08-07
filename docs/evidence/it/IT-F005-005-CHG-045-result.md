@@ -25,3 +25,5 @@ native reply、TypeScript bridge、runner、workflow annotationの43 code集合�
 hosted attempt 1はcommit `4a2152aefda335b0f109c4f3cb2d838669108d6e`で実施した。native probe run `31220780207`はSUCCESS、production run `31220780289`は既存`POST_RESERVATION_WRITE`で安全停止しT-119対象へ未到達だった。candidate branchは作成されず、Pages run `31220780215`はdeploy skipである。同一Program pinのattempt 2へ継続する。
 
 hosted attempt 2は同一Program pinのcommit `1dc636acc389b9ba5d00f6876ce865d7a80da5a0`で実施した。production run `31221136732`はattempt 1と同じ既存`POST_RESERVATION_WRITE`で安全停止し、candidate branchは作成されず、Pages run `31221136576`はdeploy skipである。最終attempt 3へ継続する。
+
+hosted attempt 3は同一Program pinのcommit `80387641d4cc39587a3a0aa02132a3e46e108c9a`で実施した。production run `31221410484`は`RESERVATION_BIRTH_RECORD_MISSING`へ到達し、予約handler時未観測の分類を実Windowsで確認した。candidate branchは作成されず、Pages run `31221412704`はdeploy skipである。QT-F005-008/009の対象境界到達をPASSとする。

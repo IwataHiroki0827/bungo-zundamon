@@ -847,3 +847,13 @@ attempts:
   cause: attempt 1と同じ既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-119対象bucketへ未到達
   recovery: Program pinを変更せずworkflow self-pathで最終hosted attempt 3を実行する
   log: docs/evidence/qt/QT-F005-008-009-CHG-045-hosted-attempt-2.md
+- date: '2026-08-08T06:54:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-045-hosted
+  attempt: 3
+  command: GitHub Actions production run 31221410484
+  result: pass
+  failures: 0
+  cause: none
+  recovery: RESERVATION_BIRTH_RECORD_MISSINGを次の変更管理入力としてT-119を完了する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-045-hosted-attempt-3.md
