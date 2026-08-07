@@ -747,3 +747,13 @@ attempts:
   cause: none
   recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-043-result.md
+- date: '2026-08-08T05:07:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-043-hosted
+  attempt: 1
+  command: GitHub Actions run 31213661410 at commit ab087a4c71649b4e16692ae16ebfef53e24b8660
+  result: fail
+  failures: 1
+  cause: timing差で既存WRITE_ACTIVE_LEASE_MISSINGへ安全停止し、T-117対象WRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONへ未到達
+  recovery: 認可・実装・Program pinを変更せずworkflow自己pathだけでattempt 2を起動する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-1.md
