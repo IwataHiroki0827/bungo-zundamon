@@ -3152,6 +3152,7 @@ sealed class CapacityGuardSession : IDisposable
                 AfterLeaseDirectoryRejoinContext? afterLeaseDirectoryRejoin = null;
                 BoundLeaseDirectoryRejoinContext? boundLeaseDirectoryRejoin = null;
                 WriteCompletionDrainSeal? completionDrainSeal = null;
+                WriteCompletionDrainSeal? completedWriteHandoff = null;
                 if (!AuthorizeJobMemberLocked(
                     pid,
                     processStartKey,
@@ -3168,10 +3169,37 @@ sealed class CapacityGuardSession : IDisposable
                         authorizationFailure,
                         out var drainPid,
                         out var drainSequence,
-                        out completionDrainSeal))
+                        out completionDrainSeal,
+                        out completedWriteHandoff))
                     {
-                        pid = drainPid;
-                        producerSequenceNumber = drainSequence;
+                        if (completedWriteHandoff is not null)
+                        {
+                            if (!TryAuthorizeCompletedSystemSetInfoLocked(
+                                eventName,
+                                pid,
+                                normalized,
+                                fileObject,
+                                timestampQpc,
+                                authorizationFailure,
+                                out var completedPid,
+                                out var completedSequenceNumber,
+                                out systemSetInfoExpectedIdentity))
+                            {
+                                if (failureCode is null)
+                                    PoisonLocked(
+                                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                                return;
+                            }
+                            pid = completedPid;
+                            producerSequenceNumber = completedSequenceNumber;
+                            identityRecheckFailureCode =
+                                "ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH";
+                        }
+                        else
+                        {
+                            pid = drainPid;
+                            producerSequenceNumber = drainSequence;
+                        }
                     }
                     else if (TryAuthorizeReservedSystemSetInfoLocked(
                         eventName,
@@ -3935,11 +3963,13 @@ sealed class CapacityGuardSession : IDisposable
         string authorizationFailure,
         out int producerPid,
         out ulong producerSequenceNumber,
-        out WriteCompletionDrainSeal? selectedSeal)
+        out WriteCompletionDrainSeal? selectedSeal,
+        out WriteCompletionDrainSeal? completedWriteHandoff)
     {
         producerPid = 0;
         producerSequenceNumber = 0;
         selectedSeal = null;
+        completedWriteHandoff = null;
         var broad = writeCompletionSeals.Where(seal =>
             authorizationFailure == "BIRTH_MISSING" &&
             pid is 0 or 4 &&
@@ -4001,6 +4031,34 @@ sealed class CapacityGuardSession : IDisposable
                         sameParent,
                         activeLease is not null &&
                             eventQpc > activeLease.CurrentPathReservedAtQpc)));
+            }
+            if (WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(
+                    lateCandidates.Length,
+                    failure))
+            {
+                var seal = lateCandidates[0];
+                var completedPresent = completedWrites.TryGetValue(
+                    normalized,
+                    out var completed);
+                if (!WriteCompletionDrainRules.CanHandoffCompletedWrite(
+                    lateCandidates.Length,
+                    failure,
+                    completedPresent,
+                    completedPresent && completed!.WorkerPid == seal.ProducerPid,
+                    completedPresent && completed!.ProcessSequenceNumber ==
+                        seal.ProcessSequenceNumber,
+                    completedPresent && completed!.PhaseInstanceId ==
+                        seal.Phase.PhaseInstanceId,
+                    completedPresent && completed!.ReservedAtQpc ==
+                        seal.CurrentPathReservedAtQpc,
+                    completedPresent && completed!.Identity ==
+                        seal.CurrentIdentity))
+                {
+                    throw new GuardException(
+                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                }
+                completedWriteHandoff = seal;
+                return true;
             }
             throw new GuardException(failure);
         }
@@ -7896,6 +7954,8 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_MIXED_CAUSES";
     public const string LateDiagnosticSetInfoMixedCausesFailureCode =
         $"{LateDiagnosticPrefix}SETINFO_MIXED_CAUSES";
+    public const string LateDiagnosticSetInfoCurrentPathFailureCode =
+        $"{LateDiagnosticPrefix}SETINFO_CURRENT_PATH";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -7927,7 +7987,7 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION",
         LateDiagnosticWriteMixedCausesFailureCode,
         $"{LateDiagnosticPrefix}SETINFO_SEAL_NOT_COMPLETED_RETAINED",
-        $"{LateDiagnosticPrefix}SETINFO_CURRENT_PATH",
+        LateDiagnosticSetInfoCurrentPathFailureCode,
         $"{LateDiagnosticPrefix}SETINFO_ACTIVE_LEASE_MISSING",
         $"{LateDiagnosticPrefix}SETINFO_ACTIVE_PARENT_MISMATCH",
         $"{LateDiagnosticPrefix}SETINFO_AT_OR_BEFORE_ACTIVE_RESERVATION",
@@ -8049,6 +8109,38 @@ public static class WriteCompletionDrainRules
             return "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
         return null;
     }
+
+    /// <summary>
+    /// exact late current SetInfoを既存completed-write認可へ渡す候補を一意化する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static bool IsCompletedWriteHandoffCandidate(
+        int lateCandidateCount,
+        string aggregateFailureCode) =>
+        lateCandidateCount == 1 &&
+        aggregateFailureCode == LateDiagnosticSetInfoCurrentPathFailureCode;
+
+    /// <summary>
+    /// handoff候補とcompleted record/sealの不変tupleを純粋判定する。
+    /// </summary>
+    public static bool CanHandoffCompletedWrite(
+        int lateCandidateCount,
+        string aggregateFailureCode,
+        bool completedRecordPresent,
+        bool workerPidMatches,
+        bool processSequenceMatches,
+        bool phaseInstanceMatches,
+        bool reservedQpcMatches,
+        bool identityMatches) =>
+        IsCompletedWriteHandoffCandidate(
+            lateCandidateCount,
+            aggregateFailureCode) &&
+        completedRecordPresent &&
+        workerPidMatches &&
+        processSequenceMatches &&
+        phaseInstanceMatches &&
+        reservedQpcMatches &&
+        identityMatches;
 
     /// <summary>
     /// exact late拒否位置の不変tupleだけから外部診断を選ぶ。候補・認可・stateは変更しない。

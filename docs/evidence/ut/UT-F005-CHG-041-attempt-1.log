@@ -1,0 +1,16 @@
+T-115 CHG-F005-041 影響UT attempt 1
+実行日時: 2026-08-08T03:34:00+09:00
+command: npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-hosted-production.test.ts src/content/f005-native-guard.test.ts src/content/f005-source.test.ts
+result: FAIL
+
+並行実行:
+- npm run typecheck
+- npm run lint
+- dotnet run --project native/f005-guard-tests/F005Guard.CorrelationTests.csproj -c Release
+
+失敗:
+- src/content/f005-native-guard.test.ts
+- 高速native guard終了でもexit listenerを取り逃がさない
+- 5秒timeout
+
+handoff機能・構造assertの失敗は0件。該当testの単独再実行はPASSしたため、負荷なし・maxWorkers 1の関連全体再実行へ切り替えた。

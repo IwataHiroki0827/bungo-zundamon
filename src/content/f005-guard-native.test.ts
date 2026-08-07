@@ -1242,6 +1242,23 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateBlock).toContain('!ReferenceEquals(activeLease, seal.Lease)');
     expect(lateBlock).toContain('activeLease!.RelativePath[..slash] == normalized');
     expect(lateBlock).toContain('eventQpc > activeLease.CurrentPathReservedAtQpc');
+    expect(lateBlock).toContain(
+      'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
+    );
+    expect(lateBlock).toContain('lateCandidates.Length,\n                    failure');
+    expect(lateBlock).toContain('completedWrites.TryGetValue(');
+    expect(lateBlock).toContain('WriteCompletionDrainRules.CanHandoffCompletedWrite(');
+    for (const axis of [
+      'completed!.WorkerPid == seal.ProducerPid',
+      'completed!.ProcessSequenceNumber ==\n                        seal.ProcessSequenceNumber',
+      'completed!.PhaseInstanceId ==\n                        seal.Phase.PhaseInstanceId',
+      'completed!.ReservedAtQpc ==\n                        seal.CurrentPathReservedAtQpc',
+      'completed!.Identity ==\n                        seal.CurrentIdentity',
+    ]) expect(lateBlock).toContain(axis);
+    expect(lateBlock).toContain(
+      'throw new GuardException(\n                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED")',
+    );
+    expect(lateBlock).toContain('completedWriteHandoff = seal;\n                return true;');
     expect(lateBlock).toContain('throw new GuardException(failure)');
     for (const forbidden of [
       'selectedSeal =',
@@ -1310,10 +1327,50 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private void ObserveEtw('),
       program.indexOf('private string QueueOrApplyCallbackLocked('),
     );
+    expect(observe).toContain('WriteCompletionDrainSeal? completionDrainSeal = null;');
+    expect(observe).toContain('WriteCompletionDrainSeal? completedWriteHandoff = null;');
+    expect(observe).toContain('out completionDrainSeal,\n                        out completedWriteHandoff');
+    const handoffBranch = observe.slice(
+      observe.indexOf('if (completedWriteHandoff is not null)'),
+      observe.indexOf('else\n                        {\n                            pid = drainPid;'),
+    );
+    expect(handoffBranch.match(/TryAuthorizeCompletedSystemSetInfoLocked\(/gu))
+      .toHaveLength(1);
+    expect(handoffBranch).toContain('if (failureCode is null)');
+    expect(handoffBranch).toContain(
+      'PoisonLocked(\n                                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED")',
+    );
+    expect(handoffBranch).toContain('return;');
+    expect(handoffBranch).toContain('pid = completedPid;');
+    expect(handoffBranch).toContain('producerSequenceNumber = completedSequenceNumber;');
+    expect(handoffBranch).toContain(
+      'identityRecheckFailureCode =\n                                "ETW_COMPLETED_WRITE_REJOIN_IDENTITY_MISMATCH"',
+    );
+    for (const forbidden of [
+      'TryAuthorizeReservedSystemSetInfoLocked(',
+      'TryAuthorizeBoundLeaseDirectoryWriteLocked(',
+      'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+      'TryAuthorizeKnownSystemDirectoryWriteLocked(',
+      'AdmitCallbackProofLocked(',
+      'RecheckSealedCallbackLocked(',
+      'ReplayWriteCompletionQueueLocked(',
+      'completionDrainSeal =',
+      'EventCount',
+    ]) expect(handoffBranch).not.toContain(forbidden);
+    expect(observe.indexOf('if (completedWriteHandoff is not null)'))
+      .toBeLessThan(observe.indexOf('TryAuthorizeReservedSystemSetInfoLocked('));
     expect(observe.indexOf('TryAuthorizeWriteCompletionDrainEventLocked('))
       .toBeLessThan(observe.indexOf('TryAuthorizeBoundLeaseDirectoryWriteLocked('));
     expect(observe.indexOf('TryAuthorizeWriteCompletionDrainEventLocked('))
       .toBeLessThan(observe.indexOf('TryAuthorizeAfterLeaseReservationDirectoryWriteLocked('));
+    expect(observe.match(/TryAuthorizeCompletedSystemSetInfoLocked\(/gu)).toHaveLength(2);
+    const normalProof = program.slice(
+      program.indexOf('private ImmutableBindingProof? AdmitCallbackProofLocked('),
+      program.indexOf('private void ApplyCallbackSnapshotLocked('),
+    );
+    expect(normalProof).toContain('else if (seal is null)');
+    expect(normalProof).toContain('kind = WriteCompletionBindingKind.OtherBound;');
+    expect(observe).toContain('completionDrainSeal?.SealSequence');
     expect(program).toContain(
       'error = WriteCompletionDrainRules.NormalizeExternalFailureCode(code)',
     );

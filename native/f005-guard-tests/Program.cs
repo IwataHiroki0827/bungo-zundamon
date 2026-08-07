@@ -974,6 +974,51 @@ _ = WriteCompletionDrainRules.LateEventFailureCode(
     exactLateTuple[5]);
 Check("completion drain pure late ruleは入力state無変更",
     exactLateTuple.SequenceEqual(exactLateBefore));
+var handoffTuple = Enumerable.Repeat(true, 6).ToArray();
+bool CanHandoff(
+    int candidateCount = 1,
+    string? aggregateCode = null,
+    bool[]? tuple = null)
+{
+    var values = tuple ?? handoffTuple;
+    return WriteCompletionDrainRules.CanHandoffCompletedWrite(
+        candidateCount,
+        aggregateCode ??
+            WriteCompletionDrainRules.LateDiagnosticSetInfoCurrentPathFailureCode,
+        values[0], values[1], values[2], values[3], values[4], values[5]);
+}
+Check("completion drain completed-write handoff all true", CanHandoff());
+Check("completion drain completed-write handoff候補0件を拒否",
+    !CanHandoff(candidateCount: 0));
+Check("completion drain completed-write handoff候補2件を拒否",
+    !CanHandoff(candidateCount: 2));
+Check("completion drain completed-write handoff write currentを拒否",
+    !CanHandoff(aggregateCode: WriteCompletionDrainRules.LateEventFailureCode(
+        "write", true, false, true, true, true, true)));
+Check("completion drain completed-write handoff setinfo parentを拒否",
+    !CanHandoff(aggregateCode:
+        WriteCompletionDrainRules.LateRetainedParentSetInfoFailureCode));
+foreach (var code in new[] {
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SEAL_NOT_COMPLETED_RETAINED",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_ACTIVE_LEASE_MISSING",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_ACTIVE_PARENT_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_AT_OR_BEFORE_ACTIVE_RESERVATION",
+    WriteCompletionDrainRules.LateDiagnosticSetInfoMixedCausesFailureCode,
+    WriteCompletionDrainRules.GenericLateEventFailureCode,
+})
+    Check("completion drain completed-write handoff他bucket/mixed/genericを拒否",
+        !CanHandoff(aggregateCode: code));
+for (var index = 0; index < handoffTuple.Length; index++)
+{
+    var oneFalse = handoffTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed-write handoff record/seal軸 {index} falseを拒否",
+        !CanHandoff(tuple: oneFalse));
+}
+var handoffTupleBefore = handoffTuple.ToArray();
+_ = CanHandoff();
+Check("completion drain completed-write handoff純粋規則は入力state無変更",
+    handoffTuple.SequenceEqual(handoffTupleBefore));
 Check("completion drain external code集合はexact 35",
     WriteCompletionDrainRules.ExternalFailureCodes.Count == 35 &&
     WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 35 &&
@@ -1540,7 +1585,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (493 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (511 cases)");
 return 0;
 
 bool BoundLeaseCheap(

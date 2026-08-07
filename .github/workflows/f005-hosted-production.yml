@@ -1,6 +1,6 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; CHG-F005-038 replays immutable binding proofs.
+# Native tooling stays outside; CHG-F005-041 hands one exact late SetInfo to completed-write auth.
 # This self-path update starts hosted verification for the accepted local implementation.
 on:
   push:

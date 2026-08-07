@@ -667,3 +667,23 @@ attempts:
   cause: completed-retained seal current pathのexact FileObject generationに対するSystem SetInfoがcompletion drain先行拒否で停止し、既存completed-write認可へ未到達
   recovery: CHG-F005-041/T-115で単一SETINFO_CURRENT_PATHとrecord/seal不変tuple一致時だけ、既存completed-write認可へ専用handoffする
   log: docs/evidence/qt/QT-F005-008-009-CHG-040-hosted-attempt-1.md
+- date: '2026-08-08T03:34:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-041-local
+  attempt: 1
+  command: npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-hosted-production.test.ts src/content/f005-native-guard.test.ts src/content/f005-source.test.ts（native・型・ESLintと並行）
+  result: fail
+  failures: 1
+  cause: 並行負荷中に既存の「高速native guard終了でもexit listenerを取り逃がさない」が5秒timeout。handoff機能・構造assertの失敗なし
+  recovery: 該当testを単独再実行後、関連5 filesをmaxWorkers 1で負荷なし再実行する
+  log: docs/evidence/ut/UT-F005-CHG-041-attempt-1.log
+- date: '2026-08-08T03:40:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-041-local
+  attempt: 2
+  command: native rules 511件と関連5 files / 126件のVitestをmaxWorkers 1で再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: typecheck、ESLint、trace_check、pin整合、独立受入を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-041-result.md

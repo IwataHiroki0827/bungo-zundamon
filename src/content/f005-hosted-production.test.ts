@@ -56,6 +56,9 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       (step) => step.name === 'Fail closed after production diagnostic',
     );
 
+    expect(raw).toContain(
+      '# Native tooling stays outside; CHG-F005-041 hands one exact late SetInfo to completed-write auth.',
+    );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
       paths: ['.github/workflows/f005-hosted-production.yml'],
