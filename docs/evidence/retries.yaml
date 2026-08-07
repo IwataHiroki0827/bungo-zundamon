@@ -627,3 +627,13 @@ attempts:
   cause: none
   recovery: native・型・ESLint・trace・再現buildとpin整合を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-039-result.md
+- date: '2026-08-08T02:31:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-039-hosted
+  attempt: 1
+  command: GitHub Actions run 31201498649 at commit 54d327bbdbf444974911158fb3ca33928189601c
+  result: fail
+  failures: 1
+  cause: late candidateは存在するが、CompletedRetained parent・別active lease・same parent・現在予約QPC後の複合条件に一致する候補がなくgeneric LATEで停止
+  recovery: CHG-F005-040/T-114で認可非変更のevent kind別最初不一致軸とMIXED_CAUSESを固定診断する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-039-hosted-attempt-1.md
