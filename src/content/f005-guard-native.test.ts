@@ -705,7 +705,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(observeEtw.indexOf(
       'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
-    )).toBeLessThan(observeEtw.indexOf(
+    )).toBeLessThan(observeEtw.lastIndexOf(
       'TryAuthorizeKnownSystemDirectoryWriteLocked(',
     ));
     expect(observeEtw).toContain('pid = leaseDirectoryPid;');
@@ -1169,26 +1169,45 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       forget.indexOf('if (writeCompletionReorderActive)'),
       forget.indexOf('else', forget.indexOf('if (writeCompletionReorderActive)')),
     );
-    expect(deferredCleanup).toContain('writeCompletionCleanupProofs.Add(');
+    expect(deferredCleanup).toContain('writeCompletionReplayStore.AddCleanup(');
     expect(deferredCleanup).toContain('return;');
     expect(deferredCleanup).not.toContain('ApplyCleanupSemanticLocked(');
     const replayQueue = program.slice(
       program.indexOf('private bool ReplayWriteCompletionQueueLocked('),
       program.indexOf('private PendingWriteLease ValidateWriteLeaseTuple('),
     );
-    expect(replayQueue.indexOf('writeCompletionBindingLedger.Validate(proofs)'))
-      .toBeLessThan(replayQueue.indexOf('ValidateAndCommit(proofs)'));
-    expect(replayQueue.indexOf('ValidateAndCommit(proofs)'))
-      .toBeLessThan(replayQueue.indexOf('writeCompletionReorderQueue.Clear()'));
-    expect(replayQueue).toContain('WriteCompletionAtomicBatchRules.Execute(');
-    expect(replayQueue).toContain('ApplyPreflightedCallbackSnapshotLocked(snapshot)');
-    expect(replayQueue).toContain('RestoreCompletionSemanticCheckpointLocked(checkpoint)');
+    expect(replayQueue).toContain('return writeCompletionReplayStore.Replay(');
+    expect(replayQueue).toContain('PreflightCallbackSnapshotLocked');
+    expect(replayQueue).toContain('PreflightCapacityBatchLocked');
+    expect(replayQueue).toContain('ApplyPreflightedCallbackSnapshotLocked');
+    expect(replayQueue).toContain('RestoreCompletionSemanticCheckpointLocked');
+    const replayStore = program.slice(
+      program.indexOf('internal sealed class WriteCompletionReplayStore<'),
+      program.indexOf('public sealed class WriteCompletionBindingLedger'),
+    );
+    expect(replayStore.indexOf('ledger.Validate(proofs)'))
+      .toBeLessThan(replayStore.indexOf('preflightSnapshot(snapshot)'));
+    expect(replayStore.indexOf('preflightSnapshot(snapshot)'))
+      .toBeLessThan(replayStore.indexOf('preflightCapacity(pending)'));
+    expect(replayStore.indexOf('preflightCapacity(pending)'))
+      .toBeLessThan(replayStore.indexOf('captureCheckpoint()'));
+    expect(replayStore.indexOf('captureCheckpoint()'))
+      .toBeLessThan(replayStore.indexOf('WriteCompletionAtomicBatchRules.Execute('));
+    expect(replayStore.indexOf('ledger.ValidateAndCommit(proofs)'))
+      .toBeLessThan(replayStore.indexOf('Snapshots.Clear()'));
+    expect(replayStore).toContain('rollback(checkpoint)');
+    for (const bound of [
+      'Snapshots.Count >= maximumSnapshots',
+      'Cleanups.Count >= maximumCleanups',
+      'GenerationHandles.Count >= maximumGenerationHandles',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT',
+    ]) expect(replayStore).toContain(bound);
     const immutableRejoin = program.slice(
       program.indexOf('private void PreflightImmutableRejoinLocked('),
       program.indexOf('private void PreflightRenameSnapshotLocked('),
     );
     const preflightContextExclusion = immutableRejoin.indexOf(
-      'snapshot.AfterLeaseDirectoryRejoin is not null &&',
+      'WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(',
     );
     const preflightProofRead = immutableRejoin.indexOf(
       'var proof = snapshot.BindingProof!;',
@@ -1261,7 +1280,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private void ReinspectImmediateSnapshot('),
     );
     const contextExclusion = applyCore.indexOf(
-      'snapshot.AfterLeaseDirectoryRejoin is not null &&',
+      'WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(',
     );
     const afterTupleRecheck = applyCore.indexOf(
       'RecheckAfterLeaseDirectoryRejoinLocked(',
@@ -1785,7 +1804,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(observe).toContain('out completionDrainSeal,\n                        out completedWriteHandoff');
     expect(observe).toContain('out completedWriteHandoff,\n                        out activeDirectoryHandoff');
-    expect(observe).toContain('out activeDirectoryHandoff,\n                        out completionReplayKind');
+    expect(observe).toContain(
+      'out activeDirectoryHandoff,\n' +
+      '                        out completedNoLeaseDirectoryHandoff,\n' +
+      '                        out completionReplayKind',
+    );
     const activeDirectoryBranch = observe.slice(
       observe.indexOf('if (activeDirectoryHandoff is not null)'),
       observe.indexOf('else if (completedWriteHandoff is not null)'),
@@ -1874,6 +1897,239 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain(
       'error = WriteCompletionDrainRules.NormalizeExternalFailureCode(code)',
     );
+  });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047 @test UT-F005-047 */
+  it('single exact completed no-lease directory handoffを旧seal replayなしでatomic再検査する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const authorize = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    const lateBlock = authorize.slice(
+      authorize.indexOf('if (epoch.Length == 0)'),
+      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+    );
+    expect(lateBlock.match(/CanHandoffCompletedNoLeaseDirectory\(/gu)).toHaveLength(1);
+    for (const required of [
+      'lateCandidates.Length',
+      'failure',
+      'authorizationFailure',
+      'ledger?.IsUnbound(fileObject) == true',
+      'seal.State == WriteCompletionDrainState.CompletedRetained',
+      'activePhase?.Phase == "voice"',
+      'ReferenceEquals(activePhase, seal.Phase)',
+      'normalized == seal.ParentPath',
+      'pendingWriteLease is null',
+      'seal.CompletionRequestedAtQpc is long',
+      'eventQpc > completionUpper',
+      'completedNoLeaseDirectoryHandoff = seal;',
+    ]) expect(lateBlock).toContain(required);
+
+    const observe = program.slice(
+      program.indexOf('private void ObserveEtw('),
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+    );
+    const dedicated = observe.slice(
+      observe.indexOf('if (completedNoLeaseDirectoryHandoff is not null)'),
+      observe.indexOf('else if (activeDirectoryHandoff is not null)'),
+    );
+    expect(dedicated.match(/TryAuthorizeKnownSystemDirectoryWriteLocked\(/gu))
+      .toHaveLength(1);
+    expect(dedicated).toContain('InvokeCompletedNoLeaseKnownAuthorization(');
+    expect(dedicated).toContain(
+      'CompletedNoLeaseKnownAuthorizationDecision.StateChanged',
+    );
+    for (const forbidden of [
+      'TryAuthorizeReservedSystemSetInfoLocked(',
+      'TryAuthorizeCompletedSystemSetInfoLocked(',
+      'TryAuthorizeBoundLeaseDirectoryWriteLocked(',
+      'TryAuthorizeAfterLeaseReservationDirectoryWriteLocked(',
+      'completionDrainSeal =',
+      'EventCount++',
+    ]) expect(dedicated).not.toContain(forbidden);
+    expect(dedicated).toContain('new CompletedNoLeaseDirectoryRejoinContext(');
+    expect(dedicated).toContain(
+      'RecheckCompletedNoLeaseDirectoryProofIndependentLocked(',
+    );
+    expect(dedicated.indexOf('RecheckCompletedNoLeaseDirectoryProofIndependentLocked('))
+      .toBeLessThan(observe.indexOf('AdmitCallbackProofLocked('));
+    expect(dedicated).toContain(
+      '"F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED"',
+    );
+    expect(observe).toContain(
+      'completedNoLeaseDirectoryRejoin,\n                    completionDrainSeal?.SealSequence',
+    );
+
+    const context = program.slice(
+      program.indexOf('private sealed record CompletedNoLeaseDirectoryRejoinContext('),
+      program.indexOf('private enum WriteCompletionDrainState'),
+    );
+    for (const scalar of [
+      'long SealSequence', 'WriteCompletionDrainSeal Seal', 'ActivePhase Phase',
+      'string PhaseInstanceId', 'long PhaseStartedAtQpc', 'string DirectoryPath',
+      'string DirectoryIdentity', 'ulong EventFileObject', 'long EventQpc',
+      'long CompletionUpperQpc', 'int RootPid', 'ulong RootProcessStartKey',
+      'ulong RootProcessSequenceNumber',
+    ]) expect(context).toContain(scalar);
+    expect(context).not.toMatch(/\{\s*get;\s*set;/u);
+
+    const recheck = program.slice(
+      program.indexOf('private void RecheckCompletedNoLeaseDirectoryProofIndependentLocked('),
+      program.indexOf('private bool TryAuthorizeBoundLeaseDirectoryWriteLocked('),
+    );
+    for (const required of [
+      'CompletedNoLeaseContextStateMatches(',
+      'pendingWriteLease is null',
+      'matchingSeals.Length == 1',
+      'WriteCompletionDrainState.CompletedRetained',
+      'SystemDirectoryWriteRejoinStage(',
+      'seal.RetainedParent.Reinspect(',
+      'job.InspectRetainedProcess(rootWorkerProcess!)',
+      'CompletedNoLeaseRootProcessMatches(',
+      'CompletedNoLeaseSnapshotMatches(',
+      'CompletedNoLeaseProofMatches(',
+      'WriteCompletionBindingKind.OtherBound',
+      'WriteCompletionBindingState.Bound',
+      'writeCompletionGenerationHandles.TryGetValue(',
+      'retained.Reinspect(context.DirectoryIdentity)',
+    ]) expect(recheck).toContain(required);
+    const preflight = program.slice(
+      program.indexOf('private void PreflightImmutableRejoinLocked('),
+      program.indexOf('private void PreflightRenameSnapshotLocked('),
+    );
+    const apply = program.slice(
+      program.indexOf('private void ApplyCallbackSnapshotCoreLocked('),
+      program.indexOf('private void ReinspectImmediateSnapshot('),
+    );
+    for (const block of [preflight, apply]) {
+      expect(block).toContain('HasAtMostOneImmutableRejoinContext(');
+      expect(block).toContain('CompletedNoLeaseDirectoryRejoin is { } completedNoLease');
+      expect(block).toContain('RecheckCompletedNoLeaseDirectoryProofLocked(');
+    }
+    expect(apply.indexOf('RecheckCompletedNoLeaseDirectoryProofLocked('))
+      .toBeLessThan(apply.indexOf('oldAllocated ='));
+    const queueOrApply = program.slice(
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+      program.indexOf('private ImmutableBindingProof? AdmitCallbackProofLocked('),
+    );
+    expect(queueOrApply).toContain('writeCompletionReplayStore.EnqueueSnapshot(snapshot)');
+    const replayQueue = program.slice(
+      program.indexOf('private bool ReplayWriteCompletionQueueLocked('),
+      program.indexOf('private void PreflightCallbackSnapshotLocked('),
+    );
+    expect(replayQueue).toContain('writeCompletionReplayStore.Replay(');
+    const generationRetention = program.slice(
+      program.indexOf('private void EnsureWriteCompletionLedgerLocked()'),
+      program.indexOf('private sealed class RetainedFileIdentity'),
+    );
+    expect(generationRetention.match(/writeCompletionReplayStore\.AddGenerationHandle\(/gu))
+      .toHaveLength(2);
+    const dispose = program.slice(
+      program.indexOf('private void DisposeResourcesAfterPipeCompletion()'),
+      program.indexOf('private static object Error('),
+    );
+    expect(dispose).toContain('writeCompletionReplayStore.Dispose();');
+    const replayStore = program.slice(
+      program.indexOf('internal sealed class WriteCompletionReplayStore<'),
+      program.indexOf('public sealed class WriteCompletionBindingLedger'),
+    );
+    for (const cleanup of [
+      'handle.Dispose()',
+      'GenerationHandles.Clear();',
+      'Snapshots.Clear();',
+      'Cleanups.Clear();',
+      'Ledger = null;',
+    ]) expect(replayStore).toContain(cleanup);
+    const pureRule = program.slice(
+      program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),
+      program.indexOf('public static bool IsDeadlineValid('),
+    );
+    for (const required of [
+      'lateCandidateCount == 1',
+      'LateDiagnosticWriteActiveLeaseMissingFailureCode',
+      'authorizationFailure == "BIRTH_MISSING"',
+      'systemPid is 0 or 4', 'eventName == "write"', 'fileObject != 0',
+      'fileObjectUnbound', 'sealCompletedRetained', 'activeVoicePhase',
+      'sealPhaseMatches', 'sealParentPath', 'noActiveLease',
+      'completionUpperPresent', 'eventAfterCompletionUpper',
+      'InvokeCompletedNoLeaseKnownAuthorization(',
+      'HasAtMostOneImmutableRejoinContext(',
+      'CompletedNoLeaseContextStateMatches(',
+      'CompletedNoLeaseRootProcessMatches(',
+      'CompletedNoLeaseSnapshotMatches(',
+      'CompletedNoLeaseProofMatches(',
+    ]) expect(pureRule).toContain(required);
+  });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
+  it('completed no-lease replay storeをproduction queue/ledger/handle/Disposeへ直結する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const fields = program.slice(
+      program.indexOf('private readonly WriteCompletionReplayStore<'),
+      program.indexOf('private PendingWriteLease? pendingWriteLease;'),
+    );
+    expect(fields).toContain('PendingCallbackSnapshot');
+    expect(fields).toContain('PendingCleanupSnapshot');
+    expect(fields).toContain('RetainedFileIdentity> writeCompletionReplayStore = new();');
+    expect(fields).toContain('writeCompletionReplayStore.Snapshots');
+    expect(fields).toContain('writeCompletionReplayStore.Cleanups');
+    expect(fields).toContain('writeCompletionReplayStore.GenerationHandles');
+    expect(fields).toContain('writeCompletionReplayStore.Ledger');
+
+    const queueOrApply = program.slice(
+      program.indexOf('private string QueueOrApplyCallbackLocked('),
+      program.indexOf('private ImmutableBindingProof? AdmitCallbackProofLocked('),
+    );
+    expect(queueOrApply).toContain('writeCompletionReplayStore.EnqueueSnapshot(snapshot)');
+    const replay = program.slice(
+      program.indexOf('private bool ReplayWriteCompletionQueueLocked('),
+      program.indexOf('private void PreflightCallbackSnapshotLocked('),
+    );
+    expect(replay).toContain('return writeCompletionReplayStore.Replay(');
+    const dispose = program.slice(
+      program.indexOf('private void DisposeResourcesAfterPipeCompletion()'),
+      program.indexOf('private static object Error('),
+    );
+    expect(dispose).toContain('writeCompletionReplayStore.Dispose();');
+  });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
+  it('completed no-lease実Task fixtureは共有storeの実queueをdrift後poison・Disposeする', async () => {
+    const nativeTests = await readFile(
+      resolve('native/f005-guard-tests/Program.cs'),
+      'utf8',
+    );
+    const fixture = nativeTests.slice(
+      nativeTests.indexOf(') RunCompletedNoLeaseQueueFixture(string? drift)'),
+      nativeTests.indexOf('bool RejectsReplayBufferLimit('),
+    );
+    expect(fixture).toContain('new WriteCompletionReplayStore<');
+    expect(fixture).toContain('new WriteCompletionBindingLedger([])');
+    expect(fixture).toContain('store.AddGenerationHandle(');
+    expect(fixture).toContain('store.EnqueueSnapshot(');
+    expect(fixture).toContain('Task.Run(() =>');
+    expect(fixture).toContain('replayReady.Set();');
+    expect(fixture).toContain('allowReplay.Wait(');
+    expect(fixture).toContain('store.Replay(');
+    for (const drift of [
+      'case "new lease"',
+      'case "root exit"',
+      'case "seal release"',
+      'case "directory replacement"',
+    ]) expect(fixture).toContain(drift);
+    for (const retained of [
+      'store.SnapshotCount == 1',
+      'store.LedgerRetained',
+      'store.GenerationHandleCount == 1',
+      'ledger.AppliedCursor < proof.ProofSequence',
+      '!generationHandle.Disposed',
+    ]) expect(fixture).toContain(retained);
+    expect(fixture).toContain('for (var callbackAttempt = 0; callbackAttempt < 2;');
+    expect(fixture).toContain('if (!poisoned)');
+    expect(fixture).toContain('store.Dispose();');
+    expect(fixture).not.toContain('var queue = new Queue<string>()');
+    expect(fixture).not.toContain('new MemoryStream(');
   });
 
   it('PID再利用raceでは新旧どちらのFileIOも別世代へ取り違えない', () => {

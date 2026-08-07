@@ -1,6 +1,7 @@
 using static SystemSetInfoCorrelationRules;
 
 var failures = new List<string>();
+var checks = 0;
 
 Check("安全診断cache wav file no lease",
     SystemSetInfoDiagnosticRules.Classify(
@@ -1074,6 +1075,156 @@ var activeDirectoryTupleBefore = activeDirectoryTuple.ToArray();
 _ = CanActiveDirectoryHandoff();
 Check("completion drain active directory純粋規則は入力state無変更",
     activeDirectoryTuple.SequenceEqual(activeDirectoryTupleBefore));
+var completedNoLeaseTuple = Enumerable.Repeat(true, 8).ToArray();
+bool CanCompletedNoLeaseDirectoryHandoff(
+    bool[]? tuple = null,
+    int candidateCount = 1,
+    string? aggregateCode = null,
+    string authorizationFailure = "BIRTH_MISSING",
+    int pid = 4,
+    string eventName = "write",
+    ulong fileObject = 31)
+{
+    var values = tuple ?? completedNoLeaseTuple;
+    return WriteCompletionDrainRules.CanHandoffCompletedNoLeaseDirectory(
+        candidateCount,
+        aggregateCode ?? WriteCompletionDrainRules
+            .LateDiagnosticWriteActiveLeaseMissingFailureCode,
+        authorizationFailure,
+        pid,
+        eventName,
+        fileObject,
+        values[0], values[1], values[2], values[3],
+        values[4], values[5], values[6], values[7]);
+}
+Check("completion drain completed no-lease directory handoff all true",
+    CanCompletedNoLeaseDirectoryHandoff());
+Check("completion drain completed no-lease directory handoff PID 0を許可",
+    CanCompletedNoLeaseDirectoryHandoff(pid: 0));
+Check("completion drain completed no-lease directory候補0件を拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(candidateCount: 0));
+Check("completion drain completed no-lease directory候補2件を拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(candidateCount: 2));
+foreach (var code in new[] {
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SEAL_NOT_COMPLETED_RETAINED",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_CURRENT_PATH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_ACTIVE_PARENT_MISMATCH",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION",
+    WriteCompletionDrainRules.LateDiagnosticWriteMixedCausesFailureCode,
+    WriteCompletionDrainRules.GenericLateEventFailureCode,
+    WriteCompletionDrainRules.LateRetainedParentWriteFailureCode,
+})
+    Check("completion drain completed no-lease directory他bucketを拒否",
+        !CanCompletedNoLeaseDirectoryHandoff(aggregateCode: code));
+Check("completion drain completed no-lease directory birth以外を拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(
+        authorizationFailure: "EVENT_BEFORE_BIRTH"));
+Check("completion drain completed no-lease directory非System PIDを拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(pid: 5));
+Check("completion drain completed no-lease directory setinfoを拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(eventName: "setinfo"));
+Check("completion drain completed no-lease directory file object 0を拒否",
+    !CanCompletedNoLeaseDirectoryHandoff(fileObject: 0));
+var completedNoLeaseAxisNames = new[] {
+    "unbound object", "completed retained", "voice phase", "seal phase",
+    "seal parent", "no active lease", "completion upper", "post completion",
+};
+for (var index = 0; index < completedNoLeaseTuple.Length; index++)
+{
+    var oneFalse = completedNoLeaseTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed no-lease {completedNoLeaseAxisNames[index]} falseを拒否",
+        !CanCompletedNoLeaseDirectoryHandoff(tuple: oneFalse));
+}
+var completedNoLeaseTupleBefore = completedNoLeaseTuple.ToArray();
+_ = CanCompletedNoLeaseDirectoryHandoff();
+Check("completion drain completed no-lease handoff純粋規則は入力state無変更",
+    completedNoLeaseTuple.SequenceEqual(completedNoLeaseTupleBefore));
+foreach (var (authorized, poisoned, expected, expectedPoisonChecks) in new[] {
+    (true, false, CompletedNoLeaseKnownAuthorizationDecision.Pass, 0),
+    (false, true, CompletedNoLeaseKnownAuthorizationDecision.Poisoned, 1),
+    (false, false, CompletedNoLeaseKnownAuthorizationDecision.StateChanged, 1),
+})
+{
+    var authorizationCalls = 0;
+    var poisonChecks = 0;
+    var decision = WriteCompletionDrainRules
+        .InvokeCompletedNoLeaseKnownAuthorization(
+            () => {
+                authorizationCalls++;
+                return authorized;
+            },
+            () => {
+                poisonChecks++;
+                return poisoned;
+            });
+    Check($"completion drain completed no-lease known auth {expected} exactly once",
+        decision == expected && authorizationCalls == 1 &&
+        poisonChecks == expectedPoisonChecks);
+}
+Check("completion drain immutable context 0件を許可",
+    WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(
+        false, false, false));
+Check("completion drain immutable context各1件を許可",
+    WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(true, false, false) &&
+    WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(false, true, false) &&
+    WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(false, false, true));
+Check("completion drain immutable context混在を全拒否",
+    !WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(true, true, false) &&
+    !WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(true, false, true) &&
+    !WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(false, true, true) &&
+    !WriteCompletionDrainRules.HasAtMostOneImmutableRejoinContext(true, true, true));
+var completedNoLeaseContextTuple = Enumerable.Repeat(true, 17).ToArray();
+Check("completion drain completed no-lease context all true",
+    WriteCompletionDrainRules.CompletedNoLeaseContextStateMatches(
+        completedNoLeaseContextTuple));
+for (var index = 0; index < completedNoLeaseContextTuple.Length; index++)
+{
+    var oneFalse = completedNoLeaseContextTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed no-lease context軸 {index} falseを拒否",
+        !WriteCompletionDrainRules.CompletedNoLeaseContextStateMatches(oneFalse));
+}
+var completedNoLeaseSnapshotTuple = Enumerable.Repeat(true, 9).ToArray();
+Check("completion drain completed no-lease snapshot all true",
+    WriteCompletionDrainRules.CompletedNoLeaseSnapshotMatches(
+        completedNoLeaseSnapshotTuple));
+for (var index = 0; index < completedNoLeaseSnapshotTuple.Length; index++)
+{
+    var oneFalse = completedNoLeaseSnapshotTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed no-lease snapshot軸 {index} falseを拒否",
+        !WriteCompletionDrainRules.CompletedNoLeaseSnapshotMatches(oneFalse));
+}
+var completedNoLeaseProofTuple = Enumerable.Repeat(true, 6).ToArray();
+Check("completion drain completed no-lease proof all true",
+    WriteCompletionDrainRules.CompletedNoLeaseProofMatches(
+        completedNoLeaseProofTuple[0], completedNoLeaseProofTuple[1],
+        completedNoLeaseProofTuple[2], completedNoLeaseProofTuple[3],
+        completedNoLeaseProofTuple[4], completedNoLeaseProofTuple[5]));
+for (var index = 0; index < completedNoLeaseProofTuple.Length; index++)
+{
+    var oneFalse = completedNoLeaseProofTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed no-lease proof軸 {index} falseを拒否",
+        !WriteCompletionDrainRules.CompletedNoLeaseProofMatches(
+            oneFalse[0], oneFalse[1], oneFalse[2],
+            oneFalse[3], oneFalse[4], oneFalse[5]));
+}
+var completedNoLeaseRootTuple = Enumerable.Repeat(true, 5).ToArray();
+Check("completion drain completed no-lease root all true",
+    WriteCompletionDrainRules.CompletedNoLeaseRootProcessMatches(
+        completedNoLeaseRootTuple[0], completedNoLeaseRootTuple[1],
+        completedNoLeaseRootTuple[2], completedNoLeaseRootTuple[3],
+        completedNoLeaseRootTuple[4]));
+for (var index = 0; index < completedNoLeaseRootTuple.Length; index++)
+{
+    var oneFalse = completedNoLeaseRootTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain completed no-lease root軸 {index} falseを拒否",
+        !WriteCompletionDrainRules.CompletedNoLeaseRootProcessMatches(
+            oneFalse[0], oneFalse[1], oneFalse[2], oneFalse[3], oneFalse[4]));
+}
 var postRequestTuple = Enumerable.Repeat(true, 12).ToArray();
 bool CanPostRequest(
     bool[]? tuple = null,
@@ -2064,6 +2215,76 @@ catch (InvalidOperationException error)
 }
 Check("completion atomic batch commit失敗もsemantic rollback",
     commitFailureRejected && atomicValues.SequenceEqual([1]));
+foreach (var drift in new[] {
+    "new lease", "root exit", "seal release", "directory replacement", "proof drift",
+})
+{
+    var fixture = RunCompletedNoLeaseQueueFixture(drift);
+    Check($"completion completed no-lease queued {drift}はcapacity前停止/保持/cleanup",
+        fixture.Poisoned &&
+        fixture.SemanticUnchanged &&
+        fixture.CapacityApplyCount == 0 &&
+        fixture.NoticeApplyCount == 0 &&
+        fixture.ObservationApplyCount == 0 &&
+        fixture.InternalEvidenceRetainedWhilePoisoned &&
+        fixture.ReapplyCount == 0 &&
+        fixture.Disposed &&
+        fixture.QueueClearedAfterDispose);
+}
+var completedNoLeaseApplyFailure =
+    RunCompletedNoLeaseQueueFixture("apply failure");
+Check("completion completed no-lease apply失敗はsemantic rollback/証拠保持/cleanup",
+    completedNoLeaseApplyFailure.Poisoned &&
+    completedNoLeaseApplyFailure.SemanticUnchanged &&
+    completedNoLeaseApplyFailure.CapacityApplyCount == 1 &&
+    completedNoLeaseApplyFailure.NoticeApplyCount == 0 &&
+    completedNoLeaseApplyFailure.ObservationApplyCount == 0 &&
+    completedNoLeaseApplyFailure.InternalEvidenceRetainedWhilePoisoned &&
+    completedNoLeaseApplyFailure.ReapplyCount == 0 &&
+    completedNoLeaseApplyFailure.Disposed &&
+    completedNoLeaseApplyFailure.QueueClearedAfterDispose);
+var completedNoLeaseQueuePass = RunCompletedNoLeaseQueueFixture(null);
+Check("completion completed no-lease queued PASSは1回だけatomic適用",
+    !completedNoLeaseQueuePass.Poisoned &&
+    !completedNoLeaseQueuePass.SemanticUnchanged &&
+    completedNoLeaseQueuePass.CapacityApplyCount == 1 &&
+    completedNoLeaseQueuePass.NoticeApplyCount == 1 &&
+    completedNoLeaseQueuePass.ObservationApplyCount == 1 &&
+    completedNoLeaseQueuePass.ReapplyCount == 0 &&
+    completedNoLeaseQueuePass.Disposed &&
+    completedNoLeaseQueuePass.QueueClearedAfterDispose);
+using (var boundedReplayStore = new WriteCompletionReplayStore<
+    CompletedNoLeaseReplayFixtureSnapshot,
+    CompletedNoLeaseReplayFixtureCleanup,
+    CompletedNoLeaseReplayFixtureHandle>(1, 1, 1))
+{
+    var boundedLedger = new WriteCompletionBindingLedger([]);
+    boundedReplayStore.Ledger = boundedLedger;
+    var boundedProof = boundedLedger.Admit(
+        WriteCompletionBindingKind.OtherBound,
+        "write",
+        91,
+        "volume:bounded",
+        "cache/bounded");
+    boundedReplayStore.EnqueueSnapshot(
+        new CompletedNoLeaseReplayFixtureSnapshot(boundedProof));
+    boundedReplayStore.AddCleanup(
+        new CompletedNoLeaseReplayFixtureCleanup(boundedProof));
+    boundedReplayStore.AddGenerationHandle(
+        (boundedProof.FileObject, boundedProof.GenerationAfter),
+        new CompletedNoLeaseReplayFixtureHandle());
+    Check("completion replay store snapshot上限超過を拒否",
+        RejectsReplayBufferLimit(() => boundedReplayStore.EnqueueSnapshot(
+            new CompletedNoLeaseReplayFixtureSnapshot(boundedProof))));
+    Check("completion replay store cleanup上限超過を拒否",
+        RejectsReplayBufferLimit(() => boundedReplayStore.AddCleanup(
+            new CompletedNoLeaseReplayFixtureCleanup(boundedProof))));
+    using var extraHandle = new CompletedNoLeaseReplayFixtureHandle();
+    Check("completion replay store generation handle上限超過を拒否",
+        RejectsReplayBufferLimit(() => boundedReplayStore.AddGenerationHandle(
+            (92, 1),
+            extraHandle)));
+}
 
 using (var admission = new WriteCompletionCallbackAdmission())
 using (var firstCallbackEntered = new ManualResetEventSlim(false))
@@ -2135,7 +2356,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (666 cases)");
+Console.WriteLine($"System SetInfo correlation tests PASS ({checks} cases)");
 return 0;
 
 bool BoundLeaseCheap(
@@ -2361,7 +2582,281 @@ string NoPending(
             Volatile.Read(ref resourceDisposed) == 1);
 }
 
+(
+    bool Poisoned,
+    bool SemanticUnchanged,
+    int CapacityApplyCount,
+    int NoticeApplyCount,
+    int ObservationApplyCount,
+    bool InternalEvidenceRetainedWhilePoisoned,
+    int ReapplyCount,
+    bool Disposed,
+    bool QueueClearedAfterDispose
+) RunCompletedNoLeaseQueueFixture(string? drift)
+{
+    using var replayReady = new ManualResetEventSlim(false);
+    using var allowReplay = new ManualResetEventSlim(false);
+    var store = new WriteCompletionReplayStore<
+        CompletedNoLeaseReplayFixtureSnapshot,
+        CompletedNoLeaseReplayFixtureCleanup,
+        CompletedNoLeaseReplayFixtureHandle>();
+    var ledger = new WriteCompletionBindingLedger([]);
+    store.Ledger = ledger;
+    var proof = ledger.Admit(
+        WriteCompletionBindingKind.OtherBound,
+        "write",
+        31,
+        "volume:directory",
+        "cache/voice");
+    var generationHandle = new CompletedNoLeaseReplayFixtureHandle();
+    store.AddGenerationHandle(
+        (proof.FileObject, proof.GenerationAfter),
+        generationHandle);
+    store.EnqueueSnapshot(new CompletedNoLeaseReplayFixtureSnapshot(proof));
+    var semantic = new CompletedNoLeaseReplayFixtureSemantic();
+    var rootAlive = true;
+    var sealRetained = true;
+    var directoryIdentityStable = true;
+    var proofStable = true;
+    var applyCount = 0;
+    var reapplyCount = 0;
+    var poisoned = false;
+    var semanticUnchanged = false;
+    var internalEvidenceRetained = false;
+    var replay = Task.Run(() => {
+        replayReady.Set();
+        if (!allowReplay.Wait(TimeSpan.FromSeconds(2)))
+            throw new InvalidOperationException("REPLAY_BARRIER_TIMEOUT");
+        var baseline = semantic.Fingerprint();
+        try
+        {
+            var contextStable = WriteCompletionDrainRules
+                .CompletedNoLeaseContextStateMatches(
+                    semantic.PendingLease is null,
+                    rootAlive,
+                    sealRetained,
+                    directoryIdentityStable);
+            _ = store.Replay(
+                snapshot => snapshot.BindingProof,
+                cleanup => cleanup.BindingProof,
+                snapshot => {
+                    var key = (
+                        snapshot.BindingProof.FileObject,
+                        snapshot.BindingProof.GenerationAfter);
+                    var hasGenerationHandle =
+                        store.GenerationHandles.TryGetValue(key, out var retained) &&
+                        !retained.Disposed;
+                    if (!contextStable || !WriteCompletionDrainRules
+                        .CompletedNoLeaseProofMatches(
+                            proofStable,
+                            true,
+                            snapshot.BindingProof.FileObject == 31,
+                            snapshot.BindingProof.Path == "cache/voice",
+                            snapshot.BindingProof.Identity == "volume:directory",
+                            snapshot.BindingProof.StateAfter ==
+                                WriteCompletionBindingState.Bound) ||
+                        !hasGenerationHandle)
+                        throw new GuardException(
+                            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                },
+                _ => semantic.CapacityPreflightCount++,
+                semantic.Capture,
+                _ => {
+                    applyCount++;
+                    semantic.ApplyAll();
+                    if (drift == "apply failure")
+                        throw new GuardException(
+                            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                },
+                _ => semantic.ApplyAll(),
+                semantic.Restore);
+        }
+        catch (GuardException)
+        {
+            poisoned = true;
+        }
+        semanticUnchanged = semantic.Fingerprint() == baseline;
+        internalEvidenceRetained = poisoned &&
+            store.SnapshotCount == 1 &&
+            store.LedgerRetained &&
+            store.GenerationHandleCount == 1 &&
+            ledger.AdmissionHead == proof.ProofSequence &&
+            ledger.AppliedCursor < proof.ProofSequence &&
+            !generationHandle.Disposed;
+        // production callback入口と同じくpoison後はqueue replayへ再進入しない。
+        for (var callbackAttempt = 0; callbackAttempt < 2; callbackAttempt++)
+            if (!poisoned)
+                reapplyCount += store.Replay(
+                    snapshot => snapshot.BindingProof,
+                    cleanup => cleanup.BindingProof,
+                    _ => { },
+                    _ => { },
+                    semantic.Capture,
+                    _ => semantic.ApplyAll(),
+                    _ => semantic.ApplyAll(),
+                    semantic.Restore) ? 1 : 0;
+    });
+    if (!replayReady.Wait(TimeSpan.FromSeconds(2)))
+        throw new InvalidOperationException("REPLAY_TASK_START_TIMEOUT");
+    switch (drift)
+    {
+        case "new lease":
+            semantic.PendingLease = "new-lease";
+            break;
+        case "root exit":
+            rootAlive = false;
+            break;
+        case "seal release":
+            sealRetained = false;
+            break;
+        case "directory replacement":
+            directoryIdentityStable = false;
+            semantic.Files["directory"] = "volume:replacement";
+            break;
+        case "proof drift":
+            proofStable = false;
+            break;
+    }
+    allowReplay.Set();
+    replay.GetAwaiter().GetResult();
+    var capacityApplyCount = applyCount;
+    var noticeApplyCount = semantic.NoticeApplyCount;
+    var observationApplyCount = semantic.ObservationApplyCount;
+    store.Dispose();
+    return (
+        poisoned,
+        semanticUnchanged,
+        capacityApplyCount,
+        noticeApplyCount,
+        observationApplyCount,
+        internalEvidenceRetained,
+        reapplyCount,
+        store.IsDisposed && generationHandle.Disposed,
+        store.SnapshotCount == 0 &&
+            store.CleanupCount == 0 &&
+            store.GenerationHandleCount == 0 &&
+            !store.LedgerRetained);
+}
+
+bool RejectsReplayBufferLimit(Action action)
+{
+    try
+    {
+        action();
+        return false;
+    }
+    catch (GuardException error)
+    {
+        return error.Code ==
+            "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT";
+    }
+}
+
 void Check(string name, bool condition)
 {
+    checks++;
     if (!condition) failures.Add(name);
 }
+
+internal sealed record CompletedNoLeaseReplayFixtureSnapshot(
+    ImmutableBindingProof BindingProof);
+
+internal sealed record CompletedNoLeaseReplayFixtureCleanup(
+    ImmutableBindingProof BindingProof);
+
+internal sealed class CompletedNoLeaseReplayFixtureHandle : IDisposable
+{
+    internal bool Disposed { get; private set; }
+    public void Dispose() => Disposed = true;
+}
+
+internal sealed class CompletedNoLeaseReplayFixtureSemantic
+{
+    internal Dictionary<string, string> Files { get; } = new() {
+        ["directory"] = "volume:directory",
+    };
+    internal Dictionary<string, long> Allocated { get; } = new() {
+        ["volume:directory"] = 10,
+    };
+    internal List<string> Deferred { get; } = ["deferred-baseline"];
+    internal List<string> Observations { get; } = ["observation-baseline"];
+    internal List<string> Notices { get; } = ["notice-baseline"];
+    internal string? PendingLease { get; set; }
+    internal long Peak { get; private set; } = 10;
+    internal long Free { get; private set; } = 100;
+    internal int CapacityPreflightCount { get; set; }
+    internal int NoticeApplyCount { get; private set; }
+    internal int ObservationApplyCount { get; private set; }
+
+    internal string Fingerprint() => string.Join("|", [
+        string.Join(",", Files.OrderBy(item => item.Key)
+            .Select(item => $"{item.Key}={item.Value}")),
+        string.Join(",", Allocated.OrderBy(item => item.Key)
+            .Select(item => $"{item.Key}={item.Value}")),
+        string.Join(",", Deferred),
+        string.Join(",", Observations),
+        string.Join(",", Notices),
+        PendingLease ?? "null",
+        Peak.ToString(),
+        Free.ToString(),
+        NoticeApplyCount.ToString(),
+        ObservationApplyCount.ToString(),
+    ]);
+
+    internal void ApplyAll()
+    {
+        Files["applied"] = "volume:applied";
+        Allocated["volume:directory"] = 20;
+        Deferred.Add("deferred-applied");
+        Observations.Add("observation-applied");
+        Notices.Add("notice-applied");
+        PendingLease = "applied-lease";
+        Peak = 20;
+        Free = 90;
+        NoticeApplyCount++;
+        ObservationApplyCount++;
+    }
+
+    internal CompletedNoLeaseReplayFixtureSemanticCheckpoint Capture() => new(
+        new Dictionary<string, string>(Files, StringComparer.Ordinal),
+        new Dictionary<string, long>(Allocated, StringComparer.Ordinal),
+        Deferred.ToArray(),
+        Observations.ToArray(),
+        Notices.ToArray(),
+        PendingLease,
+        Peak,
+        Free,
+        NoticeApplyCount,
+        ObservationApplyCount);
+
+    internal void Restore(CompletedNoLeaseReplayFixtureSemanticCheckpoint checkpoint)
+    {
+        Files.Clear();
+        foreach (var item in checkpoint.Files) Files.Add(item.Key, item.Value);
+        Allocated.Clear();
+        foreach (var item in checkpoint.Allocated) Allocated.Add(item.Key, item.Value);
+        Deferred.Clear();
+        Deferred.AddRange(checkpoint.Deferred);
+        Observations.Clear();
+        Observations.AddRange(checkpoint.Observations);
+        Notices.Clear();
+        Notices.AddRange(checkpoint.Notices);
+        PendingLease = checkpoint.PendingLease;
+        Peak = checkpoint.Peak;
+        Free = checkpoint.Free;
+        NoticeApplyCount = checkpoint.NoticeApplyCount;
+        ObservationApplyCount = checkpoint.ObservationApplyCount;
+    }
+}
+
+internal sealed record CompletedNoLeaseReplayFixtureSemanticCheckpoint(
+    IReadOnlyDictionary<string, string> Files,
+    IReadOnlyDictionary<string, long> Allocated,
+    IReadOnlyList<string> Deferred,
+    IReadOnlyList<string> Observations,
+    IReadOnlyList<string> Notices,
+    string? PendingLease,
+    long Peak,
+    long Free,
+    int NoticeApplyCount,
+    int ObservationApplyCount);

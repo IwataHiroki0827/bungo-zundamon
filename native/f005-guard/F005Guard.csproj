@@ -19,4 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.2.5" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="F005Guard.CorrelationTests" />
+  </ItemGroup>
 </Project>
