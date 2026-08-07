@@ -857,3 +857,33 @@ attempts:
   cause: none
   recovery: RESERVATION_BIRTH_RECORD_MISSINGを次の変更管理入力としてT-119を完了する
   log: docs/evidence/qt/QT-F005-008-009-CHG-045-hosted-attempt-3.md
+- date: '2026-08-08T07:30:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-046-local
+  attempt: 1
+  command: native 651件、関連5 files / 129件、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: fail
+  failures: 2
+  cause: 初回producer identity例外のraw4正規化漏れと、Dispose/cancel・失敗state未作成の動的fixture不足
+  recovery: production共有lifecycle/予約transactionを導入し、実Task/barrierとraw4全件の動的fixtureを追加する
+  log: docs/evidence/it/IT-F005-005-CHG-046-result.md
+- date: '2026-08-08T07:39:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-046-local
+  attempt: 2
+  command: native 666件、関連5 files / 129件、typecheck、ESLint、trace_check、再現build2回、独立再受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一source SHAのhosted影響試験を実施する
+  log: docs/evidence/it/IT-F005-005-CHG-046-result.md
+- date: '2026-08-08T07:44:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-046-hosted
+  attempt: 1
+  command: GitHub Actions native run 31224657482 / production run 31224657445
+  result: pass
+  failures: 0
+  cause: none
+  recovery: ACTIVE_LEASE_MISSINGを次の変更管理入力としてT-120を完了する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-046-hosted.md
