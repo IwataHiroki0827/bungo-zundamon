@@ -757,3 +757,13 @@ attempts:
   cause: timing差で既存WRITE_ACTIVE_LEASE_MISSINGへ安全停止し、T-117対象WRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONへ未到達
   recovery: 認可・実装・Program pinを変更せずworkflow自己pathだけでattempt 2を起動する
   log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-1.md
+- date: '2026-08-08T05:15:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-043-hosted
+  attempt: 2
+  command: GitHub Actions run 31213980538 at commit 3e9fc635e3beebc757c86300c029f76328c010f0
+  result: fail
+  failures: 1
+  cause: timing差で既存LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止し、T-117対象へ未到達
+  recovery: 認可・実装・Program pinを変更せずworkflow自己pathだけで最終attempt 3を起動する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-043-hosted-attempt-2.md
