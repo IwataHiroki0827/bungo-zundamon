@@ -1660,6 +1660,7 @@ sealed class CapacityGuardSession : IDisposable
                     // FileIO eventと現在handleを同じ世代へ完全結合できる。
                     processBirthByPid[pid] =
                         new ProcessBirthRecord(sequenceNumber, timestampQpc);
+                    Monitor.PulseAll(gate);
                 }
             }
         }
@@ -2023,39 +2024,210 @@ sealed class CapacityGuardSession : IDisposable
         if (TryInspect(path) is not null) throw new GuardException("WRITE_LEASE_PATH_CONFLICT");
         var process = job.OpenContainedProcess(producerPid)
             ?? throw new GuardException("WRITE_LEASE_PRODUCER_NOT_JOB_MEMBER");
+        var reservationTransaction = new WriteLeaseReservationTransaction();
         try
         {
-            var identity = job.ProcessIdentity(process);
-            var reservedAtQpc = Stopwatch.GetTimestamp();
-            var birthObserved = processBirthByPid.TryGetValue(
-                producerPid,
-                out var observedBirth);
-            var producerBirthSnapshot = new ObservedProducerBirthSnapshot(
-                birthObserved,
-                birthObserved ? observedBirth!.ProcessSequenceNumber : 0,
-                birthObserved ? observedBirth!.StartedAtQpc : 0,
-                producerPid,
-                identity.ProcessStartKey,
-                identity.ProcessSequenceNumber,
-                activePhase.PhaseInstanceId,
-                activePhase.StartedAtQpc,
-                reservedAtQpc);
-            pendingWriteLease = new PendingWriteLease(
-                producerPid,
-                identity.ProcessStartKey,
-                identity.ProcessSequenceNumber,
+            JobObject.ProcessIdentityRecord identity;
+            try
+            {
+                identity = job.ProcessIdentity(process);
+            }
+            catch (GuardException error)
+            {
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules
+                        .NormalizeProcessIdentityGuardFailureCode(error.Code));
+            }
+            if (identity.ProcessId != producerPid ||
+                identity.ProcessStartKey == 0 ||
+                identity.ProcessSequenceNumber == 0)
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules.ProcessIdentityFailureCode);
+            var initialPhase = activePhase;
+            var birth = WaitForProducerBirthLocked(
+                initialPhase,
+                phase,
+                workId,
                 phaseInstanceId,
                 path,
-                reservedAtQpc,
+                clientPid,
                 process,
-                producerBirthSnapshot);
+                identity,
+                previousSeal);
+            var reservedAtQpc = Stopwatch.GetTimestamp();
+            if (initialPhase.StartedAtQpc >= birth.StartedAtQpc ||
+                birth.StartedAtQpc > reservedAtQpc)
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules.TupleMismatchFailureCode);
+            reservationTransaction.Publish(
+                () => new ObservedProducerBirthSnapshot(
+                    true,
+                    birth.ProcessSequenceNumber,
+                    birth.StartedAtQpc,
+                    producerPid,
+                    identity.ProcessStartKey,
+                    identity.ProcessSequenceNumber,
+                    activePhase.PhaseInstanceId,
+                    activePhase.StartedAtQpc,
+                    reservedAtQpc),
+                producerBirthSnapshot => new PendingWriteLease(
+                    producerPid,
+                    identity.ProcessStartKey,
+                    identity.ProcessSequenceNumber,
+                    phaseInstanceId,
+                    path,
+                    reservedAtQpc,
+                    process,
+                    producerBirthSnapshot),
+                lease => pendingWriteLease = lease);
             process = null!;
             return new { ok = true, state = "reserved", path, producerPid };
+        }
+        catch (GuardException error) when (
+            WriteLeaseProducerBirthFenceRules.IsRawFailureCode(error.Code))
+        {
+            throw reservationTransaction.FenceFailure(error.Code);
         }
         finally
         {
             process?.Dispose();
         }
+    }
+
+    private ProcessBirthRecord WaitForProducerBirthLocked(
+        ActivePhase initialPhase,
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        string path,
+        int clientPid,
+        Process process,
+        JobObject.ProcessIdentityRecord identity,
+        WriteCompletionDrainSeal? previousSeal)
+    {
+        if (!WriteLeaseProducerBirthFenceRules.TryCreateDeadline(
+            Stopwatch.GetTimestamp(),
+            Stopwatch.Frequency,
+            out var deadlineQpc))
+            throw new GuardException(
+                WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+        var entry = ProducerBirthFingerprintLocked(identity.ProcessId);
+        while (true)
+        {
+            ThrowIfProducerBirthWaitAbortedLocked();
+            var nowQpc = Stopwatch.GetTimestamp();
+            if (WriteLeaseProducerBirthFenceRules.IsDeadlineReached(
+                nowQpc,
+                deadlineQpc))
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules.TimeoutFailureCode);
+            var current = ProducerBirthFingerprintLocked(identity.ProcessId);
+            var decision = WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+                entry,
+                current,
+                identity.ProcessSequenceNumber);
+            if (decision == ProducerBirthFingerprintDecision.TupleMismatch)
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules.TupleMismatchFailureCode);
+            RecheckProducerBirthReservationStateLocked(
+                initialPhase,
+                phase,
+                workId,
+                phaseInstanceId,
+                path,
+                clientPid,
+                previousSeal);
+            RecheckProducerBirthProcessLocked(process, identity);
+            if (decision == ProducerBirthFingerprintDecision.Ready)
+                return new ProcessBirthRecord(
+                    current.ProcessSequenceNumber,
+                    current.StartedAtQpc);
+            var remainingQpc = checked(deadlineQpc - nowQpc);
+            var waitMilliseconds =
+                WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(
+                    remainingQpc,
+                    Stopwatch.Frequency);
+            _ = Monitor.Wait(gate, waitMilliseconds);
+        }
+    }
+
+    private ProducerBirthFingerprint ProducerBirthFingerprintLocked(int pid) =>
+        processBirthByPid.TryGetValue(pid, out var birth)
+            ? new ProducerBirthFingerprint(
+                true,
+                birth.ProcessSequenceNumber,
+                birth.StartedAtQpc)
+            : new ProducerBirthFingerprint(false, 0, 0);
+
+    private void ThrowIfProducerBirthWaitAbortedLocked()
+    {
+        var abortFailureCode = CapacityGuardLifecycleRules.WaitAbortFailureCode(
+            failureCode,
+            disposed,
+            cancellation.IsCancellationRequested,
+            journalClosed,
+            WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+        if (abortFailureCode is not null)
+            throw new GuardException(abortFailureCode);
+    }
+
+    private void RecheckProducerBirthReservationStateLocked(
+        ActivePhase initialPhase,
+        string phase,
+        string? workId,
+        string phaseInstanceId,
+        string path,
+        int clientPid,
+        WriteCompletionDrainSeal? previousSeal)
+    {
+        if (!ReferenceEquals(activePhase, initialPhase) ||
+            initialPhase.Phase != "voice" ||
+            initialPhase.Phase != phase ||
+            initialPhase.WorkId != workId ||
+            initialPhase.PhaseInstanceId != phaseInstanceId ||
+            pendingWriteLease is not null ||
+            !RootWorkerAliveLocked(clientPid) ||
+            !registeredPids.Contains(clientPid) ||
+            !ReferenceEquals(writeCompletionSeals.LastOrDefault(), previousSeal) ||
+            previousSeal is not null &&
+                (previousSeal.State != WriteCompletionDrainState.CompletedRetained ||
+                 previousSeal.CompletionRequestedAtQpc is null))
+            throw new GuardException(
+                WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+        try
+        {
+            if (TryInspect(path) is not null)
+                throw new GuardException(
+                    WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+        }
+        catch (GuardException error) when (
+            error.Code != WriteLeaseProducerBirthFenceRules.StateChangedFailureCode)
+        {
+            throw new GuardException(
+                WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+        }
+    }
+
+    private void RecheckProducerBirthProcessLocked(
+        Process process,
+        JobObject.ProcessIdentityRecord identity)
+    {
+        JobObject.RetainedProcessInspection inspection;
+        try
+        {
+            inspection = job.InspectRetainedProcess(process);
+        }
+        catch (GuardException)
+        {
+            throw new GuardException(
+                WriteLeaseProducerBirthFenceRules.ProcessIdentityFailureCode);
+        }
+        if (inspection.ProcessId != identity.ProcessId ||
+            inspection.ProcessStartKey != identity.ProcessStartKey ||
+            inspection.ProcessSequenceNumber != identity.ProcessSequenceNumber ||
+            inspection.Signaled || !inspection.JobMember)
+            throw new GuardException(
+                WriteLeaseProducerBirthFenceRules.ProcessIdentityFailureCode);
     }
 
     private object PrepareWriteRename(
@@ -6367,18 +6539,26 @@ sealed class CapacityGuardSession : IDisposable
     {
         lock (gate)
         {
-            if (disposed) return;
-            disposed = true;
+            if (!CapacityGuardLifecycleRules.BeginDisposeLocked(
+                gate,
+                ref disposed,
+                ref failureCode)) return;
             if (!journalClosed)
             {
-                failureCode ??= "CAPACITY_SESSION_ABORTED";
                 try { PersistJournal(closed: false); } catch { }
             }
         }
         processIdentityProbeObserved.Set();
-        cancellation.Cancel();
+        CapacityGuardLifecycleRules.CancelDrainPipeAndDispose(
+            cancellation,
+            pipeTask,
+            TimeSpan.FromSeconds(5),
+            DisposeResourcesAfterPipeCompletion);
+    }
+
+    private void DisposeResourcesAfterPipeCompletion()
+    {
         try { StopEtw(); } catch { }
-        try { pipeTask.Wait(TimeSpan.FromSeconds(5)); } catch { }
         etwSource.Dispose();
         etwSession.Dispose();
         callbackAdmission.Dispose();
@@ -8227,6 +8407,192 @@ public enum WriteCompletionReplayKind
 {
     NormalEpoch,
     PostRequestSystemSetInfo,
+}
+
+public readonly record struct ProducerBirthFingerprint(
+    bool Present,
+    ulong ProcessSequenceNumber,
+    long StartedAtQpc);
+
+public enum ProducerBirthFingerprintDecision
+{
+    Wait,
+    Ready,
+    TupleMismatch,
+}
+
+public static class CapacityGuardLifecycleRules
+{
+    public const string SessionAbortFailureCode = "CAPACITY_SESSION_ABORTED";
+    public const string SessionAbortTimeoutFailureCode =
+        "CAPACITY_SESSION_ABORT_TIMEOUT";
+
+    public static bool BeginDisposeLocked(
+        object gate,
+        ref bool disposed,
+        ref string? failureCode)
+    {
+        if (!Monitor.IsEntered(gate))
+            throw new InvalidOperationException("CAPACITY_GATE_NOT_HELD");
+        if (disposed) return false;
+        disposed = true;
+        failureCode ??= SessionAbortFailureCode;
+        Monitor.PulseAll(gate);
+        return true;
+    }
+
+    public static string? WaitAbortFailureCode(
+        string? failureCode,
+        bool disposed,
+        bool cancellationRequested,
+        bool journalClosed,
+        string stateChangedFailureCode)
+    {
+        if (failureCode is not null) return failureCode;
+        return disposed || cancellationRequested || journalClosed
+            ? stateChangedFailureCode
+            : null;
+    }
+
+    public static void CancelDrainPipeAndDispose(
+        CancellationTokenSource cancellation,
+        Task pipeTask,
+        TimeSpan timeout,
+        Action disposeResources)
+    {
+        cancellation.Cancel();
+        bool pipeCompleted;
+        try
+        {
+            pipeCompleted = pipeTask.Wait(timeout);
+        }
+        catch
+        {
+            pipeCompleted = pipeTask.IsCompleted;
+        }
+        if (!pipeCompleted)
+            throw new GuardException(SessionAbortTimeoutFailureCode);
+        disposeResources();
+    }
+}
+
+public static class WriteLeaseProducerBirthFenceRules
+{
+    public const string TimeoutFailureCode =
+        "WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT";
+    public const string TupleMismatchFailureCode =
+        "WRITE_LEASE_PRODUCER_BIRTH_TUPLE_MISMATCH";
+    public const string ProcessIdentityFailureCode =
+        "WRITE_LEASE_PRODUCER_BIRTH_PROCESS_IDENTITY_FAILED";
+    public const string StateChangedFailureCode =
+        "WRITE_LEASE_PRODUCER_BIRTH_STATE_CHANGED";
+    private static readonly string[] rawFailureCodes = [
+        TimeoutFailureCode,
+        TupleMismatchFailureCode,
+        ProcessIdentityFailureCode,
+        StateChangedFailureCode,
+    ];
+    public static IReadOnlyList<string> RawFailureCodes { get; } =
+        Array.AsReadOnly(rawFailureCodes);
+
+    public static bool IsRawFailureCode(string code) =>
+        rawFailureCodes.Contains(code, StringComparer.Ordinal);
+
+    public static string NormalizeProcessIdentityGuardFailureCode(
+        string guardFailureCode)
+    {
+        _ = guardFailureCode;
+        return ProcessIdentityFailureCode;
+    }
+
+    public static bool TryCreateDeadline(
+        long startQpc,
+        long frequency,
+        out long deadlineQpc)
+    {
+        deadlineQpc = 0;
+        if (startQpc <= 0 || frequency <= 0) return false;
+        try
+        {
+            var durationQpc = checked(frequency * 10);
+            deadlineQpc = checked(startQpc + durationQpc);
+            return deadlineQpc > startQpc;
+        }
+        catch (OverflowException)
+        {
+            return false;
+        }
+    }
+
+    public static bool IsDeadlineReached(long nowQpc, long deadlineQpc) =>
+        nowQpc >= deadlineQpc;
+
+    public static int CeilingWaitMilliseconds(
+        long remainingQpc,
+        long frequency)
+    {
+        if (remainingQpc <= 0 || frequency <= 0) return 1;
+        var wholeSeconds = remainingQpc / frequency;
+        if (wholeSeconds > int.MaxValue / 1000L) return int.MaxValue;
+        var remainderQpc = remainingQpc % frequency;
+        var milliseconds = checked(wholeSeconds * 1000L);
+        if (remainderQpc != 0)
+            milliseconds = checked(milliseconds + (long)Math.Ceiling(
+                (decimal)remainderQpc * 1000m / frequency));
+        if (milliseconds <= 0) return 1;
+        return milliseconds >= int.MaxValue
+            ? int.MaxValue
+            : checked((int)milliseconds);
+    }
+
+    public static ProducerBirthFingerprintDecision FingerprintDecision(
+        ProducerBirthFingerprint entry,
+        ProducerBirthFingerprint current,
+        ulong expectedProcessSequenceNumber)
+    {
+        if (current.Present &&
+            current.ProcessSequenceNumber == expectedProcessSequenceNumber)
+            return ProducerBirthFingerprintDecision.Ready;
+        if (current == entry)
+            return ProducerBirthFingerprintDecision.Wait;
+        if (!entry.Present && !current.Present)
+            return ProducerBirthFingerprintDecision.Wait;
+        return ProducerBirthFingerprintDecision.TupleMismatch;
+    }
+}
+
+public sealed class WriteLeaseReservationTransaction
+{
+    public bool SnapshotCreated { get; private set; }
+    public bool LeaseCreated { get; private set; }
+    public bool Published { get; private set; }
+
+    public void Publish<TSnapshot, TLease>(
+        Func<TSnapshot> createSnapshot,
+        Func<TSnapshot, TLease> createLease,
+        Action<TLease> publishLease)
+    {
+        if (SnapshotCreated || LeaseCreated || Published)
+            throw new InvalidOperationException(
+                "WRITE_LEASE_RESERVATION_TRANSACTION_REUSED");
+        var snapshot = createSnapshot();
+        SnapshotCreated = true;
+        var lease = createLease(snapshot);
+        LeaseCreated = true;
+        publishLease(lease);
+        Published = true;
+    }
+
+    public Exception FenceFailure(string failureCode)
+    {
+        if (!WriteLeaseProducerBirthFenceRules.IsRawFailureCode(failureCode))
+            return new InvalidOperationException(
+                "WRITE_LEASE_RESERVATION_FAILURE_CODE_INVALID");
+        if (SnapshotCreated || LeaseCreated || Published)
+            return new InvalidOperationException(
+                "WRITE_LEASE_RESERVATION_FAILURE_AFTER_PUBLICATION");
+        return new GuardException(failureCode);
+    }
 }
 
 public static class WriteCompletionDrainRules

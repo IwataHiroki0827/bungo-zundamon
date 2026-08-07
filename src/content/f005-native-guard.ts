@@ -244,6 +244,25 @@ type F005WriteCompletionDrainFailureStage =
   typeof F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES[number];
 export type F005WriteCompletionDrainFailureCode =
   `F005_ETW_WRITE_COMPLETION_DRAIN_${F005WriteCompletionDrainFailureStage}`;
+export const F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES = Object.freeze([
+  'TIMEOUT',
+  'TUPLE_MISMATCH',
+  'PROCESS_IDENTITY_FAILED',
+  'STATE_CHANGED',
+] as const);
+type F005WriteLeaseProducerBirthFailureStage =
+  typeof F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES[number];
+export type F005WriteLeaseProducerBirthFailureCode =
+  `F005_WRITE_LEASE_PRODUCER_BIRTH_${F005WriteLeaseProducerBirthFailureStage}`;
+
+export function isF005WriteLeaseProducerBirthFailureCode(
+  value: unknown,
+): value is F005WriteLeaseProducerBirthFailureCode {
+  return typeof value === 'string' && value.length <= 127 &&
+    F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES.some(
+      (stage) => value === `F005_WRITE_LEASE_PRODUCER_BIRTH_${stage}`,
+    );
+}
 type F005SystemBoundFileObjectRejoinStage =
   | 'SNAPSHOT_MISSING'
   | 'PATH_MISMATCH'
@@ -591,6 +610,7 @@ export type F005NativeCapacityErrorCode =
   | F005AfterLeaseReservationDirectoryRejoinFailureCode
   | F005SystemDirectoryBoundLeaseRejoinFailureCode
   | F005WriteCompletionDrainFailureCode
+  | F005WriteLeaseProducerBirthFailureCode
   | F005SystemBoundFileObjectRejoinDiagnosticCode
   | F005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode
   | 'F005_NATIVE_GUARD_INVALID'
@@ -715,6 +735,10 @@ export function preserveF005NativeCapacityFailure(
 }
 
 const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCode> = new Map([
+  ['WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT', 'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT'],
+  ['WRITE_LEASE_PRODUCER_BIRTH_TUPLE_MISMATCH', 'F005_WRITE_LEASE_PRODUCER_BIRTH_TUPLE_MISMATCH'],
+  ['WRITE_LEASE_PRODUCER_BIRTH_PROCESS_IDENTITY_FAILED', 'F005_WRITE_LEASE_PRODUCER_BIRTH_PROCESS_IDENTITY_FAILED'],
+  ['WRITE_LEASE_PRODUCER_BIRTH_STATE_CHANGED', 'F005_WRITE_LEASE_PRODUCER_BIRTH_STATE_CHANGED'],
   ['ETW_ALLOCATED_LENGTH_MISSING', 'F005_ETW_ALLOCATED_LENGTH_MISSING'],
   ['ETW_BUFFER_LOSS', 'F005_ETW_BUFFER_LOSS'],
   ['ETW_CALLBACK_ACCESS_FAILED', 'F005_ETW_CALLBACK_ACCESS_FAILED'],
@@ -787,6 +811,7 @@ const FIXED_F005_ETW_REPLY_CODES: ReadonlyMap<string, F005NativeCapacityErrorCod
 export function classifyF005NativeCapacityReplyError(value: unknown): F005NativeCapacityErrorCode {
   if (value === 'F005_CAPACITY_NOTICE_UNMATCHED') return 'F005_CAPACITY_NOTICE_UNMATCHED';
   if (isF005WriteCompletionDrainFailureCode(value)) return value;
+  if (isF005WriteLeaseProducerBirthFailureCode(value)) return value;
   if (typeof value === 'string' && value.startsWith('ETW_PRIVILEGE_REQUIRED')) {
     return 'F005_ETW_PRIVILEGE_REQUIRED';
   }

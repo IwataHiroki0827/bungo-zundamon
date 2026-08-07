@@ -1349,6 +1349,226 @@ Check("completion drain reservation birth 4 codeは96/96/94/87文字",
         .LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode.Length == 94 &&
     WriteCompletionDrainRules
         .LateDiagnosticWriteAfterReservationBirthFailureCode.Length == 87);
+Check("producer birth fence deadline checked生成",
+    WriteLeaseProducerBirthFenceRules.TryCreateDeadline(100, 10, out var fenceDeadline) &&
+    fenceDeadline == 200);
+Check("producer birth fence start非正を拒否",
+    !WriteLeaseProducerBirthFenceRules.TryCreateDeadline(0, 10, out _));
+Check("producer birth fence frequency非正を拒否",
+    !WriteLeaseProducerBirthFenceRules.TryCreateDeadline(100, 0, out _));
+Check("producer birth fence duration overflowを拒否",
+    !WriteLeaseProducerBirthFenceRules.TryCreateDeadline(1, long.MaxValue, out _));
+Check("producer birth fence deadline overflowを拒否",
+    !WriteLeaseProducerBirthFenceRules.TryCreateDeadline(long.MaxValue, 1, out _));
+Check("producer birth fence deadline-1は継続",
+    !WriteLeaseProducerBirthFenceRules.IsDeadlineReached(199, 200));
+Check("producer birth fence deadline同値はtimeout",
+    WriteLeaseProducerBirthFenceRules.IsDeadlineReached(200, 200));
+Check("producer birth fence deadline+1はtimeout",
+    WriteLeaseProducerBirthFenceRules.IsDeadlineReached(201, 200));
+Check("producer birth fence 1ms未満はceiling 1ms",
+    WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(1, 1001) == 1);
+Check("producer birth fence exact 1秒は1000ms",
+    WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(1000, 1000) == 1000);
+Check("producer birth fence 1秒+1tickは1001ms",
+    WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(1001, 1000) == 1001);
+Check("producer birth fence int上限直前はexact変換",
+    WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(2_147_483, 1) ==
+        2_147_483_000);
+Check("producer birth fence wait msはint上限へsaturate",
+    WriteLeaseProducerBirthFenceRules.CeilingWaitMilliseconds(long.MaxValue, 1) ==
+        int.MaxValue);
+var absentBirthFingerprint = new ProducerBirthFingerprint(false, 0, 0);
+var staleBirthFingerprint = new ProducerBirthFingerprint(true, 7, 80);
+var matchingBirthFingerprint = new ProducerBirthFingerprint(true, 9, 90);
+Check("producer birth fence absent unchangedはwait",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        absentBirthFingerprint, absentBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.Wait);
+Check("producer birth fence absentからmatchingはready",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        absentBirthFingerprint, matchingBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.Ready);
+Check("producer birth fence absentからdifferentはtuple mismatch",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        absentBirthFingerprint, staleBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.TupleMismatch);
+Check("producer birth fence stale unchanged/duplicateはwait",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        staleBirthFingerprint, staleBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.Wait);
+Check("producer birth fence staleからmatchingはready",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        staleBirthFingerprint, matchingBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.Ready);
+Check("producer birth fence staleからdifferent更新はtuple mismatch",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        staleBirthFingerprint, new ProducerBirthFingerprint(true, 8, 85), 9) ==
+        ProducerBirthFingerprintDecision.TupleMismatch);
+Check("producer birth fence matching entryはwait 0でready",
+    WriteLeaseProducerBirthFenceRules.FingerprintDecision(
+        matchingBirthFingerprint, matchingBirthFingerprint, 9) ==
+        ProducerBirthFingerprintDecision.Ready);
+var monitorGate = new object();
+using var monitorWaiterReady = new ManualResetEventSlim(false);
+using var monitorCallbackEntered = new ManualResetEventSlim(false);
+using var monitorSpuriousObserved = new ManualResetEventSlim(false);
+using var monitorDuplicateObserved = new ManualResetEventSlim(false);
+var monitorCondition = false;
+var monitorSpuriousWakeCount = 0;
+var monitorGateRestored = false;
+var monitorWaiter = Task.Run(() => {
+    lock (monitorGate)
+    {
+        Monitor.Enter(monitorGate);
+        try
+        {
+            monitorWaiterReady.Set();
+            while (!monitorCondition)
+            {
+                _ = Monitor.Wait(monitorGate, 2_000);
+                if (!monitorCondition)
+                {
+                    monitorSpuriousWakeCount++;
+                    monitorSpuriousObserved.Set();
+                    if (monitorSpuriousWakeCount >= 2)
+                    {
+                        monitorDuplicateObserved.Set();
+                    }
+                }
+            }
+            monitorGateRestored = Monitor.IsEntered(monitorGate);
+        }
+        finally
+        {
+            Monitor.Exit(monitorGate);
+        }
+    }
+});
+Check("producer birth fence waiterは短い上限内にwait開始",
+    monitorWaiterReady.Wait(TimeSpan.FromSeconds(2)));
+var monitorCallback = Task.Run(() => {
+    lock (monitorGate)
+    {
+        monitorCallbackEntered.Set();
+        Monitor.PulseAll(monitorGate);
+    }
+    _ = monitorSpuriousObserved.Wait(TimeSpan.FromSeconds(2));
+    lock (monitorGate)
+    {
+        Monitor.PulseAll(monitorGate);
+    }
+    _ = monitorDuplicateObserved.Wait(TimeSpan.FromSeconds(2));
+    lock (monitorGate)
+    {
+        monitorCondition = true;
+        Monitor.PulseAll(monitorGate);
+    }
+});
+Check("producer birth fence callbackはwait中にgate取得",
+    monitorCallbackEntered.Wait(TimeSpan.FromSeconds(2)));
+Check("producer birth fence waiter/callbackは短い上限内に完了",
+    Task.WaitAll([monitorWaiter, monitorCallback], TimeSpan.FromSeconds(3)));
+Check("producer birth fence spurious wake後もconditionを再検査",
+    monitorSpuriousWakeCount >= 1 && monitorCondition);
+Check("producer birth fence duplicate Pulse後もconditionを再検査",
+    monitorSpuriousWakeCount >= 2 && monitorCondition);
+Check("producer birth fence wake後は再帰gate countを復元",
+    monitorGateRestored);
+var preWaitGate = new object();
+var preWaitCondition = false;
+var preWaitCount = 0;
+lock (preWaitGate)
+{
+    preWaitCondition = true;
+    Monitor.PulseAll(preWaitGate);
+}
+var preWaitWaiter = Task.Run(() => {
+    lock (preWaitGate)
+    {
+        while (!preWaitCondition)
+        {
+            preWaitCount++;
+            _ = Monitor.Wait(preWaitGate, 100);
+        }
+    }
+});
+Check("producer birth fence pre-wait Pulse後は条件検査だけで完了",
+    preWaitWaiter.Wait(TimeSpan.FromSeconds(2)) && preWaitCount == 0);
+Check("producer birth fence raw code集合はexact 4",
+    WriteLeaseProducerBirthFenceRules.RawFailureCodes.Count == 4 &&
+    WriteLeaseProducerBirthFenceRules.RawFailureCodes.Distinct().Count() == 4 &&
+    WriteLeaseProducerBirthFenceRules.RawFailureCodes.All(code =>
+        code.Length <= 127));
+Check("producer birth fence identity取得GuardExceptionを固定codeへ正規化",
+    WriteLeaseProducerBirthFenceRules.NormalizeProcessIdentityGuardFailureCode(
+        "PROCESS_START_KEY_QUERY_FAILED") ==
+        WriteLeaseProducerBirthFenceRules.ProcessIdentityFailureCode);
+Check("producer birth fence identity取得の別GuardExceptionも固定codeへ正規化",
+    WriteLeaseProducerBirthFenceRules.NormalizeProcessIdentityGuardFailureCode(
+        "PROCESS_WAIT_FAILED") ==
+        WriteLeaseProducerBirthFenceRules.ProcessIdentityFailureCode);
+var successfulReservationTransaction = new WriteLeaseReservationTransaction();
+string? publishedReservationLease = null;
+successfulReservationTransaction.Publish(
+    () => "snapshot",
+    snapshot => $"lease:{snapshot}",
+    lease => publishedReservationLease = lease);
+Check("producer birth fence transactionは成功時だけsnapshot/leaseを公開",
+    successfulReservationTransaction.SnapshotCreated &&
+    successfulReservationTransaction.LeaseCreated &&
+    successfulReservationTransaction.Published &&
+    publishedReservationLease == "lease:snapshot");
+foreach (var rawFenceFailureCode in
+    WriteLeaseProducerBirthFenceRules.RawFailureCodes)
+{
+    var failedReservationTransaction = new WriteLeaseReservationTransaction();
+    var observedFailureCode = "";
+    try
+    {
+        throw failedReservationTransaction.FenceFailure(rawFenceFailureCode);
+    }
+    catch (Exception error)
+    {
+        observedFailureCode = error.Message;
+    }
+    Check($"producer birth fence {rawFenceFailureCode}は予約state未作成",
+        observedFailureCode == rawFenceFailureCode &&
+        !failedReservationTransaction.SnapshotCreated &&
+        !failedReservationTransaction.LeaseCreated &&
+        !failedReservationTransaction.Published);
+}
+var abortLifecycle = RunCapacityGuardLifecycleFixture(null);
+Check("capacity lifecycleはgate内disposed→first failure→Pulseを開始",
+    abortLifecycle.BeganDispose && abortLifecycle.Disposed &&
+    abortLifecycle.StoredFailureCode ==
+        CapacityGuardLifecycleRules.SessionAbortFailureCode);
+Check("capacity lifecycleはgate解放前にcancelする",
+    abortLifecycle.CancellationBeforeGateRelease);
+Check("capacity lifecycleはpipe完了前にresourceを破棄しない",
+    abortLifecycle.PipeIncompleteBeforeGateRelease &&
+    abortLifecycle.ResourceIntactBeforeGateRelease);
+Check("capacity lifecycle waiterはPulseで即時起床してabortを観測",
+    abortLifecycle.WaiterWokePromptly &&
+    abortLifecycle.ObservedFailureCode ==
+        CapacityGuardLifecycleRules.SessionAbortFailureCode);
+Check("capacity lifecycleはpipe完了後だけresourceを破棄",
+    abortLifecycle.DrainCompleted &&
+    abortLifecycle.ResourceDisposedAfterPipe);
+const string existingLifecycleFailure = "ETW_BUFFER_LOSS";
+var existingFailureLifecycle =
+    RunCapacityGuardLifecycleFixture(existingLifecycleFailure);
+Check("capacity lifecycle Disposeは既存first failureを不変保持",
+    existingFailureLifecycle.BeganDispose &&
+    existingFailureLifecycle.Disposed &&
+    existingFailureLifecycle.StoredFailureCode == existingLifecycleFailure);
+Check("capacity lifecycle waiterは既存first failureを優先観測",
+    existingFailureLifecycle.WaiterWokePromptly &&
+    existingFailureLifecycle.ObservedFailureCode == existingLifecycleFailure);
+Check("capacity lifecycle既存failure時もpipe後resource破棄",
+    existingFailureLifecycle.CancellationBeforeGateRelease &&
+    existingFailureLifecycle.DrainCompleted &&
+    existingFailureLifecycle.ResourceDisposedAfterPipe);
 Check("completion drain external code集合はexact 43",
     WriteCompletionDrainRules.ExternalFailureCodes.Count == 43 &&
     WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 43 &&
@@ -1915,7 +2135,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (623 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (666 cases)");
 return 0;
 
 bool BoundLeaseCheap(
@@ -2043,6 +2263,103 @@ string NoPending(
         leaseCurrentExists,
         leaseIdentityMatches,
         leaseOutsideJob);
+
+(
+    bool BeganDispose,
+    bool Disposed,
+    string? StoredFailureCode,
+    bool CancellationBeforeGateRelease,
+    bool PipeIncompleteBeforeGateRelease,
+    bool ResourceIntactBeforeGateRelease,
+    bool WaiterWokePromptly,
+    string? ObservedFailureCode,
+    bool DrainCompleted,
+    bool ResourceDisposedAfterPipe
+) RunCapacityGuardLifecycleFixture(string? preexistingFailureCode)
+{
+    var lifecycleGate = new object();
+    using var lifecycleCancellation = new CancellationTokenSource();
+    using var waiterReady = new ManualResetEventSlim(false);
+    using var waiterWoke = new ManualResetEventSlim(false);
+    var lifecycleDisposed = false;
+    string? lifecycleFailureCode = null;
+    string? observedFailureCode = null;
+    var resourceDisposed = 0;
+    var resourceDisposedAfterPipe = 0;
+    var pipeTask = Task.Run(() => {
+        lock (lifecycleGate)
+        {
+            waiterReady.Set();
+            while (true)
+            {
+                var failure = CapacityGuardLifecycleRules.WaitAbortFailureCode(
+                    lifecycleFailureCode,
+                    lifecycleDisposed,
+                    lifecycleCancellation.IsCancellationRequested,
+                    journalClosed: false,
+                    WriteLeaseProducerBirthFenceRules.StateChangedFailureCode);
+                if (failure is not null)
+                {
+                    observedFailureCode = failure;
+                    waiterWoke.Set();
+                    return;
+                }
+                _ = Monitor.Wait(lifecycleGate, 2_000);
+            }
+        }
+    });
+    if (!waiterReady.Wait(TimeSpan.FromSeconds(2)))
+        throw new InvalidOperationException("LIFECYCLE_WAITER_START_TIMEOUT");
+
+    Task drainTask;
+    bool beganDispose;
+    bool cancellationBeforeGateRelease;
+    bool pipeIncompleteBeforeGateRelease;
+    bool resourceIntactBeforeGateRelease;
+    var wakeTimer = new System.Diagnostics.Stopwatch();
+    lock (lifecycleGate)
+    {
+        lifecycleFailureCode = preexistingFailureCode;
+        beganDispose = CapacityGuardLifecycleRules.BeginDisposeLocked(
+            lifecycleGate,
+            ref lifecycleDisposed,
+            ref lifecycleFailureCode);
+        drainTask = Task.Run(() =>
+            CapacityGuardLifecycleRules.CancelDrainPipeAndDispose(
+                lifecycleCancellation,
+                pipeTask,
+                TimeSpan.FromSeconds(2),
+                () => {
+                    Interlocked.Exchange(
+                        ref resourceDisposedAfterPipe,
+                        pipeTask.IsCompleted ? 1 : -1);
+                    Interlocked.Exchange(ref resourceDisposed, 1);
+                }));
+        cancellationBeforeGateRelease = SpinWait.SpinUntil(
+            () => lifecycleCancellation.IsCancellationRequested,
+            TimeSpan.FromSeconds(1));
+        pipeIncompleteBeforeGateRelease = !pipeTask.IsCompleted;
+        resourceIntactBeforeGateRelease =
+            Volatile.Read(ref resourceDisposed) == 0;
+        wakeTimer.Start();
+    }
+    var waiterWokePromptly =
+        waiterWoke.Wait(TimeSpan.FromSeconds(1)) &&
+        wakeTimer.Elapsed < TimeSpan.FromSeconds(1);
+    var drainCompleted = drainTask.Wait(TimeSpan.FromSeconds(3));
+    return (
+        beganDispose,
+        lifecycleDisposed,
+        lifecycleFailureCode,
+        cancellationBeforeGateRelease,
+        pipeIncompleteBeforeGateRelease,
+        resourceIntactBeforeGateRelease,
+        waiterWokePromptly,
+        observedFailureCode,
+        drainCompleted,
+        Volatile.Read(ref resourceDisposedAfterPipe) == 1 &&
+            Volatile.Read(ref resourceDisposed) == 1);
+}
 
 void Check(string name, bool condition)
 {

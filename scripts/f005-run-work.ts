@@ -65,6 +65,7 @@ import {
   isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode,
   isF005SystemDirectoryBoundLeaseRejoinFailureCode,
   isF005WriteCompletionDrainFailureCode,
+  isF005WriteLeaseProducerBirthFailureCode,
   isF005SystemBoundFileObjectRejoinDiagnosticCode,
   isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode,
   startF005NativeCapacitySession,
@@ -544,6 +545,7 @@ function safeFailureCode(value: unknown): string | null {
     isF005SystemDirectoryBoundLeaseRenameWriteRejoinDiagnosticCode(value) ||
     isF005SystemDirectoryBoundLeaseRejoinFailureCode(value) ||
     isF005WriteCompletionDrainFailureCode(value) ||
+    isF005WriteLeaseProducerBirthFailureCode(value) ||
     isF005AfterLeaseReservationDirectoryRejoinFailureCode(value) ||
     isF005SystemBoundFileObjectRejoinDiagnosticCode(value) ||
     isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode(value)

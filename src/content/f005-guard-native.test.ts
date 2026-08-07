@@ -1320,15 +1320,139 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('MaximumEntries = 8_192');
     expect(program).toContain('MaxWriteCompletionRetainedHandles = 8_448');
     expect(program).toContain('0x02000000 | 0x00200000');
+    const capacityError = program.indexOf(
+      'private static object Error(',
+      program.indexOf('sealed class CapacityGuardSession'),
+    );
     const dispose = program.slice(
-      program.indexOf('public void Dispose()', program.indexOf('sealed class CapacityGuardSession')),
-      program.indexOf('private static object Error(', program.indexOf('sealed class CapacityGuardSession')),
+      program.lastIndexOf('public void Dispose()', capacityError),
+      capacityError,
     );
     expect(dispose).toContain('writeCompletionSeals');
     expect(dispose).toContain('ReferenceEquals(item, seal.Lease.Process)');
     expect(dispose).toContain('retained.Dispose()');
     expect(program).not.toContain('CreateWriteCompletionSealForTest');
     expect(program).not.toContain('InjectWriteCompletionEvent');
+  });
+
+  it('write予約前ProcessStart fenceはgateを解放して有限待機し成功後だけleaseを公開する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const reserveWrite = program.slice(
+      program.indexOf('private object ReserveWrite('),
+      program.indexOf('private ProcessBirthRecord WaitForProducerBirthLocked('),
+    );
+    expect(reserveWrite.indexOf('var identity = job.ProcessIdentity(process);'))
+      .toBeLessThan(reserveWrite.indexOf('WaitForProducerBirthLocked('));
+    expect(reserveWrite.indexOf('WaitForProducerBirthLocked('))
+      .toBeLessThan(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'));
+    expect(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'))
+      .toBeLessThan(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('));
+    expect(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('))
+      .toBeLessThan(reserveWrite.indexOf(
+        'producerBirthSnapshot => new PendingWriteLease(',
+      ));
+    expect(reserveWrite.indexOf('producerBirthSnapshot => new PendingWriteLease('))
+      .toBeLessThan(reserveWrite.indexOf('lease => pendingWriteLease = lease'));
+    expect(reserveWrite.match(/var reservedAtQpc = Stopwatch\.GetTimestamp\(\);/gu))
+      .toHaveLength(1);
+    expect(reserveWrite).toContain('birth.StartedAtQpc > reservedAtQpc');
+    expect(reserveWrite).not.toContain('etwSession.Flush');
+    expect(reserveWrite).toContain('identity = job.ProcessIdentity(process);');
+    expect(reserveWrite).toContain('catch (GuardException error)');
+    expect(reserveWrite).not.toContain('catch (Exception error)');
+    expect(reserveWrite).toContain('.NormalizeProcessIdentityGuardFailureCode(error.Code)');
+    expect(reserveWrite).toContain('new WriteLeaseReservationTransaction()');
+    expect(reserveWrite).toContain('reservationTransaction.FenceFailure(error.Code)');
+
+    const waitFence = program.slice(
+      program.indexOf('private ProcessBirthRecord WaitForProducerBirthLocked('),
+      program.indexOf('private ProducerBirthFingerprint ProducerBirthFingerprintLocked('),
+    );
+    const abortCheck = waitFence.indexOf('ThrowIfProducerBirthWaitAbortedLocked();');
+    const deadlineCheck = waitFence.indexOf(
+      'WriteLeaseProducerBirthFenceRules.IsDeadlineReached(',
+    );
+    const fingerprintCheck = waitFence.indexOf(
+      'WriteLeaseProducerBirthFenceRules.FingerprintDecision(',
+    );
+    const stateCheck = waitFence.indexOf(
+      'RecheckProducerBirthReservationStateLocked(',
+    );
+    const processCheck = waitFence.indexOf('RecheckProducerBirthProcessLocked(');
+    const monitorWait = waitFence.indexOf('Monitor.Wait(gate, waitMilliseconds)');
+    expect(abortCheck).toBeLessThan(deadlineCheck);
+    expect(deadlineCheck).toBeLessThan(fingerprintCheck);
+    expect(fingerprintCheck).toBeLessThan(stateCheck);
+    expect(stateCheck).toBeLessThan(processCheck);
+    expect(processCheck).toBeLessThan(monitorWait);
+    expect(waitFence).toContain('_ = Monitor.Wait(gate, waitMilliseconds);');
+    expect(waitFence).not.toContain('etwSession.Flush');
+    expect(waitFence).not.toContain('pendingWriteLease =');
+    expect(waitFence).not.toContain('new ObservedProducerBirthSnapshot(');
+
+    const abort = program.slice(
+      program.indexOf('private void ThrowIfProducerBirthWaitAbortedLocked('),
+      program.indexOf('private void RecheckProducerBirthReservationStateLocked('),
+    );
+    expect(abort).toContain('CapacityGuardLifecycleRules.WaitAbortFailureCode(');
+    expect(abort).toContain('if (abortFailureCode is not null)');
+    const observeBirth = program.slice(
+      program.indexOf('private void ObserveProcessBirth('),
+      program.indexOf('private void ProcessEtw('),
+    );
+    expect(observeBirth.indexOf('processBirthByPid[pid] ='))
+      .toBeLessThan(observeBirth.indexOf('Monitor.PulseAll(gate);'));
+    expect(observeBirth).toContain('lock (gate)');
+
+    const rules = program.slice(
+      program.indexOf('public static class WriteLeaseProducerBirthFenceRules'),
+      program.indexOf('public static class WriteCompletionDrainRules'),
+    );
+    expect(rules).toContain('var durationQpc = checked(frequency * 10);');
+    expect(rules).toContain('deadlineQpc = checked(startQpc + durationQpc);');
+    expect(rules).toContain('nowQpc >= deadlineQpc');
+    expect(rules).toContain('Math.Ceiling(');
+    expect(rules).toContain('return int.MaxValue;');
+    expect(rules).toContain('return ProducerBirthFingerprintDecision.Ready;');
+    expect(rules).toContain('if (current == entry)');
+    expect(rules).toContain('return ProducerBirthFingerprintDecision.TupleMismatch;');
+
+    const capacityError = program.indexOf(
+      'private static object Error(',
+      program.indexOf('sealed class CapacityGuardSession'),
+    );
+    const dispose = program.slice(
+      program.lastIndexOf('public void Dispose()', capacityError),
+      capacityError,
+    );
+    expect(dispose).toContain('CapacityGuardLifecycleRules.BeginDisposeLocked(');
+    expect(dispose).toContain('CapacityGuardLifecycleRules.CancelDrainPipeAndDispose(');
+    expect(dispose).toContain('DisposeResourcesAfterPipeCompletion);');
+    const lifecycle = program.slice(
+      program.indexOf('public static class CapacityGuardLifecycleRules'),
+      program.indexOf('public static class WriteLeaseProducerBirthFenceRules'),
+    );
+    const disposedSet = lifecycle.indexOf('disposed = true;');
+    const abortFailure = lifecycle.indexOf('failureCode ??= SessionAbortFailureCode;');
+    const pulse = lifecycle.indexOf('Monitor.PulseAll(gate);');
+    const cancel = lifecycle.indexOf('cancellation.Cancel();');
+    const pipeWait = lifecycle.indexOf('pipeTask.Wait(timeout)');
+    const resourceDispose = lifecycle.indexOf('disposeResources();');
+    expect(disposedSet).toBeLessThan(abortFailure);
+    expect(abortFailure).toBeLessThan(pulse);
+    expect(pulse).toBeLessThan(cancel);
+    expect(cancel).toBeLessThan(pipeWait);
+    expect(pipeWait).toBeLessThan(resourceDispose);
+    expect(lifecycle).toContain('if (failureCode is not null) return failureCode;');
+    expect(lifecycle).toContain('if (!pipeCompleted)');
+    expect(lifecycle).toContain('SessionAbortTimeoutFailureCode');
+    const resourceCleanup = dispose.slice(
+      dispose.indexOf('private void DisposeResourcesAfterPipeCompletion()'),
+    );
+    expect(resourceCleanup.indexOf('StopEtw();'))
+      .toBeLessThan(resourceCleanup.indexOf('etwSource.Dispose();'));
+    expect(resourceCleanup.indexOf('etwSource.Dispose();'))
+      .toBeLessThan(resourceCleanup.indexOf('job.Dispose();'));
   });
 
   it('exact late位置で固定診断・限定handoff/replayだけを純粋選択する', async () => {
@@ -1559,19 +1683,21 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       .toBeLessThan(completeWriteAfterDrain.indexOf('var completed = CompleteWrite('));
     const reserveWrite = program.slice(
       program.indexOf('private object ReserveWrite('),
-      program.indexOf('private object PrepareWriteRename('),
+      program.indexOf('private ProcessBirthRecord WaitForProducerBirthLocked('),
     );
-    expect(reserveWrite).toContain('pendingWriteLease = new PendingWriteLease(');
+    expect(reserveWrite).toContain('producerBirthSnapshot => new PendingWriteLease(');
+    expect(reserveWrite).toContain('lease => pendingWriteLease = lease');
     expect(reserveWrite.match(/Stopwatch\.GetTimestamp\(\)/gu)).toHaveLength(1);
-    expect(reserveWrite.match(/processBirthByPid\.TryGetValue\(/gu)).toHaveLength(1);
+    expect(reserveWrite).not.toContain('processBirthByPid.TryGetValue(');
+    expect(reserveWrite).toContain('WaitForProducerBirthLocked(');
     expect(reserveWrite.indexOf('var identity = job.ProcessIdentity(process);'))
+      .toBeLessThan(reserveWrite.indexOf('WaitForProducerBirthLocked('));
+    expect(reserveWrite.indexOf('WaitForProducerBirthLocked('))
       .toBeLessThan(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'));
     expect(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'))
-      .toBeLessThan(reserveWrite.indexOf('processBirthByPid.TryGetValue('));
-    expect(reserveWrite.indexOf('processBirthByPid.TryGetValue('))
       .toBeLessThan(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('));
     expect(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('))
-      .toBeLessThan(reserveWrite.indexOf('new PendingWriteLease('));
+      .toBeLessThan(reserveWrite.indexOf('producerBirthSnapshot => new PendingWriteLease('));
     const dispatchPipe = program.slice(
       program.indexOf('private object DispatchPipe('),
       program.indexOf('private object RegisterSelf('),

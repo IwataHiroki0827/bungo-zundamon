@@ -12,11 +12,13 @@ import {
   classifyF005NativeCapacityReplyError,
   classifyF005NativeWriteThroughReplyError,
   F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES,
+  F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES,
   F005NativeCapacityError,
   flushF005ArtifactDirectory,
   isF005AfterLeaseReservationDirectoryRejoinFailureCode,
   isF005SystemDirectoryBoundLeaseRejoinFailureCode,
   isF005WriteCompletionDrainFailureCode,
+  isF005WriteLeaseProducerBirthFailureCode,
   isF005ClosedLeaseRejoinDiagnosticCode,
   isF005CompletedWriteRejoinDiagnosticCode,
   isF005SystemSetInfoCorrelationDiagnosticCode,
@@ -195,6 +197,25 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     .filter((stage) => stage.startsWith('LATE_DIAG_'))
     .map((stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`.length)))
     .toBe(96);
+  expect(F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES).toHaveLength(4);
+  for (const stage of F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES) {
+    const rawCode = `WRITE_LEASE_PRODUCER_BIRTH_${stage}`;
+    const code = `F005_${rawCode}` as const;
+    expect(isF005WriteLeaseProducerBirthFailureCode(code)).toBe(true);
+    expect(classifyF005NativeCapacityReplyError(rawCode)).toBe(code);
+    expect(classifyF005NativeCapacityReplyError(code)).toBe(code);
+    expect(code.length).toBeLessThanOrEqual(127);
+  }
+  for (const code of [
+    'WRITE_LEASE_PRODUCER_BIRTH_PRIVATE',
+    'WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT_EXTRA',
+    'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT_EXTRA',
+    'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT'.padEnd(128, 'X'),
+  ]) {
+    expect(isF005WriteLeaseProducerBirthFailureCode(code)).toBe(false);
+    expect(classifyF005NativeCapacityReplyError(code))
+      .toBe('F005_CAPACITY_GUARD_REJECTED');
+  }
   for (const code of [
     'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
     'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
@@ -1044,7 +1065,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (623 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (666 cases)'),
     });
   }, 120_000);
 });

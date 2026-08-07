@@ -18,6 +18,7 @@ import {
 import {
   F005NativeCapacityError,
   F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES,
+  F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES,
 } from './f005-native-guard.ts';
 import {
   advanceF005RunnerManifest,
@@ -979,6 +980,18 @@ describe('F005 production work runner', () => {
         cause: { name: 'F005NativeCapacityError', code: null },
       });
       expect(serialized).not.toContain(code);
+    }
+    expect(F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES).toHaveLength(4);
+    for (const stage of F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES) {
+      const code = `F005_WRITE_LEASE_PRODUCER_BIRTH_${stage}` as const;
+      const failure = new F005NativeCapacityError(code, 'fixed birth fence stage');
+      expect(JSON.parse(
+        formatF005RunnerFailure(
+          new Error('voice boundary', { cause: failure }),
+        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+      )).toMatchObject({
+        cause: { name: 'F005NativeCapacityError', code },
+      });
     }
   });
 

@@ -7,7 +7,10 @@ import { promisify } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 
-import { F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES } from './f005-native-guard.ts';
+import {
+  F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES,
+  F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES,
+} from './f005-native-guard.ts';
 
 const execFileAsync = promisify(execFile);
 
@@ -57,7 +60,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-045 snapshots observed producer birth at reservation.',
+      '# Native tooling stays outside; CHG-F005-046 fences producer birth before reservation.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -80,6 +83,20 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
+    const birthPattern = job.env.F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_PATTERN;
+    expect(birthPattern).toBeTypeOf('string');
+    const birthCodes = F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_STAGES.map(
+      (stage) => `F005_WRITE_LEASE_PRODUCER_BIRTH_${stage}`,
+    );
+    expect(birthCodes).toHaveLength(4);
+    expect(birthCodes.every((code) => new RegExp(birthPattern!, 'u').test(code)))
+      .toBe(true);
+    for (const code of [
+      'F005_WRITE_LEASE_PRODUCER_BIRTH_PRIVATE',
+      'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT_EXTRA',
+      'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT'.padEnd(128, 'X'),
+    ]) expect(new RegExp(birthPattern!, 'u').test(code)).toBe(false);
+    expect(scripts).toContain('$env:F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_PATTERN');
     expect(job.if).toContain("github.ref == 'refs/heads/feature/F005'");
     expect(actions).toEqual([
       'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0',
