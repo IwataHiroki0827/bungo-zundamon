@@ -837,3 +837,13 @@ attempts:
   cause: 既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-119対象bucketへ未到達
   recovery: Program pinを変更せずworkflow self-pathでhosted attempt 2を実行する
   log: docs/evidence/qt/QT-F005-008-009-CHG-045-hosted-attempt-1.md
+- date: '2026-08-08T06:48:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-045-hosted
+  attempt: 2
+  command: GitHub Actions production run 31221136732
+  result: fail
+  failures: 1
+  cause: attempt 1と同じ既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-119対象bucketへ未到達
+  recovery: Program pinを変更せずworkflow self-pathで最終hosted attempt 3を実行する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-045-hosted-attempt-2.md

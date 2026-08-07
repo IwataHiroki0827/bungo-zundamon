@@ -23,3 +23,5 @@ snapshot後のmap追加・上書き・削除、同一PIDの別sequence callback�
 native reply、TypeScript bridge、runner、workflow annotationの43 code集合と127文字上限、unknown/extra code拒否を確認した。実Windows ETWでの到達確認はQT-F005-008/009のhosted再観測へ引き継ぐ。
 
 hosted attempt 1はcommit `4a2152aefda335b0f109c4f3cb2d838669108d6e`で実施した。native probe run `31220780207`はSUCCESS、production run `31220780289`は既存`POST_RESERVATION_WRITE`で安全停止しT-119対象へ未到達だった。candidate branchは作成されず、Pages run `31220780215`はdeploy skipである。同一Program pinのattempt 2へ継続する。
+
+hosted attempt 2は同一Program pinのcommit `1dc636acc389b9ba5d00f6876ce865d7a80da5a0`で実施した。production run `31221136732`はattempt 1と同じ既存`POST_RESERVATION_WRITE`で安全停止し、candidate branchは作成されず、Pages run `31221136576`はdeploy skipである。最終attempt 3へ継続する。

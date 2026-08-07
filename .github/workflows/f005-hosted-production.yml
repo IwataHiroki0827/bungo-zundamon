@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; CHG-F005-045 snapshots observed producer birth at reservation.
-# This self-path update starts CHG-F005-045 hosted retry attempt 2 with the same Program pin.
+# This self-path update starts CHG-F005-045 hosted final attempt 3 with the same Program pin.
 on:
   push:
     branches:
