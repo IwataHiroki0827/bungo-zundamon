@@ -1272,6 +1272,36 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'throw new GuardException(\n                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED")',
     );
     expect(lateBlock).toContain('completedWriteHandoff = seal;\n                return true;');
+    const activeProducerBirth = lateBlock.slice(
+      lateBlock.indexOf(
+        'if (failure == WriteCompletionDrainRules\n' +
+        '                    .LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode)',
+      ),
+      lateBlock.lastIndexOf('throw new GuardException(failure)'),
+    );
+    expect(activeProducerBirth).toContain(
+      'registeredWorkerProcesses.TryGetValue(\n' +
+      '                        activeLease.ProcessStartKey,',
+    );
+    expect(activeProducerBirth.match(/ActiveProducerBirthFailureCode\(/gu))
+      .toHaveLength(1);
+    for (const required of [
+      'activeProducer!.Pid == activeLease.WorkerPid',
+      'activeProducer!.ProcessStartKey ==\n                                activeLease.ProcessStartKey',
+      'activeProducer!.ProcessSequenceNumber ==\n                                activeLease.ProcessSequenceNumber',
+      'activeLease.PhaseInstanceId ==\n                                activePhase.PhaseInstanceId',
+      'activePhase.StartedAtQpc',
+      'activeProducer!.StartedAtQpc',
+      'activeLease.CurrentPathReservedAtQpc',
+      'eventQpc',
+    ]) expect(activeProducerBirth).toContain(required);
+    expect(activeProducerBirth).not.toContain('processBirthByPid');
+    expect(activeProducerBirth).not.toContain('return true');
+    expect(activeProducerBirth).not.toContain('selectedSeal =');
+    expect(activeProducerBirth).not.toContain('producerPid =');
+    expect(activeProducerBirth).not.toContain('producerSequenceNumber =');
+    expect(lateBlock.indexOf('ActiveProducerBirthFailureCode('))
+      .toBeLessThan(lateBlock.lastIndexOf('throw new GuardException(failure)'));
     expect(lateBlock).toContain('throw new GuardException(failure)');
     for (const forbidden of [
       'writeCompletionBindingLedger =',

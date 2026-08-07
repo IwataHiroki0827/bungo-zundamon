@@ -4038,6 +4038,7 @@ sealed class CapacityGuardSession : IDisposable
                 : normalized == seal.ParentPath && ledger.IsUnbound(fileObject));
         if (epoch.Length == 0)
         {
+            var activeLease = pendingWriteLease;
             var lateCandidates = broad.Where(seal =>
                 seal.CompletionRequestedAtQpc is long upper &&
                 eventQpc > upper &&
@@ -4049,7 +4050,6 @@ sealed class CapacityGuardSession : IDisposable
                 lateCandidates.Length != 0)!;
             if (lateCandidates.Length != 0)
             {
-                var activeLease = pendingWriteLease;
                 var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
                 var sameParent = slash > 0 &&
                     activeLease!.RelativePath[..slash] == normalized;
@@ -4126,6 +4126,37 @@ sealed class CapacityGuardSession : IDisposable
                     producerSequenceNumber = seal.ProcessSequenceNumber;
                     replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo;
                     return true;
+                }
+            }
+            if (failure == WriteCompletionDrainRules
+                    .LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode)
+            {
+                if (activeLease is null || activePhase is null ||
+                    eventQpc > activeLease.CurrentPathReservedAtQpc)
+                {
+                    failure = "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED";
+                }
+                else
+                {
+                    var recordPresent = registeredWorkerProcesses.TryGetValue(
+                        activeLease.ProcessStartKey,
+                        out var activeProducer);
+                    failure = WriteCompletionDrainRules
+                        .ActiveProducerBirthFailureCode(
+                            failure,
+                            recordPresent,
+                            recordPresent &&
+                                activeProducer!.Pid == activeLease.WorkerPid,
+                            recordPresent && activeProducer!.ProcessStartKey ==
+                                activeLease.ProcessStartKey,
+                            recordPresent && activeProducer!.ProcessSequenceNumber ==
+                                activeLease.ProcessSequenceNumber,
+                            activeLease.PhaseInstanceId ==
+                                activePhase.PhaseInstanceId,
+                            activePhase.StartedAtQpc,
+                            recordPresent ? activeProducer!.StartedAtQpc : 0,
+                            activeLease.CurrentPathReservedAtQpc,
+                            eventQpc);
                 }
             }
             throw new GuardException(failure);
@@ -8033,6 +8064,16 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}SETINFO_CURRENT_PATH";
     public const string LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode =
         $"{LateDiagnosticPrefix}SETINFO_SEAL_NOT_COMPLETED_RETAINED";
+    public const string LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION";
+    public const string LateDiagnosticWriteActiveProducerRecordMissingFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RECORD_MISSING";
+    public const string LateDiagnosticWriteActiveProducerTupleMismatchFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_TUPLE_MISMATCH";
+    public const string LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_PRODUCER_BIRTH";
+    public const string LateDiagnosticWriteAfterActiveProducerBirthFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_AFTER_ACTIVE_PRODUCER_BIRTH";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -8061,7 +8102,7 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_CURRENT_PATH",
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_LEASE_MISSING",
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PARENT_MISMATCH",
-        $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_RESERVATION",
+        LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode,
         LateDiagnosticWriteMixedCausesFailureCode,
         LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode,
         LateDiagnosticSetInfoCurrentPathFailureCode,
@@ -8069,6 +8110,10 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}SETINFO_ACTIVE_PARENT_MISMATCH",
         $"{LateDiagnosticPrefix}SETINFO_AT_OR_BEFORE_ACTIVE_RESERVATION",
         LateDiagnosticSetInfoMixedCausesFailureCode,
+        LateDiagnosticWriteActiveProducerRecordMissingFailureCode,
+        LateDiagnosticWriteActiveProducerTupleMismatchFailureCode,
+        LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode,
+        LateDiagnosticWriteAfterActiveProducerBirthFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -8138,6 +8183,39 @@ public static class WriteCompletionDrainRules
         params bool[] predicates) =>
         replayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo &&
         predicates.Length > 0 && predicates.All(value => value);
+
+    /// <summary>
+    /// exact reservation前writeをactive producerのimmutable birth境界で固定分類する。
+    /// 認可・stateを変更せず、返却codeは呼出元の既存throw位置で停止する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string ActiveProducerBirthFailureCode(
+        string aggregateFailureCode,
+        bool recordPresent,
+        bool pidMatches,
+        bool startKeyMatches,
+        bool processSequenceMatches,
+        bool phaseInstanceMatches,
+        long phaseStartedAtQpc,
+        long producerStartedAtQpc,
+        long activeReservationQpc,
+        long eventQpc)
+    {
+        if (aggregateFailureCode !=
+            LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode)
+            return aggregateFailureCode;
+        if (!recordPresent)
+            return LateDiagnosticWriteActiveProducerRecordMissingFailureCode;
+        if (!pidMatches || !startKeyMatches || !processSequenceMatches ||
+            !phaseInstanceMatches ||
+            phaseStartedAtQpc >= producerStartedAtQpc ||
+            producerStartedAtQpc > activeReservationQpc ||
+            eventQpc > activeReservationQpc)
+            return LateDiagnosticWriteActiveProducerTupleMismatchFailureCode;
+        return eventQpc <= producerStartedAtQpc
+            ? LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode
+            : LateDiagnosticWriteAfterActiveProducerBirthFailureCode;
+    }
 
     public static bool IsDeadlineValid(long now, long deadline) => now <= deadline;
 

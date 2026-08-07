@@ -1,0 +1,13 @@
+T-117 / CHG-F005-043 ローカル試験 attempt 1
+
+command:
+npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-run-work.test.ts src/content/f005-source.test.ts
+
+result: FAIL (2 tests)
+
+- Program変更後、再現build前のためbuild evidence/native binary pinが旧値で不一致。
+- 既存「高速native guard終了でもexit listenerを取り逃がさない」が5秒timeout。CHG-F005-043の分類規則・構造assert失敗は0件。
+
+recovery:
+- 新Program SHAから再現buildを行い、evidence/binary/source pinを同期する。
+- timeout対象を単独再実行し、その後に関連5 filesを負荷なしで全件再実行する。

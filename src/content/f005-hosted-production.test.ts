@@ -57,7 +57,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-042 seals one exact post-request current SetInfo replay.',
+      '# Native tooling stays outside; CHG-F005-043 classifies one exact active producer birth boundary.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -70,7 +70,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(35);
+    expect(drainCodes).toHaveLength(39);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     for (const code of [

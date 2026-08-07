@@ -727,3 +727,23 @@ attempts:
   cause: T-116対象SETINFO_SEAL_NOT_COMPLETED_RETAINEDを通過後、別late write candidateがWRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONで安全停止
   recovery: T-116をdoneとし、旧世代writeと現在active reservationのQPC・identity境界は別変更管理で判断する
   log: docs/evidence/qt/QT-F005-008-009-CHG-042-hosted-attempt-1.md
+- date: '2026-08-08T04:49:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-043-local
+  attempt: 1
+  command: npm test -- --run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-run-work.test.ts src/content/f005-source.test.ts
+  result: fail
+  failures: 2
+  cause: Program更新後・再現build前のpin不一致1件と、既存高速終了listener試験の5秒timeout 1件。CHG043分類規則・構造assert失敗なし
+  recovery: 再現buildでpinを同期し、timeout対象単独PASS後に関連5 filesを全件再実行する
+  log: docs/evidence/ut/UT-F005-CHG-043-attempt-1.log
+- date: '2026-08-08T04:55:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-043-local
+  attempt: 2
+  command: native rules 573件と関連5 files / 128件のVitest再実行
+  result: pass
+  failures: 0
+  cause: none
+  recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
+  log: docs/evidence/it/IT-F005-005-CHG-043-result.md

@@ -1111,16 +1111,90 @@ Check("completion drain flagなしlate sealed再検査を拒否",
     !WriteCompletionDrainRules.PostRequestReplayTupleMatches(
         WriteCompletionReplayKind.NormalEpoch,
         postRequestReplayTuple));
-Check("completion drain external code集合はexact 35",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 35 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 35 &&
+var activeProducerTuple = Enumerable.Repeat(true, 4).ToArray();
+string ActiveProducerBirth(
+    bool[]? tuple = null,
+    bool recordPresent = true,
+    string? aggregateCode = null,
+    long phaseStartedAtQpc = 100,
+    long producerStartedAtQpc = 101,
+    long activeReservationQpc = 110,
+    long eventQpc = 102)
+{
+    var values = tuple ?? activeProducerTuple;
+    return WriteCompletionDrainRules.ActiveProducerBirthFailureCode(
+        aggregateCode ?? WriteCompletionDrainRules
+            .LateDiagnosticWriteAtOrBeforeActiveReservationFailureCode,
+        recordPresent,
+        values[0],
+        values[1],
+        values[2],
+        values[3],
+        phaseStartedAtQpc,
+        producerStartedAtQpc,
+        activeReservationQpc,
+        eventQpc);
+}
+Check("completion drain active producer他bucketは分類しない",
+    ActiveProducerBirth(aggregateCode:
+        WriteCompletionDrainRules.LateDiagnosticWriteMixedCausesFailureCode) ==
+        WriteCompletionDrainRules.LateDiagnosticWriteMixedCausesFailureCode);
+Check("completion drain active producer record欠落を固定分類",
+    ActiveProducerBirth(recordPresent: false) == WriteCompletionDrainRules
+        .LateDiagnosticWriteActiveProducerRecordMissingFailureCode);
+Check("completion drain active producer all trueはbirth後分類",
+    ActiveProducerBirth() == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterActiveProducerBirthFailureCode);
+for (var index = 0; index < activeProducerTuple.Length; index++)
+{
+    var oneFalse = activeProducerTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain active producer tuple軸 {index} falseを拒否",
+        ActiveProducerBirth(tuple: oneFalse) == WriteCompletionDrainRules
+            .LateDiagnosticWriteActiveProducerTupleMismatchFailureCode);
+}
+Check("completion drain active producer phase/birth同値を拒否",
+    ActiveProducerBirth(producerStartedAtQpc: 100) == WriteCompletionDrainRules
+        .LateDiagnosticWriteActiveProducerTupleMismatchFailureCode);
+Check("completion drain active producer phase/birth+1を許可",
+    ActiveProducerBirth(producerStartedAtQpc: 101) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterActiveProducerBirthFailureCode);
+Check("completion drain active producer birth/reservation同値を許可",
+    ActiveProducerBirth(producerStartedAtQpc: 110, eventQpc: 110) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode);
+Check("completion drain active producer birth/reservation+1を拒否",
+    ActiveProducerBirth(producerStartedAtQpc: 111) == WriteCompletionDrainRules
+        .LateDiagnosticWriteActiveProducerTupleMismatchFailureCode);
+Check("completion drain active producer event birth-1を同値以前分類",
+    ActiveProducerBirth(eventQpc: 100) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode);
+Check("completion drain active producer event birth同値を同値以前分類",
+    ActiveProducerBirth(eventQpc: 101) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode);
+Check("completion drain active producer event birth+1をbirth後分類",
+    ActiveProducerBirth(eventQpc: 102) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterActiveProducerBirthFailureCode);
+Check("completion drain active producer event reservation同値をbirth後分類",
+    ActiveProducerBirth(eventQpc: 110) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterActiveProducerBirthFailureCode);
+Check("completion drain active producer event reservation+1を拒否",
+    ActiveProducerBirth(eventQpc: 111) == WriteCompletionDrainRules
+        .LateDiagnosticWriteActiveProducerTupleMismatchFailureCode);
+var activeProducerTupleBefore = activeProducerTuple.ToArray();
+_ = ActiveProducerBirth();
+Check("completion drain active producer純粋規則は入力state無変更",
+    activeProducerTuple.SequenceEqual(activeProducerTupleBefore));
+Check("completion drain external code集合はexact 39",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 39 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 39 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
-Check("completion drain追加code最長は81文字",
+Check("completion drain追加code最長は82文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
-        .Max(code => code.Length) == 81);
-Check("completion drain external exact 35 codeはnative replyで不変",
+        .Max(code => code.Length) == 82);
+Check("completion drain external exact 39 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 foreach (var code in new[] {
@@ -1677,7 +1751,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (556 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (573 cases)");
 return 0;
 
 bool BoundLeaseCheap(
