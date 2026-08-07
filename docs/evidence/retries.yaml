@@ -797,3 +797,33 @@ attempts:
   cause: none
   recovery: typecheck、ESLint、trace_check、再現build2回、独立受入を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-044-result.md
+- date: '2026-08-08T06:19:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-045-local
+  attempt: 1
+  command: dotnet run --project native/f005-guard-tests/F005Guard.CorrelationTests.csproj -c Release
+  result: fail
+  failures: 1
+  cause: fallback callerでscope外のseal変数をactive phase整合判定へ参照しCS0103となった
+  recovery: active leaseと現在active phaseのPhaseInstanceId完全一致へ修正して再実行する
+  log: docs/evidence/ut/UT-F005-CHG-045-attempt-1.log
+- date: '2026-08-08T06:21:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-045-local
+  attempt: 2
+  command: native 618件、関連5 files Vitest、再現build固定SHA検査
+  result: fail
+  failures: 1
+  cause: Program更新後・再現build前の旧binary pin不一致。snapshot・fallback・43 code・構造fixtureはPASS
+  recovery: 最終Programからbuild/source/document pinを同期し、再現build2回後に全関連試験を再実行する
+  log: docs/evidence/ut/UT-F005-CHG-045-attempt-2.log
+- date: '2026-08-08T06:34:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-045-local
+  attempt: 3
+  command: native 623件、関連5 files / 128件、typecheck、ESLint、trace_check、再現build2回
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 独立受入と同一source SHAのhosted影響試験を継続する
+  log: docs/evidence/it/IT-F005-005-CHG-045-result.md

@@ -1410,6 +1410,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(activeProducerBirth.match(/ActiveProducerBirthFailureCode\(/gu))
       .toHaveLength(1);
+    expect(activeProducerBirth.match(/ReservationProducerBirthFailureCode\(/gu))
+      .toHaveLength(1);
     for (const required of [
       'activeProducer!.Pid == activeLease.WorkerPid',
       'activeProducer!.ProcessStartKey ==\n                                activeLease.ProcessStartKey',
@@ -1425,8 +1427,27 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(activeProducerBirth).not.toContain('selectedSeal =');
     expect(activeProducerBirth).not.toContain('producerPid =');
     expect(activeProducerBirth).not.toContain('producerSequenceNumber =');
-    expect(lateBlock.indexOf('ActiveProducerBirthFailureCode('))
-      .toBeLessThan(lateBlock.lastIndexOf('throw new GuardException(failure)'));
+    expect(activeProducerBirth).toContain(
+      'eventQpc <=\n                                    activeLease.CurrentPathReservedAtQpc',
+    );
+    expect(activeProducerBirth).toContain(
+      'snapshot?.LeaseReservedAtQpc ==\n                                    activeLease.ReservedAtQpc',
+    );
+    expect(activeProducerBirth).toContain(
+      'activeLease.CurrentPathReservedAtQpc,\n                                eventQpc',
+    );
+    const legacyBirthClassifier = lateBlock.indexOf('ActiveProducerBirthFailureCode(');
+    const fallbackGuard = lateBlock.indexOf(
+      'if (failure == WriteCompletionDrainRules\n' +
+      '                            .LateDiagnosticWriteActiveProducerRecordMissingFailureCode)',
+    );
+    const reservationBirthClassifier = lateBlock.indexOf(
+      'ReservationProducerBirthFailureCode(',
+    );
+    const finalLateThrow = lateBlock.lastIndexOf('throw new GuardException(failure)');
+    expect(legacyBirthClassifier).toBeLessThan(fallbackGuard);
+    expect(fallbackGuard).toBeLessThan(reservationBirthClassifier);
+    expect(reservationBirthClassifier).toBeLessThan(finalLateThrow);
     expect(lateBlock).toContain('throw new GuardException(failure)');
     for (const forbidden of [
       'writeCompletionBindingLedger =',
@@ -1487,6 +1508,38 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'activeParentMatches',
       'eventAfterActiveReservation',
     ]) expect(activeDirectoryRule).toContain(required);
+    const reservationBirthRule = program.slice(
+      program.indexOf('public static string ReservationProducerBirthFailureCode('),
+      program.indexOf('public static bool CanHandoffActiveDirectory('),
+    );
+    expect(reservationBirthRule.indexOf('!registeredRecordAbsent'))
+      .toBeLessThan(reservationBirthRule.indexOf('!snapshotPresent'));
+    expect(reservationBirthRule.indexOf('!snapshotPresent'))
+      .toBeLessThan(reservationBirthRule.indexOf('!producerPidMatches'));
+    expect(reservationBirthRule.indexOf('!producerPidMatches'))
+      .toBeLessThan(reservationBirthRule.indexOf('eventQpc <= birthStartedAtQpc'));
+    expect(reservationBirthRule).toContain(
+      'currentPathReservedAtQpc < initialLeaseReservedAtQpc',
+    );
+    expect(reservationBirthRule).toContain(
+      'eventQpc > currentPathReservedAtQpc',
+    );
+    expect(reservationBirthRule).toContain(
+      'birthStartedAtQpc > initialLeaseReservedAtQpc',
+    );
+    expect(reservationBirthRule).not.toContain(
+      'eventQpc > initialLeaseReservedAtQpc',
+    );
+    for (const code of [
+      'LateDiagnosticWriteReservationBirthRecordMissingFailureCode',
+      'LateDiagnosticWriteReservationBirthTupleMismatchFailureCode',
+      'LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode',
+      'LateDiagnosticWriteAfterReservationBirthFailureCode',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED',
+    ]) expect(reservationBirthRule).toContain(code);
+    expect(reservationBirthRule).not.toContain('processBirthByPid');
+    expect(reservationBirthRule).not.toContain('registeredWorkerProcesses');
+    expect(reservationBirthRule).not.toContain('Stopwatch');
     expect(pureRule).not.toMatch(/(?:pendingWriteLease|writeCompletion|filesBy|notices|observations)\s*[.=]/u);
 
     const completeWrite = program.slice(
@@ -1509,6 +1562,90 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private object PrepareWriteRename('),
     );
     expect(reserveWrite).toContain('pendingWriteLease = new PendingWriteLease(');
+    expect(reserveWrite.match(/Stopwatch\.GetTimestamp\(\)/gu)).toHaveLength(1);
+    expect(reserveWrite.match(/processBirthByPid\.TryGetValue\(/gu)).toHaveLength(1);
+    expect(reserveWrite.indexOf('var identity = job.ProcessIdentity(process);'))
+      .toBeLessThan(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'));
+    expect(reserveWrite.indexOf('var reservedAtQpc = Stopwatch.GetTimestamp();'))
+      .toBeLessThan(reserveWrite.indexOf('processBirthByPid.TryGetValue('));
+    expect(reserveWrite.indexOf('processBirthByPid.TryGetValue('))
+      .toBeLessThan(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('));
+    expect(reserveWrite.indexOf('new ObservedProducerBirthSnapshot('))
+      .toBeLessThan(reserveWrite.indexOf('new PendingWriteLease('));
+    const dispatchPipe = program.slice(
+      program.indexOf('private object DispatchPipe('),
+      program.indexOf('private object RegisterSelf('),
+    );
+    expect(dispatchPipe.indexOf('lock (gate)'))
+      .toBeLessThan(dispatchPipe.indexOf('"reserveWrite" => ReserveWrite('));
+    const observeBirth = program.slice(
+      program.indexOf('private void ObserveProcessBirth('),
+      program.indexOf('private void ProcessEtw('),
+    );
+    expect(observeBirth.indexOf('lock (gate)'))
+      .toBeLessThan(observeBirth.indexOf('processBirthByPid.TryGetValue('));
+    const observedBirthSnapshot = program.slice(
+      program.indexOf('private sealed class ObservedProducerBirthSnapshot('),
+      program.indexOf('private sealed record DeferredSystemSetInfoRecord('),
+    );
+    expect(observedBirthSnapshot).not.toContain('ProcessBirthRecord');
+    expect(observedBirthSnapshot).not.toContain('Dictionary<');
+    expect(observedBirthSnapshot).not.toMatch(/\{\s*get;\s*set;/u);
+    for (const scalar of [
+      'bool recordObserved',
+      'ulong recordProcessSequenceNumber',
+      'long recordStartedAtQpc',
+      'int producerPid',
+      'ulong producerProcessStartKey',
+      'ulong leaseProcessSequenceNumber',
+      'string phaseInstanceId',
+      'long phaseStartedAtQpc',
+      'long leaseReservedAtQpc',
+    ]) expect(observedBirthSnapshot).toContain(scalar);
+    const pendingWriteLeaseClass = program.slice(
+      program.indexOf('private sealed class PendingWriteLease('),
+      program.indexOf('private sealed record RegisteredWorkerProcess('),
+    );
+    expect(pendingWriteLeaseClass).toContain(
+      'public ObservedProducerBirthSnapshot ProducerBirthSnapshot { get; } =',
+    );
+    expect(pendingWriteLeaseClass).not.toContain(
+      'ProducerBirthSnapshot { get; set; }',
+    );
+    expect(pendingWriteLeaseClass).not.toContain('ProcessBirthRecord');
+
+    type FixtureBirth = Readonly<{ sequence: bigint; startedAtQpc: number }>;
+    const fixtureBirthMap = new Map<number, FixtureBirth>();
+    const captureBirth = (pid: number, reservationQpc: number) => {
+      const observed = fixtureBirthMap.get(pid);
+      return Object.freeze({
+        recordObserved: observed !== undefined,
+        recordSequence: observed?.sequence ?? 0n,
+        recordStartedAtQpc: observed?.startedAtQpc ?? 0,
+        producerPid: pid,
+        reservationQpc,
+      });
+    };
+    const delayed = captureBirth(41, 110);
+    fixtureBirthMap.set(41, { sequence: 1n, startedAtQpc: 100 });
+    expect(delayed).toEqual({
+      recordObserved: false,
+      recordSequence: 0n,
+      recordStartedAtQpc: 0,
+      producerPid: 41,
+      reservationQpc: 110,
+    });
+    const captured = captureBirth(41, 111);
+    fixtureBirthMap.set(41, { sequence: 2n, startedAtQpc: 112 });
+    fixtureBirthMap.delete(41);
+    fixtureBirthMap.set(41, { sequence: 3n, startedAtQpc: 113 });
+    expect(captured).toEqual({
+      recordObserved: true,
+      recordSequence: 1n,
+      recordStartedAtQpc: 100,
+      producerPid: 41,
+      reservationQpc: 111,
+    });
 
     const observe = program.slice(
       program.indexOf('private void ObserveEtw('),

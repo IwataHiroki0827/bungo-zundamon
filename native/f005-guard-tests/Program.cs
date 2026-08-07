@@ -1240,16 +1240,125 @@ var activeProducerTupleBefore = activeProducerTuple.ToArray();
 _ = ActiveProducerBirth();
 Check("completion drain active producer純粋規則は入力state無変更",
     activeProducerTuple.SequenceEqual(activeProducerTupleBefore));
-Check("completion drain external code集合はexact 39",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 39 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 39 &&
+var reservationBirthTuple = Enumerable.Repeat(true, 13).ToArray();
+string ReservationProducerBirth(
+    bool[]? tuple = null,
+    string? legacyCode = null,
+    long phaseStartedAtQpc = 100,
+    long birthStartedAtQpc = 101,
+    long leaseReservedAtQpc = 110,
+    long currentPathReservedAtQpc = 110,
+    long eventQpc = 102)
+{
+    var values = tuple ?? reservationBirthTuple;
+    return WriteCompletionDrainRules.ReservationProducerBirthFailureCode(
+        legacyCode ?? WriteCompletionDrainRules
+            .LateDiagnosticWriteActiveProducerRecordMissingFailureCode,
+        values[0], values[1], values[2], values[3], values[4], values[5],
+        values[6], values[7], values[8], values[9], values[10], values[11],
+        values[12], phaseStartedAtQpc, birthStartedAtQpc,
+        leaseReservedAtQpc, currentPathReservedAtQpc, eventQpc);
+}
+Check("completion drain reservation birth all trueはbirth後分類",
+    ReservationProducerBirth() == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterReservationBirthFailureCode);
+var reservationContradictionAxes = new[] {
+    "registered record absent", "active lease", "active phase", "event reservation",
+};
+for (var index = 0; index < reservationContradictionAxes.Length; index++)
+{
+    var oneFalse = reservationBirthTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain reservation birth {reservationContradictionAxes[index]} falseはstate changed",
+        ReservationProducerBirth(tuple: oneFalse) ==
+            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+}
+for (var index = 4; index <= 5; index++)
+{
+    var oneFalse = reservationBirthTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain reservation birth snapshot/record軸 {index} falseはmissing",
+        ReservationProducerBirth(tuple: oneFalse) == WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationBirthRecordMissingFailureCode);
+}
+var reservationTupleAxisNames = new[] {
+    "pid", "start key", "lease sequence", "record sequence", "phase instance",
+    "phase start", "reservation",
+};
+for (var index = 6; index < reservationBirthTuple.Length; index++)
+{
+    var oneFalse = reservationBirthTuple.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain reservation birth {reservationTupleAxisNames[index - 6]} falseはtuple mismatch",
+        ReservationProducerBirth(tuple: oneFalse) == WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationBirthTupleMismatchFailureCode);
+}
+Check("completion drain reservation birth event birth-1は同値以前",
+    ReservationProducerBirth(eventQpc: 100) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode);
+Check("completion drain reservation birth event birth同値は同値以前",
+    ReservationProducerBirth(eventQpc: 101) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode);
+Check("completion drain reservation birth phase/birth同値はtuple mismatch",
+    ReservationProducerBirth(birthStartedAtQpc: 100) == WriteCompletionDrainRules
+        .LateDiagnosticWriteReservationBirthTupleMismatchFailureCode);
+Check("completion drain reservation birth birth/reservation同値を許可",
+    ReservationProducerBirth(birthStartedAtQpc: 110, eventQpc: 110) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode);
+Check("completion drain reservation birth birth/reservation+1はtuple mismatch",
+    ReservationProducerBirth(birthStartedAtQpc: 111) == WriteCompletionDrainRules
+        .LateDiagnosticWriteReservationBirthTupleMismatchFailureCode);
+Check("completion drain reservation birth event/reservation+1はstate changed",
+    ReservationProducerBirth(eventQpc: 111) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+Check("completion drain reservation birth event initial同値はbirth後",
+    ReservationProducerBirth(eventQpc: 110) == WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterReservationBirthFailureCode);
+Check("completion drain reservation birth initial+1/current同値はbirth後",
+    ReservationProducerBirth(currentPathReservedAtQpc: 111, eventQpc: 111) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteAfterReservationBirthFailureCode);
+Check("completion drain reservation birth current+1はstate changed",
+    ReservationProducerBirth(currentPathReservedAtQpc: 111, eventQpc: 112) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+Check("completion drain reservation birth current逆転はstate changed",
+    ReservationProducerBirth(currentPathReservedAtQpc: 109) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+Check("completion drain reservation birth rename昇格後current同値はbirth後",
+    ReservationProducerBirth(currentPathReservedAtQpc: 120, eventQpc: 120) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteAfterReservationBirthFailureCode);
+foreach (var legacyCode in new[] {
+    WriteCompletionDrainRules.LateDiagnosticWriteActiveProducerTupleMismatchFailureCode,
+    WriteCompletionDrainRules.LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode,
+    WriteCompletionDrainRules.LateDiagnosticWriteAfterActiveProducerBirthFailureCode,
+})
+    Check("completion drain reservation fallbackは既存3分類を不変返却",
+        ReservationProducerBirth(legacyCode: legacyCode) == legacyCode);
+var reservationBirthTupleBefore = reservationBirthTuple.ToArray();
+_ = ReservationProducerBirth();
+Check("completion drain reservation birth純粋規則は入力state無変更",
+    reservationBirthTuple.SequenceEqual(reservationBirthTupleBefore));
+Check("completion drain reservation birth 4 codeは96/96/94/87文字",
+    WriteCompletionDrainRules
+        .LateDiagnosticWriteReservationBirthRecordMissingFailureCode.Length == 96 &&
+    WriteCompletionDrainRules
+        .LateDiagnosticWriteReservationBirthTupleMismatchFailureCode.Length == 96 &&
+    WriteCompletionDrainRules
+        .LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode.Length == 94 &&
+    WriteCompletionDrainRules
+        .LateDiagnosticWriteAfterReservationBirthFailureCode.Length == 87);
+Check("completion drain external code集合はexact 43",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 43 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 43 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
-Check("completion drain追加code最長は82文字",
+Check("completion drain追加code最長は96文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
-        .Max(code => code.Length) == 82);
-Check("completion drain external exact 39 codeはnative replyで不変",
+        .Max(code => code.Length) == 96);
+Check("completion drain external exact 43 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 foreach (var code in new[] {
@@ -1806,7 +1915,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (593 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (623 cases)");
 return 0;
 
 bool BoundLeaseCheap(

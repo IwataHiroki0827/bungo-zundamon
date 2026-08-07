@@ -1,0 +1,12 @@
+T-119 / CHG-F005-045 ローカル試験 attempt 1
+
+command:
+dotnet run --project native/f005-guard-tests/F005Guard.CorrelationTests.csproj -c Release
+
+result: FAIL（compile error 1件）
+
+cause:
+予約snapshot fallbackのactive phase整合判定で、対象scopeに存在しない`seal`変数を参照しCS0103となった。snapshot/classifierの規則失敗ではなく、callerの参照先誤りである。
+
+recovery:
+active leaseと現在active phaseの`PhaseInstanceId`完全一致へ修正し、native規則を再実行する。

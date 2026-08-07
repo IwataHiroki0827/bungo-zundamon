@@ -1,0 +1,14 @@
+T-119 / CHG-F005-045 ローカル試験 attempt 2
+
+commands:
+- dotnet run --project native/f005-guard-tests/F005Guard.CorrelationTests.csproj -c Release
+- npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-run-work.test.ts src/content/f005-source.test.ts
+- pwsh -NoProfile -File native/f005-guard/build.ps1
+
+result: native 618/618件PASS、関連Vitest 127/128件PASS、build固定SHA検査FAIL 1件
+
+cause:
+Program変更後・再現build前のため、build evidence、build.ps1、TypeScript source pinがCHG-F005-044の旧binary SHAを保持していた。snapshot、fallback、43 code、構造fixtureの失敗はない。
+
+recovery:
+最終Programからactual SHAとsizeを取得して全pinとDD/CHGを同期し、同一sourceで再現buildを2回実行後、native規則と関連5 filesを全件再実行する。

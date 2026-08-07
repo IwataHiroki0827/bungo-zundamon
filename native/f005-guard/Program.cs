@@ -2026,14 +2026,29 @@ sealed class CapacityGuardSession : IDisposable
         try
         {
             var identity = job.ProcessIdentity(process);
+            var reservedAtQpc = Stopwatch.GetTimestamp();
+            var birthObserved = processBirthByPid.TryGetValue(
+                producerPid,
+                out var observedBirth);
+            var producerBirthSnapshot = new ObservedProducerBirthSnapshot(
+                birthObserved,
+                birthObserved ? observedBirth!.ProcessSequenceNumber : 0,
+                birthObserved ? observedBirth!.StartedAtQpc : 0,
+                producerPid,
+                identity.ProcessStartKey,
+                identity.ProcessSequenceNumber,
+                activePhase.PhaseInstanceId,
+                activePhase.StartedAtQpc,
+                reservedAtQpc);
             pendingWriteLease = new PendingWriteLease(
                 producerPid,
                 identity.ProcessStartKey,
                 identity.ProcessSequenceNumber,
                 phaseInstanceId,
                 path,
-                Stopwatch.GetTimestamp(),
-                process);
+                reservedAtQpc,
+                process,
+                producerBirthSnapshot);
             process = null!;
             return new { ok = true, state = "reserved", path, producerPid };
         }
@@ -4237,6 +4252,42 @@ sealed class CapacityGuardSession : IDisposable
                             recordPresent ? activeProducer!.StartedAtQpc : 0,
                             activeLease.CurrentPathReservedAtQpc,
                             eventQpc);
+                    if (failure == WriteCompletionDrainRules
+                            .LateDiagnosticWriteActiveProducerRecordMissingFailureCode)
+                    {
+                        var snapshot = activeLease.ProducerBirthSnapshot;
+                        failure = WriteCompletionDrainRules
+                            .ReservationProducerBirthFailureCode(
+                                failure,
+                                !recordPresent,
+                                ReferenceEquals(activeLease, pendingWriteLease),
+                                activeLease.PhaseInstanceId ==
+                                    activePhase.PhaseInstanceId,
+                                eventQpc <=
+                                    activeLease.CurrentPathReservedAtQpc,
+                                snapshot is not null,
+                                snapshot?.RecordObserved == true,
+                                snapshot?.ProducerPid == activeLease.WorkerPid,
+                                snapshot?.ProducerProcessStartKey ==
+                                    activeLease.ProcessStartKey,
+                                snapshot?.LeaseProcessSequenceNumber ==
+                                    activeLease.ProcessSequenceNumber,
+                                snapshot?.RecordProcessSequenceNumber ==
+                                    activeLease.ProcessSequenceNumber,
+                                snapshot?.PhaseInstanceId ==
+                                    activeLease.PhaseInstanceId &&
+                                    snapshot?.PhaseInstanceId ==
+                                    activePhase.PhaseInstanceId,
+                                snapshot?.PhaseStartedAtQpc ==
+                                    activePhase.StartedAtQpc,
+                                snapshot?.LeaseReservedAtQpc ==
+                                    activeLease.ReservedAtQpc,
+                                snapshot?.PhaseStartedAtQpc ?? 0,
+                                snapshot?.RecordStartedAtQpc ?? 0,
+                                snapshot?.LeaseReservedAtQpc ?? 0,
+                                activeLease.CurrentPathReservedAtQpc,
+                                eventQpc);
+                    }
                 }
             }
             throw new GuardException(failure);
@@ -6525,6 +6576,30 @@ sealed class CapacityGuardSession : IDisposable
         ulong ProcessSequenceNumber,
         long StartedAtQpc);
 
+    private sealed class ObservedProducerBirthSnapshot(
+        bool recordObserved,
+        ulong recordProcessSequenceNumber,
+        long recordStartedAtQpc,
+        int producerPid,
+        ulong producerProcessStartKey,
+        ulong leaseProcessSequenceNumber,
+        string phaseInstanceId,
+        long phaseStartedAtQpc,
+        long leaseReservedAtQpc)
+    {
+        public bool RecordObserved { get; } = recordObserved;
+        public ulong RecordProcessSequenceNumber { get; } =
+            recordProcessSequenceNumber;
+        public long RecordStartedAtQpc { get; } = recordStartedAtQpc;
+        public int ProducerPid { get; } = producerPid;
+        public ulong ProducerProcessStartKey { get; } = producerProcessStartKey;
+        public ulong LeaseProcessSequenceNumber { get; } =
+            leaseProcessSequenceNumber;
+        public string PhaseInstanceId { get; } = phaseInstanceId;
+        public long PhaseStartedAtQpc { get; } = phaseStartedAtQpc;
+        public long LeaseReservedAtQpc { get; } = leaseReservedAtQpc;
+    }
+
     private sealed record DeferredSystemSetInfoRecord(
         int WorkerPid,
         ulong ProducerSequenceNumber,
@@ -6696,7 +6771,8 @@ sealed class CapacityGuardSession : IDisposable
         string phaseInstanceId,
         string relativePath,
         long reservedAtQpc,
-        Process process)
+        Process process,
+        ObservedProducerBirthSnapshot producerBirthSnapshot)
     {
         public int WorkerPid { get; } = workerPid;
         public ulong ProcessStartKey { get; } = processStartKey;
@@ -6706,6 +6782,8 @@ sealed class CapacityGuardSession : IDisposable
         public long ReservedAtQpc { get; } = reservedAtQpc;
         public long CurrentPathReservedAtQpc { get; set; } = reservedAtQpc;
         public Process Process { get; } = process;
+        public ObservedProducerBirthSnapshot ProducerBirthSnapshot { get; } =
+            producerBirthSnapshot;
         public ulong? FileObject { get; set; }
         public bool FileObjectClosed { get; set; }
         public FileSnapshot? Snapshot { get; set; }
@@ -8180,6 +8258,14 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_AT_OR_BEFORE_ACTIVE_PRODUCER_BIRTH";
     public const string LateDiagnosticWriteAfterActiveProducerBirthFailureCode =
         $"{LateDiagnosticPrefix}WRITE_AFTER_ACTIVE_PRODUCER_BIRTH";
+    public const string LateDiagnosticWriteReservationBirthRecordMissingFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RESERVATION_BIRTH_RECORD_MISSING";
+    public const string LateDiagnosticWriteReservationBirthTupleMismatchFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RESERVATION_BIRTH_TUPLE_MISMATCH";
+    public const string LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AT_OR_BEFORE_RESERVATION_BIRTH";
+    public const string LateDiagnosticWriteAfterReservationBirthFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -8220,6 +8306,10 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteActiveProducerTupleMismatchFailureCode,
         LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode,
         LateDiagnosticWriteAfterActiveProducerBirthFailureCode,
+        LateDiagnosticWriteReservationBirthRecordMissingFailureCode,
+        LateDiagnosticWriteReservationBirthTupleMismatchFailureCode,
+        LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode,
+        LateDiagnosticWriteAfterReservationBirthFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -8321,6 +8411,54 @@ public static class WriteCompletionDrainRules
         return eventQpc <= producerStartedAtQpc
             ? LateDiagnosticWriteAtOrBeforeActiveProducerBirthFailureCode
             : LateDiagnosticWriteAfterActiveProducerBirthFailureCode;
+    }
+
+    /// <summary>
+    /// registered producer record欠落時だけ予約handler時のscalar snapshotで固定分類する。
+    /// 認可・stateを変更せず、矛盾入力はSTATE_CHANGEDへ閉じる。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string ReservationProducerBirthFailureCode(
+        string legacyFailureCode,
+        bool registeredRecordAbsent,
+        bool activeLeaseMatches,
+        bool activePhaseMatches,
+        bool eventAtOrBeforeCurrentReservation,
+        bool snapshotPresent,
+        bool recordObserved,
+        bool producerPidMatches,
+        bool producerStartKeyMatches,
+        bool leaseSequenceMatches,
+        bool recordSequenceMatches,
+        bool phaseInstanceMatches,
+        bool phaseStartMatches,
+        bool reservationMatches,
+        long phaseStartedAtQpc,
+        long birthStartedAtQpc,
+        long initialLeaseReservedAtQpc,
+        long currentPathReservedAtQpc,
+        long eventQpc)
+    {
+        if (legacyFailureCode !=
+            LateDiagnosticWriteActiveProducerRecordMissingFailureCode)
+            return legacyFailureCode;
+        if (!registeredRecordAbsent || !activeLeaseMatches ||
+            !activePhaseMatches || !eventAtOrBeforeCurrentReservation ||
+            currentPathReservedAtQpc < initialLeaseReservedAtQpc ||
+            eventQpc > currentPathReservedAtQpc)
+            return "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED";
+        if (!snapshotPresent || !recordObserved)
+            return LateDiagnosticWriteReservationBirthRecordMissingFailureCode;
+        if (!producerPidMatches || !producerStartKeyMatches ||
+            !leaseSequenceMatches || !recordSequenceMatches ||
+            !phaseInstanceMatches || !phaseStartMatches ||
+            !reservationMatches ||
+            phaseStartedAtQpc >= birthStartedAtQpc ||
+            birthStartedAtQpc > initialLeaseReservedAtQpc)
+            return LateDiagnosticWriteReservationBirthTupleMismatchFailureCode;
+        return eventQpc <= birthStartedAtQpc
+            ? LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode
+            : LateDiagnosticWriteAfterReservationBirthFailureCode;
     }
 
     /// <summary>
