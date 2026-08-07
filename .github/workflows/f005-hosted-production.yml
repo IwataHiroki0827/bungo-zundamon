@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; CHG-F005-046 fences producer birth before reservation.
-# This self-path update starts CHG-F005-046 hosted validation with the updated Program pin.
+# Native tooling stays outside; CHG-F005-047 hands exact no-lease late directory writes
+# to the existing root-directory authorization. This self-path starts hosted validation.
 on:
   push:
     branches:
