@@ -1,5 +1,15 @@
 # F001 QT仕様ID 機械照合結果
 
+## T-112 CHG-F005-038影響試験前照合（2026-08-08）
+
+- 対象仕様: `QT-F005-008`、`QT-F005-009`
+- ローカル自動対応: native executable rules 454件、関連Vitest 4 files / 54件、typecheck、ESLint、production build、trace、再現native build。
+- `QT-F005-008`: generation/cleanup/replay/rename/capacityの境界とhosted workflow静的契約をローカル自動試験へ対応し、実Windows ETWと固定native実行はhosted runへ対応。
+- `QT-F005-009`: 1作品1sessionのstage→close→actual→metadata finalize、candidate保存、旧公開tree不変をhosted production runへ対応。
+- 照合結果: **2/2件対応、未対応0件**。
+- 判定: 仕様ID機械照合はPASS。hosted production 3 attemptの実証跡取得まではQT結果をPARTIALとする。
+
+
 ## 2026-07-19 T-010影響試験前照合
 
 - 仕様書: `docs/tests/qt/QT-F001.md`

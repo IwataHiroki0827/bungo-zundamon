@@ -1012,6 +1012,348 @@ foreach (var (name, fixture) in new[] {
         replay.PeakAllocatedBytes == replayBaseline.PeakAllocatedBytes);
 }
 
+var immutableLedger = new WriteCompletionBindingLedger([
+    (11UL, "volume:file-a", "cache/a.wav"),
+]);
+Check("completion ledger baseline head/cursor同値",
+    immutableLedger.AdmissionHead == 0 &&
+    immutableLedger.AppliedCursor == 0 &&
+    immutableLedger.EntryCount == 1);
+var sealedCurrentProof = immutableLedger.Admit(
+    WriteCompletionBindingKind.SealedCurrent,
+    "setinfo",
+    11,
+    "volume:file-a",
+    "cache/a.wav",
+    1);
+var sealedParentProof = immutableLedger.Admit(
+    WriteCompletionBindingKind.SealedParent,
+    "write",
+    12,
+    "volume:directory",
+    "cache",
+    null);
+var otherBoundProof = immutableLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "create",
+    21,
+    "volume:file-b",
+    "cache/b.wav");
+Check("completion ledger sealed-current exact generation不変",
+    sealedCurrentProof.GenerationBefore == 1 &&
+    sealedCurrentProof.GenerationAfter == 1 &&
+    sealedCurrentProof.StateBefore == sealedCurrentProof.StateAfter);
+Check("completion ledger sealed-parent unbound不変",
+    sealedParentProof.GenerationBefore == 0 &&
+    sealedParentProof.GenerationAfter == 0 &&
+    sealedParentProof.StateBefore == WriteCompletionBindingState.Unbound &&
+    sealedParentProof.StateAfter == WriteCompletionBindingState.Unbound);
+Check("completion ledger other-bound bootstrap",
+    otherBoundProof.GenerationBefore == 0 &&
+    otherBoundProof.GenerationAfter == 1 &&
+    otherBoundProof.StateAfter == WriteCompletionBindingState.Bound);
+immutableLedger.Validate([
+    sealedCurrentProof,
+    sealedParentProof,
+    otherBoundProof,
+]);
+Check("completion ledger dry-runはcursor無変更",
+    immutableLedger.AppliedCursor == 0);
+immutableLedger.ValidateAndCommit([
+    sealedCurrentProof,
+    sealedParentProof,
+    otherBoundProof,
+]);
+Check("completion ledger batch commit後だけcursor進行",
+    immutableLedger.AppliedCursor == immutableLedger.AdmissionHead &&
+    immutableLedger.IsConverged);
+
+var deleteFirstLedger = new WriteCompletionBindingLedger([
+    (31UL, "volume:file-c", "cache/c.wav"),
+]);
+var deleteFirst = deleteFirstLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "delete",
+    31,
+    "volume:file-c",
+    "cache/c.wav");
+var cleanupSecond = deleteFirstLedger.AdmitCleanup(31);
+Check("completion ledger delete→Cleanup同generation terminal",
+    cleanupSecond is not null &&
+    deleteFirst.GenerationAfter == cleanupSecond.GenerationAfter &&
+    cleanupSecond.DeleteSeenAfter && cleanupSecond.CleanupSeenAfter);
+
+var cleanupFirstLedger = new WriteCompletionBindingLedger([
+    (41UL, "volume:file-d", "cache/d.wav"),
+]);
+var cleanupFirst = cleanupFirstLedger.AdmitCleanup(41)!;
+var deleteSecond = cleanupFirstLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "delete",
+    41,
+    "volume:file-d",
+    "cache/d.wav");
+Check("completion ledger Cleanup→delete同generation terminal",
+    cleanupFirst.GenerationAfter == deleteSecond.GenerationAfter &&
+    deleteSecond.DeleteSeenAfter && deleteSecond.CleanupSeenAfter);
+Check("completion ledger unknown Cleanup ignore",
+    cleanupFirstLedger.AdmitCleanup(999) is null);
+var duplicateCleanupRejected = false;
+try { _ = cleanupFirstLedger.AdmitCleanup(41); }
+catch (InvalidOperationException error)
+{
+    duplicateCleanupRejected = error.Message == "BINDING_MISMATCH";
+}
+Check("completion ledger同種Cleanup duplicate拒否", duplicateCleanupRejected);
+var rebindProof = deleteFirstLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "create",
+    31,
+    "volume:file-new",
+    "cache/new.wav");
+Check("completion ledger pointer再利用は次generation",
+    rebindProof.GenerationBefore == 1 && rebindProof.GenerationAfter == 2 &&
+    rebindProof.Identity == "volume:file-new");
+var proofGapRejected = false;
+try { immutableLedger.ValidateAndCommit([rebindProof]); }
+catch (InvalidOperationException error)
+{
+    proofGapRejected = error.Message == "BINDING_MISMATCH";
+}
+Check("completion ledger proof gapをcommit前拒否", proofGapRejected);
+Check("completion ledger proof gap時cursor不変",
+    immutableLedger.IsConverged);
+Check("completion ledger型別上限固定",
+    WriteCompletionBindingLedger.MaximumEntries == 8192 &&
+    WriteCompletionBindingLedger.MaximumProofs == 8192);
+var maximumBaseline = new WriteCompletionBindingLedger(
+    Enumerable.Range(1, 8192).Select(index => (
+        (ulong)index,
+        $"volume:file-{index}",
+        $"cache/{index}.wav")));
+Check("completion ledger dictionary 8192同値許可",
+    maximumBaseline.EntryCount == 8192);
+var maximumBaselineHead = maximumBaseline.AdmissionHead;
+var entryOverflowRejected = false;
+try
+{
+    _ = maximumBaseline.Admit(
+        WriteCompletionBindingKind.OtherBound,
+        "create",
+        9001,
+        "volume:overflow",
+        "cache/overflow.wav");
+}
+catch (WriteCompletionBufferLimitException)
+{
+    entryOverflowRejected = true;
+}
+Check("completion ledger entry上限拒否はhead不変",
+    entryOverflowRejected &&
+    maximumBaseline.AdmissionHead == maximumBaselineHead);
+var baseline8193Rejected = false;
+try
+{
+    _ = new WriteCompletionBindingLedger(
+        Enumerable.Range(1, 8193).Select(index => (
+            (ulong)index,
+            $"volume:file-{index}",
+            $"cache/{index}.wav")));
+}
+catch (InvalidOperationException error)
+{
+    baseline8193Rejected = error is WriteCompletionBufferLimitException;
+}
+Check("completion ledger dictionary 8193拒否", baseline8193Rejected);
+var proofLimitLedger = new WriteCompletionBindingLedger([]);
+for (var index = 1; index <= 8192; index++)
+    _ = proofLimitLedger.Admit(
+        WriteCompletionBindingKind.SealedParent,
+        "write",
+        (ulong)index,
+        "volume:directory",
+        "cache");
+Check("completion ledger proof 8192同値許可",
+    proofLimitLedger.AdmissionHead == 8192);
+var proof8193Rejected = false;
+try
+{
+    _ = proofLimitLedger.Admit(
+        WriteCompletionBindingKind.SealedParent,
+        "write",
+        8193,
+        "volume:directory",
+        "cache");
+}
+catch (InvalidOperationException error)
+{
+    proof8193Rejected = error is WriteCompletionBufferLimitException;
+}
+Check("completion ledger proof 8193拒否", proof8193Rejected);
+
+var reusedCleanupLedger = new WriteCompletionBindingLedger([
+    (51UL, "volume:file-old", "cache/old.wav"),
+]);
+var retiredOld = reusedCleanupLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "delete",
+    51,
+    "volume:file-old",
+    "cache/old.wav");
+_ = reusedCleanupLedger.AdmitCleanup(51);
+var reusedNew = reusedCleanupLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "create",
+    51,
+    "volume:file-new",
+    "cache/new.wav");
+Check("completion ledger FileObject再利用をgeneration flagへ保持",
+    retiredOld.GenerationAfter == 1 &&
+    reusedNew.GenerationAfter == 2 &&
+    reusedNew.ReusedAfter);
+var reusedCleanupRejected = false;
+var reusedHeadBeforeCleanup = reusedCleanupLedger.AdmissionHead;
+try { _ = reusedCleanupLedger.AdmitCleanup(51); }
+catch (InvalidOperationException error)
+{
+    reusedCleanupRejected = error.Message == "BINDING_MISMATCH";
+}
+Check("completion ledger 再利用後pathless Cleanupを恒久拒否",
+    reusedCleanupRejected &&
+    reusedCleanupLedger.AdmissionHead == reusedHeadBeforeCleanup &&
+    reusedCleanupLedger.MatchesGeneration(
+        51,
+        reusedNew.GenerationAfter,
+        "volume:file-new",
+        "cache/new.wav"));
+
+var retiredParentLedger = new WriteCompletionBindingLedger([
+    (61UL, "volume:file-retired", "cache/retired.wav"),
+]);
+_ = retiredParentLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "delete",
+    61,
+    "volume:file-retired",
+    "cache/retired.wav");
+var retiredParentHead = retiredParentLedger.AdmissionHead;
+var retiredParentRejected = false;
+try
+{
+    _ = retiredParentLedger.Admit(
+        WriteCompletionBindingKind.SealedParent,
+        "write",
+        61,
+        "volume:directory",
+        "cache");
+}
+catch (InvalidOperationException error)
+{
+    retiredParentRejected = error.Message == "BINDING_MISMATCH";
+}
+Check("completion ledger retiredはsealed-parent unboundでない",
+    retiredParentRejected &&
+    retiredParentLedger.AdmissionHead == retiredParentHead &&
+    !retiredParentLedger.IsUnbound(61));
+
+var tamperLedger = new WriteCompletionBindingLedger([]);
+var canonicalProof = tamperLedger.Admit(
+    WriteCompletionBindingKind.OtherBound,
+    "create",
+    71,
+    "volume:canonical",
+    "cache/canonical.wav");
+foreach (var (name, tampered) in new[] {
+    ("identity", canonicalProof with { Identity = "volume:tampered" }),
+    ("path", canonicalProof with { Path = "cache/tampered.wav" }),
+    ("generation-after", canonicalProof with { GenerationAfter = 2 }),
+    ("state-after", canonicalProof with {
+        StateAfter = WriteCompletionBindingState.Retired,
+    }),
+    ("reused-flag", canonicalProof with { ReusedAfter = true }),
+    ("delete-flag", canonicalProof with { DeleteSeenAfter = true }),
+    ("cleanup-flag", canonicalProof with { CleanupSeenAfter = true }),
+})
+{
+    var rejected = false;
+    try { tamperLedger.ValidateAndCommit([tampered]); }
+    catch (InvalidOperationException error)
+    {
+        rejected = error.Message == "BINDING_MISMATCH";
+    }
+    Check($"completion ledger canonical proof {name}改竄拒否",
+        rejected && tamperLedger.AppliedCursor == 0);
+}
+
+var proofSequenceOverflowRejected = false;
+try
+{
+    var overflowLedger = new WriteCompletionBindingLedger(
+        [],
+        long.MaxValue);
+    _ = overflowLedger.Admit(
+        WriteCompletionBindingKind.SealedParent,
+        "write",
+        81,
+        "volume:directory",
+        "cache");
+}
+catch (WriteCompletionBufferLimitException)
+{
+    proofSequenceOverflowRejected = true;
+}
+Check("completion ledger proofSequence overflowはBUFFER_LIMIT",
+    proofSequenceOverflowRejected);
+var generationOverflowRejected = false;
+try { _ = WriteCompletionBindingLedger.CheckedNextGeneration(long.MaxValue); }
+catch (WriteCompletionBufferLimitException)
+{
+    generationOverflowRejected = true;
+}
+Check("completion ledger generation overflowはBUFFER_LIMIT",
+    generationOverflowRejected);
+
+var atomicValues = new List<int> { 1 };
+var atomicCheckpoint = atomicValues.ToArray();
+var lateApplyRejected = false;
+try
+{
+    WriteCompletionAtomicBatchRules.Execute(
+        () => {
+            atomicValues.Add(2);
+            atomicValues.Add(3);
+            throw new InvalidOperationException("late apply");
+        },
+        () => atomicValues.Add(4),
+        () => {
+            atomicValues.Clear();
+            atomicValues.AddRange(atomicCheckpoint);
+        });
+}
+catch (InvalidOperationException error)
+{
+    lateApplyRejected = error.Message == "late apply";
+}
+Check("completion atomic batch 後段apply失敗を全rollback",
+    lateApplyRejected && atomicValues.SequenceEqual([1]));
+var commitFailureRejected = false;
+try
+{
+    WriteCompletionAtomicBatchRules.Execute(
+        () => atomicValues.Add(2),
+        () => throw new InvalidOperationException("commit"),
+        () => {
+            atomicValues.Clear();
+            atomicValues.AddRange(atomicCheckpoint);
+        });
+}
+catch (InvalidOperationException error)
+{
+    commitFailureRejected = error.Message == "commit";
+}
+Check("completion atomic batch commit失敗もsemantic rollback",
+    commitFailureRejected && atomicValues.SequenceEqual([1]));
+
 using (var admission = new WriteCompletionCallbackAdmission())
 using (var firstCallbackEntered = new ManualResetEventSlim(false))
 using (var releaseFirstCallback = new ManualResetEventSlim(false))
@@ -1082,7 +1424,7 @@ if (failures.Count != 0)
     return 1;
 }
 
-Console.WriteLine("System SetInfo correlation tests PASS (421 cases)");
+Console.WriteLine("System SetInfo correlation tests PASS (454 cases)");
 return 0;
 
 bool BoundLeaseCheap(

@@ -1,4 +1,34 @@
 attempts:
+- date: '2026-08-07T23:55:00+09:00'
+  feature: F005
+  scope: T-111-hosted-impact
+  attempt: 1
+  command: Actions run 31124047021 attempt 1
+  result: fail-closed
+  failures: 1
+  cause: audio-renamed後のcompletion drain replayでF005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILEDへ安全停止
+  recovery: 同一commitのfailed jobを再実行しhosted配送順差を再サンプル
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31124047021/attempts/1
+- date: '2026-08-07T23:56:00+09:00'
+  feature: F005
+  scope: T-111-hosted-impact
+  attempt: 2
+  command: Actions run 31124047021 attempt 2
+  result: fail-closed
+  failures: 1
+  cause: audio-renamed後のcompletion drain replayでF005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCHへ安全停止
+  recovery: 同一commitのfailed jobを再実行し再現性を確認
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31124047021/attempts/2
+- date: '2026-08-07T23:57:00+09:00'
+  feature: F005
+  scope: T-111-hosted-impact
+  attempt: 3
+  command: Actions run 31124047021 attempt 3
+  result: fail-closed
+  failures: 1
+  cause: attempt 2と同じF005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCHへ安全停止しretry_limit 3へ到達
+  recovery: T-111をQ-037でblockedとし、CHG-F005-038でcallback時不変proofへ設計変更
+  log: https://github.com/IwataHiroki0827/bungo-zundamon/actions/runs/31124047021/attempts/3
 - date: '2026-08-06T05:19:00+09:00'
   feature: F005
   scope: T-110-hosted-impact
@@ -527,3 +557,43 @@ attempts:
   cause: none
   recovery: 権利比較の回帰試験追加後に全回帰を再実行
   log: docs/evidence/ut/UT-F004-attempt-2.json
+- date: '2026-08-08T01:15:58+09:00'
+  feature: F005
+  scope: UT-CHG-F005-038-related-vitest
+  attempt: 1
+  command: npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts
+  result: fail
+  failures: 1
+  cause: 16回native processを起動する既存の高速終了fixtureが並列実行時だけ5秒timeoutを超過した
+  recovery: fixture単独で機能PASSを確認し、独立acceptorで関連4 filesを再実行して全54件PASSを確認
+  log: console:T-112-related-vitest-attempt-1
+- date: '2026-08-08T01:16:18+09:00'
+  feature: F005
+  scope: UT-CHG-F005-038-fast-exit
+  attempt: 2
+  command: npx vitest run src/content/f005-native-guard.test.ts -t 高速native\ guard終了でもexit\ listenerを取り逃がさない
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 並列負荷を除いた単独再実行で高速終了時のlistener順序を確認
+  log: console:T-112-fast-exit-attempt-2
+- date: '2026-08-08T01:21:50+09:00'
+  feature: F005
+  scope: UT-full-regression
+  attempt: 1
+  command: npm test
+  result: fail
+  failures: 20
+  cause: 現在日付でnotice policyが期限切れとなる既存6件と、71 files並列実行時の5〜60秒timeout・一時file lockが混在。T-112の新規assertion失敗は0件
+  recovery: T-112影響4 filesをmaxWorkers=1で分離し、54/54件PASSを確認。期限切れnoticeはT-112非影響の別データ更新課題として分離
+  log: docs/evidence/ut/UT-F005-CHG-038-attempt-1.log
+- date: '2026-08-08T01:25:52+09:00'
+  feature: F005
+  scope: UT-CHG-F005-038-related
+  attempt: 2
+  command: npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-voice.test.ts --maxWorkers=1
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 全体並列負荷とT-112影響範囲を分離して直列実行
+  log: docs/evidence/ut/UT-F005-CHG-038-attempt-2.log

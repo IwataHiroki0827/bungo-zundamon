@@ -1,5 +1,15 @@
 # F001 結合試験仕様と実装済みテストの機械照合
 
+## T-112 CHG-F005-038影響試験前照合（2026-08-08）
+
+- 対象仕様: `IT-F005-005`
+- 対象実装: native executable rules、`f005-guard-native.test.ts`、`f005-native-guard.test.ts`、`f005-hosted-production.test.ts`、`f005-voice.test.ts`
+- 対応内容: native guard、System/Job event、write completion drain、FileObject generation、Cleanup、rename、容量、hosted候補生成制御をproduction共有実装と構造試験へ結合した。
+- 照合結果: **1/1件対応、未対応0件**。
+- hosted Windowsの実ETW正常系はQT-F005-008/009へ分離し、ローカルITでは実行規則・固定pin・workflow契約を検査する。
+- 判定: T-112影響ITの仕様ID機械照合ゲートをPASSした。
+
+
 ## 照合結果（2026-07-19 T-010影響試験）
 
 - 対象仕様: `docs/tests/it/IT-F001.md` の `IT-F001-001`〜`IT-F001-020`

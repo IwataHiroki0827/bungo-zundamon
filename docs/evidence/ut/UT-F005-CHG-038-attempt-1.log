@@ -1,0 +1,17 @@
+T-112 CHG-F005-038 全Vitest回帰 attempt 1
+実行日時: 2026-08-08T01:21:50+09:00
+command: npm test
+result: FAIL
+
+Test Files: 14 failed / 57 passed / 71 total
+Tests: 20 failed / 1202 passed / 51 skipped / 1273 total
+
+失敗分類:
+- notice policy期限切れ: 6件（CREDITS_POLICY_STALE、T-112非影響）
+- 全71 files並列負荷によるtest/hook timeoutおよび一時file lock: 14件
+- T-112で追加・変更したassertionの機能不一致: 0件
+
+復旧:
+- T-112影響4 filesをmaxWorkers=1で再実行する。
+- native executable rulesを別processで再実行する。
+- 期限切れnoticeはT-112のcompletion drain変更とは独立した既存データ更新課題として分離する。

@@ -1,0 +1,15 @@
+T-112 CHG-F005-038 影響UT attempt 2
+実行日時: 2026-08-08T01:25:52+09:00
+command: npx vitest run src/content/f005-guard-native.test.ts src/content/f005-native-guard.test.ts src/content/f005-hosted-production.test.ts src/content/f005-voice.test.ts --maxWorkers=1
+result: PASS
+
+Test Files: 4 passed / 4 total
+Tests: 54 passed / 54 total
+Duration: 22.22s
+
+追加確認:
+- dotnet run --project native/f005-guard-tests/F005Guard.CorrelationTests.csproj -c Release
+  result: PASS (454 cases)
+- npm run typecheck: PASS
+- npm run lint: PASS
+- npm run build: PASS (697 files / 229,936,251 bytes)

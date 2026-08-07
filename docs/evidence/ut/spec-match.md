@@ -1,5 +1,15 @@
 # F001 単体試験仕様ID機械照合
 
+## T-112 CHG-F005-038影響試験前照合（2026-08-08）
+
+- 対象仕様: `UT-F005-017`、`UT-F005-047`
+- 対象実装: `src/content/f005-voice.test.ts`、`src/content/f005-guard-native.test.ts`、`src/content/f005-native-guard.test.ts`、`src/content/f005-hosted-production.test.ts`、`native/f005-guard-tests/Program.cs`
+- `UT-F005-017`: voice生成・notice、native recorderの正常/異常経路を`f005-voice.test.ts`とnative guard試験へ対応。
+- `UT-F005-047`: completion drain、generation ledger、retained handle、Cleanup、atomic rollback、hosted workflow契約を4 Vitestファイルとproduction共有native executable rulesへ対応。
+- 照合結果: **2/2件対応、未対応0件**。
+- 判定: T-112影響UTの仕様ID機械照合ゲートをPASSした。全F005仕様の対応関係は`trace_check --feature F005`でも漏れ0件を確認した。
+
+
 ## T-010影響再試験前照合（2026-07-19）
 
 - 仕様書から抽出した仕様ID: `UT-F001-001`〜`UT-F001-042`の42件。
