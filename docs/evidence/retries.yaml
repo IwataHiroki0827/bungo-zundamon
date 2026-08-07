@@ -717,3 +717,13 @@ attempts:
   cause: none
   recovery: typecheck、ESLint、trace_check、pin整合、独立受入を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-042-result.md
+- date: '2026-08-08T04:33:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-042-hosted
+  attempt: 1
+  command: GitHub Actions run 31211412904 at commit 22b46499ab1d6519dd7d93459ea78ce1872a74cc
+  result: fail
+  failures: 1
+  cause: T-116対象SETINFO_SEAL_NOT_COMPLETED_RETAINEDを通過後、別late write candidateがWRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONで安全停止
+  recovery: T-116をdoneとし、旧世代writeと現在active reservationのQPC・identity境界は別変更管理で判断する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-042-hosted-attempt-1.md
