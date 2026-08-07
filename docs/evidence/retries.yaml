@@ -687,3 +687,13 @@ attempts:
   cause: none
   recovery: typecheck、ESLint、trace_check、pin整合、独立受入を継続確認
   log: docs/evidence/it/IT-F005-005-CHG-041-result.md
+- date: '2026-08-08T03:51:00+09:00'
+  feature: F005
+  scope: QT-F005-008-009-CHG-041-hosted
+  attempt: 1
+  command: GitHub Actions run 31208447007 at commit 2cec0bcffc42197db229870dcd40913ea47af4da
+  result: fail
+  failures: 1
+  cause: T-115対象SETINFO_CURRENT_PATHを通過後、別late candidateがSETINFO_SEAL_NOT_COMPLETED_RETAINEDで安全停止
+  recovery: T-115をdoneとし、非CompletedRetained sealの状態・安全境界は別変更管理で判断する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-041-hosted-attempt-1.md
