@@ -2474,3 +2474,14 @@ tasks:
   mode_reason: production共有QPC/deferred/process診断規則を使う固定target suiteでT-109影響だけを決定的に再試験するため
   model: {lead: opus, workers: sonnet}
   progress: production共有evaluatorとT-109固定52 caseを実装。local/独立受入PASS後、run 31244628597で52/52・kernel ETW・canonical evidence・同一SHA Pages deploy skipをPASSして完了
+- id: T-130
+  title: CHG-F005-056 active-directory複数適格候補の全適格・混在固定診断
+  feature: F005
+  phase: change
+  state: todo
+  depends: [T-129]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: 複数適格候補を選択・認可せず、全候補適格と適格・不適格混在の一軸だけを固定診断するため
+  model: {lead: opus, workers: sonnet}
+  progress: run 31244948483の既知ELIGIBLE_AMBIGUOUSを認可非変更でALL/MIXEDへ固定分離する設計を作成し、独立設計レビューH0/M0/L0でPASS

@@ -1267,3 +1267,13 @@ attempts:
   cause: none
   recovery: T-129、T-109、CHG-F005-055、CHG-F005-035をdoneとし未完了タスクを再整列する
   log: docs/evidence/qt/QT-F005-008-009-CHG-055-hosted-attempt-1.md
+- date: '2026-08-08T15:58:00+09:00'
+  feature: F005
+  scope: T-070-production-resume
+  attempt: 1
+  command: GitHub Actions production run 31244948483 / Pages run 31244948486
+  result: blocked
+  failures: 1
+  cause: ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ候補保存前に安全停止
+  recovery: CHG-F005-056/T-130で複数適格候補の全適格・混在を認可非変更で固定診断する
+  log: docs/evidence/qt/QT-F005-008-009-T070-production-resume-attempt-1.md
