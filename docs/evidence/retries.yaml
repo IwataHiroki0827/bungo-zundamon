@@ -997,3 +997,43 @@ attempts:
   cause: attempt 2と同じ既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-123対象分類へ未到達
   recovery: retry limit到達のためQ-040へエスカレーションし、CHG-F005-050でactive-directory handoff候補多重性を固定診断する
   log: docs/evidence/qt/QT-F005-008-009-CHG-049-hosted-attempt-3.md
+- date: '2026-08-08T10:40:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-050-local
+  attempt: 1
+  command: native 799件、関連6 files / 149件、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一Program pinのhosted影響試験を実施する
+  log: docs/evidence/it/IT-F005-005-CHG-050-result.md
+- date: '2026-08-08T10:48:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-049-hosted-followup
+  attempt: 1
+  command: GitHub Actions production run 31233549836の後続到達確認
+  result: pass
+  failures: 0
+  cause: CHG-F005-050影響試験でCHG-F005-049のCOMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ到達
+  recovery: T-123とCHG-F005-049をdoneにし、T-124のhosted影響試験を継続する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-049-hosted-followup.md
+- date: '2026-08-08T10:49:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-050-hosted
+  attempt: 1
+  command: GitHub Actions production run 31233549836
+  result: fail
+  failures: 1
+  cause: 前段CHG-F005-049のCOMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止
+  recovery: T-123の後続hosted PASSへ採用し、Program pinを変更せずT-124 attempt 2を実行する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-050-hosted-attempt-1.md
+- date: '2026-08-08T10:58:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-050-hosted
+  attempt: 2
+  command: GitHub Actions production run 31233688210
+  result: pass
+  failures: 0
+  cause: ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ期待どおり安全停止
+  recovery: T-124とCHG-F005-050をdoneにし、観測された候補多重性の次段変更を別変更管理で扱う
+  log: docs/evidence/qt/QT-F005-008-009-CHG-050-hosted-attempt-2.md
