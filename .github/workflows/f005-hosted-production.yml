@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; CHG-F005-051 classifies active-directory eligible cardinality
-# without selecting candidates or changing authorization/state. This self-path starts hosted attempt 1/3.
+# without selecting candidates or changing authorization/state. This self-path starts hosted attempt 2/3.
 on:
   push:
     branches:
