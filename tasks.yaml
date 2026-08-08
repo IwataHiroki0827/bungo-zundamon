@@ -2496,3 +2496,14 @@ tasks:
   mode_reason: 全late candidateが既存predicateを満たす場合だけ、旧sealを選択せず現在active leaseの既存認可へ接続するため
   model: {lead: opus, workers: sonnet}
   progress: 全適格集合の候補非選択handoffを実装しlocal・独立受入H0/M0/L0でPASS。run 31247640858でELIGIBLE_ALLを通過してACTIVE_PRODUCER_AFTER_RESERVATION_BIRTHへ到達、native correlation attempt 2とPages skipを確認して完了
+- id: T-132
+  title: CHG-F005-058 active producer birth後eventのinitial/current予約境界固定診断
+  feature: F005
+  phase: change
+  state: todo
+  depends: [T-131]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: birth後eventを初回予約以前と初回予約後current予約以前へ認可せず固定分離するため
+  model: {lead: opus, workers: sonnet}
+  progress: initial/current予約境界の設計を作成し、初回M1のbirth==initial==event既存code競合を修正。独立再レビューH0/M0/L0でPASSし実装待ち
