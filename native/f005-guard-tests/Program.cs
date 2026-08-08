@@ -1223,6 +1223,95 @@ Check("completion drain completed no-lease同一cause 2候補は順序非依存"
 Array.Reverse(ambiguousCandidates);
 Check("completion drain cardinality純粋規則は候補入力を変更しない",
     ambiguousCandidates.SequenceEqual(ambiguousCandidatesBefore));
+const string completedNoLeaseIdentityNoneCode =
+    "F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_NONE";
+const string completedNoLeaseIdentityAmbiguousCode =
+    "F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_AMBIGUOUS";
+Check("completion drain completed no-lease identity 0件は固定none",
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffIdentityFailureCode(0) ==
+            completedNoLeaseIdentityNoneCode &&
+    completedNoLeaseIdentityNoneCode.Length == 88);
+Check("completion drain completed no-lease identity負数はSTATE_CHANGEDへ閉じる",
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffIdentityFailureCode(-1) ==
+            WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffIdentityFailureCode(int.MinValue) ==
+            WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain completed no-lease identity exact 1件はhandoff可能",
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffIdentityFailureCode(1) is null);
+foreach (var count in new[] { 2, int.MaxValue })
+    Check($"completion drain completed no-lease identity {count}件は固定ambiguous",
+        WriteCompletionDrainRules
+            .CompletedNoLeaseDirectoryHandoffIdentityFailureCode(count) ==
+                completedNoLeaseIdentityAmbiguousCode &&
+        completedNoLeaseIdentityAmbiguousCode.Length == 93);
+var identityMatchCounts = new[] { 0, 1, 2 };
+var identityMatchCountsBefore = identityMatchCounts.ToArray();
+_ = identityMatchCounts.Select(WriteCompletionDrainRules
+    .CompletedNoLeaseDirectoryHandoffIdentityFailureCode).ToArray();
+Array.Reverse(identityMatchCounts);
+Check("completion drain identity分類は候補位置反転に非依存かつ入力非変更",
+    identityMatchCountsBefore.SequenceEqual([0, 1, 2]) &&
+    identityMatchCounts.SequenceEqual([2, 1, 0]));
+foreach (var matchAtEnd in new[] { false, true })
+{
+    var matching = new CompletedNoLeaseIdentitySeamFixture("volume:current");
+    var other = new CompletedNoLeaseIdentitySeamFixture("volume:other");
+    var candidates = matchAtEnd ? new[] { other, matching } : new[] { matching, other };
+    var authorizationCalls = 0;
+    var contextCreated = false;
+    var fixture = Task.Run(() => {
+        var selection = WriteCompletionDrainRules
+            .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+                candidates, "volume:current", seal => seal.DirectoryIdentity);
+        if (selection.FailureCode is null)
+        {
+            authorizationCalls++;
+            contextCreated = WriteCompletionDrainRules
+                .CompletedNoLeaseAuthorizedIdentityMatches(
+                    "volume:current", selection.Selected!.DirectoryIdentity);
+        }
+        return selection;
+    }).GetAwaiter().GetResult();
+    Check($"completion drain identity exact1位置{(matchAtEnd ? "末尾" : "先頭")}のみhandoff",
+        ReferenceEquals(fixture.Selected, matching) && fixture.FailureCode is null &&
+        authorizationCalls == 1 && contextCreated &&
+        other.ProofReadCount == 0 && other.ReplayReadCount == 0 &&
+        other.EventCountReadCount == 0);
+}
+foreach (var identities in new[] {
+    new[] { "volume:other-a", "volume:other-b" },
+    new[] { "volume:current", "volume:current" },
+})
+{
+    var authorizationCalls = 0;
+    var fixture = Task.Run(() => {
+        var candidates = identities.Select(identity =>
+            new CompletedNoLeaseIdentitySeamFixture(identity)).ToArray();
+        var selection = WriteCompletionDrainRules
+            .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+                candidates, "volume:current", seal => seal.DirectoryIdentity);
+        if (selection.FailureCode is null) authorizationCalls++;
+        return selection;
+    }).GetAwaiter().GetResult();
+    Check("completion drain identity 0/2+は後段認可へfall-throughしない",
+        fixture.Selected is null && fixture.FailureCode is not null &&
+        authorizationCalls == 0);
+}
+var driftSelection = WriteCompletionDrainRules
+    .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+        new[] { new CompletedNoLeaseIdentitySeamFixture("volume:sealed") },
+        "volume:sealed", seal => seal.DirectoryIdentity);
+var driftContextCreated = false;
+if (driftSelection.FailureCode is null &&
+    WriteCompletionDrainRules.CompletedNoLeaseAuthorizedIdentityMatches(
+        "volume:drifted", driftSelection.Selected!.DirectoryIdentity))
+    driftContextCreated = true;
+Check("completion drain known auth後expected identity driftはcontext前停止",
+    !driftContextCreated);
 
 var cardinalityGate = new object();
 var cardinalitySnapshotReady = new ManualResetEventSlim(false);
@@ -2439,16 +2528,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 59",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 59 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 59 &&
+Check("completion drain external code集合はexact 61",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 61 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 61 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 59 codeはnative replyで不変",
+Check("completion drain external exact 61 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -3521,6 +3610,17 @@ void Check(string name, bool condition)
 {
     checks++;
     if (!condition) failures.Add(name);
+}
+
+internal sealed class CompletedNoLeaseIdentitySeamFixture(string directoryIdentity)
+{
+    internal string DirectoryIdentity { get; } = directoryIdentity;
+    internal int ProofReadCount { get; private set; }
+    internal int ReplayReadCount { get; private set; }
+    internal int EventCountReadCount { get; private set; }
+    internal object? Proof { get { ProofReadCount++; return null; } }
+    internal object? Replay { get { ReplayReadCount++; return null; } }
+    internal int EventCount { get { EventCountReadCount++; return 0; } }
 }
 
 internal sealed record CompletedNoLeaseReplayFixtureSnapshot(

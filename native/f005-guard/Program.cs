@@ -3372,6 +3372,15 @@ sealed class CapacityGuardSession : IDisposable
                                 return;
                             }
                             var handoffSeal = completedNoLeaseDirectoryHandoff;
+                            if (!WriteCompletionDrainRules
+                                .CompletedNoLeaseAuthorizedIdentityMatches(
+                                    systemSetInfoExpectedIdentity,
+                                    handoffSeal.DirectoryIdentity))
+                            {
+                                PoisonLocked(
+                                    "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                                return;
+                            }
                             completedNoLeaseDirectoryRejoin =
                                 new CompletedNoLeaseDirectoryRejoinContext(
                                     handoffSeal.SealSequence,
@@ -4373,12 +4382,40 @@ sealed class CapacityGuardSession : IDisposable
                         activeLease is not null &&
                             eventQpc > activeLease.CurrentPathReservedAtQpc)));
             }
-            var cardinalityFailure = WriteCompletionDrainRules
-                .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
-                    lateCandidates.Length,
-                    failure);
-            if (cardinalityFailure is not null)
-                throw new GuardException(cardinalityFailure);
+            if (lateCandidates.Length >= 2 &&
+                failure == WriteCompletionDrainRules
+                    .LateDiagnosticWriteActiveLeaseMissingFailureCode)
+            {
+                // path tableは同じgate内で1回だけ読み、immutable seal identityとの
+                // exact集合に縮約する。候補順、QPC、sequence、indexでは選ばない。
+                var currentDirectory = filesByPath.GetValueOrDefault(normalized);
+                var identitySelection = WriteCompletionDrainRules
+                    .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+                        lateCandidates,
+                        currentDirectory?.Identity,
+                        seal => seal.DirectoryIdentity);
+                if (identitySelection.FailureCode is not null)
+                    throw new GuardException(identitySelection.FailureCode);
+                var seal = identitySelection.Selected ??
+                    throw new GuardException(
+                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                if (WriteCompletionDrainRules
+                    .CanHandoffCompletedNoLeaseDirectory(
+                        1, failure, authorizationFailure, pid, eventName,
+                        fileObject, ledger?.IsUnbound(fileObject) == true,
+                        seal.State == WriteCompletionDrainState.CompletedRetained,
+                        activePhase?.Phase == "voice",
+                        ReferenceEquals(activePhase, seal.Phase),
+                        normalized == seal.ParentPath,
+                        pendingWriteLease is null,
+                        seal.CompletionRequestedAtQpc is long,
+                        seal.CompletionRequestedAtQpc is long completionUpper &&
+                            eventQpc > completionUpper))
+                {
+                    completedNoLeaseDirectoryHandoff = seal;
+                    return true;
+                }
+            }
             if (lateCandidates.Length >= 2 &&
                 failure == WriteCompletionDrainRules
                     .LateRetainedParentWriteFailureCode)
@@ -9089,6 +9126,10 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RESERVATION_STATE_CURRENT_BEFORE_INITIAL";
     public const string CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
+    public const string CompletedNoLeaseDirectoryHandoffIdentityMatchNoneFailureCode =
+        $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_NONE";
+    public const string CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode =
+        $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_AMBIGUOUS";
     public const string ActiveDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
     public const string ActiveDirectoryHandoffEligibleExactOneFailureCode =
@@ -9156,6 +9197,8 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode,
         LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode,
         CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode,
+        CompletedNoLeaseDirectoryHandoffIdentityMatchNoneFailureCode,
+        CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode,
         ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffEligibleExactOneFailureCode,
         ActiveDirectoryHandoffEligibleAmbiguousFailureCode,
@@ -9543,6 +9586,43 @@ public static class WriteCompletionDrainRules
             ? CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode
             : null;
 
+    public static string? CompletedNoLeaseDirectoryHandoffIdentityFailureCode(
+        int identityMatchCount) => identityMatchCount switch {
+            < 0 => StateChangedFailureCode,
+            0 => CompletedNoLeaseDirectoryHandoffIdentityMatchNoneFailureCode,
+            1 => null,
+            _ => CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode,
+        };
+
+    public static CompletedNoLeaseIdentitySelection<T>
+        SelectCompletedNoLeaseDirectoryHandoffIdentity<T>(
+            IReadOnlyList<T> candidates,
+            string? currentIdentity,
+            Func<T, string> identitySelector) where T : class
+    {
+        T? selected = null;
+        var matchCount = 0;
+        if (currentIdentity is not null)
+        {
+            foreach (var candidate in candidates)
+            {
+                if (identitySelector(candidate) != currentIdentity) continue;
+                matchCount = checked(matchCount + 1);
+                if (matchCount == 1) selected = candidate;
+            }
+        }
+        var failure = CompletedNoLeaseDirectoryHandoffIdentityFailureCode(
+            matchCount);
+        return new CompletedNoLeaseIdentitySelection<T>(
+            failure is null ? selected : null,
+            failure);
+    }
+
+    public static bool CompletedNoLeaseAuthorizedIdentityMatches(
+        string expectedIdentity,
+        string selectedSealDirectoryIdentity) =>
+        expectedIdentity == selectedSealDirectoryIdentity;
+
     /// <summary>
     /// CompletedRetained parentの単一exact no-lease writeだけを既存root directory認可へ渡す。
     /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
@@ -9926,6 +10006,10 @@ public static class WriteCompletionDrainRules
         return null;
     }
 }
+
+public sealed record CompletedNoLeaseIdentitySelection<T>(
+    T? Selected,
+    string? FailureCode) where T : class;
 
 public sealed record DrainReplayFixtureResult(
     IReadOnlyList<long> ObservationOrder,

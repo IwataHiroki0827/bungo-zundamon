@@ -948,7 +948,7 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(59);
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(61);
     const ambiguitySentinels = [
       '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
       'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
@@ -958,6 +958,8 @@ describe('F005 production work runner', () => {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
       const isAmbiguity = stage ===
           'COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS' ||
+        stage === 'COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_NONE' ||
+        stage === 'COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_AMBIGUOUS' ||
         stage === 'ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS' ||
         stage === 'ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE' ||
         stage === 'ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS' ||

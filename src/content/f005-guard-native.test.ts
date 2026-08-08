@@ -1646,7 +1646,6 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'writeCompletionBindingLedger =',
       'writeCompletionReorderQueue.',
       'filesByObject',
-      'filesByPath',
       'allocatedByIdentity',
       'notices.',
       'observations.',
@@ -1983,7 +1982,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       authorize.indexOf('if (epoch.Length == 0)'),
       authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
     );
-    expect(lateBlock.match(/CanHandoffCompletedNoLeaseDirectory\(/gu)).toHaveLength(1);
+    expect(lateBlock.match(/CanHandoffCompletedNoLeaseDirectory\(/gu)).toHaveLength(2);
     for (const required of [
       'lateCandidates.Length',
       'failure',
@@ -2136,7 +2135,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
-  it('completed no-lease複数候補を同一gateの固定診断でterminal拒否する', async () => {
+  it('completed no-lease複数候補をcurrent identity exact集合で分類する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const authorize = program.slice(
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
@@ -2151,17 +2150,17 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
     );
     const cardinalityIndex = lateBlock.indexOf(
-      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+      '.SelectCompletedNoLeaseDirectoryHandoffIdentity(',
     );
     const nextDiagnosticIndex = lateBlock.indexOf(
-      'if (lateCandidates.Length >= 2',
+      '.ActiveDirectoryHandoffCandidateMatches(',
       cardinalityIndex,
     );
     const firstHandoffIndex = lateBlock.indexOf(
       'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
     );
     expect(lateBlock.match(
-      /CompletedNoLeaseDirectoryHandoffCardinalityFailureCode\(/gu,
+      /SelectCompletedNoLeaseDirectoryHandoffIdentity\(/gu,
     )).toHaveLength(1);
     expect(snapshotIndex).toBeGreaterThanOrEqual(0);
     expect(aggregateIndex).toBeGreaterThan(snapshotIndex);
@@ -2169,14 +2168,13 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(nextDiagnosticIndex).toBeGreaterThan(cardinalityIndex);
     expect(firstHandoffIndex).toBeGreaterThan(cardinalityIndex);
     const terminalDecision = lateBlock.slice(cardinalityIndex, nextDiagnosticIndex);
-    expect(terminalDecision).toContain('lateCandidates.Length');
-    expect(terminalDecision).toContain('failure);');
+    expect(terminalDecision).toContain('identitySelection.FailureCode');
     expect(terminalDecision).toMatch(
-      /if \(cardinalityFailure is not null\)\s+throw new GuardException\(cardinalityFailure\);/u,
+      /if \(identitySelection\.FailureCode is not null\)\s+throw new GuardException\(identitySelection\.FailureCode\);/u,
     );
     for (const forbidden of [
       'Monitor.Wait', 'Monitor.Exit', 'lock (', 'broad.Where(',
-      'lateCandidates =', 'ToArray()', 'activePhase', 'pendingWriteLease',
+      'lateCandidates =',
     ]) expect(terminalDecision).not.toContain(forbidden);
     for (const downstream of [
       'IsCompletedWriteHandoffCandidate(',
@@ -2188,19 +2186,18 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
 
     const rule = program.slice(
       program.indexOf(
-        'public static string? CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+        'public static string? CompletedNoLeaseDirectoryHandoffIdentityFailureCode(',
       ),
       program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),
     );
     for (const required of [
-      'lateCandidateCount >= 2',
-      'aggregateFailureCode == LateDiagnosticWriteActiveLeaseMissingFailureCode',
-      '? CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
-      ': null;',
+      '0 => CompletedNoLeaseDirectoryHandoffIdentityMatchNoneFailureCode',
+      '1 => null',
+      '_ => CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode',
     ]) expect(rule).toContain(required);
     for (const forbidden of [
-      'lateCandidateCount == 1', 'throw ', 'lock (', 'Monitor.',
-      'Add(', 'Remove(', '= checked(',
+      'throw ', 'lock (', 'Monitor.',
+      'Add(', 'Remove(',
     ]) expect(rule).not.toContain(forbidden);
     const existingExactOneRule = program.slice(
       program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),
@@ -2213,12 +2210,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'aggregateFailureCode == LateDiagnosticWriteActiveLeaseMissingFailureCode',
     );
     expect(existingExactOneRule).not.toContain(
-      'CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
+      'CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode',
     );
 
     const failureCode =
-      'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
-    expect(failureCode).toHaveLength(88);
+      'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_IDENTITY_MATCH_AMBIGUOUS';
+    expect(failureCode).toHaveLength(93);
     for (const sentinel of [
       '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
       'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
@@ -2229,11 +2226,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private void PoisonLocked('),
     );
     expect(journal).not.toContain(
-      'CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
+      'CompletedNoLeaseDirectoryHandoffIdentityMatchAmbiguousFailureCode',
     );
-    expect(terminalDecision).not.toMatch(
-      /(?:normalized|eventQpc|pid|fileObject|Identity|Sequence|Handle)/u,
-    );
+    expect(lateBlock).toContain('filesByPath.GetValueOrDefault(normalized)');
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047 @test UT-F005-047 */
@@ -2251,7 +2246,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
     );
     const completedNoLeaseCardinalityIndex = lateBlock.indexOf(
-      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+      '.SelectCompletedNoLeaseDirectoryHandoffIdentity(',
     );
     const activeDirectoryCardinalityIndex = lateBlock.indexOf(
       '.ActiveDirectoryHandoffCardinalityFailureCode(',
@@ -2282,7 +2277,6 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     ]) expect(terminalDecision).not.toContain(forbidden);
     for (const downstream of [
       'IsCompletedWriteHandoffCandidate(',
-      'CanHandoffCompletedNoLeaseDirectory(',
       'CanAuthorizePostRequestSystemSetInfo(',
       'CanHandoffActiveDirectory(',
       'ActiveProducerBirthFailureCode(',
@@ -2368,7 +2362,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
     );
     const completedNoLeaseIndex = lateBlock.indexOf(
-      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+      '.SelectCompletedNoLeaseDirectoryHandoffIdentity(',
     );
     const eligibilityIndex = lateBlock.indexOf(
       '.ActiveDirectoryHandoffEligibilityFailureCode(',
