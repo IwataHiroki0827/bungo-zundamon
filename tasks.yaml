@@ -2507,3 +2507,14 @@ tasks:
   mode_reason: birth後eventを初回予約以前と初回予約後current予約以前へ認可せず固定分離するため
   model: {lead: opus, workers: sonnet}
   progress: initial/current予約境界を実装しlocal・独立受入PASS。run 31248931250はSTATE_CHANGEDで安全停止、native correlation 31248931238 SUCCESS、candidate branch不存在、Pages 31248931244 deploy skipを確認して完了
+- id: T-133
+  title: CHG-F005-059 reservation snapshot STATE_CHANGED軸の固定診断
+  feature: F005
+  phase: change
+  state: todo
+  depends: [T-132]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: 既存STATE_CHANGEDのproduction到達可能なphase instance差/current逆転2軸を認可せず固定分離するため
+  model: {lead: opus, workers: sonnet}
+  progress: production到達性レビューで候補6軸を2軸へ縮約し、最終独立レビューH0/M0/L0でPASS。実装待ち
