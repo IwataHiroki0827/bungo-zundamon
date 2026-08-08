@@ -1037,3 +1037,13 @@ attempts:
   cause: ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ期待どおり安全停止
   recovery: T-124とCHG-F005-050をdoneにし、観測された候補多重性の次段変更を別変更管理で扱う
   log: docs/evidence/qt/QT-F005-008-009-CHG-050-hosted-attempt-2.md
+- date: '2026-08-08T11:20:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-051-local
+  attempt: 1
+  command: native 820件、関連6 files / 150件、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一implementation commit・Program pinのhosted影響試験を実施する
+  log: docs/evidence/it/IT-F005-005-CHG-051-result.md
