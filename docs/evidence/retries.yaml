@@ -1227,3 +1227,13 @@ attempts:
   cause: 既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-122対象分類へ未到達
   recovery: 現行Program pinを維持しworkflow自己pathだけでfollow-up attempt 3を実行する
   log: docs/evidence/qt/QT-F005-008-009-CHG-048-hosted-followup-attempt-2.md
+- date: '2026-08-08T13:47:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-048-hosted-followup
+  attempt: 3
+  command: GitHub Actions production run 31240061333 / Pages run 31240061296
+  result: blocked
+  failures: 1
+  cause: 既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ安全停止しT-122対象分類へ未到達
+  recovery: retry limit到達のためQ-045へエスカレーションし、CHG-F005-053/T-127で決定的hosted影響確認を設計する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-048-hosted-followup-attempt-3.md

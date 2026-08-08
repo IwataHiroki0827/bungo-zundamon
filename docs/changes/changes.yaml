@@ -1,4 +1,10 @@
 changes:
+- id: CHG-F005-053
+  date: '2026-08-08'
+  trigger: Q-045でT-122の自然なhosted ETW配送順への3 attempt依存をやめ、認可非変更の決定的影響確認方法を別変更管理で設計する回答を反映
+  level: design
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-122, T-127]
+  status: in-review
 - id: CHG-F005-052
   date: '2026-08-08'
   trigger: Q-042でT-110の自然なhosted ETW配送順への3 attempt依存をやめ、認可非変更の決定的影響確認方法を別変更管理で設計する回答を受領
