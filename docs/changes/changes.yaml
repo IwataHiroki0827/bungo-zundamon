@@ -1,10 +1,17 @@
 changes:
+- id: CHG-F005-065
+  date: '2026-08-08'
+  trigger: CHG-F005-064 production run 31255886029がstate not bound allで安全停止しRetired契約退行を検出
+  level: design
+  affected: [CHG-F005-063, CHG-F005-064, T-137, T-138, T-139]
+  status: in-review
 - id: CHG-F005-064
   date: '2026-08-08'
   trigger: CHG-F005-063 production run 31254910006がcurrent binding mismatch allで安全停止
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-137, T-138]
-  status: in-review
+  status: done
+  result: T-138を実装しlocal・独立受入PASS。run 31255886029でSTATE_NOT_BOUND_ALL、native probe SUCCESS、Pages未deployを確認しCHG-F005-065へ引継ぎ
 - id: CHG-F005-063
   date: '2026-08-08'
   trigger: CHG-F005-062 production run 31253654035がpost-upper proof missing allで安全停止

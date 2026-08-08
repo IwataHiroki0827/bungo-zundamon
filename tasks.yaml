@@ -2565,11 +2565,22 @@ tasks:
 - id: T-138
   title: CHG-F005-064 current binding mismatchのledger軸固定診断
   feature: F005
-  phase: change
-  state: todo
+  phase: test
+  state: done
   depends: [T-137]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
   mode: advisor
   mode_reason: current binding mismatchをledger単一entryの固定軸へ非公開分離するため
   model: {lead: opus, workers: sonnet}
-  progress: CHG-F005-064設計・独立レビューH0/M0/L0でPASS。実装待ち
+  progress: ledger軸診断を実装しlocal・独立受入PASS。run 31255886029でstate not bound allへ到達しRetired契約退行修正へ引継ぎ完了
+- id: T-139
+  title: CHG-F005-065 current binding proofのRetired契約復元
+  feature: F005
+  phase: change
+  state: todo
+  depends: [T-138]
+  tags: [CHG-F005-063, CHG-F005-064]
+  mode: advisor
+  mode_reason: T-137以前のallowRetired既存proof契約だけを復元する退行修正のため
+  model: {lead: opus, workers: sonnet}
+  progress: CHG-F005-065設計・独立レビューH0/M0/L0でPASS。実装待ち
