@@ -1167,3 +1167,13 @@ attempts:
   cause: 既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-109 pendingなしbound-directory診断へ未到達
   recovery: 現行Program pinを変更せずworkflow self-pathで最終follow-up attempt 3を実行する
   log: docs/evidence/qt/QT-F005-008-CHG-035-hosted-followup-attempt-2.md
+- date: '2026-08-08T12:36:00+09:00'
+  feature: F005
+  scope: T-109-hosted-followup
+  attempt: 3
+  command: GitHub Actions production run 31237375017
+  result: fail
+  failures: 1
+  cause: 既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ安全停止しT-109 pendingなしbound-directory診断へ未到達
+  recovery: follow-up retry limit到達のためQ-044へエスカレーションし、T-109をblockedとしてT-126の決定的hosted相関検証を継続する
+  log: docs/evidence/qt/QT-F005-008-CHG-035-hosted-followup-attempt-3.md
