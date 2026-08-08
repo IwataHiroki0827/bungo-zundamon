@@ -1603,7 +1603,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(activeProducerBirth.match(/ActiveProducerBirthFailureCode\(/gu))
       .toHaveLength(1);
-    expect(activeProducerBirth.match(/ReservationProducerBirthFailureCode\(/gu))
+    expect(activeProducerBirth.match(/ProductionReservationProducerBirthFailureCode\(/gu))
       .toHaveLength(1);
     for (const required of [
       'activeProducer!.Pid == activeLease.WorkerPid',
@@ -1621,7 +1621,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(activeProducerBirth).not.toContain('producerPid =');
     expect(activeProducerBirth).not.toContain('producerSequenceNumber =');
     expect(activeProducerBirth).toContain(
-      'eventQpc <=\n                                    activeLease.CurrentPathReservedAtQpc',
+      'eventQpc > activeLease.CurrentPathReservedAtQpc',
     );
     expect(activeProducerBirth).toContain(
       'snapshot?.LeaseReservedAtQpc ==\n                                    activeLease.ReservedAtQpc',
@@ -1635,7 +1635,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       '                            .LateDiagnosticWriteActiveProducerRecordMissingFailureCode)',
     );
     const reservationBirthClassifier = lateBlock.indexOf(
-      'ReservationProducerBirthFailureCode(',
+      'ProductionReservationProducerBirthFailureCode(',
     );
     const finalLateThrow = lateBlock.lastIndexOf('throw new GuardException(failure)');
     expect(legacyBirthClassifier).toBeLessThan(fallbackGuard);
@@ -1705,7 +1705,21 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('public static string ReservationProducerBirthFailureCode('),
       program.indexOf('public static bool CanHandoffActiveDirectory('),
     );
+    expect(reservationBirthRule).toContain(
+      'public static string ProductionReservationProducerBirthFailureCode(',
+    );
+    expect(reservationBirthRule).toContain('!recordPresent');
+    expect(reservationBirthRule).toContain(
+      'activeLeasePhaseInstanceId == activePhaseInstanceId',
+    );
+    expect(reservationBirthRule).toContain(
+      'eventQpc <= currentPathReservedAtQpc',
+    );
     expect(reservationBirthRule.indexOf('!registeredRecordAbsent'))
+      .toBeLessThan(reservationBirthRule.indexOf('!snapshotPresent'));
+    expect(reservationBirthRule.indexOf('!activePhaseMatches'))
+      .toBeLessThan(reservationBirthRule.indexOf('currentPathReservedAtQpc < initialLeaseReservedAtQpc'));
+    expect(reservationBirthRule.indexOf('currentPathReservedAtQpc < initialLeaseReservedAtQpc'))
       .toBeLessThan(reservationBirthRule.indexOf('!snapshotPresent'));
     expect(reservationBirthRule.indexOf('!snapshotPresent'))
       .toBeLessThan(reservationBirthRule.indexOf('!producerPidMatches'));
@@ -1729,6 +1743,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode',
       'LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode',
       'LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode',
+      'LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode',
+      'LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode',
       'F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED',
     ]) expect(reservationBirthRule).toContain(code);
     expect(reservationBirthRule).not.toContain(

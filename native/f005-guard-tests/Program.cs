@@ -2048,20 +2048,76 @@ string ReservationProducerBirth(
         values[12], phaseStartedAtQpc, birthStartedAtQpc,
         leaseReservedAtQpc, currentPathReservedAtQpc, eventQpc);
 }
+string ProductionReservationProducerBirth(
+    bool recordPresent = false,
+    bool activeLeaseIsPendingWriteLease = true,
+    string activeLeasePhaseInstanceId = "phase-7",
+    string activePhaseInstanceId = "phase-7",
+    long leaseReservedAtQpc = 110,
+    long currentPathReservedAtQpc = 110,
+    long eventQpc = 102)
+{
+    return WriteCompletionDrainRules
+        .ProductionReservationProducerBirthFailureCode(
+            WriteCompletionDrainRules
+                .LateDiagnosticWriteActiveProducerRecordMissingFailureCode,
+            recordPresent,
+            activeLeaseIsPendingWriteLease,
+            activeLeasePhaseInstanceId,
+            activePhaseInstanceId,
+            snapshotPresent: true,
+            recordObserved: true,
+            producerPidMatches: true,
+            producerStartKeyMatches: true,
+            leaseSequenceMatches: true,
+            recordSequenceMatches: true,
+            snapshotPhaseInstanceMatches: true,
+            phaseStartMatches: true,
+            reservationMatches: true,
+            phaseStartedAtQpc: 100,
+            birthStartedAtQpc: 101,
+            initialLeaseReservedAtQpc: leaseReservedAtQpc,
+            currentPathReservedAtQpc,
+            eventQpc);
+}
+Check("completion drain production fixture phase instance差を固定分類",
+    ProductionReservationProducerBirth(activePhaseInstanceId: "phase-8") ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode);
+Check("completion drain production fixture current逆転を固定分類",
+    ProductionReservationProducerBirth(leaseReservedAtQpc: 110,
+        currentPathReservedAtQpc: 109, eventQpc: 109) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode);
+Check("completion drain production fixture record再出現は防御state changed",
+    ProductionReservationProducerBirth(recordPresent: true) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+Check("completion drain production fixture pending lease差は防御state changed",
+    ProductionReservationProducerBirth(activeLeaseIsPendingWriteLease: false) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+Check("completion drain production fixture event current超過は導出防御state changed",
+    ProductionReservationProducerBirth(eventQpc: 111) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
 Check("completion drain reservation birth all trueはinitial以前分類",
     ReservationProducerBirth() == WriteCompletionDrainRules
         .LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode);
-var reservationContradictionAxes = new[] {
-    "registered record absent", "active lease", "active phase", "event reservation",
+var reservationDefensiveAxes = new[] {
+    "registered record absent", "active lease", "event reservation",
 };
-for (var index = 0; index < reservationContradictionAxes.Length; index++)
+foreach (var (index, name) in new[] { (0, reservationDefensiveAxes[0]),
+    (1, reservationDefensiveAxes[1]), (3, reservationDefensiveAxes[2]) })
 {
     var oneFalse = reservationBirthTuple.ToArray();
     oneFalse[index] = false;
-    Check($"completion drain reservation birth {reservationContradictionAxes[index]} falseはstate changed",
+    Check($"completion drain reservation birth {name} falseはstate changed",
         ReservationProducerBirth(tuple: oneFalse) ==
             "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
 }
+var phaseChanged = reservationBirthTuple.ToArray();
+phaseChanged[2] = false;
+Check("completion drain reservation birth active phase差を固定分類",
+    ReservationProducerBirth(tuple: phaseChanged) == WriteCompletionDrainRules
+        .LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode);
 for (var index = 4; index <= 5; index++)
 {
     var oneFalse = reservationBirthTuple.ToArray();
@@ -2111,8 +2167,21 @@ Check("completion drain reservation birth initial+1/current同値はinitial後cu
 Check("completion drain reservation birth current+1はstate changed",
     ReservationProducerBirth(currentPathReservedAtQpc: 111, eventQpc: 112) ==
         "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
-Check("completion drain reservation birth current逆転はstate changed",
+Check("completion drain reservation birth current逆転を固定分類",
     ReservationProducerBirth(currentPathReservedAtQpc: 109) ==
+        WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode);
+var phaseChangedWithCurrentReversal = reservationBirthTuple.ToArray();
+phaseChangedWithCurrentReversal[2] = false;
+Check("completion drain reservation birth phase差はcurrent逆転より先行",
+    ReservationProducerBirth(tuple: phaseChangedWithCurrentReversal,
+        currentPathReservedAtQpc: 109) == WriteCompletionDrainRules
+            .LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode);
+var recordPresentWithPhaseChanged = reservationBirthTuple.ToArray();
+recordPresentWithPhaseChanged[0] = false;
+recordPresentWithPhaseChanged[2] = false;
+Check("completion drain reservation birth防御record再出現はphase差より先行state changed",
+    ReservationProducerBirth(tuple: recordPresentWithPhaseChanged) ==
         "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
 Check("completion drain reservation birth rename昇格後current同値はinitial後current以前",
     ReservationProducerBirth(currentPathReservedAtQpc: 120, eventQpc: 120) ==
@@ -2370,16 +2439,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 57",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 57 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 57 &&
+Check("completion drain external code集合はexact 59",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 59 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 59 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 57 codeはnative replyで不変",
+Check("completion drain external exact 59 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {

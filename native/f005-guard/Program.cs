@@ -4597,14 +4597,12 @@ sealed class CapacityGuardSession : IDisposable
                     {
                         var snapshot = activeLease.ProducerBirthSnapshot;
                         failure = WriteCompletionDrainRules
-                            .ReservationProducerBirthFailureCode(
+                            .ProductionReservationProducerBirthFailureCode(
                                 failure,
-                                !recordPresent,
+                                recordPresent,
                                 ReferenceEquals(activeLease, pendingWriteLease),
-                                activeLease.PhaseInstanceId ==
-                                    activePhase.PhaseInstanceId,
-                                eventQpc <=
-                                    activeLease.CurrentPathReservedAtQpc,
+                                activeLease.PhaseInstanceId,
+                                activePhase.PhaseInstanceId,
                                 snapshot is not null,
                                 snapshot?.RecordObserved == true,
                                 snapshot?.ProducerPid == activeLease.WorkerPid,
@@ -9085,6 +9083,10 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH_AT_OR_BEFORE_INITIAL";
     public const string LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode =
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH_AFTER_INITIAL_TO_CURRENT";
+    public const string LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RESERVATION_STATE_ACTIVE_PHASE_CHANGED";
+    public const string LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_RESERVATION_STATE_CURRENT_BEFORE_INITIAL";
     public const string CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
     public const string ActiveDirectoryHandoffCandidateAmbiguousFailureCode =
@@ -9151,6 +9153,8 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteAfterReservationBirthFailureCode,
         LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode,
         LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode,
+        LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode,
+        LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode,
         CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffEligibleExactOneFailureCode,
@@ -9313,10 +9317,13 @@ public static class WriteCompletionDrainRules
             LateDiagnosticWriteActiveProducerRecordMissingFailureCode)
             return legacyFailureCode;
         if (!registeredRecordAbsent || !activeLeaseMatches ||
-            !activePhaseMatches || !eventAtOrBeforeCurrentReservation ||
-            currentPathReservedAtQpc < initialLeaseReservedAtQpc ||
+            !eventAtOrBeforeCurrentReservation ||
             eventQpc > currentPathReservedAtQpc)
             return "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED";
+        if (!activePhaseMatches)
+            return LateDiagnosticWriteReservationStateActivePhaseChangedFailureCode;
+        if (currentPathReservedAtQpc < initialLeaseReservedAtQpc)
+            return LateDiagnosticWriteReservationStateCurrentBeforeInitialFailureCode;
         if (!snapshotPresent || !recordObserved)
             return LateDiagnosticWriteReservationBirthRecordMissingFailureCode;
         if (!producerPidMatches || !producerStartKeyMatches ||
@@ -9332,6 +9339,52 @@ public static class WriteCompletionDrainRules
             ? LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode
             : LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode;
     }
+
+    /// <summary>
+    /// productionの同一gate内で取得したlease/phase/recordから分類入力を導出する。
+    /// bool化した防御入力をcall-siteへ重複させず、認可・stateは変更しない。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string ProductionReservationProducerBirthFailureCode(
+        string legacyFailureCode,
+        bool recordPresent,
+        bool activeLeaseIsPendingWriteLease,
+        string activeLeasePhaseInstanceId,
+        string activePhaseInstanceId,
+        bool snapshotPresent,
+        bool recordObserved,
+        bool producerPidMatches,
+        bool producerStartKeyMatches,
+        bool leaseSequenceMatches,
+        bool recordSequenceMatches,
+        bool snapshotPhaseInstanceMatches,
+        bool phaseStartMatches,
+        bool reservationMatches,
+        long phaseStartedAtQpc,
+        long birthStartedAtQpc,
+        long initialLeaseReservedAtQpc,
+        long currentPathReservedAtQpc,
+        long eventQpc) =>
+        ReservationProducerBirthFailureCode(
+            legacyFailureCode,
+            !recordPresent,
+            activeLeaseIsPendingWriteLease,
+            activeLeasePhaseInstanceId == activePhaseInstanceId,
+            eventQpc <= currentPathReservedAtQpc,
+            snapshotPresent,
+            recordObserved,
+            producerPidMatches,
+            producerStartKeyMatches,
+            leaseSequenceMatches,
+            recordSequenceMatches,
+            snapshotPhaseInstanceMatches,
+            phaseStartMatches,
+            reservationMatches,
+            phaseStartedAtQpc,
+            birthStartedAtQpc,
+            initialLeaseReservedAtQpc,
+            currentPathReservedAtQpc,
+            eventQpc);
 
     /// <summary>
     /// 単一exact post-reservation parent writeだけをactive directory認可へ渡す。
