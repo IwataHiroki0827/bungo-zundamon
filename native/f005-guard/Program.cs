@@ -4349,8 +4349,7 @@ sealed class CapacityGuardSession : IDisposable
                     fileObject,
                     seal.LeaseFileObjectGeneration,
                     seal.CurrentIdentity,
-                    seal.CurrentPath,
-                    false),
+                    seal.CurrentPath),
                 () => ledger!.IsUnbound(fileObject));
         var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
             broad,
@@ -8690,7 +8689,7 @@ public sealed class WriteCompletionBindingLedger
             return GenerationMatchResult.PathMismatch;
         if (value.State != WriteCompletionBindingState.Bound &&
             !(allowRetired && value.State == WriteCompletionBindingState.Retired))
-            return GenerationMatchResult.StateNotBound;
+            return GenerationMatchResult.StateNotBoundOrRetired;
         return GenerationMatchResult.Success;
     }
 
@@ -9182,6 +9181,8 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_PATH_MISMATCH_ALL";
     public const string LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_STATE_NOT_BOUND_ALL";
+    public const string LookupPostUpperProofCurrentBindingStateNotBoundOrRetiredAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_STATE_NOT_BOUND_OR_RETIRED_ALL";
     public const string LookupPostUpperProofCurrentBindingMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_MIXED";
     public const string LookupPostUpperProofParentNotUnboundAllFailureCode =
@@ -9281,6 +9282,7 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofCurrentBindingIdentityMismatchAllFailureCode,
         LookupPostUpperProofCurrentBindingPathMismatchAllFailureCode,
         LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode,
+        LookupPostUpperProofCurrentBindingStateNotBoundOrRetiredAllFailureCode,
         LookupPostUpperProofCurrentBindingMixedFailureCode,
         LookupPostUpperProofParentNotUnboundAllFailureCode,
         LookupPostUpperProofMixedFailureCode,
@@ -9539,7 +9541,7 @@ public static class WriteCompletionDrainRules
             GenerationMatchResult.GenerationMismatch => LookupPostUpperProofCurrentBindingGenerationMismatchAllFailureCode,
             GenerationMatchResult.IdentityMismatch => LookupPostUpperProofCurrentBindingIdentityMismatchAllFailureCode,
             GenerationMatchResult.PathMismatch => LookupPostUpperProofCurrentBindingPathMismatchAllFailureCode,
-            GenerationMatchResult.StateNotBound => LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode,
+            GenerationMatchResult.StateNotBoundOrRetired => LookupPostUpperProofCurrentBindingStateNotBoundOrRetiredAllFailureCode,
             _ => StateChangedFailureCode,
         };
     }
@@ -10396,7 +10398,7 @@ public enum GenerationMatchResult
     GenerationMismatch,
     IdentityMismatch,
     PathMismatch,
-    StateNotBound,
+    StateNotBoundOrRetired,
     Success,
 }
 

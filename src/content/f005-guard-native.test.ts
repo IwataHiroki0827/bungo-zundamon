@@ -1544,6 +1544,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateBlock).not.toContain(
       'LookupPostUpperProofCurrentBindingMismatchAllFailureCode',
     );
+    expect(lateBlock).not.toContain(
+      'LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode',
+    );
     expect(authorize.match(/EvaluateProof\(seal\)/gu)).toHaveLength(1);
     expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');
     expect(lateBlock).toContain('lateCandidates.Select(seal => new LateEventDiagnosticCandidate(');

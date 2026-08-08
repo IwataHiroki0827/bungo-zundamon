@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 75",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 75 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 75 &&
+Check("completion drain external code集合はexact 76",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 76 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 76 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 75 codeはnative replyで不変",
+Check("completion drain external exact 76 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2880,14 +2880,77 @@ Check("completion drain generation matchはentry→generation→identity→path�
     generationLedger.MatchGeneration(704, 2, "wrong", "wrong", false) == GenerationMatchResult.GenerationMismatch &&
     generationLedger.MatchGeneration(704, 1, "wrong", "wrong", false) == GenerationMatchResult.IdentityMismatch &&
     generationLedger.MatchGeneration(704, 1, "volume:generation", "wrong", false) == GenerationMatchResult.PathMismatch &&
-    retiredCurrentLedger.MatchGeneration(703, 1, "volume:retired-current", "cache/retired-current.wav", false) == GenerationMatchResult.StateNotBound &&
+    retiredCurrentLedger.MatchGeneration(703, 1, "volume:retired-current", "cache/retired-current.wav", false) == GenerationMatchResult.StateNotBoundOrRetired &&
     generationLedger.MatchGeneration(704, 1, "volume:generation", "cache/generation.wav", false) == GenerationMatchResult.Success);
+WriteCompletionBindingLedger LedgerWithForcedState(
+    ulong fileObject, WriteCompletionBindingState state)
+{
+    var ledger = new WriteCompletionBindingLedger([
+        (fileObject, "volume:state", "cache/state.wav"),
+    ]);
+    if (state == WriteCompletionBindingState.Bound) return ledger;
+    var admittedField = typeof(WriteCompletionBindingLedger).GetField(
+        "admitted", System.Reflection.BindingFlags.Instance |
+        System.Reflection.BindingFlags.NonPublic)!;
+    var admitted = (System.Collections.IDictionary)admittedField.GetValue(ledger)!;
+    var valueType = admitted[fileObject]!.GetType();
+    admitted[fileObject] = Activator.CreateInstance(
+        valueType,
+        System.Reflection.BindingFlags.Instance |
+        System.Reflection.BindingFlags.Public |
+        System.Reflection.BindingFlags.NonPublic,
+        null,
+        new object?[] { 1L, state, "volume:state", "cache/state.wav", false, false, false },
+        null)!;
+    return ledger;
+}
+foreach (var state in new[] {
+    WriteCompletionBindingState.Bound,
+    WriteCompletionBindingState.Retired,
+    WriteCompletionBindingState.Unbound,
+    (WriteCompletionBindingState)int.MaxValue,
+})
+{
+    var ledger = LedgerWithForcedState(705, state);
+    foreach (var axis in new[] {
+        (705UL, 1L, "volume:state", "cache/state.wav"),
+        (705UL, 2L, "volume:state", "cache/state.wav"),
+        (705UL, 1L, "volume:wrong", "cache/state.wav"),
+        (705UL, 1L, "volume:state", "cache/wrong.wav"),
+        (799UL, 1L, "volume:state", "cache/state.wav"),
+    })
+    {
+        var legacy = ledger.MatchesGeneration(
+            axis.Item1, axis.Item2, axis.Item3, axis.Item4, true);
+        var detailed = ledger.MatchGeneration(
+            axis.Item1, axis.Item2, axis.Item3, axis.Item4, true);
+        Check("completion drain allowRetired=trueは全state/不一致軸で旧boolと同値",
+            legacy == (detailed == GenerationMatchResult.Success));
+    }
+}
+Check("completion drain generation match既定はBound/Retiredだけsuccess",
+    LedgerWithForcedState(706, WriteCompletionBindingState.Bound)
+        .MatchGeneration(706, 1, "volume:state", "cache/state.wav") == GenerationMatchResult.Success &&
+    LedgerWithForcedState(707, WriteCompletionBindingState.Retired)
+        .MatchGeneration(707, 1, "volume:state", "cache/state.wav") == GenerationMatchResult.Success &&
+    LedgerWithForcedState(708, WriteCompletionBindingState.Unbound)
+        .MatchGeneration(708, 1, "volume:state", "cache/state.wav") == GenerationMatchResult.StateNotBoundOrRetired &&
+    LedgerWithForcedState(709, (WriteCompletionBindingState)int.MaxValue)
+        .MatchGeneration(709, 1, "volume:state", "cache/state.wav") == GenerationMatchResult.StateNotBoundOrRetired);
+var retiredDefaultCalls = 0;
+var retiredDefaultProof = WriteCompletionDrainRules.EvaluateLateProofDetail(
+    true, false, 703, 703, 1, "volume:retired-current", "cache/retired-current.wav", true,
+    () => { retiredDefaultCalls++; return retiredCurrentLedger.MatchGeneration(
+        703, 1, "volume:retired-current", "cache/retired-current.wav"); }, null);
+Check("completion drain production既定Retired proofはlookup exact1でsuccess復元",
+    retiredDefaultCalls == 1 && retiredDefaultProof.Outer == LateProofResult.Success &&
+    retiredDefaultProof.GenerationMatch == GenerationMatchResult.Success);
 var generationCauses = new[] {
     (GenerationMatchResult.EntryMissing, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingEntryMissingAllFailureCode),
     (GenerationMatchResult.GenerationMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingGenerationMismatchAllFailureCode),
     (GenerationMatchResult.IdentityMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingIdentityMismatchAllFailureCode),
     (GenerationMatchResult.PathMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingPathMismatchAllFailureCode),
-    (GenerationMatchResult.StateNotBound, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode),
+    (GenerationMatchResult.StateNotBoundOrRetired, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingStateNotBoundOrRetiredAllFailureCode),
 };
 foreach (var (cause, code) in generationCauses)
     foreach (var count in new[] { 1, 2, 128 })
@@ -3006,7 +3069,7 @@ Check("completion drain real ledger generation/identity/pathはstateより優先
             GenerationMatchResult.GenerationMismatch,
             GenerationMatchResult.IdentityMismatch,
             GenerationMatchResult.PathMismatch,
-            GenerationMatchResult.StateNotBound,
+            GenerationMatchResult.StateNotBoundOrRetired,
         }));
 foreach (var evaluation in actualGenerationCauses)
     foreach (var count in new[] { 1, 2, 128 })
