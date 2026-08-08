@@ -1147,3 +1147,13 @@ attempts:
   cause: 既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-112不変binding proof再生後段へ未到達
   recovery: follow-up retry limit到達のためQ-043へエスカレーションし、T-112をblockedとしてT-109 follow-upを継続する
   log: docs/evidence/qt/QT-F005-008-009-CHG-038-hosted-followup-attempt-3.md
+- date: '2026-08-08T12:27:00+09:00'
+  feature: F005
+  scope: T-109-hosted-followup
+  attempt: 1
+  command: GitHub Actions production run 31237067677
+  result: fail
+  failures: 1
+  cause: 既知WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTHへ安全停止しT-109 pendingなしbound-directory診断へ未到達
+  recovery: 現行Program pinを変更せずworkflow self-pathでfollow-up attempt 2を実行する
+  log: docs/evidence/qt/QT-F005-008-CHG-035-hosted-followup-attempt-1.md
