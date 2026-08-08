@@ -96,6 +96,8 @@ describe('F005 T-110 hosted native correlation [CHG-F005-052]', () => {
     expect(scripts).toContain('actions/workflows/pages.yml/runs?event=push&head_sha=');
     expect(scripts).toContain("$deploy[0].conclusion -cne 'skipped'");
     expect(scripts).toContain('sourceSha256 = $hashes');
+    expect(scripts).toContain('foreach ($item in ([ordered]@{');
+    expect(scripts).toContain('}).GetEnumerator()) {');
     expect(scripts).toContain('ProductionAssemblySha256');
     expect(scripts).toContain('ProductionAssemblyMvid');
     expect(scripts).toContain('TestAssemblySha256');

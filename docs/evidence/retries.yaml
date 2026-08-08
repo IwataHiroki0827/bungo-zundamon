@@ -1187,3 +1187,13 @@ attempts:
   cause: none
   recovery: 同一implementation commitのread-only hosted相関workflowを実行する
   log: docs/evidence/it/IT-F005-005-CHG-052-result.md
+- date: '2026-08-08T13:20:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-052-hosted
+  attempt: 1
+  command: GitHub Actions native correlation run 31239134299 / Pages run 31239134301
+  result: fail
+  failures: 1
+  cause: build・kernel ETW・target 57/57後のPages相関stepでordered hashtable列挙のPowerShell括弧不足によりparse停止
+  recovery: workflowの列挙式を括弧付きへ修正し、構造回帰試験追加後にattempt 2を実行する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-052-hosted-attempt-1.md

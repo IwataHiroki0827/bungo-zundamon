@@ -200,7 +200,7 @@ jobs:
                 ConvertFrom-Json
           } catch { throw 'F005_T110_TARGET_RESULT_TRANSFER_INVALID' }
           $hashes = [ordered]@{}
-          foreach ($item in [ordered]@{
+          foreach ($item in ([ordered]@{
             program = 'native/f005-guard/Program.cs'
             productionProject = 'native/f005-guard/F005Guard.csproj'
             buildScript = 'native/f005-guard/build.ps1'
@@ -210,7 +210,7 @@ jobs:
             testSource = 'native/f005-guard-tests/T110TargetSuite.cs'
             testHarness = 'native/f005-guard-tests/Program.cs'
             caseManifest = 'native/f005-guard-tests/t110-case-manifest.json'
-          }.GetEnumerator()) {
+          }).GetEnumerator()) {
             $hashes[$item.Key] = (Get-FileHash -LiteralPath $item.Value `
               -Algorithm SHA256).Hash.ToLowerInvariant()
           }
