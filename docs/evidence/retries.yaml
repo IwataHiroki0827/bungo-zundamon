@@ -955,5 +955,45 @@ attempts:
   result: fail
   failures: 1
   cause: attempt 2と同じ既知LATE_DIAG_WRITE_ACTIVE_LEASE_MISSINGへ安全停止しT-122対象分類へ未到達
-  recovery: retry limit到達のためQ-039へエスカレーションし、CHG-F005-049でno-lease handoff拒否軸を固定診断する
+  recovery: retry limit到達のためQ-039へエスカレーションし、CHG-F005-049でno-lease handoff候補多重性を固定診断する
   log: docs/evidence/qt/QT-F005-008-009-CHG-048-hosted-attempt-3.md
+- date: '2026-08-08T10:10:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-049-local
+  attempt: 1
+  command: native 784件、関連6 files / 148件、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一Program pinのhosted影響試験を実施する
+  log: docs/evidence/it/IT-F005-005-CHG-049-result.md
+- date: '2026-08-08T10:15:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-049-hosted
+  attempt: 1
+  command: GitHub Actions native run 31232075275 / production run 31232075250
+  result: fail
+  failures: 1
+  cause: 既知LATE_DIAG_WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTHへ安全停止しT-123対象分類へ未到達
+  recovery: Program pinを変更せずworkflow self-pathでhosted attempt 2を実行する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-049-hosted-attempt-1.md
+- date: '2026-08-08T10:19:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-049-hosted
+  attempt: 2
+  command: GitHub Actions production run 31232225868
+  result: fail
+  failures: 1
+  cause: 既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-123対象分類へ未到達
+  recovery: Program pinを変更せずworkflow self-pathで最終hosted attempt 3を実行する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-049-hosted-attempt-2.md
+- date: '2026-08-08T10:22:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-049-hosted
+  attempt: 3
+  command: GitHub Actions production run 31232379073
+  result: fail
+  failures: 1
+  cause: attempt 2と同じ既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEへ安全停止しT-123対象分類へ未到達
+  recovery: retry limit到達のためQ-040へエスカレーションし、CHG-F005-050でactive-directory handoff候補多重性を固定診断する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-049-hosted-attempt-3.md
