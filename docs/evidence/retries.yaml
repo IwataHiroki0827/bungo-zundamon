@@ -1277,3 +1277,13 @@ attempts:
   cause: ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ候補保存前に安全停止
   recovery: CHG-F005-056/T-130で複数適格候補の全適格・混在を認可非変更で固定診断する
   log: docs/evidence/qt/QT-F005-008-009-T070-production-resume-attempt-1.md
+- date: '2026-08-08T16:42:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-056-hosted
+  attempt: 1
+  command: GitHub Actions production run 31246255285 / native correlation run 31246255279 / Pages run 31246255432
+  result: pass
+  failures: 0
+  cause: none
+  recovery: CHG-F005-056/T-130をdoneとし、ELIGIBLE_ALLの認可境界は別変更管理で扱う
+  log: docs/evidence/qt/QT-F005-008-009-CHG-056-hosted-attempt-1.md

@@ -2477,11 +2477,11 @@ tasks:
 - id: T-130
   title: CHG-F005-056 active-directory複数適格候補の全適格・混在固定診断
   feature: F005
-  phase: change
-  state: todo
+  phase: test
+  state: done
   depends: [T-129]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
   mode: advisor
   mode_reason: 複数適格候補を選択・認可せず、全候補適格と適格・不適格混在の一軸だけを固定診断するため
   model: {lead: opus, workers: sonnet}
-  progress: run 31244948483の既知ELIGIBLE_AMBIGUOUSを認可非変更でALL/MIXEDへ固定分離する設計を作成し、独立設計レビューH0/M0/L0でPASS
+  progress: ALL/MIXED固定診断を実装しlocal・独立受入H0/M0/L0でPASS。run 31246255285でELIGIBLE_ALL、native correlation 31246255279で52/52、candidate branch不存在、Pages deploy skipを確認して完了
