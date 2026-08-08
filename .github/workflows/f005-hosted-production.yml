@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; T-122 follow-up checks completion-drain event tuple diagnostics
-# against the current fail-closed guard. This self-path starts follow-up hosted attempt 3/3.
+# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.
+# This self-path resumes the T-070 production candidate with the current fail-closed guard.
 on:
   push:
     branches:
