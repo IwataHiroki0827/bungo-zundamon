@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 64",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 64 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 64 &&
+Check("completion drain external code集合はexact 69",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 69 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 69 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 64 codeはnative replyで不変",
+Check("completion drain external exact 69 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2708,7 +2708,7 @@ foreach (var eventQpc in new long[] { 89, 95, 101 })
     var invalid = WriteCompletionDrainRules.ClassifyEpochCandidates(
         new[] { new EpochClassificationFixture(100, 90) }, eventQpc,
         item => item.Reservation, item => item.Upper,
-        _ => { proofCalls++; return true; });
+        _ => { proofCalls++; return LateProofResult.Success; });
     Check("completion drain reservation>upperはevent位置より先にtemporal invalid",
         invalid.TemporalInvalidCount == 1 && invalid.Epoch.IsEmpty &&
         invalid.Late.IsEmpty && proofCalls == 0);
@@ -2726,7 +2726,8 @@ foreach (var mix in new[] {
 {
     var downstreamCalls = 0;
     var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
-        mix, 95, item => item.Reservation, item => item.Upper, _ => true);
+        mix, 95, item => item.Reservation, item => item.Upper,
+        _ => LateProofResult.Success);
     if (classification.TemporalInvalidCount == 0) downstreamCalls++;
     Check("completion drain temporal invalid混在はepoch/late後段へ非到達",
         classification.TemporalInvalidCount == 1 && downstreamCalls == 0 &&
@@ -2734,14 +2735,15 @@ foreach (var mix in new[] {
 }
 var noUpper = WriteCompletionDrainRules.ClassifyEpochCandidates(
     new[] { new EpochClassificationFixture(100, null) }, 101,
-    item => item.Reservation, item => item.Upper, _ => false);
+    item => item.Reservation, item => item.Upper,
+    _ => LateProofResult.LedgerUnavailable);
 Check("completion drain upperなしreservation後はepoch",
     noUpper.Epoch.Length == 1 && noUpper.TemporalInvalidCount == 0);
 var preProofCalls = 0;
 var preClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
     new[] { new EpochClassificationFixture(100, 110) }, 100,
     item => item.Reservation, item => item.Upper,
-    _ => { preProofCalls++; return true; });
+    _ => { preProofCalls++; return LateProofResult.Success; });
 Check("completion drain reservation以前はproof0",
     preClassification.AtOrBeforeReservationCount == 1 && preProofCalls == 0);
 foreach (var proofResult in new[] { false, true })
@@ -2750,7 +2752,9 @@ foreach (var proofResult in new[] { false, true })
     var post = WriteCompletionDrainRules.ClassifyEpochCandidates(
         new[] { new EpochClassificationFixture(100, 110) }, 111,
         item => item.Reservation, item => item.Upper,
-        _ => { proofCalls++; return proofResult; });
+        _ => { proofCalls++; return proofResult
+            ? LateProofResult.Success
+            : LateProofResult.LedgerUnavailable; });
     Check("completion drain post-upperだけproof exact1でlate/missing分類",
         proofCalls == 1 && (proofResult
             ? post.Late.Length == 1 && post.PostUpperProofMissingCount == 0
@@ -2761,15 +2765,217 @@ var orderedCandidates = new[] {
     new EpochClassificationFixture(120, 130),
 };
 var forwardClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
-    orderedCandidates, 111, item => item.Reservation, item => item.Upper, _ => false);
+    orderedCandidates, 111, item => item.Reservation, item => item.Upper,
+    _ => LateProofResult.LedgerUnavailable);
 Array.Reverse(orderedCandidates);
 var reverseClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
-    orderedCandidates, 111, item => item.Reservation, item => item.Upper, _ => false);
+    orderedCandidates, 111, item => item.Reservation, item => item.Upper,
+    _ => LateProofResult.LedgerUnavailable);
 Check("completion drain time/proof分類は候補順反転に非依存",
     forwardClassification.AtOrBeforeReservationCount ==
         reverseClassification.AtOrBeforeReservationCount &&
     forwardClassification.PostUpperProofMissingCount ==
         reverseClassification.PostUpperProofMissingCount);
+LateProofResult EvaluateLateProofFixture(
+    bool current = true,
+    bool parent = false,
+    ulong eventFileObject = 10,
+    ulong leaseFileObject = 10,
+    long generation = 1,
+    string? identity = "volume:current",
+    string? path = "audio.wav",
+    bool ledgerAvailable = true,
+    bool bindingMatches = true,
+    bool parentUnbound = true) =>
+    WriteCompletionDrainRules.EvaluateLateProof(
+        current, parent, eventFileObject, leaseFileObject, generation,
+        identity, path, ledgerAvailable, () => bindingMatches,
+        () => parentUnbound);
+Check("completion drain late proof success/current/parent",
+    EvaluateLateProofFixture() == LateProofResult.Success &&
+    EvaluateLateProofFixture(current: false, parent: true) ==
+        LateProofResult.Success);
+Check("completion drain late proof排他的cause",
+    EvaluateLateProofFixture(ledgerAvailable: false) ==
+        LateProofResult.LedgerUnavailable &&
+    EvaluateLateProofFixture(eventFileObject: 11) ==
+        LateProofResult.CurrentFileObjectMismatch &&
+    EvaluateLateProofFixture(bindingMatches: false) ==
+        LateProofResult.CurrentBindingMismatch &&
+    EvaluateLateProofFixture(current: false, parent: true, parentUnbound: false) ==
+        LateProofResult.ParentNotUnbound);
+foreach (var invalid in new[] {
+    EvaluateLateProofFixture(current: false, parent: false, ledgerAvailable: false),
+    EvaluateLateProofFixture(current: true, parent: true),
+    EvaluateLateProofFixture(eventFileObject: 0),
+    EvaluateLateProofFixture(leaseFileObject: 0),
+    EvaluateLateProofFixture(generation: 0),
+    EvaluateLateProofFixture(identity: ""),
+    EvaluateLateProofFixture(path: ""),
+}) Check("completion drain late proof invalidはledgerより最優先", invalid == LateProofResult.Invalid);
+Check("completion drain late proof branch必須delegate nullはledgerより最優先invalid",
+    WriteCompletionDrainRules.EvaluateLateProof(
+        true, false, 10, 10, 1, "volume:current", "audio.wav",
+        false, null, () => true) == LateProofResult.Invalid &&
+    WriteCompletionDrainRules.EvaluateLateProof(
+        false, true, 10, 10, 1, "volume:current", "audio.wav",
+        false, () => true, null) == LateProofResult.Invalid);
+var realProofLedger = new WriteCompletionBindingLedger([
+    (701UL, "volume:proof", "cache/proof.wav"),
+]);
+LateProofResult EvaluateRealCurrent(string identity, string path)
+{
+    var bindingCalls = 0;
+    var result = WriteCompletionDrainRules.EvaluateLateProof(
+        true, false, 701, 701, 1, identity, path, true,
+        () => { bindingCalls++; return realProofLedger.MatchesGeneration(
+            701, 1, identity, path); }, null);
+    Check("completion drain real ledger current binding参照はexact1", bindingCalls == 1);
+    return result;
+}
+Check("completion drain real ledger same-generation wrong identity/pathはbinding mismatch",
+    EvaluateRealCurrent("volume:wrong", "cache/proof.wav") ==
+        LateProofResult.CurrentBindingMismatch &&
+    EvaluateRealCurrent("volume:proof", "cache/wrong.wav") ==
+        LateProofResult.CurrentBindingMismatch);
+var retiredProofLedger = new WriteCompletionBindingLedger([
+    (702UL, "volume:retired", "cache/retired.wav"),
+]);
+var retiredProof = retiredProofLedger.Admit(WriteCompletionBindingKind.OtherBound,
+    "delete", 702, "volume:retired", "cache/retired.wav");
+var retiredCleanup = retiredProofLedger.AdmitCleanup(702)!;
+retiredProofLedger.ValidateAndCommit([retiredProof, retiredCleanup]);
+var parentCalls = 0;
+var retiredParentResult = WriteCompletionDrainRules.EvaluateLateProof(
+    false, true, 702, 0, 0, null, null, true, null,
+    () => { parentCalls++; return retiredProofLedger.IsUnbound(702); });
+Check("completion drain real ledger parent Retiredはnot-unbound/exact1",
+    retiredParentResult == LateProofResult.ParentNotUnbound && parentCalls == 1);
+var retiredCurrentLedger = new WriteCompletionBindingLedger([
+    (703UL, "volume:retired-current", "cache/retired-current.wav"),
+]);
+var retiredCurrentCleanup = retiredCurrentLedger.AdmitCleanup(703)!;
+retiredCurrentLedger.ValidateAndCommit([retiredCurrentCleanup]);
+var retiredCurrentCalls = 0;
+var retiredCurrentResult = WriteCompletionDrainRules.EvaluateLateProof(
+    true, false, 703, 703, 1, "volume:retired-current", "cache/retired-current.wav",
+    true,
+    () => { retiredCurrentCalls++; return retiredCurrentLedger.MatchesGeneration(
+        703, 1, "volume:retired-current", "cache/retired-current.wav", false); }, null);
+Check("completion drain real ledger same-generation wrong state Retiredはbinding mismatch",
+    retiredCurrentResult == LateProofResult.CurrentBindingMismatch &&
+    retiredCurrentCalls == 1);
+var proofCauseCodes = new[] {
+    (LateProofResult.LedgerUnavailable,
+        WriteCompletionDrainRules.LookupPostUpperProofLedgerUnavailableAllFailureCode),
+    (LateProofResult.CurrentFileObjectMismatch,
+        WriteCompletionDrainRules.LookupPostUpperProofCurrentFileObjectMismatchAllFailureCode),
+    (LateProofResult.CurrentBindingMismatch,
+        WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingMismatchAllFailureCode),
+    (LateProofResult.ParentNotUnbound,
+        WriteCompletionDrainRules.LookupPostUpperProofParentNotUnboundAllFailureCode),
+};
+foreach (var (cause, code) in proofCauseCodes)
+    foreach (var count in new[] { 1, 2, 128 })
+        Check($"completion drain late proof単一cause ALL code {count}件",
+            WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+                Enumerable.Repeat(cause, count).ToArray()) == code);
+var nonSuccessCauses = proofCauseCodes.Select(item => item.Item1).ToArray();
+for (var mask = 1; mask < (1 << nonSuccessCauses.Length); mask++)
+{
+    var causes = nonSuccessCauses.Where((_, index) =>
+        (mask & (1 << index)) != 0).ToArray();
+    if (causes.Length < 2) continue;
+    var forward = WriteCompletionDrainRules
+        .EpochEmptyPostUpperProofFailureCode(causes);
+    Array.Reverse(causes);
+    var reverse = WriteCompletionDrainRules
+        .EpochEmptyPostUpperProofFailureCode(causes);
+    Check("completion drain late proof全非空複数cause組合せ/順序反転はMIXED",
+        forward == WriteCompletionDrainRules.LookupPostUpperProofMixedFailureCode &&
+        reverse == WriteCompletionDrainRules.LookupPostUpperProofMixedFailureCode);
+}
+Check("completion drain late proof複数causeはMIXED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        new[] { LateProofResult.LedgerUnavailable,
+            LateProofResult.ParentNotUnbound }) ==
+        WriteCompletionDrainRules.LookupPostUpperProofMixedFailureCode);
+Check("completion drain late proof invalid/success/0/129はSTATE_CHANGED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        new[] { LateProofResult.Invalid }) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        new[] { LateProofResult.Success }) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode([]) ==
+        WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        Enumerable.Repeat(LateProofResult.LedgerUnavailable, 129).ToArray()) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain late proof unknown enum単独/known混在はfail-closed",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        new[] { (LateProofResult)int.MaxValue }) ==
+        WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        new[] { LateProofResult.LedgerUnavailable,
+            (LateProofResult)int.MaxValue }) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+var invalidAxisFactories = new Func<bool, LateProofResult>[] {
+    ledger => EvaluateLateProofFixture(current: false, parent: false,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(current: true, parent: true,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(eventFileObject: 0,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(leaseFileObject: 0,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(generation: 0,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(identity: null,
+        ledgerAvailable: ledger),
+    ledger => EvaluateLateProofFixture(path: null,
+        ledgerAvailable: ledger),
+};
+foreach (var invalidFactory in invalidAxisFactories)
+    foreach (var ledgerAvailable in new[] { false, true })
+        Check("completion drain invalid各軸はledger unavailable/successより優先",
+            invalidFactory(ledgerAvailable) == LateProofResult.Invalid);
+foreach (var companion in new[] {
+    LateProofResult.Success,
+    LateProofResult.LedgerUnavailable,
+    LateProofResult.CurrentBindingMismatch,
+})
+{
+    var candidates = new[] {
+        new EpochClassificationFixture(100, 110),
+        new EpochClassificationFixture(100, 110),
+    };
+    var results = new Queue<LateProofResult>([
+        LateProofResult.Invalid, companion,
+    ]);
+    var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+        candidates, 111, item => item.Reservation, item => item.Upper,
+        _ => results.Dequeue());
+    var downstreamCalls = 0;
+    if (classification.ProofInvalidCount == 0) downstreamCalls++;
+    Check("completion drain invalid+success/別causeはglobal terminal前で後段0",
+        classification.ProofInvalidCount == 1 && downstreamCalls == 0);
+}
+var unavailableCurrentCalls = 0;
+var unavailableParentCalls = 0;
+var unavailableResult = WriteCompletionDrainRules.EvaluateLateProof(
+    true, false, 10, 10, 1, "volume:x", "x", false,
+    () => { unavailableCurrentCalls++; return true; },
+    () => { unavailableParentCalls++; return true; });
+var mismatchCurrentCalls = 0;
+var mismatchParentCalls = 0;
+var mismatchResult = WriteCompletionDrainRules.EvaluateLateProof(
+    true, false, 11, 10, 1, "volume:x", "x", true,
+    () => { mismatchCurrentCalls++; return true; },
+    () => { mismatchParentCalls++; return true; });
+Check("completion drain ledger unavailable/FO mismatchはpredicate 0-call",
+    unavailableResult == LateProofResult.LedgerUnavailable &&
+    unavailableCurrentCalls == 0 && unavailableParentCalls == 0 &&
+    mismatchResult == LateProofResult.CurrentFileObjectMismatch &&
+    mismatchCurrentCalls == 0 && mismatchParentCalls == 0);
 foreach (var tuple in new[] {
     new[] { 129, 129, 0, 0 },
     new[] { int.MaxValue, int.MaxValue, int.MaxValue, 0 },

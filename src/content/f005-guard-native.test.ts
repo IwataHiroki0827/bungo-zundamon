@@ -1191,8 +1191,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(lateLookup).not.toContain('TryInspect(');
     expect(lateLookup).not.toContain('filesByObject');
-    expect(lateLookup).toContain('ledger.MatchesGeneration(');
-    expect(lateLookup).toContain('ledger.IsUnbound(fileObject)');
+    expect(lateLookup).toContain('ledger!.MatchesGeneration(');
+    expect(lateLookup).toContain('ledger!.IsUnbound(fileObject)');
     expect(lateLookup).toContain(
       'LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode',
     );
@@ -1530,12 +1530,17 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
       program.indexOf('private void ObserveProcessIdentityProbeLocked('),
     );
+    expect(authorize.indexOf('var exact = epoch.Where(seal =>'))
+      .toBeGreaterThanOrEqual(0);
     const lateBlock = authorize.slice(
       authorize.indexOf('if (epoch.Length == 0)'),
-      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+      authorize.indexOf('var exact = epoch.Where(seal =>'),
     );
     expect(lateBlock).toContain('var lateCandidates = classification.Late.ToArray()');
-    expect(authorize.match(/ProofCandidate\(seal\)/gu)).toHaveLength(1);
+    expect(lateBlock).not.toContain('ledger?.IsUnbound(');
+    expect(lateBlock).not.toContain('ledger!.IsUnbound(');
+    expect(lateBlock).not.toContain('MatchesGeneration(');
+    expect(authorize.match(/EvaluateProof\(seal\)/gu)).toHaveLength(1);
     expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');
     expect(lateBlock).toContain('lateCandidates.Select(seal => new LateEventDiagnosticCandidate(');
     expect(lateBlock).toContain('seal.State == WriteCompletionDrainState.CompletedRetained');
@@ -1574,7 +1579,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'lateCandidates.Length',
       'failure',
       'authorizationFailure',
-      'ledger?.IsUnbound(fileObject) == true',
+      'true,\n                    seal.State',
       'seal.State == WriteCompletionDrainState.CompletedRetained',
       'activePhase?.Phase == "voice"',
       'ReferenceEquals(activePhase, seal.Phase)',
@@ -1978,16 +1983,18 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
       program.indexOf('private void ObserveProcessIdentityProbeLocked('),
     );
+    expect(authorize.indexOf('var exact = epoch.Where(seal =>'))
+      .toBeGreaterThanOrEqual(0);
     const lateBlock = authorize.slice(
       authorize.indexOf('if (epoch.Length == 0)'),
-      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+      authorize.indexOf('var exact = epoch.Where(seal =>'),
     );
     expect(lateBlock.match(/CanHandoffCompletedNoLeaseDirectory\(/gu)).toHaveLength(2);
     for (const required of [
       'lateCandidates.Length',
       'failure',
       'authorizationFailure',
-      'ledger?.IsUnbound(fileObject) == true',
+      'true,\n                        seal.State',
       'seal.State == WriteCompletionDrainState.CompletedRetained',
       'activePhase?.Phase == "voice"',
       'ReferenceEquals(activePhase, seal.Phase)',
@@ -2141,9 +2148,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
       program.indexOf('private void ObserveProcessIdentityProbeLocked('),
     );
+    expect(authorize.indexOf('var exact = epoch.Where(seal =>'))
+      .toBeGreaterThanOrEqual(0);
     const lateBlock = authorize.slice(
       authorize.indexOf('if (epoch.Length == 0)'),
-      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+      authorize.indexOf('var exact = epoch.Where(seal =>'),
     );
     const snapshotIndex = lateBlock.indexOf('var lateCandidates = classification.Late.ToArray()');
     const aggregateIndex = lateBlock.indexOf(
@@ -2238,9 +2247,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
       program.indexOf('private void ObserveProcessIdentityProbeLocked('),
     );
+    expect(authorize.indexOf('var exact = epoch.Where(seal =>'))
+      .toBeGreaterThanOrEqual(0);
     const lateBlock = authorize.slice(
       authorize.indexOf('if (epoch.Length == 0)'),
-      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+      authorize.indexOf('var exact = epoch.Where(seal =>'),
     );
     const aggregateIndex = lateBlock.indexOf(
       'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
@@ -2357,9 +2368,11 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
       program.indexOf('private void ObserveProcessIdentityProbeLocked('),
     );
+    expect(authorize.indexOf('var exact = epoch.Where(seal =>'))
+      .toBeGreaterThanOrEqual(0);
     const lateBlock = authorize.slice(
       authorize.indexOf('if (epoch.Length == 0)'),
-      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+      authorize.indexOf('var exact = epoch.Where(seal =>'),
     );
     const completedNoLeaseIndex = lateBlock.indexOf(
       '.SelectCompletedNoLeaseDirectoryHandoffIdentity(',

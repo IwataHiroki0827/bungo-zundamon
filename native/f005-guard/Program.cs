@@ -4335,23 +4335,31 @@ sealed class CapacityGuardSession : IDisposable
             WriteCompletionDrainState.CompletionRequested))
             EnsureWriteCompletionDeadlineLocked(seal, Stopwatch.GetTimestamp());
         var ledger = writeCompletionBindingLedger;
-        bool ProofCandidate(WriteCompletionDrainSeal seal) =>
-            ledger is not null &&
-            (normalized == seal.CurrentPath
-                ? fileObject == seal.LeaseFileObject &&
-                    ledger.MatchesGeneration(
-                        fileObject,
-                        seal.LeaseFileObjectGeneration,
-                        seal.CurrentIdentity,
-                        seal.CurrentPath)
-                : normalized == seal.ParentPath && ledger.IsUnbound(fileObject));
+        LateProofResult EvaluateProof(WriteCompletionDrainSeal seal) =>
+            WriteCompletionDrainRules.EvaluateLateProof(
+                normalized == seal.CurrentPath,
+                normalized == seal.ParentPath,
+                fileObject,
+                seal.LeaseFileObject,
+                seal.LeaseFileObjectGeneration,
+                seal.CurrentIdentity,
+                seal.CurrentPath,
+                ledger is not null,
+                () => ledger!.MatchesGeneration(
+                    fileObject,
+                    seal.LeaseFileObjectGeneration,
+                    seal.CurrentIdentity,
+                    seal.CurrentPath,
+                    false),
+                () => ledger!.IsUnbound(fileObject));
         var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
             broad,
             eventQpc,
             seal => seal.CurrentPathReservedAtQpc,
             seal => seal.CompletionRequestedAtQpc,
-            ProofCandidate);
-        if (classification.TemporalInvalidCount > 0)
+            EvaluateProof);
+        if (classification.TemporalInvalidCount > 0 ||
+            classification.ProofInvalidCount > 0)
             throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
         var epoch = classification.Epoch.ToArray();
@@ -4360,11 +4368,15 @@ sealed class CapacityGuardSession : IDisposable
             var activeLease = pendingWriteLease;
             var lateCandidates = classification.Late.ToArray();
             var failure = lateCandidates.Length == 0
-                ? WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
-                    broad.Length,
-                    classification.AtOrBeforeReservationCount,
-                    classification.PostUpperProofMissingCount,
-                    classification.TemporalInvalidCount)
+                ? classification.PostUpperProofMissingCount == broad.Length
+                    ? WriteCompletionDrainRules
+                        .EpochEmptyPostUpperProofFailureCode(
+                            classification.ProofResults)
+                    : WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+                        broad.Length,
+                        classification.AtOrBeforeReservationCount,
+                        classification.PostUpperProofMissingCount,
+                        classification.TemporalInvalidCount)
                 : WriteCompletionDrainRules.LookupFailure(
                     broad.Length, epoch.Length, 0, lateCandidates.Length)!;
             if (lateCandidates.Length != 0)
@@ -4419,7 +4431,7 @@ sealed class CapacityGuardSession : IDisposable
                 if (WriteCompletionDrainRules
                     .CanHandoffCompletedNoLeaseDirectory(
                         1, failure, authorizationFailure, pid, eventName,
-                        fileObject, ledger?.IsUnbound(fileObject) == true,
+                        fileObject, true,
                         seal.State == WriteCompletionDrainState.CompletedRetained,
                         activePhase?.Phase == "voice",
                         ReferenceEquals(activePhase, seal.Phase),
@@ -4442,7 +4454,7 @@ sealed class CapacityGuardSession : IDisposable
                 var activeSlash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
                 var activeParentMatches = activeSlash > 0 &&
                     activeLease!.RelativePath[..activeSlash] == normalized;
-                var fileObjectUnbound = ledger?.IsUnbound(fileObject) == true;
+                const bool fileObjectUnbound = true;
                 var activeVoicePhase = activePhase?.Phase == "voice";
                 var activeLeasePresent = activeLease is not null;
                 var phaseInstanceMatches = activeLease is not null &&
@@ -4540,7 +4552,7 @@ sealed class CapacityGuardSession : IDisposable
                         pid,
                         eventName,
                         fileObject,
-                        ledger?.IsUnbound(fileObject) == true,
+                        true,
                         seal.State == WriteCompletionDrainState.CompletedRetained,
                         activePhase?.Phase == "voice",
                         ReferenceEquals(activePhase, seal.Phase),
@@ -4575,7 +4587,7 @@ sealed class CapacityGuardSession : IDisposable
                     activePhase?.Phase == "voice",
                     ReferenceEquals(activePhase, seal.Phase),
                     normalized == seal.CurrentPath,
-                    fileObject == seal.LeaseFileObject && ProofCandidate(seal),
+                    true,
                     seal.State == WriteCompletionDrainState.CompletionRequested,
                     seal.CompletionRequestedAtQpc is long,
                     seal.CompletionRequestedAtQpc ?? 0,
@@ -4602,7 +4614,7 @@ sealed class CapacityGuardSession : IDisposable
                     pid,
                     eventName,
                     fileObject,
-                    ledger?.IsUnbound(fileObject) == true,
+                    true,
                     seal.State == WriteCompletionDrainState.CompletedRetained,
                     activePhase?.Phase == "voice",
                     ReferenceEquals(activePhase, seal.Phase),
@@ -4688,7 +4700,8 @@ sealed class CapacityGuardSession : IDisposable
             }
             throw new GuardException(failure);
         }
-        var exact = epoch.Where(ProofCandidate)
+        var exact = epoch.Where(seal =>
+                EvaluateProof(seal) == LateProofResult.Success)
             .ToArray();
         var lookupFailure = WriteCompletionDrainRules.LookupFailure(
             broad.Length, epoch.Length, exact.Length, 0);
@@ -9128,6 +9141,16 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MISSING_ALL";
     public const string LookupEpochEmptyTimeProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_TIME_PROOF_MIXED";
+    public const string LookupPostUpperProofLedgerUnavailableAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_LEDGER_UNAVAILABLE_ALL";
+    public const string LookupPostUpperProofCurrentFileObjectMismatchAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_FILE_OBJECT_MISMATCH_ALL";
+    public const string LookupPostUpperProofCurrentBindingMismatchAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_MISMATCH_ALL";
+    public const string LookupPostUpperProofParentNotUnboundAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_NOT_UNBOUND_ALL";
+    public const string LookupPostUpperProofMixedFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EXACT_MISSING";
     public const string LookupExactAmbiguousFailureCode =
@@ -9213,6 +9236,11 @@ public static class WriteCompletionDrainRules
         LookupEpochEmptyAtOrBeforeReservationAllFailureCode,
         LookupEpochEmptyPostUpperProofMissingAllFailureCode,
         LookupEpochEmptyTimeProofMixedFailureCode,
+        LookupPostUpperProofLedgerUnavailableAllFailureCode,
+        LookupPostUpperProofCurrentFileObjectMismatchAllFailureCode,
+        LookupPostUpperProofCurrentBindingMismatchAllFailureCode,
+        LookupPostUpperProofParentNotUnboundAllFailureCode,
+        LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
         LookupExactAmbiguousFailureCode,
         RecheckSealMissingFailureCode,
@@ -9296,13 +9324,15 @@ public static class WriteCompletionDrainRules
         long eventQpc,
         Func<T, long> reservationSelector,
         Func<T, long?> upperSelector,
-        Func<T, bool> proofCandidate)
+        Func<T, LateProofResult> evaluateProof)
     {
         var epoch = ImmutableArray.CreateBuilder<T>();
         var late = ImmutableArray.CreateBuilder<T>();
         var pre = 0;
         var missing = 0;
         var invalid = 0;
+        var proofInvalid = 0;
+        var proofResults = ImmutableArray.CreateBuilder<LateProofResult>();
         foreach (var candidate in candidates)
         {
             var reservation = reservationSelector(candidate);
@@ -9324,13 +9354,69 @@ public static class WriteCompletionDrainRules
             }
             else if (upper is long completedUpper && eventQpc > completedUpper)
             {
-                if (proofCandidate(candidate)) late.Add(candidate);
+                var proof = evaluateProof(candidate);
+                proofResults.Add(proof);
+                if (proof == LateProofResult.Success) late.Add(candidate);
+                else if (proof == LateProofResult.Invalid) proofInvalid++;
                 else missing++;
             }
             else invalid++;
         }
         return new EpochCandidateClassification<T>(
-            epoch.ToImmutable(), late.ToImmutable(), pre, missing, invalid);
+            epoch.ToImmutable(), late.ToImmutable(), pre, missing, invalid,
+            proofInvalid, proofResults.ToImmutable());
+    }
+
+    public static LateProofResult EvaluateLateProof(
+        bool currentPath,
+        bool parentPath,
+        ulong eventFileObject,
+        ulong leaseFileObject,
+        long leaseGeneration,
+        string? currentIdentity,
+        string? sealedCurrentPath,
+        bool ledgerAvailable,
+        Func<bool>? currentBindingMatches,
+        Func<bool>? parentIsUnbound)
+    {
+        if (currentPath == parentPath || eventFileObject == 0 ||
+            (currentPath && (leaseFileObject == 0 || leaseGeneration <= 0 ||
+                string.IsNullOrEmpty(currentIdentity) ||
+                string.IsNullOrEmpty(sealedCurrentPath) ||
+                currentBindingMatches is null)) ||
+            (parentPath && parentIsUnbound is null))
+            return LateProofResult.Invalid;
+        if (!ledgerAvailable) return LateProofResult.LedgerUnavailable;
+        if (currentPath && eventFileObject != leaseFileObject)
+            return LateProofResult.CurrentFileObjectMismatch;
+        if (currentPath && !currentBindingMatches!())
+            return LateProofResult.CurrentBindingMismatch;
+        if (parentPath && !parentIsUnbound!())
+            return LateProofResult.ParentNotUnbound;
+        return LateProofResult.Success;
+    }
+
+    public static string EpochEmptyPostUpperProofFailureCode(
+        IReadOnlyCollection<LateProofResult> results)
+    {
+        if (results.Count is < 1 or > 128 ||
+            results.Any(result => !Enum.IsDefined(result)) ||
+            results.Any(result => result is LateProofResult.Invalid or
+                LateProofResult.Success))
+            return StateChangedFailureCode;
+        var distinct = results.Distinct().ToArray();
+        if (distinct.Length != 1) return LookupPostUpperProofMixedFailureCode;
+        return distinct[0] switch {
+            LateProofResult.LedgerUnavailable =>
+                LookupPostUpperProofLedgerUnavailableAllFailureCode,
+            LateProofResult.CurrentFileObjectMismatch =>
+                LookupPostUpperProofCurrentFileObjectMismatchAllFailureCode,
+            LateProofResult.CurrentBindingMismatch =>
+                LookupPostUpperProofCurrentBindingMismatchAllFailureCode,
+            LateProofResult.ParentNotUnbound =>
+                LookupPostUpperProofParentNotUnboundAllFailureCode,
+            _ => StateChangedFailureCode,
+        };
     }
 
     // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
@@ -10169,7 +10255,19 @@ public sealed record EpochCandidateClassification<T>(
     ImmutableArray<T> Late,
     int AtOrBeforeReservationCount,
     int PostUpperProofMissingCount,
-    int TemporalInvalidCount);
+    int TemporalInvalidCount,
+    int ProofInvalidCount,
+    ImmutableArray<LateProofResult> ProofResults);
+
+public enum LateProofResult
+{
+    Invalid,
+    LedgerUnavailable,
+    CurrentFileObjectMismatch,
+    CurrentBindingMismatch,
+    ParentNotUnbound,
+    Success,
+}
 
 public sealed record DrainReplayFixtureResult(
     IReadOnlyList<long> ObservationOrder,
