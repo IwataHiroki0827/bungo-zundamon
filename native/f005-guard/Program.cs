@@ -4350,7 +4350,7 @@ sealed class CapacityGuardSession : IDisposable
                     seal.LeaseFileObjectGeneration,
                     seal.CurrentIdentity,
                     seal.CurrentPath),
-                () => ledger!.IsUnbound(fileObject));
+                () => ledger!.MatchUnbound(fileObject));
         var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
             broad,
             eventQpc,
@@ -4371,7 +4371,8 @@ sealed class CapacityGuardSession : IDisposable
                     ? WriteCompletionDrainRules
                         .EpochEmptyPostUpperProofFailureCode(
                             classification.ProofResults,
-                            classification.GenerationMatchResults)
+                            classification.GenerationMatchResults,
+                            classification.UnboundMatchResults)
                     : WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
                         broad.Length,
                         classification.AtOrBeforeReservationCount,
@@ -8697,6 +8698,19 @@ public sealed class WriteCompletionBindingLedger
         fileObject != 0 && (!admitted.TryGetValue(fileObject, out var value) ||
             value.State == WriteCompletionBindingState.Unbound);
 
+    public UnboundMatchResult MatchUnbound(ulong fileObject)
+    {
+        if (fileObject == 0) return UnboundMatchResult.Invalid;
+        if (!admitted.TryGetValue(fileObject, out var value))
+            return UnboundMatchResult.Success;
+        return value.State switch {
+            WriteCompletionBindingState.Unbound => UnboundMatchResult.Success,
+            WriteCompletionBindingState.Bound => UnboundMatchResult.Bound,
+            WriteCompletionBindingState.Retired => UnboundMatchResult.Retired,
+            _ => UnboundMatchResult.OtherState,
+        };
+    }
+
     public ImmutableBindingProof Admit(
         WriteCompletionBindingKind kind,
         string eventName,
@@ -9187,6 +9201,14 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_CURRENT_BINDING_MIXED";
     public const string LookupPostUpperProofParentNotUnboundAllFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_NOT_UNBOUND_ALL";
+    public const string LookupPostUpperProofParentBoundAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ALL";
+    public const string LookupPostUpperProofParentRetiredAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_RETIRED_ALL";
+    public const string LookupPostUpperProofParentOtherStateAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_OTHER_STATE_ALL";
+    public const string LookupPostUpperProofParentStateMixedFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_STATE_MIXED";
     public const string LookupPostUpperProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
@@ -9285,6 +9307,10 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofCurrentBindingStateNotBoundOrRetiredAllFailureCode,
         LookupPostUpperProofCurrentBindingMixedFailureCode,
         LookupPostUpperProofParentNotUnboundAllFailureCode,
+        LookupPostUpperProofParentBoundAllFailureCode,
+        LookupPostUpperProofParentRetiredAllFailureCode,
+        LookupPostUpperProofParentOtherStateAllFailureCode,
+        LookupPostUpperProofParentStateMixedFailureCode,
         LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
         LookupExactAmbiguousFailureCode,
@@ -9379,6 +9405,7 @@ public static class WriteCompletionDrainRules
         var proofInvalid = 0;
         var proofResults = ImmutableArray.CreateBuilder<LateProofResult>();
         var generationResults = ImmutableArray.CreateBuilder<GenerationMatchResult?>();
+        var unboundResults = ImmutableArray.CreateBuilder<UnboundMatchResult?>();
         foreach (var candidate in candidates)
         {
             var reservation = reservationSelector(candidate);
@@ -9403,6 +9430,7 @@ public static class WriteCompletionDrainRules
                 var proof = evaluateProof(candidate);
                 proofResults.Add(proof.Outer);
                 generationResults.Add(proof.GenerationMatch);
+                unboundResults.Add(proof.UnboundMatch);
                 if (proof.Outer == LateProofResult.Success) late.Add(candidate);
                 else if (proof.Outer == LateProofResult.Invalid) proofInvalid++;
                 else missing++;
@@ -9412,7 +9440,7 @@ public static class WriteCompletionDrainRules
         return new EpochCandidateClassification<T>(
             epoch.ToImmutable(), late.ToImmutable(), pre, missing, invalid,
             proofInvalid, proofResults.ToImmutable(),
-            generationResults.ToImmutable());
+            generationResults.ToImmutable(), unboundResults.ToImmutable());
     }
 
     public static EpochCandidateClassification<T> ClassifyEpochCandidates<T>(
@@ -9444,7 +9472,10 @@ public static class WriteCompletionDrainRules
                 currentBindingMatches()
                     ? GenerationMatchResult.Success
                     : GenerationMatchResult.GenerationMismatch,
-            parentIsUnbound).Outer;
+            parentIsUnbound is null ? null : () =>
+                parentIsUnbound()
+                    ? UnboundMatchResult.Success
+                    : UnboundMatchResult.Bound).Outer;
 
     public static LateProofEvaluation EvaluateLateProofDetail(
         bool currentPath,
@@ -9456,14 +9487,14 @@ public static class WriteCompletionDrainRules
         string? sealedCurrentPath,
         bool ledgerAvailable,
         Func<GenerationMatchResult>? currentBindingMatch,
-        Func<bool>? parentIsUnbound)
+        Func<UnboundMatchResult>? parentUnboundMatch)
     {
         if (currentPath == parentPath || eventFileObject == 0 ||
             (currentPath && (leaseFileObject == 0 || leaseGeneration <= 0 ||
                 string.IsNullOrEmpty(currentIdentity) ||
                 string.IsNullOrEmpty(sealedCurrentPath) ||
                 currentBindingMatch is null)) ||
-            (parentPath && parentIsUnbound is null))
+            (parentPath && parentUnboundMatch is null))
             return new(LateProofResult.Invalid, null);
         if (!ledgerAvailable) return new(LateProofResult.LedgerUnavailable, null);
         if (currentPath && eventFileObject != leaseFileObject)
@@ -9477,33 +9508,83 @@ public static class WriteCompletionDrainRules
             if (generationMatch != GenerationMatchResult.Success)
                 return new(LateProofResult.CurrentBindingMismatch, generationMatch);
         }
-        if (parentPath && !parentIsUnbound!())
-            return new(LateProofResult.ParentNotUnbound, null);
+        if (parentPath)
+        {
+            var unboundMatch = parentUnboundMatch!();
+            if (!Enum.IsDefined(unboundMatch) ||
+                unboundMatch == UnboundMatchResult.Invalid)
+                return new(LateProofResult.Invalid, null, unboundMatch);
+            if (unboundMatch != UnboundMatchResult.Success)
+                return new(LateProofResult.ParentNotUnbound, null, unboundMatch);
+        }
         return new(LateProofResult.Success,
-            currentPath ? GenerationMatchResult.Success : null);
+            currentPath ? GenerationMatchResult.Success : null,
+            parentPath ? UnboundMatchResult.Success : null);
     }
 
     public static string EpochEmptyPostUpperProofFailureCode(
         IReadOnlyCollection<LateProofResult> results,
-        IReadOnlyCollection<GenerationMatchResult?>? generationResults = null)
+        IReadOnlyCollection<GenerationMatchResult?>? generationResults = null,
+        IReadOnlyCollection<UnboundMatchResult?>? unboundResults = null)
     {
         if (results.Count is < 1 or > 128 ||
             results.Any(result => !Enum.IsDefined(result)) ||
             results.Any(result => result is LateProofResult.Invalid or
                 LateProofResult.Success))
             return StateChangedFailureCode;
-        if (generationResults is not null)
+        if (generationResults is not null && unboundResults is null)
         {
             if (generationResults.Count != results.Count) return StateChangedFailureCode;
             using var outer = results.GetEnumerator();
-            using var inner = generationResults.GetEnumerator();
-            while (outer.MoveNext() && inner.MoveNext())
+            using var generation = generationResults.GetEnumerator();
+            while (outer.MoveNext() && generation.MoveNext())
             {
                 var currentBinding = outer.Current == LateProofResult.CurrentBindingMismatch;
-                var validInnerFailure = inner.Current is GenerationMatchResult value &&
+                var validFailure = generation.Current is GenerationMatchResult value &&
                     Enum.IsDefined(value) &&
                     value is not (GenerationMatchResult.Invalid or GenerationMatchResult.Success);
-                if (currentBinding != validInnerFailure) return StateChangedFailureCode;
+                if (currentBinding != validFailure) return StateChangedFailureCode;
+            }
+        }
+        else if (generationResults is null && unboundResults is not null)
+        {
+            if (unboundResults.Count != results.Count) return StateChangedFailureCode;
+            using var outer = results.GetEnumerator();
+            using var unbound = unboundResults.GetEnumerator();
+            while (outer.MoveNext() && unbound.MoveNext())
+            {
+                var parent = outer.Current == LateProofResult.ParentNotUnbound;
+                var validFailure = unbound.Current is UnboundMatchResult value &&
+                    Enum.IsDefined(value) && value is UnboundMatchResult.Bound or
+                        UnboundMatchResult.Retired or UnboundMatchResult.OtherState;
+                if (parent != validFailure) return StateChangedFailureCode;
+            }
+        }
+        else if (generationResults is not null && unboundResults is not null)
+        {
+            if (generationResults.Count != results.Count ||
+                unboundResults.Count != results.Count) return StateChangedFailureCode;
+            using var outer = results.GetEnumerator();
+            using var generation = generationResults.GetEnumerator();
+            using var unbound = unboundResults.GetEnumerator();
+            while (outer.MoveNext() && generation.MoveNext() && unbound.MoveNext())
+            {
+                var currentBinding = outer.Current == LateProofResult.CurrentBindingMismatch;
+                var validGenerationFailure = generation.Current is GenerationMatchResult value &&
+                    Enum.IsDefined(value) &&
+                    value is not (GenerationMatchResult.Invalid or GenerationMatchResult.Success);
+                var parentNotUnbound = outer.Current == LateProofResult.ParentNotUnbound;
+                var validUnboundFailure = unbound.Current is UnboundMatchResult unboundValue &&
+                    Enum.IsDefined(unboundValue) &&
+                    unboundValue is UnboundMatchResult.Bound or
+                        UnboundMatchResult.Retired or UnboundMatchResult.OtherState;
+                if (currentBinding != validGenerationFailure ||
+                    parentNotUnbound != validUnboundFailure ||
+                    validGenerationFailure && unbound.Current is not null ||
+                    validUnboundFailure && generation.Current is not null ||
+                    !currentBinding && !parentNotUnbound &&
+                        (generation.Current is not null || unbound.Current is not null))
+                    return StateChangedFailureCode;
             }
         }
         var distinct = results.Distinct().ToArray();
@@ -9512,6 +9593,10 @@ public static class WriteCompletionDrainRules
             return generationResults is null
                 ? LookupPostUpperProofCurrentBindingMismatchAllFailureCode
                 : CurrentBindingFailureCode(generationResults);
+        if (distinct[0] == LateProofResult.ParentNotUnbound)
+            return unboundResults is null
+                ? LookupPostUpperProofParentNotUnboundAllFailureCode
+                : ParentStateFailureCode(unboundResults);
         return distinct[0] switch {
             LateProofResult.LedgerUnavailable =>
                 LookupPostUpperProofLedgerUnavailableAllFailureCode,
@@ -9521,6 +9606,23 @@ public static class WriteCompletionDrainRules
                 LookupPostUpperProofCurrentBindingMismatchAllFailureCode,
             LateProofResult.ParentNotUnbound =>
                 LookupPostUpperProofParentNotUnboundAllFailureCode,
+            _ => StateChangedFailureCode,
+        };
+    }
+
+    public static string ParentStateFailureCode(
+        IReadOnlyCollection<UnboundMatchResult?>? results)
+    {
+        if (results is null || results.Count is < 1 or > 128 ||
+            results.Any(result => result is null || !Enum.IsDefined(result.Value) ||
+                result.Value is UnboundMatchResult.Invalid or UnboundMatchResult.Success))
+            return StateChangedFailureCode;
+        var distinct = results.Select(result => result!.Value).Distinct().ToArray();
+        if (distinct.Length != 1) return LookupPostUpperProofParentStateMixedFailureCode;
+        return distinct[0] switch {
+            UnboundMatchResult.Bound => LookupPostUpperProofParentBoundAllFailureCode,
+            UnboundMatchResult.Retired => LookupPostUpperProofParentRetiredAllFailureCode,
+            UnboundMatchResult.OtherState => LookupPostUpperProofParentOtherStateAllFailureCode,
             _ => StateChangedFailureCode,
         };
     }
@@ -10385,11 +10487,22 @@ public sealed record EpochCandidateClassification<T>(
     int TemporalInvalidCount,
     int ProofInvalidCount,
     ImmutableArray<LateProofResult> ProofResults,
-    ImmutableArray<GenerationMatchResult?> GenerationMatchResults);
+    ImmutableArray<GenerationMatchResult?> GenerationMatchResults,
+    ImmutableArray<UnboundMatchResult?> UnboundMatchResults);
 
 public sealed record LateProofEvaluation(
     LateProofResult Outer,
-    GenerationMatchResult? GenerationMatch);
+    GenerationMatchResult? GenerationMatch,
+    UnboundMatchResult? UnboundMatch = null);
+
+public enum UnboundMatchResult
+{
+    Invalid,
+    Bound,
+    Retired,
+    OtherState,
+    Success,
+}
 
 public enum GenerationMatchResult
 {

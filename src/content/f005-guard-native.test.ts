@@ -1192,7 +1192,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateLookup).not.toContain('TryInspect(');
     expect(lateLookup).not.toContain('filesByObject');
     expect(lateLookup).toContain('ledger!.MatchGeneration(');
-    expect(lateLookup).toContain('ledger!.IsUnbound(fileObject)');
+    expect(lateLookup).toContain('ledger!.MatchUnbound(fileObject)');
     expect(lateLookup).toContain(
       'LateDiagnosticSetInfoSealNotCompletedRetainedFailureCode',
     );
@@ -1541,11 +1541,15 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateBlock).not.toContain('ledger!.IsUnbound(');
     expect(lateBlock).not.toContain('MatchesGeneration(');
     expect(lateBlock).not.toContain('MatchGeneration(');
+    expect(lateBlock).not.toContain('MatchUnbound(');
     expect(lateBlock).not.toContain(
       'LookupPostUpperProofCurrentBindingMismatchAllFailureCode',
     );
     expect(lateBlock).not.toContain(
       'LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode',
+    );
+    expect(lateBlock).not.toContain(
+      'LookupPostUpperProofParentNotUnboundAllFailureCode',
     );
     expect(authorize.match(/EvaluateProof\(seal\)/gu)).toHaveLength(1);
     expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');

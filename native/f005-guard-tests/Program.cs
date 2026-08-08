@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 76",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 76 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 76 &&
+Check("completion drain external code集合はexact 80",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 80 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 80 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 76 codeはnative replyで不変",
+Check("completion drain external exact 80 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2945,6 +2945,110 @@ var retiredDefaultProof = WriteCompletionDrainRules.EvaluateLateProofDetail(
 Check("completion drain production既定Retired proofはlookup exact1でsuccess復元",
     retiredDefaultCalls == 1 && retiredDefaultProof.Outer == LateProofResult.Success &&
     retiredDefaultProof.GenerationMatch == GenerationMatchResult.Success);
+var unboundMissingLedger = new WriteCompletionBindingLedger([]);
+Check("completion drain unbound matchはFO0 invalid/missing success",
+    unboundMissingLedger.MatchUnbound(0) == UnboundMatchResult.Invalid &&
+    unboundMissingLedger.MatchUnbound(810) == UnboundMatchResult.Success);
+var unboundStateCases = new[] {
+    (LedgerWithForcedState(811, WriteCompletionBindingState.Unbound), 811UL,
+        UnboundMatchResult.Success),
+    (LedgerWithForcedState(812, WriteCompletionBindingState.Bound), 812UL,
+        UnboundMatchResult.Bound),
+    (LedgerWithForcedState(813, WriteCompletionBindingState.Retired), 813UL,
+        UnboundMatchResult.Retired),
+    (LedgerWithForcedState(814, (WriteCompletionBindingState)int.MaxValue), 814UL,
+        UnboundMatchResult.OtherState),
+};
+foreach (var (ledger, fileObject, expected) in unboundStateCases)
+    Check("completion drain unbound matchは全stateを排他的固定分類",
+        ledger.MatchUnbound(fileObject) == expected);
+var parentCauseEvaluations = new List<LateProofEvaluation>();
+foreach (var (ledger, fileObject, expected) in unboundStateCases)
+{
+    var calls = 0;
+    var proof = WriteCompletionDrainRules.EvaluateLateProofDetail(
+        false, true, fileObject, 0, 0, null, null, true, null,
+        () => { calls++; return ledger.MatchUnbound(fileObject); });
+    Check("completion drain parent proofはreal ledger lookup exact1",
+        calls == 1 && proof.UnboundMatch == expected &&
+        proof.Outer == (expected == UnboundMatchResult.Success
+            ? LateProofResult.Success : LateProofResult.ParentNotUnbound));
+    if (proof.Outer == LateProofResult.ParentNotUnbound)
+        parentCauseEvaluations.Add(proof);
+}
+var missingParentCalls = 0;
+var missingParentProof = WriteCompletionDrainRules.EvaluateLateProofDetail(
+    false, true, 815, 0, 0, null, null, true, null,
+    () => { missingParentCalls++; return unboundMissingLedger.MatchUnbound(815); });
+Check("completion drain parent missing entryは既存late successを維持",
+    missingParentCalls == 1 && missingParentProof ==
+        new LateProofEvaluation(LateProofResult.Success, null, UnboundMatchResult.Success));
+var parentCauseCodes = new[] {
+    (UnboundMatchResult.Bound, WriteCompletionDrainRules.LookupPostUpperProofParentBoundAllFailureCode),
+    (UnboundMatchResult.Retired, WriteCompletionDrainRules.LookupPostUpperProofParentRetiredAllFailureCode),
+    (UnboundMatchResult.OtherState, WriteCompletionDrainRules.LookupPostUpperProofParentOtherStateAllFailureCode),
+};
+foreach (var (cause, code) in parentCauseCodes)
+    foreach (var count in new[] { 1, 2, 128 })
+        Check("completion drain parent state単一cause ALL 1/2/128",
+            WriteCompletionDrainRules.ParentStateFailureCode(
+                Enumerable.Repeat<UnboundMatchResult?>(cause, count).ToArray()) == code &&
+            WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+                Enumerable.Repeat(LateProofResult.ParentNotUnbound, count).ToArray(),
+                Enumerable.Repeat<GenerationMatchResult?>(null, count).ToArray(),
+                Enumerable.Repeat<UnboundMatchResult?>(cause, count).ToArray()) == code);
+for (var mask = 1; mask < (1 << parentCauseCodes.Length); mask++)
+{
+    var causes = parentCauseCodes.Where((_, index) =>
+        (mask & (1 << index)) != 0).Select(item => (UnboundMatchResult?)item.Item1).ToArray();
+    if (causes.Length < 2) continue;
+    var forward = WriteCompletionDrainRules.ParentStateFailureCode(causes);
+    var aggregateForward = WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        Enumerable.Repeat(LateProofResult.ParentNotUnbound, causes.Length).ToArray(),
+        Enumerable.Repeat<GenerationMatchResult?>(null, causes.Length).ToArray(), causes);
+    Array.Reverse(causes);
+    var reverse = WriteCompletionDrainRules.ParentStateFailureCode(causes);
+    var aggregateReverse = WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        Enumerable.Repeat(LateProofResult.ParentNotUnbound, causes.Length).ToArray(),
+        Enumerable.Repeat<GenerationMatchResult?>(null, causes.Length).ToArray(), causes);
+    Check("completion drain parent state全pair/triple/all+反転はMIXED",
+        forward == WriteCompletionDrainRules.LookupPostUpperProofParentStateMixedFailureCode &&
+        reverse == WriteCompletionDrainRules.LookupPostUpperProofParentStateMixedFailureCode &&
+        aggregateForward == WriteCompletionDrainRules.LookupPostUpperProofParentStateMixedFailureCode &&
+        aggregateReverse == WriteCompletionDrainRules.LookupPostUpperProofParentStateMixedFailureCode);
+}
+Check("completion drain parent state invalid/null/success/0/129/unknownはSTATE_CHANGED",
+    WriteCompletionDrainRules.ParentStateFailureCode(null) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode([]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode([null]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode([UnboundMatchResult.Invalid]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode([UnboundMatchResult.Success]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode([(UnboundMatchResult)int.MaxValue]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.ParentStateFailureCode(Enumerable.Repeat<UnboundMatchResult?>(UnboundMatchResult.Bound, 129).ToArray()) == WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain parent outer/inner count・pair不整合はSTATE_CHANGED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.ParentNotUnbound, LateProofResult.ParentNotUnbound], null,
+        [UnboundMatchResult.Bound]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.ParentNotUnbound], null,
+        [UnboundMatchResult.Success]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.LedgerUnavailable], null,
+        [UnboundMatchResult.Bound]) == WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain generation/unbound inner相互排他違反はSTATE_CHANGED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch],
+        [GenerationMatchResult.EntryMissing], [UnboundMatchResult.Bound]) ==
+        WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.ParentNotUnbound],
+        [GenerationMatchResult.PathMismatch], [UnboundMatchResult.Retired]) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain parent別outer混在はvalid innerでtop MIXED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.ParentNotUnbound, LateProofResult.LedgerUnavailable],
+        [null, null], [UnboundMatchResult.Bound, null]) ==
+        WriteCompletionDrainRules.LookupPostUpperProofMixedFailureCode);
 var generationCauses = new[] {
     (GenerationMatchResult.EntryMissing, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingEntryMissingAllFailureCode),
     (GenerationMatchResult.GenerationMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingGenerationMismatchAllFailureCode),
