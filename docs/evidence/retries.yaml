@@ -1287,3 +1287,23 @@ attempts:
   cause: none
   recovery: CHG-F005-056/T-130をdoneとし、ELIGIBLE_ALLの認可境界は別変更管理で扱う
   log: docs/evidence/qt/QT-F005-008-009-CHG-056-hosted-attempt-1.md
+- date: '2026-08-08T17:07:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-057-hosted-correlation
+  attempt: 1
+  command: GitHub Actions native correlation run 31247614372 attempt 1 / Pages run 31247614376
+  result: retry
+  failures: 1
+  cause: Pages deploy jobがskippedへ確定する直前のAPI結果を読みPAGES_DEPLOY_NOT_SKIPPED
+  recovery: Pages実結果の安定後にfailed jobだけを実装非変更で再実行
+  log: docs/evidence/qt/QT-F005-008-009-CHG-057-hosted-attempt-1.md
+- date: '2026-08-08T17:10:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-057-hosted
+  attempt: 2
+  command: GitHub Actions production run 31247640858 / native correlation run 31247614372 attempt 2 / Pages runs 31247614376,31247640907
+  result: pass
+  failures: 0
+  cause: none
+  recovery: CHG-F005-057/T-131をdoneとし、次のACTIVE_PRODUCER_AFTER_RESERVATION_BIRTHは別変更管理で扱う
+  log: docs/evidence/qt/QT-F005-008-009-CHG-057-hosted-attempt-1.md
