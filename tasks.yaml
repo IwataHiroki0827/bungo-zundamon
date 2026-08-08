@@ -2277,3 +2277,190 @@ tasks:
   mode_reason: hosted ETW配送raceを認可拡張ではなくwrite completionの明示状態とsealed event-time tupleで決定化するため
   model: {lead: opus, workers: sonnet}
   progress: completion drain決定化を実装。独立受入H2/M4→H1/M1を是正し最終H0/M0/L1でコードPASS、native421・関連124・再現build2回PASS。run 31124038599はGitHub Actions major outageでstep未生成の基盤cancel後、rerunがjob未生成のstale状態となった。commit 9c6fd375でworkflow自己pathを更新して新hosted run生成待ち
+- id: T-112
+  title: CHG-F005-038 completion drainの不変binding proof・retained identity再生
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-111]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: callback時のFileObject結合証跡とretained native identityを不変化し、replay時の可変path/map依存だけを除く設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: 不変ledger、retained handle、Cleanup admission、atomic rollback、callback時rename snapshotを実装しlocal受入PASS。CHG-F005-054のread-only hosted相関run 31243008484でproduction共有規則74/74、kernel ETW、実load assembly、Pages deploy skipをPASSしてhosted影響確認完了
+- id: T-113
+  title: CHG-F005-039 retained parent post-reservation late event固定診断
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-112]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: generic LATEを生値なしのwrite/setinfo 2 codeへ限定細分化し、認可・状態を変更しないため
+  model: {lead: opus, workers: sonnet}
+  progress: 認可非変更2 code診断を実装し、local/独立受入PASS。native probe 31201499381はSUCCESS、production 31201498649は引き続きgeneric LATEで安全停止し、複合条件不一致を確定。candidate保存/branch/Pages deployなし。最初不一致軸はCHG-F005-040/T-114へ分離
+- id: T-114
+  title: CHG-F005-040 late candidate最初不一致軸の固定診断
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-113]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: generic LATEをevent kind別の最初不一致軸へ固定分類し、認可・stateは変更しないため
+  model: {lead: opus, workers: sonnet}
+  progress: local/独立受入をPASSし、native probe 31205282610はSUCCESS。production 31205281066は`wav-validated`後にSETINFO_CURRENT_PATHを固定して安全停止。candidate保存/branch/Pages deployなし。既存completed-write認可への専用handoffをCHG-F005-041/T-115へ分離
+- id: T-115
+  title: CHG-F005-041 exact late current SetInfoのcompleted-write認可引き渡し
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-114]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: completion drain exact proofと既存completed-write完全認可の交差だけを専用handoffし、他認可へfall-throughしないため
+  model: {lead: opus, workers: sonnet}
+  progress: 専用handoffを実装しlocal/独立受入PASS。native probe 31208446223 SUCCESS。production 31208447007はSETINFO_CURRENT_PATHを通過後、別bucket SETINFO_SEAL_NOT_COMPLETED_RETAINEDで安全停止。candidate保存/branch/Pages deployなし。T-115完了
+- id: T-116
+  title: CHG-F005-042 completion-requested current SetInfoのsealed post-request replay
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-115]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: completion要求後の単一System SetInfoだけをdeadline・exact generation・retained producer再検査付きsealed replayへ限定接続する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: marker付きpost-request sealed replayを実装しlocal/独立受入PASS。native probe 31211413009 SUCCESS。production 31211412904はSETINFO_SEAL_NOT_COMPLETED_RETAINEDを通過後、別bucket WRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONで安全停止。candidate保存/branch/Pages deployなし。T-116完了
+- id: T-117
+  title: CHG-F005-043 active producer birth境界の固定診断
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-116]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: late parent writeを認可せずactive producerのimmutable birth境界へ固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: active producer birth固定4分類を実装しlocal/独立受入PASS。CHG-F005-044適用後のproduction run 31217391262でWRITE_ACTIVE_PRODUCER_RECORD_MISSINGへ到達。native probe成功、candidate/Pages公開なし
+- id: T-118
+  title: CHG-F005-044 post-reservation parent writeのactive directory認可引き渡し
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-116]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: 単一旧seal候補と既存active directory完全認可の交差だけを専用handoffし、他認可へfall-throughしない設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: active directory限定handoffを実装しlocal/独立受入PASS。production run 31217391262でhandoff通過後にACTIVE_PRODUCER_RECORD_MISSINGへ安全停止。native probe成功、candidate/Pages公開なし
+- id: T-119
+  title: CHG-F005-045 active lease予約時producer birth snapshot診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-118]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: active lease予約時のbirth証拠をimmutable snapshot化し、record欠落を認可せず固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: 予約handler時birth snapshot固定4分類を実装しlocal/独立受入PASS。production run 31221410484でRESERVATION_BIRTH_RECORD_MISSINGへ到達。candidate/Pages公開なし
+- id: T-120
+  title: CHG-F005-046 write予約前ProcessStart取込fence
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-119]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: gateを有限解放してproducer birth recordを予約成功前に確定し、待機後の全state/process再検査を設計するため
+  model: {lead: opus, workers: sonnet}
+  progress: ProcessStart予約fenceを実装しlocal/独立受入PASS。production run 31224657445でfence通過後のACTIVE_LEASE_MISSINGへ到達。native probe成功、candidate/Pages公開なし
+- id: T-121
+  title: CHG-F005-047 completion drain active lease missing固定診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-120]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: 予約fence通過後のlate writeでactive leaseが消失するevent-time関係を認可せず固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: no-lease root directory限定handoffを実装しlocal/独立受入PASS。production run 31228038981でhandoff通過後のEVENT_TUPLE_MISMATCHへ到達。native probe成功、candidate/Pages公開なし
+- id: T-122
+  title: CHG-F005-048 completion drain event tuple mismatch固定診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-121]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: no-lease handoff通過後のcompletion drain exact tuple不一致軸を認可せず固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: lookup/recheck固定6 codeを実装しlocal/独立受入PASS。CHG-F005-053のread-only hosted correlation run 31241090301でproduction共有規則43/43、kernel ETW、実load assembly、Pages deploy skipをPASSしてhosted影響確認完了
+- id: T-123
+  title: CHG-F005-049 no-lease handoff候補多重性の固定診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-121]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: ACTIVE_LEASE_MISSINGを集約した同一原因late candidateの多重性を認可せず固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: candidate多重性固定codeを実装しlocal/独立受入H0/M0/L0。初回hosted 3 attemptは対象未到達だったが、後続CHG-F005-050 production run 31233549836で対象codeへ到達し、candidate/Pages非公開を確認してPASS
+- id: T-124
+  title: CHG-F005-050 active-directory handoff候補多重性の固定診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-121]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: post-reservation writeを集約したlate candidateの多重性を認可せず固定分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: active-directory candidate多重性固定codeを実装しlocal/独立受入H0/M0/L0。hosted attempt 2 run 31233688210で対象codeへ到達し、candidate branch不存在・Pages deploy skipを確認してPASS
+- id: T-125
+  title: CHG-F005-051 active-directory候補多重時の既存predicate適格数固定診断
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-123, T-124]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: active-directory候補を選択・認可せず、既存handoff predicateを満たす候補数だけを固定bucketへ分類する設計変更のため
+  model: {lead: opus, workers: sonnet}
+  progress: active-directory既存predicate共有化とEXACT_ONE/AMBIGUOUS固定診断を実装しlocal/独立受入H0/M0/L0。後続production run 31236169870でELIGIBLE_AMBIGUOUSへ到達し、candidate/Pages非公開を確認してPASS
+- id: T-126
+  title: CHG-F005-052 T-110決定的hosted相関検証
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-125]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: production共有規則を使う単一target suiteとhosted evidence契約を実装し、T-110の影響だけを決定的に再試験するため
+  model: {lead: opus, workers: sonnet}
+  progress: read-only hosted相関検証を実装しlocal/独立受入PASS。attempt 1のPowerShell構文を是正後、run 31239312228でtarget57/57・kernel ETW・canonical evidence・同一SHA Pages deploy skipをPASSして完了
+- id: T-127
+  title: CHG-F005-053 T-122決定的hosted相関検証
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-126]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: production共有lookup/recheck規則を使う固定target suiteでT-122影響だけを決定的に再試験するため
+  model: {lead: opus, workers: sonnet}
+  progress: T-122固定43 case、selector、read-only hosted evidenceを実装。local/独立受入PASS後、run 31241090301で43/43・kernel ETW・canonical evidence・同一SHA Pages deploy skipをPASSして完了
+- id: T-128
+  title: CHG-F005-054 T-112決定的hosted相関検証
+  feature: F005
+  phase: change
+  state: done
+  depends: [T-127]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: production共有ledger/replay規則を使う固定target suiteでT-112影響だけを決定的に再試験するため
+  model: {lead: opus, workers: sonnet}
+  progress: production-owned retained leaseとT-112固定74 caseを実装。local/独立受入PASS後、run 31243008484で74/74・kernel ETW・canonical evidence・同一SHA Pages deploy skipをPASSして完了
