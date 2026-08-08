@@ -1727,9 +1727,16 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'LateDiagnosticWriteReservationBirthRecordMissingFailureCode',
       'LateDiagnosticWriteReservationBirthTupleMismatchFailureCode',
       'LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode',
-      'LateDiagnosticWriteAfterReservationBirthFailureCode',
+      'LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode',
+      'LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode',
       'F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED',
     ]) expect(reservationBirthRule).toContain(code);
+    expect(reservationBirthRule).not.toContain(
+      'return LateDiagnosticWriteAfterReservationBirthFailureCode',
+    );
+    expect(reservationBirthRule).toContain(
+      'eventQpc <= initialLeaseReservedAtQpc',
+    );
     expect(reservationBirthRule).not.toContain('processBirthByPid');
     expect(reservationBirthRule).not.toContain('registeredWorkerProcesses');
     expect(reservationBirthRule).not.toContain('Stopwatch');

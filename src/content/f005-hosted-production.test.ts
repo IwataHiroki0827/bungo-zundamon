@@ -63,7 +63,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       '# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.',
     );
     expect(raw).toContain(
-      '# This self-path resumes the T-070 production candidate with the current fail-closed guard.',
+      '# This self-path verifies the T-132 producer-birth reservation boundary split with the current fail-closed guard.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -76,7 +76,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(55);
+    expect(drainCodes).toHaveLength(57);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     const ambiguityCode =

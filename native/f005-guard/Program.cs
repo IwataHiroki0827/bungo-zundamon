@@ -9081,6 +9081,10 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AT_OR_BEFORE_RESERVATION_BIRTH";
     public const string LateDiagnosticWriteAfterReservationBirthFailureCode =
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH";
+    public const string LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH_AT_OR_BEFORE_INITIAL";
+    public const string LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode =
+        $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH_AFTER_INITIAL_TO_CURRENT";
     public const string CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
     public const string ActiveDirectoryHandoffCandidateAmbiguousFailureCode =
@@ -9145,6 +9149,8 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteReservationBirthTupleMismatchFailureCode,
         LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode,
         LateDiagnosticWriteAfterReservationBirthFailureCode,
+        LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode,
+        LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode,
         CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffEligibleExactOneFailureCode,
@@ -9320,9 +9326,11 @@ public static class WriteCompletionDrainRules
             phaseStartedAtQpc >= birthStartedAtQpc ||
             birthStartedAtQpc > initialLeaseReservedAtQpc)
             return LateDiagnosticWriteReservationBirthTupleMismatchFailureCode;
-        return eventQpc <= birthStartedAtQpc
-            ? LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode
-            : LateDiagnosticWriteAfterReservationBirthFailureCode;
+        if (eventQpc <= birthStartedAtQpc)
+            return LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode;
+        return eventQpc <= initialLeaseReservedAtQpc
+            ? LateDiagnosticWriteAfterReservationBirthAtOrBeforeInitialFailureCode
+            : LateDiagnosticWriteAfterReservationBirthAfterInitialToCurrentFailureCode;
     }
 
     /// <summary>
