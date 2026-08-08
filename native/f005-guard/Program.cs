@@ -4128,26 +4128,23 @@ sealed class CapacityGuardSession : IDisposable
     {
         var matching = writeCompletionSeals.Where(item =>
             item.SealSequence == snapshot.SealSequence).ToArray();
-        if (matching.Length != 1)
-            throw new GuardException(
-                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
-        var seal = matching[0];
-        var identity = snapshot.NormalizedPath == seal.CurrentPath
-            ? seal.CurrentIdentity
-            : snapshot.NormalizedPath == seal.ParentPath
-                ? seal.DirectoryIdentity
-                : null;
+        var seal = matching.Length == 1 ? matching[0] : null;
         var proof = snapshot.BindingProof;
-        var expectedKind = snapshot.NormalizedPath == seal.CurrentPath
-            ? WriteCompletionBindingKind.SealedCurrent
-            : WriteCompletionBindingKind.SealedParent;
-        var normalEpoch = snapshot.ReplayKind == WriteCompletionReplayKind.NormalEpoch &&
+        WriteCompletionBindingKind? expectedKind = seal is null
+            ? null
+            : snapshot.NormalizedPath == seal.CurrentPath
+                ? WriteCompletionBindingKind.SealedCurrent
+                : snapshot.NormalizedPath == seal.ParentPath
+                    ? WriteCompletionBindingKind.SealedParent
+                    : null;
+        var normalEpoch = seal is not null &&
+            snapshot.ReplayKind == WriteCompletionReplayKind.NormalEpoch &&
             seal.CompletionRequestedAtQpc is long normalUpper &&
             WriteCompletionDrainRules.IsWithinEpoch(
                 seal.CurrentPathReservedAtQpc, normalUpper, snapshot.TimestampQpc);
-        var postRequestSystemSetInfo =
+        var postRequestSystemSetInfo = seal is not null &&
             snapshot.ReplayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo &&
-            WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+            WriteCompletionDrainRules.PostRequestReplayFieldsMatch(
                 snapshot.ReplayKind,
                 snapshot.EventName == "setinfo",
                 snapshot.NormalizedPath == seal.CurrentPath,
@@ -4167,33 +4164,40 @@ sealed class CapacityGuardSession : IDisposable
                 proof?.StateAfter == proof?.StateBefore,
                 proof?.Path == seal.CurrentPath,
                 snapshot.ProducerPid == seal.ProducerPid,
-                snapshot.ProducerSequenceNumber == seal.ProcessSequenceNumber,
-                seal.CurrentIdentity == snapshot.Effective.Identity,
-                proof?.Identity == snapshot.Effective.Identity);
-        if (!ReferenceEquals(snapshot.Phase, seal.Phase) ||
-            seal.State is not (WriteCompletionDrainState.CompletionRequested or
-                WriteCompletionDrainState.CompletedRetained) ||
-            normalEpoch == postRequestSystemSetInfo ||
-            proof is null || proof.Kind != expectedKind ||
-            proof.FileObject != snapshot.FileObject ||
-            expectedKind == WriteCompletionBindingKind.SealedCurrent &&
-                (proof.GenerationBefore != seal.LeaseFileObjectGeneration ||
-                    proof.GenerationAfter != seal.LeaseFileObjectGeneration) ||
-            proof.StateBefore != proof.StateAfter ||
-            snapshot.ProducerPid != seal.ProducerPid ||
-            snapshot.ProducerSequenceNumber != seal.ProcessSequenceNumber)
-            throw new GuardException(
-                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
-        if (identity != snapshot.Effective.Identity ||
-            proof.Identity != snapshot.Effective.Identity)
-            throw new GuardException(
-                "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+                snapshot.ProducerSequenceNumber == seal.ProcessSequenceNumber);
+        var tupleFailure = WriteCompletionDrainRules.RecheckSealedFailure(
+            matching.Length,
+            seal is not null && ReferenceEquals(snapshot.Phase, seal.Phase),
+            seal?.State is WriteCompletionDrainState.CompletionRequested or
+                WriteCompletionDrainState.CompletedRetained,
+            normalEpoch != postRequestSystemSetInfo,
+            proof is not null,
+            expectedKind is WriteCompletionBindingKind kind && proof?.Kind == kind,
+            proof?.FileObject == snapshot.FileObject,
+            expectedKind != WriteCompletionBindingKind.SealedCurrent ||
+                proof?.GenerationBefore == seal?.LeaseFileObjectGeneration &&
+                proof?.GenerationAfter == seal?.LeaseFileObjectGeneration,
+            proof?.StateBefore == proof?.StateAfter,
+            proof?.Path == snapshot.NormalizedPath,
+            snapshot.ProducerPid == seal?.ProducerPid,
+            snapshot.ProducerSequenceNumber == seal?.ProcessSequenceNumber);
+        if (tupleFailure is not null) throw new GuardException(tupleFailure);
+        var checkedSeal = seal!;
+        var checkedProof = proof!;
+        var checkedKind = expectedKind!.Value;
+        var identity = checkedKind == WriteCompletionBindingKind.SealedCurrent
+            ? checkedSeal.CurrentIdentity
+            : checkedSeal.DirectoryIdentity;
+        var identityFailure = WriteCompletionDrainRules.RecheckIdentityFailure(
+            identity == snapshot.Effective.Identity,
+            checkedProof.Identity == snapshot.Effective.Identity);
+        if (identityFailure is not null) throw new GuardException(identityFailure);
         try
         {
-            if (expectedKind == WriteCompletionBindingKind.SealedCurrent)
-                seal.RetainedCurrent.Reinspect(snapshot.Effective.Identity);
+            if (checkedKind == WriteCompletionBindingKind.SealedCurrent)
+                checkedSeal.RetainedCurrent.Reinspect(snapshot.Effective.Identity);
             else
-                seal.RetainedParent.Reinspect(snapshot.Effective.Identity);
+                checkedSeal.RetainedParent.Reinspect(snapshot.Effective.Identity);
         }
         catch (GuardException)
         {
@@ -4201,7 +4205,7 @@ sealed class CapacityGuardSession : IDisposable
                 "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
         }
         JobObject.RetainedProcessInspection inspection;
-        try { inspection = job.InspectRetainedProcess(seal.Lease.Process); }
+        try { inspection = job.InspectRetainedProcess(checkedSeal.Lease.Process); }
         catch (GuardException error)
         {
             throw new GuardException(
@@ -4210,9 +4214,9 @@ sealed class CapacityGuardSession : IDisposable
                     : WriteCompletionDrainRules.ApplicationFailure(
                         true, true, false)!);
         }
-        if (inspection.ProcessId != seal.ProducerPid ||
-            inspection.ProcessStartKey != seal.ProcessStartKey ||
-            inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber)
+        if (inspection.ProcessId != checkedSeal.ProducerPid ||
+            inspection.ProcessStartKey != checkedSeal.ProcessStartKey ||
+            inspection.ProcessSequenceNumber != checkedSeal.ProcessSequenceNumber)
             throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_TUPLE_MISMATCH");
         if (!inspection.Signaled)
@@ -4334,7 +4338,7 @@ sealed class CapacityGuardSession : IDisposable
                 broad.Length,
                 epoch.Length,
                 0,
-                lateCandidates.Length != 0)!;
+                lateCandidates.Length)!;
             if (lateCandidates.Length != 0)
             {
                 var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
@@ -4542,7 +4546,7 @@ sealed class CapacityGuardSession : IDisposable
         var exact = epoch.Where(ProofCandidate)
             .ToArray();
         var lookupFailure = WriteCompletionDrainRules.LookupFailure(
-            broad.Length, epoch.Length, exact.Length, false);
+            broad.Length, epoch.Length, exact.Length, 0);
         if (lookupFailure is not null) throw new GuardException(lookupFailure);
         selectedSeal = exact[0];
         producerPid = selectedSeal.ProducerPid;
@@ -8950,13 +8954,27 @@ public sealed class WriteLeaseReservationTransaction
 
 public static class WriteCompletionDrainRules
 {
+    private const string FailurePrefix = "F005_ETW_WRITE_COMPLETION_DRAIN_";
+    public const string EventTupleMismatchFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_MISMATCH";
+    public const string LookupEpochEmptyNoLateProofFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_NO_LATE_PROOF";
+    public const string LookupExactMissingFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EXACT_MISSING";
+    public const string LookupExactAmbiguousFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EXACT_AMBIGUOUS";
+    public const string RecheckSealMissingFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_RECHECK_SEAL_MISSING";
+    public const string RecheckSealAmbiguousFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_RECHECK_SEAL_AMBIGUOUS";
+    public const string RecheckFieldsFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_RECHECK_FIELDS";
     public const string GenericLateEventFailureCode =
         "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL";
     public const string LateRetainedParentWriteFailureCode =
         "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITE";
     public const string LateRetainedParentSetInfoFailureCode =
         "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_SETINFO";
-    private const string FailurePrefix = "F005_ETW_WRITE_COMPLETION_DRAIN_";
     private const string LateDiagnosticPrefix =
         "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_";
     public const string LateDiagnosticWriteMixedCausesFailureCode =
@@ -8995,7 +9013,13 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}PROCESS_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_SIGNALED",
         $"{FailurePrefix}PROCESS_OUTSIDE_JOB",
-        $"{FailurePrefix}EVENT_TUPLE_MISMATCH",
+        EventTupleMismatchFailureCode,
+        LookupEpochEmptyNoLateProofFailureCode,
+        LookupExactMissingFailureCode,
+        LookupExactAmbiguousFailureCode,
+        RecheckSealMissingFailureCode,
+        RecheckSealAmbiguousFailureCode,
+        RecheckFieldsFailureCode,
         $"{FailurePrefix}EVENT_IDENTITY_FAILED",
         $"{FailurePrefix}BUFFER_LIMIT",
         $"{FailurePrefix}FAILED",
@@ -9095,11 +9119,34 @@ public static class WriteCompletionDrainRules
         IsWithinPostRequestEpoch(completionQpc, drainDeadlineQpc, eventQpc) &&
         completedRecordAbsent;
 
-    public static bool PostRequestReplayTupleMatches(
+    public static bool PostRequestReplayFieldsMatch(
         WriteCompletionReplayKind replayKind,
         params bool[] predicates) =>
         replayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo &&
         predicates.Length > 0 && predicates.All(value => value);
+
+    /// <summary>
+    /// sealed callback再検査をseal候補数、次にidentity非依存fieldsの順で固定分類する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string? RecheckSealedFailure(
+        int matchingSealCount,
+        params bool[] fields)
+    {
+        if (matchingSealCount == 0) return RecheckSealMissingFailureCode;
+        if (matchingSealCount >= 2) return RecheckSealAmbiguousFailureCode;
+        if (matchingSealCount != 1) return EventTupleMismatchFailureCode;
+        return fields.Length > 0 && fields.All(value => value)
+            ? null
+            : RecheckFieldsFailureCode;
+    }
+
+    public static string? RecheckIdentityFailure(
+        bool sealIdentityMatches,
+        bool proofIdentityMatches) =>
+        sealIdentityMatches && proofIdentityMatches
+            ? null
+            : $"{FailurePrefix}EVENT_IDENTITY_FAILED";
 
     /// <summary>
     /// exact reservation前writeをactive producerのimmutable birth境界で固定分類する。
@@ -9387,16 +9434,29 @@ public static class WriteCompletionDrainRules
         int broadCandidates,
         int epochCandidates,
         int exactCandidates,
-        bool exactLateTuple)
+        int lateCandidates)
     {
+        if (broadCandidates < 0 || epochCandidates < 0 ||
+            exactCandidates < 0 || lateCandidates < 0 ||
+            epochCandidates > broadCandidates ||
+            exactCandidates > epochCandidates ||
+            lateCandidates > broadCandidates ||
+            epochCandidates > 0 && lateCandidates > 0 ||
+            broadCandidates == 0 &&
+                (epochCandidates != 0 || exactCandidates != 0 ||
+                    lateCandidates != 0))
+            return EventTupleMismatchFailureCode;
         if (broadCandidates == 0) return null;
         if (epochCandidates == 0)
-            return exactLateTuple
+            return lateCandidates > 0
                 ? GenericLateEventFailureCode
-                : "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
-        if (exactCandidates != 1)
-            return "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH";
-        return null;
+                : LookupEpochEmptyNoLateProofFailureCode;
+        return exactCandidates switch
+        {
+            0 => LookupExactMissingFailureCode,
+            1 => null,
+            _ => LookupExactAmbiguousFailureCode,
+        };
     }
 
     /// <summary>

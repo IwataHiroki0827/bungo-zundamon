@@ -1113,21 +1113,35 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'item.SealSequence == snapshot.SealSequence',
       'WriteCompletionDrainRules.IsWithinEpoch(',
       'WriteCompletionDrainRules.IsWithinPostRequestEpoch(',
+      'WriteCompletionDrainRules.PostRequestReplayFieldsMatch(',
+      'WriteCompletionDrainRules.RecheckSealedFailure(',
+      'WriteCompletionDrainRules.RecheckIdentityFailure(',
       'snapshot.ReplayKind == WriteCompletionReplayKind.PostRequestSystemSetInfo',
       '!completedWrites.ContainsKey(snapshot.NormalizedPath)',
       'proof?.StateBefore is WriteCompletionBindingState.Bound or',
       'proof?.Path == seal.CurrentPath',
-      'proof.GenerationBefore != seal.LeaseFileObjectGeneration',
-      'seal.RetainedCurrent.Reinspect(snapshot.Effective.Identity)',
-      'seal.RetainedParent.Reinspect(snapshot.Effective.Identity)',
-      'job.InspectRetainedProcess(seal.Lease.Process)',
-      'inspection.ProcessSequenceNumber != seal.ProcessSequenceNumber',
+      'proof?.GenerationBefore == seal?.LeaseFileObjectGeneration',
+      'checkedSeal.RetainedCurrent.Reinspect(snapshot.Effective.Identity)',
+      'checkedSeal.RetainedParent.Reinspect(snapshot.Effective.Identity)',
+      'job.InspectRetainedProcess(checkedSeal.Lease.Process)',
+      'inspection.ProcessSequenceNumber != checkedSeal.ProcessSequenceNumber',
       '!inspection.Signaled',
     ]) expect(sealedRecheck).toContain(required);
-    expect(sealedRecheck.indexOf('F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH'))
-      .toBeLessThan(sealedRecheck.indexOf('identity != snapshot.Effective.Identity'));
-    expect(sealedRecheck.indexOf('identity != snapshot.Effective.Identity'))
-      .toBeLessThan(sealedRecheck.indexOf('F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED'));
+    expect(program).not.toContain('PostRequestReplayTupleMatches');
+    const postRequestFields = sealedRecheck.slice(
+      sealedRecheck.indexOf('WriteCompletionDrainRules.PostRequestReplayFieldsMatch('),
+      sealedRecheck.indexOf('var tupleFailure ='),
+    );
+    expect(postRequestFields).not.toContain('Identity');
+    expect(sealedRecheck.indexOf('var tupleFailure ='))
+      .toBeLessThan(sealedRecheck.indexOf('var identityFailure ='));
+    expect(sealedRecheck.indexOf('var identityFailure ='))
+      .toBeLessThan(sealedRecheck.indexOf('RetainedCurrent.Reinspect('));
+    expect(sealedRecheck.indexOf('RetainedParent.Reinspect('))
+      .toBeLessThan(sealedRecheck.indexOf('job.InspectRetainedProcess('));
+    expect(sealedRecheck).toContain(
+      'if (tupleFailure is not null) throw new GuardException(tupleFailure);',
+    );
     expect(program).toContain('callbackTerminal = QueueOrApplyCallbackLocked(\n                        renameSnapshot');
     const prepareCompletion = program.slice(
       program.indexOf('private object PrepareWriteCompletion('),
@@ -1156,6 +1170,12 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateLookup).toContain('!completedWrites.ContainsKey(normalized)');
     expect(lateLookup).toContain(
       'replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo',
+    );
+    expect(lateLookup).toContain(
+      'epoch.Length,\n                0,\n                lateCandidates.Length)',
+    );
+    expect(lateLookup).toContain(
+      'broad.Length, epoch.Length, exact.Length, 0)',
     );
     const forget = program.slice(
       program.indexOf('private void ForgetFileObject('),

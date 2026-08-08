@@ -878,9 +878,10 @@ Check("completion drain counter stable", WriteCompletionDrainRules.CountersStabl
 Check("completion drain relevant/accounted差拒否", !WriteCompletionDrainRules.CountersStable(10, 9, 10, 9));
 Check("completion drain relevant後発拒否", !WriteCompletionDrainRules.CountersStable(10, 10, 11, 10));
 Check("completion drain accounted後発拒否", !WriteCompletionDrainRules.CountersStable(10, 10, 10, 11));
-Check("completion drain broad 0は既存分類", WriteCompletionDrainRules.LookupFailure(0, 0, 0, false) is null);
-Check("completion drain epoch 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 0, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
-Check("completion drain exact late", WriteCompletionDrainRules.LookupFailure(1, 0, 0, true) == "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_EVENT_AFTER_SEAL");
+Check("completion drain broad 0は既存分類", WriteCompletionDrainRules.LookupFailure(0, 0, 0, 0) is null);
+Check("completion drain epoch 0 late 0固定診断", WriteCompletionDrainRules.LookupFailure(1, 0, 0, 0) == WriteCompletionDrainRules.LookupEpochEmptyNoLateProofFailureCode);
+Check("completion drain epoch 0 late 1は既存late", WriteCompletionDrainRules.LookupFailure(1, 0, 0, 1) == WriteCompletionDrainRules.GenericLateEventFailureCode);
+Check("completion drain epoch 0 late 2も既存late", WriteCompletionDrainRules.LookupFailure(2, 0, 0, 2) == WriteCompletionDrainRules.GenericLateEventFailureCode);
 var exactLateTuple = new[] { true, true, true, true, true, true };
 LateEventDiagnosticCandidate LateCandidate(bool[] tuple) => new(
     tuple[0], tuple[1], tuple[2], tuple[3], tuple[4], tuple[5]);
@@ -1293,30 +1294,65 @@ var postRequestTupleBefore = postRequestTuple.ToArray();
 _ = CanPostRequest();
 Check("completion drain post-request純粋規則は入力state無変更",
     postRequestTuple.SequenceEqual(postRequestTupleBefore));
-var postRequestReplayTuple = Enumerable.Repeat(true, 17).ToArray();
+var postRequestReplayTuple = Enumerable.Repeat(true, 15).ToArray();
+var postRequestReplayAxes = new[] {
+    "event kind", "current path", "completion requested", "completion present",
+    "deadline present", "event qpc", "completed record absent", "proof kind",
+    "generation before", "generation after", "state before", "state after",
+    "proof path", "producer pid", "producer sequence",
+};
 Check("completion drain post-request sealed再検査all true",
-    WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+    WriteCompletionDrainRules.PostRequestReplayFieldsMatch(
         WriteCompletionReplayKind.PostRequestSystemSetInfo,
         postRequestReplayTuple));
 for (var index = 0; index < postRequestReplayTuple.Length; index++)
 {
     var oneFalse = postRequestReplayTuple.ToArray();
     oneFalse[index] = false;
-    Check($"completion drain post-request sealed再検査軸 {index} falseを拒否",
-        !WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+    Check($"completion drain post-request fields {postRequestReplayAxes[index]} falseを拒否",
+        !WriteCompletionDrainRules.PostRequestReplayFieldsMatch(
             WriteCompletionReplayKind.PostRequestSystemSetInfo,
             oneFalse));
 }
 var postRequestReplayTupleBefore = postRequestReplayTuple.ToArray();
-_ = WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+_ = WriteCompletionDrainRules.PostRequestReplayFieldsMatch(
     WriteCompletionReplayKind.PostRequestSystemSetInfo,
     postRequestReplayTuple);
 Check("completion drain post-request sealed再検査純粋規則は入力state無変更",
     postRequestReplayTuple.SequenceEqual(postRequestReplayTupleBefore));
 Check("completion drain flagなしlate sealed再検査を拒否",
-    !WriteCompletionDrainRules.PostRequestReplayTupleMatches(
+    !WriteCompletionDrainRules.PostRequestReplayFieldsMatch(
         WriteCompletionReplayKind.NormalEpoch,
         postRequestReplayTuple));
+var sealedRecheckFields = Enumerable.Repeat(true, 11).ToArray();
+Check("completion drain sealed recheck seal 0固定診断",
+    WriteCompletionDrainRules.RecheckSealedFailure(0, sealedRecheckFields) ==
+        WriteCompletionDrainRules.RecheckSealMissingFailureCode);
+Check("completion drain sealed recheck seal 1 all true許可",
+    WriteCompletionDrainRules.RecheckSealedFailure(1, sealedRecheckFields) is null);
+Check("completion drain sealed recheck seal 2固定診断",
+    WriteCompletionDrainRules.RecheckSealedFailure(2, sealedRecheckFields) ==
+        WriteCompletionDrainRules.RecheckSealAmbiguousFailureCode);
+for (var index = 0; index < sealedRecheckFields.Length; index++)
+{
+    var oneFalse = sealedRecheckFields.ToArray();
+    oneFalse[index] = false;
+    Check($"completion drain sealed recheck fields軸 {index} false固定診断",
+        WriteCompletionDrainRules.RecheckSealedFailure(1, oneFalse) ==
+            WriteCompletionDrainRules.RecheckFieldsFailureCode);
+}
+var sealedRecheckFieldsBefore = sealedRecheckFields.ToArray();
+_ = WriteCompletionDrainRules.RecheckSealedFailure(1, sealedRecheckFields);
+Check("completion drain sealed recheck純粋規則は入力state無変更",
+    sealedRecheckFields.SequenceEqual(sealedRecheckFieldsBefore));
+Check("completion drain sealed recheck seal identity falseは既存code",
+    WriteCompletionDrainRules.RecheckIdentityFailure(false, true) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+Check("completion drain sealed recheck proof identity falseは既存code",
+    WriteCompletionDrainRules.RecheckIdentityFailure(true, false) ==
+        "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
+Check("completion drain sealed recheck identity all true許可",
+    WriteCompletionDrainRules.RecheckIdentityFailure(true, true) is null);
 var activeProducerTuple = Enumerable.Repeat(true, 4).ToArray();
 string ActiveProducerBirth(
     bool[]? tuple = null,
@@ -1720,16 +1756,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 43",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 43 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 43 &&
+Check("completion drain external code集合はexact 49",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 49 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 49 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は96文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 96);
-Check("completion drain external exact 43 codeはnative replyで不変",
+Check("completion drain external exact 49 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 foreach (var code in new[] {
@@ -1742,14 +1778,22 @@ foreach (var code in new[] {
     Check("completion drain unknown/extra/exact128はnative generic化",
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) ==
         "F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
-Check("completion drain exact 0 mismatch", WriteCompletionDrainRules.LookupFailure(1, 1, 0, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
-Check("completion drain exact 1許可", WriteCompletionDrainRules.LookupFailure(1, 1, 1, false) is null);
-Check("completion drain exact 2 mismatch", WriteCompletionDrainRules.LookupFailure(2, 2, 2, false) == "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+Check("completion drain exact 0固定診断", WriteCompletionDrainRules.LookupFailure(1, 1, 0, 0) == WriteCompletionDrainRules.LookupExactMissingFailureCode);
+Check("completion drain exact 1許可", WriteCompletionDrainRules.LookupFailure(1, 1, 1, 0) is null);
+Check("completion drain exact 2固定診断", WriteCompletionDrainRules.LookupFailure(2, 2, 2, 0) == WriteCompletionDrainRules.LookupExactAmbiguousFailureCode);
 Check("completion drain同一parent 2 sealからepoch 1を一意選択",
-    WriteCompletionDrainRules.LookupFailure(2, 1, 1, false) is null);
-Check("completion drain同一parent 2 sealでepoch 0を拒否",
-    WriteCompletionDrainRules.LookupFailure(2, 0, 0, false) ==
-        "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_MISMATCH");
+    WriteCompletionDrainRules.LookupFailure(2, 1, 1, 0) is null);
+Check("completion drain同一parent 2 sealでepoch 0 late 0固定診断",
+    WriteCompletionDrainRules.LookupFailure(2, 0, 0, 0) ==
+        WriteCompletionDrainRules.LookupEpochEmptyNoLateProofFailureCode);
+var contradictoryLookups = new[] {
+    (-1, 0, 0, 0), (1, -1, 0, 0), (1, 0, -1, 0), (1, 0, 0, -1),
+    (1, 2, 0, 0), (1, 1, 2, 0), (1, 1, 1, 1), (0, 0, 0, 1),
+};
+foreach (var (broad, epoch, exact, late) in contradictoryLookups)
+    Check("completion drain lookup矛盾は旧genericへfail-close",
+        WriteCompletionDrainRules.LookupFailure(broad, epoch, exact, late) ==
+            WriteCompletionDrainRules.EventTupleMismatchFailureCode);
 Check("completion drain初回identity code", WriteCompletionDrainRules.ProcessFailureCode("IDENTITY", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_IDENTITY_FAILED");
 Check("completion drain初回wait code", WriteCompletionDrainRules.ProcessFailureCode("PROCESS_WAIT_FAILED", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_PROCESS_WAIT_FAILED");
 Check("completion drain初回job code", WriteCompletionDrainRules.ProcessFailureCode("JOB_QUERY_FAILED", false) == "F005_ETW_WRITE_COMPLETION_DRAIN_JOB_QUERY_FAILED");

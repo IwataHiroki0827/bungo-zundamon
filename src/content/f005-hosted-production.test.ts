@@ -60,7 +60,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-046 fences producer birth before reservation.',
+      '# Native tooling stays outside; CHG-F005-048 classifies completion-drain tuple failures',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
@@ -73,7 +73,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(43);
+    expect(drainCodes).toHaveLength(49);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     for (const code of [

@@ -948,7 +948,7 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(43);
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(49);
     for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
       const failure = new F005NativeCapacityError(code, 'fixed drain stage');
