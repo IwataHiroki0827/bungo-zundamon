@@ -1237,3 +1237,13 @@ attempts:
   cause: 既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ安全停止しT-122対象分類へ未到達
   recovery: retry limit到達のためQ-045へエスカレーションし、CHG-F005-053/T-127で決定的hosted影響確認を設計する
   log: docs/evidence/qt/QT-F005-008-009-CHG-048-hosted-followup-attempt-3.md
+- date: '2026-08-08T14:14:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-053-hosted
+  attempt: 1
+  command: GitHub Actions native correlation run 31241090301 / Pages run 31241090252
+  result: pass
+  failures: 0
+  cause: none
+  recovery: T-127、T-122、CHG-F005-053、CHG-F005-048をdoneとし未完了タスクを再整列する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-053-hosted-attempt-1.md
