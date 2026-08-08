@@ -2083,6 +2083,102 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
+  it('completed no-lease複数候補を同一gateの固定診断でterminal拒否する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const authorize = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    const lateBlock = authorize.slice(
+      authorize.indexOf('if (epoch.Length == 0)'),
+      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+    );
+    const snapshotIndex = lateBlock.indexOf('var lateCandidates = broad.Where(');
+    const aggregateIndex = lateBlock.indexOf(
+      'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
+    );
+    const cardinalityIndex = lateBlock.indexOf(
+      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+    );
+    const firstHandoffIndex = lateBlock.indexOf(
+      'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
+    );
+    expect(lateBlock.match(
+      /CompletedNoLeaseDirectoryHandoffCardinalityFailureCode\(/gu,
+    )).toHaveLength(1);
+    expect(snapshotIndex).toBeGreaterThanOrEqual(0);
+    expect(aggregateIndex).toBeGreaterThan(snapshotIndex);
+    expect(cardinalityIndex).toBeGreaterThan(aggregateIndex);
+    expect(firstHandoffIndex).toBeGreaterThan(cardinalityIndex);
+    const terminalDecision = lateBlock.slice(cardinalityIndex, firstHandoffIndex);
+    expect(terminalDecision).toContain('lateCandidates.Length');
+    expect(terminalDecision).toContain('failure);');
+    expect(terminalDecision).toMatch(
+      /if \(cardinalityFailure is not null\)\s+throw new GuardException\(cardinalityFailure\);/u,
+    );
+    for (const forbidden of [
+      'Monitor.Wait', 'Monitor.Exit', 'lock (', 'broad.Where(',
+      'lateCandidates =', 'ToArray()', 'activePhase', 'pendingWriteLease',
+    ]) expect(terminalDecision).not.toContain(forbidden);
+    for (const downstream of [
+      'IsCompletedWriteHandoffCandidate(',
+      'CanHandoffCompletedNoLeaseDirectory(',
+      'CanAuthorizePostRequestSystemSetInfo(',
+      'CanHandoffActiveDirectory(',
+      'ActiveProducerBirthFailureCode(',
+    ]) expect(lateBlock.indexOf(downstream)).toBeGreaterThan(cardinalityIndex);
+
+    const rule = program.slice(
+      program.indexOf(
+        'public static string? CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+      ),
+      program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),
+    );
+    for (const required of [
+      'lateCandidateCount >= 2',
+      'aggregateFailureCode == LateDiagnosticWriteActiveLeaseMissingFailureCode',
+      '? CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
+      ': null;',
+    ]) expect(rule).toContain(required);
+    for (const forbidden of [
+      'lateCandidateCount == 1', 'throw ', 'lock (', 'Monitor.',
+      'Add(', 'Remove(', '= checked(',
+    ]) expect(rule).not.toContain(forbidden);
+    const existingExactOneRule = program.slice(
+      program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),
+      program.indexOf(
+        'public static CompletedNoLeaseKnownAuthorizationDecision',
+      ),
+    );
+    expect(existingExactOneRule).toContain('lateCandidateCount == 1');
+    expect(existingExactOneRule).toContain(
+      'aggregateFailureCode == LateDiagnosticWriteActiveLeaseMissingFailureCode',
+    );
+    expect(existingExactOneRule).not.toContain(
+      'CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
+    );
+
+    const failureCode =
+      'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
+    expect(failureCode).toHaveLength(88);
+    for (const sentinel of [
+      '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
+      'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
+      'sequence=18446744073709551614', 'handle=0xFEEDFACE',
+    ]) expect(failureCode).not.toContain(sentinel);
+    const journal = program.slice(
+      program.indexOf('private SortedDictionary<string, object?> JournalBody()'),
+      program.indexOf('private void PoisonLocked('),
+    );
+    expect(journal).not.toContain(
+      'CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode',
+    );
+    expect(terminalDecision).not.toMatch(
+      /(?:normalized|eventQpc|pid|fileObject|Identity|Sequence|Handle)/u,
+    );
+  });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
   it('completed no-lease replay storeをproduction queue/ledger/handle/Disposeへ直結する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const fields = program.slice(

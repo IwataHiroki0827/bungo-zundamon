@@ -180,7 +180,7 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(classifyF005NativeCapacityReplyError(
     `${otherKnownPath.slice(5)}_PRIVATE`,
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
-  expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(49);
+  expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(50);
   for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
     const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
     expect(isF005WriteCompletionDrainFailureCode(code)).toBe(true);
@@ -221,6 +221,7 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
     'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE',
     'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
+    'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
     'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
   ]) {
     expect(isF005WriteCompletionDrainFailureCode(code)).toBe(false);
@@ -1065,7 +1066,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (772 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (784 cases)'),
     });
   }, 120_000);
 });

@@ -1141,6 +1141,103 @@ var completedNoLeaseTupleBefore = completedNoLeaseTuple.ToArray();
 _ = CanCompletedNoLeaseDirectoryHandoff();
 Check("completion drain completed no-lease handoff純粋規則は入力state無変更",
     completedNoLeaseTuple.SequenceEqual(completedNoLeaseTupleBefore));
+const string completedNoLeaseAmbiguousCode =
+    "F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
+Check("completion drain completed no-lease ambiguous codeはexact 88文字",
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode ==
+            completedNoLeaseAmbiguousCode &&
+    completedNoLeaseAmbiguousCode.Length == 88);
+foreach (var count in new[] { -1, 0, 1 })
+    Check($"completion drain completed no-lease候補{count}件はoverrideなし",
+        WriteCompletionDrainRules
+            .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+                count,
+                WriteCompletionDrainRules
+                    .LateDiagnosticWriteActiveLeaseMissingFailureCode) is null);
+foreach (var count in new[] { 2, int.MaxValue })
+    Check($"completion drain completed no-lease候補{count}件は固定ambiguous",
+        WriteCompletionDrainRules
+            .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+                count,
+                WriteCompletionDrainRules
+                    .LateDiagnosticWriteActiveLeaseMissingFailureCode) ==
+            completedNoLeaseAmbiguousCode);
+Check("completion drain completed no-lease別aggregateは複数候補でもoverrideなし",
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+            2,
+            WriteCompletionDrainRules.GenericLateEventFailureCode) is null);
+var ambiguousCandidates = new[] { "seal-z", "seal-a" };
+var ambiguousCandidatesBefore = ambiguousCandidates.ToArray();
+var forwardAmbiguousCode = WriteCompletionDrainRules
+    .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+        ambiguousCandidates.Length,
+        WriteCompletionDrainRules.LateDiagnosticWriteActiveLeaseMissingFailureCode);
+Array.Reverse(ambiguousCandidates);
+var reverseAmbiguousCode = WriteCompletionDrainRules
+    .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+        ambiguousCandidates.Length,
+        WriteCompletionDrainRules.LateDiagnosticWriteActiveLeaseMissingFailureCode);
+Check("completion drain completed no-lease同一cause 2候補は順序非依存",
+    forwardAmbiguousCode == completedNoLeaseAmbiguousCode &&
+    reverseAmbiguousCode == completedNoLeaseAmbiguousCode);
+Array.Reverse(ambiguousCandidates);
+Check("completion drain cardinality純粋規則は候補入力を変更しない",
+    ambiguousCandidates.SequenceEqual(ambiguousCandidatesBefore));
+
+var cardinalityGate = new object();
+var cardinalitySnapshotReady = new ManualResetEventSlim(false);
+var cardinalityDriftAttempting = new ManualResetEventSlim(false);
+var cardinalityAllowDecision = new ManualResetEventSlim(false);
+var cardinalityDriftEntered = new ManualResetEventSlim(false);
+var cardinalitySourceCandidates = new[] { "seal-1", "seal-2" };
+var cardinalitySemanticState = new[] {
+    "files=1", "allocated=10", "deferred=1", "observations=1", "notices=1",
+    "lease=null", "peak=10", "free=100", "ledger=2", "queue=0", "handles=2",
+};
+var cardinalitySemanticBefore = string.Join("|", cardinalitySemanticState);
+string? cardinalityBarrierCode = null;
+string? cardinalitySemanticAtDecision = null;
+var cardinalityDecision = Task.Run(() => {
+    lock (cardinalityGate)
+    {
+        var lateCandidateSnapshot = cardinalitySourceCandidates.ToArray();
+        var aggregateFailure = WriteCompletionDrainRules
+            .LateDiagnosticWriteActiveLeaseMissingFailureCode;
+        cardinalitySnapshotReady.Set();
+        if (!cardinalityAllowDecision.Wait(TimeSpan.FromSeconds(2)))
+            throw new InvalidOperationException("CARDINALITY_DECISION_TIMEOUT");
+        cardinalityBarrierCode = WriteCompletionDrainRules
+            .CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(
+                lateCandidateSnapshot.Length,
+                aggregateFailure);
+        cardinalitySemanticAtDecision = string.Join("|", cardinalitySemanticState);
+    }
+});
+var cardinalityDrift = Task.Run(() => {
+    if (!cardinalitySnapshotReady.Wait(TimeSpan.FromSeconds(2)))
+        throw new InvalidOperationException("CARDINALITY_SNAPSHOT_TIMEOUT");
+    cardinalityDriftAttempting.Set();
+    lock (cardinalityGate)
+    {
+        cardinalityDriftEntered.Set();
+        cardinalitySourceCandidates = ["seal-drift"];
+        cardinalitySemanticState[5] = "lease=drift";
+    }
+});
+if (!cardinalitySnapshotReady.Wait(TimeSpan.FromSeconds(2)) ||
+    !cardinalityDriftAttempting.Wait(TimeSpan.FromSeconds(2)))
+    throw new InvalidOperationException("CARDINALITY_BARRIER_START_TIMEOUT");
+var cardinalityDriftBlockedAtDecision =
+    !cardinalityDriftEntered.Wait(TimeSpan.FromMilliseconds(100));
+cardinalityAllowDecision.Set();
+Task.WaitAll(cardinalityDecision, cardinalityDrift);
+Check("completion drain cardinalityは同一gate snapshotでdrift前に固定拒否",
+    cardinalityDriftBlockedAtDecision &&
+    cardinalityBarrierCode == completedNoLeaseAmbiguousCode &&
+    cardinalitySemanticAtDecision == cardinalitySemanticBefore &&
+    cardinalityDriftEntered.IsSet);
 foreach (var (authorized, poisoned, expected, expectedPoisonChecks) in new[] {
     (true, false, CompletedNoLeaseKnownAuthorizationDecision.Pass, 0),
     (false, true, CompletedNoLeaseKnownAuthorizationDecision.Poisoned, 1),
@@ -1756,23 +1853,36 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 49",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 49 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 49 &&
+Check("completion drain external code集合はexact 50",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 50 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 50 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は96文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 96);
-Check("completion drain external exact 49 codeはnative replyで不変",
+Check("completion drain external exact 50 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
+var privateAmbiguitySentinels = new[] {
+    "2147483647", "C:/sentinel/private.wav", "9223372036854775000",
+    "pid=424242", "fileObject=0xDEADBEEF", "identity=volume:private",
+    "sequence=18446744073709551614", "handle=0xFEEDFACE",
+};
+var externalAmbiguityCode = WriteCompletionDrainRules.NormalizeExternalFailureCode(
+    WriteCompletionDrainRules
+        .CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode);
+Check("completion drain ambiguous fixed diagnosticはsentinel非包含",
+    externalAmbiguityCode == completedNoLeaseAmbiguousCode &&
+    privateAmbiguitySentinels.All(sentinel =>
+        !externalAmbiguityCode.Contains(sentinel, StringComparison.Ordinal)));
 foreach (var code in new[] {
     "F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA",
     "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT".PadRight(128, 'X'),
 })
     Check("completion drain unknown/extra/exact128はnative generic化",

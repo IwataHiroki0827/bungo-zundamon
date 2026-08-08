@@ -948,23 +948,40 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(49);
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(50);
+    const ambiguitySentinels = [
+      '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
+      'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
+      'sequence=18446744073709551614', 'handle=0xFEEDFACE',
+    ];
     for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
-      const failure = new F005NativeCapacityError(code, 'fixed drain stage');
+      const isAmbiguity = stage ===
+        'COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
+      const failure = new F005NativeCapacityError(
+        code,
+        isAmbiguity ? ambiguitySentinels.join('|') : 'fixed drain stage',
+      );
+      const serialized = formatF005RunnerFailure(
+        new Error('voice boundary', { cause: failure }),
+      );
       expect(JSON.parse(
-        formatF005RunnerFailure(
-          new Error('voice boundary', { cause: failure }),
-        ).slice(F005_RUNNER_FAILURE_PREFIX.length),
+        serialized.slice(F005_RUNNER_FAILURE_PREFIX.length),
       )).toMatchObject({
         cause: { name: 'F005NativeCapacityError', code },
       });
+      if (isAmbiguity) {
+        for (const sentinel of ambiguitySentinels) {
+          expect(serialized).not.toContain(sentinel);
+        }
+      }
     }
     for (const code of [
       'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) {
       const failure = Object.assign(new Error('generic'), {
