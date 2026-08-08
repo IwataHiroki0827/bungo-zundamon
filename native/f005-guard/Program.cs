@@ -4380,6 +4380,39 @@ sealed class CapacityGuardSession : IDisposable
                         classification.TemporalInvalidCount)
                 : WriteCompletionDrainRules.LookupFailure(
                     broad.Length, epoch.Length, 0, lateCandidates.Length)!;
+            if (failure == WriteCompletionDrainRules
+                    .LookupPostUpperProofParentBoundAllFailureCode)
+            {
+                var leaseFileObject = activeLease?.FileObject ?? 0;
+                var leaseIdentity = activeLease?.Snapshot?.Identity;
+                var leasePath = activeLease?.RelativePath;
+                var slash = leasePath?.LastIndexOf('/') ?? -1;
+                var exactGenerationPresent = activeLease is not null &&
+                    ledger is not null && leaseFileObject != 0 &&
+                    !string.IsNullOrEmpty(leaseIdentity) &&
+                    !string.IsNullOrEmpty(leasePath) &&
+                    ledger.ExactGeneration(
+                        leaseFileObject, leaseIdentity, leasePath) is not null;
+                failure = WriteCompletionDrainRules
+                    .ParentBoundActiveLeaseFailureCode(
+                        broad.Length,
+                        eventName,
+                        fileObject,
+                        activeLease is not null,
+                        activePhase is not null,
+                        activeLease?.Snapshot is not null,
+                        leaseFileObject,
+                        leaseIdentity,
+                        leasePath,
+                        activePhase?.Phase == "voice",
+                        activeLease is not null && activePhase is not null &&
+                            activeLease.PhaseInstanceId == activePhase.PhaseInstanceId,
+                        slash > 0 && leasePath![..slash] == normalized,
+                        activeLease is not null &&
+                            eventQpc > activeLease.CurrentPathReservedAtQpc,
+                        exactGenerationPresent);
+                throw new GuardException(failure);
+            }
             if (lateCandidates.Length != 0)
             {
                 var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
@@ -9209,6 +9242,12 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_OTHER_STATE_ALL";
     public const string LookupPostUpperProofParentStateMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_STATE_MIXED";
+    public const string LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ACTIVE_LEASE_WRITE_ALL";
+    public const string LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ACTIVE_LEASE_SETINFO_ALL";
+    public const string LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ACTIVE_LEASE_BINDING_MISMATCH_ALL";
     public const string LookupPostUpperProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
@@ -9311,6 +9350,9 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofParentRetiredAllFailureCode,
         LookupPostUpperProofParentOtherStateAllFailureCode,
         LookupPostUpperProofParentStateMixedFailureCode,
+        LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode,
+        LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode,
+        LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode,
         LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
         LookupExactAmbiguousFailureCode,
@@ -9625,6 +9667,42 @@ public static class WriteCompletionDrainRules
             UnboundMatchResult.OtherState => LookupPostUpperProofParentOtherStateAllFailureCode,
             _ => StateChangedFailureCode,
         };
+    }
+
+    public static string ParentBoundActiveLeaseFailureCode(
+        int candidateCount,
+        string eventName,
+        ulong eventFileObject,
+        bool activeLeasePresent,
+        bool activePhasePresent,
+        bool activeSnapshotPresent,
+        ulong activeLeaseFileObject,
+        string? activeLeaseIdentity,
+        string? activeLeasePath,
+        bool activeVoicePhase,
+        bool phaseInstanceMatches,
+        bool sameParent,
+        bool eventAfterActiveReservation,
+        bool exactGenerationPresent)
+    {
+        if (candidateCount is < 1 or > 128) return StateChangedFailureCode;
+        if (eventName is not ("write" or "setinfo")) return StateChangedFailureCode;
+        if (eventFileObject == 0) return StateChangedFailureCode;
+        if (!activeLeasePresent) return StateChangedFailureCode;
+        if (!activePhasePresent) return StateChangedFailureCode;
+        if (!activeSnapshotPresent) return StateChangedFailureCode;
+        if (activeLeaseFileObject == 0) return StateChangedFailureCode;
+        if (string.IsNullOrEmpty(activeLeaseIdentity)) return StateChangedFailureCode;
+        if (string.IsNullOrEmpty(activeLeasePath)) return StateChangedFailureCode;
+        if (!activeVoicePhase) return StateChangedFailureCode;
+        if (!phaseInstanceMatches) return StateChangedFailureCode;
+        if (!sameParent) return StateChangedFailureCode;
+        if (!eventAfterActiveReservation) return StateChangedFailureCode;
+        if (eventFileObject != activeLeaseFileObject || !exactGenerationPresent)
+            return LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode;
+        return eventName == "write"
+            ? LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode
+            : LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode;
     }
 
     public static string CurrentBindingFailureCode(

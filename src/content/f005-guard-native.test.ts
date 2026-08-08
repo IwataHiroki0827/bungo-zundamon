@@ -1551,6 +1551,18 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(lateBlock).not.toContain(
       'LookupPostUpperProofParentNotUnboundAllFailureCode',
     );
+    const parentBoundTerminal = lateBlock.slice(
+      lateBlock.indexOf(
+        'if (failure == WriteCompletionDrainRules\n                    .LookupPostUpperProofParentBoundAllFailureCode)',
+      ),
+      lateBlock.indexOf('if (lateCandidates.Length != 0)'),
+    );
+    expect(parentBoundTerminal.match(/ledger\.ExactGeneration\(/gu)).toHaveLength(1);
+    expect(parentBoundTerminal).toContain('ParentBoundActiveLeaseFailureCode(');
+    expect(parentBoundTerminal).toContain('throw new GuardException(failure);');
+    expect(parentBoundTerminal).not.toContain('OtherBound');
+    expect(parentBoundTerminal).not.toContain('.Admit(');
+    expect(parentBoundTerminal).not.toContain('Apply');
     expect(authorize.match(/EvaluateProof\(seal\)/gu)).toHaveLength(1);
     expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');
     expect(lateBlock).toContain('lateCandidates.Select(seal => new LateEventDiagnosticCandidate(');
