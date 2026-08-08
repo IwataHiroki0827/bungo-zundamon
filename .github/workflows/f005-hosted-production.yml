@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; T-112 follow-up checks immutable completion-drain binding proof
-# against the current fail-closed guard. This self-path starts follow-up hosted attempt 1/3.
+# against the current fail-closed guard. This self-path starts follow-up hosted attempt 2/3.
 on:
   push:
     branches:
