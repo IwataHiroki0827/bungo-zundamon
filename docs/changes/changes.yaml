@@ -1,4 +1,10 @@
 changes:
+- id: CHG-F005-057
+  date: '2026-08-08'
+  trigger: CHG-F005-056 production run 31246255285がactive-directory複数候補の全件適格ELIGIBLE_ALLで候補保存前に安全停止
+  level: design
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-118, T-125, T-130, T-131]
+  status: in-review
 - id: CHG-F005-056
   date: '2026-08-08'
   trigger: 最新guardのT-070 production run 31244948483がACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSで候補保存前に安全停止

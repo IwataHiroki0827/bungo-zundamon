@@ -2485,3 +2485,14 @@ tasks:
   mode_reason: 複数適格候補を選択・認可せず、全候補適格と適格・不適格混在の一軸だけを固定診断するため
   model: {lead: opus, workers: sonnet}
   progress: ALL/MIXED固定診断を実装しlocal・独立受入H0/M0/L0でPASS。run 31246255285でELIGIBLE_ALL、native correlation 31246255279で52/52、candidate branch不存在、Pages deploy skipを確認して完了
+- id: T-131
+  title: CHG-F005-057 active-directory全適格候補集合の非選択handoff
+  feature: F005
+  phase: change
+  state: todo
+  depends: [T-130]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: 全late candidateが既存predicateを満たす場合だけ、旧sealを選択せず現在active leaseの既存認可へ接続するため
+  model: {lead: opus, workers: sonnet}
+  progress: candidate-set irrelevanceと後段再認可を明示する設計を作成し、production実物との独立設計レビューH0/M0/L0でPASS
