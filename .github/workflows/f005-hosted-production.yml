@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.
-# This self-path verifies the T-133 reachable reservation-state diagnostics with the current fail-closed guard.
+# This self-path verifies the T-135 equivalent no-lease seal-set handoff with the current fail-closed guard.
 on:
   push:
     branches:

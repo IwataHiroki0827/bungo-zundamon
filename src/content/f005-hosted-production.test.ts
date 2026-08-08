@@ -63,7 +63,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       '# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.',
     );
     expect(raw).toContain(
-      '# This self-path verifies the T-133 reachable reservation-state diagnostics with the current fail-closed guard.',
+      '# This self-path verifies the T-135 equivalent no-lease seal-set handoff with the current fail-closed guard.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
