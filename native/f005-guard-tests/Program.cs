@@ -1266,7 +1266,8 @@ foreach (var matchAtEnd in new[] { false, true })
     var fixture = Task.Run(() => {
         var selection = WriteCompletionDrainRules
             .SelectCompletedNoLeaseDirectoryHandoffIdentity(
-                candidates, "volume:current", seal => seal.DirectoryIdentity);
+                candidates, "volume:current", seal => seal.DirectoryIdentity,
+                seal => seal.Sequence);
         if (selection.FailureCode is null)
         {
             authorizationCalls++;
@@ -1282,29 +1283,119 @@ foreach (var matchAtEnd in new[] { false, true })
         other.ProofReadCount == 0 && other.ReplayReadCount == 0 &&
         other.EventCountReadCount == 0);
 }
-foreach (var identities in new[] {
-    new[] { "volume:other-a", "volume:other-b" },
-    new[] { "volume:current", "volume:current" },
-})
+foreach (var count in new[] { 2, 3, 128 })
 {
     var authorizationCalls = 0;
+    var source = Enumerable.Range(0, count).Select(_ =>
+        new CompletedNoLeaseIdentitySeamFixture("volume:current")).ToList();
     var fixture = Task.Run(() => {
-        var candidates = identities.Select(identity =>
-            new CompletedNoLeaseIdentitySeamFixture(identity)).ToArray();
         var selection = WriteCompletionDrainRules
             .SelectCompletedNoLeaseDirectoryHandoffIdentity(
-                candidates, "volume:current", seal => seal.DirectoryIdentity);
+                source, "volume:current", seal => seal.DirectoryIdentity,
+                seal => seal.Sequence);
         if (selection.FailureCode is null) authorizationCalls++;
         return selection;
     }).GetAwaiter().GetResult();
-    Check("completion drain identity 0/2+は後段認可へfall-throughしない",
-        fixture.Selected is null && fixture.FailureCode is not null &&
-        authorizationCalls == 0);
+    var snapshot = fixture.Matches.ToArray();
+    source.Clear();
+    source.Add(new CompletedNoLeaseIdentitySeamFixture("volume:mutated"));
+    Check($"completion drain identity集合{count}件は非選択/defensive copy/認可1回",
+        fixture.Selected is null && fixture.FailureCode is null &&
+        fixture.Matches.Length == count &&
+        fixture.Matches.SequenceEqual(snapshot) && authorizationCalls == 1);
 }
+var noneAuthorizationCalls = 0;
+var noneSelection = WriteCompletionDrainRules
+    .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+        new[] { new CompletedNoLeaseIdentitySeamFixture("volume:other") },
+        "volume:current", seal => seal.DirectoryIdentity, seal => seal.Sequence);
+if (noneSelection.FailureCode is null) noneAuthorizationCalls++;
+Check("completion drain identity 0件は後段認可へfall-throughしない",
+    noneSelection.Selected is null && noneSelection.Matches.IsEmpty &&
+    noneSelection.FailureCode == completedNoLeaseIdentityNoneCode &&
+    noneAuthorizationCalls == 0);
+var duplicateReference = new CompletedNoLeaseIdentitySeamFixture("volume:current");
+var duplicateReferenceSelection = WriteCompletionDrainRules
+    .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+        new[] { duplicateReference, duplicateReference }, "volume:current",
+        seal => seal.DirectoryIdentity, seal => seal.Sequence);
+var duplicateSequenceSelection = WriteCompletionDrainRules
+    .SelectCompletedNoLeaseDirectoryHandoffIdentity(
+        new[] {
+            new CompletedNoLeaseIdentitySeamFixture("volume:current", 999),
+            new CompletedNoLeaseIdentitySeamFixture("volume:current", 999),
+        }, "volume:current", seal => seal.DirectoryIdentity, seal => seal.Sequence);
+Check("completion drain identity集合の重複reference/sequenceはSTATE_CHANGED",
+    duplicateReferenceSelection.FailureCode ==
+        WriteCompletionDrainRules.StateChangedFailureCode &&
+    duplicateSequenceSelection.FailureCode ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+bool MemberMatches(CompletedNoLeaseIdentitySeamFixture member) =>
+    member.Present && member.State == "CompletedRetained" &&
+    member.Phase == "voice-1" && member.Path == "audio" &&
+    member.DirectoryIdentity == "volume:current" && member.Upper == 100 &&
+    101 > member.Upper;
+var driftMutations = new Action<CompletedNoLeaseIdentitySeamFixture>[] {
+    member => member.State = "Released",
+    member => member.Phase = "voice-2",
+    member => member.Path = "other",
+    member => member.DirectoryIdentity = "volume:replacement",
+    member => member.Upper = 101,
+    member => member.Present = false,
+};
+foreach (var mutate in driftMutations)
+{
+    var members = Enumerable.Range(0, 3).Select(_ =>
+        new CompletedNoLeaseIdentitySeamFixture("volume:current")).ToArray();
+    mutate(members[1]);
+    var capacity = 0;
+    var notice = 0;
+    var observation = 0;
+    var semantic = 0;
+    var valid = WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+        members, MemberMatches, member => member.Reinspect());
+    if (valid) { capacity++; notice++; observation++; semantic++; }
+    Check("completion drain集合単一member driftは全体停止/適用0",
+        !valid && capacity == 0 && notice == 0 && observation == 0 && semantic == 0);
+}
+var parentFailureMembers = Enumerable.Range(0, 3).Select(index =>
+    new CompletedNoLeaseIdentitySeamFixture("volume:current") {
+        ReinspectionFails = index == 1,
+    }).ToArray();
+var parentFailureApplied = 0;
+var parentFailureValid = WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+    parentFailureMembers, MemberMatches, member => member.Reinspect());
+if (parentFailureValid) parentFailureApplied++;
+Check("completion drain集合parent巡回途中失敗後も適用0",
+    !parentFailureValid && parentFailureMembers[0].ReinspectionCount == 1 &&
+    parentFailureMembers[1].ReinspectionCount == 1 &&
+    parentFailureMembers[2].ReinspectionCount == 0 && parentFailureApplied == 0);
+var applyDriftMembers = Enumerable.Range(0, 2).Select(_ =>
+    new CompletedNoLeaseIdentitySeamFixture("volume:current")).ToArray();
+var preflightPass = WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+    applyDriftMembers, MemberMatches, _ => { });
+applyDriftMembers[1].State = "Released";
+var applyPass = WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+    applyDriftMembers, MemberMatches, _ => { });
+var applyMutationCount = preflightPass && applyPass ? 1 : 0;
+Check("completion drain集合preflight→apply間driftは更新前停止",
+    preflightPass && !applyPass && applyMutationCount == 0);
+var callbackTuple = new {
+    SealSequence = (long?)null,
+    ReplayKind = WriteCompletionReplayKind.NormalEpoch,
+    ProofKind = WriteCompletionBindingKind.OtherBound,
+    ProofCount = 1,
+    ReplayEventCount = 0,
+};
+Check("completion drain集合callbackはOtherBound/null/Normal/replay EventCount0",
+    callbackTuple.SealSequence is null &&
+    callbackTuple.ReplayKind == WriteCompletionReplayKind.NormalEpoch &&
+    callbackTuple.ProofKind == WriteCompletionBindingKind.OtherBound &&
+    callbackTuple.ProofCount == 1 && callbackTuple.ReplayEventCount == 0);
 var driftSelection = WriteCompletionDrainRules
     .SelectCompletedNoLeaseDirectoryHandoffIdentity(
         new[] { new CompletedNoLeaseIdentitySeamFixture("volume:sealed") },
-        "volume:sealed", seal => seal.DirectoryIdentity);
+        "volume:sealed", seal => seal.DirectoryIdentity, seal => seal.Sequence);
 var driftContextCreated = false;
 if (driftSelection.FailureCode is null &&
     WriteCompletionDrainRules.CompletedNoLeaseAuthorizedIdentityMatches(
@@ -3612,15 +3703,31 @@ void Check(string name, bool condition)
     if (!condition) failures.Add(name);
 }
 
-internal sealed class CompletedNoLeaseIdentitySeamFixture(string directoryIdentity)
+internal sealed class CompletedNoLeaseIdentitySeamFixture(
+    string directoryIdentity,
+    long? sequence = null)
 {
-    internal string DirectoryIdentity { get; } = directoryIdentity;
+    private static long nextSequence;
+    internal string DirectoryIdentity { get; set; } = directoryIdentity;
+    internal string State { get; set; } = "CompletedRetained";
+    internal string Phase { get; set; } = "voice-1";
+    internal string Path { get; set; } = "audio";
+    internal long Upper { get; set; } = 100;
+    internal bool Present { get; set; } = true;
+    internal bool ReinspectionFails { get; init; }
+    internal int ReinspectionCount { get; private set; }
+    internal long Sequence { get; } = sequence ?? Interlocked.Increment(ref nextSequence);
     internal int ProofReadCount { get; private set; }
     internal int ReplayReadCount { get; private set; }
     internal int EventCountReadCount { get; private set; }
     internal object? Proof { get { ProofReadCount++; return null; } }
     internal object? Replay { get { ReplayReadCount++; return null; } }
     internal int EventCount { get { EventCountReadCount++; return 0; } }
+    internal void Reinspect()
+    {
+        ReinspectionCount++;
+        if (ReinspectionFails) throw new InvalidOperationException("reinspect");
+    }
 }
 
 internal sealed record CompletedNoLeaseReplayFixtureSnapshot(

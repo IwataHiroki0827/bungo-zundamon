@@ -1995,7 +1995,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'pendingWriteLease is null',
       'seal.CompletionRequestedAtQpc is long',
       'eventQpc > completionUpper',
-      'completedNoLeaseDirectoryHandoff = seal;',
+      'CreateCompletedNoLeaseDirectorySealMember(seal)',
     ]) expect(lateBlock).toContain(required);
 
     const observe = program.slice(
@@ -2003,7 +2003,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private string QueueOrApplyCallbackLocked('),
     );
     const dedicated = observe.slice(
-      observe.indexOf('if (completedNoLeaseDirectoryHandoff is not null)'),
+      observe.indexOf('if (!completedNoLeaseDirectoryHandoff.IsDefaultOrEmpty)'),
       observe.indexOf('else if (activeDirectoryHandoff is not null)'),
     );
     expect(dedicated.match(/TryAuthorizeKnownSystemDirectoryWriteLocked\(/gu))
@@ -2038,10 +2038,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       program.indexOf('private enum WriteCompletionDrainState'),
     );
     for (const scalar of [
-      'long SealSequence', 'WriteCompletionDrainSeal Seal', 'ActivePhase Phase',
+      'ImmutableArray<CompletedNoLeaseDirectorySealMember> Members', 'ActivePhase Phase',
       'string PhaseInstanceId', 'long PhaseStartedAtQpc', 'string DirectoryPath',
       'string DirectoryIdentity', 'ulong EventFileObject', 'long EventQpc',
-      'long CompletionUpperQpc', 'int RootPid', 'ulong RootProcessStartKey',
+      'int RootPid', 'ulong RootProcessStartKey',
       'ulong RootProcessSequenceNumber',
     ]) expect(context).toContain(scalar);
     expect(context).not.toMatch(/\{\s*get;\s*set;/u);
@@ -2053,10 +2053,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     for (const required of [
       'CompletedNoLeaseContextStateMatches(',
       'pendingWriteLease is null',
-      'matchingSeals.Length == 1',
+      'matching.Length == 1',
       'WriteCompletionDrainState.CompletedRetained',
       'SystemDirectoryWriteRejoinStage(',
-      'seal.RetainedParent.Reinspect(',
+      'member.Seal.RetainedParent.Reinspect(',
       'job.InspectRetainedProcess(rootWorkerProcess!)',
       'CompletedNoLeaseRootProcessMatches(',
       'CompletedNoLeaseSnapshotMatches(',
@@ -2197,7 +2197,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     ]) expect(rule).toContain(required);
     for (const forbidden of [
       'throw ', 'lock (', 'Monitor.',
-      'Add(', 'Remove(',
+      'Remove(',
     ]) expect(rule).not.toContain(forbidden);
     const existingExactOneRule = program.slice(
       program.indexOf('public static bool CanHandoffCompletedNoLeaseDirectory('),

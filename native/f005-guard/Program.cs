@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Pipes;
@@ -3304,7 +3305,8 @@ sealed class CapacityGuardSession : IDisposable
                 WriteCompletionDrainSeal? completionDrainSeal = null;
                 WriteCompletionDrainSeal? completedWriteHandoff = null;
                 PendingWriteLease? activeDirectoryHandoff = null;
-                WriteCompletionDrainSeal? completedNoLeaseDirectoryHandoff = null;
+                ImmutableArray<CompletedNoLeaseDirectorySealMember>
+                    completedNoLeaseDirectoryHandoff = default;
                 var completionReplayKind = WriteCompletionReplayKind.NormalEpoch;
                 if (!AuthorizeJobMemberLocked(
                     pid,
@@ -3328,7 +3330,7 @@ sealed class CapacityGuardSession : IDisposable
                         out completedNoLeaseDirectoryHandoff,
                         out completionReplayKind))
                     {
-                        if (completedNoLeaseDirectoryHandoff is not null)
+                        if (!completedNoLeaseDirectoryHandoff.IsDefaultOrEmpty)
                         {
                             if (completionDrainSeal is not null ||
                                 completedWriteHandoff is not null ||
@@ -3371,7 +3373,8 @@ sealed class CapacityGuardSession : IDisposable
                                     "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
                                 return;
                             }
-                            var handoffSeal = completedNoLeaseDirectoryHandoff;
+                            var handoffMembers = completedNoLeaseDirectoryHandoff;
+                            var handoffSeal = handoffMembers[0].Seal;
                             if (!WriteCompletionDrainRules
                                 .CompletedNoLeaseAuthorizedIdentityMatches(
                                     systemSetInfoExpectedIdentity,
@@ -3383,8 +3386,7 @@ sealed class CapacityGuardSession : IDisposable
                             }
                             completedNoLeaseDirectoryRejoin =
                                 new CompletedNoLeaseDirectoryRejoinContext(
-                                    handoffSeal.SealSequence,
-                                    handoffSeal,
+                                    handoffMembers,
                                     activePhase,
                                     activePhase.PhaseInstanceId,
                                     activePhase.StartedAtQpc,
@@ -3392,9 +3394,6 @@ sealed class CapacityGuardSession : IDisposable
                                     systemSetInfoExpectedIdentity,
                                     fileObject,
                                     timestampQpc,
-                                    handoffSeal.CompletionRequestedAtQpc ??
-                                        throw new GuardException(
-                                            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED"),
                                     directoryPid,
                                     rootWorkerStartKey.Value,
                                     directorySequenceNumber);
@@ -4310,7 +4309,8 @@ sealed class CapacityGuardSession : IDisposable
         out WriteCompletionDrainSeal? selectedSeal,
         out WriteCompletionDrainSeal? completedWriteHandoff,
         out PendingWriteLease? activeDirectoryHandoff,
-        out WriteCompletionDrainSeal? completedNoLeaseDirectoryHandoff,
+        out ImmutableArray<CompletedNoLeaseDirectorySealMember>
+            completedNoLeaseDirectoryHandoff,
         out WriteCompletionReplayKind replayKind)
     {
         producerPid = 0;
@@ -4318,7 +4318,7 @@ sealed class CapacityGuardSession : IDisposable
         selectedSeal = null;
         completedWriteHandoff = null;
         activeDirectoryHandoff = null;
-        completedNoLeaseDirectoryHandoff = null;
+        completedNoLeaseDirectoryHandoff = default;
         replayKind = WriteCompletionReplayKind.NormalEpoch;
         var broad = writeCompletionSeals.Where(seal =>
             authorizationFailure == "BIRTH_MISSING" &&
@@ -4393,12 +4393,27 @@ sealed class CapacityGuardSession : IDisposable
                     .SelectCompletedNoLeaseDirectoryHandoffIdentity(
                         lateCandidates,
                         currentDirectory?.Identity,
-                        seal => seal.DirectoryIdentity);
+                        seal => seal.DirectoryIdentity,
+                        seal => seal.SealSequence);
                 if (identitySelection.FailureCode is not null)
                     throw new GuardException(identitySelection.FailureCode);
-                var seal = identitySelection.Selected ??
-                    throw new GuardException(
-                        "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                var selected = identitySelection.Selected;
+                if (selected is null)
+                {
+                    var commonIdentity = currentDirectory?.Identity ??
+                        throw new GuardException(
+                            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                    completedNoLeaseDirectoryHandoff = identitySelection.Matches
+                        .Select(CreateCompletedNoLeaseDirectorySealMember)
+                        .ToImmutableArray();
+                    ValidateCompletedNoLeaseDirectorySealMembers(
+                        completedNoLeaseDirectoryHandoff,
+                        normalized,
+                        commonIdentity,
+                        eventQpc);
+                    return true;
+                }
+                var seal = selected;
                 if (WriteCompletionDrainRules
                     .CanHandoffCompletedNoLeaseDirectory(
                         1, failure, authorizationFailure, pid, eventName,
@@ -4412,7 +4427,9 @@ sealed class CapacityGuardSession : IDisposable
                         seal.CompletionRequestedAtQpc is long completionUpper &&
                             eventQpc > completionUpper))
                 {
-                    completedNoLeaseDirectoryHandoff = seal;
+                    completedNoLeaseDirectoryHandoff = [
+                        CreateCompletedNoLeaseDirectorySealMember(seal),
+                    ];
                     return true;
                 }
             }
@@ -4531,7 +4548,9 @@ sealed class CapacityGuardSession : IDisposable
                         seal.CompletionRequestedAtQpc is long completionUpper &&
                             eventQpc > completionUpper))
                 {
-                    completedNoLeaseDirectoryHandoff = seal;
+                    completedNoLeaseDirectoryHandoff = [
+                        CreateCompletedNoLeaseDirectorySealMember(seal),
+                    ];
                     return true;
                 }
             }
@@ -4953,30 +4972,26 @@ sealed class CapacityGuardSession : IDisposable
     private void RecheckCompletedNoLeaseDirectoryProofIndependentLocked(
         CompletedNoLeaseDirectoryRejoinContext context)
     {
-        var matchingSeals = writeCompletionSeals.Where(item =>
-            item.SealSequence == context.SealSequence).ToArray();
         var phase = activePhase;
-        var seal = context.Seal;
         if (!WriteCompletionDrainRules.CompletedNoLeaseContextStateMatches(
             ReferenceEquals(phase, context.Phase),
             phase?.Phase == "voice",
             phase?.PhaseInstanceId == context.PhaseInstanceId,
             phase?.StartedAtQpc == context.PhaseStartedAtQpc,
             pendingWriteLease is null,
-            matchingSeals.Length == 1,
-            matchingSeals.Length == 1 && ReferenceEquals(matchingSeals[0], seal),
-            seal.State == WriteCompletionDrainState.CompletedRetained,
-            ReferenceEquals(seal.Phase, context.Phase),
-            seal.ParentPath == context.DirectoryPath,
-            seal.DirectoryIdentity == context.DirectoryIdentity,
-            seal.CompletionRequestedAtQpc == context.CompletionUpperQpc,
-            context.EventQpc > context.CompletionUpperQpc,
+            context.Members.Length is >= 1 and <= 128,
             rootWorkerPid == context.RootPid,
             rootWorkerStartKey == context.RootProcessStartKey,
             rootWorkerSequenceNumber == context.RootProcessSequenceNumber,
             rootWorkerProcess is not null))
             throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+
+        ValidateCompletedNoLeaseDirectorySealMembers(
+            context.Members,
+            context.DirectoryPath,
+            context.DirectoryIdentity,
+            context.EventQpc);
 
         string directoryStage;
         try { directoryStage = SystemDirectoryWriteRejoinStage(
@@ -4991,12 +5006,13 @@ sealed class CapacityGuardSession : IDisposable
                 context.DirectoryIdentity)
             throw new GuardException(
                 "ETW_SYSTEM_DIRECTORY_WRITE_REJOIN_IDENTITY_MISMATCH");
-        try { seal.RetainedParent.Reinspect(context.DirectoryIdentity); }
-        catch (GuardException)
-        {
+        if (!WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+            context.Members,
+            _ => true,
+            member => member.Seal.RetainedParent.Reinspect(
+                context.DirectoryIdentity)))
             throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
-        }
 
         JobObject.RetainedProcessInspection rootInspection;
         try { rootInspection = job.InspectRetainedProcess(rootWorkerProcess!); }
@@ -5012,6 +5028,37 @@ sealed class CapacityGuardSession : IDisposable
                 context.RootProcessSequenceNumber,
             !rootInspection.Signaled,
             rootInspection.JobMember))
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+    }
+
+    private static CompletedNoLeaseDirectorySealMember
+        CreateCompletedNoLeaseDirectorySealMember(WriteCompletionDrainSeal seal) =>
+            new(seal, seal.SealSequence,
+                seal.CompletionRequestedAtQpc ?? throw new GuardException(
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED"));
+
+    private void ValidateCompletedNoLeaseDirectorySealMembers(
+        ImmutableArray<CompletedNoLeaseDirectorySealMember> members,
+        string directoryPath,
+        string directoryIdentity,
+        long eventQpc)
+    {
+        if (!WriteCompletionDrainRules.ValidateCompletedNoLeaseMemberSet(
+            members,
+            member => {
+            var matching = writeCompletionSeals.Where(item =>
+                item.SealSequence == member.SealSequence).ToArray();
+            var seal = member.Seal;
+            return matching.Length == 1 && ReferenceEquals(matching[0], seal) &&
+                seal.State == WriteCompletionDrainState.CompletedRetained &&
+                ReferenceEquals(seal.Phase, activePhase) &&
+                seal.ParentPath == directoryPath &&
+                seal.DirectoryIdentity == directoryIdentity &&
+                seal.CompletionRequestedAtQpc == member.CompletionUpperQpc &&
+                eventQpc > member.CompletionUpperQpc;
+            },
+            _ => { }))
             throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
     }
@@ -7131,9 +7178,13 @@ sealed class CapacityGuardSession : IDisposable
         ulong ProcessStartKey,
         ulong ProducerSequenceNumber);
 
-    private sealed record CompletedNoLeaseDirectoryRejoinContext(
-        long SealSequence,
+    private sealed record CompletedNoLeaseDirectorySealMember(
         WriteCompletionDrainSeal Seal,
+        long SealSequence,
+        long CompletionUpperQpc);
+
+    private sealed record CompletedNoLeaseDirectoryRejoinContext(
+        ImmutableArray<CompletedNoLeaseDirectorySealMember> Members,
         ActivePhase Phase,
         string PhaseInstanceId,
         long PhaseStartedAtQpc,
@@ -7141,7 +7192,6 @@ sealed class CapacityGuardSession : IDisposable
         string DirectoryIdentity,
         ulong EventFileObject,
         long EventQpc,
-        long CompletionUpperQpc,
         int RootPid,
         ulong RootProcessStartKey,
         ulong RootProcessSequenceNumber);
@@ -9598,30 +9648,61 @@ public static class WriteCompletionDrainRules
         SelectCompletedNoLeaseDirectoryHandoffIdentity<T>(
             IReadOnlyList<T> candidates,
             string? currentIdentity,
-            Func<T, string> identitySelector) where T : class
+            Func<T, string> identitySelector,
+            Func<T, long> sequenceSelector) where T : class
     {
+        if (candidates.Count > 128 ||
+            candidates.Distinct(ReferenceEqualityComparer.Instance).Count() !=
+                candidates.Count ||
+            candidates.Select(sequenceSelector).Distinct().Count() !=
+                candidates.Count)
+            return new CompletedNoLeaseIdentitySelection<T>(
+                null, StateChangedFailureCode, []);
         T? selected = null;
         var matchCount = 0;
+        var matches = ImmutableArray.CreateBuilder<T>();
         if (currentIdentity is not null)
         {
             foreach (var candidate in candidates)
             {
                 if (identitySelector(candidate) != currentIdentity) continue;
                 matchCount = checked(matchCount + 1);
+                matches.Add(candidate);
                 if (matchCount == 1) selected = candidate;
             }
         }
-        var failure = CompletedNoLeaseDirectoryHandoffIdentityFailureCode(
-            matchCount);
+        var failure = matchCount == 0
+            ? CompletedNoLeaseDirectoryHandoffIdentityMatchNoneFailureCode
+            : null;
         return new CompletedNoLeaseIdentitySelection<T>(
-            failure is null ? selected : null,
-            failure);
+            failure is null && matchCount == 1 ? selected : null,
+            failure,
+            matches.ToImmutable());
     }
 
     public static bool CompletedNoLeaseAuthorizedIdentityMatches(
         string expectedIdentity,
         string selectedSealDirectoryIdentity) =>
         expectedIdentity == selectedSealDirectoryIdentity;
+
+    public static bool ValidateCompletedNoLeaseMemberSet<T>(
+        IReadOnlyCollection<T> members,
+        Func<T, bool> memberMatches,
+        Action<T> reinspect)
+    {
+        if (members.Count is < 1 or > 128) return false;
+        foreach (var member in members)
+            if (!memberMatches(member)) return false;
+        try
+        {
+            foreach (var member in members) reinspect(member);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return true;
+    }
 
     /// <summary>
     /// CompletedRetained parentの単一exact no-lease writeだけを既存root directory認可へ渡す。
@@ -10009,7 +10090,8 @@ public static class WriteCompletionDrainRules
 
 public sealed record CompletedNoLeaseIdentitySelection<T>(
     T? Selected,
-    string? FailureCode) where T : class;
+    string? FailureCode,
+    ImmutableArray<T> Matches) where T : class;
 
 public sealed record DrainReplayFixtureResult(
     IReadOnlyList<long> ObservationOrder,
