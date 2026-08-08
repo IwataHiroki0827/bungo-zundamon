@@ -2499,11 +2499,11 @@ tasks:
 - id: T-132
   title: CHG-F005-058 active producer birth後eventのinitial/current予約境界固定診断
   feature: F005
-  phase: change
-  state: todo
+  phase: test
+  state: done
   depends: [T-131]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
   mode: advisor
   mode_reason: birth後eventを初回予約以前と初回予約後current予約以前へ認可せず固定分離するため
   model: {lead: opus, workers: sonnet}
-  progress: initial/current予約境界の設計を作成し、初回M1のbirth==initial==event既存code競合を修正。独立再レビューH0/M0/L0でPASSし実装待ち
+  progress: initial/current予約境界を実装しlocal・独立受入PASS。run 31248931250はSTATE_CHANGEDで安全停止、native correlation 31248931238 SUCCESS、candidate branch不存在、Pages 31248931244 deploy skipを確認して完了

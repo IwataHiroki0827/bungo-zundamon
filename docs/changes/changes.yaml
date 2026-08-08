@@ -4,7 +4,8 @@ changes:
   trigger: CHG-F005-057 production run 31247640858がACTIVE_PRODUCER_AFTER_RESERVATION_BIRTHで候補保存前に安全停止
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-119, T-131, T-132]
-  status: in-review
+  status: done
+  result: T-132を実装しlocal・独立受入PASS。production run 31248931250はSTATE_CHANGEDで候補保存前に安全停止、native correlation 31248931238 SUCCESS、candidate branch不存在、Pages 31248931244 deploy skippedを確認
 - id: CHG-F005-057
   date: '2026-08-08'
   trigger: CHG-F005-056 production run 31246255285がactive-directory複数候補の全件適格ELIGIBLE_ALLで候補保存前に安全停止
