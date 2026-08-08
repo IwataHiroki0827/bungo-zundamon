@@ -62,7 +62,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(raw).toContain(
       '# Native tooling stays outside; T-122 follow-up checks completion-drain event tuple diagnostics',
     );
-    expect(raw).toContain('This self-path starts follow-up hosted attempt 1/3.');
+    expect(raw).toContain('This self-path starts follow-up hosted attempt 2/3.');
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
       paths: ['.github/workflows/f005-hosted-production.yml'],
