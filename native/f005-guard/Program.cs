@@ -4334,14 +4334,6 @@ sealed class CapacityGuardSession : IDisposable
             WriteCompletionDrainState.Prepared or
             WriteCompletionDrainState.CompletionRequested))
             EnsureWriteCompletionDeadlineLocked(seal, Stopwatch.GetTimestamp());
-        var epoch = broad.Where(seal =>
-            seal.CompletionRequestedAtQpc is null
-                ? eventQpc > seal.CurrentPathReservedAtQpc
-                : WriteCompletionDrainRules.IsWithinEpoch(
-                    seal.CurrentPathReservedAtQpc,
-                    seal.CompletionRequestedAtQpc.Value,
-                    eventQpc))
-            .ToArray();
         var ledger = writeCompletionBindingLedger;
         bool ProofCandidate(WriteCompletionDrainSeal seal) =>
             ledger is not null &&
@@ -4353,18 +4345,28 @@ sealed class CapacityGuardSession : IDisposable
                         seal.CurrentIdentity,
                         seal.CurrentPath)
                 : normalized == seal.ParentPath && ledger.IsUnbound(fileObject));
+        var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+            broad,
+            eventQpc,
+            seal => seal.CurrentPathReservedAtQpc,
+            seal => seal.CompletionRequestedAtQpc,
+            ProofCandidate);
+        if (classification.TemporalInvalidCount > 0)
+            throw new GuardException(
+                "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+        var epoch = classification.Epoch.ToArray();
         if (epoch.Length == 0)
         {
             var activeLease = pendingWriteLease;
-            var lateCandidates = broad.Where(seal =>
-                seal.CompletionRequestedAtQpc is long upper &&
-                eventQpc > upper &&
-                ProofCandidate(seal)).ToArray();
-            var failure = WriteCompletionDrainRules.LookupFailure(
-                broad.Length,
-                epoch.Length,
-                0,
-                lateCandidates.Length)!;
+            var lateCandidates = classification.Late.ToArray();
+            var failure = lateCandidates.Length == 0
+                ? WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+                    broad.Length,
+                    classification.AtOrBeforeReservationCount,
+                    classification.PostUpperProofMissingCount,
+                    classification.TemporalInvalidCount)
+                : WriteCompletionDrainRules.LookupFailure(
+                    broad.Length, epoch.Length, 0, lateCandidates.Length)!;
             if (lateCandidates.Length != 0)
             {
                 var slash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
@@ -9120,6 +9122,12 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_MISMATCH";
     public const string LookupEpochEmptyNoLateProofFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_NO_LATE_PROOF";
+    public const string LookupEpochEmptyAtOrBeforeReservationAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_AT_OR_BEFORE_RESERVATION_ALL";
+    public const string LookupEpochEmptyPostUpperProofMissingAllFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MISSING_ALL";
+    public const string LookupEpochEmptyTimeProofMixedFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_TIME_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EXACT_MISSING";
     public const string LookupExactAmbiguousFailureCode =
@@ -9202,6 +9210,9 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}PROCESS_OUTSIDE_JOB",
         EventTupleMismatchFailureCode,
         LookupEpochEmptyNoLateProofFailureCode,
+        LookupEpochEmptyAtOrBeforeReservationAllFailureCode,
+        LookupEpochEmptyPostUpperProofMissingAllFailureCode,
+        LookupEpochEmptyTimeProofMixedFailureCode,
         LookupExactMissingFailureCode,
         LookupExactAmbiguousFailureCode,
         RecheckSealMissingFailureCode,
@@ -9261,6 +9272,66 @@ public static class WriteCompletionDrainRules
 
     public static IReadOnlyList<string> ExternalFailureCodes { get; } =
         Array.AsReadOnly(externalFailureCodes);
+
+    public static string EpochEmptyNoLateFailureCode(
+        int broadCount,
+        int atOrBeforeReservationCount,
+        int postUpperProofMissingCount,
+        int temporalInvalidCount)
+    {
+        if (broadCount is <= 0 or > 128 || atOrBeforeReservationCount < 0 ||
+            postUpperProofMissingCount < 0 || temporalInvalidCount != 0 ||
+            (long)atOrBeforeReservationCount + postUpperProofMissingCount !=
+                broadCount)
+            return StateChangedFailureCode;
+        if (atOrBeforeReservationCount == broadCount)
+            return LookupEpochEmptyAtOrBeforeReservationAllFailureCode;
+        if (postUpperProofMissingCount == broadCount)
+            return LookupEpochEmptyPostUpperProofMissingAllFailureCode;
+        return LookupEpochEmptyTimeProofMixedFailureCode;
+    }
+
+    public static EpochCandidateClassification<T> ClassifyEpochCandidates<T>(
+        IReadOnlyList<T> candidates,
+        long eventQpc,
+        Func<T, long> reservationSelector,
+        Func<T, long?> upperSelector,
+        Func<T, bool> proofCandidate)
+    {
+        var epoch = ImmutableArray.CreateBuilder<T>();
+        var late = ImmutableArray.CreateBuilder<T>();
+        var pre = 0;
+        var missing = 0;
+        var invalid = 0;
+        foreach (var candidate in candidates)
+        {
+            var reservation = reservationSelector(candidate);
+            var upper = upperSelector(candidate);
+            if (upper is long presentUpper && reservation > presentUpper)
+            {
+                invalid++;
+                continue;
+            }
+            if (upper is null
+                    ? eventQpc > reservation
+                    : IsWithinEpoch(reservation, upper.Value, eventQpc))
+            {
+                epoch.Add(candidate);
+            }
+            else if (eventQpc <= reservation)
+            {
+                pre++;
+            }
+            else if (upper is long completedUpper && eventQpc > completedUpper)
+            {
+                if (proofCandidate(candidate)) late.Add(candidate);
+                else missing++;
+            }
+            else invalid++;
+        }
+        return new EpochCandidateClassification<T>(
+            epoch.ToImmutable(), late.ToImmutable(), pre, missing, invalid);
+    }
 
     // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
     public static bool PrepareTupleMatches(params bool[] predicates) =>
@@ -10092,6 +10163,13 @@ public sealed record CompletedNoLeaseIdentitySelection<T>(
     T? Selected,
     string? FailureCode,
     ImmutableArray<T> Matches) where T : class;
+
+public sealed record EpochCandidateClassification<T>(
+    ImmutableArray<T> Epoch,
+    ImmutableArray<T> Late,
+    int AtOrBeforeReservationCount,
+    int PostUpperProofMissingCount,
+    int TemporalInvalidCount);
 
 public sealed record DrainReplayFixtureResult(
     IReadOnlyList<long> ObservationOrder,

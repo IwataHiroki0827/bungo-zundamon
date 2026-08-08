@@ -1202,7 +1202,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'replayKind = WriteCompletionReplayKind.PostRequestSystemSetInfo',
     );
     expect(lateLookup).toContain(
-      'epoch.Length,\n                0,\n                lateCandidates.Length)',
+      'broad.Length, epoch.Length, 0, lateCandidates.Length)',
     );
     expect(lateLookup).toContain(
       'broad.Length, epoch.Length, exact.Length, 0)',
@@ -1534,8 +1534,8 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       authorize.indexOf('if (epoch.Length == 0)'),
       authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
     );
-    expect(lateBlock).toContain('var lateCandidates = broad.Where(');
-    expect(lateBlock).toContain('ProofCandidate(seal)).ToArray()');
+    expect(lateBlock).toContain('var lateCandidates = classification.Late.ToArray()');
+    expect(authorize.match(/ProofCandidate\(seal\)/gu)).toHaveLength(1);
     expect(lateBlock).toContain('WriteCompletionDrainRules.AggregateLateEventFailureCode(');
     expect(lateBlock).toContain('lateCandidates.Select(seal => new LateEventDiagnosticCandidate(');
     expect(lateBlock).toContain('seal.State == WriteCompletionDrainState.CompletedRetained');
@@ -2145,7 +2145,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       authorize.indexOf('if (epoch.Length == 0)'),
       authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
     );
-    const snapshotIndex = lateBlock.indexOf('var lateCandidates = broad.Where(');
+    const snapshotIndex = lateBlock.indexOf('var lateCandidates = classification.Late.ToArray()');
     const aggregateIndex = lateBlock.indexOf(
       'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
     );

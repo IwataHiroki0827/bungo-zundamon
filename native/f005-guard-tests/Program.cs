@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 61",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 61 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 61 &&
+Check("completion drain external code集合はexact 64",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 64 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 64 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 61 codeはnative replyで不変",
+Check("completion drain external exact 64 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2680,6 +2680,104 @@ foreach (var code in new[] {
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) ==
         "F005_ETW_WRITE_COMPLETION_DRAIN_FAILED");
 Check("completion drain exact 0固定診断", WriteCompletionDrainRules.LookupFailure(1, 1, 0, 0) == WriteCompletionDrainRules.LookupExactMissingFailureCode);
+foreach (var count in new[] { 1, 2, 128 })
+{
+    Check($"completion drain epoch空pre all {count}件を固定分類",
+        WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+            count, count, 0, 0) == WriteCompletionDrainRules
+                .LookupEpochEmptyAtOrBeforeReservationAllFailureCode);
+    Check($"completion drain epoch空proof missing all {count}件を固定分類",
+        WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+            count, 0, count, 0) == WriteCompletionDrainRules
+                .LookupEpochEmptyPostUpperProofMissingAllFailureCode);
+}
+Check("completion drain epoch空time/proof mixedを順序非依存分類",
+    WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(2, 1, 1, 0) ==
+        WriteCompletionDrainRules.LookupEpochEmptyTimeProofMixedFailureCode);
+foreach (var tuple in new[] {
+    new[] { 0, 0, 0, 0 }, new[] { 2, 1, 0, 0 },
+    new[] { 2, 1, 1, 1 }, new[] { 2, -1, 3, 0 },
+})
+    Check("completion drain epoch空invalid count/temporalはSTATE_CHANGED",
+        WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+            tuple[0], tuple[1], tuple[2], tuple[3]) ==
+                WriteCompletionDrainRules.StateChangedFailureCode);
+foreach (var eventQpc in new long[] { 89, 95, 101 })
+{
+    var proofCalls = 0;
+    var invalid = WriteCompletionDrainRules.ClassifyEpochCandidates(
+        new[] { new EpochClassificationFixture(100, 90) }, eventQpc,
+        item => item.Reservation, item => item.Upper,
+        _ => { proofCalls++; return true; });
+    Check("completion drain reservation>upperはevent位置より先にtemporal invalid",
+        invalid.TemporalInvalidCount == 1 && invalid.Epoch.IsEmpty &&
+        invalid.Late.IsEmpty && proofCalls == 0);
+}
+foreach (var mix in new[] {
+    new[] {
+        new EpochClassificationFixture(100, 90),
+        new EpochClassificationFixture(80, 110),
+    },
+    new[] {
+        new EpochClassificationFixture(100, 90),
+        new EpochClassificationFixture(80, 90),
+    },
+})
+{
+    var downstreamCalls = 0;
+    var classification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+        mix, 95, item => item.Reservation, item => item.Upper, _ => true);
+    if (classification.TemporalInvalidCount == 0) downstreamCalls++;
+    Check("completion drain temporal invalid混在はepoch/late後段へ非到達",
+        classification.TemporalInvalidCount == 1 && downstreamCalls == 0 &&
+        (classification.Epoch.Length == 1 || classification.Late.Length == 1));
+}
+var noUpper = WriteCompletionDrainRules.ClassifyEpochCandidates(
+    new[] { new EpochClassificationFixture(100, null) }, 101,
+    item => item.Reservation, item => item.Upper, _ => false);
+Check("completion drain upperなしreservation後はepoch",
+    noUpper.Epoch.Length == 1 && noUpper.TemporalInvalidCount == 0);
+var preProofCalls = 0;
+var preClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+    new[] { new EpochClassificationFixture(100, 110) }, 100,
+    item => item.Reservation, item => item.Upper,
+    _ => { preProofCalls++; return true; });
+Check("completion drain reservation以前はproof0",
+    preClassification.AtOrBeforeReservationCount == 1 && preProofCalls == 0);
+foreach (var proofResult in new[] { false, true })
+{
+    var proofCalls = 0;
+    var post = WriteCompletionDrainRules.ClassifyEpochCandidates(
+        new[] { new EpochClassificationFixture(100, 110) }, 111,
+        item => item.Reservation, item => item.Upper,
+        _ => { proofCalls++; return proofResult; });
+    Check("completion drain post-upperだけproof exact1でlate/missing分類",
+        proofCalls == 1 && (proofResult
+            ? post.Late.Length == 1 && post.PostUpperProofMissingCount == 0
+            : post.Late.IsEmpty && post.PostUpperProofMissingCount == 1));
+}
+var orderedCandidates = new[] {
+    new EpochClassificationFixture(100, 110),
+    new EpochClassificationFixture(120, 130),
+};
+var forwardClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+    orderedCandidates, 111, item => item.Reservation, item => item.Upper, _ => false);
+Array.Reverse(orderedCandidates);
+var reverseClassification = WriteCompletionDrainRules.ClassifyEpochCandidates(
+    orderedCandidates, 111, item => item.Reservation, item => item.Upper, _ => false);
+Check("completion drain time/proof分類は候補順反転に非依存",
+    forwardClassification.AtOrBeforeReservationCount ==
+        reverseClassification.AtOrBeforeReservationCount &&
+    forwardClassification.PostUpperProofMissingCount ==
+        reverseClassification.PostUpperProofMissingCount);
+foreach (var tuple in new[] {
+    new[] { 129, 129, 0, 0 },
+    new[] { int.MaxValue, int.MaxValue, int.MaxValue, 0 },
+})
+    Check("completion drain epoch空max128超過/overflow入力はSTATE_CHANGED",
+        WriteCompletionDrainRules.EpochEmptyNoLateFailureCode(
+            tuple[0], tuple[1], tuple[2], tuple[3]) ==
+                WriteCompletionDrainRules.StateChangedFailureCode);
 Check("completion drain exact 1許可", WriteCompletionDrainRules.LookupFailure(1, 1, 1, 0) is null);
 Check("completion drain exact 2固定診断", WriteCompletionDrainRules.LookupFailure(2, 2, 2, 0) == WriteCompletionDrainRules.LookupExactAmbiguousFailureCode);
 Check("completion drain同一parent 2 sealからepoch 1を一意選択",
@@ -3729,6 +3827,8 @@ internal sealed class CompletedNoLeaseIdentitySeamFixture(
         if (ReinspectionFails) throw new InvalidOperationException("reinspect");
     }
 }
+
+internal sealed record EpochClassificationFixture(long Reservation, long? Upper);
 
 internal sealed record CompletedNoLeaseReplayFixtureSnapshot(
     ImmutableBindingProof BindingProof);
