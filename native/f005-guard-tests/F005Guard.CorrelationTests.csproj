@@ -12,5 +12,6 @@
     <None Include="t110-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="t122-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="hosted-target-selector.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="t112-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

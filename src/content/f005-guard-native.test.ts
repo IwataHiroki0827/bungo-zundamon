@@ -95,8 +95,13 @@ afterAll(async () => {
 describe.runIf(process.platform === 'win32')('F005 native Windows handle guard', () => {
   it('ETW callback例外を自由文字列/HRESULTなしの固定分類へ変換する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    expect(program).toContain('GuardException guard =>');
     expect(program).toContain(
-      '? ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)',
+      'ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)',
+    );
+    expect(program).toContain(
+      'WriteCompletionBufferLimitException =>\n' +
+      '                    "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT"',
     );
     expect(program).toContain('return $"ETW_FILE_IDENTITY_MISSING_{safeEvent}_{safeStage}"');
     expect(program).toContain('PoisonLocked(ClassifyEtwGuardFailure(');
@@ -1014,7 +1019,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(program).toContain('MaxWriteCompletionEventsPerSeal = 64');
     expect(program).toContain('MaxWriteCompletionEventsPerPhase = 8_192');
     expect(program).toContain('finally\n        {\n            if (relevantCallback)');
-    expect(program).toContain('Interlocked.Add(\n                    ref etwAccountedEventCount,');
+    expect(program).toContain(
+      'WriteCompletionDrainRules.InterlockedAddChecked(\n' +
+      '                        ref etwAccountedEventCount,',
+    );
     expect(program).toContain('WriteCompletionDrainRules.AccountedDelta(terminal)');
     expect(program).toContain('WriteCompletionDrainRules.CountersStable(');
     expect(program).toContain('long expectedRelevant,');
@@ -1095,7 +1103,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(observeAdmission.indexOf('callbackAdmission.EnterCallback()'))
       .toBeLessThan(observeAdmission.indexOf('NormalizeObservedPath(eventPath)'));
-    expect(observeAdmission.indexOf('Interlocked.Add('))
+    expect(observeAdmission.indexOf('InterlockedAddChecked('))
       .toBeLessThan(observeAdmission.indexOf('callbackAdmissionLease?.Dispose()'));
     const admission = program.slice(
       program.indexOf('public sealed class WriteCompletionCallbackAdmission'),
@@ -2041,7 +2049,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(replayQueue).toContain('writeCompletionReplayStore.Replay(');
     const generationRetention = program.slice(
       program.indexOf('private void EnsureWriteCompletionLedgerLocked()'),
-      program.indexOf('private sealed class RetainedFileIdentity'),
+      program.indexOf('internal sealed class RetainedFileIdentityLease'),
     );
     expect(generationRetention.match(/writeCompletionReplayStore\.AddGenerationHandle\(/gu))
       .toHaveLength(2);
@@ -2420,7 +2428,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
     expect(fields).toContain('PendingCallbackSnapshot');
     expect(fields).toContain('PendingCleanupSnapshot');
-    expect(fields).toContain('RetainedFileIdentity> writeCompletionReplayStore = new();');
+    expect(fields).toContain(
+      'RetainedFileIdentityLease> writeCompletionReplayStore = new();',
+    );
     expect(fields).toContain('writeCompletionReplayStore.Snapshots');
     expect(fields).toContain('writeCompletionReplayStore.Cleanups');
     expect(fields).toContain('writeCompletionReplayStore.GenerationHandles');

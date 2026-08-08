@@ -47,6 +47,8 @@ const CASE_PREFIX = 'F005_T110_CASE_BASE64=';
 const RESULT_PREFIX = 'F005_T110_RESULT_BASE64=';
 const T122_CASE_PREFIX = 'F005_T122_CASE_BASE64=';
 const T122_RESULT_PREFIX = 'F005_T122_RESULT_BASE64=';
+const T112_CASE_PREFIX = 'F005_T112_CASE_BASE64=';
+const T112_RESULT_PREFIX = 'F005_T112_RESULT_BASE64=';
 const execFileAsync = promisify(execFile);
 
 function decodeMarker<T>(value: string): T {
@@ -61,7 +63,7 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     );
     const [selectorRaw, manifestRaw] = await Promise.all([
       readFile(resolve('native/f005-guard-tests/hosted-target-selector.json'), 'utf8'),
-      readFile(resolve('native/f005-guard-tests/t122-case-manifest.json'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t112-case-manifest.json'), 'utf8'),
     ]);
     const workflow = parse(raw) as ProbeWorkflow;
     const selector = JSON.parse(selectorRaw) as Readonly<Record<string, string>>;
@@ -94,21 +96,21 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     expect(raw).not.toMatch(/actions\/upload-(?:artifact|pages-artifact)@/u);
     expect(selector).toEqual({
       schemaVersion: '1.0.0',
-      selectedTargetId: 'CHG-F005-048/T-122',
-      kind: 'f005-t122-hosted-correlation',
-      manifestPath: 'native/f005-guard-tests/t122-case-manifest.json',
-      testSourcePath: 'native/f005-guard-tests/T122TargetSuite.cs',
-      caseMarkerPrefix: T122_CASE_PREFIX,
-      resultMarkerPrefix: T122_RESULT_PREFIX,
+      selectedTargetId: 'CHG-F005-038/T-112',
+      kind: 'f005-t112-hosted-correlation',
+      manifestPath: 'native/f005-guard-tests/t112-case-manifest.json',
+      testSourcePath: 'native/f005-guard-tests/T112TargetSuite.cs',
+      caseMarkerPrefix: T112_CASE_PREFIX,
+      resultMarkerPrefix: T112_RESULT_PREFIX,
     });
     expect(manifest.targetId).toBe(selector.selectedTargetId);
-    expect(scripts).toContain('F005_T122_CASE_BASE64=');
-    expect(scripts).toContain('F005_T122_RESULT_BASE64=');
-    expect(scripts).toContain('F005_T122_EVIDENCE_BASE64=');
+    expect(scripts).toContain('F005_T112_CASE_BASE64=');
+    expect(scripts).toContain('F005_T112_RESULT_BASE64=');
+    expect(scripts).toContain('F005_T112_EVIDENCE_BASE64=');
     expect(scripts).toContain('(Get-Item -LiteralPath $stdout).Length -gt 65536');
     expect(scripts).toContain('(Get-Item -LiteralPath $stderr).Length -gt 65536');
-    expect(scripts).toContain('F005_T122_TARGET_UNKNOWN_LINE');
-    expect(scripts).toContain('F005_T122_TARGET_RESULT_CARDINALITY');
+    expect(scripts).toContain('F005_T112_TARGET_UNKNOWN_LINE');
+    expect(scripts).toContain('F005_T112_TARGET_RESULT_CARDINALITY');
     expect(scripts).toContain("@('public', 'data', 'candidate', 'audio', 'staging')");
     expect(scripts).toContain('candidate/f005-t070-$env:GITHUB_SHA');
     expect(scripts).toContain('actions/workflows/pages.yml/runs?event=push&head_sha=');
@@ -217,6 +219,145 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     expect(manifest.cases).toContain('lookup-all-zero-pass');
     expect(manifest.cases.filter((item) => item.startsWith('recheck-field-false-')))
       .toHaveLength(11);
+  });
+
+  it('T-112 targetがproduction内部lease・認可閉包・上限を直接固定する', async () => {
+    const [production, target, harness, manifestRaw] = await Promise.all([
+      readFile(resolve('native/f005-guard/Program.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/T112TargetSuite.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/Program.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t112-case-manifest.json'), 'utf8'),
+    ]);
+    const manifest = JSON.parse(manifestRaw) as TargetManifest;
+    const between = (start: string, end: string): string => {
+      const startIndex = production.indexOf(start);
+      const endIndex = production.indexOf(end, startIndex + start.length);
+      expect(startIndex, `missing start: ${start}`).toBeGreaterThanOrEqual(0);
+      expect(endIndex, `missing end: ${end}`).toBeGreaterThan(startIndex);
+      return production.slice(startIndex, endIndex);
+    };
+    const retain = between(
+      'private RetainedFileIdentityLease RetainIdentity(',
+      'private void EnsureWriteCompletionLedgerLocked()',
+    );
+    const lease = between(
+      'internal sealed class RetainedFileIdentityLease : IDisposable',
+      'private string CompletedWriteDiagnosticState(',
+    );
+    const authorizationClosure = [
+      between('private object? CompleteWrite(', 'private bool ReplayWriteCompletionQueueLocked()'),
+      between('private bool ReplayWriteCompletionQueueLocked()', 'private void PreflightCallbackSnapshotLocked('),
+      between('private void PreflightCallbackSnapshotLocked(', 'private void PreflightImmutableRejoinLocked('),
+      between('private void PreflightImmutableRejoinLocked(', 'private void PreflightRenameSnapshotLocked('),
+      between('private object? EndPhase(', 'private object EndPhaseAfterEtwDrain('),
+      between('private void ApplyCallbackSnapshotLocked(', 'private void ApplyPreflightedCallbackSnapshotLocked('),
+      between('private void ApplyPreflightedCallbackSnapshotLocked(', 'private void ApplyCallbackSnapshotCoreLocked('),
+      between('private void RecheckSealedCallbackLocked(', 'private void ApplyRenameSnapshotLocked('),
+    ].join('\n');
+    const core = between(
+      'private void ApplyCallbackSnapshotCoreLocked(',
+      'private void ReinspectImmediateSnapshot(',
+    );
+    const dispatch = between('private object DispatchPipe(', 'private void Authenticate(');
+    const prepareDispatchStart = dispatch.indexOf(
+      'if (operation == "prepareWriteCompletion")',
+    );
+    const prepareDispatch = dispatch.slice(
+      prepareDispatchStart,
+      dispatch.indexOf('lock (gate)', prepareDispatchStart) + 'lock (gate)'.length,
+    );
+    const prepare = between(
+      'private object PrepareWriteCompletion(',
+      'private WriteCompletionDrainSeal RequestWriteCompletionLocked(',
+    );
+
+    expect(retain).toContain('MaxWriteCompletionRetainedHandles');
+    expect(retain.indexOf('EnsureWithinRoot(root, absolute);'))
+      .toBeLessThan(retain.indexOf('RetainedFileIdentityLease.OpenVerified('));
+    expect(retain.match(/RetainedFileIdentityLease\.OpenVerified\(/gu)).toHaveLength(1);
+    expect(retain).not.toContain('CreateFileW(');
+    expect(lease).toContain('internal static RetainedFileIdentityLease OpenVerified(');
+    expect(lease).toContain('ShareRead | ShareWrite | ShareDelete');
+    expect(lease).toContain('FileFlagBackupSemantics | FileFlagOpenReparsePoint');
+    expect(lease).toMatch(/CreateFileW\(\s*absolutePath,\s*0,/u);
+    expect(lease).toContain('requireSingleLink && basic.NumberOfLinks != 1');
+    expect(lease).toContain('(basic.FileAttributes & FileAttributeReparsePoint) != 0');
+    expect(lease).toContain('Convert.ToHexStringLower(id.FileId)');
+    expect(lease).toContain('acquired?.Dispose();');
+    expect(lease).toContain('retained.Dispose();');
+    expect(lease).toContain('Interlocked.Exchange(ref handle, null)?.Dispose()');
+
+    for (const productionType of [
+      'WriteCompletionCallbackAdmission',
+      'ImmutableBindingProof',
+      'WriteCompletionBindingLedger',
+      'WriteCompletionReplayStore<',
+      'WriteCompletionAtomicBatchRules.Execute(',
+      'CapacityGuardSession.RetainedFileIdentityLease',
+      'T110TargetSuite.WindowsTupleFixture',
+    ]) expect(target).toContain(productionType);
+    expect(target).not.toContain('static string? LookupFailure(');
+    expect(harness).toContain(
+      '"CHG-F005-038/T-112" => T112TargetSuite.Run(args)',
+    );
+    expect(production).not.toMatch(/CHG-F005-038\/T-112|F005_T112/u);
+    expect(manifest).toMatchObject({
+      schemaVersion: '1.0.0',
+      targetId: 'CHG-F005-038/T-112',
+    });
+    expect(manifest.cases).toHaveLength(74);
+    expect(new Set(manifest.cases).size).toBe(74);
+    expect(manifest.cases[0]).toBe('admission-read-held');
+    expect(manifest.cases.at(-1)).toBe('real-process-outside-job');
+
+    expect(prepareDispatch.indexOf('callbackAdmission.EnterFinal()'))
+      .toBeLessThan(prepareDispatch.indexOf('lock (gate)'));
+    expect(prepare).toContain('EnsureWriteCompletionLedgerLocked();');
+    expect(prepare.indexOf('EnsureWriteCompletionLedgerLocked();'))
+      .toBeLessThan(prepare.indexOf('RetainIdentity(path,'));
+
+    expect(authorizationClosure).not.toContain('TryInspect(');
+    expect(authorizationClosure).not.toMatch(/filesBy(?:Object|Path)/u);
+    expect(production.match(/TryAuthorizeBoundLeaseDirectoryWriteLocked\(/gu))
+      .toHaveLength(3);
+    expect(production.match(/RecheckBoundLeaseDirectoryTupleLocked\(/gu))
+      .toHaveLength(2);
+    expect(production.match(/TryAuthorizeAfterLeaseReservationDirectoryWriteLocked\(/gu))
+      .toHaveLength(3);
+    expect(production.match(/RecheckAfterLeaseDirectoryRejoinLocked\(/gu))
+      .toHaveLength(2);
+    const afterLeaseBranch = between(
+      'if (snapshot.AfterLeaseDirectoryRejoin is not null)',
+      'if (snapshot.BoundLeaseDirectoryRejoin is not null)',
+    );
+    const boundLeaseBranch = core.slice(core.indexOf(
+      'if (snapshot.BoundLeaseDirectoryRejoin is not null)',
+    ), core.indexOf('var oldAllocated =', core.indexOf(
+      'if (snapshot.BoundLeaseDirectoryRejoin is not null)',
+    )));
+    expect(afterLeaseBranch.match(/RecheckAfterLeaseDirectoryRejoinLocked\(/gu))
+      .toHaveLength(1);
+    expect(boundLeaseBranch.match(/RecheckBoundLeaseDirectoryTupleLocked\(/gu))
+      .toHaveLength(1);
+    expect(core.indexOf('snapshot.BindingProof.FileObject'))
+      .toBeLessThan(core.indexOf('retained.Reinspect(snapshot.Effective.Identity)'));
+    expect(core.indexOf('retained.Reinspect(snapshot.Effective.Identity)'))
+      .toBeLessThan(core.indexOf('RecheckAfterLeaseDirectoryProcessLocked('));
+    expect(core.indexOf('RecheckAfterLeaseDirectoryProcessLocked('))
+      .toBeLessThan(core.indexOf('delta = checked(newAllocated - oldAllocated);'));
+    expect(core.indexOf('delta = checked(newAllocated - oldAllocated);'))
+      .toBeLessThan(core.indexOf('filesByObject[snapshot.FileObject] ='));
+    expect(core.indexOf('filesByObject[snapshot.FileObject] ='))
+      .toBeLessThan(core.indexOf('var pending = notices.FirstOrDefault('));
+    expect(core).toContain('delta = checked(newAllocated - oldAllocated);');
+    expect(core).toContain('live = checked(CurrentLiveBytes() - oldAllocated + newAllocated);');
+    expect(production.match(/WriteCompletionDrainRules\.InterlockedAddChecked\(/gu))
+      .toHaveLength(2);
+    expect(production.match(/WriteCompletionDrainRules\.CheckedCounterAdd\(/gu))
+      .toHaveLength(2);
+    expect(target).toContain(
+      'WriteCompletionDrainRules.CheckedCounterAdd(long.MaxValue, 1)',
+    );
   });
 
   it.runIf(process.platform === 'win32')(
@@ -368,6 +509,89 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
       result: 'pass',
       expectedCaseCount: 43,
       passedCaseCount: 43,
+      caseManifestSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+      runtime: {
+        ProductionAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        ProductionAssemblyMvid: expect.stringMatching(/^[0-9a-f-]{36}$/u),
+        TestAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        TestAssemblyMvid: expect.stringMatching(/^[0-9a-f-]{36}$/u),
+        TestExecutableSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        DotnetRuntime: expect.stringMatching(/^9\.0\./u),
+      },
+    });
+    for (const rawSentinel of [
+      'pid=424242', 'qpc=9223372036854775000', 'fileObject=0xDEADBEEF',
+      'volume:private', 'handle=0xFEEDFACE', 'C:\\private\\audio.wav',
+    ]) expect(stdout).not.toContain(rawSentinel);
+  }, 120_000);
+
+  it.runIf(process.platform === 'win32')(
+    'T-112固定74 case markerとfinal markerをexactに解析する', async () => {
+    const manifest = JSON.parse(await readFile(
+      resolve('native/f005-guard-tests/t112-case-manifest.json'),
+      'utf8',
+    )) as TargetManifest;
+    const executable = resolve(
+      'native/f005-guard-tests/bin/Release/net9.0/win-x64/F005Guard.CorrelationTests.exe',
+    );
+    await execFileAsync(resolve('.cache/dotnet-f005/sdk/dotnet.exe'), [
+      'build',
+      resolve('native/f005-guard-tests/F005Guard.CorrelationTests.csproj'),
+      '--configuration',
+      'Release',
+      '--nologo',
+    ], {
+      cwd: resolve('.'),
+      windowsHide: true,
+      env: {
+        ...process.env,
+        DOTNET_CLI_HOME: resolve('.cache/dotnet-f005/cli-home'),
+        DOTNET_NOLOGO: '1',
+        NUGET_PACKAGES: resolve('.cache/dotnet-f005/nuget'),
+      },
+    });
+    const child = spawn(executable, ['--target', 'CHG-F005-038/T-112'], {
+      cwd: resolve('.'),
+      windowsHide: true,
+    });
+    let stdout = '';
+    let stderr = '';
+    child.stdout.on('data', (chunk: Buffer) => { stdout += chunk.toString('utf8'); });
+    child.stderr.on('data', (chunk: Buffer) => { stderr += chunk.toString('utf8'); });
+    const exitCode = await new Promise<number | null>((resolveExit, reject) => {
+      child.once('error', reject);
+      child.once('exit', resolveExit);
+    });
+    const lines = stdout.trim().split(/\r?\n/u);
+    const caseLines = lines.filter((line) => line.startsWith(T112_CASE_PREFIX));
+    const resultLines = lines.filter((line) => line.startsWith(T112_RESULT_PREFIX));
+    const unknown = lines.filter(
+      (line) => !line.startsWith(T112_CASE_PREFIX) &&
+        !line.startsWith(T112_RESULT_PREFIX),
+    );
+    const cases = caseLines.map((line) => decodeMarker<{
+      readonly caseId: string;
+      readonly result: string;
+    }>(line.slice(T112_CASE_PREFIX.length)));
+    const result = decodeMarker<TargetResult>(
+      resultLines[0]!.slice(T112_RESULT_PREFIX.length),
+    );
+
+    expect({ exitCode, stderr, unknown }).toEqual({ exitCode: 0, stderr: '', unknown: [] });
+    expect(manifest).toMatchObject({
+      schemaVersion: '1.0.0',
+      targetId: 'CHG-F005-038/T-112',
+    });
+    expect(manifest.cases).toHaveLength(74);
+    expect(new Set(manifest.cases).size).toBe(74);
+    expect(resultLines).toHaveLength(1);
+    expect(cases.map((item) => item.caseId)).toEqual(manifest.cases);
+    expect(cases.every((item) => item.result === 'pass')).toBe(true);
+    expect(result).toMatchObject({
+      targetId: manifest.targetId,
+      result: 'pass',
+      expectedCaseCount: 74,
+      passedCaseCount: 74,
       caseManifestSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
       runtime: {
         ProductionAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),

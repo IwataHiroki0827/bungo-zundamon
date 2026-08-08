@@ -1252,12 +1252,12 @@ sealed class CapacityGuardSession : IDisposable
     private readonly WriteCompletionReplayStore<
         PendingCallbackSnapshot,
         PendingCleanupSnapshot,
-        RetainedFileIdentity> writeCompletionReplayStore = new();
+        RetainedFileIdentityLease> writeCompletionReplayStore = new();
     private List<PendingCallbackSnapshot> writeCompletionReorderQueue =>
         writeCompletionReplayStore.Snapshots;
     private List<PendingCleanupSnapshot> writeCompletionCleanupProofs =>
         writeCompletionReplayStore.Cleanups;
-    private Dictionary<(ulong FileObject, long Generation), RetainedFileIdentity>
+    private Dictionary<(ulong FileObject, long Generation), RetainedFileIdentityLease>
         writeCompletionGenerationHandles => writeCompletionReplayStore.GenerationHandles;
     private WriteCompletionBindingLedger? writeCompletionBindingLedger
     {
@@ -1525,10 +1525,12 @@ sealed class CapacityGuardSession : IDisposable
                         tracked = true;
                         try
                         {
-                            writeCompletionCleanupRelevantCount = checked(
-                                writeCompletionCleanupRelevantCount + 1);
+                            writeCompletionCleanupRelevantCount =
+                                WriteCompletionDrainRules.CheckedCounterAdd(
+                                    writeCompletionCleanupRelevantCount,
+                                    1);
                         }
-                        catch (OverflowException)
+                        catch (WriteCompletionBufferLimitException)
                         {
                             throw new GuardException(
                                 "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
@@ -1572,10 +1574,12 @@ sealed class CapacityGuardSession : IDisposable
                 try
                 {
                     lock (gate)
-                        writeCompletionCleanupAccountedCount = checked(
-                            writeCompletionCleanupAccountedCount + 1);
+                        writeCompletionCleanupAccountedCount =
+                            WriteCompletionDrainRules.CheckedCounterAdd(
+                                writeCompletionCleanupAccountedCount,
+                                1);
                 }
-                catch (OverflowException)
+                catch (WriteCompletionBufferLimitException)
                 {
                     Poison("F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
                 }
@@ -2493,8 +2497,8 @@ sealed class CapacityGuardSession : IDisposable
             lease.Snapshot.Identity,
             path) ?? throw new GuardException(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCH");
-        RetainedFileIdentity? retainedCurrent = null;
-        RetainedFileIdentity? retainedParent = null;
+        RetainedFileIdentityLease? retainedCurrent = null;
+        RetainedFileIdentityLease? retainedParent = null;
         WriteCompletionDrainSeal seal;
         try
         {
@@ -3274,7 +3278,9 @@ sealed class CapacityGuardSession : IDisposable
                 string.Equals(normalized, processIdentityProbePath, StringComparison.Ordinal);
             processIdentityProbeCallback = isProcessIdentityProbe;
             if (!isProcessIdentityProbe && IsJournalPath(normalized)) return;
-            Interlocked.Increment(ref etwRelevantEventCount);
+            WriteCompletionDrainRules.InterlockedAddChecked(
+                ref etwRelevantEventCount,
+                1);
             relevantCallback = true;
             lock (gate)
             {
@@ -3826,9 +3832,13 @@ sealed class CapacityGuardSession : IDisposable
         }
         catch (Exception error)
         {
-            Poison(error is GuardException guard
-                ? ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage)
-                : ClassifyEtwCallbackFailure(error, callbackStage));
+            Poison(error switch {
+                GuardException guard =>
+                    ClassifyEtwGuardFailure(guard.Code, eventName, callbackStage),
+                WriteCompletionBufferLimitException =>
+                    "F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT",
+                _ => ClassifyEtwCallbackFailure(error, callbackStage),
+            });
         }
         finally
         {
@@ -3840,9 +3850,16 @@ sealed class CapacityGuardSession : IDisposable
                         : closedOrPoisonedAtEntry
                             ? "CLOSED_OR_POISONED"
                             : "FIXED_REFUSAL");
-                Interlocked.Add(
-                    ref etwAccountedEventCount,
-                    WriteCompletionDrainRules.AccountedDelta(terminal));
+                try
+                {
+                    WriteCompletionDrainRules.InterlockedAddChecked(
+                        ref etwAccountedEventCount,
+                        WriteCompletionDrainRules.AccountedDelta(terminal));
+                }
+                catch (WriteCompletionBufferLimitException)
+                {
+                    Poison("F005_ETW_WRITE_COMPLETION_DRAIN_BUFFER_LIMIT");
+                }
             }
             callbackAdmissionLease?.Dispose();
         }
@@ -5743,7 +5760,7 @@ sealed class CapacityGuardSession : IDisposable
             allocated);
     }
 
-    private RetainedFileIdentity RetainIdentity(
+    private RetainedFileIdentityLease RetainIdentity(
         string relativePath,
         string expectedIdentity)
     {
@@ -5754,28 +5771,9 @@ sealed class CapacityGuardSession : IDisposable
         var absolute = Path.GetFullPath(Path.Combine(root,
             relativePath.Replace('/', Path.DirectorySeparatorChar)));
         EnsureWithinRoot(root, absolute);
-        var handle = CreateFileW(
+        return RetainedFileIdentityLease.OpenVerified(
             absolute,
-            0,
-            0x00000001 | 0x00000002 | 0x00000004,
-            IntPtr.Zero,
-            3,
-            0x02000000 | 0x00200000,
-            IntPtr.Zero);
-        try
-        {
-            if (handle.IsInvalid)
-                throw new GuardException(
-                    "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
-            var retained = new RetainedFileIdentity(handle, expectedIdentity);
-            handle = null!;
-            retained.Reinspect();
-            return retained;
-        }
-        finally
-        {
-            handle?.Dispose();
-        }
+            expectedIdentity);
     }
 
     private void EnsureWriteCompletionLedgerLocked()
@@ -5792,7 +5790,7 @@ sealed class CapacityGuardSession : IDisposable
                 item.Value.RelativePath))
             .ToArray();
         var acquired = new List<((ulong FileObject, long Generation) Key,
-            RetainedFileIdentity Handle)>();
+            RetainedFileIdentityLease Handle)>();
         try
         {
             foreach (var item in baseline)
@@ -5819,7 +5817,7 @@ sealed class CapacityGuardSession : IDisposable
         }
     }
 
-    private RetainedFileIdentity EnsureGenerationHandleLocked(
+    private RetainedFileIdentityLease EnsureGenerationHandleLocked(
         ImmutableBindingProof proof,
         string relativePath,
         string expectedIdentity)
@@ -5839,12 +5837,19 @@ sealed class CapacityGuardSession : IDisposable
         return retained;
     }
 
-    private sealed class RetainedFileIdentity : IDisposable
+    internal sealed class RetainedFileIdentityLease : IDisposable
     {
+        private const uint ShareRead = 0x00000001;
+        private const uint ShareWrite = 0x00000002;
+        private const uint ShareDelete = 0x00000004;
+        private const uint OpenExisting = 3;
+        private const uint FileFlagBackupSemantics = 0x02000000;
+        private const uint FileFlagOpenReparsePoint = 0x00200000;
+        private const uint FileAttributeReparsePoint = 0x00000400;
         private SafeFileHandle? handle;
         private readonly string expectedIdentity;
 
-        public RetainedFileIdentity(
+        private RetainedFileIdentityLease(
             SafeFileHandle handle,
             string expectedIdentity)
         {
@@ -5852,13 +5857,61 @@ sealed class CapacityGuardSession : IDisposable
             this.expectedIdentity = expectedIdentity;
         }
 
-        public string Reinspect(string? additionallyExpected = null)
+        // @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+        // actual handleのopen、初回identity検査、ownership移譲を単一factoryに固定する。
+        internal static RetainedFileIdentityLease OpenVerified(
+            string absolutePath,
+            string expectedIdentity)
+        {
+            SafeFileHandle? acquired = CreateFileW(
+                absolutePath,
+                0,
+                ShareRead | ShareWrite | ShareDelete,
+                IntPtr.Zero,
+                OpenExisting,
+                FileFlagBackupSemantics | FileFlagOpenReparsePoint,
+                IntPtr.Zero);
+            try
+            {
+                if (acquired.IsInvalid)
+                    throw IdentityFailure();
+                var retained = new RetainedFileIdentityLease(
+                    acquired,
+                    expectedIdentity);
+                acquired = null;
+                try
+                {
+                    retained.ReinspectInitial();
+                    return retained;
+                }
+                catch
+                {
+                    retained.Dispose();
+                    throw;
+                }
+            }
+            finally
+            {
+                acquired?.Dispose();
+            }
+        }
+
+        public string Reinspect(string? additionallyExpected = null) =>
+            ReinspectCore(additionallyExpected, requireSingleLink: false);
+
+        private string ReinspectInitial() =>
+            ReinspectCore(null, requireSingleLink: true);
+
+        private string ReinspectCore(
+            string? additionallyExpected,
+            bool requireSingleLink)
         {
             var current = handle;
             if (current is null || current.IsInvalid || current.IsClosed ||
                 !GetFileInformationByHandle(current, out var basic) ||
-                (basic.FileAttributes & 0x00000400) != 0 ||
-                basic.NumberOfLinks != 1)
+                (basic.FileAttributes & FileAttributeReparsePoint) != 0 ||
+                requireSingleLink && basic.NumberOfLinks != 1 ||
+                !requireSingleLink && basic.NumberOfLinks > 1)
                 throw new GuardException(
                     "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
             var id = new FileIdInfo { FileId = new byte[16] };
@@ -5879,6 +5932,9 @@ sealed class CapacityGuardSession : IDisposable
         }
 
         public void Dispose() => Interlocked.Exchange(ref handle, null)?.Dispose();
+
+        private static GuardException IdentityFailure() => new(
+            "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED");
     }
 
     private string CompletedWriteDiagnosticState(string relativePath)
@@ -7124,8 +7180,8 @@ sealed class CapacityGuardSession : IDisposable
         long preparedAtQpc,
         long preparedDeadlineQpc,
         long relevantEventCountAtPrepare,
-        RetainedFileIdentity retainedCurrent,
-        RetainedFileIdentity retainedParent) : IDisposable
+        RetainedFileIdentityLease retainedCurrent,
+        RetainedFileIdentityLease retainedParent) : IDisposable
     {
         public long SealSequence { get; } = sealSequence;
         public ActivePhase Phase { get; } = phase;
@@ -7148,8 +7204,8 @@ sealed class CapacityGuardSession : IDisposable
         public long? CompletionRequestedAtQpc { get; set; }
         public long? DrainDeadlineQpc { get; set; }
         public int EventCount { get; set; }
-        public RetainedFileIdentity RetainedCurrent { get; } = retainedCurrent;
-        public RetainedFileIdentity RetainedParent { get; } = retainedParent;
+        public RetainedFileIdentityLease RetainedCurrent { get; } = retainedCurrent;
+        public RetainedFileIdentityLease RetainedParent { get; } = retainedParent;
 
         public void Dispose()
         {
@@ -9560,6 +9616,23 @@ public static class WriteCompletionDrainRules
         "CLOSED_OR_POISONED" => 1,
         _ => 0,
     };
+
+    public static long CheckedCounterAdd(long current, long delta)
+    {
+        try { return checked(current + delta); }
+        catch (OverflowException) { throw new WriteCompletionBufferLimitException(); }
+    }
+
+    public static long InterlockedAddChecked(ref long location, long delta)
+    {
+        while (true)
+        {
+            var current = Volatile.Read(ref location);
+            var next = CheckedCounterAdd(current, delta);
+            if (Interlocked.CompareExchange(ref location, next, current) == current)
+                return next;
+        }
+    }
 
     public static string? ApplicationFailure(
         bool identityRecheckSucceeded,
