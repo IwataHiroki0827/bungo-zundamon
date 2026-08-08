@@ -2334,7 +2334,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047 @test UT-F005-047 */
-  it('active-directory多重候補を既存predicate適格1件/複数へ同一gateで固定分類する', async () => {
+  it('active-directory全適格集合だけを候補非選択で同一gate handoffする', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
     const authorize = program.slice(
       program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
@@ -2350,6 +2350,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     const eligibilityIndex = lateBlock.indexOf(
       '.ActiveDirectoryHandoffEligibilityFailureCode(',
     );
+    const candidateSetIndex = lateBlock.indexOf(
+      '.CanHandoffActiveDirectoryCandidateSet(',
+    );
     const legacyCardinalityIndex = lateBlock.indexOf(
       '.ActiveDirectoryHandoffCardinalityFailureCode(',
     );
@@ -2357,11 +2360,15 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
     );
     expect(completedNoLeaseIndex).toBeGreaterThan(0);
-    expect(eligibilityIndex).toBeGreaterThan(completedNoLeaseIndex);
+    expect(candidateSetIndex).toBeGreaterThan(completedNoLeaseIndex);
+    expect(eligibilityIndex).toBeGreaterThan(candidateSetIndex);
     expect(legacyCardinalityIndex).toBeGreaterThan(eligibilityIndex);
     expect(firstHandoffIndex).toBeGreaterThan(legacyCardinalityIndex);
     expect(lateBlock.match(
       /ActiveDirectoryHandoffEligibilityFailureCode\(/gu,
+    )).toHaveLength(1);
+    expect(lateBlock.match(
+      /CanHandoffActiveDirectoryCandidateSet\(/gu,
     )).toHaveLength(1);
     const productionEligibility = lateBlock.slice(
       lateBlock.lastIndexOf('if (lateCandidates.Length >= 2', eligibilityIndex),
@@ -2373,11 +2380,31 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'foreach (var seal in lateCandidates)',
       '.ActiveDirectoryHandoffCandidateMatches(',
       'eligibleCount = checked(eligibleCount + 1)',
+      '.CanHandoffActiveDirectoryCandidateSet(',
+      'activeDirectoryHandoff = activeLease;',
       'throw new GuardException(eligibilityFailure)',
     ]) expect(productionEligibility).toContain(required);
+    const setHandoff = productionEligibility.slice(
+      productionEligibility.indexOf(
+        '.CanHandoffActiveDirectoryCandidateSet(',
+      ),
+      productionEligibility.indexOf('var eligibilityFailure'),
+    );
+    expect(setHandoff).toContain('lateCandidates.Length');
+    expect(setHandoff).toContain('eligibleCount');
+    expect(setHandoff).toContain('failure');
+    expect(setHandoff).toContain('if (activeLease is null)');
+    expect(setHandoff).toContain(
+      '"F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED"',
+    );
+    expect(setHandoff).toContain(
+      'activeDirectoryHandoff = activeLease;\n                    return true;',
+    );
     for (const forbidden of [
       'writeCompletionSeals', 'Monitor.Wait', 'Monitor.Exit', 'lock (',
-      'lateCandidates =', 'ToArray()', 'return true',
+      'lateCandidates =', 'ToArray()', 'lateCandidates[', '.OrderBy(',
+      '.Sort(', '.First(', '.Last(', '.Max(', 'latest', 'selectedSeal',
+      'ProofCandidate(', 'replayKind', 'EventCount',
     ]) expect(productionEligibility).not.toContain(forbidden);
 
     const wrapper = program.slice(
@@ -2389,7 +2416,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     const sharedPredicate = program.slice(
       program.indexOf('public static bool ActiveDirectoryHandoffCandidateMatches('),
       program.indexOf(
-        'public static string? ActiveDirectoryHandoffEligibilityFailureCode(',
+        'public static bool CanHandoffActiveDirectoryCandidateSet(',
       ),
     );
     for (const required of [
@@ -2402,6 +2429,24 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'eventAfterActiveReservation',
     ]) expect(sharedPredicate).toContain(required);
     expect(sharedPredicate).not.toContain('lateCandidateCount');
+
+    const candidateSetRule = program.slice(
+      program.indexOf(
+        'public static bool CanHandoffActiveDirectoryCandidateSet(',
+      ),
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffEligibilityFailureCode(',
+      ),
+    );
+    for (const required of [
+      'totalCandidateCount >= 2',
+      'eligibleCandidateCount == totalCandidateCount',
+      'aggregateFailureCode == LateRetainedParentWriteFailureCode',
+    ]) expect(candidateSetRule).toContain(required);
+    for (const forbidden of [
+      '[', '.OrderBy(', '.Sort(', '.First(', '.Last(', '.Max(', 'latest',
+      'seal', 'ProofCandidate', 'replay', 'EventCount',
+    ]) expect(candidateSetRule).not.toContain(forbidden);
 
     const classifier = program.slice(
       program.indexOf(

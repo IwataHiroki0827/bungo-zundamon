@@ -1380,6 +1380,37 @@ Check("completion drain active directory eligibility codeは固定長",
 foreach (var (total, eligible) in new[] {
     (-1, 0), (2, -1), (0, 1), (1, 2), (2, 3),
 })
+    Check($"completion drain active candidate set矛盾count {total}/{eligible}は拒否",
+        !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+            total,
+            eligible,
+            WriteCompletionDrainRules.LateRetainedParentWriteFailureCode));
+foreach (var (total, eligible, aggregate) in new[] {
+    (0, 0, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (1, 1, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (2, 0, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (2, 1, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (3, 0, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (3, 1, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (3, 2, WriteCompletionDrainRules.LateRetainedParentWriteFailureCode),
+    (2, 2, WriteCompletionDrainRules.GenericLateEventFailureCode),
+})
+    Check($"completion drain active candidate set非全適格 {total}/{eligible}は拒否",
+        !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+            total,
+            eligible,
+            aggregate));
+foreach (var (total, eligible) in new[] {
+    (2, 2), (3, 3), (int.MaxValue, int.MaxValue),
+})
+    Check($"completion drain active candidate set全適格 {total}/{eligible}を許可",
+        WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+            total,
+            eligible,
+            WriteCompletionDrainRules.LateRetainedParentWriteFailureCode));
+foreach (var (total, eligible) in new[] {
+    (-1, 0), (2, -1), (0, 1), (1, 2), (2, 3),
+})
     Check($"completion drain active eligibility矛盾count {total}/{eligible}はSTATE_CHANGED",
         WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
             total,
@@ -1517,6 +1548,14 @@ Check("completion drain active reachability適格1＋不適格複数は両順序
     activeDirectorySingleEligibleReverse == activeDirectorySingleEligibleForward &&
     activeDirectorySingleEligibleCount == 1 &&
     activeDirectorySingleEligibleCountReverse == 1 &&
+    !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectorySingleEligibleCandidates.Length,
+        activeDirectorySingleEligibleCount,
+        activeDirectorySingleEligibleForward) &&
+    !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectorySingleEligibleCandidates.Length,
+        activeDirectorySingleEligibleCountReverse,
+        activeDirectorySingleEligibleReverse) &&
     WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
         activeDirectorySingleEligibleCandidates.Length,
         activeDirectorySingleEligibleCount,
@@ -1533,10 +1572,43 @@ Check("completion drain active reachability exact 2件はeligible ALL",
     activeDirectoryExactTwoAggregate ==
         WriteCompletionDrainRules.LateRetainedParentWriteFailureCode &&
     activeDirectoryAllEligible == 2 &&
+    WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectoryExactTwo.Length,
+        activeDirectoryAllEligible,
+        activeDirectoryExactTwoAggregate) &&
     WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
         activeDirectoryExactTwo.Length,
         activeDirectoryAllEligible,
         activeDirectoryExactTwoAggregate) == activeDirectoryEligibleAllCode);
+var activeDirectoryAllThreeCandidates = new[] {
+    LateCandidate(exactLateTuple.ToArray()),
+    LateCandidate(exactLateTuple.ToArray()),
+    LateCandidate(exactLateTuple.ToArray()),
+};
+var activeDirectoryAllThreeForward = WriteCompletionDrainRules
+    .AggregateLateEventFailureCode("write", activeDirectoryAllThreeCandidates);
+var activeDirectoryAllThreeReverse = WriteCompletionDrainRules
+    .AggregateLateEventFailureCode(
+        "write",
+        activeDirectoryAllThreeCandidates.Reverse());
+var activeDirectoryAllThreeCount = ActiveDirectoryEligibleCount(
+    activeDirectoryAllThreeCandidates);
+var activeDirectoryAllThreeCountReverse = ActiveDirectoryEligibleCount(
+    activeDirectoryAllThreeCandidates.Reverse());
+Check("completion drain active reachability全適格3件は両順序で候補非選択handoff",
+    activeDirectoryAllThreeForward ==
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode &&
+    activeDirectoryAllThreeReverse == activeDirectoryAllThreeForward &&
+    activeDirectoryAllThreeCount == 3 &&
+    activeDirectoryAllThreeCountReverse == 3 &&
+    WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectoryAllThreeCandidates.Length,
+        activeDirectoryAllThreeCount,
+        activeDirectoryAllThreeForward) &&
+    WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectoryAllThreeCandidates.Length,
+        activeDirectoryAllThreeCountReverse,
+        activeDirectoryAllThreeReverse));
 var activeDirectoryEligibleMixedCandidates = new[] {
     LateCandidate(exactLateTuple.ToArray()),
     LateCandidate(exactLateTuple.ToArray()),
@@ -1558,6 +1630,14 @@ Check("completion drain active reachability適格2＋不適格1は両順序でel
     activeDirectoryEligibleMixedReverse == activeDirectoryEligibleMixedForward &&
     activeDirectoryEligibleMixedCount == 2 &&
     activeDirectoryEligibleMixedCountReverse == 2 &&
+    !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectoryEligibleMixedCandidates.Length,
+        activeDirectoryEligibleMixedCount,
+        activeDirectoryEligibleMixedForward) &&
+    !WriteCompletionDrainRules.CanHandoffActiveDirectoryCandidateSet(
+        activeDirectoryEligibleMixedCandidates.Length,
+        activeDirectoryEligibleMixedCountReverse,
+        activeDirectoryEligibleMixedReverse) &&
     WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
         activeDirectoryEligibleMixedCandidates.Length,
         activeDirectoryEligibleMixedCount,
@@ -1573,13 +1653,13 @@ var activeDirectoryDriftAttempting = new ManualResetEventSlim(false);
 var activeDirectoryAllowDecision = new ManualResetEventSlim(false);
 var activeDirectoryDriftEntered = new ManualResetEventSlim(false);
 var activeDirectorySourceCandidates =
-    activeDirectoryEligibleMixedCandidates.ToArray();
+    activeDirectoryAllThreeCandidates.ToArray();
 var activeDirectorySemanticState = new[] {
     "files=1", "allocated=10", "deferred=1", "observations=1", "notices=1",
     "lease=active", "peak=10", "free=100", "ledger=2", "queue=0", "handles=2",
 };
 var activeDirectorySemanticBefore = string.Join("|", activeDirectorySemanticState);
-string? activeDirectoryBarrierCode = null;
+var activeDirectoryBarrierHandoff = false;
 string? activeDirectorySemanticAtDecision = null;
 var activeDirectoryDecision = Task.Run(() => {
     lock (activeDirectoryGate)
@@ -1592,8 +1672,8 @@ var activeDirectoryDecision = Task.Run(() => {
             throw new InvalidOperationException(
                 "ACTIVE_DIRECTORY_CARDINALITY_DECISION_TIMEOUT");
         var eligibleCount = ActiveDirectoryEligibleCount(lateCandidateSnapshot);
-        activeDirectoryBarrierCode = WriteCompletionDrainRules
-            .ActiveDirectoryHandoffEligibilityFailureCode(
+        activeDirectoryBarrierHandoff = WriteCompletionDrainRules
+            .CanHandoffActiveDirectoryCandidateSet(
                 lateCandidateSnapshot.Length,
                 eligibleCount,
                 aggregateFailure);
@@ -1621,11 +1701,48 @@ var activeDirectoryDriftBlockedAtDecision =
     !activeDirectoryDriftEntered.Wait(TimeSpan.FromMilliseconds(100));
 activeDirectoryAllowDecision.Set();
 Task.WaitAll(activeDirectoryDecision, activeDirectoryDrift);
-Check("completion drain active directory cardinalityは同一gate snapshotで固定拒否",
+Check("completion drain active candidate setは同一gate snapshotで固定handoff",
     activeDirectoryDriftBlockedAtDecision &&
-    activeDirectoryBarrierCode == activeDirectoryEligibleMixedCode &&
+    activeDirectoryBarrierHandoff &&
     activeDirectorySemanticAtDecision == activeDirectorySemanticBefore &&
     activeDirectoryDriftEntered.IsSet);
+(string Outcome, string[] Order) ActiveDirectoryDownstreamDecision(
+    bool boundPass,
+    bool poisonAfterBound,
+    bool afterPass,
+    bool poisonAfterAfter)
+{
+    var order = new List<string>();
+    order.Add("bound");
+    if (boundPass) return ("BOUND", order.ToArray());
+    order.Add("poison-bound");
+    if (poisonAfterBound) return ("POISON", order.ToArray());
+    order.Add("after");
+    if (afterPass) return ("AFTER", order.ToArray());
+    order.Add("poison-after");
+    return (poisonAfterAfter ? "POISON" : "STATE_CHANGED", order.ToArray());
+}
+foreach (var (boundPass, poisonAfterBound, afterPass, poisonAfterAfter,
+    expectedOutcome, expectedOrder) in new[] {
+    (true, false, false, false, "BOUND", new[] { "bound" }),
+    (false, true, false, false, "POISON", new[] { "bound", "poison-bound" }),
+    (false, false, true, false, "AFTER",
+        new[] { "bound", "poison-bound", "after" }),
+    (false, false, false, true, "POISON",
+        new[] { "bound", "poison-bound", "after", "poison-after" }),
+    (false, false, false, false, "STATE_CHANGED",
+        new[] { "bound", "poison-bound", "after", "poison-after" }),
+})
+{
+    var downstream = ActiveDirectoryDownstreamDecision(
+        boundPass,
+        poisonAfterBound,
+        afterPass,
+        poisonAfterAfter);
+    Check($"completion drain active handoff後段 {expectedOutcome}は既存順",
+        downstream.Outcome == expectedOutcome &&
+        downstream.Order.SequenceEqual(expectedOrder));
+}
 foreach (var (authorized, poisoned, expected, expectedPoisonChecks) in new[] {
     (true, false, CompletedNoLeaseKnownAuthorizationDecision.Pass, 0),
     (false, true, CompletedNoLeaseKnownAuthorizationDecision.Poisoned, 1),

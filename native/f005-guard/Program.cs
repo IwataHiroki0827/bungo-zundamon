@@ -4419,6 +4419,18 @@ sealed class CapacityGuardSession : IDisposable
                         eligibleCount = checked(eligibleCount + 1);
                     }
                 }
+                if (WriteCompletionDrainRules
+                    .CanHandoffActiveDirectoryCandidateSet(
+                        lateCandidates.Length,
+                        eligibleCount,
+                        failure))
+                {
+                    if (activeLease is null)
+                        throw new GuardException(
+                            "F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                    activeDirectoryHandoff = activeLease;
+                    return true;
+                }
                 var eligibilityFailure = WriteCompletionDrainRules
                     .ActiveDirectoryHandoffEligibilityFailureCode(
                         lateCandidates.Length,
@@ -9387,6 +9399,19 @@ public static class WriteCompletionDrainRules
         phaseInstanceMatches &&
         activeParentMatches &&
         eventAfterActiveReservation;
+
+    /// <summary>
+    /// 全候補が既存active directory predicate適格な複数集合だけを、
+    /// 候補非選択で現在active leaseの既存認可へ接続する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static bool CanHandoffActiveDirectoryCandidateSet(
+        int totalCandidateCount,
+        int eligibleCandidateCount,
+        string aggregateFailureCode) =>
+        totalCandidateCount >= 2 &&
+        eligibleCandidateCount == totalCandidateCount &&
+        aggregateFailureCode == LateRetainedParentWriteFailureCode;
 
     /// <summary>
     /// active directory多重候補を既存predicate適格1件/複数へ固定分類する。
