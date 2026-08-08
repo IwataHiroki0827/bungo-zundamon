@@ -1077,3 +1077,13 @@ attempts:
   cause: attempt 2と同じ既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-125対象分類へ未到達
   recovery: retry limit到達のためQ-041へエスカレーションし、T-125をblockedとして他の未完了タスクを継続する
   log: docs/evidence/qt/QT-F005-008-009-CHG-051-hosted-attempt-3.md
+- date: '2026-08-08T11:59:00+09:00'
+  feature: F005
+  scope: T-110-hosted-followup
+  attempt: 1
+  command: GitHub Actions production run 31236019894
+  result: fail
+  failures: 1
+  cause: 既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-110限定再結合対象へ未到達
+  recovery: 現行Program pinを変更せずworkflow self-pathでfollow-up attempt 2を実行する
+  log: docs/evidence/qt/QT-F005-008-CHG-036-hosted-followup-attempt-1.md
