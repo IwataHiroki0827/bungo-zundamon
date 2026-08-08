@@ -832,7 +832,7 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
         .toBeLessThan(cheapAuthorization.indexOf(orderedCheapChecks[index]!));
     }
     const orderedAuthorizationChecks = [
-      'InitialTupleMatches(',
+      'EvaluateInitialTupleInspection(',
       'job.InspectRetainedProcess(lease.Process)',
       'processInspection.ProcessId == lease.WorkerPid',
       'processInspection.ProcessStartKey == lease.ProcessStartKey',

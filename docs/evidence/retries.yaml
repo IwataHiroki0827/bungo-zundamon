@@ -1177,3 +1177,13 @@ attempts:
   cause: 既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ安全停止しT-109 pendingなしbound-directory診断へ未到達
   recovery: follow-up retry limit到達のためQ-044へエスカレーションし、T-109をblockedとしてT-126の決定的hosted相関検証を継続する
   log: docs/evidence/qt/QT-F005-008-CHG-035-hosted-followup-attempt-3.md
+- date: '2026-08-08T13:16:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-052-local
+  attempt: 1
+  command: native 820件、T-110 target 57件、関連Vitest 26件、typecheck、ESLint、trace_check、再現build2回、独立受入
+  result: pass
+  failures: 0
+  cause: none
+  recovery: 同一implementation commitのread-only hosted相関workflowを実行する
+  log: docs/evidence/it/IT-F005-005-CHG-052-result.md

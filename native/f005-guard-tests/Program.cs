@@ -1,5 +1,8 @@
 using static SystemSetInfoCorrelationRules;
 
+if (args.Length != 0)
+    return T110TargetSuite.Run(args);
+
 var failures = new List<string>();
 var checks = 0;
 

@@ -5041,19 +5041,8 @@ sealed class CapacityGuardSession : IDisposable
         }
         if (!cheapPredicatesPass) return false;
 
-        FileSnapshot? directoryCurrent;
-        FileSnapshot? leaseCurrent;
-        try
-        {
-            directoryCurrent = TryInspect(normalized);
-            leaseCurrent = TryInspect(lease.RelativePath);
-        }
-        catch (GuardException)
-        {
-            PoisonLocked(
-                "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_INITIAL_TUPLE_INSPECTION_FAILED");
-            return false;
-        }
+        FileSnapshot? directoryCurrent = null;
+        FileSnapshot? leaseCurrent = null;
         var directorySnapshot = filesByPath.GetValueOrDefault(normalized);
         var leaseSnapshot = lease.Snapshot;
         var leaseFileObject = lease.FileObject;
@@ -5061,20 +5050,35 @@ sealed class CapacityGuardSession : IDisposable
             ? null
             : filesByObject.GetValueOrDefault(leaseFileObject.Value);
         var slash = lease.RelativePath.LastIndexOf('/');
-        var initialTupleMatches =
-            SystemDirectoryBoundLeaseRejoinAuthorizationRules.InitialTupleMatches(
-                directorySnapshot is not null,
-                directoryCurrent is not null,
-                directoryCurrent?.Identity == directorySnapshot?.Identity,
-                slash > 0 && lease.RelativePath[..slash] == normalized,
-                !lease.FileObjectClosed,
-                leaseSnapshot is not null,
-                leaseFileObject is not null,
-                leaseCurrent is not null,
-                leaseCurrent?.Identity == leaseSnapshot?.Identity,
-                binding is not null,
-                binding?.RelativePath == lease.RelativePath,
-                binding?.Identity == leaseSnapshot?.Identity);
+        bool initialTupleMatches;
+        try
+        {
+            initialTupleMatches =
+                SystemDirectoryBoundLeaseRejoinAuthorizationRules
+                    .EvaluateInitialTupleInspection(
+                        () => {
+                            directoryCurrent = TryInspect(normalized);
+                            leaseCurrent = TryInspect(lease.RelativePath);
+                            return new BoundLeaseInitialInspection(
+                                directoryCurrent is not null,
+                                directoryCurrent?.Identity == directorySnapshot?.Identity,
+                                leaseCurrent is not null,
+                                leaseCurrent?.Identity == leaseSnapshot?.Identity);
+                        },
+                        directorySnapshot is not null,
+                        slash > 0 && lease.RelativePath[..slash] == normalized,
+                        !lease.FileObjectClosed,
+                        leaseSnapshot is not null,
+                        leaseFileObject is not null,
+                        binding is not null,
+                        binding?.RelativePath == lease.RelativePath,
+                        binding?.Identity == leaseSnapshot?.Identity);
+        }
+        catch (GuardException error)
+        {
+            PoisonLocked(error.Code);
+            return false;
+        }
         if (!initialTupleMatches || directorySnapshot is null ||
             leaseSnapshot is null || leaseFileObject is null)
             return false;
@@ -9842,6 +9846,12 @@ public static class SystemDirectoryWriteRejoinAuthorizationRules
         rootSequenceAvailable;
 }
 
+public readonly record struct BoundLeaseInitialInspection(
+    bool DirectoryCurrentExists,
+    bool DirectoryIdentityMatches,
+    bool LeaseCurrentExists,
+    bool LeaseCurrentIdentityMatches);
+
 public static class SystemDirectoryBoundLeaseRejoinAuthorizationRules
 {
     // @des DES-F005-006 @fun FUN-F005-047 bound lease directoryの完全tupleだけを遅延評価で限定認可する。
@@ -9903,6 +9913,44 @@ public static class SystemDirectoryBoundLeaseRejoinAuthorizationRules
         leaseBindingAvailable &&
         leaseBindingPathMatches &&
         leaseBindingIdentityMatches;
+
+    // @des DES-F005-006 @fun FUN-F005-047 production callbackとtarget試験で
+    // 初回identity検査の回数・順序・固定失敗codeを共有する。
+    public static bool EvaluateInitialTupleInspection(
+        Func<BoundLeaseInitialInspection> inspect,
+        bool directorySnapshotAvailable,
+        bool leaseParentMatches,
+        bool leaseOpen,
+        bool leaseSnapshotAvailable,
+        bool leaseFileObjectAvailable,
+        bool leaseBindingAvailable,
+        bool leaseBindingPathMatches,
+        bool leaseBindingIdentityMatches)
+    {
+        BoundLeaseInitialInspection inspection;
+        try
+        {
+            inspection = inspect();
+        }
+        catch (GuardException)
+        {
+            throw new GuardException(
+                "ETW_SYSTEM_DIRECTORY_BOUND_LEASE_REJOIN_INITIAL_TUPLE_INSPECTION_FAILED");
+        }
+        return InitialTupleMatches(
+            directorySnapshotAvailable,
+            inspection.DirectoryCurrentExists,
+            inspection.DirectoryIdentityMatches,
+            leaseParentMatches,
+            leaseOpen,
+            leaseSnapshotAvailable,
+            leaseFileObjectAvailable,
+            inspection.LeaseCurrentExists,
+            inspection.LeaseCurrentIdentityMatches,
+            leaseBindingAvailable,
+            leaseBindingPathMatches,
+            leaseBindingIdentityMatches);
+    }
 
     public static string? TupleRecheckFailure(
         bool activeLeaseMatches,
