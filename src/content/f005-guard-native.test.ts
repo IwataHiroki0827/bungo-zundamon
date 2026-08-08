@@ -2178,6 +2178,126 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     );
   });
 
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047 @test UT-F005-047 */
+  it('active-directory複数候補を既存exact1より前の同一gateでterminal拒否する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const authorize = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    const lateBlock = authorize.slice(
+      authorize.indexOf('if (epoch.Length == 0)'),
+      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+    );
+    const aggregateIndex = lateBlock.indexOf(
+      'failure = WriteCompletionDrainRules.AggregateLateEventFailureCode(',
+    );
+    const completedNoLeaseCardinalityIndex = lateBlock.indexOf(
+      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+    );
+    const activeDirectoryCardinalityIndex = lateBlock.indexOf(
+      '.ActiveDirectoryHandoffCardinalityFailureCode(',
+    );
+    const firstHandoffIndex = lateBlock.indexOf(
+      'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
+    );
+    expect(lateBlock.match(
+      /ActiveDirectoryHandoffCardinalityFailureCode\(/gu,
+    )).toHaveLength(1);
+    expect(completedNoLeaseCardinalityIndex).toBeGreaterThan(aggregateIndex);
+    expect(activeDirectoryCardinalityIndex)
+      .toBeGreaterThan(completedNoLeaseCardinalityIndex);
+    expect(firstHandoffIndex).toBeGreaterThan(activeDirectoryCardinalityIndex);
+    const terminalDecision = lateBlock.slice(
+      activeDirectoryCardinalityIndex,
+      firstHandoffIndex,
+    );
+    expect(terminalDecision).toContain('lateCandidates.Length');
+    expect(terminalDecision).toContain('failure);');
+    expect(terminalDecision).toMatch(
+      /if \(activeDirectoryCardinalityFailure is not null\)\s+throw new GuardException\(activeDirectoryCardinalityFailure\);/u,
+    );
+    for (const forbidden of [
+      'Monitor.Wait', 'Monitor.Exit', 'lock (', 'broad.Where(',
+      'lateCandidates =', 'ToArray()', 'activePhase', 'pendingWriteLease',
+      'writeCompletionSeals',
+    ]) expect(terminalDecision).not.toContain(forbidden);
+    for (const downstream of [
+      'IsCompletedWriteHandoffCandidate(',
+      'CanHandoffCompletedNoLeaseDirectory(',
+      'CanAuthorizePostRequestSystemSetInfo(',
+      'CanHandoffActiveDirectory(',
+      'ActiveProducerBirthFailureCode(',
+    ]) {
+      expect(lateBlock.indexOf(downstream))
+        .toBeGreaterThan(activeDirectoryCardinalityIndex);
+    }
+
+    const existingExactOneRule = program.slice(
+      program.indexOf('public static bool CanHandoffActiveDirectory('),
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffCardinalityFailureCode(',
+      ),
+    );
+    for (const required of [
+      'lateCandidateCount == 1',
+      'aggregateFailureCode == LateRetainedParentWriteFailureCode',
+      'authorizationFailure == "BIRTH_MISSING"',
+      'systemPid is 0 or 4', 'eventName == "write"', 'fileObject != 0',
+      'fileObjectUnbound', 'sealCompletedRetained', 'activeVoicePhase',
+      'sealPhaseMatches', 'sealParentPath', 'activeLeasePresent',
+      'otherActiveLease', 'phaseInstanceMatches', 'activeParentMatches',
+      'eventAfterActiveReservation',
+    ]) expect(existingExactOneRule).toContain(required);
+    expect(existingExactOneRule).not.toContain(
+      'ActiveDirectoryHandoffCandidateAmbiguousFailureCode',
+    );
+
+    const rule = program.slice(
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffCardinalityFailureCode(',
+      ),
+      program.indexOf(
+        'public static string? CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+      ),
+    );
+    for (const required of [
+      'lateCandidateCount >= 2',
+      'aggregateFailureCode == LateRetainedParentWriteFailureCode',
+      '? ActiveDirectoryHandoffCandidateAmbiguousFailureCode',
+      ': null;',
+    ]) expect(rule).toContain(required);
+    for (const forbidden of [
+      'lateCandidateCount == 1', 'throw ', 'lock (', 'Monitor.',
+      'Add(', 'Remove(', '= checked(',
+    ]) expect(rule).not.toContain(forbidden);
+
+    const aggregate = program.slice(
+      program.indexOf('public static string AggregateLateEventFailureCode('),
+      program.indexOf('public static string NormalizeExternalFailureCode('),
+    );
+    expect(aggregate.indexOf('classified.Contains(exactCode'))
+      .toBeLessThan(aggregate.indexOf('classified.Length == 0'));
+    const failureCode =
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
+    expect(failureCode).toHaveLength(76);
+    for (const sentinel of [
+      '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
+      'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
+      'sequence=18446744073709551614', 'handle=0xFEEDFACE',
+    ]) expect(failureCode).not.toContain(sentinel);
+    const journal = program.slice(
+      program.indexOf('private SortedDictionary<string, object?> JournalBody()'),
+      program.indexOf('private void PoisonLocked('),
+    );
+    expect(journal).not.toContain(
+      'ActiveDirectoryHandoffCandidateAmbiguousFailureCode',
+    );
+    expect(terminalDecision).not.toMatch(
+      /(?:normalized|eventQpc|pid|fileObject|Identity|Sequence|Handle)/u,
+    );
+  });
+
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
   it('completed no-lease replay storeをproduction queue/ledger/handle/Disposeへ直結する', async () => {
     const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');

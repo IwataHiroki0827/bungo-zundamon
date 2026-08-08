@@ -60,7 +60,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-049 classifies no-lease candidate cardinality',
+      '# Native tooling stays outside; CHG-F005-050 classifies active-directory candidate cardinality',
     );
     expect(raw).toContain('This self-path starts hosted attempt 1/3.');
     expect(workflow.on.push).toEqual({
@@ -74,24 +74,33 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(50);
+    expect(drainCodes).toHaveLength(51);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     const ambiguityCode =
       'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
     expect(ambiguityCode).toHaveLength(88);
     expect(new RegExp(drainPattern!, 'u').test(ambiguityCode)).toBe(true);
+    const activeDirectoryAmbiguityCode =
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
+    expect(activeDirectoryAmbiguityCode).toHaveLength(76);
+    expect(new RegExp(drainPattern!, 'u').test(activeDirectoryAmbiguityCode))
+      .toBe(true);
     for (const sentinel of [
       '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
       'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
       'sequence=18446744073709551614', 'handle=0xFEEDFACE',
-    ]) expect(ambiguityCode).not.toContain(sentinel);
+    ]) {
+      expect(ambiguityCode).not.toContain(sentinel);
+      expect(activeDirectoryAmbiguityCode).not.toContain(sentinel);
+    }
     for (const code of [
       'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
     const birthPattern = job.env.F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_PATTERN;

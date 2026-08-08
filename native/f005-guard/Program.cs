@@ -4362,6 +4362,12 @@ sealed class CapacityGuardSession : IDisposable
                     failure);
             if (cardinalityFailure is not null)
                 throw new GuardException(cardinalityFailure);
+            var activeDirectoryCardinalityFailure = WriteCompletionDrainRules
+                .ActiveDirectoryHandoffCardinalityFailureCode(
+                    lateCandidates.Length,
+                    failure);
+            if (activeDirectoryCardinalityFailure is not null)
+                throw new GuardException(activeDirectoryCardinalityFailure);
             if (WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(
                     lateCandidates.Length,
                     failure))
@@ -9013,6 +9019,8 @@ public static class WriteCompletionDrainRules
         $"{LateDiagnosticPrefix}WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH";
     public const string CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
+    public const string ActiveDirectoryHandoffCandidateAmbiguousFailureCode =
+        $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -9064,6 +9072,7 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteAtOrBeforeReservationBirthFailureCode,
         LateDiagnosticWriteAfterReservationBirthFailureCode,
         CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode,
+        ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -9275,6 +9284,18 @@ public static class WriteCompletionDrainRules
         phaseInstanceMatches &&
         activeParentMatches &&
         eventAfterActiveReservation;
+
+    /// <summary>
+    /// active directory handoff候補が複数なら、候補の内容を漏らさず固定分類する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string? ActiveDirectoryHandoffCardinalityFailureCode(
+        int lateCandidateCount,
+        string aggregateFailureCode) =>
+        lateCandidateCount >= 2 &&
+        aggregateFailureCode == LateRetainedParentWriteFailureCode
+            ? ActiveDirectoryHandoffCandidateAmbiguousFailureCode
+            : null;
 
     /// <summary>
     /// completed no-lease directory handoff候補が複数なら、候補の内容を漏らさず固定分類する。
