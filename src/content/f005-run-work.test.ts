@@ -948,7 +948,7 @@ describe('F005 production work runner', () => {
       });
       expect(serialized).not.toContain(code);
     }
-    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(51);
+    expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(53);
     const ambiguitySentinels = [
       '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
       'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
@@ -958,7 +958,9 @@ describe('F005 production work runner', () => {
       const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
       const isAmbiguity = stage ===
           'COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS' ||
-        stage === 'ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS';
+        stage === 'ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS' ||
+        stage === 'ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE' ||
+        stage === 'ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS';
       const failure = new F005NativeCapacityError(
         code,
         isAmbiguity ? ambiguitySentinels.join('|') : 'fixed drain stage',
@@ -984,6 +986,8 @@ describe('F005 production work runner', () => {
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) {
       const failure = Object.assign(new Error('generic'), {

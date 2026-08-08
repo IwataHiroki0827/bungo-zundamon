@@ -2100,6 +2100,10 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     const cardinalityIndex = lateBlock.indexOf(
       '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
     );
+    const nextDiagnosticIndex = lateBlock.indexOf(
+      'if (lateCandidates.Length >= 2',
+      cardinalityIndex,
+    );
     const firstHandoffIndex = lateBlock.indexOf(
       'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
     );
@@ -2109,8 +2113,9 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(snapshotIndex).toBeGreaterThanOrEqual(0);
     expect(aggregateIndex).toBeGreaterThan(snapshotIndex);
     expect(cardinalityIndex).toBeGreaterThan(aggregateIndex);
+    expect(nextDiagnosticIndex).toBeGreaterThan(cardinalityIndex);
     expect(firstHandoffIndex).toBeGreaterThan(cardinalityIndex);
-    const terminalDecision = lateBlock.slice(cardinalityIndex, firstHandoffIndex);
+    const terminalDecision = lateBlock.slice(cardinalityIndex, nextDiagnosticIndex);
     expect(terminalDecision).toContain('lateCandidates.Length');
     expect(terminalDecision).toContain('failure);');
     expect(terminalDecision).toMatch(
@@ -2296,6 +2301,114 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(terminalDecision).not.toMatch(
       /(?:normalized|eventQpc|pid|fileObject|Identity|Sequence|Handle)/u,
     );
+  });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047 @test UT-F005-047 */
+  it('active-directory多重候補を既存predicate適格1件/複数へ同一gateで固定分類する', async () => {
+    const program = await readFile(resolve('native/f005-guard/Program.cs'), 'utf8');
+    const authorize = program.slice(
+      program.indexOf('private bool TryAuthorizeWriteCompletionDrainEventLocked('),
+      program.indexOf('private void ObserveProcessIdentityProbeLocked('),
+    );
+    const lateBlock = authorize.slice(
+      authorize.indexOf('if (epoch.Length == 0)'),
+      authorize.indexOf('var exact = epoch.Where(ProofCandidate)'),
+    );
+    const completedNoLeaseIndex = lateBlock.indexOf(
+      '.CompletedNoLeaseDirectoryHandoffCardinalityFailureCode(',
+    );
+    const eligibilityIndex = lateBlock.indexOf(
+      '.ActiveDirectoryHandoffEligibilityFailureCode(',
+    );
+    const legacyCardinalityIndex = lateBlock.indexOf(
+      '.ActiveDirectoryHandoffCardinalityFailureCode(',
+    );
+    const firstHandoffIndex = lateBlock.indexOf(
+      'WriteCompletionDrainRules.IsCompletedWriteHandoffCandidate(',
+    );
+    expect(completedNoLeaseIndex).toBeGreaterThan(0);
+    expect(eligibilityIndex).toBeGreaterThan(completedNoLeaseIndex);
+    expect(legacyCardinalityIndex).toBeGreaterThan(eligibilityIndex);
+    expect(firstHandoffIndex).toBeGreaterThan(legacyCardinalityIndex);
+    expect(lateBlock.match(
+      /ActiveDirectoryHandoffEligibilityFailureCode\(/gu,
+    )).toHaveLength(1);
+    const productionEligibility = lateBlock.slice(
+      lateBlock.lastIndexOf('if (lateCandidates.Length >= 2', eligibilityIndex),
+      legacyCardinalityIndex,
+    );
+    for (const required of [
+      'failure == WriteCompletionDrainRules',
+      '.LateRetainedParentWriteFailureCode',
+      'foreach (var seal in lateCandidates)',
+      '.ActiveDirectoryHandoffCandidateMatches(',
+      'eligibleCount = checked(eligibleCount + 1)',
+      'throw new GuardException(eligibilityFailure)',
+    ]) expect(productionEligibility).toContain(required);
+    for (const forbidden of [
+      'writeCompletionSeals', 'Monitor.Wait', 'Monitor.Exit', 'lock (',
+      'lateCandidates =', 'ToArray()', 'return true',
+    ]) expect(productionEligibility).not.toContain(forbidden);
+
+    const wrapper = program.slice(
+      program.indexOf('public static bool CanHandoffActiveDirectory('),
+      program.indexOf('public static bool ActiveDirectoryHandoffCandidateMatches('),
+    );
+    expect(wrapper).toContain('lateCandidateCount == 1 &&');
+    expect(wrapper).toContain('ActiveDirectoryHandoffCandidateMatches(');
+    const sharedPredicate = program.slice(
+      program.indexOf('public static bool ActiveDirectoryHandoffCandidateMatches('),
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffEligibilityFailureCode(',
+      ),
+    );
+    for (const required of [
+      'aggregateFailureCode == LateRetainedParentWriteFailureCode',
+      'authorizationFailure == "BIRTH_MISSING"',
+      'systemPid is 0 or 4', 'eventName == "write"', 'fileObject != 0',
+      'fileObjectUnbound', 'sealCompletedRetained', 'activeVoicePhase',
+      'sealPhaseMatches', 'sealParentPath', 'activeLeasePresent',
+      'otherActiveLease', 'phaseInstanceMatches', 'activeParentMatches',
+      'eventAfterActiveReservation',
+    ]) expect(sharedPredicate).toContain(required);
+    expect(sharedPredicate).not.toContain('lateCandidateCount');
+
+    const classifier = program.slice(
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffEligibilityFailureCode(',
+      ),
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffCardinalityFailureCode(',
+      ),
+    );
+    expect(classifier.indexOf('totalCandidateCount < 0'))
+      .toBeLessThan(classifier.indexOf('totalCandidateCount < 2'));
+    expect(classifier.indexOf('eligibleCandidateCount > totalCandidateCount'))
+      .toBeLessThan(classifier.indexOf('aggregateFailureCode !='));
+    for (const required of [
+      'eligibleCandidateCount == 0', 'StateChangedFailureCode',
+      'eligibleCandidateCount == 1',
+      'ActiveDirectoryHandoffEligibleExactOneFailureCode',
+      'ActiveDirectoryHandoffEligibleAmbiguousFailureCode',
+    ]) expect(classifier).toContain(required);
+
+    const fixedCodes = [
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS',
+    ];
+    expect(fixedCodes.every((code) => code.length === 75)).toBe(true);
+    for (const code of fixedCodes) {
+      for (const sentinel of [
+        '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
+        'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
+        'sequence=18446744073709551614', 'handle=0xFEEDFACE',
+      ]) expect(code).not.toContain(sentinel);
+    }
+    const journal = program.slice(
+      program.indexOf('private SortedDictionary<string, object?> JournalBody()'),
+      program.indexOf('private void PoisonLocked('),
+    );
+    expect(journal).not.toContain('ActiveDirectoryHandoffEligible');
   });
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */

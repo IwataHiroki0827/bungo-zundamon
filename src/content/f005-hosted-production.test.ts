@@ -60,7 +60,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; CHG-F005-050 classifies active-directory candidate cardinality',
+      '# Native tooling stays outside; CHG-F005-051 classifies active-directory eligible cardinality',
     );
     expect(raw).toContain('This self-path starts hosted attempt 1/3.');
     expect(workflow.on.push).toEqual({
@@ -74,7 +74,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(51);
+    expect(drainCodes).toHaveLength(53);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     const ambiguityCode =
@@ -86,6 +86,15 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(activeDirectoryAmbiguityCode).toHaveLength(76);
     expect(new RegExp(drainPattern!, 'u').test(activeDirectoryAmbiguityCode))
       .toBe(true);
+    const activeDirectoryEligibilityCodes = [
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS',
+    ];
+    expect(activeDirectoryEligibilityCodes.every((code) => code.length === 75))
+      .toBe(true);
+    expect(activeDirectoryEligibilityCodes.every(
+      (code) => new RegExp(drainPattern!, 'u').test(code),
+    )).toBe(true);
     for (const sentinel of [
       '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
       'pid=424242', 'fileObject=0xDEADBEEF', 'identity=volume:private',
@@ -93,6 +102,9 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     ]) {
       expect(ambiguityCode).not.toContain(sentinel);
       expect(activeDirectoryAmbiguityCode).not.toContain(sentinel);
+      for (const code of activeDirectoryEligibilityCodes) {
+        expect(code).not.toContain(sentinel);
+      }
     }
     for (const code of [
       'F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE',
@@ -101,6 +113,8 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       'F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
     const birthPattern = job.env.F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_PATTERN;

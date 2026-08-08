@@ -4362,6 +4362,54 @@ sealed class CapacityGuardSession : IDisposable
                     failure);
             if (cardinalityFailure is not null)
                 throw new GuardException(cardinalityFailure);
+            if (lateCandidates.Length >= 2 &&
+                failure == WriteCompletionDrainRules
+                    .LateRetainedParentWriteFailureCode)
+            {
+                var activeSlash = activeLease?.RelativePath.LastIndexOf('/') ?? -1;
+                var activeParentMatches = activeSlash > 0 &&
+                    activeLease!.RelativePath[..activeSlash] == normalized;
+                var fileObjectUnbound = ledger?.IsUnbound(fileObject) == true;
+                var activeVoicePhase = activePhase?.Phase == "voice";
+                var activeLeasePresent = activeLease is not null;
+                var phaseInstanceMatches = activeLease is not null &&
+                    activePhase is not null &&
+                    activeLease.PhaseInstanceId == activePhase.PhaseInstanceId;
+                var eventAfterActiveReservation = activeLease is not null &&
+                    eventQpc > activeLease.CurrentPathReservedAtQpc;
+                var eligibleCount = 0;
+                foreach (var seal in lateCandidates)
+                {
+                    if (WriteCompletionDrainRules
+                        .ActiveDirectoryHandoffCandidateMatches(
+                            failure,
+                            authorizationFailure,
+                            pid,
+                            eventName,
+                            fileObject,
+                            fileObjectUnbound,
+                            seal.State == WriteCompletionDrainState.CompletedRetained,
+                            activeVoicePhase,
+                            ReferenceEquals(activePhase, seal.Phase),
+                            normalized == seal.ParentPath,
+                            activeLeasePresent,
+                            activeLease is not null &&
+                                !ReferenceEquals(activeLease, seal.Lease),
+                            phaseInstanceMatches,
+                            activeParentMatches,
+                            eventAfterActiveReservation))
+                    {
+                        eligibleCount = checked(eligibleCount + 1);
+                    }
+                }
+                var eligibilityFailure = WriteCompletionDrainRules
+                    .ActiveDirectoryHandoffEligibilityFailureCode(
+                        lateCandidates.Length,
+                        eligibleCount,
+                        failure);
+                if (eligibilityFailure is not null)
+                    throw new GuardException(eligibilityFailure);
+            }
             var activeDirectoryCardinalityFailure = WriteCompletionDrainRules
                 .ActiveDirectoryHandoffCardinalityFailureCode(
                     lateCandidates.Length,
@@ -9021,6 +9069,12 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
     public const string ActiveDirectoryHandoffCandidateAmbiguousFailureCode =
         $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS";
+    public const string ActiveDirectoryHandoffEligibleExactOneFailureCode =
+        $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE";
+    public const string ActiveDirectoryHandoffEligibleAmbiguousFailureCode =
+        $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS";
+    public const string StateChangedFailureCode =
+        $"{FailurePrefix}STATE_CHANGED";
     private static readonly string[] externalFailureCodes = [
         $"{FailurePrefix}PREPARE_TUPLE_MISMATCH",
         $"{FailurePrefix}PROCESS_IDENTITY_FAILED",
@@ -9040,7 +9094,7 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}BUFFER_LIMIT",
         $"{FailurePrefix}FAILED",
         $"{FailurePrefix}TIMEOUT",
-        $"{FailurePrefix}STATE_CHANGED",
+        StateChangedFailureCode,
         $"{FailurePrefix}DIRECTORY_IDENTITY_MISMATCH",
         $"{FailurePrefix}CURRENT_IDENTITY_MISMATCH",
         $"{FailurePrefix}BINDING_MISMATCH",
@@ -9073,6 +9127,8 @@ public static class WriteCompletionDrainRules
         LateDiagnosticWriteAfterReservationBirthFailureCode,
         CompletedNoLeaseDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
+        ActiveDirectoryHandoffEligibleExactOneFailureCode,
+        ActiveDirectoryHandoffEligibleAmbiguousFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -9269,6 +9325,43 @@ public static class WriteCompletionDrainRules
         bool activeParentMatches,
         bool eventAfterActiveReservation) =>
         lateCandidateCount == 1 &&
+        ActiveDirectoryHandoffCandidateMatches(
+            aggregateFailureCode,
+            authorizationFailure,
+            systemPid,
+            eventName,
+            fileObject,
+            fileObjectUnbound,
+            sealCompletedRetained,
+            activeVoicePhase,
+            sealPhaseMatches,
+            sealParentPath,
+            activeLeasePresent,
+            otherActiveLease,
+            phaseInstanceMatches,
+            activeParentMatches,
+            eventAfterActiveReservation);
+
+    /// <summary>
+    /// active directory handoffの既存predicateを候補単位で評価する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static bool ActiveDirectoryHandoffCandidateMatches(
+        string aggregateFailureCode,
+        string authorizationFailure,
+        int systemPid,
+        string eventName,
+        ulong fileObject,
+        bool fileObjectUnbound,
+        bool sealCompletedRetained,
+        bool activeVoicePhase,
+        bool sealPhaseMatches,
+        bool sealParentPath,
+        bool activeLeasePresent,
+        bool otherActiveLease,
+        bool phaseInstanceMatches,
+        bool activeParentMatches,
+        bool eventAfterActiveReservation) =>
         aggregateFailureCode == LateRetainedParentWriteFailureCode &&
         authorizationFailure == "BIRTH_MISSING" &&
         systemPid is 0 or 4 &&
@@ -9284,6 +9377,27 @@ public static class WriteCompletionDrainRules
         phaseInstanceMatches &&
         activeParentMatches &&
         eventAfterActiveReservation;
+
+    /// <summary>
+    /// active directory多重候補を既存predicate適格1件/複数へ固定分類する。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string? ActiveDirectoryHandoffEligibilityFailureCode(
+        int totalCandidateCount,
+        int eligibleCandidateCount,
+        string aggregateFailureCode)
+    {
+        if (totalCandidateCount < 0 || eligibleCandidateCount < 0 ||
+            eligibleCandidateCount > totalCandidateCount)
+            return StateChangedFailureCode;
+        if (totalCandidateCount < 2 ||
+            aggregateFailureCode != LateRetainedParentWriteFailureCode)
+            return null;
+        if (eligibleCandidateCount == 0) return StateChangedFailureCode;
+        return eligibleCandidateCount == 1
+            ? ActiveDirectoryHandoffEligibleExactOneFailureCode
+            : ActiveDirectoryHandoffEligibleAmbiguousFailureCode;
+    }
 
     /// <summary>
     /// active directory handoff候補が複数なら、候補の内容を漏らさず固定分類する。

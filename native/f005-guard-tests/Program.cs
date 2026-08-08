@@ -1042,7 +1042,30 @@ bool CanActiveDirectoryHandoff(
         values[0], values[1], values[2], values[3], values[4],
         values[5], values[6], values[7], values[8], values[9]);
 }
+bool ActiveDirectoryCandidateMatches(
+    LateEventDiagnosticCandidate candidate,
+    string? aggregateCode = null,
+    bool phaseInstanceMatches = true) =>
+    WriteCompletionDrainRules.ActiveDirectoryHandoffCandidateMatches(
+        aggregateCode ??
+            WriteCompletionDrainRules.LateRetainedParentWriteFailureCode,
+        "BIRTH_MISSING",
+        4,
+        "write",
+        31,
+        true,
+        candidate.CompletedRetained,
+        true,
+        true,
+        candidate.ParentPath,
+        candidate.ActiveLeasePresent,
+        candidate.OtherActiveLease,
+        phaseInstanceMatches,
+        candidate.SameParent,
+        candidate.PostReservation);
 Check("completion drain active directory handoff all true", CanActiveDirectoryHandoff());
+Check("completion drain active directory共有predicate all true",
+    ActiveDirectoryCandidateMatches(exactLateCandidate));
 Check("completion drain active directory handoff PID 0を許可",
     CanActiveDirectoryHandoff(pid: 0));
 Check("completion drain active directory handoff候補0件を拒否",
@@ -1072,6 +1095,10 @@ for (var index = 0; index < activeDirectoryTuple.Length; index++)
     Check($"completion drain active directory {activeDirectoryAxisNames[index]} falseを拒否",
         !CanActiveDirectoryHandoff(tuple: oneFalse));
 }
+Check("completion drain active directory共有predicate phase instance falseを拒否",
+    !ActiveDirectoryCandidateMatches(
+        exactLateCandidate,
+        phaseInstanceMatches: false));
 var activeDirectoryTupleBefore = activeDirectoryTuple.ToArray();
 _ = CanActiveDirectoryHandoff();
 Check("completion drain active directory純粋規則は入力state無変更",
@@ -1318,6 +1345,92 @@ Check("completion drain active directory cardinality/aggregateは入力state無�
     exactLateTuple.All(value => value) &&
     !activeDirectoryOtherTuple[1]);
 
+const string activeDirectoryEligibleExactOneCode =
+    "F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE";
+const string activeDirectoryEligibleAmbiguousCode =
+    "F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS";
+Check("completion drain active directory eligibility codeはexact 75文字",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibleExactOneFailureCode ==
+        activeDirectoryEligibleExactOneCode &&
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibleAmbiguousFailureCode ==
+        activeDirectoryEligibleAmbiguousCode &&
+    activeDirectoryEligibleExactOneCode.Length == 75 &&
+    activeDirectoryEligibleAmbiguousCode.Length == 75);
+foreach (var (total, eligible) in new[] {
+    (-1, 0), (2, -1), (1, 2), (2, 3),
+})
+    Check($"completion drain active eligibility矛盾count {total}/{eligible}はSTATE_CHANGED",
+        WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+            total,
+            eligible,
+            WriteCompletionDrainRules.LateRetainedParentWriteFailureCode) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain active eligibility対象多重0件はSTATE_CHANGED",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        2,
+        0,
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode) ==
+    WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain active eligibility exact 1を固定分類",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        2,
+        1,
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode) ==
+    activeDirectoryEligibleExactOneCode);
+foreach (var (total, eligible) in new[] { (2, 2), (3, 2), (int.MaxValue, int.MaxValue) })
+    Check($"completion drain active eligibility複数 {total}/{eligible}を固定分類",
+        WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+            total,
+            eligible,
+            WriteCompletionDrainRules.LateRetainedParentWriteFailureCode) ==
+        activeDirectoryEligibleAmbiguousCode);
+Check("completion drain active eligibility valid total 1はoverrideなし",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        1,
+        1,
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode) is null);
+Check("completion drain active eligibility別aggregateはoverrideなし",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        2,
+        1,
+        WriteCompletionDrainRules.GenericLateEventFailureCode) is null);
+Check("completion drain active eligibility別aggregateでも矛盾countを優先",
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        2,
+        3,
+        WriteCompletionDrainRules.GenericLateEventFailureCode) ==
+    WriteCompletionDrainRules.StateChangedFailureCode);
+int ActiveDirectoryEligibleCount(IEnumerable<LateEventDiagnosticCandidate> candidates) =>
+    candidates.Count(candidate => ActiveDirectoryCandidateMatches(candidate));
+var activeDirectoryExactOneEligible = ActiveDirectoryEligibleCount(
+    activeDirectoryMixedCandidates);
+var activeDirectoryExactOneEligibleReverse = ActiveDirectoryEligibleCount(
+    activeDirectoryMixedCandidates.Reverse());
+Check("completion drain active reachability exact＋別causeは両順序でeligible exact 1",
+    activeDirectoryMixedForward ==
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode &&
+    activeDirectoryMixedReverse == activeDirectoryMixedForward &&
+    activeDirectoryExactOneEligible == 1 &&
+    activeDirectoryExactOneEligibleReverse == 1 &&
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        activeDirectoryMixedCandidates.Length,
+        activeDirectoryExactOneEligible,
+        activeDirectoryMixedForward) == activeDirectoryEligibleExactOneCode &&
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        activeDirectoryMixedCandidates.Length,
+        activeDirectoryExactOneEligibleReverse,
+        activeDirectoryMixedReverse) == activeDirectoryEligibleExactOneCode);
+var activeDirectoryAmbiguousEligible = ActiveDirectoryEligibleCount(
+    activeDirectoryExactTwo);
+Check("completion drain active reachability exact 2件はeligible ambiguous",
+    activeDirectoryExactTwoAggregate ==
+        WriteCompletionDrainRules.LateRetainedParentWriteFailureCode &&
+    activeDirectoryAmbiguousEligible == 2 &&
+    WriteCompletionDrainRules.ActiveDirectoryHandoffEligibilityFailureCode(
+        activeDirectoryExactTwo.Length,
+        activeDirectoryAmbiguousEligible,
+        activeDirectoryExactTwoAggregate) == activeDirectoryEligibleAmbiguousCode);
+
 var activeDirectoryGate = new object();
 var activeDirectorySnapshotReady = new ManualResetEventSlim(false);
 var activeDirectoryDriftAttempting = new ManualResetEventSlim(false);
@@ -1341,9 +1454,11 @@ var activeDirectoryDecision = Task.Run(() => {
         if (!activeDirectoryAllowDecision.Wait(TimeSpan.FromSeconds(2)))
             throw new InvalidOperationException(
                 "ACTIVE_DIRECTORY_CARDINALITY_DECISION_TIMEOUT");
+        var eligibleCount = ActiveDirectoryEligibleCount(lateCandidateSnapshot);
         activeDirectoryBarrierCode = WriteCompletionDrainRules
-            .ActiveDirectoryHandoffCardinalityFailureCode(
+            .ActiveDirectoryHandoffEligibilityFailureCode(
                 lateCandidateSnapshot.Length,
+                eligibleCount,
                 aggregateFailure);
         activeDirectorySemanticAtDecision =
             string.Join("|", activeDirectorySemanticState);
@@ -1371,7 +1486,7 @@ activeDirectoryAllowDecision.Set();
 Task.WaitAll(activeDirectoryDecision, activeDirectoryDrift);
 Check("completion drain active directory cardinalityは同一gate snapshotで固定拒否",
     activeDirectoryDriftBlockedAtDecision &&
-    activeDirectoryBarrierCode == activeDirectoryAmbiguousCode &&
+    activeDirectoryBarrierCode == activeDirectoryEligibleExactOneCode &&
     activeDirectorySemanticAtDecision == activeDirectorySemanticBefore &&
     activeDirectoryDriftEntered.IsSet);
 foreach (var (authorized, poisoned, expected, expectedPoisonChecks) in new[] {
@@ -1989,16 +2104,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 51",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 51 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 51 &&
+Check("completion drain external code集合はexact 53",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 53 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 53 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は96文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 96);
-Check("completion drain external exact 51 codeはnative replyで不変",
+Check("completion drain external exact 53 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2024,12 +2139,22 @@ Check("completion drain active directory ambiguous fixed diagnosticはsentinel�
             sentinel,
             StringComparison.Ordinal)));
 foreach (var code in new[] {
+    activeDirectoryEligibleExactOneCode,
+    activeDirectoryEligibleAmbiguousCode,
+})
+    Check("completion drain active eligibility fixed diagnosticはsentinel非包含",
+        WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code &&
+        privateAmbiguitySentinels.All(sentinel =>
+            !code.Contains(sentinel, StringComparison.Ordinal)));
+foreach (var code in new[] {
     "F005_ETW_WRITE_COMPLETION_DRAIN_PRIVATE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT_EXTRA",
     "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_WRITE_SAME_LEASE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_LATE_DIAG_SETINFO_SAME_LEASE",
     "F005_ETW_WRITE_COMPLETION_DRAIN_COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA",
     "F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE_EXTRA",
+    "F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS_EXTRA",
     "F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT".PadRight(128, 'X'),
 })
     Check("completion drain unknown/extra/exact128はnative generic化",
