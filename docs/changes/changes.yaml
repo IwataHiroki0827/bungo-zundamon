@@ -4,7 +4,7 @@ changes:
   trigger: Q-044でT-109の自然なhosted ETW配送順への3 attempt依存をやめ、認可非変更の決定的影響確認方法を別変更管理で設計する回答を反映
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, docs/design/FD-F005.md, docs/design/DD-F005.md, docs/tests/ut/UT-F005.md, docs/tests/it/IT-F005.md, docs/tests/qt/QT-F005.md, T-070, T-109, native/f005-guard/Program.cs, native/f005-guard-tests/F005Guard.CorrelationTests.csproj, native/f005-guard-tests/Program.cs, native/f005-guard-tests/T109TargetSuite.cs, native/f005-guard-tests/t109-case-manifest.json, native/f005-guard-tests/hosted-target-selector.json, .github/workflows/f005-hosted-native-probe.yml, src/content/f005-guard-native.test.ts, src/content/f005-hosted-native-probe.test.ts, T-129]
-  status: in-review
+  status: done
 - id: CHG-F005-054
   date: '2026-08-08'
   trigger: Q-043でT-112の自然なhosted ETW配送順への3 attempt依存をやめ、proof・認可非変更の決定的影響確認を別変更管理で設計する回答を反映
@@ -129,7 +129,7 @@ changes:
   trigger: Actions run 31035627381 attempt 2でpendingなしbound directory writeのactive leaseがUNBOUNDと固定検出
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-108, T-109]
-  status: in-review
+  status: done
 - id: CHG-F005-034
   date: '2026-08-06'
   trigger: Actions run 31032629020でpending renameなしのbound FileObject pathをPATH_MISSINGとして固定検出
