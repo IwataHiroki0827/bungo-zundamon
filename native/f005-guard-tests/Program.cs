@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 69",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 69 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 69 &&
+Check("completion drain external code集合はexact 75",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 75 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 75 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 69 codeはnative replyで不変",
+Check("completion drain external exact 75 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -2865,6 +2865,173 @@ var retiredCurrentResult = WriteCompletionDrainRules.EvaluateLateProof(
 Check("completion drain real ledger same-generation wrong state Retiredはbinding mismatch",
     retiredCurrentResult == LateProofResult.CurrentBindingMismatch &&
     retiredCurrentCalls == 1);
+var generationLedger = new WriteCompletionBindingLedger([
+    (704UL, "volume:generation", "cache/generation.wav"),
+]);
+Check("completion drain generation matchはinvalidをlookup前に優先",
+    generationLedger.MatchGeneration(0, 1, "volume:generation", "cache/generation.wav", false) == GenerationMatchResult.Invalid &&
+    generationLedger.MatchGeneration(704, 0, "volume:generation", "cache/generation.wav", false) == GenerationMatchResult.Invalid &&
+    generationLedger.MatchGeneration(704, 1, null, "cache/generation.wav", false) == GenerationMatchResult.Invalid &&
+    generationLedger.MatchGeneration(704, 1, "", "cache/generation.wav", false) == GenerationMatchResult.Invalid &&
+    generationLedger.MatchGeneration(704, 1, "volume:generation", null, false) == GenerationMatchResult.Invalid &&
+    generationLedger.MatchGeneration(704, 1, "volume:generation", "", false) == GenerationMatchResult.Invalid);
+Check("completion drain generation matchはentry→generation→identity→path→state→success順",
+    generationLedger.MatchGeneration(999, 1, "wrong", "wrong", false) == GenerationMatchResult.EntryMissing &&
+    generationLedger.MatchGeneration(704, 2, "wrong", "wrong", false) == GenerationMatchResult.GenerationMismatch &&
+    generationLedger.MatchGeneration(704, 1, "wrong", "wrong", false) == GenerationMatchResult.IdentityMismatch &&
+    generationLedger.MatchGeneration(704, 1, "volume:generation", "wrong", false) == GenerationMatchResult.PathMismatch &&
+    retiredCurrentLedger.MatchGeneration(703, 1, "volume:retired-current", "cache/retired-current.wav", false) == GenerationMatchResult.StateNotBound &&
+    generationLedger.MatchGeneration(704, 1, "volume:generation", "cache/generation.wav", false) == GenerationMatchResult.Success);
+var generationCauses = new[] {
+    (GenerationMatchResult.EntryMissing, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingEntryMissingAllFailureCode),
+    (GenerationMatchResult.GenerationMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingGenerationMismatchAllFailureCode),
+    (GenerationMatchResult.IdentityMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingIdentityMismatchAllFailureCode),
+    (GenerationMatchResult.PathMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingPathMismatchAllFailureCode),
+    (GenerationMatchResult.StateNotBound, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingStateNotBoundAllFailureCode),
+};
+foreach (var (cause, code) in generationCauses)
+    foreach (var count in new[] { 1, 2, 128 })
+        Check($"completion drain current binding単一cause ALL code {count}件",
+            WriteCompletionDrainRules.CurrentBindingFailureCode(
+                Enumerable.Repeat<GenerationMatchResult?>(cause, count).ToArray()) == code);
+for (var mask = 1; mask < (1 << generationCauses.Length); mask++)
+{
+    var causes = generationCauses.Where((_, index) =>
+        (mask & (1 << index)) != 0).Select(item => (GenerationMatchResult?)item.Item1).ToArray();
+    if (causes.Length < 2) continue;
+    var forward = WriteCompletionDrainRules.CurrentBindingFailureCode(causes);
+    Array.Reverse(causes);
+    var reverse = WriteCompletionDrainRules.CurrentBindingFailureCode(causes);
+    Check("completion drain current binding全複数cause組合せ/順序反転はMIXED",
+        forward == WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingMixedFailureCode &&
+        reverse == WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingMixedFailureCode);
+}
+Check("completion drain current binding invalid/null/success/0/129/unknownはSTATE_CHANGED",
+    WriteCompletionDrainRules.CurrentBindingFailureCode(null) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode([]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode([null]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode([GenerationMatchResult.Invalid]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode([GenerationMatchResult.Success]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode([(GenerationMatchResult)int.MaxValue]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.CurrentBindingFailureCode(Enumerable.Repeat<GenerationMatchResult?>(GenerationMatchResult.EntryMissing, 129).ToArray()) == WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain outer current binding ALLのみinner原因を分類",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch], [GenerationMatchResult.EntryMissing]) ==
+        WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingEntryMissingAllFailureCode);
+Check("completion drain outer別cause混在はinnerよりtop MIXEDを優先",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch, LateProofResult.LedgerUnavailable],
+        [GenerationMatchResult.EntryMissing, null]) ==
+        WriteCompletionDrainRules.LookupPostUpperProofMixedFailureCode);
+Check("completion drain outer/inner count不一致は両方向ともSTATE_CHANGED",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch, LateProofResult.CurrentBindingMismatch],
+        [GenerationMatchResult.EntryMissing]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch],
+        [GenerationMatchResult.EntryMissing, GenerationMatchResult.PathMismatch]) == WriteCompletionDrainRules.StateChangedFailureCode);
+foreach (var invalidPair in new[] {
+    (LateProofResult.CurrentBindingMismatch, (GenerationMatchResult?)null),
+    (LateProofResult.CurrentBindingMismatch, (GenerationMatchResult?)GenerationMatchResult.Invalid),
+    (LateProofResult.CurrentBindingMismatch, (GenerationMatchResult?)GenerationMatchResult.Success),
+    (LateProofResult.CurrentBindingMismatch, (GenerationMatchResult?)(GenerationMatchResult)int.MaxValue),
+    (LateProofResult.LedgerUnavailable, (GenerationMatchResult?)GenerationMatchResult.EntryMissing),
+    (LateProofResult.ParentNotUnbound, (GenerationMatchResult?)GenerationMatchResult.PathMismatch),
+})
+    Check("completion drain outer/inner各pair不整合はSTATE_CHANGED",
+        WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+            [invalidPair.Item1], [invalidPair.Item2]) ==
+            WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain outer mixedでもinner invalid/unknown/null不整合を最優先",
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch, LateProofResult.LedgerUnavailable],
+        [GenerationMatchResult.Invalid, null]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch, LateProofResult.ParentNotUnbound],
+        [(GenerationMatchResult)int.MaxValue, null]) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        [LateProofResult.CurrentBindingMismatch, LateProofResult.LedgerUnavailable],
+        [null, null]) == WriteCompletionDrainRules.StateChangedFailureCode);
+var detailedBindingCalls = 0;
+var detailedProof = WriteCompletionDrainRules.EvaluateLateProofDetail(
+    true, false, 704, 704, 1, "volume:generation", "cache/generation.wav", true,
+    () => { detailedBindingCalls++; return generationLedger.MatchGeneration(
+        704, 1, "volume:generation", "cache/generation.wav", false); }, null);
+Check("completion drain detail current binding lookupはexact1でsuccess",
+    detailedBindingCalls == 1 && detailedProof ==
+        new LateProofEvaluation(LateProofResult.Success, GenerationMatchResult.Success));
+foreach (var (cause, _) in generationCauses)
+{
+    var calls = 0;
+    var evaluation = WriteCompletionDrainRules.EvaluateLateProofDetail(
+        true, false, 704, 704, 1, "volume:generation", "cache/generation.wav", true,
+        () => { calls++; return cause; }, null);
+    Check("completion drain detail各current binding causeもlookup exact1",
+        calls == 1 && evaluation ==
+            new LateProofEvaluation(LateProofResult.CurrentBindingMismatch, cause));
+}
+var classifiedGeneration = WriteCompletionDrainRules.ClassifyEpochCandidates(
+    new[] { new EpochClassificationFixture(100, 110) }, 111,
+    item => item.Reservation, item => item.Upper,
+    _ => new LateProofEvaluation(
+        LateProofResult.CurrentBindingMismatch,
+        GenerationMatchResult.PathMismatch));
+Check("completion drain classifierはouterとinnerを同一候補順で保持",
+    classifiedGeneration.ProofResults.SequenceEqual([LateProofResult.CurrentBindingMismatch]) &&
+    classifiedGeneration.GenerationMatchResults.SequenceEqual<GenerationMatchResult?>([GenerationMatchResult.PathMismatch]) &&
+    classifiedGeneration.PostUpperProofMissingCount == 1);
+LateProofEvaluation EvaluateActualGeneration(
+    WriteCompletionBindingLedger ledger, ulong fileObject, long generation,
+    string identity, string path)
+{
+    var calls = 0;
+    var result = WriteCompletionDrainRules.EvaluateLateProofDetail(
+        true, false, fileObject, fileObject, generation, identity, path, true,
+        () => { calls++; return ledger.MatchGeneration(
+            fileObject, generation, identity, path, false); }, null);
+    Check("completion drain real ledger競合causeもlookup exact1", calls == 1);
+    return result;
+}
+var actualGenerationCauses = new[] {
+    EvaluateActualGeneration(generationLedger, 799, 1, "volume:missing", "cache/missing.wav"),
+    EvaluateActualGeneration(retiredCurrentLedger, 703, 2, "wrong", "wrong"),
+    EvaluateActualGeneration(retiredCurrentLedger, 703, 1, "wrong", "wrong"),
+    EvaluateActualGeneration(retiredCurrentLedger, 703, 1, "volume:retired-current", "wrong"),
+    EvaluateActualGeneration(retiredCurrentLedger, 703, 1, "volume:retired-current", "cache/retired-current.wav"),
+};
+Check("completion drain real ledger generation/identity/pathはstateより優先",
+    actualGenerationCauses.Select(item => item.GenerationMatch).SequenceEqual(
+        new GenerationMatchResult?[] {
+            GenerationMatchResult.EntryMissing,
+            GenerationMatchResult.GenerationMismatch,
+            GenerationMatchResult.IdentityMismatch,
+            GenerationMatchResult.PathMismatch,
+            GenerationMatchResult.StateNotBound,
+        }));
+foreach (var evaluation in actualGenerationCauses)
+    foreach (var count in new[] { 1, 2, 128 })
+        Check("completion drain real ledger causeを一気通貫ALL集約",
+            WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+                Enumerable.Repeat(evaluation.Outer, count).ToArray(),
+                Enumerable.Repeat(evaluation.GenerationMatch, count).ToArray()) !=
+            WriteCompletionDrainRules.StateChangedFailureCode);
+for (var mask = 1; mask < (1 << actualGenerationCauses.Length); mask++)
+{
+    var selected = actualGenerationCauses.Where((_, index) =>
+        (mask & (1 << index)) != 0).ToArray();
+    if (selected.Length is not (2 or 3 or 5)) continue;
+    var outerResults = selected.Select(item => item.Outer).ToArray();
+    var innerResults = selected.Select(item => item.GenerationMatch).ToArray();
+    var forward = WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        outerResults, innerResults);
+    Array.Reverse(outerResults);
+    Array.Reverse(innerResults);
+    var reverse = WriteCompletionDrainRules.EpochEmptyPostUpperProofFailureCode(
+        outerResults, innerResults);
+    Check("completion drain real ledger全pair/triple/all+反転をMIXED集約",
+        forward == WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingMixedFailureCode &&
+        reverse == WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingMixedFailureCode);
+}
 var proofCauseCodes = new[] {
     (LateProofResult.LedgerUnavailable,
         WriteCompletionDrainRules.LookupPostUpperProofLedgerUnavailableAllFailureCode),
