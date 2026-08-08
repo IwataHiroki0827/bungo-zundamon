@@ -2247,14 +2247,13 @@ tasks:
   title: CHG-F005-035 pendingなしbound directory writeとunbound leaseの固定診断
   feature: F005
   phase: test
-  state: blocked
-  blocked_by: [Q-035]
+  state: todo
   depends: [T-108]
   tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: NO_PENDING_LEASE_UNBOUNDを予約・current・deferred・保持process状態へ認可せず固定分類するため
   model: {lead: opus, workers: sonnet}
-  progress: LEASE_UNBOUNDをexact14 stageへ分離しlocal受入PASS。run 31038467173を3 attempt実行したが前段のLEASE_BINDING_MISMATCH・LEASE_MISSING・bound lease directory CANDIDATEで安全停止しhosted対象経路へ未到達
+  progress: LEASE_UNBOUNDをexact14 stageへ分離しlocal受入PASS。Q-044回答でblock解除し、CHG-F005-055/T-129のproduction共有規則を使う決定的hosted相関検証で再試験する
 - id: T-110
   title: CHG-F005-036 bound lease directory CANDIDATEの完全tuple限定再結合
   feature: F005
@@ -2464,3 +2463,14 @@ tasks:
   mode_reason: production共有ledger/replay規則を使う固定target suiteでT-112影響だけを決定的に再試験するため
   model: {lead: opus, workers: sonnet}
   progress: production-owned retained leaseとT-112固定74 caseを実装。local/独立受入PASS後、run 31243008484で74/74・kernel ETW・canonical evidence・同一SHA Pages deploy skipをPASSして完了
+- id: T-129
+  title: CHG-F005-055 T-109決定的hosted相関検証
+  feature: F005
+  phase: change
+  state: doing
+  depends: [T-128]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
+  mode: advisor
+  mode_reason: production共有QPC/deferred/process診断規則を使う固定target suiteでT-109影響だけを決定的に再試験するため
+  model: {lead: opus, workers: sonnet}
+  progress: production共有evaluatorとT-109固定52 caseを実装。通常native820、既存target 57/43/74、T-109 52、関連Vitest32、型・Lint・trace・再現build2回、独立受入H0/M0/L0をPASSしhosted canonical evidence待ち

@@ -303,6 +303,7 @@ internal static class T110TargetSuite
         private readonly Process signaled;
         private readonly Process outside;
         private readonly JobObject.ProcessIdentityRecord memberIdentity;
+        private readonly JobObject.ProcessIdentityRecord signaledIdentity;
         private readonly JobObject.ProcessIdentityRecord outsideIdentity;
 
         internal WindowsTupleFixture()
@@ -330,6 +331,7 @@ internal static class T110TargetSuite
             signaled = StartSleeper();
             using (var started = signaled)
                 signaled = job.Assign(started.Id);
+            signaledIdentity = job.ProcessIdentity(signaled);
             signaled.Kill(entireProcessTree: true);
             signaled.WaitForExit(10_000);
 
@@ -361,6 +363,26 @@ internal static class T110TargetSuite
             memberIdentity.ProcessSequenceNumber != outsideIdentity.ProcessSequenceNumber;
 
         internal bool OutsideJob() => !job.Contains(outside);
+
+        internal string CurrentFilePath => Path.Combine(root, "lease.tmp");
+        internal string InitialFilePath => Path.Combine(root, "lease-old.tmp");
+        internal string MissingFilePath => Path.Combine(root, "lease-missing.tmp");
+        internal JobObject Job => job;
+        internal Process MemberProcess => member;
+        internal Process SignaledProcess => signaled;
+        internal Process OutsideProcess => outside;
+        internal JobObject.ProcessIdentityRecord MemberIdentity => memberIdentity;
+        internal JobObject.ProcessIdentityRecord SignaledIdentity => signaledIdentity;
+        internal JobObject.ProcessIdentityRecord OutsideIdentity => outsideIdentity;
+
+        internal void ReplaceCurrentFile()
+        {
+            var path = CurrentFilePath;
+            File.Move(path, Path.Combine(root, $"lease-replaced-{Guid.NewGuid():N}.tmp"));
+            File.WriteAllBytes(path, [0x54, 0x31, 0x30, 0x39]);
+        }
+
+        internal void DeleteCurrentFile() => File.Delete(CurrentFilePath);
 
         public void Dispose()
         {

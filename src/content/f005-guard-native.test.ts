@@ -432,42 +432,25 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       ),
       program.indexOf('private string SystemDirectoryWriteRejoinStage('),
     );
-    const orderedUnboundChecks = [
-      'lease.Snapshot is not null',
-      '.IsEventAfterReservation(',
-      'TryInspect(lease.RelativePath)',
-      'if (current is null)',
-      'deferredSystemSetInfos.Count == 0',
-      'deferredSystemSetInfos.Count != 1',
-      'var deferred = deferredSystemSetInfos[0]',
-      '.DeferredTupleMatches(',
-      'current.Identity != deferred.Snapshot.Identity',
-      'job.InspectRetainedProcess(lease.Process)',
-      'processInspection.ProcessId == lease.WorkerPid',
-      'processInspection.ProcessStartKey == lease.ProcessStartKey',
-      'processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber',
-      'if (processInspection.Signaled)',
-      'if (!processInspection.JobMember)',
-      'return Classify()',
-    ];
-    for (const runtimeCheck of orderedUnboundChecks) {
-      expect(unboundLeaseStage.indexOf(runtimeCheck)).toBeGreaterThanOrEqual(0);
-    }
-    for (let index = 1; index < orderedUnboundChecks.length; index += 1) {
-      expect(unboundLeaseStage.indexOf(orderedUnboundChecks[index - 1]!))
-        .toBeLessThan(unboundLeaseStage.indexOf(orderedUnboundChecks[index]!));
-    }
+    expect(unboundLeaseStage.match(
+      /SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator\.Evaluate\(/gu,
+    )).toHaveLength(1);
+    expect(unboundLeaseStage.match(/CreateProduction\(/gu)).toHaveLength(1);
+    expect(unboundLeaseStage.match(/TryInspect\(relativePath\)/gu)).toHaveLength(1);
+    expect(unboundLeaseStage.match(
+      /job\.InspectRetainedProcess\(lease\.Process\)/gu,
+    )).toHaveLength(1);
     for (const tupleField of [
-      'deferred.WorkerPid',
-      'deferred.ProducerSequenceNumber',
-      'deferred.Phase',
-      'deferred.WorkId',
-      'deferred.PhaseInstanceId',
-      'deferred.RelativePath',
-      'deferred.Snapshot.RelativePath',
-      'deferred.FileObject',
-      '!filesByObject.ContainsKey(deferred.FileObject)',
-      'deferred.TimestampQpc',
+      'item.WorkerPid',
+      'item.ProducerSequenceNumber',
+      'item.Phase',
+      'item.WorkId',
+      'item.PhaseInstanceId',
+      'item.RelativePath',
+      'item.Snapshot.RelativePath',
+      'item.FileObject',
+      '!filesByObject.ContainsKey(item.FileObject)',
+      'item.TimestampQpc',
       'lease.CurrentPathReservedAtQpc',
       'eventQpc',
     ]) {
@@ -477,6 +460,45 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
     expect(unboundLeaseStage).not.toContain('BindReservedSystemSetInfoLocked');
     expect(unboundLeaseStage).not.toContain('ObservationRecord');
     expect(unboundLeaseStage).not.toContain('allocatedByIdentity');
+    expect(unboundLeaseStage).not.toContain(
+      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(',
+    );
+    expect(unboundLeaseStage).not.toContain('.DeferredTupleMatches(');
+
+    const unboundEvaluator = program.slice(
+      program.indexOf(
+        'internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator',
+      ),
+      program.indexOf(
+        'public static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules',
+      ),
+    );
+    const orderedUnboundChecks = [
+      'lease.SnapshotPresent',
+      '.IsEventAfterReservation(',
+      'inspection.InspectCurrent(lease.RelativePath)',
+      'if (current is null)',
+      'var deferredItems = deferred.ToArray()',
+      'deferredItems.Length == 0',
+      'deferredItems.Length != 1',
+      'var item = deferredItems[0]',
+      '.DeferredTupleMatches(',
+      'current.Value.Identity != item.SnapshotIdentity',
+      'inspection.InspectRetainedProcess()',
+      'process.ProcessId == lease.WorkerPid',
+      'process.ProcessStartKey == lease.ProcessStartKey',
+      'process.ProcessSequenceNumber == lease.ProcessSequenceNumber',
+      'if (process.Signaled)',
+      'if (!process.JobMember)',
+      'return Classify()',
+    ];
+    for (const runtimeCheck of orderedUnboundChecks) {
+      expect(unboundEvaluator.indexOf(runtimeCheck)).toBeGreaterThanOrEqual(0);
+    }
+    for (let index = 1; index < orderedUnboundChecks.length; index += 1) {
+      expect(unboundEvaluator.indexOf(orderedUnboundChecks[index - 1]!))
+        .toBeLessThan(unboundEvaluator.indexOf(orderedUnboundChecks[index]!));
+    }
 
     const retainedInspectionForUnbound = program.slice(
       program.indexOf('public RetainedProcessInspection InspectRetainedProcess('),

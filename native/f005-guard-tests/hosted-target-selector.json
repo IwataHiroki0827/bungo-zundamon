@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
-  "selectedTargetId": "CHG-F005-038/T-112",
-  "kind": "f005-t112-hosted-correlation",
-  "manifestPath": "native/f005-guard-tests/t112-case-manifest.json",
-  "testSourcePath": "native/f005-guard-tests/T112TargetSuite.cs",
-  "caseMarkerPrefix": "F005_T112_CASE_BASE64=",
-  "resultMarkerPrefix": "F005_T112_RESULT_BASE64="
+  "selectedTargetId": "CHG-F005-035/T-109",
+  "kind": "f005-t109-hosted-correlation",
+  "manifestPath": "native/f005-guard-tests/t109-case-manifest.json",
+  "testSourcePath": "native/f005-guard-tests/T109TargetSuite.cs",
+  "caseMarkerPrefix": "F005_T109_CASE_BASE64=",
+  "resultMarkerPrefix": "F005_T109_RESULT_BASE64="
 }

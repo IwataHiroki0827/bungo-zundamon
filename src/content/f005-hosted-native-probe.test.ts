@@ -49,13 +49,15 @@ const T122_CASE_PREFIX = 'F005_T122_CASE_BASE64=';
 const T122_RESULT_PREFIX = 'F005_T122_RESULT_BASE64=';
 const T112_CASE_PREFIX = 'F005_T112_CASE_BASE64=';
 const T112_RESULT_PREFIX = 'F005_T112_RESULT_BASE64=';
+const T109_CASE_PREFIX = 'F005_T109_CASE_BASE64=';
+const T109_RESULT_PREFIX = 'F005_T109_RESULT_BASE64=';
 const execFileAsync = promisify(execFile);
 
 function decodeMarker<T>(value: string): T {
   return JSON.parse(Buffer.from(value, 'base64').toString('utf8')) as T;
 }
 
-describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
+describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
   it('workflow全体をread-onlyに固定しcredential・push・artifactを持たない', async () => {
     const raw = await readFile(
       resolve('.github/workflows/f005-hosted-native-probe.yml'),
@@ -63,7 +65,7 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     );
     const [selectorRaw, manifestRaw] = await Promise.all([
       readFile(resolve('native/f005-guard-tests/hosted-target-selector.json'), 'utf8'),
-      readFile(resolve('native/f005-guard-tests/t112-case-manifest.json'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t109-case-manifest.json'), 'utf8'),
     ]);
     const workflow = parse(raw) as ProbeWorkflow;
     const selector = JSON.parse(selectorRaw) as Readonly<Record<string, string>>;
@@ -96,21 +98,21 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     expect(raw).not.toMatch(/actions\/upload-(?:artifact|pages-artifact)@/u);
     expect(selector).toEqual({
       schemaVersion: '1.0.0',
-      selectedTargetId: 'CHG-F005-038/T-112',
-      kind: 'f005-t112-hosted-correlation',
-      manifestPath: 'native/f005-guard-tests/t112-case-manifest.json',
-      testSourcePath: 'native/f005-guard-tests/T112TargetSuite.cs',
-      caseMarkerPrefix: T112_CASE_PREFIX,
-      resultMarkerPrefix: T112_RESULT_PREFIX,
+      selectedTargetId: 'CHG-F005-035/T-109',
+      kind: 'f005-t109-hosted-correlation',
+      manifestPath: 'native/f005-guard-tests/t109-case-manifest.json',
+      testSourcePath: 'native/f005-guard-tests/T109TargetSuite.cs',
+      caseMarkerPrefix: T109_CASE_PREFIX,
+      resultMarkerPrefix: T109_RESULT_PREFIX,
     });
     expect(manifest.targetId).toBe(selector.selectedTargetId);
-    expect(scripts).toContain('F005_T112_CASE_BASE64=');
-    expect(scripts).toContain('F005_T112_RESULT_BASE64=');
-    expect(scripts).toContain('F005_T112_EVIDENCE_BASE64=');
+    expect(scripts).toContain('F005_T109_CASE_BASE64=');
+    expect(scripts).toContain('F005_T109_RESULT_BASE64=');
+    expect(scripts).toContain('F005_T109_EVIDENCE_BASE64=');
     expect(scripts).toContain('(Get-Item -LiteralPath $stdout).Length -gt 65536');
     expect(scripts).toContain('(Get-Item -LiteralPath $stderr).Length -gt 65536');
-    expect(scripts).toContain('F005_T112_TARGET_UNKNOWN_LINE');
-    expect(scripts).toContain('F005_T112_TARGET_RESULT_CARDINALITY');
+    expect(scripts).toContain('F005_T109_TARGET_UNKNOWN_LINE');
+    expect(scripts).toContain('F005_T109_TARGET_RESULT_CARDINALITY');
     expect(scripts).toContain("@('public', 'data', 'candidate', 'audio', 'staging')");
     expect(scripts).toContain('candidate/f005-t070-$env:GITHUB_SHA');
     expect(scripts).toContain('actions/workflows/pages.yml/runs?event=push&head_sha=');
@@ -125,6 +127,21 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     expect(scripts).toContain('TestAssemblySha256');
     expect(scripts).toContain('TestExecutableSha256');
     expect(scripts).not.toContain('nativeBuildLogTail');
+    const evidenceStart = raw.indexOf('          $evidence = [ordered]@{');
+    const evidenceEnd = raw.indexOf('          $json =', evidenceStart);
+    const evidenceKeys = [...raw.slice(evidenceStart, evidenceEnd).matchAll(
+      /^ {12}([A-Za-z][A-Za-z0-9]*) =/gmu,
+    )].map((match) => match[1]);
+    expect(evidenceKeys).toEqual([
+      'schemaVersion', 'kind', 'targetId', 'sourceCommit', 'workflowRunId',
+      'workflowRunAttempt', 'runnerOs', 'runnerArch', 'imageOs', 'imageVersion',
+      'windowsBuild', 'windowsUbr', 'powerShellVersion', 'sourceSha256',
+      'nativeBinarySha256', 'productionAssemblySha256', 'productionAssemblyMvid',
+      'testAssemblySha256', 'testAssemblyMvid', 'testExecutableSha256',
+      'dotnetSdk', 'dotnetRuntime', 'kernelEtwPreflight', 'caseManifestSha256',
+      'expectedCaseCount', 'passedCaseCount', 'pagesRunId', 'pagesRunAttempt',
+      'pagesConclusion', 'pagesDeployConclusion', 'result',
+    ]);
   });
 
   it('production callbackとtargetが同じ初回tuple共有規則を使用する', async () => {
@@ -360,6 +377,129 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
     );
   });
 
+  it('T-109 targetがproduction evaluatorと実Windows inspectionを直接固定する', async () => {
+    const [production, target, harness, manifestRaw] = await Promise.all([
+      readFile(resolve('native/f005-guard/Program.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/T109TargetSuite.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/Program.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t109-case-manifest.json'), 'utf8'),
+    ]);
+    const manifest = JSON.parse(manifestRaw) as TargetManifest;
+    const slice = (start: string, end: string): string => {
+      const first = production.indexOf(start);
+      const last = production.indexOf(end, first + start.length);
+      expect(first, `missing start: ${start}`).toBeGreaterThanOrEqual(0);
+      expect(last, `missing end: ${end}`).toBeGreaterThan(first);
+      return production.slice(first, last);
+    };
+    const stage = slice(
+      'private string SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticStage(',
+      'private string SystemDirectoryWriteRejoinStage(',
+    );
+    const adapter = slice(
+      'internal sealed class SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter',
+      'internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator',
+    );
+    const evaluator = slice(
+      'internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator',
+      'public static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules',
+    );
+
+    expect(stage.match(
+      /SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator\.Evaluate\(/gu,
+    )).toHaveLength(1);
+    expect(stage.match(/CreateProduction\(/gu)).toHaveLength(1);
+    expect(stage.match(/TryInspect\(relativePath\)/gu)).toHaveLength(1);
+    expect(stage.match(/job\.InspectRetainedProcess\(lease\.Process\)/gu))
+      .toHaveLength(1);
+    expect(stage.trimEnd()).toMatch(/return SystemBound[\s\S]+inspection\);\s*\}$/u);
+    expect(stage).not.toContain(
+      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(',
+    );
+    expect(stage).not.toContain('.DeferredTupleMatches(');
+
+    expect(evaluator.match(/inspection\.InspectCurrent\(/gu)).toHaveLength(1);
+    expect(evaluator.match(/\.DeferredTupleMatches\(/gu)).toHaveLength(1);
+    expect(evaluator.match(/inspection\.InspectRetainedProcess\(/gu)).toHaveLength(1);
+    expect(evaluator.match(
+      /SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules\.Classify\(/gu,
+    )).toHaveLength(1);
+    const ordered = [
+      'if (lease.SnapshotPresent)',
+      '.IsEventAfterReservation(',
+      'inspection.InspectCurrent(',
+      'var deferredItems = deferred.ToArray();',
+      'if (deferredItems.Length == 0)',
+      '.DeferredTupleMatches(',
+      'current.Value.Identity != item.SnapshotIdentity',
+      'inspection.InspectRetainedProcess()',
+      'process.ProcessId == lease.WorkerPid',
+      'if (process.Signaled)',
+      'if (!process.JobMember)',
+      'return Classify();',
+    ];
+    for (const token of ordered) expect(evaluator).toContain(token);
+    for (let index = 1; index < ordered.length; index += 1) {
+      expect(evaluator.indexOf(ordered[index - 1]!))
+        .toBeLessThan(evaluator.indexOf(ordered[index]!));
+    }
+    expect(adapter).toContain(
+      'CreateWindows(string absoluteCurrentPath, JobObject job, Process process)',
+    );
+    expect(adapter).toContain('var current = job.InspectRetainedProcess(process);');
+    expect(adapter).toContain('CreateFileW(');
+    expect(adapter).toContain('GetFileInformationByHandleEx(');
+    expect(adapter).toContain('WithCurrentInspectionFailure()');
+    expect(adapter).toContain('WithProcessInspectionFailure(string failureCode)');
+
+    expect(target).toContain('new T110TargetSuite.WindowsTupleFixture()');
+    expect(target).toContain('.CreateWindows(path, windows.Job, process)');
+    expect(target).toContain(
+      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator.Evaluate(',
+    );
+    expect(target).toContain('actual = fixture.LastActual');
+    expect(target).toContain(
+      'LastActual =\n                SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator.Evaluate(',
+    );
+    expect(target).not.toContain('CreateProduction(');
+    expect(target).not.toContain(
+      'new SystemBoundFileObjectNoPendingUnboundLeaseCurrent(',
+    );
+    expect(target).not.toContain(
+      'new SystemBoundFileObjectNoPendingUnboundLeaseProcess(',
+    );
+    expect(harness).toContain(
+      '"CHG-F005-035/T-109" => T109TargetSuite.Run(args)',
+    );
+    expect(production).not.toMatch(/CHG-F005-035\/T-109|F005_T109/u);
+
+    expect(manifest).toMatchObject({
+      schemaVersion: '1.0.0',
+      targetId: 'CHG-F005-035/T-109',
+    });
+    expect(manifest.cases).toHaveLength(52);
+    expect(new Set(manifest.cases).size).toBe(52);
+    const stages = manifest.cases
+      .filter((item) => item.startsWith('stage-'))
+      .map((item) => item.slice('stage-'.length).replaceAll('-', '_').toUpperCase());
+    expect(stages).toEqual([
+      'UNBOUND_SNAPSHOT_PRESENT',
+      'UNBOUND_BEFORE_RESERVATION',
+      'UNBOUND_CURRENT_INSPECTION_FAILED',
+      'UNBOUND_CURRENT_MISSING',
+      'UNBOUND_DEFERRED_MISSING',
+      'UNBOUND_DEFERRED_TUPLE',
+      'UNBOUND_CURRENT_ID_MISMATCH',
+      'UNBOUND_PROCESS_WAIT_FAILED',
+      'UNBOUND_JOB_QUERY_FAILED',
+      'UNBOUND_PROCESS_IDENTITY_FAILED',
+      'UNBOUND_PROCESS_TUPLE',
+      'UNBOUND_PROCESS_SIGNALED',
+      'UNBOUND_LEASE_ESCAPE',
+      'UNBOUND_CANDIDATE',
+    ]);
+  });
+
   it.runIf(process.platform === 'win32')(
     '固定57 case markerとfinal markerをexactに解析する', async () => {
     const manifest = JSON.parse(await readFile(
@@ -592,6 +732,89 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-053]', () => {
       result: 'pass',
       expectedCaseCount: 74,
       passedCaseCount: 74,
+      caseManifestSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+      runtime: {
+        ProductionAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        ProductionAssemblyMvid: expect.stringMatching(/^[0-9a-f-]{36}$/u),
+        TestAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        TestAssemblyMvid: expect.stringMatching(/^[0-9a-f-]{36}$/u),
+        TestExecutableSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
+        DotnetRuntime: expect.stringMatching(/^9\.0\./u),
+      },
+    });
+    for (const rawSentinel of [
+      'pid=424242', 'qpc=9223372036854775000', 'fileObject=0xDEADBEEF',
+      'volume:private', 'handle=0xFEEDFACE', 'C:\\private\\audio.wav',
+    ]) expect(stdout).not.toContain(rawSentinel);
+  }, 120_000);
+
+  it.runIf(process.platform === 'win32')(
+    'T-109固定52 case markerとfinal markerをexactに解析する', async () => {
+    const manifest = JSON.parse(await readFile(
+      resolve('native/f005-guard-tests/t109-case-manifest.json'),
+      'utf8',
+    )) as TargetManifest;
+    const executable = resolve(
+      'native/f005-guard-tests/bin/Release/net9.0/win-x64/F005Guard.CorrelationTests.exe',
+    );
+    await execFileAsync(resolve('.cache/dotnet-f005/sdk/dotnet.exe'), [
+      'build',
+      resolve('native/f005-guard-tests/F005Guard.CorrelationTests.csproj'),
+      '--configuration',
+      'Release',
+      '--nologo',
+    ], {
+      cwd: resolve('.'),
+      windowsHide: true,
+      env: {
+        ...process.env,
+        DOTNET_CLI_HOME: resolve('.cache/dotnet-f005/cli-home'),
+        DOTNET_NOLOGO: '1',
+        NUGET_PACKAGES: resolve('.cache/dotnet-f005/nuget'),
+      },
+    });
+    const child = spawn(executable, ['--target', 'CHG-F005-035/T-109'], {
+      cwd: resolve('.'),
+      windowsHide: true,
+    });
+    let stdout = '';
+    let stderr = '';
+    child.stdout.on('data', (chunk: Buffer) => { stdout += chunk.toString('utf8'); });
+    child.stderr.on('data', (chunk: Buffer) => { stderr += chunk.toString('utf8'); });
+    const exitCode = await new Promise<number | null>((resolveExit, reject) => {
+      child.once('error', reject);
+      child.once('exit', resolveExit);
+    });
+    const lines = stdout.trim().split(/\r?\n/u);
+    const caseLines = lines.filter((line) => line.startsWith(T109_CASE_PREFIX));
+    const resultLines = lines.filter((line) => line.startsWith(T109_RESULT_PREFIX));
+    const unknown = lines.filter(
+      (line) => !line.startsWith(T109_CASE_PREFIX) &&
+        !line.startsWith(T109_RESULT_PREFIX),
+    );
+    const cases = caseLines.map((line) => decodeMarker<{
+      readonly caseId: string;
+      readonly result: string;
+    }>(line.slice(T109_CASE_PREFIX.length)));
+    const result = decodeMarker<TargetResult>(
+      resultLines[0]!.slice(T109_RESULT_PREFIX.length),
+    );
+
+    expect({ exitCode, stderr, unknown }).toEqual({ exitCode: 0, stderr: '', unknown: [] });
+    expect(manifest).toMatchObject({
+      schemaVersion: '1.0.0',
+      targetId: 'CHG-F005-035/T-109',
+    });
+    expect(manifest.cases).toHaveLength(52);
+    expect(new Set(manifest.cases).size).toBe(52);
+    expect(resultLines).toHaveLength(1);
+    expect(cases.map((item) => item.caseId)).toEqual(manifest.cases);
+    expect(cases.every((item) => item.result === 'pass')).toBe(true);
+    expect(result).toMatchObject({
+      targetId: manifest.targetId,
+      result: 'pass',
+      expectedCaseCount: 52,
+      passedCaseCount: 52,
       caseManifestSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
       runtime: {
         ProductionAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),

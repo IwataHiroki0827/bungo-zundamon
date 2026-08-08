@@ -6,6 +6,7 @@ if (args.Length != 0)
             "CHG-F005-036/T-110" => T110TargetSuite.Run(args),
             "CHG-F005-048/T-122" => T122TargetSuite.Run(args),
             "CHG-F005-038/T-112" => T112TargetSuite.Run(args),
+            "CHG-F005-035/T-109" => T109TargetSuite.Run(args),
             _ => 2,
         }
         : 2;

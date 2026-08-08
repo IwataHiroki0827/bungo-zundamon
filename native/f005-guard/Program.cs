@@ -6226,108 +6226,52 @@ sealed class CapacityGuardSession : IDisposable
         PendingWriteLease lease,
         long eventQpc)
     {
-        static string Classify(
-            bool leaseSnapshotAbsent = true,
-            bool eventAfterReservation = true,
-            bool currentInspectionSucceeded = true,
-            bool currentExists = true,
-            int deferredCount = 1,
-            bool deferredTupleMatches = true,
-            bool currentIdentityMatches = true,
-            string? processInspectionFailure = null,
-            bool processTupleMatches = true,
-            bool processSignaled = false,
-            bool processJobMember = true) =>
-            SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(
-                leaseSnapshotAbsent,
-                eventAfterReservation,
-                currentInspectionSucceeded,
-                currentExists,
-                deferredCount,
-                deferredTupleMatches,
-                currentIdentityMatches,
-                processInspectionFailure,
-                processTupleMatches,
-                processSignaled,
-                processJobMember);
-
-        if (lease.Snapshot is not null)
-            return Classify(leaseSnapshotAbsent: false);
-        if (!SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
-                .IsEventAfterReservation(
-                    eventQpc,
-                    lease.CurrentPathReservedAtQpc))
-            return Classify(eventAfterReservation: false);
-
-        FileSnapshot? current;
-        try
-        {
-            current = TryInspect(lease.RelativePath);
-        }
-        catch (GuardException)
-        {
-            return Classify(currentInspectionSucceeded: false);
-        }
-        if (current is null) return Classify(currentExists: false);
-        if (deferredSystemSetInfos.Count == 0)
-            return Classify(deferredCount: 0);
-        if (deferredSystemSetInfos.Count != 1)
-            return Classify(deferredCount: deferredSystemSetInfos.Count);
-
         var phase = activePhase!;
-        var deferred = deferredSystemSetInfos[0];
-        var deferredTupleMatches =
-            SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
-                .DeferredTupleMatches(
-                    deferred.WorkerPid,
-                    lease.WorkerPid,
-                    deferred.ProducerSequenceNumber,
-                    lease.ProcessSequenceNumber,
-                    deferred.Phase,
-                    phase.Phase,
-                    deferred.WorkId,
-                    phase.WorkId,
-                    deferred.PhaseInstanceId,
-                    phase.PhaseInstanceId,
-                    lease.PhaseInstanceId,
-                    deferred.RelativePath,
-                    deferred.Snapshot.RelativePath,
-                    lease.RelativePath,
-                    deferred.FileObject,
-                    !filesByObject.ContainsKey(deferred.FileObject),
-                    deferred.TimestampQpc,
-                    lease.CurrentPathReservedAtQpc,
-                    eventQpc);
-        if (!deferredTupleMatches)
-            return Classify(deferredTupleMatches: false);
-        if (current.Identity != deferred.Snapshot.Identity)
-            return Classify(currentIdentityMatches: false);
-
-        JobObject.RetainedProcessInspection processInspection;
-        try
-        {
-            processInspection = job.InspectRetainedProcess(lease.Process);
-        }
-        catch (GuardException error)
-        {
-            var failure = error.Code switch {
-                "PROCESS_WAIT_FAILED" => "WAIT",
-                "JOB_QUERY_FAILED" => "JOB",
-                _ => "IDENTITY",
-            };
-            return Classify(processInspectionFailure: failure);
-        }
-        var processTupleMatches =
-            processInspection.ProcessId == lease.WorkerPid &&
-            processInspection.ProcessStartKey == lease.ProcessStartKey &&
-            processInspection.ProcessSequenceNumber == lease.ProcessSequenceNumber;
-        if (!processTupleMatches)
-            return Classify(processTupleMatches: false);
-        if (processInspection.Signaled)
-            return Classify(processSignaled: true, processJobMember: false);
-        if (!processInspection.JobMember)
-            return Classify(processJobMember: false);
-        return Classify();
+        var deferred = deferredSystemSetInfos.Select(item =>
+            new SystemBoundFileObjectNoPendingUnboundLeaseDeferred(
+                item.WorkerPid,
+                item.ProducerSequenceNumber,
+                item.Phase,
+                item.WorkId,
+                item.PhaseInstanceId,
+                item.RelativePath,
+                item.Snapshot.RelativePath,
+                item.Snapshot.Identity,
+                item.FileObject,
+                !filesByObject.ContainsKey(item.FileObject),
+                item.TimestampQpc));
+        var inspection =
+            SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+                .CreateProduction(
+                    relativePath => TryInspect(relativePath) is { } current
+                        ? new SystemBoundFileObjectNoPendingUnboundLeaseCurrent(
+                            current.Identity)
+                        : null,
+                    () => {
+                        var current = job.InspectRetainedProcess(lease.Process);
+                        return new SystemBoundFileObjectNoPendingUnboundLeaseProcess(
+                            current.ProcessId,
+                            current.ProcessStartKey,
+                            current.ProcessSequenceNumber,
+                            current.Signaled,
+                            current.JobMember);
+                    });
+        return SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator.Evaluate(
+            new SystemBoundFileObjectNoPendingUnboundLeaseState(
+                lease.RelativePath,
+                lease.Snapshot is not null,
+                lease.WorkerPid,
+                lease.ProcessStartKey,
+                lease.ProcessSequenceNumber,
+                lease.PhaseInstanceId,
+                lease.CurrentPathReservedAtQpc),
+            new SystemBoundFileObjectNoPendingUnboundLeasePhase(
+                phase.Phase,
+                phase.WorkId,
+                phase.PhaseInstanceId),
+            deferred,
+            eventQpc,
+            inspection);
     }
 
     private string SystemDirectoryWriteRejoinStage(string normalized)
@@ -10225,6 +10169,314 @@ public static class SystemBoundFileObjectNoPendingRenameLeasePathDiagnosticRules
         if (!leaseIdentityMatches) return "NO_PENDING_LEASE_ID_MISMATCH";
         if (leaseOutsideJob) return "NO_PENDING_LEASE_ESCAPE";
         return "NO_PENDING_CANDIDATE";
+    }
+}
+
+internal readonly record struct SystemBoundFileObjectNoPendingUnboundLeaseState(
+    string RelativePath,
+    bool SnapshotPresent,
+    int WorkerPid,
+    ulong ProcessStartKey,
+    ulong ProcessSequenceNumber,
+    string PhaseInstanceId,
+    long CurrentPathReservedAtQpc);
+
+internal readonly record struct SystemBoundFileObjectNoPendingUnboundLeasePhase(
+    string Phase,
+    string? WorkId,
+    string PhaseInstanceId);
+
+internal readonly record struct SystemBoundFileObjectNoPendingUnboundLeaseDeferred(
+    int WorkerPid,
+    ulong ProducerSequenceNumber,
+    string Phase,
+    string? WorkId,
+    string PhaseInstanceId,
+    string RelativePath,
+    string SnapshotRelativePath,
+    string SnapshotIdentity,
+    ulong FileObject,
+    bool FileObjectUnbound,
+    long TimestampQpc);
+
+internal readonly record struct SystemBoundFileObjectNoPendingUnboundLeaseCurrent(
+    string Identity);
+
+internal readonly record struct SystemBoundFileObjectNoPendingUnboundLeaseProcess(
+    int ProcessId,
+    ulong ProcessStartKey,
+    ulong ProcessSequenceNumber,
+    bool Signaled,
+    bool JobMember);
+
+/// <summary>
+/// T-109診断が使うcurrent/process検査をproduction実装へ固定する。
+/// @des DES-F005-006 DES-F005-012 @fun FUN-F005-047
+/// </summary>
+internal sealed class SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+{
+    private const uint FileAttributeReparsePoint = 0x00000400;
+    private const uint ShareRead = 0x00000001;
+    private const uint ShareWrite = 0x00000002;
+    private const uint ShareDelete = 0x00000004;
+    private const uint OpenExisting = 3;
+    private const uint FileFlagOpenReparsePoint = 0x00200000;
+    private readonly Func<string,
+        SystemBoundFileObjectNoPendingUnboundLeaseCurrent?> inspectCurrent;
+    private readonly Func<SystemBoundFileObjectNoPendingUnboundLeaseProcess>
+        inspectProcess;
+
+    private SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter(
+        Func<string, SystemBoundFileObjectNoPendingUnboundLeaseCurrent?>
+            inspectCurrent,
+        Func<SystemBoundFileObjectNoPendingUnboundLeaseProcess> inspectProcess)
+    {
+        this.inspectCurrent = inspectCurrent;
+        this.inspectProcess = inspectProcess;
+    }
+
+    internal static SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+        CreateProduction(
+            Func<string, SystemBoundFileObjectNoPendingUnboundLeaseCurrent?>
+                inspectCurrent,
+            Func<SystemBoundFileObjectNoPendingUnboundLeaseProcess>
+                inspectProcess) => new(inspectCurrent, inspectProcess);
+
+    internal static SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+        CreateWindows(string absoluteCurrentPath, JobObject job, Process process) =>
+            new(
+                _ => InspectWindowsCurrent(absoluteCurrentPath),
+                () => {
+                    var current = job.InspectRetainedProcess(process);
+                    return new SystemBoundFileObjectNoPendingUnboundLeaseProcess(
+                        current.ProcessId,
+                        current.ProcessStartKey,
+                        current.ProcessSequenceNumber,
+                        current.Signaled,
+                        current.JobMember);
+                });
+
+    internal SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+        WithCurrentInspectionFailure() => new(
+            _ => throw new GuardException("FILE_IDENTITY_QUERY_FAILED"),
+            inspectProcess);
+
+    internal SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter
+        WithProcessInspectionFailure(string failureCode)
+    {
+        if (failureCode is not (
+            "PROCESS_WAIT_FAILED" or
+            "JOB_QUERY_FAILED" or
+            "PROCESS_START_KEY_QUERY_FAILED"))
+            throw new ArgumentOutOfRangeException(nameof(failureCode));
+        return new(
+            inspectCurrent,
+            () => throw new GuardException(failureCode));
+    }
+
+    internal SystemBoundFileObjectNoPendingUnboundLeaseCurrent?
+        InspectCurrent(string relativePath) => inspectCurrent(relativePath);
+
+    internal SystemBoundFileObjectNoPendingUnboundLeaseProcess
+        InspectRetainedProcess() => inspectProcess();
+
+    private static SystemBoundFileObjectNoPendingUnboundLeaseCurrent?
+        InspectWindowsCurrent(string absolutePath)
+    {
+        if (!File.Exists(absolutePath)) return null;
+        try
+        {
+            using var handle = CreateFileW(
+                absolutePath,
+                0,
+                ShareRead | ShareWrite | ShareDelete,
+                IntPtr.Zero,
+                OpenExisting,
+                FileFlagOpenReparsePoint,
+                IntPtr.Zero);
+            if (handle.IsInvalid)
+                throw new GuardException("FILE_IDENTITY_QUERY_OPEN_FAILED");
+            if (!GetFileInformationByHandle(handle, out var basic))
+                throw new GuardException("FILE_IDENTITY_QUERY_BASIC_FAILED");
+            if ((basic.FileAttributes & FileAttributeReparsePoint) != 0)
+                throw new GuardException("FILE_IDENTITY_QUERY_REPARSE");
+            if (basic.NumberOfLinks != 1)
+                throw new GuardException("FILE_IDENTITY_QUERY_LINKS");
+            var id = new WindowsFileIdInfo { FileId = new byte[16] };
+            if (!GetFileInformationByHandleEx(
+                handle,
+                18,
+                ref id,
+                (uint)Marshal.SizeOf<WindowsFileIdInfo>()))
+                throw new GuardException("FILE_IDENTITY_QUERY_FAILED");
+            return new SystemBoundFileObjectNoPendingUnboundLeaseCurrent(
+                $"{id.VolumeSerialNumber:x16}:" +
+                Convert.ToHexStringLower(id.FileId));
+        }
+        catch (GuardException) { throw; }
+        catch (Exception error) when (error is
+            IOException or UnauthorizedAccessException or NotSupportedException)
+        {
+            throw new GuardException("FILE_IDENTITY_QUERY_FAILED");
+        }
+    }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern SafeFileHandle CreateFileW(
+        string fileName,
+        uint desiredAccess,
+        uint shareMode,
+        IntPtr securityAttributes,
+        uint creationDisposition,
+        uint flagsAndAttributes,
+        IntPtr templateFile);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetFileInformationByHandle(
+        SafeFileHandle file,
+        out WindowsByHandleFileInformation information);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetFileInformationByHandleEx(
+        SafeFileHandle file,
+        int informationClass,
+        ref WindowsFileIdInfo information,
+        uint bufferSize);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WindowsFileIdInfo
+    {
+        internal ulong VolumeSerialNumber;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        internal byte[] FileId;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WindowsByHandleFileInformation
+    {
+        internal uint FileAttributes;
+        internal System.Runtime.InteropServices.ComTypes.FILETIME CreationTime;
+        internal System.Runtime.InteropServices.ComTypes.FILETIME LastAccessTime;
+        internal System.Runtime.InteropServices.ComTypes.FILETIME LastWriteTime;
+        internal uint VolumeSerialNumber;
+        internal uint FileSizeHigh;
+        internal uint FileSizeLow;
+        internal uint NumberOfLinks;
+        internal uint FileIndexHigh;
+        internal uint FileIndexLow;
+    }
+}
+
+/// <summary>
+/// pendingなしunbound leaseの実検査と14 stage決定を単一結線で所有する。
+/// @des DES-F005-006 DES-F005-012 @fun FUN-F005-047
+/// </summary>
+internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator
+{
+    internal static string Evaluate(
+        SystemBoundFileObjectNoPendingUnboundLeaseState lease,
+        SystemBoundFileObjectNoPendingUnboundLeasePhase phase,
+        IEnumerable<SystemBoundFileObjectNoPendingUnboundLeaseDeferred> deferred,
+        long eventQpc,
+        SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter inspection)
+    {
+        static string Classify(
+            bool leaseSnapshotAbsent = true,
+            bool eventAfterReservation = true,
+            bool currentInspectionSucceeded = true,
+            bool currentExists = true,
+            int deferredCount = 1,
+            bool deferredTupleMatches = true,
+            bool currentIdentityMatches = true,
+            string? processInspectionFailure = null,
+            bool processTupleMatches = true,
+            bool processSignaled = false,
+            bool processJobMember = true) =>
+            SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(
+                leaseSnapshotAbsent,
+                eventAfterReservation,
+                currentInspectionSucceeded,
+                currentExists,
+                deferredCount,
+                deferredTupleMatches,
+                currentIdentityMatches,
+                processInspectionFailure,
+                processTupleMatches,
+                processSignaled,
+                processJobMember);
+
+        if (lease.SnapshotPresent)
+            return Classify(leaseSnapshotAbsent: false);
+        if (!SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+                .IsEventAfterReservation(
+                    eventQpc,
+                    lease.CurrentPathReservedAtQpc))
+            return Classify(eventAfterReservation: false);
+
+        SystemBoundFileObjectNoPendingUnboundLeaseCurrent? current;
+        try { current = inspection.InspectCurrent(lease.RelativePath); }
+        catch (GuardException)
+        {
+            return Classify(currentInspectionSucceeded: false);
+        }
+        if (current is null) return Classify(currentExists: false);
+        var deferredItems = deferred.ToArray();
+        if (deferredItems.Length == 0) return Classify(deferredCount: 0);
+        if (deferredItems.Length != 1)
+            return Classify(deferredCount: deferredItems.Length);
+
+        var item = deferredItems[0];
+        var deferredTupleMatches =
+            SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules
+                .DeferredTupleMatches(
+                    item.WorkerPid,
+                    lease.WorkerPid,
+                    item.ProducerSequenceNumber,
+                    lease.ProcessSequenceNumber,
+                    item.Phase,
+                    phase.Phase,
+                    item.WorkId,
+                    phase.WorkId,
+                    item.PhaseInstanceId,
+                    phase.PhaseInstanceId,
+                    lease.PhaseInstanceId,
+                    item.RelativePath,
+                    item.SnapshotRelativePath,
+                    lease.RelativePath,
+                    item.FileObject,
+                    item.FileObjectUnbound,
+                    item.TimestampQpc,
+                    lease.CurrentPathReservedAtQpc,
+                    eventQpc);
+        if (!deferredTupleMatches)
+            return Classify(deferredTupleMatches: false);
+        if (current.Value.Identity != item.SnapshotIdentity)
+            return Classify(currentIdentityMatches: false);
+
+        SystemBoundFileObjectNoPendingUnboundLeaseProcess process;
+        try { process = inspection.InspectRetainedProcess(); }
+        catch (GuardException error)
+        {
+            var failure = error.Code switch {
+                "PROCESS_WAIT_FAILED" => "WAIT",
+                "JOB_QUERY_FAILED" => "JOB",
+                _ => "IDENTITY",
+            };
+            return Classify(processInspectionFailure: failure);
+        }
+        var processTupleMatches =
+            process.ProcessId == lease.WorkerPid &&
+            process.ProcessStartKey == lease.ProcessStartKey &&
+            process.ProcessSequenceNumber == lease.ProcessSequenceNumber;
+        if (!processTupleMatches)
+            return Classify(processTupleMatches: false);
+        if (process.Signaled)
+            return Classify(processSignaled: true, processJobMember: false);
+        if (!process.JobMember)
+            return Classify(processJobMember: false);
+        return Classify();
     }
 }
 
