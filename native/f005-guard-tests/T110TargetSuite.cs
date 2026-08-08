@@ -292,7 +292,7 @@ internal static class T110TargetSuite
                 .ToLowerInvariant();
     }
 
-    private sealed class WindowsTupleFixture : IDisposable
+    internal sealed class WindowsTupleFixture : IDisposable
     {
         private readonly string root;
         private readonly FileIdentity directoryIdentity;

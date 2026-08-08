@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "selectedTargetId": "CHG-F005-048/T-122",
+  "kind": "f005-t122-hosted-correlation",
+  "manifestPath": "native/f005-guard-tests/t122-case-manifest.json",
+  "testSourcePath": "native/f005-guard-tests/T122TargetSuite.cs",
+  "caseMarkerPrefix": "F005_T122_CASE_BASE64=",
+  "resultMarkerPrefix": "F005_T122_RESULT_BASE64="
+}

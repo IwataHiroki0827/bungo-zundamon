@@ -33,30 +33,47 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
+          $selectorPath = 'native/f005-guard-tests/hosted-target-selector.json'
+          $selector = Get-Content -Raw -LiteralPath $selectorPath | ConvertFrom-Json
+          if ($selector.schemaVersion -cne '1.0.0' -or
+              $selector.selectedTargetId -cne 'CHG-F005-048/T-122' -or
+              $selector.kind -cne 'f005-t122-hosted-correlation' -or
+              $selector.manifestPath -cne 'native/f005-guard-tests/t122-case-manifest.json' -or
+              $selector.testSourcePath -cne 'native/f005-guard-tests/T122TargetSuite.cs' -or
+              $selector.caseMarkerPrefix -cne 'F005_T122_CASE_BASE64=' -or
+              $selector.resultMarkerPrefix -cne 'F005_T122_RESULT_BASE64=') {
+            throw 'F005_T122_SELECTOR_INVALID'
+          }
           $tracked = @('public', 'data', 'candidate', 'audio', 'staging')
           if (@(git status --porcelain=v1 -- $tracked).Count -ne 0) {
-            throw 'F005_T110_TRACKED_BASELINE_CHANGED'
+            throw 'F005_T122_TRACKED_BASELINE_CHANGED'
           }
           $nativeOutput = & pwsh -NoLogo -NoProfile -File native/f005-guard/build.ps1 2>&1
           if ($LASTEXITCODE -ne 0) {
-            throw 'F005_T110_NATIVE_BUILD_FAILED'
+            throw 'F005_T122_NATIVE_BUILD_FAILED'
           }
           $dotnet = Join-Path $PWD '.cache\dotnet-f005\sdk\dotnet.exe'
           $testOutput = & $dotnet build `
             native/f005-guard-tests/F005Guard.CorrelationTests.csproj `
             --configuration Release --nologo 2>&1
           if ($LASTEXITCODE -ne 0) {
-            throw 'F005_T110_TARGET_BUILD_FAILED'
+            throw 'F005_T122_TARGET_BUILD_FAILED'
           }
           $guard = Join-Path $PWD '.cache\dotnet-f005\publish\f005-guard.exe'
           $target = Join-Path $PWD `
             'native\f005-guard-tests\bin\Release\net9.0\win-x64\F005Guard.CorrelationTests.exe'
           if (!(Test-Path -LiteralPath $guard) -or !(Test-Path -LiteralPath $target)) {
-            throw 'F005_T110_BUILD_OUTPUT_MISSING'
+            throw 'F005_T122_BUILD_OUTPUT_MISSING'
           }
           "guard_path=$guard" >> $env:GITHUB_OUTPUT
           "target_path=$target" >> $env:GITHUB_OUTPUT
           "native_binary_sha256=$((Get-FileHash -LiteralPath $guard -Algorithm SHA256).Hash.ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          "target_id=$($selector.selectedTargetId)" >> $env:GITHUB_OUTPUT
+          "target_kind=$($selector.kind)" >> $env:GITHUB_OUTPUT
+          "manifest_path=$($selector.manifestPath)" >> $env:GITHUB_OUTPUT
+          "test_source_path=$($selector.testSourcePath)" >> $env:GITHUB_OUTPUT
+          "case_marker_prefix=$($selector.caseMarkerPrefix)" >> $env:GITHUB_OUTPUT
+          "result_marker_prefix=$($selector.resultMarkerPrefix)" >> $env:GITHUB_OUTPUT
 
       - name: Verify kernel ETW preflight
         id: kernel
@@ -66,39 +83,39 @@ jobs:
           $raw = '{"op":"capacity-preflight"}' | & '${{ steps.build.outputs.guard_path }}' 2>&1
           $exitCode = $LASTEXITCODE
           try { $reply = $raw | ConvertFrom-Json }
-          catch { throw 'F005_T110_KERNEL_PREFLIGHT_REPLY_INVALID' }
+          catch { throw 'F005_T122_KERNEL_PREFLIGHT_REPLY_INVALID' }
           if ($exitCode -ne 0 -or $reply.ok -ne $true) {
-            throw 'F005_T110_KERNEL_PREFLIGHT_BLOCKED'
+            throw 'F005_T122_KERNEL_PREFLIGHT_BLOCKED'
           }
           'result=pass' >> $env:GITHUB_OUTPUT
 
-      - name: Run isolated T-110 target suite
+      - name: Run selected isolated native target suite
         id: target
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
           $stdout = Join-Path $env:RUNNER_TEMP `
-            "f005-t110-stdout-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT.txt"
+            "f005-target-stdout-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT.txt"
           $stderr = Join-Path $env:RUNNER_TEMP `
-            "f005-t110-stderr-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT.txt"
+            "f005-target-stderr-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT.txt"
           $process = Start-Process `
             -FilePath '${{ steps.build.outputs.target_path }}' `
-            -ArgumentList @('--target', 'CHG-F005-036/T-110') `
+            -ArgumentList @('--target', '${{ steps.build.outputs.target_id }}') `
             -RedirectStandardOutput $stdout `
             -RedirectStandardError $stderr `
             -NoNewWindow -Wait -PassThru
           if ((Get-Item -LiteralPath $stdout).Length -gt 65536 -or
               (Get-Item -LiteralPath $stderr).Length -gt 65536) {
-            throw 'F005_T110_TARGET_OUTPUT_LIMIT'
+            throw 'F005_T122_TARGET_OUTPUT_LIMIT'
           }
           if ($process.ExitCode -ne 0) {
-            throw 'F005_T110_TARGET_EXIT_NONZERO'
+            throw 'F005_T122_TARGET_EXIT_NONZERO'
           }
           if ((Get-Item -LiteralPath $stderr).Length -ne 0) {
-            throw 'F005_T110_TARGET_STDERR_PRESENT'
+            throw 'F005_T122_TARGET_STDERR_PRESENT'
           }
-          $casePrefix = 'F005_T110_CASE_BASE64='
-          $resultPrefix = 'F005_T110_RESULT_BASE64='
+          $casePrefix = '${{ steps.build.outputs.case_marker_prefix }}'
+          $resultPrefix = '${{ steps.build.outputs.result_marker_prefix }}'
           $casePayloads = [Collections.Generic.List[string]]::new()
           $resultPayloads = [Collections.Generic.List[string]]::new()
           foreach ($line in @(Get-Content -LiteralPath $stdout -Encoding utf8)) {
@@ -107,42 +124,41 @@ jobs:
             } elseif ($line.StartsWith($resultPrefix, [StringComparison]::Ordinal)) {
               $resultPayloads.Add($line.Substring($resultPrefix.Length))
             } else {
-              throw 'F005_T110_TARGET_UNKNOWN_LINE'
+              throw 'F005_T122_TARGET_UNKNOWN_LINE'
             }
           }
           if ($resultPayloads.Count -ne 1) {
-            throw 'F005_T110_TARGET_RESULT_CARDINALITY'
+            throw 'F005_T122_TARGET_RESULT_CARDINALITY'
           }
-          $manifest = Get-Content -Raw -LiteralPath `
-            'native/f005-guard-tests/t110-case-manifest.json' | ConvertFrom-Json
-          if ($manifest.targetId -ne 'CHG-F005-036/T-110' -or
+          $manifestPath = '${{ steps.build.outputs.manifest_path }}'
+          $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+          if ($manifest.targetId -cne '${{ steps.build.outputs.target_id }}' -or
               $casePayloads.Count -ne $manifest.cases.Count) {
-            throw 'F005_T110_TARGET_CASE_CARDINALITY'
+            throw 'F005_T122_TARGET_CASE_CARDINALITY'
           }
           $seen = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
           for ($index = 0; $index -lt $casePayloads.Count; $index++) {
             try {
               $case = [Text.Encoding]::UTF8.GetString(
                 [Convert]::FromBase64String($casePayloads[$index])) | ConvertFrom-Json
-            } catch { throw 'F005_T110_TARGET_CASE_MARKER_INVALID' }
+            } catch { throw 'F005_T122_TARGET_CASE_MARKER_INVALID' }
             if ($case.caseId -cne $manifest.cases[$index] -or
                 $case.result -cne 'pass' -or !$seen.Add([string]$case.caseId)) {
-              throw 'F005_T110_TARGET_CASE_MISMATCH'
+              throw 'F005_T122_TARGET_CASE_MISMATCH'
             }
           }
           try {
             $result = [Text.Encoding]::UTF8.GetString(
               [Convert]::FromBase64String($resultPayloads[0])) | ConvertFrom-Json
-          } catch { throw 'F005_T110_TARGET_RESULT_MARKER_INVALID' }
-          $manifestSha = (Get-FileHash -LiteralPath `
-            'native/f005-guard-tests/t110-case-manifest.json' `
+          } catch { throw 'F005_T122_TARGET_RESULT_MARKER_INVALID' }
+          $manifestSha = (Get-FileHash -LiteralPath $manifestPath `
             -Algorithm SHA256).Hash.ToLowerInvariant()
-          if ($result.targetId -cne 'CHG-F005-036/T-110' -or
+          if ($result.targetId -cne '${{ steps.build.outputs.target_id }}' -or
               $result.result -cne 'pass' -or
               $result.expectedCaseCount -ne $manifest.cases.Count -or
               $result.passedCaseCount -ne $manifest.cases.Count -or
               $result.caseManifestSha256 -cne $manifestSha) {
-            throw 'F005_T110_TARGET_RESULT_MISMATCH'
+            throw 'F005_T122_TARGET_RESULT_MISMATCH'
           }
           "result_base64=$($resultPayloads[0])" >> $env:GITHUB_OUTPUT
           "case_count=$($manifest.cases.Count)" >> $env:GITHUB_OUTPUT
@@ -167,7 +183,7 @@ jobs:
               $_.head_sha -ceq $env:GITHUB_SHA -and $_.event -ceq 'push'
             })
             if ($matches.Count -gt 1) {
-              throw 'F005_T110_PAGES_RUN_AMBIGUOUS'
+              throw 'F005_T122_PAGES_RUN_AMBIGUOUS'
             }
             if ($matches.Count -eq 1 -and $matches[0].status -ceq 'completed') {
               $pagesRun = $matches[0]
@@ -176,29 +192,31 @@ jobs:
             Start-Sleep -Seconds 15
           }
           if ($null -eq $pagesRun -or $pagesRun.head_sha -cne $env:GITHUB_SHA) {
-            throw 'F005_T110_PAGES_RUN_TIMEOUT'
+            throw 'F005_T122_PAGES_RUN_TIMEOUT'
           }
           $jobsUri = "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/runs/$($pagesRun.id)/attempts/$($pagesRun.run_attempt)/jobs?per_page=100"
           $jobs = Invoke-RestMethod -Headers $headers -Uri $jobsUri
           $deploy = @($jobs.jobs | Where-Object { $_.name -ceq 'deploy' })
           if ($deploy.Count -ne 1 -or $deploy[0].conclusion -cne 'skipped') {
-            throw 'F005_T110_PAGES_DEPLOY_NOT_SKIPPED'
+            throw 'F005_T122_PAGES_DEPLOY_NOT_SKIPPED'
           }
 
           $tracked = @('public', 'data', 'candidate', 'audio', 'staging')
           if (@(git status --porcelain=v1 -- $tracked).Count -ne 0) {
-            throw 'F005_T110_TRACKED_OUTPUT_CHANGED'
+            throw 'F005_T122_TRACKED_OUTPUT_CHANGED'
           }
           $candidateBranch = "refs/heads/candidate/f005-t070-$env:GITHUB_SHA"
           if (@(git ls-remote --heads origin $candidateBranch).Count -ne 0) {
-            throw 'F005_T110_CANDIDATE_BRANCH_PRESENT'
+            throw 'F005_T122_CANDIDATE_BRANCH_PRESENT'
           }
 
           try {
             $target = [Text.Encoding]::UTF8.GetString(
               [Convert]::FromBase64String($env:TARGET_RESULT_BASE64)) |
                 ConvertFrom-Json
-          } catch { throw 'F005_T110_TARGET_RESULT_TRANSFER_INVALID' }
+          } catch { throw 'F005_T122_TARGET_RESULT_TRANSFER_INVALID' }
+          $selectorPath = 'native/f005-guard-tests/hosted-target-selector.json'
+          $selector = Get-Content -Raw -LiteralPath $selectorPath | ConvertFrom-Json
           $hashes = [ordered]@{}
           foreach ($item in ([ordered]@{
             program = 'native/f005-guard/Program.cs'
@@ -207,9 +225,10 @@ jobs:
             globalJson = 'native/f005-guard/global.json'
             workflow = '.github/workflows/f005-hosted-native-probe.yml'
             testProject = 'native/f005-guard-tests/F005Guard.CorrelationTests.csproj'
-            testSource = 'native/f005-guard-tests/T110TargetSuite.cs'
+            testSource = $selector.testSourcePath
             testHarness = 'native/f005-guard-tests/Program.cs'
-            caseManifest = 'native/f005-guard-tests/t110-case-manifest.json'
+            selector = $selectorPath
+            caseManifest = $selector.manifestPath
           }).GetEnumerator()) {
             $hashes[$item.Key] = (Get-FileHash -LiteralPath $item.Value `
               -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -218,8 +237,8 @@ jobs:
             'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
           $evidence = [ordered]@{
             schemaVersion = '1.0.0'
-            kind = 'f005-t110-hosted-correlation'
-            targetId = 'CHG-F005-036/T-110'
+            kind = '${{ steps.build.outputs.target_kind }}'
+            targetId = '${{ steps.build.outputs.target_id }}'
             sourceCommit = $env:GITHUB_SHA
             workflowRunId = [long]$env:GITHUB_RUN_ID
             workflowRunAttempt = [int]$env:GITHUB_RUN_ATTEMPT
@@ -251,9 +270,9 @@ jobs:
           }
           $json = $evidence | ConvertTo-Json -Depth 5 -Compress
           $marker = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($json))
-          Write-Output "F005_T110_EVIDENCE_BASE64=$marker"
+          Write-Output "F005_T122_EVIDENCE_BASE64=$marker"
           @(
-            '## F005 T-110 hosted correlation'
+            '## F005 T-122 hosted correlation'
             ''
             "- target: ``$($evidence.targetId)``"
             "- result: ``$($evidence.result)``"

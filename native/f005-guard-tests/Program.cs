@@ -1,7 +1,13 @@
 using static SystemSetInfoCorrelationRules;
 
 if (args.Length != 0)
-    return T110TargetSuite.Run(args);
+    return args.Length == 2 && args[0] == "--target"
+        ? args[1] switch {
+            "CHG-F005-036/T-110" => T110TargetSuite.Run(args),
+            "CHG-F005-048/T-122" => T122TargetSuite.Run(args),
+            _ => 2,
+        }
+        : 2;
 
 var failures = new List<string>();
 var checks = 0;
