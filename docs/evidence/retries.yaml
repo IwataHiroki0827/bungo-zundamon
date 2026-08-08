@@ -1107,3 +1107,13 @@ attempts:
   cause: ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSへ期待どおり安全停止
   recovery: T-125、Q-041、CHG-F005-051をdoneにし、T-110 follow-upを継続する
   log: docs/evidence/qt/QT-F005-008-009-CHG-051-hosted-followup.md
+- date: '2026-08-08T12:08:00+09:00'
+  feature: F005
+  scope: T-110-hosted-followup
+  attempt: 3
+  command: GitHub Actions production run 31236361778
+  result: fail
+  failures: 1
+  cause: 既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSへ安全停止しT-110限定再結合対象へ未到達
+  recovery: follow-up retry limit到達のためQ-042へエスカレーションし、T-110をblockedとしてT-112 follow-upを継続する
+  log: docs/evidence/qt/QT-F005-008-CHG-036-hosted-followup-attempt-3.md
