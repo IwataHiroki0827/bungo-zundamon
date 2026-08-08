@@ -9077,6 +9077,10 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE";
     public const string ActiveDirectoryHandoffEligibleAmbiguousFailureCode =
         $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS";
+    public const string ActiveDirectoryHandoffEligibleAllFailureCode =
+        $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_ALL";
+    public const string ActiveDirectoryHandoffEligibleMixedFailureCode =
+        $"{FailurePrefix}ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_MIXED";
     public const string StateChangedFailureCode =
         $"{FailurePrefix}STATE_CHANGED";
     private static readonly string[] externalFailureCodes = [
@@ -9133,6 +9137,8 @@ public static class WriteCompletionDrainRules
         ActiveDirectoryHandoffCandidateAmbiguousFailureCode,
         ActiveDirectoryHandoffEligibleExactOneFailureCode,
         ActiveDirectoryHandoffEligibleAmbiguousFailureCode,
+        ActiveDirectoryHandoffEligibleAllFailureCode,
+        ActiveDirectoryHandoffEligibleMixedFailureCode,
     ];
     private static readonly HashSet<string> externalFailureCodeSet = new(
         externalFailureCodes,
@@ -9398,9 +9404,33 @@ public static class WriteCompletionDrainRules
             aggregateFailureCode != LateRetainedParentWriteFailureCode)
             return null;
         if (eligibleCandidateCount == 0) return StateChangedFailureCode;
-        return eligibleCandidateCount == 1
-            ? ActiveDirectoryHandoffEligibleExactOneFailureCode
-            : ActiveDirectoryHandoffEligibleAmbiguousFailureCode;
+        if (eligibleCandidateCount == 1)
+            return ActiveDirectoryHandoffEligibleExactOneFailureCode;
+        return ActiveDirectoryHandoffEligibleMultiplicityFailureCode(
+            totalCandidateCount,
+            eligibleCandidateCount,
+            aggregateFailureCode);
+    }
+
+    /// <summary>
+    /// active directoryの複数適格候補を全件適格/混在へ固定分類する。
+    /// 候補を選択・認可せず、count以外の値を受け取らない。
+    /// @des DES-F005-006 DES-F005-012 @fun FUN-F005-017 FUN-F005-047
+    /// </summary>
+    public static string? ActiveDirectoryHandoffEligibleMultiplicityFailureCode(
+        int totalCandidateCount,
+        int eligibleCandidateCount,
+        string aggregateFailureCode)
+    {
+        if (totalCandidateCount < 0 || eligibleCandidateCount < 0 ||
+            eligibleCandidateCount > totalCandidateCount)
+            return StateChangedFailureCode;
+        if (aggregateFailureCode != LateRetainedParentWriteFailureCode ||
+            totalCandidateCount < 2 || eligibleCandidateCount < 2)
+            return null;
+        return eligibleCandidateCount == totalCandidateCount
+            ? ActiveDirectoryHandoffEligibleAllFailureCode
+            : ActiveDirectoryHandoffEligibleMixedFailureCode;
     }
 
     /// <summary>

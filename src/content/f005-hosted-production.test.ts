@@ -60,9 +60,11 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     );
 
     expect(raw).toContain(
-      '# Native tooling stays outside; T-122 follow-up checks completion-drain event tuple diagnostics',
+      '# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.',
     );
-    expect(raw).toContain('This self-path starts follow-up hosted attempt 3/3.');
+    expect(raw).toContain(
+      '# This self-path resumes the T-070 production candidate with the current fail-closed guard.',
+    );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],
       paths: ['.github/workflows/f005-hosted-production.yml'],
@@ -74,7 +76,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const drainCodes = F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES.map(
       (stage) => `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}`,
     );
-    expect(drainCodes).toHaveLength(53);
+    expect(drainCodes).toHaveLength(55);
     expect(drainCodes.every((code) => new RegExp(drainPattern!, 'u').test(code)))
       .toBe(true);
     const ambiguityCode =
@@ -89,9 +91,11 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     const activeDirectoryEligibilityCodes = [
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_ALL',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_MIXED',
     ];
-    expect(activeDirectoryEligibilityCodes.every((code) => code.length === 75))
-      .toBe(true);
+    expect(activeDirectoryEligibilityCodes.map((code) => code.length))
+      .toEqual([75, 75, 69, 71]);
     expect(activeDirectoryEligibilityCodes.every(
       (code) => new RegExp(drainPattern!, 'u').test(code),
     )).toBe(true);
@@ -115,6 +119,8 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_ALL_EXTRA',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_MIXED_EXTRA',
       'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
     ]) expect(new RegExp(drainPattern!, 'u').test(code)).toBe(false);
     const birthPattern = job.env.F005_WRITE_LEASE_PRODUCER_BIRTH_FAILURE_PATTERN;

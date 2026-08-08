@@ -2419,14 +2419,47 @@ describe.runIf(process.platform === 'win32')('F005 native Windows handle guard',
       'eligibleCandidateCount == 0', 'StateChangedFailureCode',
       'eligibleCandidateCount == 1',
       'ActiveDirectoryHandoffEligibleExactOneFailureCode',
-      'ActiveDirectoryHandoffEligibleAmbiguousFailureCode',
+      'ActiveDirectoryHandoffEligibleMultiplicityFailureCode(',
     ]) expect(classifier).toContain(required);
+    expect(classifier).not.toContain(
+      'ActiveDirectoryHandoffEligibleAmbiguousFailureCode',
+    );
+
+    const multiplicity = program.slice(
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffEligibleMultiplicityFailureCode(',
+      ),
+      program.indexOf(
+        'public static string? ActiveDirectoryHandoffCardinalityFailureCode(',
+      ),
+    );
+    expect(multiplicity.indexOf('totalCandidateCount < 0'))
+      .toBeLessThan(multiplicity.indexOf('aggregateFailureCode !='));
+    expect(multiplicity.indexOf('eligibleCandidateCount > totalCandidateCount'))
+      .toBeLessThan(multiplicity.indexOf('eligibleCandidateCount < 2'));
+    expect(multiplicity.indexOf('eligibleCandidateCount < 2'))
+      .toBeLessThan(multiplicity.indexOf(
+        'eligibleCandidateCount == totalCandidateCount',
+      ));
+    for (const required of [
+      'totalCandidateCount < 2', 'eligibleCandidateCount < 2',
+      'ActiveDirectoryHandoffEligibleAllFailureCode',
+      'ActiveDirectoryHandoffEligibleMixedFailureCode',
+    ]) expect(multiplicity).toContain(required);
+    expect(multiplicity).not.toContain(
+      'ActiveDirectoryHandoffEligibleAmbiguousFailureCode',
+    );
+    expect(program.match(
+      /ActiveDirectoryHandoffEligibleAmbiguousFailureCode/gu,
+    )).toHaveLength(2);
 
     const fixedCodes = [
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_EXACT_ONE',
       'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_ALL',
+      'F005_ETW_WRITE_COMPLETION_DRAIN_ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_MIXED',
     ];
-    expect(fixedCodes.every((code) => code.length === 75)).toBe(true);
+    expect(fixedCodes.map((code) => code.length)).toEqual([75, 75, 69, 71]);
     for (const code of fixedCodes) {
       for (const sentinel of [
         '2147483647', 'C:/sentinel/private.wav', '9223372036854775000',
