@@ -1,4 +1,10 @@
 changes:
+- id: CHG-F005-052
+  date: '2026-08-08'
+  trigger: Q-042でT-110の自然なhosted ETW配送順への3 attempt依存をやめ、認可非変更の決定的影響確認方法を別変更管理で設計する回答を受領
+  level: design
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009, T-070, T-110, T-126]
+  status: done
 - id: CHG-F005-051
   date: '2026-08-08'
   trigger: Actions run 31233688210でactive-directory handoff候補多重性を固定したが、既存handoff predicate適格数を外部判別できない
@@ -99,7 +105,7 @@ changes:
   trigger: Actions run 31038467173 attempt 3でbound lease directory writeの既存CANDIDATEを固定検出
   level: design
   affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-109, T-110]
-  status: in-review
+  status: done
 - id: CHG-F005-035
   date: '2026-08-06'
   trigger: Actions run 31035627381 attempt 2でpendingなしbound directory writeのactive leaseがUNBOUNDと固定検出

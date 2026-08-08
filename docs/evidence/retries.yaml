@@ -1197,3 +1197,13 @@ attempts:
   cause: build・kernel ETW・target 57/57後のPages相関stepでordered hashtable列挙のPowerShell括弧不足によりparse停止
   recovery: workflowの列挙式を括弧付きへ修正し、構造回帰試験追加後にattempt 2を実行する
   log: docs/evidence/qt/QT-F005-008-009-CHG-052-hosted-attempt-1.md
+- date: '2026-08-08T13:27:00+09:00'
+  feature: F005
+  scope: IT-F005-005-CHG-052-hosted
+  attempt: 2
+  command: GitHub Actions native correlation run 31239312228 / Pages run 31239312221
+  result: pass
+  failures: 0
+  cause: none
+  recovery: T-126、T-110、CHG-F005-052をdoneとし、未完了タスクを再整列する
+  log: docs/evidence/qt/QT-F005-008-009-CHG-052-hosted-attempt-2.md
