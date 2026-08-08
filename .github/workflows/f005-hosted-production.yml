@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; CHG-F005-048 classifies completion-drain tuple failures
-# without changing authorization or state. This self-path starts hosted attempt 2/3.
+# without changing authorization or state. This self-path starts hosted attempt 3/3.
 on:
   push:
     branches:
