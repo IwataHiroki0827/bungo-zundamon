@@ -1,10 +1,32 @@
 changes:
+- id: CHG-F005-068
+  date: '2026-08-13'
+  trigger: CHG-F005-067 hosted run 31258105374がSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHで安全停止
+  level: design
+  affected: [CHG-F005-067, T-140]
+  status: done
+  result: 7 validation軸を実装しlocal・独立相当確認PASS。native1165、90 code、hosted確認待ち
+- id: CHG-F005-067
+  date: '2026-08-08'
+  trigger: CHG-F005-066 hosted run 31257356440がPARENT_BOUND_ALLで安全停止
+  level: design
+  affected: [CHG-F005-066, T-139]
+  status: done
+  result: active-bound parentを非破壊scalar診断へ固定しlocal・独立受入PASS。hostedでSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHへ到達
+- id: CHG-F005-066
+  date: '2026-08-08'
+  trigger: CHG-F005-065 hosted run 31257356440がPARENT_NOT_UNBOUND_ALLで安全停止
+  level: design
+  affected: [CHG-F005-065, T-138]
+  status: done
+  result: parent ledger stateを80 codeへ分離しlocal・独立受入PASS。hostedでPARENT_BOUND_ALLへ到達
 - id: CHG-F005-065
   date: '2026-08-08'
   trigger: CHG-F005-064 production run 31255886029がstate not bound allで安全停止しRetired契約退行を検出
   level: design
   affected: [CHG-F005-063, CHG-F005-064, T-137, T-138, T-139]
-  status: in-review
+  status: done
+  result: Retired proof契約を復元しlocal・独立受入PASS。run 31257356440でPARENT_NOT_UNBOUND_ALLを確認しCHG-F005-066へ引継ぎ
 - id: CHG-F005-064
   date: '2026-08-08'
   trigger: CHG-F005-063 production run 31254910006がcurrent binding mismatch allで安全停止

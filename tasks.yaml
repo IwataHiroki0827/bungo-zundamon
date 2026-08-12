@@ -2576,11 +2576,22 @@ tasks:
 - id: T-139
   title: CHG-F005-065 current binding proofのRetired契約復元
   feature: F005
-  phase: change
-  state: todo
+  phase: test
+  state: done
   depends: [T-138]
   tags: [CHG-F005-063, CHG-F005-064]
   mode: advisor
   mode_reason: T-137以前のallowRetired既存proof契約だけを復元する退行修正のため
   model: {lead: opus, workers: sonnet}
-  progress: CHG-F005-065設計・独立レビューH0/M0/L0でPASS。実装待ち
+  progress: Retired proof契約を復元しlocal・独立受入PASS。run 31256375723 attempts 2-4でPARENT_NOT_UNBOUND_ALLへ到達し次のparent診断へ引継ぎ完了
+- id: T-140
+  title: CHG-F005-068 active-bound parent validation軸診断
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-139]
+  tags: [CHG-F005-067]
+  mode: advisor
+  mode_reason: active-bound parentのvalidation順を非破壊固定診断へ分離するため
+  model: {lead: opus, workers: sonnet}
+  progress: 7 validation軸を実装しlocal検証PASS。hosted run 31258105374 attempts 1-3でSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHへ到達、次のhosted確認を継続

@@ -9248,6 +9248,20 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ACTIVE_LEASE_SETINFO_ALL";
     public const string LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_ACTIVE_LEASE_BINDING_MISMATCH_ALL";
+    public const string LookupPostUpperProofParentBoundContextMissingFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_CONTEXT_MISSING";
+    public const string LookupPostUpperProofParentBoundTupleInvalidFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_TUPLE_INVALID";
+    public const string LookupPostUpperProofParentBoundPhaseMismatchFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_PHASE_MISMATCH";
+    public const string LookupPostUpperProofParentBoundParentMismatchFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_PARENT_MISMATCH";
+    public const string LookupPostUpperProofParentBoundReservationOrderFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_RESERVATION_ORDER";
+    public const string LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_MISMATCH";
+    public const string LookupPostUpperProofParentBoundLedgerMissingFailureCode =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_LEDGER_MISSING";
     public const string LookupPostUpperProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
@@ -9353,6 +9367,13 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode,
         LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode,
         LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode,
+        LookupPostUpperProofParentBoundContextMissingFailureCode,
+        LookupPostUpperProofParentBoundTupleInvalidFailureCode,
+        LookupPostUpperProofParentBoundPhaseMismatchFailureCode,
+        LookupPostUpperProofParentBoundParentMismatchFailureCode,
+        LookupPostUpperProofParentBoundReservationOrderFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode,
+        LookupPostUpperProofParentBoundLedgerMissingFailureCode,
         LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
         LookupExactAmbiguousFailureCode,
@@ -9688,18 +9709,21 @@ public static class WriteCompletionDrainRules
         if (candidateCount is < 1 or > 128) return StateChangedFailureCode;
         if (eventName is not ("write" or "setinfo")) return StateChangedFailureCode;
         if (eventFileObject == 0) return StateChangedFailureCode;
-        if (!activeLeasePresent) return StateChangedFailureCode;
-        if (!activePhasePresent) return StateChangedFailureCode;
-        if (!activeSnapshotPresent) return StateChangedFailureCode;
-        if (activeLeaseFileObject == 0) return StateChangedFailureCode;
-        if (string.IsNullOrEmpty(activeLeaseIdentity)) return StateChangedFailureCode;
-        if (string.IsNullOrEmpty(activeLeasePath)) return StateChangedFailureCode;
-        if (!activeVoicePhase) return StateChangedFailureCode;
-        if (!phaseInstanceMatches) return StateChangedFailureCode;
-        if (!sameParent) return StateChangedFailureCode;
-        if (!eventAfterActiveReservation) return StateChangedFailureCode;
-        if (eventFileObject != activeLeaseFileObject || !exactGenerationPresent)
-            return LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode;
+        if (!activeLeasePresent || !activePhasePresent || !activeSnapshotPresent)
+            return LookupPostUpperProofParentBoundContextMissingFailureCode;
+        if (activeLeaseFileObject == 0 || string.IsNullOrEmpty(activeLeaseIdentity) ||
+            string.IsNullOrEmpty(activeLeasePath))
+            return LookupPostUpperProofParentBoundTupleInvalidFailureCode;
+        if (!activeVoicePhase || !phaseInstanceMatches)
+            return LookupPostUpperProofParentBoundPhaseMismatchFailureCode;
+        if (!sameParent)
+            return LookupPostUpperProofParentBoundParentMismatchFailureCode;
+        if (!eventAfterActiveReservation)
+            return LookupPostUpperProofParentBoundReservationOrderFailureCode;
+        if (eventFileObject != activeLeaseFileObject)
+            return LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode;
+        if (!exactGenerationPresent)
+            return LookupPostUpperProofParentBoundLedgerMissingFailureCode;
         return eventName == "write"
             ? LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode
             : LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode;

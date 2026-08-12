@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 83",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 83 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 83 &&
+Check("completion drain external code集合はexact 90",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 90 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 90 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 83 codeはnative replyで不変",
+Check("completion drain external exact 90 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -3077,32 +3077,61 @@ foreach (var count in new[] { 1, 2, 128 })
         ParentBoundScalar(count: count, eventName: "setinfo") ==
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode);
 }
-Check("completion drain parent bound event FO差/ExactGeneration nullはbinding mismatch",
+Check("completion drain parent bound event FO差/ExactGeneration nullを固定分離",
     ParentBoundScalar(eventFileObject: 821) ==
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode &&
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode &&
     ParentBoundScalar(exactGeneration: false) ==
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundActiveLeaseBindingMismatchAllFailureCode);
-var parentBoundValidationFailures = new[] {
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundLedgerMissingFailureCode);
+var parentBoundStateChangedFailures = new[] {
     ParentBoundScalar(count: 0, eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(count: 129, eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(eventName: "rename", eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(eventFileObject: 0, exactGeneration: false),
-    ParentBoundScalar(lease: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(phase: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(snapshot: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(leaseFileObject: 0, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(identity: null, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(identity: "", eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(path: null, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(path: "", eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(voice: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(phaseMatch: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(parent: false, eventFileObject: 821, exactGeneration: false),
-    ParentBoundScalar(afterReservation: false, eventFileObject: 821, exactGeneration: false),
 };
-foreach (var invalid in parentBoundValidationFailures)
-    Check("completion drain parent bound validation各軸はbinding mismatchよりSTATE_CHANGED優先",
+foreach (var invalid in parentBoundStateChangedFailures)
+    Check("completion drain parent bound count/event/eventFO不正はSTATE_CHANGED維持",
         invalid == WriteCompletionDrainRules.StateChangedFailureCode);
+var parentBoundFixedFailures = new[] {
+    (ParentBoundScalar(lease: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundContextMissingFailureCode),
+    (ParentBoundScalar(phase: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundContextMissingFailureCode),
+    (ParentBoundScalar(snapshot: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundContextMissingFailureCode),
+    (ParentBoundScalar(leaseFileObject: 0), WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(identity: null), WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(identity: ""), WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(path: null), WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(path: ""), WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(voice: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundPhaseMismatchFailureCode),
+    (ParentBoundScalar(phaseMatch: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundPhaseMismatchFailureCode),
+    (ParentBoundScalar(parent: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundParentMismatchFailureCode),
+    (ParentBoundScalar(afterReservation: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundReservationOrderFailureCode),
+    (ParentBoundScalar(eventFileObject: 821), WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode),
+    (ParentBoundScalar(exactGeneration: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundLedgerMissingFailureCode),
+};
+foreach (var (actual, expected) in parentBoundFixedFailures)
+    Check("completion drain parent bound validation各単独軸を固定分類",
+        actual == expected);
+var parentBoundPriorityFailures = new[] {
+    (ParentBoundScalar(lease: false, leaseFileObject: 0, voice: false, parent: false,
+        afterReservation: false, eventFileObject: 821, exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundContextMissingFailureCode),
+    (ParentBoundScalar(leaseFileObject: 0, voice: false, parent: false,
+        afterReservation: false, eventFileObject: 821, exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundTupleInvalidFailureCode),
+    (ParentBoundScalar(voice: false, parent: false, afterReservation: false,
+        eventFileObject: 821, exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundPhaseMismatchFailureCode),
+    (ParentBoundScalar(parent: false, afterReservation: false,
+        eventFileObject: 821, exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundParentMismatchFailureCode),
+    (ParentBoundScalar(afterReservation: false, eventFileObject: 821,
+        exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundReservationOrderFailureCode),
+    (ParentBoundScalar(eventFileObject: 821, exactGeneration: false),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode),
+};
+foreach (var (actual, expected) in parentBoundPriorityFailures)
+    Check("completion drain parent bound複合違反は固定先行軸が勝つ",
+        actual == expected);
 var generationCauses = new[] {
     (GenerationMatchResult.EntryMissing, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingEntryMissingAllFailureCode),
     (GenerationMatchResult.GenerationMismatch, WriteCompletionDrainRules.LookupPostUpperProofCurrentBindingGenerationMismatchAllFailureCode),
