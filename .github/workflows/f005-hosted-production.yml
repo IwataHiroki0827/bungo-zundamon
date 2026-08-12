@@ -219,7 +219,23 @@ jobs:
             throw "VOICEVOX取得前の空き容量が10GiB未満です: $($drive.Free)"
           }
           New-Item -ItemType Directory -Force -Path $cacheRoot, $engineRoot | Out-Null
-          Invoke-WebRequest -Uri $assetUrl -OutFile $archive
+          $downloaded = $false
+          for ($attempt = 1; $attempt -le 4; $attempt++) {
+            try {
+              if (Test-Path -LiteralPath $archive) {
+                Remove-Item -LiteralPath $archive -Force
+              }
+              Invoke-WebRequest -Uri $assetUrl -OutFile $archive -ErrorAction Stop
+              $downloaded = $true
+              break
+            } catch {
+              if ($attempt -eq 4) { throw }
+              Start-Sleep -Seconds ([math]::Min(30, 5 * $attempt))
+            }
+          }
+          if (-not $downloaded) {
+            throw 'VOICEVOX asset download failed after retries'
+          }
           $actualSha256 =
             (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
           if ($actualSha256 -ne $expectedSha256) {
