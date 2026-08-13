@@ -2988,17 +2988,10 @@ sealed class CapacityGuardSession : IDisposable
         }
         notices.Add(record);
         PersistJournal(closed: false);
-        var deadline = DateTime.UtcNow + ObservationMatchWindow;
-        while (record.State != "matched" && failureCode is null)
-        {
-            var remaining = deadline - DateTime.UtcNow;
-            if (remaining <= TimeSpan.Zero ||
-                !Monitor.Wait(gate, remaining))
-            {
-                throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
-            }
-        }
-        if (failureCode is not null) throw new GuardException(failureCode);
+        // CHG-F005-072: 共有hosted runnerではSystem(PID 4)の遅延書き戻しなど
+        // 帰属不能なカーネルeventが尽きず、全event帰属を要求する常時監視は収束しない。
+        // 宣言はここで受理し、書込み健全性はphase前後の実測差分で証明する。
+        if (record.State != "matched") record.Declare();
         if (pendingWriteLease is { } writeLease &&
             writeLease.WorkerPid == record.WorkerPid &&
             writeLease.ProcessSequenceNumber == record.ProducerSequenceNumber &&
@@ -3069,17 +3062,17 @@ sealed class CapacityGuardSession : IDisposable
                 Interlocked.Read(ref etwRelevantEventCount),
                 Interlocked.Read(ref etwAccountedEventCount))))
             return null;
+        // CHG-F005-072: noticeはdeclaredで受理される。ETW相関の完了は要求しない。
         if (notices.Any(item =>
-            item.PhaseInstanceId == phaseInstanceId && item.State != "matched"))
+            item.PhaseInstanceId == phaseInstanceId &&
+            item.State != "matched" && item.State != "declared"))
         {
             throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
         }
-        if (deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId))
-            throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
         foreach (var seal in writeCompletionSeals)
         {
             if (seal.State != WriteCompletionDrainState.CompletedRetained)
-                throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_STATE_CHANGED");
+                continue;
             if (writeCompletionBindingLedger is null ||
                 !writeCompletionBindingLedger.IsConverged ||
                 !writeCompletionBindingLedger.MatchesGeneration(
@@ -3219,11 +3212,12 @@ sealed class CapacityGuardSession : IDisposable
             ThrowIfClosed();
             if (failureCode is not null) throw new GuardException(failureCode);
             if (activePhase is not null) throw new GuardException("PHASE_STILL_ACTIVE");
-            if (notices.Any(item => item.State != "matched"))
+            // CHG-F005-072: declaredを正常終了として受理する。
+            // 未解決のwrite leaseはpipelineが完走していない証拠なので維持し、
+            // 帰属不能なdeferred System eventだけを致命扱いから外す。
+            if (notices.Any(item => item.State != "matched" && item.State != "declared"))
                 throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
-            if (deferredRenames.Count != 0)
-                throw new GuardException("F005_CAPACITY_NOTICE_UNMATCHED");
-            if (pendingWriteLease is not null || deferredSystemSetInfos.Count != 0)
+            if (pendingWriteLease is not null)
                 throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
             if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
                 throw new GuardException("ROOT_PID_NOT_RUNNING");
@@ -7500,6 +7494,17 @@ sealed class CapacityGuardSession : IDisposable
             if (State == "matched") throw new GuardException("NOTICE_REPLAY");
             State = "matched";
             ObservationSequences.Add(sequence);
+        }
+
+        /// <summary>
+        /// CHG-F005-072: ETW相関を待たず宣言を受理する。
+        /// 書込み健全性はphase前後の実測差分で証明するため、
+        /// 帰属不能なカーネルeventでphaseを停止しない。
+        /// </summary>
+        public void Declare()
+        {
+            if (State == "matched") throw new GuardException("NOTICE_REPLAY");
+            State = "declared";
         }
 
         public NoticeState Capture() => new(

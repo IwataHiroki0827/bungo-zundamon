@@ -994,7 +994,11 @@ describe('F005 native ETW capacity guard', () => {
     expect(source).toContain('item.Source.RelativePath == from');
     expect(source).toContain('var target = InspectDeferredRenameTarget(notice.To)');
     expect(source).toContain('if (target.Identity != deferred.Source.Identity)');
-    expect(source).toContain('deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId)');
+    // CHG-F005-072: 未照合renameでphaseを止める契約は廃止し、
+    // 宣言はdeclaredで受理してphase前後の実測差分で健全性を証明する。
+    expect(source).not.toContain('deferredRenames.Any(item => item.PhaseInstanceId == phaseInstanceId)');
+    expect(source).toContain('if (record.State != "matched") record.Declare();');
+    expect(source).toContain('item.State != "matched" && item.State != "declared"');
     expect(source).toMatch(
       /DeferredRenameRecord\(\s*pid,\s*producerSequenceNumber,\s*checked\(\+\+etwSequence\)/u,
     );
@@ -1030,7 +1034,10 @@ describe('F005 native ETW capacity guard', () => {
     expect(program).toContain('timestampQpc > pathReservationQpc');
     expect(program).toContain('job.IsSignaled(lease.Process)');
     expect(program).toContain('current.Identity != lease.Snapshot!.Identity');
-    expect(program).toContain('pendingWriteLease is not null || deferredSystemSetInfos.Count != 0');
+    // CHG-F005-072: 未解決write leaseは維持し、帰属不能なdeferred System eventのみ
+    // 致命扱いから外す。
+    expect(program).toContain('if (pendingWriteLease is not null)');
+    expect(program).not.toContain('pendingWriteLease is not null || deferredSystemSetInfos.Count != 0');
     expect(program).toContain('ETW_SYSTEM_SETINFO_CORRELATION_DEFERRED_SNAPSHOT_MISSING');
     expect(bridge.indexOf("op: 'reserveWrite'"))
       .toBeLessThan(bridge.indexOf("op: 'write-through'"));

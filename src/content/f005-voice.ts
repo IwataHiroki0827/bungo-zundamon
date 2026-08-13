@@ -17,6 +17,13 @@ import {
   type V040Baseline,
 } from './f005-foundation.ts';
 import {
+  normalizeF005DeclaredPath,
+  scanF005Workspace,
+  verifyF005Postconditions,
+  type F005DeclaredMutation,
+  type F005Snapshot,
+} from './f005-postcondition.ts';
+import {
   isMintedF005NativeCapacityBackend,
   readF005NativeCapacityJournalFile,
   type CapacityJournalV3,
@@ -59,6 +66,7 @@ export type F005VoiceErrorCode =
   | 'F005_VOICE_NATIVE_BEGIN_FAILED'
   | 'F005_VOICE_NATIVE_OBSERVE_FAILED'
   | 'F005_VOICE_NATIVE_END_FAILED'
+  | 'F005_VOICE_POSTCONDITION_FAILED'
   | 'F005_CAPACITY_ACTUAL_INVALID';
 
 export class F005VoiceError extends Error {
@@ -377,6 +385,13 @@ export interface F005TemporaryWriteLease {
   abort(): Promise<void>;
 }
 
+export interface F005PostconditionOptions {
+  /** workspace絶対path。宣言pathの正規化に使う。 */
+  readonly workspaceRoot: string;
+  /** 走査対象root（workspace相対POSIX）。 */
+  readonly scanRoots: readonly string[];
+}
+
 export interface F005CapacityRecorderBackend {
   beginPhase(phase: 'voice', workId: string | null, phaseInstanceId: string): Promise<void>;
   writeTemporary(
@@ -408,6 +423,7 @@ export interface F005CapacityRecorder {
 export function createF005CapacityRecorder(
   identity: { readonly journalId: string; readonly owner: string; readonly sessionNonce: string; readonly workerPid: number },
   backend: F005CapacityRecorderBackend,
+  postcondition?: F005PostconditionOptions,
 ): F005CapacityRecorder {
   if (process.env.NODE_ENV !== 'test' && !isMintedF005NativeCapacityBackend(backend)) {
     fail(
@@ -426,11 +442,23 @@ export function createF005CapacityRecorder(
     typeof backend.endPhase !== 'function') {
     fail('F005_VOICE_GENERATION_INVALID', 'capacity recorder identity/backendが不正です');
   }
+  // CHG-F005-072: phase前後の実測差分で書込み健全性を証明する。
+  let postconditionBaseline: F005Snapshot | null = null;
+  const declarations: F005DeclaredMutation[] = [];
   const beginPhase = async (
     phase: 'voice',
     workId: string | null,
     phaseInstanceId: string,
   ): Promise<void> => {
+    if (postcondition) {
+      declarations.length = 0;
+      try {
+        postconditionBaseline = await scanF005Workspace(
+          postcondition.workspaceRoot, postcondition.scanRoots);
+      } catch (error) {
+        return fail('F005_VOICE_POSTCONDITION_FAILED', 'phase開始時の実測に失敗しました', error);
+      }
+    }
     try {
       await backend.beginPhase(phase, workId, phaseInstanceId);
     } catch (error) {
@@ -438,6 +466,23 @@ export function createF005CapacityRecorder(
     }
   };
   const observeMutation = async (notice: F005MutationNotice): Promise<void> => {
+    if (postcondition) {
+      const path = normalizeF005DeclaredPath(postcondition.workspaceRoot, notice.path);
+      const targetPath = notice.targetPath === null
+        ? null
+        : normalizeF005DeclaredPath(postcondition.workspaceRoot, notice.targetPath);
+      if (path === null || (notice.targetPath !== null && targetPath === null)) {
+        return fail('F005_VOICE_POSTCONDITION_FAILED', '宣言pathがworkspace外です');
+      }
+      declarations.push(Object.freeze({
+        sequence: declarations.length + 1,
+        kind: notice.kind,
+        path,
+        targetPath,
+        sha256: notice.sha256,
+        bytes: notice.bytes,
+      }) as F005DeclaredMutation);
+    }
     let observation: F005MutationObservation;
     try {
       observation = await backend.observeMutation(notice);
@@ -506,6 +551,29 @@ export function createF005CapacityRecorder(
     }
   };
   const endPhase = async (phase: 'voice', phaseInstanceId: string): Promise<void> => {
+    if (postcondition) {
+      if (postconditionBaseline === null) {
+        return fail('F005_VOICE_POSTCONDITION_FAILED', 'baseline未取得のphaseは終了できません');
+      }
+      let actual: F005Snapshot;
+      try {
+        actual = await scanF005Workspace(
+          postcondition.workspaceRoot, postcondition.scanRoots);
+      } catch (error) {
+        return fail('F005_VOICE_POSTCONDITION_FAILED', 'phase終了時の実測に失敗しました', error);
+      }
+      try {
+        verifyF005Postconditions(
+          postconditionBaseline, actual, declarations, postcondition.scanRoots);
+      } catch (error) {
+        return fail(
+          'F005_VOICE_POSTCONDITION_FAILED',
+          '実測差分が宣言済みmutationと一致しません',
+          error,
+        );
+      }
+      postconditionBaseline = null;
+    }
     try {
       await backend.endPhase(phase, phaseInstanceId);
     } catch (error) {
