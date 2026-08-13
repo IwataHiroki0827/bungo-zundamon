@@ -16,6 +16,7 @@ import {
   type F005CapacityPlan,
   type V040Baseline,
 } from './f005-foundation.ts';
+import { writeF005TemporaryFile } from './f005-postcondition-write.ts';
 import {
   normalizeF005DeclaredPath,
   scanF005Workspace,
@@ -503,6 +504,16 @@ export function createF005CapacityRecorder(
     bytes: Uint8Array,
     sha256: string,
   ): Promise<F005TemporaryWriteLease> => {
+    // CHG-F005-072: write-through leaseはETWで検証された書込みを提供するために
+    // 存在した。事後検証契約ではその保証をphase前後の実測差分が担うため、
+    // 通常のfsで書いてlease/drainのETW結合を経路から外す。
+    if (postcondition) {
+      try {
+        return await writeF005TemporaryFile(path, bytes, sha256);
+      } catch (error) {
+        return fail('F005_VOICE_POSTCONDITION_FAILED', '一時書込みに失敗しました', error);
+      }
+    }
     try {
       const lease = await backend.writeTemporary(path, bytes, sha256);
       if (!lease || !Number.isSafeInteger(lease.producerPid) || lease.producerPid <= 0 ||
