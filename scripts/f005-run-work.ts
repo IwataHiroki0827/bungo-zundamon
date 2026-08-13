@@ -6,7 +6,7 @@ import {
   realpath,
 } from 'node:fs/promises';
 import { request as requestHttp } from 'node:http';
-import { join, relative, resolve, sep } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
@@ -1037,6 +1037,9 @@ async function main(): Promise<void> {
       throw new Error('offline buildがpublic treeを変更しました');
     }
     const previewRoot = join(workspace, '.cache', 'f005-preview', `${workId}-${session.journalId}`);
+    // prepareF005Previewはleafの新規性を保証するためmkdir(recursive:false)で作る。
+    // 親は呼出側が用意する必要がある。
+    await mkdir(dirname(previewRoot), { recursive: true });
     const artifactDirectory = join(runRoot, 'preview-artifacts');
     await mkdir(artifactDirectory, { recursive: true });
     await formalNotice('create', artifactDirectory, null, 0, null);
