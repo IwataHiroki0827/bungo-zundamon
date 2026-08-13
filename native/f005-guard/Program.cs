@@ -2892,11 +2892,15 @@ sealed class CapacityGuardSession : IDisposable
         string path)
     {
         var lease = pendingWriteLease;
-        if (lease is null ||
-            lease.WorkerPid != producerPid ||
-            lease.PhaseInstanceId != phaseInstanceId ||
-            lease.RelativePath != path)
-            throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
+        // CHG-F005-072: 内訳を固定分割して原因を一意にする。
+        if (lease is null)
+            throw new GuardException("WRITE_LEASE_VALIDATE_LEASE_ABSENT");
+        if (lease.WorkerPid != producerPid)
+            throw new GuardException("WRITE_LEASE_VALIDATE_PID_MISMATCH");
+        if (lease.PhaseInstanceId != phaseInstanceId)
+            throw new GuardException("WRITE_LEASE_VALIDATE_PHASE_MISMATCH");
+        if (lease.RelativePath != path)
+            throw new GuardException("WRITE_LEASE_VALIDATE_PATH_MISMATCH");
         return lease;
     }
 
