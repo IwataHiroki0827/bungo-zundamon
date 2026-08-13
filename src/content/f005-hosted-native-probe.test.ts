@@ -49,8 +49,8 @@ const T122_CASE_PREFIX = 'F005_T122_CASE_BASE64=';
 const T122_RESULT_PREFIX = 'F005_T122_RESULT_BASE64=';
 const T112_CASE_PREFIX = 'F005_T112_CASE_BASE64=';
 const T112_RESULT_PREFIX = 'F005_T112_RESULT_BASE64=';
-const T109_CASE_PREFIX = 'F005_T109_CASE_BASE64=';
-const T109_RESULT_PREFIX = 'F005_T109_RESULT_BASE64=';
+const T142_CASE_PREFIX = 'F005_T142_CASE_BASE64=';
+const T142_RESULT_PREFIX = 'F005_T142_RESULT_BASE64=';
 const execFileAsync = promisify(execFile);
 
 function decodeMarker<T>(value: string): T {
@@ -65,7 +65,7 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
     );
     const [selectorRaw, manifestRaw] = await Promise.all([
       readFile(resolve('native/f005-guard-tests/hosted-target-selector.json'), 'utf8'),
-      readFile(resolve('native/f005-guard-tests/t109-case-manifest.json'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t142-case-manifest.json'), 'utf8'),
     ]);
     const workflow = parse(raw) as ProbeWorkflow;
     const selector = JSON.parse(selectorRaw) as Readonly<Record<string, string>>;
@@ -98,21 +98,21 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
     expect(raw).not.toMatch(/actions\/upload-(?:artifact|pages-artifact)@/u);
     expect(selector).toEqual({
       schemaVersion: '1.0.0',
-      selectedTargetId: 'CHG-F005-035/T-109',
-      kind: 'f005-t109-hosted-correlation',
-      manifestPath: 'native/f005-guard-tests/t109-case-manifest.json',
-      testSourcePath: 'native/f005-guard-tests/T109TargetSuite.cs',
-      caseMarkerPrefix: T109_CASE_PREFIX,
-      resultMarkerPrefix: T109_RESULT_PREFIX,
+      selectedTargetId: 'CHG-F005-070/T-142',
+      kind: 'f005-t142-hosted-correlation',
+      manifestPath: 'native/f005-guard-tests/t142-case-manifest.json',
+      testSourcePath: 'native/f005-guard-tests/T142TargetSuite.cs',
+      caseMarkerPrefix: T142_CASE_PREFIX,
+      resultMarkerPrefix: T142_RESULT_PREFIX,
     });
     expect(manifest.targetId).toBe(selector.selectedTargetId);
-    expect(scripts).toContain('F005_T109_CASE_BASE64=');
-    expect(scripts).toContain('F005_T109_RESULT_BASE64=');
-    expect(scripts).toContain('F005_T109_EVIDENCE_BASE64=');
+    expect(scripts).toContain('F005_T142_CASE_BASE64=');
+    expect(scripts).toContain('F005_T142_RESULT_BASE64=');
+    expect(scripts).toContain('F005_T142_EVIDENCE_BASE64=');
     expect(scripts).toContain('(Get-Item -LiteralPath $stdout).Length -gt 65536');
     expect(scripts).toContain('(Get-Item -LiteralPath $stderr).Length -gt 65536');
-    expect(scripts).toContain('F005_T109_TARGET_UNKNOWN_LINE');
-    expect(scripts).toContain('F005_T109_TARGET_RESULT_CARDINALITY');
+    expect(scripts).toContain('F005_T142_TARGET_UNKNOWN_LINE');
+    expect(scripts).toContain('F005_T142_TARGET_RESULT_CARDINALITY');
     expect(scripts).toContain("@('public', 'data', 'candidate', 'audio', 'staging')");
     expect(scripts).toContain('candidate/f005-t070-$env:GITHUB_SHA');
     expect(scripts).toContain('actions/workflows/pages.yml/runs?event=push&head_sha=');
@@ -377,12 +377,12 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
     );
   });
 
-  it('T-109 targetがproduction evaluatorと実Windows inspectionを直接固定する', async () => {
+  it('T-142 targetがproduction関係規則とledger実体を直接固定する', async () => {
     const [production, target, harness, manifestRaw] = await Promise.all([
       readFile(resolve('native/f005-guard/Program.cs'), 'utf8'),
-      readFile(resolve('native/f005-guard-tests/T109TargetSuite.cs'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/T142TargetSuite.cs'), 'utf8'),
       readFile(resolve('native/f005-guard-tests/Program.cs'), 'utf8'),
-      readFile(resolve('native/f005-guard-tests/t109-case-manifest.json'), 'utf8'),
+      readFile(resolve('native/f005-guard-tests/t142-case-manifest.json'), 'utf8'),
     ]);
     const manifest = JSON.parse(manifestRaw) as TargetManifest;
     const slice = (start: string, end: string): string => {
@@ -392,111 +392,68 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
       expect(last, `missing end: ${end}`).toBeGreaterThan(first);
       return production.slice(first, last);
     };
-    const stage = slice(
-      'private string SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticStage(',
-      'private string SystemDirectoryWriteRejoinStage(',
+    const relation = slice(
+      'private static EventFileObjectBoundPathRelation ClassifyBoundPathRelation(',
+      'public ImmutableBindingProof Admit(',
     );
-    const adapter = slice(
-      'internal sealed class SystemBoundFileObjectNoPendingUnboundLeaseInspectionAdapter',
-      'internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator',
+    const lookup = slice(
+      'public EventFileObjectMatchResult MatchEventFileObject(',
+      'private static EventFileObjectBoundPathRelation ClassifyBoundPathRelation(',
     );
-    const evaluator = slice(
-      'internal static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator',
-      'public static class SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules',
+    const rule = slice(
+      'private static string ParentBoundEventFileObjectBoundOtherPathFailureCode(',
+      'public static string CurrentBindingFailureCode(',
     );
 
-    expect(stage.match(
-      /SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator\.Evaluate\(/gu,
-    )).toHaveLength(1);
-    expect(stage.match(/CreateProduction\(/gu)).toHaveLength(1);
-    expect(stage.match(/TryInspect\(relativePath\)/gu)).toHaveLength(1);
-    expect(stage.match(/job\.InspectRetainedProcess\(lease\.Process\)/gu))
-      .toHaveLength(1);
-    expect(stage.trimEnd()).toMatch(/return SystemBound[\s\S]+inspection\);\s*\}$/u);
-    expect(stage).not.toContain(
-      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules.Classify(',
-    );
-    expect(stage).not.toContain('.DeferredTupleMatches(');
-
-    expect(evaluator.match(/inspection\.InspectCurrent\(/gu)).toHaveLength(1);
-    expect(evaluator.match(/\.DeferredTupleMatches\(/gu)).toHaveLength(1);
-    expect(evaluator.match(/inspection\.InspectRetainedProcess\(/gu)).toHaveLength(1);
-    expect(evaluator.match(
-      /SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticRules\.Classify\(/gu,
-    )).toHaveLength(1);
+    // ledger lookupはevent-global exact 1回であること
+    expect(lookup.match(/admitted\.TryGetValue\(/gu)).toHaveLength(1);
+    expect(relation).not.toContain('admitted');
+    // 関係判定の優先順を固定する
     const ordered = [
-      'if (lease.SnapshotPresent)',
-      '.IsEventAfterReservation(',
-      'inspection.InspectCurrent(',
-      'var deferredItems = deferred.ToArray();',
-      'if (deferredItems.Length == 0)',
-      '.DeferredTupleMatches(',
-      'current.Value.Identity != item.SnapshotIdentity',
-      'inspection.InspectRetainedProcess()',
-      'process.ProcessId == lease.WorkerPid',
-      'if (process.Signaled)',
-      'if (!process.JobMember)',
-      'return Classify();',
+      'EventFileObjectBoundPathRelation.Invalid',
+      'EventFileObjectBoundPathRelation.EventDirectory',
+      'EventFileObjectBoundPathRelation.CandidateCurrentPath',
+      'EventFileObjectBoundPathRelation.CandidateParentPath',
+      'EventFileObjectBoundPathRelation.SameParentFile',
+      'EventFileObjectBoundPathRelation.DifferentParent',
     ];
-    for (const token of ordered) expect(evaluator).toContain(token);
+    for (const token of ordered) expect(relation).toContain(token);
     for (let index = 1; index < ordered.length; index += 1) {
-      expect(evaluator.indexOf(ordered[index - 1]!))
-        .toBeLessThan(evaluator.indexOf(ordered[index]!));
+      expect(relation.indexOf(ordered[index - 1]!))
+        .toBeLessThan(relation.indexOf(ordered[index]!));
     }
-    expect(adapter).toContain(
-      'CreateWindows(string absoluteCurrentPath, JobObject job, Process process)',
-    );
-    expect(adapter).toContain('var current = job.InspectRetainedProcess(process);');
-    expect(adapter).toContain('CreateFileW(');
-    expect(adapter).toContain('GetFileInformationByHandleEx(');
-    expect(adapter).toContain('WithCurrentInspectionFailure()');
-    expect(adapter).toContain('WithProcessInspectionFailure(string failureCode)');
+    // 未定義値・nullはSTATE_CHANGEDへ閉じる
+    expect(rule).toContain('if (relation is null || !Enum.IsDefined(relation.Value))');
+    expect(rule).toContain('return StateChangedFailureCode;');
+    expect(rule).toContain('_ => StateChangedFailureCode,');
+    // raw値を返さない
+    expect(relation).not.toContain('Console.');
+    expect(rule).not.toContain('boundPath');
 
-    expect(target).toContain('new T110TargetSuite.WindowsTupleFixture()');
-    expect(target).toContain('.CreateWindows(path, windows.Job, process)');
-    expect(target).toContain(
-      'SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator.Evaluate(',
-    );
-    expect(target).toContain('actual = fixture.LastActual');
-    expect(target).toContain(
-      'LastActual =\n                SystemBoundFileObjectNoPendingUnboundLeaseDiagnosticEvaluator.Evaluate(',
-    );
+    expect(target).toContain('WriteCompletionDrainRules.ParentBoundActiveLeaseFailureCode(');
+    expect(target).toContain('ledger.MatchEventFileObject(');
     expect(target).not.toContain('CreateProduction(');
-    expect(target).not.toContain(
-      'new SystemBoundFileObjectNoPendingUnboundLeaseCurrent(',
-    );
-    expect(target).not.toContain(
-      'new SystemBoundFileObjectNoPendingUnboundLeaseProcess(',
-    );
     expect(harness).toContain(
-      '"CHG-F005-035/T-109" => T109TargetSuite.Run(args)',
+      '"CHG-F005-070/T-142" => T142TargetSuite.Run(args)',
     );
-    expect(production).not.toMatch(/CHG-F005-035\/T-109|F005_T109/u);
+    expect(production).not.toMatch(/CHG-F005-070\/T-142|F005_T142/u);
 
     expect(manifest).toMatchObject({
       schemaVersion: '1.0.0',
-      targetId: 'CHG-F005-035/T-109',
+      targetId: 'CHG-F005-070/T-142',
     });
-    expect(manifest.cases).toHaveLength(52);
-    expect(new Set(manifest.cases).size).toBe(52);
-    const stages = manifest.cases
-      .filter((item) => item.startsWith('stage-'))
-      .map((item) => item.slice('stage-'.length).replaceAll('-', '_').toUpperCase());
-    expect(stages).toEqual([
-      'UNBOUND_SNAPSHOT_PRESENT',
-      'UNBOUND_BEFORE_RESERVATION',
-      'UNBOUND_CURRENT_INSPECTION_FAILED',
-      'UNBOUND_CURRENT_MISSING',
-      'UNBOUND_DEFERRED_MISSING',
-      'UNBOUND_DEFERRED_TUPLE',
-      'UNBOUND_CURRENT_ID_MISMATCH',
-      'UNBOUND_PROCESS_WAIT_FAILED',
-      'UNBOUND_JOB_QUERY_FAILED',
-      'UNBOUND_PROCESS_IDENTITY_FAILED',
-      'UNBOUND_PROCESS_TUPLE',
-      'UNBOUND_PROCESS_SIGNALED',
-      'UNBOUND_LEASE_ESCAPE',
-      'UNBOUND_CANDIDATE',
+    expect(manifest.cases).toHaveLength(76);
+    expect(new Set(manifest.cases).size).toBe(76);
+    const relations = manifest.cases
+      .filter((item) => item.startsWith('rule-terminal-'))
+      .map((item) => item.slice('rule-terminal-'.length));
+    expect(relations).toEqual([
+      'event-dir',
+      'candidate-current',
+      'candidate-parent',
+      'same-parent-file',
+      'different-parent',
+      'relation-invalid',
     ]);
   });
 
@@ -749,9 +706,9 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
   }, 120_000);
 
   it.runIf(process.platform === 'win32')(
-    'T-109固定52 case markerとfinal markerをexactに解析する', async () => {
+    'T-142固定76 case markerとfinal markerをexactに解析する', async () => {
     const manifest = JSON.parse(await readFile(
-      resolve('native/f005-guard-tests/t109-case-manifest.json'),
+      resolve('native/f005-guard-tests/t142-case-manifest.json'),
       'utf8',
     )) as TargetManifest;
     const executable = resolve(
@@ -773,7 +730,7 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
         NUGET_PACKAGES: resolve('.cache/dotnet-f005/nuget'),
       },
     });
-    const child = spawn(executable, ['--target', 'CHG-F005-035/T-109'], {
+    const child = spawn(executable, ['--target', 'CHG-F005-070/T-142'], {
       cwd: resolve('.'),
       windowsHide: true,
     });
@@ -786,35 +743,35 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
       child.once('exit', resolveExit);
     });
     const lines = stdout.trim().split(/\r?\n/u);
-    const caseLines = lines.filter((line) => line.startsWith(T109_CASE_PREFIX));
-    const resultLines = lines.filter((line) => line.startsWith(T109_RESULT_PREFIX));
+    const caseLines = lines.filter((line) => line.startsWith(T142_CASE_PREFIX));
+    const resultLines = lines.filter((line) => line.startsWith(T142_RESULT_PREFIX));
     const unknown = lines.filter(
-      (line) => !line.startsWith(T109_CASE_PREFIX) &&
-        !line.startsWith(T109_RESULT_PREFIX),
+      (line) => !line.startsWith(T142_CASE_PREFIX) &&
+        !line.startsWith(T142_RESULT_PREFIX),
     );
     const cases = caseLines.map((line) => decodeMarker<{
       readonly caseId: string;
       readonly result: string;
-    }>(line.slice(T109_CASE_PREFIX.length)));
+    }>(line.slice(T142_CASE_PREFIX.length)));
     const result = decodeMarker<TargetResult>(
-      resultLines[0]!.slice(T109_RESULT_PREFIX.length),
+      resultLines[0]!.slice(T142_RESULT_PREFIX.length),
     );
 
     expect({ exitCode, stderr, unknown }).toEqual({ exitCode: 0, stderr: '', unknown: [] });
     expect(manifest).toMatchObject({
       schemaVersion: '1.0.0',
-      targetId: 'CHG-F005-035/T-109',
+      targetId: 'CHG-F005-070/T-142',
     });
-    expect(manifest.cases).toHaveLength(52);
-    expect(new Set(manifest.cases).size).toBe(52);
+    expect(manifest.cases).toHaveLength(76);
+    expect(new Set(manifest.cases).size).toBe(76);
     expect(resultLines).toHaveLength(1);
     expect(cases.map((item) => item.caseId)).toEqual(manifest.cases);
     expect(cases.every((item) => item.result === 'pass')).toBe(true);
     expect(result).toMatchObject({
       targetId: manifest.targetId,
       result: 'pass',
-      expectedCaseCount: 52,
-      passedCaseCount: 52,
+      expectedCaseCount: 76,
+      passedCaseCount: 76,
       caseManifestSha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
       runtime: {
         ProductionAssemblySha256: expect.stringMatching(/^[0-9a-f]{64}$/u),
