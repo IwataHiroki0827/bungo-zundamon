@@ -532,6 +532,11 @@ function safeFailureName(value: unknown, fallback: 'Error' | 'NonError'): string
 }
 
 function safeFailureCode(value: unknown): string | null {
+  // CHG-F005-072: nativeの固定識別子はF005_NATIVE_接頭辞で透過する。
+  // 生pathを含まないため安全で、allowlist漏れで停止理由が失われるのを防ぐ。
+  if (typeof value === 'string' && /^F005_NATIVE_[A-Z][A-Z0-9_]{0,115}$/u.test(value)) {
+    return value;
+  }
   return typeof value === 'string' && (
     F005_FAILURE_CODES.has(value) ||
     isF005ClosedLeaseRejoinDiagnosticCode(value) ||
