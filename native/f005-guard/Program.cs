@@ -2267,10 +2267,9 @@ sealed class CapacityGuardSession : IDisposable
             lease.WorkerPid == producerPid &&
             lease.PhaseInstanceId == phaseInstanceId &&
             lease.RelativePath == from;
-        var correlationReady = lease is not null &&
-            !lease.FileObjectClosed &&
-            lease.FileObject is not null &&
-            lease.Snapshot is not null;
+        // CHG-F005-072: ETW由来のFileObject/Snapshotは相関を待たない契約では埋まらない。
+        // rename可否の判定入力から外す（最終状態はphase後の実測で検証する）。
+        var correlationReady = lease is not null && !lease.FileObjectClosed;
         var processSignaled = lease is null || job.IsSignaled(lease.Process);
         var processAliveOutsideJob =
             lease is not null && !processSignaled && job.IsAliveOutsideJob(lease.Process);
