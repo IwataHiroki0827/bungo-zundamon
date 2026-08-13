@@ -2617,3 +2617,14 @@ tasks:
   mode_reason: bind先pathと候補集合の関係を認可せず固定分類し、ETW配送順に依存しない決定的hosted検証で影響確認するため
   model: {lead: opus, workers: sonnet}
   progress: 固定6 codeとClassifyBoundPathRelationを実装しT-142 target suite 76 caseを追加。native1259、固定target57/43/74/52/76、103 code同期、typecheck、ESLint、再現build2回をPASS。probe run 31669520975で76/76・kernel ETW・Pages deploy skipを確認。production run 31669864841 attempt 3で本軸OTHER_EVENT_DIRへ到達し、bind先がevent directory自身のhandleであることを確定して完了
+- id: T-143
+  title: CHG-F005-071 event directory binding状態の固定診断
+  feature: F005
+  phase: test
+  state: doing
+  depends: [T-142]
+  tags: [CHG-F005-070, CHG-F005-071]
+  mode: advisor
+  mode_reason: directory自身へBoundなFileObjectの再利用・削除・cleanup状態を認可せず固定分類し、次の認可判断の根拠を得るため
+  model: {lead: opus, workers: sonnet}
+  progress: 固定5 codeとMatchEventDirectoryBindingを実装。native1286、固定target57/43/74/52/76、108 code同期、Vitest1290、typecheck、ESLint、再現build2回をPASS。自然経路run 31672315764は3 attemptともCONTEXT_MISSINGで未到達。決定的hosted相関suiteの追加待ち

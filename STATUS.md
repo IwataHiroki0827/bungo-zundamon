@@ -3,8 +3,10 @@ phase: change
 feature: F005
 updated: 2026-08-13T17:10:00+09:00
 next_actions:
-  - "CHG-F005-071でdirectory scope eventとactive-directory handoff経路の関係を固定分類し、file lease比較へ流している評価順の是非を判断する"
-  - "上記は認可経路の設計判断を含むため、着手前にオーナー確認を推奨する"
+  - "CHG-F005-071の決定的hosted相関suite（T-143相当）を追加し、directory binding状態の影響確認を配送順に依存せず行う"
+  - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
+  - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める"
+  - "公開中のcontent/licenses.jsonはvalidUntil 2026-08-18で失効する。規約再確認はdocs/evidence/rights/rights-recheck-2026-08-13.mdで完了済みで、反映にはv0.4.1パッチリリースが必要"
   - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める（現状Pages workflowがfeature/F005で失敗し続ける）"
   - "公開中のcontent/licenses.jsonはvalidUntil 2026-08-18で失効する。権利条件を再確認して更新する（法的判断が必要）"
 blocked_by: []
@@ -62,6 +64,7 @@ blocked_by: []
 - CHG-F005-069/T-141で、parentがledger Boundかつphase・親path・予約順を満たすlate eventのFileObjectがactive lease FileObjectと異なる場合を、ledger関係の固定7 code（entry missing/unbound、bound same/other path、retired same/other path、other state、lookup invalid）へ分離した。native 1203件、固定target 57/43/74/52、外部code 90→97同期、typecheck、ESLint、同一SHA再現build 2回をPASSし、認可・容量actual・候補保存・公開条件と`public/`・`data/`は変更していない。
 - CHG-F005-070/T-142で、bind先pathとevent directory・候補seal集合の関係を固定6 code（event directory、候補CurrentPath、候補ParentPath、同一親配下file、別親配下、関係invalid）へ分離した。自然経路のproduction run `31668142202`は3 attemptとも既知経路で安全停止し本軸へ未到達だったため、CHG-F005-052〜055の型に従いread-only固定76 case suite（T-142）を追加してhosted native probeのselectorを切り替えた。run `31669520975`が76/76、kernel ETW pass、native binary SHA一致、Pages deploy `skipped`、candidate branch不存在をPASSし、決定的な影響確認を完了した。続くproduction run `31669864841` attempt 3が本軸 `...PARENT_BOUND_EVENT_FO_OTHER_EVENT_DIR` へ到達し、late eventのFileObjectが**event directory自身へbindされたdirectory handle**であることを確定した。これによりFILE_OBJECTアドレス再利用の仮説は否定され、停止の実体は「directory scopeのSystem eventをfile leaseのFileObject一致で評価している」評価順の問題であると判明した。
 - テスト健全性を是正した。notices fixtureの`validUntil`が2026-08-01で失効し`CREDITS_POLICY_STALE`で6件失敗していたため未来日付へ移した（失効経路は明示値で検証継続）。rehydrate改変検知テストの5秒既定タイムアウトを同ファイル他重量テストと同じ30秒へ揃えた。フルスイートの残存失敗は並列実行時のリソース競合によるflakyで、`--maxWorkers=2`では1289/1290 PASSを確認した。
+- CHG-F005-071/T-143で、event directory自身へBoundなFileObjectのledger状態を固定5 code（Reused / DeleteSeen / CleanupSeen / Live / StateInvalid）へ分離した。`SealedParent`登録はUnboundを維持する契約のため、State Boundでpathがdirectoryのentryは`OtherBound`として登録されたものであり、`Reused`はFileObjectアドレス再利用の記録である。native 1286件、Vitest 1290件、108 code同期、同一SHA再現build 2回をPASSした。自然経路のrun `31672315764`は3 attemptとも既知の`CONTEXT_MISSING`で未到達のため、決定的hosted相関suiteの追加を次サイクルとする。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -103,6 +106,8 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- CHG-F005-071/T-143でdirectory binding状態の固定5 codeを実装（hosted影響確認は次サイクル）
+- 2026-08-13に権利条件を実規約から再確認し証跡化。反映はv0.4.1パッチリリース待ち
 - CHG-F005-070/T-142でbind先path関係の固定6 codeと決定的hosted相関検証（76/76）を完了
 - notices fixtureの期限切れとborderline timeoutを是正しテスト健全性を回復
 - CHG-F005-069/T-141でevent FO ledger関係の固定7 codeとMatchEventFileObjectを実装
