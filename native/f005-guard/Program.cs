@@ -3280,13 +3280,9 @@ sealed class CapacityGuardSession : IDisposable
             catch (GuardException) { throw; }
             catch { }
             if (failureCode is not null) throw new GuardException(failureCode);
-            // observationはETW配送に依存するため存在を要求しない。
-            // 存在する場合だけ連番性を検査する。
-            var expected = 1L;
-            foreach (var observation in observations)
-            {
-                if (observation.EtwSequence != expected++) throw new GuardException("ETW_SEQUENCE_GAP");
-            }
+            // CHG-F005-072: observationはETW配送に依存し、poisonしなくなった結果
+            // 分類できなかったeventの分だけ欠番が生じる。診断としてのみ保持し、
+            // 存在も連番性も要求しない。健全性はphase前後の実測差分が証明する。
             if (capacitySamples.Count == 0)
                 throw new GuardException("F005_CAPACITY_SAMPLE_MISSING");
             PersistJournal(closed: true);

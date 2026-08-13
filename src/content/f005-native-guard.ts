@@ -2261,15 +2261,11 @@ export function validateF005CapacityJournalV3(
     recomputedPeak = Math.max(recomputedPeak, Number(sample.liveBytes));
     recomputedMinimum = Math.min(recomputedMinimum, Number(sample.freeBytesAvailable));
   }
-  // observationが存在する場合だけETW sequenceの整合を要求する。
-  const etwPresent = observationBySequence.size !== 0;
-  if ((etwPresent && (value.closedSeal.firstEtwSequence !== 1 ||
-    value.closedSeal.lastEtwSequence !== observationBySequence.size)) ||
-    (!etwPresent && (value.closedSeal.firstEtwSequence !== 0 ||
-      value.closedSeal.lastEtwSequence !== 0)) ||
-    value.peakLiveBytes !== recomputedPeak ||
+  // CHG-F005-072: ETW observationは診断であり連番性を要求しない。
+  // 容量actualは明示サンプリングとobservationの両系列から導出する。
+  if (value.peakLiveBytes !== recomputedPeak ||
     value.minimumObservedFreeBytes !== recomputedMinimum) {
-    return fail('F005_NATIVE_JOURNAL_AGGREGATE', 'ETW sequenceまたは容量集計が不正です');
+    return fail('F005_NATIVE_JOURNAL_AGGREGATE', '容量集計が不正です');
   }
 
   let expectedNoticeSequence = 1;
