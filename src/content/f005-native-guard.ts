@@ -2038,7 +2038,7 @@ export async function readF005NativeCapacityJournalFile(
     realpath(lexicalPath),
     lstat(lexicalPath),
   ]).catch((error) => fail(
-    'F005_CAPACITY_JOURNAL_INVALID',
+    'F005_NATIVE_JOURNAL_REALPATH',
     'native journal実体を検証できません',
     error,
   ));
@@ -2048,7 +2048,7 @@ export async function readF005NativeCapacityJournalFile(
   }
   const raw = await readFile(lexicalPath, 'utf8')
     .catch((error) => fail(
-      'F005_CAPACITY_JOURNAL_INVALID',
+      'F005_NATIVE_JOURNAL_REREAD',
       'native closed journalを再読込できません',
       error,
     ));
@@ -2313,7 +2313,7 @@ export function validateF005CapacityJournalV3(
       (noticeEvent === 'rename'
         ? !safeRelativePath(envelope.notice.from) || !safeRelativePath(envelope.notice.to)
         : !safeRelativePath(envelope.notice.path))) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'notice payload列が不正です');
+      return fail('F005_NATIVE_JOURNAL_NOTICE_PAYLOAD', 'notice payload列が不正です');
     }
     noticeIds.add(String(envelope.notice.noticeId));
     for (const sequence of envelope.observationSequences) {
@@ -2328,7 +2328,7 @@ export function validateF005CapacityJournalV3(
           ? observation.from !== envelope.notice.from ||
             observation.to !== envelope.notice.to
           : observation.path !== envelope.notice.path)) {
-        return fail('F005_CAPACITY_JOURNAL_INVALID', 'noticeとETW observationの結合が不正です');
+        return fail('F005_NATIVE_JOURNAL_NOTICE_JOIN', 'noticeとETW observationの結合が不正です');
       }
       matchedObservationSequences.add(Number(sequence));
     }
@@ -2336,13 +2336,13 @@ export function validateF005CapacityJournalV3(
   if ([...observationBySequence.values()].some((observation) =>
     observation.noticeSequence !== null &&
     !matchedObservationSequences.has(Number(observation.etwSequence)))) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'notice付きETW observationが未結合です');
+    return fail('F005_NATIVE_JOURNAL_OBSERVATION_UNJOINED', 'notice付きETW observationが未結合です');
   }
 
   const body = Object.fromEntries(Object.entries(value)
     .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'journal body sealが一致しません');
+    return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');
   }
   return Object.freeze(value) as unknown as CapacityJournalV3;
 }
