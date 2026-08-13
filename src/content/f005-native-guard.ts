@@ -1926,14 +1926,14 @@ export async function startF005NativeCapacitySession(
       }
       const raw = await readFile(join(options.workspace, ...journalPath.split('/')), 'utf8');
       if (sha256(raw) !== reply.journalSha256) {
-        return fail('F005_CAPACITY_JOURNAL_INVALID', 'journal実体SHAが応答と一致しません');
+        return fail('F005_NATIVE_JOURNAL_REPLY_SHA', 'journal実体SHAが応答と一致しません');
       }
       const journal = validateF005CapacityJournalV3(JSON.parse(raw) as unknown, true);
       if (journal.workId !== options.workId ||
         journal.candidateSha256 !== options.candidateSha256 ||
         journal.owner !== options.owner ||
         journal.sessionNonce !== sessionNonce) {
-        return fail('F005_CAPACITY_JOURNAL_INVALID', 'journal開始tupleがsessionと一致しません');
+        return fail('F005_NATIVE_JOURNAL_START_TUPLE', 'journal開始tupleがsessionと一致しません');
       }
       closed = true;
       pipe?.close();
@@ -2030,7 +2030,7 @@ export async function readF005NativeCapacityJournalFile(
 ): Promise<CapacityJournalV3> {
   if (!isAbsolute(workspace) || resolve(workspace) !== workspace ||
     !/^\.cache\/f005-capacity\/[0-9a-f]{64}\.json$/u.test(journalPath)) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'native journal pathが不正です');
+    return fail('F005_NATIVE_JOURNAL_PATH', 'native journal pathが不正です');
   }
   const lexicalPath = join(workspace, ...journalPath.split('/'));
   const [workspaceReal, journalReal, journalStat] = await Promise.all([
@@ -2044,7 +2044,7 @@ export async function readF005NativeCapacityJournalFile(
   ));
   if (workspaceReal !== workspace || journalReal !== lexicalPath ||
     journalStat.isSymbolicLink() || !journalStat.isFile()) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'native journal実体またはworkspace境界が不正です');
+    return fail('F005_NATIVE_JOURNAL_BOUNDARY', 'native journal実体またはworkspace境界が不正です');
   }
   const raw = await readFile(lexicalPath, 'utf8')
     .catch((error) => fail(
@@ -2056,10 +2056,10 @@ export async function readF005NativeCapacityJournalFile(
   try {
     parsed = JSON.parse(raw) as unknown;
   } catch (error) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'native journal JSONが不正です', error);
+    return fail('F005_NATIVE_JOURNAL_JSON', 'native journal JSONが不正です', error);
   }
   if (raw !== canonicalJson(parsed)) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'native journalがcanonical bytesではありません');
+    return fail('F005_NATIVE_JOURNAL_CANONICAL', 'native journalがcanonical bytesではありません');
   }
   return validateF005CapacityJournalV3(parsed, true);
 }
@@ -2111,11 +2111,11 @@ export function validateF005CapacityJournalV3(
     !Array.isArray(value.notices) ||
     !Array.isArray(value.observations) ||
     !['open', 'closed'].includes(String(value.state))) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'CapacityJournalV3 schemaが不正です');
+    return fail('F005_NATIVE_JOURNAL_SCHEMA', 'CapacityJournalV3 schemaが不正です');
   }
   if (value.state === 'open') {
     if (value.closedSeal !== null || requireClosed) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'open journalはactualへ使用できません');
+      return fail('F005_NATIVE_JOURNAL_OPEN', 'open journalはactualへ使用できません');
     }
     return Object.freeze(value) as unknown as CapacityJournalV3;
   }
@@ -2132,7 +2132,7 @@ export function validateF005CapacityJournalV3(
     !SHA256.test(String(value.closedSeal.journalBodySha256)) ||
     value.closedSeal.producerBinarySha256 !== F005_NATIVE_GUARD_PINS.outputBinarySha256 ||
     value.registeredWorkerPids.length === 0) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'closed sealが不正です');
+    return fail('F005_NATIVE_JOURNAL_SEAL', 'closed sealが不正です');
   }
 
   const phaseInstances = new Map<string, { phase: string; workId: string | null; finished: boolean }>();
@@ -2154,12 +2154,12 @@ export function validateF005CapacityJournalV3(
       !safeInteger(phaseRow.liveBytes) ||
       !safeInteger(phaseRow.freeBytes) ||
       (phaseRow.workId !== null && !WORK_IDS.has(String(phaseRow.workId)))) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'phase record列が不正です');
+      return fail('F005_NATIVE_JOURNAL_PHASE_LIST', 'phase record列が不正です');
     }
     const id = String(phaseRow.phaseInstanceId);
     const existing = phaseInstances.get(id);
     if (phaseRow.state === 'started') {
-      if (existing) return fail('F005_CAPACITY_JOURNAL_INVALID', 'phase instanceが再利用されています');
+      if (existing) return fail('F005_NATIVE_JOURNAL_PHASE_REUSE', 'phase instanceが再利用されています');
       phaseInstances.set(id, {
         phase: String(phaseRow.phase),
         workId: phaseRow.workId === null ? null : String(phaseRow.workId),
@@ -2168,14 +2168,14 @@ export function validateF005CapacityJournalV3(
     } else {
       if (!existing || existing.finished ||
         existing.phase !== phaseRow.phase || existing.workId !== phaseRow.workId) {
-        return fail('F005_CAPACITY_JOURNAL_INVALID', 'phase start/finish pairが不正です');
+        return fail('F005_NATIVE_JOURNAL_PHASE_PAIR', 'phase start/finish pairが不正です');
       }
       existing.finished = true;
     }
   }
   if (phaseInstances.size === 0 ||
     [...phaseInstances.values()].some((phase) => !phase.finished)) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'phase recordが閉じていません');
+    return fail('F005_NATIVE_JOURNAL_PHASE_OPEN', 'phase recordが閉じていません');
   }
 
   const observationBySequence = new Map<number, Record<string, unknown>>();
@@ -2184,7 +2184,7 @@ export function validateF005CapacityJournalV3(
   let recomputedMinimum = Number(value.initialFreeBytes);
   for (const observation of value.observations) {
     if (!record(observation)) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'ETW observation列が不正です');
+      return fail('F005_NATIVE_JOURNAL_OBSERVATION', 'ETW observation列が不正です');
     }
     const event = String(observation.event);
     const expectedObservationKeys = event === 'rename'
@@ -2235,7 +2235,7 @@ export function validateF005CapacityJournalV3(
       (event === 'rename'
         ? !safeRelativePath(observation.from) || !safeRelativePath(observation.to)
         : !safeRelativePath(observation.path))) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'ETW observation列が不正です');
+      return fail('F005_NATIVE_JOURNAL_OBSERVATION', 'ETW observation列が不正です');
     }
     const sequence = Number(observation.etwSequence);
     observationBySequence.set(sequence, observation);
@@ -2245,7 +2245,7 @@ export function validateF005CapacityJournalV3(
   // CHG-F005-072: 容量actualはETW observationではなく明示サンプリングを正とする。
   // 事後検証契約ではobservationが疎または皆無になりうるため。
   if (!Array.isArray(value.capacitySamples) || value.capacitySamples.length === 0) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', '容量サンプルがありません');
+    return fail('F005_NATIVE_JOURNAL_SAMPLE_MISSING', '容量サンプルがありません');
   }
   let expectedSampleSequence = 1;
   for (const sample of value.capacitySamples) {
@@ -2255,7 +2255,7 @@ export function validateF005CapacityJournalV3(
       !safeInteger(sample.liveBytes) || Number(sample.liveBytes) < 0 ||
       !safeInteger(sample.freeBytesAvailable) || Number(sample.freeBytesAvailable) < 0 ||
       !/^[a-z][a-z-]{0,31}$/u.test(String(sample.reason))) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', '容量サンプルが不正です');
+      return fail('F005_NATIVE_JOURNAL_SAMPLE_INVALID', '容量サンプルが不正です');
     }
     expectedSampleSequence += 1;
     recomputedPeak = Math.max(recomputedPeak, Number(sample.liveBytes));
@@ -2269,7 +2269,7 @@ export function validateF005CapacityJournalV3(
       value.closedSeal.lastEtwSequence !== 0)) ||
     value.peakLiveBytes !== recomputedPeak ||
     value.minimumObservedFreeBytes !== recomputedMinimum) {
-    return fail('F005_CAPACITY_JOURNAL_INVALID', 'ETW sequenceまたは容量集計が不正です');
+    return fail('F005_NATIVE_JOURNAL_AGGREGATE', 'ETW sequenceまたは容量集計が不正です');
   }
 
   let expectedNoticeSequence = 1;
@@ -2295,7 +2295,7 @@ export function validateF005CapacityJournalV3(
       !record(envelope.notice) ||
       !SHA256.test(String(envelope.notice.noticeId)) ||
       noticeIds.has(String(envelope.notice.noticeId))) {
-      return fail('F005_CAPACITY_JOURNAL_INVALID', 'notice envelope列が不正です');
+      return fail('F005_NATIVE_JOURNAL_NOTICE_ENVELOPE', 'notice envelope列が不正です');
     }
     const noticeEvent = String(envelope.notice.event);
     const expectedNoticeKeys = noticeEvent === 'rename'
