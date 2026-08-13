@@ -4410,7 +4410,10 @@ sealed class CapacityGuardSession : IDisposable
                         slash > 0 && leasePath![..slash] == normalized,
                         activeLease is not null &&
                             eventQpc > activeLease.CurrentPathReservedAtQpc,
-                        exactGenerationPresent);
+                        exactGenerationPresent,
+                        ledger is not null && fileObject != leaseFileObject
+                            ? ledger.MatchEventFileObject(fileObject, leasePath)
+                            : null);
                 throw new GuardException(failure);
             }
             if (lateCandidates.Length != 0)
@@ -8744,6 +8747,28 @@ public sealed class WriteCompletionBindingLedger
         };
     }
 
+    public EventFileObjectMatchResult MatchEventFileObject(
+        ulong fileObject,
+        string? comparePath)
+    {
+        if (fileObject == 0) return EventFileObjectMatchResult.Invalid;
+        if (!admitted.TryGetValue(fileObject, out var value))
+            return EventFileObjectMatchResult.EntryMissingOrUnbound;
+        var samePath = !string.IsNullOrEmpty(comparePath) &&
+            string.Equals(value.Path, comparePath, StringComparison.Ordinal);
+        return value.State switch {
+            WriteCompletionBindingState.Unbound =>
+                EventFileObjectMatchResult.EntryMissingOrUnbound,
+            WriteCompletionBindingState.Bound => samePath
+                ? EventFileObjectMatchResult.BoundSamePath
+                : EventFileObjectMatchResult.BoundOtherPath,
+            WriteCompletionBindingState.Retired => samePath
+                ? EventFileObjectMatchResult.RetiredSamePath
+                : EventFileObjectMatchResult.RetiredOtherPath,
+            _ => EventFileObjectMatchResult.OtherState,
+        };
+    }
+
     public ImmutableBindingProof Admit(
         WriteCompletionBindingKind kind,
         string eventName,
@@ -9262,6 +9287,22 @@ public static class WriteCompletionDrainRules
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_MISMATCH";
     public const string LookupPostUpperProofParentBoundLedgerMissingFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_LEDGER_MISSING";
+    private const string ParentBoundEventFileObjectPrefix =
+        $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_";
+    public const string LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}ENTRY_MISSING_OR_UNBOUND";
+    public const string LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}BOUND_SAME_PATH";
+    public const string LookupPostUpperProofParentBoundEventFileObjectBoundOtherPathFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}BOUND_OTHER_PATH";
+    public const string LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}RETIRED_SAME_PATH";
+    public const string LookupPostUpperProofParentBoundEventFileObjectRetiredOtherPathFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}RETIRED_OTHER_PATH";
+    public const string LookupPostUpperProofParentBoundEventFileObjectOtherStateFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}OTHER_STATE";
+    public const string LookupPostUpperProofParentBoundEventFileObjectLookupInvalidFailureCode =
+        $"{ParentBoundEventFileObjectPrefix}LOOKUP_INVALID";
     public const string LookupPostUpperProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
@@ -9373,6 +9414,13 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofParentBoundParentMismatchFailureCode,
         LookupPostUpperProofParentBoundReservationOrderFailureCode,
         LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectBoundOtherPathFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectRetiredOtherPathFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectOtherStateFailureCode,
+        LookupPostUpperProofParentBoundEventFileObjectLookupInvalidFailureCode,
         LookupPostUpperProofParentBoundLedgerMissingFailureCode,
         LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
@@ -9704,7 +9752,8 @@ public static class WriteCompletionDrainRules
         bool phaseInstanceMatches,
         bool sameParent,
         bool eventAfterActiveReservation,
-        bool exactGenerationPresent)
+        bool exactGenerationPresent,
+        EventFileObjectMatchResult? eventFileObjectMatch = null)
     {
         if (candidateCount is < 1 or > 128) return StateChangedFailureCode;
         if (eventName is not ("write" or "setinfo")) return StateChangedFailureCode;
@@ -9721,7 +9770,28 @@ public static class WriteCompletionDrainRules
         if (!eventAfterActiveReservation)
             return LookupPostUpperProofParentBoundReservationOrderFailureCode;
         if (eventFileObject != activeLeaseFileObject)
-            return LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode;
+        {
+            if (eventFileObjectMatch is null ||
+                !Enum.IsDefined(eventFileObjectMatch.Value))
+                return StateChangedFailureCode;
+            return eventFileObjectMatch.Value switch {
+                EventFileObjectMatchResult.EntryMissingOrUnbound =>
+                    LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode,
+                EventFileObjectMatchResult.BoundSamePath =>
+                    LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode,
+                EventFileObjectMatchResult.BoundOtherPath =>
+                    LookupPostUpperProofParentBoundEventFileObjectBoundOtherPathFailureCode,
+                EventFileObjectMatchResult.RetiredSamePath =>
+                    LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode,
+                EventFileObjectMatchResult.RetiredOtherPath =>
+                    LookupPostUpperProofParentBoundEventFileObjectRetiredOtherPathFailureCode,
+                EventFileObjectMatchResult.OtherState =>
+                    LookupPostUpperProofParentBoundEventFileObjectOtherStateFailureCode,
+                EventFileObjectMatchResult.Invalid =>
+                    LookupPostUpperProofParentBoundEventFileObjectLookupInvalidFailureCode,
+                _ => StateChangedFailureCode,
+            };
+        }
         if (!exactGenerationPresent)
             return LookupPostUpperProofParentBoundLedgerMissingFailureCode;
         return eventName == "write"
@@ -10604,6 +10674,17 @@ public enum UnboundMatchResult
     Retired,
     OtherState,
     Success,
+}
+
+public enum EventFileObjectMatchResult
+{
+    Invalid,
+    EntryMissingOrUnbound,
+    BoundSamePath,
+    BoundOtherPath,
+    RetiredSamePath,
+    RetiredOtherPath,
+    OtherState,
 }
 
 public enum GenerationMatchResult

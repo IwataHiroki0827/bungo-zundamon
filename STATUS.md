@@ -1,10 +1,12 @@
 ---
-phase: implement
+phase: change
 feature: F005
-updated: 2026-08-07T07:45:00+09:00
+updated: 2026-08-13T13:40:00+09:00
 next_actions:
-  - "commit 9c6fd375のhosted production run生成と完走を監視し、CHG-F005-037/T-111へ結果を反映する"
-blocked_by: [Q-035]
+  - "CHG-F005-069/T-141をpushしてhosted production runを生成し、event FO固定7 codeへの到達を確認する"
+  - "hosted結果に応じて次の原因分離CHGを起票する"
+  - "既存の未修正Vitest失敗（notices credits・baseline・f003-catalog・offline-build）とtrace参照切れDES-F004-021を別タスクで解消する"
+blocked_by: []
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
@@ -13,6 +15,8 @@ blocked_by: [Q-035]
 
 - F001はv0.1.0、F002はv0.2.0、F003はv0.3.0、F004はv0.4.0としてGitHub Pagesへ公開済み。公開サイトは3作者・12作品・674台詞・662音声で安定稼働中。
 - F005は公開前の非公開候補生成を継続中で、公開サイト・`public/`・`data/`は変更していない。
+- Q-042回答を3点セットで処理し、T-110を`todo`へ戻した。CHG-F005-052/T-126でproduction共有規則を使う決定的hosted相関検証を設計し、独立再レビューHigh/Medium/Low 0でPASSした。認可・容量actual・候補保存・公開条件は変更していない。
+- CHG-F005-052/T-126のread-only hosted相関検証を実装した。native通常820件、target 57件、関連Vitest26件、型、ESLint、trace、同一SHA再現build2回、独立受入High/Medium/Low 0をPASSした。run `31239312228`でtarget 57/57、kernel ETW、実load assembly SHA・MVID、同一SHA Pages deploy `skipped`を確認し、T-110/T-126/CHG-F005-036/052を完了した。
 - CHG-F005-009でnative executableをworkspace外のGUID付きRUNNER_TEMPへ隔離し、全起動経路のrealpath/reparse/hardlink/SHA/self hash検証を実装した。run 30508494379では外部binary使用を確認したが、write helper spawn後・予約前のworkspace System SetInfoで安全停止した。
 - CHG-F005-010で全native tooling processのcwdもexternal executable parentへ隔離し、path非公開のhello booleanで実processのcwd一致を全client/buildへ必須化した。対象124件、native規則37件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
 - run 30509193028でも同じunknown System SetInfoで安全停止したため、CHG-F005-011でraw pathを出さないtop-level/extension/実体/leaseの固定bucket診断を追加した。対象124件、native規則40件、型、ESLint、再現build、trace、独立レビューHigh/Medium/Low 0をPASSした。
@@ -53,6 +57,8 @@ blocked_by: [Q-035]
 - CHG-F005-037計画レビューのMedium 3+3を反映し、最大128非重複seal、phase-wide ETW順replay、exactly-once accounted、QPC deadline状態機械、3段seal lookup、private IPC exact keysを確定した。最終再レビューHigh/Medium/Low 0、trace_check、YAML、diff checkをPASSし実装へ移行する。
 - CHG-F005-037/T-111を実装し、未適用snapshot queue、replay時identity/capacity適用、root owner native identity、retained tuple、callback admission read/write fenceを固定した。独立受入はH2/M4、再受入はH1/M1を検出して是正し、最終H0/M0/L1でコードPASS。native421件、関連Vitest124件、型・ESLint、trace、同一SHA再現build2回、public/data差分0をPASSした。Programは`30dea0c2...b9a3f4`、binaryは`3a977c28...12b08`、75,089,756 bytesである。
 - commit `7e3388d`のhosted production run `31124038599`はGitHub Actions major outage中にjob step未生成のまま基盤cancelとなった。rerun要求は受理されたが約13時間job未生成で、APIもcancelを`Cannot cancel a workflow re-run that has not yet queued`として409拒否した。workflow自己pathだけを更新したcommit `9c6fd375`をpushして新run生成を再要求し、実装・認可条件・`public/`・`data/`は変更していない。
+- CHG-F005-056〜068（T-130〜T-140）でactive-directory候補多重性、no-lease seal集合、post-upper binding proof、parent ledger stateを順次固定診断へ分離した。hosted run `31623037336` attempt 2でCHG-F005-068の目標軸`...POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_MISMATCH`へ到達し、T-140の影響確認を完了した。
+- CHG-F005-069/T-141で、parentがledger Boundかつphase・親path・予約順を満たすlate eventのFileObjectがactive lease FileObjectと異なる場合を、ledger関係の固定7 code（entry missing/unbound、bound same/other path、retired same/other path、other state、lookup invalid）へ分離した。native 1203件、固定target 57/43/74/52、外部code 90→97同期、typecheck、ESLint、同一SHA再現build 2回をPASSし、認可・容量actual・候補保存・公開条件と`public/`・`data/`は変更していない。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。
 - SRS/FD/DD/QTに加えてUT-F003・IT-F003もApproved。ゲート①〜③を通過した。
@@ -94,20 +100,25 @@ blocked_by: [Q-035]
 
 ## 直近の作業（最新5件）
 
-- GitHub Actions障害でstale化したrun 31124038599を証拠化し、commit 9c6fd375でhosted productionを再起動
-- T-111/CHG-F005-037のcompletion drain決定化を実装し独立再々受入PASS
-- Q-036回答を反映しCHG-F005-037/T-111の変更管理を開始
-- run 31042915405を3 attempt実行し前段固定分岐で安全停止、Q-036へ記録
-- T-110/CHG-F005-036の限定再結合を実装し独立再受入PASS
+- CHG-F005-069/T-141でevent FO ledger関係の固定7 codeとMatchEventFileObjectを実装
+- CHG-F005-068/T-140のhosted影響確認をrun 31623037336 attempt 2で完了しdoneへ確定
+- T-130〜T-140（CHG-F005-056〜068）の候補多重性・binding proof・parent state診断を順次完了
+- T-126〜T-129で決定的hosted相関検証を確立しT-110/T-122/T-112/T-109の影響確認を完了
+- Q-042〜Q-044を3点セットで処理しblockedを解消
 
 ## 次のアクション
 
-- commit `9c6fd375`のpush webhookから新hosted production runが生成されるまで監視する。
-- 新runでcompletion drain通過後のT-109/T-110対象stageまたはproduction成功を確認し、失敗時もcandidate未保存・Pages deploy skip・public/data差分0を確認する。
+- `native/f005-guard/Program.cs`ほかでCHG-F005-054/T-128のproduction-owned retained identity lease、T-112固定target/manifest、selectorを完了する。
+- T-128完了後、`docs/changes/CHG-F005-055.md`に従いT-129のproduction共有evaluator、T-109 target source/manifestを実装する。
+- T-110/T-122/T-112 target無縮退、raw非公開、同一SHA Pages deploy `skipped`をlocal/hosted evidenceで検証する。
 
 ## 未解決事項
 
 - C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、音声生成直前にもrunner内で再計測する。
-- GitHub Actionsは2026-08-07 07:36 JST時点でmajor outage継続中。開始済みrunの成功率は97%まで回復したがpush webhookはthrottle中で、commit `9c6fd375`の新run生成待ちである。
-- T-109はlocal受入PASS済みだがhosted影響経路へ3 attemptで未到達のためQ-035でblocked。T-070 production runnerの前段bound lease directory `CANDIDATE`をCHG-F005-036で限定再結合し、T-109 hosted確認を再開する。
-- T-110はlocal受入PASS済みだがhosted対象へ3 attemptで未到達。Q-036回答済みのCHG-F005-037でwrite completionのevent-time状態を固定してからhosted確認を再開する。
+- GitHub Actionsの先行障害後もcommit `4dc7d2b`のnative/production runは正常生成された。現在はT-113の新commit生成後の再試験待ちである。
+- T-109はQ-044回答を反映して`todo`へ戻した。local受入PASS済みで、CHG-F005-055/T-129のproduction共有evaluatorを使う決定的hosted影響確認を待つ。
+- T-110は自然なhosted対象へfollow-up 3 attemptで未到達だったが、CHG-F005-052/T-126の決定的hosted相関run `31239312228`で影響確認をPASSし完了した。
+- T-111はQ-037回答を反映して`todo`へ戻した。CHG-F005-038/T-112で不変replay proofへ置換後にhosted影響試験を再実施する。
+- T-122は自然なhosted follow-up 3 attemptで未到達だったが、CHG-F005-053/T-127の決定的hosted correlation run `31241090301`で43/43と非公開条件をPASSし完了した。
+- CHG-F005-052/T-126はtrace_check `対応漏れなし: OK`とhosted canonical evidenceを確認済みである。
+- CHG-F005-055は独立最終再レビューHigh/Medium/Low 0でPASSし、T-129実装・local/hosted再試験完了まで`in-review`を維持する。

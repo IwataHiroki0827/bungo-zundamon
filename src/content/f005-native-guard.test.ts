@@ -180,7 +180,7 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
   expect(classifyF005NativeCapacityReplyError(
     `${otherKnownPath.slice(5)}_PRIVATE`,
   )).toBe('F005_CAPACITY_ETW_OBSERVATION_FAILED');
-  expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(90);
+  expect(F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES).toHaveLength(97);
   for (const stage of F005_WRITE_COMPLETION_DRAIN_FAILURE_STAGES) {
     const code = `F005_ETW_WRITE_COMPLETION_DRAIN_${stage}` as const;
     expect(isF005WriteCompletionDrainFailureCode(code)).toBe(true);
@@ -1071,7 +1071,7 @@ describe('F005 native ETW capacity guard', () => {
     });
     expect({ exitCode, output }).toMatchObject({
       exitCode: 0,
-      output: expect.stringContaining('System SetInfo correlation tests PASS (1165 cases)'),
+      output: expect.stringContaining('System SetInfo correlation tests PASS (1203 cases)'),
     });
   }, 120_000);
 });

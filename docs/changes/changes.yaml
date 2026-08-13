@@ -1,11 +1,18 @@
 changes:
+- id: CHG-F005-069
+  date: '2026-08-13'
+  trigger: CHG-F005-068 hosted run 31623037336 attempt 2がPARENT_BOUND_EVENT_FO_MISMATCHで安全停止
+  level: design
+  affected: [CHG-F005-068, T-141]
+  status: in-review
+  result: event FO ledger関係を固定7 codeへ分離しlocal検証PASS。native1203、固定target57/43/74/52、97 code、再現build2回。独立レビューとhosted影響試験待ち
 - id: CHG-F005-068
   date: '2026-08-13'
   trigger: CHG-F005-067 hosted run 31258105374がSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHで安全停止
   level: design
   affected: [CHG-F005-067, T-140]
   status: done
-  result: 7 validation軸を実装しlocal・独立相当確認PASS。native1165、90 code、hosted確認待ち
+  result: 7 validation軸を実装しlocal・独立相当確認PASS。native1165、90 code。hosted run 31623037336 attempt 2で目標軸PARENT_BOUND_EVENT_FO_MISMATCHへ到達し影響確認完了、CHG-F005-069へ引継ぎ
 - id: CHG-F005-067
   date: '2026-08-08'
   trigger: CHG-F005-066 hosted run 31257356440がPARENT_BOUND_ALLで安全停止
@@ -213,7 +220,7 @@ changes:
   date: '2026-08-06'
   trigger: Actions run 31038467173 attempt 3でbound lease directory writeの既存CANDIDATEを固定検出
   level: design
-  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-109, T-110]
+  affected: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008, T-070, T-109, T-110]
   status: done
 - id: CHG-F005-035
   date: '2026-08-06'

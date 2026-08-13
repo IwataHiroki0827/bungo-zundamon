@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 90",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 90 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 90 &&
+Check("completion drain external code集合はexact 97",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 97 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 97 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 90 codeはnative replyで不変",
+Check("completion drain external exact 97 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -3063,11 +3063,13 @@ string ParentBoundScalar(
     bool phaseMatch = true,
     bool parent = true,
     bool afterReservation = true,
-    bool exactGeneration = true) =>
+    bool exactGeneration = true,
+    EventFileObjectMatchResult? eventFoMatch =
+        EventFileObjectMatchResult.EntryMissingOrUnbound) =>
     WriteCompletionDrainRules.ParentBoundActiveLeaseFailureCode(
         count, eventName, eventFileObject, lease, phase, snapshot,
         leaseFileObject, identity, path, voice, phaseMatch, parent,
-        afterReservation, exactGeneration);
+        afterReservation, exactGeneration, eventFoMatch);
 foreach (var count in new[] { 1, 2, 128 })
 {
     Check("completion drain parent bound active lease write exact 1/2/128",
@@ -3079,9 +3081,96 @@ foreach (var count in new[] { 1, 2, 128 })
 }
 Check("completion drain parent bound event FO差/ExactGeneration nullを固定分離",
     ParentBoundScalar(eventFileObject: 821) ==
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode &&
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode &&
     ParentBoundScalar(exactGeneration: false) ==
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundLedgerMissingFailureCode);
+var parentBoundEventFoCauses = new[] {
+    (EventFileObjectMatchResult.EntryMissingOrUnbound,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode),
+    (EventFileObjectMatchResult.BoundSamePath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode),
+    (EventFileObjectMatchResult.BoundOtherPath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectBoundOtherPathFailureCode),
+    (EventFileObjectMatchResult.RetiredSamePath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode),
+    (EventFileObjectMatchResult.RetiredOtherPath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectRetiredOtherPathFailureCode),
+    (EventFileObjectMatchResult.OtherState,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherStateFailureCode),
+    (EventFileObjectMatchResult.Invalid,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectLookupInvalidFailureCode),
+};
+foreach (var (match, expected) in parentBoundEventFoCauses)
+{
+    Check("completion drain parent bound event FO ledger関係を固定分類",
+        ParentBoundScalar(eventFileObject: 821, eventFoMatch: match) == expected);
+    Check("completion drain parent bound event FO分類は後段へ到達しない",
+        ParentBoundScalar(eventFileObject: 821, exactGeneration: false,
+            eventFoMatch: match) == expected);
+    foreach (var count in new[] { 1, 2, 128 })
+        Check("completion drain parent bound event FO分類は候補数に依存しない",
+            ParentBoundScalar(count: count, eventFileObject: 821,
+                eventFoMatch: match) == expected &&
+            ParentBoundScalar(count: count, eventName: "setinfo",
+                eventFileObject: 821, eventFoMatch: match) == expected);
+}
+Check("completion drain parent bound event FO null/未定義値はSTATE_CHANGED",
+    ParentBoundScalar(eventFileObject: 821, eventFoMatch: null) ==
+        WriteCompletionDrainRules.StateChangedFailureCode &&
+    ParentBoundScalar(eventFileObject: 821,
+        eventFoMatch: (EventFileObjectMatchResult)97) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+Check("completion drain parent bound event FO一致時は分類へ入らない",
+    ParentBoundScalar(eventFoMatch: null) ==
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode &&
+    ParentBoundScalar(eventFoMatch: EventFileObjectMatchResult.BoundOtherPath) ==
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundActiveLeaseWriteAllFailureCode &&
+    ParentBoundScalar(exactGeneration: false, eventFoMatch: null) ==
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundLedgerMissingFailureCode);
+bool WriteCompletionBindingLedgerEventFileObjectProbe()
+{
+    const string samePath = "cache/state.wav";
+    const string otherPath = "cache/other.wav";
+    if (new WriteCompletionBindingLedger([]).MatchEventFileObject(0, samePath) !=
+        EventFileObjectMatchResult.Invalid)
+        return false;
+    if (new WriteCompletionBindingLedger([]).MatchEventFileObject(821, samePath) !=
+        EventFileObjectMatchResult.EntryMissingOrUnbound)
+        return false;
+    var expectations = new[] {
+        (WriteCompletionBindingState.Unbound, samePath,
+            EventFileObjectMatchResult.EntryMissingOrUnbound),
+        (WriteCompletionBindingState.Unbound, otherPath,
+            EventFileObjectMatchResult.EntryMissingOrUnbound),
+        (WriteCompletionBindingState.Unbound, null,
+            EventFileObjectMatchResult.EntryMissingOrUnbound),
+        (WriteCompletionBindingState.Bound, samePath,
+            EventFileObjectMatchResult.BoundSamePath),
+        (WriteCompletionBindingState.Bound, otherPath,
+            EventFileObjectMatchResult.BoundOtherPath),
+        (WriteCompletionBindingState.Bound, null,
+            EventFileObjectMatchResult.BoundOtherPath),
+        (WriteCompletionBindingState.Bound, "",
+            EventFileObjectMatchResult.BoundOtherPath),
+        (WriteCompletionBindingState.Retired, samePath,
+            EventFileObjectMatchResult.RetiredSamePath),
+        (WriteCompletionBindingState.Retired, otherPath,
+            EventFileObjectMatchResult.RetiredOtherPath),
+        ((WriteCompletionBindingState)int.MaxValue, samePath,
+            EventFileObjectMatchResult.OtherState),
+        ((WriteCompletionBindingState)int.MaxValue, otherPath,
+            EventFileObjectMatchResult.OtherState),
+    };
+    foreach (var (state, comparePath, expected) in expectations)
+        if (LedgerWithForcedState(705, state)
+                .MatchEventFileObject(705, comparePath) != expected)
+            return false;
+    return LedgerWithForcedState(705, WriteCompletionBindingState.Bound)
+        .MatchEventFileObject(799, samePath) ==
+        EventFileObjectMatchResult.EntryMissingOrUnbound;
+}
+Check("completion drain event FO ledger lookupはstateとpath一致をexact1回で返す",
+    WriteCompletionBindingLedgerEventFileObjectProbe());
 var parentBoundStateChangedFailures = new[] {
     ParentBoundScalar(count: 0, eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(count: 129, eventFileObject: 821, exactGeneration: false),
@@ -3104,7 +3193,7 @@ var parentBoundFixedFailures = new[] {
     (ParentBoundScalar(phaseMatch: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundPhaseMismatchFailureCode),
     (ParentBoundScalar(parent: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundParentMismatchFailureCode),
     (ParentBoundScalar(afterReservation: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundReservationOrderFailureCode),
-    (ParentBoundScalar(eventFileObject: 821), WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode),
+    (ParentBoundScalar(eventFileObject: 821), WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode),
     (ParentBoundScalar(exactGeneration: false), WriteCompletionDrainRules.LookupPostUpperProofParentBoundLedgerMissingFailureCode),
 };
 foreach (var (actual, expected) in parentBoundFixedFailures)
@@ -3127,7 +3216,7 @@ var parentBoundPriorityFailures = new[] {
         exactGeneration: false),
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundReservationOrderFailureCode),
     (ParentBoundScalar(eventFileObject: 821, exactGeneration: false),
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectMismatchFailureCode),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectEntryMissingOrUnboundFailureCode),
 };
 foreach (var (actual, expected) in parentBoundPriorityFailures)
     Check("completion drain parent bound複合違反は固定先行軸が勝つ",

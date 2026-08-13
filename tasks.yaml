@@ -2258,24 +2258,24 @@ tasks:
   title: CHG-F005-036 bound lease directory CANDIDATEの完全tuple限定再結合
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends: [T-108]
-  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-047, UT-F005-047, IT-F005-005, QT-F005-008]
   mode: advisor
   mode_reason: 既存bound lease directory CANDIDATE完全tupleだけをlease worker世代へ限定再結合するため
   model: {lead: opus, workers: sonnet}
-  progress: exact CANDIDATE限定再結合を実装しlocal受入PASS。Q-036回答によりunblockし、CHG-F005-037のcompletion drain決定化後にhosted確認を再開
+  progress: exact CANDIDATE限定再結合を実装しlocal受入PASS。CHG-F005-052のread-only hosted相関run 31239312228でproduction共有規則の固定57 case、kernel ETW、実load assembly、Pages deploy skipをPASSしてhosted影響確認完了
 - id: T-111
   title: CHG-F005-037 write completion drainのevent-time sealed tuple決定化
   feature: F005
   phase: test
-  state: doing
+  state: todo
   depends: [T-110]
-  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008]
+  tags: [REQ-F005-012, REQ-F005-013, DES-F005-006, DES-F005-012, FUN-F005-017, FUN-F005-047, UT-F005-017, UT-F005-047, IT-F005-005, QT-F005-008, QT-F005-009]
   mode: advisor
   mode_reason: hosted ETW配送raceを認可拡張ではなくwrite completionの明示状態とsealed event-time tupleで決定化するため
   model: {lead: opus, workers: sonnet}
-  progress: completion drain決定化を実装。独立受入H2/M4→H1/M1を是正し最終H0/M0/L1でコードPASS、native421・関連124・再現build2回PASS。run 31124038599はGitHub Actions major outageでstep未生成の基盤cancel後、rerunがjob未生成のstale状態となった。commit 9c6fd375でworkflow自己pathを更新して新hosted run生成待ち
+  progress: completion drain決定化を実装しlocal受入PASS。Q-037でCHG-F005-038継続が回答されブロック解除済み。run 31124047021の配送順分岐を不変binding proofとretained identityへ置換後、hosted影響試験を再実施する
 - id: T-112
   title: CHG-F005-038 completion drainの不変binding proof・retained identity再生
   feature: F005
@@ -2594,4 +2594,15 @@ tasks:
   mode: advisor
   mode_reason: active-bound parentのvalidation順を非破壊固定診断へ分離するため
   model: {lead: opus, workers: sonnet}
-  progress: 7 validation軸を実装しlocal検証PASS。hosted run 31258105374 attempts 1-3でSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHへ到達、次のhosted確認を継続
+  progress: 7 validation軸を実装しlocal検証PASS。hosted run 31623037336 attempt 2で目標軸PARENT_BOUND_EVENT_FO_MISMATCHへ到達し影響確認完了。run 31623929980 attempts 1-3はEXACT_MISSING/STATE_CHANGEDの既知経路。native probe成功、candidate branch不存在、Pages deploy未生成
+- id: T-141
+  title: CHG-F005-069 parent bound event FileObject不一致のledger関係固定診断
+  feature: F005
+  phase: test
+  state: todo
+  depends: [T-140]
+  tags: [CHG-F005-068]
+  mode: advisor
+  mode_reason: active lease FOと異なるlate event FOがledger上どの状態にあるかを認可せず固定分類するため
+  model: {lead: opus, workers: sonnet}
+  progress: 固定7 codeとledger MatchEventFileObjectを実装。native1203、固定target57/43/74/52、97 code同期、typecheck、ESLint、再現build2回をPASS。hosted影響試験待ち
