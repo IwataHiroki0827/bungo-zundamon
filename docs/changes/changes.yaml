@@ -4,8 +4,8 @@ changes:
   trigger: CHG-F005-068 hosted run 31623037336 attempt 2がPARENT_BOUND_EVENT_FO_MISMATCHで安全停止
   level: design
   affected: [CHG-F005-068, T-141]
-  status: in-review
-  result: event FO ledger関係を固定7 codeへ分離しlocal検証PASS。native1203、固定target57/43/74/52、97 code、再現build2回。独立レビューとhosted影響試験待ち
+  status: done
+  result: event FO ledger関係を固定7 codeへ分離しlocal検証PASS。native1203、固定target57/43/74/52、97 code、再現build2回。run 31666533719 attempt 1でBOUND_OTHER_PATHへ到達し影響確認完了、CHG-F005-070へ引継ぎ
 - id: CHG-F005-068
   date: '2026-08-13'
   trigger: CHG-F005-067 hosted run 31258105374がSTATE_CHANGED/ACTIVE_LEASE_BINDING_MISMATCHで安全停止

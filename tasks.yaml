@@ -2599,10 +2599,10 @@ tasks:
   title: CHG-F005-069 parent bound event FileObject不一致のledger関係固定診断
   feature: F005
   phase: test
-  state: todo
+  state: done
   depends: [T-140]
   tags: [CHG-F005-068]
   mode: advisor
   mode_reason: active lease FOと異なるlate event FOがledger上どの状態にあるかを認可せず固定分類するため
   model: {lead: opus, workers: sonnet}
-  progress: 固定7 codeとledger MatchEventFileObjectを実装。native1203、固定target57/43/74/52、97 code同期、typecheck、ESLint、再現build2回をPASS。hosted影響試験待ち
+  progress: 固定7 codeとledger MatchEventFileObjectを実装。native1203、固定target57/43/74/52、97 code同期、typecheck、ESLint、再現build2回をPASS。run 31666533719 attempt 1でBOUND_OTHER_PATHへ到達、native probe SUCCESS、candidate branch不存在を確認して完了
