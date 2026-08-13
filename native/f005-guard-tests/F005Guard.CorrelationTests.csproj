@@ -15,5 +15,6 @@
     <None Include="t112-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="t109-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="t142-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="t143-case-manifest.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
