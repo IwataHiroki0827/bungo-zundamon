@@ -1,4 +1,11 @@
 changes:
+- id: CHG-F005-070
+  date: '2026-08-13'
+  trigger: CHG-F005-069 hosted run 31666533719 attempt 1がBOUND_OTHER_PATHで安全停止
+  level: design
+  affected: [CHG-F005-069, T-141, T-142]
+  status: done
+  result: 別path bind先の関係を固定6 codeへ分離しlocal検証PASS。native1259、103 code、再現build2回。自然経路3 attemptは未到達だが決定的hosted相関run 31669520975で76/76・kernel ETW・Pages deploy skipをPASSして影響確認完了
 - id: CHG-F005-069
   date: '2026-08-13'
   trigger: CHG-F005-068 hosted run 31623037336 attempt 2がPARENT_BOUND_EVENT_FO_MISMATCHで安全停止

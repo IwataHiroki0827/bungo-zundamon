@@ -2606,3 +2606,14 @@ tasks:
   mode_reason: active lease FOと異なるlate event FOがledger上どの状態にあるかを認可せず固定分類するため
   model: {lead: opus, workers: sonnet}
   progress: 固定7 codeとledger MatchEventFileObjectを実装。native1203、固定target57/43/74/52、97 code同期、typecheck、ESLint、再現build2回をPASS。run 31666533719 attempt 1でBOUND_OTHER_PATHへ到達、native probe SUCCESS、candidate branch不存在を確認して完了
+- id: T-142
+  title: CHG-F005-070 bound other path関係診断と決定的hosted相関検証
+  feature: F005
+  phase: test
+  state: done
+  depends: [T-141]
+  tags: [CHG-F005-069, CHG-F005-070]
+  mode: advisor
+  mode_reason: bind先pathと候補集合の関係を認可せず固定分類し、ETW配送順に依存しない決定的hosted検証で影響確認するため
+  model: {lead: opus, workers: sonnet}
+  progress: 固定6 codeとClassifyBoundPathRelationを実装しT-142 target suite 76 caseを追加。native1259、固定target57/43/74/52/76、103 code同期、typecheck、ESLint、再現build2回をPASS。自然経路run 31668142202は3 attempt未到達だがprobe run 31669520975で76/76・kernel ETW・Pages deploy skipを確認して完了
