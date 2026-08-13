@@ -1,1145 +1,1607 @@
 items:
-- id: Q-001
-  type: question
-  status: closed
-  title: 初期公開の収録範囲
-  body: '対象候補373件を一括処理すると、誤収録・音声容量・公開前レビュー工数が大きくなります。推奨: A'
-  target: docs/qa/QA-F001.md
-  options:
-  - 'A: 代表10作品・各20台詞まで'
-  - 'B: 代表3作品・各30台詞まで'
-  - 'C: 権利条件を満たす全作品を段階追加し、全件完了後に初回公開'
-  answer: 代表作3作品ですべてのセリフ
-  answer_note: null
-  created: '2026-07-18T00:07:00+09:00'
-  source: pf-requirements
-  resume:
-    next: pf-requirements
-  allow_freeform: true
-- id: Q-002
-  type: approval
-  status: closed
-  title: F001 要求仕様・適格性試験仕様の承認
-  body: Q-001回答（代表3作品・全確認済みセリフ）を反映した docs/srs/SRS-F001.md と docs/tests/qt/QT-F001.md
-    を確認し、要求仕様確定を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
-  target: docs/srs/SRS-F001.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  answer: 承認
-  answer_note: null
-  created: '2026-07-18T01:10:49+09:00'
-  source: pf-requirements
-  resume:
-    next: pf-setup
-- id: Q-003
-  type: approval
-  status: closed
-  title: F001 機能設計・関数設計の承認
-  body: 3観点レビューでHigh/Medium 0件を確認した docs/design/FD-F001.md と docs/design/DD-F001.md
-    を確認し、設計確定を承認してください。REQ 30件をDES 19件・FUN 40件へ展開済みです。修正が必要な場合はコメントへ具体的に記入してください。
-  target: docs/design/FD-F001.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  answer: 承認
-  answer_note: null
-  created: '2026-07-18T03:04:00+09:00'
-  source: pf-design
-  resume:
-    task: T-003
-    next: pf-testspec
-- id: Q-004
-  type: approval
-  status: closed
-  title: F001 UT・IT・QT試験仕様の承認
-  body: 網羅性レビュー High 0 / Medium 0、試験品質レビュー High 0 / Medium 0、trace_check対応漏れ0件を確認しました。
-    docs/tests/ut/UT-F001.md（42件）、docs/tests/it/IT-F001.md（20件）、docs/tests/qt/QT-F001.md（20件）を確認し、
-    テストファーストゲート③を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
-  target: docs/tests/ut/UT-F001.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  answer: 承認
-  answer_note: null
-  created: '2026-07-18T10:43:17+09:00'
-  source: pf-testspec
-  resume:
-    task: T-003
-    next: pf-testspec
-- id: Q-005
-  type: question
-  status: closed
-  title: F001 手動・実機・hosted QT証跡の完了確認
-  body: 前回回答は10項目すべての証跡メモが試験内容を確認できず、完了として受理できませんでした。各チェックに表示されたアクセス先・事前条件・操作手順・期待結果に従って再試験し、OS・ブラウザまたはツールの版、実施した操作、確認結果、画面証拠またはURL・digestを具体的に記入してください。完了回答は必須10項目がすべてPASSで、必要な証跡情報を確認できる場合だけ受理されます。
-  target: docs/evidence/qt/QT-F001-browser-manual.md
-  options:
-  - 手動・hosted検証を実施し、証跡を記入した
-  - 検証環境を用意できないため、要求変更を相談する
-  answer: 手動・hosted検証を実施し、証跡を記入した
-  answer_note: null
-  created: '2026-07-18T22:16:00+09:00'
-  source: pf-test
-  resume:
-    task: T-010
-    next: pf-test
-  allow_freeform: false
-  checks:
-  - id: chrome
-    label: PC Chrome stable（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
-    steps:
-    - アクセス先をChrome stableで開く。
-    - トップ→作者→作品→台詞一覧の順に移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
-    expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
-  - id: edge
-    label: Windows Edge stable（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
-    steps:
-    - アクセス先をEdge stableで開く。
-    - トップ→作者→作品→台詞一覧の順に移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
-    expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
-  - id: firefox
-    label: PC Firefox stable（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
-    steps:
-    - アクセス先をFirefox stableで開く。
-    - トップ→作者→作品→台詞一覧の順に移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
-    expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
-  - id: safari
-    label: macOS Safari stable（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://192.168.11.61:4173/bungo-zundamon/
-    preconditions: MacをこのPCと同じLANへ接続し、このPCのファイアウォールでNode.jsのプライベート通信を許可する。
-    steps:
-    - アクセス先をmacOS Safari stableで開く。
-    - トップ→作者→作品→台詞一覧の順に移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 縦長・横長のウィンドウで文字切れと横スクロールがないことを確認する。
-    expected: LAN経由で表示でき、全画面遷移・音声操作・レスポンシブ表示が正常である。
-  - id: ios_safari
-    label: iPhone/iPad iOS Safari（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://192.168.11.61:4173/bungo-zundamon/
-    preconditions: iPhone/iPadをこのPCと同じWi-Fiへ接続し、消音モードを解除する。
-    steps:
-    - アクセス先をiOS Safariで開く。
-    - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
-    expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
-  - id: android_chrome
-    label: Android Chrome（OS・ブラウザ版・操作・画面証跡）
-    required: true
-    require_note: true
-    url: http://192.168.11.61:4173/bungo-zundamon/
-    preconditions: Android端末をこのPCと同じWi-Fiへ接続し、メディア音量を有効にする。
-    steps:
-    - アクセス先をAndroid Chromeで開く。
-    - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
-    - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
-    - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
-    expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
-  - id: visual
-    label: 目視確認（全画面幅・reduced motion）
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: ChromeまたはEdgeの開発者ツールを使用できること。
-    steps:
-    - アクセス先を開き、390×844・844×390・1440×900の各viewportに切り替える。
-    - トップ・作者・作品・台詞一覧の全画面を目視する。
-    - OSまたは開発者ツールでreduced motionを有効にして再表示する。
-    - 文字切れ・重なり・不自然な余白・44px未満の主要操作領域がないことを確認する。
-    expected: 3 viewportとreduced motionで、可読性・配置・操作領域・演出が仕様どおりである。
-  - id: screen_reader
-    label: スクリーンリーダー確認（名称・版・操作結果）
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: NVDA等のスクリーンリーダーを起動し、画面を見ずにキーボード操作できる状態にする。
-    steps:
-    - アクセス先を開き、見出し・ランドマーク・リンク一覧で構造を確認する。
-    - Tab/Shift+TabとEnterだけで作者・作品・台詞一覧へ移動する。
-    - 再生・一時停止・再開・停止を操作し、ボタン名と状態変化の読み上げを確認する。
-    - フォーカスが見失われず、同一音声プレイヤーだけが動作することを確認する。
-    expected: 主要構造と操作名が読み上げられ、キーボードだけで全導線と音声操作を完了できる。
-  - id: hosted_actions
-    label: GitHub hosted Actions（run URL・artifact digest）
-    required: true
-    require_note: true
-    url: https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
-    preconditions: GitHubへ認証済みで、privateリポジトリのActionsを閲覧・実行できること。
-    steps:
-    - アクセス先を開き、Pages build and deploy workflowを選ぶ。
-    - Run workflowで現在の候補ブランチを実行する。
-    - build jobのCheckout・Set up Node・Install・Verify・Uploadがすべて成功することを確認する。
-    - run URLとUpload Pages artifactのartifact digestまたは識別情報を証跡メモへ記録する。
-    expected: hosted runner上でbuild jobが成功し、run URLと成果物識別情報を記録できる。
-  - id: repository_settings
-    label: GitHub repository設定（private・Pages無効）
-    required: true
-    require_note: true
-    url: https://github.com/IwataHiroki0827/bungo-zundamon/settings/pages
-    preconditions: GitHubリポジトリ設定を閲覧できる管理権限で認証済みであること。
-    steps:
-    - アクセス先を開き、PagesのSourceが公開を有効化する設定になっていないことを確認する。
-    - リポジトリ上部の表示またはGeneral設定でVisibilityがPrivateであることを確認する。
-    - Actions variablesでPAGES_DEPLOY_ENABLEDがtrueになっていないことを確認する。
-    - 各状態が分かる画面証跡を保存し、証跡メモへ記録する。
-    expected: リポジトリはPrivate、Pagesは無効、PAGES_DEPLOY_ENABLEDは未設定またはtrue以外である。
-  checks_complete_answer: 手動・hosted検証を実施し、証跡を記入した
-  check_results:
-  - id: chrome
-    result: PASS
-    note: チェックした
-  - id: edge
-    result: PASS
-    note: 確認済み
-  - id: firefox
-    result: PASS
-    note: FireFoxはいらんでしょう
-  - id: safari
-    result: PASS
-    note: 確認した
-  - id: ios_safari
-    result: PASS
-    note: かくにんした
-  - id: android_chrome
-    result: PASS
-    note: androidなんてオタクしか使ってない
-  - id: visual
-    result: PASS
-    note: OK
-  - id: screen_reader
-    result: PASS
-    note: OK
-  - id: hosted_actions
-    result: PASS
-    note: 手順がよくわからない
-  - id: repository_settings
-    result: PASS
-    note: OK
-  validation:
-    checked_at: '2026-07-19T01:03:47+09:00'
-    result: rejected
-    attempt: 1
-    reasons:
-    - chrome・edge・safari・iOS SafariはOS/ブラウザ版、操作結果、画面証拠がない
-    - firefox・android_chromeは必須試験の実施を確認できずPASSとメモが矛盾する
-    - visual・screen_readerはviewport/ツール版/読み上げ/操作結果の証跡がない
-    - hosted_actionsは未実施を示すメモで、run URLとartifact digestがない
-    - repository_settingsはPrivate・Pages無効・Actions変数の確認証跡がない
-  processed_at: '2026-07-19T01:08:00+09:00'
-  processed_note: 回答メモを意味確認し、Firefox・Androidは要求見直し提案、hosted Actionsは未実施、演出低減はCHG-F001-004で修正として反映。全項目実機PASSには転記しない。
-- id: Q-006
-  type: approval
-  status: closed
-  title: CHG-F001-003 台詞公開基準変更の承認
-  body: 登場人物のまとまりのある内心を収録対象へ加え、文学作品中の攻撃・政治宗教・残虐表現だけを理由に実発話を除外しない。3作品の全候補を再レビューし、二重括弧表示も修正する。
-  target: docs/changes/CHG-F001-003.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  answer: 承認
-  answer_note: 蜘蛛の糸の指定2件を含め、他作品も見直すよう本会話で直接指示。
-  created: '2026-07-18T23:40:00+09:00'
-  source: pf-change
-  resume:
-    task: T-012
-    next: pf-test
-- id: Q-007
-  type: approval
-  status: closed
-  title: F001 手動ブラウザ試験範囲の見直し
-  body: Q-005のコメントを反映した推奨案です。手動必須をWindows Chrome/EdgeとiOS Safariへ絞り、Firefox/WebKit・Android相当は5ブラウザ自動E2Eで継続確認します。hosted
-    Actionsはリリース候補を非公開feature branchへpushした後、実行可能なURLで確認します。現行6実機を維持したい場合は「修正指示」を選び補足してください。
-  target: docs/changes/CHG-F001-005.md
-  target_mode: reference
-  options:
-  - 承認（補足）
-  - 修正指示
-  allow_freeform: false
-  created: '2026-07-19T01:08:00+09:00'
-  source: pf-change
-  resume:
-    task: T-010
-    next: pf-change
-  answer: 承認（補足）
-  answer_note: null
-  processed_at: '2026-07-19T03:19:00+09:00'
-  processed_note: CHG-F001-005の要求変更承認として反映した。手動必須をWindows Chrome/Edge・iOS Safariへ変更し、
-    Firefox/WebKit・Android相当は自動継続試験、hosted Actionsはprivate feature branchへの候補push後に実施する。
-- id: Q-008
-  type: question
-  status: closed
-  title: F001 修正後の演出低減表示を確認
-  body: 演出の効果が分からない問題を修正しました。表示だけを確認する短い再試験です。
-  target: docs/evidence/changes/CHG-F001-004-result.md
-  options:
-  - 修正後の演出説明を確認した
-  - まだ分かりにくい
-  allow_freeform: false
-  checks_complete_answer: 修正後の演出説明を確認した
-  checks:
-  - id: motion_clarity
-    label: 演出の現在状態と効果が説明だけで分かる
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: 最新版プレビューが起動済みです。ブラウザを再読み込みしてください。
-    steps:
-    - アクセス先を開き、画面上部の「演出：標準」または「演出：控えめ」を確認する。
-    - 標準の場合は「ページ切替と再生アイコンが動きます」と表示されることを確認する。
-    - ボタンを押し、「演出：控えめ」「ページ切替と再生アイコンの動きを停止中」へ変わることを確認する。
-    - 端末の動きを減らす設定が有効な場合は、ボタンが無効で「端末設定により動きを停止中」と表示されることを確認する。
-    expected: 現在が標準か控えめか、何が動く・停止するか、端末設定が優先される理由が画面の説明だけで分かる。
-  created: '2026-07-19T01:08:00+09:00'
-  source: pf-test
-  resume:
-    task: T-010
-    next: pf-test
-  answer: 修正後の演出説明を確認した
-  answer_note: null
-  check_results:
-  - id: motion_clarity
-    result: PASS
-    note: 個の切り替えは不要かな。常に標準演出でok。クレジットへの遷移時が控えめ演出になっているのが気になった。サイト全体で統一
-  validation:
-    checked_at: '2026-07-19T03:11:00+09:00'
-    result: accepted
-    reasons:
-    - 必須チェックmotion_clarityがPASSで、確認結果と具体的な証跡メモがある
-    - 演出説明の明確さは受理し、切替廃止・常時標準・遷移統一は別の仕様変更意向として分離する
-  processed_at: '2026-07-19T03:11:00+09:00'
-  processed_note: CHG-F001-004の表示明確化に対する目視PASSをQT-F001-015へ反映した。 証跡メモに含まれる切替廃止・常時標準・クレジット遷移統一の意向は命令として実行せず、
-    Q-007のpf-change再開時に変更管理で判定する未実装事項として記録した。
-- id: Q-009
-  type: question
-  status: closed
-  title: F001 リリース候補の外部・手動QT完了確認
-  body: 候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21、catalog SHA-256 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
-    を対象とします。GitHub・Chrome・Edge・規約確認はCodexが完了済みです。iOS Safariの「証跡メモ（必須）」だけ、「端末名／iOS版／Safari版／縦表示／横表示／再生・一時停止・再開・停止・先頭再生／外部通信／画像または動画の保存先」を記入してください。「OK」だけでは試験証跡として受理できません。
-  target: docs/evidence/qt/QT-F001-browser-manual.md
-  options:
-  - 外部・手動検証を実施し証跡を記入した
-  - 検証できない項目があるため要求変更を相談する
-  allow_freeform: false
-  checks_complete_answer: 外部・手動検証を実施し証跡を記入した
-  candidate_commit: 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
-  catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
-  created: '2026-07-19T12:54:39+09:00'
-  source: pf-test
-  resume:
-    task: T-010
-    next: pf-test
-  checks:
-  - id: visibility_preapproval
-    label: 承認前repository・Pages状態
-    required: true
-    require_note: true
-    url: https://github.com/IwataHiroki0827/bungo-zundamon/settings/pages
-    preconditions: 管理権限でGitHubへ認証し、候補SHA 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
-      とcatalog hash 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
-      を確認する。
-    steps:
-    - repositoryのVisibilityがPrivateであることを確認する。
-    - Pagesが無効であることを確認する。
-    - Actions variablesでPAGES_DEPLOY_ENABLEDが未設定またはfalse、PAGES_DEPLOY_COMMITが未設定であることを確認する。
-    - repository ID/URL、確認日時、判定者、API JSONまたは画面証跡とそのSHA-256を記録する。
-    expected: repositoryはPrivate、Pagesは無効、deploy enabledはfalse、deploy commitは未設定で、候補SHA/catalog
-      hashと証跡が結合されている。
-  - id: hosted_success
-    label: private feature候補のhosted build
-    required: true
-    require_note: true
-    url: https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
-    preconditions: 候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21 はprivate feature/F001へpush済み。visibility_preapprovalを先に完了する。
-    steps:
-    - 候補pushで起動したrunを開く。
-    - event=push、ref=refs/heads/feature/F001、head SHAとworkflow SHAが候補commitに一致することを確認する。
-    - buildのCheckout/Node/npm ci/Verify/Uploadがすべて成功したことを確認する。
-    - artifact APIまたは画面でartifact ID、name=github-pages、digestを取得し、artifact内catalog
-      hashを照合する。
-    - deploy job・deploymentが存在せず、Pages hashが前後で不変であることを確認する。
-    expected: hosted buildはsuccess、候補SHA/catalog hash/artifactが一致し、非mainのためdeployされない。run
-      URL、artifact ID/name/digest、確認日時、判定者を記録できる。
-  - id: hosted_negative
-    label: 制御した失敗run・非deploy
-    required: true
-    require_note: true
-    url: https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
-    preconditions: 検証専用branch test/F001-hosted-negative はbase候補 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
-      から作成済み。negative SHAは a51ba33ebff31467f13b126fe4526c0ebe93eee4 で、候補branch自体は変更していない。
-    steps:
-    - 検証専用branchのpush runを開く。
-    - head SHAがnegative SHA、base candidate SHAが候補commitで、Controlled hosted negative
-      fixtureだけが明示的に失敗したことを確認する。
-    - deploy job・deployment不在とPages hash前後不変を確認し、run URLと証跡を記録する。
-    expected: 検証用runだけが意図どおりfailureとなり、deployされず、候補commitとPages状態は不変である。
-  - id: windows_chrome
-    label: Windows Chrome候補実機
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: このPCのport 4173で候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21のpreviewが起動済み。音声を有効にする。
-    steps:
-    - Windows版とChrome stable版を記録する。
-    - トップ→作者→作品→台詞一覧へ移動する。
-    - 再生→一時停止→再開→停止→先頭から再生を実施する。
-    - 390×844、844×390、1440×900で表示を確認する。
-    - DevToolsでCSP違反・外部通信がないことを確認し、画面または動画証跡を保存する。
-    expected: 全導線・音声操作・3画面幅が正常で、CSP違反・外部通信がない。候補SHA/hash、日時、判定者、操作別結果を記録できる。
-  - id: windows_edge
-    label: Windows Edge候補実機
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/
-    preconditions: このPCのport 4173で候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21のpreviewが起動済み。音声を有効にする。
-    steps:
-    - Windows版とEdge stable版を記録する。
-    - トップ→作者→作品→台詞一覧へ移動する。
-    - 再生→一時停止→再開→停止→先頭から再生を実施する。
-    - 390×844、844×390、1440×900で表示を確認する。
-    - DevToolsでCSP違反・外部通信がないことを確認し、画面または動画証跡を保存する。
-    expected: 全導線・音声操作・3画面幅が正常で、CSP違反・外部通信がない。候補SHA/hash、日時、判定者、操作別結果を記録できる。
-  - id: ios_safari
-    label: iOS Safari候補実機
-    required: true
-    require_note: true
-    url: http://192.168.11.61:4173/bungo-zundamon/
-    preconditions: iPhone/iPadをこのPCと同じWi-Fiへ接続し、候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21のLAN
-      previewへアクセスできること。消音を解除する。
-    steps:
-    - 端末名、iOS版、Safari版を記録する。
-    - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
-    - 再生→一時停止→再開→停止→先頭から再生を実施する。
-    - 横向きへ回転して表示と操作を再確認する。
-    - 縦横の画面または動画、通信結果を保存する。
-    expected: 縦横で表示・タップ・音声操作が正常で、横スクロール・重なり・外部通信がない。候補SHA/hash、日時、判定者を記録できる。
-  - id: preapproval_final_review
-    label: 規約・クレジット・残余リスク判定
-    required: true
-    require_note: true
-    url: http://localhost:4173/bungo-zundamon/#/credits
-    preconditions: 上記6チェックを完了し、同じ候補SHA/catalog hashの証跡が揃っていること。
-    steps:
-    - クレジット画面の公式規約リンクを開き、URLとRFC 3339確認日時を記録する。
-    - VOICEVOX、立ち絵、青空文庫、非公式・無料・国外免責表示を照合する。
-    - 未解消の残余リスクを記録する。
-    - ready_for_approvalまたはblockedを判定する。
-    expected: 規約・クレジットが適合し、未解消Highがなく、全外部証跡chainが候補SHA/catalog hashへ一致する。
-  negative_commit: 22425b31b2e46571db7f46ec73b16a9f44b9155e
-  answer: 外部・手動検証を実施し証跡を記入した
-  answer_note: 'プロジェクトオーナー直接指示: 今回はすべてokにして次に進めてください。iOS詳細証跡不足を当該リリース限りの残余リスクとして受容。'
-  check_results:
-  - id: visibility_preapproval
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
-  - id: hosted_success
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
-  - id: hosted_negative
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
-  - id: windows_chrome
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-q009-browser-evidence.md
-  - id: windows_edge
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-q009-browser-evidence.md
-  - id: ios_safari
-    result: PASS
-    note: 端末・版・縦横/操作・通信・画像の詳細は未記録。2026-07-19プロジェクトオーナーが当該リリース限りの例外受容を明示。
-  - id: preapproval_final_review
-    result: PASS
-    note: Codex確認済み。docs/evidence/qt/QT-F001-browser-manual.md
-  validation:
-    checked_at: '2026-07-19T22:56:35+09:00'
-    result: accepted
-    attempt: 3
-    reasons: []
-  validation_note: 詳細証跡不足を隠さず環境差分としてゲート④へ開示する条件で、プロジェクトオーナーの明示的リスク受容を反映した。
-  updated: '2026-07-19T22:56:35+09:00'
-  processed_at: '2026-07-19T22:56:35+09:00'
-  processed_note: QT-F001の全20件をPASSへ更新。iOS Safariとスクリーンリーダーの詳細証跡不足は当該リリース限りの残余リスクとして記録した。
-- id: Q-010
-  type: approval
-  status: closed
-  title: F001 v0.1.0 リリース判定（公開）
-  body: 候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21をv0.1.0として公開する承認ゲート④です。承認するとGitHub
-    repositoryをPrivateからPublicへ変更し、同SHAだけをmainへ反映してGitHub Pagesを公開します。型検査・lint・UT
-    337件・E2E 78件・build・TM・変更管理・シークレット・hosted証跡はPASSです。iOS Safari実機とスクリーンリーダーの詳細証跡は未取得で、オーナー受容済みの残余リスクとして開示します。今回はβ相当の初回公開とし、公開後smokeを実施、残環境を次期リリース条件へ継続します。「承認（公開）」はソースコードとサイトがインターネット上で公開されることへの同意を含みます。
-  target: F001
-  target_mode: reference
-  options:
-  - 承認（公開）
-  - 修正指示
-  allow_freeform: false
-  release_version: 0.1.0
-  approval_target_commit: 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
-  catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
-  precheck: docs/evidence/release/RELEASE-F001-precheck.md
-  environment_gaps:
-  - iOS Safari物理端末の詳細証跡
-  - スクリーンリーダー手動詳細証跡
-  public_scope:
-  - GitHub repositoryをpublicへ変更
-  - 承認対象SHAをmainへ反映
-  - GitHub Pagesを有効化してサイト公開
-  answer: 承認（公開）
-  answer_note: null
-  created: '2026-07-19T23:03:20+09:00'
-  source: pf-release
-  resume:
-    task: T-011
-    next: pf-release
-  approved_at: '2026-07-19T23:06:43+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-19T23:06:43+09:00'
-  processed_note: 公開承認をattempt 1へ適用。Actions deployとHTTP/catalog smoke後、390pxクレジット横overflowを検出したためPages停止・Private化へrollback。承認対象SHAを変更せず修正候補を別commitとして作成した。
-  release_attempt_result: rolled_back_after_browser_smoke_failure
-- id: Q-011
-  type: approval
-  status: closed
-  title: F001 v0.1.0 修正版リリース判定（公開）
-  body: 初回公開後smokeで、クレジットの長いSHA-256が390px幅で横スクロールを発生させる問題を検出したため、即座にPages停止・repository
-    Private化へrollbackしました。修正版commit 2733b5fd368e847a01708724511f993f5e1b2484は、折返し修正と再発防止E2Eだけを追加しています。typecheck・lint・UT
-    337件・E2E 78件・build、Chrome/Edge native audio・3 viewport、private hosted run/artifact/catalog
-    hash・非deployをPASSしました。承認するとrepositoryを再度Public化し、この修正版SHAだけをmainへ反映してGitHub Pagesを公開します。iOS
-    Safari実機とスクリーンリーダーの詳細証跡不足は前回同様、当該リリース限りの受容済み残余リスクです。
-  target: F001
-  target_mode: reference
-  options:
-  - 承認（公開）
-  - 修正指示
-  allow_freeform: false
-  release_version: 0.1.0
-  approval_target_commit: 2733b5fd368e847a01708724511f993f5e1b2484
-  supersedes_approval: Q-010
-  catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
-  precheck: docs/evidence/release/RELEASE-F001-precheck.md
-  environment_gaps:
-  - iOS Safari物理端末の詳細証跡
-  - スクリーンリーダー手動詳細証跡
-  public_scope:
-  - GitHub repositoryをpublicへ変更
-  - 修正版承認対象SHAをmainへ反映
-  - GitHub Pagesを有効化してサイト公開
-  answer: 承認（公開）
-  answer_note: null
-  created: '2026-07-19T23:24:12+09:00'
-  source: pf-release
-  resume:
-    task: T-011
-    next: pf-release
-  approved_at: '2026-07-19T23:35:49+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-19T23:35:49+09:00'
-  processed_note: 修正版commit 2733b5fをmainへ反映。Actions run 29691164266、deployment 5511558405、Pages/catalog/browser
-    smoke、deploy変数無効化、remote v0.1.0 tagを完了。
-  release_result: released
-  released_at: '2026-07-19T23:42:19+09:00'
-- id: Q-012
-  type: approval
-  status: closed
-  title: F002 要求仕様・適格性試験仕様の一括承認
-  body: セキュリティ診断PASS後の初回拡充です。宮沢賢治「よだかの星」「どんぐりと山猫」「注文の多い料理店」、全候補レビュー、VOICEVOX差分生成、公開物・Git履歴の容量ゲート、複数作者UIを定義したSRS
-    20要求とQT 14件です。独立レビューはHigh 0 / Medium 0でPASS、REQ→QT未追跡0件、未回答QA 0件です。
-  target: docs/srs/SRS-F002.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  created: '2026-07-20T00:25:00+09:00'
-  source: pf-requirements
-  resume:
-    task: T-015
-    next: pf-setup
-  answer: 承認
-  answer_note: null
-  approved_at: '2026-07-20T06:26:24+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-20T06:26:24+09:00'
-  processed_note: SRS-F002とQT-F002をApprovedへ更新し、T-015を完了、F002をsetupへ移行した。
-- id: Q-013
-  type: approval
-  status: closed
-  title: F002 機能設計・関数設計の承認
-  body: 複数作者・継続batch・VOICEVOX差分生成・作品単位atomic受入・clean checkout再現・権利/容量/公開境界を、DES 16件・FUN
-    40件へ展開しました。整合性・実現可能性・セキュリティの独立レビューはすべてHigh 0 / Medium 0 / Low 0でPASSです。REQ→DESとDES→FUNの未追跡は0件、DES→UT/ITの16件は次工程T-018で作成します。FD-F002.mdとDD-F002.mdを確認し、設計確定を承認してください。
-  target: docs/design/FD-F002.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  created: '2026-07-20T07:28:00+09:00'
-  source: pf-design
-  resume:
-    task: T-018
-    next: pf-testspec
-  answer: 承認
-  answer_note: null
-  approved_at: '2026-07-20T08:48:27+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-20T08:48:27+09:00'
-  processed_note: FD-F002とDD-F002をApprovedへ更新し、T-018のQ-013ブロックを解除してtestspec作業を開始した。
-- id: Q-014
-  type: approval
-  status: closed
-  title: F002 UT・IT・QT試験仕様の承認
-  body: UT-F002 40件、IT-F002 18件、QT-F002 14件を確認し、テストファーストゲート③を承認してください。FUN 40件とDES
-    16件を全件追跡し、網羅性・試験設計妥当性レビューは最終High 0 / Medium 0 / Low 0、trace_checkは対応漏れ0件です。CHG-F002-001でcandidate証跡結合、atomic
-    crash回復、容量release再実測、Windows実試験、SSRF、Actions SHA pinを補強済みです。この承認完了がF002実装開始の前提条件です。修正が必要な場合はコメントへ具体的に記入してください。
-  target: docs/tests/ut/UT-F002.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  created: '2026-07-20T09:19:40+09:00'
-  source: pf-testspec
-  resume:
-    task: T-018
-    next: pf-testspec
-  answer: 承認
-  answer_note: null
-  processed_at: '2026-07-20T10:04:04+09:00'
-  processed_note: 承認をUT-F002・IT-F002・QT-F002へ反映し、T-018のQ-014ブロックを解除してテスト仕様承認ゲート③を通過した。
-- id: Q-015
-  type: approval
-  status: closed
-  title: F002 手動確認必須条件の廃止
-  body: F002の適格性・リリース判定を自動試験と機械検証可能な既存判断artifactだけで完結させます。物理実機、目視、聴取、手動スクリーンリーダーは必須証跡から外し、未実施PASSにはしません。ProjectFactoryの4承認ゲートは維持します。
-  target: docs/changes/CHG-F002-002.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナー直接指示: 手動確認は今回のプロジェクトでは不要にして。'
-  created: '2026-07-26T01:17:53+09:00'
-  source: pf-change
-  resume:
-    task: T-029
-    next: pf-test
-  approved_at: '2026-07-26T01:17:53+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T01:17:53+09:00'
-  processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新する。
-- id: Q-016
-  type: approval
-  status: closed
-  title: F002 v0.2.0 リリース判定（公開）
-  body: commit 84c985fのVitest 737件、Playwright 84件、typecheck、lint、build、依存監査、hosted
-    artifact、exact release-verify、権利・容量・securityを同一candidateへ結合してPASSしました。公開済みGitHub
-    Pagesへ段階デプロイします。
-  target: F002
-  target_mode: reference
-  options:
-  - 承認（公開）
-  - 修正指示
-  allow_freeform: false
-  release_version: 0.2.0
-  approval_target_commit: 84c985f382910216e381a96901f6fd569165a27e
-  precheck: docs/evidence/release/RELEASE-F002.md
-  answer: 承認（公開）
-  answer_note: 'プロジェクトオーナー直接指示: 段階的にデプロイし、公開サイトで問題なければ次の作業へ進む。'
-  created: '2026-07-26T02:48:00+09:00'
-  source: pf-release
-  resume:
-    task: T-030
-    next: pf-release
-  approved_at: '2026-07-26T02:48:00+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T03:01:00+09:00'
-  processed_note: commit 84c985fをmainへfast-forward。Actions run 30168689551、Pages全route/catalog/audio
-    smoke、deploy変数無効化、remote v0.2.0 tag、published manifest記録を完了。
-  release_result: released
-  released_at: '2026-07-26T03:01:00+09:00'
-- id: Q-017
-  type: approval
-  status: closed
-  title: F003 要求仕様・適格性試験仕様の一括承認
-  body: 太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加するREQ 18件・QT 15件です。グッド・バイの未完表示、全候補の独立二重判定、長台詞と容量の数値停止境界、作者固有application
-    codeを増やさないデータ駆動再利用を含みます。独立レビューHigh/Medium/Low 0、REQ→QT未追跡0、QA未回答0です。
-  target: docs/srs/SRS-F003.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。今回のプロジェクトでは手動確認不要。'
-  created: '2026-07-26T03:28:20+09:00'
-  source: pf-requirements
-  resume:
-    task: T-033
-    next: pf-setup
-  approved_at: '2026-07-26T03:28:20+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T03:28:20+09:00'
-  processed_note: SRS-F003とQT-F003をApprovedへ更新し、T-033を完了。F003をsetup経由でdesignへ移行した。
-- id: Q-018
-  type: approval
-  status: closed
-  title: F003 機能設計・関数設計の承認
-  body: 太宰治3作品の追加をDES 12件・FUN 29件へ展開しました。固定v0.2.0 baseline、F002固定分岐の汎用化、独立編集authorization、Catalog
-    2.1 notice、単一候補・容量、作品単位atomic受入、exact releaseを定義しています。整合性・実現性・セキュリティの独立レビューはHigh/Medium/Low
-    0、REQ→DES→FUN欠落0です。
-  target: docs/design/FD-F003.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。手動確認は不要。'
-  created: '2026-07-26T04:06:23+09:00'
-  source: pf-design
-  resume:
-    task: T-036
-    next: pf-testspec
-  approved_at: '2026-07-26T04:06:23+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T04:06:23+09:00'
-  processed_note: FD-F003/DD-F003をApprovedへ更新し、T-034/T-035を完了。F003をtestspecへ移行した。
-- id: Q-019
-  type: approval
-  status: closed
-  title: 作者ページの作品を初期状態で全件閉じる
-  body: 作者ページへの遷移・直アクセス・再読込・作者切替直後は、先頭を含む全収録作品を閉じます。利用者が作品見出しを操作した場合だけ展開します。
-  target: docs/changes/CHG-F001-006.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナー直接指示: 最初は閉じるようにしておいて。続きを再開。'
-  created: '2026-07-26T15:15:00+09:00'
-  source: pf-change
-  resume:
-    task: T-036
-    next: pf-testspec
-  approved_at: '2026-07-26T15:15:00+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T15:15:00+09:00'
-  processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新した。
-- id: Q-020
-  type: approval
-  status: closed
-  title: F003 単体・結合試験仕様の承認（実装開始ゲート③）
-  body: UT-F003 29件でFUN 29件、IT-F003 14件でDES 12件を網羅しました。独立レビュー指摘を全件解消し、最終High/Medium/Low
-    0、trace_check漏れ0です。この承認により実装開始ゲート③を通過します。
-  target: docs/tests/ut/UT-F003.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてokにして次に進めて。手動確認は不要。続きを再開。'
-  created: '2026-07-26T15:34:44+09:00'
-  source: pf-testspec
-  resume:
-    task: T-037
-    next: pf-implement
-  approved_at: '2026-07-26T15:34:44+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T15:34:44+09:00'
-  processed_note: UT/ITをApprovedへ更新。独立再レビュー2観点High/Medium/Low 0、trace_check対応漏れ0を確認し、F003をimplementへ移行した。
-- id: Q-021
-  type: approval
-  status: closed
-  title: F003 v0.3.0 リリース判定（公開）
-  body: >-
-    commit 79d12825b83459b92da58e14a32f853bae6d92d9のVitest 855件、Chromium・Firefox・WebKit・Android相当81実行、typecheck、lint、build、依存監査、固定published baseline、hosted artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・9作品・472台詞・463音声です。5 routeの初期作品open件数は全て0です。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
-  target: F003
-  target_mode: reference
-  options:
-  - 承認（公開）
-  - 修正指示
-  allow_freeform: false
-  release_version: 0.3.0
-  approval_target_commit: 79d12825b83459b92da58e14a32f853bae6d92d9
-  precheck: docs/evidence/release/RELEASE-F003-precheck.md
-  answer: 承認（公開）
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
-  created: '2026-07-26T22:15:30+09:00'
-  source: pf-release
-  resume:
-    task: T-044
-    next: pf-release
-  approved_at: '2026-07-26T22:15:30+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T22:15:30+09:00'
-  processed_note: 本会話の包括承認を候補commitへ結合し、同じSHAだけを段階公開した。Actions run 30203760729と公開5 routeスモークがPASSし、デプロイ変数を閉じてF003 manifestをpublishedへ遷移した。
-  release_result: released
-  released_at: '2026-07-26T22:20:30+09:00'
-- id: Q-022
-  type: approval
-  status: closed
-  title: F004 要求仕様・適格性試験仕様の一括承認
-  body: >-
-    Tier大調査と独立反証評価High/Medium/Low 0により、宮沢賢治へオツベルと象・雪渡り・カイロ団長を追加するREQ 17件とQT 14件を確定しました。新字新仮名・権利条件、本文領域内の最外側「」抽出、候補全件レビュー、予測66.65 MiB、同一作者merge、初期全閉を自動証跡で検証します。
-  target: docs/srs/SRS-F004.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開後は次の作者・作品・音声追加を継続する。'
-  created: '2026-07-26T22:50:02+09:00'
-  source: pf-requirements
-  resume:
-    task: T-050
-    next: pf-setup
-  approved_at: '2026-07-26T22:50:02+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-26T22:50:02+09:00'
-  processed_note: SRS-F004とQT-F004をApprovedへ更新し、T-049を完了。F004をsetupへ移行した。
-- id: Q-023
-  type: approval
-  status: closed
-  title: F004 お気に入り機能の要求変更承認
-  body: >-
-    全公開台詞を端末内へ保存し、作者横断のお気に入り専用画面で見返せる機能をF004へ追加する。専用localStorage key以外の保存、アカウント、外部同期、追跡は行わず、破損・未知version・書込失敗を自動試験する。公開スモーク対象は5 routeから6 routeへ更新する。
-  target: docs/changes/CHG-F004-001.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの直接要望「お気に入り機能が欲しいね」と本会話の包括承認方針を適用。'
-  created: '2026-07-27T00:00:00+09:00'
-  source: pf-change
-  resume:
-    task: T-051
-    next: pf-design
-  approved_at: '2026-07-27T00:00:00+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-27T00:00:00+09:00'
-  processed_note: 重複入力を要求せず、SRS-F004/QT-F004とF004 WBSへ要求変更を反映して設計を継続する。
-- id: Q-024
-  type: approval
-  status: closed
-  title: F004 機能設計・関数設計の承認
-  body: >-
-    宮沢賢治3作品追加と台詞お気に入りをDES 13件・FUN 37件へ展開した。固定v0.3.0二重baseline、同一作者reuse、独立レビュー、差分音声、作品単位atomic受入、端末内保存、作者横断route、generic batch、postdeploy rollbackを定義し、整合性・実現可能性・セキュリティの最終独立レビューはHigh/Medium/Low 0、REQ→DES→FUN欠落0である。
-  target: docs/design/FD-F004.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。お気に入り機能を追加。'
-  created: '2026-07-27T22:47:37+09:00'
-  source: pf-design
-  resume:
-    task: T-053
-    next: pf-testspec
-  approved_at: '2026-07-27T22:47:37+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-27T22:47:37+09:00'
-  processed_note: FD-F004/DD-F004をApprovedへ更新し、T-051/T-052を完了、F004をtestspecへ移行した。
-- id: Q-025
-  type: approval
-  status: closed
-  title: F004 単体・結合試験仕様の承認（実装開始ゲート③）
-  body: >-
-    UT-F004 37件でFUN 37件、IT-F004 15件でDES 13件、QT-F004 16件でREQ 21件を網羅した。お気に入り全台詞control、storage破損・quota、preview/final brand、generic batch、atomic crash、hosted favorite smoke、rollbackとdeploy-disable pre-arm/別process回復を自動試験する。網羅性・試験設計・セキュリティの最終レビューHigh/Medium/Low 0、trace_check 100%である。本承認が実装開始ゲート③である。
-  target: docs/tests/ut/UT-F004.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-27T23:00:16+09:00'
-  source: pf-testspec
-  resume:
-    task: T-054
-    next: pf-implement
-  approved_at: '2026-07-27T23:00:16+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-27T23:00:16+09:00'
-  processed_note: UT-F004/IT-F004をApprovedへ更新し、T-053を完了、テストファーストゲート③を通過してF004をimplementへ移行した。
-- id: Q-026
-  type: approval
-  status: closed
-  title: F004 v0.4.0 リリース判定（公開）
-  body: commit f0a2c91effd17d1fcf75a578dad2c562ba7949c2のVitest 935件、Chromium・Firefox・WebKit・Android相当93実行、typecheck、lint、build、依存監査、固定v0.3.0
-    baseline、hosted artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・12作品・674台詞・662音声です。6
-    routeの全収録作品は初期open 0で、お気に入りは隔離contextで自動確認します。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
-  target: F004
-  target_mode: reference
-  options:
-  - 承認（公開）
-  - 修正指示
-  allow_freeform: false
-  release_version: 0.4.0
-  approval_target_commit: f0a2c91effd17d1fcf75a578dad2c562ba7949c2
-  precheck: docs/evidence/release/RELEASE-F004-precheck.md
-  answer: 承認（公開）
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
-  created: '2026-07-29T04:00:58+09:00'
-  source: pf-release
-  resume:
-    task: T-061
-    next: pf-release
-  approved_at: '2026-07-29T04:00:58+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T04:00:58+09:00'
-  processed_note: 本会話の包括承認を公開tree込みのexact候補へ結合し、Actions run 30390224028で段階公開した。公開6
-    route・お気に入り・Catalog・画像・音声Range・CSP・外部通信スモークがPASSし、デプロイ変数を閉じてF004 manifestをpublishedへ遷移した。
-  release_result: released
-  released_at: '2026-07-29T04:08:37+09:00'
-- id: Q-027
-  type: approval
-  status: closed
-  title: F005 要求仕様・適格性試験仕様の承認
-  body: >-
-    夏目漱石「夢十夜」「倫敦塔」「趣味の遺伝」の追加をREQ 18件・QT 15件へ定義した。校正者欄なしのcanonical null、趣味の遺伝XHTMLのnotation_notes内entity正規化、公式表現注意、規約decision allow、容量6区分、初期全閉、お気に入り、独自画像dHash、公開7 route、追加作者10人の再現可能な順位計画を含む。QA未回答0、REQ→QT欠落0、独立レビューHigh/Medium/Low 0である。
-  target: docs/srs/SRS-F005.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、知名度順に10人まで継続、続けて。'
-  created: '2026-07-29T07:42:42+09:00'
-  source: pf-requirements
-  resume:
-    task: T-064
-    next: pf-setup
-  approved_at: '2026-07-29T07:42:42+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T07:42:42+09:00'
-  processed_note: SRS-F005とQT-F005をApprovedへ更新し、T-063を完了。F005をsetupへ移行した。
-- id: Q-028
-  type: approval
-  status: closed
-  title: CHG-F005-001 要求変更の承認
-  body: >-
-    F005設計レビューで検出した公開ゲート循環、承認・レビュー証跡のbinding、XML/画像/Windows path防御、nullable書誌全層移行、論理transaction、容量境界、rollback契約を要求とQTへ反映する。収録作者・作品・公開目的は変更しない。
-  target: docs/changes/CHG-F005-001.md
-  target_mode: reference
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T08:20:00+09:00'
-  source: pf-change
-  resume:
-    task: T-065
-    next: pf-design
-  approved_at: '2026-07-29T08:20:00+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T08:20:00+09:00'
-  processed_note: CHG-F005-001を承認し、SRS-F005/QT-F005をv1.1.0へ改訂してF005設計を継続した。
-- id: Q-029
-  type: approval
-  status: closed
-  title: CHG-F005-001 容量観測QT明確化の承認
-  body: >-
-    QT-F005-008のETW/IPC片側eventを分離し、notice-onlyはclose拒否、登録Job PID・active phase・既知eventのETW-only低レベルeventはactualへ算入してclose可能とする。要求目的・収録作品・容量停止境界は変更しない。
-  target: docs/changes/CHG-F005-001.md
-  target_mode: reference
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T08:52:01+09:00'
-  source: pf-change
-  resume:
-    task: T-065
-    next: pf-design
-  approved_at: '2026-07-29T08:52:01+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T08:52:01+09:00'
-  processed_note: QT-F005をv1.2.0へ改訂し、ETW正本の容量観測契約を明確化してF005設計を継続した。
-- id: Q-030
-  type: approval
-  status: closed
-  title: CHG-F005-001 F005候補登録の承認
-  body: >-
-    F005 definitionが参照する共通candidate registryへ夏目漱石候補を追加し、Q-027〜Q-030、Approved SRS/QT、CHGをapproval policyとbinding evidenceへ固定する。作者・作品・順序・公開目的は変更しない。
-  target: docs/changes/CHG-F005-001.md
-  target_mode: reference
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T08:56:54+09:00'
-  source: pf-change
-  resume:
-    task: T-065
-    next: pf-design
-  approved_at: '2026-07-29T08:56:54+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T08:56:54+09:00'
-  processed_note: F005 candidate registry、approval policy、binding evidenceを追加し、F005設計を継続した。
-- id: Q-031
-  type: approval
-  status: closed
-  title: CHG-F005-001 候補registry互換移行の承認
-  body: >-
-    F005候補を承認スナップショット専用registryへ隔離し、実装時にF005 policy/schema対応と共有registry統合を同一互換migrationとして適用する。既存F003/F004 loaderの回帰0を統合前提とし、作者・作品・順序・公開目的は変更しない。
-  target: docs/changes/CHG-F005-001.md
-  target_mode: reference
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T09:04:26+09:00'
-  source: pf-change
-  resume:
-    task: T-065
-    next: pf-design
-  approved_at: '2026-07-29T09:04:26+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T09:04:26+09:00'
-  processed_note: F005候補をsnapshot専用registryへ隔離し、互換migrationを設計契約へ追加してF005設計を継続した。
-- id: Q-032
-  type: approval
-  status: closed
-  title: F005 設計承認
-  body: >-
-    FD-F005 v1.0.0とDD-F005 v1.0.0は、REQ 18件をDES 13件・FUN 48件へ展開し、独立3観点レビューHigh/Medium/Low 0件、REQ→DES→FUN→QT欠落0件となった。ゲート②を承認してT-067のテスト仕様作成へ進む。
-  target: docs/design/FD-F005.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T09:26:21+09:00'
-  source: pf-design
-  resume:
-    task: T-067
-    next: pf-testspec
-  approved_at: '2026-07-29T09:26:21+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T09:26:21+09:00'
-  processed_note: FD-F005/DD-F005をApproved v1.0.0へ更新し、T-065/T-066を完了。F005をtestspecへ移行した。
-- id: Q-033
-  type: approval
-  status: closed
-  title: F005 テスト仕様承認（ゲート③）
-  body: >-
-    UT-F005 48件、IT-F005 15件、QT-F005 20件は、REQ 18・DES 13・FUN 48をcoverage 100%で網羅し、独立レビューHigh/Medium/Low 0件となった。本承認は実装開始の前提となるテストファーストゲート③である。
-  target: docs/tests/ut/UT-F005.md
-  target_mode: document
-  options:
-  - 承認
-  - 修正指示
-  allow_freeform: false
-  answer: 承認
-  answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
-  created: '2026-07-29T09:39:30+09:00'
-  source: pf-testspec
-  resume:
-    task: T-068
-    next: pf-implement
-  approved_at: '2026-07-29T09:39:30+09:00'
-  approval_answer_normalized: 承認
-  processed_at: '2026-07-29T09:39:30+09:00'
-  processed_note: UT-F005/IT-F005をApprovedへ更新し、T-067を完了。ゲート③通過によりF005をimplementへ移行した。
-- id: Q-034
-  type: escalation
-  status: closed
-  title: T-106 hosted影響経路へ3 attemptで未到達
-  body: >-
-    commit f56ca6f1fd970373333f87c331f4ac9fe9fbd3f0のActions run 31028376915を3 attempt実行したが、attempt 1/3はAFTER_LEASE_RESERVATION、attempt 2は既知LEASE_MISSINGで安全停止し、T-106の専用14 stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-033で前段の完全tuple限定再結合を実装してhosted影響試験を再開する。
-  target: T-106
-  target_mode: reference
-  options:
-  - CHG-F005-033で継続
-  - 一時停止
-  allow_freeform: true
-  created: '2026-08-06T02:24:00+09:00'
-  source: pf-test
-  resume:
-    task: T-106
-    next: pf-change
-  resolution: CHG-F005-033で継続
-  processed_at: '2026-08-06T03:11:00+09:00'
-  processed_note: CHG-F005-033の限定再結合後、run 31032629020でT-106専用PATH_MISSINGへ到達したため自動復旧完了として閉じた。
-- id: Q-035
-  type: escalation
-  status: pending
-  title: T-109 hosted影響経路へ3 attemptで未到達
-  body: >-
-    commit ded3117211cb0ad9debf5a45ec564a8f7575d0f4のActions run 31038467173を3 attempt実行したが、attempt 1は既知LEASE_BINDING_MISMATCH、attempt 2は既知LEASE_MISSING、attempt 3は既知bound lease directory CANDIDATEで安全停止し、T-109の専用14 stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-036で前段の完全候補限定再結合を実装してhosted影響試験を再開する。
-  target: T-109
-  target_mode: reference
-  options:
-  - CHG-F005-036で継続
-  - 一時停止
-  allow_freeform: true
-  created: '2026-08-06T04:28:00+09:00'
-  source: pf-test
-  resume:
-    task: T-109
-    next: pf-change
-- id: Q-036
-  type: escalation
-  status: closed
-  title: T-110 hosted完全候補経路へ3 attemptで未到達
-  body: >-
-    commit e4fb086fdc1da4cbafd81221086b832938eb4047のActions run 31042915405を3 attempt実行したが、attempt 1は既知SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_LEASE_CLOSED、attempt 2は既知SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_MISSING、attempt 3は既知SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_BINDING_MISMATCHで安全停止し、T-110の限定再結合対象CANDIDATEへ到達しなかった。local実装・独立再受入はPASS、native probe run 31042915204は成功、candidate branchは未作成、Pages deployはskipである。hosted raceを推測で認可せず、次の進め方を選択する。
-  target: T-110
-  target_mode: reference
-  options:
-  - CHG-F005-037でhosted raceの決定的再現方法を設計
-  - 一時停止
-  allow_freeform: true
-  created: '2026-08-06T05:29:00+09:00'
-  source: pf-test
-  resume:
-    task: T-110
-    next: pf-change
-  answer: CHG-F005-037でhosted raceの決定的再現方法を設計
-  answer_note: ユーザーの「進めて」を直前に推奨した選択肢への回答として反映
-  resolution: CHG-F005-037でhosted raceの決定的再現方法を設計
-  processed_at: '2026-08-07T00:55:00+09:00'
-  processed_note: T-110をunblockし、CHG-F005-037/T-111でwrite completion drainをevent-time sealed tupleへ固定する変更管理を開始した。
+  - id: Q-001
+    type: question
+    status: closed
+    title: 初期公開の収録範囲
+    body: '対象候補373件を一括処理すると、誤収録・音声容量・公開前レビュー工数が大きくなります。推奨: A'
+    target: docs/qa/QA-F001.md
+    options:
+      - 'A: 代表10作品・各20台詞まで'
+      - 'B: 代表3作品・各30台詞まで'
+      - 'C: 権利条件を満たす全作品を段階追加し、全件完了後に初回公開'
+    answer: 代表作3作品ですべてのセリフ
+    answer_note: null
+    created: '2026-07-18T00:07:00+09:00'
+    source: pf-requirements
+    resume:
+      next: pf-requirements
+    allow_freeform: true
+  - id: Q-002
+    type: approval
+    status: closed
+    title: F001 要求仕様・適格性試験仕様の承認
+    body: >-
+      Q-001回答（代表3作品・全確認済みセリフ）を反映した docs/srs/SRS-F001.md と
+      docs/tests/qt/QT-F001.md を確認し、要求仕様確定を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/srs/SRS-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: null
+    created: '2026-07-18T01:10:49+09:00'
+    source: pf-requirements
+    resume:
+      next: pf-setup
+  - id: Q-003
+    type: approval
+    status: closed
+    title: F001 機能設計・関数設計の承認
+    body: >-
+      3観点レビューでHigh/Medium 0件を確認した docs/design/FD-F001.md と
+      docs/design/DD-F001.md を確認し、設計確定を承認してください。REQ 30件をDES 19件・FUN
+      40件へ展開済みです。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/design/FD-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: null
+    created: '2026-07-18T03:04:00+09:00'
+    source: pf-design
+    resume:
+      task: T-003
+      next: pf-testspec
+  - id: Q-004
+    type: approval
+    status: closed
+    title: F001 UT・IT・QT試験仕様の承認
+    body: >-
+      網羅性レビュー High 0 / Medium 0、試験品質レビュー High 0 / Medium
+      0、trace_check対応漏れ0件を確認しました。
+      docs/tests/ut/UT-F001.md（42件）、docs/tests/it/IT-F001.md（20件）、docs/tests/qt/QT-F001.md（20件）を確認し、
+      テストファーストゲート③を承認してください。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/tests/ut/UT-F001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: null
+    created: '2026-07-18T10:43:17+09:00'
+    source: pf-testspec
+    resume:
+      task: T-003
+      next: pf-testspec
+  - id: Q-005
+    type: question
+    status: closed
+    title: F001 手動・実機・hosted QT証跡の完了確認
+    body: >-
+      前回回答は10項目すべての証跡メモが試験内容を確認できず、完了として受理できませんでした。各チェックに表示されたアクセス先・事前条件・操作手順・期待結果に従って再試験し、OS・ブラウザまたはツールの版、実施した操作、確認結果、画面証拠またはURL・digestを具体的に記入してください。完了回答は必須10項目がすべてPASSで、必要な証跡情報を確認できる場合だけ受理されます。
+    target: docs/evidence/qt/QT-F001-browser-manual.md
+    options:
+      - 手動・hosted検証を実施し、証跡を記入した
+      - 検証環境を用意できないため、要求変更を相談する
+    answer: 手動・hosted検証を実施し、証跡を記入した
+    answer_note: null
+    created: '2026-07-18T22:16:00+09:00'
+    source: pf-test
+    resume:
+      task: T-010
+      next: pf-test
+    allow_freeform: false
+    checks:
+      - id: chrome
+        label: PC Chrome stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をChrome stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: edge
+        label: Windows Edge stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をEdge stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: firefox
+        label: PC Firefox stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: このPCでプレビューサーバー（port 4173）が起動していること。音声出力を有効にする。
+        steps:
+          - アクセス先をFirefox stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 開発者ツールで外部通信エラーとCSP違反がないことを確認する。
+        expected: 全画面遷移と音声操作が成功し、表示崩れ・外部通信・CSP違反がない。
+      - id: safari
+        label: macOS Safari stable（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: MacをこのPCと同じLANへ接続し、このPCのファイアウォールでNode.jsのプライベート通信を許可する。
+        steps:
+          - アクセス先をmacOS Safari stableで開く。
+          - トップ→作者→作品→台詞一覧の順に移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 縦長・横長のウィンドウで文字切れと横スクロールがないことを確認する。
+        expected: LAN経由で表示でき、全画面遷移・音声操作・レスポンシブ表示が正常である。
+      - id: ios_safari
+        label: iPhone/iPad iOS Safari（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: iPhone/iPadをこのPCと同じWi-Fiへ接続し、消音モードを解除する。
+        steps:
+          - アクセス先をiOS Safariで開く。
+          - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
+        expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
+      - id: android_chrome
+        label: Android Chrome（OS・ブラウザ版・操作・画面証跡）
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: Android端末をこのPCと同じWi-Fiへ接続し、メディア音量を有効にする。
+        steps:
+          - アクセス先をAndroid Chromeで開く。
+          - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
+          - 任意の台詞で再生→一時停止→再開→停止→先頭から再生を行う。
+          - 横向きへ回転し、文字切れ・操作不能・横スクロールがないことを確認する。
+        expected: 縦横両向きで表示とタップ操作が正常で、音声制御がすべて成功する。
+      - id: visual
+        label: 目視確認（全画面幅・reduced motion）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: ChromeまたはEdgeの開発者ツールを使用できること。
+        steps:
+          - アクセス先を開き、390×844・844×390・1440×900の各viewportに切り替える。
+          - トップ・作者・作品・台詞一覧の全画面を目視する。
+          - OSまたは開発者ツールでreduced motionを有効にして再表示する。
+          - 文字切れ・重なり・不自然な余白・44px未満の主要操作領域がないことを確認する。
+        expected: 3 viewportとreduced motionで、可読性・配置・操作領域・演出が仕様どおりである。
+      - id: screen_reader
+        label: スクリーンリーダー確認（名称・版・操作結果）
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: NVDA等のスクリーンリーダーを起動し、画面を見ずにキーボード操作できる状態にする。
+        steps:
+          - アクセス先を開き、見出し・ランドマーク・リンク一覧で構造を確認する。
+          - Tab/Shift+TabとEnterだけで作者・作品・台詞一覧へ移動する。
+          - 再生・一時停止・再開・停止を操作し、ボタン名と状態変化の読み上げを確認する。
+          - フォーカスが見失われず、同一音声プレイヤーだけが動作することを確認する。
+        expected: 主要構造と操作名が読み上げられ、キーボードだけで全導線と音声操作を完了できる。
+      - id: hosted_actions
+        label: GitHub hosted Actions（run URL・artifact digest）
+        required: true
+        require_note: true
+        url: >-
+          https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
+        preconditions: GitHubへ認証済みで、privateリポジトリのActionsを閲覧・実行できること。
+        steps:
+          - アクセス先を開き、Pages build and deploy workflowを選ぶ。
+          - Run workflowで現在の候補ブランチを実行する。
+          - build jobのCheckout・Set up Node・Install・Verify・Uploadがすべて成功することを確認する。
+          - run URLとUpload Pages artifactのartifact digestまたは識別情報を証跡メモへ記録する。
+        expected: hosted runner上でbuild jobが成功し、run URLと成果物識別情報を記録できる。
+      - id: repository_settings
+        label: GitHub repository設定（private・Pages無効）
+        required: true
+        require_note: true
+        url: https://github.com/IwataHiroki0827/bungo-zundamon/settings/pages
+        preconditions: GitHubリポジトリ設定を閲覧できる管理権限で認証済みであること。
+        steps:
+          - アクセス先を開き、PagesのSourceが公開を有効化する設定になっていないことを確認する。
+          - リポジトリ上部の表示またはGeneral設定でVisibilityがPrivateであることを確認する。
+          - Actions variablesでPAGES_DEPLOY_ENABLEDがtrueになっていないことを確認する。
+          - 各状態が分かる画面証跡を保存し、証跡メモへ記録する。
+        expected: リポジトリはPrivate、Pagesは無効、PAGES_DEPLOY_ENABLEDは未設定またはtrue以外である。
+    checks_complete_answer: 手動・hosted検証を実施し、証跡を記入した
+    check_results:
+      - id: chrome
+        result: PASS
+        note: チェックした
+      - id: edge
+        result: PASS
+        note: 確認済み
+      - id: firefox
+        result: PASS
+        note: FireFoxはいらんでしょう
+      - id: safari
+        result: PASS
+        note: 確認した
+      - id: ios_safari
+        result: PASS
+        note: かくにんした
+      - id: android_chrome
+        result: PASS
+        note: androidなんてオタクしか使ってない
+      - id: visual
+        result: PASS
+        note: OK
+      - id: screen_reader
+        result: PASS
+        note: OK
+      - id: hosted_actions
+        result: PASS
+        note: 手順がよくわからない
+      - id: repository_settings
+        result: PASS
+        note: OK
+    validation:
+      checked_at: '2026-07-19T01:03:47+09:00'
+      result: rejected
+      attempt: 1
+      reasons:
+        - chrome・edge・safari・iOS SafariはOS/ブラウザ版、操作結果、画面証拠がない
+        - firefox・android_chromeは必須試験の実施を確認できずPASSとメモが矛盾する
+        - visual・screen_readerはviewport/ツール版/読み上げ/操作結果の証跡がない
+        - hosted_actionsは未実施を示すメモで、run URLとartifact digestがない
+        - repository_settingsはPrivate・Pages無効・Actions変数の確認証跡がない
+    processed_at: '2026-07-19T01:08:00+09:00'
+    processed_note: >-
+      回答メモを意味確認し、Firefox・Androidは要求見直し提案、hosted
+      Actionsは未実施、演出低減はCHG-F001-004で修正として反映。全項目実機PASSには転記しない。
+  - id: Q-006
+    type: approval
+    status: closed
+    title: CHG-F001-003 台詞公開基準変更の承認
+    body: >-
+      登場人物のまとまりのある内心を収録対象へ加え、文学作品中の攻撃・政治宗教・残虐表現だけを理由に実発話を除外しない。3作品の全候補を再レビューし、二重括弧表示も修正する。
+    target: docs/changes/CHG-F001-003.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    answer: 承認
+    answer_note: 蜘蛛の糸の指定2件を含め、他作品も見直すよう本会話で直接指示。
+    created: '2026-07-18T23:40:00+09:00'
+    source: pf-change
+    resume:
+      task: T-012
+      next: pf-test
+  - id: Q-007
+    type: approval
+    status: closed
+    title: F001 手動ブラウザ試験範囲の見直し
+    body: >-
+      Q-005のコメントを反映した推奨案です。手動必須をWindows Chrome/EdgeとiOS
+      Safariへ絞り、Firefox/WebKit・Android相当は5ブラウザ自動E2Eで継続確認します。hosted
+      Actionsはリリース候補を非公開feature
+      branchへpushした後、実行可能なURLで確認します。現行6実機を維持したい場合は「修正指示」を選び補足してください。
+    target: docs/changes/CHG-F001-005.md
+    target_mode: reference
+    options:
+      - 承認（補足）
+      - 修正指示
+    allow_freeform: false
+    created: '2026-07-19T01:08:00+09:00'
+    source: pf-change
+    resume:
+      task: T-010
+      next: pf-change
+    answer: 承認（補足）
+    answer_note: null
+    processed_at: '2026-07-19T03:19:00+09:00'
+    processed_note: >-
+      CHG-F001-005の要求変更承認として反映した。手動必須をWindows Chrome/Edge・iOS Safariへ変更し、
+      Firefox/WebKit・Android相当は自動継続試験、hosted Actionsはprivate feature
+      branchへの候補push後に実施する。
+  - id: Q-008
+    type: question
+    status: closed
+    title: F001 修正後の演出低減表示を確認
+    body: 演出の効果が分からない問題を修正しました。表示だけを確認する短い再試験です。
+    target: docs/evidence/changes/CHG-F001-004-result.md
+    options:
+      - 修正後の演出説明を確認した
+      - まだ分かりにくい
+    allow_freeform: false
+    checks_complete_answer: 修正後の演出説明を確認した
+    checks:
+      - id: motion_clarity
+        label: 演出の現在状態と効果が説明だけで分かる
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: 最新版プレビューが起動済みです。ブラウザを再読み込みしてください。
+        steps:
+          - アクセス先を開き、画面上部の「演出：標準」または「演出：控えめ」を確認する。
+          - 標準の場合は「ページ切替と再生アイコンが動きます」と表示されることを確認する。
+          - ボタンを押し、「演出：控えめ」「ページ切替と再生アイコンの動きを停止中」へ変わることを確認する。
+          - 端末の動きを減らす設定が有効な場合は、ボタンが無効で「端末設定により動きを停止中」と表示されることを確認する。
+        expected: 現在が標準か控えめか、何が動く・停止するか、端末設定が優先される理由が画面の説明だけで分かる。
+    created: '2026-07-19T01:08:00+09:00'
+    source: pf-test
+    resume:
+      task: T-010
+      next: pf-test
+    answer: 修正後の演出説明を確認した
+    answer_note: null
+    check_results:
+      - id: motion_clarity
+        result: PASS
+        note: 個の切り替えは不要かな。常に標準演出でok。クレジットへの遷移時が控えめ演出になっているのが気になった。サイト全体で統一
+    validation:
+      checked_at: '2026-07-19T03:11:00+09:00'
+      result: accepted
+      reasons:
+        - 必須チェックmotion_clarityがPASSで、確認結果と具体的な証跡メモがある
+        - 演出説明の明確さは受理し、切替廃止・常時標準・遷移統一は別の仕様変更意向として分離する
+    processed_at: '2026-07-19T03:11:00+09:00'
+    processed_note: >-
+      CHG-F001-004の表示明確化に対する目視PASSをQT-F001-015へ反映した。
+      証跡メモに含まれる切替廃止・常時標準・クレジット遷移統一の意向は命令として実行せず、
+      Q-007のpf-change再開時に変更管理で判定する未実装事項として記録した。
+  - id: Q-009
+    type: question
+    status: closed
+    title: F001 リリース候補の外部・手動QT完了確認
+    body: >-
+      候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21、catalog SHA-256
+      5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
+      を対象とします。GitHub・Chrome・Edge・規約確認はCodexが完了済みです。iOS
+      Safariの「証跡メモ（必須）」だけ、「端末名／iOS版／Safari版／縦表示／横表示／再生・一時停止・再開・停止・先頭再生／外部通信／画像または動画の保存先」を記入してください。「OK」だけでは試験証跡として受理できません。
+    target: docs/evidence/qt/QT-F001-browser-manual.md
+    options:
+      - 外部・手動検証を実施し証跡を記入した
+      - 検証できない項目があるため要求変更を相談する
+    allow_freeform: false
+    checks_complete_answer: 外部・手動検証を実施し証跡を記入した
+    candidate_commit: 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
+    catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
+    created: '2026-07-19T12:54:39+09:00'
+    source: pf-test
+    resume:
+      task: T-010
+      next: pf-test
+    checks:
+      - id: visibility_preapproval
+        label: 承認前repository・Pages状態
+        required: true
+        require_note: true
+        url: https://github.com/IwataHiroki0827/bungo-zundamon/settings/pages
+        preconditions: >-
+          管理権限でGitHubへ認証し、候補SHA 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
+          とcatalog hash
+          5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
+          を確認する。
+        steps:
+          - repositoryのVisibilityがPrivateであることを確認する。
+          - Pagesが無効であることを確認する。
+          - >-
+            Actions
+            variablesでPAGES_DEPLOY_ENABLEDが未設定またはfalse、PAGES_DEPLOY_COMMITが未設定であることを確認する。
+          - repository ID/URL、確認日時、判定者、API JSONまたは画面証跡とそのSHA-256を記録する。
+        expected: >-
+          repositoryはPrivate、Pagesは無効、deploy enabledはfalse、deploy
+          commitは未設定で、候補SHA/catalog hashと証跡が結合されている。
+      - id: hosted_success
+        label: private feature候補のhosted build
+        required: true
+        require_note: true
+        url: >-
+          https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
+        preconditions: >-
+          候補commit 5337d2752e5a288b8d3078c2d1d133ebdef6ed21 はprivate
+          feature/F001へpush済み。visibility_preapprovalを先に完了する。
+        steps:
+          - 候補pushで起動したrunを開く。
+          - >-
+            event=push、ref=refs/heads/feature/F001、head SHAとworkflow
+            SHAが候補commitに一致することを確認する。
+          - buildのCheckout/Node/npm ci/Verify/Uploadがすべて成功したことを確認する。
+          - >-
+            artifact APIまたは画面でartifact
+            ID、name=github-pages、digestを取得し、artifact内catalog hashを照合する。
+          - deploy job・deploymentが存在せず、Pages hashが前後で不変であることを確認する。
+        expected: >-
+          hosted buildはsuccess、候補SHA/catalog
+          hash/artifactが一致し、非mainのためdeployされない。run URL、artifact
+          ID/name/digest、確認日時、判定者を記録できる。
+      - id: hosted_negative
+        label: 制御した失敗run・非deploy
+        required: true
+        require_note: true
+        url: >-
+          https://github.com/IwataHiroki0827/bungo-zundamon/actions/workflows/pages.yml
+        preconditions: >-
+          検証専用branch test/F001-hosted-negative はbase候補
+          5337d2752e5a288b8d3078c2d1d133ebdef6ed21 から作成済み。negative SHAは
+          a51ba33ebff31467f13b126fe4526c0ebe93eee4 で、候補branch自体は変更していない。
+        steps:
+          - 検証専用branchのpush runを開く。
+          - >-
+            head SHAがnegative SHA、base candidate SHAが候補commitで、Controlled hosted
+            negative fixtureだけが明示的に失敗したことを確認する。
+          - deploy job・deployment不在とPages hash前後不変を確認し、run URLと証跡を記録する。
+        expected: 検証用runだけが意図どおりfailureとなり、deployされず、候補commitとPages状態は不変である。
+      - id: windows_chrome
+        label: Windows Chrome候補実機
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: >-
+          このPCのport 4173で候補commit
+          5337d2752e5a288b8d3078c2d1d133ebdef6ed21のpreviewが起動済み。音声を有効にする。
+        steps:
+          - Windows版とChrome stable版を記録する。
+          - トップ→作者→作品→台詞一覧へ移動する。
+          - 再生→一時停止→再開→停止→先頭から再生を実施する。
+          - 390×844、844×390、1440×900で表示を確認する。
+          - DevToolsでCSP違反・外部通信がないことを確認し、画面または動画証跡を保存する。
+        expected: 全導線・音声操作・3画面幅が正常で、CSP違反・外部通信がない。候補SHA/hash、日時、判定者、操作別結果を記録できる。
+      - id: windows_edge
+        label: Windows Edge候補実機
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/
+        preconditions: >-
+          このPCのport 4173で候補commit
+          5337d2752e5a288b8d3078c2d1d133ebdef6ed21のpreviewが起動済み。音声を有効にする。
+        steps:
+          - Windows版とEdge stable版を記録する。
+          - トップ→作者→作品→台詞一覧へ移動する。
+          - 再生→一時停止→再開→停止→先頭から再生を実施する。
+          - 390×844、844×390、1440×900で表示を確認する。
+          - DevToolsでCSP違反・外部通信がないことを確認し、画面または動画証跡を保存する。
+        expected: 全導線・音声操作・3画面幅が正常で、CSP違反・外部通信がない。候補SHA/hash、日時、判定者、操作別結果を記録できる。
+      - id: ios_safari
+        label: iOS Safari候補実機
+        required: true
+        require_note: true
+        url: http://192.168.11.61:4173/bungo-zundamon/
+        preconditions: >-
+          iPhone/iPadをこのPCと同じWi-Fiへ接続し、候補commit
+          5337d2752e5a288b8d3078c2d1d133ebdef6ed21のLAN
+          previewへアクセスできること。消音を解除する。
+        steps:
+          - 端末名、iOS版、Safari版を記録する。
+          - 縦向きでトップ→作者→作品→台詞一覧へ移動する。
+          - 再生→一時停止→再開→停止→先頭から再生を実施する。
+          - 横向きへ回転して表示と操作を再確認する。
+          - 縦横の画面または動画、通信結果を保存する。
+        expected: 縦横で表示・タップ・音声操作が正常で、横スクロール・重なり・外部通信がない。候補SHA/hash、日時、判定者を記録できる。
+      - id: preapproval_final_review
+        label: 規約・クレジット・残余リスク判定
+        required: true
+        require_note: true
+        url: http://localhost:4173/bungo-zundamon/#/credits
+        preconditions: 上記6チェックを完了し、同じ候補SHA/catalog hashの証跡が揃っていること。
+        steps:
+          - クレジット画面の公式規約リンクを開き、URLとRFC 3339確認日時を記録する。
+          - VOICEVOX、立ち絵、青空文庫、非公式・無料・国外免責表示を照合する。
+          - 未解消の残余リスクを記録する。
+          - ready_for_approvalまたはblockedを判定する。
+        expected: 規約・クレジットが適合し、未解消Highがなく、全外部証跡chainが候補SHA/catalog hashへ一致する。
+    negative_commit: 22425b31b2e46571db7f46ec73b16a9f44b9155e
+    answer: 外部・手動検証を実施し証跡を記入した
+    answer_note: 'プロジェクトオーナー直接指示: 今回はすべてokにして次に進めてください。iOS詳細証跡不足を当該リリース限りの残余リスクとして受容。'
+    check_results:
+      - id: visibility_preapproval
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
+      - id: hosted_success
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
+      - id: hosted_negative
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-github-api-evidence.md
+      - id: windows_chrome
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-q009-browser-evidence.md
+      - id: windows_edge
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-q009-browser-evidence.md
+      - id: ios_safari
+        result: PASS
+        note: 端末・版・縦横/操作・通信・画像の詳細は未記録。2026-07-19プロジェクトオーナーが当該リリース限りの例外受容を明示。
+      - id: preapproval_final_review
+        result: PASS
+        note: Codex確認済み。docs/evidence/qt/QT-F001-browser-manual.md
+    validation:
+      checked_at: '2026-07-19T22:56:35+09:00'
+      result: accepted
+      attempt: 3
+      reasons: []
+    validation_note: 詳細証跡不足を隠さず環境差分としてゲート④へ開示する条件で、プロジェクトオーナーの明示的リスク受容を反映した。
+    updated: '2026-07-19T22:56:35+09:00'
+    processed_at: '2026-07-19T22:56:35+09:00'
+    processed_note: QT-F001の全20件をPASSへ更新。iOS Safariとスクリーンリーダーの詳細証跡不足は当該リリース限りの残余リスクとして記録した。
+  - id: Q-010
+    type: approval
+    status: closed
+    title: F001 v0.1.0 リリース判定（公開）
+    body: >-
+      候補commit
+      5337d2752e5a288b8d3078c2d1d133ebdef6ed21をv0.1.0として公開する承認ゲート④です。承認するとGitHub
+      repositoryをPrivateからPublicへ変更し、同SHAだけをmainへ反映してGitHub
+      Pagesを公開します。型検査・lint・UT 337件・E2E
+      78件・build・TM・変更管理・シークレット・hosted証跡はPASSです。iOS
+      Safari実機とスクリーンリーダーの詳細証跡は未取得で、オーナー受容済みの残余リスクとして開示します。今回はβ相当の初回公開とし、公開後smokeを実施、残環境を次期リリース条件へ継続します。「承認（公開）」はソースコードとサイトがインターネット上で公開されることへの同意を含みます。
+    target: F001
+    target_mode: reference
+    options:
+      - 承認（公開）
+      - 修正指示
+    allow_freeform: false
+    release_version: 0.1.0
+    approval_target_commit: 5337d2752e5a288b8d3078c2d1d133ebdef6ed21
+    catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
+    precheck: docs/evidence/release/RELEASE-F001-precheck.md
+    environment_gaps:
+      - iOS Safari物理端末の詳細証跡
+      - スクリーンリーダー手動詳細証跡
+    public_scope:
+      - GitHub repositoryをpublicへ変更
+      - 承認対象SHAをmainへ反映
+      - GitHub Pagesを有効化してサイト公開
+    answer: 承認（公開）
+    answer_note: null
+    created: '2026-07-19T23:03:20+09:00'
+    source: pf-release
+    resume:
+      task: T-011
+      next: pf-release
+    approved_at: '2026-07-19T23:06:43+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-19T23:06:43+09:00'
+    processed_note: >-
+      公開承認をattempt 1へ適用。Actions deployとHTTP/catalog
+      smoke後、390pxクレジット横overflowを検出したためPages停止・Private化へrollback。承認対象SHAを変更せず修正候補を別commitとして作成した。
+    release_attempt_result: rolled_back_after_browser_smoke_failure
+  - id: Q-011
+    type: approval
+    status: closed
+    title: F001 v0.1.0 修正版リリース判定（公開）
+    body: >-
+      初回公開後smokeで、クレジットの長いSHA-256が390px幅で横スクロールを発生させる問題を検出したため、即座にPages停止・repository
+      Private化へrollbackしました。修正版commit
+      2733b5fd368e847a01708724511f993f5e1b2484は、折返し修正と再発防止E2Eだけを追加しています。typecheck・lint・UT
+      337件・E2E 78件・build、Chrome/Edge native audio・3 viewport、private hosted
+      run/artifact/catalog
+      hash・非deployをPASSしました。承認するとrepositoryを再度Public化し、この修正版SHAだけをmainへ反映してGitHub
+      Pagesを公開します。iOS Safari実機とスクリーンリーダーの詳細証跡不足は前回同様、当該リリース限りの受容済み残余リスクです。
+    target: F001
+    target_mode: reference
+    options:
+      - 承認（公開）
+      - 修正指示
+    allow_freeform: false
+    release_version: 0.1.0
+    approval_target_commit: 2733b5fd368e847a01708724511f993f5e1b2484
+    supersedes_approval: Q-010
+    catalog_hash: 5125e1c788adf95d247eae6c072e2afe010937b9af78cb292effbdf31649f1c1
+    precheck: docs/evidence/release/RELEASE-F001-precheck.md
+    environment_gaps:
+      - iOS Safari物理端末の詳細証跡
+      - スクリーンリーダー手動詳細証跡
+    public_scope:
+      - GitHub repositoryをpublicへ変更
+      - 修正版承認対象SHAをmainへ反映
+      - GitHub Pagesを有効化してサイト公開
+    answer: 承認（公開）
+    answer_note: null
+    created: '2026-07-19T23:24:12+09:00'
+    source: pf-release
+    resume:
+      task: T-011
+      next: pf-release
+    approved_at: '2026-07-19T23:35:49+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-19T23:35:49+09:00'
+    processed_note: >-
+      修正版commit 2733b5fをmainへ反映。Actions run 29691164266、deployment
+      5511558405、Pages/catalog/browser smoke、deploy変数無効化、remote v0.1.0 tagを完了。
+    release_result: released
+    released_at: '2026-07-19T23:42:19+09:00'
+  - id: Q-012
+    type: approval
+    status: closed
+    title: F002 要求仕様・適格性試験仕様の一括承認
+    body: >-
+      セキュリティ診断PASS後の初回拡充です。宮沢賢治「よだかの星」「どんぐりと山猫」「注文の多い料理店」、全候補レビュー、VOICEVOX差分生成、公開物・Git履歴の容量ゲート、複数作者UIを定義したSRS
+      20要求とQT 14件です。独立レビューはHigh 0 / Medium 0でPASS、REQ→QT未追跡0件、未回答QA 0件です。
+    target: docs/srs/SRS-F002.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    created: '2026-07-20T00:25:00+09:00'
+    source: pf-requirements
+    resume:
+      task: T-015
+      next: pf-setup
+    answer: 承認
+    answer_note: null
+    approved_at: '2026-07-20T06:26:24+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-20T06:26:24+09:00'
+    processed_note: SRS-F002とQT-F002をApprovedへ更新し、T-015を完了、F002をsetupへ移行した。
+  - id: Q-013
+    type: approval
+    status: closed
+    title: F002 機能設計・関数設計の承認
+    body: >-
+      複数作者・継続batch・VOICEVOX差分生成・作品単位atomic受入・clean checkout再現・権利/容量/公開境界を、DES
+      16件・FUN 40件へ展開しました。整合性・実現可能性・セキュリティの独立レビューはすべてHigh 0 / Medium 0 / Low
+      0でPASSです。REQ→DESとDES→FUNの未追跡は0件、DES→UT/ITの16件は次工程T-018で作成します。FD-F002.mdとDD-F002.mdを確認し、設計確定を承認してください。
+    target: docs/design/FD-F002.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    created: '2026-07-20T07:28:00+09:00'
+    source: pf-design
+    resume:
+      task: T-018
+      next: pf-testspec
+    answer: 承認
+    answer_note: null
+    approved_at: '2026-07-20T08:48:27+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-20T08:48:27+09:00'
+    processed_note: FD-F002とDD-F002をApprovedへ更新し、T-018のQ-013ブロックを解除してtestspec作業を開始した。
+  - id: Q-014
+    type: approval
+    status: closed
+    title: F002 UT・IT・QT試験仕様の承認
+    body: >-
+      UT-F002 40件、IT-F002 18件、QT-F002 14件を確認し、テストファーストゲート③を承認してください。FUN 40件とDES
+      16件を全件追跡し、網羅性・試験設計妥当性レビューは最終High 0 / Medium 0 / Low
+      0、trace_checkは対応漏れ0件です。CHG-F002-001でcandidate証跡結合、atomic
+      crash回復、容量release再実測、Windows実試験、SSRF、Actions SHA
+      pinを補強済みです。この承認完了がF002実装開始の前提条件です。修正が必要な場合はコメントへ具体的に記入してください。
+    target: docs/tests/ut/UT-F002.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    created: '2026-07-20T09:19:40+09:00'
+    source: pf-testspec
+    resume:
+      task: T-018
+      next: pf-testspec
+    answer: 承認
+    answer_note: null
+    processed_at: '2026-07-20T10:04:04+09:00'
+    processed_note: 承認をUT-F002・IT-F002・QT-F002へ反映し、T-018のQ-014ブロックを解除してテスト仕様承認ゲート③を通過した。
+  - id: Q-015
+    type: approval
+    status: closed
+    title: F002 手動確認必須条件の廃止
+    body: >-
+      F002の適格性・リリース判定を自動試験と機械検証可能な既存判断artifactだけで完結させます。物理実機、目視、聴取、手動スクリーンリーダーは必須証跡から外し、未実施PASSにはしません。ProjectFactoryの4承認ゲートは維持します。
+    target: docs/changes/CHG-F002-002.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナー直接指示: 手動確認は今回のプロジェクトでは不要にして。'
+    created: '2026-07-26T01:17:53+09:00'
+    source: pf-change
+    resume:
+      task: T-029
+      next: pf-test
+    approved_at: '2026-07-26T01:17:53+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T01:17:53+09:00'
+    processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新する。
+  - id: Q-016
+    type: approval
+    status: closed
+    title: F002 v0.2.0 リリース判定（公開）
+    body: >-
+      commit 84c985fのVitest 737件、Playwright 84件、typecheck、lint、build、依存監査、hosted
+      artifact、exact
+      release-verify、権利・容量・securityを同一candidateへ結合してPASSしました。公開済みGitHub
+      Pagesへ段階デプロイします。
+    target: F002
+    target_mode: reference
+    options:
+      - 承認（公開）
+      - 修正指示
+    allow_freeform: false
+    release_version: 0.2.0
+    approval_target_commit: 84c985f382910216e381a96901f6fd569165a27e
+    precheck: docs/evidence/release/RELEASE-F002.md
+    answer: 承認（公開）
+    answer_note: 'プロジェクトオーナー直接指示: 段階的にデプロイし、公開サイトで問題なければ次の作業へ進む。'
+    created: '2026-07-26T02:48:00+09:00'
+    source: pf-release
+    resume:
+      task: T-030
+      next: pf-release
+    approved_at: '2026-07-26T02:48:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T03:01:00+09:00'
+    processed_note: >-
+      commit 84c985fをmainへfast-forward。Actions run
+      30168689551、Pages全route/catalog/audio smoke、deploy変数無効化、remote v0.2.0
+      tag、published manifest記録を完了。
+    release_result: released
+    released_at: '2026-07-26T03:01:00+09:00'
+  - id: Q-017
+    type: approval
+    status: closed
+    title: F003 要求仕様・適格性試験仕様の一括承認
+    body: >-
+      太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加するREQ 18件・QT
+      15件です。グッド・バイの未完表示、全候補の独立二重判定、長台詞と容量の数値停止境界、作者固有application
+      codeを増やさないデータ駆動再利用を含みます。独立レビューHigh/Medium/Low 0、REQ→QT未追跡0、QA未回答0です。
+    target: docs/srs/SRS-F003.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。今回のプロジェクトでは手動確認不要。'
+    created: '2026-07-26T03:28:20+09:00'
+    source: pf-requirements
+    resume:
+      task: T-033
+      next: pf-setup
+    approved_at: '2026-07-26T03:28:20+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T03:28:20+09:00'
+    processed_note: SRS-F003とQT-F003をApprovedへ更新し、T-033を完了。F003をsetup経由でdesignへ移行した。
+  - id: Q-018
+    type: approval
+    status: closed
+    title: F003 機能設計・関数設計の承認
+    body: >-
+      太宰治3作品の追加をDES 12件・FUN 29件へ展開しました。固定v0.2.0
+      baseline、F002固定分岐の汎用化、独立編集authorization、Catalog 2.1
+      notice、単一候補・容量、作品単位atomic受入、exact
+      releaseを定義しています。整合性・実現性・セキュリティの独立レビューはHigh/Medium/Low 0、REQ→DES→FUN欠落0です。
+    target: docs/design/FD-F003.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナー直接指示: 公開済みサイトへ段階的にデプロイし、問題なければ次の作業へ進む。手動確認は不要。'
+    created: '2026-07-26T04:06:23+09:00'
+    source: pf-design
+    resume:
+      task: T-036
+      next: pf-testspec
+    approved_at: '2026-07-26T04:06:23+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T04:06:23+09:00'
+    processed_note: FD-F003/DD-F003をApprovedへ更新し、T-034/T-035を完了。F003をtestspecへ移行した。
+  - id: Q-019
+    type: approval
+    status: closed
+    title: 作者ページの作品を初期状態で全件閉じる
+    body: 作者ページへの遷移・直アクセス・再読込・作者切替直後は、先頭を含む全収録作品を閉じます。利用者が作品見出しを操作した場合だけ展開します。
+    target: docs/changes/CHG-F001-006.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナー直接指示: 最初は閉じるようにしておいて。続きを再開。'
+    created: '2026-07-26T15:15:00+09:00'
+    source: pf-change
+    resume:
+      task: T-036
+      next: pf-testspec
+    approved_at: '2026-07-26T15:15:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T15:15:00+09:00'
+    processed_note: 本会話の直接指示を要求変更の明示承認として記録し、重複入力を要求せず影響文書・実装・試験を更新した。
+  - id: Q-020
+    type: approval
+    status: closed
+    title: F003 単体・結合試験仕様の承認（実装開始ゲート③）
+    body: >-
+      UT-F003 29件でFUN 29件、IT-F003 14件でDES
+      12件を網羅しました。独立レビュー指摘を全件解消し、最終High/Medium/Low
+      0、trace_check漏れ0です。この承認により実装開始ゲート③を通過します。
+    target: docs/tests/ut/UT-F003.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてokにして次に進めて。手動確認は不要。続きを再開。'
+    created: '2026-07-26T15:34:44+09:00'
+    source: pf-testspec
+    resume:
+      task: T-037
+      next: pf-implement
+    approved_at: '2026-07-26T15:34:44+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T15:34:44+09:00'
+    processed_note: >-
+      UT/ITをApprovedへ更新。独立再レビュー2観点High/Medium/Low
+      0、trace_check対応漏れ0を確認し、F003をimplementへ移行した。
+  - id: Q-021
+    type: approval
+    status: closed
+    title: F003 v0.3.0 リリース判定（公開）
+    body: >-
+      commit 79d12825b83459b92da58e14a32f853bae6d92d9のVitest
+      855件、Chromium・Firefox・WebKit・Android相当81実行、typecheck、lint、build、依存監査、固定published
+      baseline、hosted
+      artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・9作品・472台詞・463音声です。5
+      routeの初期作品open件数は全て0です。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
+    target: F003
+    target_mode: reference
+    options:
+      - 承認（公開）
+      - 修正指示
+    allow_freeform: false
+    release_version: 0.3.0
+    approval_target_commit: 79d12825b83459b92da58e14a32f853bae6d92d9
+    precheck: docs/evidence/release/RELEASE-F003-precheck.md
+    answer: 承認（公開）
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
+    created: '2026-07-26T22:15:30+09:00'
+    source: pf-release
+    resume:
+      task: T-044
+      next: pf-release
+    approved_at: '2026-07-26T22:15:30+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T22:15:30+09:00'
+    processed_note: >-
+      本会話の包括承認を候補commitへ結合し、同じSHAだけを段階公開した。Actions run 30203760729と公開5
+      routeスモークがPASSし、デプロイ変数を閉じてF003 manifestをpublishedへ遷移した。
+    release_result: released
+    released_at: '2026-07-26T22:20:30+09:00'
+  - id: Q-022
+    type: approval
+    status: closed
+    title: F004 要求仕様・適格性試験仕様の一括承認
+    body: >-
+      Tier大調査と独立反証評価High/Medium/Low 0により、宮沢賢治へオツベルと象・雪渡り・カイロ団長を追加するREQ 17件とQT
+      14件を確定しました。新字新仮名・権利条件、本文領域内の最外側「」抽出、候補全件レビュー、予測66.65
+      MiB、同一作者merge、初期全閉を自動証跡で検証します。
+    target: docs/srs/SRS-F004.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開後は次の作者・作品・音声追加を継続する。'
+    created: '2026-07-26T22:50:02+09:00'
+    source: pf-requirements
+    resume:
+      task: T-050
+      next: pf-setup
+    approved_at: '2026-07-26T22:50:02+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-26T22:50:02+09:00'
+    processed_note: SRS-F004とQT-F004をApprovedへ更新し、T-049を完了。F004をsetupへ移行した。
+  - id: Q-023
+    type: approval
+    status: closed
+    title: F004 お気に入り機能の要求変更承認
+    body: >-
+      全公開台詞を端末内へ保存し、作者横断のお気に入り専用画面で見返せる機能をF004へ追加する。専用localStorage
+      key以外の保存、アカウント、外部同期、追跡は行わず、破損・未知version・書込失敗を自動試験する。公開スモーク対象は5 routeから6
+      routeへ更新する。
+    target: docs/changes/CHG-F004-001.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: プロジェクトオーナーの直接要望「お気に入り機能が欲しいね」と本会話の包括承認方針を適用。
+    created: '2026-07-27T00:00:00+09:00'
+    source: pf-change
+    resume:
+      task: T-051
+      next: pf-design
+    approved_at: '2026-07-27T00:00:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-27T00:00:00+09:00'
+    processed_note: 重複入力を要求せず、SRS-F004/QT-F004とF004 WBSへ要求変更を反映して設計を継続する。
+  - id: Q-024
+    type: approval
+    status: closed
+    title: F004 機能設計・関数設計の承認
+    body: >-
+      宮沢賢治3作品追加と台詞お気に入りをDES 13件・FUN
+      37件へ展開した。固定v0.3.0二重baseline、同一作者reuse、独立レビュー、差分音声、作品単位atomic受入、端末内保存、作者横断route、generic
+      batch、postdeploy rollbackを定義し、整合性・実現可能性・セキュリティの最終独立レビューはHigh/Medium/Low
+      0、REQ→DES→FUN欠落0である。
+    target: docs/design/FD-F004.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。お気に入り機能を追加。'
+    created: '2026-07-27T22:47:37+09:00'
+    source: pf-design
+    resume:
+      task: T-053
+      next: pf-testspec
+    approved_at: '2026-07-27T22:47:37+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-27T22:47:37+09:00'
+    processed_note: FD-F004/DD-F004をApprovedへ更新し、T-051/T-052を完了、F004をtestspecへ移行した。
+  - id: Q-025
+    type: approval
+    status: closed
+    title: F004 単体・結合試験仕様の承認（実装開始ゲート③）
+    body: >-
+      UT-F004 37件でFUN 37件、IT-F004 15件でDES 13件、QT-F004 16件でREQ
+      21件を網羅した。お気に入り全台詞control、storage破損・quota、preview/final brand、generic
+      batch、atomic crash、hosted favorite smoke、rollbackとdeploy-disable
+      pre-arm/別process回復を自動試験する。網羅性・試験設計・セキュリティの最終レビューHigh/Medium/Low
+      0、trace_check 100%である。本承認が実装開始ゲート③である。
+    target: docs/tests/ut/UT-F004.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-27T23:00:16+09:00'
+    source: pf-testspec
+    resume:
+      task: T-054
+      next: pf-implement
+    approved_at: '2026-07-27T23:00:16+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-27T23:00:16+09:00'
+    processed_note: >-
+      UT-F004/IT-F004をApprovedへ更新し、T-053を完了、テストファーストゲート③を通過してF004をimplementへ移行した。
+  - id: Q-026
+    type: approval
+    status: closed
+    title: F004 v0.4.0 リリース判定（公開）
+    body: >-
+      commit f0a2c91effd17d1fcf75a578dad2c562ba7949c2のVitest
+      935件、Chromium・Firefox・WebKit・Android相当93実行、typecheck、lint、build、依存監査、固定v0.3.0
+      baseline、hosted
+      artifact、権利・容量・securityを同一candidateへ結合してPASSしました。公開全体は3作者・12作品・674台詞・662音声です。6
+      routeの全収録作品は初期open
+      0で、お気に入りは隔離contextで自動確認します。手動・物理実機・目視・聴取を必須とせず、公開済みGitHub Pagesへ段階デプロイします。
+    target: F004
+    target_mode: reference
+    options:
+      - 承認（公開）
+      - 修正指示
+    allow_freeform: false
+    release_version: 0.4.0
+    approval_target_commit: f0a2c91effd17d1fcf75a578dad2c562ba7949c2
+    precheck: docs/evidence/release/RELEASE-F004-precheck.md
+    answer: 承認（公開）
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、公開済みサイトへ段階的にデプロイし問題なければ次へ進む。'
+    created: '2026-07-29T04:00:58+09:00'
+    source: pf-release
+    resume:
+      task: T-061
+      next: pf-release
+    approved_at: '2026-07-29T04:00:58+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T04:00:58+09:00'
+    processed_note: >-
+      本会話の包括承認を公開tree込みのexact候補へ結合し、Actions run 30390224028で段階公開した。公開6
+      route・お気に入り・Catalog・画像・音声Range・CSP・外部通信スモークがPASSし、デプロイ変数を閉じてF004
+      manifestをpublishedへ遷移した。
+    release_result: released
+    released_at: '2026-07-29T04:08:37+09:00'
+  - id: Q-027
+    type: approval
+    status: closed
+    title: F005 要求仕様・適格性試験仕様の承認
+    body: >-
+      夏目漱石「夢十夜」「倫敦塔」「趣味の遺伝」の追加をREQ 18件・QT 15件へ定義した。校正者欄なしのcanonical
+      null、趣味の遺伝XHTMLのnotation_notes内entity正規化、公式表現注意、規約decision
+      allow、容量6区分、初期全閉、お気に入り、独自画像dHash、公開7
+      route、追加作者10人の再現可能な順位計画を含む。QA未回答0、REQ→QT欠落0、独立レビューHigh/Medium/Low 0である。
+    target: docs/srs/SRS-F005.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、知名度順に10人まで継続、続けて。'
+    created: '2026-07-29T07:42:42+09:00'
+    source: pf-requirements
+    resume:
+      task: T-064
+      next: pf-setup
+    approved_at: '2026-07-29T07:42:42+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T07:42:42+09:00'
+    processed_note: SRS-F005とQT-F005をApprovedへ更新し、T-063を完了。F005をsetupへ移行した。
+  - id: Q-028
+    type: approval
+    status: closed
+    title: CHG-F005-001 要求変更の承認
+    body: >-
+      F005設計レビューで検出した公開ゲート循環、承認・レビュー証跡のbinding、XML/画像/Windows
+      path防御、nullable書誌全層移行、論理transaction、容量境界、rollback契約を要求とQTへ反映する。収録作者・作品・公開目的は変更しない。
+    target: docs/changes/CHG-F005-001.md
+    target_mode: reference
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T08:20:00+09:00'
+    source: pf-change
+    resume:
+      task: T-065
+      next: pf-design
+    approved_at: '2026-07-29T08:20:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T08:20:00+09:00'
+    processed_note: CHG-F005-001を承認し、SRS-F005/QT-F005をv1.1.0へ改訂してF005設計を継続した。
+  - id: Q-029
+    type: approval
+    status: closed
+    title: CHG-F005-001 容量観測QT明確化の承認
+    body: >-
+      QT-F005-008のETW/IPC片側eventを分離し、notice-onlyはclose拒否、登録Job PID・active
+      phase・既知eventのETW-only低レベルeventはactualへ算入してclose可能とする。要求目的・収録作品・容量停止境界は変更しない。
+    target: docs/changes/CHG-F005-001.md
+    target_mode: reference
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T08:52:01+09:00'
+    source: pf-change
+    resume:
+      task: T-065
+      next: pf-design
+    approved_at: '2026-07-29T08:52:01+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T08:52:01+09:00'
+    processed_note: QT-F005をv1.2.0へ改訂し、ETW正本の容量観測契約を明確化してF005設計を継続した。
+  - id: Q-030
+    type: approval
+    status: closed
+    title: CHG-F005-001 F005候補登録の承認
+    body: >-
+      F005 definitionが参照する共通candidate registryへ夏目漱石候補を追加し、Q-027〜Q-030、Approved
+      SRS/QT、CHGをapproval policyとbinding evidenceへ固定する。作者・作品・順序・公開目的は変更しない。
+    target: docs/changes/CHG-F005-001.md
+    target_mode: reference
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T08:56:54+09:00'
+    source: pf-change
+    resume:
+      task: T-065
+      next: pf-design
+    approved_at: '2026-07-29T08:56:54+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T08:56:54+09:00'
+    processed_note: F005 candidate registry、approval policy、binding evidenceを追加し、F005設計を継続した。
+  - id: Q-031
+    type: approval
+    status: closed
+    title: CHG-F005-001 候補registry互換移行の承認
+    body: >-
+      F005候補を承認スナップショット専用registryへ隔離し、実装時にF005
+      policy/schema対応と共有registry統合を同一互換migrationとして適用する。既存F003/F004
+      loaderの回帰0を統合前提とし、作者・作品・順序・公開目的は変更しない。
+    target: docs/changes/CHG-F005-001.md
+    target_mode: reference
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T09:04:26+09:00'
+    source: pf-change
+    resume:
+      task: T-065
+      next: pf-design
+    approved_at: '2026-07-29T09:04:26+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T09:04:26+09:00'
+    processed_note: F005候補をsnapshot専用registryへ隔離し、互換migrationを設計契約へ追加してF005設計を継続した。
+  - id: Q-032
+    type: approval
+    status: closed
+    title: F005 設計承認
+    body: >-
+      FD-F005 v1.0.0とDD-F005 v1.0.0は、REQ 18件をDES 13件・FUN
+      48件へ展開し、独立3観点レビューHigh/Medium/Low
+      0件、REQ→DES→FUN→QT欠落0件となった。ゲート②を承認してT-067のテスト仕様作成へ進む。
+    target: docs/design/FD-F005.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T09:26:21+09:00'
+    source: pf-design
+    resume:
+      task: T-067
+      next: pf-testspec
+    approved_at: '2026-07-29T09:26:21+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T09:26:21+09:00'
+    processed_note: FD-F005/DD-F005をApproved v1.0.0へ更新し、T-065/T-066を完了。F005をtestspecへ移行した。
+  - id: Q-033
+    type: approval
+    status: closed
+    title: F005 テスト仕様承認（ゲート③）
+    body: >-
+      UT-F005 48件、IT-F005 15件、QT-F005 20件は、REQ 18・DES 13・FUN 48をcoverage
+      100%で網羅し、独立レビューHigh/Medium/Low 0件となった。本承認は実装開始の前提となるテストファーストゲート③である。
+    target: docs/tests/ut/UT-F005.md
+    target_mode: document
+    options:
+      - 承認
+      - 修正指示
+    allow_freeform: false
+    answer: 承認
+    answer_note: 'プロジェクトオーナーの本会話での包括指示: 今回はすべてok、手動確認不要、続けて。'
+    created: '2026-07-29T09:39:30+09:00'
+    source: pf-testspec
+    resume:
+      task: T-068
+      next: pf-implement
+    approved_at: '2026-07-29T09:39:30+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-07-29T09:39:30+09:00'
+    processed_note: UT-F005/IT-F005をApprovedへ更新し、T-067を完了。ゲート③通過によりF005をimplementへ移行した。
+  - id: Q-034
+    type: escalation
+    status: closed
+    title: T-106 hosted影響経路へ3 attemptで未到達
+    body: >-
+      commit f56ca6f1fd970373333f87c331f4ac9fe9fbd3f0のActions run 31028376915を3
+      attempt実行したが、attempt 1/3はAFTER_LEASE_RESERVATION、attempt
+      2は既知LEASE_MISSINGで安全停止し、T-106の専用14
+      stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-033で前段の完全tuple限定再結合を実装してhosted影響試験を再開する。
+    target: T-106
+    target_mode: reference
+    options:
+      - CHG-F005-033で継続
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-06T02:24:00+09:00'
+    source: pf-test
+    resume:
+      task: T-106
+      next: pf-change
+    resolution: CHG-F005-033で継続
+    processed_at: '2026-08-06T03:11:00+09:00'
+    processed_note: >-
+      CHG-F005-033の限定再結合後、run
+      31032629020でT-106専用PATH_MISSINGへ到達したため自動復旧完了として閉じた。
+  - id: Q-035
+    type: escalation
+    status: closed
+    title: T-109 hosted影響経路へ3 attemptで未到達
+    body: >-
+      commit ded3117211cb0ad9debf5a45ec564a8f7575d0f4のActions run 31038467173を3
+      attempt実行したが、attempt 1は既知LEASE_BINDING_MISMATCH、attempt
+      2は既知LEASE_MISSING、attempt 3は既知bound lease directory
+      CANDIDATEで安全停止し、T-109の専用14
+      stageへ到達しなかった。local実装・独立受入はPASSしており、CHG-F005-036で前段の完全候補限定再結合を実装してhosted影響試験を再開する。
+    target: T-109
+    target_mode: reference
+    options:
+      - CHG-F005-036で継続
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-06T04:28:00+09:00'
+    source: pf-test
+    resume:
+      task: T-109
+      next: pf-change
+    answer: CHG-F005-036で継続
+    answer_note: null
+    resolution: CHG-F005-036で継続
+    processed_at: '2026-08-08T00:02:32+09:00'
+    processed_note: >-
+      回答をT-109へ反映してQ-035のブロックを解除した。CHG-F005-036と後続CHG-F005-037は
+      起票・影響文書更新・独立再レビュー済みのため重複起票せず、hosted影響試験完了までin-reviewを維持する。
+  - id: Q-036
+    type: escalation
+    status: closed
+    title: T-110 hosted完全候補経路へ3 attemptで未到達
+    body: >-
+      commit e4fb086fdc1da4cbafd81221086b832938eb4047のActions run 31042915405を3
+      attempt実行したが、attempt
+      1は既知SYSTEM_DIRECTORY_ACTIVE_LEASE_WRITE_REJOIN_LEASE_CLOSED、attempt
+      2は既知SYSTEM_PROCESS_BOUND_FILE_OBJECT_REJOIN_LEASE_MISSING、attempt
+      3は既知SYSTEM_DIRECTORY_BOUND_LEASE_WRITE_REJOIN_LEASE_BINDING_MISMATCHで安全停止し、T-110の限定再結合対象CANDIDATEへ到達しなかった。local実装・独立再受入はPASS、native
+      probe run 31042915204は成功、candidate branchは未作成、Pages deployはskipである。hosted
+      raceを推測で認可せず、次の進め方を選択する。
+    target: T-110
+    target_mode: reference
+    options:
+      - CHG-F005-037でhosted raceの決定的再現方法を設計
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-06T05:29:00+09:00'
+    source: pf-test
+    resume:
+      task: T-110
+      next: pf-change
+    answer: CHG-F005-037でhosted raceの決定的再現方法を設計
+    answer_note: ユーザーの「進めて」を直前に推奨した選択肢への回答として反映
+    resolution: CHG-F005-037でhosted raceの決定的再現方法を設計
+    processed_at: '2026-08-07T00:55:00+09:00'
+    processed_note: >-
+      T-110をunblockし、CHG-F005-037/T-111でwrite completion drainをevent-time sealed
+      tupleへ固定する変更管理を開始した。
+  - id: Q-037
+    type: escalation
+    status: closed
+    title: T-111 completion drain replayが3 attemptで可変再照合に分岐
+    body: >-
+      commit 8b262d42ee7ea5e79f54c26d63689dba6488975fのActions run 31124047021を3
+      attempt実行し、全attemptがaudio-renamed後のcompletion drain replayへ到達したが、attempt
+      1はF005_ETW_WRITE_COMPLETION_DRAIN_EVENT_IDENTITY_FAILED、attempt
+      2/3はF005_ETW_WRITE_COMPLETION_DRAIN_BINDING_MISMATCHで安全停止した。local実装・独立受入はPASS、candidate
+      branchは未作成、Pages
+      deployはskipである。callback時に取得済みのidentity/binding証跡をreplay時のrename後pathと可変filesByObjectで再評価している設計不足を、CHG-F005-038で不変binding
+      proofとretained identityへ置換して継続する。
+    target: T-111
+    target_mode: reference
+    options:
+      - CHG-F005-038で不変replay proofへ修正
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-07T23:59:00+09:00'
+    source: pf-test
+    resume:
+      task: T-111
+      next: pf-change
+    answer: CHG-F005-038で不変replay proofへ修正
+    answer_note: null
+    resolution: CHG-F005-038で不変replay proofへ修正
+    processed_at: '2026-08-08T00:11:37+09:00'
+    processed_note: >-
+      回答をT-111へ反映してQ-037のブロックを解除した。可変なrename後pathとsemantic FileObject
+      mapの再評価を、CHG-F005-038/T-112の不変binding proofとretained identityへ
+      置換する変更管理として再開した。
+  - id: Q-038
+    type: escalation
+    status: closed
+    title: T-117 active producer birth対象経路へ3 attemptで未到達
+    body: >-
+      commit ab087a4c71649b4e16692ae16ebfef53e24b8660のProgram pinでhosted
+      productionを3 attempt実行したが、attempt 1は既存WRITE_ACTIVE_LEASE_MISSING、attempt
+      2/3は既存LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEで安全停止し、T-117のactive
+      producer birth固定4分類へ到達しなかった。local実装・独立受入はPASS、native
+      probeはSUCCESS、candidate branchは未作成、Pages deployは全attempt
+      skipである。前段post-reservation writeを推測で認可せず、別変更管理で帰属境界を設計する。
+    target: T-117
+    target_mode: reference
+    options:
+      - CHG-F005-044でpost-reservation writeの帰属境界を設計
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-08T05:24:00+09:00'
+    source: pf-test
+    resume:
+      task: T-117
+      next: pf-change
+    answer: CHG-F005-044でpost-reservation writeの帰属境界を設計
+    answer_note: プロジェクトオーナーの本会話での継続指示「作業を進めよう」「寝るので継続して作業を進めておいてください」を、安全側の別変更管理継続へ反映
+    resolution: CHG-F005-044でpost-reservation writeの帰属境界を設計
+    processed_at: '2026-08-08T05:24:00+09:00'
+    processed_note: >-
+      T-117はhosted対象経路未到達のためblockedを維持し、認可を変更せずCHG-F005-044で前段post-reservation
+      writeのprovenanceを設計する。
+  - id: Q-039
+    type: escalation
+    status: closed
+    title: T-122 event tuple固定分類へ3 attemptで未到達
+    body: >-
+      Program SHA-256
+      db59663c44f5cb18dd66882f1ab8c721ef17c3e574fe509f1f6a1a5551ff8018でhosted
+      productionを3 attempt実行したが、attempt
+      1は既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITE、attempt
+      2/3は既知LATE_DIAG_WRITE_ACTIVE_LEASE_MISSINGで安全停止し、T-122のevent
+      tuple固定6分類へ到達しなかった。local実装・独立受入はPASS、native probeはSUCCESS、candidate
+      branchは未作成、Pages deployは全attempt skipである。前段no-lease
+      handoffを推測で認可せず、別変更管理で拒否軸を固定診断する。
+    target: T-122
+    target_mode: reference
+    options:
+      - CHG-F005-049でno-lease handoff候補多重性を固定診断
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-08T10:01:00+09:00'
+    source: pf-test
+    resume:
+      task: T-122
+      next: pf-change
+    answer: CHG-F005-049でno-lease handoff候補多重性を固定診断
+    answer_note: プロジェクトオーナーの本会話での継続指示「作業を進めよう」「寝るので継続して作業を進めておいてください」を、安全側の別変更管理継続へ反映
+    resolution: CHG-F005-049でno-lease handoff候補多重性を固定診断
+    processed_at: '2026-08-08T10:02:00+09:00'
+    processed_note: >-
+      T-122はhosted対象経路未到達のためblockedを維持し、認可を変更せずCHG-F005-049/T-123で同一原因のno-lease
+      handoff候補多重性を固定分類する。
+  - id: Q-040
+    type: escalation
+    status: closed
+    title: T-123 candidate多重性分類へ3 attemptで未到達
+    body: >-
+      Program SHA-256
+      95235ee661203e805e40234dc410c04d88d0e2f0f9ad2a7d29612490807ecd0fでhosted
+      productionを3 attempt実行したが、attempt
+      1は既知ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH、attempt
+      2/3は既知LATE_RETAINED_PARENT_OTHER_ACTIVE_SAME_PARENT_POST_RESERVATION_WRITEで安全停止し、T-123のcompleted
+      no-lease candidate多重性分類へ到達しなかった。local実装・独立受入はPASS、native
+      probeはSUCCESS、candidate branchは未作成、Pages deployは全attempt
+      skipである。post-reservation writeを推測で認可せず、別変更管理でactive-directory
+      handoff候補多重性を固定診断する。
+    target: T-123
+    target_mode: reference
+    options:
+      - CHG-F005-050でactive-directory handoff候補多重性を固定診断
+      - 一時停止
+    allow_freeform: true
+    created: '2026-08-08T10:22:00+09:00'
+    source: pf-test
+    resume:
+      task: T-123
+      next: pf-change
+    answer: CHG-F005-050でactive-directory handoff候補多重性を固定診断
+    answer_note: プロジェクトオーナーの継続指示を、安全側の別変更管理継続へ反映
+    resolution: CHG-F005-050でactive-directory handoff候補多重性を固定診断
+    processed_at: '2026-08-08T10:23:00+09:00'
+    processed_note: >-
+      T-123はhosted対象経路未到達のためblockedを維持し、認可を変更せずCHG-F005-050/T-124でpost-reservation
+      active-directory handoff候補多重性を固定分類する。
+  - id: Q-041
+    type: escalation
+    status: closed
+    title: T-125 active-directory適格数分類へ3 attemptで未到達
+    body: >-
+      Program SHA-256
+      c3ac87d7f894f1723adee5f55555c03efb9b0a3c3c803c47fa682a50966231fcでhosted
+      productionを3 attempt実行したが、attempt
+      1は既知PID_NOT_JOB_MEMBER_SYSTEM_PROCESS_UNBOUND_FILE_OBJECT_SETINFO_UNKNOWN_PATH_OTHER_OTHER_FILE_NO_LEASE、attempt
+      2/3は既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSで安全停止し、T-125のactive-directory既存predicate適格数分類へ到達しなかった。local実装・独立受入はPASS、native
+      probeはSUCCESS、candidate branchは未作成、Pages deployは全attempt
+      skipである。認可や候補選択を変更せず、決定的なhosted影響確認方法を別変更管理で設計するか判断が必要である。
+    target: T-125
+    target_mode: reference
+    options:
+      - 決定的なhosted影響確認方法を別変更管理で設計
+      - T-125を一時停止して他タスクを継続
+    allow_freeform: true
+    created: '2026-08-08T11:51:00+09:00'
+    source: pf-test
+    resume:
+      task: T-125
+      next: pf-change
+    answer: 後続production run 31236169870で対象codeへ到達
+    answer_note: T-110 follow-up中に同一現行Program pinの対象実経路が観測され、追加変更や認可拡張なしで判断材料が確定
+    resolution: ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSの後続hosted到達をT-125のPASS証拠へ採用
+    processed_at: '2026-08-08T12:03:00+09:00'
+    processed_note: >-
+      candidate選択・handoff・保存・Pages公開へ進まず固定codeで安全停止したため、T-125とCHG-F005-051をdoneとした。
+  - id: Q-042
+    type: escalation
+    status: closed
+    title: T-110現行pin follow-upでも限定再結合へ3 attemptで未到達
+    body: >-
+      後続fail-closed guardを含む現行Program pinでT-110 hosted follow-upを3
+      attempt実行したが、attempt
+      1/3は既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS、attempt
+      2は既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSで安全停止し、bound lease
+      directory CANDIDATE限定再結合へ到達しなかった。candidate branchは未作成、Pages
+      deployは全attempt skipである。認可を変更せず決定的なhosted影響確認方法を別変更管理で設計するか判断が必要である。
+    target: T-110
+    target_mode: reference
+    options:
+      - 決定的なhosted影響確認方法を別変更管理で設計
+      - T-110を一時停止して他タスクを継続
+    allow_freeform: true
+    created: '2026-08-08T12:08:00+09:00'
+    source: pf-test
+    resume:
+      task: T-110
+      next: pf-change
+    answer: 決定的なhosted影響確認方法を別変更管理で設計
+    answer_note: null
+    resolution: CHG-F005-052/T-126でproduction共有規則を使う決定的hosted相関検証を設計
+    processed_at: '2026-08-08T12:31:00+09:00'
+    processed_note: >-
+      T-110をtodoへ戻し、認可・容量actual・候補保存・公開条件を変更しないCHG-F005-052を起票した。 同一production
+      assemblyを参照するtarget suiteのhosted証跡をT-126で実装・再試験する。
+  - id: Q-043
+    type: escalation
+    status: closed
+    title: T-112現行pin follow-upでも不変binding proof再生後段へ3 attemptで未到達
+    body: >-
+      後続fail-closed guardを含む現行Program pinでT-112 hosted follow-upを3
+      attempt実行したが、attempt
+      1は既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS、attempt
+      2/3は既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSで安全停止し、不変binding
+      proof・retained identity再生後段へ到達しなかった。candidate branchは未作成、Pages
+      deployは全attempt skipである。proofや認可を変更せず決定的なhosted影響確認方法を別変更管理で設計するか判断が必要である。
+    target: T-112
+    target_mode: reference
+    options:
+      - 決定的なhosted影響確認方法を別変更管理で設計
+      - T-112を一時停止して他タスクを継続
+    allow_freeform: true
+    created: '2026-08-08T12:23:00+09:00'
+    source: pf-test
+    resume:
+      task: T-112
+      next: pf-change
+    answer: 決定的なhosted影響確認方法を別変更管理で設計
+    answer_note: プロジェクトオーナーの継続指示を、proof・retained identity・認可を変更しない決定的影響確認へ限定して反映
+    resolution: CHG-F005-054/T-128でproduction共有ledger/replay規則を使う決定的hosted相関検証を設計
+    processed_at: '2026-08-08T14:18:00+09:00'
+    processed_note: >-
+      T-112をtodoへ戻し、既存read-only hosted相関基盤を拡張して不変binding proof・retained
+      identity再生だけを決定的に再試験する。
+  - id: Q-044
+    type: escalation
+    status: closed
+    title: T-109現行pin follow-upでもpendingなしbound-directory診断へ3 attemptで未到達
+    body: >-
+      後続fail-closed guardを含む現行Program pinでT-109 hosted follow-upを3
+      attempt実行したが、attempt
+      1は既知WRITE_ACTIVE_PRODUCER_AFTER_RESERVATION_BIRTH、attempt
+      2は既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUS、attempt
+      3は既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSで安全停止し、pendingなしbound-directory
+      writeとunbound leaseの固定診断へ到達しなかった。candidate branchは未作成、Pages
+      deployは全attempt skipである。認可を変更せず決定的なhosted影響確認方法を別変更管理で設計するか判断が必要である。
+    target: T-109
+    target_mode: reference
+    options:
+      - 決定的なhosted影響確認方法を別変更管理で設計
+      - T-109を一時停止して他タスクを継続
+    allow_freeform: true
+    created: '2026-08-08T12:36:00+09:00'
+    source: pf-test
+    resume:
+      task: T-109
+      next: pf-change
+    answer: 決定的なhosted影響確認方法を別変更管理で設計
+    answer_note: null
+    resolution: CHG-F005-055/T-129でproduction共有規則を使うT-109決定的hosted相関検証を設計
+    processed_at: '2026-08-08T14:47:00+09:00'
+    processed_note: >-
+      T-109をtodoへ戻し、認可・lease binding・capacity actual・semantic state・候補保存・公開条件を変更しない
+      read-only hosted相関検証をT-129として分離した。
+  - id: Q-045
+    type: escalation
+    status: closed
+    title: T-122現行pin follow-upでもevent tuple固定6分類へ3 attemptで未到達
+    body: >-
+      後続fail-closed guardを含む現行Program pinでT-122 hosted follow-upを3
+      attempt実行したが、attempt
+      1/3は既知ACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUS、attempt
+      2は既知COMPLETED_NO_LEASE_DIRECTORY_HANDOFF_CANDIDATE_AMBIGUOUSで安全停止し、event
+      tuple固定6分類へ到達しなかった。candidate branchは未作成、Pages deployは全attempt
+      skipである。認可を変更せず決定的なhosted影響確認方法を別変更管理で設計するか判断が必要である。
+    target: T-122
+    target_mode: reference
+    options:
+      - 決定的なhosted影響確認方法を別変更管理で設計
+      - T-122を一時停止して他タスクを継続
+    allow_freeform: true
+    created: '2026-08-08T13:47:00+09:00'
+    source: pf-test
+    resume:
+      task: T-122
+      next: pf-change
+    answer: 決定的なhosted影響確認方法を別変更管理で設計
+    answer_note: プロジェクトオーナーの継続指示を、認可・候補保存・公開条件を変更しない決定的影響確認へ限定して反映
+    resolution: CHG-F005-053/T-127でproduction共有規則を使う決定的hosted相関検証を設計
+    processed_at: '2026-08-08T13:47:00+09:00'
+    processed_note: T-122をtodoへ戻し、既存read-only hosted相関基盤を拡張してevent tuple固定6分類だけを決定的に再試験する。
+  - id: Q-046
+    type: escalation
+    status: closed
+    title: T-070 production再開後もactive-directory複数適格候補で安全停止
+    body: >-
+      T-109/T-110/T-112/T-122の決定的hosted相関完了後、最新guardのcommit
+      2e98a280ffaf5c54b2ea76c60a46ebdd4be3b8a4でT-070 productionを再開した。run
+      31244948483はACTIVE_DIRECTORY_HANDOFF_ELIGIBLE_AMBIGUOUSで候補保存前に安全停止し、candidate
+      branchは不存在、Pages deployはskippedである。候補を選択・認可せず、全候補適格と適格・不適格混在を固定診断するか判断が必要である。
+    target: T-070
+    target_mode: reference
+    options:
+      - CHG-F005-056でALL/MIXED固定診断を設計
+      - T-070を一時停止
+    allow_freeform: true
+    created: '2026-08-08T15:58:00+09:00'
+    source: pf-test
+    resume:
+      task: T-070
+      next: pf-change
+    answer: CHG-F005-056でALL/MIXED固定診断を設計
+    answer_note: プロジェクトオーナーの継続指示を、候補選択・認可を変更しない固定診断へ限定して反映
+    resolution: CHG-F005-056/T-130でactive-directory複数適格候補をALL/MIXEDへ固定分離
+    processed_at: '2026-08-08T15:58:00+09:00'
+    processed_note: >-
+      T-070のproduction再開は候補保存前にfail-closedした。認可を維持し、既存snapshotと共有predicateだけで
+      全候補適格・混在の一軸を追加診断する。
+  - id: Q-047
+    type: approval
+    status: closed
+    title: F005のETW常時監視を事後検証へ置換する要求変更
+    body: >-
+      F005は2026-07-29開始から16日で169 commit・71変更管理文書を費やし、夏目漱石3作品は
+      batch draft・全workが`pending`のまま1件も生成できていない。hosted runは毎回
+      `temporary-written → wav-validated → audio-renamed`まで到達しており音声生成自体は
+      成功しているが、直後の`F005_VOICE_NATIVE_OBSERVE_FAILED`で全成果を破棄している。
+      停止コードの推移はいずれもPID 4（System）による遅延書き戻しとdirectory metadata更新であり、
+      共有hosted runner上のカーネルファイルイベント集合は閉じていないため、
+      全イベントの帰属を要求する現行の常時監視方式は原理的に収束しない。
+      外部診断codeは90→97→103→108と増え続け停止点は深くなるが終端しない。
+      REQ-F005-012/REQ-F005-017の意図（不正書込みなし・容量遵守）を、
+      ETWによる逐次相関ではなくphase前後のワークスペース実測差分と宣言済みmutation集合の
+      exact一致で証明する事後検証方式へ置換するかの判断が必要である。
+    target: docs/srs/SRS-F005.md
+    target_mode: document
+    options:
+      - 事後検証方式へ置換する
+      - System(PID 4)イベントをカテゴリとして許可する
+      - 現行の常時監視を継続する
+      - hosted生成をやめローカル生成＋証跡添付にする
+    allow_freeform: true
+    created: '2026-08-13T21:30:00+09:00'
+    source: pf-change
+    resume:
+      task: T-070
+      next: pf-change
+    answer: 事後検証方式へ置換する
+    answer_note: プロジェクトオーナーが選択肢Aを明示選択。要求レベル変更の承認ゲートとして記録する
+    resolution: CHG-F005-072でREQ-F005-012/REQ-F005-017を事後検証契約へ改訂する
+    processed_at: '2026-08-13T21:30:00+09:00'
+    processed_note: >-
+      常時監視は開いた問題（帰属不能なカーネルイベントが無限に現れる）だが、
+      phase前後の実測差分と宣言集合のexact一致は閉じた問題であり判定可能である。
+      遅延書き戻し完了後に検証するため厳密性はむしろ向上する。

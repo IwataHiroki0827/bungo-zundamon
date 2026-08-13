@@ -5807,434 +5807,434 @@
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#6018:des": {
+    "IMPL:native/f005-guard/Program.cs#6024:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#6018:fun": {
+    "IMPL:native/f005-guard/Program.cs#6024:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#6684:des": {
+    "IMPL:native/f005-guard/Program.cs#6690:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#6684:fun": {
+    "IMPL:native/f005-guard/Program.cs#6690:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-043"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#7869:des": {
+    "IMPL:native/f005-guard/Program.cs#7875:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#7869:fun": {
+    "IMPL:native/f005-guard/Program.cs#7875:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-036"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#8514:des": {
+    "IMPL:native/f005-guard/Program.cs#8520:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#8514:fun": {
+    "IMPL:native/f005-guard/Program.cs#8520:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#8661:des": {
+    "IMPL:native/f005-guard/Program.cs#8667:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#8661:fun": {
+    "IMPL:native/f005-guard/Program.cs#8667:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9922:des": {
+    "IMPL:native/f005-guard/Program.cs#9984:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9922:fun": {
+    "IMPL:native/f005-guard/Program.cs#9984:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9941:des": {
+    "IMPL:native/f005-guard/Program.cs#10003:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9941:fun": {
+    "IMPL:native/f005-guard/Program.cs#10003:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9986:des": {
+    "IMPL:native/f005-guard/Program.cs#10048:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#9986:fun": {
+    "IMPL:native/f005-guard/Program.cs#10048:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10010:des": {
+    "IMPL:native/f005-guard/Program.cs#10072:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10010:fun": {
+    "IMPL:native/f005-guard/Program.cs#10072:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10043:des": {
+    "IMPL:native/f005-guard/Program.cs#10105:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10043:fun": {
+    "IMPL:native/f005-guard/Program.cs#10105:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10096:des": {
+    "IMPL:native/f005-guard/Program.cs#10158:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10096:fun": {
+    "IMPL:native/f005-guard/Program.cs#10158:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10141:des": {
+    "IMPL:native/f005-guard/Program.cs#10203:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10141:fun": {
+    "IMPL:native/f005-guard/Program.cs#10203:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10180:des": {
+    "IMPL:native/f005-guard/Program.cs#10242:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10180:fun": {
+    "IMPL:native/f005-guard/Program.cs#10242:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10217:des": {
+    "IMPL:native/f005-guard/Program.cs#10279:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10217:fun": {
+    "IMPL:native/f005-guard/Program.cs#10279:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10229:des": {
+    "IMPL:native/f005-guard/Program.cs#10291:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10229:fun": {
+    "IMPL:native/f005-guard/Program.cs#10291:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10254:des": {
+    "IMPL:native/f005-guard/Program.cs#10316:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10254:fun": {
+    "IMPL:native/f005-guard/Program.cs#10316:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10274:des": {
+    "IMPL:native/f005-guard/Program.cs#10336:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10274:fun": {
+    "IMPL:native/f005-guard/Program.cs#10336:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10286:des": {
+    "IMPL:native/f005-guard/Program.cs#10348:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10286:fun": {
+    "IMPL:native/f005-guard/Program.cs#10348:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10366:des": {
+    "IMPL:native/f005-guard/Program.cs#10428:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10366:fun": {
+    "IMPL:native/f005-guard/Program.cs#10428:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10575:des": {
+    "IMPL:native/f005-guard/Program.cs#10637:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10575:fun": {
+    "IMPL:native/f005-guard/Program.cs#10637:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10607:des": {
+    "IMPL:native/f005-guard/Program.cs#10669:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10607:fun": {
+    "IMPL:native/f005-guard/Program.cs#10669:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-017"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10681:des": {
+    "IMPL:native/f005-guard/Program.cs#10743:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10681:fun": {
+    "IMPL:native/f005-guard/Program.cs#10743:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10880:des": {
+    "IMPL:native/f005-guard/Program.cs#10951:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10880:fun": {
+    "IMPL:native/f005-guard/Program.cs#10951:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10940:des": {
+    "IMPL:native/f005-guard/Program.cs#11011:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#10940:fun": {
+    "IMPL:native/f005-guard/Program.cs#11011:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11042:des": {
+    "IMPL:native/f005-guard/Program.cs#11113:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11042:fun": {
+    "IMPL:native/f005-guard/Program.cs#11113:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11140:des": {
+    "IMPL:native/f005-guard/Program.cs#11211:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11140:fun": {
+    "IMPL:native/f005-guard/Program.cs#11211:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11220:des": {
+    "IMPL:native/f005-guard/Program.cs#11291:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11220:fun": {
+    "IMPL:native/f005-guard/Program.cs#11291:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11380:des": {
+    "IMPL:native/f005-guard/Program.cs#11451:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11380:fun": {
+    "IMPL:native/f005-guard/Program.cs#11451:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11491:des": {
+    "IMPL:native/f005-guard/Program.cs#11562:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11491:fun": {
+    "IMPL:native/f005-guard/Program.cs#11562:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11576:des": {
+    "IMPL:native/f005-guard/Program.cs#11647:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11576:fun": {
+    "IMPL:native/f005-guard/Program.cs#11647:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11661:des": {
+    "IMPL:native/f005-guard/Program.cs#11732:des": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:native/f005-guard/Program.cs#11661:fun": {
+    "IMPL:native/f005-guard/Program.cs#11732:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard/Program.cs",
       "refs": [
@@ -6307,6 +6307,20 @@
     "IMPL:native/f005-guard-tests/T142TargetSuite.cs#9:fun": {
       "type": "IMPL",
       "defined_in": "native/f005-guard-tests/T142TargetSuite.cs",
+      "refs": [
+        "FUN-F005-047"
+      ]
+    },
+    "IMPL:native/f005-guard-tests/T143TargetSuite.cs#10:des": {
+      "type": "IMPL",
+      "defined_in": "native/f005-guard-tests/T143TargetSuite.cs",
+      "refs": [
+        "DES-F005-006"
+      ]
+    },
+    "IMPL:native/f005-guard-tests/T143TargetSuite.cs#10:fun": {
+      "type": "IMPL",
+      "defined_in": "native/f005-guard-tests/T143TargetSuite.cs",
       "refs": [
         "FUN-F005-047"
       ]
@@ -10606,42 +10620,42 @@
         "FUN-F005-022"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#1044:des": {
+    "IMPL:src/content/f005-native-guard.ts#1049:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#1044:fun": {
+    "IMPL:src/content/f005-native-guard.ts#1049:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
         "FUN-F005-022"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#1436:des": {
+    "IMPL:src/content/f005-native-guard.ts#1441:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#1436:fun": {
+    "IMPL:src/content/f005-native-guard.ts#1441:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
         "FUN-F005-047"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#2055:des": {
+    "IMPL:src/content/f005-native-guard.ts#2060:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-native-guard.ts#2055:fun": {
+    "IMPL:src/content/f005-native-guard.ts#2060:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-native-guard.ts",
       "refs": [
