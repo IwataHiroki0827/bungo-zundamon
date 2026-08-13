@@ -2616,4 +2616,4 @@ tasks:
   mode: advisor
   mode_reason: bind先pathと候補集合の関係を認可せず固定分類し、ETW配送順に依存しない決定的hosted検証で影響確認するため
   model: {lead: opus, workers: sonnet}
-  progress: 固定6 codeとClassifyBoundPathRelationを実装しT-142 target suite 76 caseを追加。native1259、固定target57/43/74/52/76、103 code同期、typecheck、ESLint、再現build2回をPASS。自然経路run 31668142202は3 attempt未到達だがprobe run 31669520975で76/76・kernel ETW・Pages deploy skipを確認して完了
+  progress: 固定6 codeとClassifyBoundPathRelationを実装しT-142 target suite 76 caseを追加。native1259、固定target57/43/74/52/76、103 code同期、typecheck、ESLint、再現build2回をPASS。probe run 31669520975で76/76・kernel ETW・Pages deploy skipを確認。production run 31669864841 attempt 3で本軸OTHER_EVENT_DIRへ到達し、bind先がevent directory自身のhandleであることを確定して完了

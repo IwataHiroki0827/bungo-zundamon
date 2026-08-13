@@ -3,8 +3,8 @@ phase: change
 feature: F005
 updated: 2026-08-13T17:10:00+09:00
 next_actions:
-  - "production runを再生成し、bound other pathの実関係（候補CurrentPath＝FileObjectアカウント再利用の裏付けか否か）を確認する"
-  - "hosted結果に応じてCHG-F005-071を起票する"
+  - "CHG-F005-071でdirectory scope eventとactive-directory handoff経路の関係を固定分類し、file lease比較へ流している評価順の是非を判断する"
+  - "上記は認可経路の設計判断を含むため、着手前にオーナー確認を推奨する"
   - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める（現状Pages workflowがfeature/F005で失敗し続ける）"
   - "公開中のcontent/licenses.jsonはvalidUntil 2026-08-18で失効する。権利条件を再確認して更新する（法的判断が必要）"
 blocked_by: []
@@ -60,7 +60,7 @@ blocked_by: []
 - commit `7e3388d`のhosted production run `31124038599`はGitHub Actions major outage中にjob step未生成のまま基盤cancelとなった。rerun要求は受理されたが約13時間job未生成で、APIもcancelを`Cannot cancel a workflow re-run that has not yet queued`として409拒否した。workflow自己pathだけを更新したcommit `9c6fd375`をpushして新run生成を再要求し、実装・認可条件・`public/`・`data/`は変更していない。
 - CHG-F005-056〜068（T-130〜T-140）でactive-directory候補多重性、no-lease seal集合、post-upper binding proof、parent ledger stateを順次固定診断へ分離した。hosted run `31623037336` attempt 2でCHG-F005-068の目標軸`...POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_MISMATCH`へ到達し、T-140の影響確認を完了した。
 - CHG-F005-069/T-141で、parentがledger Boundかつphase・親path・予約順を満たすlate eventのFileObjectがactive lease FileObjectと異なる場合を、ledger関係の固定7 code（entry missing/unbound、bound same/other path、retired same/other path、other state、lookup invalid）へ分離した。native 1203件、固定target 57/43/74/52、外部code 90→97同期、typecheck、ESLint、同一SHA再現build 2回をPASSし、認可・容量actual・候補保存・公開条件と`public/`・`data/`は変更していない。
-- CHG-F005-070/T-142で、bind先pathとevent directory・候補seal集合の関係を固定6 code（event directory、候補CurrentPath、候補ParentPath、同一親配下file、別親配下、関係invalid）へ分離した。自然経路のproduction run `31668142202`は3 attemptとも既知経路で安全停止し本軸へ未到達だったため、CHG-F005-052〜055の型に従いread-only固定76 case suite（T-142）を追加してhosted native probeのselectorを切り替えた。run `31669520975`が76/76、kernel ETW pass、native binary SHA一致、Pages deploy `skipped`、candidate branch不存在をPASSし、決定的な影響確認を完了した。
+- CHG-F005-070/T-142で、bind先pathとevent directory・候補seal集合の関係を固定6 code（event directory、候補CurrentPath、候補ParentPath、同一親配下file、別親配下、関係invalid）へ分離した。自然経路のproduction run `31668142202`は3 attemptとも既知経路で安全停止し本軸へ未到達だったため、CHG-F005-052〜055の型に従いread-only固定76 case suite（T-142）を追加してhosted native probeのselectorを切り替えた。run `31669520975`が76/76、kernel ETW pass、native binary SHA一致、Pages deploy `skipped`、candidate branch不存在をPASSし、決定的な影響確認を完了した。続くproduction run `31669864841` attempt 3が本軸 `...PARENT_BOUND_EVENT_FO_OTHER_EVENT_DIR` へ到達し、late eventのFileObjectが**event directory自身へbindされたdirectory handle**であることを確定した。これによりFILE_OBJECTアドレス再利用の仮説は否定され、停止の実体は「directory scopeのSystem eventをfile leaseのFileObject一致で評価している」評価順の問題であると判明した。
 - テスト健全性を是正した。notices fixtureの`validUntil`が2026-08-01で失効し`CREDITS_POLICY_STALE`で6件失敗していたため未来日付へ移した（失効経路は明示値で検証継続）。rehydrate改変検知テストの5秒既定タイムアウトを同ファイル他重量テストと同じ30秒へ揃えた。フルスイートの残存失敗は並列実行時のリソース競合によるflakyで、`--maxWorkers=2`では1289/1290 PASSを確認した。
 - 収録作品は作者ページを描画するたびに全件閉じた状態から開始し、ページ遷移後に戻った場合も閉じる回帰試験がPASSしている。
 - F003は太宰治「女生徒」「走れメロス」「グッド・バイ」を小さい作業単位から順に追加する。

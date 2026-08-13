@@ -662,7 +662,7 @@ describe('published遷移transaction [DES-F002-002][DES-F002-015][DES-F002-016][
     });
   });
 
-  // @des DES-F004-021 @fun FUN-F002-037 @test UT-F004-021
+  // @des DES-F004-013 @fun FUN-F002-037 @test UT-F004-021
   it('F004の公開6 routeを同一candidateへ結合してpublishedへ記録する', async () => {
     const input = await publishFixture(f004AcceptedFixture());
     const result = await recordPublishedBatch(
