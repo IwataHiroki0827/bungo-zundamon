@@ -2075,6 +2075,7 @@ export function validateF005CapacityJournalV3(
 ): CapacityJournalV3 {
   if (!record(value) || !exactKeys(value, [
     'candidateSha256',
+    'capacitySamples',
     'closedSeal',
     'etwSessionIdentity',
     'initialFreeBytes',
@@ -2241,9 +2242,31 @@ export function validateF005CapacityJournalV3(
     recomputedPeak = Math.max(recomputedPeak, Number(observation.liveBytes));
     recomputedMinimum = Math.min(recomputedMinimum, Number(observation.freeBytesAvailable));
   }
-  if (observationBySequence.size === 0 ||
-    value.closedSeal.firstEtwSequence !== 1 ||
-    value.closedSeal.lastEtwSequence !== observationBySequence.size ||
+  // CHG-F005-072: 容量actualはETW observationではなく明示サンプリングを正とする。
+  // 事後検証契約ではobservationが疎または皆無になりうるため。
+  if (!Array.isArray(value.capacitySamples) || value.capacitySamples.length === 0) {
+    return fail('F005_CAPACITY_JOURNAL_INVALID', '容量サンプルがありません');
+  }
+  let expectedSampleSequence = 1;
+  for (const sample of value.capacitySamples) {
+    if (!record(sample) ||
+      !exactKeys(sample, ['freeBytesAvailable', 'liveBytes', 'reason', 'sequence']) ||
+      Number(sample.sequence) !== expectedSampleSequence ||
+      !safeInteger(sample.liveBytes) || Number(sample.liveBytes) < 0 ||
+      !safeInteger(sample.freeBytesAvailable) || Number(sample.freeBytesAvailable) < 0 ||
+      !/^[a-z][a-z-]{0,31}$/u.test(String(sample.reason))) {
+      return fail('F005_CAPACITY_JOURNAL_INVALID', '容量サンプルが不正です');
+    }
+    expectedSampleSequence += 1;
+    recomputedPeak = Math.max(recomputedPeak, Number(sample.liveBytes));
+    recomputedMinimum = Math.min(recomputedMinimum, Number(sample.freeBytesAvailable));
+  }
+  // observationが存在する場合だけETW sequenceの整合を要求する。
+  const etwPresent = observationBySequence.size !== 0;
+  if ((etwPresent && (value.closedSeal.firstEtwSequence !== 1 ||
+    value.closedSeal.lastEtwSequence !== observationBySequence.size)) ||
+    (!etwPresent && (value.closedSeal.firstEtwSequence !== 0 ||
+      value.closedSeal.lastEtwSequence !== 0)) ||
     value.peakLiveBytes !== recomputedPeak ||
     value.minimumObservedFreeBytes !== recomputedMinimum) {
     return fail('F005_CAPACITY_JOURNAL_INVALID', 'ETW sequenceまたは容量集計が不正です');

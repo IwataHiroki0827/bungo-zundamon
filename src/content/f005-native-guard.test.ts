@@ -694,6 +694,10 @@ function validJournal(): Record<string, unknown> {
   };
   const body = {
     candidateSha256: 'b'.repeat(64),
+    // CHG-F005-072: 容量actualは明示サンプリングを正とする。
+    capacitySamples: [
+      { freeBytesAvailable: 90_000, liveBytes: 4096, reason: 'notice', sequence: 1 },
+    ],
     etwSessionIdentity: 'F005Capacity-fixture',
     initialFreeBytes: 100_000,
     jobIdentity: 'f005-job-fixture',

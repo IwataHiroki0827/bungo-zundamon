@@ -1277,6 +1277,10 @@ sealed class CapacityGuardSession : IDisposable
     private long noticeSequence;
     private long peakLiveBytes;
     private long minimumObservedFreeBytes;
+    // CHG-F005-072: 容量actualはETW observationではなく明示サンプリングで供給する。
+    // 事後検証契約ではobservationが疎または皆無になりうるため。
+    private readonly List<CapacitySample> capacitySamples = [];
+    private const int MaxCapacitySamples = 4096;
     private int? rootWorkerPid;
     private Process? rootWorkerProcess;
     private ulong? rootWorkerStartKey;
@@ -3031,6 +3035,7 @@ sealed class CapacityGuardSession : IDisposable
         // 帰属不能なカーネルeventが尽きず、全event帰属を要求する常時監視は収束しない。
         // 宣言はここで受理し、書込み健全性はphase前後の実測差分で証明する。
         if (record.State != "matched") record.Declare();
+        RecordCapacitySampleLocked("notice");
         if (pendingWriteLease is { } writeLease &&
             writeLease.WorkerPid == record.WorkerPid &&
             writeLease.ProcessSequenceNumber == record.ProducerSequenceNumber &&
@@ -3258,20 +3263,32 @@ sealed class CapacityGuardSession : IDisposable
             if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
                 throw new GuardException("ROOT_PID_NOT_RUNNING");
             AssertRegisteredProcessesContained();
+            RecordCapacitySampleLocked("close");
         }
         StopEtw();
         lock (gate)
         {
             if (!RootWorkerAliveLocked(rootWorkerPid ?? -1))
                 throw new GuardException("ROOT_PID_NOT_RUNNING");
-            if (etwSession.EventsLost != 0) throw new GuardException("ETW_BUFFER_LOSS");
+            // CHG-F005-072: StopEtw後のsessionアクセスは
+            // ERROR_WMI_INSTANCE_NOT_FOUNDを投げうる。ETWは健全性の根拠ではないため
+            // 取得できた場合だけbuffer lossを見る。
+            try
+            {
+                if (etwSession.EventsLost != 0) throw new GuardException("ETW_BUFFER_LOSS");
+            }
+            catch (GuardException) { throw; }
+            catch { }
             if (failureCode is not null) throw new GuardException(failureCode);
-            if (observations.Count == 0) throw new GuardException("ETW_OBSERVATION_MISSING");
+            // observationはETW配送に依存するため存在を要求しない。
+            // 存在する場合だけ連番性を検査する。
             var expected = 1L;
             foreach (var observation in observations)
             {
                 if (observation.EtwSequence != expected++) throw new GuardException("ETW_SEQUENCE_GAP");
             }
+            if (capacitySamples.Count == 0)
+                throw new GuardException("F005_CAPACITY_SAMPLE_MISSING");
             PersistJournal(closed: true);
             journalClosed = true;
             job.DisarmAfterSuccessfulClose();
@@ -3279,8 +3296,9 @@ sealed class CapacityGuardSession : IDisposable
                 ok = true,
                 state = "closed",
                 journalSha256 = Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(journalPath))),
-                firstEtwSequence = observations[0].EtwSequence,
-                lastEtwSequence = observations[^1].EtwSequence,
+                firstEtwSequence = observations.Count == 0 ? 0L : observations[0].EtwSequence,
+                lastEtwSequence = observations.Count == 0 ? 0L : observations[^1].EtwSequence,
+                capacitySampleCount = capacitySamples.Count,
             };
         }
     }
@@ -6883,6 +6901,7 @@ sealed class CapacityGuardSession : IDisposable
     private SortedDictionary<string, object?> JournalBody() =>
         new(StringComparer.Ordinal) {
             ["candidateSha256"] = CandidateSha256,
+            ["capacitySamples"] = capacitySamples.Select(item => item.ToJournal()).ToArray(),
             ["etwSessionIdentity"] = EtwSessionIdentity,
             ["initialFreeBytes"] = InitialFreeBytes,
             ["jobIdentity"] = JobIdentity,
@@ -6927,6 +6946,38 @@ sealed class CapacityGuardSession : IDisposable
     private void ThrowIfClosed()
     {
         if (journalClosed) throw new GuardException("CAPACITY_SESSION_CLOSED");
+    }
+
+    private sealed record CapacitySample(
+        long Sequence,
+        string Reason,
+        long LiveBytes,
+        long FreeBytesAvailable)
+    {
+        public SortedDictionary<string, object?> ToJournal() =>
+            new(StringComparer.Ordinal) {
+                ["freeBytesAvailable"] = FreeBytesAvailable,
+                ["liveBytes"] = LiveBytes,
+                ["reason"] = Reason,
+                ["sequence"] = Sequence,
+            };
+    }
+
+    /// <summary>
+    /// CHG-F005-072: 現在のlive bytesと空き容量を明示的に採取し、
+    /// peak/minimumへ反映してjournalへ残す。ETWに依存しない容量actualの供給源。
+    /// </summary>
+    private void RecordCapacitySampleLocked(string reason)
+    {
+        if (capacitySamples.Count >= MaxCapacitySamples) return;
+        long free;
+        try { free = ReadFreeBytes(root); }
+        catch { return; }
+        var live = CurrentLiveBytes();
+        peakLiveBytes = Math.Max(peakLiveBytes, live);
+        minimumObservedFreeBytes = Math.Min(minimumObservedFreeBytes, free);
+        capacitySamples.Add(new CapacitySample(
+            capacitySamples.Count + 1, reason, live, free));
     }
 
     private long CurrentLiveBytes()
