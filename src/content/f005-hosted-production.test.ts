@@ -63,7 +63,7 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
       '# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.',
     );
     expect(raw).toContain(
-      '# This self-path verifies the CHG-F005-072 postcondition contract with per-key seal hashes.',
+      '# This self-path verifies the CHG-F005-072 postcondition contract emitting seal divergence.',
     );
     expect(workflow.on.push).toEqual({
       branches: ['feature/F005'],

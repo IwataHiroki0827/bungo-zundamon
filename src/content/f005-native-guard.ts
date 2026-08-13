@@ -2261,15 +2261,32 @@ export function validateF005CapacityJournalV3(
     // 表現が食い違うkeyを一意に特定する。key名は固定識別子である。
     const perKey = value.bodyKeySha256;
     if (record(perKey)) {
+      const divergence: Record<string, { native: string; ts: string; length: number }> = {};
       for (const [key, expected] of Object.entries(perKey)) {
         if (key === 'bodyKeySha256') continue;
-        const actual = sha256(canonicalJson({ [key]: body[key] }));
-        if (actual !== expected) {
-          return fail(
-            `F005_NATIVE_JOURNAL_SEAL_${key.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
-            'journal body keyの正規化表現が一致しません',
-          );
+        const canonical = canonicalJson({ [key]: body[key] });
+        const actual = sha256(canonical);
+        if (actual !== String(expected)) {
+          divergence[key] = {
+            native: String(expected),
+            ts: actual,
+            length: canonical.length,
+          };
         }
+      }
+      const keys = Object.keys(divergence);
+      if (keys.length !== 0) {
+        // CHG-F005-072: hexとlengthのみの診断。生pathや値は含まない。
+        process.stderr.write(`F005_SEAL_DEBUG_BASE64=${Buffer.from(JSON.stringify({
+          divergedKeys: keys,
+          totalKeys: Object.keys(perKey).length,
+          detail: divergence,
+        })).toString('base64')}
+`);
+        return fail(
+          `F005_NATIVE_JOURNAL_SEAL_${keys[0]!.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
+          'journal body keyの正規化表現が一致しません',
+        );
       }
     }
     return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');
