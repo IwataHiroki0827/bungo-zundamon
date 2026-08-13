@@ -2342,6 +2342,15 @@ export function validateF005CapacityJournalV3(
   const body = Object.fromEntries(Object.entries(value)
     .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
+    // CHG-F005-072: 新規追加したcapacitySamplesが原因かを1ビットで切り分ける。
+    const withoutSamples = Object.fromEntries(Object.entries(body)
+      .filter(([key]) => key !== 'capacitySamples'));
+    if (sha256(canonicalJson(withoutSamples)) === value.closedSeal.journalBodySha256) {
+      return fail(
+        'F005_NATIVE_JOURNAL_BODY_SEAL_SAMPLES',
+        'journal body sealがcapacitySamples抜きで一致します',
+      );
+    }
     return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');
   }
   return Object.freeze(value) as unknown as CapacityJournalV3;
