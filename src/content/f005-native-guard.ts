@@ -2075,6 +2075,7 @@ export function validateF005CapacityJournalV3(
 ): CapacityJournalV3 {
   if (!record(value) || !exactKeys(value, [
     'candidateSha256',
+    'bodyKeySha256',
     'capacitySamples',
     'closedSeal',
     'etwSessionIdentity',
@@ -2256,16 +2257,19 @@ export function validateF005CapacityJournalV3(
   const body = Object.fromEntries(Object.entries(value)
     .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
-    // CHG-F005-072: どのkeyの表現差が原因かを機械的に特定する。
-    // key名は固定識別子であり生pathを含まない。
-    for (const key of Object.keys(body)) {
-      const without = Object.fromEntries(Object.entries(body)
-        .filter(([item]) => item !== key));
-      if (sha256(canonicalJson(without)) === value.closedSeal.journalBodySha256) {
-        return fail(
-          `F005_NATIVE_JOURNAL_SEAL_${key.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
-          'journal body sealが特定keyの除外で一致します',
-        );
+    // CHG-F005-072: nativeが出したkey別canonical SHAと突き合わせ、
+    // 表現が食い違うkeyを一意に特定する。key名は固定識別子である。
+    const perKey = value.bodyKeySha256;
+    if (record(perKey)) {
+      for (const [key, expected] of Object.entries(perKey)) {
+        if (key === 'bodyKeySha256') continue;
+        const actual = sha256(canonicalJson({ [key]: body[key] }));
+        if (actual !== expected) {
+          return fail(
+            `F005_NATIVE_JOURNAL_SEAL_${key.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
+            'journal body keyの正規化表現が一致しません',
+          );
+        }
       }
     }
     return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');

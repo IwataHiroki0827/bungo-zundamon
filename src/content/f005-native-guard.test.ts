@@ -731,12 +731,18 @@ function validJournal(): Record<string, unknown> {
     sessionNonce: SHA,
     workId: '000799',
   };
-  return {
+  // CHG-F005-072: nativeと同じくkey別canonical SHAをbodyへ含める。
+  const sealed = {
     ...body,
+    bodyKeySha256: Object.fromEntries(Object.entries(body)
+      .map(([key, item]) => [key, hash(canonicalJson({ [key]: item }))])),
+  };
+  return {
+    ...sealed,
     closedSeal: {
       etwSequenceGapCount: 0,
       firstEtwSequence: 1,
-      journalBodySha256: hash(canonicalJson(body)),
+      journalBodySha256: hash(canonicalJson(sealed)),
       lastEtwSequence: 1,
       producerBinarySha256: PRODUCER_SHA,
     },
