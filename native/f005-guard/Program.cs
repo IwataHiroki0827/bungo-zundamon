@@ -1763,8 +1763,10 @@ sealed class CapacityGuardSession : IDisposable
                             }
                             catch (Exception error)
                             {
-                                Poison($"CAPACITY_GUARD_FAILURE_{error.HResult:x8}");
-                                reply = Error("CAPACITY_GUARD_FAILURE");
+                                // CHG-F005-072: HResultは生pathを含まない固定値なので
+                                // 応答にも載せ、想定外例外の種別を特定可能にする。
+                                Poison($"CAPACITY_GUARD_FAILURE_{error.HResult:X8}");
+                                reply = Error($"CAPACITY_GUARD_FAILURE_{error.HResult:X8}");
                             }
                         }
                         await writer.WriteLineAsync(JsonSerializer.Serialize(reply)).ConfigureAwait(false);
