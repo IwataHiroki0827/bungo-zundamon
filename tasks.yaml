@@ -2627,4 +2627,4 @@ tasks:
   mode: advisor
   mode_reason: directory自身へBoundなFileObjectの再利用・削除・cleanup状態を認可せず固定分類し、次の認可判断の根拠を得るため
   model: {lead: opus, workers: sonnet}
-  progress: 固定5 codeとMatchEventDirectoryBindingを実装。native1286、固定target57/43/74/52/76、108 code同期、Vitest1290、typecheck、ESLint、再現build2回をPASS。自然経路run 31672315764は3 attemptともCONTEXT_MISSINGで未到達。決定的hosted相関suiteの追加待ち
+  progress: 固定5 codeとMatchEventDirectoryBindingを実装しT-143 target suite 64 caseを追加。native1286、固定target57/43/74/52/76/64、108 code同期、Vitest1290、typecheck、ESLint、再現build2回をPASS。probe run 31673644030で64/64・kernel ETW・Pages deploy skipを確認。実binding状態は計6 attemptで本軸未到達のため観測継続

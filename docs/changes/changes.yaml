@@ -5,7 +5,7 @@ changes:
   level: design
   affected: [CHG-F005-070, T-142, T-143]
   status: in-review
-  result: directory bindingのReused/DeleteSeen/CleanupSeen/Liveを固定5 codeへ分離しlocal検証PASS。native1286、108 code、Vitest1290、再現build2回。自然経路run 31672315764は3 attemptともCONTEXT_MISSINGで未到達のため決定的hosted相関suiteを次サイクルで追加する
+  result: directory bindingのReused/DeleteSeen/CleanupSeen/Liveを固定5 codeへ分離しlocal検証PASS。native1286、108 code、Vitest1290、再現build2回。決定的hosted相関run 31673644030で64/64・kernel ETW・Pages deploy skipをPASS。実binding状態はrun 31672315764・31673835350の計6 attemptで本軸未到達のため未判別
 - id: CHG-F005-070
   date: '2026-08-13'
   trigger: CHG-F005-069 hosted run 31666533719 attempt 1がBOUND_OTHER_PATHで安全停止
