@@ -2178,75 +2178,15 @@ export function validateF005CapacityJournalV3(
     return fail('F005_NATIVE_JOURNAL_PHASE_OPEN', 'phase recordが閉じていません');
   }
 
-  const observationBySequence = new Map<number, Record<string, unknown>>();
-  let expectedEtwSequence = 1;
-  let recomputedPeak = 0;
-  let recomputedMinimum = Number(value.initialFreeBytes);
-  for (const observation of value.observations) {
-    if (!record(observation)) {
-      return fail('F005_NATIVE_JOURNAL_OBSERVATION', 'ETW observation列が不正です');
-    }
-    const event = String(observation.event);
-    const expectedObservationKeys = event === 'rename'
-      ? [
-          'allocatedDeltaBytes', 'allocatedLengthBytes', 'etwSequence', 'event',
-          'fileId128', 'freeBytesAvailable', 'freeBytesTotal', 'from', 'liveBytes',
-          'logicalLengthBytes', 'noticeSequence', 'observedAt', 'phase',
-          'phaseInstanceId', 'producer', 'producerBinarySha256', 'sha256', 'to',
-          'volumeId', 'workId', 'workerPid',
-        ]
-      : [
-          'allocatedDeltaBytes', 'allocatedLengthBytes', 'etwSequence', 'event',
-          'fileId128', 'freeBytesAvailable', 'freeBytesTotal', 'liveBytes',
-          'logicalLengthBytes', 'noticeSequence', 'observedAt', 'path', 'phase',
-          'phaseInstanceId', 'producer', 'producerBinarySha256', 'sha256',
-          'volumeId', 'workId', 'workerPid',
-        ];
-    const phaseBinding = phaseInstances.get(String(observation.phaseInstanceId));
-    if (!exactKeys(observation, expectedObservationKeys) ||
-      !safeInteger(observation.etwSequence) ||
-      observation.etwSequence !== expectedEtwSequence++ ||
-      !safeInteger(observation.workerPid) ||
-      Number(observation.workerPid) <= 0 ||
-      !value.registeredWorkerPids.includes(observation.workerPid) ||
-      !PHASES.has(String(observation.phase)) ||
-      !SHA256.test(String(observation.phaseInstanceId)) ||
-      !safeInteger(observation.logicalLengthBytes) ||
-      !safeInteger(observation.allocatedLengthBytes) ||
-      !Number.isSafeInteger(observation.allocatedDeltaBytes) ||
-      !safeInteger(observation.liveBytes) ||
-      !safeInteger(observation.freeBytesAvailable) ||
-      !safeInteger(observation.freeBytesTotal) ||
-      Number(observation.freeBytesAvailable) > Number(observation.freeBytesTotal) ||
-      !safeString(observation.volumeId) ||
-      !safeString(observation.fileId128) ||
-      typeof observation.observedAt !== 'string' ||
-      !Number.isFinite(Date.parse(observation.observedAt)) ||
-      (observation.noticeSequence !== null &&
-        (!safeInteger(observation.noticeSequence) || Number(observation.noticeSequence) <= 0)) ||
-      (observation.sha256 !== null && !SHA256.test(String(observation.sha256))) ||
-      (observation.workId !== null && !WORK_IDS.has(String(observation.workId))) ||
-      !phaseBinding ||
-      phaseBinding.phase !== observation.phase ||
-      phaseBinding.workId !== observation.workId ||
-      observation.producer !== 'f005-native-guard' ||
-      observation.producerBinarySha256 !== value.closedSeal.producerBinarySha256 ||
-      !['create', 'write', 'setinfo', 'rename', 'delete'].includes(event) ||
-      (event === 'rename'
-        ? !safeRelativePath(observation.from) || !safeRelativePath(observation.to)
-        : !safeRelativePath(observation.path))) {
-      return fail('F005_NATIVE_JOURNAL_OBSERVATION', 'ETW observation列が不正です');
-    }
-    const sequence = Number(observation.etwSequence);
-    observationBySequence.set(sequence, observation);
-    recomputedPeak = Math.max(recomputedPeak, Number(observation.liveBytes));
-    recomputedMinimum = Math.min(recomputedMinimum, Number(observation.freeBytesAvailable));
-  }
-  // CHG-F005-072: 容量actualはETW observationではなく明示サンプリングを正とする。
-  // 事後検証契約ではobservationが疎または皆無になりうるため。
+  // CHG-F005-072: ETW observationは診断であり正当性の根拠ではない。
+  // poisonしなくなった結果、分類できないカーネルeventが素通りするため
+  // 内容を検証せず、容量actualにも用いない。
+  // 容量actualは明示サンプリング（capacitySamples）だけを正とする。
   if (!Array.isArray(value.capacitySamples) || value.capacitySamples.length === 0) {
     return fail('F005_NATIVE_JOURNAL_SAMPLE_MISSING', '容量サンプルがありません');
   }
+  let sampledPeak = 0;
+  let sampledMinimum = Number(value.initialFreeBytes);
   let expectedSampleSequence = 1;
   for (const sample of value.capacitySamples) {
     if (!record(sample) ||
@@ -2258,19 +2198,16 @@ export function validateF005CapacityJournalV3(
       return fail('F005_NATIVE_JOURNAL_SAMPLE_INVALID', '容量サンプルが不正です');
     }
     expectedSampleSequence += 1;
-    recomputedPeak = Math.max(recomputedPeak, Number(sample.liveBytes));
-    recomputedMinimum = Math.min(recomputedMinimum, Number(sample.freeBytesAvailable));
+    sampledPeak = Math.max(sampledPeak, Number(sample.liveBytes));
+    sampledMinimum = Math.min(sampledMinimum, Number(sample.freeBytesAvailable));
   }
-  // CHG-F005-072: ETW observationは診断であり連番性を要求しない。
-  // 容量actualは明示サンプリングとobservationの両系列から導出する。
-  if (value.peakLiveBytes !== recomputedPeak ||
-    value.minimumObservedFreeBytes !== recomputedMinimum) {
+  if (value.peakLiveBytes !== sampledPeak ||
+    value.minimumObservedFreeBytes !== sampledMinimum) {
     return fail('F005_NATIVE_JOURNAL_AGGREGATE', '容量集計が不正です');
   }
 
   let expectedNoticeSequence = 1;
   const noticeIds = new Set<string>();
-  const matchedObservationSequences = new Set<number>();
   for (const envelope of value.notices) {
     if (!record(envelope) || !exactKeys(envelope, [
       'notice',
@@ -2312,27 +2249,8 @@ export function validateF005CapacityJournalV3(
       return fail('F005_NATIVE_JOURNAL_NOTICE_PAYLOAD', 'notice payload列が不正です');
     }
     noticeIds.add(String(envelope.notice.noticeId));
-    for (const sequence of envelope.observationSequences) {
-      const observation = observationBySequence.get(Number(sequence));
-      if (!observation || matchedObservationSequences.has(Number(sequence)) ||
-        observation.noticeSequence !== envelope.noticeSequence ||
-        observation.workerPid !== envelope.workerPid ||
-        observation.phase !== envelope.notice.phase ||
-        observation.phaseInstanceId !== envelope.notice.phaseInstanceId ||
-        observation.event !== envelope.notice.event ||
-        (noticeEvent === 'rename'
-          ? observation.from !== envelope.notice.from ||
-            observation.to !== envelope.notice.to
-          : observation.path !== envelope.notice.path)) {
-        return fail('F005_NATIVE_JOURNAL_NOTICE_JOIN', 'noticeとETW observationの結合が不正です');
-      }
-      matchedObservationSequences.add(Number(sequence));
-    }
-  }
-  if ([...observationBySequence.values()].some((observation) =>
-    observation.noticeSequence !== null &&
-    !matchedObservationSequences.has(Number(observation.etwSequence)))) {
-    return fail('F005_NATIVE_JOURNAL_OBSERVATION_UNJOINED', 'notice付きETW observationが未結合です');
+    // CHG-F005-072: noticeとETW observationの結合は要求しない。
+    // 宣言と実測差分のexact一致が健全性の根拠である。
   }
 
   const body = Object.fromEntries(Object.entries(value)

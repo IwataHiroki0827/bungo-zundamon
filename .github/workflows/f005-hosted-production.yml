@@ -1,7 +1,7 @@
 name: F005 hosted production candidate
 
 # Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete. Retry after event-FO diagnostic.
-# This self-path verifies the CHG-F005-072 postcondition contract without etw sequence rules.
+# This self-path verifies the CHG-F005-072 postcondition contract with diagnostic observations.
 on:
   push:
     branches:

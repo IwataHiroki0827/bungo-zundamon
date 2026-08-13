@@ -6902,7 +6902,6 @@ sealed class CapacityGuardSession : IDisposable
     private long PersistedPeakLiveBytes()
     {
         var peak = 0L;
-        foreach (var item in observations) peak = Math.Max(peak, item.LiveBytes);
         foreach (var item in capacitySamples) peak = Math.Max(peak, item.LiveBytes);
         return peak;
     }
@@ -6910,8 +6909,6 @@ sealed class CapacityGuardSession : IDisposable
     private long PersistedMinimumFreeBytes()
     {
         var minimum = InitialFreeBytes;
-        foreach (var item in observations)
-            minimum = Math.Min(minimum, item.FreeBytesAvailable);
         foreach (var item in capacitySamples)
             minimum = Math.Min(minimum, item.FreeBytesAvailable);
         return minimum;
