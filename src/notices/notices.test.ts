@@ -17,7 +17,10 @@ import type { UICatalogV2 } from '../ui/types';
 const HASH_A = 'a'.repeat(64);
 const HASH_B = 'b'.repeat(64);
 const CHECKED_AT = '2026-07-01T00:00:00Z';
-const VALID_UNTIL = '2026-08-01T00:00:00Z';
+// renderCreditsV2は注入clockを持たずDate.now()で有効期限を検査するため、
+// 近い固定日付にすると経過後にfixture側が期限切れになりテストが壊れる。
+// 期限切れ経路は個別テストが明示的な過去日付を渡して検証する。
+const VALID_UNTIL = '2099-01-01T00:00:00Z';
 
 interface MutableArtworkBundleFixture {
   schemaVersion: string;

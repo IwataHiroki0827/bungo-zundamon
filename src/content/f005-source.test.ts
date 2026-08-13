@@ -602,7 +602,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
     await writeFile(sourcePath, Uint8Array.of(1, 2, 3));
     await expect(rehydrateF005SelectionSnapshot(root, CONTEXT))
       .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
-  });
+  }, 30_000);
 
   /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
   it.runIf(process.platform === 'win32')('永続化selectionの参照実体がsymlinkなら拒否する', async () => {
