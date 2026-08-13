@@ -662,6 +662,11 @@ export function isF005SystemBoundFileObjectRenameLeasePathRejoinDiagnosticCode(
 }
 
 export type F005NativeCapacityErrorCode =
+  /**
+   * CHG-F005-072: nativeのGuardExceptionは全て固定識別子（生pathを含まない）なので、
+   * 未分類でもそのまま透過して停止理由を自己記述的にする。
+   */
+  | `F005_NATIVE_${string}`
   | F005SystemSetInfoDiagnosticCode
   | F005SystemSetInfoCorrelationDiagnosticCode
   | F005CompletedWriteRejoinDiagnosticCode
@@ -952,6 +957,10 @@ export function classifyF005NativeCapacityReplyError(value: unknown): F005Native
   }
   if (typeof value === 'string' && value.startsWith('ETW_')) {
     return 'F005_CAPACITY_ETW_OBSERVATION_FAILED';
+  }
+  // 固定識別子ならそのまま透過する。catch-allへ潰すと停止理由が失われる。
+  if (typeof value === 'string' && /^[A-Z][A-Z0-9_]{0,127}$/u.test(value)) {
+    return `F005_NATIVE_${value}` as const;
   }
   return 'F005_CAPACITY_GUARD_REJECTED';
 }

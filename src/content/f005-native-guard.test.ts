@@ -213,7 +213,13 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'F005_WRITE_LEASE_PRODUCER_BIRTH_TIMEOUT'.padEnd(128, 'X'),
   ]) {
     expect(isF005WriteLeaseProducerBirthFailureCode(code)).toBe(false);
+    // CHG-F005-072: 固定識別子は型付きcodeへ誤認せず、F005_NATIVE_接頭辞で透過する。
     expect(classifyF005NativeCapacityReplyError(code))
+      .toBe(`F005_NATIVE_${code}`);
+  }
+  // 固定識別子でない値だけがcatch-allへ落ちる。
+  for (const value of ['lower_case', 'has space', '9LEADING', '', 42, null, {}]) {
+    expect(classifyF005NativeCapacityReplyError(value))
       .toBe('F005_CAPACITY_GUARD_REJECTED');
   }
   for (const code of [
@@ -230,8 +236,9 @@ it('native reply自由文字列を固定capacity error codeへ分類する', () 
     'F005_ETW_WRITE_COMPLETION_DRAIN_TIMEOUT'.padEnd(128, 'X'),
   ]) {
     expect(isF005WriteCompletionDrainFailureCode(code)).toBe(false);
+    // CHG-F005-072: 型付きcodeへは誤認せず、F005_NATIVE_接頭辞で透過する。
     expect(classifyF005NativeCapacityReplyError(code))
-      .toBe('F005_CAPACITY_GUARD_REJECTED');
+      .toBe(`F005_NATIVE_${code}`);
   }
   for (const stage of [
     'SNAPSHOT_MISSING',
