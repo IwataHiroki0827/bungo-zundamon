@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import {
   F005PostconditionError,
   foldF005Declarations,
+  normalizeF005DeclaredPath,
   scanF005Workspace,
   verifyF005Postconditions,
   type F005DeclaredMutation,
@@ -182,6 +183,58 @@ describe('F005事後検証 [CHG-F005-072][DES-F005-006][DES-F005-012][FUN-F005-0
     }
     await expect(scanF005Workspace(root, ['content']))
       .rejects.toMatchObject({ code: 'F005_POSTCONDITION_HARDLINK' });
+  });
+
+  it('voice pipelineの絶対path宣言をworkspace相対POSIXへ正規化する', async () => {
+    const root = await workspace();
+    expect(normalizeF005DeclaredPath(root, join(root, '.voice-stage-1', 'a.wav')))
+      .toBe('.voice-stage-1/a.wav');
+    expect(normalizeF005DeclaredPath(root, 'content/a.txt')).toBe('content/a.txt');
+    // workspace外・親参照・root自身は拒否する
+    expect(normalizeF005DeclaredPath(root, join(root, '..', 'escape'))).toBeNull();
+    expect(normalizeF005DeclaredPath(root, root)).toBeNull();
+    expect(normalizeF005DeclaredPath(root, '')).toBeNull();
+  });
+
+  it('directory宣言はfile entryを期待しない', () => {
+    const directory: F005DeclaredMutation = {
+      sequence: 1, kind: 'create', path: '.voice-stage-1',
+      targetPath: null, sha256: null, bytes: 0,
+    };
+    expect(() => verifyF005Postconditions(
+      snapshot({}), snapshot({ '.voice-stage-1/a.wav': 'a' }),
+      [directory, create(2, '.voice-stage-1/a.wav', 'a')],
+    )).not.toThrow();
+  });
+
+  it('走査範囲外への宣言を件数付きで拒否する', () => {
+    expect(() => verifyF005Postconditions(
+      snapshot({}), snapshot({}),
+      [create(1, 'node_modules/evil.js', 'x')],
+      ['content', 'data', 'public'],
+    )).toThrow(expect.objectContaining({
+      code: 'F005_POSTCONDITION_PATH_OUT_OF_SCOPE',
+      count: 1,
+    }));
+  });
+
+  it('voice phaseはstaging外を一切変更しないことを保証する', () => {
+    const baseline = snapshot({ 'public/content/catalog.json': 'v1' });
+    const tampered = snapshot({
+      'public/content/catalog.json': 'v2',
+      '.voice-stage-1/a.wav': 'a',
+    });
+    expect(() => verifyF005Postconditions(
+      baseline, tampered,
+      [
+        { sequence: 1, kind: 'create', path: '.voice-stage-1', targetPath: null, sha256: null, bytes: 0 },
+        create(2, '.voice-stage-1/a.wav', 'a'),
+      ],
+      ['content', 'data', 'public', '.voice-stage-1'],
+    )).toThrow(expect.objectContaining({
+      code: 'F005_POSTCONDITION_UNDECLARED_MODIFY',
+      count: 1,
+    }));
   });
 
   it('実走査とverifyを結合して宣言外書込みを検出する', async () => {

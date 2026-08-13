@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readdir, readFile, lstat } from 'node:fs/promises';
-import { join, posix, sep } from 'node:path';
+import { isAbsolute, join, posix, resolve, sep } from 'node:path';
 
 import type { Sha256 } from './batch.ts';
 
@@ -33,6 +33,7 @@ export type F005PostconditionCode =
   | 'F005_POSTCONDITION_NOTICE_INVALID'
   | 'F005_POSTCONDITION_REPARSE_POINT'
   | 'F005_POSTCONDITION_HARDLINK'
+  | 'F005_POSTCONDITION_PATH_OUT_OF_SCOPE'
   | 'F005_POSTCONDITION_SCAN_FAILED';
 
 export class F005PostconditionError extends Error {
@@ -73,6 +74,40 @@ function fail(code: F005PostconditionCode, count: number): never {
 
 function toPosix(value: string): string {
   return sep === '/' ? value : value.split(sep).join(posix.sep);
+}
+
+/**
+ * 宣言pathをworkspace相対POSIXへ正規化する。
+ * voice pipelineは絶対pathでmutationを宣言するため、走査結果と突き合わせる前に揃える。
+ * workspace外・親参照はnullを返し、呼出側がout-of-scopeとして扱う。
+ */
+export function normalizeF005DeclaredPath(
+  workspaceRoot: string,
+  declaredPath: string,
+): string | null {
+  if (typeof declaredPath !== 'string' || declaredPath.length === 0) return null;
+  const normalizedRoot = toPosix(resolve(workspaceRoot)).replace(/\/+$/u, '');
+  const normalized = toPosix(
+    isAbsolute(declaredPath) ? resolve(declaredPath) : resolve(workspaceRoot, declaredPath),
+  );
+  if (normalized === normalizedRoot) return null;
+  if (!normalized.startsWith(`${normalizedRoot}/`)) return null;
+  const relative = normalized.slice(normalizedRoot.length + 1);
+  if (relative.length === 0 || relative.split('/').some(
+    (segment) => segment === '..' || segment === '.' || segment.length === 0,
+  )) return null;
+  return relative;
+}
+
+/** directory宣言はsha256 nullかつbytes 0で表される。file entryを期待しない。 */
+function isDirectoryDeclaration(item: F005DeclaredMutation): boolean {
+  return item.kind === 'create' && item.sha256 === null && item.bytes === 0;
+}
+
+function isInsideScanRoots(relative: string, scanRoots: readonly string[]): boolean {
+  return scanRoots.some(
+    (root) => relative === root || relative.startsWith(`${root}/`),
+  );
 }
 
 /**
@@ -152,6 +187,7 @@ export function foldF005Declarations(
       !Number.isSafeInteger(item.bytes) || item.bytes < 0) {
       fail('F005_POSTCONDITION_NOTICE_INVALID', item.sequence);
     }
+    if (isDirectoryDeclaration(item)) continue;
     if (item.kind === 'delete') {
       expected.delete(item.path);
       continue;
@@ -189,7 +225,18 @@ export function verifyF005Postconditions(
   baseline: F005Snapshot,
   actual: F005Snapshot,
   declarations: readonly F005DeclaredMutation[],
+  scanRoots?: readonly string[],
 ): void {
+  if (scanRoots !== undefined) {
+    let outOfScope = 0;
+    for (const item of declarations) {
+      if (!isInsideScanRoots(item.path, scanRoots)) outOfScope += 1;
+      if (item.targetPath !== null && !isInsideScanRoots(item.targetPath, scanRoots)) {
+        outOfScope += 1;
+      }
+    }
+    if (outOfScope > 0) fail('F005_POSTCONDITION_PATH_OUT_OF_SCOPE', outOfScope);
+  }
   const expected = foldF005Declarations(baseline, declarations);
   const declaredPaths = new Set<string>();
   for (const item of declarations) {
