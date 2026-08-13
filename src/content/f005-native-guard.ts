@@ -2256,14 +2256,17 @@ export function validateF005CapacityJournalV3(
   const body = Object.fromEntries(Object.entries(value)
     .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
-    // CHG-F005-072: 新規追加したcapacitySamplesが原因かを1ビットで切り分ける。
-    const withoutSamples = Object.fromEntries(Object.entries(body)
-      .filter(([key]) => key !== 'capacitySamples'));
-    if (sha256(canonicalJson(withoutSamples)) === value.closedSeal.journalBodySha256) {
-      return fail(
-        'F005_NATIVE_JOURNAL_BODY_SEAL_SAMPLES',
-        'journal body sealがcapacitySamples抜きで一致します',
-      );
+    // CHG-F005-072: どのkeyの表現差が原因かを機械的に特定する。
+    // key名は固定識別子であり生pathを含まない。
+    for (const key of Object.keys(body)) {
+      const without = Object.fromEntries(Object.entries(body)
+        .filter(([item]) => item !== key));
+      if (sha256(canonicalJson(without)) === value.closedSeal.journalBodySha256) {
+        return fail(
+          `F005_NATIVE_JOURNAL_SEAL_${key.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
+          'journal body sealが特定keyの除外で一致します',
+        );
+      }
     }
     return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');
   }
