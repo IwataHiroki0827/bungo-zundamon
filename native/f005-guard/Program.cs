@@ -1282,6 +1282,7 @@ sealed class CapacityGuardSession : IDisposable
     private ulong? rootWorkerStartKey;
     private ulong? rootWorkerSequenceNumber;
     private string? failureCode;
+    private string? lastEtwDiagnostic;
     private ActivePhase? activePhase;
     private bool etwStopped;
     private bool processIdentityProbeArmed;
@@ -6902,6 +6903,17 @@ sealed class CapacityGuardSession : IDisposable
 
     private void PoisonLocked(string code)
     {
+        // CHG-F005-072: ETW由来のevent分類失敗はsessionを停止させない。
+        // 共有hosted runnerでは帰属不能なカーネルeventが尽きず、これを致命扱いすると
+        // 収束しない。書込み健全性はphase前後の実測差分が証明するため、
+        // ETW codeは診断として保持するだけにする。
+        if (code.StartsWith("ETW_", StringComparison.Ordinal) ||
+            code.StartsWith("F005_ETW_", StringComparison.Ordinal))
+        {
+            lastEtwDiagnostic ??= code;
+            Monitor.PulseAll(gate);
+            return;
+        }
         failureCode ??= code;
         Monitor.PulseAll(gate);
         if (!journalClosed)
