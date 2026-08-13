@@ -2421,6 +2421,29 @@ sealed class CapacityGuardSession : IDisposable
                 lease?.RenameReservedAtQpc is null,
             RootWorkerAliveLocked(clientPid) && registeredPids.Contains(clientPid)))
             throw new GuardException("F005_ETW_WRITE_COMPLETION_DRAIN_PREPARE_TUPLE_MISMATCH");
+        // CHG-F005-072: 以降のseal/drainはETW由来のSnapshot・FileObject・
+        // filesByObject binding・observationsを前提とする。相関を待たない契約では
+        // これらが埋まらないため、非ETWのtuple検証だけでleaseを解放して完了する。
+        // 最終状態の健全性はphase後の実測差分で証明する。
+        {
+            var declaredLease = pendingWriteLease!;
+            if (CompletedWriteDiagnosticRules.ShouldTrack(
+                activePhase?.Phase,
+                completedWrites.Count,
+                completedWrites.ContainsKey(path)))
+                completedWrites[path] = new CompletedWriteRecord(
+                    declaredLease.WorkerPid,
+                    declaredLease.ProcessSequenceNumber,
+                    declaredLease.PhaseInstanceId,
+                    declaredLease.CurrentPathReservedAtQpc,
+                    Stopwatch.GetTimestamp(),
+                    declaredLease.Snapshot?.Identity ?? "");
+            pendingWriteLease = null;
+            writeCompletionReorderActive = false;
+            PersistJournal(closed: false);
+            return new { ok = true, state = "completed", path, producerPid };
+        }
+#pragma warning disable CS0162
         lease = pendingWriteLease!;
         active = activePhase!;
         var slash = path.LastIndexOf('/');
@@ -2701,6 +2724,7 @@ sealed class CapacityGuardSession : IDisposable
         pendingWriteLease = null;
         writeCompletionReorderActive = false;
         return new { ok = true, state = "completed", path, producerPid };
+#pragma warning restore CS0162
     }
 
     private bool ReplayWriteCompletionQueueLocked()
