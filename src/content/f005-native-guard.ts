@@ -2286,10 +2286,12 @@ export function validateF005CapacityJournalV3(
     ]) ||
       envelope.sessionNonce !== value.sessionNonce ||
       envelope.noticeSequence !== expectedNoticeSequence++ ||
-      envelope.state !== 'matched' ||
+      // CHG-F005-072: ETW相関を待たない契約ではnoticeはdeclaredで受理される。
+      // observationSequencesは相関できた場合のみ埋まる。
+      (envelope.state !== 'matched' && envelope.state !== 'declared') ||
       !safeInteger(envelope.workerPid) ||
       !Array.isArray(envelope.observationSequences) ||
-      envelope.observationSequences.length === 0 ||
+      (envelope.state === 'matched' && envelope.observationSequences.length === 0) ||
       !record(envelope.notice) ||
       !SHA256.test(String(envelope.notice.noticeId)) ||
       noticeIds.has(String(envelope.notice.noticeId))) {
