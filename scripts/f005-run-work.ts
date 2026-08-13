@@ -6,7 +6,7 @@ import {
   realpath,
 } from 'node:fs/promises';
 import { request as requestHttp } from 'node:http';
-import { join, relative, resolve } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
@@ -71,6 +71,7 @@ import {
   startF005NativeCapacitySession,
   type F005NativeCapacityErrorCode,
 } from '../src/content/f005-native-guard.ts';
+import { F005_TRACKED_ROOTS } from '../src/content/f005-postcondition.ts';
 import {
   createF005CapacityRecorder,
   createF005NativeCapacityJournalReader,
@@ -880,10 +881,18 @@ async function main(): Promise<void> {
     sessionNonce: session.sessionNonce as Sha256,
     workerPid: session.workerPid,
   };
-  const voiceRecorder = createF005CapacityRecorder(identity, session.voiceBackend);
-  const acceptanceRecorder = createF005AcceptanceCapacityRecorder(identity, session.acceptanceBackend);
   const runRoot = join(workspace, '.cache', 'f005-run', session.journalId, workId);
   const voiceRoot = join(workspace, '.cache', `f005-voice-${workId}-${session.journalId}`);
+  // CHG-F005-072: voice phaseの書込み健全性はphase前後の実測差分で証明する。
+  // 走査対象は公開物・原典（content/data/public）と、実際に書込むstagingに限定する。
+  const voiceRecorder = createF005CapacityRecorder(identity, session.voiceBackend, {
+    workspaceRoot: workspace,
+    scanRoots: Object.freeze([
+      ...F005_TRACKED_ROOTS,
+      relative(workspace, voiceRoot).split(sep).join('/'),
+    ]),
+  });
+  const acceptanceRecorder = createF005AcceptanceCapacityRecorder(identity, session.acceptanceBackend);
   let buildSequence = 0;
   try {
     const voice = await generateF005Voice(
