@@ -2619,16 +2619,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 97",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 97 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 97 &&
+Check("completion drain external code集合はexact 103",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 103 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 103 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 97 codeはnative replyで不変",
+Check("completion drain external exact 103 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -3065,11 +3065,13 @@ string ParentBoundScalar(
     bool afterReservation = true,
     bool exactGeneration = true,
     EventFileObjectMatchResult? eventFoMatch =
-        EventFileObjectMatchResult.EntryMissingOrUnbound) =>
+        EventFileObjectMatchResult.EntryMissingOrUnbound,
+    EventFileObjectBoundPathRelation? boundRelation =
+        EventFileObjectBoundPathRelation.SameParentFile) =>
     WriteCompletionDrainRules.ParentBoundActiveLeaseFailureCode(
         count, eventName, eventFileObject, lease, phase, snapshot,
         leaseFileObject, identity, path, voice, phaseMatch, parent,
-        afterReservation, exactGeneration, eventFoMatch);
+        afterReservation, exactGeneration, eventFoMatch, boundRelation);
 foreach (var count in new[] { 1, 2, 128 })
 {
     Check("completion drain parent bound active lease write exact 1/2/128",
@@ -3090,7 +3092,7 @@ var parentBoundEventFoCauses = new[] {
     (EventFileObjectMatchResult.BoundSamePath,
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode),
     (EventFileObjectMatchResult.BoundOtherPath,
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectBoundOtherPathFailureCode),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherSameParentFileFailureCode),
     (EventFileObjectMatchResult.RetiredSamePath,
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode),
     (EventFileObjectMatchResult.RetiredOtherPath,
@@ -3171,6 +3173,130 @@ bool WriteCompletionBindingLedgerEventFileObjectProbe()
 }
 Check("completion drain event FO ledger lookupはstateとpath一致をexact1回で返す",
     WriteCompletionBindingLedgerEventFileObjectProbe());
+var parentBoundOtherPathRelations = new[] {
+    (EventFileObjectBoundPathRelation.EventDirectory,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherEventDirectoryFailureCode),
+    (EventFileObjectBoundPathRelation.CandidateCurrentPath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherCandidateCurrentFailureCode),
+    (EventFileObjectBoundPathRelation.CandidateParentPath,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherCandidateParentFailureCode),
+    (EventFileObjectBoundPathRelation.SameParentFile,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherSameParentFileFailureCode),
+    (EventFileObjectBoundPathRelation.DifferentParent,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherDifferentParentFailureCode),
+    (EventFileObjectBoundPathRelation.Invalid,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherRelationInvalidFailureCode),
+};
+foreach (var (relation, expected) in parentBoundOtherPathRelations)
+{
+    Check("completion drain bound other pathのledger関係を固定分類",
+        ParentBoundScalar(eventFileObject: 821,
+            eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+            boundRelation: relation) == expected);
+    Check("completion drain bound other path分類は後段へ到達しない",
+        ParentBoundScalar(eventFileObject: 821, exactGeneration: false,
+            eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+            boundRelation: relation) == expected);
+    foreach (var name in new[] { "write", "setinfo" })
+        foreach (var count in new[] { 1, 2, 128 })
+            Check("completion drain bound other path分類はevent種別・候補数に依存しない",
+                ParentBoundScalar(count: count, eventName: name,
+                    eventFileObject: 821,
+                    eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+                    boundRelation: relation) == expected);
+}
+Check("completion drain bound other path関係null/未定義値はSTATE_CHANGED",
+    ParentBoundScalar(eventFileObject: 821,
+        eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+        boundRelation: null) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    ParentBoundScalar(eventFileObject: 821,
+        eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+        boundRelation: (EventFileObjectBoundPathRelation)97) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+foreach (var (match, expected) in parentBoundEventFoCauses)
+    if (match != EventFileObjectMatchResult.BoundOtherPath)
+        Check("completion drain bound other path以外は関係引数に依存しない",
+            ParentBoundScalar(eventFileObject: 821, eventFoMatch: match,
+                boundRelation: null) == expected &&
+            ParentBoundScalar(eventFileObject: 821, eventFoMatch: match,
+                boundRelation: EventFileObjectBoundPathRelation.EventDirectory) ==
+                expected);
+bool WriteCompletionBindingLedgerBoundPathRelationProbe()
+{
+    const string dir = "cache/voice";
+    const string active = "cache/voice/active.wav";
+    const string other = "cache/voice/other.wav";
+    const string foreignPath = "cache/other/foreign.wav";
+    EventFileObjectBoundPathRelation Relate(
+        string boundPath,
+        string? activeLeasePath = active,
+        string? eventDirectory = dir,
+        string[]? currents = null,
+        string[]? parents = null,
+        ulong lookupFileObject = 900)
+    {
+        var ledger = new WriteCompletionBindingLedger([
+            (900UL, "volume:bound", boundPath),
+        ]);
+        ledger.MatchEventFileObject(
+            lookupFileObject, activeLeasePath, eventDirectory,
+            currents, parents, out var relation);
+        return relation;
+    }
+    var cases = new[] {
+        (Relate(other, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.SameParentFile),
+        (Relate(dir, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.EventDirectory),
+        (Relate(other, currents: [other], parents: []),
+            EventFileObjectBoundPathRelation.CandidateCurrentPath),
+        (Relate(other, currents: [], parents: [other]),
+            EventFileObjectBoundPathRelation.CandidateParentPath),
+        (Relate(other, currents: [other], parents: [other]),
+            EventFileObjectBoundPathRelation.CandidateCurrentPath),
+        (Relate(dir, currents: [dir], parents: []),
+            EventFileObjectBoundPathRelation.EventDirectory),
+        (Relate(foreignPath, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.DifferentParent),
+        (Relate("bare.wav", currents: [], parents: []),
+            EventFileObjectBoundPathRelation.DifferentParent),
+        (Relate(active, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, activeLeasePath: null, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, activeLeasePath: "", currents: [], parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, eventDirectory: null, currents: [], parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, eventDirectory: "", currents: [], parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, currents: null, parents: []),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, currents: [], parents: null),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, currents: [], parents: [], lookupFileObject: 0),
+            EventFileObjectBoundPathRelation.Invalid),
+        (Relate(other, currents: [], parents: [], lookupFileObject: 901),
+            EventFileObjectBoundPathRelation.Invalid),
+    };
+    foreach (var (actual, expected) in cases)
+        if (actual != expected) return false;
+    var retired = LedgerWithForcedState(705, WriteCompletionBindingState.Retired);
+    retired.MatchEventFileObject(
+        705, active, dir, [], [], out var retiredRelation);
+    if (retiredRelation != EventFileObjectBoundPathRelation.Invalid) return false;
+    var unbound = LedgerWithForcedState(706, WriteCompletionBindingState.Unbound);
+    unbound.MatchEventFileObject(
+        706, active, dir, [], [], out var unboundRelation);
+    if (unboundRelation != EventFileObjectBoundPathRelation.Invalid) return false;
+    var legacy = new WriteCompletionBindingLedger([
+        (900UL, "volume:bound", other),
+    ]);
+    return legacy.MatchEventFileObject(900, active) ==
+        EventFileObjectMatchResult.BoundOtherPath;
+}
+Check("completion drain bound path関係はexact1 lookupで優先順どおり確定する",
+    WriteCompletionBindingLedgerBoundPathRelationProbe());
 var parentBoundStateChangedFailures = new[] {
     ParentBoundScalar(count: 0, eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(count: 129, eventFileObject: 821, exactGeneration: false),
