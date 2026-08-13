@@ -2620,16 +2620,16 @@ Check("capacity lifecycle既存failure時もpipe後resource破棄",
     existingFailureLifecycle.CancellationBeforeGateRelease &&
     existingFailureLifecycle.DrainCompleted &&
     existingFailureLifecycle.ResourceDisposedAfterPipe);
-Check("completion drain external code集合はexact 103",
-    WriteCompletionDrainRules.ExternalFailureCodes.Count == 103 &&
-    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 103 &&
+Check("completion drain external code集合はexact 108",
+    WriteCompletionDrainRules.ExternalFailureCodes.Count == 108 &&
+    WriteCompletionDrainRules.ExternalFailureCodes.Distinct().Count() == 108 &&
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         code.Length <= 127));
 Check("completion drain追加code最長は112文字",
     WriteCompletionDrainRules.ExternalFailureCodes
         .Where(code => code.Contains("_LATE_DIAG_", StringComparison.Ordinal))
         .Max(code => code.Length) == 112);
-Check("completion drain external exact 103 codeはnative replyで不変",
+Check("completion drain external exact 108 codeはnative replyで不変",
     WriteCompletionDrainRules.ExternalFailureCodes.All(code =>
         WriteCompletionDrainRules.NormalizeExternalFailureCode(code) == code));
 var privateAmbiguitySentinels = new[] {
@@ -3068,11 +3068,14 @@ string ParentBoundScalar(
     EventFileObjectMatchResult? eventFoMatch =
         EventFileObjectMatchResult.EntryMissingOrUnbound,
     EventFileObjectBoundPathRelation? boundRelation =
-        EventFileObjectBoundPathRelation.SameParentFile) =>
+        EventFileObjectBoundPathRelation.SameParentFile,
+    EventDirectoryBindingState? dirBinding =
+        EventDirectoryBindingState.Live) =>
     WriteCompletionDrainRules.ParentBoundActiveLeaseFailureCode(
         count, eventName, eventFileObject, lease, phase, snapshot,
         leaseFileObject, identity, path, voice, phaseMatch, parent,
-        afterReservation, exactGeneration, eventFoMatch, boundRelation);
+        afterReservation, exactGeneration, eventFoMatch, boundRelation,
+        dirBinding);
 foreach (var count in new[] { 1, 2, 128 })
 {
     Check("completion drain parent bound active lease write exact 1/2/128",
@@ -3176,7 +3179,7 @@ Check("completion drain event FO ledger lookupはstateとpath一致をexact1回�
     WriteCompletionBindingLedgerEventFileObjectProbe());
 var parentBoundOtherPathRelations = new[] {
     (EventFileObjectBoundPathRelation.EventDirectory,
-        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherEventDirectoryFailureCode),
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode),
     (EventFileObjectBoundPathRelation.CandidateCurrentPath,
         WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventFileObjectOtherCandidateCurrentFailureCode),
     (EventFileObjectBoundPathRelation.CandidateParentPath,
@@ -3298,6 +3301,109 @@ bool WriteCompletionBindingLedgerBoundPathRelationProbe()
 }
 Check("completion drain bound path関係はexact1 lookupで優先順どおり確定する",
     WriteCompletionBindingLedgerBoundPathRelationProbe());
+var parentBoundDirectoryStates = new[] {
+    (EventDirectoryBindingState.Reused,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryReusedFailureCode),
+    (EventDirectoryBindingState.DeleteSeen,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryDeleteSeenFailureCode),
+    (EventDirectoryBindingState.CleanupSeen,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryCleanupSeenFailureCode),
+    (EventDirectoryBindingState.Live,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode),
+    (EventDirectoryBindingState.Invalid,
+        WriteCompletionDrainRules.LookupPostUpperProofParentBoundEventDirectoryStateInvalidFailureCode),
+};
+foreach (var (state, expected) in parentBoundDirectoryStates)
+{
+    Check("completion drain event directory bindingを固定分類",
+        ParentBoundScalar(eventFileObject: 821,
+            eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+            boundRelation: EventFileObjectBoundPathRelation.EventDirectory,
+            dirBinding: state) == expected);
+    Check("completion drain event directory分類は後段へ到達しない",
+        ParentBoundScalar(eventFileObject: 821, exactGeneration: false,
+            eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+            boundRelation: EventFileObjectBoundPathRelation.EventDirectory,
+            dirBinding: state) == expected);
+    foreach (var name in new[] { "write", "setinfo" })
+        Check("completion drain event directory分類はevent種別に依存しない",
+            ParentBoundScalar(eventName: name, eventFileObject: 821,
+                eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+                boundRelation: EventFileObjectBoundPathRelation.EventDirectory,
+                dirBinding: state) == expected);
+}
+Check("completion drain event directory binding null/未定義値はSTATE_CHANGED",
+    ParentBoundScalar(eventFileObject: 821,
+        eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+        boundRelation: EventFileObjectBoundPathRelation.EventDirectory,
+        dirBinding: null) == WriteCompletionDrainRules.StateChangedFailureCode &&
+    ParentBoundScalar(eventFileObject: 821,
+        eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+        boundRelation: EventFileObjectBoundPathRelation.EventDirectory,
+        dirBinding: (EventDirectoryBindingState)97) ==
+        WriteCompletionDrainRules.StateChangedFailureCode);
+foreach (var (relation, expected) in parentBoundOtherPathRelations)
+    if (relation != EventFileObjectBoundPathRelation.EventDirectory)
+        Check("completion drain event directory以外はbinding引数に依存しない",
+            ParentBoundScalar(eventFileObject: 821,
+                eventFoMatch: EventFileObjectMatchResult.BoundOtherPath,
+                boundRelation: relation, dirBinding: null) == expected);
+bool WriteCompletionBindingLedgerDirectoryBindingProbe()
+{
+    const string dir = "cache/voice";
+    var live = new WriteCompletionBindingLedger([(900UL, "volume:dir", dir)]);
+    if (live.MatchEventDirectoryBinding(900, dir) != EventDirectoryBindingState.Live)
+        return false;
+    if (live.MatchEventDirectoryBinding(0, dir) != EventDirectoryBindingState.Invalid)
+        return false;
+    if (live.MatchEventDirectoryBinding(901, dir) != EventDirectoryBindingState.Invalid)
+        return false;
+    if (live.MatchEventDirectoryBinding(900, null) != EventDirectoryBindingState.Invalid)
+        return false;
+    if (live.MatchEventDirectoryBinding(900, "") != EventDirectoryBindingState.Invalid)
+        return false;
+    if (live.MatchEventDirectoryBinding(900, "cache/other") !=
+        EventDirectoryBindingState.Invalid)
+        return false;
+    EventDirectoryBindingState Forced(
+        WriteCompletionBindingState state, bool reused, bool deleteSeen,
+        bool cleanupSeen)
+    {
+        var ledger = new WriteCompletionBindingLedger([(900UL, "volume:dir", dir)]);
+        var field = typeof(WriteCompletionBindingLedger).GetField(
+            "admitted", System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic)!;
+        var admitted = (System.Collections.IDictionary)field.GetValue(ledger)!;
+        var valueType = admitted[900UL]!.GetType();
+        admitted[900UL] = Activator.CreateInstance(
+            valueType,
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.Public |
+            System.Reflection.BindingFlags.NonPublic,
+            null,
+            new object?[] { 1L, state, "volume:dir", dir, reused, deleteSeen, cleanupSeen },
+            null)!;
+        return ledger.MatchEventDirectoryBinding(900, dir);
+    }
+    var bound = WriteCompletionBindingState.Bound;
+    var expectations = new[] {
+        (Forced(bound, true, false, false), EventDirectoryBindingState.Reused),
+        (Forced(bound, true, true, true), EventDirectoryBindingState.Reused),
+        (Forced(bound, false, true, false), EventDirectoryBindingState.DeleteSeen),
+        (Forced(bound, false, true, true), EventDirectoryBindingState.DeleteSeen),
+        (Forced(bound, false, false, true), EventDirectoryBindingState.CleanupSeen),
+        (Forced(bound, false, false, false), EventDirectoryBindingState.Live),
+        (Forced(WriteCompletionBindingState.Retired, false, false, false),
+            EventDirectoryBindingState.Invalid),
+        (Forced(WriteCompletionBindingState.Unbound, false, false, false),
+            EventDirectoryBindingState.Invalid),
+    };
+    foreach (var (actual, expected) in expectations)
+        if (actual != expected) return false;
+    return true;
+}
+Check("completion drain event directory bindingはexact1 lookupで優先順どおり確定する",
+    WriteCompletionBindingLedgerDirectoryBindingProbe());
 var parentBoundStateChangedFailures = new[] {
     ParentBoundScalar(count: 0, eventFileObject: 821, exactGeneration: false),
     ParentBoundScalar(count: 129, eventFileObject: 821, exactGeneration: false),

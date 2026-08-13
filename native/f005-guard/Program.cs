@@ -4395,6 +4395,7 @@ sealed class CapacityGuardSession : IDisposable
                         leaseFileObject, leaseIdentity, leasePath) is not null;
                 EventFileObjectMatchResult? eventFileObjectMatch = null;
                 EventFileObjectBoundPathRelation? eventBoundPathRelation = null;
+                EventDirectoryBindingState? eventDirectoryBinding = null;
                 if (ledger is not null && fileObject != leaseFileObject)
                 {
                     eventFileObjectMatch = ledger.MatchEventFileObject(
@@ -4405,6 +4406,10 @@ sealed class CapacityGuardSession : IDisposable
                         broad.Select(seal => seal.ParentPath).ToArray(),
                         out var observedRelation);
                     eventBoundPathRelation = observedRelation;
+                    if (observedRelation ==
+                        EventFileObjectBoundPathRelation.EventDirectory)
+                        eventDirectoryBinding = ledger.MatchEventDirectoryBinding(
+                            fileObject, normalized);
                 }
                 failure = WriteCompletionDrainRules
                     .ParentBoundActiveLeaseFailureCode(
@@ -4425,7 +4430,8 @@ sealed class CapacityGuardSession : IDisposable
                             eventQpc > activeLease.CurrentPathReservedAtQpc,
                         exactGenerationPresent,
                         eventFileObjectMatch,
-                        eventBoundPathRelation);
+                        eventBoundPathRelation,
+                        eventDirectoryBinding);
                 throw new GuardException(failure);
             }
             if (lateCandidates.Length != 0)
@@ -8798,6 +8804,22 @@ public sealed class WriteCompletionBindingLedger
         };
     }
 
+    public EventDirectoryBindingState MatchEventDirectoryBinding(
+        ulong fileObject,
+        string? eventDirectory)
+    {
+        if (fileObject == 0 || string.IsNullOrEmpty(eventDirectory))
+            return EventDirectoryBindingState.Invalid;
+        if (!admitted.TryGetValue(fileObject, out var value) ||
+            value.State != WriteCompletionBindingState.Bound ||
+            !string.Equals(value.Path, eventDirectory, StringComparison.Ordinal))
+            return EventDirectoryBindingState.Invalid;
+        if (value.Reused) return EventDirectoryBindingState.Reused;
+        if (value.DeleteSeen) return EventDirectoryBindingState.DeleteSeen;
+        if (value.CleanupSeen) return EventDirectoryBindingState.CleanupSeen;
+        return EventDirectoryBindingState.Live;
+    }
+
     private static EventFileObjectBoundPathRelation ClassifyBoundPathRelation(
         string? boundPath,
         string? activeLeasePath,
@@ -9372,6 +9394,18 @@ public static class WriteCompletionDrainRules
         $"{ParentBoundEventFileObjectPrefix}OTHER_DIFFERENT_PARENT";
     public const string LookupPostUpperProofParentBoundEventFileObjectOtherRelationInvalidFailureCode =
         $"{ParentBoundEventFileObjectPrefix}OTHER_RELATION_INVALID";
+    private const string ParentBoundEventDirectoryPrefix =
+        $"{ParentBoundEventFileObjectPrefix}DIR_";
+    public const string LookupPostUpperProofParentBoundEventDirectoryReusedFailureCode =
+        $"{ParentBoundEventDirectoryPrefix}REUSED";
+    public const string LookupPostUpperProofParentBoundEventDirectoryDeleteSeenFailureCode =
+        $"{ParentBoundEventDirectoryPrefix}DELETE_SEEN";
+    public const string LookupPostUpperProofParentBoundEventDirectoryCleanupSeenFailureCode =
+        $"{ParentBoundEventDirectoryPrefix}CLEANUP_SEEN";
+    public const string LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode =
+        $"{ParentBoundEventDirectoryPrefix}LIVE";
+    public const string LookupPostUpperProofParentBoundEventDirectoryStateInvalidFailureCode =
+        $"{ParentBoundEventDirectoryPrefix}STATE_INVALID";
     public const string LookupPostUpperProofMixedFailureCode =
         $"{FailurePrefix}EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_POST_UPPER_PROOF_MIXED";
     public const string LookupExactMissingFailureCode =
@@ -9496,6 +9530,11 @@ public static class WriteCompletionDrainRules
         LookupPostUpperProofParentBoundEventFileObjectOtherSameParentFileFailureCode,
         LookupPostUpperProofParentBoundEventFileObjectOtherDifferentParentFailureCode,
         LookupPostUpperProofParentBoundEventFileObjectOtherRelationInvalidFailureCode,
+        LookupPostUpperProofParentBoundEventDirectoryReusedFailureCode,
+        LookupPostUpperProofParentBoundEventDirectoryDeleteSeenFailureCode,
+        LookupPostUpperProofParentBoundEventDirectoryCleanupSeenFailureCode,
+        LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode,
+        LookupPostUpperProofParentBoundEventDirectoryStateInvalidFailureCode,
         LookupPostUpperProofParentBoundLedgerMissingFailureCode,
         LookupPostUpperProofMixedFailureCode,
         LookupExactMissingFailureCode,
@@ -9829,7 +9868,8 @@ public static class WriteCompletionDrainRules
         bool eventAfterActiveReservation,
         bool exactGenerationPresent,
         EventFileObjectMatchResult? eventFileObjectMatch = null,
-        EventFileObjectBoundPathRelation? eventFileObjectBoundPathRelation = null)
+        EventFileObjectBoundPathRelation? eventFileObjectBoundPathRelation = null,
+        EventDirectoryBindingState? eventDirectoryBinding = null)
     {
         if (candidateCount is < 1 or > 128) return StateChangedFailureCode;
         if (eventName is not ("write" or "setinfo")) return StateChangedFailureCode;
@@ -9857,7 +9897,8 @@ public static class WriteCompletionDrainRules
                     LookupPostUpperProofParentBoundEventFileObjectBoundSamePathFailureCode,
                 EventFileObjectMatchResult.BoundOtherPath =>
                     ParentBoundEventFileObjectBoundOtherPathFailureCode(
-                        eventFileObjectBoundPathRelation),
+                        eventFileObjectBoundPathRelation,
+                        eventDirectoryBinding),
                 EventFileObjectMatchResult.RetiredSamePath =>
                     LookupPostUpperProofParentBoundEventFileObjectRetiredSamePathFailureCode,
                 EventFileObjectMatchResult.RetiredOtherPath =>
@@ -9876,14 +9917,35 @@ public static class WriteCompletionDrainRules
             : LookupPostUpperProofParentBoundActiveLeaseSetInfoAllFailureCode;
     }
 
+    private static string ParentBoundEventDirectoryFailureCode(
+        EventDirectoryBindingState? binding)
+    {
+        if (binding is null || !Enum.IsDefined(binding.Value))
+            return StateChangedFailureCode;
+        return binding.Value switch {
+            EventDirectoryBindingState.Reused =>
+                LookupPostUpperProofParentBoundEventDirectoryReusedFailureCode,
+            EventDirectoryBindingState.DeleteSeen =>
+                LookupPostUpperProofParentBoundEventDirectoryDeleteSeenFailureCode,
+            EventDirectoryBindingState.CleanupSeen =>
+                LookupPostUpperProofParentBoundEventDirectoryCleanupSeenFailureCode,
+            EventDirectoryBindingState.Live =>
+                LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode,
+            EventDirectoryBindingState.Invalid =>
+                LookupPostUpperProofParentBoundEventDirectoryStateInvalidFailureCode,
+            _ => StateChangedFailureCode,
+        };
+    }
+
     private static string ParentBoundEventFileObjectBoundOtherPathFailureCode(
-        EventFileObjectBoundPathRelation? relation)
+        EventFileObjectBoundPathRelation? relation,
+        EventDirectoryBindingState? directoryBinding)
     {
         if (relation is null || !Enum.IsDefined(relation.Value))
             return StateChangedFailureCode;
         return relation.Value switch {
             EventFileObjectBoundPathRelation.EventDirectory =>
-                LookupPostUpperProofParentBoundEventFileObjectOtherEventDirectoryFailureCode,
+                ParentBoundEventDirectoryFailureCode(directoryBinding),
             EventFileObjectBoundPathRelation.CandidateCurrentPath =>
                 LookupPostUpperProofParentBoundEventFileObjectOtherCandidateCurrentFailureCode,
             EventFileObjectBoundPathRelation.CandidateParentPath =>
@@ -10794,6 +10856,15 @@ public enum EventFileObjectBoundPathRelation
     CandidateParentPath,
     SameParentFile,
     DifferentParent,
+}
+
+public enum EventDirectoryBindingState
+{
+    Invalid,
+    Reused,
+    DeleteSeen,
+    CleanupSeen,
+    Live,
 }
 
 public enum GenerationMatchResult

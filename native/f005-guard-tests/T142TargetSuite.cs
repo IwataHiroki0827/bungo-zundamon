@@ -23,7 +23,7 @@ internal static class T142TargetSuite
         string Expected)[] Relations = [
         ("event-dir", EventFileObjectBoundPathRelation.EventDirectory,
             WriteCompletionDrainRules
-                .LookupPostUpperProofParentBoundEventFileObjectOtherEventDirectoryFailureCode),
+                .LookupPostUpperProofParentBoundEventDirectoryLiveFailureCode),
         ("candidate-current", EventFileObjectBoundPathRelation.CandidateCurrentPath,
             WriteCompletionDrainRules
                 .LookupPostUpperProofParentBoundEventFileObjectOtherCandidateCurrentFailureCode),
@@ -227,17 +227,17 @@ internal static class T142TargetSuite
                 .MatchEventFileObject(900, ActivePath) ==
             EventFileObjectMatchResult.BoundOtherPath;
 
-        cases["code-set-distinct-103"] = () =>
-            WriteCompletionDrainRules.ExternalFailureCodes.Count == 103 &&
+        cases["code-set-distinct-108"] = () =>
+            WriteCompletionDrainRules.ExternalFailureCodes.Count == 108 &&
             WriteCompletionDrainRules.ExternalFailureCodes
-                .Distinct(StringComparer.Ordinal).Count() == 103;
+                .Distinct(StringComparer.Ordinal).Count() == 108;
         cases["code-set-length-limit"] = () =>
             WriteCompletionDrainRules.ExternalFailureCodes.All(
                 code => code.Length <= 127);
         cases["code-set-relation-prefix"] = () => Relations.All(item =>
             item.Expected.StartsWith(
                 "F005_ETW_WRITE_COMPLETION_DRAIN_EVENT_TUPLE_LOOKUP_EPOCH_EMPTY_" +
-                "POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_OTHER_",
+                "POST_UPPER_PROOF_PARENT_BOUND_EVENT_FO_",
                 StringComparison.Ordinal) &&
             WriteCompletionDrainRules.ExternalFailureCodes.Contains(item.Expected));
 
@@ -255,7 +255,9 @@ internal static class T142TargetSuite
         bool exactGeneration = true,
         EventFileObjectMatchResult? match = EventFileObjectMatchResult.BoundOtherPath,
         EventFileObjectBoundPathRelation? relation =
-            EventFileObjectBoundPathRelation.SameParentFile) =>
+            EventFileObjectBoundPathRelation.SameParentFile,
+        EventDirectoryBindingState? directoryBinding =
+            EventDirectoryBindingState.Live) =>
         WriteCompletionDrainRules.ParentBoundActiveLeaseFailureCode(
             count,
             eventName,
@@ -272,7 +274,8 @@ internal static class T142TargetSuite
             afterReservation,
             exactGeneration,
             match,
-            relation);
+            relation,
+            directoryBinding);
 
     private static EventFileObjectBoundPathRelation Relate(
         string boundPath,

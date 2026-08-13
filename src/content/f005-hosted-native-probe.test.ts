@@ -398,6 +398,10 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
     );
     const lookup = slice(
       'public EventFileObjectMatchResult MatchEventFileObject(',
+      'public EventDirectoryBindingState MatchEventDirectoryBinding(',
+    );
+    const directoryLookup = slice(
+      'public EventDirectoryBindingState MatchEventDirectoryBinding(',
       'private static EventFileObjectBoundPathRelation ClassifyBoundPathRelation(',
     );
     const rule = slice(
@@ -405,9 +409,22 @@ describe('F005 hosted native correlation [CHG-F005-052 CHG-F005-055]', () => {
       'public static string CurrentBindingFailureCode(',
     );
 
-    // ledger lookupはevent-global exact 1回であること
+    // 2つのledger lookupはそれぞれevent-global exact 1回であること
     expect(lookup.match(/admitted\.TryGetValue\(/gu)).toHaveLength(1);
+    expect(directoryLookup.match(/admitted\.TryGetValue\(/gu)).toHaveLength(1);
     expect(relation).not.toContain('admitted');
+    // directory bindingの優先順を固定する
+    const directoryOrder = [
+      'EventDirectoryBindingState.Invalid',
+      'EventDirectoryBindingState.Reused',
+      'EventDirectoryBindingState.DeleteSeen',
+      'EventDirectoryBindingState.CleanupSeen',
+      'EventDirectoryBindingState.Live',
+    ];
+    for (let index = 1; index < directoryOrder.length; index += 1) {
+      expect(directoryLookup.indexOf(directoryOrder[index - 1]!))
+        .toBeLessThan(directoryLookup.indexOf(directoryOrder[index]!));
+    }
     // 関係判定の優先順を固定する
     const ordered = [
       'EventFileObjectBoundPathRelation.Invalid',
