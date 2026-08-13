@@ -6898,6 +6898,29 @@ sealed class CapacityGuardSession : IDisposable
         AtomicDurableWrite(journalPath, CanonicalJson(document));
     }
 
+    /// <summary>
+    /// CHG-F005-072: journalの容量actualは永続化された系列だけから導出する。
+    /// 内部の走行値はETW callbackなど永続化されない経路でも更新されるため、
+    /// 読み手の再計算と一致しなくなる。
+    /// </summary>
+    private long PersistedPeakLiveBytes()
+    {
+        var peak = 0L;
+        foreach (var item in observations) peak = Math.Max(peak, item.LiveBytes);
+        foreach (var item in capacitySamples) peak = Math.Max(peak, item.LiveBytes);
+        return peak;
+    }
+
+    private long PersistedMinimumFreeBytes()
+    {
+        var minimum = InitialFreeBytes;
+        foreach (var item in observations)
+            minimum = Math.Min(minimum, item.FreeBytesAvailable);
+        foreach (var item in capacitySamples)
+            minimum = Math.Min(minimum, item.FreeBytesAvailable);
+        return minimum;
+    }
+
     private SortedDictionary<string, object?> JournalBody() =>
         new(StringComparer.Ordinal) {
             ["candidateSha256"] = CandidateSha256,
@@ -6905,11 +6928,11 @@ sealed class CapacityGuardSession : IDisposable
             ["etwSessionIdentity"] = EtwSessionIdentity,
             ["initialFreeBytes"] = InitialFreeBytes,
             ["jobIdentity"] = JobIdentity,
-            ["minimumObservedFreeBytes"] = minimumObservedFreeBytes,
+            ["minimumObservedFreeBytes"] = PersistedMinimumFreeBytes(),
             ["notices"] = notices.Select(item => item.ToJournal()).ToArray(),
             ["observations"] = observations.Select(item => item.ToJournal()).ToArray(),
             ["owner"] = Owner,
-            ["peakLiveBytes"] = peakLiveBytes,
+            ["peakLiveBytes"] = PersistedPeakLiveBytes(),
             ["phases"] = phaseRecords.Select(item => item.ToJournal()).ToArray(),
             ["registeredWorkerPids"] = registeredPids.Order().ToArray(),
             ["schemaVersion"] = 3,
