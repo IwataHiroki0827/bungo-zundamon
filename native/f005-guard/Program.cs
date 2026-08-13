@@ -2289,7 +2289,17 @@ sealed class CapacityGuardSession : IDisposable
             throw new GuardException("PHASE_MISMATCH");
             if (!rootAuthenticated)
             throw new GuardException("NOTICE_PID_NOT_REGISTERED");
-            if (!tupleMatches || lease is null)
+            // CHG-F005-072: tuple不一致の内訳を一度だけ固定分割し、
+            // lease解放時刻の変化かpath不一致かを確定する。
+            if (lease is null)
+                throw new GuardException("WRITE_LEASE_TUPLE_LEASE_ABSENT");
+            if (lease.WorkerPid != producerPid)
+                throw new GuardException("WRITE_LEASE_TUPLE_PID_MISMATCH");
+            if (lease.PhaseInstanceId != phaseInstanceId)
+                throw new GuardException("WRITE_LEASE_TUPLE_PHASE_MISMATCH");
+            if (lease.RelativePath != from)
+                throw new GuardException("WRITE_LEASE_TUPLE_PATH_MISMATCH");
+            if (!tupleMatches)
                 throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
             if (lease.PendingRenamePath is not null)
             throw new GuardException("WRITE_LEASE_RENAME_ALREADY_PREPARED");
