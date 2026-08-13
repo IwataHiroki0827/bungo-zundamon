@@ -2293,8 +2293,7 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException("WRITE_LEASE_TUPLE_MISMATCH");
             if (lease.PendingRenamePath is not null)
             throw new GuardException("WRITE_LEASE_RENAME_ALREADY_PREPARED");
-            if (!correlationReady)
-            throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+            // CHG-F005-072: ETW相関の完了は要求しない。最終状態はphase後の実測で検証する。
             if (processSignaled || processAliveOutsideJob)
             throw new GuardException("WRITE_LEASE_PRODUCER_NOT_JOB_MEMBER");
             if (targetExists)
@@ -2997,10 +2996,7 @@ sealed class CapacityGuardSession : IDisposable
             writeLease.ProcessSequenceNumber == record.ProducerSequenceNumber &&
             writeLease.PhaseInstanceId == record.PhaseInstanceId)
         {
-            if (record.EventName == "create" &&
-                record.Path == writeLease.RelativePath &&
-                (writeLease.FileObject is null || writeLease.Snapshot is null))
-                throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
+            // CHG-F005-072: create宣言時点でETW由来のFileObject/Snapshotを要求しない。
             if (record.EventName == "rename")
             {
                 if (!SystemSetInfoCorrelationRules.TryConsumeRename(
@@ -3110,8 +3106,8 @@ sealed class CapacityGuardSession : IDisposable
                 throw new GuardException(
                     "F005_ETW_WRITE_COMPLETION_DRAIN_RECHECK_PROCESS_NOT_SIGNALED");
         }
-        if (pendingWriteLease?.PhaseInstanceId == phaseInstanceId ||
-            deferredSystemSetInfos.Any(item => item.PhaseInstanceId == phaseInstanceId))
+        // CHG-F005-072: 未解決write leaseは維持し、帰属不能なdeferred System eventは外す。
+        if (pendingWriteLease?.PhaseInstanceId == phaseInstanceId)
             throw new GuardException("WRITE_LEASE_CORRELATION_MISSING");
         AssertRegisteredProcessesContained();
         var free = ReadFreeBytes(root);
