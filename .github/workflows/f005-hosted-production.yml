@@ -52,6 +52,36 @@ jobs:
             throw "candidate branch already exists: $branch"
           }
 
+      - name: Resolve target work
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          # CHG-F005-073: 対象作品はmanifestの先頭pendingから決める。
+          # 直書きすると1作品目しか生産できない。
+          $manifest = Get-Content -LiteralPath 'content\batches\F005\batch.json' -Raw |
+            ConvertFrom-Json
+          $pending = @($manifest.workProgress | Where-Object { $_.status -eq 'pending' })
+          if ($pending.Count -eq 0) {
+            throw 'no pending work remains in F005 manifest'
+          }
+          $workId = $pending[0].workId
+          if ($workId -notmatch '^[0-9]{6}$') {
+            throw "unexpected work id: $workId"
+          }
+          # 期待WAV件数は音声計画の一意音声数から導く。
+          $planPath = "content/batches/F005/voice-plans/$workId.json"
+          if (-not (Test-Path -LiteralPath $planPath)) {
+            throw "voice plan is missing: $planPath"
+          }
+          $plan = Get-Content -LiteralPath $planPath -Raw | ConvertFrom-Json
+          $expected = @($plan.plan.entries).Count
+          if ($expected -le 0) {
+            throw "voice plan has no entries: $planPath"
+          }
+          "F005_WORK_ID=$workId" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "F005_EXPECTED_WAV=$expected" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "target work=$workId expectedWav=$expected"
+
       - name: Preflight workspace disk
         shell: pwsh
         run: |
@@ -426,7 +456,7 @@ jobs:
               '--experimental-transform-types',
               'scripts/f005-run-work.ts',
               '--work',
-              '000799'
+              $env:F005_WORK_ID
             ) `
             -WorkingDirectory $PWD `
             -NoNewWindow `
@@ -472,7 +502,7 @@ jobs:
           $hostProgress = 'result-json-parse'
           $result = $resultLines[0].Substring($prefix.Length) | ConvertFrom-Json
           $hostProgress = 'result-validation'
-          if ($result.ok -ne $true -or $result.workId -ne '000799' -or
+          if ($result.ok -ne $true -or $result.workId -ne $env:F005_WORK_ID -or
             $result.status -ne 'accepted') {
             Write-BoundedBase64Diagnostic `
               'F005_RUNNER_STDOUT_BASE64' ($raw -join "`n")
@@ -575,15 +605,15 @@ jobs:
           git diff --exit-code -- public
           $manifest = Get-Content -LiteralPath 'content\batches\F005\batch.json' -Raw |
             ConvertFrom-Json
-          $work = @($manifest.workProgress | Where-Object { $_.workId -eq '000799' })
+          $work = @($manifest.workProgress | Where-Object { $_.workId -eq $env:F005_WORK_ID })
           if ($work.Count -ne 1 -or $work[0].status -ne 'accepted' -or
-            @($work[0].acceptedAudioSources).Count -ne 62) {
+            @($work[0].acceptedAudioSources).Count -ne [int]$env:F005_EXPECTED_WAV) {
             throw 'accepted manifest tuple is incomplete'
           }
           $audio = @(Get-ChildItem `
-            -LiteralPath 'content\batches\F005\accepted-audio\000799' `
+            -LiteralPath "content\batches\F005\accepted-audio\$env:F005_WORK_ID" `
             -Filter '*.wav' -File)
-          if ($audio.Count -ne 62) {
+          if ($audio.Count -ne [int]$env:F005_EXPECTED_WAV) {
             throw "accepted WAV count mismatch: $($audio.Count)"
           }
           $changed = @(
@@ -592,9 +622,9 @@ jobs:
           ) | Where-Object { $_ } | Sort-Object -Unique
           $allowed = @(
             '^content/batches/F005/batch\.json$',
-            '^content/batches/F005/accepted-audio/000799/[0-9a-f]{64}\.wav$',
-            '^content/batches/F005/work-artifacts/000799/runs/[0-9a-f]{64}/[-a-z]+\.json$',
-            '^content/batches/F005/capacity-actual/000799/[0-9a-f]{64}\.json$'
+            "^content/batches/F005/accepted-audio/$env:F005_WORK_ID/[0-9a-f]{64}\.wav`$",
+            "^content/batches/F005/work-artifacts/$env:F005_WORK_ID/runs/[0-9a-f]{64}/[-a-z]+\.json`$",
+            "^content/batches/F005/capacity-actual/$env:F005_WORK_ID/[0-9a-f]{64}\.json`$"
           )
           foreach ($path in $changed) {
             if (-not ($allowed | Where-Object { $path -match $_ })) {
@@ -622,7 +652,7 @@ jobs:
             voicevoxVersion = '0.25.2'
             voicevoxAssetSha256 = '${{ steps.engine.outputs.asset_sha256 }}'
             nativeBinarySha256 = $nativeEvidence.outputBinarySha256
-            workId = '000799'
+            workId = $env:F005_WORK_ID
             acceptedWavCount = $audio.Count
             result = $runnerResult
             changedPaths = $changed
@@ -637,9 +667,9 @@ jobs:
           )
           git add -- `
             content/batches/F005/batch.json `
-            content/batches/F005/accepted-audio/000799 `
-            content/batches/F005/work-artifacts/000799/runs `
-            content/batches/F005/capacity-actual/000799 `
+            "content/batches/F005/accepted-audio/$env:F005_WORK_ID" `
+            "content/batches/F005/work-artifacts/$env:F005_WORK_ID/runs" `
+            "content/batches/F005/capacity-actual/$env:F005_WORK_ID" `
             $evidencePath
           $remaining = @(
             git diff --name-only
@@ -650,7 +680,7 @@ jobs:
           }
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'feat(f005): accept hosted production work 000799'
+          git commit -m "feat(f005): accept hosted production work $env:F005_WORK_ID"
           $branch = "candidate/f005-t070-$env:GITHUB_SHA"
           $credential = [Convert]::ToBase64String(
             [Text.Encoding]::ASCII.GetBytes("x-access-token:$env:GITHUB_PUSH_TOKEN")
