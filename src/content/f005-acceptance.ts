@@ -63,6 +63,12 @@ const recorders = new WeakSet<object>();
 const execFileAsync = promisify(execFile);
 const CURRENT_PROCESS_START_EPOCH_MS =
   Math.floor(Date.now() - process.uptime() * 1000);
+/**
+ * CHG-F005-074: process開始時刻の問い合わせ待ち時間。
+ * 失敗の実体はpowershell.exeの起動待ちであり、負荷が下がれば通る。
+ * 段階的に延ばして再試行する。
+ */
+const PROCESS_START_IDENTITY_TIMEOUTS_MS = Object.freeze([5_000, 15_000, 30_000]);
 
 export type F005AcceptanceErrorCode =
   | 'F005_PREVIEW_INVALID'
@@ -2271,21 +2277,32 @@ async function readProcessStartIdentity(pid: number): Promise<Sha256 | null> {
       ? sha(`${pid}\0${CURRENT_PROCESS_START_EPOCH_MS}\0process-start-v1`)
       : sha(`${pid}\0live-unverified\0process-start-v1`);
   }
-  try {
-    const command =
-      `$value=Get-Process -Id ${pid} -ErrorAction Stop;` +
-      '[Console]::Out.Write($value.StartTime.ToUniversalTime().Ticks)';
-    const result = await execFileAsync(
-      'powershell.exe',
-      ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', command],
-      { windowsHide: true, timeout: 5_000, maxBuffer: 4_096 },
-    );
-    const ticks = result.stdout.trim();
-    if (!/^[0-9]{10,20}$/u.test(ticks)) return null;
-    return sha(`${pid}\0${ticks}\0process-start-v1`);
-  } catch {
-    return null;
+  // CHG-F005-074: process開始時刻の取得はpowershell.exeの起動を伴う。
+  // hosted runnerでは直前の音声合成の負荷でinterpreter起動が5秒を超えることがあり、
+  // 実際に001104(83件)の受理がここで停止した。identityは他processからも同じ値を
+  // 計算できる必要があるためWin32のStartTimeを使い続け、起動待ちだけを緩める。
+  const command =
+    `$value=Get-Process -Id ${pid} -ErrorAction Stop;` +
+    '[Console]::Out.Write($value.StartTime.ToUniversalTime().Ticks)';
+  for (const timeout of PROCESS_START_IDENTITY_TIMEOUTS_MS) {
+    try {
+      const result = await execFileAsync(
+        'powershell.exe',
+        ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', command],
+        { windowsHide: true, timeout, maxBuffer: 4_096 },
+      );
+      const ticks = result.stdout.trim();
+      if (!/^[0-9]{10,20}$/u.test(ticks)) return null;
+      return sha(`${pid}\0${ticks}\0process-start-v1`);
+    } catch (error) {
+      // processが存在しない場合はGet-Processが失敗する。再試行しても変わらないので
+      // 生存しないと判っているときだけ即座に打ち切る。
+      if (!processAlive(pid)) return null;
+      if (timeout === PROCESS_START_IDENTITY_TIMEOUTS_MS.at(-1)) return null;
+      void error;
+    }
   }
+  return null;
 }
 
 async function releaseFinalizeLock(

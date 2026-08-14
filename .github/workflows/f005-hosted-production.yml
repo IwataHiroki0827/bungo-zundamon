@@ -11,6 +11,9 @@ name: F005 hosted production candidate
 #   000799 夢十夜        accepted 62 wav  run 31763099897
 #   001076 倫敦塔        accepted 55 wav  run 31797219122
 #   001104 趣味の遺伝    requested 83 wav
+#     run 31798020360 failed: F005_ACCEPTANCE_TRANSACTION_INVALID
+#       (process開始時刻の取得がpowershell起動待ちで5秒を超えた / CHG-F005-074)
+#     retry after CHG-F005-074
 on:
   push:
     branches:
