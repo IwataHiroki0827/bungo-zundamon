@@ -202,7 +202,11 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
   const terms = notices.license.terms;
   const checkedAt = Date.parse(requireCreditText(terms?.checkedAt, 'CREDITS_POLICY_STALE'));
   const validUntil = Date.parse(requireCreditText(terms?.validUntil, 'CREDITS_POLICY_STALE'));
-  if (!Number.isFinite(checkedAt) || !Number.isFinite(validUntil) || checkedAt > validUntil || validUntil < Date.now()) {
+  // CHG-F002-004: 形式と前後関係だけを実行時に検査する。
+  // validUntilは規約側の期限ではなく自らの再確認リマインダーであり、
+  // 経過しただけで公開済みバンドルを自壊させるのは影響が釣り合わない。
+  // 期限切れはリリースをブロックする（verifyF005LicenseTermsFreshness）。
+  if (!Number.isFinite(checkedAt) || !Number.isFinite(validUntil) || checkedAt > validUntil) {
     throw new CreditsRenderError('CREDITS_POLICY_STALE');
   }
   try {

@@ -714,8 +714,13 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
     )).toThrow(expect.objectContaining({ code: 'CREDITS_ARTWORK_MISMATCH' }));
   });
 
-  it('期限切れ規約snapshotをCREDITS_POLICY_STALEで拒否する', () => {
+  // CHG-F002-004: validUntilは規約側の期限ではなく自らの再確認リマインダーであり、
+  // 経過しただけで公開済みバンドルを自壊させない。期限切れはリリースをブロックする。
+  it('期限切れ規約snapshotでも公開済みクレジットは描画し続ける', () => {
     expect(() => renderCreditsV2(catalogV2Fixture(), validatedBundle('2026-07-19T00:00:00Z')))
-      .toThrow(expect.objectContaining({ code: 'CREDITS_POLICY_STALE' }));
+      .not.toThrow();
   });
+
+  // 形式・前後関係の不整合はvalidateReleaseNoticesが上流で弾くため、
+  // renderCreditsV2側の同判定はfail-safeとして残すのみで到達経路を持たない。
 });

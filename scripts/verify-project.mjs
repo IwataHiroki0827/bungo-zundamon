@@ -66,6 +66,45 @@ export async function verifyF001BaselinePreflight(
 }
 
 // @des DES-F001-015 @des DES-F001-016 @fun FUN-F001-031 @fun FUN-F001-032
+/**
+ * CHG-F002-004: 規約再確認期限はリリースをブロックする。
+ * 実行時に公開サイトを止めるのではなく、再確認するまで新規公開させない。
+ */
+async function verifyLicenseTermsFreshness(root, now = Date.now()) {
+  const errors = [];
+  const warnings = [];
+  let manifest;
+  try {
+    manifest = JSON.parse(
+      await readFile(path.join(root, 'content', 'licenses.json'), 'utf8'));
+  } catch {
+    errors.push('content/licenses.jsonを読み込めません');
+    return { errors, warnings };
+  }
+  const terms = manifest?.terms;
+  const checkedAt = Date.parse(terms?.checkedAt ?? '');
+  const validUntil = Date.parse(terms?.validUntil ?? '');
+  if (!Number.isFinite(checkedAt) || !Number.isFinite(validUntil)) {
+    errors.push('terms.checkedAt/validUntilがRFC 3339 instantではありません');
+    return { errors, warnings };
+  }
+  if (checkedAt > validUntil) {
+    errors.push('terms.checkedAtがvalidUntilより後です');
+    return { errors, warnings };
+  }
+  if (validUntil < now) {
+    errors.push(
+      `規約再確認期限が切れています(validUntil=${terms.validUntil})。`
+      + `${terms.url ?? '規約'}を再確認しcheckedAt/validUntilを更新してください`);
+    return { errors, warnings };
+  }
+  const remainingDays = Math.floor((validUntil - now) / 86_400_000);
+  if (remainingDays <= 7) {
+    warnings.push(`規約再確認期限まで残り${remainingDays}日です`);
+  }
+  return { errors, warnings };
+}
+
 async function main() {
   const [workflow, nvmrc, packageJson] = await Promise.all([
     readFile(path.join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8'),
@@ -77,12 +116,18 @@ async function main() {
     expectedNodeVersion,
     nvmrcVersion: nvmrc.trim().replace(/^v/, ''),
   });
-  const [buildReport, baselineReport] = await Promise.all([
+  const [buildReport, baselineReport, licenseReport] = await Promise.all([
     verifyBuiltReferences(path.join(projectRoot, 'dist'), PAGES_BASE),
     verifyF001BaselinePreflight(projectRoot),
+    verifyLicenseTermsFreshness(projectRoot),
   ]);
-  const errors = [...workflowReport.errors, ...buildReport.errors, ...baselineReport.errors];
-  const warnings = [...workflowReport.warnings, ...buildReport.warnings];
+  const errors = [
+    ...workflowReport.errors, ...buildReport.errors, ...baselineReport.errors,
+    ...licenseReport.errors,
+  ];
+  const warnings = [
+    ...workflowReport.warnings, ...buildReport.warnings, ...licenseReport.warnings,
+  ];
 
   const [indexHtml, catalog, staticTexts, productionSources] = await Promise.all([
     readFile(path.join(projectRoot, 'dist', 'index.html'), 'utf8'),
