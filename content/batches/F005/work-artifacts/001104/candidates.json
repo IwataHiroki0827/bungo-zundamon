@@ -1,0 +1,2210 @@
+[
+  {
+    "candidateId": "qV0ur7IeWuEpluX3JGofyyL7MQ7CsWbWt0lp0kbEd1w",
+    "contextAfter": "と雲の裡より叫ぶ声が、逆しまに日本海を撼かして満洲の果まで響き渡った時、日人と露人ははっと応えて百里に余る一大屠場を朔北の野に開いた",
+    "contextBefore": "\n\n\n\n\n\n\n　　　　　　　　　　一\n\n\n\n　陽気のせいで神も気違になる。",
+    "displayText": "「人を屠りて餓えたる犬を救え」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 0,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 51,
+      "start": 36
+    },
+    "revisions": [],
+    "sha256": "944cc42928eacb6b4d5201caff863cffeaedaae5df0ef6b4067403ede0bb8102",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 51,
+      "startToken": 36
+    },
+    "speechText": "「人をほふりてうえたる犬を救え」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "47lkTMzSi2VXTyiTWqRl5MIHFl2KFyTkvIxIgfPc-x4",
+    "contextAfter": "と云うを合図に、ぺらぺらと吐く（）の舌は暗き大地を照らして咽喉を越す血潮の湧き返る音が聞えた。今度は黒雲の端を踏み鳴らして「肉を食え",
+    "contextBefore": "尽くる下より、眼にあまる狗の群が、腥き風を横に截り縦に裂いて、四つ足の銃丸を一度に打ち出したように飛んで来た。狂える神が小躍りして",
+    "displayText": "「血を啜れ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 1,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 195,
+      "start": 189
+    },
+    "revisions": [],
+    "sha256": "549d8be439846587649fa021bb5d9f382cc47f887665ce9a486ae6210820d602",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 195,
+      "startToken": 189
+    },
+    "speechText": "「血をすすれ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "tn1BVear5ihKtyuX8WA1kJv3ZWp_4WY7HQgNoGfy5w8",
+    "contextAfter": "と神が号ぶと「肉を食え！　肉を食え！」と犬共も一度に咆え立てる。やがてめりめりと腕を食い切る、深い口をあけて耳の根まで胴にかぶり",
+    "contextBefore": "血を啜れ」と云うを合図に、ぺらぺらと吐く（）の舌は暗き大地を照らして咽喉を越す血潮の湧き返る音が聞えた。今度は黒雲の端を踏み鳴らして",
+    "displayText": "「肉を食え」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 2,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 260,
+      "start": 254
+    },
+    "revisions": [],
+    "sha256": "b3e990ebd1fbd77c07db1f8cc23a8a25ba3cd2857ffd7872ad1b08ff118eea80",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 260,
+      "startToken": 254
+    },
+    "speechText": "「肉をくらえ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "ttuSrrgeQRnq53wpok1tFJuGTxoJNmsOwX79UL8PmoM",
+    "contextAfter": "と犬共も一度に咆え立てる。やがてめりめりと腕を食い切る、深い口をあけて耳の根まで胴にかぶりつく。一つの脛を啣えて左右から引き合う",
+    "contextBefore": "、ぺらぺらと吐く（）の舌は暗き大地を照らして咽喉を越す血潮の湧き返る音が聞えた。今度は黒雲の端を踏み鳴らして「肉を食え」と神が号ぶと",
+    "displayText": "「肉を食え！　肉を食え！」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 3,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 279,
+      "start": 266
+    },
+    "revisions": [],
+    "sha256": "923cd85ab9788894cdea7b8c3c62df5bdf79ca57878803f4774b053fec25c186",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 279,
+      "startToken": 266
+    },
+    "speechText": "「肉を食え！ 肉を食え！」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "f3wf7nd_v2J2rn-6bmNJqjvEvliVh2akPaEhRBiv7TA",
+    "contextAfter": "と云う。すわこそ骨だ。犬の歯は肉よりも骨を噛むに適している。狂う神の作った犬には狂った道具が具わっている。今日の振舞を予期して工",
+    "contextBefore": "胴にかぶりつく。一つの脛を啣えて左右から引き合う。ようやくの事肉は大半平げたと思うと、また羃々たる雲を貫ぬいて恐しい神の声がした。",
+    "displayText": "「肉の後には骨をしゃぶれ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 4,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 396,
+      "start": 383
+    },
+    "revisions": [],
+    "sha256": "e9bf6f8bd399abff56608e45045d169fd85417954c23ff2cc22ce89d2b989bc6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 396,
+      "startToken": 383
+    },
+    "speechText": "「肉の後には骨をしゃぶれ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "SyxeYIdPMwn-FCNnNjvjJ8CxSyYv2R0GaIOkkKbuE7A",
+    "contextAfter": "と云った。時計を見ると二時三十分だ、もう十五分すれば凱旋の将士が見られる。こんな機会は容易にない、ついでだからと云っては失礼かも知",
+    "contextBefore": "束をした人はなかなか来ん。少々退屈になったから、少し外へ出て見ようかと室の戸口をまたぐ途端に、背広を着た髯のある男が擦れ違いながら",
+    "displayText": "「もう直です二時四十五分ですから」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 5,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 1643,
+      "start": 1626
+    },
+    "revisions": [],
+    "sha256": "eae1330dfb5686e6d857deb7ed19b3f5d475968f91b449fbdec4fd9a7fec81fb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1643,
+      "startToken": 1626
+    },
+    "speechText": "「もうじきです二時四十五分ですから」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "-6XVK-FwDNCp0UfBxT6u-ylqvGEyr7Nqgv9vp51sjB8",
+    "contextAfter": "\n\n「ええ。どうも気が急くものですから、つい昼飯を食わずに来て、……もう二時間半ばかり待ちます」と腹は減ってもなかなか元気である",
+    "contextBefore": "いなら帝国臣民たる吾輩は無論歓迎しなくてはならん、万歳の一つくらいは義務にも申して行こうとようやくの事で行列の中へ割り込んだ。\n\n",
+    "displayText": "「あなたも御親戚を御迎いに御出になったので……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 6,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 1927,
+      "start": 1904
+    },
+    "revisions": [],
+    "sha256": "6b4a8bcc0bb86369bac14b6773a06933f7956f4dd180d28315b287b8da4981d1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1927,
+      "startToken": 1904
+    },
+    "speechText": "「あなたも御親戚を御迎いにおいでになったので……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "qqzJOnYlcGdv9KsyO1ovvJNqvI0HTbjU465yQvErtec",
+    "contextAfter": "と腹は減ってもなかなか元気である。ところへ三十前後の婦人が来て\n\n「凱旋の兵士はみんな、ここを通りましょうか」と心配そうに聞く。",
+    "contextBefore": "歳の一つくらいは義務にも申して行こうとようやくの事で行列の中へ割り込んだ。\n\n「あなたも御親戚を御迎いに御出になったので……」\n\n",
+    "displayText": "「ええ。どうも気が急くものですから、つい昼飯を食わずに来て、……もう二時間半ばかり待ちます」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 7,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 1975,
+      "start": 1929
+    },
+    "revisions": [],
+    "sha256": "6d8343ca0923ece62595d393793df8661f3d02eb31f20c55433938afe32858aa",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 1975,
+      "startToken": 1929
+    },
+    "speechText": "「ええ。どうも気がせくものですから、つい昼飯を食わずに来て、……もう二時間半ばかり待ちます」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "usMrZTbqXUU-FbgL4siTyNTIIpg9i8Uiey8GfTPQowQ",
+    "contextAfter": "と心配そうに聞く。大切の人を見はぐっては一大事ですと云わぬばかりの決心を示している。腹の減った男はすぐ引き受けて\n\n「ええ、みん",
+    "contextBefore": "から、つい昼飯を食わずに来て、……もう二時間半ばかり待ちます」と腹は減ってもなかなか元気である。ところへ三十前後の婦人が来て\n\n",
+    "displayText": "「凱旋の兵士はみんな、ここを通りましょうか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 8,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 2030,
+      "start": 2008
+    },
+    "revisions": [],
+    "sha256": "8aabf5c92a6392ee718fc85d70ce6e2a810fd5ba5cd0894dc6fc6a17e29fd96b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2030,
+      "startToken": 2008
+    },
+    "speechText": "「凱旋の兵士はみんな、ここを通りましょうか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "oi7dTU_8W1oeq406WrhGNorXvFhjdmHiN0YM9dFlhiE",
+    "contextAfter": "と答えたのはなかなか自信家と見える。しかし昼飯も食わずに待っていろとまでは云わなかった。\n\n　汽車の笛の音を形容して喘息病みの鯨の",
+    "contextBefore": "ましょうか」と心配そうに聞く。大切の人を見はぐっては一大事ですと云わぬばかりの決心を示している。腹の減った男はすぐ引き受けて\n\n",
+    "displayText": "「ええ、みんな通るんです、一人残らず通るんだから、二時間でも三時間でもここにさえ立っていれば間違いっこありません」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 9,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 2145,
+      "start": 2088
+    },
+    "revisions": [],
+    "sha256": "491e2330247bd9e0551886b3540f9da15f23685387f895e87e61ceabb6523391",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2145,
+      "startToken": 2088
+    },
+    "speechText": "「ええ、みんな通るんです、一人残らず通るんだから、二時間でも三時間でもここにさえ立っていれば間違いっこありません」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "SW_yTvQMkqxO8dpT1wDexyjNN36GwsGqXARbFZDwwSA",
+    "contextAfter": "と一人が領を延すと\n\n「なあに、ここに立ってさえいれば大丈夫」と腹の減った男は泰然として動ずる景色もない。この男から云うと着いても",
+    "contextBefore": "、なるほど旨い言葉だと思う間もなく、長蛇のごとく蜿蜒くって来た列車は、五百人余の健児を一度にプラットフォームの上に吐き出した。\n\n",
+    "displayText": "「ついたようですぜ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 10,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 2299,
+      "start": 2289
+    },
+    "revisions": [],
+    "sha256": "aad0d2365bec25d2d7bc34d39153388bf0e142221ce81c96ede9e14caea90beb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2299,
+      "startToken": 2289
+    },
+    "speechText": "「ついたようですぜ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "IWTWxVeX3EcCNs1W9PPkJcpTwvUfUn2ljxImn74U4f4",
+    "contextAfter": "と腹の減った男は泰然として動ずる景色もない。この男から云うと着いても着かなくても大丈夫なのだろう。それにしても腹の減った割には落ち",
+    "contextBefore": "ごとく蜿蜒くって来た列車は、五百人余の健児を一度にプラットフォームの上に吐き出した。\n\n「ついたようですぜ」と一人が領を延すと\n\n",
+    "displayText": "「なあに、ここに立ってさえいれば大丈夫」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 11,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 2330,
+      "start": 2310
+    },
+    "revisions": [],
+    "sha256": "72eb5ddd75a8ab796dc67b2b6dc5fb8c3173eeed174808cda0c650f96ae6282f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2330,
+      "startToken": 2310
+    },
+    "speechText": "「なあに、ここに立ってさえいれば大丈夫」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "0wlfIVUhwscfNOZNXucDwzD6vex7mQ5eLZ22JTIRxLc",
+    "contextAfter": "と云い懸けた尻尾を埋めて余の左右に並んだ同勢は一度に万―歳！　と叫んだ。その声の切れるか切れぬうちに一人の将軍が挙手の礼を施しなが",
+    "contextBefore": "ある。\n\n　やがて一二丁向うのプラットフォームの上で万歳！　と云う声が聞える。その声が波動のように順送りに近づいてくる。例の男が",
+    "displayText": "「なあに、まだ大丈……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 12,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 2476,
+      "start": 2464
+    },
+    "revisions": [],
+    "sha256": "d857038daab8a4563e3efc2f044dd83751296700268472d975942dda144eebb7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 2476,
+      "startToken": 2464
+    },
+    "speechText": "「なあに、まだ大丈……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "SgTpfRAju0Ks1elPT8s0uekqU1dRZ140MTCbIPVHa3A",
+    "contextAfter": "と御母さんに話しかけた。\n\n「今年は暖たかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」\n\n「へえ、白いのが",
+    "contextBefore": "先に洗濯した白足袋が裏返しに乾してあってその隣りには如露が逆さまに被せてある。その根元に豆菊が塊まって咲いて累々と白玉を綴っているのを見て",
+    "displayText": "「奇麗ですな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 13,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23226,
+      "start": 23219
+    },
+    "revisions": [],
+    "sha256": "f3c2751183c51398d7e2456084872b27ee60b5c0ac9f5a20b2e39313544ad1b1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23226,
+      "startToken": 23219
+    },
+    "speechText": "「奇麗ですな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "Rh9TQ3TkNaIvVQwcspWlsjO64i1UMBkMMHVJcoIQutA",
+    "contextAfter": "\n\n「へえ、白いのが好きでしたかな」\n\n「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御",
+    "contextBefore": "りには如露が逆さまに被せてある。その根元に豆菊が塊まって咲いて累々と白玉を綴っているのを見て「奇麗ですな」と御母さんに話しかけた。\n\n",
+    "displayText": "「今年は暖たかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 14,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23280,
+      "start": 23240
+    },
+    "revisions": [],
+    "sha256": "703d0bfd592be852eea9386605a9e18c0f40bcb5d0a761aca306f8aa51acea50",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23280,
+      "startToken": 23240
+    },
+    "speechText": "「今年はあったかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "IzYqlHnHIVI1glBvgOL2uy7oJo7TBvtct44OY_bNDAY",
+    "contextAfter": "\n\n「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御座います」\n\n「なるほどそんな事があ",
+    "contextBefore": "て「奇麗ですな」と御母さんに話しかけた。\n\n「今年は暖たかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」\n\n",
+    "displayText": "「へえ、白いのが好きでしたかな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 15,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23298,
+      "start": 23282
+    },
+    "revisions": [],
+    "sha256": "c9a9ed09a6142de9e036d08926c282f5d65ad6f1a4c019e485523eb059196baa",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23298,
+      "startToken": 23282
+    },
+    "speechText": "「へえ、白いのが好きでしたかな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "4zgHsQXeAR1VeM5s4hBUEegcKcAaIfTbbkdobpDlr_0",
+    "contextAfter": "\n\n「なるほどそんな事がありましたな」と云ったが、内心は少々気味が悪かった。寂光院の花筒に挿んであるのは正にこの種のこの色の菊である",
+    "contextBefore": "た。\n\n「今年は暖たかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」\n\n「へえ、白いのが好きでしたかな」\n\n",
+    "displayText": "「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御座います」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 16,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23349,
+      "start": 23300
+    },
+    "revisions": [],
+    "sha256": "5cdda1135b089de0526120e3f61b920835af92c1893897c1d3dc4edfccd7c52d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23349,
+      "startToken": 23300
+    },
+    "speechText": "「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御座います」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "aiVrGhVJ33-6FVsfC7mJfK5QGSzoqoXszWzSorDdcMA",
+    "contextAfter": "と云ったが、内心は少々気味が悪かった。寂光院の花筒に挿んであるのは正にこの種のこの色の菊である。\n\n「御叔母さん近頃は御寺参りをなさいま",
+    "contextBefore": "いのが好きでしたかな」\n\n「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御座います」\n\n",
+    "displayText": "「なるほどそんな事がありましたな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 17,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23368,
+      "start": 23351
+    },
+    "revisions": [],
+    "sha256": "7e6a7af82b1411bddd466d420d07a4d2d0c16d9d9da19c9cf57a1ed3878d8441",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23368,
+      "startToken": 23351
+    },
+    "speechText": "「なるほどそんな事がありましたな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "dK6rbX2swLf1NH3HyxEoeuARbnGIPCAIoDTVcVxJkog",
+    "contextAfter": "\n\n「いえ、せんだって中から風邪の気味で五六日伏せっておりましたものですから、ついつい仏へ無沙汰を致しまして。――うちにおっても忘",
+    "contextBefore": "なるほどそんな事がありましたな」と云ったが、内心は少々気味が悪かった。寂光院の花筒に挿んであるのは正にこの種のこの色の菊である。\n\n",
+    "displayText": "「御叔母さん近頃は御寺参りをなさいますか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 18,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23435,
+      "start": 23416
+    },
+    "revisions": [],
+    "sha256": "c39fbb607125308d94bc7838c382030e864d425090764d1f7b346df00dcc8c44",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23435,
+      "startToken": 23416
+    },
+    "speechText": "「おばさん近頃は御寺参りをなさいますか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "4MnPUh0ms3_byZStBFAzvk93pmMaeuQfsRhw0w_jPuA",
+    "contextAfter": "\n\n「時々は少し表をあるく方が薬ですよ。近頃はいい時候ですから……」\n\n「御親切にありがとう存じます。親戚のものなども心配して色",
+    "contextBefore": "、内心は少々気味が悪かった。寂光院の花筒に挿んであるのは正にこの種のこの色の菊である。\n\n「御叔母さん近頃は御寺参りをなさいますか」\n\n",
+    "displayText": "「いえ、せんだって中から風邪の気味で五六日伏せっておりましたものですから、ついつい仏へ無沙汰を致しまして。――うちにおっても忘れる間はないのですけれども――年をとりますと、御湯に行くのも退儀になりましてね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 19,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23538,
+      "start": 23437
+    },
+    "revisions": [],
+    "sha256": "6f5f0b7a2ec37cf334e4b302995ab5f2ec74f647e02f0b51c6417e26943dd446",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23538,
+      "startToken": 23437
+    },
+    "speechText": "「いえ、せんだってじゅうからかぜの気味で五六日伏せっておりましたものですから、ついつい仏へ無沙汰を致しまして。――うちにおっても忘れるまはないのですけれども――年をとりますと、御湯に行くのもたいぎになりましてね」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "h0v-cCHxuZDgCFhjGFZ9aaFZmtWAXObqBqTCs7oSYm8",
+    "contextAfter": "\n\n「御親切にありがとう存じます。親戚のものなども心配して色々云ってくれますが、どうもあなた何分元気がないものですから、それにこん",
+    "contextBefore": "い仏へ無沙汰を致しまして。――うちにおっても忘れる間はないのですけれども――年をとりますと、御湯に行くのも退儀になりましてね」\n\n",
+    "displayText": "「時々は少し表をあるく方が薬ですよ。近頃はいい時候ですから……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 20,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23572,
+      "start": 23540
+    },
+    "revisions": [],
+    "sha256": "23651e6ce2dd61582727abfaeb8953e9cee530e88591ed8282416d2bf24617ff",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23572,
+      "startToken": 23540
+    },
+    "speechText": "「時々は少し表をあるく方が薬ですよ。近頃はいい時候ですから……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "8qwAtsGIQ9-57AoDPUTnWTdBbc-33eGzfA9BNy8Uf64",
+    "contextAfter": "\n\n　こうなると余はいつでも言句に窮する。どう云って切り抜けていいか見当がつかない。仕方がないから「はああ」と長く引っ張ったが、",
+    "contextBefore": "ども――年をとりますと、御湯に行くのも退儀になりましてね」\n\n「時々は少し表をあるく方が薬ですよ。近頃はいい時候ですから……」\n\n",
+    "displayText": "「御親切にありがとう存じます。親戚のものなども心配して色々云ってくれますが、どうもあなた何分元気がないものですから、それにこんな婆さんを態々連れてあるいてくれるものもありませず」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 21,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23661,
+      "start": 23574
+    },
+    "revisions": [],
+    "sha256": "53124b2fd1d80108aa8d39764970d94e9047137903d36e3226ca275e626ef179",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23661,
+      "startToken": 23574
+    },
+    "speechText": "「御親切にありがとう存じます。親戚のものなども心配して色々云ってくれますが、どうもあなたなにぶん元気がないものですから、それにこんな婆さんをわざわざ連れてあるいてくれるものもありませず」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "ktB9Q6U_ERHZE1VRBTBzrqBrERybhRi8xvPHmef9pZo",
+    "contextAfter": "と長く引っ張ったが、御母さんは少々不平の気味である。さあしまったと思ったが別に片附けようもないから、梅の木をあちらこちら飛び歩るい",
+    "contextBefore": "るいてくれるものもありませず」\n\n　こうなると余はいつでも言句に窮する。どう云って切り抜けていいか見当がつかない。仕方がないから",
+    "displayText": "「はああ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 22,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23715,
+      "start": 23710
+    },
+    "revisions": [],
+    "sha256": "0311efc6ded6aa210f09f701db8757da876f4e456a73a1ec78e83087deb1cb61",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23715,
+      "startToken": 23710
+    },
+    "speechText": "「はああ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "uTcV97oYJrBnDKH39MJSDhnnVXvl1CW0WaLPJ94PMvc",
+    "contextAfter": "と云いながら不調法なる余にしては天晴な出来だと自分で感心して見せた。\n\n「生憎そんな娘もおりませず。それに人の子にはやはり遠慮勝ちで……",
+    "contextBefore": "思ったが別に片附けようもないから、梅の木をあちらこちら飛び歩るいている四十雀を眺めていた。御母さんも話の腰を折られて無言である。\n\n",
+    "displayText": "「御親類の若い御嬢さんでもあると、こんな時には御相手にいいですがね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 23,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23845,
+      "start": 23811
+    },
+    "revisions": [],
+    "sha256": "64b88e232c0cb153e789f5ea085e46b085e943eff80f2649471b8ac5b7aac2dd",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23845,
+      "startToken": 23811
+    },
+    "speechText": "「御親類の若い御嬢さんでもあると、こんな時には御相手にいいですがね」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "N2OJatBZb34h4hYNC4r9aKbKAnMufUJSuZCBEm8OUEA",
+    "contextAfter": "\n\n　そら娶が出た。くるたびによめが出ない事はない。年頃の息子に嫁を持たせたいと云うのは親の情としてさもあるべき事だが、死んだ子に",
+    "contextBefore": "類の若い御嬢さんでもあると、こんな時には御相手にいいですがね」と云いながら不調法なる余にしては天晴な出来だと自分で感心して見せた。\n\n",
+    "displayText": "「生憎そんな娘もおりませず。それに人の子にはやはり遠慮勝ちで……せがれに嫁でも貰って置いたら、こんな時にはさぞ心丈夫だろうと思います。ほんに残念な事をしました」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 24,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 23957,
+      "start": 23878
+    },
+    "revisions": [],
+    "sha256": "9ab98596aedeb6ef064892523093373e7d8f2efd50dd340b8c87e859d2e2a1f7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 23957,
+      "startToken": 23878
+    },
+    "speechText": "「あいにくそんな娘もおりませず。それに人の子にはやはり遠慮勝ちで……せがれに嫁でも貰って置いたら、こんな時にはさぞ心丈夫だろうと思います。ほんに残念な事をしました」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "WqlvozWs2cfnqSMoyDS36_5kaTzS7uYL7i7uzJRimdo",
+    "contextAfter": "\n\n「いえ、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」\n\n「それじゃ当人も貰うつもりでいたんでし",
+    "contextBefore": "して怨まれずに世の中を渡ろうとすると、どうも嘘がつきたくなる。正直と社会生活が両立するに至れば嘘は直ちにやめるつもりでいる。\n\n",
+    "displayText": "「実際残念な事をしましたね。全体浩さんはなぜ嫁をもらわなかったんですか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 25,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 24534,
+      "start": 24498
+    },
+    "revisions": [],
+    "sha256": "706a430dad7f6b50039637681ceb5e1b2a1f10a59b527342163254383eac2383",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 24534,
+      "startToken": 24498
+    },
+    "speechText": "「実際残念な事をしましたね。全体浩さんはなぜ嫁をもらわなかったんですか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "TxuXGV8UjCFyC5apaVy-y5qL--HINBZMqvulH1IAxoA",
+    "contextAfter": "\n\n「それじゃ当人も貰うつもりでいたんでしょう」\n\n「それは……」と云ったが、それぎり黙っている。少々様子が変だ。あるいは寂光院",
+    "contextBefore": "が両立するに至れば嘘は直ちにやめるつもりでいる。\n\n「実際残念な事をしましたね。全体浩さんはなぜ嫁をもらわなかったんですか」\n\n",
+    "displayText": "「いえ、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 26,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 24577,
+      "start": 24536
+    },
+    "revisions": [],
+    "sha256": "675db28b225b0707e0636c6396207bb4df1be1ca65fddaf3ae0cf2f06cbd1883",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 24577,
+      "startToken": 24536
+    },
+    "speechText": "「いえ、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "BhVurNwPtx-mjGJVDxDNUhC3PspH9W7QxLkSWukLVNo",
+    "contextAfter": "\n\n「それは……」と云ったが、それぎり黙っている。少々様子が変だ。あるいは寂光院事件の手懸りが潜伏していそうだ。白状して云うと、余",
+    "contextBefore": "さんはなぜ嫁をもらわなかったんですか」\n\n「いえ、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」\n\n",
+    "displayText": "「それじゃ当人も貰うつもりでいたんでしょう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 27,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 24601,
+      "start": 24579
+    },
+    "revisions": [],
+    "sha256": "ebc5935abd3e9677af4c244d0ddce0f5dca3a9948fd578f256fd69eefdc86e69",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 24601,
+      "startToken": 24579
+    },
+    "speechText": "「それじゃ当人も貰うつもりでいたんでしょう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "ZLHCC6jKDoptus0CpTi6JRHybuKVoMolZaYyrK8WuR4",
+    "contextAfter": "と云ったが、それぎり黙っている。少々様子が変だ。あるいは寂光院事件の手懸りが潜伏していそうだ。白状して云うと、余はその時浩さんの事",
+    "contextBefore": "、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」\n\n「それじゃ当人も貰うつもりでいたんでしょう」\n\n",
+    "displayText": "「それは……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 28,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 24610,
+      "start": 24603
+    },
+    "revisions": [],
+    "sha256": "20c738f4124f77c17cd653dd9de890bf704a80b7f61336f71a61577997190865",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 24610,
+      "startToken": 24603
+    },
+    "speechText": "「それは……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "aNn9it4l6cH0V7Uw_J5Ud_Mq1krH2MHyCR0OctZHFTg",
+    "contextAfter": "\n\n「嫁の事ですか」\n\n「ええ、誰か自分の好いたものがあるような事を」\n\n「いいえ」と答えたが、実はこの問こそ、こっちから御母さ",
+    "contextBefore": "たる探偵的態度をもって事物に対するに至ったのは、すこぶるあきれ返った現象である。ちょっと言い淀んだ御母さんは、思い切った口調で\n\n",
+    "displayText": "「その事について浩一は何かあなたに御話をした事は御座いませんか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 29,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25050,
+      "start": 25018
+    },
+    "revisions": [],
+    "sha256": "f9b12a37f3e8c91a2f072b9917162a164eb08f4b33afa5a8833d508706ad2c89",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25050,
+      "startToken": 25018
+    },
+    "speechText": "「その事について浩一は何かあなたに御話をした事は御座いませんか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "8j49nMatsJLNjas3cyQU09gzim_Ybhsm2DxHRTdFlEM",
+    "contextAfter": "\n\n「ええ、誰か自分の好いたものがあるような事を」\n\n「いいえ」と答えたが、実はこの問こそ、こっちから御母さんに向って聞いて見な",
+    "contextBefore": "現象である。ちょっと言い淀んだ御母さんは、思い切った口調で\n\n「その事について浩一は何かあなたに御話をした事は御座いませんか」\n\n",
+    "displayText": "「嫁の事ですか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 30,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25060,
+      "start": 25052
+    },
+    "revisions": [],
+    "sha256": "7d7d796eeaad5c75905526883a1112fb05c0be1e92c0511c346587dc42cd1519",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25060,
+      "startToken": 25052
+    },
+    "speechText": "「嫁の事ですか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "oSaOrkfhB4Z2DScQqIHpdrHU0d5fNrtil_ft-z5DGak",
+    "contextAfter": "\n\n「いいえ」と答えたが、実はこの問こそ、こっちから御母さんに向って聞いて見なければならん問題であった。\n\n「御叔母さんには何か話し",
+    "contextBefore": "言い淀んだ御母さんは、思い切った口調で\n\n「その事について浩一は何かあなたに御話をした事は御座いませんか」\n\n「嫁の事ですか」\n\n",
+    "displayText": "「ええ、誰か自分の好いたものがあるような事を」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 31,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25085,
+      "start": 25062
+    },
+    "revisions": [],
+    "sha256": "f66029c7e590bd156c13b772e49df416be308a98888749d03360060f5312f636",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25085,
+      "startToken": 25062
+    },
+    "speechText": "「ええ、誰か自分の好いたものがあるような事を」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "hrX2mcEVm5wUNCI7FhU1PTa-ey-kGHECGEsbPtsWq5g",
+    "contextAfter": "と答えたが、実はこの問こそ、こっちから御母さんに向って聞いて見なければならん問題であった。\n\n「御叔母さんには何か話しましたろう」\n",
+    "contextBefore": "ついて浩一は何かあなたに御話をした事は御座いませんか」\n\n「嫁の事ですか」\n\n「ええ、誰か自分の好いたものがあるような事を」\n\n",
+    "displayText": "「いいえ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 32,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25092,
+      "start": 25087
+    },
+    "revisions": [],
+    "sha256": "709b3e2ab226081f624d9aaa2cf02b83a30fe8443fae0bced092aa88d860a477",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25092,
+      "startToken": 25087
+    },
+    "speechText": "「いいえ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "opHkTCy-YjuyWydOFxl6awB1y2Ic5zWDDy7MUmhH9qQ",
+    "contextAfter": "\n\n「いいえ」\n\n　望の綱はこれぎり切れた。仕方がないからまた眼を庭の方へ転ずると、四十雀はすでにどこかへ飛び去って、例の白菊の色が",
+    "contextBefore": "のがあるような事を」\n\n「いいえ」と答えたが、実はこの問こそ、こっちから御母さんに向って聞いて見なければならん問題であった。\n\n",
+    "displayText": "「御叔母さんには何か話しましたろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 33,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25155,
+      "start": 25139
+    },
+    "revisions": [],
+    "sha256": "fe0240e8338a83009dd25a567f19c4c953d2d1f2f1a8179418bd05ed4bcb0980",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25155,
+      "startToken": 25139
+    },
+    "speechText": "「おばさんには何か話しましたろう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "uvbpSj2VlRzPshdcSlJl3vyQ47wYpFOoIzO3r3ElKDc",
+    "contextAfter": "\n\n　望の綱はこれぎり切れた。仕方がないからまた眼を庭の方へ転ずると、四十雀はすでにどこかへ飛び去って、例の白菊の色が、水気を含んだ黒",
+    "contextBefore": "答えたが、実はこの問こそ、こっちから御母さんに向って聞いて見なければならん問題であった。\n\n「御叔母さんには何か話しましたろう」\n\n",
+    "displayText": "「いいえ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 34,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25162,
+      "start": 25157
+    },
+    "revisions": [],
+    "sha256": "4c7c19780c1503bd7c28d6d15ba5b67182a1887e346328906cead08b71d864e8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25162,
+      "startToken": 25157
+    },
+    "speechText": "「いいえ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "zU_QWBff5JxGxjMpFaxzWnCGLoDpZ8eMw0Gd2tUrkZw",
+    "contextAfter": "\n\n「ええ、あれを見ないうちは何とも思わなかったのですが、つい見たものですから……」と御母さんは急に涙声になる。また泣かした。こ",
+    "contextBefore": "さんは女の事だから理解出来んかも知れんが、余が見ればこうだろうくらいの見当はつくわけだ。これは催促して日記を見るに若くはない。\n\n",
+    "displayText": "「あの先日御話しの日記ですね。あの中に何かかいてはありませんか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 35,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25427,
+      "start": 25395
+    },
+    "revisions": [],
+    "sha256": "f7885a16d5a260343c5fb28203e85aa86cb21e905988a2c39d5ac1fcf58b8909",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25427,
+      "startToken": 25395
+    },
+    "speechText": "「あの先日御話しの日記ですね。あの中に何かかいてはありませんか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "uqM77M6YlJqcC01EPxF2HD30hUQrEcZ4Z-UJ_UAxxBw",
+    "contextAfter": "と御母さんは急に涙声になる。また泣かした。これだから困る。困りはしたものの、何か書いてある事はたしかだ。こうなっては泣こうが泣く",
+    "contextBefore": "の見当はつくわけだ。これは催促して日記を見るに若くはない。\n\n「あの先日御話しの日記ですね。あの中に何かかいてはありませんか」\n\n",
+    "displayText": "「ええ、あれを見ないうちは何とも思わなかったのですが、つい見たものですから……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 36,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25469,
+      "start": 25429
+    },
+    "revisions": [],
+    "sha256": "807fa358209ac6a295aa4fa2172d01e74bb7bdb1fceb42cb5f2d0d033cf12b89",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25469,
+      "startToken": 25429
+    },
+    "speechText": "「ええ、あれを見ないうちは何とも思わなかったのですが、つい見たものですから……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "3uHkXbTfmCSwFIBoclDGXqOvX2QIhHjJU-SAJzCI2PU",
+    "contextAfter": "と勢よく云ったのは今から考えて赤面の次第である。御母さんは起って奥へ這入る。\n\n　やがて襖をあけてポッケット入れの手帳を持って出て",
+    "contextBefore": "した。これだから困る。困りはしたものの、何か書いてある事はたしかだ。こうなっては泣こうが泣くまいがそんな事は構っておられん。\n\n",
+    "displayText": "「日記に何か書いてありますか？　それは是非拝見しましょう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 37,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25580,
+      "start": 25551
+    },
+    "revisions": [],
+    "sha256": "e838f03bbfa4bde77d89729624293dd598e3f107d0025847d3edc9ecf8b542b3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25580,
+      "startToken": 25551
+    },
+    "speechText": "「日記に何か書いてありますか？ それは是非拝見しましょう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "N5u8pTxp3Vszsku4x7DtDI3iKgMgI2HDRVpd-zdTrI0",
+    "contextAfter": "と聞いた。御母さんは玄関の方を見ながら「どうぞ」と答える。やがて下女が何とかさまが入らっしゃいましたと注進にくる。何とかさまに用",
+    "contextBefore": "見ようとすると表の戸がからからと開いて、頼みますと云う声がする。生憎来客だ。御母さんは手真似で早く隠せと云うから、余は手帳を内懐に入れて",
+    "displayText": "「宅へ帰ってもいいですか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 38,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25802,
+      "start": 25789
+    },
+    "revisions": [],
+    "sha256": "51a6a028d76794f51b1ee18d0aec0860dd13ed46a2da0301330da99c7333111d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25802,
+      "startToken": 25789
+    },
+    "speechText": "「宅へ帰ってもいいですか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "KJkrXMs60mCA0d_bVLtzY1e2nXaDkRdK4t3Fr3tBsug",
+    "contextAfter": "と答える。やがて下女が何とかさまが入らっしゃいましたと注進にくる。何とかさまに用はない。日記さえあれば大丈夫早く帰って読まなくっ",
+    "contextBefore": "生憎来客だ。御母さんは手真似で早く隠せと云うから、余は手帳を内懐に入れて「宅へ帰ってもいいですか」と聞いた。御母さんは玄関の方を見ながら",
+    "displayText": "「どうぞ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 39,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 25826,
+      "start": 25821
+    },
+    "revisions": [],
+    "sha256": "62d325b7f26be43c5f55a3c100bef48ac19c765ed2271016f9a6ead27e069364",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 25826,
+      "startToken": 25821
+    },
+    "speechText": "「どうぞ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "58lGwJfKFPjuckjl0ol4XmmuuuBKd7wo_QYxBCGZO2Y",
+    "contextAfter": "と云うのがある。「夜来風邪の気味、発熱。診察を受けず、例のごとく勤務」と云うのがある。「テント外の歩哨散弾に中る。テントに仆れかかる",
+    "contextBefore": "一頁から順々に見て行くと皆陣中の出来事のみである。しかも倥偬の際に分陰を偸んで記しつけたものと見えて大概の事は一句二句で弁じている。",
+    "displayText": "「風、坑道内にて食事。握り飯二個。泥まぶれ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 40,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 26904,
+      "start": 26882
+    },
+    "revisions": [],
+    "sha256": "2d6724185e2d3ef0354ac68f67ff0820edb49f1cf7c8f36ecc2545c00f94c26c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26904,
+      "startToken": 26882
+    },
+    "speechText": "「風、坑道内にて食事。握り飯二個。泥まぶれ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "PbwnHWRcZMgDwqYxY41rJj_u7vS8ajN62fu8nfbVtxk",
+    "contextAfter": "と云うのがある。「テント外の歩哨散弾に中る。テントに仆れかかる。血痕を印す」「五時大突撃。中隊全滅、不成功に終る。残念※」残念の下に",
+    "contextBefore": "際に分陰を偸んで記しつけたものと見えて大概の事は一句二句で弁じている。「風、坑道内にて食事。握り飯二個。泥まぶれ」と云うのがある。",
+    "displayText": "「夜来風邪の気味、発熱。診察を受けず、例のごとく勤務」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 41,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 26938,
+      "start": 26912
+    },
+    "revisions": [],
+    "sha256": "44bc924b61cd30871ddfb9b984a76a987deaedce8b93e1c5c7c079bb762a9b36",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26938,
+      "startToken": 26912
+    },
+    "speechText": "「夜来ふうじゃの気味、発熱。診察を受けず、例のごとく勤務」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "C2RXkrZ1M0GyHJKs7WXygBUjZ-goI3zj1sVA9nQ0sSw",
+    "contextAfter": "「五時大突撃。中隊全滅、不成功に終る。残念※」残念の下に！が三本引いてある。無論記憶を助けるための手控であるから、毫も文章らしいと",
+    "contextBefore": "「風、坑道内にて食事。握り飯二個。泥まぶれ」と云うのがある。「夜来風邪の気味、発熱。診察を受けず、例のごとく勤務」と云うのがある。",
+    "displayText": "「テント外の歩哨散弾に中る。テントに仆れかかる。血痕を印す」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 42,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 26974,
+      "start": 26946
+    },
+    "revisions": [],
+    "sha256": "fee7812d6fe48e54ef30c442a44e06724b99e9596a76618702e87062635f7c47",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26974,
+      "startToken": 26946
+    },
+    "speechText": "「テント外のほしょう散弾にあたる。テントにたおれかかる。けっこんを印す」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "K7E--QhBLOmz8tf18kJxf7TtuSe2YBAaSdrLcrvomYM",
+    "contextAfter": "残念の下に！が三本引いてある。無論記憶を助けるための手控であるから、毫も文章らしいところはない。字句を修飾したり、彫琢したりした痕跡",
+    "contextBefore": "る。「夜来風邪の気味、発熱。診察を受けず、例のごとく勤務」と云うのがある。「テント外の歩哨散弾に中る。テントに仆れかかる。血痕を印す」",
+    "displayText": "「五時大突撃。中隊全滅、不成功に終る。残念※」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 43,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 26997,
+      "start": 26974
+    },
+    "revisions": [],
+    "sha256": "87c0eb3799011579a7b79baedf66a0ece37c864241c4c481bebe9e2bcf3173b3",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 26997,
+      "startToken": 26974
+    },
+    "speechText": "「五時大突撃。中隊全滅、不成功に終る。残念」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "eUToMPghleKLzDLW8JA7qYt77894WeMnqH_GUmhS8-c",
+    "contextAfter": "\n\n　余は覚えずどきりとした。「ただ二三分の間、顔を見たばかりの女を、ほど経て夢に見るのは不思議である」この句から急に言文一致に",
+    "contextBefore": "ぎつけたがそのほかは裏から見ても逆さまに見てもどうしても読めない。とうとう断念する。それから二三頁進むと突然一大発見に遭遇した。",
+    "displayText": "「二三日一睡もせんので勤務中坑内仮寝。郵便局で逢った女の夢を見る」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 44,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 27550,
+      "start": 27520
+    },
+    "revisions": [],
+    "sha256": "7a4ce5691a0c711dd67e8eb4e85fdde696e09c805272da4c0cae066adbfe61da",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27550,
+      "startToken": 27520
+    },
+    "speechText": "「にさんち一睡もせんので勤務中坑内かしん。郵便局で逢った女の夢を見る」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "e2Btr1ZUMJ1a7zKtTzv2prtpaxPCtkTqm5bkB1MubgM",
+    "contextAfter": "この句から急に言文一致になっている。「よほど衰弱している証拠であろう、しかし衰弱せんでもあの女の夢なら見るかも知れん。旅順へ来て",
+    "contextBefore": "ら二三頁進むと突然一大発見に遭遇した。「二三日一睡もせんので勤務中坑内仮寝。郵便局で逢った女の夢を見る」\n\n　余は覚えずどきりとした。",
+    "displayText": "「ただ二三分の間、顔を見たばかりの女を、ほど経て夢に見るのは不思議である」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 45,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 27602,
+      "start": 27565
+    },
+    "revisions": [],
+    "sha256": "fe54518d3286d758a424fc75df3f1fd5d27e94e5fd6953f423c8bcbe95cd4001",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27602,
+      "startToken": 27565
+    },
+    "speechText": "「ただ二三分の間、顔を見たばかりの女を、ほどへて夢に見るのは不思議である」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "FkUUG3YqoAIitAE96SirUNu9tEdlPWqEWaDJp6u-TSk",
+    "contextAfter": "\n\n　余は日記をぴしゃりと敲いてこれだ！　と叫んだ。御母さんが嫁々と口癖のように云うのは無理はない。これを読んでいるからだ。それを",
+    "contextBefore": "えずどきりとした。「ただ二三分の間、顔を見たばかりの女を、ほど経て夢に見るのは不思議である」この句から急に言文一致になっている。",
+    "displayText": "「よほど衰弱している証拠であろう、しかし衰弱せんでもあの女の夢なら見るかも知れん。旅順へ来てからこれで三度見た」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 46,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 27676,
+      "start": 27620
+    },
+    "revisions": [],
+    "sha256": "bb4516c4f0c9c612e1513321834534941e778edc956847b4c5dbbd20163f585d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 27676,
+      "startToken": 27620
+    },
+    "speechText": "「よほど衰弱している証拠であろう、しかし衰弱せんでもあの女の夢なら見るかも知れん。旅順へ来てからこれで三度見た」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "baJjUPrtiR-_2snAN7irfO5tzBOjqq1DduMWWLGfcm8",
+    "contextAfter": "なるほど死を決していたものと見える。十一月二十五日の条にはこうある。「余の運命もいよいよ明日に逼った」今度は言文一致である。「軍",
+    "contextBefore": "してちょっと逢ったものをそう何度も夢に見るかしらん。どうも今少したしかな土台が欲しいがとなお読んで行くと、こんな事が書いてある。",
+    "displayText": "「近世の軍略において、攻城は至難なるものの一として数えらる。我が攻囲軍の死傷多きは怪しむに足らず。この二三ヶ月間に余が知れる将校の城下に斃れたる者は枚挙に遑あらず。死は早晩余を襲い来らん。余は日夜に両軍の砲撃を聞きて、今か今かと順番の至るを待つ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 47,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 28487,
+      "start": 28365
+    },
+    "revisions": [],
+    "sha256": "3be165754bd3870126ef3931018fe318132bcf280af05cf5475fde3429e428a1",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28487,
+      "startToken": 28365
+    },
+    "speechText": "「近世の軍略において、攻城は至難なるものの一として数えらる。我が攻囲軍の死傷多きは怪しむに足らず。この二三ヶ月間に余が知れる将校の城下にたおれたる者はまいきょにいとまあらず。死は早晩余を襲い来らん。余は日夜に両軍の砲撃を聞きて、今か今かと順番の至るを待つ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "bdkIUpNHh1pJK9KTL-YFOgcYLiX5j3ZCSqWoRcJ4AQw",
+    "contextAfter": "今度は言文一致である。「軍人が軍さで死ぬのは当然の事である。死ぬのは名誉である。ある点から云えば生きて本国に帰るのは死ぬべきとこ",
+    "contextBefore": "。余は日夜に両軍の砲撃を聞きて、今か今かと順番の至るを待つ」なるほど死を決していたものと見える。十一月二十五日の条にはこうある。",
+    "displayText": "「余の運命もいよいよ明日に逼った」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 48,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 28538,
+      "start": 28521
+    },
+    "revisions": [],
+    "sha256": "f0ed20f094cdde1fa91031a436d9cb2b13fe89da36a3e78c8dc98b4a380d8b41",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28538,
+      "startToken": 28521
+    },
+    "speechText": "「余の運命もいよいよ明日にせまった」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "czcuj_KT9n9PG827kRSigKs_c-Bsc7mqu-_fyFChJ_M",
+    "contextAfter": "戦死の当日の所を見ると「今日限りの命だ。二竜山を崩す大砲の声がしきりに響く。死んだらあの音も聞えぬだろう。耳は聞えなくなっても、",
+    "contextBefore": "つ」なるほど死を決していたものと見える。十一月二十五日の条にはこうある。「余の運命もいよいよ明日に逼った」今度は言文一致である。",
+    "displayText": "「軍人が軍さで死ぬのは当然の事である。死ぬのは名誉である。ある点から云えば生きて本国に帰るのは死ぬべきところを死に損なったようなものだ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 49,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 28617,
+      "start": 28549
+    },
+    "revisions": [],
+    "sha256": "5b83df45a95a609ab99c914783ef0bdf408a5ca2665b5412dd1aed7575ff9071",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28617,
+      "startToken": 28549
+    },
+    "speechText": "「軍人がいくさで死ぬのは当然の事である。死ぬのは名誉である。ある点から云えば生きて本国に帰るのは死ぬべきところを死にそくなったようなものだ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "c5STNMjI_vire2ozHcV0g18YbikWdpT6_z4Yr0jbq-k",
+    "contextAfter": "とある。その次に「強い風だ。いよいよこれから死にに行く。丸に中って仆れるまで旗を振って進むつもりだ。御母さんは、寒いだろう」日記は",
+    "contextBefore": "である。死ぬのは名誉である。ある点から云えば生きて本国に帰るのは死ぬべきところを死に損なったようなものだ」戦死の当日の所を見ると",
+    "displayText": "「今日限りの命だ。二竜山を崩す大砲の声がしきりに響く。死んだらあの音も聞えぬだろう。耳は聞えなくなっても、誰か来て墓参りをしてくれるだろう。そうして白い小さい菊でもあげてくれるだろう。寂光院は閑静な所だ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 50,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 28730,
+      "start": 28628
+    },
+    "revisions": [],
+    "sha256": "cbeebe005e2de7265d5336e7a0b19b31d53a99b47280ba6dab9de5783c110363",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28730,
+      "startToken": 28628
+    },
+    "speechText": "「今日限りの命だ。二竜山をくずす大砲の声がしきりに響く。死んだらあの音も聞えぬだろう。耳は聞えなくなっても、誰か来て墓参りをしてくれるだろう。そうして白い小さい菊でもあげてくれるだろう。寂光院は閑静な所だ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "9Ts6I0pYuYkzhkLmMrCwPek4WPnaD1CAqUpsAM6KvGM",
+    "contextAfter": "日記はここで、ぶつりと切れている。切れているはずだ。\n\n　余はぞっとして日記を閉じたが、いよいよあの女の事が気に懸ってたまらない",
+    "contextBefore": "なくなっても、誰か来て墓参りをしてくれるだろう。そうして白い小さい菊でもあげてくれるだろう。寂光院は閑静な所だ」とある。その次に",
+    "displayText": "「強い風だ。いよいよこれから死にに行く。丸に中って仆れるまで旗を振って進むつもりだ。御母さんは、寒いだろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 51,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 28791,
+      "start": 28738
+    },
+    "revisions": [],
+    "sha256": "b3c07f6117372d97c65a8c7d4a7edb3b11f4f31fe3104c219f0b54385d56b6c8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 28791,
+      "startToken": 28738
+    },
+    "speechText": "「強い風だ。いよいよこれから死にに行く。たまにあたってたおれるまで旗を振って進むつもりだ。おっかさんは、寒いだろう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "C838mgO_SHcNY3mYIy-qFxoeQplkx4s48LDTfdXsgBM",
+    "contextAfter": "とは同時に吾口を突いて飛び出した言語である。今まではただ不思議である小説的である。何となく落ちつかない、何か疑惑を晴らす工夫はあ",
+    "contextBefore": "ようにぼうっとして来た。この夢のようなありさまで五六分続けたと思ううち、たちまち頭の中に電流を通じた感じがしてはっと我に帰った。",
+    "displayText": "「そうだ、この問題は遺伝で解ける問題だ。遺伝で解けばきっと解ける」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 52,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 30247,
+      "start": 30214
+    },
+    "revisions": [],
+    "sha256": "101ab68c830109ef58bda9d421cbb0e141efa604482a7a3f51d6a56ec42690cc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 30247,
+      "startToken": 30214
+    },
+    "speechText": "「そうだ、この問題は遺伝で解ける問題だ。遺伝で解けばきっと解ける」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "b1yhH-km_iWCtavaCVF_vmlA8604zM5v3nY7j-FISN4",
+    "contextAfter": "\n\n「うん何でも知っている。維新の時なぞはだいぶ働いたそうだ。槍の名人でね」\n\n　槍などは下手でも構わん。昔し藩中に起った異聞奇譚を、老耄",
+    "contextBefore": "依然として生きていると何だか妙な事を答える。家令ならなお都合がいい、平常藩邸に出入する人物の姓名職業は無論承知しているに違ない。\n\n",
+    "displayText": "「その老人は色々昔の事を記憶しているだろうな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 53,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 31778,
+      "start": 31755
+    },
+    "revisions": [],
+    "sha256": "e3632367931457b9974b71a01bf0629e3c95924f57f8e94a3383e61c8a1cbc7d",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 31778,
+      "startToken": 31755
+    },
+    "speechText": "「その老人は色々昔の事を記憶しているだろうな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "mrEaixlBeboHgYUW7Jqjn_Qnkwcpm-kkZ0zFdD4Th-g",
+    "contextAfter": "\n\n　槍などは下手でも構わん。昔し藩中に起った異聞奇譚を、老耄せずに覚えていてくれればいいのである。だまって聞いていると話が横道へそれそう",
+    "contextBefore": "らなお都合がいい、平常藩邸に出入する人物の姓名職業は無論承知しているに違ない。\n\n「その老人は色々昔の事を記憶しているだろうな」\n\n",
+    "displayText": "「うん何でも知っている。維新の時なぞはだいぶ働いたそうだ。槍の名人でね」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 54,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 31816,
+      "start": 31780
+    },
+    "revisions": [],
+    "sha256": "33cc9656b1bdc5dafd87f40ecedceed5a6a23e6566a96822418db9ddfbdcec6e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 31816,
+      "startToken": 31780
+    },
+    "speechText": "「うん何でも知っている。維新の時なぞはだいぶ働いたそうだ。やりの名人でね」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "KKn-DtKZu5jz4MNsSksYXt1tk10dsSXOvyoYx4XkobM",
+    "contextAfter": "\n\n「たしか過ぎて困るね。屋敷のものがみんな弱っている。もう八十近いのだが、人間も随分丈夫に製造する事が出来るもんだね。当人に聞",
+    "contextBefore": "などは下手でも構わん。昔し藩中に起った異聞奇譚を、老耄せずに覚えていてくれればいいのである。だまって聞いていると話が横道へそれそうだ。\n\n",
+    "displayText": "「まだ家令を務めているくらいなら記憶はたしかだろうな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 55,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 31911,
+      "start": 31884
+    },
+    "revisions": [],
+    "sha256": "3436da6437c033df13ccab0f37a91d1b530f534300fe00f2169f1b1020b5c6b7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 31911,
+      "startToken": 31884
+    },
+    "speechText": "「まだ家令をつとめているくらいなら記憶はたしかだろうな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "mJ4S3bEpiat38bmLAn2RT753U8y07yjYf3qUzRD6w3o",
+    "contextAfter": "\n\n「槍はいいが、その老人に紹介して貰えまいか」\n\n「いつでもして上げる」と云うと傍に聞いていた同僚が、君は白山の美人を探がした",
+    "contextBefore": "てくれればいいのである。だまって聞いていると話が横道へそれそうだ。\n\n「まだ家令を務めているくらいなら記憶はたしかだろうな」\n\n",
+    "displayText": "「たしか過ぎて困るね。屋敷のものがみんな弱っている。もう八十近いのだが、人間も随分丈夫に製造する事が出来るもんだね。当人に聞くと全く槍術の御蔭だと云ってる。それで毎朝起きるが早いか槍をしごくんだ……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 56,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 32012,
+      "start": 31913
+    },
+    "revisions": [],
+    "sha256": "1ffdc9321607b2bae8af30fdc3c299dbe047cc737168ce04295a55fdd4cda13b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 32012,
+      "startToken": 31913
+    },
+    "speechText": "「たしか過ぎて困るね。屋敷のものがみんな弱っている。もう八十近いのだが、人間も随分丈夫に製造する事が出来るもんだね。当人に聞くと全くそうじゅつの御蔭だと云ってる。それで毎朝起きるが早いか槍をしごくんだ……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "48s5BRuFsDePSR-6WvAIpxZFV8iaIYpmU9O_c0GUdAU",
+    "contextAfter": "\n\n「いつでもして上げる」と云うと傍に聞いていた同僚が、君は白山の美人を探がしたり、記憶のいい爺さんを探したり、随分多忙だねと笑",
+    "contextBefore": "間も随分丈夫に製造する事が出来るもんだね。当人に聞くと全く槍術の御蔭だと云ってる。それで毎朝起きるが早いか槍をしごくんだ……」\n\n",
+    "displayText": "「槍はいいが、その老人に紹介して貰えまいか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 57,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 32036,
+      "start": 32014
+    },
+    "revisions": [],
+    "sha256": "f3d87cd5c509691bc2d383ec94aac3e9d044b87192c1c5d7c4813b270376d8dd",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 32036,
+      "startToken": 32014
+    },
+    "speechText": "「槍はいいが、その老人に紹介して貰えまいか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "aQ_IaV22TsJuUfQ5BdW_dj2Jblcoz9kKiF4AfUXxExs",
+    "contextAfter": "と云うと傍に聞いていた同僚が、君は白山の美人を探がしたり、記憶のいい爺さんを探したり、随分多忙だねと笑った。こっちはそれどころで",
+    "contextBefore": "聞くと全く槍術の御蔭だと云ってる。それで毎朝起きるが早いか槍をしごくんだ……」\n\n「槍はいいが、その老人に紹介して貰えまいか」\n\n",
+    "displayText": "「いつでもして上げる」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 58,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 32049,
+      "start": 32038
+    },
+    "revisions": [],
+    "sha256": "84426f926509ff44b274bf5a360841b4579e358846e2161850690abf3b1d3718",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 32049,
+      "startToken": 32038
+    },
+    "speechText": "「いつでもして上げる」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "GhDEi-hJgrcSiyBVVQhMSwWld-_IyJnAvKjOuHh8KAM",
+    "contextAfter": "と同僚の名を云う。まるで小供扱だ。これから大発明をして学界に貢献しようと云う余に対してはやや横柄である。今から考えて見ると先方が横",
+    "contextBefore": "銭を奮発して老人に逢って見る。老人の名前はわざと云わない。見るからに頑丈な爺さんだ。白い髯を細長く垂れて、黒紋付に八王子平で控えている。",
+    "displayText": "「やあ、あなたが、何の御友達で」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 59,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 32648,
+      "start": 32632
+    },
+    "revisions": [],
+    "sha256": "5924cb4c297b43e9cee05f4ecd4126fa897e4a03a8003137b717f3df6747e174",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 32648,
+      "startToken": 32632
+    },
+    "speechText": "「やあ、あなたが、何の御友達で」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "0GZPmghReSMKV2hNK05zvBtAxN2xHsHrNTWyiSnfUTI",
+    "contextAfter": "余は学問はするが応対の辞にはなれておらん。藩というのが普通だが先方の事だから尊敬して御藩と云って見た。こんな場合に何と云うものか未",
+    "contextBefore": "高過ぎたから普通の応接ぶりが横柄に見えたのかも知れない。\n\n　それから二三件世間なみの応答を済まして、いよいよ本題に入った。\n\n",
+    "displayText": "「妙な事を伺いますが、もと御藩に河上と云うのが御座いましたろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 60,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 32821,
+      "start": 32790
+    },
+    "revisions": [],
+    "sha256": "90d68b0b9bfbda146970e60c136754be051f4c018c28d6c59fa4f48dcb422e29",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 32821,
+      "startToken": 32790
+    },
+    "speechText": "「妙な事を伺いますが、もとごはんに河上と云うのが御座いましたろう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "X0NeTYbWB_N91LVYnIFpkasXNfurc0Qxy8y-j7dAo7M",
+    "contextAfter": "と一人で弁ずる\n\n　河上一家の事を聞くつもりなら、わざわざ麻布下りまで出張する必要はない。河上を持ち出したのは河上対某との関係が知り",
+    "contextBefore": "いうのが普通だが先方の事だから尊敬して御藩と云って見た。こんな場合に何と云うものか未だに分らない。老人はちょっと笑ったようだ。\n\n",
+    "displayText": "「河上――河上と云うのはあります。河上才三と云うて留守居を務めておった。その子が貢五郎と云うてやはり江戸詰で――せんだって旅順で戦死した浩一の親じゃて。――あなた浩一の御つき合いか。それはそれは。いや気の毒な事で――母はまだあるはずじゃが……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 61,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33030,
+      "start": 32908
+    },
+    "revisions": [],
+    "sha256": "5fd6eaa9c1564c2d72e58ab84cdaf128e0750b58e2846c70317b5124f05955e9",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33030,
+      "startToken": 32908
+    },
+    "speechText": "「河上――河上と云うのはあります。河上才三と云うて留守居をつとめておった。その子が貢五郎と云うてやはり江戸詰で――せんだって旅順で戦死した浩一の親じゃて。――あなた浩一の御つき合いか。それはそれは。いや気の毒な事で――母はまだあるはずじゃが……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "s-1iKItWcx2qEpGsTyPB042jaxp9hIktKDyeWsrOUVQ",
+    "contextAfter": "\n\n　老人は妙な顔をして余を見詰めていたが、やがて重苦しく口を切った。\n\n「河上？　河上にも今御話しする通り何人もある。どの河上",
+    "contextBefore": "。河上を持ち出したのは河上対某との関係が知りたいからである。しかしこの某なるものの姓名が分らんから話しの切り出しようがない。\n\n",
+    "displayText": "「その河上について何か面白い御話はないでしょうか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 62,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33161,
+      "start": 33136
+    },
+    "revisions": [],
+    "sha256": "3cb7c4547920a5c81c81019dfed24d1c5614400ac240e276bfbc6525e7c20ec5",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33161,
+      "startToken": 33136
+    },
+    "speechText": "「その河上について何か面白い御話はないでしょうか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "5zUxKGpM4p5EMQ9r00kTWdtmBXds8uVnA95Q5md-bbA",
+    "contextAfter": "\n\n「どの河上でも構わんです」\n\n「面白い事と云うて、どんな事を？」\n\n「どんな事でも構いません。ちと材料が欲しいので」\n\n「材",
+    "contextBefore": "\n\n「その河上について何か面白い御話はないでしょうか」\n\n　老人は妙な顔をして余を見詰めていたが、やがて重苦しく口を切った。\n\n",
+    "displayText": "「河上？　河上にも今御話しする通り何人もある。どの河上の事を御尋ねか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 63,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33233,
+      "start": 33198
+    },
+    "revisions": [],
+    "sha256": "e2951e60a3d00d60b363b4e7393e1573210736581e7f26166eb7aa44e15afe01",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33233,
+      "startToken": 33198
+    },
+    "speechText": "「河上？ 河上にも今御話しする通り何人もある。どの河上の事を御尋ねか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "e-Q8Xa5hnRhc11ss8cwwzbngjvcg9drqVwt61Ie3FIY",
+    "contextAfter": "\n\n「面白い事と云うて、どんな事を？」\n\n「どんな事でも構いません。ちと材料が欲しいので」\n\n「材料？　何になさる」厄介な爺さんだ",
+    "contextBefore": "して余を見詰めていたが、やがて重苦しく口を切った。\n\n「河上？　河上にも今御話しする通り何人もある。どの河上の事を御尋ねか」\n\n",
+    "displayText": "「どの河上でも構わんです」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 64,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33248,
+      "start": 33235
+    },
+    "revisions": [],
+    "sha256": "426248d38d88a756efab27f6934f3c60f1c3594dbdbfdcd85514b2d56b89f1a8",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33248,
+      "startToken": 33235
+    },
+    "speechText": "「どの河上でも構わんです」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "6fvOuSQN_-PS4Q4GfoHFbfJZIbZLlz5EpmBN8I88Cow",
+    "contextAfter": "\n\n「どんな事でも構いません。ちと材料が欲しいので」\n\n「材料？　何になさる」厄介な爺さんだ。\n\n「ちと取調べたい事がありまして」",
+    "contextBefore": "重苦しく口を切った。\n\n「河上？　河上にも今御話しする通り何人もある。どの河上の事を御尋ねか」\n\n「どの河上でも構わんです」\n\n",
+    "displayText": "「面白い事と云うて、どんな事を？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 65,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33267,
+      "start": 33250
+    },
+    "revisions": [],
+    "sha256": "41af7ad925c6e524b9e409ea32764eb631a9fa23f8d9ee692eec2484c7c807bc",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33267,
+      "startToken": 33250
+    },
+    "speechText": "「面白い事と云うて、どんな事を？」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "Yw1MjhZirwQlFK0zP5jORgYs6FdPy12_HG6992xcPmE",
+    "contextAfter": "\n\n「材料？　何になさる」厄介な爺さんだ。\n\n「ちと取調べたい事がありまして」\n\n「なある。貢五郎と云うのはだいぶ慷慨家で、維新の時な",
+    "contextBefore": "にも今御話しする通り何人もある。どの河上の事を御尋ねか」\n\n「どの河上でも構わんです」\n\n「面白い事と云うて、どんな事を？」\n\n",
+    "displayText": "「どんな事でも構いません。ちと材料が欲しいので」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 66,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33293,
+      "start": 33269
+    },
+    "revisions": [],
+    "sha256": "f1ab3d1a47f413c41463d976a66be93f08cfe2e5e2c87ff380c0ad5e32ae5a13",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33293,
+      "startToken": 33269
+    },
+    "speechText": "「どんな事でも構いません。ちと材料が欲しいので」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "KhEJe000r4nc3lHUD-q5Z8BLEdfIKUc6vcGEp8mJn1o",
+    "contextAfter": "厄介な爺さんだ。\n\n「ちと取調べたい事がありまして」\n\n「なある。貢五郎と云うのはだいぶ慷慨家で、維新の時などはだいぶ暴ばれたものだ―",
+    "contextBefore": "か」\n\n「どの河上でも構わんです」\n\n「面白い事と云うて、どんな事を？」\n\n「どんな事でも構いません。ちと材料が欲しいので」\n\n",
+    "displayText": "「材料？　何になさる」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 67,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33306,
+      "start": 33295
+    },
+    "revisions": [],
+    "sha256": "f62521c0be49300020e87cb9eacb237e53bc6ffbe17939c4c95faba6b11428ed",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33306,
+      "startToken": 33295
+    },
+    "speechText": "「材料？ 何になさる」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "82sNBkcNWeZNy9BRNTodoDUHxaOASxXb48m5Ckh2pg0",
+    "contextAfter": "\n\n「なある。貢五郎と云うのはだいぶ慷慨家で、維新の時などはだいぶ暴ばれたものだ――或る時あなた長い刀を提げてわしの所へ議論に来て、",
+    "contextBefore": "面白い事と云うて、どんな事を？」\n\n「どんな事でも構いません。ちと材料が欲しいので」\n\n「材料？　何になさる」厄介な爺さんだ。\n\n",
+    "displayText": "「ちと取調べたい事がありまして」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 68,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33331,
+      "start": 33315
+    },
+    "revisions": [],
+    "sha256": "9950daec24909d3d0011a175e48b7187cfebbbbc9a4d8a6b87c5ebfc9a7df378",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33331,
+      "startToken": 33315
+    },
+    "speechText": "「ちと取調べたい事がありまして」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "WPjpEak6yue_3ZjL4NiO9JRNAatVtzg_u07QJZeaVqo",
+    "contextAfter": "\n\n「いえ、そう云う方面でなく。もう少し家庭内に起った事柄で、面白いと今でも人が記憶しているような事件はないでしょうか」老人は黙然",
+    "contextBefore": "「どんな事でも構いません。ちと材料が欲しいので」\n\n「材料？　何になさる」厄介な爺さんだ。\n\n「ちと取調べたい事がありまして」\n\n",
+    "displayText": "「なある。貢五郎と云うのはだいぶ慷慨家で、維新の時などはだいぶ暴ばれたものだ――或る時あなた長い刀を提げてわしの所へ議論に来て、……」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 69,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33398,
+      "start": 33333
+    },
+    "revisions": [],
+    "sha256": "d2bf17bc199197f6030181f6fce6c8de32cbbe9e0d7f4defc014935cfecb9450",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33398,
+      "startToken": 33333
+    },
+    "speechText": "「なある。貢五郎と云うのはだいぶこうがいかで、維新の時などはだいぶあばれたものだ――或る時あなた長い刀をさげてわしの所へ議論に来て、……」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "0drzkK85jik8tE-uhjHEisS4yW3N6E9662J_ErOJtAE",
+    "contextAfter": "老人は黙然と考えている。\n\n「貢五郎という人の親はどんな性質でしたろう」\n\n「才三かな。これはまた至って優しい、――あなたの知って",
+    "contextBefore": "る。貢五郎と云うのはだいぶ慷慨家で、維新の時などはだいぶ暴ばれたものだ――或る時あなた長い刀を提げてわしの所へ議論に来て、……」\n\n",
+    "displayText": "「いえ、そう云う方面でなく。もう少し家庭内に起った事柄で、面白いと今でも人が記憶しているような事件はないでしょうか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 70,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33458,
+      "start": 33400
+    },
+    "revisions": [],
+    "sha256": "598927e06a82e811722e0cf7e849a651681f814437ff204d1cfd588e7a0f8bea",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33458,
+      "startToken": 33400
+    },
+    "speechText": "「いえ、そう云う方面でなく。もう少し家庭内に起った事柄で、面白いと今でも人が記憶しているような事件はないでしょうか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "ODGNzLF-fT-4DModBwlYTZgvHMQbRxgU9lY93Foz680",
+    "contextAfter": "\n\n「才三かな。これはまた至って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」\n\n「似ていますか？」と余は",
+    "contextBefore": "う方面でなく。もう少し家庭内に起った事柄で、面白いと今でも人が記憶しているような事件はないでしょうか」老人は黙然と考えている。\n\n",
+    "displayText": "「貢五郎という人の親はどんな性質でしたろう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 71,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33493,
+      "start": 33471
+    },
+    "revisions": [],
+    "sha256": "4ce923096828abb3e34deb583ece7b9b8cc98d3434c87680485fd643fce91847",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33493,
+      "startToken": 33471
+    },
+    "speechText": "「貢五郎という人の親はどんな性質でしたろう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "U0GcEvgCKMwlOyzr3i5B1VaoiuLy-BuPp9ZoBaJMSqc",
+    "contextAfter": "\n\n「似ていますか？」と余は思わず大きな声を出した。\n\n「ああ、実によく似ている。それでその頃は維新には間もある事で、世の中も穏",
+    "contextBefore": "いと今でも人が記憶しているような事件はないでしょうか」老人は黙然と考えている。\n\n「貢五郎という人の親はどんな性質でしたろう」\n\n",
+    "displayText": "「才三かな。これはまた至って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 72,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33543,
+      "start": 33495
+    },
+    "revisions": [],
+    "sha256": "d6bc4ad54624d8835bdc8a73b4ce9bafdfb090f2aaa996d01807448d500bb96e",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33543,
+      "startToken": 33495
+    },
+    "speechText": "「才三かな。これはまた至って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "zZNLAGtJ7A8xTjN7q4ciRtVHhmyGblTFCRQZoNmZssw",
+    "contextAfter": "と余は思わず大きな声を出した。\n\n「ああ、実によく似ている。それでその頃は維新には間もある事で、世の中も穏かであったのみならず、",
+    "contextBefore": "はどんな性質でしたろう」\n\n「才三かな。これはまた至って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」\n\n",
+    "displayText": "「似ていますか？」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 73,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33554,
+      "start": 33545
+    },
+    "revisions": [],
+    "sha256": "270c91f13ab8ef2f368382143ad834ce9d293c627f8772014ad8682222143e00",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33554,
+      "startToken": 33545
+    },
+    "speechText": "「似ていますか？」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "q5NBt0VkxQtNA1YFbmayBfwkCx8kfbHKUNH3gzaa8Lo",
+    "contextAfter": "\n\n「その人の事について何か艶聞が――艶聞と云うと妙ですが――ないでしょうか」\n\n「いや才三については憐れな話がある。その頃家中に",
+    "contextBefore": "って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」\n\n「似ていますか？」と余は思わず大きな声を出した。\n\n",
+    "displayText": "「ああ、実によく似ている。それでその頃は維新には間もある事で、世の中も穏かであったのみならず、役が御留守居だから、だいぶ金を使って風流をやったそうだ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 74,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33645,
+      "start": 33571
+    },
+    "revisions": [],
+    "sha256": "108af67ea324f156e8729e3e320aef4586f5a382760087e7c6c73c0ea7381c20",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33645,
+      "startToken": 33571
+    },
+    "speechText": "「ああ、実によく似ている。それでその頃は維新にはまもある事で、世の中もおだやかであったのみならず、役が御留守居だから、だいぶ金を使ってふうりゅうをやったそうだ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "SSwu_nB72eH6ehBPTLER6whqbnGD9UnZqWR0DXkpCQI",
+    "contextAfter": "\n\n「いや才三については憐れな話がある。その頃家中に小野田帯刀と云うて、二百石取りの侍がいて、ちょうど河上と向い合って屋敷を持っておった",
+    "contextBefore": "。それでその頃は維新には間もある事で、世の中も穏かであったのみならず、役が御留守居だから、だいぶ金を使って風流をやったそうだ」\n\n",
+    "displayText": "「その人の事について何か艶聞が――艶聞と云うと妙ですが――ないでしょうか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 75,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33683,
+      "start": 33647
+    },
+    "revisions": [],
+    "sha256": "8118923dfb3445709a0be76d4901cdf36cc071cfd25ffb6036bf66a3874dcfdb",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33683,
+      "startToken": 33647
+    },
+    "speechText": "「その人の事について何かえんぶんが――艶聞と云うと妙ですが――ないでしょうか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "9S-5rxCFp8X3OqjTcFUa65W4pdK1Ot7hhUn5OsA82O4",
+    "contextAfter": "\n\n「なるほど」うまいだんだん手懸りが出来る。\n\n「それで両家は向う同志だから、朝夕往来をする。往来をするうちにその娘が才三に懸想をす",
+    "contextBefore": "留守居だから、だいぶ金を使って風流をやったそうだ」\n\n「その人の事について何か艶聞が――艶聞と云うと妙ですが――ないでしょうか」\n\n",
+    "displayText": "「いや才三については憐れな話がある。その頃家中に小野田帯刀と云うて、二百石取りの侍がいて、ちょうど河上と向い合って屋敷を持っておった。この帯刀に一人の娘があって、それがまた藩中第一の美人であったがな、あなた」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 76,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33785,
+      "start": 33685
+    },
+    "revisions": [],
+    "sha256": "036e8c276e6ff4a5c1c496d8cda2e1e5037ff686291e3c51b55647b4d4e637e6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33785,
+      "startToken": 33685
+    },
+    "speechText": "「いや才三については憐れな話がある。その頃家中におのだたてわきと云うて、二百石取りのさむらいがいて、ちょうど河上と向い合って屋敷を持っておった。この帯刀に一人の娘があって、それがまた藩中第一の美人であったがな、あなた」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "iZKPcP5unrLYmOontZEXy8WFnjOeusKpecjTOUE1X5U",
+    "contextAfter": "うまいだんだん手懸りが出来る。\n\n「それで両家は向う同志だから、朝夕往来をする。往来をするうちにその娘が才三に懸想をする。何でも才三方",
+    "contextBefore": "いて、ちょうど河上と向い合って屋敷を持っておった。この帯刀に一人の娘があって、それがまた藩中第一の美人であったがな、あなた」\n\n",
+    "displayText": "「なるほど」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 77,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33793,
+      "start": 33787
+    },
+    "revisions": [],
+    "sha256": "71fb254d006ff9733ea6d72488af492778637497ac9312fe70bf540ce9bffe5b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33793,
+      "startToken": 33787
+    },
+    "speechText": "「なるほど」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "BP7M5h_5fcvBY2Tp7HQJuH0xrh-roA0McRHFZDW8E6s",
+    "contextAfter": "\n\n「ふん、それで思う通りに行きましたか」成蹟は良好だ。\n\n「で帯刀から人をもって才三の親に懸合うと、才三も実は大変貰いたかったのだ",
+    "contextBefore": "った。この帯刀に一人の娘があって、それがまた藩中第一の美人であったがな、あなた」\n\n「なるほど」うまいだんだん手懸りが出来る。\n\n",
+    "displayText": "「それで両家は向う同志だから、朝夕往来をする。往来をするうちにその娘が才三に懸想をする。何でも才三方へ嫁に行かねば死んでしまうと騒いだのだて――いや女と云うものは始末に行かぬもので――是非行かして下されと泣くじゃ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 78,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33914,
+      "start": 33809
+    },
+    "revisions": [],
+    "sha256": "c731197eef59d66d96b8de2f4f99f82cb20d1b37c4dce119fbf6705076f69e50",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33914,
+      "startToken": 33809
+    },
+    "speechText": "「それで両家は向う同志だから、あさゆう往来をする。往来をするうちにその娘が才三にけそうをする。何でも才三方へ嫁に行かねば死んでしまうと騒いだのだて――いや女と云うものは始末に行かぬもので――是非行かして下されと泣くじゃ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "xPwuYXsB_ofHN8leH1Gl5IYwL4LJ-n3VAZm9g_t5UZA",
+    "contextAfter": "成蹟は良好だ。\n\n「で帯刀から人をもって才三の親に懸合うと、才三も実は大変貰いたかったのだからその旨を返事する。結婚の日取りまできめ",
+    "contextBefore": "でも才三方へ嫁に行かねば死んでしまうと騒いだのだて――いや女と云うものは始末に行かぬもので――是非行かして下されと泣くじゃ」\n\n",
+    "displayText": "「ふん、それで思う通りに行きましたか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 79,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 33935,
+      "start": 33916
+    },
+    "revisions": [],
+    "sha256": "dd23b66744d253e9ed3c418e308c37070ce1874e213c18b066c0fb7568754c2c",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 33935,
+      "startToken": 33916
+    },
+    "speechText": "「ふん、それで思う通りに行きましたか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "-BHLova0QlGLxeBjlC0XwJ1Qiyld9p7jhyhORwUC_bk",
+    "contextAfter": "\n\n「結構な事で」と申したがこれで結婚をしてくれては少々困ると内心ではひやひやして聞いている。\n\n「そこまでは結構だったが、――",
+    "contextBefore": "いや女と云うものは始末に行かぬもので――是非行かして下されと泣くじゃ」\n\n「ふん、それで思う通りに行きましたか」成蹟は良好だ。\n\n",
+    "displayText": "「で帯刀から人をもって才三の親に懸合うと、才三も実は大変貰いたかったのだからその旨を返事する。結婚の日取りまできめるくらいに事が捗どったて」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 80,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34012,
+      "start": 33943
+    },
+    "revisions": [],
+    "sha256": "89299dd0ef06aa7ce51d5a69d08ddae8b3ab6d7ec8a0d5dc654b23ebc921783b",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34012,
+      "startToken": 33943
+    },
+    "speechText": "「で帯刀から人をもって才三の親にかけあうと、才三も実は大変貰いたかったのだからそのむねを返事する。結婚の日取りまできめるくらいに事がはかどったて」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "GJt7PmGOp3zAkvrsxG0pcZepe7CylcnNXkwofgZVP0s",
+    "contextAfter": "と申したがこれで結婚をしてくれては少々困ると内心ではひやひやして聞いている。\n\n「そこまでは結構だったが、――飛んだ故障が出来た",
+    "contextBefore": "をもって才三の親に懸合うと、才三も実は大変貰いたかったのだからその旨を返事する。結婚の日取りまできめるくらいに事が捗どったて」\n\n",
+    "displayText": "「結構な事で」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 81,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34021,
+      "start": 34014
+    },
+    "revisions": [],
+    "sha256": "9c5a7a1b5861fed477538ddf5e283d67315aa49e6d60a1714c97a1aa1935eb35",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34021,
+      "startToken": 34014
+    },
+    "speechText": "「結構な事で」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "sTC51Fvj7UDirORfimMV9znrYAcwR4CL0-kOnB-g75o",
+    "contextAfter": "\n\n「へええ」そう来なくってはと思う。\n\n「その頃国家老にやはり才三くらいな年恰好なせがれが有って、このせがれがまた帯刀の娘に恋慕して、是",
+    "contextBefore": "きめるくらいに事が捗どったて」\n\n「結構な事で」と申したがこれで結婚をしてくれては少々困ると内心ではひやひやして聞いている。\n\n",
+    "displayText": "「そこまでは結構だったが、――飛んだ故障が出来たじゃ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 82,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34088,
+      "start": 34061
+    },
+    "revisions": [],
+    "sha256": "29b3f32dd647e9fc10ac27625bd243e75f32e3a3b1cfa22c5e4a1b763b65e0df",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34088,
+      "startToken": 34061
+    },
+    "speechText": "「そこまでは結構だったが、――飛んだ故障が出来たじゃ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "zJy5tbaCLnvl6FwWuulElT2ChtumkV82iqi7aDNuYRY",
+    "contextAfter": "そう来なくってはと思う。\n\n「その頃国家老にやはり才三くらいな年恰好なせがれが有って、このせがれがまた帯刀の娘に恋慕して、是非貰いたいと聞",
+    "contextBefore": "これで結婚をしてくれては少々困ると内心ではひやひやして聞いている。\n\n「そこまでは結構だったが、――飛んだ故障が出来たじゃ」\n\n",
+    "displayText": "「へええ」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 83,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34095,
+      "start": 34090
+    },
+    "revisions": [],
+    "sha256": "fc29eeb0c4bb2fb347dbc70d1851b70be8ce292ed760981a243862fb0b7afb14",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34095,
+      "startToken": 34090
+    },
+    "speechText": "「へええ」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "CQyZgTnZQ73Itqewk1ZGRP5uzKmBl5DMimak-v59Dy8",
+    "contextAfter": "\n\n「気の毒ですな」と云ったが自分の見込が着々中るので実に愉快でたまらん。これで見ると朋友の死ぬような凶事でも、自分の予言が的中",
+    "contextBefore": "ではひやひやして聞いている。\n\n「そこまでは結構だったが、――飛んだ故障が出来たじゃ」\n\n「へええ」そう来なくってはと思う。\n\n",
+    "displayText": "「その頃国家老にやはり才三くらいな年恰好なせがれが有って、このせがれがまた帯刀の娘に恋慕して、是非貰いたいと聞き合せて見るともう才三方へ約束が出来たあとだ。いかに家老の勢でもこればかりはどうもならん。ところがこのせがれが幼少の頃から殿様の御相手をして成長したもので、非常に御上の御気に入りでの、あなた。――どこをどう運動したものか殿様の御意でその方の娘をあれに遣わせと云う御意が帯刀に下りたのだて」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 84,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34301,
+      "start": 34109
+    },
+    "revisions": [],
+    "sha256": "85d2b60cb46e389fddf05f1632b1361f0f9bfd65ef54f60c76e58eee9d680e60",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34301,
+      "startToken": 34109
+    },
+    "speechText": "「その頃くにがろうにやはり才三くらいなとしかっこうなせがれが有って、このせがれがまた帯刀の娘にれんぼして、是非貰いたいと聞き合せて見るともう才三方へ約束が出来たあとだ。いかに家老の勢でもこればかりはどうもならん。ところがこのせがれが幼少の頃から殿様の御相手をして成長したもので、非常におかみの御気に入りでの、あなた。――どこをどう運動したものか殿様のぎょいでそのほうの娘をあれにつかわせと云う御意が帯刀におりたのだて」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "lffELboZnY0ZW9eDpYAYAhjxX7hdD4pgbg8sNxrj-yc",
+    "contextAfter": "と云ったが自分の見込が着々中るので実に愉快でたまらん。これで見ると朋友の死ぬような凶事でも、自分の予言が的中するのは嬉しいかも知",
+    "contextBefore": "に御上の御気に入りでの、あなた。――どこをどう運動したものか殿様の御意でその方の娘をあれに遣わせと云う御意が帯刀に下りたのだて」\n\n",
+    "displayText": "「気の毒ですな」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 85,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34311,
+      "start": 34303
+    },
+    "revisions": [],
+    "sha256": "755c5bc7f534c0d9b63fb3da184f3ff178afa4f958454b9aaeaa3fd8616c8a77",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34311,
+      "startToken": 34303
+    },
+    "speechText": "「気の毒ですな」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "BSXouXip-ARkGrCk3IZMEfaEL3Ai7gWpdcdk5r3C44g",
+    "contextAfter": "\n\n「その美人の顔は覚えて御出でですか」と余に取ってはすこぶる重大な質問をかけて見た。\n\n「覚えているとも、わしもその頃は若かった",
+    "contextBefore": "ぴんしていると心持ちが悪るい。どうか風邪が引かしてやりたくなる。人間はかようにわがままなものだから、余一人を責めてはいかん。\n\n",
+    "displayText": "「実に気の毒な事だて、御上の仰せだから内約があるの何のと申し上げても仕方がない。それで帯刀が娘に因果を含めて、とうとう河上方を破談にしたな。両家が従来の通り向う合せでは、何かにつけて妙でないと云うので、帯刀は国詰になる、河上は江戸に残ると云う取り計をわしのおやじがやったのじゃ。河上が江戸で金を使ったのも全くそんなこんなで残念を晴らすためだろう。それでこの事がな、今だから御話しするようなものの、当時はぱっとすると両家の面目に関わると云うので、内々にして置いたから、割合に人が知らずにいる」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 86,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34732,
+      "start": 34488
+    },
+    "revisions": [],
+    "sha256": "1cf15757df11e429c5765d717beaab9dbef4c5209f4a43fb9ee5b7603ef718ff",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34732,
+      "startToken": 34488
+    },
+    "speechText": "「実に気の毒な事だて、御上の仰せだから内約があるの何のと申し上げても仕方がない。それで帯刀が娘にいんがを含めて、とうとう河上方を破談にしたな。両家が従来の通り向う合せでは、何かにつけて妙でないと云うので、帯刀は国詰になる、河上は江戸に残ると云うとりはからいをわしのおやじがやったのじゃ。河上が江戸で金を使ったのも全くそんなこんなで残念を晴らすためだろう。それでこの事がな、今だから御話しするようなものの、当時はぱっとすると両家の面目にかかわると云うので、内々にして置いたから、割合に人が知らずにいる」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "Ln8Ra1Gee3-p_nbbr_53JdTiT7p0Uk_jXw30ye4LIm0",
+    "contextAfter": "と余に取ってはすこぶる重大な質問をかけて見た。\n\n「覚えているとも、わしもその頃は若かったからな。若い者には美人が一番よく眼につ",
+    "contextBefore": "だから御話しするようなものの、当時はぱっとすると両家の面目に関わると云うので、内々にして置いたから、割合に人が知らずにいる」\n\n",
+    "displayText": "「その美人の顔は覚えて御出でですか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 87,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34751,
+      "start": 34734
+    },
+    "revisions": [],
+    "sha256": "de9adbc8422a05906589d95c04fa47c9f67db387dfdafd1002d463107192558f",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34751,
+      "startToken": 34734
+    },
+    "speechText": "「その美人の顔は覚えておいでですか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "6opY-iIwYHnPysMlnnyYmSBfiv9IfeRdvZqjER1k8HE",
+    "contextAfter": "と皺だらけの顔を皺ばかりにしてからからと笑った。\n\n「どんな顔ですか」\n\n「どんなと云うて別に形容しようもない。しかし血統と云う",
+    "contextBefore": "して置いたから、割合に人が知らずにいる」\n\n「その美人の顔は覚えて御出でですか」と余に取ってはすこぶる重大な質問をかけて見た。\n\n",
+    "displayText": "「覚えているとも、わしもその頃は若かったからな。若い者には美人が一番よく眼につくようだて」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 88,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34821,
+      "start": 34776
+    },
+    "revisions": [],
+    "sha256": "16b930c09a5f2f86e0827c5cacb46fdb849d01f6a47516fcad11c02988592707",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34821,
+      "startToken": 34776
+    },
+    "speechText": "「覚えているとも、わしもその頃は若かったからな。若い者には美人が一番よく眼につくようだて」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "vkFd646MWYFLn3Oa-IMdL8mBUTfElKvBMC8cuEpxfNA",
+    "contextAfter": "\n\n「どんなと云うて別に形容しようもない。しかし血統と云うは争われんもので、今の小野田の妹がよく似ている。――御存知はないかな、",
+    "contextBefore": "も、わしもその頃は若かったからな。若い者には美人が一番よく眼につくようだて」と皺だらけの顔を皺ばかりにしてからからと笑った。\n\n",
+    "displayText": "「どんな顔ですか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 89,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34856,
+      "start": 34847
+    },
+    "revisions": [],
+    "sha256": "8484147eb6fdcbc7ae0359dd28ba81240bee9c6488c7825d1f69216606b092c6",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34856,
+      "startToken": 34847
+    },
+    "speechText": "「どんな顔ですか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "Gw4at8fM-y_htj-Kr7h6MeZoaRkXPgPpoF2jdojzBeQ",
+    "contextAfter": "\n\n「白山の方にいるでしょう」ともう大丈夫と思ったから言い放って、老人の気色を伺うと\n\n「やはり御承知か、原町にいる。あの娘もまだ嫁",
+    "contextBefore": "ったからな。若い者には美人が一番よく眼につくようだて」と皺だらけの顔を皺ばかりにしてからからと笑った。\n\n「どんな顔ですか」\n\n",
+    "displayText": "「どんなと云うて別に形容しようもない。しかし血統と云うは争われんもので、今の小野田の妹がよく似ている。――御存知はないかな、やはり大学出だが――工学博士の小野田を」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 90,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34940,
+      "start": 34858
+    },
+    "revisions": [],
+    "sha256": "8ad31dc098d68593fd92a6ad2574cd94b2d34ef23b3386d70b7e51b03b8acb62",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34940,
+      "startToken": 34858
+    },
+    "speechText": "「どんなと云うて別に形容しようもない。しかし血統と云うは争われんもので、今の小野田の妹がよく似ている。――御存知はないかな、やはり大学出だが――工学博士の小野田を」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "V7T1Ew8jSVyXPJy2lvp5eDA64Ls2kO7KlT6rjieKxdM",
+    "contextAfter": "ともう大丈夫と思ったから言い放って、老人の気色を伺うと\n\n「やはり御承知か、原町にいる。あの娘もまだ嫁に行かんようだが。――御屋敷",
+    "contextBefore": "かし血統と云うは争われんもので、今の小野田の妹がよく似ている。――御存知はないかな、やはり大学出だが――工学博士の小野田を」\n\n",
+    "displayText": "「白山の方にいるでしょう」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 91,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 34954,
+      "start": 34942
+    },
+    "revisions": [],
+    "sha256": "fee9114383b5e0527eecad5c35e5661dec38a9ae51936fdfe8a9fd7881e8ee32",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 34954,
+      "startToken": 34942
+    },
+    "speechText": "「はくさんの方にいるでしょう」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "XrXuLvrRsOtoxjwQS8T1uOJTJMpJ4y-KZd7ygONIu4o",
+    "contextAfter": "\n\n　占めた占めたこれだけ聞けば充分だ。一から十まで余が鑑定の通りだ。こんな愉快な事はない。寂光院はこの小野田の令嬢に違ない。自",
+    "contextBefore": "な、やはり大学出だが――工学博士の小野田を」\n\n「白山の方にいるでしょう」ともう大丈夫と思ったから言い放って、老人の気色を伺うと\n\n",
+    "displayText": "「やはり御承知か、原町にいる。あの娘もまだ嫁に行かんようだが。――御屋敷の御姫様の御相手に時々来ます」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 92,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 35031,
+      "start": 34982
+    },
+    "revisions": [],
+    "sha256": "65d9406d7ef43fc8391dc95f56799552022059e4dfc558970c5ba3698a45c0a0",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 35031,
+      "startToken": 34982
+    },
+    "speechText": "「やはり御承知か、原町にいる。あの娘もまだ嫁に行かんようだが。――御屋敷のおひいさまの御相手に時々来ます」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "1JrGB6Oj_H0ZZwQ_ACBqMsp8zdck0IdE3iuIBoqhEc0",
+    "contextAfter": "\n\n「いいえ、ただ名前だけ聞いているばかりで、――おやじは先刻御話をした通り、わしと終夜激論をしたくらいな間柄じゃが、せがれは五六",
+    "contextBefore": "がないから大丈夫だろう、ことに日記にああ書いてあるから間違はないはずだ。しかし念のため不用心だから尋ねて置こうと心を定めた。\n\n",
+    "displayText": "「さっき浩一の名前をおっしゃったようですが、浩一は存生中御屋敷へよく上がりましたか」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 93,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 35809,
+      "start": 35769
+    },
+    "revisions": [],
+    "sha256": "969f9904c6f5efdcd38449f83a970375a77673c24f2a3bb3a94e476860627f45",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 35809,
+      "startToken": 35769
+    },
+    "speechText": "「さっき浩一の名前をおっしゃったようですが、浩一はぞんじょうちゅう御屋敷へよく上がりましたか」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "zn7fvRZb3cLM-t80DtMr2t2Lmy_FKytw_AwJGWeBROA",
+    "contextAfter": "\n\n　そうだろう、そう来なくっては辻褄が合わん。第一余の理論の証明に関係してくる。先ずこれなら安心。御蔭様でと挨拶をして帰りかけると",
+    "contextBefore": "め不用心だから尋ねて置こうと心を定めた。\n\n「さっき浩一の名前をおっしゃったようですが、浩一は存生中御屋敷へよく上がりましたか」\n\n",
+    "displayText": "「いいえ、ただ名前だけ聞いているばかりで、――おやじは先刻御話をした通り、わしと終夜激論をしたくらいな間柄じゃが、せがれは五六歳のときに見たぎりで――実は貢五郎が早く死んだものだから、屋敷へ出入する機会もそれぎり絶えてしもうて、――その後は頓と逢うた事がありません」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 94,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 35942,
+      "start": 35811
+    },
+    "revisions": [],
+    "sha256": "abaf6d96c308917473e73630391ded5d1f7fa1c82ffaec4207321bf5b9e77047",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 35942,
+      "startToken": 35811
+    },
+    "speechText": "「いいえ、ただ名前だけ聞いているばかりで、――おやじはせんこく御話をした通り、わしと終夜激論をしたくらいな間柄じゃが、せがれは五六歳のときに見たぎりで――実は貢五郎が早く死んだものだから、屋敷へでいりする機会もそれぎり絶えてしもうて、――そのごはとんとおうた事がありません」",
+    "workId": "001104"
+  },
+  {
+    "candidateId": "tNXOHKcmOtSNaj9WshFjPZKHtxHRTTaBj6q9UNxx3s4",
+    "contextAfter": "とある。早速博士方へまかり出て鸚鵡的口吻を弄して旨を伝えると博士は一も二もなく承諾してくれた。これが元で御母さんと御嬢さんとは時々会見",
+    "contextBefore": "至って大に進退に窮した。とどのつまり事情を逐一打ち明けて御母さんに相談した。ところが女はなかなか智慧がある。\n\n　御母さんの仰せには",
+    "displayText": "「近頃一人の息子を旅順で亡くして朝、夕淋しがって暮らしている女がいる。慰めてやろうと思っても男ではうまく行かんから、おひまな時に御嬢さんを時々遊びにやって上げて下さいとあなたから博士に頼んで見て頂きたい」",
+    "extractorVersion": "1.0.0",
+    "normalizerVersion": "1.0.0",
+    "order": 95,
+    "rawSourceSha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+    "rawTokenRange": {
+      "end": 37346,
+      "start": 37244
+    },
+    "revisions": [],
+    "sha256": "7f91ca25c0cd2f4cf9d14663164ee59fca4998d5ab8cd7527cdd8462a12daff7",
+    "sourceAnchor": {
+      "bodySelector": ".main_text",
+      "endToken": 37346,
+      "startToken": 37244
+    },
+    "speechText": "「近頃一人の息子を旅順でなくして朝、夕さみしがって暮らしている女がいる。慰めてやろうと思っても男ではうまく行かんから、おひまな時に御嬢さんを時々遊びにやって上げて下さいとあなたから博士に頼んで見て頂きたい」",
+    "workId": "001104"
+  }
+]

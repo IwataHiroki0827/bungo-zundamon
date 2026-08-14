@@ -1,0 +1,90 @@
+{
+  "bibliography": {
+    "baseEdition": "夏目漱石全集2",
+    "inputter": "柴田卓治",
+    "proofreader": "LUNA CAT"
+  },
+  "bibliographyCharset": "Shift_JIS",
+  "bodySelector": ".main_text",
+  "card": {
+    "byteLength": 9725,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-07-29T04:18:46.685Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/001104/card.html",
+    "sha256": "5c5c1228fb5b1430bc6fa00ecbb4b6b125a244d1e61fb14eefbfae083c856201",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+  "fetchedAt": "2026-07-29T04:18:46.808Z",
+  "normalization": {
+    "policyVersion": "aozora-xhtml-entity-v1",
+    "processed": {
+      "byteLength": 161913,
+      "charset": "Shift_JIS",
+      "fetchedAt": "2026-07-29T04:18:46.808Z",
+      "mediaType": "text/html",
+      "path": "content/batches/F005/sealed/xhtml/001104-c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b.xhtml",
+      "sha256": "c1e2f27fe6acc91bdb8b66115f21a3efd64fadbc9112e7365f574e94ff69696b",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+      "storage": "sealed"
+    },
+    "rawSha256": "91209534d37abf5fc66a4720eb167b0315aefbd5ea8842cccd731d4155e982ef",
+    "replacements": [
+      {
+        "from": "&nbsp;",
+        "offset": 161683,
+        "to": "&#160;"
+      },
+      {
+        "from": "&nbsp;",
+        "offset": 161689,
+        "to": "&#160;"
+      }
+    ],
+    "schemaVersion": "1.0.0",
+    "variant": "entity"
+  },
+  "raw": {
+    "byteLength": 161913,
+    "charset": "Shift_JIS",
+    "fetchedAt": "2026-07-29T04:18:46.808Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/001104/source.raw",
+    "sha256": "91209534d37abf5fc66a4720eb167b0315aefbd5ea8842cccd731d4155e982ef",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+  "title": "趣味の遺伝",
+  "updatedAt": "2004-02-26",
+  "workId": "001104"
+}
