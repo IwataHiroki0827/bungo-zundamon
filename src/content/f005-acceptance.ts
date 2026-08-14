@@ -1068,7 +1068,8 @@ async function mutationNativeIdentity(
 async function syncDirectory(
   root: string,
   path: string,
-  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  // CHG-F005-072: 汎用既定codeだと停止理由が特定できないため専用codeにする。
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TX_DIR_SYNC' as F005AcceptanceErrorCode,
 ): Promise<void> {
   try {
     await flushF005ArtifactDirectory(root, resolve(path));
@@ -1306,7 +1307,7 @@ async function writeDurableExclusive(
   path: string,
   text: string,
   afterFileSync?: () => void | Promise<void>,
-  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TX_DURABLE_WRITE' as F005AcceptanceErrorCode,
 ): Promise<void> {
   const expectedSha256 = sha(text);
   const temporary = join(dirname(path), durableTempName(path, expectedSha256));

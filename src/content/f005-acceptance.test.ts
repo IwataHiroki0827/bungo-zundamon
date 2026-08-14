@@ -1773,7 +1773,7 @@ describe('二段acceptance fault matrix [CHG-F005-002]', () => {
           }
         },
       },
-    )).rejects.toMatchObject({ code: 'F005_ACCEPTANCE_TRANSACTION_INVALID' });
+    )).rejects.toMatchObject({ code: 'F005_ACCEPTANCE_TX_DURABLE_WRITE' });
     const manifest = JSON.parse(await readFile(
       join(value.root, ...'content/batches/F005/batch.json'.split('/')),
       'utf8',
