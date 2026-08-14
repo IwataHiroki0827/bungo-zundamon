@@ -54,6 +54,24 @@ const REVIEW_WORKS: Readonly<Record<string, F005ReviewWorkConfig>> = {
         '56,58,62,64=母;57,59,63=子供;60-61はEXPRESSION_EXAMPLEでspeaker=null。',
     },
   },
+  '001076': {
+    reviewDate: '20260814',
+    fixedNow: '2026-08-14T06:00:00.000Z',
+    expiresAt: '2026-08-21T06:00:00.000Z',
+    prompt:
+      '倫敦塔の台詞候補を全件、他reviewerの結果を見ず独立判定する。' +
+      '人物が実際に発した発話のみSPOKEN_DIALOGUEで承認し、speakerを共有canonical語彙から選ぶ。' +
+      '地の文が語句を引用しただけのもの(作品名「塔」「ロンドン塔」)、壁に刻まれた題辞、' +
+      '署名はEXPRESSION_EXAMPLEとして却下しspeakerはnullとする。' +
+      '幻想場面の人物も実際の発話であれば承認する。' +
+      '同名で別人となる女性は、王子らの母を「女」、余を案内する現代の女性を「怪しい女」、' +
+      'ジェーン・グレーを「ジェーン」として区別する。',
+    template:
+      '{candidateId,inputSha256,sourceAnchor,decision,reasonCode,speaker}を候補順に返す。' +
+      'decisionはapproved/rejected。reasonCodeはSPOKEN_DIALOGUEまたはEXPRESSION_EXAMPLE。' +
+      'speaker語彙:兄,弟,女,牢守,高き影,低き影,ヘンリー,ある者,ビーフ・イーター,小供,' +
+      '怪しい女,髯,磨ぎ手,ジェーン,坊さん,ガイフォークス,主人。',
+  },
 };
 
 function resolveReviewWork(value: string): {
