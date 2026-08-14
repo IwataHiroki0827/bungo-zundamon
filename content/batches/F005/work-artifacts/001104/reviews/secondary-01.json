@@ -1,0 +1,788 @@
+{
+  "__brand": "F005ReviewJudgmentArtifact",
+  "artifactSha256": "a02ceb4dbb545b2f916663347618f6380fb27cc09d2f75e417643cbc1056b84d",
+  "audience": "bungo-zundamon:F005:001104:editorial",
+  "authorizationId": "F005:001104:secondary:c115f48552f2fee2f2f7f112",
+  "candidateSetSha256": "e53ff306e0d086f5465bfe0a4dd9ade0f8d628ee315002fca98b48221a1e7bca",
+  "judgments": [
+    {
+      "candidateId": "qV0ur7IeWuEpluX3JGofyyL7MQ7CsWbWt0lp0kbEd1w",
+      "decision": "approved",
+      "inputSha256": "944cc42928eacb6b4d5201caff863cffeaedaae5df0ef6b4067403ede0bb8102",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:36-51",
+      "speaker": "神"
+    },
+    {
+      "candidateId": "47lkTMzSi2VXTyiTWqRl5MIHFl2KFyTkvIxIgfPc-x4",
+      "decision": "approved",
+      "inputSha256": "549d8be439846587649fa021bb5d9f382cc47f887665ce9a486ae6210820d602",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:189-195",
+      "speaker": "神"
+    },
+    {
+      "candidateId": "tn1BVear5ihKtyuX8WA1kJv3ZWp_4WY7HQgNoGfy5w8",
+      "decision": "approved",
+      "inputSha256": "b3e990ebd1fbd77c07db1f8cc23a8a25ba3cd2857ffd7872ad1b08ff118eea80",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:254-260",
+      "speaker": "神"
+    },
+    {
+      "candidateId": "ttuSrrgeQRnq53wpok1tFJuGTxoJNmsOwX79UL8PmoM",
+      "decision": "approved",
+      "inputSha256": "923cd85ab9788894cdea7b8c3c62df5bdf79ca57878803f4774b053fec25c186",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:266-279",
+      "speaker": "犬共"
+    },
+    {
+      "candidateId": "f3wf7nd_v2J2rn-6bmNJqjvEvliVh2akPaEhRBiv7TA",
+      "decision": "approved",
+      "inputSha256": "e9bf6f8bd399abff56608e45045d169fd85417954c23ff2cc22ce89d2b989bc6",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:383-396",
+      "speaker": "神"
+    },
+    {
+      "candidateId": "SyxeYIdPMwn-FCNnNjvjJ8CxSyYv2R0GaIOkkKbuE7A",
+      "decision": "approved",
+      "inputSha256": "eae1330dfb5686e6d857deb7ed19b3f5d475968f91b449fbdec4fd9a7fec81fb",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1626-1643",
+      "speaker": "腹の減った男"
+    },
+    {
+      "candidateId": "-6XVK-FwDNCp0UfBxT6u-ylqvGEyr7Nqgv9vp51sjB8",
+      "decision": "approved",
+      "inputSha256": "6b4a8bcc0bb86369bac14b6773a06933f7956f4dd180d28315b287b8da4981d1",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1904-1927",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "qqzJOnYlcGdv9KsyO1ovvJNqvI0HTbjU465yQvErtec",
+      "decision": "approved",
+      "inputSha256": "6d8343ca0923ece62595d393793df8661f3d02eb31f20c55433938afe32858aa",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1929-1975",
+      "speaker": "腹の減った男"
+    },
+    {
+      "candidateId": "usMrZTbqXUU-FbgL4siTyNTIIpg9i8Uiey8GfTPQowQ",
+      "decision": "approved",
+      "inputSha256": "8aabf5c92a6392ee718fc85d70ce6e2a810fd5ba5cd0894dc6fc6a17e29fd96b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2008-2030",
+      "speaker": "婦人"
+    },
+    {
+      "candidateId": "oi7dTU_8W1oeq406WrhGNorXvFhjdmHiN0YM9dFlhiE",
+      "decision": "approved",
+      "inputSha256": "491e2330247bd9e0551886b3540f9da15f23685387f895e87e61ceabb6523391",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2088-2145",
+      "speaker": "腹の減った男"
+    },
+    {
+      "candidateId": "SW_yTvQMkqxO8dpT1wDexyjNN36GwsGqXARbFZDwwSA",
+      "decision": "approved",
+      "inputSha256": "aad0d2365bec25d2d7bc34d39153388bf0e142221ce81c96ede9e14caea90beb",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2289-2299",
+      "speaker": "一人"
+    },
+    {
+      "candidateId": "IWTWxVeX3EcCNs1W9PPkJcpTwvUfUn2ljxImn74U4f4",
+      "decision": "approved",
+      "inputSha256": "72eb5ddd75a8ab796dc67b2b6dc5fb8c3173eeed174808cda0c650f96ae6282f",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2310-2330",
+      "speaker": "腹の減った男"
+    },
+    {
+      "candidateId": "0wlfIVUhwscfNOZNXucDwzD6vex7mQ5eLZ22JTIRxLc",
+      "decision": "approved",
+      "inputSha256": "d857038daab8a4563e3efc2f044dd83751296700268472d975942dda144eebb7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2464-2476",
+      "speaker": "腹の減った男"
+    },
+    {
+      "candidateId": "SgTpfRAju0Ks1elPT8s0uekqU1dRZ140MTCbIPVHa3A",
+      "decision": "approved",
+      "inputSha256": "f3c2751183c51398d7e2456084872b27ee60b5c0ac9f5a20b2e39313544ad1b1",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23219-23226",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "Rh9TQ3TkNaIvVQwcspWlsjO64i1UMBkMMHVJcoIQutA",
+      "decision": "approved",
+      "inputSha256": "703d0bfd592be852eea9386605a9e18c0f40bcb5d0a761aca306f8aa51acea50",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23240-23280",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "IzYqlHnHIVI1glBvgOL2uy7oJo7TBvtct44OY_bNDAY",
+      "decision": "approved",
+      "inputSha256": "c9a9ed09a6142de9e036d08926c282f5d65ad6f1a4c019e485523eb059196baa",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23282-23298",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "4zgHsQXeAR1VeM5s4hBUEegcKcAaIfTbbkdobpDlr_0",
+      "decision": "approved",
+      "inputSha256": "5cdda1135b089de0526120e3f61b920835af92c1893897c1d3dc4edfccd7c52d",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23300-23349",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "aiVrGhVJ33-6FVsfC7mJfK5QGSzoqoXszWzSorDdcMA",
+      "decision": "approved",
+      "inputSha256": "7e6a7af82b1411bddd466d420d07a4d2d0c16d9d9da19c9cf57a1ed3878d8441",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23351-23368",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "dK6rbX2swLf1NH3HyxEoeuARbnGIPCAIoDTVcVxJkog",
+      "decision": "approved",
+      "inputSha256": "c39fbb607125308d94bc7838c382030e864d425090764d1f7b346df00dcc8c44",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23416-23435",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "4MnPUh0ms3_byZStBFAzvk93pmMaeuQfsRhw0w_jPuA",
+      "decision": "approved",
+      "inputSha256": "6f5f0b7a2ec37cf334e4b302995ab5f2ec74f647e02f0b51c6417e26943dd446",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23437-23538",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "h0v-cCHxuZDgCFhjGFZ9aaFZmtWAXObqBqTCs7oSYm8",
+      "decision": "approved",
+      "inputSha256": "23651e6ce2dd61582727abfaeb8953e9cee530e88591ed8282416d2bf24617ff",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23540-23572",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "8qwAtsGIQ9-57AoDPUTnWTdBbc-33eGzfA9BNy8Uf64",
+      "decision": "approved",
+      "inputSha256": "53124b2fd1d80108aa8d39764970d94e9047137903d36e3226ca275e626ef179",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23574-23661",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "ktB9Q6U_ERHZE1VRBTBzrqBrERybhRi8xvPHmef9pZo",
+      "decision": "approved",
+      "inputSha256": "0311efc6ded6aa210f09f701db8757da876f4e456a73a1ec78e83087deb1cb61",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23710-23715",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "uTcV97oYJrBnDKH39MJSDhnnVXvl1CW0WaLPJ94PMvc",
+      "decision": "approved",
+      "inputSha256": "64b88e232c0cb153e789f5ea085e46b085e943eff80f2649471b8ac5b7aac2dd",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23811-23845",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "N2OJatBZb34h4hYNC4r9aKbKAnMufUJSuZCBEm8OUEA",
+      "decision": "approved",
+      "inputSha256": "9ab98596aedeb6ef064892523093373e7d8f2efd50dd340b8c87e859d2e2a1f7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:23878-23957",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "WqlvozWs2cfnqSMoyDS36_5kaTzS7uYL7i7uzJRimdo",
+      "decision": "approved",
+      "inputSha256": "706a430dad7f6b50039637681ceb5e1b2a1f10a59b527342163254383eac2383",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:24498-24534",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "TxuXGV8UjCFyC5apaVy-y5qL--HINBZMqvulH1IAxoA",
+      "decision": "approved",
+      "inputSha256": "675db28b225b0707e0636c6396207bb4df1be1ca65fddaf3ae0cf2f06cbd1883",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:24536-24577",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "BhVurNwPtx-mjGJVDxDNUhC3PspH9W7QxLkSWukLVNo",
+      "decision": "approved",
+      "inputSha256": "ebc5935abd3e9677af4c244d0ddce0f5dca3a9948fd578f256fd69eefdc86e69",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:24579-24601",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "ZLHCC6jKDoptus0CpTi6JRHybuKVoMolZaYyrK8WuR4",
+      "decision": "approved",
+      "inputSha256": "20c738f4124f77c17cd653dd9de890bf704a80b7f61336f71a61577997190865",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:24603-24610",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "aNn9it4l6cH0V7Uw_J5Ud_Mq1krH2MHyCR0OctZHFTg",
+      "decision": "approved",
+      "inputSha256": "f9b12a37f3e8c91a2f072b9917162a164eb08f4b33afa5a8833d508706ad2c89",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25018-25050",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "8j49nMatsJLNjas3cyQU09gzim_Ybhsm2DxHRTdFlEM",
+      "decision": "approved",
+      "inputSha256": "7d7d796eeaad5c75905526883a1112fb05c0be1e92c0511c346587dc42cd1519",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25052-25060",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "oSaOrkfhB4Z2DScQqIHpdrHU0d5fNrtil_ft-z5DGak",
+      "decision": "approved",
+      "inputSha256": "f66029c7e590bd156c13b772e49df416be308a98888749d03360060f5312f636",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25062-25085",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "hrX2mcEVm5wUNCI7FhU1PTa-ey-kGHECGEsbPtsWq5g",
+      "decision": "approved",
+      "inputSha256": "709b3e2ab226081f624d9aaa2cf02b83a30fe8443fae0bced092aa88d860a477",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25087-25092",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "opHkTCy-YjuyWydOFxl6awB1y2Ic5zWDDy7MUmhH9qQ",
+      "decision": "approved",
+      "inputSha256": "fe0240e8338a83009dd25a567f19c4c953d2d1f2f1a8179418bd05ed4bcb0980",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25139-25155",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "uvbpSj2VlRzPshdcSlJl3vyQ47wYpFOoIzO3r3ElKDc",
+      "decision": "approved",
+      "inputSha256": "4c7c19780c1503bd7c28d6d15ba5b67182a1887e346328906cead08b71d864e8",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25157-25162",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "zU_QWBff5JxGxjMpFaxzWnCGLoDpZ8eMw0Gd2tUrkZw",
+      "decision": "approved",
+      "inputSha256": "f7885a16d5a260343c5fb28203e85aa86cb21e905988a2c39d5ac1fcf58b8909",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25395-25427",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "uqM77M6YlJqcC01EPxF2HD30hUQrEcZ4Z-UJ_UAxxBw",
+      "decision": "approved",
+      "inputSha256": "807fa358209ac6a295aa4fa2172d01e74bb7bdb1fceb42cb5f2d0d033cf12b89",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25429-25469",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "3uHkXbTfmCSwFIBoclDGXqOvX2QIhHjJU-SAJzCI2PU",
+      "decision": "approved",
+      "inputSha256": "e838f03bbfa4bde77d89729624293dd598e3f107d0025847d3edc9ecf8b542b3",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25551-25580",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "N5u8pTxp3Vszsku4x7DtDI3iKgMgI2HDRVpd-zdTrI0",
+      "decision": "approved",
+      "inputSha256": "51a6a028d76794f51b1ee18d0aec0860dd13ed46a2da0301330da99c7333111d",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25789-25802",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "KJkrXMs60mCA0d_bVLtzY1e2nXaDkRdK4t3Fr3tBsug",
+      "decision": "approved",
+      "inputSha256": "62d325b7f26be43c5f55a3c100bef48ac19c765ed2271016f9a6ead27e069364",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:25821-25826",
+      "speaker": "御母さん"
+    },
+    {
+      "candidateId": "58lGwJfKFPjuckjl0ol4XmmuuuBKd7wo_QYxBCGZO2Y",
+      "decision": "rejected",
+      "inputSha256": "2d6724185e2d3ef0354ac68f67ff0820edb49f1cf7c8f36ecc2545c00f94c26c",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:26882-26904",
+      "speaker": null
+    },
+    {
+      "candidateId": "PbwnHWRcZMgDwqYxY41rJj_u7vS8ajN62fu8nfbVtxk",
+      "decision": "rejected",
+      "inputSha256": "44bc924b61cd30871ddfb9b984a76a987deaedce8b93e1c5c7c079bb762a9b36",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:26912-26938",
+      "speaker": null
+    },
+    {
+      "candidateId": "C2RXkrZ1M0GyHJKs7WXygBUjZ-goI3zj1sVA9nQ0sSw",
+      "decision": "rejected",
+      "inputSha256": "fee7812d6fe48e54ef30c442a44e06724b99e9596a76618702e87062635f7c47",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:26946-26974",
+      "speaker": null
+    },
+    {
+      "candidateId": "K7E--QhBLOmz8tf18kJxf7TtuSe2YBAaSdrLcrvomYM",
+      "decision": "rejected",
+      "inputSha256": "87c0eb3799011579a7b79baedf66a0ece37c864241c4c481bebe9e2bcf3173b3",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:26974-26997",
+      "speaker": null
+    },
+    {
+      "candidateId": "eUToMPghleKLzDLW8JA7qYt77894WeMnqH_GUmhS8-c",
+      "decision": "rejected",
+      "inputSha256": "7a4ce5691a0c711dd67e8eb4e85fdde696e09c805272da4c0cae066adbfe61da",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:27520-27550",
+      "speaker": null
+    },
+    {
+      "candidateId": "e2Btr1ZUMJ1a7zKtTzv2prtpaxPCtkTqm5bkB1MubgM",
+      "decision": "rejected",
+      "inputSha256": "fe54518d3286d758a424fc75df3f1fd5d27e94e5fd6953f423c8bcbe95cd4001",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:27565-27602",
+      "speaker": null
+    },
+    {
+      "candidateId": "FkUUG3YqoAIitAE96SirUNu9tEdlPWqEWaDJp6u-TSk",
+      "decision": "rejected",
+      "inputSha256": "bb4516c4f0c9c612e1513321834534941e778edc956847b4c5dbbd20163f585d",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:27620-27676",
+      "speaker": null
+    },
+    {
+      "candidateId": "baJjUPrtiR-_2snAN7irfO5tzBOjqq1DduMWWLGfcm8",
+      "decision": "rejected",
+      "inputSha256": "3be165754bd3870126ef3931018fe318132bcf280af05cf5475fde3429e428a1",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:28365-28487",
+      "speaker": null
+    },
+    {
+      "candidateId": "bdkIUpNHh1pJK9KTL-YFOgcYLiX5j3ZCSqWoRcJ4AQw",
+      "decision": "rejected",
+      "inputSha256": "f0ed20f094cdde1fa91031a436d9cb2b13fe89da36a3e78c8dc98b4a380d8b41",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:28521-28538",
+      "speaker": null
+    },
+    {
+      "candidateId": "czcuj_KT9n9PG827kRSigKs_c-Bsc7mqu-_fyFChJ_M",
+      "decision": "rejected",
+      "inputSha256": "5b83df45a95a609ab99c914783ef0bdf408a5ca2665b5412dd1aed7575ff9071",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:28549-28617",
+      "speaker": null
+    },
+    {
+      "candidateId": "c5STNMjI_vire2ozHcV0g18YbikWdpT6_z4Yr0jbq-k",
+      "decision": "rejected",
+      "inputSha256": "cbeebe005e2de7265d5336e7a0b19b31d53a99b47280ba6dab9de5783c110363",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:28628-28730",
+      "speaker": null
+    },
+    {
+      "candidateId": "9Ts6I0pYuYkzhkLmMrCwPek4WPnaD1CAqUpsAM6KvGM",
+      "decision": "rejected",
+      "inputSha256": "b3c07f6117372d97c65a8c7d4a7edb3b11f4f31fe3104c219f0b54385d56b6c8",
+      "reasonCode": "EXPRESSION_EXAMPLE",
+      "sourceAnchor": ".main_text:28738-28791",
+      "speaker": null
+    },
+    {
+      "candidateId": "C838mgO_SHcNY3mYIy-qFxoeQplkx4s48LDTfdXsgBM",
+      "decision": "approved",
+      "inputSha256": "101ab68c830109ef58bda9d421cbb0e141efa604482a7a3f51d6a56ec42690cc",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:30214-30247",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "b1yhH-km_iWCtavaCVF_vmlA8604zM5v3nY7j-FISN4",
+      "decision": "approved",
+      "inputSha256": "e3632367931457b9974b71a01bf0629e3c95924f57f8e94a3383e61c8a1cbc7d",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:31755-31778",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "mrEaixlBeboHgYUW7Jqjn_Qnkwcpm-kkZ0zFdD4Th-g",
+      "decision": "approved",
+      "inputSha256": "33cc9656b1bdc5dafd87f40ecedceed5a6a23e6566a96822418db9ddfbdcec6e",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:31780-31816",
+      "speaker": "同僚"
+    },
+    {
+      "candidateId": "KKn-DtKZu5jz4MNsSksYXt1tk10dsSXOvyoYx4XkobM",
+      "decision": "approved",
+      "inputSha256": "3436da6437c033df13ccab0f37a91d1b530f534300fe00f2169f1b1020b5c6b7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:31884-31911",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "mJ4S3bEpiat38bmLAn2RT753U8y07yjYf3qUzRD6w3o",
+      "decision": "approved",
+      "inputSha256": "1ffdc9321607b2bae8af30fdc3c299dbe047cc737168ce04295a55fdd4cda13b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:31913-32012",
+      "speaker": "同僚"
+    },
+    {
+      "candidateId": "48s5BRuFsDePSR-6WvAIpxZFV8iaIYpmU9O_c0GUdAU",
+      "decision": "approved",
+      "inputSha256": "f3d87cd5c509691bc2d383ec94aac3e9d044b87192c1c5d7c4813b270376d8dd",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:32014-32036",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "aQ_IaV22TsJuUfQ5BdW_dj2Jblcoz9kKiF4AfUXxExs",
+      "decision": "approved",
+      "inputSha256": "84426f926509ff44b274bf5a360841b4579e358846e2161850690abf3b1d3718",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:32038-32049",
+      "speaker": "同僚"
+    },
+    {
+      "candidateId": "GhDEi-hJgrcSiyBVVQhMSwWld-_IyJnAvKjOuHh8KAM",
+      "decision": "approved",
+      "inputSha256": "5924cb4c297b43e9cee05f4ecd4126fa897e4a03a8003137b717f3df6747e174",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:32632-32648",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "0GZPmghReSMKV2hNK05zvBtAxN2xHsHrNTWyiSnfUTI",
+      "decision": "approved",
+      "inputSha256": "90d68b0b9bfbda146970e60c136754be051f4c018c28d6c59fa4f48dcb422e29",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:32790-32821",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "X0NeTYbWB_N91LVYnIFpkasXNfurc0Qxy8y-j7dAo7M",
+      "decision": "approved",
+      "inputSha256": "5fd6eaa9c1564c2d72e58ab84cdaf128e0750b58e2846c70317b5124f05955e9",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:32908-33030",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "s-1iKItWcx2qEpGsTyPB042jaxp9hIktKDyeWsrOUVQ",
+      "decision": "approved",
+      "inputSha256": "3cb7c4547920a5c81c81019dfed24d1c5614400ac240e276bfbc6525e7c20ec5",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33136-33161",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "5zUxKGpM4p5EMQ9r00kTWdtmBXds8uVnA95Q5md-bbA",
+      "decision": "approved",
+      "inputSha256": "e2951e60a3d00d60b363b4e7393e1573210736581e7f26166eb7aa44e15afe01",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33198-33233",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "e-Q8Xa5hnRhc11ss8cwwzbngjvcg9drqVwt61Ie3FIY",
+      "decision": "approved",
+      "inputSha256": "426248d38d88a756efab27f6934f3c60f1c3594dbdbfdcd85514b2d56b89f1a8",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33235-33248",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "6fvOuSQN_-PS4Q4GfoHFbfJZIbZLlz5EpmBN8I88Cow",
+      "decision": "approved",
+      "inputSha256": "41af7ad925c6e524b9e409ea32764eb631a9fa23f8d9ee692eec2484c7c807bc",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33250-33267",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "Yw1MjhZirwQlFK0zP5jORgYs6FdPy12_HG6992xcPmE",
+      "decision": "approved",
+      "inputSha256": "f1ab3d1a47f413c41463d976a66be93f08cfe2e5e2c87ff380c0ad5e32ae5a13",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33269-33293",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "KhEJe000r4nc3lHUD-q5Z8BLEdfIKUc6vcGEp8mJn1o",
+      "decision": "approved",
+      "inputSha256": "f62521c0be49300020e87cb9eacb237e53bc6ffbe17939c4c95faba6b11428ed",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33295-33306",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "82sNBkcNWeZNy9BRNTodoDUHxaOASxXb48m5Ckh2pg0",
+      "decision": "approved",
+      "inputSha256": "9950daec24909d3d0011a175e48b7187cfebbbbc9a4d8a6b87c5ebfc9a7df378",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33315-33331",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "WPjpEak6yue_3ZjL4NiO9JRNAatVtzg_u07QJZeaVqo",
+      "decision": "approved",
+      "inputSha256": "d2bf17bc199197f6030181f6fce6c8de32cbbe9e0d7f4defc014935cfecb9450",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33333-33398",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "0drzkK85jik8tE-uhjHEisS4yW3N6E9662J_ErOJtAE",
+      "decision": "approved",
+      "inputSha256": "598927e06a82e811722e0cf7e849a651681f814437ff204d1cfd588e7a0f8bea",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33400-33458",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "ODGNzLF-fT-4DModBwlYTZgvHMQbRxgU9lY93Foz680",
+      "decision": "approved",
+      "inputSha256": "4ce923096828abb3e34deb583ece7b9b8cc98d3434c87680485fd643fce91847",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33471-33493",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "U0GcEvgCKMwlOyzr3i5B1VaoiuLy-BuPp9ZoBaJMSqc",
+      "decision": "approved",
+      "inputSha256": "d6bc4ad54624d8835bdc8a73b4ce9bafdfb090f2aaa996d01807448d500bb96e",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33495-33543",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "zZNLAGtJ7A8xTjN7q4ciRtVHhmyGblTFCRQZoNmZssw",
+      "decision": "approved",
+      "inputSha256": "270c91f13ab8ef2f368382143ad834ce9d293c627f8772014ad8682222143e00",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33545-33554",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "q5NBt0VkxQtNA1YFbmayBfwkCx8kfbHKUNH3gzaa8Lo",
+      "decision": "approved",
+      "inputSha256": "108af67ea324f156e8729e3e320aef4586f5a382760087e7c6c73c0ea7381c20",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33571-33645",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "SSwu_nB72eH6ehBPTLER6whqbnGD9UnZqWR0DXkpCQI",
+      "decision": "approved",
+      "inputSha256": "8118923dfb3445709a0be76d4901cdf36cc071cfd25ffb6036bf66a3874dcfdb",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33647-33683",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "9S-5rxCFp8X3OqjTcFUa65W4pdK1Ot7hhUn5OsA82O4",
+      "decision": "approved",
+      "inputSha256": "036e8c276e6ff4a5c1c496d8cda2e1e5037ff686291e3c51b55647b4d4e637e6",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33685-33785",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "iZKPcP5unrLYmOontZEXy8WFnjOeusKpecjTOUE1X5U",
+      "decision": "approved",
+      "inputSha256": "71fb254d006ff9733ea6d72488af492778637497ac9312fe70bf540ce9bffe5b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33787-33793",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "BP7M5h_5fcvBY2Tp7HQJuH0xrh-roA0McRHFZDW8E6s",
+      "decision": "approved",
+      "inputSha256": "c731197eef59d66d96b8de2f4f99f82cb20d1b37c4dce119fbf6705076f69e50",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33809-33914",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "xPwuYXsB_ofHN8leH1Gl5IYwL4LJ-n3VAZm9g_t5UZA",
+      "decision": "approved",
+      "inputSha256": "dd23b66744d253e9ed3c418e308c37070ce1874e213c18b066c0fb7568754c2c",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33916-33935",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "-BHLova0QlGLxeBjlC0XwJ1Qiyld9p7jhyhORwUC_bk",
+      "decision": "approved",
+      "inputSha256": "89299dd0ef06aa7ce51d5a69d08ddae8b3ab6d7ec8a0d5dc654b23ebc921783b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:33943-34012",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "GJt7PmGOp3zAkvrsxG0pcZepe7CylcnNXkwofgZVP0s",
+      "decision": "approved",
+      "inputSha256": "9c5a7a1b5861fed477538ddf5e283d67315aa49e6d60a1714c97a1aa1935eb35",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34014-34021",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "sTC51Fvj7UDirORfimMV9znrYAcwR4CL0-kOnB-g75o",
+      "decision": "approved",
+      "inputSha256": "29b3f32dd647e9fc10ac27625bd243e75f32e3a3b1cfa22c5e4a1b763b65e0df",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34061-34088",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "zJy5tbaCLnvl6FwWuulElT2ChtumkV82iqi7aDNuYRY",
+      "decision": "approved",
+      "inputSha256": "fc29eeb0c4bb2fb347dbc70d1851b70be8ce292ed760981a243862fb0b7afb14",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34090-34095",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "CQyZgTnZQ73Itqewk1ZGRP5uzKmBl5DMimak-v59Dy8",
+      "decision": "approved",
+      "inputSha256": "85d2b60cb46e389fddf05f1632b1361f0f9bfd65ef54f60c76e58eee9d680e60",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34109-34301",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "lffELboZnY0ZW9eDpYAYAhjxX7hdD4pgbg8sNxrj-yc",
+      "decision": "approved",
+      "inputSha256": "755c5bc7f534c0d9b63fb3da184f3ff178afa4f958454b9aaeaa3fd8616c8a77",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34303-34311",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "BSXouXip-ARkGrCk3IZMEfaEL3Ai7gWpdcdk5r3C44g",
+      "decision": "approved",
+      "inputSha256": "1cf15757df11e429c5765d717beaab9dbef4c5209f4a43fb9ee5b7603ef718ff",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34488-34732",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "Ln8Ra1Gee3-p_nbbr_53JdTiT7p0Uk_jXw30ye4LIm0",
+      "decision": "approved",
+      "inputSha256": "de9adbc8422a05906589d95c04fa47c9f67db387dfdafd1002d463107192558f",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34734-34751",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "6opY-iIwYHnPysMlnnyYmSBfiv9IfeRdvZqjER1k8HE",
+      "decision": "approved",
+      "inputSha256": "16b930c09a5f2f86e0827c5cacb46fdb849d01f6a47516fcad11c02988592707",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34776-34821",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "vkFd646MWYFLn3Oa-IMdL8mBUTfElKvBMC8cuEpxfNA",
+      "decision": "approved",
+      "inputSha256": "8484147eb6fdcbc7ae0359dd28ba81240bee9c6488c7825d1f69216606b092c6",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34847-34856",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "Gw4at8fM-y_htj-Kr7h6MeZoaRkXPgPpoF2jdojzBeQ",
+      "decision": "approved",
+      "inputSha256": "8ad31dc098d68593fd92a6ad2574cd94b2d34ef23b3386d70b7e51b03b8acb62",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34858-34940",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "V7T1Ew8jSVyXPJy2lvp5eDA64Ls2kO7KlT6rjieKxdM",
+      "decision": "approved",
+      "inputSha256": "fee9114383b5e0527eecad5c35e5661dec38a9ae51936fdfe8a9fd7881e8ee32",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34942-34954",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "XrXuLvrRsOtoxjwQS8T1uOJTJMpJ4y-KZd7ygONIu4o",
+      "decision": "approved",
+      "inputSha256": "65d9406d7ef43fc8391dc95f56799552022059e4dfc558970c5ba3698a45c0a0",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:34982-35031",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "1JrGB6Oj_H0ZZwQ_ACBqMsp8zdck0IdE3iuIBoqhEc0",
+      "decision": "approved",
+      "inputSha256": "969f9904c6f5efdcd38449f83a970375a77673c24f2a3bb3a94e476860627f45",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:35769-35809",
+      "speaker": "余"
+    },
+    {
+      "candidateId": "zn7fvRZb3cLM-t80DtMr2t2Lmy_FKytw_AwJGWeBROA",
+      "decision": "approved",
+      "inputSha256": "abaf6d96c308917473e73630391ded5d1f7fa1c82ffaec4207321bf5b9e77047",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:35811-35942",
+      "speaker": "老人"
+    },
+    {
+      "candidateId": "tNXOHKcmOtSNaj9WshFjPZKHtxHRTTaBj6q9UNxx3s4",
+      "decision": "approved",
+      "inputSha256": "7f91ca25c0cd2f4cf9d14663164ee59fca4998d5ab8cd7527cdd8462a12daff7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:37244-37346",
+      "speaker": "御母さん"
+    }
+  ],
+  "peerArtifactSha256": null,
+  "principalId": "codex-reviewer-secondary",
+  "promptSha256": "08f154cd60def80aed0cd2568e14dea191c1232a01dafb50a08972dea6bf0111",
+  "resultVisibility": "sealed-private",
+  "role": "secondary",
+  "runId": "secondary-001104-20260814-01",
+  "schemaVersion": "1.0.0",
+  "sealedAt": "2026-08-14T06:00:00.000Z",
+  "sessionId": "f005-t070-secondary",
+  "templateSha256": "14cf1693647749363ebc752c58f4727b04e78822d358b8a1cc6d3460e89d2694",
+  "workId": "001104"
+}
