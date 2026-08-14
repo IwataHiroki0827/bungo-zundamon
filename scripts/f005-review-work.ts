@@ -72,6 +72,21 @@ const REVIEW_WORKS: Readonly<Record<string, F005ReviewWorkConfig>> = {
       'speaker語彙:兄,弟,女,牢守,高き影,低き影,ヘンリー,ある者,ビーフ・イーター,小供,' +
       '怪しい女,髯,磨ぎ手,ジェーン,坊さん,ガイフォークス,主人。',
   },
+  '001104': {
+    reviewDate: '20260814',
+    fixedNow: '2026-08-14T06:00:00.000Z',
+    expiresAt: '2026-08-21T06:00:00.000Z',
+    prompt:
+      '趣味の遺伝の台詞候補を全件、他reviewerの結果を見ず独立判定する。' +
+      '人物が実際に発した発話のみSPOKEN_DIALOGUEで承認し、speakerを共有canonical語彙から選ぶ。' +
+      '浩一の日記・手帳の引用、手紙の引用など、書かれた文章を地の文が引用したものは' +
+      'EXPRESSION_EXAMPLEとして却下しspeakerはnullとする。' +
+      '冒頭の幻想場面の発話、および余が思わず口に出した言葉は実際の発話として承認する。',
+    template:
+      '{candidateId,inputSha256,sourceAnchor,decision,reasonCode,speaker}を候補順に返す。' +
+      'decisionはapproved/rejected。reasonCodeはSPOKEN_DIALOGUEまたはEXPRESSION_EXAMPLE。' +
+      'speaker語彙:神,犬共,余,腹の減った男,婦人,一人,御母さん,同僚,老人。',
+  },
 };
 
 function resolveReviewWork(value: string): {
