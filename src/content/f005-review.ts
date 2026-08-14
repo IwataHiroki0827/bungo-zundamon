@@ -2,7 +2,6 @@ import { createHash, randomBytes } from 'node:crypto';
 
 import { canonicalJson } from './artifacts.ts';
 import {
-  DEFAULT_BATCH_SPEECH_RULES,
   normalizeBatchCandidate,
   type CandidateWithRevisions,
 } from './batch-production.ts';

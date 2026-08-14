@@ -197,7 +197,14 @@ describe('F005 hosted production candidate workflow [UT-F005-047]', () => {
     expect(attributes).toContain('public/.nojekyll text eol=lf');
     expect(attributes).toContain('native/f005-guard/** text eol=lf');
     expect(scripts).toContain("'127.0.0.1'");
-    expect(scripts).toMatch(/'--work',\s*'000799'/u);
+    // CHG-F005-073: 対象作品はmanifestの先頭pendingから決める。
+    // work IDを直書きするとバッチの1作品目しか生産できない。
+    expect(scripts).toMatch(/'--work',\s*\$env:F005_WORK_ID/u);
+    expect(scripts).not.toMatch(/'--work',\s*'\d{6}'/u);
+    expect(scripts).toContain("$_.status -eq 'pending'");
+    expect(scripts).toContain('F005_WORK_ID=$workId');
+    expect(scripts).toContain('F005_EXPECTED_WAV=$expected');
+    expect(scripts).not.toContain('-ne 62)');
     expect(scripts).toContain('git ls-remote --heads origin');
     expect(scripts).not.toContain('git ls-remote --exit-code');
     expect(scripts).toContain("F005_RESULT_JSON=");
