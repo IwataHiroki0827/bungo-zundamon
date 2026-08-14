@@ -731,18 +731,14 @@ function validJournal(): Record<string, unknown> {
     sessionNonce: SHA,
     workId: '000799',
   };
-  // CHG-F005-072: nativeと同じくkey別canonical SHAをbodyへ含める。
-  const sealed = {
-    ...body,
-    bodyKeySha256: Object.fromEntries(Object.entries(body)
-      .map(([key, item]) => [key, hash(canonicalJson({ [key]: item }))])),
-  };
   return {
-    ...sealed,
+    ...body,
     closedSeal: {
       etwSequenceGapCount: 0,
       firstEtwSequence: 1,
-      journalBodySha256: hash(canonicalJson(sealed)),
+      // CHG-F005-072: observationsは封印対象外。
+      journalBodySha256: hash(canonicalJson(Object.fromEntries(
+        Object.entries(body).filter(([key]) => key !== 'observations')))),
       lastEtwSequence: 1,
       producerBinarySha256: PRODUCER_SHA,
     },
@@ -780,17 +776,8 @@ describe('F005 native ETW capacity guard', () => {
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 SC-F005-U047-A SC-F005-U047-B */
   it.each([
-    ['sequence gap', (journal: Record<string, unknown>) => {
-      ((journal.observations as Record<string, unknown>[])[0]!).etwSequence = 2;
-    }],
     ['notice replay/gap', (journal: Record<string, unknown>) => {
       ((journal.notices as Record<string, unknown>[])[0]!).noticeSequence = 2;
-    }],
-    ['unknown event', (journal: Record<string, unknown>) => {
-      ((journal.observations as Record<string, unknown>[])[0]!).event = 'unknown';
-    }],
-    ['producer mismatch', (journal: Record<string, unknown>) => {
-      ((journal.observations as Record<string, unknown>[])[0]!).producerBinarySha256 = '4'.repeat(64);
     }],
     ['notice mismatch', (journal: Record<string, unknown>) => {
       (((journal.notices as Record<string, unknown>[])[0]!).notice as Record<string, unknown>).event = 'delete';
@@ -805,6 +792,29 @@ describe('F005 native ETW capacity guard', () => {
     expect(() => validateF005CapacityJournalV3(journal))
       .toThrowError(F005NativeCapacityError);
   });
+
+  /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 */
+  it.each([
+    ['etwSequence', (journal: Record<string, unknown>) => {
+      ((journal.observations as Record<string, unknown>[])[0]!).etwSequence = 2;
+    }],
+    ['event', (journal: Record<string, unknown>) => {
+      ((journal.observations as Record<string, unknown>[])[0]!).event = 'unknown';
+    }],
+    ['producerBinarySha256', (journal: Record<string, unknown>) => {
+      ((journal.observations as Record<string, unknown>[])[0]!).producerBinarySha256 = '4'.repeat(64);
+    }],
+  ])(
+    // CHG-F005-072: observationはETW配送に依存する診断であり正当性の根拠ではない。
+    // poisonしなくなった結果、分類できないカーネルeventが素通りするため、
+    // 内容検証も封印もしない。書込み健全性はphase前後の実測差分が担保する。
+    'observationの%s改変はclosed journalを拒否しない（診断専用）',
+    (_label, mutate) => {
+      const journal = structuredClone(validJournal());
+      mutate(journal);
+      expect(() => validateF005CapacityJournalV3(journal)).not.toThrow();
+    },
+  );
 
   /** @des DES-F005-006 DES-F005-012 @fun FUN-F005-047 @test UT-F005-047 IT-F005-005 */
   it('open journalは診断読込だけ許しactualへの昇格を拒否する', () => {

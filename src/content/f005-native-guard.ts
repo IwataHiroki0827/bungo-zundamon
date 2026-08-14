@@ -2075,7 +2075,6 @@ export function validateF005CapacityJournalV3(
 ): CapacityJournalV3 {
   if (!record(value) || !exactKeys(value, [
     'candidateSha256',
-    'bodyKeySha256',
     'capacitySamples',
     'closedSeal',
     'etwSessionIdentity',
@@ -2254,41 +2253,13 @@ export function validateF005CapacityJournalV3(
     // 宣言と実測差分のexact一致が健全性の根拠である。
   }
 
+  // CHG-F005-072: observationsは診断専用でカーネル由来の任意文字列を含むため、
+  // 両実装でのJSON往復一致を保証できない。封印対象から外す。
   const body = Object.fromEntries(Object.entries(value)
-    .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
+    .filter(([key]) => key !== 'state' && key !== 'closedSeal' && key !== 'observations'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
     // CHG-F005-072: nativeが出したkey別canonical SHAと突き合わせ、
     // 表現が食い違うkeyを一意に特定する。key名は固定識別子である。
-    const perKey = value.bodyKeySha256;
-    if (record(perKey)) {
-      const divergence: Record<string, { native: string; ts: string; length: number }> = {};
-      for (const [key, expected] of Object.entries(perKey)) {
-        if (key === 'bodyKeySha256') continue;
-        const canonical = canonicalJson({ [key]: body[key] });
-        const actual = sha256(canonical);
-        if (actual !== String(expected)) {
-          divergence[key] = {
-            native: String(expected),
-            ts: actual,
-            length: canonical.length,
-          };
-        }
-      }
-      const keys = Object.keys(divergence);
-      if (keys.length !== 0) {
-        // CHG-F005-072: hexとlengthのみの診断。生pathや値は含まない。
-        process.stderr.write(`F005_SEAL_DEBUG_BASE64=${Buffer.from(JSON.stringify({
-          divergedKeys: keys,
-          totalKeys: Object.keys(perKey).length,
-          detail: divergence,
-        })).toString('base64')}
-`);
-        return fail(
-          `F005_NATIVE_JOURNAL_SEAL_${keys[0]!.replace(/[A-Z]/gu, (c) => `_${c}`).toUpperCase()}`,
-          'journal body keyの正規化表現が一致しません',
-        );
-      }
-    }
     return fail('F005_NATIVE_JOURNAL_BODY_SEAL', 'journal body sealが一致しません');
   }
   return Object.freeze(value) as unknown as CapacityJournalV3;

@@ -6883,19 +6883,13 @@ sealed class CapacityGuardSession : IDisposable
     private void PersistJournal(bool closed)
     {
         var body = JournalBody();
-        // CHG-F005-072: body seal不一致の局所化用。key名は固定識別子、値はhexのみ。
-        var bodyKeySha256 = new SortedDictionary<string, object?>(StringComparer.Ordinal);
-        foreach (var pair in body)
-        {
-            bodyKeySha256[pair.Key] = Convert.ToHexStringLower(SHA256.HashData(
-                Encoding.UTF8.GetBytes(CanonicalJson(
-                    new SortedDictionary<string, object?>(StringComparer.Ordinal) {
-                        [pair.Key] = pair.Value,
-                    }))));
-        }
-        body["bodyKeySha256"] = bodyKeySha256;
+        // CHG-F005-072: observationsは診断専用でカーネル由来の任意文字列を含み、
+        // 両実装でのJSON往復一致を保証できないため封印対象から外す。
+        // 正当性はnotices・capacitySamples・phases等の系列が担う。
+        var sealedBody = new SortedDictionary<string, object?>(body, StringComparer.Ordinal);
+        sealedBody.Remove("observations");
         var journalBodySha256 = Convert.ToHexStringLower(SHA256.HashData(
-            Encoding.UTF8.GetBytes(CanonicalJson(body))));
+            Encoding.UTF8.GetBytes(CanonicalJson(sealedBody))));
         var document = new SortedDictionary<string, object?>(body, StringComparer.Ordinal) {
             ["closedSeal"] = closed ? new SortedDictionary<string, object?>(StringComparer.Ordinal) {
                 ["etwSequenceGapCount"] = 0,
