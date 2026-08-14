@@ -188,7 +188,15 @@ async function main(): Promise<void> {
   const selectionSnapshot = phaseArg === 'predeploy'
     ? await rehydrateF005SelectionSnapshot(workspace, context)
     : undefined;
-  const snapshot = await collectF005SourceSnapshot(
+  // CHG-F005-073: 選定snapshotはバッチ単位で一度だけ封緘する。2作品目以降の
+  // collect-sourceで再取得すると、青空文庫が書誌を更新した分だけ封緘済み
+  // artifactと衝突し、作品追加が上流で止まる。封緘済みならそれを復元して使う。
+  const sealedSelection = phaseArg === 'selection' &&
+      await lstat(absoluteArtifactPath(workspace, F005_SELECTION_SNAPSHOT_PATH))
+        .then(() => true, () => false)
+    ? await rehydrateF005SelectionSnapshot(workspace, context)
+    : undefined;
+  const snapshot = sealedSelection ?? await collectF005SourceSnapshot(
     new ProductionAozoraTransport(),
     context,
     phaseArg,
