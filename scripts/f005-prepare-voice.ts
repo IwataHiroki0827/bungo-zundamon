@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile, readdir, realpath, statfs } from 'node:fs/promises';
-import { extname, resolve } from 'node:path';
+import { basename, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { canonicalJson, writeJsonArtifactAtomic } from '../src/content/artifacts.ts';
@@ -12,6 +12,7 @@ import {
   type F005SpeechItem,
 } from '../src/content/f005-voice.ts';
 import type { VoiceConfigV2 } from '../src/voice/cache.ts';
+import { inspectWav } from '../src/voice/generation.ts';
 
 // CHG-F005-073: 音声準備は作品ごとに実施する。
 const WORK_ID = process.argv[2] ?? '000799';
@@ -27,6 +28,10 @@ const PLAN_PATH = `content/batches/F005/voice-plans/${WORK_ID}.json`;
 const MINIMUM_FREE_BYTES = 5 * 1024 * 1024 * 1024;
 
 function sha256(value: string): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+function sha256Bytes(value: Uint8Array): string {
   return createHash('sha256').update(value).digest('hex');
 }
 
@@ -93,14 +98,28 @@ async function main(): Promise<void> {
   if (safety.result !== 'pass') {
     throw new Error('F005 candidate safetyがblockedです');
   }
-  const plan = planF005VoiceDiff(speechItems, config.value, { entries: [] });
-  const audioScan = await scanExistingPlannedAudio(
-    workspace,
-    new Set(plan.entries.map((entry) => entry.audioId)),
-  );
-  if (audioScan.matches.length !== 0) {
-    throw new Error(`既存一致audioを空indexで再生成しようとしています: ${audioScan.matches.join(',')}`);
-  }
+  // CHG-F005-073: audio IDは台詞文とvoice configから決まる内容アドレスである。
+  // 別作品に同一の台詞があれば受理済みwavをそのまま再利用でき、生成し直す必要はない。
+  // 索引は今回の計画に現れるIDだけに絞る(planF005VoiceDiffはorphanを拒否する)。
+  const draftPlan = planF005VoiceDiff(speechItems, config.value, { entries: [] });
+  const plannedAudioIds = new Set(draftPlan.entries.map((entry) => entry.audioId));
+  const audioScan = await scanExistingPlannedAudio(workspace, plannedAudioIds);
+  const reusable = await Promise.all(audioScan.matches.map(async (path) => {
+    const wav = new Uint8Array(await readFile(resolve(workspace, ...path.split('/'))));
+    const audioId = basename(path).slice(0, -4);
+    return {
+      audioId,
+      path,
+      sha256: sha256Bytes(wav),
+      bytes: wav.byteLength,
+      durationMs: inspectWav(wav).durationMs,
+      configHash: draftPlan.configHash,
+      wav,
+    };
+  }));
+  const plan = reusable.length === 0
+    ? draftPlan
+    : planF005VoiceDiff(speechItems, config.value, { entries: reusable });
   const freeBytesBigInt = disk.bavail * disk.bsize;
   if (freeBytesBigInt > BigInt(Number.MAX_SAFE_INTEGER)) {
     throw new Error('filesystem free bytesがsafe integerを超えました');
