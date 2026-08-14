@@ -1,0 +1,960 @@
+{
+  "batchId": "F005",
+  "kind": "f005-voice-diff-plan",
+  "plan": {
+    "__brand": "F005VoicePlan",
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "action": "generate",
+        "audioId": "0124657dce70f51c79a4f178ea2b3bc07932fc992663e25e6e2ad71c5ec7c163",
+        "candidateIds": [
+          "ZLHCC6jKDoptus0CpTi6JRHybuKVoMolZaYyrK8WuR4"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "0361a6289111fef60e43486604493ae92e925f89525bfb223e65219ffe3b30e0",
+        "speechText": "「それは……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "074e38df53d0a8c3661f2200a7478e86ff45b7f196cac68756349c0d6704b65d",
+        "candidateIds": [
+          "U0GcEvgCKMwlOyzr3i5B1VaoiuLy-BuPp9ZoBaJMSqc"
+        ],
+        "estimatedBytes": 449132,
+        "existing": null,
+        "speechSha256": "d102773d3a04dba22ef638e0f712a0aae3e77b9f132c1a091eb28b87cf31b67d",
+        "speechText": "「才三かな。これはまた至って優しい、――あなたの知っておらるる浩一に生き写しじゃ、よく似ている」"
+      },
+      {
+        "action": "generate",
+        "audioId": "098c392845f2bd0151a29e9a52fed3b252d6931c71f8cd7112c72eb10c7d224c",
+        "candidateIds": [
+          "uqM77M6YlJqcC01EPxF2HD30hUQrEcZ4Z-UJ_UAxxBw"
+        ],
+        "estimatedBytes": 374300,
+        "existing": null,
+        "speechSha256": "701f8a9baedc5f16187c14ce12a39f2877653f1a16f65b9fb81627819a9072ef",
+        "speechText": "「ええ、あれを見ないうちは何とも思わなかったのですが、つい見たものですから……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0cfca33c4c51c20e27e6fde398195b26c7805d7c689d1875b8c5c8b4b83f0462",
+        "candidateIds": [
+          "zZNLAGtJ7A8xTjN7q4ciRtVHhmyGblTFCRQZoNmZssw"
+        ],
+        "estimatedBytes": 84284,
+        "existing": null,
+        "speechSha256": "6ee2e0d5dc28528df5a5f519330ad78d8f6e734d53ea89784da5345e340e469a",
+        "speechText": "「似ていますか？」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0d80dcef4600d1f062dc35ee8da486b6474ce30e6a7205c888e8105b1329a421",
+        "candidateIds": [
+          "82sNBkcNWeZNy9BRNTodoDUHxaOASxXb48m5Ckh2pg0"
+        ],
+        "estimatedBytes": 149756,
+        "existing": null,
+        "speechSha256": "8d7549b77c63c1637e86b60bc7f7fd5a5e346ef2864abdbf568fd791ea09615a",
+        "speechText": "「ちと取調べたい事がありまして」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0e4dc59be0ab707d18946b0af6dd96827b618fa0f704d49237f85b4df3754c07",
+        "candidateIds": [
+          "IzYqlHnHIVI1glBvgOL2uy7oJo7TBvtct44OY_bNDAY"
+        ],
+        "estimatedBytes": 149756,
+        "existing": null,
+        "speechSha256": "755b402356b2c3171553266f80515fa68612815a3662591e1200db4df9d1d518",
+        "speechText": "「へえ、白いのが好きでしたかな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "124200cffba2db8ca6a3e835b1674eb3b70231018d022d14694230c348abedc9",
+        "candidateIds": [
+          "KhEJe000r4nc3lHUD-q5Z8BLEdfIKUc6vcGEp8mJn1o"
+        ],
+        "estimatedBytes": 102956,
+        "existing": null,
+        "speechSha256": "e6542859695e455c665376c3f27b60c3034188e3b8d3faf1fcdfd20da1204f38",
+        "speechText": "「材料？ 何になさる」"
+      },
+      {
+        "action": "generate",
+        "audioId": "13fb4418a5afbef9d82f037dceb0a5987b087ee8f828d5269f84e3ea5813122f",
+        "candidateIds": [
+          "zn7fvRZb3cLM-t80DtMr2t2Lmy_FKytw_AwJGWeBROA"
+        ],
+        "estimatedBytes": 1281740,
+        "existing": null,
+        "speechSha256": "da09ba0284766c07af4ba23be5818c0d43ca474f2db1dd940f0a1ffe3d36a45d",
+        "speechText": "「いいえ、ただ名前だけ聞いているばかりで、――おやじはせんこく御話をした通り、わしと終夜激論をしたくらいな間柄じゃが、せがれは五六歳のときに見たぎりで――実は貢五郎が早く死んだものだから、屋敷へでいりする機会もそれぎり絶えてしもうて、――そのごはとんとおうた事がありません」"
+      },
+      {
+        "action": "generate",
+        "audioId": "183606a5699ba3583c8b4e9fd3e4820867aab8fdffda12e9edbdeb5d9f28b6e1",
+        "candidateIds": [
+          "uTcV97oYJrBnDKH39MJSDhnnVXvl1CW0WaLPJ94PMvc"
+        ],
+        "estimatedBytes": 318140,
+        "existing": null,
+        "speechSha256": "08df29ed4c79cde41ad0b36a90eb4cdf7e05e9e1a7eac956d5cd5c091a5116f9",
+        "speechText": "「御親類の若い御嬢さんでもあると、こんな時には御相手にいいですがね」"
+      },
+      {
+        "action": "generate",
+        "audioId": "1a270ef124f48c7766cd8e23a3ddb5646436f1cc950bb0f52eec65e271b8fa38",
+        "candidateIds": [
+          "N5u8pTxp3Vszsku4x7DtDI3iKgMgI2HDRVpd-zdTrI0"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "aa5b8c101b6675070998f0f8e14edcf89f702bdd90d6b9cee6ae02df6333f52d",
+        "speechText": "「宅へ帰ってもいいですか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "2c01b05734a4685d9e26a26417dbd05d57c8298cf49cb5048fd9b9a51d1dd2fb",
+        "candidateIds": [
+          "oSaOrkfhB4Z2DScQqIHpdrHU0d5fNrtil_ft-z5DGak"
+        ],
+        "estimatedBytes": 215228,
+        "existing": null,
+        "speechSha256": "6c381ff0ef24d28894f2419bbd18b345556cfc89d8c8996e0b0d0c9c37329c29",
+        "speechText": "「ええ、誰か自分の好いたものがあるような事を」"
+      },
+      {
+        "action": "generate",
+        "audioId": "2f148aa4926698f3513054a93c760ff179af32aa07f84b5e381e1943cc853fb5",
+        "candidateIds": [
+          "BhVurNwPtx-mjGJVDxDNUhC3PspH9W7QxLkSWukLVNo"
+        ],
+        "estimatedBytes": 205868,
+        "existing": null,
+        "speechSha256": "1360b14b98dd33775613e54150ce300a99fe5e7d556c13148c50aa2671905543",
+        "speechText": "「それじゃ当人も貰うつもりでいたんでしょう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "315b06c86ea8ef02eff00c2c36cf3710cc0dcd0b9dd39f784a194cbf302539d6",
+        "candidateIds": [
+          "9S-5rxCFp8X3OqjTcFUa65W4pdK1Ot7hhUn5OsA82O4"
+        ],
+        "estimatedBytes": 1019804,
+        "existing": null,
+        "speechSha256": "3220369aacbe7e73a57ccf7a794934c9b6540a12cbafdf752f73048186a77648",
+        "speechText": "「いや才三については憐れな話がある。その頃家中におのだたてわきと云うて、二百石取りのさむらいがいて、ちょうど河上と向い合って屋敷を持っておった。この帯刀に一人の娘があって、それがまた藩中第一の美人であったがな、あなた」"
+      },
+      {
+        "action": "generate",
+        "audioId": "333167546ad7d4b14d1ff705b1642b99d7e7c5839549d62b5e1cd1a8c2d376a9",
+        "candidateIds": [
+          "N2OJatBZb34h4hYNC4r9aKbKAnMufUJSuZCBEm8OUEA"
+        ],
+        "estimatedBytes": 767228,
+        "existing": null,
+        "speechSha256": "d9f275fae696c3218d8a57b4e0bb56865d29be1547ae80df9882ddb7db5e85df",
+        "speechText": "「あいにくそんな娘もおりませず。それに人の子にはやはり遠慮勝ちで……せがれに嫁でも貰って置いたら、こんな時にはさぞ心丈夫だろうと思います。ほんに残念な事をしました」"
+      },
+      {
+        "action": "generate",
+        "audioId": "37d87d9ba7499d751c0d580fbbba4fbcf90d198c60d399bd9d1f8476eaf340e0",
+        "candidateIds": [
+          "0drzkK85jik8tE-uhjHEisS4yW3N6E9662J_ErOJtAE"
+        ],
+        "estimatedBytes": 542684,
+        "existing": null,
+        "speechSha256": "334b5dbfb3cb6ec54c2be6c478257176d4371b15ad88eb7047feb66e16605f17",
+        "speechText": "「いえ、そう云う方面でなく。もう少し家庭内に起った事柄で、面白いと今でも人が記憶しているような事件はないでしょうか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "390a1ccfbde42180b5185355fa95e325e3a3db11628053f235e91c4c86398ff3",
+        "candidateIds": [
+          "GhDEi-hJgrcSiyBVVQhMSwWld-_IyJnAvKjOuHh8KAM"
+        ],
+        "estimatedBytes": 149756,
+        "existing": null,
+        "speechSha256": "8611a67eb4e6cda1f58fa5f75ee81ce06c9b3cd28c848eb19147f74bed09b6fe",
+        "speechText": "「やあ、あなたが、何の御友達で」"
+      },
+      {
+        "action": "generate",
+        "audioId": "3df7b0959551cf168f5ecc71e83fc07e03dcadc69ce8432b30d7d97d8e9a6c3a",
+        "candidateIds": [
+          "aQ_IaV22TsJuUfQ5BdW_dj2Jblcoz9kKiF4AfUXxExs"
+        ],
+        "estimatedBytes": 102956,
+        "existing": null,
+        "speechSha256": "b534f2dfa0d98e8698469fd62ecc98ec9568bffca4edd2c80991c433b37949d4",
+        "speechText": "「いつでもして上げる」"
+      },
+      {
+        "action": "generate",
+        "audioId": "458a36a9254551c8807cc3033949e00f818481a9352ef0f72bc7b37184768fe5",
+        "candidateIds": [
+          "sTC51Fvj7UDirORfimMV9znrYAcwR4CL0-kOnB-g75o"
+        ],
+        "estimatedBytes": 252668,
+        "existing": null,
+        "speechSha256": "6a29ef53da714d45d10a38b97d75daf1bcd4bafe333b2b8bab2570c9dfc66935",
+        "speechText": "「そこまでは結構だったが、――飛んだ故障が出来たじゃ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "46a9b9b1a730f1113a13f6bd20c033ce56300deb6ec64d81f82c9250f999f9b7",
+        "candidateIds": [
+          "f3wf7nd_v2J2rn-6bmNJqjvEvliVh2akPaEhRBiv7TA"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "f700be48cbc45056641fa42c002b1c6acf79be0cf4fea33e754a567a850c5c5c",
+        "speechText": "「肉の後には骨をしゃぶれ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "46ad5bef65fcad333614d8e20fb1d0ddf36c5684387ddf1fe820f319fec20210",
+        "candidateIds": [
+          "qV0ur7IeWuEpluX3JGofyyL7MQ7CsWbWt0lp0kbEd1w"
+        ],
+        "estimatedBytes": 149756,
+        "existing": null,
+        "speechSha256": "767015233d558bc8b8c84f4375b8c2a66c2966d863f319a58eb4edd31b3eb07e",
+        "speechText": "「人をほふりてうえたる犬を救え」"
+      },
+      {
+        "action": "generate",
+        "audioId": "4ae4af12a6f5f4bbb9c1ca4e05d071d834fc9b6a917c7536f73dca1882570a22",
+        "candidateIds": [
+          "X0NeTYbWB_N91LVYnIFpkasXNfurc0Qxy8y-j7dAo7M"
+        ],
+        "estimatedBytes": 1150796,
+        "existing": null,
+        "speechSha256": "84eec4ca105b47b00564ffb3abe91dcef1bd0a9b63b1ae04c7e8635d17abd60c",
+        "speechText": "「河上――河上と云うのはあります。河上才三と云うて留守居をつとめておった。その子が貢五郎と云うてやはり江戸詰で――せんだって旅順で戦死した浩一の親じゃて。――あなた浩一の御つき合いか。それはそれは。いや気の毒な事で――母はまだあるはずじゃが……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "4b5146532d063a28f40df7973929a8fe64c1a5338d89802097cd914afde95a15",
+        "candidateIds": [
+          "47lkTMzSi2VXTyiTWqRl5MIHFl2KFyTkvIxIgfPc-x4"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "6045720017c4cfccd06dc18b3ad73712d3f90f748324cafbf29f31f9256c97cc",
+        "speechText": "「血をすすれ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "4d02516c84d3ff152a4696f4bcf6260fb49c1670fcdf2c32abcd1bc7b549eda8",
+        "candidateIds": [
+          "s-1iKItWcx2qEpGsTyPB042jaxp9hIktKDyeWsrOUVQ"
+        ],
+        "estimatedBytes": 233948,
+        "existing": null,
+        "speechSha256": "f28e476476b13ac8dcdfef33db3567385954ac481436cb90a9d4c55ac99e010a",
+        "speechText": "「その河上について何か面白い御話はないでしょうか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "4e569b5a2122a988ae9b210670272bdd2113500978f5d5eeeb5cad3c46636314",
+        "candidateIds": [
+          "IWTWxVeX3EcCNs1W9PPkJcpTwvUfUn2ljxImn74U4f4"
+        ],
+        "estimatedBytes": 187196,
+        "existing": null,
+        "speechSha256": "61aa2171ad624f9d4366ac7a80d8829fc818f5de5a551ffa0eee3def6e4fec08",
+        "speechText": "「なあに、ここに立ってさえいれば大丈夫」"
+      },
+      {
+        "action": "generate",
+        "audioId": "58b1e6ded74d979a5854a5ac2b2d9d608d21a1c84d057f093eba86a64bcac113",
+        "candidateIds": [
+          "48s5BRuFsDePSR-6WvAIpxZFV8iaIYpmU9O_c0GUdAU"
+        ],
+        "estimatedBytes": 205868,
+        "existing": null,
+        "speechSha256": "afc1fe62451ed65b4651b502f6be885f6dd45023247d66156a270c95854f6875",
+        "speechText": "「槍はいいが、その老人に紹介して貰えまいか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "5afcc3d0bb492efbc182f481c1ca60d22a7c6ef178c2b9e6b24f05763feb6048",
+        "candidateIds": [
+          "b1yhH-km_iWCtavaCVF_vmlA8604zM5v3nY7j-FISN4"
+        ],
+        "estimatedBytes": 215228,
+        "existing": null,
+        "speechSha256": "459d5553ebf5ed0ecb9b091b77ee1dd4c05f13ae2aea68799b8e2968544bf586",
+        "speechText": "「その老人は色々昔の事を記憶しているだろうな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "5d1b50e6524a9217c0c68a8cf36ea7e7d1a3e1c043618912a0f35bc7732e71e0",
+        "candidateIds": [
+          "Rh9TQ3TkNaIvVQwcspWlsjO64i1UMBkMMHVJcoIQutA"
+        ],
+        "estimatedBytes": 383660,
+        "existing": null,
+        "speechSha256": "2a1ef51bc9e2dad5ce5edea2cc23cb90c22f639b8aed96e9607858d0c478255d",
+        "speechText": "「今年はあったかだもんですからよく持ちます。あれもあなた、浩一の大好きな菊で……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "5dae995508fce7290abfa7fdfd31fc1fa021acec7b11e5d1123686995c0d668a",
+        "candidateIds": [
+          "aNn9it4l6cH0V7Uw_J5Ud_Mq1krH2MHyCR0OctZHFTg"
+        ],
+        "estimatedBytes": 299420,
+        "existing": null,
+        "speechSha256": "24978f60b06a77e7e2a072fde0cc0cb19bff51abdb6bfa40fe090b70501935df",
+        "speechText": "「その事について浩一は何かあなたに御話をした事は御座いませんか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "61e3fc935dc8592ac27b716ac5c1ca4b693a4caf908149f740c010e3c9bd5042",
+        "candidateIds": [
+          "8qwAtsGIQ9-57AoDPUTnWTdBbc-33eGzfA9BNy8Uf64"
+        ],
+        "estimatedBytes": 870140,
+        "existing": null,
+        "speechSha256": "0d520007a03a24757e54358f48d04c17f2a7dde127350166685be87c10442b03",
+        "speechText": "「御親切にありがとう存じます。親戚のものなども心配して色々云ってくれますが、どうもあなたなにぶん元気がないものですから、それにこんな婆さんをわざわざ連れてあるいてくれるものもありませず」"
+      },
+      {
+        "action": "generate",
+        "audioId": "62ed40de0f56dd50e5ffd4d0dda20b25f792fdf044faecdde1261a3b2d5c0c06",
+        "candidateIds": [
+          "WqlvozWs2cfnqSMoyDS36_5kaTzS7uYL7i7uzJRimdo"
+        ],
+        "estimatedBytes": 336860,
+        "existing": null,
+        "speechSha256": "1d52e36a369ee2519fb7320e0a991948853dda422b372c924a321e2c573b43bd",
+        "speechText": "「実際残念な事をしましたね。全体浩さんはなぜ嫁をもらわなかったんですか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "63b23daaf9393cf3c9d6e5271debcc86f45b0c165316514825f12c8d6d3914f5",
+        "candidateIds": [
+          "oi7dTU_8W1oeq406WrhGNorXvFhjdmHiN0YM9dFlhiE"
+        ],
+        "estimatedBytes": 533324,
+        "existing": null,
+        "speechSha256": "e482bd9f89c1fdbd423364de55a80c1676503ae45546b76714c1b282471aa48a",
+        "speechText": "「ええ、みんな通るんです、一人残らず通るんだから、二時間でも三時間でもここにさえ立っていれば間違いっこありません」"
+      },
+      {
+        "action": "generate",
+        "audioId": "668d7ef84083fc18dbdca1a863a46dfbf749aa2b6adc7aaaa193c129d0d9a3d7",
+        "candidateIds": [
+          "GJt7PmGOp3zAkvrsxG0pcZepe7CylcnNXkwofgZVP0s"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "742973827e90739f8a1895f4e6e9222fe5884b91d38e83d046edb359d3a115ac",
+        "speechText": "「結構な事で」"
+      },
+      {
+        "action": "generate",
+        "audioId": "6e36a50745ac137abef8139016a03bb799c347e6f2de82fffe81e8c99bafba18",
+        "candidateIds": [
+          "mJ4S3bEpiat38bmLAn2RT753U8y07yjYf3qUzRD6w3o"
+        ],
+        "estimatedBytes": 963692,
+        "existing": null,
+        "speechSha256": "225ff64833aa2ee3bf7f304483c6743ff8e2a5089c28c78b0259d74e9c142887",
+        "speechText": "「たしか過ぎて困るね。屋敷のものがみんな弱っている。もう八十近いのだが、人間も随分丈夫に製造する事が出来るもんだね。当人に聞くと全くそうじゅつの御蔭だと云ってる。それで毎朝起きるが早いか槍をしごくんだ……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "743dcc598df62e8391102e5bc68f03854eec7ca4482834dbbfe62396ddb190c7",
+        "candidateIds": [
+          "tNXOHKcmOtSNaj9WshFjPZKHtxHRTTaBj6q9UNxx3s4"
+        ],
+        "estimatedBytes": 963692,
+        "existing": null,
+        "speechSha256": "04aca451bd043b7fbe28b9b27031965ea8ff9df65e8c2d96bf37b40fc366b303",
+        "speechText": "「近頃一人の息子を旅順でなくして朝、夕さみしがって暮らしている女がいる。慰めてやろうと思っても男ではうまく行かんから、おひまな時に御嬢さんを時々遊びにやって上げて下さいとあなたから博士に頼んで見て頂きたい」"
+      },
+      {
+        "action": "generate",
+        "audioId": "76a43daaa58ebaf421ca195553063c0280d3b1ec7008b05cadb99558cbacdb5d",
+        "candidateIds": [
+          "0wlfIVUhwscfNOZNXucDwzD6vex7mQ5eLZ22JTIRxLc"
+        ],
+        "estimatedBytes": 112316,
+        "existing": null,
+        "speechSha256": "fde014f008a27a83ef52a0ff3c504f75d51a5073fb9b56d7d70a08ee30836dde",
+        "speechText": "「なあに、まだ大丈……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "77e302db263d621b88642a7bc821f1ebab58d64ab586236e8846529bb4c4c9a1",
+        "candidateIds": [
+          "0GZPmghReSMKV2hNK05zvBtAxN2xHsHrNTWyiSnfUTI"
+        ],
+        "estimatedBytes": 308780,
+        "existing": null,
+        "speechSha256": "9a33a8c2289e8df5b3e7cb96b27b522d387cb7b7acb36b800a0fac3f5a7d56a8",
+        "speechText": "「妙な事を伺いますが、もとごはんに河上と云うのが御座いましたろう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "80faac975cdc3d1e39d81b35780b14d5c803109680991529b120bfe2af9d6faf",
+        "candidateIds": [
+          "ttuSrrgeQRnq53wpok1tFJuGTxoJNmsOwX79UL8PmoM"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "3d613b8ceacd64f08bfcf8223746811e3299fb3c46e4600cc1f92c42ff1bea56",
+        "speechText": "「肉を食え！ 肉を食え！」"
+      },
+      {
+        "action": "generate",
+        "audioId": "865b49470741c58a329bf725a210a851e5931183148730a1c04b148106e7fccb",
+        "candidateIds": [
+          "ktB9Q6U_ERHZE1VRBTBzrqBrERybhRi8xvPHmef9pZo"
+        ],
+        "estimatedBytes": 46844,
+        "existing": null,
+        "speechSha256": "ea9b2b57af150aa254295b8e4a564f87ce628ebf40283382a23a37d13b65f63f",
+        "speechText": "「はああ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "8d022232fea370b8c07338bf57b034dfae692149cb51d8bc5415bba0f4d544d0",
+        "candidateIds": [
+          "SW_yTvQMkqxO8dpT1wDexyjNN36GwsGqXARbFZDwwSA"
+        ],
+        "estimatedBytes": 93644,
+        "existing": null,
+        "speechSha256": "51df7e43919edb99e8c61ef598f6f4993dbfeaba452980f5ee3c1aab3fab8866",
+        "speechText": "「ついたようですぜ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "964bf93ef6185497cb7468e44fc081e18ffbc8cadaa9f8fe5a6d8c4861701fa7",
+        "candidateIds": [
+          "usMrZTbqXUU-FbgL4siTyNTIIpg9i8Uiey8GfTPQowQ"
+        ],
+        "estimatedBytes": 205868,
+        "existing": null,
+        "speechSha256": "ef4be496b076ad487ee0497c8b2ba46428501d2731a727eeb5c278541f8c5769",
+        "speechText": "「凱旋の兵士はみんな、ここを通りましょうか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "9a0f4db03d9301cdb3de42dad5370d30d617bec50f10f8858d017be868ff1d48",
+        "candidateIds": [
+          "q5NBt0VkxQtNA1YFbmayBfwkCx8kfbHKUNH3gzaa8Lo"
+        ],
+        "estimatedBytes": 748508,
+        "existing": null,
+        "speechSha256": "dccf29d002896edeb1aa2f1d0ab084bad47ace5646ad24781ec4634f4f6330c7",
+        "speechText": "「ああ、実によく似ている。それでその頃は維新にはまもある事で、世の中もおだやかであったのみならず、役が御留守居だから、だいぶ金を使ってふうりゅうをやったそうだ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "9a71917634af76896bf7bc87032b019e527a5b5ebe95c36ed0e4bdabaea895d8",
+        "candidateIds": [
+          "4zgHsQXeAR1VeM5s4hBUEegcKcAaIfTbbkdobpDlr_0"
+        ],
+        "estimatedBytes": 458492,
+        "existing": null,
+        "speechSha256": "aea76e84dd5e2d1aa339a1727c4eea297534af93d84a9ea951a415d179c88a5a",
+        "speechText": "「白い、小さい豆のようなのが一番面白いと申して自分で根を貰って来て、わざわざ植えたので御座います」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a182e8bda92e81c34c77b905c005149ff5ce5ba4ea0515041f3f6c7b46ed0f55",
+        "candidateIds": [
+          "Ln8Ra1Gee3-p_nbbr_53JdTiT7p0Uk_jXw30ye4LIm0"
+        ],
+        "estimatedBytes": 168476,
+        "existing": null,
+        "speechSha256": "3eb2988460ecdddb0a84c3daa88a6fb5b57f58585609431fea1000f3818cb5af",
+        "speechText": "「その美人の顔は覚えておいでですか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a4fc0176e73d44cc0fdfc9d34e1263d2439ea6bea2b4807b7ec27904680d2b1e",
+        "candidateIds": [
+          "h0v-cCHxuZDgCFhjGFZ9aaFZmtWAXObqBqTCs7oSYm8"
+        ],
+        "estimatedBytes": 299420,
+        "existing": null,
+        "speechSha256": "082328eee4d37dba022c2409d452d102d41228989670a9ac12b89b8975af6472",
+        "speechText": "「時々は少し表をあるく方が薬ですよ。近頃はいい時候ですから……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a735e9b491cb75aad4c1899d03cf7ec5bcd31d7975a424ccb9023364c550bcdd",
+        "candidateIds": [
+          "V7T1Ew8jSVyXPJy2lvp5eDA64Ls2kO7KlT6rjieKxdM"
+        ],
+        "estimatedBytes": 140396,
+        "existing": null,
+        "speechSha256": "c3c3b3c355156bbd216b79fd7a18a64e7a5ad11afdd13895968c9caaacf33056",
+        "speechText": "「はくさんの方にいるでしょう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a78ed8aa0b9d353b3460396836cf00ac4ed3a196dac9970425ddb2b55a8e074c",
+        "candidateIds": [
+          "SyxeYIdPMwn-FCNnNjvjJ8CxSyYv2R0GaIOkkKbuE7A"
+        ],
+        "estimatedBytes": 168476,
+        "existing": null,
+        "speechSha256": "62dd836281288fc5721028edddf3ff22513dd94c99d1d9e99013f033affd6ddb",
+        "speechText": "「もうじきです二時四十五分ですから」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a7d5ffc3c8662611fc9285d4feab0d558fcec7aee376256c441fd2d14f1efead",
+        "candidateIds": [
+          "KJkrXMs60mCA0d_bVLtzY1e2nXaDkRdK4t3Fr3tBsug"
+        ],
+        "estimatedBytes": 46844,
+        "existing": null,
+        "speechSha256": "5139872017db307b3929b8dcfee906f6835ffaa173c32c1e0eff1758941b715a",
+        "speechText": "「どうぞ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "aa31b1b525f37412187912ac0ff36cec9253fe26786239690d3f81518257a747",
+        "candidateIds": [
+          "4MnPUh0ms3_byZStBFAzvk93pmMaeuQfsRhw0w_jPuA"
+        ],
+        "estimatedBytes": 991724,
+        "existing": null,
+        "speechSha256": "c7009a7fec58f5bd059e3669c542a3f07d606b5b50dc97be2332b723df76629b",
+        "speechText": "「いえ、せんだってじゅうからかぜの気味で五六日伏せっておりましたものですから、ついつい仏へ無沙汰を致しまして。――うちにおっても忘れるまはないのですけれども――年をとりますと、御湯に行くのもたいぎになりましてね」"
+      },
+      {
+        "action": "generate",
+        "audioId": "ab89c0b33ab8c646a6a5ff2c161a9c33cf54bc98c343bb3d8e7b4e672cd10e14",
+        "candidateIds": [
+          "tn1BVear5ihKtyuX8WA1kJv3ZWp_4WY7HQgNoGfy5w8"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "4325377192d578d58249c41de939915c6e1d80001a424b8373bfd734a25a5a6c",
+        "speechText": "「肉をくらえ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b09d3a58c8c8c8ecdeabe2a54d6c2b73577a28d7c0c359958b3cad9915606ff0",
+        "candidateIds": [
+          "CQyZgTnZQ73Itqewk1ZGRP5uzKmBl5DMimak-v59Dy8"
+        ],
+        "estimatedBytes": 1955324,
+        "existing": null,
+        "speechSha256": "1bf927569d3a1208d8812ede89d8cb23511341b75d61c9d686bae768e3293021",
+        "speechText": "「その頃くにがろうにやはり才三くらいなとしかっこうなせがれが有って、このせがれがまた帯刀の娘にれんぼして、是非貰いたいと聞き合せて見るともう才三方へ約束が出来たあとだ。いかに家老の勢でもこればかりはどうもならん。ところがこのせがれが幼少の頃から殿様の御相手をして成長したもので、非常におかみの御気に入りでの、あなた。――どこをどう運動したものか殿様のぎょいでそのほうの娘をあれにつかわせと云う御意が帯刀におりたのだて」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b2573220bb91fa263f6120eeb36c15061eef982d7afedd6ede91683ab43d90b7",
+        "candidateIds": [
+          "Gw4at8fM-y_htj-Kr7h6MeZoaRkXPgPpoF2jdojzBeQ"
+        ],
+        "estimatedBytes": 767228,
+        "existing": null,
+        "speechSha256": "e819e59a656535c1fb2b82154f3b762dc9df74f5fd0b0f3d9c0fb61c63b14269",
+        "speechText": "「どんなと云うて別に形容しようもない。しかし血統と云うは争われんもので、今の小野田の妹がよく似ている。――御存知はないかな、やはり大学出だが――工学博士の小野田を」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b415e5de88e5f63692385f997f48bddc59ebd3f7f2bbb60470f1280c67504b69",
+        "candidateIds": [
+          "qqzJOnYlcGdv9KsyO1ovvJNqvI0HTbjU465yQvErtec"
+        ],
+        "estimatedBytes": 430412,
+        "existing": null,
+        "speechSha256": "699feae9d4b1023dcf176909d84d1633a945584326553f44e341750dd1f1cf80",
+        "speechText": "「ええ。どうも気がせくものですから、つい昼飯を食わずに来て、……もう二時間半ばかり待ちます」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b688117532b5ac102a5039e8391f6fb5a19f27ecca6a1104b8aa6893f5283215",
+        "candidateIds": [
+          "mrEaixlBeboHgYUW7Jqjn_Qnkwcpm-kkZ0zFdD4Th-g"
+        ],
+        "estimatedBytes": 346220,
+        "existing": null,
+        "speechSha256": "9cfd69b9952a4942dc38b536b2acc6a52abb6c19966145846a3d3759b04e2432",
+        "speechText": "「うん何でも知っている。維新の時なぞはだいぶ働いたそうだ。やりの名人でね」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b68e40febe8ea7f61caa363fb7b9dc8d3d356b0437793f950d4e6677c6d7f6d9",
+        "candidateIds": [
+          "lffELboZnY0ZW9eDpYAYAhjxX7hdD4pgbg8sNxrj-yc"
+        ],
+        "estimatedBytes": 74924,
+        "existing": null,
+        "speechSha256": "23b3bb505432da4086bda11fa0aa408436da597f995a7abc64d91103303cf787",
+        "speechText": "「気の毒ですな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bc56d528ba8519efe77a3fd3fbc34feb1de1afa7c4414a8590433e3e8d42f324",
+        "candidateIds": [
+          "e-Q8Xa5hnRhc11ss8cwwzbngjvcg9drqVwt61Ie3FIY"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "80cb6eab94c9e9e6278d37b6df28eb605ba7c6e6ae36a01640e83813588d30bb",
+        "speechText": "「どの河上でも構わんです」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bd152a392f079793e1906a69f90a9df3c42715b30641383df517b375aa842fe9",
+        "candidateIds": [
+          "xPwuYXsB_ofHN8leH1Gl5IYwL4LJ-n3VAZm9g_t5UZA"
+        ],
+        "estimatedBytes": 177836,
+        "existing": null,
+        "speechSha256": "92e7aad28b406c388f0c9437dffffa201af083b52f6ec782c729f18337d3428c",
+        "speechText": "「ふん、それで思う通りに行きましたか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "be7e8c864a5b5998bca14d3a70876b38c10c1ace64473e1495eedd6fb7b5a635",
+        "candidateIds": [
+          "8j49nMatsJLNjas3cyQU09gzim_Ybhsm2DxHRTdFlEM"
+        ],
+        "estimatedBytes": 74924,
+        "existing": null,
+        "speechSha256": "b68365ce0f47f7d24977099ce42d301a0c261b8c810933e7c606507baee64d39",
+        "speechText": "「嫁の事ですか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bf54ecded55e70945ae5ca7c33d513b7e6fb688ee6d1c05364dae5a9b028a4bf",
+        "candidateIds": [
+          "SSwu_nB72eH6ehBPTLER6whqbnGD9UnZqWR0DXkpCQI"
+        ],
+        "estimatedBytes": 364940,
+        "existing": null,
+        "speechSha256": "23583b3888bb95adbd7067e318bd8d9e7bf4096bd29ead9789ad35d8358569f2",
+        "speechText": "「その人の事について何かえんぶんが――艶聞と云うと妙ですが――ないでしょうか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c0ffa51c44deb42731658483a6389fc426247721f2a4f53ff1b057ffd03481f5",
+        "candidateIds": [
+          "SgTpfRAju0Ks1elPT8s0uekqU1dRZ140MTCbIPVHa3A"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "d446a65e7bde2bbf4695222e323309b1e337f879fc836fc47e188dec1d041232",
+        "speechText": "「奇麗ですな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c2e6d9239ad850350b0c1701c8ad8216b27141a117d3179a1c5ca9fa68a7bbbf",
+        "candidateIds": [
+          "zU_QWBff5JxGxjMpFaxzWnCGLoDpZ8eMw0Gd2tUrkZw"
+        ],
+        "estimatedBytes": 299420,
+        "existing": null,
+        "speechSha256": "2d970f303fd7d172b361af67c4c38ade52910de5746cbf4c7d09d8097559f6d3",
+        "speechText": "「あの先日御話しの日記ですね。あの中に何かかいてはありませんか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c619c2c3ecf9a095bf46f83a7bdc80fe926502abc7f394ebdcd578d5312dc59e",
+        "candidateIds": [
+          "ODGNzLF-fT-4DModBwlYTZgvHMQbRxgU9lY93Foz680"
+        ],
+        "estimatedBytes": 205868,
+        "existing": null,
+        "speechSha256": "f20f2353b524bcd27c6f32e04c71153d7c04ad4b4ffca175fea2dba20f7716ad",
+        "speechText": "「貢五郎という人の親はどんな性質でしたろう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c6706d2667790972a17ae1a2915c4da609e02f93e6ea975d4b1a4f9f537b33d8",
+        "candidateIds": [
+          "-BHLova0QlGLxeBjlC0XwJ1Qiyld9p7jhyhORwUC_bk"
+        ],
+        "estimatedBytes": 682988,
+        "existing": null,
+        "speechSha256": "485dda533ade3a5a44803652daa6e087bd72c4aa7417eef60404d063f5236f26",
+        "speechText": "「で帯刀から人をもって才三の親にかけあうと、才三も実は大変貰いたかったのだからそのむねを返事する。結婚の日取りまできめるくらいに事がはかどったて」"
+      },
+      {
+        "action": "generate",
+        "audioId": "cf5a860216676913f3dbc9aa7de13b27e6711d5e628c20f36da0fe23ff77562a",
+        "candidateIds": [
+          "6fvOuSQN_-PS4Q4GfoHFbfJZIbZLlz5EpmBN8I88Cow"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "4af8cb9069997bf559e49f472421711f151ee5eef67d44fc19811a74fdd571ce",
+        "speechText": "「面白い事と云うて、どんな事を？」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30",
+        "candidateIds": [
+          "zJy5tbaCLnvl6FwWuulElT2ChtumkV82iqi7aDNuYRY"
+        ],
+        "estimatedBytes": 46844,
+        "existing": null,
+        "speechSha256": "d88466c479884ca4201542801e83f6615d8f51fc071b6ce39d857711e6445966",
+        "speechText": "「へええ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "dc284f5e46a256a3f36cb6fa3ecb3694b682dc495fdd1f8a99075ac5ce523451",
+        "candidateIds": [
+          "Yw1MjhZirwQlFK0zP5jORgYs6FdPy12_HG6992xcPmE"
+        ],
+        "estimatedBytes": 224588,
+        "existing": null,
+        "speechSha256": "9cb03a15b3710d67b54d38083b0c7ecdc4c3d3d0c77d77691d88517a26b3138f",
+        "speechText": "「どんな事でも構いません。ちと材料が欲しいので」"
+      },
+      {
+        "action": "generate",
+        "audioId": "dda62dcd47186cd4f0d6e20bbef32c206b52df3f8c239337ca6f606a4a322c46",
+        "candidateIds": [
+          "6opY-iIwYHnPysMlnnyYmSBfiv9IfeRdvZqjER1k8HE"
+        ],
+        "estimatedBytes": 421052,
+        "existing": null,
+        "speechSha256": "c6c0070802e8f59c6cbe0dd82da7fbfbceb68136cfa2698d8e234e493a004142",
+        "speechText": "「覚えているとも、わしもその頃は若かったからな。若い者には美人が一番よく眼につくようだて」"
+      },
+      {
+        "action": "generate",
+        "audioId": "de82d79d7af2da93a40d7c3e0cc84d66b678942d9bf492ede60381f993bb6ad7",
+        "candidateIds": [
+          "iZKPcP5unrLYmOontZEXy8WFnjOeusKpecjTOUE1X5U"
+        ],
+        "estimatedBytes": 56204,
+        "existing": null,
+        "speechSha256": "4bd4bba26e8a643a621f64024c4a04cebe39f7c6e099cf68bd5faa67cdde4c67",
+        "speechText": "「なるほど」"
+      },
+      {
+        "action": "generate",
+        "audioId": "dee4c5ab894ebb8d9ccc2871ef3eb6a917a5047442f35e328eeea60ca5f081ec",
+        "candidateIds": [
+          "dK6rbX2swLf1NH3HyxEoeuARbnGIPCAIoDTVcVxJkog"
+        ],
+        "estimatedBytes": 187196,
+        "existing": null,
+        "speechSha256": "6d317c7ae2ff50cfde1b3bf1c13c4825c471aea3e5c653ff2268c30a0356ed10",
+        "speechText": "「おばさん近頃は御寺参りをなさいますか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e227fec805adba24d33bca4a184ef8397120a5ebb8408dea4371090a0724a0c9",
+        "candidateIds": [
+          "WPjpEak6yue_3ZjL4NiO9JRNAatVtzg_u07QJZeaVqo"
+        ],
+        "estimatedBytes": 645596,
+        "existing": null,
+        "speechSha256": "16a389ae41c87dc87f760c1d694527e358e4ecca7b645eacc1341a3d4ece43ad",
+        "speechText": "「なある。貢五郎と云うのはだいぶこうがいかで、維新の時などはだいぶあばれたものだ――或る時あなた長い刀をさげてわしの所へ議論に来て、……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e2732d1de3ce046e8639af06e765875dbd70a64bc35ee6cd2f13c0713fc0415b",
+        "candidateIds": [
+          "opHkTCy-YjuyWydOFxl6awB1y2Ic5zWDDy7MUmhH9qQ"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "57eb17314bbd6f85f5e4acfdd5012d00de253a4d1a355f4ca3febe720d433b8e",
+        "speechText": "「おばさんには何か話しましたろう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e32a4d47b2789adf312b057dcb8868586a7d5a609593746f9b83cc0cfda273aa",
+        "candidateIds": [
+          "C838mgO_SHcNY3mYIy-qFxoeQplkx4s48LDTfdXsgBM"
+        ],
+        "estimatedBytes": 308780,
+        "existing": null,
+        "speechSha256": "b120e234129b622816d8f8204381a514a9040714bed1f772d91a6d2449df0c84",
+        "speechText": "「そうだ、この問題は遺伝で解ける問題だ。遺伝で解けばきっと解ける」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e3d760757780c54c8ba4b302870689f3e159940e628395a0d1a4715422c1dd24",
+        "candidateIds": [
+          "hrX2mcEVm5wUNCI7FhU1PTa-ey-kGHECGEsbPtsWq5g",
+          "uvbpSj2VlRzPshdcSlJl3vyQ47wYpFOoIzO3r3ElKDc"
+        ],
+        "estimatedBytes": 46844,
+        "existing": null,
+        "speechSha256": "e780395bb986b11a3e6836b8d76fef3a8503243eece1281997579ed957d31ccd",
+        "speechText": "「いいえ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e47c0ad3baa1f353059afa0357dfd46ce8155a9472d427c2b4f872fee20d46b8",
+        "candidateIds": [
+          "3uHkXbTfmCSwFIBoclDGXqOvX2QIhHjJU-SAJzCI2PU"
+        ],
+        "estimatedBytes": 271388,
+        "existing": null,
+        "speechSha256": "d234ee67c19f1331dd39936e2397324d1543b48e2d794915a4e25bb451c5cdb3",
+        "speechText": "「日記に何か書いてありますか？ それは是非拝見しましょう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e6b7a4b33f1b8f7c9bc59c25f2604058ad9c88d6c95310218d8e75d4641d1edf",
+        "candidateIds": [
+          "TxuXGV8UjCFyC5apaVy-y5qL--HINBZMqvulH1IAxoA"
+        ],
+        "estimatedBytes": 383660,
+        "existing": null,
+        "speechSha256": "e74161e5ef71c420739370451d51dcc977a830ee823d59307312fb9fc18b1d12",
+        "speechText": "「いえ、あなた色々探しておりますうちに、旅順へ参るようになったもので御座んすから」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e8eb4762b84af01bb2821f055324019aeffbf7c2aaf7bb61e74be074720df857",
+        "candidateIds": [
+          "-6XVK-FwDNCp0UfBxT6u-ylqvGEyr7Nqgv9vp51sjB8"
+        ],
+        "estimatedBytes": 233948,
+        "existing": null,
+        "speechSha256": "e41819626cbc9d9df07b08d69c3711fab61b9de19feed2e95753b6271334d014",
+        "speechText": "「あなたも御親戚を御迎いにおいでになったので……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "ee92dda41121af05b07d9588e099eba9d593997ae4fcef1d9298be49bde62f08",
+        "candidateIds": [
+          "XrXuLvrRsOtoxjwQS8T1uOJTJMpJ4y-KZd7ygONIu4o"
+        ],
+        "estimatedBytes": 495884,
+        "existing": null,
+        "speechSha256": "4de9afbd5584bdd8fb225876453d5a6921095953ab9b6a119e5f4bc97dcff637",
+        "speechText": "「やはり御承知か、原町にいる。あの娘もまだ嫁に行かんようだが。――御屋敷のおひいさまの御相手に時々来ます」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f07d6f7c817fe845edadba0e9cc9153b90dacf71986e32f5f4e4a015b1195e7e",
+        "candidateIds": [
+          "5zUxKGpM4p5EMQ9r00kTWdtmBXds8uVnA95Q5md-bbA"
+        ],
+        "estimatedBytes": 327500,
+        "existing": null,
+        "speechSha256": "d2c6b59164f19ac5e5a6c4740e5c26f0db424058a2559c94d4ddd321914ecb59",
+        "speechText": "「河上？ 河上にも今御話しする通り何人もある。どの河上の事を御尋ねか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f14ece7334e002b297a3bd4159122e53fbd98375d2d7476954b1c54f450b956e",
+        "candidateIds": [
+          "BSXouXip-ARkGrCk3IZMEfaEL3Ai7gWpdcdk5r3C44g"
+        ],
+        "estimatedBytes": 2338892,
+        "existing": null,
+        "speechSha256": "9918889e45ddd9a8bf1a75ce0a3cd191fbe7a08efc60836ae308431c0bfb43c9",
+        "speechText": "「実に気の毒な事だて、御上の仰せだから内約があるの何のと申し上げても仕方がない。それで帯刀が娘にいんがを含めて、とうとう河上方を破談にしたな。両家が従来の通り向う合せでは、何かにつけて妙でないと云うので、帯刀は国詰になる、河上は江戸に残ると云うとりはからいをわしのおやじがやったのじゃ。河上が江戸で金を使ったのも全くそんなこんなで残念を晴らすためだろう。それでこの事がな、今だから御話しするようなものの、当時はぱっとすると両家の面目にかかわると云うので、内々にして置いたから、割合に人が知らずにいる」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f6ec68c0f866ca04efc2844b8680a07436a95ca1ebf29e42cfe9650a225a8619",
+        "candidateIds": [
+          "BP7M5h_5fcvBY2Tp7HQJuH0xrh-roA0McRHFZDW8E6s"
+        ],
+        "estimatedBytes": 1029164,
+        "existing": null,
+        "speechSha256": "a326374a01ba4721402adfba4d9b110a8eaa1f0c867f3cd3ee44d997d5c9f9c9",
+        "speechText": "「それで両家は向う同志だから、あさゆう往来をする。往来をするうちにその娘が才三にけそうをする。何でも才三方へ嫁に行かねば死んでしまうと騒いだのだて――いや女と云うものは始末に行かぬもので――是非行かして下されと泣くじゃ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f85bfa44a0e2429b8653c5acad1bc0a1036da7ae51bbed1568cc506f92807cfc",
+        "candidateIds": [
+          "aiVrGhVJ33-6FVsfC7mJfK5QGSzoqoXszWzSorDdcMA"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "f9160650a5c949143c4168b64c686025474a3e799440ca80032c7f989d3d4eea",
+        "speechText": "「なるほどそんな事がありましたな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f8d1994397897afb6eb1224a611d2bd0c5c746a61b5bf7803bda4c8f434432eb",
+        "candidateIds": [
+          "KKn-DtKZu5jz4MNsSksYXt1tk10dsSXOvyoYx4XkobM"
+        ],
+        "estimatedBytes": 262028,
+        "existing": null,
+        "speechSha256": "d6fd5ca99e68b2b9a3ad4aac43ecb8bd15c2f4999d2622e086aa955772adab0c",
+        "speechText": "「まだ家令をつとめているくらいなら記憶はたしかだろうな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f9d77158066c0de5f3f14452e005d9d2a9c4c3d0e475b21236a112a3f0bf81e0",
+        "candidateIds": [
+          "1JrGB6Oj_H0ZZwQ_ACBqMsp8zdck0IdE3iuIBoqhEc0"
+        ],
+        "estimatedBytes": 439772,
+        "existing": null,
+        "speechSha256": "73b2c0b2d7b46895dea3eb3c68168bc0b21e5f86e940f6cf75a67324d37f6e1e",
+        "speechText": "「さっき浩一の名前をおっしゃったようですが、浩一はぞんじょうちゅう御屋敷へよく上がりましたか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "feb9c96a627530b9c3a54d04b05b12105e3a44bbd46a467a485057858682ff7e",
+        "candidateIds": [
+          "vkFd646MWYFLn3Oa-IMdL8mBUTfElKvBMC8cuEpxfNA"
+        ],
+        "estimatedBytes": 84284,
+        "existing": null,
+        "speechSha256": "b41edac90ce7a71b0392db4abfc8909144f5abcfeb94ce7a71fa460c539cab41",
+        "speechText": "「どんな顔ですか」"
+      }
+    ],
+    "estimatedGenerateBytes": 30925204,
+    "generateCount": 83,
+    "planSha256": "3337a0a3e140e9ec6f4f69fec8edb0d3de72ca1bb05b7111c5f8b0676d7ced08",
+    "reuseCount": 0,
+    "schemaVersion": 1
+  },
+  "preflight": {
+    "estimatedGenerateBytes": 30925204,
+    "existingMatchPaths": [],
+    "freeAfterEstimate": 12762177132,
+    "freeBytes": 12793102336,
+    "measuredAt": "2026-08-14T11:37:09.816Z",
+    "minimumFreeBytes": 5368709120,
+    "scannedRoots": [
+      "content",
+      "public",
+      ".cache"
+    ],
+    "scannedWavFiles": 28278
+  },
+  "schemaVersion": "1.0.0",
+  "speechSha256": "fb6adbc1874b0a8c8feebae345a924fae85b1fc410bb49eb41e810238f6885b5",
+  "workId": "001104"
+}
