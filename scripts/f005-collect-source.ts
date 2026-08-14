@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import {
   lstat,
+  mkdir,
   realpath,
   rm,
   writeFile,
@@ -201,6 +202,11 @@ async function main(): Promise<void> {
   const sourceRecordPath =
     `content/batches/F005/work-artifacts/${workId}/source-record.json`;
   const workspace = await realpath(fileURLToPath(new URL('..', import.meta.url)));
+  // CHG-F005-073: work-artifacts配下は作品ごとに掘られる。1作品目は既存だが
+  // 2作品目以降は存在せず、封緘書き込みが親directory不在で落ちる。
+  await mkdir(absoluteArtifactPath(workspace, `content/batches/F005/work-artifacts/${workId}`), {
+    recursive: true,
+  });
   const contextRoot = await realpath(process.env.F005_CONTEXT_ROOT ?? workspace);
   const context = await loadVerifiedF005Definition(contextRoot);
   const selectionSnapshot = phaseArg === 'predeploy'
