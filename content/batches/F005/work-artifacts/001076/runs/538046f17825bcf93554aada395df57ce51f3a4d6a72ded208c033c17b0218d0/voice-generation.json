@@ -1,0 +1,454 @@
+{
+  "journalId": "538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0",
+  "kind": "f005-voice-generation",
+  "payload": {
+    "__brand": "F005VoiceGenerationEvidence",
+    "assets": [
+      {
+        "audioId": "006aff6416e165605ce0292935639c2e0886f028bc9f7b2ab42ef460f8a973a2",
+        "bytes": 354348,
+        "durationMs": 7381,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\006aff6416e165605ce0292935639c2e0886f028bc9f7b2ab42ef460f8a973a2.wav",
+        "sha256": "3f4f35808d6026dfea453135246ddeaa09d04d039bd05a9362fb14740f570d47",
+        "source": "staging"
+      },
+      {
+        "audioId": "0225a9bff0c7ff6aba1e9c669d336d8ca626c1961b91dcc02cdfa0a5c7aeeaa1",
+        "bytes": 295980,
+        "durationMs": 6165,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\0225a9bff0c7ff6aba1e9c669d336d8ca626c1961b91dcc02cdfa0a5c7aeeaa1.wav",
+        "sha256": "18d6753869a8c8602ce340241c76e52b7299f57760ba429b9c9ed74699220e80",
+        "source": "staging"
+      },
+      {
+        "audioId": "0435afe3805b8ae2f4e396bec5317dadad09e79be72cabdb224fc7019109c730",
+        "bytes": 87596,
+        "durationMs": 1824,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\0435afe3805b8ae2f4e396bec5317dadad09e79be72cabdb224fc7019109c730.wav",
+        "sha256": "d536fec19abf8f7d2d09b6fec4d80e535686d254a3750af6429ff4e4f582f577",
+        "source": "staging"
+      },
+      {
+        "audioId": "0449c4ca180de0740959801419d31c6ea5e62fe1a56f9a37db8060fa946e5cac",
+        "bytes": 100908,
+        "durationMs": 2101,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\0449c4ca180de0740959801419d31c6ea5e62fe1a56f9a37db8060fa946e5cac.wav",
+        "sha256": "9e8b429b4af4b6afaa3e4aec5043bebcf6582f225f244d0678dc4c14e51728c8",
+        "source": "staging"
+      },
+      {
+        "audioId": "08c4c9d1e0bd968d9730ea60b3657a13b1cfeebb00f9b22eba752b12eded758d",
+        "bytes": 29228,
+        "durationMs": 608,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\08c4c9d1e0bd968d9730ea60b3657a13b1cfeebb00f9b22eba752b12eded758d.wav",
+        "sha256": "50dd328ff9ea4a5540f8f44e9cdb512a5fe0b350e16b8a0ef29cf59225870ed6",
+        "source": "staging"
+      },
+      {
+        "audioId": "10344951ccaaf244ac59322463ebc30ee053cebf5f3fd87ff653c34602d10c72",
+        "bytes": 224812,
+        "durationMs": 4683,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\10344951ccaaf244ac59322463ebc30ee053cebf5f3fd87ff653c34602d10c72.wav",
+        "sha256": "a9d827ed35c525f8034872aa6eaa7860a5598cccea5aae0ce8396304e65d52ae",
+        "source": "staging"
+      },
+      {
+        "audioId": "13b88a479eb87f9b88c0bed2f60fa2d8d2683db085a7f1407d35a650947cccbe",
+        "bytes": 205356,
+        "durationMs": 4277,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\13b88a479eb87f9b88c0bed2f60fa2d8d2683db085a7f1407d35a650947cccbe.wav",
+        "sha256": "bb620849a1b9689aad4f7671eeff202405e6962607b16dc6ee97562c387e6cec",
+        "source": "staging"
+      },
+      {
+        "audioId": "1cba58691f538efd2ad679c318dab08282b5dce421db667ad2a435b901dcb0bd",
+        "bytes": 120876,
+        "durationMs": 2517,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\1cba58691f538efd2ad679c318dab08282b5dce421db667ad2a435b901dcb0bd.wav",
+        "sha256": "5762c21c748c60c0fb727b7b58c6f0127a19c3bec5975683bc48bdb13938bec3",
+        "source": "staging"
+      },
+      {
+        "audioId": "29d49b575fefab667d7652c98a9e05e468109965b706b848552ad1b8e796802c",
+        "bytes": 155180,
+        "durationMs": 3232,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\29d49b575fefab667d7652c98a9e05e468109965b706b848552ad1b8e796802c.wav",
+        "sha256": "2886e4c0864294864bd0a5902d407d5ae76842d43e1d180f03c098279da8523b",
+        "source": "staging"
+      },
+      {
+        "audioId": "3895a1ad6fd1885a3f1cd13e07cdc427143032bc8987a1cbbacf34cc733573f3",
+        "bytes": 101932,
+        "durationMs": 2123,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\3895a1ad6fd1885a3f1cd13e07cdc427143032bc8987a1cbbacf34cc733573f3.wav",
+        "sha256": "842bb8c7b3db7a599c908e5e387b7027545ae7926cfa8dc609e1462dd628fad7",
+        "source": "staging"
+      },
+      {
+        "audioId": "3de745139b25288797f8b5dba5fdeca8def9216777136b6b8c287fcaa4a6d3bd",
+        "bytes": 108076,
+        "durationMs": 2251,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\3de745139b25288797f8b5dba5fdeca8def9216777136b6b8c287fcaa4a6d3bd.wav",
+        "sha256": "c194688294c0b205bca887093445ef373c600f0331e7f1af686670bd539d42c9",
+        "source": "staging"
+      },
+      {
+        "audioId": "4e52dc5dcbf5be723cdd24ae71c97f6f7fa144285c13c8dae7eb2395a7977ed6",
+        "bytes": 39980,
+        "durationMs": 832,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\4e52dc5dcbf5be723cdd24ae71c97f6f7fa144285c13c8dae7eb2395a7977ed6.wav",
+        "sha256": "382bf7e80fa3c8a01ea0f2e7f726496a2d6a7e192e44b986358c03d2c9db426f",
+        "source": "staging"
+      },
+      {
+        "audioId": "518fab3192a9f34137a1324232d2a63c12603781c422e2bcfcdb1e540fa18bc3",
+        "bytes": 36908,
+        "durationMs": 768,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\518fab3192a9f34137a1324232d2a63c12603781c422e2bcfcdb1e540fa18bc3.wav",
+        "sha256": "757c072dd9c421b81e88985878a1f1f7bd40e1d26c2dc91f326c536c06fd65f5",
+        "source": "staging"
+      },
+      {
+        "audioId": "569a6a02b7468423cddd82338dbe1421456eb2486f446d5169c09282d8b2453e",
+        "bytes": 89132,
+        "durationMs": 1856,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\569a6a02b7468423cddd82338dbe1421456eb2486f446d5169c09282d8b2453e.wav",
+        "sha256": "a9711af40dc0ef7cfc11facce6108881596b7673e98757b083c891913b79611c",
+        "source": "staging"
+      },
+      {
+        "audioId": "5a4ccce047de158ae2e99c1316ce3764d638fa9514313556b10b36577e6be68c",
+        "bytes": 294956,
+        "durationMs": 6144,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\5a4ccce047de158ae2e99c1316ce3764d638fa9514313556b10b36577e6be68c.wav",
+        "sha256": "21db4785001966d2fae8f0c2144356ba825489adba912cd28904be627dbad5da",
+        "source": "staging"
+      },
+      {
+        "audioId": "5fcab0c7b0138a8f6dd97ae165efdfc64b0ff14a91a09a3aae74d56946586f21",
+        "bytes": 82476,
+        "durationMs": 1717,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\5fcab0c7b0138a8f6dd97ae165efdfc64b0ff14a91a09a3aae74d56946586f21.wav",
+        "sha256": "0055a5826030679f428b07636ade05105caa38df8b9ce66f979ac29b3091ee88",
+        "source": "staging"
+      },
+      {
+        "audioId": "6084c5f513e1447f69adb8bf9ee589727bf3c2379709f36d150bca27177417fb",
+        "bytes": 136236,
+        "durationMs": 2837,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\6084c5f513e1447f69adb8bf9ee589727bf3c2379709f36d150bca27177417fb.wav",
+        "sha256": "f267320c523f1ffede4e6aefd9477717de2ed87893d720299a2336178f1cc496",
+        "source": "staging"
+      },
+      {
+        "audioId": "64267611a2a3e0441b4ac12b224501cfbd6713fc94fd90e04031d673adaf293d",
+        "bytes": 681004,
+        "durationMs": 14187,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\64267611a2a3e0441b4ac12b224501cfbd6713fc94fd90e04031d673adaf293d.wav",
+        "sha256": "15672a16c0e6282cce73dbbb33a2be75d80924f267b5552cf2f97061f3e6ed43",
+        "source": "staging"
+      },
+      {
+        "audioId": "6757fde0875319ebacd1a5a11192b898a5154dfb5c0a992dd9e26d1cfd9256fb",
+        "bytes": 90668,
+        "durationMs": 1888,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\6757fde0875319ebacd1a5a11192b898a5154dfb5c0a992dd9e26d1cfd9256fb.wav",
+        "sha256": "c05df7e824ba285f654b19095fb1b56facec3d584b90bb9e3669433442fb289c",
+        "source": "staging"
+      },
+      {
+        "audioId": "68c7da599e0c57611fecd0e79cbda3349c37d969f410d92f2a7ea4226f7d7ba1",
+        "bytes": 384556,
+        "durationMs": 8011,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\68c7da599e0c57611fecd0e79cbda3349c37d969f410d92f2a7ea4226f7d7ba1.wav",
+        "sha256": "bed63d1e97fb82e932ed23986c77b4e654796fd9d2104f5c6a995a9a34822c07",
+        "source": "staging"
+      },
+      {
+        "audioId": "7a0d72830eea356e9e7ce7dc298edeb5b4aaad5bd6bf715feb44beec3dad7ada",
+        "bytes": 291884,
+        "durationMs": 6080,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\7a0d72830eea356e9e7ce7dc298edeb5b4aaad5bd6bf715feb44beec3dad7ada.wav",
+        "sha256": "02b7d3dd80f608fc2919aff7701c75ab841c3e69404de07abfef1841d15b4e0c",
+        "source": "staging"
+      },
+      {
+        "audioId": "7ab56987c010562197a5b6c9854604fb25a7a40bb7398b9c33016519143fbeac",
+        "bytes": 213548,
+        "durationMs": 4448,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\7ab56987c010562197a5b6c9854604fb25a7a40bb7398b9c33016519143fbeac.wav",
+        "sha256": "fa85c49f246c4052aa9df900bd3b49c22fcc8bb3e98448adbfa8bcd207ff42fa",
+        "source": "staging"
+      },
+      {
+        "audioId": "838ecc26eb8f67f90a27d6e7f9600a397af36036dd545453b3fd8417f334b5b4",
+        "bytes": 74284,
+        "durationMs": 1547,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\838ecc26eb8f67f90a27d6e7f9600a397af36036dd545453b3fd8417f334b5b4.wav",
+        "sha256": "accb809f8286d6fa66bf51e42b75dfb37b0dfcc72aecd86b37ee73234f961223",
+        "source": "staging"
+      },
+      {
+        "audioId": "85502f3380d6e46bf84e41fbe3e4e98dd4b723ef8b1fd78479b1752d05fa074c",
+        "bytes": 105516,
+        "durationMs": 2197,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\85502f3380d6e46bf84e41fbe3e4e98dd4b723ef8b1fd78479b1752d05fa074c.wav",
+        "sha256": "ce2077ad642522a2a443dba9d5a9a326e133d11ec2b15506be512035d6a5b1f0",
+        "source": "staging"
+      },
+      {
+        "audioId": "8b2cfa131790ab2b224ca1d5927cfdd4ed80ec18c0967202c334d27feb5bd7e4",
+        "bytes": 169516,
+        "durationMs": 3531,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\8b2cfa131790ab2b224ca1d5927cfdd4ed80ec18c0967202c334d27feb5bd7e4.wav",
+        "sha256": "8d411dbc48fca6c172caf805cd19a42f0290bcd7274866bd54a37579f278d0bc",
+        "source": "staging"
+      },
+      {
+        "audioId": "8cd2634e2b8f68c8dfe88b5633f955856b1837e7e66704778b72ac672cbb29d4",
+        "bytes": 115244,
+        "durationMs": 2400,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\8cd2634e2b8f68c8dfe88b5633f955856b1837e7e66704778b72ac672cbb29d4.wav",
+        "sha256": "2670b8df4242c250cff3c67f1f553ae44b3a18a4ae0dac83892c4c221c3b0a1e",
+        "source": "staging"
+      },
+      {
+        "audioId": "8ec143ff62f83da71d0d5f8767fb045958095be06466557e62c8743517022fe8",
+        "bytes": 475692,
+        "durationMs": 9909,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\8ec143ff62f83da71d0d5f8767fb045958095be06466557e62c8743517022fe8.wav",
+        "sha256": "c18e75e25ea61a141ff97371c6f1bce4ca5d7e8a03cb7f67eff1d0bb848fdd3d",
+        "source": "staging"
+      },
+      {
+        "audioId": "9ab464fd2f2f853a1eba9d29ab632b7be149e0d5281e4cd7b0c4790066fbf683",
+        "bytes": 187436,
+        "durationMs": 3904,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\9ab464fd2f2f853a1eba9d29ab632b7be149e0d5281e4cd7b0c4790066fbf683.wav",
+        "sha256": "2a33ce466d589948a1dc44a45684c4ecd70eaf6aed08409cba9e357a0f280126",
+        "source": "staging"
+      },
+      {
+        "audioId": "9e704185ef2bd383c37984226edc4c330e1b248062df44799d3b2b51e9c13d49",
+        "bytes": 256044,
+        "durationMs": 5333,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\9e704185ef2bd383c37984226edc4c330e1b248062df44799d3b2b51e9c13d49.wav",
+        "sha256": "8e4417b3862d676610248fb78e87541812494b650b03ec6cd25e347a02b9e002",
+        "source": "staging"
+      },
+      {
+        "audioId": "9f936e244a2718ee7a197fa4736d070aaa4aea78f06b6b8bb90a3e0fd8b66c0e",
+        "bytes": 92204,
+        "durationMs": 1920,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\9f936e244a2718ee7a197fa4736d070aaa4aea78f06b6b8bb90a3e0fd8b66c0e.wav",
+        "sha256": "bee3fb00e9795bd18ebed46cec3f91789bda93ac77ce9fe2f57e72411898d781",
+        "source": "staging"
+      },
+      {
+        "audioId": "a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123",
+        "bytes": 36396,
+        "durationMs": 757,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123.wav",
+        "sha256": "40da43e0e7d6e4b45c3069188275d85b4c19e3f18c94498970080125f8d99de4",
+        "source": "staging"
+      },
+      {
+        "audioId": "a70008251ff083c16c7581b584fdeaea5f75a78bca11086c7362eb8cf7a01cde",
+        "bytes": 416812,
+        "durationMs": 8683,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\a70008251ff083c16c7581b584fdeaea5f75a78bca11086c7362eb8cf7a01cde.wav",
+        "sha256": "37cfc550335e30db2957fe85369cee35bf337f9575de280a5b8cb9bfa7d8dab3",
+        "source": "staging"
+      },
+      {
+        "audioId": "af7e5c37c987a23afaaac6fd90e24c22017256fe224b1a1017a0b2eedec0caec",
+        "bytes": 174124,
+        "durationMs": 3627,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\af7e5c37c987a23afaaac6fd90e24c22017256fe224b1a1017a0b2eedec0caec.wav",
+        "sha256": "7b4da37b5693d22cd91619795bf572f463d952ee7c32dea0996616a64349c02f",
+        "source": "staging"
+      },
+      {
+        "audioId": "b17f095142986908a4f13a0ee05a3e2504a4992d1f4d0ac3a5b1999d43546521",
+        "bytes": 318508,
+        "durationMs": 6635,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\b17f095142986908a4f13a0ee05a3e2504a4992d1f4d0ac3a5b1999d43546521.wav",
+        "sha256": "93745a0524697a820c721ac95b0ebe2373f55c6b01b23e8622d61161951f04d7",
+        "source": "staging"
+      },
+      {
+        "audioId": "b48edbbfb50e62dbe53e858f9e5769a10a18fc32dfef925cd9915491ebf6c5b9",
+        "bytes": 437292,
+        "durationMs": 9109,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\b48edbbfb50e62dbe53e858f9e5769a10a18fc32dfef925cd9915491ebf6c5b9.wav",
+        "sha256": "57f72ece0eb3b40bd7dadc8ca4c13cfbd2754957bbbcf3656fdadbbfa2b093ff",
+        "source": "staging"
+      },
+      {
+        "audioId": "bafd4de4c017d65f9cf04c9ff6961979e270a806e5245a9cff80467424ba74fa",
+        "bytes": 56364,
+        "durationMs": 1173,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\bafd4de4c017d65f9cf04c9ff6961979e270a806e5245a9cff80467424ba74fa.wav",
+        "sha256": "51fad7341b9e6b77e44659d6899e9ac22a711870a7732320fe88298774f375d3",
+        "source": "staging"
+      },
+      {
+        "audioId": "bd07b21cf130f62d37a42fbca824e4643612ba1b7802eca1a4b3f82d0bfbff4a",
+        "bytes": 146476,
+        "durationMs": 3051,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\bd07b21cf130f62d37a42fbca824e4643612ba1b7802eca1a4b3f82d0bfbff4a.wav",
+        "sha256": "b141d4e4a4026992a4f08e4e8e00d983c98e36b7823c69874a2ba855da7c9651",
+        "source": "staging"
+      },
+      {
+        "audioId": "bd90ef27081da244d9ecfd89c81391bce1c4d7eaa3c103564f682c3b65958da4",
+        "bytes": 69676,
+        "durationMs": 1451,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\bd90ef27081da244d9ecfd89c81391bce1c4d7eaa3c103564f682c3b65958da4.wav",
+        "sha256": "59f0675f8c10b73df02ed2e81b6cd1567a40ced086ac55d2e7c6b3817b5440a1",
+        "source": "staging"
+      },
+      {
+        "audioId": "c017a6431799c3beb4ef4ce180d8a6247a01ca12c0f388b934666d1c8a43b227",
+        "bytes": 80940,
+        "durationMs": 1685,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\c017a6431799c3beb4ef4ce180d8a6247a01ca12c0f388b934666d1c8a43b227.wav",
+        "sha256": "f315b9833a17366e2cb2303319c58e34d35d2d5cb1048eb69434c0be35f2d22e",
+        "source": "staging"
+      },
+      {
+        "audioId": "c6d6788ed592226edeea2fa33980aac1a0c3101fbd75ba5cdaffa82ec8359100",
+        "bytes": 50220,
+        "durationMs": 1045,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\c6d6788ed592226edeea2fa33980aac1a0c3101fbd75ba5cdaffa82ec8359100.wav",
+        "sha256": "012fe252ed00b4996438bb222b4dfbf3737bf9d6e666ae79df28d2975dc70774",
+        "source": "staging"
+      },
+      {
+        "audioId": "c6f0b20ed3eb509f6bddf94312444f146e5de523d05470012a6687c3285c6f17",
+        "bytes": 129580,
+        "durationMs": 2699,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\c6f0b20ed3eb509f6bddf94312444f146e5de523d05470012a6687c3285c6f17.wav",
+        "sha256": "47adc69a24237ad5ab4a8c777cbf6d8b1690626907b4017a4ebd57b2f4ccf458",
+        "source": "staging"
+      },
+      {
+        "audioId": "c74254b2b147648024c36a9a03594898f8c407819b0728e68d0b54b01a0d869c",
+        "bytes": 623148,
+        "durationMs": 12981,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\c74254b2b147648024c36a9a03594898f8c407819b0728e68d0b54b01a0d869c.wav",
+        "sha256": "6f633a775f6b6db40f131ba4c9d69cbf35f4ded2b20c46436ba9f0e20f9a9b4f",
+        "source": "staging"
+      },
+      {
+        "audioId": "cb4d9627b63a1b440512b546128ea7a7452f7e3d4879a4aaff40ce6eb9010d8f",
+        "bytes": 158764,
+        "durationMs": 3307,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\cb4d9627b63a1b440512b546128ea7a7452f7e3d4879a4aaff40ce6eb9010d8f.wav",
+        "sha256": "21877d0e6041d1fd96a0ec9a0c9386fb3611e5fc9ebaf174b13606e0917d5a33",
+        "source": "staging"
+      },
+      {
+        "audioId": "cfa85fbc6c08bafeac483d280fd3718f29d52b06a2d55b0e41fcf7e9c978f4c4",
+        "bytes": 209452,
+        "durationMs": 4363,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\cfa85fbc6c08bafeac483d280fd3718f29d52b06a2d55b0e41fcf7e9c978f4c4.wav",
+        "sha256": "a64b71398b2b0b282c9b498d6cc969bd4561d5b779324dc5a3f314014e534e79",
+        "source": "staging"
+      },
+      {
+        "audioId": "d06f2af99f1b77eb9332cfb86b68eaaff7054e7ac373ac7548e4b32ea62a0607",
+        "bytes": 89132,
+        "durationMs": 1856,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\d06f2af99f1b77eb9332cfb86b68eaaff7054e7ac373ac7548e4b32ea62a0607.wav",
+        "sha256": "a5f22e32d2f380738f6ab55d1b7c2d8930ea11e8ac2798829c4c9c42a070a1f4",
+        "source": "staging"
+      },
+      {
+        "audioId": "d65a8ff59143b88321ec322245ca12e9e37ce8be3ec990c6084e087ec7e51863",
+        "bytes": 859180,
+        "durationMs": 17899,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\d65a8ff59143b88321ec322245ca12e9e37ce8be3ec990c6084e087ec7e51863.wav",
+        "sha256": "9265d90f506f938f5bdcf7be4c9881f4aec55050b6642c97c6172fd0356a36e6",
+        "source": "staging"
+      },
+      {
+        "audioId": "d6d1096dd3e996bd582afda9cbcbbc6050aad9205d21c4bafabfdad19e7d8ec6",
+        "bytes": 460332,
+        "durationMs": 9589,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\d6d1096dd3e996bd582afda9cbcbbc6050aad9205d21c4bafabfdad19e7d8ec6.wav",
+        "sha256": "067525e2304e4e7269b767efefc7a906661a6c5f5069d2acac331f6b5f6655b0",
+        "source": "staging"
+      },
+      {
+        "audioId": "d8439f16bbcf9abbe9ccc948671dddb75baafd344d2cea279e49c3197c19ebd7",
+        "bytes": 161324,
+        "durationMs": 3360,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\d8439f16bbcf9abbe9ccc948671dddb75baafd344d2cea279e49c3197c19ebd7.wav",
+        "sha256": "3a78c01996091038e735aa3951435cebc235f6cfbbd91ff41956892f848fbdbb",
+        "source": "staging"
+      },
+      {
+        "audioId": "d937f3b5e733292ecb6fdeceb3eee532aea5c32a18e6fea63219703ac86515f4",
+        "bytes": 227372,
+        "durationMs": 4736,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\d937f3b5e733292ecb6fdeceb3eee532aea5c32a18e6fea63219703ac86515f4.wav",
+        "sha256": "49b1a80d3e182a506df3341bd1934461599a27013d30f3c7897c915ef5175fc3",
+        "source": "staging"
+      },
+      {
+        "audioId": "dac90c704cb81b04c09cb2ef776659ff9908003173dd5ad26cec49a7d105e478",
+        "bytes": 151084,
+        "durationMs": 3147,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\dac90c704cb81b04c09cb2ef776659ff9908003173dd5ad26cec49a7d105e478.wav",
+        "sha256": "15c53c5192539a964a1ccfae36910b52b2f910b3f5de34dcb850c8a7dc499954",
+        "source": "staging"
+      },
+      {
+        "audioId": "dbb7d471731dc625c01e02965b138a5b7ed3d2e90c261f27c44c0db389e6b58a",
+        "bytes": 390188,
+        "durationMs": 8128,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\dbb7d471731dc625c01e02965b138a5b7ed3d2e90c261f27c44c0db389e6b58a.wav",
+        "sha256": "a5dd7e9e6fe185a3d456649ea6df1cbca3837aeafe4722e73621681330b3d2fa",
+        "source": "staging"
+      },
+      {
+        "audioId": "e004a85b2c4499c5b50aad92f2e77903aa2540e6bec4f686ed462e38a6da8dcf",
+        "bytes": 1254444,
+        "durationMs": 26133,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\e004a85b2c4499c5b50aad92f2e77903aa2540e6bec4f686ed462e38a6da8dcf.wav",
+        "sha256": "a672e7cd3f10f9d0aeeef8e01308837654061437751b9190b3f123c4c31356f4",
+        "source": "staging"
+      },
+      {
+        "audioId": "ef0ca0fae774a7090b9c5ae1aee929901ef6015195f19366f208ce8fbac02815",
+        "bytes": 329772,
+        "durationMs": 6869,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\ef0ca0fae774a7090b9c5ae1aee929901ef6015195f19366f208ce8fbac02815.wav",
+        "sha256": "ad3416757802001e9c7171727d7540db2ac732ad8808181f9c037e9b4babc8d4",
+        "source": "staging"
+      },
+      {
+        "audioId": "f1e795a6e1526206d36310f7de0bac61f7f60ad9e3de6bb51ea17cf9d77149d8",
+        "bytes": 590892,
+        "durationMs": 12309,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\f1e795a6e1526206d36310f7de0bac61f7f60ad9e3de6bb51ea17cf9d77149d8.wav",
+        "sha256": "6eec2ea9c2343c371b1620cd81ee6aedc384593498ca3a275f664e08dd6a0ec0",
+        "source": "staging"
+      },
+      {
+        "audioId": "f4cf0eeeddbecde1ea3df638a27de9d14e3d8e973270d6aaafb64770ace87172",
+        "bytes": 542252,
+        "durationMs": 11296,
+        "path": "D:\\a\\bungo-zundamon\\bungo-zundamon\\.cache\\f005-voice-001076-538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0\\f4cf0eeeddbecde1ea3df638a27de9d14e3d8e973270d6aaafb64770ace87172.wav",
+        "sha256": "3fb5896db889237b55ced64a090a6d94c01f77f2527c76b99c2fdc4128128514",
+        "source": "staging"
+      }
+    ],
+    "evidenceSha256": "df005b8ace42e4da73605fa42d6ae18922244de438d41c6d4777f7538aefc6e4",
+    "phaseInstanceId": "c06d14d9491f74b97d72aa9b4d0062838e19a58caf6d0de1824a59a9cf440428",
+    "planSha256": "bf3314d099dd2a4bc61f1c23bf00c9eb1ae3f116a61459a2da7c391330b07ddd"
+  },
+  "schemaVersion": "1.0.0",
+  "workId": "001076"
+}
