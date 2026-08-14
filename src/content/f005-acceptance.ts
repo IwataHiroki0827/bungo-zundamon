@@ -246,7 +246,7 @@ export function createF005AcceptanceCapacityRecorder(
     !Number.isSafeInteger(identity.workerPid) || identity.workerPid <= 0 ||
     typeof backend.beginPhase !== 'function' || typeof backend.observeMutation !== 'function' ||
     typeof backend.endPhase !== 'function') {
-    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'recorder identity/backendが不正です');
+    fail('F005_ACCEPTANCE_TX_RECORDER_SHAPE' as F005AcceptanceErrorCode, 'recorder identity/backendが不正です');
   }
   const observeMutation = async (notice: F005AcceptanceMutationNotice): Promise<void> => {
     const observation = await backend.observeMutation(notice);
@@ -255,7 +255,7 @@ export function createF005AcceptanceCapacityRecorder(
     if (observation.noticeId !== notice.noticeId || observation.sessionNonce !== identity.sessionNonce ||
       observation.sequence !== notice.sequence || observation.workerPid !== identity.workerPid ||
       observation.matchedEtw !== true) {
-      fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'noticeと認証済みETW観測が一致しません');
+      fail('F005_ACCEPTANCE_TX_OBSERVATION_MATCH' as F005AcceptanceErrorCode, 'noticeと認証済みETW観測が一致しません');
     }
   };
   const recorder = freezeDeep({
@@ -424,7 +424,7 @@ async function verifyWorkFile(
 
 function assertRecorder(recorder: F005AcceptanceCapacityRecorder): void {
   if (!recorders.has(recorder) || recorder.__brand !== 'F005AcceptanceCapacityRecorder') {
-    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'mint済みcapacity recorderが必要です');
+    fail('F005_ACCEPTANCE_TX_RECORDER_MINT' as F005AcceptanceErrorCode, 'mint済みcapacity recorderが必要です');
   }
 }
 
@@ -862,7 +862,7 @@ async function fileSha(path: string): Promise<Sha256 | null> {
   if (!await exists(path)) return null;
   const info = await lstat(path);
   if (!info.isFile() || info.isSymbolicLink() || info.nlink !== 1 || await realpath(path) !== path) {
-    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'transaction pathがregular fileではありません');
+    fail('F005_ACCEPTANCE_TX_TX_PATH' as F005AcceptanceErrorCode, 'transaction pathがregular fileではありません');
   }
   return sha(new Uint8Array(await readFile(path)));
 }
@@ -1381,7 +1381,7 @@ async function writeDurableExclusive(
 function workspaceRelative(root: string, target: string): string {
   const value = relative(root, resolve(target)).replace(/\\/gu, '/');
   if (!SAFE_PATH.test(value) || !isInside(root, target)) {
-    fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'workspace相対pathへ正規化できません');
+    fail('F005_ACCEPTANCE_TX_RELATIVE_PATH' as F005AcceptanceErrorCode, 'workspace相対pathへ正規化できません');
   }
   return value;
 }
@@ -1555,7 +1555,7 @@ async function ensureDirectoryNoticed(
   directory: string,
   notice: ReturnType<typeof notifier>,
 ): Promise<void> {
-  if (!isInside(root, directory)) fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'directoryがworkspace外です');
+  if (!isInside(root, directory)) fail('F005_ACCEPTANCE_TX_DIRECTORY_SCOPE' as F005AcceptanceErrorCode, 'directoryがworkspace外です');
   const missing: string[] = [];
   let cursor = resolve(directory);
   while (cursor !== root && !await exists(cursor)) {
