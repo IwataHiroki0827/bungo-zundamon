@@ -1,7 +1,16 @@
 name: F005 hosted production candidate
 
-# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete. Retry after event-FO diagnostic.
+# Native tooling stays outside; T-109/T-110/T-112/T-122 deterministic correlations are complete.
 # This self-path produces the next F005 work under the postcondition contract.
+#
+# 起動はこのファイルへのcommitに限る。contents:writeを持つため手動起動trigger
+# (およびschedule)はUT-F005-047が禁じている。対象作品はmanifestの先頭pendingから
+# 決まるので、次の作品を生産するときはこの生産ログに1行足してcommitする。
+#
+# production log:
+#   000799 夢十夜        accepted 62 wav  run 31763099897
+#   001076 倫敦塔        accepted 55 wav  run 31797219122
+#   001104 趣味の遺伝    requested 83 wav
 on:
   push:
     branches:
