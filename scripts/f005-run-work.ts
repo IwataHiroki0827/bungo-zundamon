@@ -396,6 +396,12 @@ const F005_FAILURE_NAMES = new Set([
   'TypeError',
 ]);
 const F005_FAILURE_CODES = new Set([
+  // CHG-F005-072: acceptance/preview段の固定codeがallowlist漏れで
+  // null化され停止理由が失われていた。
+  'F005_ACCEPTANCE_PREPARE_INVALID',
+  'F005_ACCEPTANCE_RECOVERY_CONFLICT',
+  'F005_ACCEPTANCE_TRANSACTION_INVALID',
+  'F005_PREVIEW_INVALID',
   'EACCES',
   'ECONNREFUSED',
   'ECONNRESET',
