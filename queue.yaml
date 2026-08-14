@@ -1639,3 +1639,31 @@ items:
     processed_note: >-
       期限切れでも訪問者には影響せず、再確認するまで新規公開できない状態になる。
       判定は公開済みバンドル内にあるため、挙動変更の反映には1回のリリースが必要である。
+  - id: Q-049
+    type: approval
+    status: open
+    title: 規約再確認の記録を凍結ライセンス文書から分離する要求変更
+    body: >-
+      CHG-F002-004で期限切れの効果をリリースゲートへ移したが、そのゲートを通す手段が
+      構造上塞がっている。terms.checkedAt/validUntilは public/content/licenses.json の
+      中にあり、このファイルはF001 v0.1.0 baselineに凍結されている。baselineのSHAは
+      src/content/baseline.ts の F001_EXPECTED_BASELINE_SHA として固定commitと共に
+      直書きされている。実測では日付更新だけで verify-project が
+      F001_ASSET_HASH_MISMATCH で停止する。一方 REQ-F002-015 は取得日時を
+      deploy直前に保存・比較することを求めており、checkedAtは更新される前提である。
+      更新できないファイルの中に更新必須の項目が入っている状態で、2026-08-18以降は
+      規約を実際に再確認しても新規リリースができない。凍結すべきは「何を根拠に
+      公開したか」であって「いつ再確認したか」ではないため、後者を別の証跡ファイルへ
+      分離する。public/content/licenses.json を変更しないためF001不変量は一切緩めない。
+      公開中のサイトへの影響はない(実行時判定はCHG-F002-004で除去済み)。
+    target: docs/srs/SRS-F002.md
+    target_mode: document
+    options:
+      - 再確認の記録を別証跡ファイルへ分離する
+      - F001 baselineと固定定数をリリースごとに更新する
+      - 期限の概念そのものを廃止する
+    allow_freeform: true
+    created: '2026-08-14T21:00:00+09:00'
+    source: pf-change
+    resume:
+      next: pf-change
