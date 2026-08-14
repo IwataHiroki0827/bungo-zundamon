@@ -1076,7 +1076,17 @@ export function createF005NativeCapacityJournalReader(
         const noticeId = String(notice.noticeId);
         const event = String(notice.event);
         const path = String(event === 'rename' ? notice.to : notice.path);
-        const sample = samples[index] ?? lastSample;
+        // CHG-F005-072: 最終noticeへはclose時サンプルまで畳み込み、
+        // reportのpeak/minimumがnative journalの集計と一致するようにする。
+        const isLast = index === journal.notices.length - 1;
+        const sample = isLast
+          ? samples.reduce((worst, item) => Object.freeze({
+              ...item,
+              liveBytes: Math.max(Number(worst.liveBytes), Number(item.liveBytes)),
+              freeBytesAvailable: Math.min(
+                Number(worst.freeBytesAvailable), Number(item.freeBytesAvailable)),
+            }), samples[index] ?? lastSample)
+          : samples[index] ?? lastSample;
         if (!SHA256.test(noticeId)) {
           fail('F005_CAPACITY_ACTUAL_INVALID', 'native notice idが不正です');
         }
