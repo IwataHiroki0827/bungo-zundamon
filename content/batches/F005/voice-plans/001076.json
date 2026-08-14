@@ -1,0 +1,661 @@
+{
+  "batchId": "F005",
+  "kind": "f005-voice-diff-plan",
+  "plan": {
+    "__brand": "F005VoicePlan",
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "action": "generate",
+        "audioId": "006aff6416e165605ce0292935639c2e0886f028bc9f7b2ab42ef460f8a973a2",
+        "candidateIds": [
+          "tcmu4zW9GkVJqHPvlU_zLjusAjSitozVG9YiaKhxNrQ"
+        ],
+        "estimatedBytes": 392972,
+        "existing": null,
+        "speechSha256": "fecf39835d49f6af9bfe36ca38c596448e7098f073cf949d67f252614b2aa74e",
+        "speechText": "「いや顔は美しいがくびの骨は馬鹿に堅い女だった。御蔭でこの通り刃が一分ばかりかけた」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0225a9bff0c7ff6aba1e9c669d336d8ca626c1961b91dcc02cdfa0a5c7aeeaa1",
+        "candidateIds": [
+          "Ij7p-1O-QJZ5x5t5gYydk1n3KU-kIwDFR-FzAuYnzkA"
+        ],
+        "estimatedBytes": 364940,
+        "existing": null,
+        "speechSha256": "27fdd359abc37b51e775c0824680bcafbeb7778044c2572c7d55c77e6e00fd84",
+        "speechText": "「あらずあらず。リチャードはだんじきをしてみずからと、命の根をたたれたのじゃ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0435afe3805b8ae2f4e396bec5317dadad09e79be72cabdb224fc7019109c730",
+        "candidateIds": [
+          "5TatYK7Ep8PwfmNoSZdFhmfnA9VS-uFfGrtNc35vfgc"
+        ],
+        "estimatedBytes": 84284,
+        "existing": null,
+        "speechSha256": "b145f5b0bcd6f5a447f72ed4ccd82068a37220b20ecd5919b09f749ce4310791",
+        "speechText": "「からすが、鴉が」"
+      },
+      {
+        "action": "generate",
+        "audioId": "0449c4ca180de0740959801419d31c6ea5e62fe1a56f9a37db8060fa946e5cac",
+        "candidateIds": [
+          "rUn7rzt46cjx2Oh0RcfPpV0bDp_Dwyzo3baCXMjoPwY"
+        ],
+        "estimatedBytes": 112316,
+        "existing": null,
+        "speechSha256": "b51ee53aff90bea43fd028a0a6bc7e856a802ac3f4fcf04e416320c062e5ce85",
+        "speechText": "「昼の世界に顔は出せぬ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "08c4c9d1e0bd968d9730ea60b3657a13b1cfeebb00f9b22eba752b12eded758d",
+        "candidateIds": [
+          "WLgrm674AGVn8oMm9saa1jN_Jd3ldQTHPjQwww-wUuA"
+        ],
+        "estimatedBytes": 37484,
+        "existing": null,
+        "speechSha256": "9ce3e5dc0e8e31d952770b86c2a3a99d825c98a942506e44f2f94f76aa12c76e",
+        "speechText": "「いな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "10344951ccaaf244ac59322463ebc30ee053cebf5f3fd87ff653c34602d10c72",
+        "candidateIds": [
+          "u6IlFMhNIuodK4l4VzTyVzjIv7318b6HOrchI2A8w7U"
+        ],
+        "estimatedBytes": 280748,
+        "existing": null,
+        "speechSha256": "483bb080c427c8245d37ea66e72a4c9b3317baaa08121486cdf7d26d03a2bae9",
+        "speechText": "「人殺しも多くしたが今日ほどねざめの悪い事はまたとあるまい」"
+      },
+      {
+        "action": "generate",
+        "audioId": "13b88a479eb87f9b88c0bed2f60fa2d8d2683db085a7f1407d35a650947cccbe",
+        "candidateIds": [
+          "ZIWAA9mZ_bm84sdjNbeDrbNsgTJ2_sspEJ-XGqniUUc"
+        ],
+        "estimatedBytes": 243308,
+        "existing": null,
+        "speechSha256": "69f762f292ecc71700e49658d588e34a93dbb175dbdc95b4ab916be005bc8cf3",
+        "speechText": "「しめる時、花のようなくちびるがぴりぴりとふるうた」"
+      },
+      {
+        "action": "generate",
+        "audioId": "1cba58691f538efd2ad679c318dab08282b5dce421db667ad2a435b901dcb0bd",
+        "candidateIds": [
+          "MjAQgzfDYaNube0SESSy6fN5hIYgTrVU4emZkHuY5to"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "f6a0f9c663c419555c1420b289cb35814ecf89afa1ee25b1943c82851f664502",
+        "speechText": "「いかにしても逢う事はかなわずや」"
+      },
+      {
+        "action": "generate",
+        "audioId": "29d49b575fefab667d7652c98a9e05e468109965b706b848552ad1b8e796802c",
+        "candidateIds": [
+          "gSIu8k2vDe0quKXH8gJe9OOF1bh6NCQn5D7Dco1NypI"
+        ],
+        "estimatedBytes": 187196,
+        "existing": null,
+        "speechSha256": "d636d0e2763029e0bdda8a7658e9e0ab50c5c1a90e956b1727ca8e328fe30c6d",
+        "speechText": "「まだまことの道に入りたもう心はなきか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "3895a1ad6fd1885a3f1cd13e07cdc427143032bc8987a1cbbacf34cc733573f3",
+        "candidateIds": [
+          "kr3zyeskScFP6XJIrFM-Fx5QzjsTEwzBVQ4VG5v0ZRM"
+        ],
+        "estimatedBytes": 131036,
+        "existing": null,
+        "speechSha256": "c68b072fbfdc6b476172e0c8f22ed0908cec08ea0212d07cb713da4b16971828",
+        "speechText": "「気の毒じゃが仕方がないわ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "3de745139b25288797f8b5dba5fdeca8def9216777136b6b8c287fcaa4a6d3bd",
+        "candidateIds": [
+          "7oCP8GvyN4XakPnafTanpBWhq5FURnk3m5owWIexKNs"
+        ],
+        "estimatedBytes": 131036,
+        "existing": null,
+        "speechSha256": "46537915a269e2691eeded7ee67514fcec991c24ae85f52f141c5fa9f50afc21",
+        "speechText": "「あすは例のばあさまの番さ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "4e52dc5dcbf5be723cdd24ae71c97f6f7fa144285c13c8dae7eb2395a7977ed6",
+        "candidateIds": [
+          "eqQ8dvpX_R81yA9lp9NLaYBFDEPoypIAZfQRpuZjAKQ",
+          "SB92rAARJ35IDlPFBGjv99LpGLSiNSMxojJP73mqFH4"
+        ],
+        "estimatedBytes": 56204,
+        "existing": null,
+        "speechSha256": "21cce375a15565191e019c29f59b8ea6932ea0bc3c1d6a36dab2d0c695dd6785",
+        "speechText": "「アーメン」"
+      },
+      {
+        "action": "generate",
+        "audioId": "518fab3192a9f34137a1324232d2a63c12603781c422e2bcfcdb1e540fa18bc3",
+        "candidateIds": [
+          "xXFt-eiuCBjJVO2Vhpzr94qBv8gZIT8w5jgVXEuOtk0"
+        ],
+        "estimatedBytes": 37484,
+        "existing": null,
+        "speechSha256": "4ae0c462c6d139edfff441957ebada1678390c9ce07eb4bd6f4af85ae802817b",
+        "speechText": "「寒い」"
+      },
+      {
+        "action": "generate",
+        "audioId": "569a6a02b7468423cddd82338dbe1421456eb2486f446d5169c09282d8b2453e",
+        "candidateIds": [
+          "Y64t3PUfRWeX105yvjuySlur8ClM68d0CNvTWy4Rxr4"
+        ],
+        "estimatedBytes": 102956,
+        "existing": null,
+        "speechSha256": "06974891a83d407dec9c0382dc7853be15099eb15feb6ccdf761cb1a2e5ba450",
+        "speechText": "「逢う事を許されてか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "5a4ccce047de158ae2e99c1316ce3764d638fa9514313556b10b36577e6be68c",
+        "candidateIds": [
+          "mau3xdoG-NTkV0tjtnF55osL_l1v_MxD_kA2-Yg28YA"
+        ],
+        "estimatedBytes": 327500,
+        "existing": null,
+        "speechSha256": "7e3cf733141b657f970de29730069262d389d984a7f401a6dc91120f333abad6",
+        "speechText": "「犬ではありません。左りが熊、右がししでこれはダッドレーけの紋章です」"
+      },
+      {
+        "action": "generate",
+        "audioId": "5fcab0c7b0138a8f6dd97ae165efdfc64b0ff14a91a09a3aae74d56946586f21",
+        "candidateIds": [
+          "pxhduKFCohHpWE1goIwUDuDJBrMrttJdw7IrBZ_1EVk"
+        ],
+        "estimatedBytes": 93644,
+        "existing": null,
+        "speechSha256": "c85d067e334df82d225556ba38110691bd6fcf9ea5d3a4c81c94ab7668930fad",
+        "speechText": "「あすは誰の番かな」"
+      },
+      {
+        "action": "generate",
+        "audioId": "6084c5f513e1447f69adb8bf9ee589727bf3c2379709f36d150bca27177417fb",
+        "candidateIds": [
+          "EQsfsN8sPPKSeD-ZdzzvUoUgACfNC9lqWXn6y73DPXo"
+        ],
+        "estimatedBytes": 177836,
+        "existing": null,
+        "speechSha256": "271dfa7771ad3ff1d9c6d2d15688331226b3b47bea6e83e283d5ba32a4c4b5f5",
+        "speechText": "「あのうなった声がまだ耳に付いている」"
+      },
+      {
+        "action": "generate",
+        "audioId": "64267611a2a3e0441b4ac12b224501cfbd6713fc94fd90e04031d673adaf293d",
+        "candidateIds": [
+          "06PB_zGJU9HVm_B1H4aRi2-JoQbXoi0sX92c8v0LTyI"
+        ],
+        "estimatedBytes": 860780,
+        "existing": null,
+        "speechSha256": "f5c40b042c28c10e9d66da247888c93dbb58d94350ee28b695d0e4851e900ab5",
+        "speechText": "「ええあのらくがきですか、つまらない事をしたもんで、せっかく奇麗な所を台なしにしてしまいましたねえ、なにざいにんの落書だなんてあてになったもんじゃありません、にせもだいぶありまさあね」"
+      },
+      {
+        "action": "generate",
+        "audioId": "6757fde0875319ebacd1a5a11192b898a5154dfb5c0a992dd9e26d1cfd9256fb",
+        "candidateIds": [
+          "nzUsy8KEda5vqKi2k0BLsSbW4fWbmYiMY_3u0n5NR5M"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "d782c1c4c3885528e1fa9d7bba1b89b5fd0b8d285e3618a47a84b0db9cfea6bb",
+        "speechText": "「それから例のがやられる」"
+      },
+      {
+        "action": "generate",
+        "audioId": "68c7da599e0c57611fecd0e79cbda3349c37d969f410d92f2a7ea4226f7d7ba1",
+        "candidateIds": [
+          "nBwV4EiI4fVwXq7alll7p8Jy0KCDOwG787RNOqUioGQ"
+        ],
+        "estimatedBytes": 374300,
+        "existing": null,
+        "speechSha256": "72ac615aa63a03febcda9c2cdf565044b6c4405d9b4ae6268467aaa43db40eb5",
+        "speechText": "「まこととは吾と吾おっとの信ずる道をこそ言え。御身達の道は迷いの道、誤りの道よ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "7a0d72830eea356e9e7ce7dc298edeb5b4aaad5bd6bf715feb44beec3dad7ada",
+        "candidateIds": [
+          "KkFw9uRKNDzjUwh0FgTLeuCKKkRki6txtoZAlDEl1QM"
+        ],
+        "estimatedBytes": 355580,
+        "existing": null,
+        "speechSha256": "8325c7c70a76d65ac49adae656953786b4417d875957cc616a9008d440189afc",
+        "speechText": "「ただつかのまをかいま見んとの願なり。にょにんの頼み引き受けぬ君はつれなし」"
+      },
+      {
+        "action": "generate",
+        "audioId": "7ab56987c010562197a5b6c9854604fb25a7a40bb7398b9c33016519143fbeac",
+        "candidateIds": [
+          "EG59FfUgOEY1pxzy-eVq9KWNMnmckBNxQkPrHANqjpc"
+        ],
+        "estimatedBytes": 177836,
+        "existing": null,
+        "speechSha256": "9db17ddea6e007e5a218a3c51e8dee353cb6a9049f9702c1e27d2eb540c6c5c4",
+        "speechText": "「黒き塔の影、堅き塔の壁、寒き塔の人」"
+      },
+      {
+        "action": "generate",
+        "audioId": "838ecc26eb8f67f90a27d6e7f9600a397af36036dd545453b3fd8417f334b5b4",
+        "candidateIds": [
+          "u6-b086xOvwowvGiQCenD-XsDk-JxZABjtpiQii5Hak"
+        ],
+        "estimatedBytes": 102956,
+        "existing": null,
+        "speechSha256": "0a694f9b9ce50cb61e80d3e1a3dbf64693f75832732f5d861791a78ad1ee832e",
+        "speechText": "「ははさまにあいたい」"
+      },
+      {
+        "action": "generate",
+        "audioId": "85502f3380d6e46bf84e41fbe3e4e98dd4b723ef8b1fd78479b1752d05fa074c",
+        "candidateIds": [
+          "eL4U-q01piMRhJCfd43e0gERu5C_QEoEOeDv4-p-Db4"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "532166fee3388519f623d7e00e806f8aa7829afdb7f2f44b4b4790c7e99fc330",
+        "speechText": "「きょうもまたこうして暮れるのか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "8b2cfa131790ab2b224ca1d5927cfdd4ed80ec18c0967202c334d27feb5bd7e4",
+        "candidateIds": [
+          "NCmdy8VKoVmJEa397ngFLqKhm042U_uGDPiLn7iKZUs"
+        ],
+        "estimatedBytes": 187196,
+        "existing": null,
+        "speechSha256": "d88cffa0a1cb9b0717c61301edf38b2f7ef51e42c8a69ee9dac583687e5af72a",
+        "speechText": "「すき通るようなひたいに紫色の筋が出た」"
+      },
+      {
+        "action": "generate",
+        "audioId": "8cd2634e2b8f68c8dfe88b5633f955856b1837e7e66704778b72ac672cbb29d4",
+        "candidateIds": [
+          "3NuahzRssnUFPOvvZ4RSZ6U-RLWCvMM6SdxguBgs6VU"
+        ],
+        "estimatedBytes": 149756,
+        "existing": null,
+        "speechSha256": "75f4253a333e09b35d8fdebf28a955e6d1d069d43a560282ed08526e870f8a9c",
+        "speechText": "「きのうは美しいのをやったなあ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "8ec143ff62f83da71d0d5f8767fb045958095be06466557e62c8743517022fe8",
+        "candidateIds": [
+          "Dkj1tbk1L0ugPiU5RMklGDv13ZULkLwdu4bXf0negZw"
+        ],
+        "estimatedBytes": 523964,
+        "existing": null,
+        "speechSha256": "06d6d75af767177dc983f873eb8c1e165b8be7b32e63e2e75880037a13fd59c3",
+        "speechText": "「ろうもりは牢のおきてを破りがたし。みこらは変る事なく、すこやかに月日を過させたもう。心安くおぼして帰りたまえ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "9ab464fd2f2f853a1eba9d29ab632b7be149e0d5281e4cd7b0c4790066fbf683",
+        "candidateIds": [
+          "xmnk4w2wcsj14UFoLA4XkVSsbz5_q3ibSeqKjK84lhc"
+        ],
+        "estimatedBytes": 224588,
+        "existing": null,
+        "speechSha256": "6d52c44dff065fb0a4b4328cfb453f626e39f10848da45be73aa7b9c27bee6f4",
+        "speechText": "「この紋章をきざんだ人はジョン・ダッドレーです」"
+      },
+      {
+        "action": "generate",
+        "audioId": "9e704185ef2bd383c37984226edc4c330e1b248062df44799d3b2b51e9c13d49",
+        "candidateIds": [
+          "ukrlXox5GckHBHJApNNcSo2u_98MJbk27O_fSxVqG-o"
+        ],
+        "estimatedBytes": 318140,
+        "existing": null,
+        "speechSha256": "6bc66beab2c5022a2ddbf78fb34cc50c498e705dda68a6fe9ccd5bfde6b20c57",
+        "speechText": "「こう毎日のように舟から送って来ては、くびきり役もはんじょうだのう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "9f936e244a2718ee7a197fa4736d070aaa4aea78f06b6b8bb90a3e0fd8b66c0e",
+        "candidateIds": [
+          "9YiADWLIojhVhz5E6Rjz0EYRI3sGLjohdJ8YuQhCzFo"
+        ],
+        "estimatedBytes": 121676,
+        "existing": null,
+        "speechSha256": "9ae44f597e15db65177d98f3699da91054dc6606f0697f28e25a0f3326cfcd4a",
+        "speechText": "「あそこに犬がかいてある」"
+      },
+      {
+        "action": "reuse",
+        "audioId": "a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123",
+        "candidateIds": [
+          "sk7tuxPs8O9gZR65UaRuRisonIs-mfAuG3-NyaNlfJU"
+        ],
+        "estimatedBytes": 37484,
+        "existing": {
+          "audioId": "a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123",
+          "bytes": 36396,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "durationMs": 757,
+          "path": "content/batches/F005/accepted-audio/000799/a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123.wav",
+          "sha256": "40da43e0e7d6e4b45c3069188275d85b4c19e3f18c94498970080125f8d99de4"
+        },
+        "speechSha256": "b70b02c98d3f4c116731660d381a76234e39f8644690a90db6ce9697dd51c9e0",
+        "speechText": "「なぜ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "a70008251ff083c16c7581b584fdeaea5f75a78bca11086c7362eb8cf7a01cde",
+        "candidateIds": [
+          "Dy_u2R5QAQKsy5LZSCP-mCSytiouqClraneFTZFu0p4"
+        ],
+        "estimatedBytes": 486524,
+        "existing": null,
+        "speechSha256": "3ddfc2dc6bf13dcd2e8f8a9d886e0c085d9f0b250c5d8cb46c04e594334864ab",
+        "speechText": "「ジョンには四人の兄弟があって、その兄弟が、熊と獅子のまわりに刻みつけられてある草花でちゃんと分ります」"
+      },
+      {
+        "action": "generate",
+        "audioId": "af7e5c37c987a23afaaac6fd90e24c22017256fe224b1a1017a0b2eedec0caec",
+        "candidateIds": [
+          "8FL6D4zzgoJpKI6EEVkSjoZutoEkA7Rpe0-yAFGJq0w"
+        ],
+        "estimatedBytes": 196508,
+        "existing": null,
+        "speechSha256": "34a9ee99c43f36b2703506b85c4d67f5789140ce0e8b43645b206e568d19230b",
+        "speechText": "「気の毒な、もうやるか、かわいそうにのう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b17f095142986908a4f13a0ee05a3e2504a4992d1f4d0ac3a5b1999d43546521",
+        "candidateIds": [
+          "FuV9D0XskJWmC7Au-KPa8RnppJ1DiEGHxUYM-Y863ZQ"
+        ],
+        "estimatedBytes": 374300,
+        "existing": null,
+        "speechSha256": "471e440c7f7806450cd6bfb66db6fd282b072e266760f5e2e050d527f2a938ad",
+        "speechText": "「今一時間早かったら……。この三本のマッチが役に立たなかったのは実に残念である」"
+      },
+      {
+        "action": "generate",
+        "audioId": "b48edbbfb50e62dbe53e858f9e5769a10a18fc32dfef925cd9915491ebf6c5b9",
+        "candidateIds": [
+          "VMU9f6tOcaR2SusGYJnjUKnliO9U9-ttMjJmBONVu9k"
+        ],
+        "estimatedBytes": 533324,
+        "existing": null,
+        "speechSha256": "43a5020b6a6fe341759b429c9bae76dd214865a25ea278fc56cf6116cbd25363",
+        "speechText": "「逢わせまつらんと思えど、公けのおきてなればぜひなしとあきらめたまえ。わたくしのなさけ売るは安きまの事にてあれど」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bafd4de4c017d65f9cf04c9ff6961979e270a806e5245a9cff80467424ba74fa",
+        "candidateIds": [
+          "6ft4YJ6p2yI7uqLOM-1IJwHljHZDGSC5X-bL6BX7XXo"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "d751d35dc33e49a54d6adb82035fcfd785eed84c84906c4a5b6e2619ac45948d",
+        "speechText": "「知り申さぬ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bd07b21cf130f62d37a42fbca824e4643612ba1b7802eca1a4b3f82d0bfbff4a",
+        "candidateIds": [
+          "X3asUSUsrzlgzrUpF2WQaejX83qdbn6mmZdl567EVHk"
+        ],
+        "estimatedBytes": 177836,
+        "existing": null,
+        "speechSha256": "fa1f73ed17217b8621a7f7c0e19cd9f0ba255df9015fb3212ba5ff6e6309674a",
+        "speechText": "「ばあさまぎりか、ほかに誰もいないか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "bd90ef27081da244d9ecfd89c81391bce1c4d7eaa3c103564f682c3b65958da4",
+        "candidateIds": [
+          "BJmH7EXhxBQrjJMxnfIq5kMUXP9Arl1uYClWIRm5kaE"
+        ],
+        "estimatedBytes": 84284,
+        "existing": null,
+        "speechSha256": "0d6296f8118e8a25e280a4c4e4d831ee56533061675aa87275750e6b61e52388",
+        "speechText": "「御気の毒なれど」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c017a6431799c3beb4ef4ce180d8a6247a01ca12c0f388b934666d1c8a43b227",
+        "candidateIds": [
+          "KbLSgcXENtCCUzvsvqA8_vY8b-P250t5osGRNcrvAg8"
+        ],
+        "estimatedBytes": 112316,
+        "existing": null,
+        "speechSha256": "d48580d8561adb7d6183b1eafe8ab5f29b24476e706f1c15163c7b6e3d295466",
+        "speechText": "「アハハハもうよかろう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c6d6788ed592226edeea2fa33980aac1a0c3101fbd75ba5cdaffa82ec8359100",
+        "candidateIds": [
+          "dfus5GNtikEPCV_uljHDEi5-7EpwrJvpYD_uhk-CUQ8"
+        ],
+        "estimatedBytes": 65564,
+        "existing": null,
+        "speechSha256": "0dd97f8b2b5700b327e9b2ee019b6052ec6183a19bf0b40d1e84d452c9353577",
+        "speechText": "「日は暮れた」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c6f0b20ed3eb509f6bddf94312444f146e5de523d05470012a6687c3285c6f17",
+        "candidateIds": [
+          "HbnzG6wAbZhWhnpsyIwAW1xk8U_qqvMNN-awsq-JNCE"
+        ],
+        "estimatedBytes": 159116,
+        "existing": null,
+        "speechSha256": "3a5b180d0d4f796df296cfa13465935dc7049109ff5b89d610326eba07213a10",
+        "speechText": "「あなたは日本人ではありませんか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "c74254b2b147648024c36a9a03594898f8c407819b0728e68d0b54b01a0d869c",
+        "candidateIds": [
+          "e8SiZl8O80KkyeRfyzsRaacJi12sT6FHGSxnCbpaakA"
+        ],
+        "estimatedBytes": 692348,
+        "existing": null,
+        "speechSha256": "a812f7172ebf204d7ee1a7690a9a196095f74b26ffb58831e81687635abd6926",
+        "speechText": "「あれは奉納の鴉です。昔しからあすこに飼っているので、一羽でも数が不足すると、すぐあとをこしらえます、それだからあの鴉はいつでも五羽に限っています」"
+      },
+      {
+        "action": "generate",
+        "audioId": "cb4d9627b63a1b440512b546128ea7a7452f7e3d4879a4aaff40ce6eb9010d8f",
+        "candidateIds": [
+          "nPYivNXFOvoac7Pdpp7Q8GIC9z6bn67I7jJ1xB3VqSE"
+        ],
+        "estimatedBytes": 196508,
+        "existing": null,
+        "speechSha256": "ac48295567cd5f49dc6c2c7421ac9e6d8723d05db3105a5f5d9894b8f509c355",
+        "speechText": "「あの鴉は何にもたべたがっていやしません」"
+      },
+      {
+        "action": "generate",
+        "audioId": "cfa85fbc6c08bafeac483d280fd3718f29d52b06a2d55b0e41fcf7e9c978f4c4",
+        "candidateIds": [
+          "2vJyqDTX3CYp6tfGwtdOCH7Dng3JNg1X8CuPZhR4ek8"
+        ],
+        "estimatedBytes": 252668,
+        "existing": null,
+        "speechSha256": "2f8a08ca47fe98728b3633c9b8c8aebfd9c2f64ee27650befdc74fde566bed43",
+        "speechText": "「命さえ助けてくるるなら伯父様に王の位を進ぜるものを」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d06f2af99f1b77eb9332cfb86b68eaaff7054e7ac373ac7548e4b32ea62a0607",
+        "candidateIds": [
+          "2y-T0aEOdM1GLLVvKwlOjl4k6a8Awjt7ebhY0kshqQg"
+        ],
+        "estimatedBytes": 102956,
+        "existing": null,
+        "speechSha256": "b003bad16f0e42ef289072a5702a8600cdd1f1ed06db5e81b3d621801736e4ce",
+        "speechText": "「あの鴉は五羽います」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d65a8ff59143b88321ec322245ca12e9e37ce8be3ec990c6084e087ec7e51863",
+        "candidateIds": [
+          "UzJRXsW6_1x5b2mtvtQutIQ55G5BCw_rgC5eUHHTTGw"
+        ],
+        "estimatedBytes": 1085276,
+        "existing": null,
+        "speechSha256": "f8081dd6d138c09938e038f4f42655864e167d8d4514bb19321052c11ca2f04b",
+        "speechText": "「そりゃ当り前でさあ、皆んなあすこへ行く時にゃ案内記を読んで出掛けるんでさあ、そのくらいの事を知ってたって何も驚くにゃあたらないでしょう、何すこぶるべっぴんだって？――倫敦にゃだいぶ別嬪がいますよ、少し気をつけないとけんのんですぜ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d6d1096dd3e996bd582afda9cbcbbc6050aad9205d21c4bafabfdad19e7d8ec6",
+        "candidateIds": [
+          "bUL8jhVHRlBueQGxXCV2iNagewK4RUOOd1AF39uz6kU"
+        ],
+        "estimatedBytes": 523964,
+        "existing": null,
+        "speechSha256": "15831c788b767c060d36b0901bc2cdd2e5faabee36220014db3a1750123db9fe",
+        "speechText": "「朝ならば夜の前に死ぬと思え。夜ならばあすありと頼むな。覚悟をこそとうとべ。見苦しき死にざまぞ恥の極みなる……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d8439f16bbcf9abbe9ccc948671dddb75baafd344d2cea279e49c3197c19ebd7",
+        "candidateIds": [
+          "B_kG9riYBVw5YE2XY6OErSVkLyFjYiRfnq5JIh8j3FY"
+        ],
+        "estimatedBytes": 187196,
+        "existing": null,
+        "speechSha256": "7488ae486fa53729883efd83d69624de46756c58356574ba0d775a7b96545d21",
+        "speechText": "「そうさ、斧をとぐだけでも骨が折れるわ」"
+      },
+      {
+        "action": "generate",
+        "audioId": "d937f3b5e733292ecb6fdeceb3eee532aea5c32a18e6fea63219703ac86515f4",
+        "candidateIds": [
+          "ozIdX1hszVs2i4oyaOXdUHMMSObOm3wVUSTUE4DqgZk"
+        ],
+        "estimatedBytes": 299420,
+        "existing": null,
+        "speechSha256": "b036813e8a6c5f7c0b14a7fe34e11b59deed14fe87336e2f6e2fac6a70f5130f",
+        "speechText": "「わがおっとギルドフォード・ダッドレーはすでに神の国に行ってか」"
+      },
+      {
+        "action": "generate",
+        "audioId": "dac90c704cb81b04c09cb2ef776659ff9908003173dd5ad26cec49a7d105e478",
+        "candidateIds": [
+          "gRCXuoxwloon-ahYTbqmr5vNu1PqqHAFhCinXkpfNPI"
+        ],
+        "estimatedBytes": 177836,
+        "existing": null,
+        "speechSha256": "b827a43730bfb01bd0a87c6daedc7ba7f96bd24d792199caf58721056c978485",
+        "speechText": "「鴉がさむそうだから、パンをやりたい」"
+      },
+      {
+        "action": "generate",
+        "audioId": "dbb7d471731dc625c01e02965b138a5b7ed3d2e90c261f27c44c0db389e6b58a",
+        "candidateIds": [
+          "bgCkvr9S_wUcCT5KHbkui6l4jC4cGqt4-_qtnVWkz8E"
+        ],
+        "estimatedBytes": 430412,
+        "existing": null,
+        "speechSha256": "bee3d5375a5135c8ea42c75558472048c44a82c866fdb8d5abceefb07cce9d95",
+        "speechText": "「吾夫が先なら追いつこう、あとならばさそうて行こう。正しき神の国に、正しき道を踏んで行こう」"
+      },
+      {
+        "action": "generate",
+        "audioId": "e004a85b2c4499c5b50aad92f2e77903aa2540e6bec4f686ed462e38a6da8dcf",
+        "candidateIds": [
+          "sSulFnt1FnteLDIBQgCN6CO2pReyTmZf2Bb-XNWkHcM"
+        ],
+        "estimatedBytes": 1412732,
+        "existing": null,
+        "speechSha256": "b7f2ebcb1f11837637eceb512c5170a4fd75e1c5a049b4ea4e6d7b1ce744fa01",
+        "speechText": "「ここにあるのは Acorns でこれは Ambrose の事です。こちらにあるのが Rose で Robert を代表するのです。下の方ににんどうがかいてありましょう。忍冬は Honeysuckle だから Henry に当るのです。左りの上にかたまっているのが Geranium でこれは G……」"
+      },
+      {
+        "action": "generate",
+        "audioId": "ef0ca0fae774a7090b9c5ae1aee929901ef6015195f19366f208ce8fbac02815",
+        "candidateIds": [
+          "oPanaU_f0HnkhL7D_5PwYziuleubt7W66IUH-tCJM1Q"
+        ],
+        "estimatedBytes": 392972,
+        "existing": null,
+        "speechSha256": "c1b35d13893966988a12c0f799b027f5103cc888eef3fb44a823b71b570aecc6",
+        "speechText": "「タペストリのうらで二人の話しを立ち聞きした時は、いっその事やめて帰ろうかと思うた」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f1e795a6e1526206d36310f7de0bac61f7f60ad9e3de6bb51ea17cf9d77149d8",
+        "candidateIds": [
+          "4ZVRQAbiHnmVAYrATi_x9xVVUaVYObo5h3T_Ce5JQmc"
+        ],
+        "estimatedBytes": 617516,
+        "existing": null,
+        "speechSha256": "8c585b8fdf75274469493626d1a59f8a49c88efe66b51c16c19af3c9b88b9549",
+        "speechText": "「父と子と聖霊の名によって、我れヘンリーはこの大英国の王冠と御代とを、わが正しき血、恵みある神、親愛なる友のたすけをかりてつぎ受く」"
+      },
+      {
+        "action": "generate",
+        "audioId": "f4cf0eeeddbecde1ea3df638a27de9d14e3d8e973270d6aaafb64770ace87172",
+        "candidateIds": [
+          "yK_DJx73I1pv1-b-TraS099LDtA4lJcGC5BKZeikmD4"
+        ],
+        "estimatedBytes": 608156,
+        "existing": null,
+        "speechSha256": "d41dca52b9c606aeb0d7fa368f13945cd6b63460fec3aa200750219ae31e5fb7",
+        "speechText": "「我が眼の前に、わが死ぬべき折の様をおもい見る人こそさちあれ。日毎夜毎に死なんと願え。やがては神の前に行くなる吾の何を恐るる……」"
+      }
+    ],
+    "estimatedGenerateBytes": 15832920,
+    "generateCount": 54,
+    "planSha256": "83ee5e2668ef77da4dbe1be309c650f3b9895f649d529ce5adb91362c395c3d9",
+    "reuseCount": 1,
+    "schemaVersion": 1
+  },
+  "preflight": {
+    "estimatedGenerateBytes": 15832920,
+    "existingMatchPaths": [
+      "content/batches/F005/accepted-audio/000799/a34ce6ac787a499c4856f9afa7beb695332eea7429742fb6d736f8e615035123.wav"
+    ],
+    "freeAfterEstimate": 12788951208,
+    "freeBytes": 12804784128,
+    "measuredAt": "2026-08-14T11:34:27.369Z",
+    "minimumFreeBytes": 5368709120,
+    "scannedRoots": [
+      "content",
+      "public",
+      ".cache"
+    ],
+    "scannedWavFiles": 28278
+  },
+  "schemaVersion": "1.0.0",
+  "speechSha256": "55e45e219f23a19bc89d676e01db19e6dd490c6d5e92376c77dd4511048b3e16",
+  "workId": "001076"
+}
