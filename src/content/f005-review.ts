@@ -11,6 +11,7 @@ import {
   isMintedF005ApprovedBatchContext,
   type F005ApprovedBatchContext,
 } from './f005-context.ts';
+import { resolveF005SpeechRules } from './f005-speech-rules.ts';
 import type { F005CandidateSet, F005WorkId } from './f005-source.ts';
 
 const SHA256 = /^[a-f0-9]{64}$/u;
@@ -417,9 +418,10 @@ function normalizeCandidateSet(candidateSet: unknown, expectedWorkId: string): {
   const orders = new Set<number>();
   for (const raw of result.candidates) {
     validateRawCandidate(raw, expectedWorkId, String(record.sourceSha256));
+    // CHG-F005-073: 外字の読み規則は作品固有である。候補抽出と同じ規則を使う。
     const candidate = normalizeBatchCandidate(
       raw as Parameters<typeof normalizeBatchCandidate>[0],
-      DEFAULT_BATCH_SPEECH_RULES,
+      resolveF005SpeechRules(expectedWorkId),
     );
     if (!nonBlank(candidate.candidateId, 128) ||
       !nonBlank(candidate.displayText) || !nonBlank(candidate.speechText) ||

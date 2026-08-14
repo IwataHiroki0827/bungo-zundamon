@@ -11,10 +11,10 @@ import { fileURLToPath } from 'node:url';
 
 import { canonicalJson } from '../src/content/artifacts.ts';
 import {
-  DEFAULT_BATCH_SPEECH_RULES,
   normalizeBatchCandidate,
 } from '../src/content/batch-production.ts';
 import { loadVerifiedF005Definition } from '../src/content/f005-context.ts';
+import { resolveF005SpeechRules } from '../src/content/f005-speech-rules.ts';
 import {
   F005_WORKS,
   F005_SELECTION_SNAPSHOT_PATH,
@@ -38,18 +38,6 @@ import { ProductionAozoraTransport } from '../src/content/source.ts';
 import {
   ProductionPolicyTransport,
 } from '../src/notices/policy-snapshots.ts';
-
-// CHG-F005-073: JIS X 0213にない外字は底本が「※［＃…］」で示す。注記spanは
-// 本文抽出時に除外されるため、読み上げ文には裸の「※」だけが残る。
-// 読みを与えられるものは作品ごとにここで literal 置換する。
-const F005_SPEECH_RULES: Readonly<Record<string, typeof DEFAULT_BATCH_SPEECH_RULES>> = {
-  // 趣味の遺伝: 手控の「残念※」の※は［＃感嘆符三つ］であり、
-  // 感嘆符は読み上げないため文字ごと落とす。
-  '001104': Object.freeze({
-    ...DEFAULT_BATCH_SPEECH_RULES,
-    gaiji: Object.freeze({ '残念※': '残念' }),
-  }),
-};
 
 function sha256(value: string | Uint8Array): string {
   return createHash('sha256').update(value).digest('hex');
@@ -391,7 +379,7 @@ async function main(): Promise<void> {
   }
   // CHG-F005-073: 正規化の失敗はどの候補かを示さないと原因に辿り着けない。
   // 外字の読み欠落は作品固有であり、候補順とanchorが分かれば底本を引ける。
-  const speechRules = F005_SPEECH_RULES[workId] ?? DEFAULT_BATCH_SPEECH_RULES;
+  const speechRules = resolveF005SpeechRules(workId);
   const candidates = candidateSet.result.candidates.map((candidate) => {
     try {
       return normalizeBatchCandidate(candidate, speechRules);
