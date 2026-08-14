@@ -722,6 +722,286 @@ entries:
   agents: 1
   est_tokens: 6000
   note: commit 7e3388dのrun 31124038599はGitHub Actions major outageでproduction step未生成のまま基盤cancel。rerun要求は受理されたがjob未生成でstale化しcancel APIも409。workflow自己pathコメントだけを更新したcommit 9c6fd375をpushし新run生成待ち。実装・認可・容量・候補保存・公開条件・public/dataは不変
+- date: '2026-08-08'
+  phase: change
+  task: Q-035回答処理とCHG-F005-036再開整合
+  model: GPT-5
+  agents: 2
+  est_tokens: 5000
+  note: Q-035の回答をT-109へ反映してblockedからtodoへ戻し、キューをclosedへ更新。読み取り専用再レビューH0/M1/L1で検出したDES-F005-012影響タグ不足とFD更新日を是正し最終H0/M0/L0。CHG-F005-036/037はhosted影響試験完了までin-reviewを維持し、Q-037は処理対象外のanswered項目として未処理のまま保持
+- date: '2026-08-08'
+  phase: change
+  task: T-112 CHG-F005-038 completion drain不変proof設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: run 31124047021のEVENT_IDENTITY_FAILED/BINDING_MISMATCH分岐を可変path/map再照合とCleanup raceへ特定。retained generation handle、immutable baseline/head/cursor、共通proofSequence、path kind別generation、delete/Cleanup counterpart、batch atomic、writer fence、型別上限をFD/DD/UT/IT/QTへ反映。独立レビューHigh4→3→2、Medium5→3を全解消し最終High/Medium 0、trace/YAML/diff check PASSで実装へ移行
+- date: '2026-08-08'
+  phase: implement
+  task: T-112 CHG-F005-038 completion drain不変proof実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 24000
+  note: prepareのadmission writer線形化、generation ledger/canonical proof、再利用後Cleanup拒否、retained handle、Cleanupを含むatomic rollback、callback時rename snapshotを実装。初回受入High6/Medium3を全是正し独立再受入High0/Medium0。native454件、関連Vitest54件、型・ESLint・trace・再現build、public/data差分0をPASSしhosted試験へ移行
+- date: '2026-08-08'
+  phase: change
+  task: T-113 CHG-F005-039 retained parent shadow設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: native probe 31197869761はSUCCESS。production 31197869896のtemporary-written後generic LATEを調査。旧retained parent遮蔽案はevent provenanceを証明できずHighとして撤回し、認可・state非変更でCompletedRetained parent×別active same-parent×予約後をwrite/setinfo 2 codeへ細分化する設計へ縮小
+- date: '2026-08-08'
+  phase: implement
+  task: T-113 CHG-F005-039 retained parent post-reservation late event固定診断実装
+  model: GPT-5
+  agents: 2
+  est_tokens: 10000
+  note: exact late throw直前の純粋診断だけを追加し、認可・候補・stateは非変更。native/bridge/runner/workflowを23 exact codeへ同期し、native 470件、関連Vitest 57件、typecheck、ESLint、trace、再現build2回、public/data差分0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-113 CHG-F005-039 hosted再観測
+  model: GPT-5
+  agents: 1
+  est_tokens: 4000
+  note: commit 54d327bをpushしnative probe 31201499381 SUCCESS。production 31201498649は前段をPASS後にgeneric LATEで安全停止し、CHG-F005-039複合条件不一致を確定。candidate保存/branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-114 CHG-F005-040 late candidate最初不一致軸設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 7000
+  note: 当初6軸案のSAME_LEASEはproduction遷移上到達不能と独立レビューで検出。5軸×write/setinfoの10固定codeと2 MIXED_CAUSES、同一lease不変条件違反のgeneric fail-close、完全一致最優先、distinct集約による候補列挙順非依存へ是正。認可・state・生値公開・candidate/Pages条件は非変更
+- date: '2026-08-08'
+  phase: implement
+  task: T-114 CHG-F005-040 late candidate最初不一致軸実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 12000
+  note: immutable candidateの純粋分類・決定的集約、同一lease不変条件のgeneric fail-close、35 exact code同期を実装。native493件、関連Vitest57件、typecheck、ESLint、trace、再現build2回、public/data差分0、独立受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-114 CHG-F005-040 hosted再観測
+  model: GPT-5
+  agents: 1
+  est_tokens: 4000
+  note: commit c587926のnative probe 31205282610 SUCCESS。production 31205281066は`wav-validated`後にSETINFO_CURRENT_PATHを固定して安全停止。candidate保存/branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-115 CHG-F005-041 exact late current SetInfo専用handoff設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 8000
+  note: 単一SETINFO_CURRENT_PATHとcompleted record/seal不変tuple一致時だけ既存completed-write認可へ専用handoff。後者の2秒window・binding・current・identityを維持し、拒否後の他認可fall-throughを禁止。35 code・IPC・生値非公開・candidate/Pagesは非変更
+- date: '2026-08-08'
+  phase: implement
+  task: T-115 CHG-F005-041 exact late current SetInfo専用handoff実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 14000
+  note: 通常completionDrainSealと別outで単一SETINFO_CURRENT_PATHを既存completed-write認可へ引き渡し、拒否即returnとnormal OtherBound proof維持を実装。native511件、関連Vitest126件、型・ESLint・trace・再現build2回、pin、public/data差分0、独立受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-115 CHG-F005-041 hosted再観測
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: commit 2cec0bcのnative probe 31208446223 SUCCESS。production 31208447007は全前段とT-070 pipelineをPASSし、SETINFO_CURRENT_PATH通過後にSETINFO_SEAL_NOT_COMPLETED_RETAINEDで安全停止。candidate保存/branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-116 CHG-F005-042 completion-requested current SetInfo sealed post-request replay設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 10000
+  note: 非CompletedRetained late候補がproduction遷移上CompletionRequestedに限定されることを確認。単一SetInfo、current exact generation、completion後deadline内、record未作成だけをmarker付きSealedCurrent proof、retained identity/process signaled、atomic replayへ接続し、35 codeは非変更とする設計
+- date: '2026-08-08'
+  phase: implement
+  task: T-116 CHG-F005-042 completion-requested current SetInfo sealed post-request replay実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 16000
+  note: PostRequestSystemSetInfo marker、completion後deadline内境界、selection/recheck双方のrecord不存在、SealedCurrent proof・retained identity/process signaled・atomic replayを実装。native556件、関連Vitest126件、型・ESLint・trace・再現build2回、35 code、pin、public/data差分0、独立受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-116 CHG-F005-042 hosted再観測
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: commit 22b4649のnative probe 31211413009 SUCCESS。production 31211412904は全前段とT-070 pipelineをPASSし、SETINFO_SEAL_NOT_COMPLETED_RETAINED通過後にWRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONで安全停止。candidate保存/branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-117 CHG-F005-043 active producer birth境界診断設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 8000
+  note: WRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONはactive producer birth前なら旧seal候補、birth後なら新producer由来を排除できないため認可せず固定4 codeへ分離。immutable registered process recordを正本とし可変PID birth map・生値公開・state変更を禁止
+- date: '2026-08-08'
+  phase: implement
+  task: T-117 CHG-F005-043 active producer birth境界診断実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 15000
+  note: exact WRITE_AT_OR_BEFORE_ACTIVE_RESERVATIONだけをimmutable start key recordでmissing/tuple/birth同値以前/birth後の4 codeへ分類。native573件、関連Vitest128件、型・ESLint・trace・再現build2回、39 code、pin、public/data差分0、独立受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-117 CHG-F005-043 hosted 3 attempt
+  model: GPT-5
+  agents: 1
+  est_tokens: 9000
+  note: native probe 31213661618 SUCCESS。productionはattempt 1でACTIVE_LEASE_MISSING、attempt 2/3でPOST_RESERVATION_WRITEへ安全停止し対象bucketへ未到達。全attempt candidate/branch/Pages deployなし。Q-038へエスカレーション
+- date: '2026-08-08'
+  phase: change
+  task: T-118 CHG-F005-044 post-reservation parent write handoff設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 10000
+  note: 単一exact旧seal post-reservation writeを旧sealで認可せず、別active lease・same parent・予約後・unbound完全条件で既存bound/after directory認可だけへ専用handoffする設計。拒否時他認可fall-through禁止、旧seal proof/replay/EventCount 0、39 code非変更
+- date: '2026-08-08'
+  phase: implement
+  task: T-118 CHG-F005-044 active directory限定handoff実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 16000
+  note: exact POST_RESERVATION_WRITEだけを既存bound/after directory認可へ排他的にhandoff。Preflight/Applyのcontext排他とtuple/process再検査を固定し、native593件、関連Vitest128件、型・ESLint・trace・再現build2回、独立受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-118 CHG-F005-044 hosted再観測
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: commit b45db80のnative probe 31217392190 SUCCESS。production 31217391262はhandoff通過後にACTIVE_PRODUCER_RECORD_MISSINGへ安全停止しT-117/T-118を完了。candidate branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-119 CHG-F005-045 active lease予約時producer birth snapshot診断設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: registered worker record欠落を認可せず、ReserveWrite時のproducer handle tupleとETW birth recordをimmutable lease snapshotへ凍結し、欠落/tuple/birth以前/birth後の4 codeへ固定分類する設計
+- date: '2026-08-08'
+  phase: implement
+  task: T-119 CHG-F005-045 producer birth snapshot診断実装
+  model: GPT-5
+  agents: 3
+  est_tokens: 17000
+  note: constructor-only scalar snapshot、legacy/fallback二段分類、initial/current予約二境界を実装。独立受入Medium 1件を是正し、native623件、関連Vitest128件、型・ESLint・trace・再現build2回、独立再受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-119 CHG-F005-045 hosted 3 attempt
+  model: GPT-5
+  agents: 1
+  est_tokens: 8000
+  note: native probe 31220780207 SUCCESS。attempt 1/2は既知POST_RESERVATION_WRITE、attempt 3 run 31221410484でRESERVATION_BIRTH_RECORD_MISSINGへ到達。candidate branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-120 CHG-F005-046 write予約前ProcessStart取込fence設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 10000
+  note: ReserveWrite成功前にMonitor.Waitでgateを有限解放し同一producer sequenceのProcessStart recordを待つ。観測後のphase/path/process/birth全再検査と4固定fail-closed codeを設計
+- date: '2026-08-08'
+  phase: implement
+  task: T-120 CHG-F005-046 ProcessStart取込fence実装・受入
+  model: GPT-5
+  agents: 3
+  est_tokens: 18000
+  note: 共有lifecycle/予約transaction、raw4 exact伝播、実Task/barrierを実装。独立受入Medium 2件を是正し、native666件、関連Vitest129件、型・ESLint・trace・再現build2回、独立再受入H/M/L 0をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-120 CHG-F005-046 hosted影響試験
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: native probe 31224657482 SUCCESS。production 31224657445は予約fence通過後ACTIVE_LEASE_MISSINGへ安全停止。candidate branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-121 CHG-F005-047 active lease欠落late directory write限定handoff設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 11000
+  note: 単一exact ACTIVE_LEASE_MISSINGだけを既存no-lease root directory完全認可へ接続し、OtherBound proofと専用contextでatomic適用前に全再検査する設計
+- date: '2026-08-08'
+  phase: implement
+  task: T-121 CHG-F005-047 no-lease root directory限定handoff実装・受入
+  model: GPT-5
+  agents: 3
+  est_tokens: 22000
+  note: production共有WriteCompletionReplayStore、専用context、実queue/ledger Task fixtureを実装。独立受入Medium 1件を是正し、native747件、関連Vitest132件、型・ESLint・trace・再現build2回をPASS
+- date: '2026-08-08'
+  phase: test
+  task: T-121 CHG-F005-047 hosted影響試験
+  model: GPT-5
+  agents: 1
+  est_tokens: 5000
+  note: native probe 31228015740 SUCCESS。production 31228038981はno-lease handoff通過後EVENT_TUPLE_MISMATCHへ安全停止。candidate branch/Pages deployなし
+- date: '2026-08-08'
+  phase: change
+  task: T-122 CHG-F005-048 event tuple mismatch発生源診断設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: generic EVENT_TUPLE_MISMATCHをlookup 3種とsealed recheck 3種へ固定分離し、completion-drain外部集合を49 codeへ同期する設計
+- date: '2026-08-08'
+  phase: test
+  task: T-122 CHG-F005-048 local受入・hosted 3 attempt
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: native772件・関連Vitest147件・独立受入H0/M0/L0。hosted対象未到達でQ-039へエスカレーション
+- date: '2026-08-08'
+  phase: change
+  task: T-123 CHG-F005-049 no-lease handoff候補多重性固定診断設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 10000
+  note: 初回H1/M2を反映し、同一ACTIVE_LEASE_MISSING late candidate 2件以上を認可非変更で固定分類
+- date: '2026-08-08'
+  phase: implement
+  task: T-123 CHG-F005-049 candidate多重性診断実装・受入
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: production共有cardinality規則、same-gate、50+4同期を実装。native784件・Vitest148件・独立受入H0/M0/L0
+- date: '2026-08-08'
+  phase: test
+  task: T-123 CHG-F005-049 hosted 3 attempt
+  model: GPT-5
+  agents: 1
+  est_tokens: 7000
+  note: native probe成功。3 attemptは既知active producer birth/post-reservation writeで対象未到達、Q-040へエスカレーション
+- date: '2026-08-08'
+  phase: change
+  task: T-124 CHG-F005-050 active-directory handoff候補多重性固定診断設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 9000
+  note: post-reservation write aggregateのcandidate 2件以上を認可非変更で固定分類
+- date: '2026-08-08'
+  phase: implement
+  task: T-124 CHG-F005-050 candidate多重性診断実装・受入
+  model: GPT-5
+  agents: 2
+  est_tokens: 18000
+  note: production共有cardinality規則、same-gate、51+4同期を実装。native799件・Vitest149件・独立受入H0/M0/L0
+- date: '2026-08-08'
+  phase: test
+  task: T-124 CHG-F005-050 hosted 2 attempt
+  model: GPT-5
+  agents: 1
+  est_tokens: 7000
+  note: native probe成功。attempt 1でCHG-F005-049、attempt 2でCHG-F005-050対象codeへ到達。candidate branch不存在・Pages deploy skip
+- date: '2026-08-08'
+  phase: change
+  task: Q-042回答処理とCHG-F005-052決定的hosted相関検証設計
+  model: GPT-5
+  agents: 2
+  est_tokens: 16000
+  note: Q-042をclosed、T-110をtodoへ戻し、T-126を生成。production共有規則のtarget suite、初回inspect throwを含む19 code、実load assembly SHA/MVID、runner image、同一source Pages deploy skip、read-only feature verificationとprotected default branch workflow_run publisherをFD/DD/UT/IT/QTへ反映。独立レビューH1/M4を全是正し最終H0/M0/L0
+- date: '2026-08-08'
+  phase: change
+  task: Q-044回答処理とCHG-F005-055決定的hosted相関検証設計
+  model: GPT-5
+  agents: 3
+  est_tokens: 14000
+  note: Q-044をclosed、T-109をtodoへ戻し、T-129を生成。production共有evaluator、固定14 stage、既存target無縮退、実load assembly SHA/MVID、同一source Pages deploy skipをFD/DD/UT/IT/QTへ反映。初回H1/M2、別観点M1、再レビューM1、影響文書M2を全是正し最終H0/M0/L0
 - date: '2026-08-13'
   phase: implement
   task: T-140/CHG-F005-068
