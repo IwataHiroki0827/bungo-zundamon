@@ -1,0 +1,8195 @@
+{
+  "extractorVersion": "1.0.0",
+  "result": {
+    "candidates": [
+      {
+        "contextAfter": "の見物は一度に限ると思う。\n\n　行ったのは着後間もないうちの事である。その頃は方角もよく分らんし、地理などは固より知らん。まるで",
+        "contextBefore": "あるがやめにした。人から誘われた事もあるが断った。一度で得た記憶を二返目に打壊わすのは惜しい、三たび目に拭い去るのはもっとも残念だ。",
+        "extractorVersion": "1.0.0",
+        "order": 0,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 110,
+          "start": 107
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 110,
+          "startToken": 107
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "を見物したのはあたかもこの方法に依らねば外出の出来ぬ時代の事と思う。来るに来所なく去るに去所を知らずと云うと禅語めくが、余はどの路を通",
+        "contextBefore": "ほかの人に尋ねる、何人でも合点の行く人に出逢うまでは捕えては聞き呼び掛けては聞く。かくしてようやくわが指定の地に至るのである。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 1,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 702,
+          "start": 699
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 702,
+          "startToken": 699
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "に着したかまたいかなる町を横ぎって吾家に帰ったかいまだに判然しない。どう考えても思い出せぬ。ただ「塔」を見物しただけはたしかである",
+        "contextBefore": "物したのはあたかもこの方法に依らねば外出の出来ぬ時代の事と思う。来るに来所なく去るに去所を知らずと云うと禅語めくが、余はどの路を通って",
+        "extractorVersion": "1.0.0",
+        "order": 2,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 771,
+          "start": 768
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 771,
+          "startToken": 768
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "を見物しただけはたしかである。「塔」その物の光景は今でもありありと眼に浮べる事が出来る。前はと問われると困る、後はと尋ねられても",
+        "contextBefore": "禅語めくが、余はどの路を通って「塔」に着したかまたいかなる町を横ぎって吾家に帰ったかいまだに判然しない。どう考えても思い出せぬ。ただ",
+        "extractorVersion": "1.0.0",
+        "order": 3,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 821,
+          "start": 818
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 821,
+          "startToken": 818
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "その物の光景は今でもありありと眼に浮べる事が出来る。前はと問われると困る、後はと尋ねられても返答し得ぬ。ただ前を忘れ後を失したる",
+        "contextBefore": "着したかまたいかなる町を横ぎって吾家に帰ったかいまだに判然しない。どう考えても思い出せぬ。ただ「塔」を見物しただけはたしかである。",
+        "extractorVersion": "1.0.0",
+        "order": 4,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 839,
+          "start": 836
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 839,
+          "startToken": 836
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "に似たものは出来上りはしまいかと考えた。余はまだ眺めている。セピヤ色の水分をもって飽和したる空気の中にぼんやり立って眺めている。二",
+        "contextBefore": "陰気な灰色をして前世紀の紀念を永劫に伝えんと誓えるごとく見える。九段の遊就館を石で造って二三十並べてそうしてそれを虫眼鏡で覗いたらあるいはこの",
+        "extractorVersion": "1.0.0",
+        "order": 5,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 1703,
+          "start": 1700
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 1703,
+          "startToken": 1700
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "\n\n弟は世に憐れなる声にて「アーメン」と云う。折から遠くより吹く木枯しの高き塔を撼がして一度びは壁も落つるばかりにゴーと鳴る。弟はひ",
+        "contextBefore": "眉根鼻付から衣装の末に至るまで両人共ほとんど同じように見えるのは兄弟だからであろう。\n\n　兄が優しく清らかな声で膝の上なる書物を読む。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 6,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4340,
+          "start": 4277
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4340,
+          "startToken": 4277
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "我"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "眼"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "前"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "死"
+          },
+          {
+            "type": "text",
+            "value": "ぬ"
+          },
+          {
+            "type": "text",
+            "value": "べ"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "折"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "様"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "想",
+            "reading": "おも",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "見"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "base": "幸",
+            "reading": "さち",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "毎"
+          },
+          {
+            "type": "text",
+            "value": "夜"
+          },
+          {
+            "type": "text",
+            "value": "毎"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "死"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "願"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "神"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "前"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "行"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "吾"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "何"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "恐"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う。折から遠くより吹く木枯しの高き塔を撼がして一度びは壁も落つるばかりにゴーと鳴る。弟はひたと身を寄せて兄の肩に顔をすりつける。",
+        "contextBefore": "べき折の様を想い見る人こそ幸あれ。日毎夜毎に死なんと願え。やがては神の前に行くなる吾の何を恐るる……」\n\n弟は世に憐れなる声にて",
+        "extractorVersion": "1.0.0",
+        "order": 7,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4359,
+          "start": 4353
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4359,
+          "startToken": 4353
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ア"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "メ"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "\n\n弟また「アーメン」と云う。その声は顫えている。兄は静かに書をふせて、かの小さき窓の方へ歩みよりて外の面を見ようとする。窓が高",
+        "contextBefore": "ばかりにゴーと鳴る。弟はひたと身を寄せて兄の肩に顔をすりつける。雪のごとく白い蒲団の一部がほかと膨れ返る。兄はまた読み初める。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 8,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4507,
+          "start": 4455
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4507,
+          "startToken": 4455
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "朝"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ば"
+          },
+          {
+            "type": "text",
+            "value": "夜"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "前"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "死"
+          },
+          {
+            "type": "text",
+            "value": "ぬ"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "思"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "夜"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ば"
+          },
+          {
+            "base": "翌日",
+            "reading": "あす",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "頼"
+          },
+          {
+            "type": "text",
+            "value": "む"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "覚"
+          },
+          {
+            "type": "text",
+            "value": "悟"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "base": "尊",
+            "reading": "とうと",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "べ"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "見"
+          },
+          {
+            "type": "text",
+            "value": "苦"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "死"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "base": "様",
+            "reading": "ざま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ぞ"
+          },
+          {
+            "type": "text",
+            "value": "恥"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "極"
+          },
+          {
+            "type": "text",
+            "value": "み"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う。その声は顫えている。兄は静かに書をふせて、かの小さき窓の方へ歩みよりて外の面を見ようとする。窓が高くて背が足りぬ。床几を持",
+        "contextBefore": "み初める。\n\n「朝ならば夜の前に死ぬと思え。夜ならば翌日ありと頼むな。覚悟をこそ尊べ。見苦しき死に様ぞ恥の極みなる……」\n\n弟また",
+        "extractorVersion": "1.0.0",
+        "order": 9,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4518,
+          "start": 4512
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4518,
+          "startToken": 4512
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ア"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "メ"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と弟を顧みる。弟はただ「寒い」と答える。「命さえ助けてくるるなら伯父様に王の位を進ぜるものを」と兄が独り言のようにつぶやく。弟は",
+        "contextBefore": "が足りぬ。床几を持って来てその上につまだつ。百里をつつむ黒霧の奥にぼんやりと冬の日が写る。屠れる犬の生血にて染め抜いたようである。兄は",
+        "extractorVersion": "1.0.0",
+        "order": 10,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4653,
+          "start": 4638
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4653,
+          "startToken": 4638
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "今日",
+            "reading": "きょう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "暮"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と答える。「命さえ助けてくるるなら伯父様に王の位を進ぜるものを」と兄が独り言のようにつぶやく。弟は「母様に逢いたい」とのみ云う。こ",
+        "contextBefore": "む黒霧の奥にぼんやりと冬の日が写る。屠れる犬の生血にて染め抜いたようである。兄は「今日もまたこうして暮れるのか」と弟を顧みる。弟はただ",
+        "extractorVersion": "1.0.0",
+        "order": 11,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4668,
+          "start": 4664
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4668,
+          "startToken": 4664
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "寒"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と兄が独り言のようにつぶやく。弟は「母様に逢いたい」とのみ云う。この時向うに掛っているタペストリに織り出してある女神の裸体像が風もな",
+        "contextBefore": "と冬の日が写る。屠れる犬の生血にて染め抜いたようである。兄は「今日もまたこうして暮れるのか」と弟を顧みる。弟はただ「寒い」と答える。",
+        "extractorVersion": "1.0.0",
+        "order": 12,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4700,
+          "start": 4673
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4700,
+          "startToken": 4673
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "命"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "助"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "伯"
+          },
+          {
+            "type": "text",
+            "value": "父"
+          },
+          {
+            "type": "text",
+            "value": "様"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "王"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "位"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "進"
+          },
+          {
+            "type": "text",
+            "value": "ぜ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "とのみ云う。この時向うに掛っているタペストリに織り出してある女神の裸体像が風もないのに二三度ふわりふわりと動く。\n\n　忽然舞台が廻る",
+        "contextBefore": "と弟を顧みる。弟はただ「寒い」と答える。「命さえ助けてくるるなら伯父様に王の位を進ぜるものを」と兄が独り言のようにつぶやく。弟は",
+        "extractorVersion": "1.0.0",
+        "order": 13,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4725,
+          "start": 4717
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4725,
+          "startToken": 4717
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "母様",
+            "reading": "ははさま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "base": "逢",
+            "reading": "あ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と女が問う。\n\n「否」と気の毒そうに男が答える。「逢わせまつらんと思えど、公けの掟なればぜひなしと諦めたまえ。私の情売るは安き間",
+        "contextBefore": "ことなく品格のよい気高い婦人である。やがて錠のきしる音がしてぎいと扉が開くと内から一人の男が出て来て恭しく婦人の前に礼をする。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 14,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4909,
+          "start": 4898
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4909,
+          "startToken": 4898
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "逢"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "許"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と気の毒そうに男が答える。「逢わせまつらんと思えど、公けの掟なればぜひなしと諦めたまえ。私の情売るは安き間の事にてあれど」と急に",
+        "contextBefore": "て錠のきしる音がしてぎいと扉が開くと内から一人の男が出て来て恭しく婦人の前に礼をする。\n\n「逢う事を許されてか」と女が問う。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 15,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4920,
+          "start": 4917
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4920,
+          "startToken": 4917
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "否",
+            "reading": "いな",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と急に口を緘みてあたりを見渡す。濠の内からかいつぶりがひょいと浮き上る。\n\n　女は頸に懸けたる金の鎖を解いて男に与えて「ただ束の",
+        "contextBefore": "くと内から一人の男が出て来て恭しく婦人の前に礼をする。\n\n「逢う事を許されてか」と女が問う。\n\n「否」と気の毒そうに男が答える。",
+        "extractorVersion": "1.0.0",
+        "order": 16,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 4981,
+          "start": 4933
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 4981,
+          "startToken": 4933
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "逢"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "思"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "ど"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "公"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "掟",
+            "reading": "おきて",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "ば"
+          },
+          {
+            "type": "text",
+            "value": "ぜ"
+          },
+          {
+            "type": "text",
+            "value": "ひ"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "base": "諦",
+            "reading": "あきら",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "め"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "base": "私",
+            "reading": "わたくし",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "情",
+            "reading": "なさけ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "売"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "安"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "base": "間",
+            "reading": "ま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "ど"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う。\n\n　男は鎖りを指の先に巻きつけて思案の体である。かいつぶりはふいと沈む。ややありていう「牢守りは牢の掟を破りがたし。御子ら",
+        "contextBefore": "てあれど」と急に口を緘みてあたりを見渡す。濠の内からかいつぶりがひょいと浮き上る。\n\n　女は頸に懸けたる金の鎖を解いて男に与えて",
+        "extractorVersion": "1.0.0",
+        "order": 17,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5072,
+          "start": 5040
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5072,
+          "startToken": 5040
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "base": "束",
+            "reading": "つか",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "間",
+            "reading": "ま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "垣間",
+            "reading": "かいま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "見"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "願"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "base": "女人",
+            "reading": "にょにん",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "頼"
+          },
+          {
+            "type": "text",
+            "value": "み"
+          },
+          {
+            "type": "text",
+            "value": "引"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "受"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "ぬ"
+          },
+          {
+            "type": "text",
+            "value": "君"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と金の鎖りを押戻す。女は身動きもせぬ。鎖ばかりは敷石の上に落ちて鏘然と鳴る。\n\n「いかにしても逢う事は叶わずや」と女が尋ねる。\n\n",
+        "contextBefore": "女人の頼み引き受けぬ君はつれなし」と云う。\n\n　男は鎖りを指の先に巻きつけて思案の体である。かいつぶりはふいと沈む。ややありていう",
+        "extractorVersion": "1.0.0",
+        "order": 18,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5170,
+          "start": 5120
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5170,
+          "startToken": 5120
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "牢守",
+            "reading": "ろうも",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "牢"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "掟",
+            "reading": "おきて",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "破"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "base": "御子",
+            "reading": "みこ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "変"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "月"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "過"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "心"
+          },
+          {
+            "type": "text",
+            "value": "安"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "base": "覚",
+            "reading": "おぼ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "帰"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と女が尋ねる。\n\n「御気の毒なれど」と牢守が云い放つ。\n\n「黒き塔の影、堅き塔の壁、寒き塔の人」と云いながら女はさめざめと泣く。\n",
+        "contextBefore": "やかに月日を過させたもう。心安く覚して帰りたまえ」と金の鎖りを押戻す。女は身動きもせぬ。鎖ばかりは敷石の上に落ちて鏘然と鳴る。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 19,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5225,
+          "start": 5209
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5225,
+          "startToken": 5209
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "逢"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "base": "叶",
+            "reading": "かな",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "ず"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と牢守が云い放つ。\n\n「黒き塔の影、堅き塔の壁、寒き塔の人」と云いながら女はさめざめと泣く。\n\n　舞台がまた変る。\n\n　丈の高い黒装束",
+        "contextBefore": "と金の鎖りを押戻す。女は身動きもせぬ。鎖ばかりは敷石の上に落ちて鏘然と鳴る。\n\n「いかにしても逢う事は叶わずや」と女が尋ねる。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 20,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5243,
+          "start": 5234
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5243,
+          "startToken": 5234
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "御"
+          },
+          {
+            "type": "text",
+            "value": "気"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "毒"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "ど"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云いながら女はさめざめと泣く。\n\n　舞台がまた変る。\n\n　丈の高い黒装束の影が一つ中庭の隅にあらわれる。苔寒き石壁の中からスーと抜",
+        "contextBefore": "鎖ばかりは敷石の上に落ちて鏘然と鳴る。\n\n「いかにしても逢う事は叶わずや」と女が尋ねる。\n\n「御気の毒なれど」と牢守が云い放つ。\n\n",
+        "extractorVersion": "1.0.0",
+        "order": 21,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5272,
+          "start": 5253
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5272,
+          "startToken": 5253
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "黒"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "影"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "堅"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "壁"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "寒"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "塔"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と背の高いのが云う。「昼の世界に顔は出せぬ」と一人が答える。「人殺しも多くしたが今日ほど寝覚の悪い事はまたとあるまい」と高き影が低",
+        "contextBefore": "と霧との境に立って朦朧とあたりを見廻す。しばらくすると同じ黒装束の影がまた一つ陰の底から湧いて出る。櫓の角に高くかかる星影を仰いで",
+        "extractorVersion": "1.0.0",
+        "order": 22,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5419,
+          "start": 5412
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5419,
+          "startToken": 5412
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "暮"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と一人が答える。「人殺しも多くしたが今日ほど寝覚の悪い事はまたとあるまい」と高き影が低い方を向く。「タペストリの裏で二人の話しを立",
+        "contextBefore": "す。しばらくすると同じ黒装束の影がまた一つ陰の底から湧いて出る。櫓の角に高くかかる星影を仰いで「日は暮れた」と背の高いのが云う。",
+        "extractorVersion": "1.0.0",
+        "order": 23,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5441,
+          "start": 5429
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5441,
+          "startToken": 5429
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "昼"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "世"
+          },
+          {
+            "type": "text",
+            "value": "界"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "顔"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "出"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ぬ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と高き影が低い方を向く。「タペストリの裏で二人の話しを立ち聞きした時は、いっその事止めて帰ろうかと思うた」と低いのが正直に云う。",
+        "contextBefore": "つ陰の底から湧いて出る。櫓の角に高くかかる星影を仰いで「日は暮れた」と背の高いのが云う。「昼の世界に顔は出せぬ」と一人が答える。",
+        "extractorVersion": "1.0.0",
+        "order": 24,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5477,
+          "start": 5449
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5477,
+          "startToken": 5449
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "殺"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "多"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "今"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "ほ"
+          },
+          {
+            "type": "text",
+            "value": "ど"
+          },
+          {
+            "base": "寝覚",
+            "reading": "ねざめ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "悪"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と低いのが正直に云う。「絞める時、花のような唇がぴりぴりと顫うた」「透き通るような額に紫色の筋が出た」「あの唸った声がまだ耳に付",
+        "contextBefore": "が云う。「昼の世界に顔は出せぬ」と一人が答える。「人殺しも多くしたが今日ほど寝覚の悪い事はまたとあるまい」と高き影が低い方を向く。",
+        "extractorVersion": "1.0.0",
+        "order": 25,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5530,
+          "start": 5489
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5530,
+          "startToken": 5489
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "タ"
+          },
+          {
+            "type": "text",
+            "value": "ペ"
+          },
+          {
+            "type": "text",
+            "value": "ス"
+          },
+          {
+            "type": "text",
+            "value": "ト"
+          },
+          {
+            "type": "text",
+            "value": "リ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "裏",
+            "reading": "うら",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "二"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "話"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "立"
+          },
+          {
+            "type": "text",
+            "value": "ち"
+          },
+          {
+            "type": "text",
+            "value": "聞"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "時"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "base": "止",
+            "reading": "や",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "め"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "帰"
+          },
+          {
+            "type": "text",
+            "value": "ろ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "思"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "「透き通るような額に紫色の筋が出た」「あの唸った声がまだ耳に付いている」。黒い影が再び黒い夜の中に吸い込まれる時櫓の上で時計の音",
+        "contextBefore": "と高き影が低い方を向く。「タペストリの裏で二人の話しを立ち聞きした時は、いっその事止めて帰ろうかと思うた」と低いのが正直に云う。",
+        "extractorVersion": "1.0.0",
+        "order": 26,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5563,
+          "start": 5541
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5563,
+          "startToken": 5541
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "絞",
+            "reading": "し",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "め"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "時"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "花"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "base": "唇",
+            "reading": "くちびる",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "ぴ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ぴ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "base": "顫",
+            "reading": "ふる",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "「あの唸った声がまだ耳に付いている」。黒い影が再び黒い夜の中に吸い込まれる時櫓の上で時計の音ががあんと鳴る。\n\n　空想は時計の音",
+        "contextBefore": "人の話しを立ち聞きした時は、いっその事止めて帰ろうかと思うた」と低いのが正直に云う。「絞める時、花のような唇がぴりぴりと顫うた」",
+        "extractorVersion": "1.0.0",
+        "order": 27,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5581,
+          "start": 5563
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5581,
+          "startToken": 5563
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "透",
+            "reading": "す",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "通"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "base": "額",
+            "reading": "ひたい",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "紫"
+          },
+          {
+            "type": "text",
+            "value": "色"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "筋"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "出"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "。黒い影が再び黒い夜の中に吸い込まれる時櫓の上で時計の音ががあんと鳴る。\n\n　空想は時計の音と共に破れる。石像のごとく立っていた",
+        "contextBefore": "事止めて帰ろうかと思うた」と低いのが正直に云う。「絞める時、花のような唇がぴりぴりと顫うた」「透き通るような額に紫色の筋が出た」",
+        "extractorVersion": "1.0.0",
+        "order": 28,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 5599,
+          "start": 5581
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 5599,
+          "startToken": 5581
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "唸",
+            "reading": "うな",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "声"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "耳"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "付"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と。さて先王の運命は何人も知る者がなかった。その死骸がポント・フラクト城より移されて聖ポール寺に着した時、二万の群集は彼の屍を繞っ",
+        "contextBefore": "、法士の前に立って彼が天下に向って譲位を宣告したのはこの塔中である。その時譲りを受けたるヘンリーは起って十字を額と胸に画して云う",
+        "extractorVersion": "1.0.0",
+        "order": 29,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 6017,
+          "start": 5953
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 6017,
+          "startToken": 5953
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "父"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "子"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "聖"
+          },
+          {
+            "type": "text",
+            "value": "霊"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "名"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "我"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "ヘ"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "リ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "大"
+          },
+          {
+            "type": "text",
+            "value": "英"
+          },
+          {
+            "type": "text",
+            "value": "国"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "王"
+          },
+          {
+            "type": "text",
+            "value": "冠"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "御"
+          },
+          {
+            "type": "text",
+            "value": "代"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "正"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "血"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "恵"
+          },
+          {
+            "type": "text",
+            "value": "み"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "神"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "親"
+          },
+          {
+            "type": "text",
+            "value": "愛"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "友"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "援",
+            "reading": "たすけ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "藉",
+            "reading": "か",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "base": "襲",
+            "reading": "つ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ぎ"
+          },
+          {
+            "type": "text",
+            "value": "受"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と。いずれにしてもありがたくない。帝王の歴史は悲惨の歴史である。\n\n　階下の一室は昔しオルター・ロリーが幽囚の際万国史の草を記した所だ",
+        "contextBefore": "を奪いて一人を斬り二人を倒した。されどもエクストンが背後より下せる一撃のためについに恨を呑んで死なれたと。ある者は天を仰いで云う",
+        "extractorVersion": "1.0.0",
+        "order": 30,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 6226,
+          "start": 6192
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 6226,
+          "startToken": 6192
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ず"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ず"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "リ"
+          },
+          {
+            "type": "text",
+            "value": "チ"
+          },
+          {
+            "type": "text",
+            "value": "ャ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "base": "断食",
+            "reading": "だんじき",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "base": "自",
+            "reading": "みずか",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "命"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "根"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "じ"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と微笑しながら尋ねる。余は現今の英国人と話をしている気がしない。彼が三四百年の昔からちょっと顔を出したかまたは余が急に三四百年の",
+        "contextBefore": "うな槍をもつ。そのビーフ・イーターの一人が余の後ろに止まった。彼はあまり背の高くない、肥り肉の白髯の多いビーフ・イーターであった。",
+        "extractorVersion": "1.0.0",
+        "order": 31,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7015,
+          "start": 6998
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7015,
+          "startToken": 6998
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "本"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と珍らしそうに云う。それから「鴉が寒むそうだから、麺麭をやりたい」とねだる。女は静かに「あの鴉は何にもたべたがっていやしません」と",
+        "contextBefore": "ている。希臘風の鼻と、珠を溶いたようにうるわしい目と、真白な頸筋を形づくる曲線のうねりとが少からず余の心を動かした。小供は女を見上げて",
+        "extractorVersion": "1.0.0",
+        "order": 32,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7696,
+          "start": 7689
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7696,
+          "startToken": 7689
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "鴉",
+            "reading": "からす",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "とねだる。女は静かに「あの鴉は何にもたべたがっていやしません」と云う。小供は「なぜ」と聞く。女は長い睫の奥に漾うているような眼で",
+        "contextBefore": "い目と、真白な頸筋を形づくる曲線のうねりとが少からず余の心を動かした。小供は女を見上げて「鴉が、鴉が」と珍らしそうに云う。それから",
+        "extractorVersion": "1.0.0",
+        "order": 33,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7728,
+          "start": 7710
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7728,
+          "startToken": 7710
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "base": "寒",
+            "reading": "さ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "む"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "base": "麺麭",
+            "reading": "パン",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う。小供は「なぜ」と聞く。女は長い睫の奥に漾うているような眼で鴉を見詰めながら「あの鴉は五羽います」といったぎり小供の問には",
+        "contextBefore": "を動かした。小供は女を見上げて「鴉が、鴉が」と珍らしそうに云う。それから「鴉が寒むそうだから、麺麭をやりたい」とねだる。女は静かに",
+        "extractorVersion": "1.0.0",
+        "order": 34,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7759,
+          "start": 7738
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7759,
+          "startToken": 7738
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "何"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "べ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と聞く。女は長い睫の奥に漾うているような眼で鴉を見詰めながら「あの鴉は五羽います」といったぎり小供の問には答えない。何か独りで考",
+        "contextBefore": "に云う。それから「鴉が寒むそうだから、麺麭をやりたい」とねだる。女は静かに「あの鴉は何にもたべたがっていやしません」と云う。小供は",
+        "extractorVersion": "1.0.0",
+        "order": 35,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7770,
+          "start": 7766
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7770,
+          "startToken": 7766
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ぜ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "といったぎり小供の問には答えない。何か独りで考えているかと思わるるくらい澄している。余はこの女とこの鴉の間に何か不思議の因縁でもあ",
+        "contextBefore": "かに「あの鴉は何にもたべたがっていやしません」と云う。小供は「なぜ」と聞く。女は長い睫の奥に漾うているような眼で鴉を見詰めながら",
+        "extractorVersion": "1.0.0",
+        "order": 36,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 7811,
+          "start": 7800
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 7811,
+          "startToken": 7800
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "五"
+          },
+          {
+            "type": "text",
+            "value": "羽"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と刻されたのはパスリユという坊様の句だ。このパスリユは千五百三十七年に首を斬られた。その傍に JOHAN DECKER と云う署名",
+        "contextBefore": "描いてその内部に読み難き句を残している。書体の異なるように言語もまた決して一様でない。英語はもちろんの事、以太利語も羅甸語もある。左り側に",
+        "extractorVersion": "1.0.0",
+        "order": 37,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 8729,
+          "start": 8719
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 8729,
+          "startToken": 8719
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "我"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "望"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "base": "基督",
+            "reading": "キリスト",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "。次には「すべての人を尊べ。衆生をいつくしめ。神を恐れよ。王を敬え」とある。\n\n　こんなものを書く人の心の中はどのようであったろう",
+        "contextBefore": "右の端に十字架を描いて心臓を飾りつけ、その脇に骸骨と紋章を彫り込んである。少し行くと盾の中に下のような句をかき入れたのが目につく。",
+        "extractorVersion": "1.0.0",
+        "order": 38,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 8986,
+          "start": 8942
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 8986,
+          "startToken": 8942
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "運"
+          },
+          {
+            "type": "text",
+            "value": "命"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "空"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "我"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "心"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "風"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "訴"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "む"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "時"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "base": "摧",
+            "reading": "くだ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "星"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "悲"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "とある。\n\n　こんなものを書く人の心の中はどのようであったろうと想像して見る。およそ世の中に何が苦しいと云って所在のないほどの苦",
+        "contextBefore": "うな句をかき入れたのが目につく。「運命は空しく我をして心なき風に訴えしむ。時も摧けよ。わが星は悲かれ、われにつれなかれ」。次には",
+        "extractorVersion": "1.0.0",
+        "order": 39,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 9019,
+          "start": 8990
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 9019,
+          "startToken": 8990
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "べ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "尊",
+            "reading": "とうと",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "べ"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "base": "衆生",
+            "reading": "しゅじょう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "め"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "神"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "恐"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "王"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "敬",
+            "reading": "うやま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と髯がいう。「そうさ、斧を磨ぐだけでも骨が折れるわ」と歌の主が答える。これは背の低い眼の凹んだ煤色の男である。「昨日は美しいのをやっ",
+        "contextBefore": "ま立って砥の転るのを見ている。髯の中から顔が出ていてその半面をカンテラが照らす。照らされた部分が泥だらけの人参のような色に見える。",
+        "extractorVersion": "1.0.0",
+        "order": 40,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10443,
+          "start": 10415
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10443,
+          "startToken": 10415
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "毎"
+          },
+          {
+            "type": "text",
+            "value": "日"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "舟"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "送"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "来"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "base": "首斬",
+            "reading": "くびき",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "役"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "base": "繁昌",
+            "reading": "はんじょう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と歌の主が答える。これは背の低い眼の凹んだ煤色の男である。「昨日は美しいのをやったなあ」と髯が惜しそうにいう。「いや顔は美しいが頸の",
+        "contextBefore": "ラが照らす。照らされた部分が泥だらけの人参のような色に見える。「こう毎日のように舟から送って来ては、首斬り役も繁昌だのう」と髯がいう。",
+        "extractorVersion": "1.0.0",
+        "order": 41,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10469,
+          "start": 10449
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10469,
+          "startToken": 10449
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "斧"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "磨",
+            "reading": "と",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ぐ"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "骨"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "折"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と髯が惜しそうにいう。「いや顔は美しいが頸の骨は馬鹿に堅い女だった。御蔭でこの通り刃が一分ばかりかけた」とやけに轆轤を転ばす、シ",
+        "contextBefore": "、首斬り役も繁昌だのう」と髯がいう。「そうさ、斧を磨ぐだけでも骨が折れるわ」と歌の主が答える。これは背の低い眼の凹んだ煤色の男である。",
+        "extractorVersion": "1.0.0",
+        "order": 42,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10511,
+          "start": 10497
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10511,
+          "startToken": 10497
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "昨日",
+            "reading": "きのう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "美"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "とやけに轆轤を転ばす、シュシュシュと鳴る間から火花がピチピチと出る。磨ぎ手は声を張り揚げて歌い出す。\n\n　　切れぬはずだよ女の頸",
+        "contextBefore": "だけでも骨が折れるわ」と歌の主が答える。これは背の低い眼の凹んだ煤色の男である。「昨日は美しいのをやったなあ」と髯が惜しそうにいう。",
+        "extractorVersion": "1.0.0",
+        "order": 43,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10563,
+          "start": 10522
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10563,
+          "startToken": 10522
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "顔"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "美"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "base": "頸",
+            "reading": "くび",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "骨"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "馬"
+          },
+          {
+            "type": "text",
+            "value": "鹿"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "堅"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "女"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "御"
+          },
+          {
+            "type": "text",
+            "value": "蔭"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "通"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "刃"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "一"
+          },
+          {
+            "type": "text",
+            "value": "分"
+          },
+          {
+            "type": "text",
+            "value": "ば"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "とややありて髯が質問する。「あすは例の婆様の番さ」と平気に答える。\n\n\n生える白髪を浮気が染める、骨を斬られりゃ血が染める。\n\n\n\nと",
+        "contextBefore": "\n\nシュシュシュと鳴る音のほかには聴えるものもない。カンテラの光りが風に煽られて磨ぎ手の右の頬を射る。煤の上に朱を流したようだ。",
+        "extractorVersion": "1.0.0",
+        "order": 44,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10713,
+          "start": 10703
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10713,
+          "startToken": 10703
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "誰"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "番"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と平気に答える。\n\n\n生える白髪を浮気が染める、骨を斬られりゃ血が染める。\n\n\n\nと高調子に歌う。シュシュシュと轆轤が回わる、ピチピチと火",
+        "contextBefore": "ない。カンテラの光りが風に煽られて磨ぎ手の右の頬を射る。煤の上に朱を流したようだ。「あすは誰の番かな」とややありて髯が質問する。",
+        "extractorVersion": "1.0.0",
+        "order": 45,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10737,
+          "start": 10726
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10737,
+          "startToken": 10726
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "例"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "婆様",
+            "reading": "ばあさま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "番"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と斧を振り翳して灯影に刃を見る。「婆様ぎりか、ほかに誰もいないか」と髯がまた問をかける。「それから例のがやられる」「気の毒な、もうや",
+        "contextBefore": "える。\n\n\n生える白髪を浮気が染める、骨を斬られりゃ血が染める。\n\n\n\nと高調子に歌う。シュシュシュと轆轤が回わる、ピチピチと火花が出る。",
+        "extractorVersion": "1.0.0",
+        "order": 46,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10818,
+          "start": 10806
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10818,
+          "startToken": 10806
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ア"
+          },
+          {
+            "type": "text",
+            "value": "ハ"
+          },
+          {
+            "type": "text",
+            "value": "ハ"
+          },
+          {
+            "type": "text",
+            "value": "ハ"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "base": "善",
+            "reading": "よ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ろ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と髯がまた問をかける。「それから例のがやられる」「気の毒な、もうやるか、可愛相にのう」といえば、「気の毒じゃが仕方がないわ」と真黒な",
+        "contextBefore": "める。\n\n\n\nと高調子に歌う。シュシュシュと轆轤が回わる、ピチピチと火花が出る。「アハハハもう善かろう」と斧を振り翳して灯影に刃を見る。",
+        "extractorVersion": "1.0.0",
+        "order": 47,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10849,
+          "start": 10833
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10849,
+          "startToken": 10833
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "婆様",
+            "reading": "ばあさま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ぎ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "ほ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "誰"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "「気の毒な、もうやるか、可愛相にのう」といえば、「気の毒じゃが仕方がないわ」と真黒な天井を見て嘯く。\n\n　たちまち窖も首斬りもカンテ",
+        "contextBefore": "チピチと火花が出る。「アハハハもう善かろう」と斧を振り翳して灯影に刃を見る。「婆様ぎりか、ほかに誰もいないか」と髯がまた問をかける。",
+        "extractorVersion": "1.0.0",
+        "order": 48,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10873,
+          "start": 10860
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10873,
+          "startToken": 10860
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "例"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "といえば、「気の毒じゃが仕方がないわ」と真黒な天井を見て嘯く。\n\n　たちまち窖も首斬りもカンテラも一度に消えて余はボーシャン塔の",
+        "contextBefore": "ハハもう善かろう」と斧を振り翳して灯影に刃を見る。「婆様ぎりか、ほかに誰もいないか」と髯がまた問をかける。「それから例のがやられる」",
+        "extractorVersion": "1.0.0",
+        "order": 49,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10890,
+          "start": 10873
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10890,
+          "startToken": 10873
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "気"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "毒"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "や"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "base": "可愛相",
+            "reading": "かわいそう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と真黒な天井を見て嘯く。\n\n　たちまち窖も首斬りもカンテラも一度に消えて余はボーシャン塔の真中に茫然と佇んでいる。ふと気がついて見る",
+        "contextBefore": "る。「婆様ぎりか、ほかに誰もいないか」と髯がまた問をかける。「それから例のがやられる」「気の毒な、もうやるか、可愛相にのう」といえば、",
+        "extractorVersion": "1.0.0",
+        "order": 50,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 10909,
+          "start": 10895
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 10909,
+          "startToken": 10895
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "気"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "毒"
+          },
+          {
+            "type": "text",
+            "value": "じ"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "仕"
+          },
+          {
+            "type": "text",
+            "value": "方"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と驚いたように云う。女は例のごとく過去の権化と云うべきほどの屹とした口調で「犬ではありません。左りが熊、右が獅子でこれはダッドレー家の",
+        "contextBefore": "る。ふと気がついて見ると傍に先刻鴉に麺麭をやりたいと云った男の子が立っている。例の怪しい女ももとのごとくついている。男の子が壁を見て",
+        "extractorVersion": "1.0.0",
+        "order": 51,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11039,
+          "start": 11026
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11039,
+          "startToken": 11026
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "犬"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と答える。実のところ余も犬か豚だと思っていたのであるから、今この女の説明を聞いてますます不思議な女だと思う。そう云えば今ダッドレ",
+        "contextBefore": "とくついている。男の子が壁を見て「あそこに犬がかいてある」と驚いたように云う。女は例のごとく過去の権化と云うべきほどの屹とした口調で",
+        "extractorVersion": "1.0.0",
+        "order": 52,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11108,
+          "start": 11074
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11108,
+          "startToken": 11074
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "犬"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "左"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "熊"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "右"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "base": "獅子",
+            "reading": "しし",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "ダ"
+          },
+          {
+            "type": "text",
+            "value": "ッ"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "レ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "base": "家",
+            "reading": "け",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "紋"
+          },
+          {
+            "type": "text",
+            "value": "章"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "あたかもジョンは自分の兄弟のごとき語調である。「ジョンには四人の兄弟があって、その兄弟が、熊と獅子の周囲に刻みつけられてある草花で",
+        "contextBefore": "の内に何となく力が籠って、あたかも己れの家名でも名乗ったごとくに感ぜらるる。余は息を凝らして両人を注視する。女はなお説明をつづける。",
+        "extractorVersion": "1.0.0",
+        "order": 53,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11270,
+          "start": 11247
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11270,
+          "startToken": 11247
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "紋"
+          },
+          {
+            "type": "text",
+            "value": "章"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "base": "刻",
+            "reading": "きざ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "ジ"
+          },
+          {
+            "type": "text",
+            "value": "ョ"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "・"
+          },
+          {
+            "type": "text",
+            "value": "ダ"
+          },
+          {
+            "type": "text",
+            "value": "ッ"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "レ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "見るとなるほど四通りの花だか葉だかが油絵の枠のように熊と獅子を取り巻いて彫ってある。「ここにあるのは Acorns でこれは Am",
+        "contextBefore": "を注視する。女はなお説明をつづける。「この紋章を刻んだ人はジョン・ダッドレーです」あたかもジョンは自分の兄弟のごとき語調である。",
+        "extractorVersion": "1.0.0",
+        "order": 54,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11343,
+          "start": 11293
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11343,
+          "startToken": 11293
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ジ"
+          },
+          {
+            "type": "text",
+            "value": "ョ"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "四"
+          },
+          {
+            "type": "text",
+            "value": "人"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "兄"
+          },
+          {
+            "type": "text",
+            "value": "弟"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "兄"
+          },
+          {
+            "type": "text",
+            "value": "弟"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "熊"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "獅"
+          },
+          {
+            "type": "text",
+            "value": "子"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "周囲",
+            "reading": "まわり",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "刻"
+          },
+          {
+            "type": "text",
+            "value": "み"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "草"
+          },
+          {
+            "type": "text",
+            "value": "花"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "ち"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "分"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云ったぎり黙っている。見ると珊瑚のような唇が電気でも懸けたかと思われるまでにぶるぶると顫えている。蝮が鼠に向ったときの舌の先のご",
+        "contextBefore": "周囲に刻みつけられてある草花でちゃんと分ります」見るとなるほど四通りの花だか葉だかが油絵の枠のように熊と獅子を取り巻いて彫ってある。",
+        "extractorVersion": "1.0.0",
+        "order": 55,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11530,
+          "start": 11384
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11530,
+          "startToken": 11384
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "A"
+          },
+          {
+            "type": "text",
+            "value": "c"
+          },
+          {
+            "type": "text",
+            "value": "o"
+          },
+          {
+            "type": "text",
+            "value": "r"
+          },
+          {
+            "type": "text",
+            "value": "n"
+          },
+          {
+            "type": "text",
+            "value": "s"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "A"
+          },
+          {
+            "type": "text",
+            "value": "m"
+          },
+          {
+            "type": "text",
+            "value": "b"
+          },
+          {
+            "type": "text",
+            "value": "r"
+          },
+          {
+            "type": "text",
+            "value": "o"
+          },
+          {
+            "type": "text",
+            "value": "s"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "ち"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "R"
+          },
+          {
+            "type": "text",
+            "value": "o"
+          },
+          {
+            "type": "text",
+            "value": "s"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "R"
+          },
+          {
+            "type": "text",
+            "value": "o"
+          },
+          {
+            "type": "text",
+            "value": "b"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": "r"
+          },
+          {
+            "type": "text",
+            "value": "t"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "代"
+          },
+          {
+            "type": "text",
+            "value": "表"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "下"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "方"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "base": "忍冬",
+            "reading": "にんどう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "base": "描",
+            "reading": "か",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "ょ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "忍"
+          },
+          {
+            "type": "text",
+            "value": "冬"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "H"
+          },
+          {
+            "type": "text",
+            "value": "o"
+          },
+          {
+            "type": "text",
+            "value": "n"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": "y"
+          },
+          {
+            "type": "text",
+            "value": "s"
+          },
+          {
+            "type": "text",
+            "value": "u"
+          },
+          {
+            "type": "text",
+            "value": "c"
+          },
+          {
+            "type": "text",
+            "value": "k"
+          },
+          {
+            "type": "text",
+            "value": "l"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "H"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": "n"
+          },
+          {
+            "type": "text",
+            "value": "r"
+          },
+          {
+            "type": "text",
+            "value": "y"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "当"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "左"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "上"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "base": "塊",
+            "reading": "かたま",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "G"
+          },
+          {
+            "type": "text",
+            "value": "e"
+          },
+          {
+            "type": "text",
+            "value": "r"
+          },
+          {
+            "type": "text",
+            "value": "a"
+          },
+          {
+            "type": "text",
+            "value": "n"
+          },
+          {
+            "type": "text",
+            "value": "i"
+          },
+          {
+            "type": "text",
+            "value": "u"
+          },
+          {
+            "type": "text",
+            "value": "m"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "text",
+            "value": "G"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と書いてある。余は覚えずその前に立留まった。英国の歴史を読んだものでジェーン・グレーの名を知らぬ者はあるまい。またその薄命と無残",
+        "contextBefore": "\n　気味が悪くなったから通り過ぎて先へ抜ける。銃眼のある角を出ると滅茶苦茶に書き綴られた、模様だか文字だか分らない中に、正しき画で、小く",
+        "extractorVersion": "1.0.0",
+        "order": 56,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 11988,
+          "start": 11982
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 11988,
+          "startToken": 11982
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ジ"
+          },
+          {
+            "type": "text",
+            "value": "ェ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "ン"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と聞く。肩を揺り越した一握りの髪が軽くうねりを打つ。坊さんは「知り申さぬ」と答えて「まだ真との道に入りたもう心はなきか」と問う。女",
+        "contextBefore": "く首斬り台を探り当てて両の手をかける。唇がむずむずと動く。最前男の子にダッドレーの紋章を説明した時と寸分違わぬ。やがて首を少し傾けて",
+        "extractorVersion": "1.0.0",
+        "order": 57,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 12974,
+          "start": 12944
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 12974,
+          "startToken": 12944
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "わ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "base": "夫",
+            "reading": "おっと",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "ギ"
+          },
+          {
+            "type": "text",
+            "value": "ル"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "フ"
+          },
+          {
+            "type": "text",
+            "value": "ォ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "・"
+          },
+          {
+            "type": "text",
+            "value": "ダ"
+          },
+          {
+            "type": "text",
+            "value": "ッ"
+          },
+          {
+            "type": "text",
+            "value": "ド"
+          },
+          {
+            "type": "text",
+            "value": "レ"
+          },
+          {
+            "type": "text",
+            "value": "ー"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "神"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "国"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "行"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と答えて「まだ真との道に入りたもう心はなきか」と問う。女屹として「まこととは吾と吾夫の信ずる道をこそ言え。御身達の道は迷いの道、",
+        "contextBefore": "少し傾けて「わが夫ギルドフォード・ダッドレーはすでに神の国に行ってか」と聞く。肩を揺り越した一握りの髪が軽くうねりを打つ。坊さんは",
+        "extractorVersion": "1.0.0",
+        "order": 58,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13010,
+          "start": 13003
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13010,
+          "startToken": 13003
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "知"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "申"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "ぬ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と問う。女屹として「まこととは吾と吾夫の信ずる道をこそ言え。御身達の道は迷いの道、誤りの道よ」と返す。坊さんは何にも言わずにいる",
+        "contextBefore": "ドフォード・ダッドレーはすでに神の国に行ってか」と聞く。肩を揺り越した一握りの髪が軽くうねりを打つ。坊さんは「知り申さぬ」と答えて",
+        "extractorVersion": "1.0.0",
+        "order": 59,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13033,
+          "start": 13014
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13033,
+          "startToken": 13014
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "base": "真",
+            "reading": "まこ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "入"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "心"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と返す。坊さんは何にも言わずにいる。女はやや落ちついた調子で「吾夫が先なら追いつこう、後ならば誘うて行こう。正しき神の国に、正し",
+        "contextBefore": "肩を揺り越した一握りの髪が軽くうねりを打つ。坊さんは「知り申さぬ」と答えて「まだ真との道に入りたもう心はなきか」と問う。女屹として",
+        "extractorVersion": "1.0.0",
+        "order": 60,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13080,
+          "start": 13042
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13080,
+          "startToken": 13042
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "吾"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "吾"
+          },
+          {
+            "base": "夫",
+            "reading": "おっと",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "信"
+          },
+          {
+            "type": "text",
+            "value": "ず"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "言"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "御"
+          },
+          {
+            "type": "text",
+            "value": "身"
+          },
+          {
+            "type": "text",
+            "value": "達"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "迷"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "誤"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云い終って落つるがごとく首を台の上に投げかける。眼の凹んだ、煤色の、背の低い首斬り役が重た気に斧をエイと取り直す。余の洋袴の膝に二",
+        "contextBefore": "とは吾と吾夫の信ずる道をこそ言え。御身達の道は迷いの道、誤りの道よ」と返す。坊さんは何にも言わずにいる。女はやや落ちついた調子で",
+        "extractorVersion": "1.0.0",
+        "order": 61,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13154,
+          "start": 13110
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13154,
+          "startToken": 13110
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "吾"
+          },
+          {
+            "type": "text",
+            "value": "夫"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "先"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "追"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "base": "後",
+            "reading": "あと",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "ば"
+          },
+          {
+            "base": "誘",
+            "reading": "さそ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "行"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "正"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "神"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "国"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "正"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "き"
+          },
+          {
+            "type": "text",
+            "value": "道"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "踏"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "行"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う声さえ聞えた。自分ながら少々気が変だと思ってそこそこに塔を出る。塔橋を渡って後ろを顧みたら、北の国の例かこの日もいつのまに",
+        "contextBefore": "。狐に化かされたような顔をして茫然と塔を出る。帰り道にまた鐘塔の下を通ったら高い窓からガイフォークスが稲妻のような顔をちょっと出した。",
+        "extractorVersion": "1.0.0",
+        "order": 62,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13386,
+          "start": 13346
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13386,
+          "startToken": 13346
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "今"
+          },
+          {
+            "type": "text",
+            "value": "一"
+          },
+          {
+            "type": "text",
+            "value": "時"
+          },
+          {
+            "type": "text",
+            "value": "間"
+          },
+          {
+            "type": "text",
+            "value": "早"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "…"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "三"
+          },
+          {
+            "type": "text",
+            "value": "本"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "マ"
+          },
+          {
+            "type": "text",
+            "value": "ッ"
+          },
+          {
+            "type": "text",
+            "value": "チ"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "役"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "立"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "実"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "残"
+          },
+          {
+            "type": "text",
+            "value": "念"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と手もなく説明するので、余の空想の一半は倫敦塔を見たその日のうちに打ち壊わされてしまった。余はまた主人に壁の題辞の事を話すと、主",
+        "contextBefore": "は塔を見物して来たと話したら、主人が鴉が五羽いたでしょうと云う。おやこの主人もあの女の親類かなと内心大に驚ろくと主人は笑いながら",
+        "extractorVersion": "1.0.0",
+        "order": 63,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13682,
+          "start": 13608
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13682,
+          "startToken": 13608
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "奉"
+          },
+          {
+            "type": "text",
+            "value": "納"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "。"
+          },
+          {
+            "type": "text",
+            "value": "昔"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "飼"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "一"
+          },
+          {
+            "type": "text",
+            "value": "羽"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "数"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "不"
+          },
+          {
+            "type": "text",
+            "value": "足"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "ぐ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "れ"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "鴉"
+          },
+          {
+            "type": "text",
+            "value": "は"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "五"
+          },
+          {
+            "type": "text",
+            "value": "羽"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "限"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と澄ましたものである。余は最後に美しい婦人に逢った事とその婦人が我々の知らない事やとうてい読めない字句をすらすら読んだ事などを不",
+        "contextBefore": "く説明するので、余の空想の一半は倫敦塔を見たその日のうちに打ち壊わされてしまった。余はまた主人に壁の題辞の事を話すと、主人は無造作に",
+        "extractorVersion": "1.0.0",
+        "order": 64,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 13834,
+          "start": 13750
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 13834,
+          "startToken": 13750
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "base": "落書",
+            "reading": "らくがき",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "か"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "奇"
+          },
+          {
+            "type": "text",
+            "value": "麗"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "所"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "台"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "ね"
+          },
+          {
+            "type": "text",
+            "value": "え"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "base": "罪人",
+            "reading": "ざいにん",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "落"
+          },
+          {
+            "type": "text",
+            "value": "書"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "base": "当",
+            "reading": "あて",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "じ"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "せ"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "base": "贋",
+            "reading": "にせ",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ぶ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "ね"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "ととんだ所へ火の手が揚る。これで余の空想の後半がまた打ち壊わされた。主人は二十世紀の倫敦人である。\n\n　それからは人と倫敦塔の話",
+        "contextBefore": "に逢った事とその婦人が我々の知らない事やとうてい読めない字句をすらすら読んだ事などを不思議そうに話し出すと、主人は大に軽蔑した口調で",
+        "extractorVersion": "1.0.0",
+        "order": 65,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 14029,
+          "start": 13919
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 14029,
+          "startToken": 13919
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "当"
+          },
+          {
+            "type": "text",
+            "value": "り"
+          },
+          {
+            "type": "text",
+            "value": "前"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "皆"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "へ"
+          },
+          {
+            "type": "text",
+            "value": "行"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "時"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "案"
+          },
+          {
+            "type": "text",
+            "value": "内"
+          },
+          {
+            "type": "text",
+            "value": "記"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "読"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "出"
+          },
+          {
+            "type": "text",
+            "value": "掛"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "type": "text",
+            "value": "ん"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "さ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "そ"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "の"
+          },
+          {
+            "type": "text",
+            "value": "事"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "知"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "何"
+          },
+          {
+            "type": "text",
+            "value": "も"
+          },
+          {
+            "type": "text",
+            "value": "驚"
+          },
+          {
+            "type": "text",
+            "value": "く"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "あ"
+          },
+          {
+            "type": "text",
+            "value": "た"
+          },
+          {
+            "type": "text",
+            "value": "ら"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "ょ"
+          },
+          {
+            "type": "text",
+            "value": "う"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "何"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "こ"
+          },
+          {
+            "type": "text",
+            "value": "ぶ"
+          },
+          {
+            "type": "text",
+            "value": "る"
+          },
+          {
+            "base": "別嬪",
+            "reading": "べっぴん",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "っ"
+          },
+          {
+            "type": "text",
+            "value": "て"
+          },
+          {
+            "type": "text",
+            "value": "？"
+          },
+          {
+            "type": "text",
+            "value": "―"
+          },
+          {
+            "type": "text",
+            "value": "―"
+          },
+          {
+            "type": "text",
+            "value": "倫"
+          },
+          {
+            "type": "text",
+            "value": "敦"
+          },
+          {
+            "type": "text",
+            "value": "に"
+          },
+          {
+            "type": "text",
+            "value": "ゃ"
+          },
+          {
+            "type": "text",
+            "value": "だ"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ぶ"
+          },
+          {
+            "type": "text",
+            "value": "別"
+          },
+          {
+            "type": "text",
+            "value": "嬪"
+          },
+          {
+            "type": "text",
+            "value": "が"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "ま"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "よ"
+          },
+          {
+            "type": "text",
+            "value": "、"
+          },
+          {
+            "type": "text",
+            "value": "少"
+          },
+          {
+            "type": "text",
+            "value": "し"
+          },
+          {
+            "type": "text",
+            "value": "気"
+          },
+          {
+            "type": "text",
+            "value": "を"
+          },
+          {
+            "type": "text",
+            "value": "つ"
+          },
+          {
+            "type": "text",
+            "value": "け"
+          },
+          {
+            "type": "text",
+            "value": "な"
+          },
+          {
+            "type": "text",
+            "value": "い"
+          },
+          {
+            "type": "text",
+            "value": "と"
+          },
+          {
+            "base": "険呑",
+            "reading": "けんのん",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "で"
+          },
+          {
+            "type": "text",
+            "value": "す"
+          },
+          {
+            "type": "text",
+            "value": "ぜ"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      },
+      {
+        "contextAfter": "と云う小説から来たもので、余はこれに対して些少の創意をも要求する権利はない。エーンズウォースには斧の刃のこぼれたのをソルスベリ伯爵",
+        "contextBefore": "したもので沙翁とは何らの関係もない。それから断頭吏の歌をうたって斧を磨ぐところについて一言しておくが、この趣向は全くエーンズウォースの",
+        "extractorVersion": "1.0.0",
+        "order": 66,
+        "rawSourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+        "rawTokenRange": {
+          "end": 14520,
+          "start": 14517
+        },
+        "sourceAnchor": {
+          "bodySelector": ".main_text",
+          "endToken": 14520,
+          "startToken": 14517
+        },
+        "tokens": [
+          {
+            "type": "text",
+            "value": "「"
+          },
+          {
+            "base": "倫敦塔",
+            "reading": "ロンドンとう",
+            "type": "ruby"
+          },
+          {
+            "type": "text",
+            "value": "」"
+          }
+        ],
+        "workId": "001076"
+      }
+    ],
+    "diagnostics": [],
+    "ok": true,
+    "success": true
+  },
+  "schemaVersion": "1.0.0",
+  "sourceSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+  "workId": "001076"
+}

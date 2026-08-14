@@ -1,0 +1,79 @@
+{
+  "bibliography": {
+    "baseEdition": "夏目漱石全集2",
+    "inputter": "柴田卓治",
+    "proofreader": "LUNA CAT"
+  },
+  "bibliographyCharset": "Shift_JIS",
+  "bodySelector": ".main_text",
+  "card": {
+    "byteLength": 9470,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-07-29T04:18:46.568Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/001076/card.html",
+    "sha256": "8ece3bd1b38ef44dbcc53a2847b60d819d9af8730dd9d1109b3b7c4e5b4a8dd8",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "cardUrl": "https://www.aozora.gr.jp/cards/000148/card1076.html",
+  "fetchedAt": "2026-07-29T04:18:46.636Z",
+  "normalization": {
+    "policyVersion": "aozora-xhtml-passthrough-v1",
+    "processed": {
+      "byteLength": 82297,
+      "charset": "Shift_JIS",
+      "fetchedAt": "2026-07-29T04:18:46.636Z",
+      "mediaType": "text/html",
+      "path": "content/batches/F005/sealed/xhtml/001076-2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4.xhtml",
+      "sha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+      "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html",
+      "storage": "sealed"
+    },
+    "rawSha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+    "replacements": [],
+    "schemaVersion": "1.0.0",
+    "variant": "passthrough"
+  },
+  "raw": {
+    "byteLength": 82297,
+    "charset": "Shift_JIS",
+    "fetchedAt": "2026-07-29T04:18:46.636Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F005/source-snapshots/selection/works/001076/source.raw",
+    "sha256": "2210104906aa1b7f486334d061a82d36b2c7bc75bdde14a03b829866dc2ba4a4",
+    "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1076_14974.html",
+  "title": "倫敦塔",
+  "updatedAt": "2004-02-29",
+  "workId": "001076"
+}
