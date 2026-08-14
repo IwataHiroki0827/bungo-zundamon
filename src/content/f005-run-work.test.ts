@@ -120,39 +120,51 @@ describe('F005 production work runner', () => {
   });
 
   it('CLI work IDを必須化しmanifest順の現在workだけを選ぶ', async () => {
-    // 実manifestを読むため、acceptedが進んでも壊れないよう現在workを導出する。
-    const value = await manifest();
-    const acceptedIds = value.workProgress
-      .filter((work) => work.status === 'accepted').map((work) => work.workId);
-    const currentIndex = acceptedIds.length;
-    const currentId = value.workProgress[currentIndex]!.workId;
-    const nextId = value.workProgress[currentIndex + 1]?.workId;
-    expect(parseF005RunWorkArguments(['--work', currentId])).toBe(currentId);
-    expect(selectF005CurrentWork(value, currentId)).toEqual({
-      workId: currentId,
-      acceptedWorkIds: acceptedIds,
-    });
-    if (nextId !== undefined) {
-      expect(() => parseF005RunWorkArguments(['--work', nextId])).not.toThrow();
-      expect(() => selectF005CurrentWork(value, nextId)).toThrow(/manifest順/u);
-      const progressed = {
-        ...value,
-        workProgress: value.workProgress.map((work, index) =>
-          index === currentIndex ? { ...work, status: 'accepted' as const } : work),
-      } as unknown as BatchManifest;
-      expect(selectF005CurrentWork(progressed, nextId)).toEqual({
-        workId: nextId,
-        acceptedWorkIds: [...acceptedIds, currentId],
+    // 選択規則は実manifestの進行度から独立している。全workがacceptedになった
+    // 時点で「未処理が残っている」前提の検証ができなくなるため、進行度は
+    // 実manifestのwork IDだけを借りて組み立てる。
+    const live = await manifest();
+    const workIds = live.workProgress.map((work) => work.workId);
+    expect(workIds.length).toBeGreaterThanOrEqual(2);
+    const progressedTo = (acceptedCount: number): BatchManifest => ({
+      ...live,
+      workProgress: live.workProgress.map((work, index) => ({
+        ...work,
+        status: index < acceptedCount ? 'accepted' as const : 'pending' as const,
+      })),
+    } as unknown as BatchManifest);
+
+    for (const [currentIndex, currentId] of workIds.entries()) {
+      const value = progressedTo(currentIndex);
+      expect(parseF005RunWorkArguments(['--work', currentId])).toBe(currentId);
+      expect(selectF005CurrentWork(value, currentId)).toEqual({
+        workId: currentId,
+        acceptedWorkIds: workIds.slice(0, currentIndex),
       });
+      for (const otherId of workIds.filter((id) => id !== currentId)) {
+        expect(() => selectF005CurrentWork(value, otherId)).toThrow(/manifest順/u);
+      }
+    }
+
+    // 全workがacceptedなら現在workは存在しない。
+    const finished = progressedTo(workIds.length);
+    for (const workId of workIds) {
+      expect(() => selectF005CurrentWork(finished, workId))
+        .toThrow(/全作品はaccepted済み/u);
     }
   });
 
   it('manifest段階証跡を直前outputへ結合してvoicedまで連続遷移する', async () => {
     // 段階遷移の検証は先頭workで行う。実manifestのacceptedが進んでも
     // 影響を受けないよう、全workをpendingへ戻した写しを使う。
+    // batch自体の受入項目も落とす。全work acceptedでbatchがacceptedになると
+    // draftへ戻した写しにacceptedAt/acceptedByが残り矛盾するため。
     const live = await manifest();
+    const draftBatch: Record<string, unknown> = { ...live };
+    delete draftBatch.acceptedAt;
+    delete draftBatch.acceptedBy;
     let value = {
-      ...live,
+      ...draftBatch,
       status: 'draft' as const,
       workProgress: live.workProgress.map((work) => ({
         workId: work.workId,
