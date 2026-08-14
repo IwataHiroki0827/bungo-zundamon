@@ -13,7 +13,11 @@ import {
 } from '../src/content/f005-voice.ts';
 import type { VoiceConfigV2 } from '../src/voice/cache.ts';
 
-const WORK_ID = '000799';
+// CHG-F005-073: 音声準備は作品ごとに実施する。
+const WORK_ID = process.argv[2] ?? '000799';
+if (!/^(?:000799|001076|001104)$/u.test(WORK_ID)) {
+  throw new Error('F005の6桁work IDが必要です');
+}
 const SPEECH_PATH =
   `content/batches/F005/work-artifacts/${WORK_ID}/speech-items.json`;
 const PROFILE_PATH = 'content/baselines/F002-voice-estimate-profile.json';
