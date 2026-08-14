@@ -16,6 +16,23 @@ if (args.Length != 0)
 var failures = new List<string>();
 var checks = 0;
 
+// CHG-F005-072: TS canonicalJson と同一表現であることを固定する。
+// close経路はcanonical検査を通らず、body seal照合が唯一の突き合わせ点である。
+{
+    var sample = new SortedDictionary<string, object?>(StringComparer.Ordinal) {
+        ["schemaVersion"] = 3,
+    };
+    var actual = CapacityGuardSession.CanonicalJsonForTest(sample);
+    var lf = (char)10;
+    var q = (char)34;
+    var expected = "{" + lf + "  " + q + "schemaVersion" + q + ": 3" + lf + "}" + lf;
+    if (actual != expected)
+    {
+        Console.Error.WriteLine(
+            $"CANONICAL_MISMATCH actual={System.Text.Json.JsonSerializer.Serialize(actual)}");
+    }
+    Check("canonical JSONはTS canonicalJsonと同一表現", actual == expected);
+}
 Check("安全診断cache wav file no lease",
     SystemSetInfoDiagnosticRules.Classify(
         ".cache/voice/audio.wav", true, false, false, false, "NO_LEASE") ==

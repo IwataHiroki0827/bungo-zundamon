@@ -1213,6 +1213,10 @@ sealed class CapacityGuardSession : IDisposable
     private static readonly TimeSpan ProcessIdentityProbeTimeout = TimeSpan.FromSeconds(10);
     private static readonly JsonSerializerOptions JournalJson = new() {
         WriteIndented = true,
+        // CHG-F005-072: .NET 9の既定改行はOS依存(Windowsでは CRLF)で、
+        // TS側 canonicalJson は常に LF である。journalは両実装で
+        // byte一致していなければならないため LF を明示する。
+        NewLine = "\n",
         Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
     private static readonly HashSet<string> Phases = new(StringComparer.Ordinal) {
@@ -7223,6 +7227,13 @@ sealed class CapacityGuardSession : IDisposable
     private static long ReadFreeBytes(string root) =>
         new DriveInfo(Path.GetPathRoot(root) ?? throw new GuardException("ROOT_INVALID"))
             .AvailableFreeSpace;
+
+    /// <summary>
+    /// CHG-F005-072: TS側 canonicalJson と表現が一致することを回帰試験で固定するため公開する。
+    /// close経路はreadF005NativeCapacityJournalFileを通らずcanonical検査が働かないため、
+    /// ここで両実装の形式一致を担保する。
+    /// </summary>
+    internal static string CanonicalJsonForTest(object value) => CanonicalJson(value);
 
     private static string CanonicalJson(object value)
     {
