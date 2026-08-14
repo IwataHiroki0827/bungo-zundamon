@@ -609,8 +609,11 @@ function safeWorkspaceFrames(stack: unknown, workspace: string): readonly string
  */
 function safeFailureMessage(value: unknown): string | null {
   if (typeof value !== 'string' || value.length === 0 || value.length > 80) return null;
-  if (/[\/:]/u.test(value)) return null;
-  if (/[-]/u.test(value)) return null;
+  if (value.includes('/') || value.includes('\\') || value.includes(':')) return null;
+  for (const character of value) {
+    const code = character.codePointAt(0) ?? 0;
+    if (code < 0x20 || code === 0x7f) return null;
+  }
   return value;
 }
 

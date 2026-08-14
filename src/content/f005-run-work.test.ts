@@ -12,7 +12,6 @@ import {
   validateBatchManifest,
   type BatchManifest,
   type Sha256,
-  type WorkId,
   type WorkspaceRelativePath,
 } from './batch.ts';
 import {
@@ -121,29 +120,47 @@ describe('F005 production work runner', () => {
   });
 
   it('CLI work IDを必須化しmanifest順の現在workだけを選ぶ', async () => {
+    // 実manifestを読むため、acceptedが進んでも壊れないよう現在workを導出する。
     const value = await manifest();
-    expect(parseF005RunWorkArguments(['--work', '000799'])).toBe('000799');
-    expect(selectF005CurrentWork(value, '000799' as WorkId)).toEqual({
-      workId: '000799',
-      acceptedWorkIds: [],
+    const acceptedIds = value.workProgress
+      .filter((work) => work.status === 'accepted').map((work) => work.workId);
+    const currentIndex = acceptedIds.length;
+    const currentId = value.workProgress[currentIndex]!.workId;
+    const nextId = value.workProgress[currentIndex + 1]?.workId;
+    expect(parseF005RunWorkArguments(['--work', currentId])).toBe(currentId);
+    expect(selectF005CurrentWork(value, currentId)).toEqual({
+      workId: currentId,
+      acceptedWorkIds: acceptedIds,
     });
-    expect(() => parseF005RunWorkArguments(['--work', '001076'])).not.toThrow();
-    expect(() => selectF005CurrentWork(value, '001076' as WorkId)).toThrow(/manifest順/u);
-
-    const progressed = {
-      ...value,
-      workProgress: value.workProgress.map((work, index) =>
-        index === 0 ? { ...work, status: 'accepted' as const } : work),
-    } as unknown as BatchManifest;
-    expect(selectF005CurrentWork(progressed, '001076' as WorkId)).toEqual({
-      workId: '001076',
-      acceptedWorkIds: ['000799'],
-    });
+    if (nextId !== undefined) {
+      expect(() => parseF005RunWorkArguments(['--work', nextId])).not.toThrow();
+      expect(() => selectF005CurrentWork(value, nextId)).toThrow(/manifest順/u);
+      const progressed = {
+        ...value,
+        workProgress: value.workProgress.map((work, index) =>
+          index === currentIndex ? { ...work, status: 'accepted' as const } : work),
+      } as unknown as BatchManifest;
+      expect(selectF005CurrentWork(progressed, nextId)).toEqual({
+        workId: nextId,
+        acceptedWorkIds: [...acceptedIds, currentId],
+      });
+    }
   });
 
   it('manifest段階証跡を直前outputへ結合してvoicedまで連続遷移する', async () => {
-    const workId = '000799' as WorkId;
-    let value = await manifest();
+    // 段階遷移の検証は先頭workで行う。実manifestのacceptedが進んでも
+    // 影響を受けないよう、全workをpendingへ戻した写しを使う。
+    const live = await manifest();
+    let value = {
+      ...live,
+      status: 'draft' as const,
+      workProgress: live.workProgress.map((work) => ({
+        workId: work.workId,
+        status: 'pending' as const,
+        stageRecords: [],
+      })),
+    } as unknown as BatchManifest;
+    const workId = value.workProgress[0]!.workId;
     value = advanceF005RunnerManifest(
       value,
       workId,
