@@ -122,6 +122,24 @@ export async function writeF005SourceArtifactOnce(
   }
 }
 
+async function readSealedJsonArtifact(
+  workspace: string,
+  relativePath: string,
+): Promise<unknown> {
+  const capability = await resolveSafeWorkspaceFile(workspace, relativePath, 'read');
+  try {
+    const bytes = await readSafeWorkspaceFile(capability);
+    const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    const value: unknown = JSON.parse(text);
+    if (canonicalJson(value) !== text) {
+      throw new Error(`封緘済みartifactがcanonical JSONではありません: ${relativePath}`);
+    }
+    return value;
+  } finally {
+    await closeSafeWorkspaceFile(capability);
+  }
+}
+
 async function writeJsonArtifactOnce(
   workspace: string,
   relativePath: string,
@@ -264,7 +282,7 @@ async function main(): Promise<void> {
     await writeF005SourceArtifactOnce(workspace, entry.path, entry.artifact.bytes);
   }
 
-  const selectionArtifact = {
+  const rebuiltArtifact = {
     schemaVersion: '2.0.0',
     kind: phaseArg === 'selection'
       ? 'f005-source-selection-snapshot'
@@ -310,7 +328,16 @@ async function main(): Promise<void> {
       };
     }),
   };
-  await writeJsonArtifactOnce(workspace, snapshotPath, selectionArtifact);
+  // CHG-F005-073: 封緘済みsnapshotは再構築せず、そのまま正本とする。
+  // 封緘時点のスクリプトと現行版では大容量CSVの表現が異なるため、
+  // 同一artifactからでもbyte一致する文書を再構築できない。
+  // 復元時にSHA照合済みであり、記録としての正しさは封緘済み文書側にある。
+  const selectionArtifact = sealedSelection
+    ? await readSealedJsonArtifact(workspace, snapshotPath)
+    : rebuiltArtifact;
+  if (!sealedSelection) {
+    await writeJsonArtifactOnce(workspace, snapshotPath, rebuiltArtifact);
+  }
   if (phaseArg === 'predeploy') {
     process.stdout.write(canonicalJson({
       ok: true,
