@@ -2015,7 +2015,7 @@ export interface CapacityJournalV3 {
   readonly registeredWorkerPids: readonly number[];
   readonly phases: readonly Record<string, unknown>[];
   readonly notices: readonly Record<string, unknown>[];
-  readonly observations: readonly Record<string, unknown>[];
+  readonly capacitySamples: readonly Record<string, unknown>[];
   readonly state: 'open' | 'closed';
   readonly closedSeal: Record<string, unknown> | null;
 }
@@ -2082,7 +2082,6 @@ export function validateF005CapacityJournalV3(
     'jobIdentity',
     'minimumObservedFreeBytes',
     'notices',
-    'observations',
     'owner',
     'peakLiveBytes',
     'phases',
@@ -2109,7 +2108,6 @@ export function validateF005CapacityJournalV3(
     value.registeredWorkerPids.some((pid, index, values) =>
       index > 0 && Number(values[index - 1]) >= Number(pid)) ||
     !Array.isArray(value.notices) ||
-    !Array.isArray(value.observations) ||
     !['open', 'closed'].includes(String(value.state))) {
     return fail('F005_NATIVE_JOURNAL_SCHEMA', 'CapacityJournalV3 schemaが不正です');
   }
@@ -2253,10 +2251,8 @@ export function validateF005CapacityJournalV3(
     // 宣言と実測差分のexact一致が健全性の根拠である。
   }
 
-  // CHG-F005-072: observationsは診断専用でカーネル由来の任意文字列を含むため、
-  // 両実装でのJSON往復一致を保証できない。封印対象から外す。
   const body = Object.fromEntries(Object.entries(value)
-    .filter(([key]) => key !== 'state' && key !== 'closedSeal' && key !== 'observations'));
+    .filter(([key]) => key !== 'state' && key !== 'closedSeal'));
   if (sha256(canonicalJson(body)) !== value.closedSeal.journalBodySha256) {
     // CHG-F005-072: nativeが出したkey別canonical SHAと突き合わせ、
     // 表現が食い違うkeyを一意に特定する。key名は固定識別子である。

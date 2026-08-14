@@ -6883,13 +6883,11 @@ sealed class CapacityGuardSession : IDisposable
     private void PersistJournal(bool closed)
     {
         var body = JournalBody();
-        // CHG-F005-072: observationsは診断専用でカーネル由来の任意文字列を含み、
-        // 両実装でのJSON往復一致を保証できないため封印対象から外す。
+        // CHG-F005-072: observationsはjournalへ載せない。ETW配送に依存する診断であり、
+        // カーネル由来の任意文字列を含むためcanonical artifactとして往復一致を保証できない。
         // 正当性はnotices・capacitySamples・phases等の系列が担う。
-        var sealedBody = new SortedDictionary<string, object?>(body, StringComparer.Ordinal);
-        sealedBody.Remove("observations");
         var journalBodySha256 = Convert.ToHexStringLower(SHA256.HashData(
-            Encoding.UTF8.GetBytes(CanonicalJson(sealedBody))));
+            Encoding.UTF8.GetBytes(CanonicalJson(body))));
         var document = new SortedDictionary<string, object?>(body, StringComparer.Ordinal) {
             ["closedSeal"] = closed ? new SortedDictionary<string, object?>(StringComparer.Ordinal) {
                 ["etwSequenceGapCount"] = 0,
@@ -6932,7 +6930,6 @@ sealed class CapacityGuardSession : IDisposable
             ["jobIdentity"] = JobIdentity,
             ["minimumObservedFreeBytes"] = PersistedMinimumFreeBytes(),
             ["notices"] = notices.Select(item => item.ToJournal()).ToArray(),
-            ["observations"] = observations.Select(item => item.ToJournal()).ToArray(),
             ["owner"] = Owner,
             ["peakLiveBytes"] = PersistedPeakLiveBytes(),
             ["phases"] = phaseRecords.Select(item => item.ToJournal()).ToArray(),

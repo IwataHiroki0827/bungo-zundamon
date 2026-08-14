@@ -1066,39 +1066,40 @@ export function createF005NativeCapacityJournalReader(
         fail('F005_CAPACITY_ACTUAL_INVALID', 'native journalのwork/candidate開始tupleが一致しません');
       }
       const phases = nativeJournalPhaseRows(journal);
-      const noticeIds = new Map<number, string>();
-      for (const envelope of journal.notices) {
+      // CHG-F005-072: journalはETW observationを載せない（診断専用でcanonical
+      // artifactとして往復一致を保証できないため）。event列は宣言済みnoticeと
+      // 明示サンプリングから構成する。
+      const samples = journal.capacitySamples;
+      const lastSample = samples[samples.length - 1]!;
+      const events = journal.notices.map((envelope, index): F005CapacityJournalEvent => {
         const notice = envelope.notice as Record<string, unknown>;
-        noticeIds.set(Number(envelope.noticeSequence), String(notice.noticeId));
-      }
-      const events = journal.observations.map((observation): F005CapacityJournalEvent => {
-        const event = String(observation.event);
-        const path = String(event === 'rename' ? observation.to : observation.path);
-        const noticeSequence = Number.isSafeInteger(observation.noticeSequence)
-          ? Number(observation.noticeSequence)
-          : null;
-        const noticeId = noticeSequence === null ? null : noticeIds.get(noticeSequence);
-        if (noticeSequence !== null &&
-          (typeof noticeId !== 'string' || !SHA256.test(noticeId))) {
-          fail('F005_CAPACITY_ACTUAL_INVALID', 'native observation notice bindingが不正です');
+        const noticeId = String(notice.noticeId);
+        const event = String(notice.event);
+        const path = String(event === 'rename' ? notice.to : notice.path);
+        const sample = samples[index] ?? lastSample;
+        if (!SHA256.test(noticeId)) {
+          fail('F005_CAPACITY_ACTUAL_INVALID', 'native notice idが不正です');
         }
-        if (!SAFE_PATH.test(path) ||
-          typeof observation.observedAt !== 'string' ||
-          !Number.isFinite(Date.parse(observation.observedAt))) {
-          fail('F005_CAPACITY_ACTUAL_INVALID', 'native observation bridgeが不正です');
+        if (!SAFE_PATH.test(path)) {
+          fail('F005_CAPACITY_ACTUAL_INVALID', 'native notice pathが不正です');
+        }
+        const phaseRow = phases.find(
+          (row) => row.phaseInstanceId === String(notice.phaseInstanceId));
+        if (!phaseRow) {
+          fail('F005_CAPACITY_ACTUAL_INVALID', 'native notice phase bindingが不正です');
         }
         return freezeDeep({
-          sequence: Number(observation.etwSequence),
-          phase: observation.phase as F005CapacityPhase,
-          phaseInstanceId: String(observation.phaseInstanceId),
-          source: noticeId === null ? 'etw-only' as const : 'notice-etw' as const,
-          noticeId: noticeId ?? null,
-          workerPid: Number(observation.workerPid),
+          sequence: Number(envelope.noticeSequence),
+          phase: notice.phase as F005CapacityPhase,
+          phaseInstanceId: String(notice.phaseInstanceId),
+          source: 'notice-etw' as const,
+          noticeId,
+          workerPid: Number(envelope.workerPid),
           path,
-          sha256: typeof observation.sha256 === 'string' ? observation.sha256 : null,
-          timestamp: observation.observedAt,
-          freeBytes: Number(observation.freeBytesAvailable),
-          liveBytes: Number(observation.liveBytes),
+          sha256: typeof notice.sha256 === 'string' ? notice.sha256 : null,
+          timestamp: phaseRow.beganAt,
+          freeBytes: Number(sample.freeBytesAvailable),
+          liveBytes: Number(sample.liveBytes),
         });
       });
       const allowedWorkerPids = [...journal.registeredWorkerPids];
