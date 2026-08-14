@@ -376,7 +376,10 @@ export function advanceF005RunnerManifest(
   });
 }
 
-function readErrorField(error: Error, field: 'name' | 'stack' | 'cause' | 'code'): unknown {
+function readErrorField(
+  error: Error,
+  field: 'name' | 'stack' | 'cause' | 'code' | 'message',
+): unknown {
   try {
     return (error as unknown as Record<string, unknown>)[field];
   } catch {
@@ -599,16 +602,30 @@ function safeWorkspaceFrames(stack: unknown, workspace: string): readonly string
   return frames;
 }
 
+/**
+ * CHG-F005-072: catch-all codeでは停止箇所を特定できないため、固定messageも出す。
+ * F005の失敗messageは固定リテラルか列挙値の補間のみだが、万一のpath混入を防ぐため
+ * path区切り・drive letter・長文を含むものは落とす。
+ */
+function safeFailureMessage(value: unknown): string | null {
+  if (typeof value !== 'string' || value.length === 0 || value.length > 80) return null;
+  if (/[\/:]/u.test(value)) return null;
+  if (/[-]/u.test(value)) return null;
+  return value;
+}
+
 function safeFailure(error: Error, workspace: string): Readonly<Record<string, unknown>> {
   const cause = readErrorField(error, 'cause');
   return {
     name: safeFailureName(readErrorField(error, 'name'), 'Error'),
     code: safeFailureCode(readErrorField(error, 'code')),
+    message: safeFailureMessage(readErrorField(error, 'message')),
     frames: safeWorkspaceFrames(readErrorField(error, 'stack'), workspace),
     cause: cause instanceof Error
       ? {
           name: safeFailureName(readErrorField(cause, 'name'), 'Error'),
           code: safeFailureCode(readErrorField(cause, 'code')),
+          message: safeFailureMessage(readErrorField(cause, 'message')),
           frames: safeWorkspaceFrames(readErrorField(cause, 'stack'), workspace),
         }
       : null,
