@@ -1075,18 +1075,45 @@ export async function collectF005SourceSnapshot(
     if (!selection || !mintedSnapshots.has(selection) || selection.phase !== 'selection') {
       throw new F005SourceError('F005_SOURCE_DRIFT', 'predeployにはmint済みselection snapshotが必要です');
     }
-    const before = [
-      selection.bibliographyCsv.sha256,
-      ...selection.works.flatMap((work) => [work.card.sha256, work.xhtml.sha256]),
-      ...selection.policies.map((policy) => policy.artifact.sha256),
-    ];
-    const after = [
-      snapshot.bibliographyCsv.sha256,
-      ...snapshot.works.flatMap((work) => [work.card.sha256, work.xhtml.sha256]),
-      ...snapshot.policies.map((policy) => policy.artifact.sha256),
-    ];
-    if (JSON.stringify(before) !== JSON.stringify(after)) {
-      throw new F005SourceError('F005_SOURCE_DRIFT', 'selection/predeployの原典または規約SHAが変化しました');
+    // CHG-F005-077: 対象ごとに「何が権利判断を左右するか」で比較対象を分ける。
+    // 全体を1本のSHA列で比べると、権利に無関係な更新でも公開が止まる。
+    //
+    // 原典(card/本文)は公開したものそのものなので完全一致を要求する。
+    const worksBefore = selection.works.flatMap((work) => [work.card.sha256, work.xhtml.sha256]);
+    const worksAfter = snapshot.works.flatMap((work) => [work.card.sha256, work.xhtml.sha256]);
+    if (JSON.stringify(worksBefore) !== JSON.stringify(worksAfter)) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', 'selection/predeployの原典SHAが変化しました');
+    }
+    // 書誌は青空文庫の全作品リストで、新規作品の追加により日々更新される。
+    // 権利判断に効くのは対象作品の行(著作権フラグ・公開状態・文字遣い等)だけである。
+    const rowsBefore = selection.works.map((work) => canonicalJson(work.bibliography));
+    const rowsAfter = snapshot.works.map((work) => canonicalJson(work.bibliography));
+    if (JSON.stringify(rowsBefore) !== JSON.stringify(rowsAfter)) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', 'selection/predeployの対象作品の書誌が変化しました');
+    }
+    // 規約本文の変化は権利判断そのものなので、変化していれば止める。
+    // REQ-F002-015/REQ-F005-005が求める「変更時は再レビューし、未判定なら公開を停止する」
+    // に従い、再レビュー済みであることを示す裁定記録があるときだけ通す。
+    const drifted = snapshot.policies.filter((policy) => {
+      const previous = selection.policies.find((item) => item.policyId === policy.policyId);
+      return !previous || previous.artifact.sha256 !== policy.artifact.sha256;
+    });
+    if (drifted.length !== 0) {
+      const adjudications = await readF005PolicyAdjudications(options.workspace);
+      for (const policy of drifted) {
+        const previous = selection.policies.find((item) => item.policyId === policy.policyId);
+        const decided = adjudications.find((item) =>
+          item.policyId === policy.policyId &&
+          item.previousSha256 === previous?.artifact.sha256 &&
+          item.currentSha256 === policy.artifact.sha256 &&
+          item.decision === 'no-material-change');
+        if (!decided) {
+          throw new F005SourceError(
+            'F005_SOURCE_DRIFT',
+            `規約が変化し裁定記録がありません: ${policy.policyId}`,
+          );
+        }
+      }
     }
   }
   return snapshot;
@@ -1097,6 +1124,67 @@ export async function collectF005SourceSnapshot(
  * process再起動後のpredeployで、保存JSONだけをbrandとして信用しない。
  * @des DES-F005-003 @fun FUN-F005-006 @ut UT-F005-006
  */
+/**
+ * CHG-F005-077: 規約変化の再レビュー結果。selection時とpredeploy時のSHAを両方
+ * 名指しした記録だけを有効とし、以後の別の変化には効かないようにする。
+ * @des DES-F005-003 @fun FUN-F005-006
+ */
+export interface F005PolicyAdjudication {
+  readonly policyId: string;
+  readonly previousSha256: string;
+  readonly currentSha256: string;
+  readonly decision: 'no-material-change';
+  readonly reviewedAt: string;
+  readonly reviewer: string;
+  readonly note: string;
+}
+
+const F005_ADJUDICATION_SHA256 = /^[a-f0-9]{64}$/u;
+
+const F005_POLICY_ADJUDICATION_PATH =
+  'content/batches/F005/rights-adjudications.json';
+
+async function readF005PolicyAdjudications(
+  workspace: string | undefined,
+): Promise<readonly F005PolicyAdjudication[]> {
+  if (typeof workspace !== 'string' || workspace === '') {
+    throw new F005SourceError('F005_SOURCE_DRIFT', '裁定記録を読むworkspaceが必要です');
+  }
+  let text: string;
+  try {
+    text = await readFile(
+      resolve(workspace, ...F005_POLICY_ADJUDICATION_PATH.split('/')),
+      'utf8',
+    );
+  } catch {
+    return [];
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch (error) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', '裁定記録が不正なJSONです', { cause: error });
+  }
+  if (canonicalJson(parsed) !== text || !Array.isArray(parsed)) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', '裁定記録がcanonical JSON配列ではありません');
+  }
+  for (const item of parsed) {
+    if (!isRecord(item) ||
+      !hasExactKeys(item, [
+        'currentSha256', 'decision', 'note', 'policyId',
+        'previousSha256', 'reviewedAt', 'reviewer',
+      ]) ||
+      !nonBlank(item.policyId) || !F005_ADJUDICATION_SHA256.test(String(item.previousSha256)) ||
+      !F005_ADJUDICATION_SHA256.test(String(item.currentSha256)) ||
+      item.decision !== 'no-material-change' ||
+      !nonBlank(item.reviewer) || !nonBlank(item.note) ||
+      !Number.isFinite(Date.parse(String(item.reviewedAt)))) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', '裁定記録の項目が不正です');
+    }
+  }
+  return parsed as readonly F005PolicyAdjudication[];
+}
+
 export async function rehydrateF005SelectionSnapshot(
   workspace: string,
   context: F005ApprovedBatchContext,
