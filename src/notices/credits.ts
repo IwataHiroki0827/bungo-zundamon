@@ -200,13 +200,13 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
   if (representedAuthors.size !== authorById.size) throw new CreditsRenderError('CREDITS_WORK_MISSING');
 
   const terms = notices.license.terms;
+  // CHG-F002-005: 規約再確認の「期限」という概念を廃止した。
+  // 実質的な再確認はF005 predeployが担う。規約本文を公開直前に再取得し、
+  // 選定時snapshotとSHA-256を突き合わせ、変化していればF005_SOURCE_DRIFTで
+  // 公開を止める。暦の経過ではなく規約そのものの変化を見る方が強い。
+  // checkedAtは「いつ確認したか」の表示用記録として形式だけ検査する。
   const checkedAt = Date.parse(requireCreditText(terms?.checkedAt, 'CREDITS_POLICY_STALE'));
-  const validUntil = Date.parse(requireCreditText(terms?.validUntil, 'CREDITS_POLICY_STALE'));
-  // CHG-F002-004: 形式と前後関係だけを実行時に検査する。
-  // validUntilは規約側の期限ではなく自らの再確認リマインダーであり、
-  // 経過しただけで公開済みバンドルを自壊させるのは影響が釣り合わない。
-  // 期限切れはリリースをブロックする（verifyF005LicenseTermsFreshness）。
-  if (!Number.isFinite(checkedAt) || !Number.isFinite(validUntil) || checkedAt > validUntil) {
+  if (!Number.isFinite(checkedAt)) {
     throw new CreditsRenderError('CREDITS_POLICY_STALE');
   }
   try {
@@ -285,7 +285,6 @@ export function renderCreditsV2(catalog: UICatalogV2, notices: ValidatedNoticeBu
   policies.append(
     textElement('h2', '規約確認'),
     textElement('p', `確認日時: ${license.terms.checkedAt}`),
-    textElement('p', `有効期限: ${license.terms.validUntil}`),
     textElement('p', `確認者: ${license.terms.reviewer}`),
     externalAnchor('確認した利用規約', resolveTrustedExternalLink(license.terms.url, 'sss')),
   );
