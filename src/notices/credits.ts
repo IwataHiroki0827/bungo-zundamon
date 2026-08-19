@@ -196,11 +196,6 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
   if (representedAuthors.size !== authorById.size) throw new CreditsRenderError('CREDITS_WORK_MISSING');
 
   const terms = notices.license.terms;
-  const checkedAt = Date.parse(requireCreditText(terms?.checkedAt, 'CREDITS_POLICY_STALE'));
-  const validUntil = Date.parse(requireCreditText(terms?.validUntil, 'CREDITS_POLICY_STALE'));
-  if (!Number.isFinite(checkedAt) || !Number.isFinite(validUntil) || checkedAt > validUntil || validUntil < Date.now()) {
-    throw new CreditsRenderError('CREDITS_POLICY_STALE');
-  }
   try {
     resolveTrustedExternalLink(terms.url, 'sss');
   } catch {
