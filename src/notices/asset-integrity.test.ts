@@ -42,7 +42,7 @@ describe('公開権利表示asset [FUN-F001-026][FUN-F001-038]', () => {
   it('実ファイルhash・由来・写真/既存画風不使用宣言が一致する', () => {
     const license = readJson<LicenseManifest>('content/licenses.json');
     const artwork = readJson<ArtworkProvenanceManifest>('content/artwork-provenance.json');
-    const result = validateReleaseNotices(license, artwork, new Date('2026-08-13T08:00:00Z'));
+    const result = validateReleaseNotices(license, artwork, new Date('2026-07-18T08:00:00Z'));
 
     expect(result.ok).toBe(true);
     expect(sha256('public/artwork/akutagawa-zundamon.png')).toBe(artwork.output.sha256);
@@ -73,7 +73,7 @@ describe('公開権利表示asset [FUN-F001-026][FUN-F001-038]', () => {
   it('実manifestから必須表示と正確なサムネイル由来を描画する', () => {
     const license = readJson<LicenseManifest>('content/licenses.json');
     const artwork = readJson<ArtworkProvenanceManifest>('content/artwork-provenance.json');
-    const validated = validateReleaseNotices(license, artwork, new Date('2026-08-13T08:00:00Z'));
+    const validated = validateReleaseNotices(license, artwork, new Date('2026-07-18T08:00:00Z'));
     expect(validated.ok).toBe(true);
     if (!validated.ok) return;
     const page = renderCredits(catalog, validated.value);
