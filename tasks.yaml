@@ -198,7 +198,7 @@ tasks:
   title: 夢十夜の全候補レビュー・差分音声・作品単位atomic受入
   feature: F005
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-068
   - T-069
@@ -223,7 +223,7 @@ tasks:
   title: 倫敦塔の全候補レビュー・差分音声・作品単位atomic受入
   feature: F005
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-070
   tags:
@@ -246,7 +246,7 @@ tasks:
   title: 趣味の遺伝の全候補レビュー・差分音声・作品単位atomic受入
   feature: F005
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-071
   tags:
