@@ -162,7 +162,7 @@ async function main(): Promise<void> {
     join(workspace, 'content', 'batches', BATCH_ID, 'artwork-provenance.json'), 'utf8');
   const persisted = JSON.parse(provenanceText) as {
     readonly generation: Record<string, unknown>;
-    readonly output: { readonly publicPath: string; readonly alt: string };
+    readonly credit: string;
   };
   const generation = persisted.generation;
   const provenance = parseAndRehydrateF005ArtworkProvenance(
@@ -184,10 +184,11 @@ async function main(): Promise<void> {
       processingInputs: [],
     } as never,
     {
+      sourcePath: 'content/batches/F005/public-files/artwork/natsume-zundamon.png',
+      publicPath: 'artwork/natsume-zundamon.png',
+      credit: persisted.credit,
       bytes: artworkBytes,
-      publicPath: persisted.output.publicPath,
-      alt: persisted.output.alt,
-    } as never,
+    },
   );
   const existingArtwork = await Promise.all(baseline.catalog.authors.map(async (entry) => {
     const bytes = new Uint8Array(await readFile(join(workspace, 'public', ...entry.artwork.path.split('/'))));
