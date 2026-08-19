@@ -510,12 +510,39 @@ export function projectF005CatalogFragment(
   includedWorks.forEach(assertIncludedWork);
   const dialogueIds = includedWorks.flatMap((entry) =>
     entry.work.dialogues.map((dialogue) => dialogue.dialogueId));
-  const audioIds = includedWorks.flatMap((entry) => entry.audioAssets.map((asset) => asset.audioId));
+  // CHG-F005-076: audio IDは台詞文とvoice configの内容アドレスであり、
+  // 別作品に同一台詞があれば同じ音声を共有する(倫敦塔の「なぜ」は夢十夜と同一)。
+  // 公開Catalogのaudio assetsは元から作品横断でグローバルに一意化されるため、
+  // fragmentでも重複を許し、実体が一致することだけを要求する。
+  const assetsById = new Map<string, CatalogAudioAssetV2>();
+  for (const entry of includedWorks) {
+    for (const asset of entry.audioAssets) {
+      const known = assetsById.get(asset.audioId);
+      if (!known) {
+        assetsById.set(asset.audioId, asset);
+        continue;
+      }
+      if (known.path !== asset.path || known.sha256 !== asset.sha256 ||
+        known.bytes !== asset.bytes || known.durationMs !== asset.durationMs ||
+        known.configHash !== asset.configHash) {
+        throw new F005CatalogError(
+          'F005_CATALOG_FRAGMENT_INVALID',
+          '同一audio IDで実体が一致しません',
+        );
+      }
+      assetsById.set(asset.audioId, {
+        ...known,
+        candidateIds: [...new Set([
+          ...(known.candidateIds ?? []),
+          ...(asset.candidateIds ?? []),
+        ])].sort((left, right) => left.localeCompare(right, 'en')),
+      });
+    }
+  }
   const provenancePaths = includedWorks.map((entry) => entry.sourceProvenance.path);
   const provenanceHashes = includedWorks.map((entry) => entry.sourceProvenance.sha256);
   if (
     new Set(dialogueIds).size !== dialogueIds.length ||
-    new Set(audioIds).size !== audioIds.length ||
     new Set(provenancePaths).size !== provenancePaths.length ||
     new Set(provenanceHashes).size !== provenanceHashes.length
   ) {
@@ -544,7 +571,7 @@ export function projectF005CatalogFragment(
     author: catalogAuthor,
     artwork: clone(artwork),
     works: includedWorks.map((entry) => clone(entry.work)),
-    audioAssets: includedWorks.flatMap((entry) => clone(entry.audioAssets)),
+    audioAssets: clone([...assetsById.values()]),
     candidateCounts: sumCounts(includedWorks.map((entry) => entry.candidateCounts)),
     manifestSha256: hashBatchManifest(manifest),
     ...manifestBinding,

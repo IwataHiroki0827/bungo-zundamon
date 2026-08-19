@@ -573,7 +573,7 @@ describe('UT-F005-025 Catalog fragment [DES-F005-007][FUN-F005-025]', () => {
                 : record),
           }
           : work),
-    } as BatchManifest;
+    } as unknown as BatchManifest;
     expect(() => projectF005CatalogFragment(
       context,
       timeMismatch,
