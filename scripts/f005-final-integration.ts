@@ -182,7 +182,6 @@ async function main(): Promise<void> {
     {
       referenceInputs: [],
       processingInputs: [],
-      finalInput: artworkBytes,
     } as never,
     {
       bytes: artworkBytes,
