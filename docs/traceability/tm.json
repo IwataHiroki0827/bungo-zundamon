@@ -6546,22 +6546,6 @@
         "FUN-F002-005"
       ]
     },
-    "IMPL:scripts/verify-project.mjs#68:des": {
-      "type": "IMPL",
-      "defined_in": "scripts/verify-project.mjs",
-      "refs": [
-        "DES-F001-015",
-        "DES-F001-016"
-      ]
-    },
-    "IMPL:scripts/verify-project.mjs#68:fun": {
-      "type": "IMPL",
-      "defined_in": "scripts/verify-project.mjs",
-      "refs": [
-        "FUN-F001-031",
-        "FUN-F001-032"
-      ]
-    },
     "IMPL:src/content/artifacts.ts#209:des": {
       "type": "IMPL",
       "defined_in": "src/content/artifacts.ts",
@@ -9364,56 +9348,56 @@
         "FUN-F004-017"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#456:des": {
+    "IMPL:src/content/f005-acceptance.ts#462:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#456:fun": {
+    "IMPL:src/content/f005-acceptance.ts#462:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "FUN-F005-020"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#664:des": {
+    "IMPL:src/content/f005-acceptance.ts#670:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#664:fun": {
+    "IMPL:src/content/f005-acceptance.ts#670:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "FUN-F005-021"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#1613:des": {
+    "IMPL:src/content/f005-acceptance.ts#1619:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#1613:fun": {
+    "IMPL:src/content/f005-acceptance.ts#1619:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "FUN-F005-022"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#2319:des": {
+    "IMPL:src/content/f005-acceptance.ts#2336:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
         "DES-F005-006"
       ]
     },
-    "IMPL:src/content/f005-acceptance.ts#2319:fun": {
+    "IMPL:src/content/f005-acceptance.ts#2336:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-acceptance.ts",
       "refs": [
@@ -10690,56 +10674,56 @@
         "FUN-F005-047"
       ]
     },
-    "IMPL:src/content/f005-review.ts#534:des": {
+    "IMPL:src/content/f005-review.ts#535:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "DES-F005-005"
       ]
     },
-    "IMPL:src/content/f005-review.ts#534:fun": {
+    "IMPL:src/content/f005-review.ts#535:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "FUN-F005-011"
       ]
     },
-    "IMPL:src/content/f005-review.ts#559:des": {
+    "IMPL:src/content/f005-review.ts#560:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "DES-F005-005"
       ]
     },
-    "IMPL:src/content/f005-review.ts#559:fun": {
+    "IMPL:src/content/f005-review.ts#560:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "FUN-F005-011"
       ]
     },
-    "IMPL:src/content/f005-review.ts#748:des": {
+    "IMPL:src/content/f005-review.ts#749:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "DES-F005-005"
       ]
     },
-    "IMPL:src/content/f005-review.ts#748:fun": {
+    "IMPL:src/content/f005-review.ts#749:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "FUN-F005-012"
       ]
     },
-    "IMPL:src/content/f005-review.ts#873:des": {
+    "IMPL:src/content/f005-review.ts#874:des": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
         "DES-F005-005"
       ]
     },
-    "IMPL:src/content/f005-review.ts#873:fun": {
+    "IMPL:src/content/f005-review.ts#874:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f005-review.ts",
       "refs": [
@@ -11360,6 +11344,13 @@
       "defined_in": "src/content/f005-source.ts",
       "refs": [
         "FUN-F005-043"
+      ]
+    },
+    "IMPL:src/content/f005-speech-rules.ts#14:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f005-speech-rules.ts",
+      "refs": [
+        "DES-F005-002"
       ]
     },
     "IMPL:src/content/f005-voice.ts#176:des": {
