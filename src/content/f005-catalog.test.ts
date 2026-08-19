@@ -559,12 +559,20 @@ describe('UT-F005-025 Catalog fragment [DES-F005-007][FUN-F005-025]', () => {
       ['accepted', 'accepted', 'accepted'],
       'accepted',
     );
+    // CHG-F005-075: acceptedAtの裏付けは各作品のaccepted stage recordである。
+    // 最後に受理された作品の完了時刻がbatchのacceptedAtと食い違えば拒否する。
     const timeMismatch = {
       ...validFinalManifest,
-      stageRecords: validFinalManifest.stageRecords.map((record, index) =>
-        index === validFinalManifest.stageRecords.length - 1
-          ? { ...record, completedAt: '2026-07-29T00:01:00.000Z' }
-          : record),
+      workProgress: validFinalManifest.workProgress.map((work, index) =>
+        index === validFinalManifest.workProgress.length - 1
+          ? {
+            ...work,
+            stageRecords: work.stageRecords.map((record, position) =>
+              position === work.stageRecords.length - 1
+                ? { ...record, completedAt: '2026-07-29T00:01:00.000Z' }
+                : record),
+          }
+          : work),
     } as BatchManifest;
     expect(() => projectF005CatalogFragment(
       context,

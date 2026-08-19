@@ -334,21 +334,32 @@ function assertManifest(
   ) {
     throw new F005CatalogError('F005_CATALOG_FRAGMENT_INVALID', 'finalは3作品acceptedが必要です');
   }
-  const acceptedStage = manifest.stageRecords.at(-1);
+  // CHG-F005-075: F005は作品単位でatomicに受理するため、batch単位のstage record
+  // を書かない(FUN-F005-022/023はworkProgress[].stageRecordsだけを進める)。
+  // acceptedAtの裏付けは各作品のaccepted stage recordであり、batchのacceptedAtは
+  // 最後に受理された作品の完了時刻と一致していなければならない。
+  const acceptedCompletions = manifest.workProgress.map((work) => {
+    const record = work.stageRecords.at(-1);
+    return record?.stage === 'accepted' ? record.completedAt : null;
+  });
+  const lastAcceptedAt = acceptedCompletions.includes(null)
+    ? null
+    : acceptedCompletions.reduce<string>(
+      (latest, item) => (item! > latest ? item! : latest), acceptedCompletions[0]!);
   if (
     !manifest.acceptedAt ||
     !manifest.acceptedBy ||
-    acceptedStage?.stage !== 'accepted' ||
-    acceptedStage.completedAt !== manifest.acceptedAt
+    lastAcceptedAt === null ||
+    lastAcceptedAt !== manifest.acceptedAt
   ) {
     throw new F005CatalogError(
       'F005_CATALOG_FRAGMENT_INVALID',
-      'final accepted時刻とmanifest stage recordが一致しません',
+      'final accepted時刻が各作品のaccepted stage recordと一致しません',
     );
   }
   return {
     manifestStatus: manifest.status,
-    manifestObservedAt: acceptedStage.completedAt,
+    manifestObservedAt: lastAcceptedAt,
     acceptedAt: manifest.acceptedAt,
   };
 }
