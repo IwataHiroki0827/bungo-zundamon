@@ -44,7 +44,7 @@ import {
 } from '../src/content/f005-source.ts';
 import type { CatalogDialogueV2 } from '../src/content/processing.ts';
 import { validateCatalogV2 } from '../src/ui/catalog-loader.ts';
-import { createVoiceCacheKeyV2, type VoiceConfigV2 } from '../src/voice/cache.ts';
+import { createVoiceCacheKeyV2, voiceConfigHashV2, type VoiceConfigV2 } from '../src/voice/cache.ts';
 import { inspectWav } from '../src/voice/generation.ts';
 
 const execFile = promisify(execFileCallback);
@@ -172,7 +172,7 @@ async function main(): Promise<void> {
 
   const snapshot = await rehydrateF005SelectionSnapshot(workspace, context);
   const config = await readCanonicalJson<VoiceConfigV2>(join(workspace, ...CONFIG_PATH.split('/')));
-  const configHash = sha(canonicalJson(config));
+  const configHash = voiceConfigHashV2(config);
 
   const includedWorks: F005IncludedCatalogWork[] = [];
   // 公開provenanceは決定的に再生成されるが、buildIntegratedPublicTreeのreferencedPublicEvidenceは
