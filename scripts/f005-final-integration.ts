@@ -340,17 +340,25 @@ async function main(): Promise<void> {
 
   const outputRoot = await mkdtemp(join(workspace, '.cache', 'f005-final-integration-'));
 
-  const publicFiles = fragment.works.map((work) => {
-    const output = provenanceOutputs.find((entry) =>
-      entry.publicPath === `content/provenance/${BATCH_ID}/${work.workId}.json`);
-    if (!output) throw new Error(`公開provenanceがありません: ${work.workId}`);
-    return {
-      source: output.persistedPath as WorkspaceRelativePath,
-      publicPath: work.source.provenancePath as WorkspaceRelativePath,
-      sha256: sha(output.bytes),
-      bytes: output.bytes.byteLength,
-    };
-  });
+  const publicFiles = [
+    {
+      source: 'content/batches/F005/public-files/artwork/natsume-zundamon.png' as WorkspaceRelativePath,
+      publicPath: fragment.author.artwork.path as WorkspaceRelativePath,
+      sha256: fragment.author.artwork.sha256,
+      bytes: artworkBytes.byteLength,
+    },
+    ...fragment.works.map((work) => {
+      const output = provenanceOutputs.find((entry) =>
+        entry.publicPath === `content/provenance/${BATCH_ID}/${work.workId}.json`);
+      if (!output) throw new Error(`公開provenanceがありません: ${work.workId}`);
+      return {
+        source: output.persistedPath as WorkspaceRelativePath,
+        publicPath: work.source.provenancePath as WorkspaceRelativePath,
+        sha256: sha(output.bytes),
+        bytes: output.bytes.byteLength,
+      };
+    }),
+  ];
   const f005Fragment = {
     authors: [structuredClone(fragment.author)],
     works: fragment.works.map((work) => structuredClone(work)),
