@@ -270,7 +270,7 @@ tasks:
   title: F005最終Catalog統合・固定v0.4.0回帰・公開tree候補を作成
   feature: F005
   phase: implement
-  state: todo
+  state: blocked
   depends:
   - T-070
   - T-071
@@ -291,6 +291,18 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  progress: >-
+    依存T-070/071/072は全てdoneで前提充足。commit未清浄（未commit predeploy snapshot 12件）を
+    「data(f005): refresh predeploy source evidence」として解消しexact clean source commit要件を通過させた。
+    しかしscripts/f005-final-integration.tsはsrc/content/batch.ts:1454の`loadAcceptedBatches`で
+    `BATCH_ARTIFACT_MISSING`停止。content/batches/F005/batch.jsonの3作品全てで`rightsSnapshotIds`が空配列、
+    `actualCapacityRef`が未設定（`forecastRef`/`voiceEvidenceRef`は設定済み）。原因はF005専用のacceptance経路
+    （src/content/f005-acceptance.ts・scripts/f005-run-work.ts、CHG-F005-072のETW事後検証置換で構築）が
+    `forecastRef`/`voiceEvidenceRef`は書くが`actualCapacityRef`とbatch単位`rightsSnapshotIds`を一度も書いていないこと。
+    容量actual証跡自体は`content/batches/F005/capacity-actual/{workId}/<sha256>.json`として存在するが、
+    generic release候補discovery（F002〜F004が使うsrc/content/batch-acceptance.ts/batch-runtime.tsの
+    `content/batches/${batchId}/capacity-actual/${workId}.json`規約）とpath規約が異なりリンクされていない。
+    コード修正が必要なため実装せず報告に留める。lint/typecheck PASS、コード変更なし。
 - id: T-074
   title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F005

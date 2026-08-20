@@ -1023,3 +1023,11 @@ entries:
   agents: 1
   est_tokens: 9000
   note: オーナーへ「知名度順に10人まで」の意図を再確認し、既存3人とは別に追加10人（最終上限13作者）ではなく既存を含む合計10作者（追加7人、最終上限10作者）が正であると判明。SRS-F005/FD-F005/DD-F005/DOMAIN-F005/QT-F005/IT-F005/UT-F005/QA-F005とsrc/content/f005-foundation.ts・.test.tsのtargetAdditionalAuthors=10→7、finalAuthorLimit=13→10を一括修正。changes.yaml・CHG-F005-077.md・STATUS.mdを更新。trace_check.py --feature F005実行後にtm.jsonの全体グラフ縮小副作用が発生したためgit checkoutで復元。lint/typecheck PASS、test 1302 passed/10 failed(全て無関係な既存timeout・flaky)、対象のf005-foundation.test.tsは37件全PASS
+- date: '2026-08-21'
+  phase: implement
+  task: T-073 F005最終Catalog統合の試行
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 8000
+  note: 依存T-070/071/072は全てdoneで前提充足を確認。未commitのpredeploy source-evidence 12件をdata(f005)コミットで解消しexact
+    clean source commit要件を通過させたが、scripts/f005-final-integration.tsがsrc/content/batch.tsの`loadAcceptedBatches`で`BATCH_ARTIFACT_MISSING`停止。content/batches/F005/batch.jsonの3作品全件で`rightsSnapshotIds`（batch単位、空配列）・`actualCapacityRef`（work単位、未設定）が欠落しており、F005専用acceptance経路（src/content/f005-acceptance.ts・scripts/f005-run-work.ts）がこの2フィールドを書いていないことが原因と特定。容量actual証跡自体はcontent/batches/F005/capacity-actual/{workId}/<sha256>.jsonとして存在するがpath規約がgeneric discoveryと異なりリンクされていない。コード修正が必要なため実装せず報告に留め、T-073をblockedへ更新。lint/typecheck PASS、コード変更なし
