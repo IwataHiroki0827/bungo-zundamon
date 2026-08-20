@@ -374,6 +374,32 @@ tasks:
     REQ/QT-F005タグを持つspecファイルが1件も存在しない（既存4本のspecはF001〜F004時代の
     汎用specであり、F005データを偶発的に流用するのみ）。これらは設計判断（notice配線方法、
     E2E spec追加方針）を要するため実装せず報告に留めた。T-074は`done`にできず`doing`で継続する。
+    追加調査（CHG-F005-080）: E2E全滅の原因を特定した。`curl`/node native fetchで
+    `content/catalog.json`を直接取得すると200・全量正常取得でき、生HTTPレベルは問題なし。
+    Playwright単体specで再現させ、失敗traceの`0-trace.network`を確認したところ
+    `content/catalog.json`のresponseにのみ`"_failureText":"net::ERR_ABORTED"`が記録されていた
+    （同時に取得する`licenses.json`/`artwork-provenance.json`は正常完了）。
+    `src/main.ts`の`startBungoZundamon`は`catalogLoader`と`noticeLoader`を共有の
+    `AbortController`で`Promise.all`しており、どちらかがrejectすると
+    もう一方のin-flight fetchも`abort.abort()`で巻き込まれてキャンセルされる実装だった。
+    `src/notices/release-notices.ts`の`validateReleaseNotices`は
+    `content/licenses.json`の`terms.validUntil`（2026-08-18T07:25:00Z）と実行時の実時計を比較し、
+    超過していれば`terms-expired`で検証失敗する。本セッションの実時計は2026-08-20〜21で
+    この期限を2〜3日超過していたため、noticeLoaderが例外を投げてcatalog.jsonのfetchも
+    巻き込まれてabortされ、「作品を読み込めませんでした」画面になっていた。
+    Playwrightの`page.clock.install`で有効期間内時刻（2026-08-10）に固定して同一distへ
+    アクセスしたところ正常に読み込めることを確認し、上記仮説を実証した。
+    結論: F005候補・環境固有の問題ではなく、`content/licenses.json`の権利確認有効期限切れという
+    安全装置の作動である。`terms.checkedAt`/`terms.validUntil`の更新は実際の規約再確認を
+    伴わない限り行うべきでないため未修正。さらに`queue.yaml`Q-049/Q-050を確認したところ、
+    この期限判定は既にCHG-F002-005（Q-049承認）で廃止決定済みであり、mainはPR #3
+    （commit 957855c、v0.4.1として本番デプロイ済み）で`src/notices/release-notices.ts`から
+    `terms-expired`系issueを削除済みだった。feature/F005ブランチ自身のcommit 8c0e320は
+    `src/notices/credits.ts`のみ修正し`release-notices.ts`を未反映のまま残していたことが
+    `git diff origin/main -- src/notices/release-notices.ts`で確認できた（Q-050の
+    processed_noteが事前に警告していた「軽微なコンフリクト」相当）。よって次アクションは
+    設計判断ではなく、mainの当該ファイルをfeature/F005へ反映するだけで解消する見込み。
+    詳細はCHG-F005-080参照。
 - id: T-075
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005

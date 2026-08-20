@@ -4,7 +4,7 @@ feature: F005
 updated: 2026-08-21T06:30:00+09:00
 next_actions:
   - "T-074を継続する。設計判断が必要な2件を先に解決する: (1) FUN-F005-014（趣味の遺伝の公式表現notice）をscripts/f005-final-integration.tsの実プロダクション経路へどう配線するか（既存のprojectF005Credits/DataDrivenWorkNoticeV1機構を呼び出すか、work-noticesの静的textKey機構（official-content-warningと同型）へ寄せるかの方針決定が必要）、(2) tests/e2e/へF005固有specを新規追加する方針（既存4 specファイルのF001〜F004パターンを踏襲するか）"
-  - "T-074のE2E実行環境を再検証する。今回のセッションではF005を含まない現行mainベースの`public/`（npm run build）でも同一のcatalog.json fetch ERR_ABORTED（起動時読込失敗）が再現しており、F005候補固有の回帰か、このWindows実行環境（Cドライブ空き42GB/96%使用、残存プロセス多数）側の問題かを切り分ける必要がある。可能なら別マシン/GitHub Actions hosted runnerでの再検証を検討する"
+  - "T-074のE2E全滅（catalog.json fetch ERR_ABORTED）の原因をCHG-F005-080で特定した。原因はcontent/licenses.jsonのterms.validUntil期限切れをsrc/notices/release-notices.tsが判定しfail-closedすること。この期限判定はCHG-F002-005（Q-049承認）で廃止決定済みで、mainはPR #3（commit 957855c、v0.4.1デプロイ済み）でrelease-notices.tsから削除済みだが、feature/F005ブランチ自身のcommit 8c0e320はsrc/notices/credits.tsのみ修正しrelease-notices.tsを未反映のまま残していた。origin/mainのsrc/notices/release-notices.tsをfeature/F005へ反映（merge/rebase/cherry-pick）し、npm run test:e2eを実時計のまま再実行して全件成功することを確認する"
   - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル（f005-spec-coverage.test.ts相当）を追加し、48/15件のID→testファイル対応を継続的に検証可能にする（現状12/8件が対応未確認）"
   - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
   - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
