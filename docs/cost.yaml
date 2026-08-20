@@ -1053,3 +1053,29 @@ entries:
   est_tokens: 35000
   note: >-
     F004先例（commit 05ba5cd）を調査し、--retainオプションでbuildPagesPreviewによるofflineのdist候補を生成しPLAYWRIGHT_DIST_ROOTでPlaywrightへ接続する運用（candidate branchのpush無し）と判明したため、同機構が欠けていたscripts/f005-final-integration.tsへ追加した（commit 9adb6a1、lint/typecheck PASS）。npm testは1304 passed/8 failedで、8件は個別再実行で全PASSしT-073と同型のWindows並列resource contentionと確認。--retain実行でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、901 files）を生成しPlaywright 6プロジェクトへ接続してtest:e2eを実行したところ144件中ほぼ全件が「作品を読み込めませんでした」で失敗した。requestfailedイベントで追跡するとcontent/catalog.jsonへのfetchがHTTP 200受信直後にnet::ERR_ABORTEDでボディ読取が中断される現象を確認した。F005を一切含まない現行mainベースのpublic（npm run buildのみ）をpreview配信した場合にも同一現象が再現し、F005候補固有の回帰と断定できなかった（この実行環境固有の問題である可能性が高いが未確定）。並行してQT-F005/UT-F005/IT-F005のID→testファイル機械照合を手動実施した結果、F003/F004が備えるspec-coverage.test.ts相当のファイルがF005に存在せず、UT-F005 48件中12件・IT-F005 15件中8件が該当タグの記載を持つテストファイルを持たないと判明した。特にUT-F005-014/FUN-F005-014（趣味の遺伝の公式表現notice）は設計のみ存在し実装がなく、関連するprojectF005Credits/DataDrivenWorkNoticeV1機構は実装・単体テスト済みだがscripts/f005-final-integration.tsの実プロダクション経路から一度も呼ばれておらず、現候補のCatalogに趣味の遺伝の公式notice記載が欠落している。tests/e2e配下にF005固有specも0件だった。これらは設計判断を要するため実装せず報告に留め、T-074はdoneにできずdoingで継続する
+- date: '2026-08-21'
+  phase: implement
+  task: CHG-F005-081 FUN-F005-014(趣味の遺伝の公式表現notice)の実装とCatalogへの反映
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 40000
+  note: >-
+    T-074で判明していたFUN-F005-014未実装gapを解消した。src/content/f005-source.tsへ
+    extractVerifiedShumiNotice(公式card raw内の唯一trusted「備考」<tr>構造だけを正規表現で許可し、
+    text/source URL/raw SHA/notice SHAを独立再計算して自己申告candidateと照合、HTML注入・欠落・
+    複数候補・文言差・自己申告値同士だけの一致はF005_NOTICE_INVALIDで拒否)と、
+    rehydrateF005PredeploySnapshot(rehydrateF005SelectionSnapshotと対称のpredeploy snapshot
+    検証付き再読込、projectF005Creditsが要求するselection/predeploy両phaseのRightsUsageDecisionを
+    live再取得なしで得るために追加)を新規実装した。新規content/batches/F005/work-artifacts/001104/
+    shumi-notice-candidate.jsonを実card raw sha256から検算して作成。scripts/f005-final-integration.ts
+    をこの2関数とprojectF005Creditsで結線し、検証成功を条件にofficial-content-warning textKey
+    (既存のwork-notice-text.ts/render.tsの汎用描画経路を再利用)を趣味の遺伝のwork.noticesへ
+    追加するようにした。node --experimental-transform-types scripts/f005-final-integration.ts
+    --retainを再実行し、出力catalog.jsonの趣味の遺伝にnotices: [dialogue-excerpt-scope,
+    official-content-warning]が反映され、夢十夜・倫敦塔・既存3作者12作品は不変(公開済み
+    public/content/catalog.jsonとJSON等価)であることを確認した。projectF005Creditsが返す
+    CreditProjectionの永続化・UI消費経路自体は未設計のため今回は新規artifactを書き出さず、
+    stdout報告のみに含めた(CHG-F005-081に残課題として明記)。UT-F005-014×8ケース・
+    UT-F005-006×3ケースを新規追加、単体実行で全PASS。lint/typecheck PASS、npm testは
+    1313 passed/8 failed(個別再実行で全PASS、T-073/T-074既報と同型のWindows並列flaky)。
+    tasks.yaml T-074 progress・STATUS.md・CHG-F005-081.mdを更新。commit eec7353

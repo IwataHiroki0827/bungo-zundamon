@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-081
+  date: '2026-08-21'
+  trigger: T-074でDD-F005.mdに設計が存在するextractVerifiedShumiNotice（FUN-F005-014）が未実装であり、scripts/f005-final-integration.tsの実プロダクション経路から一度も呼ばれておらず、趣味の遺伝の公式表現注意（QT-F005-006）がCatalogへ反映されていないことが判明した
+  level: implementation
+  affected:
+  - src/content/f005-source.ts
+  - scripts/f005-final-integration.ts
+  - content/batches/F005/work-artifacts/001104/shumi-notice-candidate.json
+  status: done
+  approved_by: 既存設計書（DD-F005.md FUN-F005-014/DES-F005-005/DES-F005-010）通りの実装であり、要求・設計の変更を伴わないため新規承認ゲート登録は行わない
+  completed_at: '2026-08-21T08:00:00+09:00'
+  result: extractVerifiedShumiNotice（公式card raw内の唯一trusted「備考」構造から独立再計算・自己申告candidateと照合、HTML注入・欠落・複数候補・文言差はF005_NOTICE_INVALID）と、対称なrehydrateF005PredeploySnapshot（predeploy
+    snapshot検証付き再読込）をsrc/content/f005-source.tsへ新規実装した。scripts/f005-final-integration.tsをこの2関数とprojectF005Creditsで結線し、検証成功を条件にofficial-content-warning
+    textKey（既存のwork-notice-text.ts/render.ts描画経路を再利用）を趣味の遺伝のwork.noticesへ追加した。node --experimental-transform-types
+    scripts/f005-final-integration.ts --retainを再実行し出力catalog.jsonへの反映と既存作品の不変を確認。UT-F005-014×8・UT-F005-006×3ケースを新規追加し全PASS。lint/typecheck
+    PASS、npm testは1313 passed/8 failed（個別再実行で全PASS、既知のWindows並列flaky）。projectF005CreditsのCreditProjection自体の永続化・UI消費経路は未設計のまま残課題として明記（詳細CHG-F005-081.md）
 - id: CHG-F005-079
   date: '2026-08-21'
   trigger: CHG-F005-078でBATCH_ARTIFACT_MISSINGを解消後もT-073は継続し、公開provenance evidence永続化・F004

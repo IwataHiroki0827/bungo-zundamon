@@ -400,6 +400,43 @@ tasks:
     processed_noteが事前に警告していた「軽微なコンフリクト」相当）。よって次アクションは
     設計判断ではなく、mainの当該ファイルをfeature/F005へ反映するだけで解消する見込み。
     詳細はCHG-F005-080参照。
+    追加実装: 上記で欠落確認したFUN-F005-014（UT-F005-014）`extractVerifiedShumiNotice`を
+    `src/content/f005-source.ts`に実装した。公式card raw（`data/batches/F005/source-snapshots/
+    selection/works/001104/card.html`）内の唯一trusted「備考」`<tr>`構造だけを正規表現で許可し、
+    text/source URL/raw SHA/notice SHAを独立に再計算して自己申告candidate
+    （新規`content/batches/F005/work-artifacts/001104/shumi-notice-candidate.json`、
+    実card raw sha256=5c5c1228…856201から検算した値で作成）と照合する。HTML注入・欠落・
+    複数候補・文言差・自己申告値同士だけの一致は全て`F005_NOTICE_INVALID`で拒否する
+    （UT-F005-014、正常系・改竄検知・注入・欠落・複数候補・文言差・mint未検証を含む8ケース追加、
+    全PASS）。あわせて、FUN-F005-032（`projectF005Credits`）が要求するselection/predeploy
+    両phaseのRightsUsageDecisionをlive再取得なしで検証再現するため、
+    `rehydrateF005SelectionSnapshot`と対称な`rehydrateF005PredeploySnapshot`を追加した
+    （predeployはファイル名にrun timestampを刻む点だけが異なり、他は同一のsealed artifact
+    再照合・canonical schema厳格検証。UT-F005-006へ3ケース追加、全PASS）。
+    `scripts/f005-final-integration.ts`をこの2関数と`projectF005Credits`で結線し、
+    （1）`content/batches/F005/source-snapshots/predeploy-*.json`のうち最新のrunを
+    `rehydrateF005PredeploySnapshot`で再検証、（2）`extractVerifiedShumiNotice`で
+    趣味の遺伝の表現注意を検証済みnoticeとして生成、（3）`projectF005Credits`で
+    Catalog/source/権利decision/artworkとの同一join再検証を通し、（4）検証成功を条件に
+    `work.notices`へ`{textKey: "official-content-warning", placements: [work-list,
+    work-detail, credits]}`を趣味の遺伝にのみ追加、という経路にした
+    （`projectF005Credits`のCreditProjection出力自体を消費するUI/公開先は未設計のため
+    新規永続artifactは作らず、stdout報告のみに含めた。残課題として明記）。
+    `node --experimental-transform-types scripts/f005-final-integration.ts --retain`を
+    再実行し、出力`catalog.json`の趣味の遺伝(`001104`)に
+    `notices: [dialogue-excerpt-scope, official-content-warning]`が反映されたことを確認、
+    夢十夜・倫敦塔の`notices`は`dialogue-excerpt-scope`のみで不変、既存3作者12作品は
+    公開済み`public/content/catalog.json`とbyte一致（差分なし）を確認した
+    （authors=4/works=15/dialogues=877/audioAssets=861、901 dist files、
+    shumiNoticeSourceRawSha256=5c5c1228…856201、shumiNoticeTextSha256=9493d468…7d40、
+    predeploySnapshotPath=predeploy-2026-08-19T15-00-13-256Z.json）。
+    `npm run lint`/`npm run typecheck`はPASS。`npm test`は1313 passed/8 failedで、
+    失敗8件は個別再実行で全PASSしT-073/T-074既報と同型のWindows並列resource contention
+    （baseline.test.ts、f003-catalog.test.ts、batch-runtime.test.ts、f005-native-guard.test.ts、
+    f005-source.test.ts）と確認済み。詳細はCHG-F005-081参照。
+    残課題（次T-074サブタスク向け）: UT-F005/IT-F005の未対応ID一覧・spec_coverage機械照合
+    ファイルの整備、E2E specへのF005固有REQ/QT-F005タグ付与、`CreditProjection`の
+    公開先・UI消費経路の設計は未着手のまま。
 - id: T-075
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005

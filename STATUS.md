@@ -1,9 +1,9 @@
 ---
 phase: test
 feature: F005
-updated: 2026-08-21T06:30:00+09:00
+updated: 2026-08-21T07:30:00+09:00
 next_actions:
-  - "T-074を継続する。設計判断が必要な2件を先に解決する: (1) FUN-F005-014（趣味の遺伝の公式表現notice）をscripts/f005-final-integration.tsの実プロダクション経路へどう配線するか（既存のprojectF005Credits/DataDrivenWorkNoticeV1機構を呼び出すか、work-noticesの静的textKey機構（official-content-warningと同型）へ寄せるかの方針決定が必要）、(2) tests/e2e/へF005固有specを新規追加する方針（既存4 specファイルのF001〜F004パターンを踏襲するか）"
+  - "T-074を継続する。FUN-F005-014（趣味の遺伝の公式表現notice）はCHG-F005-081で実装・配線済み（extractVerifiedShumiNotice/rehydrateF005PredeploySnapshotをsrc/content/f005-source.tsへ追加し、scripts/f005-final-integration.tsからprojectF005Credits経由で検証、official-content-warning textKeyでCatalogへ反映）。残る設計判断はtests/e2e/へF005固有specを新規追加する方針（既存4 specファイルのF001〜F004パターンを踏襲するか）のみ"
   - "T-074のE2E全滅（catalog.json fetch ERR_ABORTED）の原因をCHG-F005-080で特定した。原因はcontent/licenses.jsonのterms.validUntil期限切れをsrc/notices/release-notices.tsが判定しfail-closedすること。この期限判定はCHG-F002-005（Q-049承認）で廃止決定済みで、mainはPR #3（commit 957855c、v0.4.1デプロイ済み）でrelease-notices.tsから削除済みだが、feature/F005ブランチ自身のcommit 8c0e320はsrc/notices/credits.tsのみ修正しrelease-notices.tsを未反映のまま残していた。origin/mainのsrc/notices/release-notices.tsをfeature/F005へ反映（merge/rebase/cherry-pick）し、npm run test:e2eを実時計のまま再実行して全件成功することを確認する"
   - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル（f005-spec-coverage.test.ts相当）を追加し、48/15件のID→testファイル対応を継続的に検証可能にする（現状12/8件が対応未確認）"
   - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
@@ -118,6 +118,7 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- CHG-F005-081でFUN-F005-014（趣味の遺伝の公式表現notice）を実装。`extractVerifiedShumiNotice`（公式card raw内の唯一trusted「備考」構造から独立再計算・自己申告candidateと照合、`F005_NOTICE_INVALID`でHTML注入・欠落・複数候補・文言差・自己申告値同士だけの一致を拒否）と`rehydrateF005PredeploySnapshot`（predeploy snapshotの検証付き再読込、selectionと対称）を`src/content/f005-source.ts`へ新規実装し、`scripts/f005-final-integration.ts`から`projectF005Credits`経由で検証、`official-content-warning`textKeyでCatalogへ反映するよう結線した（commit `eec7353`）。UT-F005-014×8・UT-F005-006×3ケースを追加し全PASS。`--retain`再実行で趣味の遺伝のnoticeが出力catalog.jsonへ反映され既存12作品・夢十夜・倫敦塔は不変を確認。lint/typecheck PASS、test 1313 passed/8 failed（個別再実行で全PASS、既知のWindows並列flaky）。`CreditProjection`の永続化・UI消費経路は未設計のまま残課題として明記
 - T-074着手。F004先例（`--retain`+`buildPagesPreview`+`PLAYWRIGHT_DIST_ROOT`）を踏襲し`scripts/f005-final-integration.ts`へdist候補生成を追加（commit 9adb6a1）。F005候補distでPlaywright 6環境を実行したところ全域的な起動時catalog読込失敗（`net::ERR_ABORTED`）を検出したが、F005を含まない現行mainの`public/`でも同一現象が再現し環境要因の疑いが強い。UT-F005 12件・IT-F005 8件がtestファイル対応未確認、UT-F005-014/FUN-F005-014（趣味の遺伝notice）は未実装・未配線と判明。設計判断を要するため報告に留めT-074は`doing`継続
 - T-073を`done`へ確定。共有`integrateArtworkProvenances`へF005 ArtworkProvenanceV4分岐を追加し最終blockerを解消。候補tree生成（898 files、authors=4/works=15/dialogues=877/audioAssets=861）、既存v0.4.0部分不変確認、lint/typecheck/test PASS（flaky 10件は単独実行で全PASS確認）
 - T-073継続。provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一を順次修正（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）
@@ -146,7 +147,7 @@ blocked_by: []
 ## 未解決事項
 
 - T-073はdone。候補tree（`.cache/f005-final-integration-*/tree/`、898 files）の受入はT-074（UT/IT/QT/6環境/権利/容量/セキュリティ）で正式に検証する。T-074着手にあたっては`src/content/batch-public.ts`の`integrateArtworkProvenances`へ追加したF005分岐（commit `425ebf9`）を含む全変更が対象。
-- T-074は`doing`。未解決の設計判断が2件ある: (1) FUN-F005-014（趣味の遺伝の公式表現notice）の配線方法。`src/content/f005-catalog.ts`の`projectF005Credits`/`DataDrivenWorkNoticeV1`は実装・単体テスト済みだが、`scripts/f005-final-integration.ts`の実プロダクション経路から一度も呼ばれておらず、現候補Catalogに趣味の遺伝の公式notice（QT-F005-006が要求する3配置）が欠落している。既存の`src/notices/work-notice-text.ts`の静的`official-content-warning`textKey機構へ寄せるか、`projectF005Credits`を final-integration へ配線するかの方針決定が必要。(2) `tests/e2e/`にF005固有のREQ/QT-F005タグ付きspecファイルが0件（既存4本はF001〜F004時代の汎用specの流用のみ）。QT-F005-011/012/014等の専用自動化を新規追加する方針を決める必要がある。
+- T-074は`doing`。CHG-F005-081でFUN-F005-014（趣味の遺伝の公式表現notice）を実装した: `src/content/f005-source.ts`へ`extractVerifiedShumiNotice`（公式card raw内の唯一trusted「備考」構造から独立再計算・自己申告candidateと照合、UT-F005-014×8ケース追加）と`rehydrateF005PredeploySnapshot`（predeploy snapshotの検証付き再読込、UT-F005-006×3ケース追加）を新規実装し、`scripts/f005-final-integration.ts`から`projectF005Credits`経由で検証、成功を条件に`official-content-warning`textKey（既存の`work-notice-text.ts`/`render.ts`の汎用描画経路を再利用）を趣味の遺伝の`work.notices`へ追加するよう結線した。`--retain`再実行で出力catalog.jsonの趣味の遺伝に反映されたことを確認済み（既存12作品・夢十夜・倫敦塔は不変）。ただし`projectF005Credits`が返す`CreditProjection`（verbatim文言+出典URLをcredits配置へ投影したもの）自体を永続化・公開・UI描画する経路は未設計のまま（呼び出しによる検証は行うが出力を新規artifactへは書き出していない、残課題）。残る未解決の設計判断は`tests/e2e/`にF005固有のREQ/QT-F005タグ付きspecファイルが0件（既存4本はF001〜F004時代の汎用specの流用のみ）である点のみ。QT-F005-011/012/014等の専用自動化を新規追加する方針を決める必要がある。
 - T-074のPlaywright 6環境実行で、F005候補dist・F005を含まないmain相当の`public/`ビルドの両方について、起動時`content/catalog.json`のfetchがHTTP 200受信直後に`net::ERR_ABORTED`でボディ読取中断される現象を確認した（`page.on('requestfailed')`で再現）。F004実施日（2026-07-29）以降このローカル環境でのE2E成功実績が未確認のため、F005固有の回帰ではなく実行環境（Cドライブ空き42GB/96%使用、残存node/chromeプロセス多数）側の劣化の可能性が高いが未確定。次回セッションで環境を再検証するか、GitHub Actions hosted runner等の別環境で再現有無を確認する必要がある。
 - UT-F005/IT-F005にはF003/F004が備える`*-spec-coverage.test.ts`相当の機械照合ファイルが存在せず、手動照合の結果UT-F005 48件中12件（UT-F005-014, 023, 033-039, 042, 044, 046）・IT-F005 15件中8件（IT-F005-001-003, 010-014）が該当ID記載を持つテストファイルを確認できなかった（実装コードにも該当タグなし）。これらのIDに対応する機能が別経路で間接的にカバーされている可能性はあるが、機械的には未確認である。
 - C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、音声生成直前にもrunner内で再計測する。
