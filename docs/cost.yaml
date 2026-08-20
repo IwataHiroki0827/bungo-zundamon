@@ -1045,3 +1045,11 @@ entries:
   agents: 1
   est_tokens: 25000
   note: T-073継続中に発見した公開provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一の各不備を順次修正した（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）。最終的にsrc/content/batch-public.tsのintegrateArtworkProvenances（F001〜F004共有の公開作者画像provenance検証、V1/V2/V3の3分岐のみ）がF005導入のArtworkProvenanceV4をPUBLIC_REFERENCE_MISSINGで拒否していたことが最終blockerと判明。src/content/f005-artwork.tsのparseAndRehydrateF005ArtworkProvenance/verifyF005ArtworkAgainstCatalog（final-integration自身の内部検証で動作確認済み）を再利用するF005分岐を追加し解消（commit 425ebf9、V1/V2/V3の既存挙動は変更なし）。node --experimental-transform-types scripts/f005-final-integration.tsが成功し候補tree（898 files）を生成。最終Catalog: authors=4/works=15/dialogues=877/audioAssets=861、既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。lint PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS（10件failはWindows並列実行時のresource contentionによるflakyで単独実行では全PASS、batch-public.test.ts等の共有コードテストも含む）。T-073をdoneへ更新しT-074へ引き継ぎ
+- date: '2026-08-21'
+  phase: test
+  task: T-074 F005 UT/IT/QT/6環境受入の試行と重大gapの検出
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 35000
+  note: >-
+    F004先例（commit 05ba5cd）を調査し、--retainオプションでbuildPagesPreviewによるofflineのdist候補を生成しPLAYWRIGHT_DIST_ROOTでPlaywrightへ接続する運用（candidate branchのpush無し）と判明したため、同機構が欠けていたscripts/f005-final-integration.tsへ追加した（commit 9adb6a1、lint/typecheck PASS）。npm testは1304 passed/8 failedで、8件は個別再実行で全PASSしT-073と同型のWindows並列resource contentionと確認。--retain実行でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、901 files）を生成しPlaywright 6プロジェクトへ接続してtest:e2eを実行したところ144件中ほぼ全件が「作品を読み込めませんでした」で失敗した。requestfailedイベントで追跡するとcontent/catalog.jsonへのfetchがHTTP 200受信直後にnet::ERR_ABORTEDでボディ読取が中断される現象を確認した。F005を一切含まない現行mainベースのpublic（npm run buildのみ）をpreview配信した場合にも同一現象が再現し、F005候補固有の回帰と断定できなかった（この実行環境固有の問題である可能性が高いが未確定）。並行してQT-F005/UT-F005/IT-F005のID→testファイル機械照合を手動実施した結果、F003/F004が備えるspec-coverage.test.ts相当のファイルがF005に存在せず、UT-F005 48件中12件・IT-F005 15件中8件が該当タグの記載を持つテストファイルを持たないと判明した。特にUT-F005-014/FUN-F005-014（趣味の遺伝の公式表現notice）は設計のみ存在し実装がなく、関連するprojectF005Credits/DataDrivenWorkNoticeV1機構は実装・単体テスト済みだがscripts/f005-final-integration.tsの実プロダクション経路から一度も呼ばれておらず、現候補のCatalogに趣味の遺伝の公式notice記載が欠落している。tests/e2e配下にF005固有specも0件だった。これらは設計判断を要するため実装せず報告に留め、T-074はdoneにできずdoingで継続する

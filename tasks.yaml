@@ -327,7 +327,7 @@ tasks:
   title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F005
   phase: test
-  state: todo
+  state: doing
   depends:
   - T-073
   tags: *id005
@@ -336,6 +336,44 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  progress: >-
+    F004先例（commit 05ba5cd）を調査し、`scripts/f004-final-integration.ts --retain`が
+    `buildPagesPreview`でofflineのdist候補を生成し、`PLAYWRIGHT_DIST_ROOT`環境変数で
+    Playwright（`usePrebuiltDist`）へ接続する運用と判明した（candidate branchのpush/commitは
+    しない）。同じ`--retain`機構がF005側の`scripts/f005-final-integration.ts`に存在しなかったため
+    追加した（dist生成・candidate-paths.json永続化、commit 9adb6a1、typecheck/lint PASS）。
+    Vitestは`npm test`で1304 passed/8 failed、8件は個別再実行で全PASSしWindows並列実行時の
+    resource contentionと確認済み（T-073と同型の既知flaky）。
+    `--retain`でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、
+    901 dist files、contentBuildSha256=9bdb97a6…、distSha256=c92a735c…、
+    sourceCommit=9adb6a16…）を`.cache/f005-final-integration-s4y5MI/`へ生成し、
+    `PLAYWRIGHT_DIST_ROOT`でPlaywright 6プロジェクト設定へ接続してtest:e2eを実行した。
+    実行結果は144件中ほぼ全件が「作品を読み込めませんでした」（catalog起動時読込失敗）で
+    タイムアウト・失敗した。個別に`page.on('requestfailed')`で追跡した結果、
+    `content/catalog.json`へのfetchがHTTP 200を受信した直後に`net::ERR_ABORTED`で
+    ボディ読取が中断されるという再現するネットワークレベルの挙動を確認した。
+    重要な追加検証: 同じ症状は、F005を一切含まない現行mainベースの委commit済み`public/`
+    （`npm run build`のみ、F005 candidate不使用）をpreview配信した場合にも**同一に再現した**。
+    よってこの「起動時ロード失敗」はF005候補固有の回帰ではなく、本セッションの実行環境
+    （このWindowsマシン上のPlaywright/Chromiumの現在の状態、Cドライブ空き42GB・96%使用、
+    レガシーな多数の待機node/chromeプロセスが並行して残存）側の問題である可能性が高い。
+    ただしF004のQT実施（2026-07-29、Actions run 30390224028等のhosted）以降、
+    このローカル環境で再現性のあるE2E成功実績がない状態でこの結論に至ったため、断定はできない。
+    上記と並行して、QT-F005/UT-F005/IT-F005の20/48/15ケースについて、F003/F004が備える
+    `f003-spec-coverage.test.ts`/`f004-spec-coverage.test.ts`相当の機械照合ファイルが
+    F005には存在しないことを確認した。手動でID→test file対応を洗い出した結果、
+    UT-F005は48件中12件（014, 023, 033-039, 042, 044, 046）、IT-F005は15件中8件
+    （001-003, 010-014）が、テストファイル中に該当IDの記載が一切なく対応関係を確認できない
+    （実装コード上も同様に該当タグなし）。特にUT-F005-014/FUN-F005-014
+    （`extractVerifiedShumiNotice`、趣味の遺伝の公式表現注意notice）は設計書
+    （DD-F005.md）に定義があるが実装が存在せず、`src/content/f005-catalog.ts`の
+    `projectF005Credits`/`DataDrivenWorkNoticeV1`という関連機構は実装・単体テスト
+    （fixture経由）されているものの、`scripts/f005-final-integration.ts`の実プロダクション
+    経路からは一度も呼び出されておらず、現候補のCatalogには趣味の遺伝の公式notice記載が
+    欠落している（QT-F005-006に抵触する可能性）。また`tests/e2e/`配下にF005固有の
+    REQ/QT-F005タグを持つspecファイルが1件も存在しない（既存4本のspecはF001〜F004時代の
+    汎用specであり、F005データを偶発的に流用するのみ）。これらは設計判断（notice配線方法、
+    E2E spec追加方針）を要するため実装せず報告に留めた。T-074は`done`にできず`doing`で継続する。
 - id: T-075
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005
