@@ -27,6 +27,12 @@ import {
   type ArtworkProvenanceV2,
   type ArtworkProvenanceV3,
 } from '../notices/artwork-provenance.ts';
+import {
+  computeDHash64V1,
+  parseAndRehydrateF005ArtworkProvenance,
+  verifyF005ArtworkAgainstCatalog,
+} from './f005-artwork.ts';
+import { loadVerifiedF005Definition } from './f005-context.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -200,28 +206,75 @@ async function integrateArtworkProvenances(
     if (!isRecord(raw) || typeof raw.manifestId !== 'string') {
       throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `作者画像provenance identityが不正です: ${author.authorId}`);
     }
-    if (author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003') {
+    if (author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003' && author.introducedByBatchId !== 'F005') {
       throw new PublicIntegrationError(
         'PUBLIC_REFERENCE_MISSING',
         `作者画像provenance schema validatorが未登録です: ${author.introducedByBatchId}`,
       );
     }
     try {
-      const decision = author.introducedByBatchId === 'F003'
-        ? await validateArtworkProvenance(
-            raw as unknown as ArtworkProvenanceV3,
-            workspace,
-            await loadAndVerifyTrustedArtworkMachineReview(workspace, {
-              manifestId: String(raw.manifestId),
-              batchId: source.manifest.batchId,
-              authorId: source.manifest.author.authorId,
-              outputPath: author.artwork.path,
+      if (author.introducedByBatchId === 'F005') {
+        const generationRaw = isRecord(raw.generation) ? raw.generation : undefined;
+        if (!generationRaw) throw new Error('f005-generation-missing');
+        const context = await loadVerifiedF005Definition(workspace);
+        const imageBytes = new Uint8Array(await readFile(join(staging, ...author.artwork.path.split('/'))));
+        const provenance = parseAndRehydrateF005ArtworkProvenance(
+          context,
+          new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+          {
+            generator: generationRaw.generator as string,
+            generatorVersion: generationRaw.generatorVersion as string,
+            tool: generationRaw.tool as string,
+            providerTerms: generationRaw.providerTerms as never,
+            characterGuideline: generationRaw.characterGuideline as never,
+            prompt: generationRaw.prompt as string,
+            negativePrompt: generationRaw.negativePrompt as string,
+            generatedAt: generationRaw.generatedAt as string,
+            originalImageBytes: imageBytes,
+          },
+          { referenceInputs: [], processingInputs: [] } as never,
+          {
+            sourcePath: 'content/batches/F005/public-files/artwork/natsume-zundamon.png',
+            publicPath: 'artwork/natsume-zundamon.png',
+            credit: typeof raw.credit === 'string' ? raw.credit : '',
+            bytes: imageBytes,
+          },
+        );
+        const existingArtwork = await Promise.all(
+          catalog.authors
+            .filter((item) => item.authorId !== author.authorId)
+            .map(async (item) => {
+              const existingBytes = new Uint8Array(await readFile(join(staging, ...item.artwork.path.split('/'))));
+              return {
+                authorId: item.authorId,
+                path: item.artwork.path,
+                bytes: existingBytes,
+                sha256: item.artwork.sha256,
+                dHash64: computeDHash64V1(existingBytes),
+              };
             }),
-          )
-        : await validateArtworkProvenance(raw as unknown as ArtworkProvenanceV2, workspace);
-      if (decision.authorId !== author.authorId || decision.outputPath !== author.artwork.path ||
-        decision.outputSha256 !== author.artwork.sha256) {
-        throw new Error('artwork-decision-catalog-mismatch');
+        );
+        const acceptance = verifyF005ArtworkAgainstCatalog(provenance, imageBytes, existingArtwork);
+        if (acceptance.path !== author.artwork.path || acceptance.sha256 !== author.artwork.sha256) {
+          throw new Error('f005-artwork-catalog-mismatch');
+        }
+      } else {
+        const decision = author.introducedByBatchId === 'F003'
+          ? await validateArtworkProvenance(
+              raw as unknown as ArtworkProvenanceV3,
+              workspace,
+              await loadAndVerifyTrustedArtworkMachineReview(workspace, {
+                manifestId: String(raw.manifestId),
+                batchId: source.manifest.batchId,
+                authorId: source.manifest.author.authorId,
+                outputPath: author.artwork.path,
+              }),
+            )
+          : await validateArtworkProvenance(raw as unknown as ArtworkProvenanceV2, workspace);
+        if (decision.authorId !== author.authorId || decision.outputPath !== author.artwork.path ||
+          decision.outputSha256 !== author.artwork.sha256) {
+          throw new Error('artwork-decision-catalog-mismatch');
+        }
       }
     } catch (error) {
       throw new PublicIntegrationError(
