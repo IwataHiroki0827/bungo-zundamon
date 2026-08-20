@@ -21,6 +21,7 @@ import {
 import {
   loadAcceptedF003CatalogFragment,
   loadPublishedF002CatalogFragment,
+  loadPublishedF004CatalogFragment,
 } from '../src/content/f003-catalog.ts';
 import {
   computeDHash64V1,
@@ -363,7 +364,7 @@ async function main(): Promise<void> {
     feature: manifest.feature,
     sourceCommit,
   } as const;
-  const [f001, f002, f003, batches] = await Promise.all([
+  const [f001, f002, f003, f004, batches] = await Promise.all([
     loadAndVerifyF001Baseline(
       join(workspace, 'public'),
       join(workspace, 'content', 'baselines', 'F001-v0.1.0.json'),
@@ -371,6 +372,7 @@ async function main(): Promise<void> {
     ),
     loadPublishedF002CatalogFragment(workspace, baseline.catalog),
     loadAcceptedF003CatalogFragment(workspace),
+    loadPublishedF004CatalogFragment(workspace, baseline.catalog),
     loadAcceptedBatches(workspace, { preparation }),
   ]);
   const f001Bundle: F001BaselineBundle = {
@@ -394,7 +396,7 @@ async function main(): Promise<void> {
     {
       mode: 'prepare-release',
       workspaceRoot: workspace,
-      batchCatalogs: { F002: f002, F003: f003, F005: f005Fragment },
+      batchCatalogs: { F002: f002, F003: f003, F004: f004, F005: f005Fragment },
       publishedCatalogBatches,
     },
     undefined,

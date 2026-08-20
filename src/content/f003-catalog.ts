@@ -160,6 +160,52 @@ export async function loadPublishedF002CatalogFragment(
 }
 
 /**
+ * 固定v0.4.0 baseline Catalogと追跡済みF004 manifestから、公開済みF004 fragmentを復元する。
+ * F004は既存作者画像(F002)を再利用し新規artworkを導入しないため、authors/publicFilesは
+ * work provenanceのみを含む(loadPublishedF002CatalogFragmentの構造を踏襲)。
+ * @des DES-F003-002 @des DES-F003-009 @fun FUN-F003-005 @fun FUN-F003-022
+ */
+export async function loadPublishedF004CatalogFragment(
+  workspace: string,
+  catalog: CatalogV2,
+): Promise<BatchCatalogFragment> {
+  const authors = catalog.authors.filter((item) => item.introducedByBatchId === 'F004');
+  const works = catalog.works.filter((item) => item.batchId === 'F004');
+  const audioAssets = catalog.audioAssets
+    .filter((item) => item.batchId === 'F004')
+    .map((item) => ({ ...item }));
+  const manifest = await readJson<BatchManifest>(join(workspace, 'content', 'batches', 'F004', 'batch.json'));
+  const checked = validateBatchManifest(manifest);
+  if (!checked.ok || checked.value.status !== 'published') {
+    throw new Error('F004 published manifestが不正です');
+  }
+  for (const source of checked.value.workProgress.flatMap((work) => work.acceptedAudioSources ?? [])) {
+    const audioId = basename(source.path, '.wav');
+    if (audioAssets.some((asset) => asset.audioId === audioId)) continue;
+    const canonical = audioAssets.find((asset) =>
+      asset.sha256 === source.sha256 && asset.bytes === source.bytes && asset.configHash === source.configHash);
+    if (!canonical) throw new Error(`F004 accepted audioのaliasを復元できません: ${audioId}`);
+    audioAssets.push({ ...canonical, audioId, path: `audio/F004/${audioId}.wav` });
+  }
+  const publicFiles: NonNullable<BatchCatalogFragment['publicFiles']>[number][] = [];
+  for (const item of works.map((work) => ({
+    source: `content/batches/F004/public-files/provenance/${work.workId}.json`,
+    publicPath: work.source.provenancePath,
+  }))) {
+    const bytes = await readFile(join(workspace, ...item.source.split('/')));
+    publicFiles.push({
+      source: item.source as WorkspaceRelativePath,
+      publicPath: item.publicPath as WorkspaceRelativePath,
+      sha256: sha256(bytes),
+      bytes: bytes.byteLength,
+    });
+  }
+  const candidateCounts = catalog.candidateCounts.byBatch.F004;
+  if (!candidateCounts) throw new Error('固定v0.4.0 CatalogにF004 candidate countsがありません');
+  return { authors, works, audioAssets, candidateCounts, publicFiles };
+}
+
+/**
  * acceptedまたはpublished F003の3作品を永続artifactだけから再構築し、作者・notice・音声参照を逆joinする。
  * @des DES-F003-009 @fun FUN-F003-022 @fun FUN-F003-023 @ut UT-F003-022 @ut UT-F003-023
  */
