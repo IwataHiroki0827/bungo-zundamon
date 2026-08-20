@@ -1,10 +1,10 @@
 import { execFile as execFileCallback } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
+import { mkdir, mkdtemp, readFile, readdir } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
-import { canonicalJson } from '../src/content/artifacts.ts';
+import { canonicalJson, writeJsonArtifactAtomic } from '../src/content/artifacts.ts';
 import { loadAndVerifyF001Baseline } from '../src/content/baseline.ts';
 import {
   buildIntegratedPublicTree,
@@ -207,20 +207,36 @@ async function main(): Promise<void> {
   const configHash = sha(canonicalJson(config));
 
   const includedWorks: F005IncludedCatalogWork[] = [];
-  const provenanceOutputs: Array<{ readonly path: string; readonly bytes: Uint8Array }> = [];
+  // 公開provenanceは決定的に再生成されるが、buildIntegratedPublicTreeのreferencedPublicEvidenceは
+  // publicFiles[].sourceを実ワークスペース上の実ファイルとして検証するため、公開先パス
+  // (content/provenance/F005/{workId}.json)とは別に、実ワークスペースへ永続化するevidenceコピー先
+  // (content/batches/F005/public-files/provenance/{workId}.json)を持つ(F004の設計を踏襲)。
+  const provenanceOutputs: Array<{
+    readonly workId: string;
+    readonly persistedPath: string;
+    readonly publicPath: string;
+    readonly bytes: Uint8Array;
+    readonly value: Record<string, unknown>;
+  }> = [];
   for (const workId of manifest.workIds as readonly F005WorkId[]) {
     const workRoot = join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId);
     const workSnapshot = snapshot.works.find((work) => work.workId === workId);
     if (!workSnapshot) throw new Error(`selection snapshotに${workId}がありません`);
     const source = parseF005SourceRecord(workSnapshot, workId);
 
-    const provenanceBytes = new TextEncoder().encode(
-      canonicalJson(buildSourceProvenance(source, snapshot)));
+    const provenanceValue = buildSourceProvenance(source, snapshot);
+    const provenanceBytes = new TextEncoder().encode(canonicalJson(provenanceValue));
     const sourceProvenance = {
       path: `content/provenance/F005/${workId}.json` as const,
       sha256: sha(provenanceBytes),
     };
-    provenanceOutputs.push({ path: sourceProvenance.path, bytes: provenanceBytes });
+    provenanceOutputs.push({
+      workId,
+      persistedPath: `content/batches/${BATCH_ID}/public-files/provenance/${workId}.json`,
+      publicPath: sourceProvenance.path,
+      bytes: provenanceBytes,
+      value: provenanceValue,
+    });
 
     const [speechItems, candidates, reconciliation] = await Promise.all([
       readCanonicalJson<readonly SpeechItem[]>(join(workRoot, 'speech-items.json')),
@@ -346,17 +362,19 @@ async function main(): Promise<void> {
 
   const outputRoot = await mkdtemp(join(workspace, '.cache', 'f005-final-integration-'));
   for (const output of provenanceOutputs) {
-    const target = join(outputRoot, 'inputs', ...output.path.split('/'));
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, output.bytes);
+    await writeJsonArtifactAtomic(
+      workspace,
+      join(workspace, ...output.persistedPath.split('/')),
+      output.value,
+    );
   }
 
   const publicFiles = fragment.works.map((work) => {
     const output = provenanceOutputs.find((entry) =>
-      entry.path === `content/provenance/${BATCH_ID}/${work.workId}.json`);
+      entry.publicPath === `content/provenance/${BATCH_ID}/${work.workId}.json`);
     if (!output) throw new Error(`公開provenanceがありません: ${work.workId}`);
     return {
-      source: output.path as WorkspaceRelativePath,
+      source: output.persistedPath as WorkspaceRelativePath,
       publicPath: work.source.provenancePath as WorkspaceRelativePath,
       sha256: sha(output.bytes),
       bytes: output.bytes.byteLength,
