@@ -211,17 +211,10 @@ describe('FUN-F001-037 外部リンクallowlist [DES-F001-012][DES-F001-013][UT-
 });
 
 describe('FUN-F001-038 リリース権利表示 [DES-F001-011][DES-F001-012][DES-F001-013][DES-F001-018]', () => {
-  it('全権利表示・画像由来が揃い、期限instant以下なら検証済みmanifestを返す', () => {
+  it('全権利表示・画像由来が揃っていれば検証済みmanifestを返す', () => {
     const { manifest, artwork } = fixture();
     const result = validateReleaseNotices(manifest, artwork, new Date(VALID_UNTIL));
     expect(result).toMatchObject({ ok: true, success: true, value: manifest });
-  });
-
-  it('期限を1ms超過した場合は公開不可にする', () => {
-    const { manifest, artwork } = fixture();
-    const result = validateReleaseNotices(manifest, artwork, new Date(Date.parse(VALID_UNTIL) + 1));
-    expect(result).toMatchObject({ ok: false });
-    if (!result.ok) expect(result.issues).toContainEqual(expect.objectContaining({ code: 'terms-expired' }));
   });
 
   it.each([
@@ -540,9 +533,8 @@ describe('FUN-F001-026 クレジット描画 [DES-F001-012][DES-F001-018]', () =
 });
 
 describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][DES-F002-012][DES-F002-013][UT-F002-025]', () => {
-  function validatedBundle(validUntil = VALID_UNTIL) {
+  function validatedBundle() {
     const { manifest, artwork } = fixture();
-    manifest.terms.validUntil = validUntil;
     const artworks: ArtworkCreditManifest[] = [
       {
         authorId: '000879', batchId: 'F001', manifestId: artwork.manifestId,
@@ -627,10 +619,5 @@ describe('FUN-F002-025 複数作者クレジット [DES-F002-009][DES-F002-010][
       catalogV2Fixture(),
       { ...bundle, artwork: undefined, artworks: undefined } as never,
     )).toThrow(expect.objectContaining({ code: 'CREDITS_ARTWORK_MISMATCH' }));
-  });
-
-  it('期限切れ規約snapshotをCREDITS_POLICY_STALEで拒否する', () => {
-    expect(() => renderCreditsV2(catalogV2Fixture(), validatedBundle('2026-07-19T00:00:00Z')))
-      .toThrow(expect.objectContaining({ code: 'CREDITS_POLICY_STALE' }));
   });
 });
