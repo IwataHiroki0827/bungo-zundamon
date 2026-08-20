@@ -1,10 +1,10 @@
 import { execFile as execFileCallback } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, readdir } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
-import { canonicalJson } from '../src/content/artifacts.ts';
+import { canonicalJson, writeJsonArtifactAtomic } from '../src/content/artifacts.ts';
 import { loadAndVerifyF001Baseline } from '../src/content/baseline.ts';
 import {
   buildIntegratedPublicTree,
@@ -42,6 +42,7 @@ import {
   rehydrateF005SelectionSnapshot,
   type F005WorkId,
 } from '../src/content/f005-source.ts';
+import { buildPagesPreview } from '../src/content/pages-preview.ts';
 import type { CatalogDialogueV2 } from '../src/content/processing.ts';
 import { validateCatalogV2 } from '../src/ui/catalog-loader.ts';
 import { createVoiceCacheKeyV2, voiceConfigHashV2, type VoiceConfigV2 } from '../src/voice/cache.ts';
@@ -100,6 +101,10 @@ interface Reconciliation {
 }
 
 async function main(): Promise<void> {
+  const retainCandidate = process.argv[2] === '--retain';
+  if (process.argv.length !== (retainCandidate ? 3 : 2)) {
+    throw new Error('usage: f005-final-integration.ts [--retain]');
+  }
   const workspace = resolve(process.cwd());
   const [{ stdout: head }, { stdout: status }] = await Promise.all([
     execFile('git', ['rev-parse', 'HEAD'], { cwd: workspace, encoding: 'utf8' }),
@@ -339,95 +344,125 @@ async function main(): Promise<void> {
   const finalCatalog = mergeNewAuthorCatalog(baseline.catalog, fragment, author);
 
   const outputRoot = await mkdtemp(join(workspace, '.cache', 'f005-final-integration-'));
+  let retained = false;
+  try {
+    const publicFiles = [
+      {
+        source: 'content/batches/F005/public-files/artwork/natsume-zundamon.png' as WorkspaceRelativePath,
+        publicPath: fragment.author.artwork.path as WorkspaceRelativePath,
+        sha256: fragment.author.artwork.sha256,
+        bytes: artworkBytes.byteLength,
+      },
+      ...fragment.works.map((work) => {
+        const output = provenanceOutputs.find((entry) =>
+          entry.publicPath === `content/provenance/${BATCH_ID}/${work.workId}.json`);
+        if (!output) throw new Error(`公開provenanceがありません: ${work.workId}`);
+        return {
+          source: output.persistedPath as WorkspaceRelativePath,
+          publicPath: work.source.provenancePath as WorkspaceRelativePath,
+          sha256: sha(output.bytes),
+          bytes: output.bytes.byteLength,
+        };
+      }),
+    ];
+    const f005Fragment = {
+      authors: [structuredClone(fragment.author)],
+      works: fragment.works.map((work) => structuredClone(work)),
+      audioAssets: fragment.audioAssets.map((asset) => structuredClone(asset)),
+      candidateCounts: structuredClone(fragment.candidateCounts),
+      publicFiles,
+    } as unknown as PublicBatchCatalogFragment;
 
-  const publicFiles = [
-    {
-      source: 'content/batches/F005/public-files/artwork/natsume-zundamon.png' as WorkspaceRelativePath,
-      publicPath: fragment.author.artwork.path as WorkspaceRelativePath,
-      sha256: fragment.author.artwork.sha256,
-      bytes: artworkBytes.byteLength,
-    },
-    ...fragment.works.map((work) => {
-      const output = provenanceOutputs.find((entry) =>
-        entry.publicPath === `content/provenance/${BATCH_ID}/${work.workId}.json`);
-      if (!output) throw new Error(`公開provenanceがありません: ${work.workId}`);
-      return {
-        source: output.persistedPath as WorkspaceRelativePath,
-        publicPath: work.source.provenancePath as WorkspaceRelativePath,
-        sha256: sha(output.bytes),
-        bytes: output.bytes.byteLength,
-      };
-    }),
-  ];
-  const f005Fragment = {
-    authors: [structuredClone(fragment.author)],
-    works: fragment.works.map((work) => structuredClone(work)),
-    audioAssets: fragment.audioAssets.map((asset) => structuredClone(asset)),
-    candidateCounts: structuredClone(fragment.candidateCounts),
-    publicFiles,
-  } as unknown as PublicBatchCatalogFragment;
+    const preparation = {
+      releaseCandidateBatchId: manifest.batchId,
+      feature: manifest.feature,
+      sourceCommit,
+    } as const;
+    const [f001, f002, f003, f004, batches] = await Promise.all([
+      loadAndVerifyF001Baseline(
+        join(workspace, 'public'),
+        join(workspace, 'content', 'baselines', 'F001-v0.1.0.json'),
+        join(workspace, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
+      ),
+      loadPublishedF002CatalogFragment(workspace, baseline.catalog),
+      loadAcceptedF003CatalogFragment(workspace),
+      loadPublishedF004CatalogFragment(workspace, baseline.catalog),
+      loadAcceptedBatches(workspace, { preparation }),
+    ]);
+    const f001Bundle: F001BaselineBundle = {
+      baselineSha256: f001.baselineSha256,
+      catalog: f001.catalog,
+      files: f001.files,
+      sourceRoot: f001.sourceRoot,
+      syntheticBatch: f001.syntheticBatch,
+    };
+    const publishedCatalogBatches = Object.fromEntries(
+      baseline.catalog.batches
+        .filter((batch) => batch.batchId !== BATCH_ID)
+        .map((batch) => [batch.batchId, batch]),
+    );
+    const contentRoot = join(outputRoot, 'tree');
+    const distRoot = join(outputRoot, 'dist');
+    await Promise.all([
+      mkdir(contentRoot, { recursive: true }),
+      mkdir(distRoot, { recursive: true }),
+    ]);
+    const build = await buildIntegratedPublicTree(
+      batches,
+      f001Bundle,
+      contentRoot,
+      {
+        mode: 'prepare-release',
+        workspaceRoot: workspace,
+        batchCatalogs: { F002: f002, F003: f003, F004: f004, F005: f005Fragment },
+        publishedCatalogBatches,
+      },
+      undefined,
+      preparation,
+    );
+    const catalogBytes = await readFile(join(contentRoot, 'content', 'catalog.json'));
+    const validation = validateCatalogV2(
+      JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(catalogBytes)),
+      catalogBytes.byteLength,
+    );
+    if (!validation.ok) throw new Error(`F005最終Catalogが不正です: ${validation.error.code}`);
 
-  const preparation = {
-    releaseCandidateBatchId: manifest.batchId,
-    feature: manifest.feature,
-    sourceCommit,
-  } as const;
-  const [f001, f002, f003, f004, batches] = await Promise.all([
-    loadAndVerifyF001Baseline(
-      join(workspace, 'public'),
-      join(workspace, 'content', 'baselines', 'F001-v0.1.0.json'),
-      join(workspace, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
-    ),
-    loadPublishedF002CatalogFragment(workspace, baseline.catalog),
-    loadAcceptedF003CatalogFragment(workspace),
-    loadPublishedF004CatalogFragment(workspace, baseline.catalog),
-    loadAcceptedBatches(workspace, { preparation }),
-  ]);
-  const f001Bundle: F001BaselineBundle = {
-    baselineSha256: f001.baselineSha256,
-    catalog: f001.catalog,
-    files: f001.files,
-    sourceRoot: f001.sourceRoot,
-    syntheticBatch: f001.syntheticBatch,
-  };
-  const publishedCatalogBatches = Object.fromEntries(
-    baseline.catalog.batches
-      .filter((batch) => batch.batchId !== BATCH_ID)
-      .map((batch) => [batch.batchId, batch]),
-  );
-  const contentRoot = join(outputRoot, 'tree');
-  await mkdir(contentRoot, { recursive: true });
-  const build = await buildIntegratedPublicTree(
-    batches,
-    f001Bundle,
-    contentRoot,
-    {
-      mode: 'prepare-release',
-      workspaceRoot: workspace,
-      batchCatalogs: { F002: f002, F003: f003, F004: f004, F005: f005Fragment },
-      publishedCatalogBatches,
-    },
-    undefined,
-    preparation,
-  );
-  const catalogBytes = await readFile(join(contentRoot, 'content', 'catalog.json'));
-  const validation = validateCatalogV2(
-    JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(catalogBytes)),
-    catalogBytes.byteLength,
-  );
-  if (!validation.ok) throw new Error(`F005最終Catalogが不正です: ${validation.error.code}`);
+    const pages = await buildPagesPreview(build, workspace, distRoot, true);
 
-  process.stdout.write(canonicalJson({
-    ok: true,
-    sourceCommit,
-    outputRoot,
-    authors: finalCatalog.authors.length,
-    works: finalCatalog.works.length,
-    dialogues: finalCatalog.works.reduce((sum, work) => sum + work.dialogues.length, 0),
-    audioAssets: finalCatalog.audioAssets.length,
-    catalogSha256: sha(catalogBytes),
-    treeFiles: build.files.length,
-  }));
+    const report = {
+      ok: true,
+      sourceCommit,
+      outputRoot,
+      authors: finalCatalog.authors.length,
+      works: finalCatalog.works.length,
+      dialogues: finalCatalog.works.reduce((sum, work) => sum + work.dialogues.length, 0),
+      audioAssets: finalCatalog.audioAssets.length,
+      catalogSha256: sha(catalogBytes),
+      treeFiles: build.files.length,
+      contentBuildSha256: build.buildSha256,
+      distSha256: pages.distSha256,
+      distFileCount: pages.files.length,
+    } as const;
+    if (retainCandidate) {
+      await writeJsonArtifactAtomic(
+        workspace,
+        join(workspace, '.cache', 'batch-release', BATCH_ID, 'candidate-paths.json'),
+        {
+          schemaVersion: '1.0.0',
+          batchId: BATCH_ID,
+          sourceCommit,
+          contentRoot,
+          distRoot,
+          contentBuildSha256: build.buildSha256,
+          distSha256: pages.distSha256,
+        },
+      );
+      retained = true;
+    }
+    process.stdout.write(canonicalJson(report));
+  } finally {
+    if (!retained) await rm(outputRoot, { recursive: true, force: true });
+  }
 }
 
 await main();
