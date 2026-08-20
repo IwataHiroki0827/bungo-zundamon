@@ -1100,3 +1100,33 @@ entries:
     163件全PASS（E2Eが初めて全PASS）。`npm run lint`/`npm run typecheck`もPASS。
     UT-F005未対応12件・IT-F005未対応8件・spec-coverage機械照合ファイル・`CreditProjection`
     公開先設計は対象外で未着手のため、tasks.yaml T-074は`doing`のまま維持。
+- date: '2026-08-21'
+  phase: test
+  task: T-074 UT-F005/IT-F005網羅性ギャップ再点検・タグ補完
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 25000
+  note: >-
+    `docs/tests/ut/UT-F005.md`・`IT-F005.md`とテストコードのタグを`grep`で再突合し、
+    前回報告のUT未対応12件のうちUT-F005-014は解消済みと確認、残るUT未対応10件
+    （UT-F005-023/033-039/042/044/046）とIT未対応8件（IT-F005-001/002/003/010/011/012/013/014）
+    を確定した。UT-F005-023（受入recovery）は実装（`recoverF005WorkAcceptance`）と
+    網羅的なfault matrixテストが既に`f005-acceptance.test.ts`に存在しタグ欠落のみだったため
+    describeタイトルへ`UT-F005-023`を追記。IT-F005-001（承認snapshot→manifest生成）・
+    IT-F005-002（v0.4.0二重baseline回帰）・IT-F005-003（原典取得→正規化・書誌固定）・
+    IT-F005-011（registry migration trust chain）・IT-F005-014（知名度順合計10作者計画）も
+    同様に、既存の実Git/実transport結合テスト（`f005-context.test.ts`/`f005-foundation.test.ts`/
+    `f005-source.test.ts`）へ`@it`タグを追記するだけで解消した（6件、UT1・IT5）。
+    残るUT-F005-033/034/035/036/037/038/039/042/044/046（10件）とIT-F005-010/012/013（3件）は、
+    対応する実装（`verifyF005StaticSecurity`/`runF005BrowserMatrix`/`prepareF005Release`/
+    `verifyF005ReleaseCandidate`/`recordPublishedF005`/`rollbackF005Deployment`/
+    `recoverPendingDeployDisablement`/`transitionF005WorkState`/
+    `mintF005AdjudicationAuthorization`/`resolveF005Adjudication`）が`src/content/`配下に
+    一切存在しないと`grep`で確認した。release/deployパイプライン一式・static security審査・
+    browser matrix実行系・第三裁定authorization発行系という規模の異なる10個の未着手
+    サブシステムであり、設計判断を要する新規実装を勝手に進めない制約に従い実装せず
+    記録に留めた。`npm run lint`/`npm run typecheck`はフルスイートPASS。`npm test`は
+    6件failしたが全て本セッション未変更ファイルのtimeoutか、変更した4ファイルの個別実行で
+    200/200件全PASSする既知のWindows並列resource contentionと確認した。
+    `tools/trace_check.py --path`は`対応漏れなし: OK`（tm.jsonは行番号drift分のみ差分）。
+    tasks.yaml T-074は引き続き`doing`のまま維持。

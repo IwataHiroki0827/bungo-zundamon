@@ -359,7 +359,7 @@ describe('F005 approved context and registry migration', () => {
     expect(Object.keys(policy.artifactSha256s)).toHaveLength(8);
   });
 
-  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  /** @des DES-F005-001 @des DES-F005-002 @fun FUN-F005-048 @fun FUN-F005-005 @test UT-F005-048 @it IT-F005-001 */
   it('implementation→control→acceptanceのexact差分後だけproduction controlをmintする', async () => {
     const workspace = await cloneFixture();
     const implementationCommit = await installImplementation(workspace);
@@ -532,7 +532,7 @@ describe('F005 approved context and registry migration', () => {
       .rejects.toMatchObject({ code: 'F005_REGISTRY_CONTROL_INVALID' });
   }, 120_000);
 
-  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 @it IT-F005-011 */
   it.each(['executable', 'symlink', 'submodule', 'rename'] as const)(
     'control evidenceのGit tree形態 %s を拒否する',
     async (kind) => {
@@ -546,7 +546,7 @@ describe('F005 approved context and registry migration', () => {
     120_000,
   );
 
-  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 @it IT-F005-011 */
   it('control commitへのextra source差分を拒否する', async () => {
     const workspace = await cloneFixture();
     await installImplementation(workspace);
@@ -556,7 +556,7 @@ describe('F005 approved context and registry migration', () => {
       .rejects.toMatchObject({ code: 'F005_REGISTRY_CONTROL_INVALID' });
   }, 120_000);
 
-  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 */
+  /** @des DES-F005-001 @fun FUN-F005-048 @test UT-F005-048 @it IT-F005-011 */
   it('acceptance commitへのextra差分とdirty HEADを拒否する', async () => {
     const workspace = await cloneFixture();
     await installImplementation(workspace);

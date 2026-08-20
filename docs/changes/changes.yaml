@@ -1,4 +1,21 @@
 changes:
+- id: CHG-F005-082
+  date: '2026-08-21'
+  trigger: T-074でUT-F005 48件中12件・IT-F005 15件中8件がタグ付きテストコードを機械的に確認できないと報告されていたため、grepで再点検し実装存在・タグ欠落のみのケースと実装自体が不存在のケースを切り分けた
+  level: implementation
+  affected:
+  - src/content/f005-acceptance.test.ts
+  - src/content/f005-context.test.ts
+  - src/content/f005-foundation.test.ts
+  - src/content/f005-source.test.ts
+  status: done
+  approved_by: 既存テストへのタグ追記のみでロジック変更を伴わないため新規承認ゲート登録は行わない
+  completed_at: '2026-08-21T10:30:00+09:00'
+  result: UT-F005-014は前回セッションで解消済みと確認。実質未対応はUT-F005-023/033-039/042/044/046（10件）、IT-F005-001/002/003/010/011/012/013/014（8件）と確定した。このうちUT-F005-023（recoverF005WorkAcceptanceの既存fault
+    matrixテスト）とIT-F005-001/002/003/011/014（f005-context.test.ts/f005-foundation.test.ts/f005-source.test.tsの既存実Git/実transport結合テスト）はタグ追記のみで解消（6件）。残るUT-F005-033/034/035/036/037/038/039/042/044/046（release/deployパイプライン・static
+    security審査・browser
+    matrix実行・CAS状態遷移・第三裁定authorizationの10個の未着手サブシステム）と、それに依存するIT-F005-010/012/013は実装自体が存在しないため未解消のまま報告に留めた。lint/typecheck
+    PASS、変更4ファイルの個別実行で200/200件PASS（フルスイートの6件failは既知のWindows並列flaky）。trace_check「対応漏れなし：OK」（詳細CHG-F005-082.md）
 - id: CHG-F005-081
   date: '2026-08-21'
   trigger: T-074でDD-F005.mdに設計が存在するextractVerifiedShumiNotice（FUN-F005-014）が未実装であり、scripts/f005-final-integration.tsの実プロダクション経路から一度も呼ばれておらず、趣味の遺伝の公式表現注意（QT-F005-006）がCatalogへ反映されていないことが判明した

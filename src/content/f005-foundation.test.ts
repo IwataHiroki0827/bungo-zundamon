@@ -67,6 +67,7 @@ beforeAll(async () => {
   baseline = await loadV040Baseline(workspace, context);
 }, 60_000);
 
+/** @des DES-F005-001 @fun FUN-F005-002 FUN-F005-003 @it IT-F005-002 */
 describe('UT-F005-002/003/004 v0.4.0 foundation', () => {
   /** @des DES-F005-001 @fun FUN-F005-002 @test UT-F005-002 */
   it('release payloadとpostrelease controlを別Git objectから固定する', () => {
@@ -490,6 +491,7 @@ function rankingFixture(): { xhtml: string; csv: string } {
   return { xhtml: `<table>${rows.join('')}</table>`, csv };
 }
 
+/** @des DES-F005-013 @fun FUN-F005-040 FUN-F005-041 @it IT-F005-014 */
 describe('UT-F005-040/041 作者順位と合計10作者(追加7人)plan', () => {
   let ranking: AuthorRankingEvidence;
 

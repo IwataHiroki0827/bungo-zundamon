@@ -422,7 +422,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
     )).rejects.toMatchObject({ code: 'F005_TRANSPORT_REQUIRED' });
   });
 
-  /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
+  /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 @it IT-F005-003 */
   it('production transportの固定responseだけを取得してraw bytesとSHAを保持する', async () => {
     const snapshot = await collectF005SourceSnapshot(
       transportFixture(),
@@ -925,7 +925,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
     },
   );
 
-  /** @des DES-F005-003 DES-F005-004 @fun FUN-F005-008 FUN-F005-009 @test UT-F005-008 */
+  /** @des DES-F005-003 DES-F005-004 @fun FUN-F005-008 FUN-F005-009 @test UT-F005-008 @it IT-F005-003 */
   it('SourceRecordV2のmutable raw/card bytes改変を次の信頼境界で拒否する', async () => {
     const snapshot = await collectF005SourceSnapshot(
       transportFixture(),

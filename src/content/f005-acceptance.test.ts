@@ -750,7 +750,7 @@ async function acceptF005Work(
   });
 }
 
-describe('二段acceptance fault matrix [CHG-F005-002]', () => {
+describe('UT-F005-023 受入recovery / 二段acceptance fault matrix [DES-F005-006][FUN-F005-023][CHG-F005-002]', () => {
   async function preparedFixture(label: string) {
     const value = await fixture();
     const calls: string[] = [];
