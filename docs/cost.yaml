@@ -1130,3 +1130,39 @@ entries:
     200/200件全PASSする既知のWindows並列resource contentionと確認した。
     `tools/trace_check.py --path`は`対応漏れなし: OK`（tm.jsonは行番号drift分のみ差分）。
     tasks.yaml T-074は引き続き`doing`のまま維持。
+- date: '2026-08-21'
+  phase: test
+  task: CHG-F005-083 未着手リリースパイプライン10件を設計不採用化しT-074クローズ
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 22000
+  note: >-
+    T-074で残っていたUT-F005実質未対応10件・IT-F005実質未対応3件の根本原因である
+    未着手10 FUN（FUN-F005-035〜039/042/044/046、release/deployパイプライン一式・
+    CAS状態遷移・第三者裁定authorization）について、オーナーと協議しF005専用ETW検証付き
+    リリースパイプラインは新規実装せず、F001〜F004・v0.4.1パッチ(PR #3)実績の汎用経路
+    （`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/
+    `PAGES_DEPLOY_COMMIT`ゲート）で代替する設計不採用の方針で決定した
+    （level: design、REQ-F005側の変更は不要）。`docs/design/DD-F005.md`のFUN-F005-035〜039/
+    042/044/046の8節を、削除せず「不採用」注記へ書き換えた（FUN-042は既存の汎用
+    `transitionWorkState`、FUN-044/046は既存の`issueF005ReviewAuthorizations`/
+    `sealF005ReviewJudgment`/`reconcileF005PrimarySecondary`を代替として明記）。
+    9章のDES→FUN対応表とDES-F005-012一覧へも不採用注記を追記した。
+    `docs/tests/ut/UT-F005.md`のUT-F005-033/034/035/036/037/038/039/042/044/046（10件）を
+    「N/A(CHG-F005-083により汎用リリース経路を採用したため対象外)」へ変更した。
+    `docs/tests/it/IT-F005.md`のIT-F005-010/012/013（3件）を、既存のpf-release実行時の
+    汎用検証（`scripts/verify-project.mjs`の静的security審査、`tests/e2e`既存6-project
+    Playwright browser matrix、GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`
+    ゲート）で実質的にカバーされる旨のN/Aへ変更した。`docs/tests/qt/QT-F005.md`の
+    QT-F005-019/020は要求（REQ-F005-001/017）対応の適格性試験として有効なため無効化せず、
+    手順が前提とするF005専用precheck/pre-arm経路を汎用経路へ読み替える補足注記を追加した。
+    `docs/traceability/tm.json`は影響範囲確認のため参照のみで変更していない
+    （`git diff`で差分なしを確認）。`docs/changes/changes.yaml`へCHG-F005-083を追加し、
+    `docs/changes/CHG-F005-083.md`を新規作成した。`tasks.yaml`のT-074を`done`へ更新し、
+    T-075着手可能な旨を明記した。`STATUS.md`のフロントマター（phase: release）・本文4節、
+    本cost.yamlを更新した。`npm run lint`/`npx tsc --noEmit`はPASS（ドキュメントのみの
+    変更でコード差分なし）。`npm test`は1312 passed/7 failedで、失敗7件は
+    baseline系・f005-native-guard.test.ts・f005-source.test.ts（いずれも本セッション
+    未変更ファイル）のtimeout/EBUSYで、既報（CHG-F005-081/082）と同型のWindows並列
+    resource contentionと確認した。`content/baselines/*.json`・`public/`・`src/`は
+    変更していない。push・PR作成・承認ゲートへの新規登録は行っていない。

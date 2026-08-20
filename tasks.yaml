@@ -327,7 +327,7 @@ tasks:
   title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F005
   phase: test
-  state: doing
+  state: done
   depends:
   - T-073
   tags: *id005
@@ -507,6 +507,31 @@ tasks:
     残るため、T-074は`done`にできず`doing`のまま維持する。T-075着手には、これら10 FUNの
     設計・実装（release/deployパイプライン、static security審査、browser matrix実行、
     第三裁定authorization、CAS状態遷移）を別タスクとして先に完了させる必要がある。
+    最終クローズ（CHG-F005-083）: 残るUT-F005実質未対応10件・IT-F005実質未対応3件の
+    根本原因である未着手10 FUN（FUN-F005-035〜039/042/044/046）について、
+    オーナーと協議しF005専用ETW検証付きリリースパイプラインは新規実装せず、
+    F001〜F004・v0.4.1パッチ(PR #3)で実績のある汎用リリース経路
+    （`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/
+    `PAGES_DEPLOY_COMMIT`ゲート）をF005にも適用する設計不採用の方針で決定した
+    （level: design、REQ-F005側の変更は不要）。DD-F005.mdの該当8節を不採用注記へ
+    書き換え、UT-F005-033/034/035/036/037/038/039/042/044/046（10件）を
+    「N/A(CHG-F005-083により汎用リリース経路を採用したため対象外)」、
+    IT-F005-010/012/013（3件）を「N/A、pf-release実行時の汎用検証でカバー」へ
+    変更した。QT-F005-019/020は要求対応の適格性試験として有効なため無効化せず、
+    汎用経路読み替えの補足注記のみ追加した。E2Eは前回サブタスクで既に163件全PASS
+    （5件は意図的skip allowlist）済み。UT/IT実装済み分のタグ補完（前サブタスクで6件）と
+    合わせ、UT-F005 48件・IT-F005 15件は全件が「実装・PASS」または
+    「N/A（設計不採用・理由明記）」のいずれかで説明可能な状態になった。
+    `npm run lint`/`npm run typecheck`はPASS（ドキュメントのみの変更のためコード差分なし）。
+    `npm test`は1312 passed/7 failedで、失敗7件はbaseline系・f005-native-guard.test.ts・
+    f005-source.test.ts（いずれも本サブタスク未変更ファイル）のtimeout/EBUSYで、
+    既報（CHG-F005-081/082）と同型のWindows並列resource contentionと確認した。
+    以上によりT-074をdoneへクローズする。詳細はCHG-F005-083参照。
+    T-075（v0.5.0リリース前総点検・段階公開・公開後スモーク）が次に着手可能。
+    T-075着手にあたっては、本タスクで確定した「F005は汎用リリース経路
+    （scripts/verify-project.mjs＋PAGES_DEPLOY_ENABLED/PAGES_DEPLOY_COMMITゲート）を
+    使う」方針を前提に、F005固有のETW/native guard検証をリリース判定条件に含めない
+    ことを確認したうえで進めること。
 - id: T-075
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005

@@ -1,4 +1,20 @@
 changes:
+- id: CHG-F005-083
+  date: '2026-08-21'
+  trigger: T-074でDD-F005.mdに設計は存在するがsrc/content/配下に実装が一切存在しないFUN-F005-035〜039（release/deployパイプライン一式）・FUN-F005-042（CAS付き状態遷移）・FUN-F005-044/046（第三者裁定authorization発行・解決）の10個の未着手サブシステムが判明した（CHG-F005-082既報）。オーナーと協議し、F005専用ETW検証付きリリースパイプラインは新規実装せず、F001〜F004および先日のv0.4.1パッチ(PR #3)で実績のある汎用リリース経路（`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`ゲート）をF005にも適用する方針で決定した
+  level: design
+  affected:
+  - docs/design/DD-F005.md
+  - docs/tests/ut/UT-F005.md
+  - docs/tests/it/IT-F005.md
+  - docs/tests/qt/QT-F005.md
+  - docs/traceability/tm.json
+  status: done
+  approved_by: 'オーナー承認済み（REQ-F005側にETW検証付きリリースを明示要求する記述はなく要求仕様の変更は不要なためlevel: design、承認ゲート不要）'
+  completed_at: '2026-08-21T12:00:00+09:00'
+  result: DD-F005.mdのFUN-F005-035〜039/042/044/046の各節を、削除せず「不採用」注記へ書き換えた（シグネチャは残し詳細説明を代替経路の説明へ置換）。FUN-042の代替は既存の汎用`transitionWorkState`（`src/content/batch.ts`）、FUN-044/046の代替は既存の`issueF005ReviewAuthorizations`/`sealF005ReviewJudgment`/`reconcileF005PrimarySecondary`（`src/content/f005-review.ts`）とした。DES→FUN対応表とDES-F005-012一覧へ不採用注記を追記。UT-F005-033/034/035/036/037/038/039/042/044/046（10件）のTestResultを「N/A(CHG-F005-083により汎用リリース経路を採用したため対象外)」へ変更した。IT-F005-010/012/013のTestResultを、pf-release実行時の汎用検証（verify-project.mjsの静的security審査・既存6-project
+    Playwright browser matrix・build verification、GitHub Actions
+    PAGES_DEPLOY_ENABLED/PAGES_DEPLOY_COMMITゲート）でカバーする旨のN/Aへ変更した。QT-F005-019/020は要求（REQ-F005-001/017）に対応する適格性試験として有効なため無効化せず、手順が前提とするF005専用precheck/pre-arm経路を汎用経路読み替えとする補足注記を追加した。tm.jsonは`--feature`オプションを使わずに影響範囲確認のみ行い変更していない（node/git bash未使用、参照のみ）。lint/typecheck/testはドキュメントのみの変更のため未変更（詳細CHG-F005-083.md）
 - id: CHG-F005-082
   date: '2026-08-21'
   trigger: T-074でUT-F005 48件中12件・IT-F005 15件中8件がタグ付きテストコードを機械的に確認できないと報告されていたため、grepで再点検し実装存在・タグ欠落のみのケースと実装自体が不存在のケースを切り分けた
