@@ -1,4 +1,15 @@
 changes:
+- id: CHG-F002-006
+  date: '2026-08-20'
+  trigger: Q-049で承認済みの決定（規約再確認の期限という概念を廃止する）を、main（v0.4.0）ベースの別ブランチfix/v0.4.1-license-recheck（PR
+    #3）で独立に実装したもの。F005ブランチ側の同一決定の実装はCHG-F002-005として別途記録されている（changes.yaml未登録の別課題、本エントリでは対応しない）
+  level: requirement
+  affected:
+  - src/notices/release-notices.ts
+  - src/notices/credits.ts
+  - src/notices/notices.test.ts
+  status: done
+  result: fix/v0.4.1-license-recheckワークツリー上でrelease-notices.ts（F001由来のterms-expired判定）とcredits.ts（validUntil判定）から期限切れ判定を削除。lint・typecheck・test（933件PASS）・verify:buildを確認。マージ・デプロイはオーナー承認待ち
 - id: CHG-F005-071
   date: '2026-08-13'
   trigger: CHG-F005-070 production run 31669864841 attempt 3がOTHER_EVENT_DIRで安全停止

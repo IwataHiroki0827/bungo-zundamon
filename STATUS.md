@@ -1,14 +1,14 @@
 ---
 phase: change
 feature: F005
-updated: 2026-08-13T17:10:00+09:00
+updated: 2026-08-20T00:00:00+09:00
 next_actions:
   - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
   - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
   - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める"
-  - "公開中のcontent/licenses.jsonはvalidUntil 2026-08-18で失効する。規約再確認はdocs/evidence/rights/rights-recheck-2026-08-13.mdで完了済みで、反映にはv0.4.1パッチリリースが必要"
-  - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める（現状Pages workflowがfeature/F005で失敗し続ける）"
-  - "公開中のcontent/licenses.jsonはvalidUntil 2026-08-18で失効する。権利条件を再確認して更新する（法的判断が必要）"
+  - "PR #3（fix/v0.4.1-license-recheck、CHG-F002-006）のマージ・v0.4.1デプロイをオーナー承認後に進める"
+  - "F005ブランチのCHG-F002-005（commit 8c0e320、規約再確認の期限廃止）をdocs/changes/changes.yamlへ正式登録する（現状未登録のまま放置されている積み残し）"
+  - "F005をmainへマージする際、PR #3とF005ブランチが同一意図（期限判定の削除）を独立に実装しているため、src/notices/credits.tsまわりで軽微なコンフリクト解消が発生しうる点に注意する"
 blocked_by: []
 ---
 
@@ -103,14 +103,16 @@ blocked_by: []
 - T-070は「夢十夜」65候補を独立二重レビューし、63採用・2除外・保留0、62音声、追加見積り12,521,800 bytesを確定した。保存selectionの再開検証、最新predeploy権利`allow`、planned audio込み容量予測、native ETW台帳、preview/受入証拠の意味結合に加え、production runnerを実装した。commit `7329f55`のclean HEADで実行し、Approved Context SHA照合を通過後、native ETW preflightが`F005_ETW_PRIVILEGE_REQUIRED`で音声生成前に安全停止した。
 - CHG-F005-002で、closed容量actualを同一session内のaccept前に要求していた循環を、1作品1sessionのartifact stage→session close→actual→metadata finalizeへ分離した。native identity必須CAS、全transaction事前走査、phase別crash回復を実装し、重点180件・全1240件、型・lint・build・audit・公開tree不変、独立受入High/Medium/Low 0をPASSしてT-076と変更管理を完了した。
 - CHG-F005-003/T-077でnative buildからcheckout絶対pathとGit commit SHAを排除し、固定binary SHA `1846897e...9813`へ統一した。local/source-only/hosted Windows build、全1241試験、独立再レビューをPASSし、Actions run `30445446783`で容量ABI v3とkernel FileIO ETW正常系を確認した。
+- 2026-08-20、公開中の`content/licenses.json`の`validUntil`（2026-08-18）失効を受け、CHG-F002-006としてQ-049承認済みの決定（規約再確認の期限廃止）を、mainベースの別ブランチ`fix/v0.4.1-license-recheck`（PR #3）で独立に実装した。`src/notices/release-notices.ts`のF001由来`terms-expired`判定と`src/notices/credits.ts`の`validUntil`判定を削除し、lint・typecheck・test（933件PASS）・verify:buildを確認した。マージ・デプロイはオーナー承認待ち。
+- `feature/F005`ブランチには既にcommit `8c0e320`（2026-08-19）で同種の実装（CHG-F002-005）が存在するが、`docs/changes/changes.yaml`への登録が漏れたまま残っている。CHG-F002-006とCHG-F002-005は対象コードが完全には一致しない独立2系統の実装であり、CHG-F002-006の対応範囲ではCHG-F002-005を上書き・登録しない。
 
 ## 直近の作業（最新5件）
 
+- CHG-F002-006でmainベースPR #3（fix/v0.4.1-license-recheck）へ規約再確認の期限廃止を独立実装。lint/typecheck/test 933件/verify:build PASS、マージはオーナー承認待ち
 - CHG-F005-071/T-143でdirectory binding状態の固定5 codeとT-143決定的hosted相関検証（64/64）を完了。実状態の観測は継続
 - 2026-08-13に権利条件を実規約から再確認し証跡化。反映はv0.4.1パッチリリース待ち
 - CHG-F005-070/T-142でbind先path関係の固定6 codeと決定的hosted相関検証（76/76）を完了
 - notices fixtureの期限切れとborderline timeoutを是正しテスト健全性を回復
-- CHG-F005-069/T-141でevent FO ledger関係の固定7 codeとMatchEventFileObjectを実装
 - CHG-F005-068/T-140のhosted影響確認をrun 31623037336 attempt 2で完了しdoneへ確定
 - T-130〜T-140（CHG-F005-056〜068）の候補多重性・binding proof・parent state診断を順次完了
 - T-126〜T-129で決定的hosted相関検証を確立しT-110/T-122/T-112/T-109の影響確認を完了
@@ -121,6 +123,8 @@ blocked_by: []
 - `native/f005-guard/Program.cs`ほかでCHG-F005-054/T-128のproduction-owned retained identity lease、T-112固定target/manifest、selectorを完了する。
 - T-128完了後、`docs/changes/CHG-F005-055.md`に従いT-129のproduction共有evaluator、T-109 target source/manifestを実装する。
 - T-110/T-122/T-112 target無縮退、raw非公開、同一SHA Pages deploy `skipped`をlocal/hosted evidenceで検証する。
+- PR #3（CHG-F002-006）のマージ・v0.4.1デプロイをオーナー承認後に進める。
+- F005ブランチのCHG-F002-005（changes.yaml未登録）を正式登録する。
 
 ## 未解決事項
 
@@ -132,3 +136,5 @@ blocked_by: []
 - T-122は自然なhosted follow-up 3 attemptで未到達だったが、CHG-F005-053/T-127の決定的hosted correlation run `31241090301`で43/43と非公開条件をPASSし完了した。
 - CHG-F005-052/T-126はtrace_check `対応漏れなし: OK`とhosted canonical evidenceを確認済みである。
 - CHG-F005-055は独立最終再レビューHigh/Medium/Low 0でPASSし、T-129実装・local/hosted再試験完了まで`in-review`を維持する。
+- CHG-F002-006（PR #3、fix/v0.4.1-license-recheckブランチ）はマージ・v0.4.1デプロイともオーナー承認待ちで、mainには未反映。
+- F005ブランチのCHG-F002-005（commit 8c0e320、規約再確認の期限廃止）は`docs/changes/changes.yaml`への登録が漏れている。CHG-F002-006とは独立した別系統の実装であり、F005側の登録は別途対応が必要。

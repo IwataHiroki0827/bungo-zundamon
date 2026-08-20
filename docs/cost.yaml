@@ -1009,3 +1009,10 @@ entries:
   agents: 2
   est_tokens: 18000
   note: 7 validation軸を90 codeへ同期。native1165、target52/57/43/74、Vitest64、typecheck/ESLint/trace/repro2 PASS。独立受入エージェントはモデル互換エラーで起動できず、親による実物再確認を実施。hosted確認継続
+- date: '2026-08-20'
+  phase: change
+  task: CHG-F002-006 changes.yaml/STATUS.md登録（PR #3, mainベース規約期限廃止）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 6000
+  note: Q-049承認済みの規約再確認期限廃止を、mainベースの別ブランチfix/v0.4.1-license-recheck（PR #3）で独立実装した分をCHG-F002-006として文書化。changes.yaml・CHG-F002-006.md・STATUS.mdを更新、trace_check.py --feature F002 PASS。F005ブランチ側の同一決定（CHG-F002-005、changes.yaml未登録）には触れず、次アクションとして記録のみ
