@@ -1,4 +1,26 @@
 changes:
+- id: CHG-F005-077
+  date: '2026-08-20'
+  trigger: プロジェクトオーナーへREQUEST.md「他に有名な作家を知名度順に10人まで続ける」の意図を改めて確認した結果、既存3作者とは別の追加10人（最終上限13作者）ではなく、既存を含む合計10作者（追加7人、最終上限10作者）が正しい意図であると判明した
+  level: requirement
+  affected:
+  - REQ-F005-018
+  - DES-F005-013
+  - QT-F005-015
+  - src/content/f005-foundation.ts
+  - src/content/f005-foundation.test.ts
+  - docs/design/FD-F005.md
+  - docs/design/DD-F005.md
+  - docs/domain/DOMAIN-F005.md
+  - docs/tests/qt/QT-F005.md
+  - docs/tests/it/IT-F005.md
+  - docs/tests/ut/UT-F005.md
+  - docs/srs/SRS-F005.md
+  - docs/qa/QA-F005.md
+  status: done
+  approved_by: プロジェクトオーナーが本会話で「合計10作者にする」を明示選択（2026-08-20制定の自動承認方針によりqueue.yaml新規登録は不要）
+  completed_at: '2026-08-20T00:00:00+09:00'
+  result: targetAdditionalAuthors=10/finalAuthorLimit=13をtargetAdditionalAuthors=7/finalAuthorLimit=10へ訂正し、SRS/FD/DD/UT/IT/QT/QA/実装/テストの数値と自然文記述を一貫させた。UT-F005-040/041を含む全テストPASSを確認
 - id: CHG-F002-006
   date: '2026-08-20'
   trigger: Q-049で承認済みの決定（規約再確認の期限という概念を廃止する）を、main（v0.4.0）ベースの別ブランチfix/v0.4.1-license-recheck（PR

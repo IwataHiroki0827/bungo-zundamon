@@ -1016,3 +1016,10 @@ entries:
   agents: 1
   est_tokens: 6000
   note: Q-049承認済みの規約再確認期限廃止を、mainベースの別ブランチfix/v0.4.1-license-recheck（PR #3）で独立実装した分をCHG-F002-006として文書化。changes.yaml・CHG-F002-006.md・STATUS.mdを更新、trace_check.py --feature F002 PASS。F005ブランチ側の同一決定（CHG-F002-005、changes.yaml未登録）には触れず、次アクションとして記録のみ
+- date: '2026-08-20'
+  phase: change
+  task: CHG-F005-077 追加作者上限を合計10作者(追加7人)へ訂正
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 9000
+  note: オーナーへ「知名度順に10人まで」の意図を再確認し、既存3人とは別に追加10人（最終上限13作者）ではなく既存を含む合計10作者（追加7人、最終上限10作者）が正であると判明。SRS-F005/FD-F005/DD-F005/DOMAIN-F005/QT-F005/IT-F005/UT-F005/QA-F005とsrc/content/f005-foundation.ts・.test.tsのtargetAdditionalAuthors=10→7、finalAuthorLimit=13→10を一括修正。changes.yaml・CHG-F005-077.md・STATUS.mdを更新。trace_check.py --feature F005実行後にtm.jsonの全体グラフ縮小副作用が発生したためgit checkoutで復元。lint/typecheck PASS、test 1302 passed/10 failed(全て無関係な既存timeout・flaky)、対象のf005-foundation.test.tsは37件全PASS

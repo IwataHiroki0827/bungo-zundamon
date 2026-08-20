@@ -1,8 +1,9 @@
 ---
 phase: change
 feature: F005
-updated: 2026-08-20T23:40:00+09:00
+updated: 2026-08-20T23:55:00+09:00
 next_actions:
+  - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
   - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
   - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
   - "F005をmainへマージする前に、ubuntuで実行不能なnative guard依存テストのOS gateを決める"
@@ -106,14 +107,15 @@ blocked_by: []
 - 2026-08-20、公開中の`content/licenses.json`の`validUntil`（2026-08-18）失効を受け、CHG-F002-006としてQ-049承認済みの決定（規約再確認の期限廃止）を、mainベースの別ブランチ`fix/v0.4.1-license-recheck`（PR #3）で独立に実装した。`src/notices/release-notices.ts`のF001由来`terms-expired`判定と`src/notices/credits.ts`の`validUntil`判定を削除し、lint・typecheck・test（933件PASS）・verify:buildを確認した。
 - `feature/F005`ブランチには既にcommit `8c0e320`（2026-08-19）で同種の実装（CHG-F002-005）が存在するが、`docs/changes/changes.yaml`への登録が漏れたまま残っている（未対応の積み残し）。CHG-F002-006とCHG-F002-005は対象コードが完全には一致しない独立2系統の実装であり、CHG-F002-006の対応範囲ではCHG-F002-005を上書き・登録しない。
 - Q-050でオーナーがPR #3のマージ・タグ・デプロイの自動実施を承認。オーナー自身がPR #3をmainへマージ（commit `957855c`）。`PAGES_DEPLOY_COMMIT`/`PAGES_DEPLOY_ENABLED`のGitHub Actions repository variableを設定し、Pages build and deployワークフローを実行した。1回目のCI run `32379827341` は `src/content/published-baseline.test.ts` のタイムアウトで失敗（今回の変更と無関係な既知のflaky）、`gh run rerun --failed` で再実行しbuild/deploy共に成功。タグ`v0.4.1`をoriginへpush済み。公開URL: https://iwatahiroki0827.github.io/bungo-zundamon/ （反映確認は次回セッションで実施推奨）。
+- 2026-08-20、オーナーへREQUEST.md「他に有名な作家を知名度順に10人まで続ける」の意図を再確認した結果、既存3作者とは別の追加10人（最終上限13作者）ではなく、既存を含む**合計10作者**（追加7人、最終上限10作者）が正しい意図と判明した。CHG-F005-077でREQ-F005-018・DES-F005-013・QT-F005-015とその周辺文書、`src/content/f005-foundation.ts`/`.test.ts`の`targetAdditionalAuthors`を10→7、`finalAuthorLimit`を13→10へ訂正した。lint・typecheck・UT-F005-040/041を含むtest(37件)がPASSした。
 
 ## 直近の作業（最新5件）
 
+- CHG-F005-077で追加作者上限を「既存3人とは別に追加10人（最終上限13作者）」から「合計10作者（追加7人、最終上限10作者）」へ訂正。SRS/FD/DD/UT/IT/QT/QA/実装/テストを一括修正しlint/typecheck/test PASS
 - Q-050承認を受けPR #3をmainへマージしv0.4.1をGitHub Pagesへデプロイ完了（tag v0.4.1 push済み、公開URL: https://iwatahiroki0827.github.io/bungo-zundamon/）
 - CHG-F002-006でmainベースPR #3（fix/v0.4.1-license-recheck）へ規約再確認の期限廃止を独立実装。lint/typecheck/test 933件/verify:build PASS
 - CHG-F005-071/T-143でdirectory binding状態の固定5 codeとT-143決定的hosted相関検証（64/64）を完了。実状態の観測は継続
 - 2026-08-13に権利条件を実規約から再確認し証跡化。反映はv0.4.1パッチリリース待ち
-- CHG-F005-070/T-142でbind先path関係の固定6 codeと決定的hosted相関検証（76/76）を完了
 - notices fixtureの期限切れとborderline timeoutを是正しテスト健全性を回復
 - CHG-F005-068/T-140のhosted影響確認をrun 31623037336 attempt 2で完了しdoneへ確定
 - T-130〜T-140（CHG-F005-056〜068）の候補多重性・binding proof・parent state診断を順次完了
@@ -122,6 +124,7 @@ blocked_by: []
 
 ## 次のアクション
 
+- CHG-F005-077は完了。今後F005で「追加n人目/残m人/最終上限」に触れる文書・実装を新規作成する際は`targetAdditionalAuthors=7`・`finalAuthorLimit=10`（合計10作者）を正とする。
 - `native/f005-guard/Program.cs`ほかでCHG-F005-054/T-128のproduction-owned retained identity lease、T-112固定target/manifest、selectorを完了する。
 - T-128完了後、`docs/changes/CHG-F005-055.md`に従いT-129のproduction共有evaluator、T-109 target source/manifestを実装する。
 - T-110/T-122/T-112 target無縮退、raw非公開、同一SHA Pages deploy `skipped`をlocal/hosted evidenceで検証する。

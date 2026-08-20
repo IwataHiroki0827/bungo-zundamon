@@ -317,8 +317,8 @@ export interface CompletedExpansionAuthor {
 export interface AuthorExpansionPlanV1 {
   readonly schemaVersion: 1;
   readonly baselineAuthors: 3;
-  readonly targetAdditionalAuthors: 10;
-  readonly finalAuthorLimit: 13;
+  readonly targetAdditionalAuthors: 7;
+  readonly finalAuthorLimit: 10;
   readonly rankingDigest: string;
   readonly completedAuthors: readonly CompletedExpansionAuthor[];
   readonly excluded: readonly { readonly authorId: string; readonly reason: EligibilityReason }[];
@@ -1436,13 +1436,13 @@ export function createInitialAuthorExpansionPlan(ranking: AuthorRankingEvidence)
   const payload = {
     schemaVersion: 1 as const,
     baselineAuthors: 3 as const,
-    targetAdditionalAuthors: 10 as const,
-    finalAuthorLimit: 13 as const,
+    targetAdditionalAuthors: 7 as const,
+    finalAuthorLimit: 10 as const,
     rankingDigest: ranking.resultDigest,
     completedAuthors: [],
     excluded: [],
     addedCount: 0,
-    remainingCount: 10,
+    remainingCount: 7,
     nextCandidate: natsume,
   };
   const plan = freezeDeep({ ...payload, planDigest: planPayload(payload) });
@@ -1474,7 +1474,7 @@ export function advanceAuthorExpansionPlan(
       remainingCount: currentPlan.remainingCount,
       nextCandidate: currentPlan.nextCandidate,
     }) ||
-    currentPlan.addedCount >= 10 || !currentPlan.nextCandidate ||
+    currentPlan.addedCount >= 7 || !currentPlan.nextCandidate ||
     completedAuthor.authorId !== currentPlan.nextCandidate.authorId ||
     completedAuthor.identitySha256 !== currentPlan.nextCandidate.identitySha256 ||
     currentPlan.completedAuthors.some((entry) =>
@@ -1493,7 +1493,7 @@ export function advanceAuthorExpansionPlan(
   const completedIds = new Set(completedAuthors.map((entry) => entry.authorId));
   const excluded = [...currentPlan.excluded];
   let nextCandidate: AuthorRankingEntry | null = null;
-  if (completedAuthors.length < 10) {
+  if (completedAuthors.length < 7) {
     for (const candidate of ranking.entries) {
       if (V040_AUTHOR_IDS.has(candidate.authorId) || completedIds.has(candidate.authorId) ||
         excluded.some((entry) => entry.authorId === candidate.authorId)) continue;
@@ -1513,13 +1513,13 @@ export function advanceAuthorExpansionPlan(
   const payload = {
     schemaVersion: 1 as const,
     baselineAuthors: 3 as const,
-    targetAdditionalAuthors: 10 as const,
-    finalAuthorLimit: 13 as const,
+    targetAdditionalAuthors: 7 as const,
+    finalAuthorLimit: 10 as const,
     rankingDigest: ranking.resultDigest,
     completedAuthors,
     excluded,
     addedCount: completedAuthors.length,
-    remainingCount: 10 - completedAuthors.length,
+    remainingCount: 7 - completedAuthors.length,
     nextCandidate,
   };
   const plan = freezeDeep({ ...payload, planDigest: planPayload(payload) });

@@ -490,7 +490,7 @@ function rankingFixture(): { xhtml: string; csv: string } {
   return { xhtml: `<table>${rows.join('')}</table>`, csv };
 }
 
-describe('UT-F005-040/041 作者順位と追加10作者plan', () => {
+describe('UT-F005-040/041 作者順位と合計10作者(追加7人)plan', () => {
   let ranking: AuthorRankingEvidence;
 
   beforeAll(() => {
@@ -557,7 +557,7 @@ describe('UT-F005-040/041 作者順位と追加10作者plan', () => {
   });
 
   /** @des DES-F005-013 @fun FUN-F005-041 @test UT-F005-041 */
-  it('F005を追加1/10へ進め、ineligibleを理由付きで繰上げる', () => {
+  it('F005を追加1/7へ進め、ineligibleを理由付きで繰上げる', () => {
     const initial = createInitialAuthorExpansionPlan(ranking);
     const next = advanceAuthorExpansionPlan(initial, ranking, {
       authorId: '000148',
@@ -568,19 +568,19 @@ describe('UT-F005-040/041 作者順位と追加10作者plan', () => {
     ]);
     expect(next).toMatchObject({
       baselineAuthors: 3,
-      targetAdditionalAuthors: 10,
-      finalAuthorLimit: 13,
+      targetAdditionalAuthors: 7,
+      finalAuthorLimit: 10,
       addedCount: 1,
-      remainingCount: 9,
+      remainingCount: 6,
       excluded: [{ authorId: '000100', reason: 'rights' }],
       nextCandidate: { authorId: '000101' },
     });
   });
 
   /** @des DES-F005-013 @fun FUN-F005-041 @test UT-F005-041 */
-  it('10作者でnextを閉じ、11件目・ranking drift・identity重複を拒否する', () => {
+  it('合計10作者でnextを閉じ、8件目・ranking drift・identity重複を拒否する', () => {
     let plan = createInitialAuthorExpansionPlan(ranking);
-    for (let index = 0; index < 10; index += 1) {
+    for (let index = 0; index < 7; index += 1) {
       const current = plan.nextCandidate;
       expect(current).not.toBeNull();
       plan = advanceAuthorExpansionPlan(plan, ranking, {
@@ -590,7 +590,7 @@ describe('UT-F005-040/041 作者順位と追加10作者plan', () => {
         .filter((entry) => entry.authorId !== current!.authorId)
         .map((entry) => ({ authorId: entry.authorId, decision: 'allow' as const })));
     }
-    expect(plan).toMatchObject({ addedCount: 10, remainingCount: 0, nextCandidate: null });
+    expect(plan).toMatchObject({ addedCount: 7, remainingCount: 0, nextCandidate: null });
     expect(() => advanceAuthorExpansionPlan(plan, ranking, {
       authorId: '999999',
       identitySha256: HASH('f'),
