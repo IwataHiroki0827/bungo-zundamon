@@ -1647,6 +1647,39 @@ export function parseF005SourceRecord(
 }
 
 /**
+ * 公開provenanceは封緘済み選定snapshotと原典記録だけから決定的に組み立てる。
+ * F001 baselineの凍結対象ではないため、リリースごとに再生成してよい。
+ * final-integration script(実行時読取専用)とevidence永続化script(事前準備)の
+ * 両方から同一ロジックで呼び出せるよう共通exportとする。
+ */
+export function buildF005SourceProvenance(
+  source: SourceRecordV2,
+  snapshot: F005SourceSnapshot,
+): Record<string, unknown> {
+  return {
+    baseEdition: source.bibliography.baseEdition,
+    bibliography: {
+      archiveBytes: snapshot.bibliographyArchive.byteLength,
+      archiveSha256: snapshot.bibliographyArchive.sha256,
+      csvBytes: snapshot.bibliographyCsv.byteLength,
+      csvEntry: 'list_person_all_extended_utf8.csv',
+      csvSha256: snapshot.bibliographyCsv.sha256,
+      sourceUrl: snapshot.bibliographyArchive.sourceUrl,
+    },
+    changeNotice: '原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。',
+    fetchedAt: source.fetchedAt,
+    inputter: source.bibliography.inputter,
+    proofreader: source.bibliography.proofreader,
+    sourceSha256: source.raw.sha256,
+    sourceUrl: source.sourceUrl,
+    stableCardUrl: source.cardUrl,
+    toolVersion: 'bungo-zundamon-source-v1',
+    transformation:
+      '公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成',
+  };
+}
+
+/**
  * 趣味の遺伝で承認されたnotation_notes内の2 entityだけを機械置換する。
  * 固定hash検査はnormalizeAozoraXhtmlEntitiesが担う。
  */

@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, readFile, readdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
-import { canonicalJson, writeJsonArtifactAtomic } from '../src/content/artifacts.ts';
+import { canonicalJson } from '../src/content/artifacts.ts';
 import { loadAndVerifyF001Baseline } from '../src/content/baseline.ts';
 import {
   buildIntegratedPublicTree,
@@ -36,6 +36,7 @@ import {
 import { loadVerifiedF005Definition } from '../src/content/f005-context.ts';
 import { loadV040Baseline, verifyNatsumeIdentity } from '../src/content/f005-foundation.ts';
 import {
+  buildF005SourceProvenance,
   parseF005SourceRecord,
   rehydrateF005SelectionSnapshot,
   type F005WorkId,
@@ -95,40 +96,6 @@ interface Resolution {
 interface Reconciliation {
   readonly reconciliationSha256: string;
   readonly resolutions: readonly Resolution[];
-}
-
-type SourceRecord = ReturnType<typeof parseF005SourceRecord>;
-type SelectionSnapshot = Awaited<ReturnType<typeof rehydrateF005SelectionSnapshot>>;
-
-/**
- * 公開provenanceは封緘済み選定snapshotと原典記録だけから決定的に組み立てる。
- * F001 baselineの凍結対象ではないため、リリースごとに再生成してよい。
- */
-function buildSourceProvenance(
-  source: SourceRecord,
-  snapshot: SelectionSnapshot,
-): Record<string, unknown> {
-  return {
-    baseEdition: source.bibliography.baseEdition,
-    bibliography: {
-      archiveBytes: snapshot.bibliographyArchive.byteLength,
-      archiveSha256: snapshot.bibliographyArchive.sha256,
-      csvBytes: snapshot.bibliographyCsv.byteLength,
-      csvEntry: 'list_person_all_extended_utf8.csv',
-      csvSha256: snapshot.bibliographyCsv.sha256,
-      sourceUrl: snapshot.bibliographyArchive.sourceUrl,
-    },
-    changeNotice: '原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。',
-    fetchedAt: source.fetchedAt,
-    inputter: source.bibliography.inputter,
-    proofreader: source.bibliography.proofreader,
-    sourceSha256: source.raw.sha256,
-    sourceUrl: source.sourceUrl,
-    stableCardUrl: source.cardUrl,
-    toolVersion: 'bungo-zundamon-source-v1',
-    transformation:
-      '公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成',
-  };
 }
 
 async function main(): Promise<void> {
@@ -208,15 +175,16 @@ async function main(): Promise<void> {
 
   const includedWorks: F005IncludedCatalogWork[] = [];
   // 公開provenanceは決定的に再生成されるが、buildIntegratedPublicTreeのreferencedPublicEvidenceは
-  // publicFiles[].sourceを実ワークスペース上の実ファイルとして検証するため、公開先パス
-  // (content/provenance/F005/{workId}.json)とは別に、実ワークスペースへ永続化するevidenceコピー先
-  // (content/batches/F005/public-files/provenance/{workId}.json)を持つ(F004の設計を踏襲)。
+  // publicFiles[].sourceを実ワークスペース上の実ファイルとして検証する(git clean checkout前提と
+  // 両立するよう実行時には書き込まない)。よって、公開先パス(content/provenance/F005/{workId}.json)
+  // とは別に、事前準備script(scripts/f005-prepare-public-provenance.ts)で永続化・commit済みの
+  // evidenceコピー(content/batches/F005/public-files/provenance/{workId}.json、F004の設計を踏襲)を
+  // 読取専用で参照し、都度再計算した値とhash一致することだけを検証する。
   const provenanceOutputs: Array<{
     readonly workId: string;
     readonly persistedPath: string;
     readonly publicPath: string;
     readonly bytes: Uint8Array;
-    readonly value: Record<string, unknown>;
   }> = [];
   for (const workId of manifest.workIds as readonly F005WorkId[]) {
     const workRoot = join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId);
@@ -224,18 +192,27 @@ async function main(): Promise<void> {
     if (!workSnapshot) throw new Error(`selection snapshotに${workId}がありません`);
     const source = parseF005SourceRecord(workSnapshot, workId);
 
-    const provenanceValue = buildSourceProvenance(source, snapshot);
-    const provenanceBytes = new TextEncoder().encode(canonicalJson(provenanceValue));
+    const provenanceValue = buildF005SourceProvenance(source, snapshot);
+    const recomputedBytes = new TextEncoder().encode(canonicalJson(provenanceValue));
+    const persistedPath =
+      `content/batches/${BATCH_ID}/public-files/provenance/${workId}.json`;
+    const persistedBytes = await readFile(join(workspace, ...persistedPath.split('/')));
+    if (canonicalJson(JSON.parse(persistedBytes.toString('utf8'))) !== persistedBytes.toString('utf8') ||
+      sha(persistedBytes) !== sha(recomputedBytes)) {
+      throw new Error(
+        `永続化済み公開provenanceが選定snapshotからの再計算結果と一致しません: ${workId}` +
+        ' (scripts/f005-prepare-public-provenance.tsの再実行・commitが必要な可能性があります)',
+      );
+    }
     const sourceProvenance = {
       path: `content/provenance/F005/${workId}.json` as const,
-      sha256: sha(provenanceBytes),
+      sha256: sha(persistedBytes),
     };
     provenanceOutputs.push({
       workId,
-      persistedPath: `content/batches/${BATCH_ID}/public-files/provenance/${workId}.json`,
+      persistedPath,
       publicPath: sourceProvenance.path,
-      bytes: provenanceBytes,
-      value: provenanceValue,
+      bytes: persistedBytes,
     });
 
     const [speechItems, candidates, reconciliation] = await Promise.all([
@@ -361,13 +338,6 @@ async function main(): Promise<void> {
   const finalCatalog = mergeNewAuthorCatalog(baseline.catalog, fragment, author);
 
   const outputRoot = await mkdtemp(join(workspace, '.cache', 'f005-final-integration-'));
-  for (const output of provenanceOutputs) {
-    await writeJsonArtifactAtomic(
-      workspace,
-      join(workspace, ...output.persistedPath.split('/')),
-      output.value,
-    );
-  }
 
   const publicFiles = fragment.works.map((work) => {
     const output = provenanceOutputs.find((entry) =>

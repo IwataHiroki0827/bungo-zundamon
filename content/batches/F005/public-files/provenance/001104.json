@@ -1,0 +1,20 @@
+{
+  "baseEdition": "夏目漱石全集2",
+  "bibliography": {
+    "archiveBytes": 2092213,
+    "archiveSha256": "39d74f2aa5ab718feb3ba87e6173e11ad8e5bdf7a16a6844478f617dbe99c1fd",
+    "csvBytes": 17156699,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "2f3962dd396e0375327e32501929ebe6be3dc9d347f74558c511b097120d7adb",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-07-29T04:18:46.808Z",
+  "inputter": "柴田卓治",
+  "proofreader": "LUNA CAT",
+  "sourceSha256": "91209534d37abf5fc66a4720eb167b0315aefbd5ea8842cccd731d4155e982ef",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000148/card1104.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成"
+}
