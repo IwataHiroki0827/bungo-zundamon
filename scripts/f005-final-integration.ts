@@ -32,15 +32,22 @@ import {
   mergeNewAuthorCatalog,
   projectF005CatalogFragment,
   projectF005CatalogSource,
+  projectF005Credits,
+  type DataDrivenWorkNoticeV1,
   type F005IncludedCatalogWork,
 } from '../src/content/f005-catalog.ts';
 import { loadVerifiedF005Definition } from '../src/content/f005-context.ts';
 import { loadV040Baseline, verifyNatsumeIdentity } from '../src/content/f005-foundation.ts';
 import {
   buildF005SourceProvenance,
+  evaluateF005RightsAndUsage,
+  extractVerifiedShumiNotice,
   parseF005SourceRecord,
+  rehydrateF005PredeploySnapshot,
   rehydrateF005SelectionSnapshot,
+  type F005ShumiNoticeCandidate,
   type F005WorkId,
+  type SourceRecordV2,
 } from '../src/content/f005-source.ts';
 import { buildPagesPreview } from '../src/content/pages-preview.ts';
 import type { CatalogDialogueV2 } from '../src/content/processing.ts';
@@ -192,11 +199,24 @@ async function main(): Promise<void> {
     readonly publicPath: string;
     readonly bytes: Uint8Array;
   }> = [];
+  const sources: SourceRecordV2[] = [];
+  const shumiNoticeCandidate = await readCanonicalJson<F005ShumiNoticeCandidate>(
+    join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', '001104', 'shumi-notice-candidate.json'),
+  );
+  let verifiedShumiNotice: DataDrivenWorkNoticeV1 | undefined;
   for (const workId of manifest.workIds as readonly F005WorkId[]) {
     const workRoot = join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId);
     const workSnapshot = snapshot.works.find((work) => work.workId === workId);
     if (!workSnapshot) throw new Error(`selection snapshotに${workId}がありません`);
     const source = parseF005SourceRecord(workSnapshot, workId);
+    sources.push(source);
+    if (workId === '001104') {
+      // REQ-F005-010/QT-F005-006: 公式card raw内の唯一trusted「備考」構造から
+      // 表現注意を独立に再抽出・再計算し、自己申告candidateと照合したものだけを使う。
+      verifiedShumiNotice = extractVerifiedShumiNotice(
+        source, shumiNoticeCandidate,
+      ) as unknown as DataDrivenWorkNoticeV1;
+    }
 
     const provenanceValue = buildF005SourceProvenance(source, snapshot);
     const recomputedBytes = new TextEncoder().encode(canonicalJson(provenanceValue));
@@ -321,10 +341,18 @@ async function main(): Promise<void> {
         source: projectF005CatalogSource(source, sourceProvenance),
         dialogues,
         completionStatus: 'complete',
-        notices: [{
-          textKey: 'dialogue-excerpt-scope',
-          placements: ['work-list', 'work-detail', 'credits'],
-        }],
+        notices: [
+          {
+            textKey: 'dialogue-excerpt-scope',
+            placements: ['work-list', 'work-detail', 'credits'],
+          },
+          ...(workId === '001104'
+            ? [{
+              textKey: 'official-content-warning' as const,
+              placements: ['work-list', 'work-detail', 'credits'] as const,
+            }]
+            : []),
+        ],
       },
       audioAssets,
       candidateCounts: {
@@ -342,6 +370,41 @@ async function main(): Promise<void> {
   const fragment = projectF005CatalogFragment(
     context, manifest, includedWorks, author, artwork, 'final');
   const finalCatalog = mergeNewAuthorCatalog(baseline.catalog, fragment, author);
+
+  if (!verifiedShumiNotice) throw new Error('趣味の遺伝の検証済み表現注意が生成されていません');
+  // FUN-F005-032が要求するpredeploy側RightsUsageDecisionは、live再取得の代わりに
+  // 直近のpredeploy runを実物・Approved Contextへ再結合して再現する
+  // (rehydrateF005PredeploySnapshot。selectionと対称のfail-closed再検証)。
+  const snapshotsDirectory = join(workspace, 'content', 'batches', BATCH_ID, 'source-snapshots');
+  const predeployEntries = (await readdir(snapshotsDirectory, { withFileTypes: true }))
+    .filter((entry) => entry.isFile() && /^predeploy-[0-9A-Za-z-]+\.json$/u.test(entry.name))
+    .map((entry) => entry.name)
+    .sort();
+  const latestPredeployName = predeployEntries.at(-1);
+  if (!latestPredeployName) throw new Error('predeploy snapshotがありません');
+  const predeploySnapshot = await rehydrateF005PredeploySnapshot(
+    workspace,
+    context,
+    `content/batches/${BATCH_ID}/source-snapshots/${latestPredeployName}`,
+  );
+  const usageProfile = {
+    free: true,
+    advertising: false,
+    payments: false,
+    sponsorship: false,
+    unofficial: true,
+    voiceCredit: 'VOICEVOX:ずんだもん',
+  } as const;
+  const rightsDecisions = [
+    evaluateF005RightsAndUsage(snapshot, usageProfile),
+    evaluateF005RightsAndUsage(predeploySnapshot, usageProfile),
+  ];
+  // FUN-F005-032: notice/source/権利decision/artworkの同一joinを最終Catalogに対して
+  // 再検証する。ここで通れば、抽出済み表現注意はF005の設計上のcredits投影経路と
+  // 矛盾なく結合できることが保証される。
+  const creditsProjection = projectF005Credits(
+    finalCatalog, sources, rightsDecisions, [verifiedShumiNotice], artwork,
+  );
 
   const outputRoot = await mkdtemp(join(workspace, '.cache', 'f005-final-integration-'));
   let retained = false;
@@ -442,6 +505,12 @@ async function main(): Promise<void> {
       contentBuildSha256: build.buildSha256,
       distSha256: pages.distSha256,
       distFileCount: pages.files.length,
+      shumiNoticeText: verifiedShumiNotice.text,
+      shumiNoticeSourceUrl: verifiedShumiNotice.sourceUrl,
+      shumiNoticeSourceRawSha256: verifiedShumiNotice.sourceRawSha256,
+      shumiNoticeTextSha256: verifiedShumiNotice.textSha256,
+      predeploySnapshotPath: `content/batches/${BATCH_ID}/source-snapshots/${latestPredeployName}`,
+      creditsProjectionSha256: sha(canonicalJson(creditsProjection)),
     } as const;
     if (retainCandidate) {
       await writeJsonArtifactAtomic(

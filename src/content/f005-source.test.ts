@@ -43,6 +43,7 @@ import {
   evaluateF005RightsAndUsage,
   evaluateF005PolicyClauses,
   extractF005DialogueCandidates,
+  extractVerifiedShumiNotice,
   formatProofreader,
   getF005NativeGuardProcessCountForTest,
   normalizeAozoraXhtmlEntities,
@@ -50,9 +51,11 @@ import {
   parseBibliographyV2,
   parseF005SourceRecord,
   readSafeWorkspaceFile,
+  rehydrateF005PredeploySnapshot,
   rehydrateF005SelectionSnapshot,
   renameSafeWorkspaceFile,
   resolveSafeWorkspaceFile,
+  type F005ShumiNoticeCandidate,
 } from './f005-source.ts';
 
 const temporaryDirectories: string[] = [];
@@ -1161,4 +1164,330 @@ describe('F005 Windows安全path', () => {
       .rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
     expect(getF005NativeGuardProcessCountForTest()).toBe(0);
   });
+});
+
+function sha256Hex(value: string | Uint8Array): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+const SHUMI_NOTICE_TEXT =
+  'この作品には、今日からみれば、不適切と受け取られる可能性のある表現がみられます。' +
+  'その旨をここに記載した上で、そのままの形で作品を公開します。（青空文庫）';
+
+function shumiCardHtml(noticeText: string): Uint8Array {
+  return new TextEncoder().encode(
+    '<html><head><meta charset="utf-8"></head><body>' +
+    '<p>最終更新日：2026-07-29</p>' +
+    '<table><tr><td class="header">備考：</td><td>' +
+    `${noticeText}<br><div id="link"></div><script type="text/javascript" src="../link.js"></script>` +
+    '</td></tr></table></body></html>',
+  );
+}
+
+function shumiCandidate(overrides: Partial<F005ShumiNoticeCandidate> = {}): F005ShumiNoticeCandidate {
+  return {
+    schemaVersion: 1,
+    workId: '001104',
+    text: SHUMI_NOTICE_TEXT,
+    sourceUrl: F005_WORKS[2]!.cardUrl,
+    sourceRawSha256: sha256Hex(shumiCardHtml(SHUMI_NOTICE_TEXT)),
+    textSha256: sha256Hex(SHUMI_NOTICE_TEXT),
+    placements: ['author', 'work', 'credits'],
+    ...overrides,
+  };
+}
+
+describe('UT-F005-014 表現注意の検証済み抽出 [DES-F005-005][DES-F005-010][FUN-F005-014]', () => {
+  async function shumiSourceRecord(cardNoticeText = SHUMI_NOTICE_TEXT) {
+    const responses = standardResponses();
+    responses[6] = response(shumiCardHtml(cardNoticeText), 'text/html');
+    const snapshot = await collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    return parseF005SourceRecord(snapshot.works[2]!, '001104');
+  }
+
+  it('公式card raw内の唯一trusted備考行から独立に再計算した値だけを検証済みnoticeとして返す', async () => {
+    const source = await shumiSourceRecord();
+    const notice = extractVerifiedShumiNotice(source, shumiCandidate());
+    expect(notice).toMatchObject({
+      schemaVersion: 1,
+      workId: '001104',
+      text: SHUMI_NOTICE_TEXT,
+      sourceUrl: F005_WORKS[2]!.cardUrl,
+      placements: ['author', 'work', 'credits'],
+    });
+    expect(notice.sourceRawSha256).toBe(source.cardRawSha256);
+    expect(notice.textSha256).toBe(sha256Hex(SHUMI_NOTICE_TEXT));
+  });
+
+  it('自己申告値同士だけが一致していてもcard実体と異なれば拒否する', async () => {
+    const source = await shumiSourceRecord();
+    const forgedText = `${SHUMI_NOTICE_TEXT}改変`;
+    const forged = shumiCandidate({
+      text: forgedText,
+      textSha256: sha256Hex(forgedText),
+    });
+    expect(() => extractVerifiedShumiNotice(source, forged))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+  });
+
+  it('備考行が0件・複数件のcardを拒否する', async () => {
+    const noNoticeResponses = standardResponses();
+    noNoticeResponses[6] = response(
+      new TextEncoder().encode(
+        '<html><head><meta charset="utf-8"></head><body><p>最終更新日：2026-07-29</p></body></html>',
+      ),
+      'text/html',
+    );
+    const noNoticeSnapshot = await collectF005SourceSnapshot(
+      transportFixture(noNoticeResponses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    const noNoticeSource = parseF005SourceRecord(noNoticeSnapshot.works[2]!, '001104');
+    expect(() => extractVerifiedShumiNotice(noNoticeSource, shumiCandidate()))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+
+    const duplicateHtml = new TextEncoder().encode(
+      '<html><head><meta charset="utf-8"></head><body>' +
+      '<p>最終更新日：2026-07-29</p>' +
+      '<table>' +
+      `<tr><td class="header">備考：</td><td>${SHUMI_NOTICE_TEXT}<br><div id="link"></div>` +
+      '<script type="text/javascript" src="../link.js"></script></td></tr>' +
+      `<tr><td class="header">備考：</td><td>${SHUMI_NOTICE_TEXT}<br><div id="link"></div>` +
+      '<script type="text/javascript" src="../link.js"></script></td></tr>' +
+      '</table></body></html>',
+    );
+    const duplicateResponses = standardResponses();
+    duplicateResponses[6] = response(duplicateHtml, 'text/html');
+    const duplicateSnapshot = await collectF005SourceSnapshot(
+      transportFixture(duplicateResponses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    const duplicateSource = parseF005SourceRecord(duplicateSnapshot.works[2]!, '001104');
+    expect(() => extractVerifiedShumiNotice(duplicateSource, shumiCandidate()))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+  });
+
+  it('HTML注入を試みた備考行を拒否する', async () => {
+    const injectedHtml = new TextEncoder().encode(
+      '<html><head><meta charset="utf-8"></head><body>' +
+      '<p>最終更新日：2026-07-29</p>' +
+      '<table><tr><td class="header">備考：</td><td>' +
+      '<b>危険</b>この作品には…<br><div id="link"></div>' +
+      '<script type="text/javascript" src="../link.js"></script></td></tr></table></body></html>',
+    );
+    const responses = standardResponses();
+    responses[6] = response(injectedHtml, 'text/html');
+    const snapshot = await collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    const source = parseF005SourceRecord(snapshot.works[2]!, '001104');
+    expect(() => extractVerifiedShumiNotice(source, shumiCandidate()))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+  });
+
+  it('文言差・sourceUrl差・schema不正の自己申告候補を拒否する', async () => {
+    const source = await shumiSourceRecord();
+    expect(() => extractVerifiedShumiNotice(source, shumiCandidate({ text: '別の文言です' })))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+    expect(() => extractVerifiedShumiNotice(source, shumiCandidate({
+      sourceUrl: 'https://www.aozora.gr.jp/cards/000148/card799.html',
+    }))).toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+    expect(() => extractVerifiedShumiNotice(
+      source,
+      { ...shumiCandidate(), placements: ['work', 'author', 'credits'] } as unknown as F005ShumiNoticeCandidate,
+    )).toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+    expect(() => extractVerifiedShumiNotice(
+      source,
+      { ...shumiCandidate(), extra: true } as unknown as F005ShumiNoticeCandidate,
+    )).toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+  });
+
+  it('mint済みではないSourceRecordV2や作品違いを拒否する', async () => {
+    const source = await shumiSourceRecord();
+    expect(() => extractVerifiedShumiNotice(
+      structuredClone(source) as never,
+      shumiCandidate(),
+    )).toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+    const responses = standardResponses();
+    const otherSnapshot = await collectF005SourceSnapshot(
+      transportFixture(responses),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(),
+    );
+    const otherSource = parseF005SourceRecord(otherSnapshot.works[0]!, '000799');
+    expect(() => extractVerifiedShumiNotice(otherSource, shumiCandidate()))
+      .toThrowError(expect.objectContaining({ code: 'F005_NOTICE_INVALID' }));
+  });
+});
+
+async function persistPredeploySnapshot(
+  root: string,
+  snapshot: Awaited<ReturnType<typeof collectF005SourceSnapshot>>,
+  run: string,
+): Promise<Record<string, unknown>> {
+  const dataPath = (leaf: string): string =>
+    `data/batches/F005/source-snapshots/selection/predeploy-${run}-${leaf.replace(/\//gu, '-')}`;
+  const entries = [
+    { path: dataPath('bibliography.zip'), artifact: snapshot.bibliographyArchive },
+    { path: dataPath('bibliography.csv'), artifact: snapshot.bibliographyCsv },
+    { path: dataPath('author-page.html'), artifact: snapshot.authorPage },
+    ...snapshot.policies.map((policy) => ({
+      path: dataPath(`policies/${policy.policyId}.raw`),
+      artifact: policy.artifact,
+    })),
+    ...snapshot.works.flatMap((work) => [
+      { path: dataPath(`works/${work.workId}/card.html`), artifact: work.card },
+      { path: dataPath(`works/${work.workId}/source.raw`), artifact: work.xhtml },
+    ]),
+  ];
+  for (const entry of entries) {
+    const target = join(root, ...entry.path.split('/'));
+    await mkdir(join(target, '..'), { recursive: true });
+    await writeFile(target, entry.artifact.bytes);
+  }
+  const metadata = (
+    artifact: (typeof entries)[number]['artifact'],
+    path: string,
+  ): Record<string, unknown> => ({
+    storage: 'sealed',
+    path,
+    sourceUrl: artifact.sourceUrl,
+    fetchedAt: artifact.fetchedAt,
+    mediaType: artifact.mediaType,
+    charset: artifact.charset,
+    byteLength: artifact.byteLength,
+    sha256: artifact.sha256,
+    transport: artifact.transport,
+  });
+  const artifact = {
+    schemaVersion: '2.0.0',
+    kind: 'f005-source-predeploy-snapshot',
+    batchId: 'F005',
+    authorId: snapshot.authorId,
+    phase: snapshot.phase,
+    observedAt: snapshot.observedAt,
+    rights: evaluateF005RightsAndUsage(snapshot, USAGE),
+    bibliographyArchive: metadata(snapshot.bibliographyArchive, entries[0]!.path),
+    bibliographyCsv: metadata(snapshot.bibliographyCsv, entries[1]!.path),
+    authorPage: metadata(snapshot.authorPage, entries[2]!.path),
+    policies: snapshot.policies.map((policy) => {
+      const entry = entries.find((item) => item.artifact === policy.artifact)!;
+      return {
+        policyId: policy.policyId,
+        versionOrLabel: policy.versionOrLabel,
+        artifact: metadata(policy.artifact, entry.path),
+        decision: policy.decision,
+      };
+    }),
+    works: snapshot.works.map((work) => {
+      const card = entries.find((item) => item.artifact === work.card)!;
+      const xhtml = entries.find((item) => item.artifact === work.xhtml)!;
+      return {
+        workId: work.workId,
+        title: work.title,
+        bibliography: work.bibliography,
+        card: metadata(work.card, card.path),
+        xhtml: metadata(work.xhtml, xhtml.path),
+      };
+    }),
+  };
+  const snapshotPath = join(root, 'content', 'batches', 'F005', 'source-snapshots', `predeploy-${run}.json`);
+  await mkdir(join(snapshotPath, '..'), { recursive: true });
+  await writeFile(snapshotPath, canonicalJson(artifact));
+  return artifact;
+}
+
+describe('UT-F005-006 predeploy snapshotの検証済み再読込 [DES-F005-003][FUN-F005-006]', () => {
+  const RUN = '2026-07-29T00-01-00-000Z';
+  const SNAPSHOT_RELATIVE_PATH = `content/batches/F005/source-snapshots/predeploy-${RUN}.json`;
+
+  async function seed(root: string) {
+    const selection = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'selection',
+      () => new Date('2026-07-29T00:00:00.000Z'),
+      collectionOptions(root),
+    );
+    await persistSelectionSnapshot(root, selection);
+    const rehydratedSelection = await rehydrateF005SelectionSnapshot(root, CONTEXT);
+    const predeploy = await collectF005SourceSnapshot(
+      transportFixture(),
+      CONTEXT,
+      'predeploy',
+      () => new Date('2026-07-29T00:01:00.000Z'),
+      collectionOptions(root, POLICY_BODIES, rehydratedSelection),
+    );
+    return predeploy;
+  }
+
+  it('永続化predeployを実物とApproved Contextへ再結合し、selectionと対称なexact値を返す', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-rehydrate-'));
+    temporaryDirectories.push(root);
+    const predeploy = await seed(root);
+    await persistPredeploySnapshot(root, predeploy, RUN);
+    const rehydrated = await rehydrateF005PredeploySnapshot(root, CONTEXT, SNAPSHOT_RELATIVE_PATH);
+    expect(rehydrated).not.toBe(predeploy);
+    expect(rehydrated).toEqual(predeploy);
+    expect(rehydrated.phase).toBe('predeploy');
+    expect(evaluateF005RightsAndUsage(rehydrated, USAGE).decision).toBe('allow');
+  }, 30_000);
+
+  it('固定形式外のpath・context不一致を拒否する', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-path-'));
+    temporaryDirectories.push(root);
+    const predeploy = await seed(root);
+    await persistPredeploySnapshot(root, predeploy, RUN);
+    await expect(rehydrateF005PredeploySnapshot(
+      root, CONTEXT, 'content/batches/F005/source-snapshots/selection.json',
+    )).rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
+    await expect(rehydrateF005PredeploySnapshot(
+      root, CONTEXT, `content/batches/F005/source-snapshots/predeploy-${RUN}/../escape.json`,
+    )).rejects.toMatchObject({ code: 'F005_PATH_UNSAFE' });
+    await expect(rehydrateF005PredeploySnapshot(root, structuredClone(CONTEXT), SNAPSHOT_RELATIVE_PATH))
+      .rejects.toMatchObject({ code: 'F005_CONTEXT_INVALID' });
+  });
+
+  it('実体SHA・kind・phase改変を拒否する', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-tamper-'));
+    temporaryDirectories.push(root);
+    const predeploy = await seed(root);
+    const artifact = await persistPredeploySnapshot(root, predeploy, RUN);
+    const snapshotPath = join(root, ...SNAPSHOT_RELATIVE_PATH.split('/'));
+
+    const wrongKind = { ...artifact, kind: 'f005-source-selection-snapshot' };
+    await writeFile(snapshotPath, canonicalJson(wrongKind));
+    await expect(rehydrateF005PredeploySnapshot(root, CONTEXT, SNAPSHOT_RELATIVE_PATH))
+      .rejects.toMatchObject({ code: 'F005_SOURCE_DRIFT' });
+
+    const tamperedWork = structuredClone(artifact) as {
+      works: Array<{ card: { sha256: string } }>;
+    };
+    tamperedWork.works[2]!.card.sha256 = '0'.repeat(64);
+    await writeFile(snapshotPath, canonicalJson(tamperedWork));
+    await expect(rehydrateF005PredeploySnapshot(root, CONTEXT, SNAPSHOT_RELATIVE_PATH))
+      .rejects.toThrow();
+
+    await writeFile(snapshotPath, canonicalJson(artifact));
+    await expect(rehydrateF005PredeploySnapshot(root, CONTEXT, SNAPSHOT_RELATIVE_PATH))
+      .resolves.toMatchObject({ phase: 'predeploy' });
+  }, 30_000);
 });

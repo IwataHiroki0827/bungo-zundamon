@@ -115,6 +115,7 @@ export type F005SourceErrorCode =
   | 'F005_ENTITY_NORMALIZATION_INVALID'
   | 'F005_XHTML_PREFLIGHT_REJECTED'
   | 'F005_EXTRACTION_FAILED'
+  | 'F005_NOTICE_INVALID'
   | 'F005_PATH_UNSAFE';
 
 export class F005SourceError extends Error {
@@ -228,6 +229,26 @@ export interface SourceRecordV2 {
   readonly bibliography: BibliographyV2;
 }
 
+export interface F005ShumiNoticeCandidate {
+  readonly schemaVersion: 1;
+  readonly workId: '001104';
+  readonly text: string;
+  readonly sourceUrl: string;
+  readonly sourceRawSha256: string;
+  readonly textSha256: string;
+  readonly placements: readonly ['author', 'work', 'credits'];
+}
+
+export interface VerifiedWorkNotice {
+  readonly schemaVersion: 1;
+  readonly workId: '001104';
+  readonly text: string;
+  readonly sourceUrl: string;
+  readonly sourceRawSha256: string;
+  readonly textSha256: string;
+  readonly placements: readonly ['author', 'work', 'credits'];
+}
+
 export interface EntityReplacement {
   readonly offset: number;
   readonly from: '&nbsp;';
@@ -320,6 +341,7 @@ const mintedWorkSnapshots = new WeakSet<object>();
 const mintedSourceRecords = new WeakSet<object>();
 const mintedNormalizations = new WeakSet<object>();
 const mintedPolicyDecisions = new WeakSet<object>();
+const mintedWorkNotices = new WeakSet<object>();
 const safeCapabilityState = new WeakMap<object, {
   readonly client: F005NativeGuardClient;
   readonly capabilityId: string;
@@ -1428,6 +1450,268 @@ export async function rehydrateF005SelectionSnapshot(
   return snapshot;
 }
 
+const F005_PREDEPLOY_SNAPSHOT_PATH_PATTERN =
+  /^content\/batches\/F005\/source-snapshots\/predeploy-([0-9A-Za-z-]+)\.json$/u;
+
+/**
+ * process再起動後にpredeploy runを実ファイル・承認contextへ再結合して再mintする。
+ * ファイル名にrunを刻む点だけがselectionと異なり、それ以外の再検証はexact対称とする。
+ * @des DES-F005-003 @fun FUN-F005-006 @ut UT-F005-006
+ */
+export async function rehydrateF005PredeploySnapshot(
+  workspace: string,
+  context: F005ApprovedBatchContext,
+  snapshotRelativePath: string,
+): Promise<F005SourceSnapshot> {
+  requireExactContext(context);
+  const match = typeof snapshotRelativePath === 'string'
+    ? F005_PREDEPLOY_SNAPSHOT_PATH_PATTERN.exec(snapshotRelativePath)
+    : null;
+  if (!match) {
+    throw new F005SourceError('F005_PATH_UNSAFE', 'predeploy snapshot pathが固定形式ではありません');
+  }
+  const run = match[1]!;
+  const dataPath = (leaf: string): string =>
+    `data/batches/F005/source-snapshots/selection/predeploy-${run}-${leaf.replace(/\//gu, '-')}`;
+
+  const documentBytes = await readStablePersistedFile(
+    workspace,
+    snapshotRelativePath,
+    MAX_SOURCE_BYTES,
+  );
+  let documentText: string;
+  let persisted: unknown;
+  try {
+    documentText = new TextDecoder('utf-8', { fatal: true }).decode(documentBytes);
+    persisted = JSON.parse(documentText);
+  } catch (error) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'predeploy snapshot JSONが不正です', { cause: error });
+  }
+  if (documentText !== canonicalJson(persisted) || !isRecord(persisted) ||
+    !hasExactKeys(persisted, [
+      'schemaVersion',
+      'kind',
+      'batchId',
+      'authorId',
+      'phase',
+      'observedAt',
+      'rights',
+      'bibliographyArchive',
+      'bibliographyCsv',
+      'authorPage',
+      'policies',
+      'works',
+    ]) ||
+    persisted.schemaVersion !== '2.0.0' ||
+    persisted.kind !== 'f005-source-predeploy-snapshot' ||
+    persisted.batchId !== 'F005' ||
+    persisted.authorId !== AUTHOR_ID ||
+    persisted.phase !== 'predeploy' ||
+    !nonBlank(persisted.observedAt) ||
+    !Number.isFinite(Date.parse(persisted.observedAt)) ||
+    !Array.isArray(persisted.policies) ||
+    persisted.policies.length !== F005_POLICY_IDS.length ||
+    !Array.isArray(persisted.works) ||
+    persisted.works.length !== F005_WORKS.length
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'predeploy snapshotのcanonical schemaが一致しません');
+  }
+
+  const bibliographyArchive = await rehydratePersistedArtifact(
+    workspace,
+    persisted.bibliographyArchive,
+    {
+      path: dataPath('bibliography.zip'),
+      sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+      mediaType: 'application/zip',
+      charset: null,
+      maxBytes: MAX_BIBLIOGRAPHY_ARCHIVE_BYTES,
+      policy: false,
+    },
+  );
+  let extractedCsv: Uint8Array;
+  let rows: BibliographyRow[];
+  try {
+    extractedCsv = extractVerifiedBibliographyCsv(bibliographyArchive.bytes);
+  } catch (error) {
+    throw new F005SourceError('F005_BIBLIOGRAPHY_INVALID', 'persisted公式書誌を再検証できません', { cause: error });
+  }
+  const bibliographyCsv = isRecord(persisted.bibliographyCsv) &&
+    persisted.bibliographyCsv.storage === 'derived'
+    ? rehydrateDerivedArtifact(persisted.bibliographyCsv, extractedCsv, {
+      path: dataPath('bibliography.zip'),
+      derivedFromSha256: bibliographyArchive.sha256,
+      sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+      mediaType: 'text/csv',
+      charset: 'UTF-8',
+      maxBytes: MAX_BIBLIOGRAPHY_CSV_BYTES,
+      fetchedAt: bibliographyArchive.fetchedAt,
+      transport: bibliographyArchive.transport,
+    })
+    : await rehydratePersistedArtifact(
+      workspace,
+      persisted.bibliographyCsv,
+      {
+        path: dataPath('bibliography.csv'),
+        sourceUrl: AOZORA_BIBLIOGRAPHY_URL,
+        mediaType: 'text/csv',
+        charset: 'UTF-8',
+        maxBytes: MAX_BIBLIOGRAPHY_CSV_BYTES,
+        policy: false,
+      },
+    );
+  try {
+    rows = parseAozoraBibliography(bibliographyCsv.bytes);
+  } catch (error) {
+    throw new F005SourceError('F005_BIBLIOGRAPHY_INVALID', 'persisted公式書誌CSVを解析できません', { cause: error });
+  }
+  if (
+    extractedCsv.byteLength !== bibliographyCsv.bytes.byteLength ||
+    sha256(extractedCsv) !== bibliographyCsv.sha256 ||
+    bibliographyCsv.fetchedAt !== bibliographyArchive.fetchedAt ||
+    canonicalJson(bibliographyCsv.transport) !== canonicalJson(bibliographyArchive.transport)
+  ) {
+    throw new F005SourceError('F005_SOURCE_DRIFT', 'persisted ZIP/CSV bindingが一致しません');
+  }
+  const selectedRows = F005_WORKS.map((expected) => {
+    const matches = rows.filter((row) =>
+      row.workId === expected.workId && row.personId === AUTHOR_ID && row.role === '著者',
+    );
+    if (matches.length !== 1) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted書誌の対象行が一意ではありません: ${expected.workId}`);
+    }
+    assertExpectedRow(matches[0]!, expected, rows);
+    return deepFreeze(structuredClone(matches[0]!));
+  });
+  const authorPage = await rehydratePersistedArtifact(
+    workspace,
+    persisted.authorPage,
+    {
+      path: dataPath('author-page.html'),
+      sourceUrl: AUTHOR_PAGE_URL,
+      mediaType: 'text/html',
+      charset: 'UTF-8',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    },
+  );
+
+  const definitions = createPolicyDefinitions(workspace, workspace, 'F005')
+    .filter((definition): definition is typeof definition & {
+      readonly policyId: (typeof F005_POLICY_IDS)[number];
+    } => F005_POLICY_IDS.includes(definition.policyId as (typeof F005_POLICY_IDS)[number]));
+  const policies: F005PolicySnapshot[] = [];
+  for (const [index, policyId] of F005_POLICY_IDS.entries()) {
+    const rawPolicy = persisted.policies[index];
+    const definition = definitions.find((item) => item.policyId === policyId);
+    if (!definition || !isRecord(rawPolicy) || !hasExactKeys(rawPolicy, [
+      'policyId',
+      'versionOrLabel',
+      'artifact',
+      'decision',
+    ]) ||
+      rawPolicy.policyId !== policyId ||
+      rawPolicy.versionOrLabel !== definition.versionOrLabel
+    ) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted規約tupleが一致しません: ${policyId}`);
+    }
+    const policyArtifact = await rehydratePersistedArtifact(
+      workspace,
+      rawPolicy.artifact,
+      {
+        path: dataPath(`policies/${policyId}.raw`),
+        sourceUrl: definition.url,
+        mediaType: 'text/html',
+        charset: null,
+        maxBytes: MAX_SOURCE_BYTES,
+        policy: true,
+      },
+    );
+    const decision = evaluateF005PolicyClauses(policyId, policyArtifact.bytes);
+    if (canonicalJson(rawPolicy.decision) !== canonicalJson(decision)) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted規約decisionが本文と一致しません: ${policyId}`);
+    }
+    policies.push(deepFreeze({
+      policyId,
+      versionOrLabel: definition.versionOrLabel,
+      artifact: policyArtifact,
+      decision,
+    }));
+  }
+
+  const works: F005WorkSnapshot[] = [];
+  for (const [index, expected] of F005_WORKS.entries()) {
+    const rawWork = persisted.works[index];
+    const contextWork = context.candidate.works[index];
+    if (!isRecord(rawWork) || !hasExactKeys(rawWork, [
+      'workId',
+      'title',
+      'bibliography',
+      'card',
+      'xhtml',
+    ]) ||
+      rawWork.workId !== expected.workId ||
+      rawWork.title !== expected.title ||
+      contextWork?.workId !== expected.workId ||
+      contextWork.title !== expected.title ||
+      contextWork.cardUrl !== expected.cardUrl ||
+      contextWork.xhtmlUrl !== expected.sourceUrl ||
+      canonicalJson(rawWork.bibliography) !== canonicalJson(selectedRows[index])
+    ) {
+      throw new F005SourceError('F005_SOURCE_DRIFT', `persisted作品とapproved contextが一致しません: ${expected.workId}`);
+    }
+    const card = await rehydratePersistedArtifact(workspace, rawWork.card, {
+      path: dataPath(`works/${expected.workId}/card.html`),
+      sourceUrl: expected.cardUrl,
+      mediaType: 'text/html',
+      charset: 'UTF-8',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    });
+    const xhtml = await rehydratePersistedArtifact(workspace, rawWork.xhtml, {
+      path: dataPath(`works/${expected.workId}/source.raw`),
+      sourceUrl: expected.sourceUrl,
+      mediaType: 'text/html',
+      charset: 'Shift_JIS',
+      maxBytes: MAX_SOURCE_BYTES,
+      policy: false,
+    });
+    const work = deepFreeze({
+      workId: expected.workId,
+      title: expected.title,
+      bibliography: selectedRows[index]!,
+      card,
+      xhtml,
+    });
+    mintedWorkSnapshots.add(work);
+    works.push(work);
+  }
+  const snapshot = deepFreeze({
+    schemaVersion: '2.0.0' as const,
+    authorId: '000148' as const,
+    phase: 'predeploy' as const,
+    observedAt: persisted.observedAt,
+    bibliographyArchive,
+    bibliographyCsv,
+    authorPage,
+    policies,
+    works,
+  });
+  mintedSnapshots.add(snapshot);
+  const rights = evaluateF005RightsAndUsage(snapshot, {
+    free: true,
+    advertising: false,
+    payments: false,
+    sponsorship: false,
+    unofficial: true,
+    voiceCredit: 'VOICEVOX:ずんだもん',
+  });
+  if (rights.decision !== 'allow' || canonicalJson(persisted.rights) !== canonicalJson(rights)) {
+    throw new F005SourceError('F005_USAGE_NOT_ALLOWED', 'persisted rights decisionを再現できません');
+  }
+  return snapshot;
+}
+
 /**
  * 取得済みsnapshotと固定用途profileから、権利・規約条件をfail-closed評価する。
  * @des DES-F005-003 @fun FUN-F005-007 @ut UT-F005-007
@@ -1677,6 +1961,85 @@ export function buildF005SourceProvenance(
     transformation:
       '公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成',
   };
+}
+
+const F005_NOTICE_ROW_PATTERN =
+  /<tr><td class="header">備考：<\/td><td>([^<]+)<br\s*\/?>\s*<div id="link"><\/div>\s*<script type="text\/javascript" src="\.\.\/link\.js"><\/script><\/td><\/tr>/gu;
+
+function isShumiNoticeCandidate(value: unknown): value is F005ShumiNoticeCandidate {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      'placements', 'schemaVersion', 'sourceRawSha256', 'sourceUrl', 'text', 'textSha256', 'workId',
+    ]) &&
+    value.schemaVersion === 1 &&
+    value.workId === '001104' &&
+    nonBlank(value.text) &&
+    !hasControlCharacter(value.text) &&
+    typeof value.sourceUrl === 'string' && nonBlank(value.sourceUrl) &&
+    typeof value.sourceRawSha256 === 'string' && /^[0-9a-f]{64}$/u.test(value.sourceRawSha256) &&
+    typeof value.textSha256 === 'string' && /^[0-9a-f]{64}$/u.test(value.textSha256) &&
+    Array.isArray(value.placements) &&
+    canonicalJson(value.placements) === canonicalJson(['author', 'work', 'credits']);
+}
+
+/**
+ * 公式card raw内の唯一trusted「備考」構造だけを許して表現注意を抽出し、
+ * text/source URL/raw SHA/notice SHAを再計算して自己申告catalogNoticeと照合する。
+ * 自己申告値同士の一致だけでは通さず、HTML注入・欠落・複数候補・文言差は拒否する。
+ * @des DES-F005-005 DES-F005-010 @fun FUN-F005-014 @ut UT-F005-014
+ */
+export function extractVerifiedShumiNotice(
+  source: SourceRecordV2,
+  catalogNotice: F005ShumiNoticeCandidate,
+): VerifiedWorkNotice {
+  if (!isRecord(source) || !mintedSourceRecords.has(source) || source.workId !== '001104') {
+    throw new F005SourceError('F005_NOTICE_INVALID', '趣味の遺伝の検証済みSourceRecordV2が必要です');
+  }
+  assertSourceRecordArtifacts(source);
+  if (!isShumiNoticeCandidate(catalogNotice)) {
+    throw new F005SourceError('F005_NOTICE_INVALID', '自己申告noticeのschemaが不正です');
+  }
+  let text: string;
+  try {
+    text = new TextDecoder('utf-8', { fatal: true }).decode(source.card.bytes);
+  } catch (error) {
+    throw new F005SourceError('F005_NOTICE_INVALID', 'card UTF-8 decodeに失敗しました', { cause: error });
+  }
+  const matches = [...text.matchAll(F005_NOTICE_ROW_PATTERN)];
+  if (matches.length !== 1) {
+    throw new F005SourceError('F005_NOTICE_INVALID', '備考行の表現注意が一意に取得できません');
+  }
+  const extractedText = matches[0]![1]!;
+  if (
+    !nonBlank(extractedText) ||
+    hasControlCharacter(extractedText) ||
+    extractedText.includes('&') ||
+    extractedText.normalize('NFC') !== extractedText
+  ) {
+    throw new F005SourceError('F005_NOTICE_INVALID', '抽出した表現注意が不正です');
+  }
+  const rawSha256 = sha256(source.card.bytes);
+  const textSha256Value = sha256(new TextEncoder().encode(extractedText));
+  if (
+    rawSha256 !== source.cardRawSha256 ||
+    catalogNotice.text !== extractedText ||
+    catalogNotice.sourceUrl !== source.cardUrl ||
+    catalogNotice.sourceRawSha256 !== rawSha256 ||
+    catalogNotice.textSha256 !== textSha256Value
+  ) {
+    throw new F005SourceError('F005_NOTICE_INVALID', '自己申告noticeが公式card rawと一致しません');
+  }
+  const notice = deepFreeze({
+    schemaVersion: 1 as const,
+    workId: '001104' as const,
+    text: extractedText,
+    sourceUrl: source.cardUrl,
+    sourceRawSha256: rawSha256,
+    textSha256: textSha256Value,
+    placements: ['author', 'work', 'credits'] as const,
+  });
+  mintedWorkNotices.add(notice);
+  return notice;
 }
 
 /**
