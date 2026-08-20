@@ -1,4 +1,14 @@
 changes:
+- id: CHG-F005-078
+  date: '2026-08-21'
+  trigger: T-073がscripts/f005-final-integration.tsのBATCH_ARTIFACT_MISSINGで停止し、原因がF005受理経路のactualCapacityRef/rightsSnapshotIds未反映と判明した
+  level: implementation
+  affected:
+  - src/content/batch.ts
+  - src/content/f005-acceptance.ts
+  - scripts/f005-backfill-acceptance-evidence.ts
+  - content/batches/F005/batch.json
+  status: in-review
 - id: CHG-F005-077
   date: '2026-08-20'
   trigger: プロジェクトオーナーへREQUEST.md「他に有名な作家を知名度順に10人まで続ける」の意図を改めて確認した結果、既存3作者とは別の追加10人（最終上限13作者）ではなく、既存を含む合計10作者（追加7人、最終上限10作者）が正しい意図であると判明した

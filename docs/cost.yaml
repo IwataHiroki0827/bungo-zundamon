@@ -1031,3 +1031,10 @@ entries:
   est_tokens: 8000
   note: 依存T-070/071/072は全てdoneで前提充足を確認。未commitのpredeploy source-evidence 12件をdata(f005)コミットで解消しexact
     clean source commit要件を通過させたが、scripts/f005-final-integration.tsがsrc/content/batch.tsの`loadAcceptedBatches`で`BATCH_ARTIFACT_MISSING`停止。content/batches/F005/batch.jsonの3作品全件で`rightsSnapshotIds`（batch単位、空配列）・`actualCapacityRef`（work単位、未設定）が欠落しており、F005専用acceptance経路（src/content/f005-acceptance.ts・scripts/f005-run-work.ts）がこの2フィールドを書いていないことが原因と特定。容量actual証跡自体はcontent/batches/F005/capacity-actual/{workId}/<sha256>.jsonとして存在するがpath規約がgeneric discoveryと異なりリンクされていない。コード修正が必要なため実装せず報告に留め、T-073をblockedへ更新。lint/typecheck PASS、コード変更なし
+- date: '2026-08-21'
+  phase: implement
+  task: CHG-F005-078 T-073のBATCH_ARTIFACT_MISSING恒久修正とbackfill
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 30000
+  note: T-073のBATCH_ARTIFACT_MISSING原因（actualCapacityRef/rightsSnapshotIds未反映）を特定し恒久修正した。src/content/batch.tsのPreparedWorkAcceptanceEvidenceへ任意項目actualCapacityRef/rightsSnapshotIdsを追加し、transitionWorkStateのaccepted遷移がevidence経由でこれらをmanifestへ反映できる後方互換拡張を実装（F002〜F004の挙動は不変）。src/content/f005-acceptance.tsのfinalizeF005WorkAcceptance/validateManifestNextTempへ反映し、既存のcapacity-actual実体・selection.jsonのpolicies[].decision.contentSha256から値を導出する経路を追加。既にaccepted確定済みの3作品はforward-only制約のため通常フローをやり直せず、scripts/f005-backfill-acceptance-evidence.ts（一回限り、削除せず保持）で実evidenceのSHA256から機械的に値を導出しbatch.jsonへatomic書込みした。lint PASS、typecheck PASS、Vitest 1312件中1311件PASS（1件は並列実行時flakyで単独PASS、対象139件は全PASS）。再実行の結果BATCH_ARTIFACT_MISSINGは解消したが、buildIntegratedPublicTreeがcontent/provenance/F005/{workId}.jsonをENOENTで検出できない別系統の不備（f005-final-integration.tsのprovenance出力先とreferencedPublicEvidence参照先の不一致）が新たに判明し、T-073はスコープ外のため未着手のままblockedを維持

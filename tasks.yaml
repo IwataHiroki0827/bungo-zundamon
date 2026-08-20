@@ -295,14 +295,24 @@ tasks:
     依存T-070/071/072は全てdoneで前提充足。commit未清浄（未commit predeploy snapshot 12件）を
     「data(f005): refresh predeploy source evidence」として解消しexact clean source commit要件を通過させた。
     しかしscripts/f005-final-integration.tsはsrc/content/batch.ts:1454の`loadAcceptedBatches`で
-    `BATCH_ARTIFACT_MISSING`停止。content/batches/F005/batch.jsonの3作品全てで`rightsSnapshotIds`が空配列、
-    `actualCapacityRef`が未設定（`forecastRef`/`voiceEvidenceRef`は設定済み）。原因はF005専用のacceptance経路
-    （src/content/f005-acceptance.ts・scripts/f005-run-work.ts、CHG-F005-072のETW事後検証置換で構築）が
-    `forecastRef`/`voiceEvidenceRef`は書くが`actualCapacityRef`とbatch単位`rightsSnapshotIds`を一度も書いていないこと。
-    容量actual証跡自体は`content/batches/F005/capacity-actual/{workId}/<sha256>.json`として存在するが、
-    generic release候補discovery（F002〜F004が使うsrc/content/batch-acceptance.ts/batch-runtime.tsの
-    `content/batches/${batchId}/capacity-actual/${workId}.json`規約）とpath規約が異なりリンクされていない。
-    コード修正が必要なため実装せず報告に留める。lint/typecheck PASS、コード変更なし。
+    `BATCH_ARTIFACT_MISSING`停止していた（原因はF005受理経路がactualCapacityRef/rightsSnapshotIdsを
+    書いていないこと）。
+    CHG-F005-078でこれを恒久修正した。batch.tsのtransitionWorkStateへevidence経由で
+    actualCapacityRef（work単位）・rightsSnapshotIds（batch単位）を渡せる後方互換な拡張を追加し、
+    f005-acceptance.tsのfinalizeF005WorkAcceptance/recovery系へ反映した（F002〜F004の挙動は不変）。
+    既にaccepted確定済みの3作品はwork状態遷移がforward-onlyのため通常フローをやり直せず、
+    一回限りのbackfillスクリプト`scripts/f005-backfill-acceptance-evidence.ts`で実evidence
+    （capacity-actual実体のjournalId、selection.jsonのpolicies[].decision.contentSha256）から
+    機械的に値を導出しbatch.jsonへ反映した（commit d1be8fb）。
+    再実行の結果、`BATCH_ARTIFACT_MISSING`は解消したが、buildIntegratedPublicTreeの
+    referencedPublicEvidenceが`content/provenance/F005/000799.json`をENOENTで検出できず新規停止。
+    f005-final-integration.tsはprovenance出力をmkdtempの一時ディレクトリへしか書いておらず、
+    実workspace（`workspaceRoot: workspace`）を参照するreferencedPublicEvidenceと整合しない、
+    別系統の未着手な不備と判明した。これは今回のactualCapacityRef/rightsSnapshotIds修正の範囲外であり、
+    スコープ外の「ついで修正」を避けるため未着手のまま報告に留める。
+    lint PASS、typecheck PASS、Vitest 1312件中1311件PASS（残り1件は並列実行時のresource contention
+    によるflakyで単独実行では PASS、f005-acceptance.test.ts/batch.test.ts/batch-runtime.test.ts/
+    batch-acceptance.test.tsの対象139件は全PASS）。
 - id: T-074
   title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F005
