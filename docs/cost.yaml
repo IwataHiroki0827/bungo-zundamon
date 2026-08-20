@@ -1079,3 +1079,24 @@ entries:
     UT-F005-006×3ケースを新規追加、単体実行で全PASS。lint/typecheck PASS、npm testは
     1313 passed/8 failed(個別再実行で全PASS、T-073/T-074既報と同型のWindows並列flaky)。
     tasks.yaml T-074 progress・STATUS.md・CHG-F005-081.mdを更新。commit eec7353
+- date: '2026-08-21'
+  phase: test
+  task: T-074 F005候補distでのPlaywright E2Eフルスイート全PASS確認・既存specの4作者対応・新規F005 spec追加
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 30000
+  note: >-
+    `--retain`でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、901 dist files、
+    `.cache/f005-final-integration-fPD8J3/`）を再生成した。`tests/e2e/f002-multi-author.spec.ts`が
+    `.author-card`総数を`toHaveCount(3)`で固定しておりF005候補（4作者）で6ブラウザ全滅していた
+    問題を修正した。既存タグ（IT-F002-011/012等）の趣旨は既存3作者の所属分離・往復維持であり
+    総作者数一定は要求していないため、総数アサーションを削除し芥川・宮沢・太宰それぞれの
+    個別存在（`toHaveCount(1)`）・原著者名・作品数・台詞数の不変性だけを検証する形へ変更した。
+    `tests/e2e/f005-natsume-author.spec.ts`を新規追加し、トップの4人目カード表示、
+    natsume-soseki route直遷移と3作品所属、初期全閉・単一再生・route切替停止契約、
+    趣味の遺伝の公式表現注意（実UI文言で照合）のwork-list/work-detail/credits 3配置表示を検証する
+    4テストを追加した（REQ-F005-003/004/009/010/014/015、QT-F005-006/010/011/018タグ）。
+    `PLAYWRIGHT_DIST_ROOT`で候補distへ接続し6プロジェクト全実行したところ、既存5件skipを除く
+    163件全PASS（E2Eが初めて全PASS）。`npm run lint`/`npm run typecheck`もPASS。
+    UT-F005未対応12件・IT-F005未対応8件・spec-coverage機械照合ファイル・`CreditProjection`
+    公開先設計は対象外で未着手のため、tasks.yaml T-074は`doing`のまま維持。

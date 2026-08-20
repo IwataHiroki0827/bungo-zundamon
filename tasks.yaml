@@ -437,6 +437,29 @@ tasks:
     残課題（次T-074サブタスク向け）: UT-F005/IT-F005の未対応ID一覧・spec_coverage機械照合
     ファイルの整備、E2E specへのF005固有REQ/QT-F005タグ付与、`CreditProjection`の
     公開先・UI消費経路の設計は未着手のまま。
+    追加対応（本サブタスク）: F005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、
+    901 dist files、`.cache/f005-final-integration-fPD8J3/`、
+    catalogSha256=20338c968177…f361）を`--retain`で再生成し、`tests/e2e/f002-multi-author.spec.ts`の
+    `CatalogV2の3作者12作品674台詞を所属分離し、作者間の往復を維持する`テストが
+    `.author-card`総数を`toHaveCount(3)`で固定していたためF005候補（4作者）で失敗する問題を修正した。
+    既存タグ（IT-F002-011/012、IT-F003-010、QT-F002-008/014、QT-F003-011）の趣旨は
+    「既存3作者の所属分離と往復」でありトップの総作者数一定は要求していないため、
+    総数アサーションを削除し、芥川・宮沢・太宰の各カードが個別に`toHaveCount(1)`で
+    1件ずつ存在し、原著者名・作品数・台詞数が不変であることだけを検証する形へ変更した
+    （F005固有の総数検証は新規specへ分離）。
+    `tests/e2e/f005-natsume-author.spec.ts`を新規追加し、QT-F005-010（トップの4人目カード・
+    natsume-soseki route直遷移・3作品所属）、QT-F005-011（初期全閉・単一再生・route切替停止）、
+    QT-F005-006/018（趣味の遺伝の公式表現注意がwork-list/work-detail/creditsの3配置へ表示、
+    実際のUI文言`青空文庫の図書カードに、今日からみれば不適切と受け取られる可能性のある表現を
+    含む旨の注意があります。`で照合、CHG-F005-081のofficial-content-warning textKey配線を実証）
+    に対応する4テストを追加した（REQ-F005-003/004/009/010/014/015タグ）。
+    `PLAYWRIGHT_DIST_ROOT`で上記F005候補distへ接続し`npx playwright test`（6プロジェクト全実行）
+    したところ、既存5件skip（意図的asset skip allowlist）を除く163件全PASS
+    （修正済みf002-multi-author.spec.ts含む既存139件相当＋新規f005-natsume-author.spec.ts 24件
+    ＝6プロジェクト×4テスト）で、E2E全体が初めて全PASSした。`npm run lint`/`npm run typecheck`もPASS。
+    ただし残課題（UT-F005未対応12件・IT-F005未対応8件・spec-coverage機械照合ファイル・
+    `CreditProjection`公開先設計）は本サブタスクの対象外であり未着手のまま。よってT-074は
+    引き続き`doing`のまま維持する。
 - id: T-075
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005

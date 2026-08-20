@@ -1,11 +1,10 @@
 ---
 phase: test
 feature: F005
-updated: 2026-08-21T07:30:00+09:00
+updated: 2026-08-21T08:45:00+09:00
 next_actions:
-  - "T-074を継続する。FUN-F005-014（趣味の遺伝の公式表現notice）はCHG-F005-081で実装・配線済み（extractVerifiedShumiNotice/rehydrateF005PredeploySnapshotをsrc/content/f005-source.tsへ追加し、scripts/f005-final-integration.tsからprojectF005Credits経由で検証、official-content-warning textKeyでCatalogへ反映）。残る設計判断はtests/e2e/へF005固有specを新規追加する方針（既存4 specファイルのF001〜F004パターンを踏襲するか）のみ"
-  - "T-074のE2E全滅（catalog.json fetch ERR_ABORTED）の原因をCHG-F005-080で特定した。原因はcontent/licenses.jsonのterms.validUntil期限切れをsrc/notices/release-notices.tsが判定しfail-closedすること。この期限判定はCHG-F002-005（Q-049承認）で廃止決定済みで、mainはPR #3（commit 957855c、v0.4.1デプロイ済み）でrelease-notices.tsから削除済みだが、feature/F005ブランチ自身のcommit 8c0e320はsrc/notices/credits.tsのみ修正しrelease-notices.tsを未反映のまま残していた。origin/mainのsrc/notices/release-notices.tsをfeature/F005へ反映（merge/rebase/cherry-pick）し、npm run test:e2eを実時計のまま再実行して全件成功することを確認する"
-  - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル（f005-spec-coverage.test.ts相当）を追加し、48/15件のID→testファイル対応を継続的に検証可能にする（現状12/8件が対応未確認）"
+  - "T-074を継続する。E2Eフルスイート（6ブラウザ）はF005候補distで既存5件skip除き163件全PASSを確認済み（tests/e2e/f002-multi-author.spec.tsの.author-card総数固定を修正、tests/e2e/f005-natsume-author.spec.tsを新規追加）。origin/mainのsrc/notices/release-notices.ts反映（terms-expired判定削除）はmerge済みでE2E全滅問題も解消済み"
+  - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル（f005-spec-coverage.test.ts相当）を追加し、48/15件のID→testファイル対応を継続的に検証可能にする（現状UT-F005 12件・IT-F005 8件が対応未確認のまま）"
   - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
   - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
   - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
@@ -160,3 +159,4 @@ blocked_by: []
 - CHG-F005-055は独立最終再レビューHigh/Medium/Low 0でPASSし、T-129実装・local/hosted再試験完了まで`in-review`を維持する。
 - CHG-F002-006（PR #3、fix/v0.4.1-license-recheckブランチ）はmainへマージ済み・v0.4.1としてデプロイ済み（2026-08-20）。公開サイトでの反映確認は未実施。
 - F005ブランチのCHG-F002-005（commit 8c0e320、規約再確認の期限廃止）は`docs/changes/changes.yaml`への登録が漏れている。CHG-F002-006とは独立した別系統の実装であり、F005側の登録は別途対応が必要。
+- T-074継続。origin/main merge（commit `b63e373`）で`src/notices/release-notices.ts`のterms-expired判定削除が反映され、以前確認されていたE2E全滅（`net::ERR_ABORTED`）は解消済みと確認した。`--retain`でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、901 dist files、`.cache/f005-final-integration-fPD8J3/`）を再生成し、`tests/e2e/f002-multi-author.spec.ts`の`.author-card`総数`toHaveCount(3)`固定（F005候補では4作者のため失敗）を、既存3作者の個別存在・所属・件数不変だけを検証する形へ修正した。`tests/e2e/f005-natsume-author.spec.ts`を新規追加し、トップの4人目カード表示・natsume-soseki route直遷移と3作品所属（夢十夜・倫敦塔・趣味の遺伝、203台詞）・初期全閉/単一再生/route切替停止契約・趣味の遺伝の公式表現注意（`official-content-warning`textKey、実UI文言で照合）のwork-list/work-detail/credits 3配置表示を検証する4テストを追加した（REQ-F005-003/004/009/010/014/015、QT-F005-006/010/011/018タグ）。`PLAYWRIGHT_DIST_ROOT`で候補distへ接続し`npx playwright test`（6プロジェクト全実行）したところ、既存5件skip（意図的asset skip allowlist）を除く163件全PASSし、E2Eフルスイートが初めて全PASSした。`npm run lint`/`npm run typecheck`もPASS。残課題（UT-F005未対応12件・IT-F005未対応8件・spec-coverage機械照合ファイル・`CreditProjection`公開先設計）は対象外のため未着手のまま、T-074は引き続き`doing`。

@@ -24,10 +24,14 @@ async function openAuthorFromHome(page: import('@playwright/test').Page, name: s
 // @it IT-F002-010 @it IT-F002-012 @it IT-F003-009 @it IT-F003-014 @it IT-F004-007 @it IT-F004-008 @qt QT-F002-002 @qt QT-F002-014 @qt QT-F003-015 @qt QT-F004-010
 test('CatalogV2の3作者12作品674台詞を所属分離し、作者間の往復を維持する', async ({ page }) => {
   await page.goto('#/');
-  await expect(page.locator('.author-card')).toHaveCount(3);
+  // F005以降トップの作者総数は4人（夏目漱石追加）になるため、総数ではなく既存3作者が
+  // 個別に1件ずつ存在し所属・件数が不変であることだけを検査する（F005固有の検証はf005 specへ分離）。
   const akutagawa = page.locator('.author-card').filter({ hasText: 'あくたがわずんのすけ' });
   const miyazawa = page.locator('.author-card').filter({ hasText: 'みやざわずんじ' });
   const dazai = page.locator('.author-card').filter({ hasText: 'だざいおさむ' });
+  await expect(akutagawa).toHaveCount(1);
+  await expect(miyazawa).toHaveCount(1);
+  await expect(dazai).toHaveCount(1);
   await expect(akutagawa).toContainText('原著者: 芥川龍之介');
   await expect(akutagawa).toContainText('3作品・59台詞');
   await expect(miyazawa).toContainText('原著者: 宮沢賢治');
