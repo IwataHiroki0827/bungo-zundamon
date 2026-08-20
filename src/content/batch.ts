@@ -151,6 +151,19 @@ export interface PreparedWorkAcceptanceEvidence {
   readonly journalId: string;
   readonly acceptedAt: string;
   readonly acceptedBy: string;
+  /**
+   * CHG-F005-0NN: F005受理パイプラインはvoiced段階でactualCapacityRefを
+   * work recordへ書き込まないため、accepted evidenceへ直接載せて確定させる。
+   * F002〜F004はvoiced時点のappendActualEvidenceで既にcurrent.actualCapacityRefが
+   * 設定済みのため、この場合はundefinedのまま(current spreadで保持される)。
+   */
+  readonly actualCapacityRef?: WorkspaceRelativePath;
+  /**
+   * CHG-F005-0NN: F005 batchはtransitionBatchStateを一度も経由しないため、
+   * rights-verified stageでrightsSnapshotIdsが設定されない。accepted evidenceへ
+   * 明示的に載せた場合だけbatch全体のrightsSnapshotIdsを上書きする。
+   */
+  readonly rightsSnapshotIds?: readonly string[];
 }
 
 export type WorkTransitionEvidence = StageEvidence | PreparedWorkAcceptanceEvidence;
@@ -628,7 +641,9 @@ function validatePreparedEvidence(evidence: PreparedWorkAcceptanceEvidence, mani
     !hashes.every(isSha) || !isText(evidence.journalId) || !isInstant(evidence.acceptedAt) || !isText(evidence.acceptedBy) ||
     !Array.isArray(evidence.acceptedSources) || evidence.acceptedSources.length === 0 ||
     !evidence.acceptedSources.every((source) => validateAcceptedSource(source, manifest.batchId)) ||
-    new Set(evidence.acceptedSources.map((source) => source.path)).size !== evidence.acceptedSources.length) {
+    new Set(evidence.acceptedSources.map((source) => source.path)).size !== evidence.acceptedSources.length ||
+    (evidence.actualCapacityRef !== undefined && !isSafePath(evidence.actualCapacityRef)) ||
+    (evidence.rightsSnapshotIds !== undefined && !stringArray(evidence.rightsSnapshotIds))) {
     throw new BatchOperationError('WORK_GATE_INCOMPLETE', 'prepared acceptance evidenceが不完全です');
   }
 }
@@ -692,6 +707,7 @@ export function transitionWorkState(
       acceptedAudioSources: [...evidence.acceptedSources],
       acceptedAt: evidence.acceptedAt,
       acceptedBy: evidence.acceptedBy,
+      ...(evidence.actualCapacityRef === undefined ? {} : { actualCapacityRef: evidence.actualCapacityRef }),
     };
   } else {
     if (evidence.kind !== 'stage') throw new BatchOperationError('WORK_GATE_INCOMPLETE', 'stage evidenceが必要です');
@@ -711,7 +727,10 @@ export function transitionWorkState(
   const acceptedFields = status === 'accepted'
     ? { acceptedAt: updatedWork.acceptedAt, acceptedBy: updatedWork.acceptedBy }
     : {};
-  return finalizeManifest({ ...manifest, workProgress: works, status, ...acceptedFields });
+  const rightsFields = evidence.kind === 'accepted' && evidence.rightsSnapshotIds !== undefined
+    ? { rightsSnapshotIds: evidence.rightsSnapshotIds }
+    : {};
+  return finalizeManifest({ ...manifest, workProgress: works, status, ...acceptedFields, ...rightsFields });
 }
 
 /** @des DES-F002-014 @fun FUN-F002-028 */

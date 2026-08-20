@@ -45,7 +45,11 @@
   "feature": "F005",
   "inputPaths": [],
   "outputPaths": [],
-  "rightsSnapshotIds": [],
+  "rightsSnapshotIds": [
+    "voicevox-terms:10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+    "zundamon-audio-terms:d249b088ad9562edd123397422864d32765f183d7e4f60c857a100f4228572ec",
+    "zundamon-character-guideline:d1c146255cac9e3d9432b73787c22b6faf33df4454fc314720ceb9c1c0bf115d"
+  ],
   "schemaVersion": "1.0.0",
   "stageRecords": [],
   "status": "accepted",
@@ -433,6 +437,7 @@
         }
       ],
       "acceptedBy": "f005-production-runner",
+      "actualCapacityRef": "content/batches/F005/capacity-actual/000799/69297ba817412601ea5835fe3837ef97d9a9f27cb6a41d710c3e5bf02c534c3f.json",
       "forecastRef": "content/batches/F005/capacity-forecast/000799.json",
       "stageRecords": [
         {
@@ -907,6 +912,7 @@
         }
       ],
       "acceptedBy": "f005-production-runner",
+      "actualCapacityRef": "content/batches/F005/capacity-actual/001076/538046f17825bcf93554aada395df57ce51f3a4d6a72ded208c033c17b0218d0.json",
       "forecastRef": "content/batches/F005/capacity-forecast/001076.json",
       "stageRecords": [
         {
@@ -1542,6 +1548,7 @@
         }
       ],
       "acceptedBy": "f005-production-runner",
+      "actualCapacityRef": "content/batches/F005/capacity-actual/001104/c630ab03f5615e31893f49993fa54d14d4f2d9dfffb0a92e62e332222fedf3c8.json",
       "forecastRef": "content/batches/F005/capacity-forecast/001104.json",
       "stageRecords": [
         {

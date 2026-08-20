@@ -22,6 +22,7 @@ import {
   type PreparedWorkAcceptanceEvidence,
   type Sha256,
   type WorkId,
+  type WorkspaceRelativePath,
 } from './batch.ts';
 import { canonicalJson } from './artifacts.ts';
 import {
@@ -40,6 +41,7 @@ import {
   renameSafeWorkspaceFile,
   resolveSafeWorkspaceFile,
   snapshotSafeWorkspaceFileCapability,
+  F005_SELECTION_SNAPSHOT_PATH,
   type F005NativeFileIdentity,
 } from './f005-source.ts';
 import type { V040Baseline } from './f005-foundation.ts';
@@ -2068,6 +2070,61 @@ async function verifyActualCapacityBinding(
   }
 }
 
+/**
+ * CHG-F005-0NN: F005 batchはtransitionBatchState('rights-verified')を一度も
+ * 経由しないため、rightsSnapshotIdsがmanifestへ書かれない(BATCH_ARTIFACT_MISSING)。
+ * selection.jsonの規約決定(policies[].decision)は選定時に既に検証済みのcanonical
+ * evidenceなので、それを再読込してF002〜F004と同じ`${policyId}:${contentSha256}`
+ * 形式へ変換するだけで、accepted evidenceへ安全に載せられる。
+ * @des DES-F005-006 @fun FUN-F005-023
+ */
+async function readF005RightsSnapshotIds(
+  root: string,
+  code: F005AcceptanceErrorCode = 'F005_ACCEPTANCE_TRANSACTION_INVALID',
+): Promise<readonly string[]> {
+  const bytes = await readSafeFile(root, F005_SELECTION_SNAPSHOT_PATH, code);
+  const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch (error) {
+    return fail(code, 'selection snapshot JSONが不正です', error);
+  }
+  if (canonicalJson(value) !== text || typeof value !== 'object' || value === null ||
+    Array.isArray(value)) {
+    fail(code, 'selection snapshotがcanonical objectではありません');
+  }
+  const record = value as {
+    kind?: unknown;
+    batchId?: unknown;
+    policies?: unknown;
+  };
+  if (record.kind !== 'f005-source-selection-snapshot' || record.batchId !== 'F005' ||
+    !Array.isArray(record.policies) || record.policies.length === 0) {
+    fail(code, 'selection snapshotのpolicies集合が不正です');
+  }
+  const ids: string[] = [];
+  const seen = new Set<string>();
+  for (const policy of record.policies as unknown[]) {
+    if (policy === null || typeof policy !== 'object' || Array.isArray(policy)) {
+      fail(code, 'selection snapshot policyがobjectではありません');
+    }
+    const item = policy as { policyId?: unknown; artifact?: { sha256?: unknown }; decision?: { contentSha256?: unknown; decision?: unknown } };
+    if (typeof item.policyId !== 'string' || item.policyId.length === 0 ||
+      item.decision === null || typeof item.decision !== 'object' ||
+      typeof item.decision.contentSha256 !== 'string' || !SHA256.test(item.decision.contentSha256) ||
+      item.decision.decision !== 'allow' ||
+      item.artifact === null || typeof item.artifact !== 'object' ||
+      item.artifact.sha256 !== item.decision.contentSha256 ||
+      seen.has(item.policyId)) {
+      fail(code, 'selection snapshot policyのpolicyId/contentSha256/decisionが不正です');
+    }
+    seen.add(item.policyId);
+    ids.push(`${item.policyId}:${item.decision.contentSha256}`);
+  }
+  return ids;
+}
+
 interface FinalizeLockRecord {
   readonly schemaVersion: 1;
   readonly pid: number;
@@ -2408,11 +2465,21 @@ export async function finalizeF005WorkAcceptance(
     if (!Number.isFinite(Date.parse(acceptedAt))) {
       fail('F005_ACCEPTANCE_TRANSACTION_INVALID', 'acceptedAtが不正です');
     }
+    // CHG-F005-0NN: work単位のactualCapacityRefと(未設定なら)batch単位の
+    // rightsSnapshotIdsを、accepted evidenceの一部としてこの場で確定させる。
+    // manifest CASはstoredTransition.expectedManifestShaへ固定済みのため、
+    // manifest自体は書き換えずevidence側へ載せてtransitionWorkStateへ渡す。
+    const actualCapacityRef = actualRef.path as WorkspaceRelativePath;
+    const rightsSnapshotIds = manifest.rightsSnapshotIds.length === 0
+      ? await readF005RightsSnapshotIds(root)
+      : undefined;
     const evidence: PreparedWorkAcceptanceEvidence = freezeDeep({
       ...storedTransition,
       actualCapacityReportSha: actualRef.sha256,
+      actualCapacityRef,
       acceptedAt,
       acceptedBy: promoted.recorderOwner,
+      ...(rightsSnapshotIds === undefined ? {} : { rightsSnapshotIds }),
     });
     const next = transitionWorkState(manifest, promoted.workId, 'accepted', evidence);
     const nextManifestSha256 = hashBatchManifest(next);
@@ -2780,12 +2847,6 @@ async function validateManifestNextTemp(
   }
   const transitionEvidence = transitionEvidenceOverride ??
     await readTransitionEvidence(root, journal);
-  const evidence: PreparedWorkAcceptanceEvidence = {
-    ...transitionEvidence,
-    actualCapacityReportSha: actualRef.sha256,
-    acceptedAt,
-    acceptedBy: journal.owner,
-  };
   const manifestPath = join(root, ...journal.manifestPath.split('/'));
   const backupPath = join(root, ...journal.manifestBackupPath.split('/'));
   const manifestSha256 = await fileSha(manifestPath);
@@ -2814,6 +2875,19 @@ async function validateManifestNextTemp(
   } else {
     fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next base manifestがありません');
   }
+  // CHG-F005-0NN: finalizeF005WorkAcceptanceと同じevidence拡張を再現しないと
+  // recovery側のexpected再構築がsealed bytesと一致しなくなる。
+  const recoveredRightsSnapshotIds = base.rightsSnapshotIds.length === 0
+    ? await readF005RightsSnapshotIds(root, 'F005_ACCEPTANCE_RECOVERY_CONFLICT')
+    : undefined;
+  const evidence: PreparedWorkAcceptanceEvidence = {
+    ...transitionEvidence,
+    actualCapacityReportSha: actualRef.sha256,
+    actualCapacityRef: actualRef.path as WorkspaceRelativePath,
+    acceptedAt,
+    acceptedBy: journal.owner,
+    ...(recoveredRightsSnapshotIds === undefined ? {} : { rightsSnapshotIds: recoveredRightsSnapshotIds }),
+  };
   const expected = transitionWorkState(base, journal.workId, 'accepted', evidence);
   if (canonicalJson(expected) !== temporary.text) {
     fail('F005_ACCEPTANCE_RECOVERY_CONFLICT', 'manifest-next bytesがexact transitionと一致しません');
