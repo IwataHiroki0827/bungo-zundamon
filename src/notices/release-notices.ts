@@ -250,19 +250,6 @@ export function validateReleaseNotices(
   } catch {
     addIssue(issues, 'terms-url-untrusted', 'terms.url', '規約URLがallowlist外です');
   }
-  const checkedAt = validInstant(manifest.terms?.checkedAt ?? '');
-  const validUntil = validInstant(manifest.terms?.validUntil ?? '');
-  if (checkedAt === null) addIssue(issues, 'terms-checked-at-invalid', 'terms.checkedAt', '規約確認日はRFC 3339 instantが必要です');
-  if (validUntil === null) addIssue(issues, 'terms-valid-until-invalid', 'terms.validUntil', '規約有効期限はRFC 3339 instantが必要です');
-  if (checkedAt !== null && validUntil !== null && checkedAt > validUntil) {
-    addIssue(issues, 'terms-period-invalid', 'terms', '規約確認日が有効期限より後です');
-  }
-  if (checkedAt !== null && Number.isFinite(nowTime) && checkedAt > nowTime) {
-    addIssue(issues, 'terms-checked-at-future', 'terms.checkedAt', '規約確認日はリリース判定時刻以前である必要があります');
-  }
-  if (validUntil !== null && Number.isFinite(nowTime) && nowTime > validUntil) {
-    addIssue(issues, 'terms-expired', 'terms.validUntil', '規約確認期限を超過しています');
-  }
   requireText(issues, manifest.terms?.reviewer, 'terms.reviewer');
   checkArtwork(manifest, artwork, nowTime, issues);
 

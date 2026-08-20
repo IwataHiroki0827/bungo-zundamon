@@ -200,7 +200,7 @@ function validateCreditsV2Inputs(catalog: UICatalogV2, notices: ValidatedNoticeB
   if (representedAuthors.size !== authorById.size) throw new CreditsRenderError('CREDITS_WORK_MISSING');
 
   const terms = notices.license.terms;
-  // CHG-F002-005: 規約再確認の「期限」という概念を廃止した。
+  // CHG-F002-005/CHG-F002-006: 規約再確認の「期限」という概念を廃止した。
   // 実質的な再確認はF005 predeployが担う。規約本文を公開直前に再取得し、
   // 選定時snapshotとSHA-256を突き合わせ、変化していればF005_SOURCE_DRIFTで
   // 公開を止める。暦の経過ではなく規約そのものの変化を見る方が強い。

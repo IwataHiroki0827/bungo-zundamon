@@ -2,6 +2,17 @@
 
 このファイルは文豪ずんだもんの公開版における主な変更を記録する。
 
+## [0.4.1] - 2026-08-20
+
+### 修正
+
+- 利用規約の期限切れ(validUntil)を理由にクレジット・公開通知を停止する仕組み(CREDITS_POLICY_STALE系のfail-closed)を廃止。
+- `content/licenses.json` は無変更(F001 baseline hashとの一致を維持)。
+
+### 品質確認
+
+- Vitest 933件、型検査、lint、production buildを実行。
+
 ## [0.4.0] - 2026-07-29
 
 ### 追加
