@@ -1,9 +1,9 @@
 ---
 phase: implement
 feature: F005
-updated: 2026-08-21T02:00:00+09:00
+updated: 2026-08-21T03:15:00+09:00
 next_actions:
-  - "T-073は新blockerで継続blocked。CHG-F005-078でBATCH_ARTIFACT_MISSING（actualCapacityRef/rightsSnapshotIds未反映）は恒久修正+backfillで解消したが、続けてbuildIntegratedPublicTreeが`content/provenance/F005/{workId}.json`をENOENTで検出できず停止する別系統の不備が判明した。f005-final-integration.tsがprovenance出力をmkdtempの一時ディレクトリにのみ書いており、実workspaceを参照するreferencedPublicEvidenceと整合しないことが原因。次セッションでこの一致方法（実contentツリーへ先に永続化するか、referencedPublicEvidence側にtemp rootを渡せるようにするか）を設計する"
+  - "T-074（F005 UT/IT/QT/6環境/権利/容量/セキュリティ受入）に着手する。T-073は候補tree（.cache/f005-final-integration-*/tree/、898 files、authors=4/works=15/dialogues=877/audioAssets=861）を生成しdone。既存v0.4.0部分（3作者/12作品/674台詞/662音声）は不変を確認済み"
   - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
   - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
   - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
@@ -111,14 +111,15 @@ blocked_by: []
 - 2026-08-20、オーナーへREQUEST.md「他に有名な作家を知名度順に10人まで続ける」の意図を再確認した結果、既存3作者とは別の追加10人（最終上限13作者）ではなく、既存を含む**合計10作者**（追加7人、最終上限10作者）が正しい意図と判明した。CHG-F005-077でREQ-F005-018・DES-F005-013・QT-F005-015とその周辺文書、`src/content/f005-foundation.ts`/`.test.ts`の`targetAdditionalAuthors`を10→7、`finalAuthorLimit`を13→10へ訂正した。lint・typecheck・UT-F005-040/041を含むtest(37件)がPASSした。
 - 2026-08-21、T-073（F005最終Catalog統合・固定v0.4.0回帰・公開tree候補作成）に着手した。依存T-070/071/072は全てdoneで前提充足済み。未commitのpredeploy source-evidence 12件（既存パターンと同型）を`data(f005): refresh predeploy source evidence`としてcommitしexact clean source commit要件を満たしたが、`scripts/f005-final-integration.ts`は`src/content/batch.ts`の`loadAcceptedBatches`で`BATCH_ARTIFACT_MISSING`停止した。原因は`content/batches/F005/batch.json`の3作品全件で`rightsSnapshotIds`（batch単位）が空配列、`actualCapacityRef`（work単位）が未設定であること。F005専用のacceptance経路（`src/content/f005-acceptance.ts`・`scripts/f005-run-work.ts`、CHG-F005-072のETW事後検証置換で新規構築）は`forecastRef`・`voiceEvidenceRef`は書くが、この2フィールドを一度も書いていない。容量actual証跡自体（`content/batches/F005/capacity-actual/{workId}/<sha256>.json`）は存在するが、F002〜F004が使うgeneric batch-acceptance.ts/batch-runtime.tsのpath規約（`content/batches/${batchId}/capacity-actual/${workId}.json`）と異なりリンクされていない。コード修正が必要と判断し実装せず報告に留めた。T-073を`blocked`へ更新、T-074は未着手のまま。lint・typecheckはPASS、コード変更なし。
 - 2026-08-21、CHG-F005-078でT-073の`BATCH_ARTIFACT_MISSING`を恒久修正した。`src/content/batch.ts`の`PreparedWorkAcceptanceEvidence`へ任意項目`actualCapacityRef`（work単位）・`rightsSnapshotIds`（batch単位）を追加し、`transitionWorkState`のaccepted遷移がevidence経由でこれらをmanifestへ反映できるようにした（未指定時は従来通りF002〜F004の挙動を保持する後方互換設計）。`src/content/f005-acceptance.ts`の`finalizeF005WorkAcceptance`で、検証済みの`actualRef.path`をactualCapacityRefとして付与し、`rightsSnapshotIds`が空のときだけ`content/batches/F005/source-snapshots/selection.json`の`policies[].decision.contentSha256`（選定時2026-07-29T04:18:45Zに検証済みのcanonical evidence）から`${policyId}:${contentSha256}`形式で導出して付与するよう変更した（`validateManifestNextTemp`のcrash-recovery再構築にも同じ拡張を反映）。既にaccepted確定済みの3作品はwork状態遷移がforward-onlyのため通常フローをやり直せず、一回限りのbackfillスクリプト`scripts/f005-backfill-acceptance-evidence.ts`（削除せず記録として保持）で、実在する`content/batches/F005/capacity-actual/{workId}/{journalId}.json`のpathと、`selection.json`由来の規約3件（voicevox-terms/zundamon-audio-terms/zundamon-character-guideline）のcontentSha256から機械的に値を導出し、`writeJsonArtifactAtomic`でCAS付きatomic書込みした（commit `d1be8fb`）。lint PASS、typecheck PASS、Vitest全1312件中1311件PASS（1件は並列実行時のresource contentionによるflakyで単独実行ではPASS、対象4ファイル139件は全PASS）。再実行の結果`BATCH_ARTIFACT_MISSING`は解消したが、続けて`buildIntegratedPublicTree`が`content/provenance/F005/{workId}.json`をENOENTで検出できず新規停止した。原因は`f005-final-integration.ts`がprovenance出力をmkdtempの一時ディレクトリにしか書いておらず、実workspaceを参照する`referencedPublicEvidence`と整合しないという、今回の修正対象とは別系統の不備。これは今回のスコープ外のためコード変更せず報告に留め、T-073は`blocked`のまま維持した（block理由が新しいものへ変わった）。詳細はCHG-F005-078.md参照。
+- 2026-08-21、T-073を継続し公開provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一を順次修正した（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）。最終的に`src/content/batch-public.ts`の`integrateArtworkProvenances`（F001〜F004共有の公開作者画像provenance検証）がArtworkProvenanceV1/V2/V3の3分岐しか持たず、F005が導入するArtworkProvenanceV4を`PUBLIC_REFERENCE_MISSING`で拒否していたことが最終blockerと判明した。`src/content/f005-artwork.ts`の`parseAndRehydrateF005ArtworkProvenance`/`verifyF005ArtworkAgainstCatalog`（既にfinal-integration自身の内部検証で動作確認済み）を再利用するF005分岐を追加し解消した（commit `425ebf9`、V1/V2/V3の既存挙動は変更なし）。`node --experimental-transform-types scripts/f005-final-integration.ts`が成功し、候補tree（898 files）を`.cache/f005-final-integration-*/tree/`に生成した。最終Catalog: authors=4（既存3+夏目漱石）、works=15（既存12+3）、dialogues=877（既存674+F005新規203）、audioAssets=861（既存662+F005新規199）。既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認した。natsume-zundamon.pngとcontent/artwork-provenance/F005.json（manifestId=artwork-F005-000148-v1）が公開tree下に生成されている。lint PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS、10件failはWindows並列実行時のresource contention（timeout/EPERM/EBUSY/AV lock）で全て単独実行ではPASS（batch-public.test.ts 19件を含む）。T-073を`done`とし、T-074（UT/IT/QT受入）へ引き継ぐ。
 
 ## 直近の作業（最新5件）
 
+- T-073を`done`へ確定。共有`integrateArtworkProvenances`へF005 ArtworkProvenanceV4分岐を追加し最終blockerを解消。候補tree生成（898 files、authors=4/works=15/dialogues=877/audioAssets=861）、既存v0.4.0部分不変確認、lint/typecheck/test PASS（flaky 10件は単独実行で全PASS確認）
+- T-073継続。provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一を順次修正（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）
 - CHG-F005-078でT-073の`BATCH_ARTIFACT_MISSING`原因（actualCapacityRef/rightsSnapshotIds未反映）を恒久修正しbackfillも実行。lint/typecheck/test PASS。再実行の結果`content/provenance/F005/*.json`ENOENTという別blockerが新たに判明しT-073は継続blocked
 - T-073着手。未commitのpredeploy snapshotをcommitしclean commit要件は満たしたが、`f005-final-integration.ts`がbatch.jsonの`rightsSnapshotIds`/`actualCapacityRef`未設定で`BATCH_ARTIFACT_MISSING`停止。コード修正要のためblockedとし報告
 - CHG-F005-077で追加作者上限を「既存3人とは別に追加10人（最終上限13作者）」から「合計10作者（追加7人、最終上限10作者）」へ訂正。SRS/FD/DD/UT/IT/QT/QA/実装/テストを一括修正しlint/typecheck/test PASS
-- Q-050承認を受けPR #3をmainへマージしv0.4.1をGitHub Pagesへデプロイ完了（tag v0.4.1 push済み、公開URL: https://iwatahiroki0827.github.io/bungo-zundamon/）
-- CHG-F002-006でmainベースPR #3（fix/v0.4.1-license-recheck）へ規約再確認の期限廃止を独立実装。lint/typecheck/test 933件/verify:build PASS
 - CHG-F005-071/T-143でdirectory binding状態の固定5 codeとT-143決定的hosted相関検証（64/64）を完了。実状態の観測は継続
 - 2026-08-13に権利条件を実規約から再確認し証跡化。反映はv0.4.1パッチリリース待ち
 - notices fixtureの期限切れとborderline timeoutを是正しテスト健全性を回復
@@ -140,7 +141,7 @@ blocked_by: []
 
 ## 未解決事項
 
-- T-073がblocked。CHG-F005-078で`rightsSnapshotIds`（batch単位）・`actualCapacityRef`（work単位）の未反映は恒久修正+backfillで解消したが、`scripts/f005-final-integration.ts`の`buildIntegratedPublicTree`が`content/provenance/F005/{workId}.json`をENOENTで検出できず新規停止する（provenance出力がmkdtempの一時ディレクトリにのみ書かれ、実workspaceを参照する`referencedPublicEvidence`と整合しないため）。T-143（FileObjectバインディング診断）はT-073の依存には含まれておらずblockerではない。T-074（UT/IT/QT受入）はT-073依存のため未着手のまま。
+- T-073はdone。候補tree（`.cache/f005-final-integration-*/tree/`、898 files）の受入はT-074（UT/IT/QT/6環境/権利/容量/セキュリティ）で正式に検証する。T-074着手にあたっては`src/content/batch-public.ts`の`integrateArtworkProvenances`へ追加したF005分岐（commit `425ebf9`）を含む全変更が対象。
 - C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、音声生成直前にもrunner内で再計測する。
 - GitHub Actionsの先行障害後もcommit `4dc7d2b`のnative/production runは正常生成された。現在はT-113の新commit生成後の再試験待ちである。
 - T-109はQ-044回答を反映して`todo`へ戻した。local受入PASS済みで、CHG-F005-055/T-129のproduction共有evaluatorを使う決定的hosted影響確認を待つ。

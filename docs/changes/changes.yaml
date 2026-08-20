@@ -1,4 +1,19 @@
 changes:
+- id: CHG-F005-079
+  date: '2026-08-21'
+  trigger: CHG-F005-078でBATCH_ARTIFACT_MISSINGを解消後もT-073は継続し、公開provenance evidence永続化・F004
+    fragment合流・作者画像evidence登録・configHash統一を順次修正したが、最終的にsrc/content/batch-public.tsの共有関数integrateArtworkProvenances（F001〜F004向けArtworkProvenanceV1/V2/V3の3分岐のみ）がF005導入のArtworkProvenanceV4をPUBLIC_REFERENCE_MISSINGで拒否して停止した
+  level: implementation
+  affected:
+  - src/content/batch-public.ts
+  status: done
+  approved_by: 実装レベルの不備修正（共有関数への欠落schema分岐の追加）であり、要求・設計の変更を伴わないため新規承認ゲート登録は行わない
+  completed_at: '2026-08-21T03:15:00+09:00'
+  result: src/content/f005-artwork.tsのparseAndRehydrateF005ArtworkProvenance/verifyF005ArtworkAgainstCatalog（final-integration自身の内部検証で既に動作確認済み）を再利用するF005分岐をintegrateArtworkProvenancesへ追加し解消した（commit
+    425ebf9、既存のF001/V1・F002/V2・F003/V3分岐の挙動は変更なし）。node --experimental-transform-types
+    scripts/f005-final-integration.tsが成功し候補tree（898 files）を生成。最終Catalog: authors=4/works=15/dialogues=877/audioAssets=861、既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。lint
+    PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS（10件failはWindows並列実行時のresource
+    contentionによるflakyで単独実行では全PASS、batch-public.test.ts 19件を含む）。T-073をdoneへ更新
 - id: CHG-F005-078
   date: '2026-08-21'
   trigger: T-073がscripts/f005-final-integration.tsのBATCH_ARTIFACT_MISSINGで停止し、原因がF005受理経路のactualCapacityRef/rightsSnapshotIds未反映と判明した
@@ -8,7 +23,10 @@ changes:
   - src/content/f005-acceptance.ts
   - scripts/f005-backfill-acceptance-evidence.ts
   - content/batches/F005/batch.json
-  status: in-review
+  status: done
+  approved_by: 実装レベルの不備修正（既存evidenceの反映漏れ）であり、要求・設計の変更を伴わないため新規承認ゲート登録は行わない
+  completed_at: '2026-08-21T03:15:00+09:00'
+  result: actualCapacityRef/rightsSnapshotIdsの反映漏れをbatch.ts/f005-acceptance.tsの後方互換拡張とbackfillスクリプトで解消。CHG-F005-079での最終成功runでBATCH_ARTIFACT_MISSINGが再発しないことを確認した
 - id: CHG-F005-077
   date: '2026-08-20'
   trigger: プロジェクトオーナーへREQUEST.md「他に有名な作家を知名度順に10人まで続ける」の意図を改めて確認した結果、既存3作者とは別の追加10人（最終上限13作者）ではなく、既存を含む合計10作者（追加7人、最終上限10作者）が正しい意図であると判明した

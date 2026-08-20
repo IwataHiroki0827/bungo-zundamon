@@ -1038,3 +1038,10 @@ entries:
   agents: 1
   est_tokens: 30000
   note: T-073のBATCH_ARTIFACT_MISSING原因（actualCapacityRef/rightsSnapshotIds未反映）を特定し恒久修正した。src/content/batch.tsのPreparedWorkAcceptanceEvidenceへ任意項目actualCapacityRef/rightsSnapshotIdsを追加し、transitionWorkStateのaccepted遷移がevidence経由でこれらをmanifestへ反映できる後方互換拡張を実装（F002〜F004の挙動は不変）。src/content/f005-acceptance.tsのfinalizeF005WorkAcceptance/validateManifestNextTempへ反映し、既存のcapacity-actual実体・selection.jsonのpolicies[].decision.contentSha256から値を導出する経路を追加。既にaccepted確定済みの3作品はforward-only制約のため通常フローをやり直せず、scripts/f005-backfill-acceptance-evidence.ts（一回限り、削除せず保持）で実evidenceのSHA256から機械的に値を導出しbatch.jsonへatomic書込みした。lint PASS、typecheck PASS、Vitest 1312件中1311件PASS（1件は並列実行時flakyで単独PASS、対象139件は全PASS）。再実行の結果BATCH_ARTIFACT_MISSINGは解消したが、buildIntegratedPublicTreeがcontent/provenance/F005/{workId}.jsonをENOENTで検出できない別系統の不備（f005-final-integration.tsのprovenance出力先とreferencedPublicEvidence参照先の不一致）が新たに判明し、T-073はスコープ外のため未着手のままblockedを維持
+- date: '2026-08-21'
+  phase: implement
+  task: T-073 F005最終Catalog統合の完了（共有integrateArtworkProvenancesへArtworkProvenanceV4分岐を追加）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 25000
+  note: T-073継続中に発見した公開provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一の各不備を順次修正した（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）。最終的にsrc/content/batch-public.tsのintegrateArtworkProvenances（F001〜F004共有の公開作者画像provenance検証、V1/V2/V3の3分岐のみ）がF005導入のArtworkProvenanceV4をPUBLIC_REFERENCE_MISSINGで拒否していたことが最終blockerと判明。src/content/f005-artwork.tsのparseAndRehydrateF005ArtworkProvenance/verifyF005ArtworkAgainstCatalog（final-integration自身の内部検証で動作確認済み）を再利用するF005分岐を追加し解消（commit 425ebf9、V1/V2/V3の既存挙動は変更なし）。node --experimental-transform-types scripts/f005-final-integration.tsが成功し候補tree（898 files）を生成。最終Catalog: authors=4/works=15/dialogues=877/audioAssets=861、既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。lint PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS（10件failはWindows並列実行時のresource contentionによるflakyで単独実行では全PASS、batch-public.test.ts等の共有コードテストも含む）。T-073をdoneへ更新しT-074へ引き継ぎ

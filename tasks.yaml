@@ -270,7 +270,7 @@ tasks:
   title: F005最終Catalog統合・固定v0.4.0回帰・公開tree候補を作成
   feature: F005
   phase: implement
-  state: blocked
+  state: done
   depends:
   - T-070
   - T-071
@@ -294,25 +294,35 @@ tasks:
   progress: >-
     依存T-070/071/072は全てdoneで前提充足。commit未清浄（未commit predeploy snapshot 12件）を
     「data(f005): refresh predeploy source evidence」として解消しexact clean source commit要件を通過させた。
-    しかしscripts/f005-final-integration.tsはsrc/content/batch.ts:1454の`loadAcceptedBatches`で
-    `BATCH_ARTIFACT_MISSING`停止していた（原因はF005受理経路がactualCapacityRef/rightsSnapshotIdsを
-    書いていないこと）。
-    CHG-F005-078でこれを恒久修正した。batch.tsのtransitionWorkStateへevidence経由で
-    actualCapacityRef（work単位）・rightsSnapshotIds（batch単位）を渡せる後方互換な拡張を追加し、
-    f005-acceptance.tsのfinalizeF005WorkAcceptance/recovery系へ反映した（F002〜F004の挙動は不変）。
-    既にaccepted確定済みの3作品はwork状態遷移がforward-onlyのため通常フローをやり直せず、
-    一回限りのbackfillスクリプト`scripts/f005-backfill-acceptance-evidence.ts`で実evidence
-    （capacity-actual実体のjournalId、selection.jsonのpolicies[].decision.contentSha256）から
-    機械的に値を導出しbatch.jsonへ反映した（commit d1be8fb）。
-    再実行の結果、`BATCH_ARTIFACT_MISSING`は解消したが、buildIntegratedPublicTreeの
-    referencedPublicEvidenceが`content/provenance/F005/000799.json`をENOENTで検出できず新規停止。
-    f005-final-integration.tsはprovenance出力をmkdtempの一時ディレクトリへしか書いておらず、
-    実workspace（`workspaceRoot: workspace`）を参照するreferencedPublicEvidenceと整合しない、
-    別系統の未着手な不備と判明した。これは今回のactualCapacityRef/rightsSnapshotIds修正の範囲外であり、
-    スコープ外の「ついで修正」を避けるため未着手のまま報告に留める。
-    lint PASS、typecheck PASS、Vitest 1312件中1311件PASS（残り1件は並列実行時のresource contention
-    によるflakyで単独実行では PASS、f005-acceptance.test.ts/batch.test.ts/batch-runtime.test.ts/
-    batch-acceptance.test.tsの対象139件は全PASS）。
+    その後、順次発見された不備を個別commitで解消した:
+    (1) F005受理経路がactualCapacityRef/rightsSnapshotIdsを書いておらずBATCH_ARTIFACT_MISSINGで
+    停止 → CHG-F005-078でbatch.tsのtransitionWorkStateへevidence経由の後方互換拡張を追加し、
+    既accepted確定済み3作品は一回限りのbackfillスクリプト`scripts/f005-backfill-acceptance-evidence.ts`
+    で実evidenceから機械的に反映（commit d1be8fb）。
+    (2) 公開provenanceがmkdtemp一時ディレクトリのみに書かれ実workspace参照のreferencedPublicEvidenceと
+    不整合 → 事前準備script`scripts/f005-prepare-public-provenance.ts`で永続化・commit済みevidenceを
+    参照する設計へ変更（commit cf6b629, 9445d25）。
+    (3) F004公開Catalog fragmentがfinal統合に合流しておらずcatalog不整合 → 合流処理を追加
+    （commit 2db2dc6）。
+    (4) 公開treeのpublicFilesに作者画像evidenceが未登録 → 追加（commit 0eb8e0b）。
+    (5) F005のconfigHash計算が他batchと不統一 → voiceConfigHashV2へ統一（commit a8dcb5d）。
+    (6) 最終ブロッカー: src/content/batch-public.tsの`integrateArtworkProvenances`（F001〜F004共有）が
+    ArtworkProvenanceV1/V2/V3の3分岐しか持たずF005が導入するArtworkProvenanceV4が
+    `PUBLIC_REFERENCE_MISSING: 作者画像provenance schema validatorが未登録です: F005`で拒否 →
+    src/content/f005-artwork.tsの`parseAndRehydrateF005ArtworkProvenance`/
+    `verifyF005ArtworkAgainstCatalog`を再利用するF005分岐を追加し解消（commit 425ebf9、V1/V2/V3の
+    既存挙動は変更なし）。
+    `node --experimental-transform-types scripts/f005-final-integration.ts`が成功し、候補tree
+    （`.cache/f005-final-integration-*/tree/`、898 files、buildSha256確認済み）を生成した。
+    最終Catalog: authors=4（既存3+夏目漱石）、works=15（既存12+3）、dialogues=877（既存674+F005新規203）、
+    audioAssets=861（既存662+F005新規199）。既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。
+    natsume-zundamon.pngとcontent/artwork-provenance/F005.json（manifestId=artwork-F005-000148-v1）が
+    公開tree下に正しく生成されている。
+    lint PASS、typecheck PASS。Vitestフルスイート1312件中1302件PASS、10件failはWindows並列実行時の
+    resource contention（timeout/EPERM/EBUSY/AV lock）で全て単独実行ではPASS確認済み
+    （batch-public.test.ts 19件全PASS、f003-catalog.test.ts/baseline.test.ts/f004-source.test.ts/
+    f005-source.test.ts個別実行で全PASS）。
+    T-074（UT/IT/QT受入）は本タスクの候補tree・修正内容を前提に着手可能。
 - id: T-074
   title: F005 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F005
