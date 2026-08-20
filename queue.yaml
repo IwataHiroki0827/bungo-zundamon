@@ -1675,7 +1675,7 @@ items:
       ことを確認した。
   - id: Q-050
     type: approval
-    status: open
+    status: closed
     title: v0.4.1パッチ(規約期限切れfail-closed廃止)のマージ・デプロイ判定
     body: >-
       content/licenses.jsonのterms.validUntil(2026-08-18)失効対応として、
@@ -1702,3 +1702,14 @@ items:
     source: pf-release
     resume:
       next: pf-release
+    answer: 承認（PR #3をマージしデプロイまで実施）
+    answer_note: オーナーがPR #3を自らマージ、タグ・デプロイの自動実施も明示的に依頼した
+    resolution: >-
+      PR #3をmainへマージ(commit 957855c)。PAGES_DEPLOY_COMMIT/PAGES_DEPLOY_ENABLEDを
+      設定し、Pages build and deployワークフローを実行してv0.4.1をデプロイした。
+      タグv0.4.1をorigin へpush済み。
+    processed_at: '2026-08-20T23:35:00+09:00'
+    processed_note: >-
+      1回目のCI実行はsrc/content/published-baseline.test.tsのタイムアウトで失敗
+      (今回の変更と無関係な既知のflaky)。再実行(gh run rerun --failed)で
+      build/deploy共に成功。公開URL: https://iwatahiroki0827.github.io/bungo-zundamon/
