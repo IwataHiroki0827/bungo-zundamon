@@ -1673,3 +1673,32 @@ items:
       参照しない旧項目として残る。再確認義務はREQ-F002-015が指すpredeployのSHA比較が
       引き続き担い、要求文の変更は不要である。期限切れ状態でverify-projectが通過する
       ことを確認した。
+  - id: Q-050
+    type: approval
+    status: open
+    title: v0.4.1パッチ(規約期限切れfail-closed廃止)のマージ・デプロイ判定
+    body: >-
+      content/licenses.jsonのterms.validUntil(2026-08-18)失効対応として、
+      origin/main(v0.4.0)起点のブランチfix/v0.4.1-license-recheckで
+      Q-049の決定(期限の概念そのものを廃止する)を実装した(CHG-F002-006)。
+      src/notices/release-notices.tsとsrc/notices/credits.tsから
+      terms.checkedAt/terms.validUntilに基づく期限切れ判定(CREDITS_POLICY_STALEの
+      うちterms-expired系)を削除。content/licenses.json自体は無変更で
+      F001 baseline hash pinは維持している。lint/typecheck/test(933件PASS)/
+      verify:build 全通過済み。PR #3(https://github.com/IwataHiroki0827/bungo-zundamon/pull/3)
+      作成済み、マージ未実施。なお、feature/F005ブランチには同種の実装が
+      既に2026-08-19付コミット8c0e320(CHG-F002-005、changes.yaml未登録)として
+      別途存在しており、F005が将来mainへマージされる際に軽微なコンフリクト
+      解消が必要になる見込み。デプロイにはPAGES_DEPLOY_ENABLED/PAGES_DEPLOY_COMMIT
+      のオーナー専用設定が必要なため、マージ後のデプロイ実施もあわせて判断を仰ぐ。
+    target: https://github.com/IwataHiroki0827/bungo-zundamon/pull/3
+    target_mode: reference
+    options:
+      - 承認（PR #3をマージしデプロイまで実施）
+      - 承認（PR #3をマージのみ、デプロイは見送り）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-20T00:00:00+09:00'
+    source: pf-release
+    resume:
+      next: pf-release
