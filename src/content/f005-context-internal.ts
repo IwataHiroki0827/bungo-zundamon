@@ -804,10 +804,10 @@ function loaderTestCore(
 
 async function runActualLoaderLogic(
   workspace: string,
-  integratedRegistrySha256: Sha256,
+  anchorCommit: GitCommit,
   snapshot: SnapshotArtifacts,
 ): Promise<ActualLoaderResults> {
-  const [f003, f004, f005, f004Context] = await Promise.all([
+  const [f003, f004, f005, f004Context, anchorRegistryRaw] = await Promise.all([
     loadBatchCandidateRegistryProjection(workspace, 'F003' as BatchId),
     loadBatchCandidateRegistryProjection(workspace, 'F004' as BatchId),
     loadBatchCandidateRegistryProjection(workspace, 'F005' as BatchId),
@@ -818,11 +818,20 @@ async function runActualLoaderLogic(
       APPROVAL_POLICY_REFS.F004.ref,
       APPROVAL_POLICY_REFS.F004.sha256,
     ),
+    blobAt(workspace, anchorCommit, SHARED_REGISTRY_PATH),
   ]);
+  // registrySha256（共有registry全体のbyte hash）はF002以降の全featureがappend-onlyで
+  // 追記し続けるため、integratedRegistrySha256（F005統合migration時点の固定値）とは
+  // F006以降のfeatureが正当に追記するたびに必ず乖離する。全体byte一致の代わりに、
+  // F003のcandidate entryはanchorCommit（implementation commit）時点のregistry blobと
+  // pinした個別比較へ差し替え、F004/F005は既存どおり独立経路（definition+policy
+  // verification／F005 dedicated registry）との一致で検証する
+  // （2026-08-22の修正、SHARED_REGISTRY_PATH全体不変条件を廃止した既存修正と同じ方針）。
+  const anchorRegistry = parseSharedRegistry(JSON.parse(anchorRegistryRaw) as unknown);
+  const anchorF003 = candidateByFeature(anchorRegistry, 'F003');
   if ([f003, f004, f005].some((result) =>
     !isMintedLoadedBatchCandidateProjection(result)) ||
-    [f003, f004, f005].some((result) =>
-      result.registrySha256 !== integratedRegistrySha256) ||
+    canonicalJson(f003.candidate) !== canonicalJson(anchorF003) ||
     canonicalJson(f004.candidate) !== canonicalJson(f004Context.candidate) ||
     canonicalJson(f005.candidate) !== canonicalJson(snapshot.dedicatedRegistry.candidates[0])) {
     throw new F005ContextError('F005_REGISTRY_CONTROL_INVALID', 'production loader結果が一致しません');
@@ -862,7 +871,7 @@ async function acceptIntegratedF005Registry(
   );
   const loaderResults = await runActualLoaderLogic(
     root,
-    migration.integratedRegistrySha256,
+    implementationCommit,
     snapshot,
   );
   const createdAt = await commitTimestamp(root, controlCommit);
@@ -1013,7 +1022,7 @@ async function loadVerifiedF005RegistryControl(
   }
   const loaderResults = await runActualLoaderLogic(
     root,
-    migration.integratedRegistrySha256,
+    implementationCommit,
     snapshot,
   );
   const createdAt = await commitTimestamp(root, controlCommit);
