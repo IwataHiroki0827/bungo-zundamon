@@ -448,7 +448,13 @@ describe('F005 approved context and registry migration', () => {
     await commitControl(workspace);
     await commitAcceptance(workspace);
     const registryPath = join(workspace, 'content', 'batch-candidates.json');
-    await writeFile(registryPath, `${await readFile(registryPath, 'utf8')} `, 'utf8');
+    const registry = JSON.parse(await readFile(registryPath, 'utf8')) as {
+      candidates: Array<{ feature: string; author: { name: string } }>;
+    };
+    const f005Candidate = registry.candidates.find((candidate) => candidate.feature === 'F005');
+    if (!f005Candidate) throw new Error('fixture-missing-f005-candidate');
+    f005Candidate.author.name = 'tampered-name';
+    await writeFile(registryPath, canonicalJson(registry), 'utf8');
     await git(workspace, 'add', 'content/batch-candidates.json');
     await git(workspace, 'commit', '-m', 'test: mutate protected registry');
 

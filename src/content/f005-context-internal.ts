@@ -349,7 +349,6 @@ async function acceptedControlCommitAtCleanDescendant(
     F005_MIGRATION_EVIDENCE_PATH,
     F005_ACCEPTANCE_EVIDENCE_PATH,
     F005_LOADER_TEST_EVIDENCE_PATH,
-    SHARED_REGISTRY_PATH,
   ] as const;
   for (const path of protectedPaths) {
     if (await blobAt(workspace, head, path) !== await blobAt(workspace, acceptanceCommit, path)) {
@@ -358,6 +357,30 @@ async function acceptedControlCommitAtCleanDescendant(
         `acceptance後に保護artifactが変更されています: ${path}`,
       );
     }
+  }
+  // SHARED_REGISTRY_PATHはF002以降の全featureが追記し続けるappend-only共有registryのため、
+  // 全体のbyte一致ではなくF005自身のcandidate entryだけが不変であることを検証する
+  // (F006以降の正当な追記でこの不変条件が壊れないようにするための2026-08-22の修正)。
+  let headF005: ApprovedBatchCandidateDefinition | undefined;
+  let acceptanceF005: ApprovedBatchCandidateDefinition | undefined;
+  try {
+    const headRegistry = parseSharedRegistry(JSON.parse(await blobAt(workspace, head, SHARED_REGISTRY_PATH)));
+    const acceptanceRegistry = parseSharedRegistry(
+      JSON.parse(await blobAt(workspace, acceptanceCommit, SHARED_REGISTRY_PATH)),
+    );
+    headF005 = headRegistry.candidates.find((candidate) => candidate.feature === 'F005');
+    acceptanceF005 = acceptanceRegistry.candidates.find((candidate) => candidate.feature === 'F005');
+  } catch {
+    throw new F005ContextError(
+      'F005_REGISTRY_CONTROL_INVALID',
+      `acceptance後に保護artifactが変更されています: ${SHARED_REGISTRY_PATH}`,
+    );
+  }
+  if (!headF005 || !acceptanceF005 || canonicalJson(headF005) !== canonicalJson(acceptanceF005)) {
+    throw new F005ContextError(
+      'F005_REGISTRY_CONTROL_INVALID',
+      `acceptance後に保護artifactが変更されています: ${SHARED_REGISTRY_PATH}`,
+    );
   }
   return acceptanceCommit as GitCommit;
 }
