@@ -536,7 +536,7 @@ tasks:
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005
   phase: release
-  state: doing
+  state: done
   depends:
   - T-074
   tags: *id005
@@ -545,6 +545,17 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  progress_final: >-
+    2026-08-21 09:37 JST、v0.5.0を公開完了。feature/F005をorigin/mainへfast-forward push
+    (957855c..6e1f311)、native guard依存テストのOS gate化(CHG-F005-084、commit c96dbe0)、
+    f005-catalog.test.tsのgit clone --branch feature/F005参照除去(commit 9293852)を経て
+    CI green化。PAGES_DEPLOY_COMMIT=9293852043f2cb76544598d8e23989e49aa2af95、
+    PAGES_DEPLOY_ENABLED=trueでGitHub Actions run 32432910266のbuild/deploy成功を確認。
+    tag v0.5.0をpush。公開後スモーク(トップ/4作者route/夏目漱石画像/artwork-provenance/
+    catalog.json 4作者15作品)を全てHTTP 200・内容一致で確認。デプロイ後PAGES_DEPLOY_ENABLED
+    をfalseへ戻した。release evidence(RELEASE-F005.md、F005-{approval,deployment,smoke}.json)
+    をdocs/evidence/release/へ記録。content/baselines/F005-v0.5.0.json相当のbaseline記述子は
+    F002〜F004の先例(次フィーチャー着手時に作成)に倣い今回は作成していない。
   progress: >-
     先例調査: F002〜F004のリリースは、(1)`release: vX.Y.0候補を確定`
     （package.json/package-lock.jsonのversion bump、CHANGELOG.md追記、QT evidence更新）、

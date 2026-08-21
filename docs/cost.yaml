@@ -1233,3 +1233,20 @@ entries:
     を確認した。`content/baselines/*.json`・`public/`は変更していない。
     push・タグpush・PAGES_DEPLOY変数設定・実デプロイは行っていない
     （メインセッション側の担当）。
+- date: '2026-08-21'
+  phase: release
+  task: F005 v0.5.0公開完了（CI green化・push・デプロイ・タグ・release evidence）
+  model: Claude Opus (main session)
+  agents: 1
+  est_tokens: 25000
+  note: >-
+    f005-catalog.test.tsのgit clone --branch feature/F005参照をCI環境向けに
+    除去（commit 9293852）しCI green化。PAGES_DEPLOY_COMMIT/PAGES_DEPLOY_ENABLED
+    設定でGitHub Actions run 32432910266のbuild/deploy成功を確認。tag v0.5.0を
+    push。公開サイトで4作者15作品・夏目漱石route・artwork・artwork-provenance
+    をcurlでスモーク確認（全200・内容一致）。デプロイ後PAGES_DEPLOY_ENABLEDを
+    falseへ復帰。docs/evidence/release/RELEASE-F005.md・F005-{approval,
+    deployment,smoke}.jsonをF004先例の書式で作成（実run/artifact ID・
+    distSha256・catalogSha256は実測値、捏造なし）。tasks.yaml T-075を`done`、
+    docs/features.yaml F005を`state: closed`へ更新。STATUS.mdのnext_actions/
+    未解決事項を解消済み項目の整理を含め全面更新。

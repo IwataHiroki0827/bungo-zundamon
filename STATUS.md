@@ -1,26 +1,20 @@
 ---
-phase: release
+phase: close
 feature: F005
-updated: 2026-08-21T19:30:00+09:00
+updated: 2026-08-21T09:40:00+09:00
 next_actions:
-  - "CHG-F005-084でmainマージ後に発覚したCI red（native guard依存テスト22件のOS gate化・期待値分岐）を修正済み。次はメインセッション側でpush・CI再実行・build/deploy成功確認を行う"
-  - "T-075継続中。v0.5.0候補（4作者15作品、version bump・CHANGELOG・public/差し替え・f005-catalog.test.ts修正）はVitest全件・Playwright全件PASS済みでcommit済み。CI green確認後、release evidence作成・実デプロイ（PAGES_DEPLOY変数設定・push・タグpush）へ進む"
-  - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル（f005-spec-coverage.test.ts相当）を追加し、48/15件のID→testファイル対応を継続的に検証可能にする（現状は本セッションのgrep手動照合のみ）"
-  - "CHG-F005-077(追加作者上限を合計10作者/追加7人へ訂正)は影響修正・lint/typecheck/test再確認まで完了済み。次はCHG-F005-071以降のdirectory binding調査へ戻る"
-  - "production runを重ねてdirectory bindingの実状態（Reused か Live か）を観測する。計6 attemptで本軸未到達であり到達率が低い"
-  - "binding状態がLIVEなら、file leaseのFileObject一致でdirectory scope eventを評価している現在の評価順を是正する認可変更へ進む（オーナーの事前承認済み）"
-  - "v0.4.1デプロイ後の公開サイト(https://iwatahiroki0827.github.io/bungo-zundamon/)で規約失効エラーが再発しないことをブラウザ確認する"
-  - "F005ブランチのCHG-F002-005（commit 8c0e320、規約再確認の期限廃止）をdocs/changes/changes.yamlへ正式登録する（現状未登録のまま放置されている積み残し）"
-  - "F005をmainへマージする際、PR #3とF005ブランチが同一意図（期限判定の削除）を独立に実装しているため、src/notices/credits.tsまわりで軽微なコンフリクト解消が発生しうる点に注意する"
-blocked_by: []
+  - "F005(v0.5.0)は公開完了。pf-closeで振り返り・知見のknowledge/への転記・registry.yamlのvisibility更新を行う"
+  - "作者拡充ロードマップ(合計10作者目標、CHG-F005-077)の残り6人分をF006〜F011として計画・着手する(pf-requirementsから)"
+  - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル(f005-spec-coverage.test.ts相当)を追加し、ID→testファイル対応を継続的に検証可能にする(将来のF00N機能で同種のギャップが再発しないための恒久対策として推奨)"
+  - "T-143(FileObjectバインディング診断、CHG-F005-071)は最終的にT-073の依存関係になく、リリースの実質的なブロッカーではなかったことが判明した。native directory bindingの実状態観測自体は未完了のまま(Reused/Live未判別)だが、F005リリースは完了したため優先度は下がる。今後のF00N機能で同種の安全性懸念が再発した場合の参考知見としてknowledge/へ記録することを推奨"
 ---
 
 # 文豪ずんだもん 状況把握ドキュメント
 
 ## 現在の状況
 
-- F001はv0.1.0、F002はv0.2.0、F003はv0.3.0、F004はv0.4.0としてGitHub Pagesへ公開済み。公開サイトは3作者・12作品・674台詞・662音声で安定稼働中。
-- F005は公開前の非公開候補生成を継続中で、公開サイト・`public/`・`data/`は変更していない。
+- F001はv0.1.0、F002はv0.2.0、F003はv0.3.0、F004はv0.4.0、**F005はv0.5.0として2026-08-21にGitHub Pagesへ公開完了**。公開サイトは4作者(芥川龍之介・宮沢賢治・太宰治・夏目漱石)・15作品・877台詞・861音声で安定稼働中。既存3作者12作品674台詞662音声は不変。
+- 作者拡充ロードマップ(CHG-F005-077により合計10作者目標へ訂正)は、ベースライン3作者+F005(夏目漱石、4人目)で残り6人(F006〜F011想定)。
 - Q-042回答を3点セットで処理し、T-110を`todo`へ戻した。CHG-F005-052/T-126でproduction共有規則を使う決定的hosted相関検証を設計し、独立再レビューHigh/Medium/Low 0でPASSした。認可・容量actual・候補保存・公開条件は変更していない。
 - CHG-F005-052/T-126のread-only hosted相関検証を実装した。native通常820件、target 57件、関連Vitest26件、型、ESLint、trace、同一SHA再現build2回、独立受入High/Medium/Low 0をPASSした。run `31239312228`でtarget 57/57、kernel ETW、実load assembly SHA・MVID、同一SHA Pages deploy `skipped`を確認し、T-110/T-126/CHG-F005-036/052を完了した。
 - CHG-F005-009でnative executableをworkspace外のGUID付きRUNNER_TEMPへ隔離し、全起動経路のrealpath/reparse/hardlink/SHA/self hash検証を実装した。run 30508494379では外部binary使用を確認したが、write helper spawn後・予約前のworkspace System SetInfoで安全停止した。
@@ -121,6 +115,7 @@ blocked_by: []
 
 ## 直近の作業（最新5件）
 
+- **F005 v0.5.0を公開完了**(2026-08-21 09:37 JST)。`f005-catalog.test.ts`の`git clone --branch feature/F005`参照除去(commit `9293852`)でCI green化、`PAGES_DEPLOY_COMMIT`/`PAGES_DEPLOY_ENABLED`設定でGitHub Actions run `32432910266`のbuild/deploy成功、公開後スモーク(トップ/4作者route/夏目漱石画像・artwork-provenance/catalog.json)全PASS。tag `v0.5.0`をpush、release evidence(`docs/evidence/release/RELEASE-F005.md`、`F005-{approval,deployment,smoke}.json`)を記録。デプロイ後`PAGES_DEPLOY_ENABLED`をfalseへ復帰。`docs/features.yaml`のF005を`state: closed`、`tasks.yaml`のT-075を`state: done`へ更新
 - CHG-F005-084でmainマージ後発覚のCI red（run `32431124995`）を修正。native guard依存テスト22件（f005-native-guard.test.ts 1件・f005-source.test.ts 19件・f005-run-work.test.ts 1件）を既存`it.runIf(process.platform === 'win32')`パターンでOS gate化し、`src/content/artifacts.ts`の`syncDirectory`の正当なOS分岐に起因する2件（f005-run-work.test.ts・artifacts.test.ts）は期待値分岐へ変更。src本体ロジックは無変更。lint/typecheck PASS、フルスイート1319件中1313 PASS（6 failedは対象外ファイルのWindows並列flaky、個別実行で142件全PASS確認）。Linux実行はDocker未起動のため未検証、コード根拠で整合性確認。push・CI再実行はメインセッション側担当
 - T-075継続。`f005-catalog.test.ts`の`beforeAll`が可変working treeの`public/content/catalog.json`をpre-F005 baselineとして直読みし`verifyNatsumeIdentity`で`F005_AUTHOR_IDENTITY_CONFLICT`誤検知を起こしていた（`public/`をF005候補へ差し替え済みのため前提崩壊）。F004公開昇格commit`19759e2`のgit blobを`git show`で読む方式へ切替え修正。`npm test`フルスイート1319件中1314 PASS（残り5件は既知のWindows並列flakyで個別PASS確認済み）、`npm run test:e2e`163 passed・5 skipped・失敗0、lint/typecheckもPASS。version bump・CHANGELOG・`public/`差し替え一式・テスト修正を3コミットに分けてcommit。push・実デプロイ・release evidence作成は未実施
 - CHG-F005-083でT-074を最終クローズ。未着手10 FUN（FUN-F005-035〜039/042/044/046、release/deployパイプライン一式・CAS状態遷移・第三裁定authorization）はF005専用ETW検証付きリリースパイプラインとして新規実装せず、F001〜F004・v0.4.1パッチ(PR #3)実績の汎用経路（`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`ゲート）で代替する設計不採用をオーナー承認で決定（level: design）。DD-F005.mdの該当8節を不採用注記へ書き換え、UT-F005-033/034/035/036/037/038/039/042/044/046（10件）を「N/A(CHG-F005-083…)」、IT-F005-010/012/013（3件）を「N/A、pf-release実行時の汎用検証でカバー」へ変更、QT-F005-019/020へ汎用経路読み替えの補足注記を追加。tm.jsonは参照のみで変更なし。lint/typecheck PASS、test 1312 passed/7 failed（既知のWindows並列flaky）。T-074を`done`へクローズしT-075へ引き継ぐ
@@ -141,24 +136,16 @@ blocked_by: []
 
 ## 次のアクション
 
-- CHG-F005-084でmainマージ後発覚のCI red（native guard依存テスト22件のOS gate化・期待値分岐、commit未push）を修正済み。メインセッション側でpush・GitHub Actions `pages.yml`再実行・build job green確認を行う。
-- T-075継続。v0.5.0候補（4作者15作品、version bump・CHANGELOG・`public/`差し替え・`f005-catalog.test.ts`修正）はVitest全件・Playwright全件PASS済みでcommit済み。CHG-F005-083の決定（F005は汎用リリース経路 `scripts/verify-project.mjs` + GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`ゲートを使う、F005専用ETW検証付きリリースパイプラインは実装しない）を前提に、CI green確認後、release evidence作成・段階公開（PAGES_DEPLOY変数設定・push・タグpush）・公開後スモークへ進む。
-- T-073をunblockするため、`scripts/f005-final-integration.ts`のprovenance出力の書込み先（mkdtemp一時ディレクトリ）と`buildIntegratedPublicTree`/`referencedPublicEvidence`が参照する実workspace pathの不一致を解消する設計を行う。`content/provenance/F005/{workId}.json`を先に実contentツリーへ永続化するか、`referencedPublicEvidence`側が一時rootを受け取れるようにするかの判断が必要。CHG-F005-078で`actualCapacityRef`/`rightsSnapshotIds`の`BATCH_ARTIFACT_MISSING`は解消済み。
-- CHG-F005-077は完了。今後F005で「追加n人目/残m人/最終上限」に触れる文書・実装を新規作成する際は`targetAdditionalAuthors=7`・`finalAuthorLimit=10`（合計10作者）を正とする。
-- `native/f005-guard/Program.cs`ほかでCHG-F005-054/T-128のproduction-owned retained identity lease、T-112固定target/manifest、selectorを完了する。
-- T-128完了後、`docs/changes/CHG-F005-055.md`に従いT-129のproduction共有evaluator、T-109 target source/manifestを実装する。
-- T-110/T-122/T-112 target無縮退、raw非公開、同一SHA Pages deploy `skipped`をlocal/hosted evidenceで検証する。
-- v0.4.1デプロイ後の公開サイト（https://iwatahiroki0827.github.io/bungo-zundamon/ ）で規約失効エラーが再発しないことを次回セッションでブラウザ確認する。
-- F005ブランチのCHG-F002-005（changes.yaml未登録）を正式登録する。
-- F005は既にmainへfast-forward push済み（commit `6e1f311`、2026-08-21）。CHG-F002-006との`src/notices/credits.ts`まわりのコンフリクトは発生しなかった（fast-forwardのため）。
+- F005(v0.5.0)は公開完了。pf-closeで振り返り・knowledge/転記・registry.yaml visibility更新を行う。
+- 作者拡充ロードマップ(合計10作者目標)の残り6人分(F006〜F011想定)をpf-requirementsから計画・着手する。
+- UT-F005/IT-F005にF003/F004同様の機械照合ファイル(`f005-spec-coverage.test.ts`相当)を追加し、将来のF00N機能で「仕様書にあるがテストコードがない」ギャップが再発しないよう恒久対策する(推奨、必須ではない)。
+- F005ブランチのCHG-F002-005（changes.yaml未登録）を正式登録する（積み残しの軽微な記録整備）。
 
 ## 未解決事項
 
-- 2026-08-21、`feature/F005`をorigin/mainへfast-forward push（`957855c..6e1f311`）した直後、GitHub Actions `pages.yml`のbuild job（run `32431124995`）がubuntu-latest上でnative guard依存テストの失敗により赤くなった。CHG-F005-084でOS gate化・期待値分岐によりローカル修正済み（lint/typecheck PASS、フルスイート142/142個別実行PASS）だが、この修正はまだpush・CI再実行されていない。次回セッションでpush・CI再確認・（成功したら）build job green確認を行うこと。deployジョブは未実行のため公開中v0.4.1サイトへの実害はない。
-- T-073はdone。候補tree（`.cache/f005-final-integration-*/tree/`、898 files）の受入はT-074（UT/IT/QT/6環境/権利/容量/セキュリティ）で正式に検証する。T-074着手にあたっては`src/content/batch-public.ts`の`integrateArtworkProvenances`へ追加したF005分岐（commit `425ebf9`）を含む全変更が対象。
-- T-074はCHG-F005-083でdoneへクローズした。CHG-F005-081でFUN-F005-014（趣味の遺伝の公式表現notice）を実装済み。`projectF005Credits`が返す`CreditProjection`自体を永続化・公開・UI描画する新規経路（`official-content-warning`textKeyでの投影とは別）は未設計のまま残るが、これは要求の必須スコープではないため個別対応が必要になった場合はQ登録で扱う。
-- 未着手10 FUN（FUN-F005-035〜039/042/044/046）は、CHG-F005-083でF005専用ETW検証付きリリースパイプラインとしての新規実装を不採用とし、F001〜F004・v0.4.1パッチ(PR #3)実績の汎用リリース経路（`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`ゲート）で代替する設計判断で解消した（オーナー承認、level: design）。UT-F005-033/034/035/036/037/038/039/042/044/046（10件）はN/A、IT-F005-010/012/013（3件）は汎用検証カバーのN/Aとして記録済み。QT-F005-019/020は要求対応の適格性試験として有効なため維持し、汎用経路読み替えの補足注記のみ追加した。
-- C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、音声生成直前にもrunner内で再計測する。
+- native directory bindingの実状態観測(T-143、CHG-F005-071、Reused/Live未判別)は、T-073の実際の依存関係にはなくリリースのブロッカーではなかったことが判明したため未完了のまま残る。今後のF00N機能で同種の安全性懸念(hosted ETW配送順のrace)が再発した場合の設計知見としてknowledge/へ記録することを推奨。
+- `projectF005Credits`が返す`CreditProjection`自体を永続化・公開・UI描画する新規経路（`official-content-warning`textKeyでの投影とは別）は未設計のまま残る。要求の必須スコープではないため、個別対応が必要になった場合はQ登録で扱う。
+- C:空きは実preflight後85.4 GiB（9.2%）で注意域だが5 GiB停止基準を十分上回る。削除は行わず、次回の重い処理（音声生成等）前にも再計測する。
 - GitHub Actionsの先行障害後もcommit `4dc7d2b`のnative/production runは正常生成された。現在はT-113の新commit生成後の再試験待ちである。
 - T-109はQ-044回答を反映して`todo`へ戻した。local受入PASS済みで、CHG-F005-055/T-129のproduction共有evaluatorを使う決定的hosted影響確認を待つ。
 - T-110は自然なhosted対象へfollow-up 3 attemptで未到達だったが、CHG-F005-052/T-126の決定的hosted相関run `31239312228`で影響確認をPASSし完了した。

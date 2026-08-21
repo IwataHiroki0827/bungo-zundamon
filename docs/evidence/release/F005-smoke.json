@@ -1,0 +1,35 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "b00b21b44e2cc150d81ed9df57740610887cd9fc95db7124296b3f4609cc7c2e",
+  "checkedAt": "2026-08-21T00:36:00Z",
+  "distSha256": "668460423c77d116dc694d9428eede4454ae43bc78c790dcdc2709091d0ffbde",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F005",
+  "releaseCandidateBatchId": "F005",
+  "releaseCommit": "9293852043f2cb76544598d8e23989e49aa2af95",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 4,
+    "workCount": 15,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true
+  }
+}
