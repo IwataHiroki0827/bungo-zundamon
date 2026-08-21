@@ -1935,3 +1935,43 @@ items:
     processed_at: '2026-08-21T15:45:00+09:00'
     processed_note: >-
       FD-F006.md/DD-F006.mdをApprovedへ更新した。T-146/T-147を完了し、次フェーズpf-testspecへ進める。
+  - id: Q-061
+    type: approval
+    status: closed
+    title: F006 単体・結合試験仕様の承認（ゲート③）
+    body: >-
+      docs/tests/ut/UT-F006.md（UT 17件、DD-F006.mdのFUN 17件を1件ずつ網羅）と
+      docs/tests/it/IT-F006.md（IT 11件、DES 14件を網羅）を作成した。DD-F006.mdの再利用方針に基づき、
+      既存関数をそのまま呼び出すFUN 10件（FUN-F006-001/005〜010/013/016/017）は新規UTケースを追加せず、
+      対応する既存テストファイル（batch-candidate.test.ts/f005-source.test.ts/editorial-independent.test.ts/
+      f003-reuse.test.ts/voice-v2.test.ts/capacity-v2.test.ts/f005-postcondition(-write).test.ts/
+      batch-acceptance.test.ts/batch-production.test.ts/batch.test.ts/audio-controller.test.ts/
+      favorites.test.ts/f005-source.test.ts/f005-foundation.test.ts等）を実ファイル名で引用して
+      「既存テストでカバー済み」と明記した。feature固有のexact値を持つ新規7 FUN
+      （FUN-F006-002/003/004/011/012/014/015: baseline pin・registry・Catalog merge・route導出・
+      artwork provenance）はUT-F003/UT-F005の粒度で境界値・異常系を含む新規ケースを作成した。
+      自己レビュー2観点（網羅性: 全17 FUN・全14 DESに対応するUT/ITケースまたは既存テスト引用が
+      存在することを確認、試験設計妥当性: 境界値・異常系の充足と既存テストとの重複がないことを確認）で
+      指摘0件。tools/trace_check.py（--path、--feature未使用）でDES→UT/IT対応漏れ0件を確認した。
+    target: docs/tests/ut/UT-F006.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-21T16:20:00+09:00'
+    source: pf-worker
+    resume:
+      task: T-148
+      next: pf-implement
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビュー指摘ゼロ化・trace_check対応漏れ0の
+      品質条件を満たすため、承認ゲート③（テストファーストゲート）を自動承認として記録する。
+    approved_at: '2026-08-21T16:20:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-21T16:20:00+09:00'
+    processed_note: >-
+      UT-F006.md/IT-F006.mdをApprovedへ更新した。SRS-F006/FD-F006/DD-F006/UT-F006/IT-F006/QT-F006が
+      全てApprovedとなり実装開始(pf-implement)の前提条件を満たした。T-148を完了し、次フェーズ
+      pf-implement（T-149）へ進める。

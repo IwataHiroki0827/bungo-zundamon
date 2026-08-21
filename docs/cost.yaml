@@ -1344,3 +1344,28 @@ entries:
     自動承認（2026-08-20制定の自動承認方針）として記録し、tasks.yamlのT-146/T-147を
     state: doneへ更新した。STATUS.md（phase: testspec、本文4節）を更新した。
     content/public/srcは変更していない。push・PR作成は行っていない。
+- date: '2026-08-21'
+  phase: testspec
+  task: T-148 F006 UT・IT試験仕様
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 20000
+  note: >-
+    UT-F003.md/IT-F003.mdを精読しDD-F006.mdのFUN 17件を確認した。UT-F006.md(17件)・
+    IT-F006.md(11件)を新規作成した。DD-F006.mdの再利用方針どおり既存関数を呼ぶ10
+    FUN（FUN-F006-001/005〜010/013/016/017）は新規UTケースを追加せず、grepで実際に
+    確認したbatch-candidate.test.ts・f005-source.test.ts・editorial-independent.test.ts・
+    f003-reuse.test.ts・voice-v2.test.ts・capacity-v2.test.ts・
+    f005-postcondition(-write).test.ts・batch-acceptance.test.ts・batch-production.test.ts・
+    batch.test.ts・audio-controller.test.ts・favorites.test.ts・f005-foundation.test.ts等
+    を実引用して「既存テストでカバー済み」と明記した。feature固有exact値を持つ新規7
+    FUN（FUN-F006-002/003/004/011/012/014/015: v0.5.0 baseline pin・author/work
+    registry・Catalog merge・route導出・artwork provenance）はUT-F003/UT-F005の粒度で
+    境界値・異常系を含む新規ケースを作成した。自己レビュー2観点（網羅性・試験設計
+    妥当性）で指摘0件を確認した。tools/trace_check.py --path（--feature未使用）で
+    DES→UT/IT対応漏れ0件を確認した。queue.yaml Q-061で承認ゲート③（テストファースト
+    ゲート）を自動承認（2026-08-20制定の自動承認方針）として記録し、UT-F006.md/
+    IT-F006.mdをstatus: Approvedへ更新、tasks.yamlのT-148をstate: doneへ更新した。
+    SRS-F006/FD-F006/DD-F006/UT-F006/IT-F006/QT-F006が全てApprovedとなり実装開始
+    (pf-implement)の前提条件を満たした。STATUS.md（phase: implement、本文4節）を
+    更新した。content/public/srcは変更していない。push・PR作成は行っていない。

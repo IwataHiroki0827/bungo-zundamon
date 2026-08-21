@@ -3027,12 +3027,20 @@ tasks:
   title: UT-F006・IT-F006を作成しQT-F006との網羅性を確認
   feature: F006
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-147
   tags: *id006
   mode: orchestration
   mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・セキュリティの独立試験領域を並列設計できるため
+  model: *model_f006
+  completed_at: '2026-08-21T16:20:00+09:00'
+  result: UT-F006.md(17件)・IT-F006.md(11件)を作成した。DD-F006.mdの再利用方針どおり既存関数を呼ぶ10
+    FUNは既存テストファイル(batch-candidate.test.ts等)を実引用して重複作成を避け、feature固有の新規7
+    FUN(baseline pin・registry・Catalog merge・route導出・artwork provenance)だけ境界値・異常系を含む
+    新規UTケースを作成した。自己レビュー2観点(網羅性・試験設計妥当性)で指摘0件、trace_check DES→UT/IT
+    対応漏れ0を確認。Q-061で承認ゲート③を自動承認し、SRS/FD/DD/UT/IT/QT全てApprovedとなり実装開始の
+    前提条件を満たした
   model: *model_f006
 - id: T-149
   title: F006候補manifest・固定v0.5.0 baseline・権利原典を整備
