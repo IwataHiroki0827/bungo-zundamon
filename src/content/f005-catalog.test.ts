@@ -1,6 +1,6 @@
 import { execFile as execFileCallback } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
@@ -59,6 +59,10 @@ import type {
 const workspace = resolve('.');
 const execFile = promisify(execFileCallback);
 const HASH = 'a'.repeat(64);
+// release: F004公開treeを昇格（F005着手前の最終commit）。verifyNatsumeIdentityの
+// 「既存author集合との衝突」検証は、作業中に書き換わるworking treeのpublic/ではなく
+// この凍結commit時点のcatalogを基準にする必要がある。
+const PRE_F005_BASELINE_COMMIT = '19759e2ec5fe2b3969fb19f522b8351d0e587551';
 let context: F005ApprovedBatchContext;
 let baseline: CatalogV2;
 let author: VerifiedNewAuthor;
@@ -93,8 +97,16 @@ beforeAll(async () => {
   ], { windowsHide: true });
   [context, baseline] = await Promise.all([
     loadVerifiedF005Definition(cleanWorkspace),
-    readFile(resolve(workspace, 'public/content/catalog.json'), 'utf8')
-      .then((text) => JSON.parse(text) as CatalogV2),
+    execFile('git', [
+      '-C',
+      workspace,
+      'show',
+      `${PRE_F005_BASELINE_COMMIT}:public/content/catalog.json`,
+    ], {
+      encoding: 'utf8',
+      windowsHide: true,
+      maxBuffer: 16 * 1024 * 1024,
+    }).then(({ stdout }) => JSON.parse(stdout) as CatalogV2),
   ]);
   author = verifyNatsumeIdentity(context, baseline);
   artworkAcceptance = createArtworkAcceptance(context);

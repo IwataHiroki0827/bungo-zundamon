@@ -536,7 +536,7 @@ tasks:
   title: F005 v0.5.0リリース前総点検・段階公開・公開後スモーク
   feature: F005
   phase: release
-  state: todo
+  state: doing
   depends:
   - T-074
   tags: *id005
@@ -545,6 +545,68 @@ tasks:
   model:
     lead: opus
     workers: sonnet
+  progress: >-
+    先例調査: F002〜F004のリリースは、(1)`release: vX.Y.0候補を確定`
+    （package.json/package-lock.jsonのversion bump、CHANGELOG.md追記、QT evidence更新）、
+    (2)`release: F00N公開treeを昇格`（`public/`を候補treeの内容へ丸ごと置換するcommit）、
+    (3)`release: F00N vX.Y.0公開を確定`（STATUS.md、batch.json、docs/cost.yaml、
+    `docs/evidence/release/{RELEASE-F00N.md,RELEASE-F00N-precheck.md,F00N-approval.json,
+    F00N-deployment.json,F00N-smoke.json}`、tasks.yaml等を更新するcommit）という3commit構成
+    だった。重要な発見: `content/baselines/F00(N+1)-v0.N.0.json`
+    （例: 既存の`F005-v0.4.0.json`はF004のv0.4.0公開を記録）は、F00Nの自己リリースcommit
+    （上記(1)〜(3)）では**作られていない**。実際にはF00(N+1)の開発着手時の
+    `feat(f00(N+1)): add guarded batch foundation`的なcommit（ffdb47f）で事後的に作成されており、
+    `control.commit`/`releaseCommit`/`production.{artifactId,deploymentId,runId}`は
+    実際のGitHub Actionsデプロイ結果（`docs/evidence/release/RELEASE-F00N.md`記載の
+    run ID等）をそのまま転記した値だった。つまりこのbaseline記述子は「実際にPages公開が
+    完了した後でなければ正しい値を埋められない」。また`scripts/verify-project.mjs`は
+    F001 baselineのみ検証しており、F004/F005系baselineは検証対象外（純粋な公開記録）と確認した。
+    本タスクはpush・PAGES_DEPLOY変数設定・デプロイ実施を禁止されているため、
+    `content/baselines/F005-v0.5.0.json`相当（命名規則に従えば実際は次フィーチャー着手時に
+    `F006-v0.4.1or0.5.0.json`として作られるべきもの）と、`docs/evidence/release/RELEASE-F005*`
+    一式は実デプロイのrun ID/deployment IDを要するため今回は作成していない
+    （捏造を避けた。設計判断が必要な曖昧さのため要オーナー確認）。
+    実施済み: `scripts/f005-final-integration.ts --retain`で候補tree再生成
+    （authors4/works15/dialogues877/audioAssets861、既存3作者12作品674台詞662音声は
+    追加分以外差分なしを`diff`で確認済み）→`public/`へ`cp -a`で置換（新規ファイルのみ追加、
+    既存ファイル上書きは`content/catalog.json`と`content/artwork-provenances.json`の2件のみ）。
+    `package.json`/`package-lock.json`のversionを0.4.1→0.5.0へ更新。`CHANGELOG.md`に
+    [0.5.0]セクション（夏目漱石4作品、4作者15作品877台詞861音声）を追記。
+    `npm run build`→`npm run verify:build`はPASS（901 files/284181963 bytes、
+    F001 baseline preflight・route/CSP/secret scan含め全項目OK）。`npm run lint`/
+    `npm run typecheck`はPASS（差分0）。**`npm test`で新規の決定論的な失敗を発見**:
+    `src/content/f005-catalog.test.ts`が`F005_AUTHOR_IDENTITY_CONFLICT`で失敗する
+    （`beforeAll`が`resolve('.')`＝実working treeの`public/content/catalog.json`を
+    「まだF005を含まない事前状態のbaseline」として直接読み込み、`verifyNatsumeIdentity`へ渡して
+    いるため。`public/`をF005候補へ昇格した時点でこの前提が恒久的に崩れる）。単体で再実行しても
+    100%再現（flakyではない）。既知のWindows並列resource contention系flaky（baseline.test.ts・
+    batch-runtime.test.ts・f005-native-guard.test.ts・f005-source.test.ts、いずれも単体実行で
+    全PASS確認済み）とは別種の問題。F004の先例commit`fc1aa7b`は`src/content/batch-catalog.ts`と
+    `batch.test.ts`を公開確定commitの一部として更新しており、公開昇格に伴うtest側の追随修正は
+    先例上も想定内と見られるが、`f005-catalog.test.ts`の対処方法（retire/frozen commit読込へ
+    変更/skip等）は設計判断であり本タスクの指示範囲（`public/`置換・version bump・CHANGELOG・
+    baseline作成・検証実行のみ）を超えるため、テストコードは変更せず未解決のまま報告する。
+    以上により`npm test`/`npm run test:e2e`は未実行（`npm test`が全PASSでない状態で
+    次工程へ進まないため）。**commitは未実施**（検証全PASSが完了条件のため）。
+    working treeには`public/`置換・package.json/package-lock.json・CHANGELOG.mdの変更が
+    未commitのまま残っている。次のセッションはオーナーに(a)baseline記述子・release evidence
+    作成タイミングの確認（本当に次フィーチャー着手時作成でよいか）、
+    (b)`f005-catalog.test.ts`の対処方針、を確認してから再開すること。
+    追記(オーナー承認後): `f005-catalog.test.ts`の`beforeAll`を修正した。
+    `readFile(resolve(workspace, 'public/content/catalog.json'))`（可変working treeを直読み）
+    をやめ、`git show 19759e2ec5fe2b3969fb19f522b8351d0e587551:public/content/catalog.json`
+    （F004公開昇格commit「release: F004公開treeを昇格」＝F005着手前の最終public状態）から
+    baselineを読み込むよう変更。目的（新規作者identityが既存author集合と衝突しないことの検証）
+    は変えず、参照先を凍結済みgit履歴へ切替えたのみ。`content/baselines/*.json`（過去リリース
+    履歴）は変更していない。修正後`npx vitest run src/content/f005-catalog.test.ts`は17件全PASS。
+    続けて`npm run lint`/`npm run typecheck`/`npm test`（フルスイート、1319件中1314 PASS、
+    残り5件はbaseline.test.ts×2・batch-runtime.test.ts×1・f005-native-guard.test.ts×1・
+    f005-source.test.ts×1で全て既知のWindows並列flaky。個別ファイル再実行で全PASS確認済み）/
+    `npm run test:e2e`（Playwright 6 project、163 passed・5 skipped（`production build`の
+    全asset照合はchromiumで一度だけ実行する設計、単独再実行でもPASS確認済み）、失敗0）を実行し
+    全PASSを確認した。version 0.5.0・CHANGELOG・`public/`差し替え一式・
+    `f005-catalog.test.ts`修正をcommit済み（3commit、コミットハッシュは別途参照）。
+    stateは`doing`のまま維持（実デプロイ・release evidence作成はメインセッション側の担当）。
 - id: T-005
   title: VOICEVOX音声生成・差分キャッシュ・静的音声資産管理を実装
   feature: F001
