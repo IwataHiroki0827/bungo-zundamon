@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "introduce",
+  "batchId": "F006",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F006",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000119/card624.html",
+      "order": 1,
+      "title": "山月記",
+      "workId": "000624",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/624_14544.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000119/card621.html",
+      "order": 2,
+      "title": "名人伝",
+      "workId": "000621",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/621_14498.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000119/card1738.html",
+      "order": 3,
+      "title": "弟子",
+      "workId": "001738",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/1738_16623.html"
+    }
+  ]
+}

@@ -1369,3 +1369,34 @@ entries:
     SRS-F006/FD-F006/DD-F006/UT-F006/IT-F006/QT-F006が全てApprovedとなり実装開始
     (pf-implement)の前提条件を満たした。STATUS.md（phase: implement、本文4節）を
     更新した。content/public/srcは変更していない。push・PR作成は行っていない。
+- date: '2026-08-21'
+  phase: implement
+  task: T-149 F006候補manifest・固定v0.5.0 baseline・権利原典整備
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 90000
+  note: >-
+    実装検証によりf005-source.tsがfeature非依存ではなくF005固有(authorId 000148)に
+    ハードコードされていることが判明し訂正済みのDD-F006.mdに従い、新規
+    src/content/f006-source.ts（約1030行）を実装した。f005-source.tsの構造
+    （RawArtifactRef型・ProductionAozoraTransport/ProductionPolicyTransportによる
+    HTTPS取得・evaluateF005PolicyClauses/evaluateF005RightsAndUsage相当の権利判定・
+    parseBibliographyV2/buildF005SourceProvenance相当の書誌固定・
+    normalizeAozoraXhtmlEntities/extractF005DialogueCandidates相当のentity正規化・
+    決定的抽出）を忠実に踏襲しauthorId 000119（中島敦）・山月記(000624)/名人伝(000621)/
+    弟子(001738)へパラメータ化した。F005固有ETW/native guard機構は一切使わず、原典の
+    永続化は既存writeF005TemporaryFile（f005-postcondition-write.ts、排他作成+fsync+
+    読み戻しSHA照合の汎用atomic write）だけで行う設計とした（DES-041準拠）。実際に
+    HTTPSで中島敦作家ページ・3作品の図書カード/XHTML・VOICEVOX/ずんだもん3規約を
+    取得し（推測・捏造なし）、権利decision: allow・書誌固定（proofreader 3作品とも
+    非null）をcontent/batches/F006/source-snapshots/へ永続化した。entity検出の結果
+    3作品とも未定義entity・gaiji_list問題0件（DOMAIN-F006.mdの事前予測どおり）、
+    決定的抽出で山月記3件・名人伝4件・弟子55件を確認した。docs/tests/ut/UT-F006.mdの
+    UT-F006-005/006を新規モジュール向けの具体的ケースへ訂正し、
+    src/content/f006-source.test.ts（7ケース）を新規作成した。npm run lint/typecheck
+    は全体PASS。npm testフルスイートは1336件中1327 PASS・9 failedで、全て本セッション
+    未変更ファイル（baseline.test.ts等）のWindows並列resource contentionと確認した
+    （個別実行で全PASS、f006-source.test.ts自体はフルスイート内でも7件全PASS）。
+    tasks.yamlのT-149をstate: doneへ更新した。STATUS.md（本文4節）とdocs/cost.yaml
+    を更新した。public/・F001〜F005の既存baseline記述子は変更していない。
+    push・PR作成は行っていない。

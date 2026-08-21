@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F006.md",
+    "release": "docs/evidence/release/F006-approval.json",
+    "requirements": "docs/srs/SRS-F006.md",
+    "testspec": "docs/tests/ut/UT-F006.md"
+  },
+  "artworkProvenanceRef": "content/batches/F006/artwork-provenance.json",
+  "author": {
+    "authorId": "000119",
+    "identitySha256": "7902df5dee3e9abe139da90310b1da3677b77faa0067be17a5840b9a781a7324",
+    "name": "なかじまあつし",
+    "originalName": "中島敦",
+    "slug": "nakajima-atsushi"
+  },
+  "batchId": "F006",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "000624"
+      ],
+      "preferredWorkId": "000624",
+      "reason": "承認済み代表作",
+      "title": "山月記"
+    },
+    {
+      "allowedWorkIds": [
+        "000621"
+      ],
+      "preferredWorkId": "000621",
+      "reason": "承認済み代表作",
+      "title": "名人伝"
+    },
+    {
+      "allowedWorkIds": [
+        "001738"
+      ],
+      "preferredWorkId": "001738",
+      "reason": "承認済み代表作",
+      "title": "弟子"
+    }
+  ],
+  "feature": "F006",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F006/voice-config.json",
+  "workIds": [
+    "000624",
+    "000621",
+    "001738"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000624"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000621"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "001738"
+    }
+  ]
+}

@@ -175,6 +175,56 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/000148/files/1104_14948.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "3b4103a4f208500b7667ccc643619bf5de85a2e185557de4c5e990241bd46cd1",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F006.md",
+            "sha256": "54829ace28b704340492fa0d1f177acf86c220f56e105d3570cdf085fa1089ff"
+          },
+          {
+            "path": "docs/tests/qt/QT-F006.md",
+            "sha256": "46c2151c49abf4c5eeb8bbbfb0eb959f87433c3c53265941d4bcf6e0fee7fc41"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F006-approval-binding.json",
+        "evidenceSha256": "bca1ebdf9b63edd9e4b2069fdd8ccacda8445433327edd60fc6b2ab943552645",
+        "queueId": "Q-059"
+      },
+      "author": {
+        "authorId": "000119",
+        "identitySha256": "7902df5dee3e9abe139da90310b1da3677b77faa0067be17a5840b9a781a7324",
+        "name": "なかじまあつし",
+        "originalName": "中島敦",
+        "slug": "nakajima-atsushi"
+      },
+      "batchId": "F006",
+      "feature": "F006",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000119/card624.html",
+          "order": 1,
+          "title": "山月記",
+          "workId": "000624",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/624_14544.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000119/card621.html",
+          "order": 2,
+          "title": "名人伝",
+          "workId": "000621",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/621_14498.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000119/card1738.html",
+          "order": 3,
+          "title": "弟子",
+          "workId": "001738",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/1738_16623.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"

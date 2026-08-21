@@ -1,0 +1,29 @@
+{
+  "approvalItemSha256": "3b4103a4f208500b7667ccc643619bf5de85a2e185557de4c5e990241bd46cd1",
+  "approvalProjectionFields": [
+    "id",
+    "type",
+    "status",
+    "target",
+    "target_mode",
+    "answer",
+    "approved_at"
+  ],
+  "changes": [],
+  "documents": [
+    {
+      "path": "docs/srs/SRS-F006.md",
+      "sha256": "54829ace28b704340492fa0d1f177acf86c220f56e105d3570cdf085fa1089ff"
+    },
+    {
+      "path": "docs/tests/qt/QT-F006.md",
+      "sha256": "46c2151c49abf4c5eeb8bbbfb0eb959f87433c3c53265941d4bcf6e0fee7fc41"
+    }
+  ],
+  "feature": "F006",
+  "migratedAt": "2026-08-21T13:00:00+09:00",
+  "queueId": "Q-059",
+  "queuePath": "queue.yaml",
+  "queueSha256AtMigration": "dab538df9d4c7d40c3cf5c90730940b29a01e01131d1af4e90d6fd1204bc894c",
+  "schemaVersion": "1.0.0"
+}
