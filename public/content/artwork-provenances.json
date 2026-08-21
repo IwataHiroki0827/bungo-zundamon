@@ -32,6 +32,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F003.json",
       "provenanceSha256": "50ad2030a55ad538217bf56f1c77164481ff44f91064d685a45516ee2d28a534"
+    },
+    {
+      "authorId": "000148",
+      "batchId": "F005",
+      "manifestId": "artwork-F005-000148-v1",
+      "output": {
+        "path": "artwork/natsume-zundamon.png",
+        "sha256": "79f5e9b49446a29bdd6793cdaf6eee22e57974a60e5b90e1fa126502bdc61e9b"
+      },
+      "provenanceRef": "content/artwork-provenance/F005.json",
+      "provenanceSha256": "5550d5e135b7bb6471f761cdf8f74d1d85fee7e551ee85588e114758bb3bee27"
     }
   ],
   "schemaVersion": "1.0.0"
