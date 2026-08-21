@@ -55,8 +55,34 @@
   ],
   "workProgress": [
     {
-      "stageRecords": [],
-      "status": "pending",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-22T00:20:00.000Z",
+          "count": 3,
+          "inputHashes": [
+            "1478a8c7f8e7923ed3c8467c3a4d12bb65a83cb26cf6b8b4fe79a5ede3eefd6f"
+          ],
+          "outputHashes": [
+            "a0eb3c34cb1472b2ae5a48be2a13302ff3b6b02a2cf7e2c5b9324e718ee6463e"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f006-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-22T00:20:00.000Z",
+          "count": 3,
+          "inputHashes": [
+            "94ab64f8195c2946500bf311d8b3e2de61d9b4039070634a4b48fb63c3d0b21f",
+            "a0eb3c34cb1472b2ae5a48be2a13302ff3b6b02a2cf7e2c5b9324e718ee6463e"
+          ],
+          "outputHashes": [
+            "a7cca004b8457499dda0caac8b356571e0692fbc268444991a5ae7c2f99fd5e2"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f006-prepare-editorial-v1"
+        }
+      ],
+      "status": "reviewed",
       "workId": "000624"
     },
     {

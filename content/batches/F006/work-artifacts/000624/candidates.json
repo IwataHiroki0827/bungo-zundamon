@@ -1,0 +1,33 @@
+{
+  "batchId": "F006",
+  "candidates": [
+    {
+      "candidateId": "2iCocl6pEn1OAB7MKoJXQ5EebyEAg7PHeVySy8Zl3-g",
+      "displayText": "「あぶないところだった」",
+      "order": 0,
+      "sha256": "b6af732d2304521341fb645928d721b92970bd612dd1575d0d43c5fc74d00f6a",
+      "sourceAnchor": ".main_text:839-851",
+      "speechText": "「あぶないところだった」"
+    },
+    {
+      "candidateId": "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q",
+      "displayText": "「その声は、我が友、李徴子ではないか？」",
+      "order": 1,
+      "sha256": "73b40564c04a956038b8ba54e6ccf64d0fe9575ce2f43ce6d7e5c928e94e6dd7",
+      "sourceAnchor": ".main_text:899-919",
+      "speechText": "「その声は、我が友、李徴子ではないか？」"
+    },
+    {
+      "candidateId": "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc",
+      "displayText": "「如何にも自分は隴西の李徴である」",
+      "order": 2,
+      "sha256": "c14247e84db0097be0654b1bb6bde784c92e826648c3c90fbeb4916f472b7c83",
+      "sourceAnchor": ".main_text:1054-1071",
+      "speechText": "「如何にも自分は隴西の李徴である」"
+    }
+  ],
+  "extractorVersion": "1.0.0",
+  "kind": "f006-extracted-candidates",
+  "schemaVersion": "1.0.0",
+  "workId": "000624"
+}

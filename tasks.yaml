@@ -3118,9 +3118,43 @@ tasks:
     合意完結・不一致pending検出・第三裁定解決・未封印judgment拒否・speech
     revision chain正常系/飛び越し拒否の5ケース、PASS）。lint/typecheck/
     対象testはPASS、フルtestは既存f005 native guard exe欠落等の既知flaky
-    以外は無関係で全PASS（本タスク由来の失敗0件）。名人伝(T-152)・弟子(T-153)
-    の抽出・二重判定・読み補正、および音声生成・容量forecast/actual・
-    atomic受入（FUN-F006-009/010）は未着手。
+    以外は無関係で全PASS（本タスク由来の失敗0件）。
+
+    続けて、段階Aの証跡は作成済みだったがcontent/batches/F006/batch.jsonの
+    work FSM（pending→extracted→reviewed）が未遷移だった漏れを修正した。
+    scripts/f005-run-work.tsの独自runnerパターン（transitionWorkState/
+    writeBatchManifestAtomicの直接呼び出し、新規wrapperなし）に倣い、
+    scripts/f006-prepare-editorial.tsへadvanceF006WorkStateを追記。決定的
+    抽出結果をcontent/batches/F006/work-artifacts/000624/candidates.json
+    としてcanonical snapshot化しそのsha256をextracted遷移のoutputHashに、
+    既存reviews/000624.jsonのsha256をreviewed遷移のoutputHash
+    （pendingCount: 0）に使い、pending→extracted→reviewedへ前進させた。
+    同一入力での再実行は既存stageRecordsの出力ハッシュ・countと照合し
+    何もしない冪等設計とし、2回連続実行でmanifest差分が発生しないことを
+    確認した。000624はstatus: reviewedまで到達（他2作品はpendingのまま、
+    batch全体statusはdraft維持、batchStatusFromWorksの既存仕様どおり）。
+    lint/typecheck全体PASS。npm testフルスイートは1357件中32 failed、全て
+    本セッション未変更のf005 native guard exe欠落・baseline.test.ts/
+    batch-runtime.test.tsの既知timeout・offline-build stderr差分で、
+    変更対象のf006-editorial.integration.test.ts・batch.test.tsは個別実行
+    で60件全PASS確認済み。
+
+    音声生成・容量forecast/actual・atomic受入（段階B、FUN-F006-009/010）
+    は未着手のまま残る。DD-F006-009/010は新規wrapperを作らずsrc/voice/
+    generation.ts（planVoiceDiff/authorizeVoiceDiffPlan/generateVoiceDiff/
+    verifyVoiceCompleteness）・src/voice/budget.ts（forecastCapacity/
+    measureGitRepository/verifyActualCapacity）・src/content/
+    batch-acceptance.ts（promoteVerifiedWorkArtifacts）を直接呼ぶ設計だが、
+    F004の対応実装（scripts/f004-prepare-voice.ts→f004-voice.ts wrapper、
+    scripts/f004-generate-voice.ts、scripts/f004-final-integration.ts、
+    src/content/f004-acceptance.ts）を精査した結果、acceptance側は
+    buildIntegratedPublicTreeによるpreview tree構築・F001 content/dist
+    invariant・published invariantとのhash相互検証を含む数百行規模の新規
+    script実装（f004-acceptance.tsは約200行のprepare関数だけでこの規模）
+    が必要と判明した。曖昧な設計判断ではなく実装規模の問題のため、次回
+    セッションでT-149/T-150と同規模の専用セッションとして着手することを
+    推奨する（詳細手順はSTATUS.md次のアクション参照）。名人伝(T-152)・
+    弟子(T-153)の抽出・二重判定・読み補正は未着手。
 
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入

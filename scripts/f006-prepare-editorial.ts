@@ -8,7 +8,17 @@ import {
   BATCH_DEFINITION_REFS,
   loadAndVerifyBatchCandidate,
 } from '../src/content/batch-candidate.ts';
-import type { Sha256 } from '../src/content/batch.ts';
+import {
+  hashBatchManifest,
+  transitionWorkState,
+  validateBatchManifest,
+  writeBatchManifestAtomic,
+  type BatchManifest,
+  type Sha256,
+  type StageEvidence,
+  type WorkId,
+  type WorkspaceRelativePath,
+} from '../src/content/batch.ts';
 import {
   DEFAULT_BATCH_SPEECH_RULES,
   normalizeBatchCandidate,
@@ -50,6 +60,8 @@ import {
 
 const BATCH_ID = 'F006';
 const WORK_ID = '000624';
+const MANIFEST_PATH = `content/batches/${BATCH_ID}/batch.json`;
+const FSM_TOOL_VERSION = 'f006-prepare-editorial-v1';
 const POLICY_PATH = 'docs/srs/SRS-F006.md';
 const PROMPT_PATH = 'docs/tests/ut/UT-F006.md';
 const TOOL_PATH = 'src/content/editorial-independent.ts';
@@ -180,6 +192,66 @@ async function sealIfMissing(
   });
 }
 
+/**
+ * 段階Aで作成済みの独立二重判定・読み補正の証跡を根拠に、
+ * content/batches/F006/batch.jsonのwork FSM（pending→extracted→reviewed）を
+ * 既存transitionWorkState/writeBatchManifestAtomicだけで前進させる。
+ * 同一入力での再実行はstageRecordsの既存出力と照合し、一致すれば何もしない
+ * （F005 f005-run-work.tsのadvanceF005RunnerManifestと同じ再開可能パターン）。
+ * @des DES-F006-006 DES-F006-007 @fun FUN-F006-007 FUN-F006-008
+ */
+async function advanceF006WorkState(
+  workspace: string,
+  manifest: BatchManifest,
+  workId: WorkId,
+  stage: 'extracted' | 'reviewed',
+  output: Sha256,
+  count: number,
+  extra: Pick<StageEvidence, 'pendingCount'> = {},
+  completedAt: string,
+): Promise<BatchManifest> {
+  const stageOrder = ['pending', 'extracted', 'reviewed'] as const;
+  const index = manifest.workIds.indexOf(workId);
+  const current = manifest.workProgress[index];
+  if (!current) throw new Error(`work ${workId}がmanifestにありません`);
+  const currentRank = stageOrder.indexOf(current.status as typeof stageOrder[number]);
+  const nextRank = stageOrder.indexOf(stage);
+  if (currentRank >= nextRank) {
+    const existing = current.stageRecords.find((record) => record.stage === stage);
+    const sameOutput = existing?.outputHashes.length === 1 && existing.outputHashes[0] === output;
+    const sameBinding = existing?.count === count && existing.toolVersion === FSM_TOOL_VERSION &&
+      (stage !== 'reviewed' || extra.pendingCount === 0);
+    if (!sameOutput || !sameBinding) {
+      throw new Error(`work stage再開証跡が今回入力と一致しません: ${stage}`);
+    }
+    return manifest;
+  }
+  if (nextRank !== currentRank + 1) throw new Error(`work stage順が不正です: ${stage}`);
+  const expectedManifestSha = hashBatchManifest(manifest);
+  const previousOutputs = current.stageRecords.at(-1)?.outputHashes ?? [];
+  const evidence: StageEvidence = {
+    kind: 'stage',
+    stage,
+    expectedManifestSha,
+    workId,
+    result: 'pass',
+    inputHashes: [expectedManifestSha, ...previousOutputs],
+    outputHashes: [output],
+    count,
+    toolVersion: FSM_TOOL_VERSION,
+    completedAt,
+    ...extra,
+  };
+  const next = transitionWorkState(manifest, workId, stage, evidence);
+  await writeBatchManifestAtomic(
+    workspace,
+    MANIFEST_PATH as WorkspaceRelativePath,
+    next,
+    expectedManifestSha,
+  );
+  return next;
+}
+
 async function main(): Promise<void> {
   const workspace = resolve(process.cwd());
 
@@ -290,6 +362,31 @@ async function main(): Promise<void> {
     legacyReviews,
   );
 
+  // 2.5) 決定的抽出結果を独立snapshotとしてcanonical固定する（FSM extracted遷移のoutputHash根拠）。
+  const candidatesArtifact = {
+    schemaVersion: '1.0.0' as const,
+    kind: 'f006-extracted-candidates' as const,
+    batchId: BATCH_ID,
+    workId: WORK_ID,
+    extractorVersion: EXTRACTOR_VERSION,
+    candidates: candidates.map((candidate) => ({
+      candidateId: candidate.candidateId,
+      order: candidate.order,
+      displayText: candidate.displayText,
+      speechText: candidate.speechText,
+      sha256: candidate.sha256,
+      sourceAnchor:
+        `${candidate.sourceAnchor.bodySelector}:${candidate.sourceAnchor.startToken}-${candidate.sourceAnchor.endToken}`,
+    })),
+  };
+  await writeJsonArtifactAtomic(
+    workspace,
+    resolve(workspace, ...`${outputRoot}/candidates.json`.split('/')),
+    candidatesArtifact,
+  );
+  const candidatesSha256 = sha256(canonicalJson(candidatesArtifact)) as Sha256;
+  const reviewsSha256 = sha256(canonicalJson(legacyReviews)) as Sha256;
+
   // 3) 読み補正の要否確認・適用（既存f003-reuse.ts、displayTextは不変）。
   const approvedForSpeech = candidates.map((candidate) => ({
     candidateId: candidate.candidateId,
@@ -349,10 +446,43 @@ async function main(): Promise<void> {
     speechRevisionArtifact,
   );
 
+  // 4) 段階Aで作成済みの証跡を根拠に、batch.jsonのwork FSMを
+  //    pending → extracted → reviewed へ実際に前進させる（T-151遷移漏れの解消）。
+  const manifestPath = resolve(workspace, ...MANIFEST_PATH.split('/'));
+  const manifestText = await readFile(manifestPath, 'utf8');
+  const checkedManifest = validateBatchManifest(JSON.parse(manifestText) as unknown);
+  if (!checkedManifest.ok || canonicalJson(checkedManifest.value) !== manifestText) {
+    throw new Error('F006 manifestがcanonicalではありません');
+  }
+  const fsmCompletedAt = '2026-08-22T00:20:00.000Z';
+  let manifest = checkedManifest.value;
+  manifest = await advanceF006WorkState(
+    workspace,
+    manifest,
+    WORK_ID as WorkId,
+    'extracted',
+    candidatesSha256,
+    candidates.length,
+    {},
+    fsmCompletedAt,
+  );
+  manifest = await advanceF006WorkState(
+    workspace,
+    manifest,
+    WORK_ID as WorkId,
+    'reviewed',
+    reviewsSha256,
+    candidates.length,
+    { pendingCount: 0 },
+    fsmCompletedAt,
+  );
+
   const approved = resolution.resolutions.filter((item) => item.finalDecision === 'approved').length;
   const rejected = resolution.resolutions.filter((item) => item.finalDecision === 'rejected').length;
+  const workStatus = manifest.workProgress[manifest.workIds.indexOf(WORK_ID as WorkId)]?.status;
   process.stdout.write(
-    `F006/${WORK_ID}: approved=${approved}, rejected=${rejected}, pending=0, speechRevisions=${revisions.length}\n`,
+    `F006/${WORK_ID}: approved=${approved}, rejected=${rejected}, pending=0, ` +
+    `speechRevisions=${revisions.length}, workStatus=${String(workStatus)}\n`,
   );
 }
 

@@ -1475,3 +1475,64 @@ entries:
     の抽出・二重判定・読み補正、および音声生成・容量forecast/actual・atomic
     受入（FUN-F006-009/010、段階B）は未着手。public/・content/baselines/*.json
     は変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-151 山月記のFSM遷移漏れ修正・段階B着手判断
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    段階Aで独立二重判定・読み補正の証跡（reviews/000624.json・
+    work-artifacts/000624/speech-revisions.json）は作成済みだったが、
+    content/batches/F006/batch.jsonのwork FSM（pending→extracted→reviewed）
+    が一度も遷移していない漏れが判明していたため、これを解消した。
+    scripts/f005-run-work.tsの独自runnerパターン（既存transitionWorkState/
+    writeBatchManifestAtomicを直接呼ぶだけの薄い実装、新規wrapperモジュール
+    なし）に倣い、scripts/f006-prepare-editorial.tsへadvanceF006WorkState
+    ヘルパーを追記した。決定的抽出結果をcontent/batches/F006/work-artifacts/
+    000624/candidates.jsonとして新たにcanonical snapshot化し、そのsha256を
+    extracted遷移のoutputHashに、既存reviews/000624.jsonのsha256をreviewed
+    遷移のoutputHash（pendingCount: 0）として使い、pending→extracted→
+    reviewedへ前進させた。同一入力での再実行時は既存stageRecordsの出力
+    ハッシュ・countと照合し何もしない冪等設計とし、実際に2回連続実行して
+    manifest差分が発生しないことを確認した。000624はstatus: reviewedまで
+    到達（他2作品はpendingのまま、batch全体statusはdraft維持、これは
+    batchStatusFromWorksの既存仕様どおりで意図通り）。
+
+    続けて音声生成・容量forecast/actual・atomic受入（段階B、FUN-F006-009/010）
+    の着手を試みた。ローカルVOICEVOX 0.25.2 speaker3 engine
+    （http://127.0.0.1:50021）は起動確認済みで音声生成自体は実行可能だった。
+    DD-F006-009/010は新規wrapperモジュールを作らずsrc/voice/generation.ts
+    （planVoiceDiff/authorizeVoiceDiffPlan/generateVoiceDiff/
+    verifyVoiceCompleteness）・src/voice/budget.ts（forecastCapacity/
+    measureGitRepository/verifyActualCapacity）・src/content/
+    batch-acceptance.ts（promoteVerifiedWorkArtifacts）を直接scriptから
+    呼ぶ設計であるため、既存実装のうち最も近いprecedentであるF004の対応
+    実装一式（scripts/f004-prepare-voice.ts→src/content/f004-voice.ts
+    wrapper、scripts/f004-generate-voice.ts、scripts/f004-final-integration.ts
+    約450行、src/content/f004-acceptance.ts約375行）を精読した。その結果、
+    acceptance側（voiced→accepted遷移）はbuildIntegratedPublicTreeによる
+    preview tree構築・F001 content/dist invariant検証・published invariant
+    とのhash相互検証を含み、f004-acceptance.tsのprepare関数だけで約200行の
+    canonical tuple再検証（安全性・reconciliation・forecast・voice evidence・
+    baseline記述子・stageRecords全項目のhash一致確認）を要することが判明した。
+    これはT-149（新規f006-source.ts約1030行）・T-150（f006-catalog.ts新設等）
+    と同規模の新規実装であり、設計上の曖昧さではなく実装量の問題のため、
+    誤った実装でmanifestを破損させるリスクを避けるべく本セッションでは
+    着手を見送った。次回セッションの着手手順（voice-config.json新設→
+    F006固有forecast/generate script新設→preview/acceptance script新設の
+    3段階、baseline v0.5.0=content/baselines/F006-v0.5.0.json使用）を
+    STATUS.md次のアクションとtasks.yaml T-151 progressへ具体的に記載した。
+
+    npm run lint/typecheckは全体PASS（1件のunused import警告を追加修正で
+    クリア）。npm testフルスイートは1357件中32 failedで、全て本セッション
+    未変更のf005 native guard実行ファイル欠落（.cache/dotnet-f005/publish/
+    f005-guard.exe不在）・baseline.test.ts/batch-runtime.test.tsの既知
+    timeout・offline-build.integration.test.tsのstderr差分という既知
+    Windows並列flakyで、変更対象のf006-editorial.integration.test.ts・
+    batch.test.tsは個別実行で60件全PASS確認済み。tasks.yamlのT-151は
+    state: doingのまま維持しprogressへ本セッションの内容を追記した。
+    STATUS.md（本文4節）とdocs/cost.yamlを更新した。名人伝(T-152)・
+    弟子(T-153)、および音声生成・容量forecast/actual・atomic受入は未着手。
+    public/・content/baselines/*.jsonは変更していない。push・PR作成は
+    行っていない。
