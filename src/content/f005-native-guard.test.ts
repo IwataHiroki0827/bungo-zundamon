@@ -1027,7 +1027,7 @@ describe('F005 native ETW capacity guard', () => {
       .toBeLessThan(bridge.indexOf("op: 'completeWrite'"));
   });
 
-  it('System SetInfo相関のnative規則を攻撃ケース込みで実行する', async () => {
+  it.runIf(process.platform === 'win32')('System SetInfo相関のnative規則を攻撃ケース込みで実行する', async () => {
     const dotnet = resolve('.cache/dotnet-f005/sdk/dotnet.exe');
     const child = spawn(dotnet, [
       'run',

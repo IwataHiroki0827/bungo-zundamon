@@ -374,7 +374,7 @@ async function persistSelectionSnapshot(
 
 describe('F005公式原典snapshotと権利・書誌', () => {
   /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
-  it('初回selection archive/JSONを既存root anchorからbootstrapし、後続anchorへ切り替える', async () => {
+  it.runIf(process.platform === 'win32')('初回selection archive/JSONを既存root anchorからbootstrapし、後続anchorへ切り替える', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-source-bootstrap-'));
     temporaryDirectories.push(root);
     await Promise.all([
@@ -478,7 +478,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
   });
 
   /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
-  it('永続化selectionを実物とApproved Contextへ再結合し、process再開相当のpredeployへ渡す', async () => {
+  it.runIf(process.platform === 'win32')('永続化selectionを実物とApproved Contextへ再結合し、process再開相当のpredeployへ渡す', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-'));
     temporaryDirectories.push(root);
     const original = await collectF005SourceSnapshot(
@@ -504,7 +504,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
   });
 
   /** @des DES-F005-001 DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
-  it('8MiB超の永続化書誌CSVも同一FileHandle identityから再結合する', async () => {
+  it.runIf(process.platform === 'win32')('8MiB超の永続化書誌CSVも同一FileHandle identityから再結合する', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-large-'));
     temporaryDirectories.push(root);
     const base = csvFixture();
@@ -551,7 +551,7 @@ describe('F005公式原典snapshotと権利・書誌', () => {
   }, 30_000);
 
   /** @des DES-F005-003 @fun FUN-F005-006 @test UT-F005-006 */
-  it('永続化selectionの非canonical JSON・未知key・path・decision・実体SHA改変を拒否する', async () => {
+  it.runIf(process.platform === 'win32')('永続化selectionの非canonical JSON・未知key・path・decision・実体SHA改変を拒否する', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-rehydrate-tamper-'));
     temporaryDirectories.push(root);
     const original = await collectF005SourceSnapshot(
@@ -1006,7 +1006,7 @@ describe('F005 entity正規化と安全抽出', () => {
   }, 20_000);
 
   /** @des DES-F005-004 @fun FUN-F005-009 FUN-F005-010 @test UT-F005-009 UT-F005-010 */
-  it('passthrough作品をpreflight後に二重抽出して同一候補を返す', async () => {
+  it.runIf(process.platform === 'win32')('passthrough作品をpreflight後に二重抽出して同一候補を返す', async () => {
     const snapshot = await collectF005SourceSnapshot(
       transportFixture(),
       CONTEXT,
@@ -1042,7 +1042,7 @@ describe('F005 entity正規化と安全抽出', () => {
   });
 
   /** @des DES-F005-004 @fun FUN-F005-010 @test UT-F005-010 */
-  it.each([
+  it.runIf(process.platform === 'win32').each([
     ['internal subset', '<!DOCTYPE html [<!ENTITY x "y">]><html><body><div class="main_text"/></body></html>'],
     ['ENTITY', `${VALID_DOCTYPE}<!ENTITY x "y"><html><body><div class="main_text"/></body></html>`],
     ['XInclude', `${VALID_DOCTYPE}<html><body><xi:include href="file:///x"/></body></html>`],
@@ -1072,7 +1072,7 @@ describe('F005 entity正規化と安全抽出', () => {
 
 describe('F005 Windows安全path', () => {
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
-  it('root内single-link regular fileだけをidentity付きで解決する', async () => {
+  it.runIf(process.platform === 'win32')('root内single-link regular fileだけをidentity付きで解決する', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-safe-'));
     temporaryDirectories.push(root);
     await mkdir(join(root, 'content'));
@@ -1109,7 +1109,7 @@ describe('F005 Windows安全path', () => {
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
-  it('production APIがnative handleでparent/source swapを止め、target挿入もfail-closedにする', async () => {
+  it.runIf(process.platform === 'win32')('production APIがnative handleでparent/source swapを止め、target挿入もfail-closedにする', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-swap-'));
     temporaryDirectories.push(root);
     await mkdir(join(root, 'content'));
@@ -1145,7 +1145,7 @@ describe('F005 Windows安全path', () => {
   });
 
   /** @des DES-F005-001 DES-F005-006 DES-F005-011 @fun FUN-F005-043 @test UT-F005-043 */
-  it('capability取得後のoperation不一致と不正targetでもhelper終了を待つ', async () => {
+  it.runIf(process.platform === 'win32')('capability取得後のoperation不一致と不正targetでもhelper終了を待つ', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-guard-cleanup-'));
     temporaryDirectories.push(root);
     await writeFile(join(root, 'source.json'), '{}');
@@ -1439,7 +1439,7 @@ describe('UT-F005-006 predeploy snapshotの検証済み再読込 [DES-F005-003][
     return predeploy;
   }
 
-  it('永続化predeployを実物とApproved Contextへ再結合し、selectionと対称なexact値を返す', async () => {
+  it.runIf(process.platform === 'win32')('永続化predeployを実物とApproved Contextへ再結合し、selectionと対称なexact値を返す', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-rehydrate-'));
     temporaryDirectories.push(root);
     const predeploy = await seed(root);
@@ -1451,7 +1451,7 @@ describe('UT-F005-006 predeploy snapshotの検証済み再読込 [DES-F005-003][
     expect(evaluateF005RightsAndUsage(rehydrated, USAGE).decision).toBe('allow');
   }, 30_000);
 
-  it('固定形式外のpath・context不一致を拒否する', async () => {
+  it.runIf(process.platform === 'win32')('固定形式外のpath・context不一致を拒否する', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-path-'));
     temporaryDirectories.push(root);
     const predeploy = await seed(root);
@@ -1466,7 +1466,7 @@ describe('UT-F005-006 predeploy snapshotの検証済み再読込 [DES-F005-003][
       .rejects.toMatchObject({ code: 'F005_CONTEXT_INVALID' });
   });
 
-  it('実体SHA・kind・phase改変を拒否する', async () => {
+  it.runIf(process.platform === 'win32')('実体SHA・kind・phase改変を拒否する', async () => {
     const root = await mkdtemp(join(tmpdir(), 'bungo-f005-predeploy-tamper-'));
     temporaryDirectories.push(root);
     const predeploy = await seed(root);

@@ -1,4 +1,17 @@
 changes:
+- id: CHG-F005-084
+  date: '2026-08-21'
+  trigger: 'feature/F005（commit 6e1f311）をorigin/mainへfast-forward push（957855c..6e1f311）した直後、GitHub Actions pages.ymlのbuild job（ubuntu-latest、npm run verify）が失敗した。F005のnative guard（F005NativeGuardClient、Windows専用のJob Object/ETW機構）に依存するテストが、Linux CI環境でF005SourceError: native guardはWindowsでのみ利用できます (F005_PATH_UNSAFE)またはspawn ENOENTで軒並み失敗した。STATUS.mdに以前から記録されていた既知の未対応事項（F005をmainへマージする前にubuntuで実行不能なnative guard依存テストのOS gateを決める）に気づかないままマージしたことが原因'
+  level: implementation
+  affected:
+  - src/content/f005-native-guard.test.ts
+  - src/content/f005-source.test.ts
+  - src/content/f005-run-work.test.ts
+  - src/content/artifacts.test.ts
+  status: done
+  approved_by: 'テストのOS gate化・期待値分岐のみでsrc本体の動作ロジックを変更しないため新規承認ゲート登録は行わない'
+  completed_at: '2026-08-21T14:00:00+09:00'
+  result: gh run view 32431124995 --log-failedでf005-native-guard.test.ts 1件・f005-source.test.ts 19件（12箇所、it.each 1件含む）・f005-run-work.test.ts 2件・artifacts.test.ts 1件の失敗を確認した。既存のit.runIf(process.platform === 'win32')パターン（f005-source.test.ts:611）を踏襲し、native guard自体または実在するWindows専用executableを前提とする22件をOS gate化した。src/content/artifacts.tsのsyncDirectory実装（167行目、process.platform === 'win32' && nativeDirectorySyncの場合だけcallback経由、POSIXはdirectory handle直接fsyncへfallback）による正当なOS分岐と確認できたf005-run-work.test.ts・artifacts.test.tsの各1件はgateではなく期待値分岐へ変更した。lint/typecheck PASS。フルスイート1319件中1313 PASS・6 failedは全てtimeout/EBUSYによるWindows並列resource contentionで、対象6ファイルの個別実行では142件全PASSを確認した。Linux実行（Docker Desktop未起動のため）は未検証だが、runIfのcondition偽時skip動作とsyncDirectory実装の分岐条件をコード上で確認し整合性を確認した（詳細CHG-F005-084.md）
 - id: CHG-F005-083
   date: '2026-08-21'
   trigger: T-074でDD-F005.mdに設計は存在するがsrc/content/配下に実装が一切存在しないFUN-F005-035〜039（release/deployパイプライン一式）・FUN-F005-042（CAS付き状態遷移）・FUN-F005-044/046（第三者裁定authorization発行・解決）の10個の未着手サブシステムが判明した（CHG-F005-082既報）。オーナーと協議し、F005専用ETW検証付きリリースパイプラインは新規実装せず、F001〜F004および先日のv0.4.1パッチ(PR #3)で実績のある汎用リリース経路（`scripts/verify-project.mjs`、GitHub Actions `PAGES_DEPLOY_ENABLED`/`PAGES_DEPLOY_COMMIT`ゲート）をF005にも適用する方針で決定した

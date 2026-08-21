@@ -57,13 +57,24 @@ describe('production artifactのatomic writer [DES-F001-017][DES-F001-019]', () 
       expectedFingerprint: null,
       onDurabilityPhase: (phase) => { phases.push(phase); },
     });
-    expect(phases).toEqual([
-      'temporary-synced',
-      'renamed',
-      'native-directory-flush',
-      'directory-synced',
-      'post-read-verified',
-    ]);
+    // directorySync callbackはWindowsでのみ経由する(src/content/artifacts.tsのsyncDirectory実装を参照)。
+    // POSIXはdirectory handle直接fsyncへfallbackするためnative-directory-flush phaseは記録されない。
+    expect(phases).toEqual(
+      process.platform === 'win32'
+        ? [
+          'temporary-synced',
+          'renamed',
+          'native-directory-flush',
+          'directory-synced',
+          'post-read-verified',
+        ]
+        : [
+          'temporary-synced',
+          'renamed',
+          'directory-synced',
+          'post-read-verified',
+        ],
+    );
     expect(await readFile(target, 'utf8')).toBe(canonicalJson({ durable: true }));
   });
 

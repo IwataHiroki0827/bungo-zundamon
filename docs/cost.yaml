@@ -1197,3 +1197,39 @@ entries:
     PAGES_DEPLOY変数設定・実デプロイ・release evidence作成は行っていない。
     `tasks.yaml`のT-075は`state: doing`のまま維持（実デプロイ・release evidence
     作成はメインセッション側の担当）。STATUS.mdフロントマター・本文4節を更新した。
+- date: '2026-08-21'
+  phase: release
+  task: CHG-F005-084 mainマージ後発覚のCI red（native guard依存テストのOS gate化）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 30000
+  note: >-
+    `feature/F005`（commit `6e1f311`）をorigin/mainへfast-forward push
+    （`957855c..6e1f311`）した直後、GitHub Actions `pages.yml`のbuild job
+    （ubuntu-latest、`npm run verify`）が失敗した（run `32431124995`）。
+    `gh run view --log-failed`で失敗ログを確認し、F005のnative guard
+    （`F005NativeGuardClient`、Windows専用のJob Object/ETW機構）に依存する
+    テストがLinux CIで`F005SourceError: native guardはWindowsでのみ利用でき
+    ません (F005_PATH_UNSAFE)`またはspawn ENOENTで失敗していると特定した。
+    `f005-native-guard.test.ts`1件・`f005-source.test.ts`19件（12箇所、
+    `it.each`1件含む）・`f005-run-work.test.ts`2件・`artifacts.test.ts`1件の
+    計23件を対象に、既存の`it.runIf(process.platform === 'win32')`パターン
+    （`f005-source.test.ts:611`）を踏襲し、native guard自体または実在する
+    Windows専用executableを前提とする22件をOS gate化した。
+    `src/content/artifacts.ts`の`syncDirectory`実装（167行目、
+    `process.platform === 'win32' && nativeDirectorySync`の場合だけcallback
+    経由し、POSIXはdirectory handle直接fsyncへfallbackする正当な設計分岐）に
+    起因すると判明した`f005-run-work.test.ts`・`artifacts.test.ts`の各1件は
+    gateではなくOSごとの期待値分岐へ変更した。src本体の動作ロジックは
+    一切変更していない。`docs/changes/changes.yaml`へCHG-F005-084を追加し、
+    `docs/changes/CHG-F005-084.md`を新規作成した。`STATUS.md`のフロント
+    マター・本文4節、本cost.yamlを更新した。`npm run lint`/`npx tsc --noEmit`
+    はPASS。`npm test`フルスイートは1319件中1313 PASS・6 failedで、全て
+    `Test timed out`/`EBUSY`によるWindows並列resource contentionと確認した
+    （対象6ファイルを個別実行すると142件全PASS）。Linux実行はDocker Desktop
+    が未起動のため実施できず未検証だが、`it.runIf`のcondition偽時skip動作
+    （vitest標準API）と`syncDirectory`の分岐条件をコード上で確認し、CI失敗
+    ログの実差分（`expected [] to deeply equal [...(2)]`等）と整合すること
+    を確認した。`content/baselines/*.json`・`public/`は変更していない。
+    push・タグpush・PAGES_DEPLOY変数設定・実デプロイは行っていない
+    （メインセッション側の担当）。

@@ -45,7 +45,7 @@ import {
 const H = (value: string): Sha256 =>
   createHash('sha256').update(value).digest('hex') as Sha256;
 
-it('hosted native guard overrideをreparse/hardlinkなしのworkspace外pathだけに限定する', async () => {
+it.runIf(process.platform === 'win32')('hosted native guard overrideをreparse/hardlinkなしのworkspace外pathだけに限定する', async () => {
   const workspace = resolve('.');
   const root = await mkdtemp(join(tmpdir(), 'f005-native-outside-'));
   const external = join(root, 'f005-guard.exe');
@@ -1151,7 +1151,11 @@ describe('F005 production work runner', () => {
       const first = await writeCanonicalArtifact(root, target, value, syncDirectory);
       const second = await writeCanonicalArtifact(root, target, value, syncDirectory);
       expect(second).toBe(first);
-      expect(syncedDirectories).toEqual([join(root, 'evidence'), join(root, 'evidence')]);
+      // syncDirectoryのnative callbackはWindowsでのみ経由する(src/content/artifacts.tsの
+      // syncDirectory実装を参照)。POSIXはdirectory handle直接fsyncへfallbackするためcallback未経由。
+      expect(syncedDirectories).toEqual(
+        process.platform === 'win32' ? [join(root, 'evidence'), join(root, 'evidence')] : [],
+      );
       await writeFile(target, '{"attacker":true}\n', 'utf8');
       await expect(writeCanonicalArtifact(root, target, value, syncDirectory))
         .rejects.toThrow(/既存artifactが現在のtupleと異なります/u);
