@@ -1250,3 +1250,22 @@ entries:
     distSha256・catalogSha256は実測値、捏造なし）。tasks.yaml T-075を`done`、
     docs/features.yaml F005を`state: closed`へ更新。STATUS.mdのnext_actions/
     未解決事項を解消済み項目の整理を含め全面更新。
+- date: '2026-08-21'
+  phase: requirements
+  task: pf-worker F006 SRS/QA/QTドラフト作成
+  model: Claude Sonnet 5 (pf-worker)
+  agents: 1
+  est_tokens: 20000
+  note: >-
+    DOMAIN-F006.md（中島敦・山月記/名人伝/弟子）とSRS-F005.mdの構造を精読し、
+    docs/srs/SRS-F006.md（REQ-F006-001〜018、SRS-F005の18要求構造をF006固有内容へ
+    置換）、docs/qa/QA-F006.md（未回答8件: 作者slug・表示名確定、entity正規化
+    REQ-F006-007相当の要否、作品固有注記REQ-F006-010相当の要否、校正者欄
+    REQ-F006-006理解確認、候補件数確定方法、手動確認要否、作者画像生成方式）、
+    docs/tests/qt/QT-F006.md（QT-F006-001〜018、全REQ対応・全自動）を
+    status: Draftで新規作成した。QA設問8件をqueue.yamlへtype: question
+    （Q-051〜Q-058、target: docs/qa/QA-F006.md、allow_freeform: true）として
+    登録し回答待ち。python tools/kb_search.py --query "要求分析 SRS QA"を
+    開始時に実行（ヒット0件）。STATUS.md（frontmatter phase: requirements/
+    feature: F006、本文4節）を更新。content/public/srcは変更していない。
+    push・PR作成・承認ゲート自動承認は行っていない。
