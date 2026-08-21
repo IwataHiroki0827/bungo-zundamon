@@ -23,14 +23,19 @@ import {
   F006SourceError,
   F006_WORKS,
   collectF006SourceSnapshot,
+  defineF006AuthorAndWorkRegistry,
   evaluateF006PolicyClauses,
   evaluateF006RightsAndUsage,
   extractF006DialogueCandidates,
+  isVerifiedF006Author,
   normalizeF006AozoraXhtmlEntities,
   parseF006BibliographyV2,
   parseF006SourceRecord,
   rehydrateF006SelectionSnapshot,
+  verifyF006AuthorIdentity,
+  type F006WorkRegistry,
 } from './f006-source.ts';
+import type { CatalogV2 } from './processing.ts';
 
 const workspace = resolve('.');
 const temporaryDirectories: string[] = [];
@@ -323,5 +328,77 @@ describe('F006原典・書誌・権利判定（f006-source.ts）', () => {
       'utf8',
     );
     await expect(rehydrateF006SelectionSnapshot(root, context)).rejects.toThrow(F006SourceError);
+  });
+});
+
+describe('中島敦author identity registry（f006-source.ts）', () => {
+  function baselineCatalog(overrides: Partial<Pick<CatalogV2, 'authors' | 'works'>> = {}): CatalogV2 {
+    return {
+      schemaVersion: '2.0.0',
+      authors: overrides.authors ?? [
+        { authorId: '000879', name: 'あくたがわりゅうのすけ', originalName: '芥川龍之介', slug: 'akutagawa-ryunosuke', artwork: { path: 'a.png', alt: 'a', sha256: 'a'.repeat(64) }, introducedByBatchId: 'F001', identitySha256: 'b'.repeat(64) },
+      ],
+      works: overrides.works ?? [{ authorId: '000879' } as CatalogV2['works'][number]],
+      audioAssets: [],
+      batches: [],
+      candidateCounts: { total: 0, published: 0, editorialExcluded: 0, audioExcluded: 0, byBatch: {} },
+      creditsRef: 'content/credits.json',
+    };
+  }
+
+  /** @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004 */
+  it('defineF006AuthorAndWorkRegistryはexact authorId/name/slugとwork順3件を返す', () => {
+    const registry: F006WorkRegistry = defineF006AuthorAndWorkRegistry();
+    expect(registry.authorId).toBe('000119');
+    expect(registry.name).toBe('なかじまあつし');
+    expect(registry.originalName).toBe('中島敦');
+    expect(registry.slug).toBe('nakajima-atsushi');
+    expect(registry.authorMode).toBe('introduce');
+    expect(registry.works.map((work) => work.workId)).toEqual(['000624', '000621', '001738']);
+    expect(registry.works.map((work) => work.order)).toEqual([1, 2, 3]);
+    expect(registry.works.map((work) => work.title)).toEqual(['山月記', '名人伝', '弟子']);
+    expect(registry.identitySha256).toMatch(/^[0-9a-f]{64}$/u);
+    // 再呼出しでも同一identitySha256（決定的）
+    expect(defineF006AuthorAndWorkRegistry().identitySha256).toBe(registry.identitySha256);
+  });
+
+  /** @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004 */
+  it('verifyF006AuthorIdentityはbaseline非衝突時だけVerifiedAuthorをmintする', () => {
+    const registry = defineF006AuthorAndWorkRegistry();
+    const verified = verifyF006AuthorIdentity(registry, baselineCatalog());
+    expect(isVerifiedF006Author(verified)).toBe(true);
+    expect(verified.authorId).toBe('000119');
+    expect(verified.identitySha256).toBe(registry.identitySha256);
+  });
+
+  /** @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004 */
+  it('未mintのregistryはverifyF006AuthorIdentityで拒否される', () => {
+    const fakeRegistry = { ...defineF006AuthorAndWorkRegistry() };
+    expect(() => verifyF006AuthorIdentity(fakeRegistry, baselineCatalog())).toThrow(F006SourceError);
+  });
+
+  /** @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004 */
+  it('既存4作者との衝突（authorId/name/slug一致）はF006_REGISTRY_MISMATCHで拒否される', () => {
+    const registry = defineF006AuthorAndWorkRegistry();
+    const conflicting = baselineCatalog({
+      authors: [
+        { authorId: '000119', name: 'x', originalName: 'y', slug: 'z', artwork: { path: 'a.png', alt: 'a', sha256: 'a'.repeat(64) }, introducedByBatchId: 'F001', identitySha256: 'b'.repeat(64) },
+      ],
+    });
+    expect(() => verifyF006AuthorIdentity(registry, conflicting)).toThrow(F006SourceError);
+    try {
+      verifyF006AuthorIdentity(registry, conflicting);
+    } catch (error) {
+      expect((error as F006SourceError).code).toBe('F006_REGISTRY_MISMATCH');
+    }
+  });
+
+  /** @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004 */
+  it('既存作品のauthorId衝突もF006_REGISTRY_MISMATCHで拒否される', () => {
+    const registry = defineF006AuthorAndWorkRegistry();
+    const conflicting = baselineCatalog({
+      works: [{ authorId: '000119' } as CatalogV2['works'][number]],
+    });
+    expect(() => verifyF006AuthorIdentity(registry, conflicting)).toThrow(F006SourceError);
   });
 });

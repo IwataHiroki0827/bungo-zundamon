@@ -3062,7 +3062,7 @@ tasks:
   title: 中島敦作者identity・独自作者画像・Catalog新規author統合基盤を実装
   feature: F006
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-149
   tags:
@@ -3073,6 +3073,14 @@ tasks:
   mode: orchestration
   mode_reason: 新規author identity、独自作者画像provenance、Catalog/routeのデータ駆動拡張を独立実装して統合できるため
   model: *model_f006
+  progress: >-
+    identity registry（defineF006AuthorAndWorkRegistry/verifyF006AuthorIdentity、
+    f006-source.ts）とCatalog統合・route導出（mergeNewAuthorCatalog006/
+    deriveF006RouteSet、新規f006-catalog.ts）を実装しUT-F006-004/011/012を作成、
+    型・lint・対象テスト（23件）をPASS。作者画像生成（REQ-F006-016、
+    sealF006ArtworkProvenance相当のFUN-F006-014/015）はComfyUI等の画像生成
+    ツールが現在利用できないため未着手。画像生成後にf006-artwork.ts実装・
+    mergeNewAuthorCatalog006へのartwork binding結線・T-150完了化が必要
 - id: T-151
   title: 山月記を抽出・二重レビュー・音声化・atomic受入
   feature: F006

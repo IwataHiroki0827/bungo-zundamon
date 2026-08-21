@@ -1400,3 +1400,38 @@ entries:
     tasks.yamlのT-149をstate: doneへ更新した。STATUS.md（本文4節）とdocs/cost.yaml
     を更新した。public/・F001〜F005の既存baseline記述子は変更していない。
     push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-150 中島敦author identity registry・Catalog新規author統合基盤（作者画像除く）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 95000
+  note: >-
+    src/content/f005-catalog.tsを精読しF005ハードコード箇所（authorId 000148固定型・
+    manifest.author.authorId比較・baselineCatalog.authors.length===3/works.length===12
+    固定・artwork path 'artwork/natsume-zundamon.png'固定）を特定した。
+    src/content/f006-source.tsへdefineF006AuthorAndWorkRegistry()（FUN-F006-004、
+    authorId 000119・name なかじまあつし・slug nakajima-atsushiと山月記(000624,order1)
+    →名人伝(000621,order2)→弟子(001738,order3)のexact tupleをmintするregistry）と
+    verifyF006AuthorIdentity(registry, baselineCatalog)（既存4作者Catalogとの非衝突
+    検証）を追加した。DD-F006.mdは既存verifyExistingAuthorIdentity（batch-candidate.ts）
+    の再利用を記載するが、実装検証の結果同関数はauthorExpectation: 'reuse'専用で
+    F006のintroduceシナリオでは常に例外になると判明したため、f005-foundation.tsの
+    verifyNatsumeIdentityと同型の自己完結実装へ設計を修正した（DD-F006.md本文の
+    訂正注記は未反映、次回セッションでの追記を推奨）。新規src/content/f006-catalog.ts
+    へmergeNewAuthorCatalog006（FUN-F006-011、baseline4作者15作品のserialized
+    projectionをexact維持したまま中島敦作者・3作品を末尾追加、統合後5作者18作品、
+    QA-F006 No.4によりnotices: []固定）とderiveF006RouteSet（FUN-F006-012、5作者
+    slugから固定8 routeを導出）を実装した。作者画像実体（PNG）は画像生成ツールが
+    現在利用できないため未生成で、authorArtwork bindingはcaller供給オブジェクト
+    （path/alt/sha256のみ）をそのまま結合しPNG検証は行わない設計とした
+    （FUN-F006-014/015は後続、画像生成後にf006-artwork.tsとして実装予定）。
+    f006-source.test.tsへregistry関連5ケース、新規f006-catalog.test.tsへmerge/route
+    関連11ケースを追加し、合成fixtureによる画像なし単体テストが可能なことを確認した。
+    npm run lint/typecheckは全体PASS。対象2ファイル（f006-source.test.ts 12件・
+    f006-catalog.test.ts 11件）は個別実行で全PASS。npm testフルスイートは1352件中
+    9 failedで、全て本セッション未変更ファイルのWindows並列resource contention
+    （個別実行で全PASS確認済み）。tasks.yamlのT-150は作者画像生成待ちのため
+    state: doingのまま維持しprogressに完了範囲・残作業を明記した。STATUS.md
+    （本文4節）とdocs/cost.yamlを更新した。public/・F001〜F005の既存baseline
+    記述子は変更していない。push・PR作成は行っていない。

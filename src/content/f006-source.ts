@@ -107,7 +107,8 @@ export type F006SourceErrorCode =
   | 'F006_ENTITY_NORMALIZATION_INVALID'
   | 'F006_XHTML_PREFLIGHT_REJECTED'
   | 'F006_EXTRACTION_FAILED'
-  | 'F006_PATH_UNSAFE';
+  | 'F006_PATH_UNSAFE'
+  | 'F006_REGISTRY_MISMATCH';
 
 export class F006SourceError extends Error {
   constructor(
@@ -261,6 +262,135 @@ function deepFreeze<T>(value: T): T {
 
 function cloneBytes(value: Uint8Array): Uint8Array {
   return new Uint8Array(value);
+}
+
+// ---------------------------------------------------------------------------
+// 中島敦author identity・work順registry（FUN-F006-004）
+// ---------------------------------------------------------------------------
+
+const EXPECTED_REGISTRY_WORKS = Object.freeze([
+  { workId: '000624', title: '山月記', order: 1 },
+  { workId: '000621', title: '名人伝', order: 2 },
+  { workId: '001738', title: '弟子', order: 3 },
+] as const);
+
+export interface F006AuthorAndWorkRegistryWork {
+  readonly workId: F006WorkId;
+  readonly title: string;
+  readonly order: 1 | 2 | 3;
+}
+
+export interface F006WorkRegistry {
+  readonly __brand: 'F006WorkRegistry';
+  readonly authorId: '000119';
+  readonly name: 'なかじまあつし';
+  readonly originalName: '中島敦';
+  readonly slug: 'nakajima-atsushi';
+  readonly identitySha256: string;
+  readonly authorMode: 'introduce';
+  readonly works: readonly F006AuthorAndWorkRegistryWork[];
+}
+
+export interface F006VerifiedAuthor {
+  readonly __brand: 'F006VerifiedAuthor';
+  readonly authorId: '000119';
+  readonly name: 'なかじまあつし';
+  readonly originalName: '中島敦';
+  readonly slug: 'nakajima-atsushi';
+  readonly identitySha256: string;
+}
+
+const mintedRegistries = new WeakSet<object>();
+const verifiedF006Authors = new WeakSet<object>();
+
+/**
+ * `authorId=000119`（中島敦）・`name=なかじまあつし`・`slug=nakajima-atsushi`と
+ * 山月記(000624,order1)→名人伝(000621,order2)→弟子(001738,order3)のexact
+ * work tupleを固定registryとしてmintする。`F006_WORKS`（本ファイル定義）を
+ * 別に保持したexpected定数と突き合わせ、tamperを検出する。
+ * @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004
+ */
+export function defineF006AuthorAndWorkRegistry(): F006WorkRegistry {
+  if (
+    F006_WORKS.length !== EXPECTED_REGISTRY_WORKS.length ||
+    F006_WORKS.some((work, index) => {
+      const expected = EXPECTED_REGISTRY_WORKS[index];
+      return !expected || work.workId !== expected.workId ||
+        work.title !== expected.title || work.order !== expected.order;
+    }) ||
+    new Set(F006_WORKS.map((work) => work.workId)).size !== F006_WORKS.length ||
+    AUTHOR_ID !== '000119'
+  ) {
+    throw new F006SourceError('F006_REGISTRY_MISMATCH', 'F006作者・作品registryが固定値と一致しません');
+  }
+  const identityCore = {
+    authorId: '000119' as const,
+    name: 'なかじまあつし' as const,
+    originalName: '中島敦' as const,
+    slug: 'nakajima-atsushi' as const,
+  };
+  const identitySha256 = sha256(new TextEncoder().encode(canonicalJson(identityCore)));
+  const registry = deepFreeze({
+    __brand: 'F006WorkRegistry' as const,
+    ...identityCore,
+    identitySha256,
+    authorMode: 'introduce' as const,
+    works: F006_WORKS.map((work) => ({ workId: work.workId, title: work.title, order: work.order })),
+  });
+  mintedRegistries.add(registry);
+  return registry;
+}
+
+/**
+ * registryのidentityを既存Catalogの作者・作品との非衝突込みで再確認する。
+ *
+ * DD-F006.md（FUN-F006-004）は既存`verifyExistingAuthorIdentity`
+ * （`batch-candidate.ts`）の再利用を記載するが、実装検証の結果、同関数は
+ * `context.definition.authorExpectation === 'reuse'`のApprovedBatchContext
+ * だけを受理し、F006の`introduce`（新規作者）シナリオでは常に
+ * `CANDIDATE_REGISTRY_INVALID`で例外になることを確認した（reuse専用関数のため）。
+ * 本関数は`f005-foundation.ts`の`verifyNatsumeIdentity`（F005の同型ケース、
+ * 新規作者導入時の自己完結したbaseline非衝突検証）と同じ構造を踏襲する。
+ * @des DES-F006-003 @fun FUN-F006-004 @ut UT-F006-004
+ */
+export function verifyF006AuthorIdentity(
+  registry: F006WorkRegistry,
+  baselineCatalog: {
+    readonly authors: readonly { readonly authorId: string; readonly name: string; readonly originalName: string; readonly slug: string }[];
+    readonly works: readonly { readonly authorId: string }[];
+  },
+): F006VerifiedAuthor {
+  if (!isRecord(registry) || !mintedRegistries.has(registry) || registry.__brand !== 'F006WorkRegistry') {
+    throw new F006SourceError('F006_REGISTRY_MISMATCH', 'mint済みregistryが必要です');
+  }
+  if (
+    !isRecord(baselineCatalog) ||
+    !Array.isArray(baselineCatalog.authors) ||
+    !Array.isArray(baselineCatalog.works) ||
+    baselineCatalog.authors.some((existing) =>
+      existing.authorId === registry.authorId || existing.name === registry.name ||
+      existing.originalName === registry.originalName || existing.slug === registry.slug) ||
+    baselineCatalog.works.some((work) => work.authorId === registry.authorId)
+  ) {
+    throw new F006SourceError('F006_REGISTRY_MISMATCH', 'baseline作者・作品との衝突を検出しました');
+  }
+  const verified = deepFreeze({
+    __brand: 'F006VerifiedAuthor' as const,
+    authorId: registry.authorId,
+    name: registry.name,
+    originalName: registry.originalName,
+    slug: registry.slug,
+    identitySha256: registry.identitySha256,
+  });
+  verifiedF006Authors.add(verified);
+  return verified;
+}
+
+/**
+ * @des DES-F006-003 @fun FUN-F006-004
+ */
+export function isVerifiedF006Author(value: unknown): value is F006VerifiedAuthor {
+  return isRecord(value) && verifiedF006Authors.has(value) && value.__brand === 'F006VerifiedAuthor';
 }
 
 /**
