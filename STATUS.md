@@ -1,9 +1,9 @@
 ---
-phase: setup
+phase: design
 feature: F006
-updated: 2026-08-21T13:00:00+09:00
+updated: 2026-08-21T14:30:00+09:00
 next_actions:
-  - "F006は承認ゲート①(SRS+QT)を自動承認（Q-059）で通過した。次フェーズpf-setup（タスク分解・WBS作成）を起動する"
+  - "F006はT-146(FD-F006作成)から着手する。run_mode: autoのためpf-design起動可能。tasks.yaml T-144〜T-156の11タスク(design→testspec→implement→test→release)を参照"
   - "F005(v0.5.0)はpf-closeで振り返り・知見のknowledge/への転記・registry.yamlのvisibility更新が未実施のまま残っている"
   - "UT-F005/IT-F005にF003/F004同様の機械照合ファイル(f005-spec-coverage.test.ts相当)を追加し、ID→testファイル対応を継続的に検証可能にする(将来のF00N機能で同種のギャップが再発しないための恒久対策として推奨)"
   - "T-143(FileObjectバインディング診断、CHG-F005-071)は最終的にT-073の依存関係になく、リリースの実質的なブロッカーではなかったことが判明した。native directory bindingの実状態観測自体は未完了のまま(Reused/Live未判別)だが、F005リリースは完了したため優先度は下がる。今後のF00N機能で同種の安全性懸念が再発した場合の参考知見としてknowledge/へ記録することを推奨"
@@ -15,6 +15,7 @@ next_actions:
 
 - F001はv0.1.0、F002はv0.2.0、F003はv0.3.0、F004はv0.4.0、F005はv0.5.0として2026-08-21にGitHub Pagesへ公開完了。公開サイトは4作者(芥川龍之介・宮沢賢治・太宰治・夏目漱石)・15作品・877台詞・861音声で安定稼働中。既存3作者12作品674台詞662音声は不変。
 - **F006(中島敦「山月記」「名人伝」「弟子」3作品追加)はタスク分解フェーズへ移行**。QA-F006.md全8問（Q-051〜Q-058）をオーナーの2026-08-20制定自動承認方針に基づき推奨案どおり確定し、SRS-F006.md(REQ 18件、作者slug`nakajima-atsushi`・表示名`なかじまあつし`確定、REQ-F006-010作品固有注記非対象確定)・QT-F006.md(QT 18件、QT-F006-004/006確定反映)を`status: Approved`へ更新した。trace_check（tools/trace_check.py --path）でREQ→QT対応漏れ0を確認（REQ→DES 18件は設計フェーズ未着手のため既知）。自己レビュー（整合性・実現性・セキュリティ観点）で指摘0件を確認し、Q-059で承認ゲート①を自動承認として記録した。
+- **F006 WBS(T-145)完了**。F005のnative guard/ETW診断機構（CHG-F005-001〜084、約90タスクの長期化要因）は再利用せず、F002〜F004が使う汎用共有受理pipeline(`src/content/batch-runtime.ts`・`batch-acceptance.ts`・`batch.ts`)を最大限再利用する方針でT-146〜T-156の11タスク（design 2・testspec 1・implement 6・test 1・release 1）へ分解した。REQ 18/18をcoverage、`docs/features.yaml`のF006を`state: setup`で追加、`CLAUDE.md`にF006検証コマンド節を追記した。trace_checkはREQ→DES対応漏れ18件（設計フェーズ未着手のため既知・想定内）のみで、REQ→QT対応漏れは0件を維持している。
 - 作者拡充ロードマップ(CHG-F005-077により合計10作者目標へ訂正)は、ベースライン3作者+F005(夏目漱石、4人目)で残り6人(F006〜F011想定)。F006は5人目(中島敦)にあたる。
 - Q-042回答を3点セットで処理し、T-110を`todo`へ戻した。CHG-F005-052/T-126でproduction共有規則を使う決定的hosted相関検証を設計し、独立再レビューHigh/Medium/Low 0でPASSした。認可・容量actual・候補保存・公開条件は変更していない。
 - CHG-F005-052/T-126のread-only hosted相関検証を実装した。native通常820件、target 57件、関連Vitest26件、型、ESLint、trace、同一SHA再現build2回、独立受入High/Medium/Low 0をPASSした。run `31239312228`でtarget 57/57、kernel ETW、実load assembly SHA・MVID、同一SHA Pages deploy `skipped`を確認し、T-110/T-126/CHG-F005-036/052を完了した。
@@ -116,14 +117,15 @@ next_actions:
 
 ## 直近の作業（最新5件）
 
-- **F006(中島敦3作品追加)のQA回答・SRS/QT反映・承認ゲート①自動承認**(2026-08-21)。QA-F006.md全8問（No.1〜8、いずれもドメイン根拠に基づく推奨案A/B）を`status: Answered`へ確定し、queue.yaml Q-051〜Q-058を`status: closed`(answer/answer_note/processed_at付き)で処理した。docs/srs/SRS-F006.mdのREQ-F006-003（authorId`000119`・表示名`なかじまあつし`・slug`nakajima-atsushi`確定）・REQ-F006-010（対象3作品は作品固有注記UI非対象、公開直前fail-closed維持）・REQ-F006-014（route`#/authors/nakajima-atsushi`確定）を更新した。docs/tests/qt/QT-F006.mdのQT-F006-004/006へQA確定回答の参照を追記し判定注記を更新した。`tools/trace_check.py --path`でREQ→QT対応漏れ0を確認（REQ→DES 18件はF006設計フェーズ未着手のため既知・想定内、tm.jsonはF006分115行の追加のみで既存データの削除なしを確認）。自己レビュー（整合性・実現性・セキュリティ観点）で指摘0件のためSRS-F006.md/QT-F006.mdを`status: Approved`へ更新し、queue.yaml Q-059で承認ゲート①を自動承認（2026-08-20制定の自動承認方針）として記録した。`content/`/`public/`/`src/`は変更していない。次フェーズpf-setup（タスク分解）が起動可能
+- **F006 WBS(T-144/T-145)をtasks.yamlへ追加**(2026-08-21)。T-144(要求・QT仕様確定、state: done、事後記録)とT-145(WBS・実行形態・検証環境整備、state: done)を追加し、続くT-146〜T-156(design 2・testspec 1・implement 6・test 1・release 1)を`state: todo`で登録した。F005のnative guard/ETW診断機構は再利用せず、F002〜F004の汎用共有受理pipelineを最大限使う方針を各タスクの`mode_reason`・依存関係へ反映した。`docs/features.yaml`へF006(`state: setup`)を追加し、`CLAUDE.md`にF006の`content:batch`コマンド・作品順(山月記→名人伝→弟子)・v0.5.0固定baseline・公開8 route節を追記した。`trace_check.py --path`はREQ→DES対応漏れ18件(設計フェーズ未着手のため既知)のみでREQ→QT対応漏れ0を維持。`content/`/`public/`/`src/`は変更していない。次フェーズpf-design（FD-F006/DD-F006作成）が起動可能
+- **F006(中島敦3作品追加)のQA回答・SRS/QT反映・承認ゲート①自動承認**(2026-08-21)。QA-F006.md全8問（No.1〜8、いずれもドメイン根拠に基づく推奨案A/B）を`status: Answered`へ確定し、queue.yaml Q-051〜Q-058を`status: closed`(answer/answer_note/processed_at付き)で処理した。docs/srs/SRS-F006.mdのREQ-F006-003（authorId`000119`・表示名`なかじまあつし`・slug`nakajima-atsushi`確定）・REQ-F006-010（対象3作品は作品固有注記UI非対象、公開直前fail-closed維持）・REQ-F006-014（route`#/authors/nakajima-atsushi`確定）を更新した。docs/tests/qt/QT-F006.mdのQT-F006-004/006へQA確定回答の参照を追記し判定注記を更新した。`tools/trace_check.py --path`でREQ→QT対応漏れ0を確認（REQ→DES 18件はF006設計フェーズ未着手のため既知・想定内、tm.jsonはF006分115行の追加のみで既存データの削除なしを確認）。自己レビュー（整合性・実現性・セキュリティ観点）で指摘0件のためSRS-F006.md/QT-F006.mdを`status: Approved`へ更新し、queue.yaml Q-059で承認ゲート①を自動承認（2026-08-20制定の自動承認方針）として記録した。`content/`/`public/`/`src/`は変更していない。
 - **F005 v0.5.0を公開完了**(2026-08-21 09:37 JST)。`f005-catalog.test.ts`の`git clone --branch feature/F005`参照除去(commit `9293852`)でCI green化、`PAGES_DEPLOY_COMMIT`/`PAGES_DEPLOY_ENABLED`設定でGitHub Actions run `32432910266`のbuild/deploy成功、公開後スモーク(トップ/4作者route/夏目漱石画像・artwork-provenance/catalog.json)全PASS。tag `v0.5.0`をpush、release evidence(`docs/evidence/release/RELEASE-F005.md`、`F005-{approval,deployment,smoke}.json`)を記録。デプロイ後`PAGES_DEPLOY_ENABLED`をfalseへ復帰。`docs/features.yaml`のF005を`state: closed`、`tasks.yaml`のT-075を`state: done`へ更新
 - CHG-F005-084でmainマージ後発覚のCI red（run `32431124995`）を修正。native guard依存テスト22件（f005-native-guard.test.ts 1件・f005-source.test.ts 19件・f005-run-work.test.ts 1件）を既存`it.runIf(process.platform === 'win32')`パターンでOS gate化し、`src/content/artifacts.ts`の`syncDirectory`の正当なOS分岐に起因する2件（f005-run-work.test.ts・artifacts.test.ts）は期待値分岐へ変更。src本体ロジックは無変更。lint/typecheck PASS、フルスイート1319件中1313 PASS（6 failedは対象外ファイルのWindows並列flaky、個別実行で142件全PASS確認）。Linux実行はDocker未起動のため未検証、コード根拠で整合性確認。push・CI再実行はメインセッション側担当
 - T-075継続。`f005-catalog.test.ts`の`beforeAll`が可変working treeの`public/content/catalog.json`をpre-F005 baselineとして直読みし`verifyNatsumeIdentity`で`F005_AUTHOR_IDENTITY_CONFLICT`誤検知を起こしていた（`public/`をF005候補へ差し替え済みのため前提崩壊）。F004公開昇格commit`19759e2`のgit blobを`git show`で読む方式へ切替え修正。`npm test`フルスイート1319件中1314 PASS（残り5件は既知のWindows並列flakyで個別PASS確認済み）、`npm run test:e2e`163 passed・5 skipped・失敗0、lint/typecheckもPASS。version bump・CHANGELOG・`public/`差し替え一式・テスト修正を3コミットに分けてcommit。push・実デプロイ・release evidence作成は未実施
 
 ## 次のアクション
 
-- run_mode: auto、承認ゲート①(F006)通過済みのため、次フェーズpf-setup（F006のタスク分解・WBS作成）を起動する。
+- run_mode: auto、F006 WBS(T-145)完了のため、次フェーズpf-design（T-146: FD-F006作成 → T-147: DD-F006作成）を起動する。`tasks.yaml`のT-146〜T-156を参照。
 - F005(v0.5.0)は公開完了。pf-closeで振り返り・knowledge/転記・registry.yaml visibility更新を行う（未実施）。
 - 作者拡充ロードマップ(合計10作者目標)は、F006(中島敦、5人目)完了後も残り5人分(F007〜F011想定)がある。
 - UT-F005/IT-F005にF003/F004同様の機械照合ファイル(`f005-spec-coverage.test.ts`相当)を追加し、将来のF00N機能で「仕様書にあるがテストコードがない」ギャップが再発しないよう恒久対策する(推奨、必須ではない)。
@@ -144,4 +146,4 @@ next_actions:
 - CHG-F002-006（PR #3、fix/v0.4.1-license-recheckブランチ）はmainへマージ済み・v0.4.1としてデプロイ済み（2026-08-20）。公開サイトでの反映確認は未実施。
 - F005ブランチのCHG-F002-005（commit 8c0e320、規約再確認の期限廃止）は`docs/changes/changes.yaml`への登録が漏れている。CHG-F002-006とは独立した別系統の実装であり、F005側の登録は別途対応が必要。
 - T-074継続。origin/main merge（commit `b63e373`）で`src/notices/release-notices.ts`のterms-expired判定削除が反映され、以前確認されていたE2E全滅（`net::ERR_ABORTED`）は解消済みと確認した。`--retain`でF005候補dist（authors=4/works=15/dialogues=877/audioAssets=861、901 dist files、`.cache/f005-final-integration-fPD8J3/`）を再生成し、`tests/e2e/f002-multi-author.spec.ts`の`.author-card`総数`toHaveCount(3)`固定（F005候補では4作者のため失敗）を、既存3作者の個別存在・所属・件数不変だけを検証する形へ修正した。`tests/e2e/f005-natsume-author.spec.ts`を新規追加し、トップの4人目カード表示・natsume-soseki route直遷移と3作品所属（夢十夜・倫敦塔・趣味の遺伝、203台詞）・初期全閉/単一再生/route切替停止契約・趣味の遺伝の公式表現注意（`official-content-warning`textKey、実UI文言で照合）のwork-list/work-detail/credits 3配置表示を検証する4テストを追加した（REQ-F005-003/004/009/010/014/015、QT-F005-006/010/011/018タグ）。`PLAYWRIGHT_DIST_ROOT`で候補distへ接続し`npx playwright test`（6プロジェクト全実行）したところ、既存5件skip（意図的asset skip allowlist）を除く163件全PASSし、E2Eフルスイートが初めて全PASSした。`npm run lint`/`npm run typecheck`もPASS。残課題（UT-F005未対応12件・IT-F005未対応8件・spec-coverage機械照合ファイル・`CreditProjection`公開先設計）は対象外のため未着手のまま、T-074は引き続き`doing`。
-- F006(中島敦3作品追加)は要求分析完了・承認ゲート①通過。QA-F006.md全8問（Q-051〜Q-058）はオーナーの2026-08-20制定自動承認方針に基づく推奨案採用で確定済み。SRS-F006.md/QT-F006.mdは`status: Approved`。trace_checkはREQ→QT対応漏れ0（REQ→DES 18件は設計フェーズ未着手のため既知・想定内）。次フェーズpf-setup（タスク分解）が未着手として残る。
+- F006(中島敦3作品追加)は要求分析完了・承認ゲート①通過。QA-F006.md全8問（Q-051〜Q-058）はオーナーの2026-08-20制定自動承認方針に基づく推奨案採用で確定済み。SRS-F006.md/QT-F006.mdは`status: Approved`。WBS(T-144〜T-156)を`tasks.yaml`へ追加済み。trace_checkはREQ→QT対応漏れ0（REQ→DES 18件は設計フェーズ未着手のため既知・想定内）。次フェーズpf-design（FD-F006/DD-F006作成）が未着手として残る。

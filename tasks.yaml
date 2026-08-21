@@ -2929,3 +2929,236 @@ tasks:
   mode_reason: directory自身へBoundなFileObjectの再利用・削除・cleanup状態を認可せず固定分類し、次の認可判断の根拠を得るため
   model: {lead: opus, workers: sonnet}
   progress: 固定5 codeとMatchEventDirectoryBindingを実装しT-143 target suite 64 caseを追加。native1286、固定target57/43/74/52/76/64、108 code同期、Vitest1290、typecheck、ESLint、再現build2回をPASS。probe run 31673644030で64/64・kernel ETW・Pages deploy skipを確認。実binding状態は計6 attemptで本軸未到達のため観測継続
+- id: T-144
+  title: F006中島敦「山月記」「名人伝」「弟子」3作品追加の要求・QT仕様を確定
+  feature: F006
+  phase: requirements
+  state: done
+  depends:
+  - T-075
+  tags: []
+  mode: advisor
+  mode_reason: 公開済みv0.5.0を固定baselineにし、知名度・権利・書誌・容量から次作者と3作品を選定するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-08-21T13:00:00+09:00'
+  result: 中島敦「山月記」「名人伝」「弟子」を確定。REQ 18件・QT 18件・QA未回答0(Q-051〜Q-058を推奨案どおり確定)、自己レビューで指摘0件、Q-059でゲート①を自動承認
+- id: T-145
+  title: F006 WBS・実行形態・検証環境を整備
+  feature: F006
+  phase: setup
+  state: done
+  depends:
+  - T-144
+  tags:
+  - REQ-F006-001
+  - REQ-F006-002
+  - REQ-F006-003
+  - REQ-F006-004
+  - REQ-F006-005
+  - REQ-F006-006
+  - REQ-F006-007
+  - REQ-F006-008
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-011
+  - REQ-F006-012
+  - REQ-F006-013
+  - REQ-F006-014
+  - REQ-F006-015
+  - REQ-F006-016
+  - REQ-F006-017
+  - REQ-F006-018
+  mode: advisor
+  mode_reason: F005 native guard/ETW診断機構を使わず既存の汎用共有受理pipeline(batch-runtime.ts/batch-acceptance.ts/batch.ts)へ最大限乗せる方針でREQをWBSへ逐次分解するため
+  model:
+    lead: opus
+    workers: sonnet
+  completed_at: '2026-08-21T14:30:00+09:00'
+  result: T-146〜T-156の11タスクへ分解しREQ 18/18をcoverage。既存CLI・Playwright・VOICEVOX 0.25.2を再利用し追加MCP不要。F005固有のnative guard/ETW機構は新規提案せず汎用batchパイプラインの再利用方針を明記
+- id: T-146
+  title: 機能設計書(FD-F006)を作成しREQ全18件を中島敦追加設計へ展開
+  feature: F006
+  phase: design
+  state: todo
+  depends:
+  - T-145
+  tags: &id006
+  - REQ-F006-001
+  - REQ-F006-002
+  - REQ-F006-003
+  - REQ-F006-004
+  - REQ-F006-005
+  - REQ-F006-006
+  - REQ-F006-007
+  - REQ-F006-008
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-011
+  - REQ-F006-012
+  - REQ-F006-013
+  - REQ-F006-014
+  - REQ-F006-015
+  - REQ-F006-016
+  - REQ-F006-017
+  - REQ-F006-018
+  mode: advisor
+  mode_reason: 固定v0.5.0 baselineと汎用batchパイプライン再利用範囲・F006固有差分を単一FDで一貫させる逐次設計のため
+  model: &model_f006
+    lead: opus
+    workers: sonnet
+- id: T-147
+  title: 関数設計書(DD-F006)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F006
+  phase: design
+  state: todo
+  depends:
+  - T-146
+  tags: *id006
+  mode: advisor
+  mode_reason: FDの汎用pipeline再利用境界とF006固有入力(新規作者・entity検出・二重判定)を関数単位で確定するため
+  model: *model_f006
+- id: T-148
+  title: UT-F006・IT-F006を作成しQT-F006との網羅性を確認
+  feature: F006
+  phase: testspec
+  state: todo
+  depends:
+  - T-147
+  tags: *id006
+  mode: orchestration
+  mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・セキュリティの独立試験領域を並列設計できるため
+  model: *model_f006
+- id: T-149
+  title: F006候補manifest・固定v0.5.0 baseline・権利原典を整備
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-148
+  tags:
+  - REQ-F006-001
+  - REQ-F006-002
+  - REQ-F006-005
+  - REQ-F006-006
+  - REQ-F006-007
+  mode: orchestration
+  mode_reason: baseline固定、書誌・規約二重確認、entity正規化検出を独立実装・検査して統合できるため
+  model: *model_f006
+- id: T-150
+  title: 中島敦作者identity・独自作者画像・Catalog新規author統合基盤を実装
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-149
+  tags:
+  - REQ-F006-003
+  - REQ-F006-004
+  - REQ-F006-014
+  - REQ-F006-016
+  mode: orchestration
+  mode_reason: 新規author identity、独自作者画像provenance、Catalog/routeのデータ駆動拡張を独立実装して統合できるため
+  model: *model_f006
+- id: T-151
+  title: 山月記を抽出・二重レビュー・音声化・atomic受入
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-150
+  tags:
+  - REQ-F006-007
+  - REQ-F006-008
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-011
+  - REQ-F006-012
+  - REQ-F006-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
+  model: *model_f006
+- id: T-152
+  title: 名人伝を抽出・二重レビュー・音声化・atomic受入
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-151
+  tags:
+  - REQ-F006-007
+  - REQ-F006-008
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-011
+  - REQ-F006-012
+  - REQ-F006-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
+  model: *model_f006
+- id: T-153
+  title: 弟子を抽出・二重レビュー・音声化・atomic受入
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-152
+  tags:
+  - REQ-F006-007
+  - REQ-F006-008
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-011
+  - REQ-F006-012
+  - REQ-F006-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
+  model: *model_f006
+- id: T-154
+  title: F006最終Catalog統合・固定v0.5.0回帰・公開tree候補を作成
+  feature: F006
+  phase: implement
+  state: todo
+  depends:
+  - T-151
+  - T-152
+  - T-153
+  tags:
+  - REQ-F006-001
+  - REQ-F006-003
+  - REQ-F006-004
+  - REQ-F006-009
+  - REQ-F006-010
+  - REQ-F006-014
+  - REQ-F006-015
+  - REQ-F006-016
+  mode: advisor
+  mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
+  model: *model_f006
+- id: T-155
+  title: F006 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
+  feature: F006
+  phase: test
+  state: todo
+  depends:
+  - T-154
+  tags: *id006
+  mode: orchestration
+  mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため
+  model: *model_f006
+- id: T-156
+  title: F006リリース前総点検・GitHub Pages段階公開・公開8 routeスモーク
+  feature: F006
+  phase: release
+  state: todo
+  depends:
+  - T-155
+  tags:
+  - REQ-F006-015
+  - REQ-F006-016
+  - REQ-F006-017
+  - REQ-F006-018
+  mode: advisor
+  mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f006

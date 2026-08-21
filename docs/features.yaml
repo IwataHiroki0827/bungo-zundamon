@@ -28,3 +28,9 @@ features:
   state: closed
   merge_after:
   - F004
+- id: F006
+  title: 中島敦「山月記」「名人伝」「弟子」3作品追加
+  branch: feature/F006
+  state: setup
+  merge_after:
+  - F005

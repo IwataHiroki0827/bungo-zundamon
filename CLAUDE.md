@@ -42,6 +42,9 @@ npm run test:e2e
 - F005は`npm run content:batch -- --batch F005 --work <WorkID> --stage <stage|all>`を使用し、夢十夜（`000799`）→倫敦塔（`001076`）→趣味の遺伝（`001104`）の順に作品単位で処理する。
 - F005は公開済みv0.4.0を固定baselineにし、`proofreader: null`、趣味の遺伝の固定raw/entity正規化、規約`decision: allow`、容量6区分をfail-closedで検証する。音声生成前はdisk-guardを再実行し、5 GiB未満の見込みなら開始しない。
 - F005のブラウザ受入は既存Playwright設定のChromium・Firefox・WebKit・Pixel 7相当Chromium・Chrome stable・Edge stableの6自動環境を使用し、手動確認を必須証跡にしない。
+- F006は`npm run content:batch -- --batch F006 --work <WorkID> --stage <stage|all>`を使用し、山月記（`000624`）→名人伝（`000621`）→弟子（`001738`）の順に作品単位で処理する。F005固有のnative guard/ETW機構は使わず、F002〜F004が使う汎用の共有受理pipeline(`src/content/batch-runtime.ts`・`batch-acceptance.ts`・`batch.ts`)を最大限再利用する。
+- F006は公開済みv0.5.0を固定baselineにし、中島敦を5人目の作者として新規追加する（authorId`000119`、slug`nakajima-atsushi`）。対象3作品はいずれも校正者欄記載ありのため`proofreader: null`分岐は対象外、作品固有注記UIも対象外（QA-F006.md No.3/No.4確定）。音声生成前はdisk-guardを実行し、5 GiB未満の見込みなら開始しない。
+- F006のブラウザ受入は既存Playwright設定の6自動環境を使用し、公開route集合はexact 8件（home・既存4作者・中島敦作者route・favorites・credits）となる。
 
 ## プロジェクト規約
 

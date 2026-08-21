@@ -1288,4 +1288,29 @@ entries:
     削除なし）であることをgit diffで確認した。自己レビュー（整合性・実現性・セキュリティ観点）で
     指摘0件のためSRS-F006.md/QT-F006.mdをstatus: Approvedへ更新し、queue.yaml Q-059で
     承認ゲート①を自動承認として記録した。STATUS.md（phase: setup、本文4節）・本ファイルを更新。
+- date: '2026-08-21'
+  phase: setup
+  task: pf-worker F006 WBS作成(tasks.yaml T-144〜T-156)
+  model: Claude Sonnet 5 (pf-worker)
+  agents: 1
+  est_tokens: 24000
+  note: >-
+    docs/design/DD-F004.md（汎用batchパイプライン使用precedent）とSRS-F006.md/QT-F006.mdを
+    精読し、F005固有のnative guard/ETW診断機構（CHG-F005-001〜084、約90タスクの長期化要因）を
+    避け、F002〜F004が使う汎用共有受理pipeline（src/content/batch-runtime.ts・
+    batch-acceptance.ts・batch.ts）を最大限再利用する方針でtasks.yamlへT-144〜T-156の
+    13タスクを追加した。T-144(要求・QT仕様確定)・T-145(本WBS)は事後記録としてstate: done、
+    T-146(FD-F006)・T-147(DD-F006)・T-148(UT/IT-F006)・T-149(候補manifest・baseline・
+    権利原典)・T-150(作者identity・独自画像・Catalog統合基盤)・T-151〜153(山月記/名人伝/弟子の
+    抽出・二重レビュー・音声化・atomic受入)・T-154(最終Catalog統合)・T-155(UT/IT/QT/6環境受入)・
+    T-156(リリース前総点検・段階公開)はstate: todoとした。各タスクへpf-conventions.md §8の
+    基準でmode(advisor/orchestration)とmode_reasonを設定し、model: {lead: opus,
+    workers: sonnet}を付与、feature: F006と該当REQ-F006-*タグを設定した（DES/FUN/UT/IT/QT
+    タグは設計・テスト仕様が未着手のため付与していない）。docs/features.yamlへF006
+    （state: setup、merge_after: [F005]）を追加。CLAUDE.mdへF006のcontent:batchコマンド・
+    作品順（山月記000624→名人伝000621→弟子001738）・v0.5.0固定baseline・公開8 route節を
+    追記した。tools/trace_check.py --pathはREQ→DES対応漏れ18件（設計フェーズ未着手のため
+    既知）・REQ→QT対応漏れ0を確認。python -c yaml.safe_loadでtasks.yaml全156件のID重複0を
+    確認した。STATUS.md（phase: design、本文4節）を更新した。content/public/srcは変更していない。
+    push・PR作成は行っていない。
     content/public/srcは変更していない。push・PR作成は行っていない。
