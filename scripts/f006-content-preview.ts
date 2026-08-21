@@ -110,20 +110,23 @@ interface SpeechRecord {
 
 /**
  * v0.5.0固定baselineの既存public file 898件を、統合buildの実tree（bytes/SHA）と
- * exact比較する。content/catalog.jsonだけは4作者15作品分の固定projectionを
- * canonical比較し、byte全体はF006追記により変化するため除外する。
+ * exact比較する。content/catalog.jsonとcontent/artwork-provenances.jsonは
+ * F006追記により変化するため全体byte比較から除外し、既存分がprefixとして完全
+ * 維持され末尾へ中島敦分だけが追加されたことを個別にcanonical比較する。
  * @des DES-F006-002 @fun FUN-F006-002
  */
 async function assertV050Invariant(
   build: IntegratedBuild,
   baseline: Awaited<ReturnType<typeof loadPublishedV050Baseline>>,
+  workspace: string,
 ): Promise<void> {
   if (!isMintedPublishedV050Baseline(baseline)) {
     throw new Error('mint済みv0.5.0 baselineが必要です');
   }
+  const GROWING_PATHS = new Set(['content/catalog.json', 'content/artwork-provenances.json']);
   const actualByPath = new Map(build.files.map((file) => [file.path, file]));
   for (const expected of baseline.publicFiles) {
-    if (expected.path === 'content/catalog.json') continue;
+    if (GROWING_PATHS.has(expected.path)) continue;
     const actual = actualByPath.get(expected.path as WorkspaceRelativePath);
     if (!actual) throw new Error(`v0.5.0 baseline assetがpreviewにありません: ${expected.path}`);
     const bytes = await readFile(join(build.stagingRoot, ...expected.path.split('/')));
@@ -149,6 +152,30 @@ async function assertV050Invariant(
     canonicalJson(catalog.batches.slice(0, baselineCatalog.batches.length)) !== canonicalJson(baselineCatalog.batches)
   ) {
     throw new Error('v0.5.0固定4作者15作品projectionがpreview catalogと一致しません');
+  }
+
+  const expectedProvenanceFile = baseline.publicFiles.find((file) => file.path === 'content/artwork-provenances.json');
+  if (!expectedProvenanceFile) throw new Error('v0.5.0 baselineにcontent/artwork-provenances.jsonがありません');
+  const baselineProvenanceBytes = await readFile(join(workspace, 'public', 'content', 'artwork-provenances.json'));
+  if (baselineProvenanceBytes.byteLength !== expectedProvenanceFile.bytes) {
+    throw new Error('v0.5.0 baselineのcontent/artwork-provenances.json参照元がpinned byte数と一致しません');
+  }
+  const baselineProvenance = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(baselineProvenanceBytes)) as {
+    readonly schemaVersion: string;
+    readonly artworks: readonly unknown[];
+  };
+  const actualProvenanceBytes = await readFile(join(build.stagingRoot, 'content', 'artwork-provenances.json'));
+  const actualProvenance = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(actualProvenanceBytes)) as {
+    readonly schemaVersion: string;
+    readonly artworks: readonly unknown[];
+  };
+  if (
+    actualProvenance.schemaVersion !== baselineProvenance.schemaVersion ||
+    actualProvenance.artworks.length !== baselineProvenance.artworks.length + 1 ||
+    canonicalJson(actualProvenance.artworks.slice(0, baselineProvenance.artworks.length)) !==
+      canonicalJson(baselineProvenance.artworks)
+  ) {
+    throw new Error('v0.5.0固定4作者分のartwork-provenances.jsonがpreviewと一致しません');
   }
 }
 
@@ -380,7 +407,7 @@ async function main(): Promise<void> {
     },
     active,
   );
-  await assertV050Invariant(build, v050);
+  await assertV050Invariant(build, v050, workspace);
 
   await writeJsonArtifactAtomic(
     workspace,
