@@ -1901,3 +1901,37 @@ items:
     processed_at: '2026-08-21T12:00:00+09:00'
     processed_note: >-
       SRS-F006.md/QT-F006.mdをApprovedへ更新した。次フェーズpf-setup（タスク分解）へ進める。
+  - id: Q-060
+    type: approval
+    status: closed
+    title: F006 機能設計・関数設計の承認（ゲート②）
+    body: >-
+      docs/design/FD-F006.md（DES 14件、REQ 18件全件をDESへ展開）とdocs/design/DD-F006.md
+      （FUN 17件、既存関数の直接再利用12件・feature固有値のため新規定義5件）を作成した。F005が導入した
+      ETW常時監視・native guard機構（f005-native-guard.ts、native/f005-guard/）は不採用とし、
+      F003型の新規作者1人・3作品追加構造と、CHG-F005-072で確立した事後検証（f005-postcondition.ts/
+      f005-postcondition-write.ts）・実際のv0.5.0公開（CHG-F005-083）で採用された汎用release経路を
+      継承する設計とした。自己レビュー3観点（整合性: SRS全REQ→DES対応・全DES→REQタグ、実現性: 参照した
+      既存関数の実シグネチャをsrc/content配下で直接確認、セキュリティ: 既存transport allowlist・CSP・
+      safe workspace file契約からの逸脱なし）で指摘0件。tools/trace_check.py（--path、--feature未使用）で
+      REQ→DES→FUN対応漏れ0件を確認した（DES→UT/ITの14件はtestspecフェーズ未着手のため既知・想定内）。
+    target: docs/design/FD-F006.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-21T15:45:00+09:00'
+    source: pf-worker
+    resume:
+      task: T-147
+      next: pf-testspec
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビュー指摘ゼロ化・trace_check対応漏れ0の
+      品質条件を満たすため、承認ゲート②を自動承認として記録する。
+    approved_at: '2026-08-21T15:45:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-21T15:45:00+09:00'
+    processed_note: >-
+      FD-F006.md/DD-F006.mdをApprovedへ更新した。T-146/T-147を完了し、次フェーズpf-testspecへ進める。

@@ -2981,7 +2981,7 @@ tasks:
   title: 機能設計書(FD-F006)を作成しREQ全18件を中島敦追加設計へ展開
   feature: F006
   phase: design
-  state: todo
+  state: done
   depends:
   - T-145
   tags: &id006
@@ -3008,17 +3008,21 @@ tasks:
   model: &model_f006
     lead: opus
     workers: sonnet
+  completed_at: '2026-08-21T15:20:00+09:00'
+  result: FD-F006.mdを作成しREQ 18件全件をDES 14件へ展開。F005 ETW/native guard機構は不採用、F003型の新規作者追加構造とCHG-F005-072事後検証・v0.5.0公開実績の汎用release経路を継承する設計方針を確定
 - id: T-147
   title: 関数設計書(DD-F006)を作成しデータ・関数・状態遷移契約へ展開
   feature: F006
   phase: design
-  state: todo
+  state: done
   depends:
   - T-146
   tags: *id006
   mode: advisor
   mode_reason: FDの汎用pipeline再利用境界とF006固有入力(新規作者・entity検出・二重判定)を関数単位で確定するため
   model: *model_f006
+  completed_at: '2026-08-21T15:40:00+09:00'
+  result: DD-F006.mdを作成しDES 14件をFUN 17件へ展開。既存関数(batch.ts/batch-candidate.ts/editorial-independent.ts/voice/generation.ts/voice/budget.ts/f005-postcondition.ts等)の直接再利用を17件中12件で明記し、featureごとにexact値が異なり新規化が必要な5件(baseline pin・author/work registry・catalog統合・route導出・artwork provenance)だけを新規定義。trace_check REQ→DES→FUN対応漏れ0を確認
 - id: T-148
   title: UT-F006・IT-F006を作成しQT-F006との網羅性を確認
   feature: F006

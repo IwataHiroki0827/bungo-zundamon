@@ -1314,3 +1314,33 @@ entries:
     確認した。STATUS.md（phase: design、本文4節）を更新した。content/public/srcは変更していない。
     push・PR作成は行っていない。
     content/public/srcは変更していない。push・PR作成は行っていない。
+- date: '2026-08-21'
+  phase: design
+  task: pf-worker F006 FD/DD作成・承認ゲート②
+  model: Claude Sonnet 5 (pf-worker)
+  agents: 1
+  est_tokens: 45000
+  note: >-
+    docs/design/FD-F003.md/DD-F003.md（直近precedent、新規作者1人・3作品構造）と
+    src/content/batch-runtime.ts・batch-acceptance.ts・batch.ts・batch-candidate.ts・
+    editorial-independent.tsの既存API、docs/changes/CHG-F005-072.md（ETW常時監視→
+    事後検証への置換）・docs/evidence/release/RELEASE-F005.md（CHG-F005-083、
+    v0.5.0実公開は汎用release経路採用）を精読した。docs/design/FD-F006.md
+    （status: Approved、DES-F006-001〜014、REQ 18件全件をcoverage）とDD-F006.md
+    （status: Approved、FUN-F006-001〜017）を新規作成した。F005のETW常時監視・
+    native guard機構（f005-native-guard.ts等）は不採用とし、f005-postcondition.ts/
+    f005-postcondition-write.ts（phase前後の実測差分によるwrite健全性事後検証、
+    workspaceRoot引数を取るfeature非依存実装）と汎用release経路（scripts/verify-
+    project.mjs、recordPublishedBatch、PAGES_DEPLOY_ENABLED/PAGES_DEPLOY_COMMIT
+    ゲート）を直接再利用する設計とした。FUN 17件中12件はbatch-candidate.ts・
+    editorial-independent.ts・voice/generation.ts・voice/budget.ts・f005-source.ts・
+    f003-reuse.ts等の既存関数をそのまま呼び出す設計とし、feature固有exact値
+    （v0.5.0固定baseline pin・中島敦author/work registry・catalog統合・route導出・
+    artwork provenance）を持つ5件だけを新規定義した。自己レビュー3観点（整合性・
+    実現性・セキュリティ）で指摘0件を確認し、実際のソースコードを直接確認して
+    参照関数の実シグネチャとの矛盾がないことを検証した。tools/trace_check.py --path
+    （--feature未使用）でREQ→DES→FUN対応漏れ0件を確認（DES→UT/ITの14件は
+    testspecフェーズ未着手のため既知・想定内）。queue.yaml Q-060で承認ゲート②を
+    自動承認（2026-08-20制定の自動承認方針）として記録し、tasks.yamlのT-146/T-147を
+    state: doneへ更新した。STATUS.md（phase: testspec、本文4節）を更新した。
+    content/public/srcは変更していない。push・PR作成は行っていない。
