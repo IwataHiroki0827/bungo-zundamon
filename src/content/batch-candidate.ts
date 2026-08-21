@@ -770,9 +770,13 @@ export async function loadAndVerifyClosedApproval(
       );
     }
     const item = matches[0];
+    // 2026-08-20制定の自動承認方針により、品質条件を満たした自動承認は
+    // answer: '承認（自動）' + approval_answer_normalized: '承認' で記録される。
+    // 人手承認の answer: '承認' 単独とあわせて、どちらも承認済みとして扱う。
+    const isApproved = item.answer === '承認' || item.approval_answer_normalized === '承認';
     if (item.type !== 'approval' || item.status !== 'closed' ||
       item.target !== approvalPolicy.target || item.target_mode !== approvalPolicy.targetMode ||
-      item.answer !== '承認' || typeof item.approved_at !== 'string' ||
+      !isApproved || typeof item.approved_at !== 'string' ||
       !Number.isFinite(Date.parse(item.approved_at))) {
       throw new BatchCandidateError(
         approvalFailureCode(policy),
