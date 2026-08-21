@@ -1,0 +1,165 @@
+{
+  "batchId": "F006",
+  "configPath": "content/batches/F006/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "ef0f7adcf95f8446cb76e644e121f1dab7ea372966bf1ca0a3e76edb77c2bbcd",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 458052,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F006",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "ef0f7adcf95f8446cb76e644e121f1dab7ea372966bf1ca0a3e76edb77c2bbcd",
+    "minimumFreeBytesAfterWrite": 635749404,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 568182488,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "520e7fefef8e2b83ff66806792c0a852ffa623afd61137d03bbd347688e2b263",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104857600,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae"
+      ],
+      "includedPaths": [
+        "scripts/f006-prepare-voice.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae"
+      ],
+      "includedPaths": [
+        "scripts/f006-prepare-voice.ts"
+      ],
+      "measuredBytes": 260812307,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 29605040128,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 635749404
+    },
+    "workId": "000624"
+  },
+  "kind": "f006-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 0,
+    "acceptedAudioFiles": 0,
+    "currentPagesBytes": 284091244,
+    "currentPagesFiles": 898,
+    "freeBytes": 29605040128,
+    "liveWriteUpperBounds": 284549296,
+    "plannedPagesBytes": 284091244,
+    "repositoryNonObjectBytes": 1021501,
+    "rollbackBackupBytes": 284091244
+  },
+  "plan": {
+    "batchId": "F006",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 3,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "1d5a39f9bd08fb53dff89e04c1273f19468689d01fc53652fb977a1eb1cd5770",
+        "candidateIds": [
+          "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d5a39f9bd08fb53dff89e04c1273f19468689d01fc53652fb977a1eb1cd5770.json",
+        "status": "miss",
+        "text": "「その声は、我が友、リチョウシではないか？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1d5a39f9bd08fb53dff89e04c1273f19468689d01fc53652fb977a1eb1cd5770.wav",
+        "workIds": [
+          "000624"
+        ]
+      },
+      {
+        "audioId": "452b294d36a8144e8a3dfcc9f95429509865bd78559b4a983030dc262574d081",
+        "candidateIds": [
+          "2iCocl6pEn1OAB7MKoJXQ5EebyEAg7PHeVySy8Zl3-g"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/452b294d36a8144e8a3dfcc9f95429509865bd78559b4a983030dc262574d081.json",
+        "status": "miss",
+        "text": "「あぶないところだった」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/452b294d36a8144e8a3dfcc9f95429509865bd78559b4a983030dc262574d081.wav",
+        "workIds": [
+          "000624"
+        ]
+      },
+      {
+        "audioId": "485079206486fdd95c7c46e5c0a13153945b6c19efb89c50ae1cfe3f97efdfdb",
+        "candidateIds": [
+          "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/485079206486fdd95c7c46e5c0a13153945b6c19efb89c50ae1cfe3f97efdfdb.json",
+        "status": "miss",
+        "text": "「如何にも自分は隴西のリチョウである」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/485079206486fdd95c7c46e5c0a13153945b6c19efb89c50ae1cfe3f97efdfdb.wav",
+        "workIds": [
+          "000624"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 458052,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "ef0f7adcf95f8446cb76e644e121f1dab7ea372966bf1ca0a3e76edb77c2bbcd",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 3,
+    "planDigest": "520e7fefef8e2b83ff66806792c0a852ffa623afd61137d03bbd347688e2b263",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 3,
+    "workId": "000624"
+  },
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "schemaVersion": "1.0.0",
+  "workId": "000624"
+}

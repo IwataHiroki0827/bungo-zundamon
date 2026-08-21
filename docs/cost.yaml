@@ -1536,3 +1536,63 @@ entries:
     弟子(T-153)、および音声生成・容量forecast/actual・atomic受入は未着手。
     public/・content/baselines/*.jsonは変更していない。push・PR作成は
     行っていない。
+
+- date: '2026-08-22'
+  phase: implement
+  task: T-151 山月記の音声化 段階B1(voice-config新設・音声diff生成・容量forecast)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 70000
+  note: >-
+    前回セッションで見送った段階B（差分音声生成・容量forecast/actual・
+    atomic受入、FUN-F006-009/010）のうち、preview構築・atomic受入
+    （段階B2）を除いたvoice-config新設→音声diff生成→容量forecastの範囲
+    （段階B1）を実装した。DD-F006.md FUN-F006-009の記載どおり新規wrapper
+    モジュールは作らず、src/voice/generation.ts（planVoiceDiff/
+    authorizeVoiceDiffPlan/generateVoiceDiff/verifyVoiceCompleteness）と
+    src/voice/budget.ts（forecastCapacity/measureGitRepository）を直接
+    呼び出す薄いscript scripts/f006-prepare-voice.ts（約400行）を新規実装
+    した。content/batches/F006/voice-config.jsonをF002/F004とbyte-identical
+    な内容（engineVersion 0.25.2、speakerUuid 388f246b-...、styleId 3
+    ノーマル、24kHz）で新設した。山月記(000624)のwork-artifacts/000624/
+    speech-revisions.jsonに記録済みの確定3台詞（李徴/袁傪/李徴、うち2件は
+    カタカナ読み補正済み）からVoiceDiffItemを構成し、ローカルVOICEVOX
+    0.25.2（http://127.0.0.1:50021）へ実接続してWAV 3件・計404,100 bytesを
+    実生成（miss 3/hit 0、失敗0）、verifyVoiceCompletenessでapproved→
+    audio→asset参照の整合とWAV実体sha256/durationMsの一致をPASS確認した。
+    容量forecastはforecastCapacity+measureGitRepositoryの実測（既存public
+    284,091,244 bytes、git非object 1,021,501 bytes、空き容量約27.6GiB）で
+    result=pass_with_warning（planned+current pages計568MB相当がwarning
+    閾値524,288,000 bytesを超過するが、blocked要因は0件）となった。
+    manifestはtransitionWorkStateでreviewed→budget-approved→voicedへ
+    実際に前進させ、advanceF006VoiceWorkStateヘルパー（f006-prepare-
+    editorial.tsのadvanceF006WorkStateと同型の冪等再開パターン）により
+    2回目実行時にno-opとなることを確認した。生成WAVはaccepted-audio/への
+    正式昇格（atomic受入）を待つ一時保存として、content/batches/F006/
+    work-artifacts/000624/.voice-stage-000624/に保持した。
+
+    容量「actual」（verifyActualCapacity）は実行しなかった。理由は
+    src/content/pages-preview.ts（buildPagesPreview相当）がPages dist
+    previewの生成にvite buildの実行を要求する構造であり、これは段階B2
+    （preview構築・atomic受入）の範囲であるとコード調査で確認したため。
+    src/content/batch-runtime.ts（F002〜F004が使う汎用production
+    runtime）のexecuteCapacityActualも、voiced後の独立stageとして
+    buildPagesPreviewを内部で呼び出しておりB2相当の実装であることを
+    確認した。またsrc/content/batch.ts assertStageGateの実装上、
+    budget-approved→voiced遷移はvoiceEvidenceRefのみを要求し
+    actualCapacityRefはaccepted遷移まで不要であることも確認しており、
+    今回のスコープ判断は既存FSM設計と整合している。
+
+    npm run lint（全体）・npm run typecheck（全体）はPASS。npm test
+    フルスイートは1357件中32 failedで、全て本セッション未変更の
+    f005 native guard実行ファイル欠落・offline-build.integration.test.ts
+    のvite stderr差分という既知の環境依存flakyであることを個別確認した
+    （F006/voice/batch関連7ファイル: f006-baseline.test.ts・
+    f006-catalog.test.ts・f006-editorial.integration.test.ts・
+    f006-source.test.ts・voice-v2.test.ts・capacity-v2.test.ts・
+    batch.test.tsは個別実行で140件全PASS）。tasks.yamlのT-151は
+    state: doingのまま維持し、progressへ段階B1完了内容を追記した。
+    STATUS.md（本文冒頭・next_actions・run_mode節）を更新した。
+    段階B2（preview構築・atomic受入）、名人伝(T-152)・弟子(T-153)の
+    抽出・二重判定・読み補正・音声化は未着手。public/・
+    content/baselines/*.jsonは変更していない。push・PR作成は行っていない。

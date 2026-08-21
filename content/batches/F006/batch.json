@@ -55,6 +55,7 @@
   ],
   "workProgress": [
     {
+      "forecastRef": "content/batches/F006/capacity-forecast/000624.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-22T00:20:00.000Z",
@@ -80,9 +81,36 @@
           ],
           "stage": "reviewed",
           "toolVersion": "f006-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-21T16:13:36.572Z",
+          "count": 3,
+          "inputHashes": [
+            "ef0f7adcf95f8446cb76e644e121f1dab7ea372966bf1ca0a3e76edb77c2bbcd",
+            "a7cca004b8457499dda0caac8b356571e0692fbc268444991a5ae7c2f99fd5e2"
+          ],
+          "outputHashes": [
+            "c8d4e9c029569b8fb10bf9a45a4d63f99e2f58d4ea76607cb8688cd79e65ab47"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f006-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-21T16:13:42.101Z",
+          "count": 3,
+          "inputHashes": [
+            "f8a77895dee8366fafe595941d8bd17d28beb6f1e5d5c9562d16f98a1f02d3f1",
+            "c8d4e9c029569b8fb10bf9a45a4d63f99e2f58d4ea76607cb8688cd79e65ab47"
+          ],
+          "outputHashes": [
+            "da4c9060010a6cfa59fa787d390d1a6ba35c82478dc2bfd3b64704937196a362"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f006-prepare-voice-generate-v1"
         }
       ],
-      "status": "reviewed",
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F006/voice-evidence/000624.json",
       "workId": "000624"
     },
     {

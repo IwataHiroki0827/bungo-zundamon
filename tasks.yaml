@@ -3156,6 +3156,42 @@ tasks:
     推奨する（詳細手順はSTATUS.md次のアクション参照）。名人伝(T-152)・
     弟子(T-153)の抽出・二重判定・読み補正は未着手。
 
+    段階B1（voice-config新設→音声diff生成→容量forecast）完了。
+    content/batches/F006/voice-config.jsonをF002/F004とbyte-identicalに
+    新規作成（engineVersion 0.25.2, speakerUuid 388f246b-...,
+    styleId 3 ノーマル, 24kHz）。新規thin script
+    scripts/f006-prepare-voice.tsでsrc/voice/generation.ts
+    （planVoiceDiff/authorizeVoiceDiffPlan/generateVoiceDiff/
+    verifyVoiceCompleteness）とsrc/voice/budget.ts
+    （forecastCapacity/measureGitRepository）を直接呼び出し、F004の
+    f004-voice.ts型の新規wrapperモジュールは作らなかった。山月記(000624)の
+    speech-revisions.json確定3台詞（李徴/袁傪/李徴、うち2件はカタカナ読み
+    補正済み）からVoiceDiffItemを構成し、ローカルVOICEVOX 0.25.2
+    （http://127.0.0.1:50021）へ実接続してWAV 3件・計404,100 bytesを実生成
+    （miss 3/hit 0）、verifyVoiceCompletenessでapproved→audio→asset参照の
+    整合とWAV実体sha256/durationMsをPASS確認した。容量forecastは
+    forecastCapacity+measureGitRepositoryの実測（既存public 284,091,244
+    bytes、git非object 1,021,501 bytes）でresult=pass_with_warning
+    （planned+current pages計568MB相当がwarning閾値超過、blocked要因なし）。
+    生成WAVは正式accepted-audio/への昇格を待つ一時保存として
+    content/batches/F006/work-artifacts/000624/.voice-stage-000624/に保持。
+    manifestはtransitionWorkStateでreviewed→budget-approved→voicedへ
+    実際に前進（advanceF006VoiceWorkStateで冪等再開可能、2回目実行で
+    no-opを確認済み）。容量「actual」（verifyActualCapacity）は
+    src/content/pages-preview.tsの実vite buildによるPages dist previewを
+    要求する構造であり、src/content/batch-runtime.tsのexecuteCapacityActual
+    （F002〜F004が使う汎用runtime）でもvoiced後の別stageとしてbuildを伴って
+    実行されることをコード上で確認した。work FSM自体もvoiced遷移には
+    voiceEvidenceRefのみを要求しactualCapacityRefはaccepted遷移まで不要
+    （src/content/batch.ts assertStageGate）であるため、今回のB1スコープ
+    （preview構築を含まない）には該当せず未実行。次の段階B2で
+    preview構築（vite build）とセットでverifyActualCapacity・
+    promoteVerifiedWorkArtifactsによるatomic受入を実施する。lint/typecheck
+    全体PASS、npm testフルスイートは1357件中32 failed、全て本タスク非関連
+    （F005 native guard exe欠落・offline-build stderr noise、事前確認済み）。
+    F006/voice/batch関連テスト（f006-*.test.ts、voice-v2.test.ts、
+    capacity-v2.test.ts、batch.test.ts等7ファイル）は個別実行で140件全PASS。
+
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入
   feature: F006
