@@ -1596,3 +1596,41 @@ entries:
     段階B2（preview構築・atomic受入）、名人伝(T-152)・弟子(T-153)の
     抽出・二重判定・読み補正・音声化は未着手。public/・
     content/baselines/*.jsonは変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-150 作者画像provenance実装(FUN-F006-014/015)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 55000
+  note: >-
+    T-150で唯一残っていた作者画像生成(REQ-F006-016)を、ローカルComfyUI
+    (FLUX.1 schnell)で生成済みの中島敦ずんだもん画像を用いて完了した。
+    DD-F006.md FUN-F006-014/015の2026-08-22訂正版（context引数なしの
+    F006専用軽量schema、`sealF006ArtworkProvenance(generation, inputs,
+    finalImage)`）に基づき、新規src/content/f006-artwork.tsを実装した。
+    F001〜F005共有のsrc/notices/artwork-provenance.ts（OpenAI内蔵
+    image_genツール専用の固定検証）は一切変更・再利用せず、PNG decode・
+    dHash64計算だけf005-artwork.tsのcomputeDHash64V1（feature非依存pure
+    関数）を再利用した。生成済み画像（SHA-256 9686d567...5328e4a）を
+    content/batches/F006/public-files/artwork/nakajima-zundamon.pngへ
+    配置し、実データからcontent/batches/F006/artwork-provenance.json
+    （dHash64 383820881363322b）をseal、既存4作者（芥川/宮沢/太宰/夏目）
+    画像との非近似重複確認（実測Hamming距離24〜36、閾値8を安全に超過）を
+    verifyF006ArtworkAgainstCatalogで実施した。src/content/batch-public.ts
+    のintegrateArtworkProvenancesへF006分岐を追加した（既存F001〜F005
+    分岐は無変更）。f006-catalog.tsのmergeNewAuthorCatalog006ヘッダ
+    コメントを実装完了後の状態へ更新し、実画像SHA-256をF006_ARTWORK_SHA256
+    定数としてexportした。新規src/content/f006-artwork.test.ts
+    （UT-F006-014/015相当13ケース、IT-F006-008相当の実データ結合テスト
+    含む）を作成し全PASS。npm run lint・npm run typecheckは全体PASS。
+    対象テスト（f006-artwork.test.ts/f006-catalog.test.ts/
+    batch-public.test.ts/f005-artwork.test.ts）58件全PASSし、
+    integrateArtworkProvenances変更によるF001〜F005の回帰がないことを
+    確認した。npm testフルスイートは既知のWindows並列flaky（native guard
+    実行ファイル欠落・offline-build stderr差分）以外に新規failureが
+    ないことをgit stashでの一時切り戻し実行で確認した。tasks.yamlの
+    T-150をstate: doneへ更新し、docs/changes/CHG-F006-001.mdを新規
+    作成した。STATUS.md（本文4節）・docs/cost.yamlを更新した。
+    public/・content/baselines/*.jsonは変更していない。画像自体は
+    生成済みのものをそのまま使い、差し替えていない。push・PR作成は
+    行っていない。

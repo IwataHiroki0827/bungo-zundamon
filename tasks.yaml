@@ -3062,7 +3062,7 @@ tasks:
   title: 中島敦作者identity・独自作者画像・Catalog新規author統合基盤を実装
   feature: F006
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-149
   tags:
@@ -3079,8 +3079,25 @@ tasks:
     deriveF006RouteSet、新規f006-catalog.ts）を実装しUT-F006-004/011/012を作成、
     型・lint・対象テスト（23件）をPASS。作者画像生成（REQ-F006-016、
     sealF006ArtworkProvenance相当のFUN-F006-014/015）はComfyUI等の画像生成
-    ツールが現在利用できないため未着手。画像生成後にf006-artwork.ts実装・
-    mergeNewAuthorCatalog006へのartwork binding結線・T-150完了化が必要
+    ツールが現在利用できないため未着手だったが、DD-F006.md方式訂正
+    （2026-08-22、context引数なしのF006専用軽量schema）に基づき新規
+    src/content/f006-artwork.ts（sealF006ArtworkProvenance/
+    verifyF006ArtworkAgainstCatalog/serialize/parseAndRehydrate、
+    F005ArtworkProvenance型のOpenAI専用機構は一切変更・再利用しない）を実装。
+    ローカルComfyUI(FLUX.1 schnell)生成済み画像（SHA-256
+    9686d567...5328e4a）をcontent/batches/F006/public-files/artwork/
+    nakajima-zundamon.pngへ配置し、実データからprovenance
+    （content/batches/F006/artwork-provenance.json、dHash64
+    383820881363322b）をseal、既存4作者（akutagawa/miyazawa/dazai/natsume）
+    画像との非近似重複確認（実測Hamming距離24〜36、閾値8を安全に超過）を
+    verifyF006ArtworkAgainstCatalogで実施。src/content/batch-public.tsの
+    integrateArtworkProvenancesへF006分岐を追加（既存F001〜F005分岐は無変更、
+    回帰なし）。f006-catalog.tsのmergeNewAuthorCatalog006へ実画像path/SHA-256
+    定数F006_ARTWORK_SHA256を結線しコメントを更新。UT-F006-014/015・
+    IT-F006-008相当のsrc/content/f006-artwork.test.ts（13ケース）を新規作成、
+    型・lint・対象テスト（batch-public.test.ts/f006-catalog.test.ts/
+    f005-artwork.test.ts含め58件）をPASS。これでT-150スコープの全FUN
+    （FUN-F006-004, 011, 012, 014, 015）が実装完了
 - id: T-151
   title: 山月記を抽出・二重レビュー・音声化・atomic受入
   feature: F006

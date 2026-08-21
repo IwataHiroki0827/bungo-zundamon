@@ -19,10 +19,17 @@ import type {
  * F006（中島敦3作品追加）専用のCatalog統合・route導出モジュール。
  *
  * `f005-catalog.ts`の`mergeNewAuthorCatalog`／`deriveF005RouteSet`と同型の
- * 構造を踏襲する。ただし作者画像実体（PNG）はまだ生成されていない
- * （FUN-F006-014/015は本タスクのスコープ外）ため、`authorArtwork`bindingは
- * caller供給のオブジェクトをそのまま受け取り、PNG decode・provenance検証は
- * 一切行わない。Catalog統合ロジック自体は画像なしで単体テスト可能である。
+ * 構造を踏襲する。作者画像実体（PNG）はFUN-F006-014/015（`f006-artwork.ts`の
+ * `sealF006ArtworkProvenance`／`verifyF006ArtworkAgainstCatalog`）で生成・
+ * provenance検証・既存4作者との非近似重複確認まで完了済みであり（実SHA-256
+ * `F006_ARTWORK_SHA256`、dHash64 `383820881363322b`、既存4作者との最小Hamming
+ * 距離24）、`content/batches/F006/public-files/artwork/nakajima-zundamon.png`
+ * ／`content/batches/F006/artwork-provenance.json`として永続化済みである。
+ * `mergeNewAuthorCatalog006`自体はCatalog統合ロジックの単体テスト容易性を
+ * 保つため、`authorArtwork`bindingをcaller供給のオブジェクトとして受け取り
+ * schema/format検証だけを行う（PNG decode・provenance実体検証は呼び出し前に
+ * `f006-artwork.ts`側で完了している前提）。実運用のcallerは`F006_ARTWORK_PATH`
+ * ／`F006_ARTWORK_SHA256`をそのまま`fragment.authorArtwork`へ結線する。
  *
  * @des DES-F006-010 @fun FUN-F006-011 FUN-F006-012
  */
@@ -31,6 +38,9 @@ const SHA256 = /^[0-9a-f]{64}$/u;
 const AUTHOR_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const STATIC_ROUTES = Object.freeze(['#/', '#/favorites', '#/credits'] as const);
 const F006_ARTWORK_PATH = 'artwork/nakajima-zundamon.png';
+/** `f006-artwork.ts`の`sealF006ArtworkProvenance`が実測したexact SHA-256（捏造しない実値）。 */
+export const F006_ARTWORK_SHA256 =
+  '9686d567837c60baaa611aa1779cb1052d3a37e046160c8cce77f26cc5328e4a';
 
 const mergedCatalogs = new WeakSet<object>();
 

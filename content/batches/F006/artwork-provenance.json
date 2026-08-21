@@ -1,0 +1,36 @@
+{
+  "credit": "中島敦ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-21T16:34:40.907Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 1412624,
+    "originalImageSha256": "9686d567837c60baaa611aa1779cb1052d3a37e046160c8cce77f26cc5328e4a",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a young, quietly intense early-Showa-era Japanese novelist-scholar, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. IMPORTANT: the image must contain absolutely no text, no writing, no letters, no characters, no calligraphy, no seals, no stamps, no logos, no symbols of any kind anywhere in the scene, on clothing, on objects, on the ground, or in the background — every surface must be plain and unmarked. Scene: a quiet moonlit mountain gorge at night, soft drifting mist, a single distant plain paper lantern glowing warm amber, layered dark mountain silhouettes. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a calm intense scholarly gaze, seated cross-legged on a flat plain stone, both hands resting calmly in the lap holding nothing, plain dark indigo scholar robe with smooth unmarked fabric and no pattern, no embroidery, no writing. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality. Composition: centered square, character slightly left of center, generous edge padding, plain unmarked background throughout. Lighting: cool moonlight with one warm lantern accent, mysterious and contemplative. Palette: deep indigo, ink black, misty grey-green, leaf green, warm amber accent. Constraints: entirely original generated image, zero input or reference images, no depiction of any real person, no third-party artwork, absolutely no readable text or symbols anywhere, no signature, no watermark, no seal.",
+    "promptSha256": "c06f2b5058b526de681caf6b83bd8eb8334e4ea599ebdd648251c73ca8d9e117",
+    "seed": 148119640,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=148119640) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "000119",
+    "batchId": "F006",
+    "outputPath": "artwork/nakajima-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F006-000119-v1",
+  "output": {
+    "bytes": 1412624,
+    "dHash64": "383820881363322b",
+    "mediaType": "image/png",
+    "publicPath": "artwork/nakajima-zundamon.png",
+    "sha256": "9686d567837c60baaa611aa1779cb1052d3a37e046160c8cce77f26cc5328e4a",
+    "sourcePath": "content/batches/F006/public-files/artwork/nakajima-zundamon.png"
+  },
+  "provenanceSha256": "c4029a6961c63459dc18da291d4fa7c382442e5540e668518db18ba2f9355e93",
+  "schemaVersion": "1.0.0"
+}

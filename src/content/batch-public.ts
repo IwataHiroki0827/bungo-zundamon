@@ -33,6 +33,10 @@ import {
   verifyF005ArtworkAgainstCatalog,
 } from './f005-artwork.ts';
 import { loadVerifiedF005Definition } from './f005-context.ts';
+import {
+  parseAndRehydrateF006ArtworkProvenance,
+  verifyF006ArtworkAgainstCatalog,
+} from './f006-artwork.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -206,14 +210,60 @@ async function integrateArtworkProvenances(
     if (!isRecord(raw) || typeof raw.manifestId !== 'string') {
       throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `作者画像provenance identityが不正です: ${author.authorId}`);
     }
-    if (author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003' && author.introducedByBatchId !== 'F005') {
+    if (
+      author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003' &&
+      author.introducedByBatchId !== 'F005' && author.introducedByBatchId !== 'F006'
+    ) {
       throw new PublicIntegrationError(
         'PUBLIC_REFERENCE_MISSING',
         `作者画像provenance schema validatorが未登録です: ${author.introducedByBatchId}`,
       );
     }
     try {
-      if (author.introducedByBatchId === 'F005') {
+      if (author.introducedByBatchId === 'F006') {
+        const generationRaw = isRecord(raw.generation) ? raw.generation : undefined;
+        if (!generationRaw) throw new Error('f006-generation-missing');
+        const imageBytes = new Uint8Array(await readFile(join(staging, ...author.artwork.path.split('/'))));
+        const provenance = parseAndRehydrateF006ArtworkProvenance(
+          new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+          {
+            generator: 'ComfyUI (local)',
+            generatorVersion: generationRaw.generatorVersion as string,
+            model: generationRaw.model as string,
+            workflow: generationRaw.workflow as string,
+            prompt: generationRaw.prompt as string,
+            negativePrompt: generationRaw.negativePrompt as string,
+            seed: generationRaw.seed as number,
+            generatedAt: generationRaw.generatedAt as string,
+            originalImageBytes: imageBytes,
+          },
+          { referenceInputs: [] },
+          {
+            sourcePath: 'content/batches/F006/public-files/artwork/nakajima-zundamon.png',
+            publicPath: 'artwork/nakajima-zundamon.png',
+            credit: typeof raw.credit === 'string' ? raw.credit : '',
+            bytes: imageBytes,
+          },
+        );
+        const existingArtwork = await Promise.all(
+          catalog.authors
+            .filter((item) => item.authorId !== author.authorId)
+            .map(async (item) => {
+              const existingBytes = new Uint8Array(await readFile(join(staging, ...item.artwork.path.split('/'))));
+              return {
+                authorId: item.authorId,
+                path: item.artwork.path,
+                bytes: existingBytes,
+                sha256: item.artwork.sha256,
+                dHash64: computeDHash64V1(existingBytes),
+              };
+            }),
+        );
+        const acceptance = verifyF006ArtworkAgainstCatalog(provenance, imageBytes, existingArtwork);
+        if (acceptance.path !== author.artwork.path || acceptance.sha256 !== author.artwork.sha256) {
+          throw new Error('f006-artwork-catalog-mismatch');
+        }
+      } else if (author.introducedByBatchId === 'F005') {
         const generationRaw = isRecord(raw.generation) ? raw.generation : undefined;
         if (!generationRaw) throw new Error('f005-generation-missing');
         const context = await loadVerifiedF005Definition(workspace);
