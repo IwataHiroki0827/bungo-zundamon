@@ -206,6 +206,66 @@ export async function loadPublishedF004CatalogFragment(
 }
 
 /**
+ * 固定v0.5.0 baseline Catalogと追跡済みF005 manifestから、公開済みF005 fragmentを復元する。
+ * F005はF003と同様に新規作者(自作artwork)を導入するため、loadPublishedF002CatalogFragmentの
+ * authors/artwork復元構造を踏襲する(loadPublishedF004CatalogFragmentの作品のみ構造とは異なる)。
+ * @des DES-F006-010 @fun FUN-F006-011
+ */
+export async function loadPublishedF005CatalogFragment(
+  workspace: string,
+  catalog: CatalogV2,
+): Promise<BatchCatalogFragment> {
+  const authors = catalog.authors.filter((item) => item.introducedByBatchId === 'F005');
+  const works = catalog.works.filter((item) => item.batchId === 'F005');
+  const audioAssets = catalog.audioAssets
+    .filter((item) => item.batchId === 'F005')
+    .map((item) => ({ ...item }));
+  const manifest = await readJson<BatchManifest>(join(workspace, 'content', 'batches', 'F005', 'batch.json'));
+  const checked = validateBatchManifest(manifest);
+  // 実装時点でcontent/batches/F005/batch.jsonのstatusは'accepted'のまま
+  // （2026-08-21のF005 v0.5.0公開commit 3c47b83はrecordPublishedBatchによる
+  // per-batch status更新を伴わなかった）。release自体（release commit・tag・
+  // deploy artifact・公開後スモークPASS）はdocs/evidence/release/RELEASE-F005.md
+  // ・F005-approval.json・F005-deployment.jsonで確定済みであり、
+  // f006-baseline.tsのloadPublishedV050Baselineがそれらのhashを直接検証する。
+  // loadAcceptedF003CatalogFragmentが'accepted'/'published'両方を受理する
+  // 既存precedentに倣い、ここでも両方を許容する。
+  if (!checked.ok || !['accepted', 'published'].includes(checked.value.status)) {
+    throw new Error('F005 published manifestが不正です');
+  }
+  for (const source of checked.value.workProgress.flatMap((work) => work.acceptedAudioSources ?? [])) {
+    const audioId = basename(source.path, '.wav');
+    if (audioAssets.some((asset) => asset.audioId === audioId)) continue;
+    const canonical = audioAssets.find((asset) =>
+      asset.sha256 === source.sha256 && asset.bytes === source.bytes && asset.configHash === source.configHash);
+    if (!canonical) throw new Error(`F005 accepted audioのaliasを復元できません: ${audioId}`);
+    audioAssets.push({ ...canonical, audioId, path: `audio/F005/${audioId}.wav` });
+  }
+  const publicFiles: NonNullable<BatchCatalogFragment['publicFiles']>[number][] = [];
+  for (const item of [
+    ...authors.map((author) => ({
+      source: 'content/batches/F005/public-files/artwork/natsume-zundamon.png',
+      publicPath: author.artwork.path,
+    })),
+    ...works.map((work) => ({
+      source: `content/batches/F005/public-files/provenance/${work.workId}.json`,
+      publicPath: work.source.provenancePath,
+    })),
+  ]) {
+    const bytes = await readFile(join(workspace, ...item.source.split('/')));
+    publicFiles.push({
+      source: item.source as WorkspaceRelativePath,
+      publicPath: item.publicPath as WorkspaceRelativePath,
+      sha256: sha256(bytes),
+      bytes: bytes.byteLength,
+    });
+  }
+  const candidateCounts = catalog.candidateCounts.byBatch.F005;
+  if (!candidateCounts) throw new Error('固定v0.5.0 CatalogにF005 candidate countsがありません');
+  return { authors, works, audioAssets, candidateCounts, publicFiles };
+}
+
+/**
  * acceptedまたはpublished F003の3作品を永続artifactだけから再構築し、作者・notice・音声参照を逆joinする。
  * @des DES-F003-009 @fun FUN-F003-022 @fun FUN-F003-023 @ut UT-F003-022 @ut UT-F003-023
  */
