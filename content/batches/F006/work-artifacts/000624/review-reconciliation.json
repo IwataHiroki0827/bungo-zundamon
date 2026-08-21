@@ -1,0 +1,47 @@
+{
+  "adjudicationArtifactSha256": null,
+  "candidateSetSha256": "0b06508a90608501ac12de4c058c5c552a947e6c7b1e5e7dd7dfea5b1676b96f",
+  "pendingIds": [],
+  "primaryArtifactSha256": "a25586634a2e777eaa2e72b69a2709d54717ff2c22ac5e22ea4e30fabbf3d4e8",
+  "reconciliationDigest": "8e66c64caf711b3774852e6967448a5dbe11e3b04265516c888430d708305820",
+  "resolutions": [
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "2iCocl6pEn1OAB7MKoJXQ5EebyEAg7PHeVySy8Zl3-g",
+      "finalDecision": "approved",
+      "inputSha256": "b6af732d2304521341fb645928d721b92970bd612dd1575d0d43c5fc74d00f6a",
+      "primaryArtifactSha256": "a25586634a2e777eaa2e72b69a2709d54717ff2c22ac5e22ea4e30fabbf3d4e8",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "425c4e060fc7a2daee1a15549451fa33215da1e97150fe522523205031735b74",
+      "sourceAnchor": ".main_text:839-851",
+      "speaker": "李徴"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q",
+      "finalDecision": "approved",
+      "inputSha256": "73b40564c04a956038b8ba54e6ccf64d0fe9575ce2f43ce6d7e5c928e94e6dd7",
+      "primaryArtifactSha256": "a25586634a2e777eaa2e72b69a2709d54717ff2c22ac5e22ea4e30fabbf3d4e8",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "425c4e060fc7a2daee1a15549451fa33215da1e97150fe522523205031735b74",
+      "sourceAnchor": ".main_text:899-919",
+      "speaker": "袁傪"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc",
+      "finalDecision": "approved",
+      "inputSha256": "c14247e84db0097be0654b1bb6bde784c92e826648c3c90fbeb4916f472b7c83",
+      "primaryArtifactSha256": "a25586634a2e777eaa2e72b69a2709d54717ff2c22ac5e22ea4e30fabbf3d4e8",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "425c4e060fc7a2daee1a15549451fa33215da1e97150fe522523205031735b74",
+      "sourceAnchor": ".main_text:1054-1071",
+      "speaker": "李徴"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "secondaryArtifactSha256": "425c4e060fc7a2daee1a15549451fa33215da1e97150fe522523205031735b74"
+}

@@ -1435,3 +1435,43 @@ entries:
     state: doingのまま維持しprogressに完了範囲・残作業を明記した。STATUS.md
     （本文4節）とdocs/cost.yamlを更新した。public/・F001〜F005の既存baseline
     記述子は変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-151 山月記の抽出・独立二重判定・読み補正（段階A）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 90000
+  note: >-
+    前回セッションで指示書（f004-editorial.ts型の新規wrapper作成）とApproved済み
+    DD-F006.md/UT-F006.md/IT-F006.md（FUN-F006-007/008は新規コードなし、既存
+    editorial-independent.ts/f003-reuse.tsをそのまま呼ぶ）の矛盾が判明していたため、
+    Approved文書どおり新規ラッパーを作らず既存汎用関数を直接呼ぶ薄いscript
+    scripts/f006-prepare-editorial.ts（約290行）だけを新規実装した。
+    f006-source.tsのextractF006DialogueCandidatesで山月記(000624)から3候補を抽出し、
+    batch-production.tsのnormalizeBatchCandidate（既存汎用）で正規化した。
+    registerEditorialAuthorizations→sealAndValidateEditorialJudgmentSet（primary/
+    secondary）→reconcileIndependentJudgments→verifyEditorialCompleteness
+    （editorial-independent.ts、既存汎用）をそのまま呼び、独立同意によりpending 0
+    （3件承認、reasonCode SPOKEN_DIALOGUE、speaker=李徴/袁傪/李徴）まで完結し、
+    content/batches/F006/reviews/000624.jsonをF002〜F005と同一のlegacy review
+    record形式で生成した（f003-review-acceptance.tsのbridgeEditorialResolutionSet
+    ToReviewRecordsを再利用）。ローカルVOICEVOX 0.25.2 speaker3 engine
+    （http://127.0.0.1:50021）へ実際にaudio_queryを投げて3候補の読みを実測し、
+    「李徴」「李徴子」が訓読み「しるし」等へ誤読される（「隴西」は正読）ことを
+    確認した。applySpeechRevisions（f003-reuse.ts、既存汎用）でdisplayTextを
+    変えずspeechTextだけをカタカナ（リチョウ/リチョウシ）へ補正する2件の
+    revisionを適用し、content/batches/F006/work-artifacts/000624/
+    speech-revisions.jsonへ記録した。UT-F006-007/008は「既存テストでカバー済み」
+    のため新規UT未作成、IT-F006-004対応としてsrc/content/f006-editorial.
+    integration.test.ts（5ケース: 実データでの合意完結、不一致pending検出、
+    第三裁定解決、未封印judgment setのEDITORIAL_JUDGMENT_SET_UNTRUSTED拒否、
+    speech revision chainの正常系/番号飛び越し拒否）を新規作成し全PASSを確認した。
+    npm run lint/typecheckは全体PASS。npm testフルスイートは1357件中31 failedで、
+    全てf005 native guard実行ファイル欠落・offline-build stderr差分・
+    published-baseline timeoutという本セッション未変更ファイルの既知Windows並列
+    flaky（f006-editorial.integration.test.tsはフルスイート内でも5件全PASS）。
+    tasks.yamlのT-151はstate: doingのまま維持しprogressに段階A完了を記載した。
+    STATUS.md（本文4節）とdocs/cost.yamlを更新した。名人伝(T-152)・弟子(T-153)
+    の抽出・二重判定・読み補正、および音声生成・容量forecast/actual・atomic
+    受入（FUN-F006-009/010、段階B）は未着手。public/・content/baselines/*.json
+    は変更していない。push・PR作成は行っていない。

@@ -3085,7 +3085,7 @@ tasks:
   title: 山月記を抽出・二重レビュー・音声化・atomic受入
   feature: F006
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-150
   tags:
@@ -3099,6 +3099,29 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f006
+  progress: >-
+    段階A完了。DD-F006.md確定記載どおりFUN-F006-007/008は新規wrapperを作らず
+    既存汎用関数（editorial-independent.ts・f003-reuse.ts）を直接呼ぶ薄い
+    script（scripts/f006-prepare-editorial.ts）だけを新規実装。山月記(000624)
+    をf006-source.tsのextractF006DialogueCandidatesで抽出した3候補へ
+    registerEditorialAuthorizations→sealAndValidateEditorialJudgmentSet→
+    reconcileIndependentJudgments→verifyEditorialCompletenessを通し、
+    primary/secondary合意でpending 0（3件承認、reasonCode SPOKEN_DIALOGUE、
+    speaker=李徴/袁傪/李徴）まで完結し、content/batches/F006/reviews/000624.json
+    をF002〜F005と同じlegacy review record形式で生成した。ローカルVOICEVOX
+    0.25.2 speaker3のaudio_query実測により「李徴」「李徴子」の誤読
+    （訓読み「しるし」等）を確認し、applySpeechRevisionsでdisplayTextを変えず
+    speechTextだけをカタカナ読み（リチョウ/リチョウシ）へ補正（2/3候補、
+    revisionCount=1）。UT-F006-007/008は「既存テストでカバー済み」の記載どおり
+    新規UT未作成、代わりにIT-F006-004対応の統合テスト
+    src/content/f006-editorial.integration.test.tsを新規作成（実データでの
+    合意完結・不一致pending検出・第三裁定解決・未封印judgment拒否・speech
+    revision chain正常系/飛び越し拒否の5ケース、PASS）。lint/typecheck/
+    対象testはPASS、フルtestは既存f005 native guard exe欠落等の既知flaky
+    以外は無関係で全PASS（本タスク由来の失敗0件）。名人伝(T-152)・弟子(T-153)
+    の抽出・二重判定・読み補正、および音声生成・容量forecast/actual・
+    atomic受入（FUN-F006-009/010）は未着手。
+
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入
   feature: F006

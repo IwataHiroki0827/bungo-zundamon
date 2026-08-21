@@ -1,0 +1,51 @@
+{
+  "batchId": "F006",
+  "kind": "f006-speech-revision-result",
+  "reconciliationDigest": "8e66c64caf711b3774852e6967448a5dbe11e3b04265516c888430d708305820",
+  "revisions": [
+    {
+      "after": "「その声は、我が友、リチョウシではないか？」",
+      "before": "「その声は、我が友、李徴子ではないか？」",
+      "candidateId": "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q",
+      "inputSha256": "360428bd28e91b682c2667a46fe36e1150e028b301a7a6c889e36520362ad1a7",
+      "outputSha256": "bc5bc90deb0f329287a2b4ef77eea98adec53c9be2e9bd502e87a7212065d8bf",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴子」が「りいちょうこ」（徴子を誤ってちょうこと読む）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょうし」を強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「如何にも自分は隴西のリチョウである」",
+      "before": "「如何にも自分は隴西の李徴である」",
+      "candidateId": "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc",
+      "inputSha256": "1b226975576e6247e527d65616c1c253892ff1f2c7ccdd19b2ec933d11e480f8",
+      "outputSha256": "135459226a54e8412c834d6b356766b1e3b52fcd7744ee4a6cae042152f11382",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴」が「りいしるし」（徴を訓読み「しるし」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょう」を強制する。隴西は「ろうせい」で正しく読まれるため補正不要。",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "2iCocl6pEn1OAB7MKoJXQ5EebyEAg7PHeVySy8Zl3-g",
+      "displayText": "「あぶないところだった」",
+      "revisionCount": 0,
+      "speechSha256": "c001e39255871886f96b86a1fadbf2d4d69a11d98c8cfe329be1809859f1cdb4",
+      "speechText": "「あぶないところだった」"
+    },
+    {
+      "candidateId": "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q",
+      "displayText": "「その声は、我が友、李徴子ではないか？」",
+      "revisionCount": 1,
+      "speechSha256": "bc5bc90deb0f329287a2b4ef77eea98adec53c9be2e9bd502e87a7212065d8bf",
+      "speechText": "「その声は、我が友、リチョウシではないか？」"
+    },
+    {
+      "candidateId": "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc",
+      "displayText": "「如何にも自分は隴西の李徴である」",
+      "revisionCount": 1,
+      "speechSha256": "135459226a54e8412c834d6b356766b1e3b52fcd7744ee4a6cae042152f11382",
+      "speechText": "「如何にも自分は隴西のリチョウである」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000624"
+}

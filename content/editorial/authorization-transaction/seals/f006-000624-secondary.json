@@ -1,0 +1,40 @@
+{
+  "header": {
+    "artifactSha256": "425c4e060fc7a2daee1a15549451fa33215da1e97150fe522523205031735b74",
+    "authorizationId": "f006-000624-secondary",
+    "candidateSetSha256": "0b06508a90608501ac12de4c058c5c552a947e6c7b1e5e7dd7dfea5b1676b96f",
+    "policySha256": "54829ace28b704340492fa0d1f177acf86c220f56e105d3570cdf085fa1089ff",
+    "promptSha256": "ebad77eaf1452a17efdb941f8f20d585bbf610a9f5fff113523e2a29fc3491b0",
+    "role": "secondary",
+    "runId": "f006-000624-secondary-run",
+    "sealedAt": "2026-08-22T00:15:01.000Z",
+    "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+  },
+  "judgments": [
+    {
+      "candidateId": "2iCocl6pEn1OAB7MKoJXQ5EebyEAg7PHeVySy8Zl3-g",
+      "decision": "approved",
+      "inputSha256": "b6af732d2304521341fb645928d721b92970bd612dd1575d0d43c5fc74d00f6a",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:839-851",
+      "speaker": "李徴"
+    },
+    {
+      "candidateId": "cRCi9fnIRGHH0pNGEDoP-o5Bj0yyERAMRSC1qHwRc7Q",
+      "decision": "approved",
+      "inputSha256": "73b40564c04a956038b8ba54e6ccf64d0fe9575ce2f43ce6d7e5c928e94e6dd7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:899-919",
+      "speaker": "袁傪"
+    },
+    {
+      "candidateId": "FC3C6EdFZ4nYQ6qcWZ96TQ2AhqmUiVJnBoxQcKudjcc",
+      "decision": "approved",
+      "inputSha256": "c14247e84db0097be0654b1bb6bde784c92e826648c3c90fbeb4916f472b7c83",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1054-1071",
+      "speaker": "李徴"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}
