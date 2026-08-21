@@ -107,7 +107,13 @@ export function assertArtworkProvenanceMatches(
     }
     return;
   }
-  if (rawManifest.authorId !== entry.authorId || rawManifest.batchId !== entry.batchId) {
+  // F006はauthorId/batchIdをtop-levelではなくidentity.{authorId,batchId}へ格納する
+  // 独自provenance schema（f006-artwork.tsのArtworkProvenanceF006）を採用したため、
+  // top-level fieldが無い場合はidentity側を照合する（2026-08-22の互換対応追加）。
+  const identity = isRecord(rawManifest.identity) ? rawManifest.identity : undefined;
+  const authorId = 'authorId' in rawManifest ? rawManifest.authorId : identity?.authorId;
+  const batchId = 'batchId' in rawManifest ? rawManifest.batchId : identity?.batchId;
+  if (authorId !== entry.authorId || batchId !== entry.batchId) {
     throw new Error('notice-artwork-provenance-mismatch');
   }
 }
