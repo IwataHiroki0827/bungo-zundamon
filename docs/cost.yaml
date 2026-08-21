@@ -1044,7 +1044,8 @@ entries:
   model: Claude Sonnet 5
   agents: 1
   est_tokens: 25000
-  note: T-073継続中に発見した公開provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一の各不備を順次修正した（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）。最終的にsrc/content/batch-public.tsのintegrateArtworkProvenances（F001〜F004共有の公開作者画像provenance検証、V1/V2/V3の3分岐のみ）がF005導入のArtworkProvenanceV4をPUBLIC_REFERENCE_MISSINGで拒否していたことが最終blockerと判明。src/content/f005-artwork.tsのparseAndRehydrateF005ArtworkProvenance/verifyF005ArtworkAgainstCatalog（final-integration自身の内部検証で動作確認済み）を再利用するF005分岐を追加し解消（commit 425ebf9、V1/V2/V3の既存挙動は変更なし）。node --experimental-transform-types scripts/f005-final-integration.tsが成功し候補tree（898 files）を生成。最終Catalog: authors=4/works=15/dialogues=877/audioAssets=861、既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。lint PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS（10件failはWindows並列実行時のresource contentionによるflakyで単独実行では全PASS、batch-public.test.ts等の共有コードテストも含む）。T-073をdoneへ更新しT-074へ引き継ぎ
+  note: >-
+    T-073継続中に発見した公開provenance evidence永続化・F004 fragment合流・作者画像evidence登録・configHash統一の各不備を順次修正した（commit 9445d25/cf6b629/2db2dc6/0eb8e0b/a8dcb5d）。最終的にsrc/content/batch-public.tsのintegrateArtworkProvenances（F001〜F004共有の公開作者画像provenance検証、V1/V2/V3の3分岐のみ）がF005導入のArtworkProvenanceV4をPUBLIC_REFERENCE_MISSINGで拒否していたことが最終blockerと判明。src/content/f005-artwork.tsのparseAndRehydrateF005ArtworkProvenance/verifyF005ArtworkAgainstCatalog（final-integration自身の内部検証で動作確認済み）を再利用するF005分岐を追加し解消（commit 425ebf9、V1/V2/V3の既存挙動は変更なし）。node --experimental-transform-types scripts/f005-final-integration.tsが成功し候補tree（898 files）を生成。最終Catalog: authors=4/works=15/dialogues=877/audioAssets=861、既存v0.4.0部分（3作者・12作品・674台詞・662音声）は不変を確認。lint PASS、typecheck PASS、Vitestフルスイート1312件中1302件PASS（10件failはWindows並列実行時のresource contentionによるflakyで単独実行では全PASS、batch-public.test.ts等の共有コードテストも含む）。T-073をdoneへ更新しT-074へ引き継ぎ
 - date: '2026-08-21'
   phase: test
   task: T-074 F005 UT/IT/QT/6環境受入の試行と重大gapの検出
