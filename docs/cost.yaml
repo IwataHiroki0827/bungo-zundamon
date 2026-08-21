@@ -1166,3 +1166,34 @@ entries:
     未変更ファイル）のtimeout/EBUSYで、既報（CHG-F005-081/082）と同型のWindows並列
     resource contentionと確認した。`content/baselines/*.json`・`public/`・`src/`は
     変更していない。push・PR作成・承認ゲートへの新規登録は行っていない。
+- date: '2026-08-21'
+  phase: release
+  task: T-075 v0.5.0リリース前準備（version bump・public/差し替え・f005-catalog.test.ts修正）
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 26000
+  note: >-
+    メインセッションが準備した`package.json`/`package-lock.json`（0.5.0）、
+    `CHANGELOG.md`、F005候補一式（4作者15作品）への`public/`差し替えを引き継ぎ、
+    `npm test`が`src/content/f005-catalog.test.ts`で決定論的に失敗していた原因を修正した。
+    `beforeAll`が`resolve('.')`＝working treeの可変`public/content/catalog.json`を
+    「F005導入前の事前baseline」として直接読み、`verifyNatsumeIdentity`（新規作者の
+    既存author集合との衝突検証）へ渡していたが、`public/`をF005候補へ既に差し替えた
+    ことで前提が崩れ`F005_AUTHOR_IDENTITY_CONFLICT`を誤検知していた。
+    F004公開昇格commit`19759e2`（release: F004公開treeを昇格、F005着手前の最終public
+    状態）を`git show 19759e2:public/content/catalog.json`で読み込む方式へ切替え、
+    検証目的は変えず参照先を可変working treeから凍結git履歴へ変更した。
+    `content/baselines/*.json`（過去リリース履歴）は変更していない。新規baseline記述子・
+    release evidence（実デプロイのrun ID等を要するためスコープ外、先例調査済み）は
+    今回作成していない。修正後`npx vitest run src/content/f005-catalog.test.ts`は17件
+    全PASS。`npm run lint`/`npm run typecheck`はPASS。`npm test`フルスイートは
+    1319件中1314 PASS、残り5件（baseline.test.ts×2/batch-runtime.test.ts×1/
+    f005-native-guard.test.ts×1/f005-source.test.ts×1）は既知のWindows並列flakyで
+    個別ファイル再実行にて全PASS確認済み。`npm run test:e2e`（Playwright 6project、
+    `public/`から`vite build`で生成したdist使用）は163 passed・5 skipped
+    （chromiumで一度だけ実行する全asset照合設計、単独再実行でもPASS確認済み）、
+    失敗0。3コミットに分割してcommit（version bump・CHANGELOG、public/差し替え一式、
+    f005-catalog.test.ts修正＋tasks.yaml progress更新）。push・タグpush・
+    PAGES_DEPLOY変数設定・実デプロイ・release evidence作成は行っていない。
+    `tasks.yaml`のT-075は`state: doing`のまま維持（実デプロイ・release evidence
+    作成はメインセッション側の担当）。STATUS.mdフロントマター・本文4節を更新した。
