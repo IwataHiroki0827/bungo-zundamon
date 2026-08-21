@@ -77,9 +77,6 @@ beforeAll(async () => {
     'core.autocrlf=false',
     'clone',
     '--shared',
-    '--branch',
-    'feature/F005',
-    '--single-branch',
     workspace,
     cleanWorkspace,
   ], {
