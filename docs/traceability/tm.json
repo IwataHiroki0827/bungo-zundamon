@@ -536,6 +536,96 @@
       "defined_in": "docs/srs/SRS-F005.md",
       "refs": []
     },
+    "REQ-F006-001": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-002": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-003": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-004": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-005": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-006": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-007": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-008": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-009": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-010": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-011": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-012": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-013": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-014": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-015": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-016": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-017": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
+    "REQ-F006-018": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F006.md",
+      "refs": []
+    },
     "FUN-F001-001": {
       "type": "FUN",
       "defined_in": "docs/design/DD-F001.md",
@@ -5749,6 +5839,139 @@
       "refs": [
         "REQ-F005-001",
         "REQ-F005-017"
+      ]
+    },
+    "QT-F006-001": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-001"
+      ]
+    },
+    "QT-F006-002": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-002",
+        "REQ-F006-003",
+        "REQ-F006-004"
+      ]
+    },
+    "QT-F006-003": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-005",
+        "REQ-F006-006"
+      ]
+    },
+    "QT-F006-004": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-007"
+      ]
+    },
+    "QT-F006-005": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-008"
+      ]
+    },
+    "QT-F006-006": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-009",
+        "REQ-F006-010"
+      ]
+    },
+    "QT-F006-007": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-011"
+      ]
+    },
+    "QT-F006-008": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-012"
+      ]
+    },
+    "QT-F006-009": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-002",
+        "REQ-F006-013"
+      ]
+    },
+    "QT-F006-010": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-014"
+      ]
+    },
+    "QT-F006-011": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-015"
+      ]
+    },
+    "QT-F006-012": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-015"
+      ]
+    },
+    "QT-F006-013": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-016"
+      ]
+    },
+    "QT-F006-014": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-017"
+      ]
+    },
+    "QT-F006-015": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-018"
+      ]
+    },
+    "QT-F006-016": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-001",
+        "REQ-F006-002",
+        "REQ-F006-017"
+      ]
+    },
+    "QT-F006-017": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-017"
+      ]
+    },
+    "QT-F006-018": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F006.md",
+      "refs": [
+        "REQ-F006-017"
       ]
     },
     "IMPL:index.html#9:des": {
@@ -13922,6 +14145,97 @@
       ]
     }
   },
-  "gaps": [],
-  "coverage_percent": 100.0
+  "gaps": [
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-001",
+      "detail": "REQ-F006-001 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-002",
+      "detail": "REQ-F006-002 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-003",
+      "detail": "REQ-F006-003 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-004",
+      "detail": "REQ-F006-004 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-005",
+      "detail": "REQ-F006-005 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-006",
+      "detail": "REQ-F006-006 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-007",
+      "detail": "REQ-F006-007 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-008",
+      "detail": "REQ-F006-008 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-009",
+      "detail": "REQ-F006-009 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-010",
+      "detail": "REQ-F006-010 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-011",
+      "detail": "REQ-F006-011 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-012",
+      "detail": "REQ-F006-012 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-013",
+      "detail": "REQ-F006-013 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-014",
+      "detail": "REQ-F006-014 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-015",
+      "detail": "REQ-F006-015 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-016",
+      "detail": "REQ-F006-016 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-017",
+      "detail": "REQ-F006-017 に対応するDESがありません"
+    },
+    {
+      "rule": "REQ→DES",
+      "tag": "REQ-F006-018",
+      "detail": "REQ-F006-018 に対応するDESがありません"
+    }
+  ],
+  "coverage_percent": 99.1
 }

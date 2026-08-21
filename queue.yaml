@@ -1715,7 +1715,7 @@ items:
       build/deploy共に成功。公開URL: https://iwatahiroki0827.github.io/bungo-zundamon/
   - id: Q-051
     type: question
-    status: open
+    status: closed
     title: F006 作者slug・route名の確定
     body: >-
       中島敦の作者routeを新設する必要がありますが、具体的なslug文字列が未確定です。既存slug命名規則「姓ローマ字-名ローマ字」（`natsume-soseki`等）に整合する`nakajima-atsushi`を推奨します（QA-F006.md No.1）。
@@ -1728,9 +1728,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: nakajima-atsushi'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §5、既存slug命名規則「姓ローマ字-名ローマ字」（`natsume-soseki`等）に整合する。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-052
     type: question
-    status: open
+    status: closed
     title: F006 作者表示名の確定
     body: >-
       原著者との対応とサイト内表記の一貫性が必要です。既存運用（`なつめそうせき`等、原著者名の平仮名表記）に倣い`なかじまあつし`を推奨します（QA-F006.md No.2）。
@@ -1743,9 +1748,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: なかじまあつし'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F005/F006の既存運用（`なつめそうせき`等、原著者名の平仮名表記）。未承認の愛称を新設しない。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-053
     type: question
-    status: open
+    status: closed
     title: F006 entity正規化（REQ-F006-007相当）の要否
     body: >-
       F005の「趣味の遺伝」ではXHTML内`&nbsp;`未定義entityへのallowlist正規化が必要でしたが、F006採用3作品（山月記・名人伝・弟子）にはDOMAIN-F006.md §4-5で未定義entityが検出されていません。対象3作品には正規化処理を適用しない（検出時のみfail-closedで停止）でよいか確認してください（QA-F006.md No.3）。
@@ -1758,9 +1768,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: 対象3作品には正規化処理を適用しない（検出時のみfail-closedで停止）'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §5「3作品のXHTMLはいずれも…未定義entityを含まない」。同一作者の他作品（李陵・悟浄歎異・悟浄出世）には存在するため見送り済み。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-054
     type: question
-    status: open
+    status: closed
     title: F006 作品固有注記表示（REQ-F006-010相当）の要否
     body: >-
       F005の「趣味の遺伝」では公式card由来の注意文を作者画面・作品画面・creditsへ表示しましたが、F006採用3作品の図書カード「作品について」欄には選定時点で該当注記が確認されていません。対象3作品には作品固有注記UIを実装しない（公開直前の再確認で新設が見つかった場合のみ追加）でよいか確認してください（QA-F006.md No.4）。
@@ -1773,9 +1788,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: 対象3作品には作品固有注記UIを実装しない（公開直前の再確認で新設が見つかった場合のみ追加）'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §5「3作品ともXHTML内に表現上の注意書きは…確認できなかった」。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-055
     type: question
-    status: open
+    status: closed
     title: F006 校正者欄null許容（REQ-F006-006）の扱い確認
     body: >-
       F005では夢十夜の校正者欄なしに対応する`proofreader: null`を導入しましたが、F006の3作品（山月記・名人伝・弟子）はいずれも入力・校正欄が記載ありです。F006では`proofreader: null`分岐は発動しない（既存の後方互換処理は維持するが今回のデータには適用されない）という理解でよいか確認してください（QA-F006.md No.5）。
@@ -1788,9 +1808,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: 理解のとおりでよい（F006では発動しない）'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §5「入力」「校正」欄は3作品とも記載あり。既存の後方互換処理は維持する。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-056
     type: question
-    status: open
+    status: closed
     title: F006 候補件数の確定方法
     body: >-
       選定用概算（`「」`64件、発話文字概算2,412文字）と正式抽出値を混同できません。概算を固定するか、原典固定後の全候補レビューで確定するか選んでください（QA-F006.md No.6）。F001〜F005ではB（原典固定後の全候補レビューで確定）を採用しています。
@@ -1803,9 +1828,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'B: 原典固定後の全候補レビューで確定'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §3。概算は比較・容量予測専用。原典固定後の全候補レビューで`pending: 0`まで確定する。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-057
     type: question
-    status: open
+    status: closed
     title: F006 手動確認の要否
     body: >-
       継続追加を人手入力なしで進める既存方針（F003〜F005、CHG-F002-002）をF006でも継続してよいか確認してください（QA-F006.md No.7）。
@@ -1818,9 +1848,14 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'B: 自動証跡専用（既存方針を継続）'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F005/F006運用、F003〜F005の実績、CHG-F002-002。
+    processed_at: '2026-08-21T12:00:00+09:00'
   - id: Q-058
     type: question
-    status: open
+    status: closed
     title: F006 作者画像の生成方式
     body: >-
       第三者二次創作には別の権利があるため、独自生成（prompt・recipe・hash・creditを固定できる）を推奨します（QA-F006.md No.8）。既存F002〜F005と同じ方式でよいか確認してください。
@@ -1833,3 +1868,36 @@ items:
     source: pf-requirements
     resume:
       next: pf-requirements
+    answer: 'A: 独自生成'
+    answer_note: >-
+      オーナーの2026-08-20制定自動承認方針に基づき推奨案を採用。ドメイン根拠:
+      DOMAIN-F006 §5。prompt・recipe・hash・creditを固定できる。
+    processed_at: '2026-08-21T12:00:00+09:00'
+  - id: Q-059
+    type: approval
+    status: closed
+    title: F006 要求仕様・適格性試験仕様の承認（ゲート①）
+    body: >-
+      QA-F006.md全8問の回答（Q-051〜Q-058）をdocs/srs/SRS-F006.md（REQ-F006-003作者slug/表示名確定、
+      REQ-F006-010作品固有注記非対象確定）とdocs/tests/qt/QT-F006.md（QT-F006-004/006の確定回答反映）へ
+      反映した。trace_check（tools/trace_check.py --path）でREQ→QT対応漏れ0を確認（REQ→DESの18件は
+      設計フェーズ未着手のため既知・想定内）。自己レビュー観点（整合性・実現性・セキュリティ）で指摘0件を確認した。
+    target: docs/srs/SRS-F006.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-21T12:00:00+09:00'
+    source: pf-worker
+    resume:
+      next: pf-setup
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。QA回答完了・独立レビュー相当の自己レビュー指摘ゼロの
+      品質条件を満たすため、承認ゲート①を自動承認として記録する。
+    approved_at: '2026-08-21T12:00:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-21T12:00:00+09:00'
+    processed_note: >-
+      SRS-F006.md/QT-F006.mdをApprovedへ更新した。次フェーズpf-setup（タスク分解）へ進める。

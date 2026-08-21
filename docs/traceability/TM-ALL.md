@@ -1,6 +1,6 @@
 # トレーサビリティマトリクス (ALL)
 
-カバレッジ: 100.0%
+カバレッジ: 99.1%
 
 | | REQ | DES | FUN/実装 | UT/IT | QT |
 |---|-----|-----|----------|-------|----|
@@ -111,6 +111,41 @@
 |  | REQ-F005-016 | DES-F005-008, DES-F005-010 | FUN-F005-028, FUN-F005-029, FUN-F005-030, FUN-F005-014, FUN-F005-032, IMPL:src/content/f005-artwork.test.ts#186:des, IMPL:src/content/f005-artwork.test.ts#240:des, IMPL:src/content/f005-artwork.test.ts#511:des, IMPL:src/content/f005-artwork.test.ts#597:des, IMPL:src/content/f005-artwork.ts#532:des, IMPL:src/content/f005-artwork.ts#574:des, IMPL:src/content/f005-artwork.ts#805:des, IMPL:src/content/f005-catalog.ts#831:des, IMPL:src/notices/notices.test.ts#576:des, IMPL:src/ui/render-v2.test.ts#116:des, IMPL:src/ui/types.ts#47:des | UT-F005-028, UT-F005-029, UT-F005-030, UT-F005-014, UT-F005-032, IT-F005-008, IT-F005-015, IT-F005-007, IT-F005-009, IT-F005-015 | QT-F005-013 |
 |  | REQ-F005-017 | DES-F005-011, DES-F005-012 | FUN-F005-033, FUN-F005-034, FUN-F005-043, FUN-F005-035, FUN-F005-036, FUN-F005-037, FUN-F005-038, FUN-F005-039, FUN-F005-045, FUN-F005-047, IMPL:src/content/batch-candidate.ts#319:des, IMPL:src/content/f005-context-internal.ts#496:des, IMPL:src/content/f005-context.test.ts#351:des | UT-F005-033, UT-F005-034, UT-F005-043, UT-F005-035, UT-F005-036, UT-F005-037, UT-F005-038, UT-F005-039, UT-F005-045, UT-F005-047, IT-F005-010, IT-F005-011, IT-F005-015, IT-F005-012, IT-F005-013, IT-F005-015 | QT-F005-014, QT-F005-016, QT-F005-017, QT-F005-018, QT-F005-019, QT-F005-020 |
 |  | REQ-F005-018 | DES-F005-013 | FUN-F005-040, FUN-F005-041, IMPL:src/content/f005-foundation.test.ts#494:des, IMPL:src/content/f005-foundation.test.ts#507:des, IMPL:src/content/f005-foundation.test.ts#525:des, IMPL:src/content/f005-foundation.test.ts#550:des, IMPL:src/content/f005-foundation.test.ts#561:des, IMPL:src/content/f005-foundation.test.ts#582:des, IMPL:src/content/f005-foundation.ts#1339:des, IMPL:src/content/f005-foundation.ts#1455:des | UT-F005-040, UT-F005-041, IT-F005-014, IT-F005-015 | QT-F005-015 |
+| ⚠ | REQ-F006-001 | — | — | — | QT-F006-001, QT-F006-016 |
+| ⚠ | REQ-F006-002 | — | — | — | QT-F006-002, QT-F006-009, QT-F006-016 |
+| ⚠ | REQ-F006-003 | — | — | — | QT-F006-002 |
+| ⚠ | REQ-F006-004 | — | — | — | QT-F006-002 |
+| ⚠ | REQ-F006-005 | — | — | — | QT-F006-003 |
+| ⚠ | REQ-F006-006 | — | — | — | QT-F006-003 |
+| ⚠ | REQ-F006-007 | — | — | — | QT-F006-004 |
+| ⚠ | REQ-F006-008 | — | — | — | QT-F006-005 |
+| ⚠ | REQ-F006-009 | — | — | — | QT-F006-006 |
+| ⚠ | REQ-F006-010 | — | — | — | QT-F006-006 |
+| ⚠ | REQ-F006-011 | — | — | — | QT-F006-007 |
+| ⚠ | REQ-F006-012 | — | — | — | QT-F006-008 |
+| ⚠ | REQ-F006-013 | — | — | — | QT-F006-009 |
+| ⚠ | REQ-F006-014 | — | — | — | QT-F006-010 |
+| ⚠ | REQ-F006-015 | — | — | — | QT-F006-011, QT-F006-012 |
+| ⚠ | REQ-F006-016 | — | — | — | QT-F006-013 |
+| ⚠ | REQ-F006-017 | — | — | — | QT-F006-014, QT-F006-016, QT-F006-017, QT-F006-018 |
+| ⚠ | REQ-F006-018 | — | — | — | QT-F006-015 |
 
 ## 検出された対応漏れ
-- なし
+- ⚠ [REQ→DES] REQ-F006-001: REQ-F006-001 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-002: REQ-F006-002 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-003: REQ-F006-003 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-004: REQ-F006-004 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-005: REQ-F006-005 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-006: REQ-F006-006 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-007: REQ-F006-007 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-008: REQ-F006-008 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-009: REQ-F006-009 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-010: REQ-F006-010 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-011: REQ-F006-011 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-012: REQ-F006-012 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-013: REQ-F006-013 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-014: REQ-F006-014 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-015: REQ-F006-015 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-016: REQ-F006-016 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-017: REQ-F006-017 に対応するDESがありません
+- ⚠ [REQ→DES] REQ-F006-018: REQ-F006-018 に対応するDESがありません
