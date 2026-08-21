@@ -3209,6 +3209,50 @@ tasks:
     F006/voice/batch関連テスト（f006-*.test.ts、voice-v2.test.ts、
     capacity-v2.test.ts、batch.test.ts等7ファイル）は個別実行で140件全PASS。
 
+    段階B2（preview構築）着手（commit 6d5d434）。前回セッション未commitの
+    scripts/f006-content-preview.tsのtypecheckエラー2件（WorkId/BatchId
+    branded type未cast）を、既存script（f006-prepare-editorial.ts・
+    f003-runtime-acceptance.ts）と同じ`as WorkId`/`as BatchId` castで修正。
+    F005 batch.jsonがpublished是正済み（commit 9105bfa）のためloadAccepted
+    Batches汎用ロジックがF005を自然に拾えるようになり、暫定回避の
+    loadF005PublishableBatchManually手動複製関数は不要と判断し削除。
+    typecheck全体PASS。
+
+    重大なブロッカーを発見: buildIntegratedPublicTree実行時、
+    integrateArtworkProvenances（src/content/batch-public.ts）が
+    catalog中のF005由来author（夏目漱石、authorId 000148）のartwork
+    provenanceを検証する際、無条件でloadVerifiedF005Definition→
+    acceptedControlCommitAtCleanDescendant（src/content/
+    f005-context-internal.ts）を呼ぶ。この関数はSHARED_REGISTRY_PATH
+    （content/batch-candidates.json）がF005のacceptance commit
+    （0c4c5ba）時点からHEADまでbyte-for-byte不変であることを要求するが、
+    F006自身のT-149（commit 8472d54、本タスク以前・別セッション実施）が
+    同じ共有registryへF006候補3件（append-only、validateBatchCandidate
+    Registryの正規フロー）を追記済みであり、この不変条件は既に破られている。
+    エラー: F005ContextError code=F005_REGISTRY_CONTROL_INVALID
+    「acceptance後に保護artifactが変更されています: content/
+    batch-candidates.json」。
+
+    この経路はwork-previewモードに限らずbuildIntegratedPublicTreeの
+    全modeで無条件実行され、かつF002〜F006共有のcontent/batch-candidates.
+    jsonはF002〜F006が同一fileへappendし続ける設計（batch-candidate.ts）
+    のため、F005が公開されてF005由来authorがcatalogへ入った今、F006に
+    限らず今後どの機能のbuildもこのままでは同じ理由で失敗する。
+    batch-public.test.tsにもこの分岐（introducedByBatchId === 'F005'の
+    実git-repo経路）を演習する既存testはなく、今回が初めてこの経路を
+    実行条件（F005公開+F006 candidate追記の両方が揃った状態）で
+    通したケースと判明した。
+
+    src/content/f005-context-internal.ts・batch-public.tsはいずれも
+    「F005/他featureのデータ是正のような影響範囲の大きい変更」に該当し
+    自己判断で改修していない。preview構築（段階B2本体）・容量actual・
+    atomic受入（項目3〜7）は着手できず中断。詳細は本タスクの担当エージェント
+    報告（session終了時点のレポート）を参照し、次セッション開始前に
+    SHARED_REGISTRY_PATH不変条件の扱い（例: F005 acceptance後に追記される
+    他feature分をdiff除外する／registryをF005固有snapshotと以降共有分へ
+    分離する等）についてDD-F006.mdまたはf005-context-internal.tsの訂正方針
+    を確定させること。
+
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入
   feature: F006
