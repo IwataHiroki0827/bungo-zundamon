@@ -3253,6 +3253,50 @@ tasks:
     分離する等）についてDD-F006.mdまたはf005-context-internal.tsの訂正方針
     を確定させること。
 
+    続けて、前セッションで解消済みだった1件目のブロッカー（commit
+    3f859f6）に加え、実際にwork-preview構築を最後まで実行する過程でさらに
+    3件の構造的ブロッカーと1件のscriptバグを発見・解消した（詳細は
+    docs/changes/CHG-F006-002.md）。(2)f005-context-internal.tsの
+    runActualLoaderLogicが共有registry全体のbyte hashをF005 migration時点の
+    固定値と比較しており、これもappend-only運用と非互換だった（F003は
+    implementation commit時点のregistry blobへpinした個別candidate比較へ
+    差し替え、F004/F005は既存の独立経路検証を維持）。(3)f005-artwork.tsの
+    verifyF005ArtworkAgainstCatalogが既存作者画像件数を「3件固定」で検証
+    しており、F006のauthor追加後（既存4作者化）に拒否していた（「3件以上」
+    へ緩和）。(4)src/notices/artwork-bundle.tsのassertArtworkProvenanceMatches
+    （全feature共通のcredit統合ヘルパー）がF006のidentity nested provenance
+    schema（identity.{authorId,batchId}）を認識せず拒否していた（fallback
+    追加、F001〜F005は無変更）。(5)scripts/f006-content-preview.ts自体の
+    assertV050Invariantがcontent/artwork-provenances.jsonの成長を考慮して
+    いなかった（catalog.jsonと同じprefix比較へ変更）。これら4件を個別commit
+    （7d193de・6885445・2b3f67b・59ed05f）として反映した結果、
+    `node --experimental-transform-types scripts/f006-content-preview.ts`が
+    最終的に成功した（work-preview: 904 files、build=
+    9ee6b10132a2eb9827b1986adb0f9013de90f28b8c751219adb87601b4ee984a）。
+    lint/typecheckは各commit毎に全体PASS。関連テスト（f005-context.test.ts・
+    batch-public.test.ts・f004-approved-context.test.ts・f005-artwork.test.ts・
+    f006-artwork.test.ts）は個別実行で全PASS。npm testフルスイートは1370件中
+    34 failedだが、全てnative guard未ビルド・f005-catalog.test.tsのCRLF既知
+    課題・baseline/batch-runtime.test.tsの既知Windows並列flaky・
+    batch-catalog.test.ts（本セッション開始前の9105bfaで既に発生していた
+    F005 fragment未提供のfixture gap、本セッション無関係）・offline-build
+    stderr既知課題であり、本セッションの変更による新規failureはgit stash
+    切り戻しで確認して0件。
+
+    容量actual（FUN-F006-009）・atomic受入（src/content/f006-acceptance.ts
+    新設、FUN-F006-010）は依然未着手。F002固有のsrc/content/batch-runtime.ts
+    のexecuteCapacityActualはF002_PUBLISHED_RELEASE定数を直接参照しており
+    F006へ転用不可（かつ汎用共有コード変更禁止の対象）。v0.5.0
+    PublishedBaselineBundle（published-baseline.ts）のmint済みloaderを新規に
+    用意したうえで、buildPagesPreview・verifyF001Invariant/
+    verifyPublishedInvariant/verifyF001DistInvariant・forecastCapacity/
+    measureGitRepository/verifyActualCapacityを束ねる新規script一式と、
+    f004-acceptance.ts（約370行）と同規模のf006-acceptance.tsの実装が必要と
+    判明した。T-149/T-150と同規模の新規実装であり、次回セッションで専用に
+    着手することを推奨する。名人伝(T-152)・弟子(T-153)は段階A/B1の同一手順を
+    反復適用したうえで、この段階B2後半（容量actual・atomic受入）を3作品分
+    まとめて実施するのが効率的と考えられる。
+
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入
   feature: F006

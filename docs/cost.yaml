@@ -1634,3 +1634,32 @@ entries:
     public/・content/baselines/*.jsonは変更していない。画像自体は
     生成済みのものをそのまま使い、差し替えていない。push・PR作成は
     行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-151段階B2前半 F006 work-preview構築ブロッカー解消
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    前セッションで解消済みの1件目ブロッカー(F005共有registry不変条件、
+    commit 3f859f6)に続き、scripts/f006-content-preview.tsを実際に実行する
+    過程でさらに3件の構造的ブロッカーと1件のscriptバグを発見・解消した。
+    (1)f005-context-internal.tsのrunActualLoaderLogicが共有registry全体
+    byte hashをF005 migration時点固定値と比較しF006以降の追記で必ず不一致
+    になっていた点(F003は個別candidate比較へ差し替え)。(2)f005-artwork.ts
+    のverifyF005ArtworkAgainstCatalogが既存作者画像件数「3件固定」で拒否
+    していた点(「3件以上」へ緩和)。(3)src/notices/artwork-bundle.tsの
+    assertArtworkProvenanceMatchesがF006のidentity nested provenance
+    schemaを認識しなかった点(fallback追加)。(4)assertV050Invariantが
+    content/artwork-provenances.jsonの成長を未考慮だった点(catalog.jsonと
+    同じprefix比較へ変更)。4件を個別commit(7d193de・6885445・2b3f67b・
+    59ed05f)へ分け、node --experimental-transform-types
+    scripts/f006-content-preview.tsが最終的に成功(work-preview: 904
+    files)することを確認した。lint/typecheck全体PASS、関連テスト個別実行で
+    全PASS、npm testフルスイートの34 failedは全て本セッション無関係の既知
+    課題であることをgit stash切り戻しで確認した。容量actual・atomic受入
+    (src/content/f006-acceptance.ts新設)はT-149/T-150と同規模の新規実装が
+    必要と判明し未着手。docs/changes/CHG-F006-002.mdを新規作成、tasks.yaml
+    T-151のprogressを更新(state: doingのまま維持)、STATUS.mdを更新した。
+    public/・content/baselines/*.jsonは変更していない。push・PR作成は
+    行っていない。
