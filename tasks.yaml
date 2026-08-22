@@ -4236,13 +4236,27 @@ tasks:
   title: 候補manifest・固定v0.7.0 baseline・作者identity・権利原典を整備
   feature: F008
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-170
   tags: *id008
   mode: advisor
   mode_reason: baseline pin・candidate registry・author identityは相互依存が強く逐次確定が必要なため
   model: *model_f008
+  progress: >-
+    FUN-F008-002/003(v0.7.0固定baseline pin)のみ完了。src/content/f008-baseline.ts・
+    f008-baseline.test.ts・content/baselines/F008-v0.7.0.jsonを新規作成し、F007公開証跡
+    (RELEASE-F007.md/F007-approval.json/F007-deployment.json、release commit ab3db17.../
+    control commit 42ffab9...)から実git objectでpublicTreeOid・catalogSha256・
+    trackedPublic(1129 files/405332183 bytes)・counts(6作者21作品1099台詞1082音声7batch)を
+    実測し、descriptor SHA-256(32525a22...)を計算して埋め込んだ。vitest 10件全PASS、
+    tsc --noEmit エラー0を確認済み。
+    未着手: FUN-F008-001(候補registry・batch-definitions/F008.json・approval-policies/F008.json・
+    batch-candidates.json追記)、FUN-F008-004(author/work registry・verifyF008AuthorIdentity)、
+    FUN-F008-005/006(f008-source.ts本体、実HTTPS取得による3作品XHTML snapshot・
+    未定義entity再検証・決定的抽出・長大候補分割)。F007実績(f007-source.ts単体1929行)を
+    踏まえると本タスク残りだけで大規模実装が必要。次回セッションでf008-source.ts実装から
+    再開すること。
 - id: T-172
   title: Catalog統合基盤・江戸川乱歩作者画像・2作品分の注記registryを整備
   feature: F008
