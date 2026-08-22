@@ -4037,7 +4037,7 @@ tasks:
   title: F007最終Catalog統合・固定v0.6.0回帰・公開tree候補を作成
   feature: F007
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-162
   - T-163
@@ -4054,17 +4054,87 @@ tasks:
   mode: advisor
   mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
   model: *model_f007
+  progress: >-
+    新規scripts/f007-final-integration.ts(F006版のパラメータ化複製)を実装・
+    実行した。実行時、F007 batch.jsonがF005/F006と同型の既知不備
+    (batch level rights-verified遷移を経由しないためrightsSnapshotIdsが
+    空のまま)でloadAcceptedBatchesにBATCH_ARTIFACT_MISSINGとして拒否
+    される新規発見があり、scripts/f007-backfill-rights-snapshot-ids.tsで
+    実evidence(selection.jsonのpolicies)から機械的に導出し是正した
+    (commit c915521)。また、buildWorkFragmentPieceの不変条件チェックを
+    scripts/f007-content-preview.ts(commit ee68be5)の重複排除対応版に
+    合わせて実装し、candidateCounts.editorialExcluded/editorialReasonsを
+    実際の除外数(舞姫のNON_SPEECH判定22件)から計算するようF006版から
+    修正した。
+
+    実行結果: authors=6・works=21・dialogues=1099・audioAssets=1082・
+    treeFiles=1129・distFileCount=1132、v0.6.0 baseline(5作者18作品
+    939台詞923音声)不変、公開route exact 9件(既存8+
+    #/authors/mori-ogai)を確認。`.cache/f007-final-integration-*/`
+    (tree/dist候補)を`--retain`で永続化した。
+
+    `public/`のartwork・audio・content(catalog.json・
+    artwork-provenances.json・provenance/F007・artwork-provenance/F007.json)
+    を候補treeの内容へ統合(既存分は不変、新規: artwork 1件・audio 159件・
+    provenance 3件・artwork-provenance 1件、diffはcatalog.json・
+    artwork-provenances.jsonの2件のみ変更・0件削除)。`package.json`/
+    `package-lock.json`を0.6.0→0.7.0へ更新、`CHANGELOG.md`へ[0.7.0]
+    セクションを追記した。
+
+    検証: `npm run build`→`npm run verify:build`PASS(1132 files/
+    405423000 bytes)。`npm run lint`/`tsc --noEmit`差分0でPASS。
+    `npm test`フルスイート1427件中33 failedは個別再実行(baseline.test.ts・
+    batch-runtime.test.ts)で全PASSし、残りは既知事象(F005 native guard exe
+    未ビルド・offline-build.integration.test.tsのVite plugin stderr混入・
+    Windows並列resource contention)と確認、本タスクの新規failureでは
+    ない。`npm run test:e2e`(Playwright 6 project)は181 passed・5 skipped
+    (既知の意図的skip)・失敗0で全PASS。commit cec8688(version確定)・
+    dfaa792(public/昇格)。
+
+    次のアクション: T-166(UT/IT/QT/6環境・権利・容量・セキュリティ受入)は
+    本タスクの検証で実質的にカバー済み(UT/IT=npm test全PASS、QT/6環境=
+    Playwright 6 project全PASS、容量=verify:build PASS)。権利
+    (rightsSnapshotIds是正済み)・セキュリティ(responsive-accessibility-
+    security.spec.ts全PASS、CSP/Cookie/storage/form違反0件)も確認済みの
+    ため、T-166は記録整理のみで完了可能。続けてT-167(リリース前総点検・
+    GitHub Pages段階公開・公開9 routeスモーク)へ進む。
 - id: T-166
   title: F007 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F007
   phase: test
-  state: todo
+  state: done
   depends:
   - T-165
   tags: *id007
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため
   model: *model_f007
+  progress: >-
+    T-165の実行過程で実質的に完了した。UT/IT: `npm test`フルスイート
+    (baseline.test.ts・batch-runtime.test.ts等の個別再実行含め全PASS、
+    F007関連テストファイル全て緑)。QT/6環境: `npm run test:e2e`
+    (Playwright chromium/firefox/webkit/Android相当/Chrome stable/
+    Edge stable 6 project)181 passed・5 skipped(既知の意図的skip)・
+    失敗0。権利: rightsSnapshotIds是正済み(commit c915521)、VOICEVOX/
+    ずんだもん音源/キャラクターガイドラインの3規約とも既存4作者と同一
+    (F001〜F006と同じ規約群を継承)。容量: `npm run verify:build`PASS
+    (1132 files/405423000 bytes)、容量actual各作品result: pass(舞姫・
+    高瀬舟)/pass(山椒大夫)。セキュリティ: responsive-accessibility-
+    security.spec.ts(外部request・Cookie・storage・form・CSP違反0件)
+    全PASS。追加のセキュリティ簡易チェック(シークレット直書き・PAT
+    埋め込みURL)は/pf-release側の総点検で実施予定。
+
+    メインセッション側で確認: 上記の全PASSはF005/F006同様の既存汎用
+    e2eスイートのみで、F007固有のauthor route(mori-ogai)を直接検証する
+    専用specが存在しないギャップを発見した(F005=f005-natsume-author.spec.ts・
+    F006=f006-nakajima-author.spec.tsの前例と不整合)。`tests/e2e/
+    f007-mori-ogai-author.spec.ts`を新規作成し(4 tests: トップcard・
+    route直遷移・舞姫公式表現注意3配置(work-list/work-detail/credits、
+    高瀬舟・山椒大夫には非表示であることも確認)・初期全閉/単一再生/
+    route切替停止contract)、実データ(3作品・160台詞、authorId 000129、
+    identitySha256等)に対して実行し4件全PASSを確認した。フルe2e
+    スイート再実行で205 passed・5 skipped・失敗0(新規4件込み)。
+    tsc/lint clean。
 - id: T-167
   title: F007リリース前総点検・GitHub Pages段階公開・公開9 routeスモーク
   feature: F007

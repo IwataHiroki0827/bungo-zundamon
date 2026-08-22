@@ -37,6 +37,6 @@ features:
 - id: F007
   title: 森鴎外「舞姫」「高瀬舟」「山椒大夫」3作品追加
   branch: feature/F007
-  state: testspec
+  state: test
   merge_after:
   - F006
