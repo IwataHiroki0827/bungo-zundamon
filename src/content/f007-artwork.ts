@@ -389,8 +389,13 @@ export function verifyF007ArtworkAgainstCatalog(
   ) {
     return artworkError('F007_ARTWORK_BINDING_INVALID', 'provenance/final image bindingが不正です');
   }
-  if (!Array.isArray(existingArtwork) || existingArtwork.length !== 5) {
-    return artworkError('F007_ARTWORK_EXISTING_INVALID', '既存5作者画像が必要です');
+  // F007時点は既存5作者（F001・F002・F003・F005・F006）固定を想定しているが、F008以降が
+  // 新規authorを追記し続けるappend-only catalog設計のため、F005-artwork.ts/
+  // f006-artwork.tsの2026-08-22修正と同型で「最低5作者以上」へ緩和しておく
+  // (近似重複検出はexistingArtwork全件に対して行われるため、件数が増えても
+  // 検証の厳密さは損なわれない)。
+  if (!Array.isArray(existingArtwork) || existingArtwork.length < 5) {
+    return artworkError('F007_ARTWORK_EXISTING_INVALID', '既存5作者以上の画像が必要です');
   }
   const identities = new Set<string>();
   const paths = new Set<string>();
