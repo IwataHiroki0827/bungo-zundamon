@@ -390,7 +390,7 @@ export function verifyF007ArtworkAgainstCatalog(
     return artworkError('F007_ARTWORK_BINDING_INVALID', 'provenance/final image bindingが不正です');
   }
   if (!Array.isArray(existingArtwork) || existingArtwork.length !== 5) {
-    return artworkError('F007_ARTWORK_EXISTING_INVALID', '既存5作者画像が必要です');
+    return artworkError('F007_ARTWORK_EXISTING_INVALID', `既存5作者画像が必要です(実際:${Array.isArray(existingArtwork) ? existingArtwork.length : 'not array'}, ids:${Array.isArray(existingArtwork) ? existingArtwork.map((e) => e.authorId).join(',') : ''})`);
   }
   const identities = new Set<string>();
   const paths = new Set<string>();
