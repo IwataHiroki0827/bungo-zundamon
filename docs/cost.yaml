@@ -1663,3 +1663,34 @@ entries:
     T-151のprogressを更新(state: doingのまま維持)、STATUS.mdを更新した。
     public/・content/baselines/*.jsonは変更していない。push・PR作成は
     行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-151段階B2後半 F006山月記(000624)の容量actual・atomic受入
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 90000
+  note: >-
+    scripts/f006-capacity-actual.ts(新規、F002固有executeCapacityActualは
+    転用せずbaseline.ts/pages-preview.ts/voice/budget.tsを直接呼ぶ)と
+    src/content/f006-acceptance.ts(新規、f004-acceptance.ts型のprepare/
+    accept/recover三関数、既存promoteVerifiedWorkArtifacts/
+    writeBatchManifestAtomicは無変更)を実装した。F006のvoiced stage
+    recordが採用する間接ハッシュ規約(voiceEvidenceRefファイルSHA-256のみ)
+    は汎用promoteVerifiedWorkArtifactsが要求する直接generationDigest/
+    completenessDigestと噛み合わないため、batch-runtime.tsの
+    appendActualEvidence(F002固有)と同型の直接manifest操作
+    (transitionWorkStateを経由しないvalidateBatchManifest→
+    writeBatchManifestAtomic)で、直接ハッシュを持つ2件目のvoiced stage
+    recordとcapacity-actual stage recordを追記する設計とした。当初想定
+    していたv0.5.0 PublishedBaselineBundleの新規mint済みloaderは、
+    promoteVerifiedWorkArtifactsがpublishedInvariantを引数に取らないこと、
+    scripts/f006-content-preview.tsのassertV050Invariantが既にbuild時点で
+    backward-compat検証を完結させていることから不要と判明した。山月記
+    (000624)を実際にvoiced→acceptedへ遷移させ、生成WAV 3件(404,100
+    bytes)をaccepted-audio/000624/へ正式昇格(容量actual結果pass)。
+    src/content/f006-acceptance.test.ts(実データ5ケース)を新規作成し全
+    PASS。lint/typecheck全体PASS、対象テスト個別実行9ファイル123件全
+    PASS、npm testフルスイート38 failedは全て本タスク非関連(既知課題)。
+    docs/changes/CHG-F006-003.mdを新規作成、tasks.yaml T-151をdoneへ更新、
+    STATUS.mdを更新した。public/・content/baselines/*.jsonは変更していない。
+    push・PR作成は行っていない。

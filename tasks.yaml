@@ -3102,7 +3102,7 @@ tasks:
   title: 山月記を抽出・二重レビュー・音声化・atomic受入
   feature: F006
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-150
   tags:
@@ -3296,6 +3296,63 @@ tasks:
     着手することを推奨する。名人伝(T-152)・弟子(T-153)は段階A/B1の同一手順を
     反復適用したうえで、この段階B2後半（容量actual・atomic受入）を3作品分
     まとめて実施するのが効率的と考えられる。
+
+    段階B2後半（容量actual・atomic受入）完了、T-151は完結した。DD-F006.mdへ
+    「方式訂正(2026-08-22)」を追記し、当初想定していたv0.5.0
+    PublishedBaselineBundleの新規mint（published-baseline.tsのverifyPublished
+    Invariant用）は不要と判明した：promoteVerifiedWorkArtifacts
+    （batch-acceptance.ts）のシグネチャ自体がpublishedInvariantを引数に取らず
+    （generation/completeness/actual/preview/pages/contentInvariant/
+    distInvariantのみ）、かつF006のwork-preview構築script
+    （scripts/f006-content-preview.ts）が既にassertV050InvariantでF001〜F005
+    backward-compat検証をbuild時点で完結させているため、acceptance側での
+    重複検証は設計上不要と判断した。真の障害は別にあった：F006のvoiced
+    stage record（scripts/f006-prepare-voice.ts）は間接ハッシュ規約
+    （voiceEvidenceRefファイルのSHA-256を1件だけ格納）を採用しているが、
+    汎用promoteVerifiedWorkArtifactsのassertInputsはvoiced stageの
+    outputHashesへgenerationDigest/completenessDigestを直接含むことを要求し、
+    かつtransitionWorkState（batch.ts）は同一work statusへの再遷移
+    （同一rankへのstage record追記）を許さないため、既存voiced recordを
+    後から直接ハッシュへ書き換えることができなかった。解決として新規
+    scripts/f006-capacity-actual.tsが、batch-runtime.tsのappendActualEvidence
+    （F002固有）と同型の直接manifest操作パターン（validateBatchManifest→
+    writeBatchManifestAtomic、transitionWorkStateを経由しない）で、
+    (1)間接ハッシュから再導出した直接generationDigest/completenessDigestを
+    outputHashesに持つ2件目のvoiced stage record（work statusはvoicedのまま）
+    を追記し、(2)続けてF001 baseline invariant（baseline.tsのverifyF001Invariant/
+    verifyF001DistInvariant、feature非依存）・Pages dist previewの実vite build
+    （pages-preview.tsのbuildPagesPreview）・容量actual（voice/budget.tsの
+    verifyActualCapacity、既存forecastの測定値をdisk入力へ再利用）を実行し、
+    その結果を直接ハッシュで参照するcapacity-actual stage recordを追記する
+    （batch.tsのvalidateWorkProgressが定める「voiced直後のcapacity-actual
+    1件だけ許容」特例に適合）。この2段階書込みにより、以降src/content/
+    f006-acceptance.ts（F004のf004-acceptance.tsと同型、prepare関数が
+    canonical allowlist pathから実体を再読込・再検証してbranded prepared値を
+    mintし、既存promoteVerifiedWorkArtifacts・writeBatchManifestAtomicを
+    無変更のまま呼ぶ薄い橋渡し層）がassertInputsを満たせるようになった。
+    scripts/f006-accept-work.ts（CLI entrypoint）から実行し、山月記(000624)を
+    voiced→accepted（batch.jsonのwork status、stageRecords 7件へ拡張）まで
+    実際に遷移させ、生成WAV 3件（計404,100 bytes）を.voice-stage-000624/から
+    content/batches/F006/accepted-audio/000624/へ正式昇格した（batch全体
+    statusはdraft維持、他2作品がpendingのため既存batchStatusFromWorksの
+    仕様どおり）。容量actual結果はresult: pass（reasons: []、freeBytes
+    約41.6GB、distSha256実測）。IT-F006-006相当（山月記分のみの部分実装、
+    3作品完結版は名人伝・弟子完了後にIT-F006.md記載どおり拡張予定）として
+    src/content/f006-acceptance.test.tsを新規作成（実プロジェクトのcanonical
+    artifactに対しmock無しでprepare/accept/recoverの冪等成功、mint偽造prepared
+    値の拒否、pending work順違反拒否、manifest path allowlist外拒否、workId
+    形式不正拒否の5ケース）、個別実行PASS。既存batch-acceptance.ts・
+    batch-production.ts・batch.ts・voice/budget.tsは無変更。lint/typecheck
+    全体PASS。npm testフルスイートは1375件中38 failed、全て本タスク非関連
+    （f005-source.test.tsのnative guard exe欠落・offline-build.integration.
+    test.tsのvite pluginTimings stderr出力・published-baseline.test.tsの並列
+    実行下timeout、いずれも個別実行でPASS確認済み・既存の既知flaky）。
+    T-152（名人伝）・T-153（弟子）は、段階A/B1（抽出・二重判定・音声生成・
+    forecast）を本タスクと同一パターンで反復したうえで、本セッションで確立した
+    scripts/f006-capacity-actual.ts・src/content/f006-acceptance.tsを
+    WORK_ID定数の書き換えだけでそのまま再利用できる見込み（F006固有の
+    間接ハッシュ規約・acceptance橋渡し層は3作品共通の構造であり、work単位の
+    差分は候補ID・音声ファイルのみ）。
 
 - id: T-152
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入

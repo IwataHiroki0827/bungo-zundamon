@@ -55,6 +55,29 @@
   ],
   "workProgress": [
     {
+      "acceptedAt": "2026-08-22T03:30:36.112Z",
+      "acceptedAudioSources": [
+        {
+          "bytes": 188972,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F006/accepted-audio/000624/1d5a39f9bd08fb53dff89e04c1273f19468689d01fc53652fb977a1eb1cd5770.wav",
+          "sha256": "20cb6341dc81ae04f96371f3b81d2f85d8a794c7b1dd5f19a444840f2eb9b90f"
+        },
+        {
+          "bytes": 79916,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F006/accepted-audio/000624/452b294d36a8144e8a3dfcc9f95429509865bd78559b4a983030dc262574d081.wav",
+          "sha256": "15099e4eb82ae7e0ab7a3b6c6d03e416b5c7dd0f4cd5db5049dce2f24cbfa972"
+        },
+        {
+          "bytes": 135212,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F006/accepted-audio/000624/485079206486fdd95c7c46e5c0a13153945b6c19efb89c50ae1cfe3f97efdfdb.wav",
+          "sha256": "fd6c610b832693287ef5a0c961ddece8b52f135beb0fc87e804bf12add4c0ecb"
+        }
+      ],
+      "acceptedBy": "content-acceptance-transaction",
+      "actualCapacityRef": "content/batches/F006/capacity-actual/000624.json",
       "forecastRef": "content/batches/F006/capacity-forecast/000624.json",
       "stageRecords": [
         {
@@ -107,9 +130,63 @@
           ],
           "stage": "voiced",
           "toolVersion": "f006-prepare-voice-generate-v1"
+        },
+        {
+          "completedAt": "2026-08-22T03:30:21.326Z",
+          "count": 3,
+          "inputHashes": [
+            "da4c9060010a6cfa59fa787d390d1a6ba35c82478dc2bfd3b64704937196a362",
+            "ef0f7adcf95f8446cb76e644e121f1dab7ea372966bf1ca0a3e76edb77c2bbcd"
+          ],
+          "outputHashes": [
+            "74df770d8c29a19ebdf2b813d8146e4b8261eab6c0f7d7cf12edeee85b44b09e",
+            "fa0ef0e7919e767d1aafbc8df02f9bcb1248fca2d8c433b6f9a0cb147366d6d7"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f006-capacity-actual-voiced-direct-v1"
+        },
+        {
+          "completedAt": "2026-08-22T03:30:29.841Z",
+          "count": 3,
+          "inputHashes": [
+            "9736ac0f0abcba42e7dc3544331ef62616a62071990dcde35507f394f6127626",
+            "74df770d8c29a19ebdf2b813d8146e4b8261eab6c0f7d7cf12edeee85b44b09e",
+            "fa0ef0e7919e767d1aafbc8df02f9bcb1248fca2d8c433b6f9a0cb147366d6d7",
+            "9ee6b10132a2eb9827b1986adb0f9013de90f28b8c751219adb87601b4ee984a"
+          ],
+          "outputHashes": [
+            "d9b0d8aeeedcf6c79f27c0b7ef14b89c963d215f59cb2cec2b9f0d369e4a767d",
+            "8445199787f3df5cd472ccb513942243666a7d50cf9c3c278740b981959253b4",
+            "4754fd15181cc9e60e6b9135e4ad912b3a96d0f7fe18c40f26f3982444549e01",
+            "a7c55dc35ee40da2df0e895b878ee7b4902d8e7315882e0236fe2fa961e760aa"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "f006-capacity-actual-v1"
+        },
+        {
+          "completedAt": "2026-08-22T03:30:36.112Z",
+          "count": 3,
+          "inputHashes": [
+            "be8221161bf28c648c97c556f21a2e8985c7fd41a9cab16daf7b89bf5a0b2271",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "9ee6b10132a2eb9827b1986adb0f9013de90f28b8c751219adb87601b4ee984a",
+            "9ee6b10132a2eb9827b1986adb0f9013de90f28b8c751219adb87601b4ee984a",
+            "8445199787f3df5cd472ccb513942243666a7d50cf9c3c278740b981959253b4",
+            "d9b0d8aeeedcf6c79f27c0b7ef14b89c963d215f59cb2cec2b9f0d369e4a767d",
+            "4754fd15181cc9e60e6b9135e4ad912b3a96d0f7fe18c40f26f3982444549e01",
+            "a7c55dc35ee40da2df0e895b878ee7b4902d8e7315882e0236fe2fa961e760aa"
+          ],
+          "outputHashes": [
+            "cdc2930255043b6e0491f58c47a8ce2d451d15c53827a47b72989bb78dc4842f",
+            "20cb6341dc81ae04f96371f3b81d2f85d8a794c7b1dd5f19a444840f2eb9b90f",
+            "15099e4eb82ae7e0ab7a3b6c6d03e416b5c7dd0f4cd5db5049dce2f24cbfa972",
+            "fd6c610b832693287ef5a0c961ddece8b52f135beb0fc87e804bf12add4c0ecb"
+          ],
+          "stage": "accepted",
+          "toolVersion": "accepted-audio-transaction-v1"
         }
       ],
-      "status": "voiced",
+      "status": "accepted",
       "voiceEvidenceRef": "content/batches/F006/voice-evidence/000624.json",
       "workId": "000624"
     },

@@ -247,7 +247,7 @@ async function main(): Promise<void> {
   try {
     catalogUnknown = JSON.parse(catalogBytes.toString('utf8'));
   } catch (error) {
-    throw new Error(`content preview catalogが不正です: ${error instanceof Error ? error.message : 'parse error'}`);
+    throw new Error(`content preview catalogが不正です: ${error instanceof Error ? error.message : 'parse error'}`, { cause: error });
   }
   const catalogChecked = validateCatalogV2(catalogUnknown, catalogBytes.byteLength);
   if (!catalogChecked.ok) throw new Error(`content preview catalog schemaが不正です: ${catalogChecked.error.code}`);

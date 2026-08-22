@@ -198,7 +198,9 @@ export async function prepareF006WorkAcceptance(
 
   const work = manifest.workProgress[manifest.workIds.indexOf(id)];
   const voicedEvidence = work?.stageRecords.findLast((item) => item.stage === 'voiced');
-  const capacityEvidence = work?.stageRecords.at(-1);
+  // workが既にacceptedへ進んでいる場合、stageRecords末尾は'accepted'記録になるため
+  // capacity-actualは名前で再検索する（voicedのままの場合は末尾がcapacity-actual）。
+  const capacityEvidence = work?.stageRecords.findLast((item) => item.stage === 'capacity-actual');
   const directVoicedRecords = work?.stageRecords.filter((item) => item.stage === 'voiced') ?? [];
 
   if (
