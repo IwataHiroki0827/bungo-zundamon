@@ -123,6 +123,36 @@ const TRUSTED_REGISTRY_BINDINGS = Object.freeze({
       }),
     ] satisfies readonly WorkNoticeSourceFact[]),
   }),
+  '001779': Object.freeze({
+    path: 'content/batches/F008/work-notices.json',
+    sha256: '2b0d5dd87a482deeac6206c46d8dd5e2ca93fc8b9fbbfe3924588e18a555c139',
+    sourceFacts: Object.freeze([
+      Object.freeze({
+        workId: '056648',
+        title: '人間椅子',
+        authorId: '001779',
+        cardUrl: 'https://www.aozora.gr.jp/cards/001779/card56648.html',
+        officialContentWarning: true,
+        unfinished: false,
+      }),
+      Object.freeze({
+        workId: '056650',
+        title: 'Ｄ坂の殺人事件',
+        authorId: '001779',
+        cardUrl: 'https://www.aozora.gr.jp/cards/001779/card56650.html',
+        officialContentWarning: true,
+        unfinished: false,
+      }),
+      Object.freeze({
+        workId: '057193',
+        title: '一人二役',
+        authorId: '001779',
+        cardUrl: 'https://www.aozora.gr.jp/cards/001779/card57193.html',
+        officialContentWarning: false,
+        unfinished: false,
+      }),
+    ] satisfies readonly WorkNoticeSourceFact[]),
+  }),
 } as const);
 
 function isRecord(value: unknown): value is Record<string, unknown> {

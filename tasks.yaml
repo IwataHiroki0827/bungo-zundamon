@@ -4282,7 +4282,7 @@ tasks:
   title: Catalog統合基盤・江戸川乱歩作者画像・2作品分の注記registryを整備
   feature: F008
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-171
   tags:
@@ -4293,6 +4293,46 @@ tasks:
   mode: advisor
   mode_reason: f008-catalog.ts/f008-artwork.ts/work-notices.ts entry追加は単一成果物の逐次実装のため
   model: *model_f008
+  progress: >-
+    ローカルComfyUI（http://127.0.0.1:59008）へ接続確認したがconnection refused
+    （2026-08-22時点未起動）で接続不可のため、江戸川乱歩の作者画像実生成
+    （FLUX.1 schnell、既存6作者とのdHash64非近似重複確認、
+     content/batches/F008/public-files/artwork/edogawa-ranpo-zundamon.png・
+    artwork-provenance.jsonの実データ生成）はスキップし、それ以外を完結させた。
+    実施済み: (1) 新規`src/content/f008-catalog.ts`
+    （`mergeNewAuthorCatalog008`/`deriveF008RouteSet`、f007-catalog.tsを
+    baseline v0.7.0=6作者21作品→7作者24作品、exact 10 route
+    （既存9+`#/authors/edogawa-ranpo`）へパラメータ化）。
+    (2) `src/notices/work-notices.ts`の`TRUSTED_REGISTRY_BINDINGS`へ
+    `'001779'`entryを追加（人間椅子056648・Ｄ坂の殺人事件056650は
+    officialContentWarning: true、一人二役057193はfalse）。
+    `content/batches/F008/work-notices.json`を新規作成
+    （プロジェクト実装のcanonicalJsonで生成、sha256=
+    2b0d5dd87a482deeac6206c46d8dd5e2ca93fc8b9fbbfe3924588e18a555c139を
+    bindingへ登録）。(3) `src/content/f008-artwork.ts`（f007-artwork.tsと
+    同型、`sealF008ArtworkProvenance`/`verifyF008ArtworkAgainstCatalog`の
+    コード雛形のみ。DD-F008.md指摘のF006→F007統合時の実バグを踏まえ
+    実装当初から`existingArtwork.length < 6`の下限判定で実装。実artwork未生成
+    のため実データ結線は次セッションへ持ち越し）。(4) `src/content/batch-public.ts`
+    の`integrateArtworkProvenances`へF008分岐を追加
+    （`author.introducedByBatchId === 'F008'`、f007分岐と同型、
+    allowlist条件へ`'F008'`追加）。テスト: `f008-catalog.test.ts`
+    （11件、baseline 6作者21作品→7作者24作品、注記欠落2種、route導出等）、
+    `f008-artwork.test.ts`（10件、UT相当のseal/rehydrate/near-duplicate判定。
+    実配置画像を読むIT相当テストは実データ未生成のため未追加）、
+    `work-notices.test.ts`へF008 committed registry検証を1件追加。
+    計32件全PASS。`npm run typecheck`/`npm run lint`PASS。`npx vitest run`
+    フルスイートは1401 passed/34 failedで、失敗34件は全てf005-source.test.ts・
+    f005-native-guard.test.ts・f005-guard-native.test.ts・
+    f005-hosted-native-probe.test.ts・f005-catalog.test.ts・baseline.test.ts・
+    batch-catalog.test.ts・batch-runtime.test.ts・f003-catalog.test.ts・
+    offline-build.integration.test.ts（native guard実行ファイル欠落・
+    hosted probe fixture等、本セッション未変更の既知環境依存）で、
+    本セッションで新規・変更したファイル
+    （f008-catalog.test.ts/f008-artwork.test.ts/work-notices.test.ts/
+    batch-public.test.ts）はいずれも全PASS。次セッションはComfyUI起動後に
+    江戸川乱歩画像を実生成し、f008-artwork.tsの実データ結線・IT相当テスト
+    追加・T-172のdone化を行うこと。
 - id: T-173
   title: 人間椅子を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F008

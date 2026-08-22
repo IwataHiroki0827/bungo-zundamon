@@ -1,0 +1,70 @@
+{
+  "authorId": "001779",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56648.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        }
+      ],
+      "title": "人間椅子",
+      "workId": "056648"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56650.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        }
+      ],
+      "title": "Ｄ坂の殺人事件",
+      "workId": "056650"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/001779/card57193.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "一人二役",
+      "workId": "057193"
+    }
+  ]
+}

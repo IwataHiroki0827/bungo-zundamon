@@ -134,4 +134,28 @@ describe('UT-F003-023 未完・公式注意・抜粋scope・credits [DES-F003-00
       authorId: '000035',
     });
   });
+
+  /** @des DES-F008-010 @fun FUN-F008-011 @ut UT-F008-011 */
+  it('committed F008 notice registryが公式source facts（人間椅子・Ｄ坂の殺人事件2件のofficial-content-warning）と一致する', async () => {
+    const value = JSON.parse(await readFile(
+      join(process.cwd(), 'content', 'batches', 'F008', 'work-notices.json'),
+      'utf8',
+    )) as WorkNoticeRegistry;
+    const report = validateWorkNoticesAndCredits(value);
+    expect(report).toMatchObject({ result: 'pass', authorId: '001779' });
+    const ningenIsu = report.works.find((work) => work.workId === '056648');
+    expect(ningenIsu?.notices.map((notice) => notice.textKey)).toEqual(
+      expect.arrayContaining(['official-content-warning', 'dialogue-excerpt-scope']),
+    );
+    const dzakaSatsujin = report.works.find((work) => work.workId === '056650');
+    expect(dzakaSatsujin?.notices.map((notice) => notice.textKey)).toEqual(
+      expect.arrayContaining(['official-content-warning', 'dialogue-excerpt-scope']),
+    );
+    const hitoriFutayaku = report.works.find((work) => work.workId === '057193');
+    expect(hitoriFutayaku?.notices.map((notice) => notice.textKey)).toEqual(['dialogue-excerpt-scope']);
+    await expect(loadAndValidateWorkNotices(process.cwd(), '001779')).resolves.toMatchObject({
+      result: 'pass',
+      authorId: '001779',
+    });
+  });
 });
