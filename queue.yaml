@@ -2058,3 +2058,44 @@ items:
     processed_note: >-
       FD-F007.md・DD-F007.mdをApprovedへ更新した。次フェーズpf-testspec（T-159: UT-F007・IT-F007
       作成）へ進める。
+  - id: Q-064
+    type: approval
+    status: closed
+    title: F007（森鴎外3作品追加）UT/IT仕様の承認（ゲート③・テストファーストゲート）
+    body: >-
+      T-159(UT-F007・IT-F007作成)を実施した。docs/tests/ut/UT-F007.md(UT 17件、DD-F007.md
+      FUN-F007-001〜017の全件を1件ずつ網羅)・docs/tests/it/IT-F007.md(IT 11件、DES-F007-001〜014
+      全件を網羅)を作成した。F006のUT-F006.md/IT-F006.mdを構造の参考にし、DD-F007.mdの各FUN本文を
+      実際に精査したうえで、「新規コードなし」と明記された7件(FUN-F007-001/007/008/009/013/016/017)
+      は既存UT-F002〜F006が汎用入力で既に網羅しているため新規UTケースを追加せず引用に留め、残る10件
+      (FUN-F007-002/003/004/005/006/010/011/012/014/015、新規モジュールf007-baseline.ts・
+      f007-source.ts・f007-acceptance.ts・f007-catalog.ts・f007-artwork.ts)にF007固有の正常・境界・
+      異常系ケースを新規作成した。ITはF007固有結合シナリオ(3作品の順次atomic受入、v0.6.0固定baseline
+      へのCatalog統合、既存5作者18作品との共存、舞姫の作品固有注記(official-content-warning)のUI
+      結合)に絞って詳細化した。
+
+      自己レビュー2観点(網羅性: DD-F007.mdのDES14件・FUN17件全件へのUT/IT対応漏れがないことを本書の
+      DES・FUN網羅表とtrace_check.pyで確認、テスト設計妥当性: 新規実装10件は正常・境界同値・異常系を
+      各ケースに含み、再利用7件は既存テストファイルを具体的に引用し重複を作らない設計)で指摘0件。
+    target: docs/tests/ut/UT-F007.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T16:35:00+09:00'
+    source: pf-testspec
+    resume:
+      task: T-159
+      next: pf-implement
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビュー指摘ゼロ化・trace_check DES→FUN→UT/IT
+      対応漏れ0の品質条件を満たすため、承認ゲート③（テストファーストゲート）を自動承認として記録する。
+    approved_at: '2026-08-22T16:35:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T16:35:00+09:00'
+    processed_note: >-
+      UT-F007.md・IT-F007.mdをApprovedへ更新した。これによりSRS/FD/DD/UT/IT/QT-F007が全てApproved
+      となり、pf-implementのゲートチェックを通過できる状態になった。次フェーズはpf-implement（T-160
+      以降）だが、本タスクの指示によりここで停止する。

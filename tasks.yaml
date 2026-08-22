@@ -3643,13 +3643,26 @@ tasks:
   title: UT-F007・IT-F007を作成しQT-F007との網羅性を確認
   feature: F007
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-158
   tags: *id007
   mode: orchestration
   mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・注記UI・セキュリティの独立試験領域を並列設計できるため
   model: *model_f007
+  progress: >-
+    完了した(2026-08-22、承認ゲート③自動承認済み)。`docs/tests/ut/UT-F007.md`(UT 17件、
+    DD-F007.mdのFUN-F007-001〜017全件を網羅)・`docs/tests/it/IT-F007.md`(IT 11件、
+    DES-F007-001〜014全件を網羅)を作成しstatus: Approvedへ更新した。DD-F007.mdの各FUN本文を
+    精査し、「新規コードなし」明記の7件(FUN-F007-001/007/008/009/013/016/017)は既存
+    UT-F002〜F006を引用、残る10件(FUN-F007-002/003/004/005/006/010/011/012/014/015、
+    新規モジュールf007-baseline.ts・f007-source.ts・f007-acceptance.ts・f007-catalog.ts・
+    f007-artwork.ts)にF007固有の正常・境界・異常系ケースを新規作成した。ITは3作品の順次
+    atomic受入・v0.6.0固定baselineへのCatalog統合・舞姫の作品固有注記UI結合に絞って詳細化
+    した(9 route: 既存5作者+`#/authors/mori-ogai`+`#/favorites`+`#/credits`)。
+    `queue.yaml`Q-064(承認ゲート③)・SRS/FD/DD/UT/IT/QT-F007を全てApprovedへ更新した。
+    これによりpf-implementのゲートチェックを通過できる状態になった。次のアクション:
+    pf-implement(T-160以降)を開始する。
 - id: T-160
   title: F007候補manifest・固定v0.6.0 baseline・権利原典を整備
   feature: F007

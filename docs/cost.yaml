@@ -1977,3 +1977,26 @@ entries:
     ため、承認ゲート②を`queue.yaml`Q-063へ自動承認として記録し、FD/DDを`status: Approved`へ更新
     した。`tasks.yaml`T-157/T-158を`state: done`へ、`STATUS.md`を更新。次: pf-testspec
     (T-159: UT-F007・IT-F007作成)。
+- date: '2026-08-22'
+  phase: testspec
+  task: T-159 UT-F007・IT-F007作成、承認ゲート③(テストファーストゲート)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    `docs/tests/ut/UT-F007.md`(UT 17件)・`docs/tests/it/IT-F007.md`(IT 11件)を作成した。
+    UT-F006.md/IT-F006.mdを構造の参考にし、DD-F007.mdの各FUN本文(「新規コードなし」明記か
+    「新規実装する」明記か)を実際に精査してから、「新規コードなし」7件(FUN-F007-001/007/
+    008/009/013/016/017)は既存UT-F002〜F006を引用し重複を作らず、残る10件(FUN-F007-002/
+    003/004/005/006/010/011/012/014/015)にF007固有(authorId 000129・work 058126/045245/
+    000689・v0.6.0固定baseline・9 route・6作者21作品・existingArtwork.length===5)の正常・
+    境界・異常系ケースを新規作成した。IT側は3作品の順次atomic受入・Catalog統合・舞姫の
+    作品固有注記(official-content-warning)のUI結合シナリオへ絞った。自己レビュー2観点
+    (網羅性: DES14件・FUN17件全件へのUT/IT対応漏れなしを本書網羅表で確認、テスト設計妥当性:
+    新規実装分は正常/境界/異常を含み再利用分は具体的な既存テストファイルを引用)で指摘0件、
+    `trace_check.py --feature F007`実行で対応漏れ0を確認したため、承認ゲート③を`queue.yaml`
+    Q-064へ自動承認として記録し、UT/IT-F007を`status: Approved`へ更新した。これにより
+    SRS/FD/DD/UT/IT/QT-F007が全てApprovedとなりpf-implementのゲートチェックを通過できる
+    状態になった。`tasks.yaml`T-159を`state: done`へ、`docs/features.yaml`のF007を
+    `state: testspec`へ、`STATUS.md`を更新。次: pf-implement(T-160以降)。本タスクの指示に
+    より実装フェーズへは進まずここで停止した。
