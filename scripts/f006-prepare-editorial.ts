@@ -96,7 +96,10 @@ interface SpeechCorrection {
  */
 interface WorkEditorialConfig {
   readonly speakersByOrder: readonly string[];
-  readonly speechCorrections: Readonly<Record<string, SpeechCorrection>>;
+  // 弟子(001738)着手時、1候補に複数補正が必要な事例が確認されたため、
+  // anchorあたり単一SpeechCorrectionから配列へ拡張した（適用順=配列順=revision番号）。
+  // 山月記(000624)・名人伝(000621)は各anchor1件のみだったため配列長1のまま動作は不変。
+  readonly speechCorrections: Readonly<Record<string, readonly SpeechCorrection[]>>;
 }
 
 const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
@@ -105,19 +108,19 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     speakersByOrder: ['李徴', '袁傪', '李徴'],
     speechCorrections: {
       // order 1: 「その声は、我が友、李徴子ではないか？」
-      '.main_text:899-919': {
+      '.main_text:899-919': [{
         find: '李徴子',
         to: 'リチョウシ',
         reason:
           'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴子」が「りいちょうこ」（徴子を誤ってちょうこと読む）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょうし」を強制する。',
-      },
+      }],
       // order 2: 「如何にも自分は隴西の李徴である」
-      '.main_text:1054-1071': {
+      '.main_text:1054-1071': [{
         find: '李徴',
         to: 'リチョウ',
         reason:
           'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴」が「りいしるし」（徴を訓読み「しるし」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょう」を強制する。隴西は「ろうせい」で正しく読まれるため補正不要。',
-      },
+      }],
     },
   },
   // 名人伝(000621)。VOICEVOX 0.25.2 speaker 3のaudio_query実測に基づく。
@@ -129,12 +132,242 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     speakersByOrder: ['飛衛', '飛衛', '紀昌', '主人'],
     speechCorrections: {
       // order 0: 「出かしたぞ」
-      '.main_text:1259-1266': {
+      '.main_text:1259-1266': [{
         find: '出かしたぞ',
         to: 'デカシタゾ',
         reason:
           'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「出かしたぞ」が「しゅっかしたぞ」（出を音読み「しゅっ」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「でかしたぞ」を強制する。',
-      },
+      }],
+    },
+  },
+  // 弟子(001738)。VOICEVOX 0.25.2 speaker 3のaudio_query実測（55候補全件）に基づく。
+  // 話者判定は原典「弟子」本文（青空文庫1738_16623.html正規化済みテキスト）を通読して確定。
+  // 主要登場人物: 孔子（作中では孔子/夫子/丘/予/吾で自称・他称）、子路（作中では子路/由/季路）、
+  // 子貢、隠者（名無しの老人、蒲の道すがら出会う）、王子棄疾・工尹商陽（楚が呉を伐った故事）、
+  // 小邾の大夫・射（子路への保証依頼）、欒寧（孔家の老、政変急報の使者）。
+  '001738': {
+    speakersByOrder: [
+      '孔子', '子路', '孔子', '子路', '子路', // order0-4
+      '子路', '子路', '子路', '子路', '孔子', // order5-9
+      '子貢', '孔子', '子路', '子貢', '孔子', // order10-14
+      '孔子', '孔子', '孔子', '孔子', '孔子', // order15-19
+      '老人', '老人', '老人', '子路', '孔子', // order20-24
+      '子貢', '子貢', '孔子', '子路', '孔子', // order25-29
+      '王子棄疾', '王子棄疾', '工尹商陽', '孔子', '工尹商陽', // order30-34
+      '子路', '孔子', '子路', '孔子', '子路', // order35-39
+      '子路', '孔子', '孔子', '孔子', '孔子', // order40-44
+      '孔子', '孔子', '小邾の大夫・射', '小邾の大夫・射', '孔子', // order45-49
+      '欒寧', '子路', '子路', '子路', '孔子', // order50-54
+    ],
+    speechCorrections: {
+      // order1: 「我、長剣を好む。」（子路が孔子に答える最初の一言）
+      '.main_text:244-253': [{
+        find: '我',
+        to: 'われ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で単独の「我」が「わが」（連体形）に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order3: 「学、豈、益あらんや。」
+      '.main_text:404-416': [{
+        find: '学',
+        to: 'ガク',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で読点直前の「学」が命令形「まなべ」に誤読されることを確認（正しくは名詞「がく」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order6: 「礼と云い礼と云う。玉帛を云わんや。楽と云い楽と云う。鐘鼓を云わんや。」
+      '.main_text:2286-2320': [{
+        find: '云い',
+        to: 'イイ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「云い」が「ゆい」に誤読されることを確認（正しくは「いい」）。displayTextを変えずカタカナで読みを強制する（本文中2箇所とも同一の誤読）。',
+      }],
+      // order8: 「これある哉。子の迂なるや！」（子路が孔子に向って言う、「子」は二人称の敬称）
+      '.main_text:5527-5542': [{
+        find: '子',
+        to: 'シ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」（子供）に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order10: 「ここに美玉あり。匱に（）めて蔵さんか。善賈を求めて沽らんか。」（子貢の問い）
+      '.main_text:9956-9986': [{
+        find: '美玉',
+        to: 'ビギョク',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「美玉」が「びだま」に誤読されることを確認（正しくは「びぎょく」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order11: 「これを沽らん哉。これを沽らん哉。我は賈を待つものなり。」（孔子の答）
+      '.main_text:10001-10030': [
+        {
+          find: '沽らん',
+          to: 'ウラン',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「沽らん」の「沽」が無音（辞書未登録字で発音自体が欠落）になることを確認。displayTextを変えずカタカナで正しい読み「うらん」を強制する。',
+        },
+        {
+          find: '我は',
+          to: 'われは',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我は」が「がわ」に誤読されることを確認（正しくは「われは」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+      ],
+      // order16: 「我いまだ徳を好むこと色を好むがごとき者を見ざるなり。」（孔子の嘆声）
+      '.main_text:13594-13622': [{
+        find: '我',
+        to: 'われ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我いまだ」の「我」が「わが」に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order18: 「由よ。吾汝に告げん。君子楽を好むは驕るなきがためなり。小人楽を好むは懾るるなきがためなり。それ誰の子ぞや。我を知らずして我に従う者は。」（孔子が子路に言う）
+      '.main_text:14529-14598': [
+        {
+          find: '小人',
+          to: 'ショウジン',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「小人」が「こども」に誤読されることを確認（正しくは「しょうじん」、対義語「君子」の隣接文と対句をなす）。displayTextを変えずカタカナで読みを強制する。',
+        },
+        {
+          find: '我',
+          to: 'われ',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我を」「我に」の「我」がいずれも「が」に誤読されることを確認（正しくは「われ」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+      ],
+      // order24: 「十室の邑、必ず忠信丘がごとき者あり。丘の学を好むに如かざるなり。」（孔子の言葉、2回目の「丘」に読み補正が必要）
+      '.main_text:16502-16536': [{
+        find: '丘の学',
+        to: 'きゅうの学',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で2回目に出現する「丘」（孔子の自称）が「おか」に誤読されることを確認（正しくは「きゅう」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order30: 「王事なり。子、弓を手にして可なり。」（王子棄疾が工尹商陽に言う、「子」は二人称）
+      '.main_text:18490-18509': [{
+        find: '子',
+        to: 'シ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order31: 「子、これを射よ。」（同上）
+      '.main_text:18522-18532': [{
+        find: '子',
+        to: 'シ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order39: 「万鍾我において何をか加えん」（子路の気骨を評した引用句、「我」は主格）
+      '.main_text:19567-19581': [{
+        find: '我',
+        to: 'われ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我において」の「我」が「が」に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order41: 「恭にして敬あらばもって勇を懾れしむべく、寛にして正しからばもって強を懐くべく、温にして断ならばもって姦を抑うべし」（孔子が子路に授ける教訓）
+      '.main_text:20194-20252': [
+        {
+          find: '温',
+          to: 'オン',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「温にして」の「温」が「ゆたか」に誤読されることを確認（正しくは「おん」、直前の「恭にして」「寛にして」と対句をなす）。displayTextを変えずカタカナで読みを強制する。',
+        },
+        {
+          find: '強',
+          to: 'キョウ',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「強を懐くべく」の「強」が人名的な訓読み「つよし」に誤読されることを確認（正しくは「きょう」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+      ],
+      // order44: 「善い哉、由や、恭敬にして信なり」（孔子が蒲を治める子路を評す、1回目）
+      '.main_text:20590-20607': [
+        {
+          find: '由',
+          to: 'ユウ',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」（子路の名）が人名的な訓読み「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+        {
+          find: '信なり',
+          to: 'シンなり',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「信なり」の「信」が動詞化した「しんじ」に誤読されることを確認（正しくは名詞「しん」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+      ],
+      // order45: 「善い哉、由や、忠信にして寛なり」（同上、2回目）
+      '.main_text:20622-20639': [
+        {
+          find: '由',
+          to: 'ユウ',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」が「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+        {
+          find: '寛なり',
+          to: 'カンなり',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「寛なり」の「寛」が人名的な訓読み「ひろし」に誤読されることを確認（正しくは「かん」）。displayTextを変えずカタカナで読みを強制する。',
+        },
+      ],
+      // order46: 「善い哉、由や、明察にして断なり」（同上、3回目）
+      '.main_text:20660-20677': [{
+        find: '由',
+        to: 'ユウ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」が「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order47: 「季路をして我に要せしめば、吾盟うことなけん。」（小邾の大夫・射の言葉、「我」は主格）
+      '.main_text:21025-21049': [{
+        find: '我',
+        to: 'われ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我に」の「我」が「が」に誤読されることを確認（正しくは「われ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order50: 欒寧の急報（政変を知らせる口上、複数の固有名詞に誤読あり）
+      '.main_text:22165-22262': [
+        {
+          find: '孔氏',
+          to: 'こうし',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「孔氏」が「あなし」（孔を穴と誤読）に誤読されることを確認（正しくは「こうし」）。displayTextを変えずひらがなで読みを強制する。',
+        },
+        {
+          find: '渾良夫',
+          to: 'こんりょうふ',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で人名「渾良夫」が「こんよしお」（良夫を人名的訓読み）に誤読されることを確認（正しくは「こんりょうふ」）。displayTextを変えずひらがなで読みを強制する。',
+        },
+        {
+          find: '衛侯',
+          to: 'えいこう',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「衛侯」が「まもるこう」（衛を動詞「まもる」と誤読）に誤読されることを確認（正しくは「えいこう」、本文中2箇所とも同一の誤読）。displayTextを変えずひらがなで読みを強制する。',
+        },
+        {
+          find: '大勢',
+          to: 'たいせい',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「大勢は既に動かし難い」の「大勢」が「おおぜい」（人数の意）に誤読されることを確認（正しくは情勢の意「たいせい」）。displayTextを変えずひらがなで読みを強制する。',
+        },
+      ],
+      // order52: 子路の煽動の言葉（火を放って孔叔を救えと呼びかける）
+      '.main_text:23131-23172': [
+        {
+          find: '孔叔文子',
+          to: 'こうしゅくぶんし',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「孔叔文子」が「あなしゅくぶんこ」（孔・子をそれぞれ誤読）に誤読されることを確認（正しくは「こうしゅくぶんし」）。displayTextを変えずひらがなで読みを強制する。',
+        },
+        {
+          find: '孔叔を',
+          to: 'こうしゅくを',
+          reason:
+            'VOICEVOX 0.25.2 speaker 3のaudio_query実測で2回目に出現する「孔叔」が「あな」に誤読されることを確認（正しくは「こうしゅく」）。displayTextを変えずひらがなで読みを強制する。',
+        },
+      ],
+      // order54: 「柴（子羔）や、それ帰らん。由や死なん。」（孔子が子路の死を予感する）
+      '.main_text:23555-23576': [{
+        find: '（子羔）',
+        to: '（シコウ）',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で括弧内の人名注記「（子羔）」が「こ」のみの断片的な音として漏れ出ることを確認（他の括弧内注記「（欒寧）」「（圉）」は完全に無音化されるのに対しこの1件のみ不完全な発音が残る）。displayTextを変えずカタカナで正しい読み「しこう」を強制する。',
+      }],
     },
   },
 };
@@ -449,23 +682,26 @@ async function main(): Promise<void> {
   const revisionToolBytes = await readFile(resolve(workspace, ...REVISION_TOOL_PATH.split('/')));
   const revisions: SpeechRevisionV2[] = [];
   for (const candidate of candidates) {
-    const correction = editorialConfig.speechCorrections[
+    const corrections = editorialConfig.speechCorrections[
       `${candidate.sourceAnchor.bodySelector}:${candidate.sourceAnchor.startToken}-${candidate.sourceAnchor.endToken}`
     ];
-    if (!correction) continue;
-    if (!candidate.speechText.includes(correction.find)) {
-      throw new Error(`補正対象文字列が見つかりません: ${candidate.candidateId}`);
-    }
-    const before = candidate.speechText;
-    const after = before.split(correction.find).join(correction.to);
-    revisions.push({
-      candidateId: candidate.candidateId,
-      revision: 1,
-      before,
-      after,
-      reason: correction.reason,
-      inputSha256: sha256(before),
-      outputSha256: sha256(after),
+    if (!corrections) continue;
+    let before = candidate.speechText;
+    corrections.forEach((correction, index) => {
+      if (!before.includes(correction.find)) {
+        throw new Error(`補正対象文字列が見つかりません: ${candidate.candidateId} (${correction.find})`);
+      }
+      const after = before.split(correction.find).join(correction.to);
+      revisions.push({
+        candidateId: candidate.candidateId,
+        revision: index + 1,
+        before,
+        after,
+        reason: correction.reason,
+        inputSha256: sha256(before),
+        outputSha256: sha256(after),
+      });
+      before = after;
     });
   }
   const revised = applySpeechRevisions(approvedForSpeech, revisions);

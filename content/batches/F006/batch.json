@@ -46,7 +46,7 @@
   "rightsSnapshotIds": [],
   "schemaVersion": "1.0.0",
   "stageRecords": [],
-  "status": "draft",
+  "status": "voiced",
   "voiceConfigRef": "content/batches/F006/voice-config.json",
   "workIds": [
     "000624",
@@ -334,8 +334,62 @@
       "workId": "000621"
     },
     {
-      "stageRecords": [],
-      "status": "pending",
+      "forecastRef": "content/batches/F006/capacity-forecast/001738.json",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-22T00:20:00.000Z",
+          "count": 55,
+          "inputHashes": [
+            "a2a2af26bb28bbbd20fd8433e9222b842c0e12f2b674bb171c778aef64af70ed"
+          ],
+          "outputHashes": [
+            "7516db59a7b98a8a49f9e23adbf19e9236dc568aedc557db28584b74238ab87e"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f006-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-22T00:20:00.000Z",
+          "count": 55,
+          "inputHashes": [
+            "43b9afe3b71418bf96c6ee44c5abf3961daa5b8c509e713f86fbcf952694a495",
+            "7516db59a7b98a8a49f9e23adbf19e9236dc568aedc557db28584b74238ab87e"
+          ],
+          "outputHashes": [
+            "a0fc8cebde3b3d646d78097e5d2b8e97154242a137d9311432edd5f3c817b74f"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f006-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-22T04:17:16.240Z",
+          "count": 55,
+          "inputHashes": [
+            "97f54cbd86b25592769f7ee0f25fe371ffc012166a0668dacdb5ae93cc2f3e15",
+            "a0fc8cebde3b3d646d78097e5d2b8e97154242a137d9311432edd5f3c817b74f"
+          ],
+          "outputHashes": [
+            "d3a351eedf82a92e32d320dd97795cedd1e3ffaee0e300b6c898ee5e928801eb"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f006-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-22T04:19:41.314Z",
+          "count": 55,
+          "inputHashes": [
+            "e02fd69f8ff820af752f943a598cb156b4df03970e36c08b64d18657615f11fc",
+            "d3a351eedf82a92e32d320dd97795cedd1e3ffaee0e300b6c898ee5e928801eb"
+          ],
+          "outputHashes": [
+            "d39e6ce6eca691e9d98cbf6681f50a58d5aecacd748b6eb3987f9979dbd5d15a"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f006-prepare-voice-generate-v1"
+        }
+      ],
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F006/voice-evidence/001738.json",
       "workId": "001738"
     }
   ]

@@ -1,0 +1,20 @@
+{
+  "baseEdition": "ちくま日本文学全集　中島敦",
+  "bibliography": {
+    "archiveBytes": 2092746,
+    "archiveSha256": "03a02a5f11955b0f5885f9a12e47e9fc7c2e138c0e7aa3874196e4a17ad26a2c",
+    "csvBytes": 17161785,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-08-21T06:52:22.606Z",
+  "inputter": "大内章",
+  "proofreader": "川向直樹",
+  "sourceSha256": "ccab46b1eee5eb5b897e182b26c5832af69287ef3add7a74810f0a4c3e5b052d",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000119/files/1738_16623.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000119/card1738.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成"
+}

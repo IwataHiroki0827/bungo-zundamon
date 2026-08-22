@@ -1,0 +1,658 @@
+{
+  "batchId": "F006",
+  "kind": "f006-speech-revision-result",
+  "reconciliationDigest": "2f38a74625bbc80c8ff53ec4bf4a79a79184e975496c7c87473910a15a956122",
+  "revisions": [
+    {
+      "after": "「われ、ちょうけんを好む。」",
+      "before": "「我、ちょうけんを好む。」",
+      "candidateId": "jbtraIi2VecB3uj0G0QAj-sOnAH4sJRnTY-YUURqIPM",
+      "inputSha256": "4b74265b1684613afeff573abe5f3604739b3abf4db1246e2718095d80da38c9",
+      "outputSha256": "7a0bd8b40871abd0c944817cb32215dc149f4f8f00a1b25133594bed4df2cd8c",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で単独の「我」が「わが」（連体形）に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「ガク、あに、益あらんや。」",
+      "before": "「学、あに、益あらんや。」",
+      "candidateId": "rCTMDNLiHlGQEcRq5r4yG_zazmz2sqTGYJfbtcqZO9k",
+      "inputSha256": "e82f291de81e9881334a862d623c6cbd56fafa515970ac0f1b2ffab4d533d36c",
+      "outputSha256": "4821bed0687464d10cab4b7def40f3680bdd6659c5e3b7eadcffd937a703e2d5",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で読点直前の「学」が命令形「まなべ」に誤読されることを確認（正しくは名詞「がく」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「礼とイイ礼と云う。ぎょくはくを云わんや。がくとイイ楽と云う。しょうこを云わんや。」",
+      "before": "「礼と云い礼と云う。ぎょくはくを云わんや。がくと云い楽と云う。しょうこを云わんや。」",
+      "candidateId": "yzza0jMd7aYKLilAgrM69J0JlOMwshGRLZq6wcVSvUw",
+      "inputSha256": "67de98fd02aa382cd6a9066dad7fe3eca72c60e173db04fc0fc0d644c1becb7f",
+      "outputSha256": "9cbbb23dccc1e3cb1670ece0590261edd95b72eb4b577c4057fdaabd0f236219",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「云い」が「ゆい」に誤読されることを確認（正しくは「いい」）。displayTextを変えずカタカナで読みを強制する（本文中2箇所とも同一の誤読）。",
+      "revision": 1
+    },
+    {
+      "after": "「これあるかな。シのうなるや！」",
+      "before": "「これあるかな。子のうなるや！」",
+      "candidateId": "9q9mz3TZteZD-Hk0bZqxttu8QLoZasf0ovwjvJ_ouh0",
+      "inputSha256": "c2b60f5522d17d6acc93c6ed75f6c5080b6747f8b9ea0fccf43c850b09a9309a",
+      "outputSha256": "4bb0df09666182e5e51e42773887bb76fe05c82932528fe4fc77a882d5f8d0fa",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」（子供）に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「ここにビギョクあり。ひつにおさめてかくさんか。ぜんかを求めてうらんか。」",
+      "before": "「ここに美玉あり。ひつにおさめてかくさんか。ぜんかを求めてうらんか。」",
+      "candidateId": "hJ3QT0TNCCMJky9e9UtFCOsWG8EO_dc5sbXXBL9jSOs",
+      "inputSha256": "69d34a9dd835140cea159cab009ef7f073bf2b2dc945301c79501230e05a2853",
+      "outputSha256": "8c2216a41143513a2653555a207a4ef46ea5dc394bed5231bff09ac5941c3fe7",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「美玉」が「びだま」に誤読されることを確認（正しくは「びぎょく」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「これをウランかな。これをウラン哉。我はあたいを待つものなり。」",
+      "before": "「これを沽らんかな。これを沽らん哉。我はあたいを待つものなり。」",
+      "candidateId": "V1EnXNkmwGg7NKavXRy-bow4F3UDBWWoUYh6tiWVKvc",
+      "inputSha256": "cba012a6b3751aade96ac1e3e1d7875c8f1afc4e2fb8d052ba32385166327511",
+      "outputSha256": "3d88f18975431491044f77787a8794ea29d76ddea6fc813d2269dc9bc59c3f38",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「沽らん」の「沽」が無音（辞書未登録字で発音自体が欠落）になることを確認。displayTextを変えずカタカナで正しい読み「うらん」を強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「これをウランかな。これをウラン哉。われはあたいを待つものなり。」",
+      "before": "「これをウランかな。これをウラン哉。我はあたいを待つものなり。」",
+      "candidateId": "V1EnXNkmwGg7NKavXRy-bow4F3UDBWWoUYh6tiWVKvc",
+      "inputSha256": "3d88f18975431491044f77787a8794ea29d76ddea6fc813d2269dc9bc59c3f38",
+      "outputSha256": "6aff12c7e7f2595abdc5c9973e83a8ca77e9c13342a45096ba2d413a2b9c65e4",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我は」が「がわ」に誤読されることを確認（正しくは「われは」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「われいまだ徳を好むこと色を好むがごとき者を見ざるなり。」",
+      "before": "「我いまだ徳を好むこと色を好むがごとき者を見ざるなり。」",
+      "candidateId": "WEjkdcoxqygLnwfix7cu5unLx8yzDFHthuxVjpOJqbY",
+      "inputSha256": "70671d02ace90011a1759d07d7e058d33f012deb510a5bc9fa929fa5075236ce",
+      "outputSha256": "590d94a9a3950f735e05c47a9298423c14797cd4162f98ee1bb37c3b38d11f59",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我いまだ」の「我」が「わが」に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「ゆうよ。われ汝に告げん。君子がくを好むはおごるなきがためなり。ショウジン楽を好むはおそるるなきがためなり。それだれの子ぞや。我を知らずして我に従う者は。」",
+      "before": "「ゆうよ。われ汝に告げん。君子がくを好むはおごるなきがためなり。小人楽を好むはおそるるなきがためなり。それだれの子ぞや。我を知らずして我に従う者は。」",
+      "candidateId": "6YcYGT4oYigzOQzyDkKCG4sG6Qu35GyRZ10E2ivKYmw",
+      "inputSha256": "65e4e105a958d66fac2a474c89eb515104dbf0610e900340de7d967e46dffa1a",
+      "outputSha256": "e0bf041a44b0b341fabde6ec08caf0892c45d6fec6eeb4491f4d0b0fac3ea053",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「小人」が「こども」に誤読されることを確認（正しくは「しょうじん」、対義語「君子」の隣接文と対句をなす）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「ゆうよ。われ汝に告げん。君子がくを好むはおごるなきがためなり。ショウジン楽を好むはおそるるなきがためなり。それだれの子ぞや。われを知らずしてわれに従う者は。」",
+      "before": "「ゆうよ。われ汝に告げん。君子がくを好むはおごるなきがためなり。ショウジン楽を好むはおそるるなきがためなり。それだれの子ぞや。我を知らずして我に従う者は。」",
+      "candidateId": "6YcYGT4oYigzOQzyDkKCG4sG6Qu35GyRZ10E2ivKYmw",
+      "inputSha256": "e0bf041a44b0b341fabde6ec08caf0892c45d6fec6eeb4491f4d0b0fac3ea053",
+      "outputSha256": "3f6bad035b1bd955ff83e844f98810ebb2b475204a4b578bbf89f013daff574a",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我を」「我に」の「我」がいずれも「が」に誤読されることを確認（正しくは「われ」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「十室のゆう、必ず忠信きゅうがごとき者あり。きゅうの学を好むにしかざるなり。」",
+      "before": "「十室のゆう、必ず忠信きゅうがごとき者あり。丘の学を好むにしかざるなり。」",
+      "candidateId": "c0M5c-L-_GKC-yIo3lcADhEdXkTjLXjCj1vH5apQ3nQ",
+      "inputSha256": "d594a6c3cf356d66a33874b2edcbe2ae0e2c1548729590d71665e6e499c14210",
+      "outputSha256": "f2134679cf884f3cf141e68cbd5dc465f394102a465863aa541926f3c1b1f0d8",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で2回目に出現する「丘」（孔子の自称）が「おか」に誤読されることを確認（正しくは「きゅう」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「王事なり。シ、弓を手にして可なり。」",
+      "before": "「王事なり。子、弓を手にして可なり。」",
+      "candidateId": "zScVKdo-KhHx7WNDQgW2rN1BVYWZXWSjsVQrqvRR2-M",
+      "inputSha256": "e5d1176f197ead458ef52d6f3fa9f0df1de4af066ac439ecdd7e5a54b918ffba",
+      "outputSha256": "2fb66b9db920aad12f26cec9374438ca7b76494da826464467470d5105f0166e",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「シ、これを射よ。」",
+      "before": "「子、これを射よ。」",
+      "candidateId": "Ri3qlz4i33TLthMPtWKeKMOuxGYwJOf_duzqVKlHpVY",
+      "inputSha256": "30c5cf4423818d3530d2a4db0b97ef2e3b4f90a746beed2dc7ffc02911127e00",
+      "outputSha256": "d30087a413627d423af3f208929c81577645e238c39cf5ff0179d7d956438429",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で二人称敬称の「子」が「こ」に誤読されることを確認（正しくは「し」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「ばんしょうわれにおいて何をか加えん」",
+      "before": "「ばんしょう我において何をか加えん」",
+      "candidateId": "EB5I7BWnGwf_kHGb8V_KOMut2ulspRpwn5A4AQsQfE4",
+      "inputSha256": "99fd1b50ea39cb723204f00cc668f5293323970f692eaee9011a029abd67c461",
+      "outputSha256": "c8d704b32fdbcda7b135cf7e46a049a20ec91e626b29ac9862c20d6be66182b3",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我において」の「我」が「が」に誤読されることを確認（正しくは主格「われ」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「きょうにして敬あらばもって勇をおそれしむべく、かんにして正しからばもって強を懐くべく、オンにして断ならばもって姦をおさうべし」",
+      "before": "「きょうにして敬あらばもって勇をおそれしむべく、かんにして正しからばもって強を懐くべく、温にして断ならばもって姦をおさうべし」",
+      "candidateId": "pLqso_362M4CXhwvWUc58r0nd5FTqoyBxO3tyQciD-M",
+      "inputSha256": "b62304fa7953072c19cbc05b362ee3ca2672e1893e92fed0b700719311fb6a09",
+      "outputSha256": "8cb5bc3849ba3970409815ba37e3dadbd172841e97ec4698024d06ddd0c7487b",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「温にして」の「温」が「ゆたか」に誤読されることを確認（正しくは「おん」、直前の「恭にして」「寛にして」と対句をなす）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「きょうにして敬あらばもって勇をおそれしむべく、かんにして正しからばもってキョウを懐くべく、オンにして断ならばもって姦をおさうべし」",
+      "before": "「きょうにして敬あらばもって勇をおそれしむべく、かんにして正しからばもって強を懐くべく、オンにして断ならばもって姦をおさうべし」",
+      "candidateId": "pLqso_362M4CXhwvWUc58r0nd5FTqoyBxO3tyQciD-M",
+      "inputSha256": "8cb5bc3849ba3970409815ba37e3dadbd172841e97ec4698024d06ddd0c7487b",
+      "outputSha256": "39c9fc895d858a64470566e93f07000fa987fdafb4246662660f855f239ad29c",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「強を懐くべく」の「強」が人名的な訓読み「つよし」に誤読されることを確認（正しくは「きょう」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「善い哉、ユウや、恭敬にして信なり」",
+      "before": "「善い哉、由や、恭敬にして信なり」",
+      "candidateId": "CyW93nH6qIUZOk3i7EkDfuhZ1qEIpbzE2Z6h_qhPgXo",
+      "inputSha256": "09701eba75415f38566300d083c8af9fb8ae6105c353528bd73342cb891b8227",
+      "outputSha256": "25c31e12bed2d2e1622f398752920e6f2443e53839bcdd62fa44c20f929a8528",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」（子路の名）が人名的な訓読み「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「善い哉、ユウや、恭敬にしてシンなり」",
+      "before": "「善い哉、ユウや、恭敬にして信なり」",
+      "candidateId": "CyW93nH6qIUZOk3i7EkDfuhZ1qEIpbzE2Z6h_qhPgXo",
+      "inputSha256": "25c31e12bed2d2e1622f398752920e6f2443e53839bcdd62fa44c20f929a8528",
+      "outputSha256": "8017d0c3517cbc9e4230ca66a380737a407cfb03c1eece4ca7603ba07c4350b7",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「信なり」の「信」が動詞化した「しんじ」に誤読されることを確認（正しくは名詞「しん」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「善い哉、ユウや、忠信にして寛なり」",
+      "before": "「善い哉、由や、忠信にして寛なり」",
+      "candidateId": "nHMJ5anCYwA3cMA6iaZoKxpKmLRoVXyIA3sw2hcxAJQ",
+      "inputSha256": "a4571be05c7812ccdedb5e56bfe0095b971e4636a64f565371b8e7c6a03d44e5",
+      "outputSha256": "b6cb506875a60630fc0e64f95d6bcd7f85e11c6cd090339099defdf3d81d368b",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」が「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「善い哉、ユウや、忠信にしてカンなり」",
+      "before": "「善い哉、ユウや、忠信にして寛なり」",
+      "candidateId": "nHMJ5anCYwA3cMA6iaZoKxpKmLRoVXyIA3sw2hcxAJQ",
+      "inputSha256": "b6cb506875a60630fc0e64f95d6bcd7f85e11c6cd090339099defdf3d81d368b",
+      "outputSha256": "db351dd1cdf737bbd7e1a2f6a3088bfb3d7ded11a3c4b70e83e7a3e7312aa1f0",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「寛なり」の「寛」が人名的な訓読み「ひろし」に誤読されることを確認（正しくは「かん」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「善い哉、ユウや、明察にして断なり」",
+      "before": "「善い哉、由や、明察にして断なり」",
+      "candidateId": "T8cZm0CM6rd_CVZdzIHQBumXn3hWXKPHrFLcoSKf1ts",
+      "inputSha256": "0930b2abe44d96f9b78b279adf02899c3d7ad031edeafed7a8335ba3d429e9c8",
+      "outputSha256": "3c83a68f36d8c6f09f9d4f75654401d4854a3799b7232c44c0e02fd42cf87471",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「由や」の「由」が「よし」に誤読されることを確認（正しくは「ゆう」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「季路をしてわれに要せしめば、吾ちかうことなけん。」",
+      "before": "「季路をして我に要せしめば、吾ちかうことなけん。」",
+      "candidateId": "UOjBu6C9lZMHAXY2LFvvvGZVlBxYE3uhT-IalqJyXiE",
+      "inputSha256": "4012711a1f165ed3d695619138e37a5f888c05bbcd8115ac3b3af9130cdc8b62",
+      "outputSha256": "d63b1ab37d31de75713d2789b7573ff81353e111b6596f806eaccc354ec93431",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「我に」の「我」が「が」に誤読されることを確認（正しくは「われ」）。displayTextを変えずカタカナで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・渾良夫と共に当主こうかいをおどして己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯をほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "before": "「本日、前太子都に潜入。ただ今孔氏の宅に入り、伯姫・渾良夫と共に当主こうかいをおどして己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯をほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "candidateId": "aHFoNhIoI1MfLQqhnF4ClkVPE0fmq_pYE-lb8xojOko",
+      "inputSha256": "9f318b8b5a02488db2c889c8fa57a2687f4192dac396fbaccd933668ba8448b5",
+      "outputSha256": "6d2cf6ddc90b1bb0551ebbe1d01a4632c8bb4f120bbabe8047948a3f86a7d07d",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「孔氏」が「あなし」（孔を穴と誤読）に誤読されることを確認（正しくは「こうし」）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯をほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "before": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・渾良夫と共に当主こうかいをおどして己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯をほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "candidateId": "aHFoNhIoI1MfLQqhnF4ClkVPE0fmq_pYE-lb8xojOko",
+      "inputSha256": "6d2cf6ddc90b1bb0551ebbe1d01a4632c8bb4f120bbabe8047948a3f86a7d07d",
+      "outputSha256": "561ca74f145302160081d9f251d18f4cb80e0e9eb68246c20913f3079b4a732e",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で人名「渾良夫」が「こんよしお」（良夫を人名的訓読み）に誤読されることを確認（正しくは「こんりょうふ」）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己をえいこうに戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現えいこうをほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "before": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯をほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "candidateId": "aHFoNhIoI1MfLQqhnF4ClkVPE0fmq_pYE-lb8xojOko",
+      "inputSha256": "561ca74f145302160081d9f251d18f4cb80e0e9eb68246c20913f3079b4a732e",
+      "outputSha256": "fbb6db4df619aef71ecb09feb6f0dbb0ad3930dfb4ebad2bedc6ad037f205180",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「衛侯」が「まもるこう」（衛を動詞「まもる」と誤読）に誤読されることを確認（正しくは「えいこう」、本文中2箇所とも同一の誤読）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 3
+    },
+    {
+      "after": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己をえいこうに戴かしめた。たいせいは既に動かし難い。自分（欒寧）は今から現えいこうをほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "before": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己をえいこうに戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現えいこうをほうじて魯に奔るところだ。あとはよろしく頼む。」",
+      "candidateId": "aHFoNhIoI1MfLQqhnF4ClkVPE0fmq_pYE-lb8xojOko",
+      "inputSha256": "fbb6db4df619aef71ecb09feb6f0dbb0ad3930dfb4ebad2bedc6ad037f205180",
+      "outputSha256": "83a1e6de03511bf5bfedfb449ba8f5148697de6dca1cc25e432041301a816d8b",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「大勢は既に動かし難い」の「大勢」が「おおぜい」（人数の意）に誤読されることを確認（正しくは情勢の意「たいせい」）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 4
+    },
+    {
+      "after": "「先代こうしゅくぶんし（圉）の恩義に感ずる者共は火を取って台を焼け。そうして孔叔を救え！」",
+      "before": "「先代孔叔文子（圉）の恩義に感ずる者共は火を取って台を焼け。そうして孔叔を救え！」",
+      "candidateId": "ltTzKRfDmFPcyBfObTaij0bdLzvbLUvgtRmk6sPMMZQ",
+      "inputSha256": "21ffe389955e4f20431daba7aa2620929c12578e53f6d4caa8bbc3e53da68e07",
+      "outputSha256": "63e858a134730c25dfdbf6805098ea708f697b17946b9863dda8b5228aa5c3a3",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「孔叔文子」が「あなしゅくぶんこ」（孔・子をそれぞれ誤読）に誤読されることを確認（正しくは「こうしゅくぶんし」）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「先代こうしゅくぶんし（圉）の恩義に感ずる者共は火を取って台を焼け。そうしてこうしゅくを救え！」",
+      "before": "「先代こうしゅくぶんし（圉）の恩義に感ずる者共は火を取って台を焼け。そうして孔叔を救え！」",
+      "candidateId": "ltTzKRfDmFPcyBfObTaij0bdLzvbLUvgtRmk6sPMMZQ",
+      "inputSha256": "63e858a134730c25dfdbf6805098ea708f697b17946b9863dda8b5228aa5c3a3",
+      "outputSha256": "f2992fa99ca74569d1c39efd1470530b0ff062a1f363a008d93d16cce8e0c33f",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で2回目に出現する「孔叔」が「あな」に誤読されることを確認（正しくは「こうしゅく」）。displayTextを変えずひらがなで読みを強制する。",
+      "revision": 2
+    },
+    {
+      "after": "「さい（シコウ）や、それ帰らん。ゆうや死なん。」",
+      "before": "「さい（子羔）や、それ帰らん。ゆうや死なん。」",
+      "candidateId": "xNfc8STYK-6gO6psiiqFaWWhbvGKYj94hYzUJf_01B4",
+      "inputSha256": "8246525aa332db2f82c2171b0b548f820dd0820bb74f12d785a9523b3c6c3bc3",
+      "outputSha256": "44b6f0010ea9bcfe623fb2d7e1d1f5ec221f342e015be658f4c78c707be9a51c",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で括弧内の人名注記「（子羔）」が「こ」のみの断片的な音として漏れ出ることを確認（他の括弧内注記「（欒寧）」「（圉）」は完全に無音化されるのに対しこの1件のみ不完全な発音が残る）。displayTextを変えずカタカナで正しい読み「しこう」を強制する。",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "_EN0OOd3OA1GKagizmbxFLIV4NZ5Hcutf-OFd3dgYoc",
+      "displayText": "「汝、何をか好む？」",
+      "revisionCount": 0,
+      "speechSha256": "839aaab0ce325051f67e685165604cf75529dd3d1aba94e8cb9466cbb4d01501",
+      "speechText": "「なんじ、何をか好む？」"
+    },
+    {
+      "candidateId": "jbtraIi2VecB3uj0G0QAj-sOnAH4sJRnTY-YUURqIPM",
+      "displayText": "「我、長剣を好む。」",
+      "revisionCount": 1,
+      "speechSha256": "7a0bd8b40871abd0c944817cb32215dc149f4f8f00a1b25133594bed4df2cd8c",
+      "speechText": "「われ、ちょうけんを好む。」"
+    },
+    {
+      "candidateId": "O_mERJ7ZkYMUZDfquQPFmjMe5Nz2d1byRDz4xqBCirU",
+      "displayText": "「学はすなわちいかん？」",
+      "revisionCount": 0,
+      "speechSha256": "0e4d1e5a921217a1f1e4b25684ca6a422002624037111718b28e90a4240a6c2c",
+      "speechText": "「学はすなわちいかん？」"
+    },
+    {
+      "candidateId": "rCTMDNLiHlGQEcRq5r4yG_zazmz2sqTGYJfbtcqZO9k",
+      "displayText": "「学、豈、益あらんや。」",
+      "revisionCount": 1,
+      "speechSha256": "4821bed0687464d10cab4b7def40f3680bdd6659c5e3b7eadcffd937a703e2d5",
+      "speechText": "「ガク、あに、益あらんや。」"
+    },
+    {
+      "candidateId": "CMJPJHMpB5tuGrD43b-noOZ-HyodkH-QRL0AlZqGoaM",
+      "displayText": "「しかし」",
+      "revisionCount": 0,
+      "speechSha256": "3c09a89dd2082d3f07960c98b36e32fe7e4e7b840bd29d0bfffc548e11655610",
+      "speechText": "「しかし」"
+    },
+    {
+      "candidateId": "t6Cch0zG0NUhOE4Kbqei6aS_pa5tG2mnpp6tlF_K49U",
+      "displayText": "「謹しんで教を受けん。」",
+      "revisionCount": 0,
+      "speechSha256": "06dda07dc031c671e49a8cf124b62339a77b01fc2689bef7d510a1cd95ecb8d8",
+      "speechText": "「つつしんで教を受けん。」"
+    },
+    {
+      "candidateId": "yzza0jMd7aYKLilAgrM69J0JlOMwshGRLZq6wcVSvUw",
+      "displayText": "「礼と云い礼と云う。玉帛を云わんや。楽と云い楽と云う。鐘鼓を云わんや。」",
+      "revisionCount": 1,
+      "speechSha256": "9cbbb23dccc1e3cb1670ece0590261edd95b72eb4b577c4057fdaabd0f236219",
+      "speechText": "「礼とイイ礼と云う。ぎょくはくを云わんや。がくとイイ楽と云う。しょうこを云わんや。」"
+    },
+    {
+      "candidateId": "E33-xtLbr0iLe-UgDgulfsjlBEZyL4RlIg-gn0Mfifk",
+      "displayText": "「請う。古の道を釈てて由の意を行わん。可ならんか。」",
+      "revisionCount": 0,
+      "speechSha256": "6251203b36155dcc245542d16a71d75afe0d3ca357e805ed0c0a2d1029bddf44",
+      "speechText": "「こう。古の道をすててゆうの意を行わん。可ならんか。」"
+    },
+    {
+      "candidateId": "9q9mz3TZteZD-Hk0bZqxttu8QLoZasf0ovwjvJ_ouh0",
+      "displayText": "「これある哉。子の迂なるや！」",
+      "revisionCount": 1,
+      "speechSha256": "4bb0df09666182e5e51e42773887bb76fe05c82932528fe4fc77a882d5f8d0fa",
+      "speechText": "「これあるかな。シのうなるや！」"
+    },
+    {
+      "candidateId": "3Qvt_Fb_epeoGk8ChUa4p7lkIDr5tQKbNOtsX-1oERI",
+      "displayText": "「鳳鳥至らず。河、図を出さず。已んぬるかな。」",
+      "revisionCount": 0,
+      "speechSha256": "217e84957ddec85cf489f04965b3e1c02d64af846ffa2b6cd5beb321c08b4b53",
+      "speechText": "「ほうちょう至らず。河、とを出さず。やんぬるかな。」"
+    },
+    {
+      "candidateId": "hJ3QT0TNCCMJky9e9UtFCOsWG8EO_dc5sbXXBL9jSOs",
+      "displayText": "「ここに美玉あり。匱に（）めて蔵さんか。善賈を求めて沽らんか。」",
+      "revisionCount": 1,
+      "speechSha256": "8c2216a41143513a2653555a207a4ef46ea5dc394bed5231bff09ac5941c3fe7",
+      "speechText": "「ここにビギョクあり。ひつにおさめてかくさんか。ぜんかを求めてうらんか。」"
+    },
+    {
+      "candidateId": "V1EnXNkmwGg7NKavXRy-bow4F3UDBWWoUYh6tiWVKvc",
+      "displayText": "「これを沽らん哉。これを沽らん哉。我は賈を待つものなり。」",
+      "revisionCount": 2,
+      "speechSha256": "6aff12c7e7f2595abdc5c9973e83a8ca77e9c13342a45096ba2d413a2b9c65e4",
+      "speechText": "「これをウランかな。これをウラン哉。われはあたいを待つものなり。」"
+    },
+    {
+      "candidateId": "9BGsYnkxOwOss3Jox195E9sRFbXeJM97NVwxFqKmr9M",
+      "displayText": "「褐（粗衣）を被て玉を懐く」",
+      "revisionCount": 0,
+      "speechSha256": "9b61236d78753abeff19fa6b0e40ebac13d42854fc3297a1d8d30564701aa3b3",
+      "speechText": "「かつ（そい）をきて玉をいだく」"
+    },
+    {
+      "candidateId": "2RaOEJ3YnQNNUi4weti4cp9kJzf0xDgeOTTFmZfY7og",
+      "displayText": "「死者は知ることありや？　将た知ることなきや？」",
+      "revisionCount": 0,
+      "speechSha256": "8224a305e40fb58283f161c041d3d36c85fc5c11ce410919235b0f0299868f49",
+      "speechText": "「死者は知ることありや？ はた知ることなきや？」"
+    },
+    {
+      "candidateId": "5XLSZA5ZAXP_p7k9ZXDo-2fgUZL53CXTFUUiK-g4LW4",
+      "displayText": "「死者知るありと言わんとすれば、まさに孝子順孫、生を妨げてもって死を送らんとすることを恐る。死者知るなしと言わんとすれば、まさに不孝の子その親を棄てて葬らざらんとすることを恐る。」",
+      "revisionCount": 0,
+      "speechSha256": "56bbdab4e41a960e85e1db9e2acd82004b9e6161922fe090062c4849e9507367",
+      "speechText": "「死者知るありと言わんとすれば、まさに孝子順孫、生をさまたげてもって死を送らんとすることを恐る。死者知るなしと言わんとすれば、まさに不孝の子その親をすててほうむらざらんとすることを恐る。」"
+    },
+    {
+      "candidateId": "mPyNOrTLmll4Xinl6K8VzKCOz6PBC_IWfbBns9mu9ZU",
+      "displayText": "「いまだ生を知らず。いずくんぞ死を知らん。」",
+      "revisionCount": 0,
+      "speechSha256": "5a91b49aea91e259a9251596f629dea2d2ba2365c91f7f9487520f651dbda958",
+      "speechText": "「いまだ生を知らず。いずくんぞ死を知らん。」"
+    },
+    {
+      "candidateId": "WEjkdcoxqygLnwfix7cu5unLx8yzDFHthuxVjpOJqbY",
+      "displayText": "「我いまだ徳を好むこと色を好むがごとき者を見ざるなり。」",
+      "revisionCount": 1,
+      "speechSha256": "590d94a9a3950f735e05c47a9298423c14797cd4162f98ee1bb37c3b38d11f59",
+      "speechText": "「われいまだ徳を好むこと色を好むがごとき者を見ざるなり。」"
+    },
+    {
+      "candidateId": "VwcSgeyvXToqkfCaYWz8-QPnCcdYoANJBHJVIxLUPAQ",
+      "displayText": "「鳥よく木を択ぶ。木豈に鳥を択ばんや。」",
+      "revisionCount": 0,
+      "speechSha256": "458cac3b162673c4bc4a519038f3a38956b6617a7d57411c5951c3e8a1c48da1",
+      "speechText": "「鳥よく木をえらぶ。木あに鳥を択ばんや。」"
+    },
+    {
+      "candidateId": "6YcYGT4oYigzOQzyDkKCG4sG6Qu35GyRZ10E2ivKYmw",
+      "displayText": "「由よ。吾汝に告げん。君子楽を好むは驕るなきがためなり。小人楽を好むは懾るるなきがためなり。それ誰の子ぞや。我を知らずして我に従う者は。」",
+      "revisionCount": 2,
+      "speechSha256": "3f6bad035b1bd955ff83e844f98810ebb2b475204a4b578bbf89f013daff574a",
+      "speechText": "「ゆうよ。われ汝に告げん。君子がくを好むはおごるなきがためなり。ショウジン楽を好むはおそるるなきがためなり。それだれの子ぞや。われを知らずしてわれに従う者は。」"
+    },
+    {
+      "candidateId": "rX6FssCt5C30y0KM8XRV7fa3EhBsjRXwXg9MDwKLvvM",
+      "displayText": "「窮するとは道に窮するの謂に非ずや。今、丘、仁義の道を抱き乱世の患に遭う。何ぞ窮すとなさんや。もしそれ、食足らず体瘁るるをもって窮すとなさば、君子ももとより窮す。但、小人は窮すればここに濫る。」",
+      "revisionCount": 0,
+      "speechSha256": "7e8c11be5b23ef33d31fc13900a9eba086046b639fd92267a390e6cd18e00e8c",
+      "speechText": "「窮するとは道に窮するのいいに非ずや。今、きゅう、仁義の道を抱き乱世の患に遭う。何ぞ窮すとなさんや。もしそれ、食足らず体つかるるをもって窮すとなさば、君子ももとより窮す。ただ、小人は窮すればここにみだる。」"
+    },
+    {
+      "candidateId": "mWmgE5g3vCu19c9m-HG2xe23kcwKKjad8aSYns1sWpw",
+      "displayText": "「夫子夫子と言ったとて、どれが一体汝のいう夫子やら俺に分る訳がないではないか」",
+      "revisionCount": 0,
+      "speechSha256": "8afc982df8c7e120ff1455c361b4b64ed7e75f18344bc28b63a4e7976602a574",
+      "speechText": "「夫子夫子と言ったとて、どれが一体汝のいう夫子やらおれにわかる訳がないではないか」"
+    },
+    {
+      "candidateId": "Rbww2gbSSuxh7IAhzdluCo_bFksxGkvs69Nuqsvmfnw",
+      "displayText": "「見受けたところ、四体を労せず実事に従わず空理空論に日を暮らしている人らしいな。」",
+      "revisionCount": 0,
+      "speechSha256": "fe4c51f8aeb776012f1d157c7cbc47acb27a3aaf0fc05bc11bbdb538b56afe6c",
+      "speechText": "「見受けたところ、四体を労せず実事に従わず空理空論に日をくらしている人らしいな。」"
+    },
+    {
+      "candidateId": "XfJKMluOTEEI1ZGD-vni84Gu_GRDrhS8Ue0G1y7PUnU",
+      "displayText": "「楽しみ全くして始めて志を得たといえる。志を得るとは軒冕の謂ではない。」",
+      "revisionCount": 0,
+      "speechSha256": "3cd37c4aa0bfdf3d50bb9a4fd6f8360bbd62e1ad667c5f49ee5f08ca59cc9391",
+      "speechText": "「楽しみ全くして始めて志を得たといえる。志を得るとはけんべんの謂ではない。」"
+    },
+    {
+      "candidateId": "jPMtOE3288nTZaCr5RxLwlUh-xzaf9HI0gUE4RLfnMc",
+      "displayText": "「世と断つのはもとより楽しかろうが、人の人たるゆえんは楽しみを全うする所にあるのではない。区々たる一身を潔うせんとして大倫を紊るのは、人間の道ではない。我々とて、今の世に道の行われない事ぐらいは、とっくに承知している。今の世に道を説くことの危険さも知っている。しかし、道無き世なればこそ、危険を冒してもなお道を説く必要があるのではないか。」",
+      "revisionCount": 0,
+      "speechSha256": "4e8caaabc6d65904b36b5a8139bd956b9752269d6d8fb63b0fc82cddcc148efa",
+      "speechText": "「世とたつのはもとより楽しかろうが、人の人たるゆえんは楽しみをまっとうする所にあるのではない。区々たる一身を潔うせんとして大倫をみだるのは、人間の道ではない。我々とて、今の世に道の行われない事ぐらいは、とっくに承知している。今の世に道を説くことの危険さも知っている。しかし、道無き世なればこそ、危険をおかしてもなお道を説く必要があるのではないか。」"
+    },
+    {
+      "candidateId": "c0M5c-L-_GKC-yIo3lcADhEdXkTjLXjCj1vH5apQ3nQ",
+      "displayText": "「十室の邑、必ず忠信丘がごとき者あり。丘の学を好むに如かざるなり。」",
+      "revisionCount": 1,
+      "speechSha256": "f2134679cf884f3cf141e68cbd5dc465f394102a465863aa541926f3c1b1f0d8",
+      "speechText": "「十室のゆう、必ず忠信きゅうがごとき者あり。きゅうの学を好むにしかざるなり。」"
+    },
+    {
+      "candidateId": "onXnYPC8zdgWB9Z_fY_8oX2xTdie0K1xNe85y8jHpZ4",
+      "displayText": "「それは」",
+      "revisionCount": 0,
+      "speechSha256": "893c3b73af541b1beafc8848b5534d572687ddf4b4707fd4039ccb3ebae751a6",
+      "speechText": "「それは」"
+    },
+    {
+      "candidateId": "YLz7XnaOQGZqxM0we3uSZjWaDj0FwNARGlauds-khgc",
+      "displayText": "「あの優れた中庸への本能だ。いついかなる場合にも夫子の進退を美しいものにする・見事な中庸への本能だ。」",
+      "revisionCount": 0,
+      "speechSha256": "4febae498d9ecbc361f8ba65d9d220eb1b2f576981f29a59db12269f214ebf7c",
+      "speechText": "「あの優れたちゅうようへの本能だ。いついかなる場合にも夫子の進退を美しいものにする・見事な中庸への本能だ。」"
+    },
+    {
+      "candidateId": "C-DFFq-NfAO6a3AXKN61VREe3mMx4WjJLpfXfK3GMuM",
+      "displayText": "「由よ。汝には、そういう小義の中にある見事さばかりが眼に付いて、それ以上は判らぬと見える。古の士は国に道あれば忠を尽くしてもってこれを輔け、国に道無ければ身を退いてもってこれを避けた。こうした出処進退の見事さはいまだ判らぬと見える。詩に曰う。民僻多き時は自ら辟を立つることなかれと。蓋し、泄冶の場合にあてはまるようだな。」",
+      "revisionCount": 0,
+      "speechSha256": "7c236be5912f36d51441b44c5e7c1f60903b0fc9959842a1a336df12c853bbe8",
+      "speechText": "「ゆうよ。汝には、そういう小義の中にある見事さばかりが眼に付いて、それ以上はわからぬと見える。古の士は国に道あれば忠を尽くしてもってこれをたすけ、国に道無ければ身を退いてもってこれを避けた。こうした出処進退の見事さはいまだ判らぬと見える。詩にいう。民よこしま多き時は自らのりを立つることなかれと。けだし、泄冶の場合にあてはまるようだな。」"
+    },
+    {
+      "candidateId": "kPsd9zBS3GSbpR0Pt4SjyOLXm3LFzcx2nbZ8sBL7vRs",
+      "displayText": "「では」",
+      "revisionCount": 0,
+      "speechSha256": "b53b8bc6fc9b32a0405c7202eb9a95501c412c95b3a69515051ba4a5e5b11b85",
+      "speechText": "「では」"
+    },
+    {
+      "candidateId": "DIK_Lv87Io3E1W3kzgBYMyQYWHJ5cw_GbeDV_n05jQc",
+      "displayText": "「それは何も一身の保全ばかりが大切とは言わない。それならば比干を仁人と褒めはしないはずだ。但、生命は道のために捨てるとしても捨て時・捨て処がある。それを察するに智をもってするのは、別に私の利のためではない。急いで死ぬるばかりが能ではないのだ。」",
+      "revisionCount": 0,
+      "speechSha256": "e884bf1b71847a4189d1f772ddaf9175a23b5ffae08138a10e475c402da7e67a",
+      "speechText": "「それは何も一身の保全ばかりが大切とは言わない。それならば比干を仁人と褒めはしないはずだ。ただ、生命は道のために捨てるとしても捨て時・捨て処がある。それを察するに智をもってするのは、別にわたくしの利のためではない。急いで死ぬるばかりが能ではないのだ。」"
+    },
+    {
+      "candidateId": "zScVKdo-KhHx7WNDQgW2rN1BVYWZXWSjsVQrqvRR2-M",
+      "displayText": "「王事なり。子、弓を手にして可なり。」",
+      "revisionCount": 1,
+      "speechSha256": "2fb66b9db920aad12f26cec9374438ca7b76494da826464467470d5105f0166e",
+      "speechText": "「王事なり。シ、弓を手にして可なり。」"
+    },
+    {
+      "candidateId": "Ri3qlz4i33TLthMPtWKeKMOuxGYwJOf_duzqVKlHpVY",
+      "displayText": "「子、これを射よ。」",
+      "revisionCount": 1,
+      "speechSha256": "d30087a413627d423af3f208929c81577645e238c39cf5ff0179d7d956438429",
+      "speechText": "「シ、これを射よ。」"
+    },
+    {
+      "candidateId": "pqrY-Q8Zi7SJThpxpt2A8pj0ZImw0ZrLRibNzSWNsR8",
+      "displayText": "「自分の今の身分ではこの位で充分反命するに足るだろう。」",
+      "revisionCount": 0,
+      "speechSha256": "72760eb4421eb69c230eea5e61878c148554380f9fc41db37d687fcdf5e035b9",
+      "speechText": "「自分の今の身分ではこの位で充分反命するに足るだろう。」"
+    },
+    {
+      "candidateId": "gF-wzpVQVzmpYQO6fuOXjQzoMOv-foqoQI1e5Ns-PuA",
+      "displayText": "「人を殺すの中、また礼あり。」",
+      "revisionCount": 0,
+      "speechSha256": "5c38418400f0de5f47e7e780d390238cd6e202d562cfefb93222085198ec0bcd",
+      "speechText": "「人を殺すの中、また礼あり。」"
+    },
+    {
+      "candidateId": "7413dOVQlHWozf4rlkDw7Sy7_VHOlWFly-PkVceAK_Q",
+      "displayText": "「自分としては三人斃した位で充分だ。」",
+      "revisionCount": 0,
+      "speechSha256": "fbb1780f6905320d0576903f27d9bb43eb3a4a0523490b01b4d0f72478e14be9",
+      "speechText": "「自分としては三人斃した位で充分だ。」"
+    },
+    {
+      "candidateId": "bF_-BSVZ-z3H1AJ2XNbwLmHFSKM_TdL5kj0mOZy699Q",
+      "displayText": "「人臣の節、君の大事に当りては、ただ力の及ぶ所を尽くし、死して而して後に已む。夫子何ぞ彼を善しとする？」",
+      "revisionCount": 0,
+      "speechSha256": "a29c4443faf7a50c70c5ee16ca23bf5d6129335453be27ea70c702261c7342cf",
+      "speechText": "「人臣の節、君の大事に当りては、ただ力の及ぶ所を尽くし、死してしこうして後にやむ。夫子何ぞ彼を善しとする？」"
+    },
+    {
+      "candidateId": "tRqZZsNpcCLNzCvLyGeB3oEb1R_L11wK91K7d-3Gm0o",
+      "displayText": "「然り。汝の言のごとし。吾、ただその、人を殺すに忍びざるの心あるを取るのみ。」",
+      "revisionCount": 0,
+      "speechSha256": "f5e4b6f6d70ce981f21935fe6390ec2d7e04096342b628fe11249742f4cb0a97",
+      "speechText": "「しかり。汝の言のごとし。われ、ただその、人を殺すにしのびざるの心あるを取るのみ。」"
+    },
+    {
+      "candidateId": "c01ubuOFyUb5guVCWr1D9dcyvj88U068-Qcxu7-2r9A",
+      "displayText": "「一小国に限定されない・一時代に限られない・天下万代の木鐸」",
+      "revisionCount": 0,
+      "speechSha256": "ae1a7e8d741f60ce36f6ed093a3dd03f2bb138103b083262b06e96dae8a7a922",
+      "speechText": "「一小国に限定されない・一時代に限られない・天下万代のぼくたく」"
+    },
+    {
+      "candidateId": "H2-lZPyGkZUcXnC4CB12WuTynGHVyRtlTlcbaXRxePs",
+      "displayText": "「天のいまだ斯文を喪さざるや匡人それ予をいかんせんや」",
+      "revisionCount": 0,
+      "speechSha256": "f53417af4d67ca3483c02220495328e8f136efc836f9eff178bbf16899a64c46",
+      "speechText": "「天のいまだしぶんをほろぼさざるやきょうひとそれわれをいかんせんや」"
+    },
+    {
+      "candidateId": "EB5I7BWnGwf_kHGb8V_KOMut2ulspRpwn5A4AQsQfE4",
+      "displayText": "「万鍾我において何をか加えん」",
+      "revisionCount": 1,
+      "speechSha256": "c8d704b32fdbcda7b135cf7e46a049a20ec91e626b29ac9862c20d6be66182b3",
+      "speechText": "「ばんしょうわれにおいて何をか加えん」"
+    },
+    {
+      "candidateId": "BVPErTminF4TP-tJCdHs42uMIcv0gYMnLwHeGwmdvVc",
+      "displayText": "「邑に壮士多くして治め難し」",
+      "revisionCount": 0,
+      "speechSha256": "d741880529057037c552b2474b785682786437b1d33961b837d98f71e9217382",
+      "speechText": "「邑に壮士多くして治め難し」"
+    },
+    {
+      "candidateId": "pLqso_362M4CXhwvWUc58r0nd5FTqoyBxO3tyQciD-M",
+      "displayText": "「恭にして敬あらばもって勇を懾れしむべく、寛にして正しからばもって強を懐くべく、温にして断ならばもって姦を抑うべし」",
+      "revisionCount": 2,
+      "speechSha256": "39c9fc895d858a64470566e93f07000fa987fdafb4246662660f855f239ad29c",
+      "speechText": "「きょうにして敬あらばもって勇をおそれしむべく、かんにして正しからばもってキョウを懐くべく、オンにして断ならばもって姦をおさうべし」"
+    },
+    {
+      "candidateId": "QhQ3nK6sWCzsLUc8zx84WZ0tU8Cj_MuYmVe9MlAc7EU",
+      "displayText": "「教えずして刑することの不可」",
+      "revisionCount": 0,
+      "speechSha256": "683e123bcaaaf0b963b91b7fb6ffabaa44aa1c1245df5c432334d855eaaaaee1",
+      "speechText": "「教えずしてけいすることの不可」"
+    },
+    {
+      "candidateId": "dcJTQXjMOmIY4YvL5Sg00BGj7CHtQ5HnU6RaWnp9iL4",
+      "displayText": "「片言もって獄を折むべきものは、それ由か」",
+      "revisionCount": 0,
+      "speechSha256": "510e4bea81b77ae5fb039f2c16af61efc0ac4cc142cf1d40ee7b6c2e4b99e159",
+      "speechText": "「片言もってごくをさだむべきものは、それゆうか」"
+    },
+    {
+      "candidateId": "CyW93nH6qIUZOk3i7EkDfuhZ1qEIpbzE2Z6h_qhPgXo",
+      "displayText": "「善い哉、由や、恭敬にして信なり」",
+      "revisionCount": 2,
+      "speechSha256": "8017d0c3517cbc9e4230ca66a380737a407cfb03c1eece4ca7603ba07c4350b7",
+      "speechText": "「善い哉、ユウや、恭敬にしてシンなり」"
+    },
+    {
+      "candidateId": "nHMJ5anCYwA3cMA6iaZoKxpKmLRoVXyIA3sw2hcxAJQ",
+      "displayText": "「善い哉、由や、忠信にして寛なり」",
+      "revisionCount": 2,
+      "speechSha256": "db351dd1cdf737bbd7e1a2f6a3088bfb3d7ded11a3c4b70e83e7a3e7312aa1f0",
+      "speechText": "「善い哉、ユウや、忠信にしてカンなり」"
+    },
+    {
+      "candidateId": "T8cZm0CM6rd_CVZdzIHQBumXn3hWXKPHrFLcoSKf1ts",
+      "displayText": "「善い哉、由や、明察にして断なり」",
+      "revisionCount": 1,
+      "speechSha256": "3c83a68f36d8c6f09f9d4f75654401d4854a3799b7232c44c0e02fd42cf87471",
+      "speechText": "「善い哉、ユウや、明察にして断なり」"
+    },
+    {
+      "candidateId": "UOjBu6C9lZMHAXY2LFvvvGZVlBxYE3uhT-IalqJyXiE",
+      "displayText": "「季路をして我に要せしめば、吾盟うことなけん。」",
+      "revisionCount": 1,
+      "speechSha256": "d63b1ab37d31de75713d2789b7573ff81353e111b6596f806eaccc354ec93431",
+      "speechText": "「季路をしてわれに要せしめば、吾ちかうことなけん。」"
+    },
+    {
+      "candidateId": "0J44VKwFiSYLr3pZGe7CqMSUy88rz2ToRZdGc8wTxOM",
+      "displayText": "「子路さえその保証に立ってくれれば魯国の誓など要らぬ」",
+      "revisionCount": 0,
+      "speechSha256": "5bf948ba167b8981a8c6df0dad87da4caed11a8bd4df12fc053e354b5548e887",
+      "speechText": "「子路さえその保証に立ってくれれば魯国のちかいなどいらぬ」"
+    },
+    {
+      "candidateId": "ohReNuROnepPqAvm6voQCI_DGE0e_7pOFGM2B7YYufs",
+      "displayText": "「吾、大夫の後に従うをもってなり。故にあえて言わずんばあらず。」",
+      "revisionCount": 0,
+      "speechSha256": "c906a7a04df5e4715bd83f0a9876e6bfb60e3ad9f3958be518da2ddb31684ef7",
+      "speechText": "「吾、大夫のしりえに従うをもってなり。故にあえて言わずんばあらず。」"
+    },
+    {
+      "candidateId": "aHFoNhIoI1MfLQqhnF4ClkVPE0fmq_pYE-lb8xojOko",
+      "displayText": "「本日、前太子都に潜入。ただ今孔氏の宅に入り、伯姫・渾良夫と共に当主孔を脅して己を衛侯に戴かしめた。大勢は既に動かし難い。自分（欒寧）は今から現衛侯を奉じて魯に奔るところだ。後はよろしく頼む。」",
+      "revisionCount": 4,
+      "speechSha256": "83a1e6de03511bf5bfedfb449ba8f5148697de6dca1cc25e432041301a816d8b",
+      "speechText": "「本日、前太子都に潜入。ただ今こうしの宅に入り、伯姫・こんりょうふと共に当主こうかいをおどして己をえいこうに戴かしめた。たいせいは既に動かし難い。自分（欒寧）は今から現えいこうをほうじて魯に奔るところだ。あとはよろしく頼む。」"
+    },
+    {
+      "candidateId": "1OpwkGZMm7dCAPlXQmDmAgvwWSkQvCwJxZiIDX87rpU",
+      "displayText": "「火を！　火を！」",
+      "revisionCount": 0,
+      "speechSha256": "ed35bafdb92ba5e5700d416fa70dd9974c756e38f84a2067f73e4a0b980c25a2",
+      "speechText": "「火を！ 火を！」"
+    },
+    {
+      "candidateId": "ltTzKRfDmFPcyBfObTaij0bdLzvbLUvgtRmk6sPMMZQ",
+      "displayText": "「先代孔叔文子（圉）の恩義に感ずる者共は火を取って台を焼け。そうして孔叔を救え！」",
+      "revisionCount": 2,
+      "speechSha256": "f2992fa99ca74569d1c39efd1470530b0ff062a1f363a008d93d16cce8e0c33f",
+      "speechText": "「先代こうしゅくぶんし（圉）の恩義に感ずる者共は火を取って台を焼け。そうしてこうしゅくを救え！」"
+    },
+    {
+      "candidateId": "XdnaTXxArZ2YTVlIA4issMxy1XJMr_z7haCXJlZd9Kw",
+      "displayText": "「見よ！　君子は、冠を、正しゅうして、死ぬものだぞ！」",
+      "revisionCount": 0,
+      "speechSha256": "be68744be27361587c4c6d2ab90cc3994340da131e53daa7ba980e5a6e6f75e6",
+      "speechText": "「見よ！ 君子は、冠を、正しゅうして、死ぬものだぞ！」"
+    },
+    {
+      "candidateId": "xNfc8STYK-6gO6psiiqFaWWhbvGKYj94hYzUJf_01B4",
+      "displayText": "「柴（子羔）や、それ帰らん。由や死なん。」",
+      "revisionCount": 1,
+      "speechSha256": "44b6f0010ea9bcfe623fb2d7e1d1f5ec221f342e015be658f4c78c707be9a51c",
+      "speechText": "「さい（シコウ）や、それ帰らん。ゆうや死なん。」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "001738"
+}
