@@ -405,6 +405,35 @@ const APPROVAL_POLICIES = Object.freeze({
     changes: Object.freeze([]),
     existingFeatureIds: Object.freeze(['F001', 'F002', 'F003', 'F004', 'F005'] as BatchId[]),
   }),
+  /**
+   * F007はF006と同じくF004型の静的descriptor経路を採用する（DD-F007.md FUN-F007-001確定記載）。
+   * @des DES-F007-001 @fun FUN-F007-001 @ut UT-F007-001
+   */
+  F007: Object.freeze({
+    feature: 'F007',
+    authorExpectation: 'introduce',
+    evidencePath: 'docs/evidence/requirements/F007-approval-binding.json' as WorkspaceRelativePath,
+    evidenceSchemaVersion: '1.0.0',
+    approvals: Object.freeze([
+      Object.freeze({
+        queueId: 'Q-062',
+        target: 'docs/srs/SRS-F007.md' as WorkspaceRelativePath,
+        targetMode: 'document',
+      }),
+    ]),
+    documents: Object.freeze([
+      Object.freeze({
+        path: 'docs/srs/SRS-F007.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F007', status: 'Approved' }),
+      }),
+      Object.freeze({
+        path: 'docs/tests/qt/QT-F007.md' as WorkspaceRelativePath,
+        frontmatter: Object.freeze({ feature: 'F007', status: 'Approved' }),
+      }),
+    ]),
+    changes: Object.freeze([]),
+    existingFeatureIds: Object.freeze(['F001', 'F002', 'F003', 'F004', 'F005', 'F006'] as BatchId[]),
+  }),
 } satisfies Readonly<Record<string, ApprovalPolicy>>);
 
 export const BATCH_DEFINITION_REFS = Object.freeze({
@@ -420,6 +449,10 @@ export const BATCH_DEFINITION_REFS = Object.freeze({
     ref: 'content/batch-definitions/F006.json' as WorkspaceRelativePath,
     sha256: '8c2e0b6301e3702aef40163a0853dba6699a64ae6397baebfd4de4abbbce539a' as Sha256,
   }),
+  F007: Object.freeze({
+    ref: 'content/batch-definitions/F007.json' as WorkspaceRelativePath,
+    sha256: '642155a21800f332759a4c52d28a99edbee4336e59a9e5a766d786607bcb9bbe' as Sha256,
+  }),
 });
 
 export const APPROVAL_POLICY_REFS = Object.freeze({
@@ -434,6 +467,10 @@ export const APPROVAL_POLICY_REFS = Object.freeze({
   F006: Object.freeze({
     ref: 'content/approval-policies/F006.json' as WorkspaceRelativePath,
     sha256: '1df1e5e99e874748af4be930f3c3055399ba507f845fe43921d1a14a85b0dee2' as Sha256,
+  }),
+  F007: Object.freeze({
+    ref: 'content/approval-policies/F007.json' as WorkspaceRelativePath,
+    sha256: '6fb0a04799801b0f51471b7b0f6d8ddb664897558cd42bbf0bf8bf44512b742a' as Sha256,
   }),
 });
 function hash(value: string | Uint8Array): Sha256 {

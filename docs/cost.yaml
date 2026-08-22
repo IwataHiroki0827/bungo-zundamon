@@ -2000,3 +2000,32 @@ entries:
     状態になった。`tasks.yaml`T-159を`state: done`へ、`docs/features.yaml`のF007を
     `state: testspec`へ、`STATUS.md`を更新。次: pf-implement(T-160以降)。本タスクの指示に
     より実装フェーズへは進まずここで停止した。
+- date: '2026-08-22'
+  phase: implement
+  task: T-160前半 F007固定v0.6.0 baseline・候補registry基盤を実装
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 380000
+  note: >-
+    /pf-implementを開始しゲートチェック(SRS/FD/DD/UT/IT/QT全Approved)を通過した。
+    FUN-F007-002/003としてcontent/baselines/F007-v0.6.0.json(F006公開証跡
+    RELEASE-F006.md/F006-approval.json/F006-deployment.jsonから実測した
+    exact値、control commit 945f4a53f15cc174490fb15b51b97df0163da39d)と
+    src/content/f007-baseline.ts(f006-baseline.tsと同型、
+    loadPublishedV060Baseline/isMintedPublishedV060Baseline)を新規実装し、
+    実git履歴(release commit 166556111de642770916c6397931ca4b61c786d9)に
+    対するf007-baseline.test.ts(10ケース、改ざん拒否・現行public再導出
+    禁止を含む)全PASSを確認した(モックなし、実git objectでの検証)。
+    FUN-F007-001前半としてcontent/batch-definitions/F007.json(舞姫058126・
+    高瀬舟045245・山椒大夫000689、AozoraのcardURL/XHTML URLを実際にcurl
+    存在確認)・content/approval-policies/F007.json(Q-062参照)・
+    docs/evidence/requirements/F007-approval-binding.json(実queue.yaml・
+    実SRS/QT文書から実際にhash計算)を作成し、src/content/batch-candidate.ts
+    のAPPROVAL_POLICIES/BATCH_DEFINITION_REFS/APPROVAL_POLICY_REFSへF007
+    entryを実SHA-256値で登録した。tsc --noEmit・lint・f007-baseline.test.ts
+    (10件)・batch-candidate.test.ts(7件)・既存f006-source/f006-catalog/
+    f004-approved-context test(30件)は全PASSで既存機能への回帰なし。
+    未着手: content/batch-candidates.jsonへのF007 candidate追加・draft
+    manifest materialize(FUN-F007-001後半)、f007-source.ts本体
+    (FUN-F007-004〜006、f006-source.tsと同等規模の大きな実装が必要)。
+    ここで区切りcommit・pushし、T-160をstate: doingのまま次回へ引き継ぐ。

@@ -3667,7 +3667,7 @@ tasks:
   title: F007候補manifest・固定v0.6.0 baseline・権利原典を整備
   feature: F007
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-159
   tags:
@@ -3676,6 +3676,40 @@ tasks:
   - REQ-F007-005
   - REQ-F007-006
   - REQ-F007-007
+  progress: >-
+    FUN-F007-002/003(固定v0.6.0 baseline)を完了した。F006公開証跡
+    (RELEASE-F006.md/F006-approval.json/F006-deployment.json、
+    control commit 945f4a53f15cc174490fb15b51b97df0163da39d)から実測した
+    exact値でcontent/baselines/F007-v0.6.0.json(canonical JSON、SHA-256
+    a0d1ce95880455f8ea8ecebda10d9f860cf606316621dac4c81cf68a8df315b0)を
+    作成し、f006-baseline.tsと同型のsrc/content/f007-baseline.ts
+    (F007_V060_PINS、loadPublishedV060Baseline、
+    isMintedPublishedV060Baseline)を新規実装した。実git履歴(release
+    commit 166556111de642770916c6397931ca4b61c786d9)に対しf007-baseline.
+    test.ts(F006同型10ケース、改ざん拒否・現行public再導出禁止含む)を
+    新規作成し全PASSを確認した(モック無し、実git objectに対する検証)。
+
+    FUN-F007-001(候補registry基盤)の準備を完了した。
+    content/batch-definitions/F007.json(舞姫058126/高瀬舟045245/
+    山椒大夫000689、実際にAozora Bunkoのcard/XHTML URLをcurlで存在確認
+    済み)・content/approval-policies/F007.json(Q-062参照)をF006の
+    canonical JSON形式で新規作成し、docs/evidence/requirements/
+    F007-approval-binding.jsonを実queue.yaml(Q-062)・実SRS-F007.md/
+    QT-F007.mdから実際にhash計算して生成した。src/content/
+    batch-candidate.tsのAPPROVAL_POLICIES/BATCH_DEFINITION_REFS/
+    APPROVAL_POLICY_REFSへF007 entry(実SHA-256値)を追加した。
+    tsc --noEmit・lint・関連test(f007-baseline.test.ts全10件、
+    batch-candidate.test.ts全7件、既存f006-source/f006-catalog/
+    f004-approved-context test 30件)は全PASSで既存機能への回帰なし。
+
+    未着手: content/batch-candidates.jsonへのF007 candidate
+    entry追加(森鴎外author定義・3 work記述)とdraft manifest
+    materialize(FUN-F007-001後半)、FUN-F007-004(f007-source.ts内
+    defineF007AuthorAndWorkRegistry/verifyF007AuthorIdentity)、
+    FUN-F007-005/006(f007-source.ts本体、Aozora実データ取得・
+    entity正規化・決定的抽出、f006-source.tsが同等規模のため
+    大きな実装量が見込まれる)。ここで一旦区切り、続きはT-160の
+    残作業として次セッションで継続する。
   mode: orchestration
   mode_reason: baseline固定、書誌・規約二重確認、entity正規化検出を独立実装・検査して統合できるため
   model: *model_f007

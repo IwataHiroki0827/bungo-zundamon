@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "introduce",
+  "batchId": "F007",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F007",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card58126.html",
+      "order": 1,
+      "title": "舞姫",
+      "workId": "058126",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/58126_73682.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card45245.html",
+      "order": 2,
+      "title": "高瀬舟",
+      "workId": "045245",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/45245_22007.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card689.html",
+      "order": 3,
+      "title": "山椒大夫",
+      "workId": "000689",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/689_23257.html"
+    }
+  ]
+}

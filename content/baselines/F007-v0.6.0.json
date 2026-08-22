@@ -1,0 +1,36 @@
+{
+  "catalogSha256": "7e362d767e7936af41b42e027b491c44d838e259cd92d0baf9bdc2bf14cf5967",
+  "control": {
+    "approvalEvidencePath": "docs/evidence/release/F006-approval.json",
+    "approvalEvidenceSha256": "e054d25d2bdd2460c4c44cb590cad1d6026aa89f8fd80763127315cabbd3d926",
+    "commit": "945f4a53f15cc174490fb15b51b97df0163da39d",
+    "deploymentEvidencePath": "docs/evidence/release/F006-deployment.json",
+    "deploymentEvidenceSha256": "5ac0d9bf5d111e0bfb58b2682662e35aef1c8e2143cf0ef7e31231da8ff7b322",
+    "manifestPath": "content/batches/F006/batch.json",
+    "manifestSha256": "59489c5cde20adcbd6e14848e0998a2c309d38236ed1e2585e9d6ef5b7545386",
+    "releaseEvidencePath": "docs/evidence/release/RELEASE-F006.md",
+    "releaseEvidenceSha256": "d8f63c2368962f6c455fb6cb055aabd8bf183ea6066f845c4f24799ec84fe47f"
+  },
+  "counts": {
+    "audioAssets": 923,
+    "authors": 5,
+    "batches": 6,
+    "dialogues": 939,
+    "works": 18
+  },
+  "distSha256": "de440fbf1f6dccaa79ce369e470d8fe9ce322e68912ac9968d9f97e336ef14e9",
+  "production": {
+    "artifactDigest": "327e392a6d0a2e62bd9e29f7a7dabd769d8f5678c5f57a8052709d8dae57a8d5",
+    "artifactId": "9471657617",
+    "runId": "32556527623"
+  },
+  "publicTreeOid": "c78006d0e201dfc084950d718b028f940ae4ffd1",
+  "release": "v0.6.0",
+  "releaseCommit": "166556111de642770916c6397931ca4b61c786d9",
+  "schemaVersion": "1.0.0",
+  "tag": "v0.6.0",
+  "trackedPublic": {
+    "bytes": 304615300,
+    "files": 965
+  }
+}
