@@ -4337,7 +4337,7 @@ tasks:
   title: 人間椅子を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-172
   tags:
@@ -4386,6 +4386,36 @@ tasks:
     確認した。budget.test.ts/capacity-v2.test.ts/f003.test.ts(40件)に
     regressionなし、tsc/lint clean。次のアクション: 456648の音声生成を
     再開する。F009・F010でも同様の固定上限方式を踏襲することを推奨する。
+
+    是正後、scripts/f008-prepare-voice.ts 056648をVOICEVOX実接続
+    (http://127.0.0.1:50021)で実行し完結した(commit 3007a2b)。forecast結果は
+    予告どおりpass_with_warning(blockedではない)。5件の音声diffを実生成
+    (staged 1,161,948バイト)、verifyVoiceCompleteness PASS、workステータスは
+    voicedへ遷移した。
+
+    続けて段階B2(content-preview/capacity-actual/atomic受入)へ進もうとしたが、
+    構造的にblockedと判明した。f007-content-preview.tsの実装パターンどおり
+    work-preview構築は作者artwork実体(PNG)をARTWORK_SOURCE_PATH
+    (content/batches/F008/public-files/artwork/edogawa-ranpo-zundamon.png)
+    から読み込みSHA256照合する構造だが、このファイルは未生成
+    (T-172がComfyUI[http://127.0.0.1:59008]接続不可[connection refused]により
+    FUN-F008-014/015[作者画像実生成]を未完のままstate: doingで止まっている
+    ため)。T-172が完了(作者画像実生成)しない限りT-173の段階B2
+    (content-preview以降)は着手不能。これは今回のdirectiveにある「ComfyUIは
+    引き続き不要（作者画像は後回し）」という前提と、atomic受入パイプラインが
+    作者画像実体を要求する既存アーキテクチャ（F005〜F007と同型）との間の
+    構造的な矛盾であり、本タスクのバグではない。次のアクション: (1) 江戸川
+    乱歩の作者画像をComfyUI起動後に実生成しT-172を完了させてから、
+    scripts/f008-content-preview.ts・scripts/f008-capacity-actual.ts・
+    scripts/f008-accept-work.ts・src/content/f008-acceptance.ts
+    (いずれもf007版の複製として未作成)を実装しT-173段階B2を再開する。
+    (2) 人間椅子の作品固有notice(公式「不適切な表現」注意、
+    officialContentWarning: true)は既にT-172でTRUSTED_REGISTRY_BINDINGS・
+    content/batches/F008/work-notices.jsonへ登録済みであることを
+    work-notices.test.ts/f008-catalog.test.ts(19件)PASSで確認した。
+    T-174(Ｄ坂の殺人事件)の独立二重判定は、82〜87候補(長大候補分割見込み)
+    全件の話者・decisionを実際の本文通読から確定する必要があり本セッションの
+    残り時間では着手しなかった。
 - id: T-174
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
