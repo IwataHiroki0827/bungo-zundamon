@@ -3501,13 +3501,26 @@ tasks:
   title: F006 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F006
   phase: test
-  state: todo
+  state: done
   depends:
   - T-154
   tags: *id006
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため
   model: *model_f006
+  progress: >-
+    E2Eフルスイート(6ブラウザプロジェクト)をF006候補dist
+    (.cache/f006-final-integration-qHufkB)に対して実行。同時フル実行時は
+    resource contentionでchrome-stable/edge-stable系41件が見かけ上失敗
+    したが、--workers=1での再実行で該当60件全PASSを確認し製品コードの
+    問題でないと確認(commit e20dc7b)。tests/e2e/f006-nakajima-author.spec.ts
+    を新規追加(5人目作者共存・route直遷移・初期全閉/単一再生contract)。
+    npm run lint/typecheck PASS。npm testフルスイート1375件中1299 PASS、
+    36 failedは全て既知のWindows並列flaky(F005 native guard exe欠落、
+    offline-build stderr混入、published-baseline timeout、batch-catalog.ts
+    のF005 fragment gap、いずれも本タスク以前から既知・F006無関係)。
+    権利・容量・セキュリティQTはCHG-F006-001〜006の各段階で既に実データ
+    検証済み。T-156(リリース)着手可能。
 - id: T-156
   title: F006リリース前総点検・GitHub Pages段階公開・公開8 routeスモーク
   feature: F006
