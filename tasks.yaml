@@ -3808,7 +3808,7 @@ tasks:
   title: 舞姫を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F007
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-161
   tags:
@@ -3822,6 +3822,25 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、F005確立済みの作品固有注記UI(FUN-F005-014)をデータ駆動で再適用するため
   model: *model_f007
+  progress: >-
+    段階A(独立二重判定・pending 0まで収束)・段階B1(voice-config新設・
+    音声diff実生成・verifyVoiceCompleteness PASS・容量forecast・voiced遷移)
+    まで完了した(commit 3de6eb1)。段階B2(work-preview構築・容量actual・
+    atomic受入)の準備中に、F006 batch.jsonがrecordPublishedBatch未実行の
+    ままstatus: 'accepted'に残っていた既知事象(F005と同型)を発見した。
+    F007のwork-preview構築(loadAcceptedBatches)は先行batchがstatus
+    'published'であることを要求するため、F006が未発見となり森鴎外作者
+    画像provenance完全検証が既存5作者要求を満たせず失敗していた。
+    汎用recordPublishedBatchはPUBLIC_ROUTES_BY_FEATURE(F002/F003/F004のみ
+    登録)にF006が未登録のためPUBLISH_SMOKE_FAILEDで使えない(F005是正時
+    と同じ制約)。実evidence(docs/evidence/release/F006-{deployment,
+    smoke}.json、T-156で実データ作成済み)を根拠にdeploymentEvidenceRef/
+    publishedAt/releaseVersion/smokeEvidenceRef/statusをcanonical JSONで
+    追記・更新するscripts/f006-mark-published.tsを新規実装し実行した
+    (status: accepted→published)。tsc/lint clean、touched testsを
+    再実行し全PASS(batch-catalog.test.ts等、f006-record-published.ts削除に
+    伴うtracked file不整合を修正後)。メインセッション側でcommit・push予定。
+    段階B2(work-preview構築・容量actual・atomic受入)は次のforkへ継続。
 - id: T-163
   title: 高瀬舟を抽出・二重レビュー・音声化・atomic受入
   feature: F007
