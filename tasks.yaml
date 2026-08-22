@@ -3857,7 +3857,7 @@ tasks:
   title: 高瀬舟を抽出・二重レビュー・音声化・atomic受入
   feature: F007
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-162
   tags:
@@ -3956,6 +3956,38 @@ tasks:
     次のfork/セッションは、ディスク空き容量を再確認したうえで段階B1
     (voice-config・音声diff実生成・容量forecast・voiced遷移)から
     再開すること。
+
+    メインセッション側でユーザー承認を得てComfyUI outputの古いキャッシュ
+    (7日以前・84.8GB、KB-0010に記録)を削除し92.5GBまで回復のうえ、
+    段階B1以降を完結させた。音声diff実生成: attempted=13/succeeded=13/
+    failed=0(承認済み14候補中1件は既存audioとの重複排除によりnew生成不要、
+    「はい」の2候補が同一text+configで1 audioIdへ集約=src/voice/
+    generation.tsの既存仕様、無変更)、容量forecast: pass_with_warning、
+    voiced遷移。
+
+    work-preview構築(scripts/f007-content-preview.ts)実行時に、この
+    重複排除により`dialogues.length !== generation.assets.length`という
+    誤った不変条件チェック(f006-content-preview.tsから複製した際の潜在
+    バグ、F006の62候補では偶然重複が一度も発生せず露見していなかった)が
+    falseで失敗する新規バグを発見・修正した。正しい不変条件(全candidateId
+    がassets側でちょうど1回ずつ言及される・参照audioId集合とasset
+    audioId集合が一致する)へ置き換えた(commit ee68be5)。修正後、
+    work-preview 1008 files・build=70e25e9b...を構築。
+
+    容量actual: result=pass(freeBytes約97.9GB、reasons: [])。atomic受入
+    (scripts/f007-accept-work.ts 045245)でvoiced→acceptedへ遷移、
+    accepted-audio/045245/へ正式昇格した。
+
+    src/content/f007-acceptance.test.tsのACCEPTED_WORK_IDを058126→045245
+    へ更新(assertOrderはmanifest内で最後尾のaccepted workのみを再検証対象
+    とするため、F006同様の既知パターン)。tsc/lint clean。touched test
+    suite(f007-source/baseline/catalog/artwork/work-notices-registration/
+    acceptance・batch・batch-production・editorial-independent・
+    batch-catalog・batch-public)178件全PASS確認。T-163完結。
+
+    次のアクション: T-164(山椒大夫000689)を同一パターンで完結させる。
+    抽出時の安全分割(splitOverlongF007Candidates)は既に汎用実装済みの
+    ため、600文字超の候補があれば自動的に分割される見込み。
 - id: T-164
   title: 山椒大夫を抽出・二重レビュー・音声化・atomic受入
   feature: F007

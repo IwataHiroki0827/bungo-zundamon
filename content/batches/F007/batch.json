@@ -352,6 +352,89 @@
       "workId": "058126"
     },
     {
+      "acceptedAt": "2026-08-22T12:39:18.853Z",
+      "acceptedAudioSources": [
+        {
+          "bytes": 4956716,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/066a96bebff26cfca5f7ccb6682abbfb1999ba914e6161b45e31c3fdc66aba66.wav",
+          "sha256": "8d5a99e913309d0a24c2aecc6dcc3161301df081296a51cda2702020452b028a"
+        },
+        {
+          "bytes": 29740,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/07634a7dfe744ee54759fcb28d7adc92b93ad615a925154dab31f5e8374c5582.wav",
+          "sha256": "c3def369411dc368b8a73aae592663c2b1d18752912af853aaac23afb44e8464"
+        },
+        {
+          "bytes": 3816492,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/1229ff6a89561d9a4bf8d6142ee26618688ec125194fca7e457eade7b4f64298.wav",
+          "sha256": "00977982e508d081e46e3af6545aeb4ca12fb0cd7b5d17650755188a60eb0bdf"
+        },
+        {
+          "bytes": 1642540,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/24ba0eded639cd0209c9bfd9a979655b074d9420d364f15a9575cbfcd86251e0.wav",
+          "sha256": "f1c4cf84ca95f4cee8660eb0d85eca001eb04917537e292d301e0d584453f683"
+        },
+        {
+          "bytes": 77356,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/306230f04daa7581938eb2def2ffedf7fc34afed504f0b65eed5d9f6b354c240.wav",
+          "sha256": "760c7aff3cdf01a678cd1005e8ab1a828c082d48fce250f5a053c8fe613a7ce9"
+        },
+        {
+          "bytes": 145452,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/3f833007227d9d4abb234f07c808cd41a78240ee9452fba1ab04c5f4a0e3552a.wav",
+          "sha256": "885982c4f04e846c72b73732edc9fe6102ea8691cfd3bcce8044fb0a53d26824"
+        },
+        {
+          "bytes": 66604,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/40a98041942d1b6c01e090cc1cdbb9f2c35d1671f0ade0008d15a9ace8185931.wav",
+          "sha256": "caf7dc1ee15d5bc6fce429e14ab726af62a18725ee52e919e235a3f8f98d6bfd"
+        },
+        {
+          "bytes": 3778604,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/438fd8bcb11e9eba30661125802157347d945297829f39b26d3ded97004de603.wav",
+          "sha256": "e28934c4af6d6d1645ecf26d8dc05e07fb659023f3eeff8d4753a3e61475693b"
+        },
+        {
+          "bytes": 4923948,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/7488e25b1e7463767fad18509b6d640c43ca946ebec35fb466329eca766b0e2e.wav",
+          "sha256": "022991cf3ce90b1b61d799b9dbfac88e1629829c58050b749b7f7241c4623751"
+        },
+        {
+          "bytes": 5095468,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/88c62c291f1d2fd7a4d5d8c39c16085ddbd64f29468f91656084422cddd3b630.wav",
+          "sha256": "6b282ce795a2888c2e45bb67c05ab5572f8a643956bb367ed2ccf53b1992e7df"
+        },
+        {
+          "bytes": 515628,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/9011c27287c79f11c124de793fb4d01d18e994dcd788f61ac5b3490368653329.wav",
+          "sha256": "c939e3b1bc7c315104f3daad59eaea599d2e2a0604137d79debd3202a1a5d4d4"
+        },
+        {
+          "bytes": 4099116,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/93571bdc263922d8ef7240643a21f06ed8a8dc74a54f2cf99412ad89f59497fa.wav",
+          "sha256": "ccf570288613cee40cc23006d35ca2d7d613ed4a9872f5133a0e80b39df6438d"
+        },
+        {
+          "bytes": 46124,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F007/accepted-audio/045245/e842f471f1cccbbf046338f0e3463b703fdf16fb8da5a90fb7b51daf8cd03e2f.wav",
+          "sha256": "87787ec4c1d5b198b9404ee694acac4f10a174d55005de279a6ea9a1a2639401"
+        }
+      ],
+      "acceptedBy": "content-acceptance-transaction",
+      "actualCapacityRef": "content/batches/F007/capacity-actual/045245.json",
       "forecastRef": "content/batches/F007/capacity-forecast/045245.json",
       "stageRecords": [
         {
@@ -404,9 +487,73 @@
           ],
           "stage": "voiced",
           "toolVersion": "f007-prepare-voice-generate-v1"
+        },
+        {
+          "completedAt": "2026-08-22T12:39:04.753Z",
+          "count": 13,
+          "inputHashes": [
+            "a6659aecfc9b6f13076daf44c5c6151f8aa89d08d30f51fea2b20944009fc21b",
+            "6306cf252cbdd321a7a862074b0d0209dcc29c05a6089b68729430aae7e70667"
+          ],
+          "outputHashes": [
+            "3a03dc371ec674536fc2aacbf1059072498f4429d2b22c7a8b64e81004d094bd",
+            "e0296c30c5aba2f25ed71bcf1206f431aca3115602cda1bef8795cc2ed6447d7"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f007-capacity-actual-voiced-direct-v1"
+        },
+        {
+          "completedAt": "2026-08-22T12:39:13.729Z",
+          "count": 39,
+          "inputHashes": [
+            "8a70120be4120c88e998d310c19ce80842a470dfe4997179539a077fc2387a1d",
+            "3a03dc371ec674536fc2aacbf1059072498f4429d2b22c7a8b64e81004d094bd",
+            "e0296c30c5aba2f25ed71bcf1206f431aca3115602cda1bef8795cc2ed6447d7",
+            "70e25e9bc825562e28c3a030435aad10accc400145d7811a002560c4c6bcbc56"
+          ],
+          "outputHashes": [
+            "89084671df1c792dd85d730d0eb3575fce73eed636c0a53acb1ab74096d57c63",
+            "2fad2f890d2b80d425a71bea433a9d1e87af4eac1501cafac2cc120899a7fbe8",
+            "70e43f56e06b6f9f4fb674d1bfffa558aa26eb343007094673e65ff7055f8075",
+            "4b368f78e335efcdc1e904850f7743b6ec894742f2be4ef18984daccb034332f"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "f007-capacity-actual-v1"
+        },
+        {
+          "completedAt": "2026-08-22T12:39:18.853Z",
+          "count": 13,
+          "inputHashes": [
+            "6708fef3b41d14f188ee593dde7881e71e2a8cadb7687fc2da32c3c330750bd4",
+            "20bfe52d725ca23578ae58ca2673297cfc3255b640ec501dd72e550c5150b0db",
+            "70e25e9bc825562e28c3a030435aad10accc400145d7811a002560c4c6bcbc56",
+            "70e25e9bc825562e28c3a030435aad10accc400145d7811a002560c4c6bcbc56",
+            "2fad2f890d2b80d425a71bea433a9d1e87af4eac1501cafac2cc120899a7fbe8",
+            "89084671df1c792dd85d730d0eb3575fce73eed636c0a53acb1ab74096d57c63",
+            "70e43f56e06b6f9f4fb674d1bfffa558aa26eb343007094673e65ff7055f8075",
+            "4b368f78e335efcdc1e904850f7743b6ec894742f2be4ef18984daccb034332f"
+          ],
+          "outputHashes": [
+            "55ed79b83d1110c0ce5696dc79e1f8a35b5ee7d8416aedbc999dfbcb18bf8570",
+            "8d5a99e913309d0a24c2aecc6dcc3161301df081296a51cda2702020452b028a",
+            "c3def369411dc368b8a73aae592663c2b1d18752912af853aaac23afb44e8464",
+            "00977982e508d081e46e3af6545aeb4ca12fb0cd7b5d17650755188a60eb0bdf",
+            "f1c4cf84ca95f4cee8660eb0d85eca001eb04917537e292d301e0d584453f683",
+            "760c7aff3cdf01a678cd1005e8ab1a828c082d48fce250f5a053c8fe613a7ce9",
+            "885982c4f04e846c72b73732edc9fe6102ea8691cfd3bcce8044fb0a53d26824",
+            "caf7dc1ee15d5bc6fce429e14ab726af62a18725ee52e919e235a3f8f98d6bfd",
+            "e28934c4af6d6d1645ecf26d8dc05e07fb659023f3eeff8d4753a3e61475693b",
+            "022991cf3ce90b1b61d799b9dbfac88e1629829c58050b749b7f7241c4623751",
+            "6b282ce795a2888c2e45bb67c05ab5572f8a643956bb367ed2ccf53b1992e7df",
+            "c939e3b1bc7c315104f3daad59eaea599d2e2a0604137d79debd3202a1a5d4d4",
+            "ccf570288613cee40cc23006d35ca2d7d613ed4a9872f5133a0e80b39df6438d",
+            "87787ec4c1d5b198b9404ee694acac4f10a174d55005de279a6ea9a1a2639401"
+          ],
+          "stage": "accepted",
+          "toolVersion": "accepted-audio-transaction-v1"
         }
       ],
-      "status": "voiced",
+      "status": "accepted",
       "voiceEvidenceRef": "content/batches/F007/voice-evidence/045245.json",
       "workId": "045245"
     },
