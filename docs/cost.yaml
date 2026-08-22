@@ -2029,3 +2029,34 @@ entries:
     manifest materialize(FUN-F007-001後半)、f007-source.ts本体
     (FUN-F007-004〜006、f006-source.tsと同等規模の大きな実装が必要)。
     ここで区切りcommit・pushし、T-160をstate: doingのまま次回へ引き継ぐ。
+- date: '2026-08-22'
+  phase: requirements
+  task: F008(江戸川乱歩3作品追加)要求分析フェーズ
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    F008(江戸川乱歩「人間椅子」56648・「Ｄ坂の殺人事件」56650・「一人二役」
+    57193)の要求分析フェーズを完了した。作者は既にDOMAIN-F006.mdランキング
+    で確定済み(人物ID001779、score226,526)。作品選定は実データで実施:
+    青空文庫作者ページで公開中111作品を確認、2022年XHTMLアクセスランキング
+    上位500件中21作品を確認、候補作品のraw XHTML実取得(SHA-256固定)・
+    かぎ括弧候補数実測(人間椅子13件/D坂82件/一人二役11件、合計106件・
+    発話文字概算11,893文字)・entity検査(3作品とも未定義entity0件)・
+    図書カード備考欄確認(人間椅子・D坂の殺人事件の2作品に公式表現注意を
+    新規発見、F005/F007は1作品のみだったが本フィーチャーは初の2作品同時
+    適用)・拡充CSV著作権フラグ確認(全て「なし」)を行った。孤島の鬼
+    (アクセス2位・XHTML486KB)・怪人二十面相(アクセス4位・XHTML262KB)は
+    F007「阿部一族」見送りと同型の理由(群像劇・キャスト複雑度・採用3作品
+    合計を上回る過大な分量)で見送った。容量予測は既存dist実測405,423,000
+    bytesに20%余裕後117,777,806 bytesを加え523,200,806 bytes、GitHub Pages
+    1 GiB上限に対し550,541,018 bytesの余裕を確認。作成: docs/domain/
+    DOMAIN-F008.md・docs/srs/SRS-F008.md(REQ-F008-001〜019、19件。F007
+    実測のVOICEVOX長大候補500エラー[約1335文字境界]への対応方針を
+    REQ-F008-019として非機能要件に明記)・docs/qa/QA-F008.md(11問、全て
+    自動承認方針で回答済み)・docs/tests/qt/QT-F008.md(QT-F008-001〜019)。
+    SRS/QTともstatus: Approved(承認ゲート①自動承認)。trace_check.py
+    --feature F008は19件のREQ→DES未対応を報告するが、DES/FD未作成の
+    pf-setup/pf-design未着手段階として想定通り。STATUS.md更新。
+    次のアクション: docs/features.yamlへF008エントリ追加後、/pf-setup
+    (WBS作成)へ進む。git commit/pushは未実施(メインセッション側で実施)。

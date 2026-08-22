@@ -40,3 +40,9 @@ features:
   state: closed
   merge_after:
   - F006
+- id: F008
+  title: 江戸川乱歩「人間椅子」「Ｄ坂の殺人事件」「一人二役」3作品追加
+  branch: feature/F008
+  state: setup
+  merge_after:
+  - F007
