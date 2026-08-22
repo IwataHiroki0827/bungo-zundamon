@@ -42,9 +42,12 @@ npm run test:e2e
 - F005は`npm run content:batch -- --batch F005 --work <WorkID> --stage <stage|all>`を使用し、夢十夜（`000799`）→倫敦塔（`001076`）→趣味の遺伝（`001104`）の順に作品単位で処理する。
 - F005は公開済みv0.4.0を固定baselineにし、`proofreader: null`、趣味の遺伝の固定raw/entity正規化、規約`decision: allow`、容量6区分をfail-closedで検証する。音声生成前はdisk-guardを再実行し、5 GiB未満の見込みなら開始しない。
 - F005のブラウザ受入は既存Playwright設定のChromium・Firefox・WebKit・Pixel 7相当Chromium・Chrome stable・Edge stableの6自動環境を使用し、手動確認を必須証跡にしない。
-- F006は`npm run content:batch -- --batch F006 --work <WorkID> --stage <stage|all>`を使用し、山月記（`000624`）→名人伝（`000621`）→弟子（`001738`）の順に作品単位で処理する。F005固有のnative guard/ETW機構は使わず、F002〜F004が使う汎用の共有受理pipeline(`src/content/batch-runtime.ts`・`batch-acceptance.ts`・`batch.ts`)を最大限再利用する。
+- F006は汎用`content:batch`ではなく、`node --experimental-transform-types scripts/f006-{prepare-editorial,prepare-voice,content-preview,capacity-actual}.ts <WorkID>`のCLI引数化script群を作品単位で順次実行する（`content:batch`はF002〜F004専用のまま、F005以降の新規作者拡充では未使用）。山月記（`000624`）→名人伝（`000621`）→弟子（`001738`）の順に処理する。F005固有のnative guard/ETW機構は使わず、F002〜F004が使う汎用の共有受理pipeline(`src/content/batch-runtime.ts`・`batch-acceptance.ts`・`batch.ts`)と、F003型の薄い受入ラッパー(`src/content/f006-acceptance.ts`)を最大限再利用する。
 - F006は公開済みv0.5.0を固定baselineにし、中島敦を5人目の作者として新規追加する（authorId`000119`、slug`nakajima-atsushi`）。対象3作品はいずれも校正者欄記載ありのため`proofreader: null`分岐は対象外、作品固有注記UIも対象外（QA-F006.md No.3/No.4確定）。音声生成前はdisk-guardを実行し、5 GiB未満の見込みなら開始しない。
 - F006のブラウザ受入は既存Playwright設定の6自動環境を使用し、公開route集合はexact 8件（home・既存4作者・中島敦作者route・favorites・credits）となる。
+- F007は`npm run build`→ `npm run test:e2e`は既存6環境のまま、F006確立済みのCLI引数化script群パターンを`f007-*.ts`命名で踏襲する（`node --experimental-transform-types scripts/f007-{prepare-editorial,prepare-voice,content-preview,capacity-actual}.ts <WorkID>`、薄い受入ラッパーは`src/content/f007-acceptance.ts`）。舞姫（`058126`）→高瀬舟（`045245`）→山椒大夫（`000689`）の順に処理する。
+- F007は公開済みv0.6.0を固定baselineにし、森鴎外を6人目の作者として新規追加する（authorId`000129`、slug候補`mori-ogai`、QA-F007.md No.1/No.2で確定）。対象3作品はいずれも校正者欄記載ありのため`proofreader: null`分岐は対象外。舞姫の図書カード備考欄に公式表現注意があるため、F005確立済みの作品固有注記UI（FUN-F005-014）を舞姫にのみデータ駆動で再適用する（QA-F007.md No.4確定）。音声生成前はdisk-guardを実行し、5 GiB未満の見込みなら開始しない（2026-08-22時点でローカル空き35 GiB、実装着手前に`.cache/`の再取得可能データを整理済み）。
+- F007のブラウザ受入は既存Playwright設定の6自動環境を使用し、公開route集合はexact 9件（home・既存5作者・森鴎外作者route・favorites・credits）となる。
 
 ## プロジェクト規約
 

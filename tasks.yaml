@@ -3593,3 +3593,188 @@ tasks:
     F006-deployment.json,F006-smoke.json}`を実データで作成。
     `PAGES_DEPLOY_ENABLED`をfalseへ戻し、tag `v0.6.0`をrelease commitへ
     push済み。state: done。
+- id: T-157
+  title: 機能設計書(FD-F007)を作成しREQ全18件を森鴎外追加設計へ展開
+  feature: F007
+  phase: design
+  state: todo
+  depends:
+  - T-156
+  tags: &id007
+  - REQ-F007-001
+  - REQ-F007-002
+  - REQ-F007-003
+  - REQ-F007-004
+  - REQ-F007-005
+  - REQ-F007-006
+  - REQ-F007-007
+  - REQ-F007-008
+  - REQ-F007-009
+  - REQ-F007-010
+  - REQ-F007-011
+  - REQ-F007-012
+  - REQ-F007-013
+  - REQ-F007-014
+  - REQ-F007-015
+  - REQ-F007-016
+  - REQ-F007-017
+  - REQ-F007-018
+  mode: advisor
+  mode_reason: 固定v0.6.0 baselineと汎用batchパイプライン再利用範囲・F007固有差分(舞姫の作品固有注記UI再適用を含む)を単一FDで一貫させる逐次設計のため
+  model: &model_f007
+    lead: opus
+    workers: sonnet
+- id: T-158
+  title: 関数設計書(DD-F007)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F007
+  phase: design
+  state: todo
+  depends:
+  - T-157
+  tags: *id007
+  mode: advisor
+  mode_reason: FDの汎用pipeline再利用境界とF007固有入力(新規作者・舞姫注記UI再適用・独立二重判定)を関数単位で確定するため
+  model: *model_f007
+- id: T-159
+  title: UT-F007・IT-F007を作成しQT-F007との網羅性を確認
+  feature: F007
+  phase: testspec
+  state: todo
+  depends:
+  - T-158
+  tags: *id007
+  mode: orchestration
+  mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・注記UI・セキュリティの独立試験領域を並列設計できるため
+  model: *model_f007
+- id: T-160
+  title: F007候補manifest・固定v0.6.0 baseline・権利原典を整備
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-159
+  tags:
+  - REQ-F007-001
+  - REQ-F007-002
+  - REQ-F007-005
+  - REQ-F007-006
+  - REQ-F007-007
+  mode: orchestration
+  mode_reason: baseline固定、書誌・規約二重確認、entity正規化検出を独立実装・検査して統合できるため
+  model: *model_f007
+- id: T-161
+  title: 森鴎外作者identity・独自作者画像・Catalog新規author統合基盤を実装
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-160
+  tags:
+  - REQ-F007-003
+  - REQ-F007-004
+  - REQ-F007-014
+  - REQ-F007-016
+  mode: orchestration
+  mode_reason: 新規author identity、独自作者画像provenance、Catalog/routeのデータ駆動拡張を独立実装して統合できるため
+  model: *model_f007
+- id: T-162
+  title: 舞姫を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-161
+  tags:
+  - REQ-F007-007
+  - REQ-F007-008
+  - REQ-F007-009
+  - REQ-F007-010
+  - REQ-F007-011
+  - REQ-F007-012
+  - REQ-F007-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、F005確立済みの作品固有注記UI(FUN-F005-014)をデータ駆動で再適用するため
+  model: *model_f007
+- id: T-163
+  title: 高瀬舟を抽出・二重レビュー・音声化・atomic受入
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-162
+  tags:
+  - REQ-F007-007
+  - REQ-F007-008
+  - REQ-F007-009
+  - REQ-F007-010
+  - REQ-F007-011
+  - REQ-F007-012
+  - REQ-F007-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
+  model: *model_f007
+- id: T-164
+  title: 山椒大夫を抽出・二重レビュー・音声化・atomic受入
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-163
+  tags:
+  - REQ-F007-007
+  - REQ-F007-008
+  - REQ-F007-009
+  - REQ-F007-010
+  - REQ-F007-011
+  - REQ-F007-012
+  - REQ-F007-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため。3作品中最大の会話量(発話文字概算7,751文字)のため容量forecastを特に注視する
+  model: *model_f007
+- id: T-165
+  title: F007最終Catalog統合・固定v0.6.0回帰・公開tree候補を作成
+  feature: F007
+  phase: implement
+  state: todo
+  depends:
+  - T-162
+  - T-163
+  - T-164
+  tags:
+  - REQ-F007-001
+  - REQ-F007-003
+  - REQ-F007-004
+  - REQ-F007-009
+  - REQ-F007-010
+  - REQ-F007-014
+  - REQ-F007-015
+  - REQ-F007-016
+  mode: advisor
+  mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
+  model: *model_f007
+- id: T-166
+  title: F007 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
+  feature: F007
+  phase: test
+  state: todo
+  depends:
+  - T-165
+  tags: *id007
+  mode: orchestration
+  mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため
+  model: *model_f007
+- id: T-167
+  title: F007リリース前総点検・GitHub Pages段階公開・公開9 routeスモーク
+  feature: F007
+  phase: release
+  state: todo
+  depends:
+  - T-166
+  tags:
+  - REQ-F007-015
+  - REQ-F007-016
+  - REQ-F007-017
+  - REQ-F007-018
+  mode: advisor
+  mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f007

@@ -1933,3 +1933,23 @@ entries:
     更新した。`docs/features.yaml`へF007(state: setup)を追加した。`STATUS.md`を更新、
     `trace_check.py --feature F007`実行。次: pf-setup(F007タスク分解)。ディスク整理を
     先に行うか、pf-setup着手前にユーザーへ確認することを推奨する。
+- date: '2026-08-22'
+  phase: setup
+  task: F007(森鴎外3作品追加)WBS作成・タスク分解
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 25000
+  note: >-
+    F006の11タスク構成(T-146〜T-156)を踏襲し、`tasks.yaml`へT-157〜T-167の11タスクを追加した。
+    構成: T-157/158(FD/DD設計)、T-159(UT/IT試験設計、orchestration)、T-160(候補manifest・
+    v0.6.0 baseline・権利原典、orchestration)、T-161(森鴎外author identity・独自画像・Catalog
+    統合基盤、orchestration)、T-162/163/164(舞姫→高瀬舟→山椒大夫を各orchestration受入、舞姫は
+    F005確立済み作品固有注記UI(FUN-F005-014)の再適用を含む)、T-165(最終Catalog統合、advisor)、
+    T-166(UT/IT/QT/6環境受入、orchestration)、T-167(リリース前総点検・公開9 routeスモーク、
+    advisor)。F005実装のタスク細分化肥大化(CHG-F005-084)の反省を踏まえ、F006と同じ必要最小限の
+    11タスク構成を維持し過剰な安全機構の再発明は避けた。YAML構文をpython yamlで検証(F007タスク
+    11件・依存関係の連鎖を確認)。CLAUDE.mdのF006検証コマンド記述の誤り(実際は`content:batch`
+    ではなくCLI引数化script群`f006-*.ts`を直接実行していた)を発見し訂正、F007用の想定コマンド
+    記述(`f007-*.ts`命名継承)を追加した。プロジェクト固有スキル・新規MCP追加は不要と判断
+    (F006と同じ既存ツールチェーンで足りる)。`STATUS.md`更新、`trace_check.py`実行。次:
+    pf-design(T-157: FD-F007作成)。
