@@ -4351,6 +4351,29 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、既存注記UI機構をデータ駆動で再適用するため
   model: *model_f008
+  progress: >-
+    scripts/f008-init-batch.ts(新規、createBatchManifestFromApprovedContext経由の
+    draft batch.json作成)・content/batches/F008/voice-config.json(F002/F004/
+    F006/F007とbyte-identical)を作成し、scripts/f008-prepare-editorial.ts
+    (f007版クローン)で人間椅子(056648)の独立二重判定を完結した(commit 2919fcb)。
+    青空文庫本文を実際に通読し実extractor抽出11候補全件の話者・decisionを
+    文脈から確定(approved=5・rejected=6・pending=0)。tsc/eslint/関連test
+    36件PASS。
+
+    続けてscripts/f008-prepare-voice.ts(f007版クローン)を新規実装し
+    tsc/eslint共にPASSしたが、実行時にVOICEVOX接続前の容量forecast段階で
+    CAPACITY_FORECAST_PAGES_EXCEEDEDによりblockedと判定された(音声生成は
+    未実行)。原因はsrc/voice/budget.tsのforecastCapacity固定閾値
+    PAGES_SAFETY_STOP_BYTES=750MBに対し、pagesBytes=currentPages.bytes+
+    plannedPagesBytes(pessimisticにplannedをcurrentと同値で見積る設計)で
+    倍化した値を比較する式が、F002〜F007累積によりpublic/が実測405MB(git
+    追跡下、非生成物)まで成長した結果、倍化後811MBが閾値を超過したこと。
+    F007実施時点では未到達だった閾値に、F008着手時点で初めて到達した
+    構造的な限界であり、本タスクのバグではない。「10人になるまで進める」
+    という標準ディレクティブの継続には、この容量forecast式（または閾値）の
+    設計見直しが今後必須になる。次のアクション: 容量forecast方式の設計review
+    (pf-change経由、level: design相当)を経てから、scripts/f008-prepare-voice.ts
+    056648の実行を再開する。
 - id: T-174
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
