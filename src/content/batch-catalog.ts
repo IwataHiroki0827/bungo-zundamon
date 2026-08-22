@@ -39,7 +39,9 @@ import {
 import { buildPagesPreview } from './pages-preview.ts';
 import { loadAndVerifyF001Baseline } from './baseline.ts';
 import {
+  isKnownPublishedCatalogBatchId,
   loadAcceptedF003CatalogFragment,
+  loadKnownPublishedCatalogFragment,
   loadPublishedF002CatalogFragment,
 } from './f003-catalog.ts';
 import type {
@@ -933,12 +935,20 @@ export async function prepareBatchWorkPreview(
     join(root, 'content', 'baselines', 'F001-v0.1.0-catalog.json'),
   );
   const batches = await loadAcceptedBatches(root, { excludeActiveBatchId: definition.batchId });
-  const [f002Fragment, f003Fragment] = await Promise.all([
+  const discoveredBatchIds = new Set(batches.map((batch) => batch.manifest.batchId));
+  // baselineが既に把握しているbatchだけを対象にする(baseline.catalog.batchesに
+  // 現れないbatchはこのbaseline上でaudio/author alias解決ができないため)。
+  const knownToBaseline = new Set(baseline.catalog.batches.map((batch) => batch.batchId));
+  const [f002Fragment, f003Fragment, ...laterFragments] = await Promise.all([
     loadPublishedF002CatalogFragment(root, baseline.catalog),
     loadAcceptedF003CatalogFragment(root),
+    ...[...discoveredBatchIds]
+      .filter((batchId) => knownToBaseline.has(batchId) && isKnownPublishedCatalogBatchId(batchId))
+      .map((batchId) => loadKnownPublishedCatalogFragment(root, batchId, baseline.catalog)),
   ]);
+  const loadedFragments = [f002Fragment, f003Fragment, ...laterFragments];
   const batchCatalogs = Object.fromEntries(
-    [f002Fragment, f003Fragment].map((batchFragment) => {
+    loadedFragments.map((batchFragment) => {
       const batchIds = new Set(batchFragment.works.map((work) => work.batchId));
       const batchId = [...batchIds][0];
       if (batchIds.size !== 1 || !batchId) {
@@ -1033,7 +1043,7 @@ export async function prepareBatchWorkPreview(
     stagedFiles,
   };
   const integrated = await buildIntegratedPublicTree(
-    batches,
+    batches.filter((batch) => batchCatalogs[batch.manifest.batchId] !== undefined),
     baseBundle,
     contentRoot,
     {

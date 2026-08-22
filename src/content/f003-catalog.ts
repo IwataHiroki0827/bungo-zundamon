@@ -265,6 +265,36 @@ export async function loadPublishedF005CatalogFragment(
   return { authors, works, audioAssets, candidateCounts, publicFiles };
 }
 
+const KNOWN_PUBLISHED_CATALOG_LOADERS: Readonly<
+  Record<string, (workspace: string, catalog: CatalogV2) => Promise<BatchCatalogFragment>>
+> = {
+  F004: loadPublishedF004CatalogFragment,
+  F005: loadPublishedF005CatalogFragment,
+};
+
+/**
+ * 呼出元(batch-catalog.ts等の汎用previewer)がbatchId固有の分岐を持たずに
+ * 「このbatchId向けのpublished fragment loaderが存在するか」を判定できるようにする。
+ */
+export function isKnownPublishedCatalogBatchId(batchId: string): boolean {
+  return batchId in KNOWN_PUBLISHED_CATALOG_LOADERS;
+}
+
+/**
+ * isKnownPublishedCatalogBatchIdがtrueを返したbatchId向けに、対応するpublished
+ * fragment loaderをdispatchする。未知のbatchIdで呼ぶとErrorになる(呼出前に
+ * isKnownPublishedCatalogBatchIdで確認すること)。
+ */
+export async function loadKnownPublishedCatalogFragment(
+  workspace: string,
+  batchId: string,
+  catalog: CatalogV2,
+): Promise<BatchCatalogFragment> {
+  const loader = KNOWN_PUBLISHED_CATALOG_LOADERS[batchId];
+  if (!loader) throw new Error(`published fragment loaderが未登録です: ${batchId}`);
+  return loader(workspace, catalog);
+}
+
 /**
  * acceptedまたはpublished F003の3作品を永続artifactだけから再構築し、作者・notice・音声参照を逆joinする。
  * @des DES-F003-009 @fun FUN-F003-022 @fun FUN-F003-023 @ut UT-F003-022 @ut UT-F003-023

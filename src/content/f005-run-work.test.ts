@@ -159,10 +159,17 @@ describe('F005 production work runner', () => {
     // 影響を受けないよう、全workをpendingへ戻した写しを使う。
     // batch自体の受入項目も落とす。全work acceptedでbatchがacceptedになると
     // draftへ戻した写しにacceptedAt/acceptedByが残り矛盾するため。
+    // F005は現在published済み(publishedAt/releaseVersion/deploymentEvidenceRef/
+    // smokeEvidenceRefを保持)のため、draft状態のmanifestに残すとBATCH_SCHEMA_INVALID
+    // (published以前にpublish項目は指定できません)になる。これらも併せて落とす。
     const live = await manifest();
     const draftBatch: Record<string, unknown> = { ...live };
     delete draftBatch.acceptedAt;
     delete draftBatch.acceptedBy;
+    delete draftBatch.publishedAt;
+    delete draftBatch.releaseVersion;
+    delete draftBatch.deploymentEvidenceRef;
+    delete draftBatch.smokeEvidenceRef;
     let value = {
       ...draftBatch,
       status: 'draft' as const,
