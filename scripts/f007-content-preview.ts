@@ -263,7 +263,20 @@ async function buildWorkFragmentPiece(
       };
     })
     .sort((left, right) => left.order - right.order);
-  if (dialogues.length !== speechArtifact.speech.length || dialogues.length !== generation.assets.length) {
+  // generation.assetsは同一text+configの候補を1つのaudioIdへ重複排除する
+  // (src/voice/generation.tsの既存共有仕様、F001〜F006と共通・不変)。
+  // そのためdialogues.length(候補単位)とgeneration.assets.length(重複排除後の
+  // 音声ファイル単位)は一致し得ない。正しい不変条件は「全candidateIdが
+  // assets側でちょうど1回ずつ言及される」こと。
+  const totalCandidateIdsInAssets = generation.assets.reduce((sum, asset) => sum + asset.candidateIds.length, 0);
+  const referencedAudioIds = new Set(dialogues.map((item) => item.audioId));
+  const assetAudioIds = new Set(generation.assets.map((asset) => asset.audioId));
+  if (
+    dialogues.length !== speechArtifact.speech.length ||
+    dialogues.length !== totalCandidateIdsInAssets ||
+    referencedAudioIds.size !== assetAudioIds.size ||
+    ![...referencedAudioIds].every((audioId) => assetAudioIds.has(audioId))
+  ) {
     throw new Error('dialogue/speech/audio件数が一致しません');
   }
 

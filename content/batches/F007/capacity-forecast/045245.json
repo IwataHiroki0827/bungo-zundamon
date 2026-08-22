@@ -2,13 +2,13 @@
   "batchId": "F007",
   "configPath": "content/batches/F007/voice-config.json",
   "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
-  "expectedManifestSha": "9cd2c09525f3149b128bc0e967700b48ded0d49822ec9b3be99924a423548a1b",
+  "expectedManifestSha": "6306cf252cbdd321a7a862074b0d0209dcc29c05a6089b68729430aae7e70667",
   "forecast": {
     "actualCapacitySatisfied": false,
     "additionalAudio": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 41445168,
+      "measuredBytes": 41445300,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 104857600
@@ -16,8 +16,8 @@
     "batchId": "F007",
     "canGenerate": true,
     "evidenceKind": "forecast",
-    "expectedManifestSha": "9cd2c09525f3149b128bc0e967700b48ded0d49822ec9b3be99924a423548a1b",
-    "minimumFreeBytesAfterWrite": 717784632,
+    "expectedManifestSha": "6306cf252cbdd321a7a862074b0d0209dcc29c05a6089b68729430aae7e70667",
+    "minimumFreeBytesAfterWrite": 717784764,
     "pagesArtifact": {
       "deduplicatedHashes": [],
       "includedPaths": [],
@@ -29,7 +29,7 @@
       "thresholdBytes": 786432000,
       "warningThresholdBytes": 524288000
     },
-    "planDigest": "5e4a814c351f56c17dd128294728421b4137867ba1469c78cceb172740cceecd",
+    "planDigest": "295b21f2a4f798dd27a0baac01666bbf86556a118e769c6180ad6620e36dcb71",
     "preTreeDigest": "20bfe52d725ca23578ae58ca2673297cfc3255b640ec501dd72e550c5150b0db",
     "reasons": [
       "CAPACITY_FORECAST_PAGES_WARNING"
@@ -37,43 +37,17 @@
     "remainingResponseBytes": 95657352,
     "result": "pass_with_warning",
     "singleGitObjects": {
-      "deduplicatedHashes": [
-        "27e645d4794d4abac640df4f5ca2352e33b70ad4",
-        "de6286e2b9a3f81ed794960443ed0b0b0334f180"
-      ],
-      "includedPaths": [
-        "content/batches/F007/batch.json",
-        "content/batches/F007/reviews/045245.json",
-        "content/batches/F007/work-artifacts/045245/candidates.json",
-        "content/batches/F007/work-artifacts/045245/review-reconciliation.json",
-        "content/batches/F007/work-artifacts/045245/reviews/primary.json",
-        "content/batches/F007/work-artifacts/045245/reviews/secondary.json",
-        "content/batches/F007/work-artifacts/045245/speech-revisions.json",
-        "content/editorial/authorization-transaction/store.json",
-        "scripts/f007-prepare-editorial.ts"
-      ],
+      "deduplicatedHashes": [],
+      "includedPaths": [],
       "measuredBytes": 17156699,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 104857600
     },
     "sourceRepository": {
-      "deduplicatedHashes": [
-        "27e645d4794d4abac640df4f5ca2352e33b70ad4",
-        "de6286e2b9a3f81ed794960443ed0b0b0334f180"
-      ],
-      "includedPaths": [
-        "content/batches/F007/batch.json",
-        "content/batches/F007/reviews/045245.json",
-        "content/batches/F007/work-artifacts/045245/candidates.json",
-        "content/batches/F007/work-artifacts/045245/review-reconciliation.json",
-        "content/batches/F007/work-artifacts/045245/reviews/primary.json",
-        "content/batches/F007/work-artifacts/045245/reviews/secondary.json",
-        "content/batches/F007/work-artifacts/045245/speech-revisions.json",
-        "content/editorial/authorization-transaction/store.json",
-        "scripts/f007-prepare-editorial.ts"
-      ],
-      "measuredBytes": 293161489,
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 293022616,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 1000000000,
@@ -82,10 +56,10 @@
     "workDrive": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 55637123072,
+      "measuredBytes": 99019649024,
       "reasons": [],
       "status": "pass",
-      "thresholdBytes": 717784632
+      "thresholdBytes": 717784764
     },
     "workId": "045245"
   },
@@ -95,16 +69,16 @@
     "acceptedAudioFiles": 26,
     "currentPagesBytes": 304615300,
     "currentPagesFiles": 965,
-    "freeBytes": 55637123072,
-    "liveWriteUpperBounds": 336860220,
+    "freeBytes": 99019649024,
+    "liveWriteUpperBounds": 336860352,
     "plannedPagesBytes": 304615300,
-    "repositoryNonObjectBytes": 1119413,
+    "repositoryNonObjectBytes": 1124698,
     "rollbackBackupBytes": 313815548
   },
   "plan": {
     "batchId": "F007",
     "cacheRoot": ".cache/voice",
-    "candidateCount": 11,
+    "candidateCount": 14,
     "config": {
       "cacheSchemaVersion": "2",
       "engineVersion": "0.25.2",
@@ -121,6 +95,20 @@
     },
     "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
     "entries": [
+      {
+        "audioId": "066a96bebff26cfca5f7ccb6682abbfb1999ba914e6161b45e31c3fdc66aba66",
+        "candidateIds": [
+          "5CeC4PriRC9wEO0fjwQZqD4h_hXbViwLCV0Qa-OPPMs"
+        ],
+        "estimatedBytes": 5451884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/066a96bebff26cfca5f7ccb6682abbfb1999ba914e6161b45e31c3fdc66aba66.json",
+        "status": "miss",
+        "text": "すると弟はまっさおな顔の、両方のほおからあごへかけて血に染まったのをあげて、わたくしを見ましたが、物を言うことができませぬ。息をいたすたびに、傷口でひゅうひゅうという音がいたすだけでございます。わたくしにはどうも様子がわかりませんので、『どうしたのだい、血を吐いたのかい』と言って、そばへ寄ろうといたすと、弟は右の手をとこに突いて、少しからだを起こしました。左の手はしっかりあごの下の所を押えていますが、その指の間から黒血の固まりがはみ出しています。弟は目でわたくしのそばへ寄るのを留めるようにして口をききました。ようよう物が言えるようになったのでございます。『すまない。どうぞ堪忍してくれ。どうせなおりそうにもない病気だから、早く死んで少しでも兄きにらくがさせたいと思ったのだ。ふえを切ったら、すぐ死ねるだろうと思ったが息がそこから漏れるだけで死ねない。深く深くと思って、力いっぱい押し込むと、横へすべってしまった。刃はこぼれはしなかったようだ。これをうまく抜いてくれたらおれは死ねるだろうと思っている。物を言うのがせつなくっていけない。どうぞ手を借して抜いてくれ』と言うのでございます。弟が左の手をゆるめるとそこからまた息が漏ります。わたくしはなんと言おうにも、声が出ませんので、黙って弟ののどの傷をのぞいて見ますと、なんでも右の手にかみそりを持って、横に笛を切ったが、それでは死に切れなかったので、そのまま剃刀を、えぐるように深く突っ込んだものと見えます。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/066a96bebff26cfca5f7ccb6682abbfb1999ba914e6161b45e31c3fdc66aba66.wav",
+        "workIds": [
+          "045245"
+        ]
+      },
       {
         "audioId": "07634a7dfe744ee54759fcb28d7adc92b93ad615a925154dab31f5e8374c5582",
         "candidateIds": [
@@ -221,15 +209,29 @@
         ]
       },
       {
-        "audioId": "6fb6b44d3987e8cef47db2e482666eba649b8bedca8859965ad0d511844a7c8e",
+        "audioId": "7488e25b1e7463767fad18509b6d640c43ca946ebec35fb466329eca766b0e2e",
         "candidateIds": [
-          "3Rdl3dAOYsAHAm5A7vPjWujrWqztX6xW3Tu3y4Fe67Q"
+          "Lotbza_k80Rha3nHjLZ8WuihZlqwhYFh_Xc0JoKzxPE"
         ],
-        "estimatedBytes": 20813804,
-        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6fb6b44d3987e8cef47db2e482666eba649b8bedca8859965ad0d511844a7c8e.json",
+        "estimatedBytes": 5374124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7488e25b1e7463767fad18509b6d640c43ca946ebec35fb466329eca766b0e2e.json",
         "status": "miss",
-        "text": "「どうも飛んだ心得違いで、恐ろしい事をいたしまして、なんとも申し上げようがございませぬ。あとで思ってみますと、どうしてあんな事ができたかと、自分ながら不思議でなりませぬ。全く夢中でいたしましたのでございます。わたくしは小さい時にふたおやがじえきでなくなりまして、弟とふたりあとに残りました。初めはちょうど軒下に生まれた犬の子にふびんを掛けるように町内の人たちがお恵みくださいますので、近所じゅうの走り使いなどをいたして、飢え凍えもせずに、育ちました。次第に大きくなりまして職を捜しますにも、なるたけ二人が離れないようにいたして、いっしょにいて、助け合って働きました。去年の秋の事でございます。わたくしは弟といっしょに、にしじんのおりばにはいりまして、そらびきということをいたすことになりました。そのうち弟が病気で働けなくなったのでございます。そのころわたくしどもはきたやまのほったてごや同様の所に寝起きをいたして、かみやがわの橋を渡っておりばへかよっておりましたが、わたくしが暮れてから、食べ物などを買って帰ると、弟は待ち受けていて、わたくしをひとりでかせがせてはすまないすまないと申しておりました。ある日いつものように何心なく帰って見ますと、弟はふとんの上に突っ伏していまして、まわりは血だらけなのでございます。わたくしはびっくりいたして、手に持っていた竹の皮包みや何かを、そこへおっぽり出して、そばへ行って『どうしたどうした』と申しました。すると弟はまっさおな顔の、両方のほおからあごへかけて血に染まったのをあげて、わたくしを見ましたが、物を言うことができませぬ。息をいたすたびに、傷口でひゅうひゅうという音がいたすだけでございます。わたくしにはどうも様子がわかりませんので、『どうしたのだい、血を吐いたのかい』と言って、そばへ寄ろうといたすと、弟は右の手をとこに突いて、少しからだを起こしました。左の手はしっかりあごの下の所を押えていますが、その指の間から黒血の固まりがはみ出しています。弟は目でわたくしのそばへ寄るのを留めるようにして口をききました。ようよう物が言えるようになったのでございます。『すまない。どうぞ堪忍してくれ。どうせなおりそうにもない病気だから、早く死んで少しでも兄きにらくがさせたいと思ったのだ。ふえを切ったら、すぐ死ねるだろうと思ったが息がそこから漏れるだけで死ねない。深く深くと思って、力いっぱい押し込むと、横へすべってしまった。刃はこぼれはしなかったようだ。これをうまく抜いてくれたらおれは死ねるだろうと思っている。物を言うのがせつなくっていけない。どうぞ手を借して抜いてくれ』と言うのでございます。弟が左の手をゆるめるとそこからまた息が漏ります。わたくしはなんと言おうにも、声が出ませんので、黙って弟ののどの傷をのぞいて見ますと、なんでも右の手にかみそりを持って、横に笛を切ったが、それでは死に切れなかったので、そのまま剃刀を、えぐるように深く突っ込んだものと見えます。えがやっと二寸ばかり傷口から出ています。わたくしはそれだけの事を見て、どうしようという思案もつかずに、弟の顔を見ました。弟はじっとわたくしを見詰めています。わたくしはやっとの事で、『待っていてくれ、お医者を呼んで来るから』と申しました。弟は恨めしそうな目つきをいたしましたが、また左の手でのどをしっかり押えて、『医者がなんになる、あゝ苦しい、早く抜いてくれ、頼む』と言うのでございます。わたくしは途方に暮れたような心持ちになって、ただ弟の顔ばかり見ております。こんな時は、不思議なもので、目が物を言います。弟の目は『早くしろ、早くしろ』と言って、さも恨めしそうにわたくしを見ています。わたくしの頭の中では、なんだかこう車の輪のような物がぐるぐる回っているようでございましたが、弟の目は恐ろしい催促をやめません。それにその目の恨めしそうなのがだんだん険しくなって来て、とうとうかたきの顔をでもにらむような、憎々しい目になってしまいます。それを見ていて、わたくしはとうとう、これは弟の言ったとおりにしてやらなくてはならないと思いました。わたくしは『しかたがない、抜いてやるぞ』と申しました。すると弟の目の色がからりと変わって、晴れやかに、さもうれしそうになりました。わたくしはなんでもひと思いにしなくてはと思ってひざをつくようにしてからだを前へ乗り出しました。弟は突いていた右の手を放して、今まで喉を押えていた手のひじをとこに突いて、横になりました。わたくしはかみそりの柄をしっかり握って、ずっと引きました。この時わたくしの内から締めておいた表口の戸をあけて、近所のばあさんがはいって来ました。留守の間、弟に薬を飲ませたり何かしてくれるように、わたくしの頼んでおいたばあさんなのでございます。もうだいぶ内のなかが暗くなっていましたから、わたくしにはばあさんがどれだけの事を見たのだかわかりませんでしたが、ばあさんはあっと言ったきり、表口をあけ放しにしておいて駆け出してしまいました。わたくしはかみそりを抜く時、手早く抜こう、まっすぐに抜こうというだけの用心はいたしましたが、どうも抜いた時の手ごたえは、今まで切れていなかった所を切ったように思われました。刃が外のほうへ向いていましたから、外のほうが切れたのでございましょう。わたくしは剃刀を握ったまま、ばあさんのはいって来てまた駆け出して行ったのを、ぼんやりして見ておりました。ばあさんが行ってしまってから、気がついて弟を見ますと、弟はもう息が切れておりました。傷口からはたいそうな血が出ておりました。それからとしよりしゅうがおいでになって、役場へ連れてゆかれますまで、わたくしは剃刀をそばに置いて、目を半分あいたまま死んでいる弟の顔を見詰めていたのでございます。」",
-        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6fb6b44d3987e8cef47db2e482666eba649b8bedca8859965ad0d511844a7c8e.wav",
+        "text": "「どうも飛んだ心得違いで、恐ろしい事をいたしまして、なんとも申し上げようがございませぬ。あとで思ってみますと、どうしてあんな事ができたかと、自分ながら不思議でなりませぬ。全く夢中でいたしましたのでございます。わたくしは小さい時にふたおやがじえきでなくなりまして、弟とふたりあとに残りました。初めはちょうど軒下に生まれた犬の子にふびんを掛けるように町内の人たちがお恵みくださいますので、近所じゅうの走り使いなどをいたして、飢え凍えもせずに、育ちました。次第に大きくなりまして職を捜しますにも、なるたけ二人が離れないようにいたして、いっしょにいて、助け合って働きました。去年の秋の事でございます。わたくしは弟といっしょに、にしじんのおりばにはいりまして、そらびきということをいたすことになりました。そのうち弟が病気で働けなくなったのでございます。そのころわたくしどもはきたやまのほったてごや同様の所に寝起きをいたして、かみやがわの橋を渡っておりばへかよっておりましたが、わたくしが暮れてから、食べ物などを買って帰ると、弟は待ち受けていて、わたくしをひとりでかせがせてはすまないすまないと申しておりました。ある日いつものように何心なく帰って見ますと、弟はふとんの上に突っ伏していまして、まわりは血だらけなのでございます。わたくしはびっくりいたして、手に持っていた竹の皮包みや何かを、そこへおっぽり出して、そばへ行って『どうしたどうした』と申しました。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7488e25b1e7463767fad18509b6d640c43ca946ebec35fb466329eca766b0e2e.wav",
+        "workIds": [
+          "045245"
+        ]
+      },
+      {
+        "audioId": "88c62c291f1d2fd7a4d5d8c39c16085ddbd64f29468f91656084422cddd3b630",
+        "candidateIds": [
+          "4cErYgFtmgxYsWokyahaMiukbRfeB6henYG-DmTvA90"
+        ],
+        "estimatedBytes": 5382764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/88c62c291f1d2fd7a4d5d8c39c16085ddbd64f29468f91656084422cddd3b630.json",
+        "status": "miss",
+        "text": "えがやっと二寸ばかり傷口から出ています。わたくしはそれだけの事を見て、どうしようという思案もつかずに、弟の顔を見ました。弟はじっとわたくしを見詰めています。わたくしはやっとの事で、『待っていてくれ、お医者を呼んで来るから』と申しました。弟は恨めしそうな目つきをいたしましたが、また左の手でのどをしっかり押えて、『医者がなんになる、あゝ苦しい、早く抜いてくれ、頼む』と言うのでございます。わたくしは途方に暮れたような心持ちになって、ただ弟の顔ばかり見ております。こんな時は、不思議なもので、目が物を言います。弟の目は『早くしろ、早くしろ』と言って、さも恨めしそうにわたくしを見ています。わたくしの頭の中では、なんだかこう車の輪のような物がぐるぐる回っているようでございましたが、弟の目は恐ろしい催促をやめません。それにその目の恨めしそうなのがだんだん険しくなって来て、とうとうかたきの顔をでもにらむような、憎々しい目になってしまいます。それを見ていて、わたくしはとうとう、これは弟の言ったとおりにしてやらなくてはならないと思いました。わたくしは『しかたがない、抜いてやるぞ』と申しました。すると弟の目の色がからりと変わって、晴れやかに、さもうれしそうになりました。わたくしはなんでもひと思いにしなくてはと思ってひざをつくようにしてからだを前へ乗り出しました。弟は突いていた右の手を放して、今まで喉を押えていた手のひじをとこに突いて、横になりました。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/88c62c291f1d2fd7a4d5d8c39c16085ddbd64f29468f91656084422cddd3b630.wav",
         "workIds": [
           "045245"
         ]
@@ -249,6 +251,20 @@
         ]
       },
       {
+        "audioId": "93571bdc263922d8ef7240643a21f06ed8a8dc74a54f2cf99412ad89f59497fa",
+        "candidateIds": [
+          "2BWSsnxWj1pcTvC3kX277p1_4Qq7sNBoBzkCmpgyrKM"
+        ],
+        "estimatedBytes": 4605164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93571bdc263922d8ef7240643a21f06ed8a8dc74a54f2cf99412ad89f59497fa.json",
+        "status": "miss",
+        "text": "わたくしはかみそりの柄をしっかり握って、ずっと引きました。この時わたくしの内から締めておいた表口の戸をあけて、近所のばあさんがはいって来ました。留守の間、弟に薬を飲ませたり何かしてくれるように、わたくしの頼んでおいたばあさんなのでございます。もうだいぶ内のなかが暗くなっていましたから、わたくしにはばあさんがどれだけの事を見たのだかわかりませんでしたが、ばあさんはあっと言ったきり、表口をあけ放しにしておいて駆け出してしまいました。わたくしはかみそりを抜く時、手早く抜こう、まっすぐに抜こうというだけの用心はいたしましたが、どうも抜いた時の手ごたえは、今まで切れていなかった所を切ったように思われました。刃が外のほうへ向いていましたから、外のほうが切れたのでございましょう。わたくしは剃刀を握ったまま、ばあさんのはいって来てまた駆け出して行ったのを、ぼんやりして見ておりました。ばあさんが行ってしまってから、気がついて弟を見ますと、弟はもう息が切れておりました。傷口からはたいそうな血が出ておりました。それからとしよりしゅうがおいでになって、役場へ連れてゆかれますまで、わたくしは剃刀をそばに置いて、目を半分あいたまま死んでいる弟の顔を見詰めていたのでございます。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93571bdc263922d8ef7240643a21f06ed8a8dc74a54f2cf99412ad89f59497fa.wav",
+        "workIds": [
+          "045245"
+        ]
+      },
+      {
         "audioId": "e842f471f1cccbbf046338f0e3463b703fdf16fb8da5a90fb7b51daf8cd03e2f",
         "candidateIds": [
           "Wa46fkMBXWJN8uz4c5cQYMu32Xp9uFzqoGfLfy3DeVI"
@@ -263,17 +279,17 @@
         ]
       }
     ],
-    "estimatedMissBytes": 32244920,
+    "estimatedMissBytes": 32245052,
     "existingUniqueAudioCount": 0,
     "existingUniqueBytes": 0,
-    "expectedManifestSha": "9cd2c09525f3149b128bc0e967700b48ded0d49822ec9b3be99924a423548a1b",
+    "expectedManifestSha": "6306cf252cbdd321a7a862074b0d0209dcc29c05a6089b68729430aae7e70667",
     "hitCount": 0,
     "invalidCount": 0,
-    "missCount": 10,
-    "planDigest": "5e4a814c351f56c17dd128294728421b4137867ba1469c78cceb172740cceecd",
+    "missCount": 13,
+    "planDigest": "295b21f2a4f798dd27a0baac01666bbf86556a118e769c6180ad6620e36dcb71",
     "preTreeDigest": "20bfe52d725ca23578ae58ca2673297cfc3255b640ec501dd72e550c5150b0db",
     "schemaVersion": "2",
-    "uniqueAudioCount": 10,
+    "uniqueAudioCount": 13,
     "workId": "045245"
   },
   "preTreeDigest": "20bfe52d725ca23578ae58ca2673297cfc3255b640ec501dd72e550c5150b0db",
