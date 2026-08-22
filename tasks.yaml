@@ -3992,7 +3992,7 @@ tasks:
   title: 山椒大夫を抽出・二重レビュー・音声化・atomic受入
   feature: F007
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-163
   tags:
@@ -4006,6 +4006,33 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため。3作品中最大の会話量(発話文字概算7,751文字)のため容量forecastを特に注視する
   model: *model_f007
+  progress: >-
+    青空文庫本文(689_23257.html)を実際に取得・通読し120候補全件の話者を
+    実際の文脈から確定した(approved=120・rejected=0・pending=0)。安寿・
+    厨子王・母・姥竹・山岡大夫・佐渡の二郎/宮崎の三郎(人買いの船頭)・
+    山椒大夫とその息子二郎/三郎(同名の船頭とは別人)・奴頭・樵・小萩・
+    曇猛律師・鐘楼守・関白師実(もろざね)が実際に発話する。複数人が同時に
+    呼びかわす箇所(6候補)はspeaker欄へ該当する複数名/集合名を記録した
+    (音声は単一のずんだもん声のためspeakerは表示メタデータであり音声
+    選択には影響しない)。VOICEVOX 0.25.2 speaker 3のaudio_query実測で
+    「大夫」(山岡大夫・山椒大夫双方、原文でルビ無し)が律令官位の読み
+    「たいふ」に誤読されることを確認し(正しくは「だゆう」)、該当4候補・
+    計6箇所をspeechCorrectionsで補正した。
+
+    音声diff実生成(attempted=120/succeeded=120/failed=0、容量forecast:
+    pass_with_warning)→voiced遷移→work-preview構築(累積fragment=舞姫+
+    高瀬舟+山椒大夫、1129 files)→容量actual(result: pass、freeBytes約
+    96.5GB)→atomic受入(voiced→accepted)を実行し、WAV 120件を
+    accepted-audio/000689/へ正式昇格した。F007の3作品(舞姫・高瀬舟・
+    山椒大夫)全てがaccepted済みとなった。
+
+    src/content/f007-acceptance.test.tsのACCEPTED_WORK_IDを045245→000689
+    へ更新(assertOrderはmanifest内で最後尾のaccepted workのみを再検証
+    対象とするため、F006同様の既知パターン)。tsc/lint clean、touched
+    test suite全PASS。
+
+    次のアクション: T-165(F007最終Catalog統合・v0.6.0固定baseline回帰・
+    公開tree候補作成)。
 - id: T-165
   title: F007最終Catalog統合・固定v0.6.0回帰・公開tree候補を作成
   feature: F007

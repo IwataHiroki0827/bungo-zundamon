@@ -16,8 +16,8 @@ import {
 
 /**
  * UT-F007-010: F007 work単位atomic受入。実プロジェクトの永続化済みcanonical
- * artifact（T-162で舞姫(058126)・T-163で高瀬舟(045245)がaccepted済み）を
- * 対象に、
+ * artifact（T-162で舞姫(058126)・T-163で高瀬舟(045245)・T-164で山椒大夫
+ * (000689)がaccepted済み、F007全3作品完了）を対象に、
  * prepareF007WorkAcceptance/acceptF007Work/recoverF007WorkAcceptanceが
  * mock無しの実データで冪等に動作すること、およびallowlist/work順違反を
  * 拒否することを検証する。src/content/f006-acceptance.test.tsのF007向け
@@ -46,11 +46,12 @@ import {
 const workspace = resolve(process.cwd());
 const MANIFEST_PATH = 'content/batches/F007/batch.json';
 // assertOrderは対象workIdより後続のworkがacceptedであることを許さないため、
-// manifest内でaccepted済みの最後尾work（T-163完了時点で高瀬舟=045245、
-// workIds順は舞姫058126→高瀬舟045245→山椒大夫000689）だけが再検証対象になる。
-// 山椒大夫(000689)は本テスト更新時点で未accepted。
-const ACCEPTED_WORK_ID = '045245' as WorkId;
-// manifestに存在しないwork IDでwork順違反（F007_WORK_ORDER）を再現する
+// workIds順（舞姫058126→高瀬舟045245→山椒大夫000689）は全てaccepted済み
+// (T-164完了、F007全3作品完了)のため、manifest末尾の山椒大夫(000689)のみが
+// 再検証対象になり得る（F006同様の既知パターン）。
+const ACCEPTED_WORK_ID = '000689' as WorkId;
+// F007の3作品は全てaccepted済みのため、work順違反（F007_WORK_ORDER）は
+// manifestに存在しないwork IDで再現する
 // （assertOrderはindex<0も同一エラーコードで拒否する）。
 const UNKNOWN_WORK_ID = '999999' as WorkId;
 
