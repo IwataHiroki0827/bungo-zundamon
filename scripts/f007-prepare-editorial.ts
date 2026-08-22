@@ -233,6 +233,64 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       }],
     },
   },
+  // 高瀬舟(045245)。青空文庫本文（45245_22007.html正規化済みテキスト）を実際に
+  // 通読し13候補全件の話者を確定した。庄兵衛（護送の同心）と喜助（罪人）の
+  // 対話のみで構成される会話劇であり、typographicな外来語強調は存在しない。
+  // order7・order9は「「喜助さん」と呼びかけた。今度は「さん」と言ったが」
+  // 「「はい」と答えた喜助も、「さん」と呼ばれたのを不審に思うらしく」の
+  // ように、地の文が直前の発話中の単語（「さん」）を再度「」でメタ的に
+  // 言及しているだけで新規の発話ではないため、舞姫の外来語強調と同じ
+  // NON_SPEECH扱いとする。VOICEVOX 0.25.2 speaker 3のaudio_query実測に
+  // 基づき読み誤りを補正した。
+  '045245': {
+    judgmentsByOrder: [
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order0 「喜助。お前何を思っているのか。」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order1 「はい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order2 「いや。別にわけがあって聞いたのではない。...」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order3 「御親切におっしゃって...」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order4 「お恥ずかしい事を...」(order3に続く喜助の発話)
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order5 「うん、そうかい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order6 「喜助さん」
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null }, // order7 「さん」（地の文が直前の呼びかけ語をメタ言及、新規発話でない）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order8 「はい」
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null }, // order9 「さん」（同上、地の文のメタ言及）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order10 「いろいろの事を聞くようだが...」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order11 「かしこまりました」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order12 「どうも飛んだ心得違いで...」(order11に続く喜助の長い述懐)
+    ],
+    speechCorrections: {
+      // order3: 「...それからこん度島へおやりくださるにつきまして、...」
+      // 「度島」が単独複合語（地名「度島」たくしま等）としてVOICEVOX/
+      // OpenJTalk辞書に誤認識され「こん度島へ」が「コンドトオエ」に誤読
+      // されることを実測（正しくは「こんどしまえ」）。displayTextを変えず
+      // カタカナで読みを強制する。
+      '.main_text:2461-2955': [{
+        find: '度島へ',
+        to: 'ドシマエ',
+        reason:
+          '「度島」が地名の複合語として辞書に誤認識され「こん度島へ」が「コンドトオエ」に誤読されることを実測（正しくは「こんどしまえ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order10: 「お前が今度島へやられるのは、...」
+      // order3と同一の「度島」誤認識パターン（正しくは「こんどしまえ」）。
+      '.main_text:5542-5610': [{
+        find: '度島へ',
+        to: 'ドシマエ',
+        reason:
+          'order3と同一の「度島」誤認識パターン。「今度島へ」が「コンドトオエ」に誤読されることを実測（正しくは「こんどしまえ」）。displayTextを変えずカタカナで読みを強制する。',
+      }],
+      // order12: 「...紙屋川の橋を渡って織場へ通っておりましたが、...」
+      // 「織場」は初出（西陣の織場にはいりまして）は原文rubyにより
+      // 「おりば」へ自動解決済みだが、2回目（青空文庫の初出のみ注記する
+      // 慣例でruby省略）は未解決のまま残り、VOICEVOXが「おじょう」に誤読
+      // することを実測。同一語のため初出と同じ「おりば」で読みを強制する。
+      '.main_text:5652-8005': [{
+        find: '織場へ',
+        to: 'おりばへ',
+        reason:
+          '初出「織場」は原文rubyにより既に「おりば」へ解決済みだが、2回目（ruby省略）は未解決のまま残り、VOICEVOXが「おじょう」に誤読することを実測。同一語のため初出と同じ「おりば」で読みを強制する。',
+      }],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {

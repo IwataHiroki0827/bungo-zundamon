@@ -3857,7 +3857,7 @@ tasks:
   title: 高瀬舟を抽出・二重レビュー・音声化・atomic受入
   feature: F007
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-162
   tags:
@@ -3871,6 +3871,40 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f007
+  progress: >-
+    段階A(独立二重判定)は完結した。13候補全件を実際の青空文庫本文
+    (45245_22007.html)と突き合わせ話者を確定(庄兵衛/喜助の対話のみ、
+    order7・order9は地の文が直前の呼びかけ語「さん」をメタ的に再言及
+    しているだけの非発話としてNON_SPEECH判定)。approved=11・rejected=2・
+    pending=0。VOICEVOX 0.25.2 speaker 3実測で「度島へ」(2箇所、地名
+    「度島」への辞書誤認識で「トオエ」に誤読)・「織場へ」(2回目出現、
+    ruby省略で未解決のまま残り「オジョオ」に誤読)を確認し補正した。
+    FSM pending→extracted→reviewedへ前進。
+
+    段階B1(音声diff生成)で新規の実バグを発見し、現在ブロックされている。
+    order12(喜助の弟殺害の述懐、speechText 2408文字の単一「」候補、
+    原文でも改行なしの一続きの引用)をVOICEVOX(http://127.0.0.1:50021)
+    へsynthesisすると、audio_queryはHTTP 200で返るがsynthesis呼出しが
+    HTTP 500(Internal Server Error)を返すことを実測で確認した。長さ単体の
+    問題ではない(1000文字は200、1500文字は500だが、無関係な合成テキスト
+    1500文字repeatは200で成功する=純粋な文字数上限ではなく、order12の
+    実内容中の特定箇所が原因と推定)。二分探索を試みたが原因箇所の特定until
+    完了する前にtime budgetの都合で中断した。
+
+    この状況はF006までの実装で前例がない(F006の最長候補=弟子の55候補中
+    最長でもこの規模には達していない)。修正には2つの設計選択肢がある:
+    (1) src/voice/generation.ts/src/voice/client.ts(F002〜F006共有の
+    汎用モジュール)へテキスト分割+WAV結合の対応を追加する、
+    (2) extractF007DialogueCandidates相当の抽出層で長大な単一候補を
+    複数の連続candidateへ安全に分割する運用を新設する。いずれも既存の
+    F001〜F006向け実績あるコードへの変更を伴うか、新規の分割規約策定が
+    必要で、このタスク単体で拙速に実装すべきでないと判断し、次のfork/
+    セッションでの設計判断待ちとして一旦停止する。
+
+    段階A完了分(reviews/045245.json・capacity-forecast/045245.json・
+    work-artifacts/045245/・editorial authorization-transaction seals×2)
+    は実データとして永続化済み、tsc/lint clean。コミット予定
+    (メインセッション側)。
 - id: T-164
   title: 山椒大夫を抽出・二重レビュー・音声化・atomic受入
   feature: F007
