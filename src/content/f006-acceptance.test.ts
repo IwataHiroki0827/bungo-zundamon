@@ -12,19 +12,27 @@ import {
 import { readFile } from 'node:fs/promises';
 
 /**
- * IT-F006-006（部分, 山月記(000624)・名人伝(000621)分）: F006 work単位atomic受入。
- * 実プロジェクトの永続化済みcanonical artifact（山月記・名人伝は本T-151/T-152で
- * 既にaccepted済み）を対象に、prepareF006WorkAcceptance/acceptF006Work/
- * recoverF006WorkAcceptanceがmock無しの実データで冪等に動作すること、および
- * allowlist/work順違反を拒否することを検証する。弟子(T-153)分はpending残のため、
- * 完全な3作品IT-F006-006は次タスクで拡張する。
+ * IT-F006-006（完全, 山月記(000624)・名人伝(000621)・弟子(001738)全3作品分）:
+ * F006 work単位atomic受入。実プロジェクトの永続化済みcanonical artifact
+ * （T-151/T-152/T-153で3作品ともaccepted済み）を対象に、
+ * prepareF006WorkAcceptance/acceptF006Work/recoverF006WorkAcceptanceが
+ * mock無しの実データで冪等に動作すること、およびallowlist/work順違反を
+ * 拒否することを検証する。T-153（弟子）完了により3作品全てがaccepted済みと
+ * なったため、「work順違反」ケースはmanifestに存在しないworkId（未voiced/
+ * 未accepted相当の代替）で再現する。
  * @des DES-F006-009 @fun FUN-F006-010 @ut UT-F006-010
  */
 
 const workspace = resolve(process.cwd());
 const MANIFEST_PATH = 'content/batches/F006/batch.json';
-const ACCEPTED_WORK_ID = '000621' as WorkId;
-const PENDING_WORK_ID = '001738' as WorkId;
+// assertOrderは対象workIdより後続のworkがacceptedであることを許さないため、
+// 3作品全acceptedとなった今はmanifest末尾（最後にaccept遷移した）work IDのみが
+// 再検証対象になり得る。
+const ACCEPTED_WORK_ID = '001738' as WorkId;
+// F006の3作品（000624/000621/001738）は全てaccepted済みのため、
+// work順違反（F006_WORK_ORDER）はmanifestに存在しないwork IDで再現する
+// （assertOrderはindex<0も同一エラーコードで拒否する）。
+const UNKNOWN_WORK_ID = '999999' as WorkId;
 
 describe('f006-acceptance', () => {
   it('永続化済みcanonical artifactからprepareし、accepted workをbrandedに再検証できる', async () => {
@@ -68,8 +76,8 @@ describe('f006-acceptance', () => {
     await expect(acceptF006Work(workspace, forged, expectedManifestSha)).rejects.toThrow(F006AcceptanceError);
   });
 
-  it('pending work（未voiced/未accepted）はwork順違反として拒否する', async () => {
-    await expect(prepareF006WorkAcceptance(workspace, MANIFEST_PATH, PENDING_WORK_ID))
+  it('manifestに存在しないwork IDはwork順違反として拒否する', async () => {
+    await expect(prepareF006WorkAcceptance(workspace, MANIFEST_PATH, UNKNOWN_WORK_ID))
       .rejects.toMatchObject({ code: 'F006_WORK_ORDER' });
   });
 

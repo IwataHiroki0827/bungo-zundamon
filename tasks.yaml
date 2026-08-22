@@ -3405,7 +3405,7 @@ tasks:
   title: 弟子を抽出・二重レビュー・音声化・atomic受入
   feature: F006
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-152
   tags:
@@ -3419,6 +3419,35 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f006
+  progress: >-
+    完結（詳細はdocs/changes/CHG-F006-005.md）。T-152で確立したCLI引数化
+    script5本をそのまま再利用し、弟子(001738)の段階A〜B2を実行した。
+    候補数55件（山月記3件・名人伝4件より大幅に多い）のため、
+    f006-prepare-editorial.tsのWORK_EDITORIAL_CONFIGSへ話者判定55件・
+    読み補正29件（20候補、うち複数箇所補正が必要な候補が初めて出現）を
+    追加した。speechCorrectionsの型をanchorあたり単一SpeechCorrectionから
+    配列へ拡張しrevision chainとして順次適用するよう変更（既存2作品は
+    配列長1でラップするだけで動作不変）。VOICEVOX 0.25.2実測で「学」
+    「云い」「子」「美玉」「沽らん」「小人」「丘」「温」「強」「由」
+    「信なり」「寛なり」「孔氏」「渾良夫」「衛侯」「大勢」「孔叔文子」
+    「我」等の誤読を確認し補正した。独立二重判定はpending 0（approved 55,
+    rejected 0）で完結。音声生成はWAV 55件・計17,462,644 bytes実生成
+    （miss 55/hit 0）、容量forecast pass_with_warning。段階B2の
+    content-preview.ts実行には作業ツリーがcleanである必要がある
+    （f005-context-internal.tsのcleanHead検証）ため、段階A・B1完了時点で
+    一度commitしてから実行した。3work分work-preview（965 files）を構築、
+    容量actual result: pass（freeBytes約67.8GB）、atomic受入で
+    voiced→acceptedへ遷移しWAV 55件をaccepted-audio/001738/へ正式昇格。
+    これでF006の3作品（000624/000621/001738）が全てaccepted状態となった。
+    src/content/f006-acceptance.test.tsを更新（ACCEPTED_WORK_ID=001738、
+    「pending work」ケースは「manifest未存在work ID」ケースへ差替え、
+    全acceptedによりpending fixtureが取れなくなったため）。lint/typecheck
+    全体PASS。対象10ファイル159件全PASS。npm testフルスイートは1375件中
+    36 failed、全て本タスク非関連（F005 native guard exe欠落、offline-build
+    stderr混入、published-baseline等の並列実行下flaky）で対象10ファイルは
+    含まれない。ディスク容量は開始時37GB→完了時64GB超（55件音声生成でも
+    実消費は約17MB、懸念していたほどの消費なし）。T-154（F006最終Catalog
+    統合・固定v0.5.0回帰・公開tree候補作成）が着手可能。
 - id: T-154
   title: F006最終Catalog統合・固定v0.5.0回帰・公開tree候補を作成
   feature: F006

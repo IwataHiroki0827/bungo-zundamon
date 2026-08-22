@@ -1725,3 +1725,34 @@ entries:
     gapはセッション開始前から存在)。docs/changes/CHG-F006-004.mdを新規
     作成、tasks.yaml T-152をdoneへ更新、STATUS.mdを更新した。public/・
     content/baselines/*.jsonは変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-153 F006弟子(001738)の抽出・二重レビュー・音声化・atomic受入
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 170000
+  note: >-
+    T-152で確立したCLI引数化script5本(f006-prepare-editorial/prepare-voice/
+    content-preview/capacity-actual/accept-work.ts)をそのまま再利用し、
+    弟子(001738、候補55件)の段階A〜B2を実行した。原典通読で55件の話者判定
+    (孔子26/子路22/子貢4/隠者3/王子棄疾2/工尹商陽2/小邾の大夫射2/欒寧1)を
+    確定し、独立二重判定はpending 0(approved 55, rejected 0)で完結した。
+    VOICEVOX 0.25.2実測で20候補・29箇所の誤読(「学」「云い」「子」「美玉」
+    「沽らん」「小人」「丘」「温」「強」「由」「信なり」「寛なり」「孔氏」
+    「渾良夫」「衛侯」「大勢」「孔叔文子」「我」等)を確認し補正した。1候補
+    内に複数誤読が必要な事例が初めて出現したため、speechCorrections型を
+    anchorあたり単一補正から配列(revision chain順次適用)へ拡張(既存2作品
+    は動作不変)。音声生成(WAV 55件、計17,462,644 bytes、miss 55/hit 0)・
+    容量forecast(pass_with_warning)を実施しvoicedへ到達。段階B2実行には
+    git working treeがclean(F005 cleanHead検証)である必要があると判明し、
+    段階A/B1完了後に一度commitしてから3work分work-preview(965 files)を
+    構築、容量actual(result: pass、freeBytes約67.8GB)→atomic受入を実行し、
+    work statusをvoiced→acceptedへ遷移、生成WAV 55件(計約17MB)を
+    accepted-audio/001738/へ正式昇格した。これでF006の3作品(000624/000621/
+    001738)が全てaccepted状態となった。src/content/f006-acceptance.test.ts
+    を更新(全workがaccepted済みとなったためACCEPTED_WORK_IDを001738へ、
+    pending系ケースは「manifest未存在work ID」検証へ差替え)。lint/typecheck
+    全体PASS、対象テスト10ファイル159件全PASS、npm testフルスイート36
+    failedは全て本タスク非関連(既知課題)。docs/changes/CHG-F006-005.mdを
+    新規作成、tasks.yaml T-153をdoneへ更新、STATUS.mdを更新した。public/・
+    content/baselines/*.jsonは変更していない。push・PR作成は行っていない。
