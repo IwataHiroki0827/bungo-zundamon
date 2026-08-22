@@ -1,0 +1,507 @@
+{
+  "batchId": "F007",
+  "configPath": "content/batches/F007/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "2a90e3a1576ff0304944b502accbdfc8585ba50f5ec9fb6a4599e02d8aa44885",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 9444664,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F007",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "2a90e3a1576ff0304944b502accbdfc8585ba50f5ec9fb6a4599e02d8aa44885",
+    "minimumFreeBytesAfterWrite": 685784128,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 609230600,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "d59186bf3cbaa85aff4f0594b33e7ae68c1d188b6b81b03c9ce18d9f5bbe3e5f",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104857600,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "18c664de0122b2e12cc72b168bc0a177695183f1",
+        "6678a07469cb153a21a80650eae38a22b59b8ec6"
+      ],
+      "includedPaths": [
+        "content/batches/F007/batch.json",
+        "content/batches/F007/reviews/058126.json",
+        "content/batches/F007/work-artifacts/058126/candidates.json",
+        "content/batches/F007/work-artifacts/058126/review-reconciliation.json",
+        "content/batches/F007/work-artifacts/058126/reviews/primary.json",
+        "content/batches/F007/work-artifacts/058126/reviews/secondary.json",
+        "content/batches/F007/work-artifacts/058126/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f007-prepare-editorial.ts",
+        "scripts/f007-prepare-voice.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "18c664de0122b2e12cc72b168bc0a177695183f1",
+        "6678a07469cb153a21a80650eae38a22b59b8ec6"
+      ],
+      "includedPaths": [
+        "content/batches/F007/batch.json",
+        "content/batches/F007/reviews/058126.json",
+        "content/batches/F007/work-artifacts/058126/candidates.json",
+        "content/batches/F007/work-artifacts/058126/review-reconciliation.json",
+        "content/batches/F007/work-artifacts/058126/reviews/primary.json",
+        "content/batches/F007/work-artifacts/058126/reviews/secondary.json",
+        "content/batches/F007/work-artifacts/058126/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f007-prepare-editorial.ts",
+        "scripts/f007-prepare-voice.ts"
+      ],
+      "measuredBytes": 285392809,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 59186442240,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 685784128
+    },
+    "workId": "058126"
+  },
+  "kind": "f007-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 0,
+    "acceptedAudioFiles": 0,
+    "currentPagesBytes": 304615300,
+    "currentPagesFiles": 965,
+    "freeBytes": 59186442240,
+    "liveWriteUpperBounds": 314059964,
+    "plannedPagesBytes": 304615300,
+    "repositoryNonObjectBytes": 1089229,
+    "rollbackBackupBytes": 304615300
+  },
+  "plan": {
+    "batchId": "F007",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 26,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "01c3d91da8f9580c3d2c6cda5f227c7c0958ae5d0794231b9f244076b43dee31",
+        "candidateIds": [
+          "2JcM5NC2oSVgsMUuzxKZLZ0jBVC3GncFFWk2rKYYgzM"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/01c3d91da8f9580c3d2c6cda5f227c7c0958ae5d0794231b9f244076b43dee31.json",
+        "status": "miss",
+        "text": "「何故に泣きたもうか。ところにけいるいなきよそびとは、かえりて力をかしやすきこともあらん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/01c3d91da8f9580c3d2c6cda5f227c7c0958ae5d0794231b9f244076b43dee31.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "02f2890bc1a2f7311009e632ea6bd2917c8a276fee85e06c19ca6202e199a6b7",
+        "candidateIds": [
+          "q9ZkT-ljoA-3HuDuQImwLOn11o1unXxF6gnkNjUddeM"
+        ],
+        "estimatedBytes": 587564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02f2890bc1a2f7311009e632ea6bd2917c8a276fee85e06c19ca6202e199a6b7.json",
+        "status": "miss",
+        "text": "「これにて見苦しとはたれもえ言わじ。わが鏡に向きて見たまえ。なにゆえにかく不興なる面もちを見せたもうか。われももろともに行かまほしきを」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02f2890bc1a2f7311009e632ea6bd2917c8a276fee85e06c19ca6202e199a6b7.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "0bb591383b00fde3ea41e9cc28519de8ee891f059deb1066ec0c6e9c4239e872",
+        "candidateIds": [
+          "hCnpiZ2NlRr_T9AlXWRXHwj8HBEuKdxHLwBdtCQOBy0"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0bb591383b00fde3ea41e9cc28519de8ee891f059deb1066ec0c6e9c4239e872.json",
+        "status": "miss",
+        "text": "「いかでめいに従わざらむ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0bb591383b00fde3ea41e9cc28519de8ee891f059deb1066ec0c6e9c4239e872.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "0e31b0873fedd7a6b232126919177db3935441ae4f96757d2fca9f9e32abee87",
+        "candidateIds": [
+          "2MIrLZZp9MrLSTwMzizfQI4DFy79oD0fKaQS05qAf9c"
+        ],
+        "estimatedBytes": 864044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0e31b0873fedd7a6b232126919177db3935441ae4f96757d2fca9f9e32abee87.json",
+        "status": "miss",
+        "text": "「わが心の楽しさを思いたまえ。産まれん子は君に似て黒きひとみをや持ちたらん。このヒトミ。ああ、夢にのみミシワキミが黒きヒトミなり。産まれたらん日には君が正しき心にて、よもあだしナオバなのらせたまわじ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0e31b0873fedd7a6b232126919177db3935441ae4f96757d2fca9f9e32abee87.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "0ef839e166d11a3c49da6b2e3772a99532e88d121fb5ee557ffa0e1c2fa96b6b",
+        "candidateIds": [
+          "avTgK2PTfGE_XYyCRPeW2Og8iwuc8WWIpw6IjJrBx6U"
+        ],
+        "estimatedBytes": 492524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ef839e166d11a3c49da6b2e3772a99532e88d121fb5ee557ffa0e1c2fa96b6b.json",
+        "status": "miss",
+        "text": "「これにて一時の急をしのぎたまえ。質屋の使いのモンビシュウ街三番地にて太田と尋ねこん折りにはあたいを取らすべきに」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ef839e166d11a3c49da6b2e3772a99532e88d121fb5ee557ffa0e1c2fa96b6b.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "0f44e33e640ccff15d0233f0cb565b87cb1521a90658fb239b8b25f59baab54a",
+        "candidateIds": [
+          "Ssa9tQYKNMKxUxKeeRNDF8gR6vsLBlrz0DPotjjpjvc"
+        ],
+        "estimatedBytes": 561644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0f44e33e640ccff15d0233f0cb565b87cb1521a90658fb239b8b25f59baab54a.json",
+        "status": "miss",
+        "text": "「政治社会などに出でんの望みは絶ちしよりいくとせをかヘテヌルを。大臣は見たくもなし。ただ年久しく別れたりしトモニコソあいには行け」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0f44e33e640ccff15d0233f0cb565b87cb1521a90658fb239b8b25f59baab54a.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "1a3cd6f1fdd41ed4c14c2389da644b5793b7469010549dd5b36e0f2196fed151",
+        "candidateIds": [
+          "J20sM9KycwGWedONQyZ6V8E2iYFEsAxDJTuZX1kTPAQ"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a3cd6f1fdd41ed4c14c2389da644b5793b7469010549dd5b36e0f2196fed151.json",
+        "status": "miss",
+        "text": "「なにとか見たもう、この心がまえを」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1a3cd6f1fdd41ed4c14c2389da644b5793b7469010549dd5b36e0f2196fed151.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "2af96ee7c6100dec5771a220f3f260b0780ce82c684ec867054289f2d6cdd8d2",
+        "candidateIds": [
+          "z7D1q5mndy82cI9Djc2DSai_dJ6VfzFJK2XnSrRYIA8"
+        ],
+        "estimatedBytes": 1926764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2af96ee7c6100dec5771a220f3f260b0780ce82c684ec867054289f2d6cdd8d2.json",
+        "status": "miss",
+        "text": "「ユルシタマエ。君をここまで導きし心なさを。君は善き人なるべし。われをばよも憎みたまわじ。あすに迫るは父のはふり、たのみに思いしシャウムベルヒ、君は彼を知らでやおわさん。彼は『ヰクトリア』座のざがしらなり。彼がかかえとなりしより、はやふたとせなれば、事なくわれらを助けんと思いしに、人の憂いにつけこみて、身勝手なるいいがけせんとは。われを救いたまえ、君。金をば薄き給金をさきてかえし参らせん。よしやわが身はくらわずとも。それもならずば母の言葉に」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2af96ee7c6100dec5771a220f3f260b0780ce82c684ec867054289f2d6cdd8d2.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "333d6cfd17a0a3fa2f11ed56fc3be29c46088a5bcd7bd266c51f7716e1cc8af9",
+        "candidateIds": [
+          "F7r1dzZYNfBUwh9af4Zf5ffCty00Cvm39bjC2rLZ1F4"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/333d6cfd17a0a3fa2f11ed56fc3be29c46088a5bcd7bd266c51f7716e1cc8af9.json",
+        "status": "miss",
+        "text": "「なに、富貴」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/333d6cfd17a0a3fa2f11ed56fc3be29c46088a5bcd7bd266c51f7716e1cc8af9.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "34a715a6710e964d23c81f49e374a47d93fce046d73b1c4f2c26a6f7d81d0f86",
+        "candidateIds": [
+          "ymuMafTyB8Iw5EfKo-DSGVzdCm9qN4mlp7uODKNz1VY"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/34a715a6710e964d23c81f49e374a47d93fce046d73b1c4f2c26a6f7d81d0f86.json",
+        "status": "miss",
+        "text": "「君が家に送りユカンニ、まず心をしずめたまえ。声をな人に聞かせたまいそ。ここは往来なるに」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/34a715a6710e964d23c81f49e374a47d93fce046d73b1c4f2c26a6f7d81d0f86.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "413e40657a04b6abd5a88d7da4cb0770229c5d152d8e7f62131d815c3d372616",
+        "candidateIds": [
+          "_o_TSXMGv8ji8O8Z8CX4ugNqZ0w4M9eGwkeme14jPOQ"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/413e40657a04b6abd5a88d7da4cb0770229c5d152d8e7f62131d815c3d372616.json",
+        "status": "miss",
+        "text": "「君はよき人なりと見ゆ。彼のごとくむごくはあらじ。またわが母のごとく」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/413e40657a04b6abd5a88d7da4cb0770229c5d152d8e7f62131d815c3d372616.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "5596241cb99b4f793833108ff937816d3da4b8b50bba0832ee45f514dad016f4",
+        "candidateIds": [
+          "z2TMRpZ4ghM_gj8GpmXIye0XmiHD_a3EFIQv0RJjI3g"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5596241cb99b4f793833108ff937816d3da4b8b50bba0832ee45f514dad016f4.json",
+        "status": "miss",
+        "text": "「否、かく衣をあらためたもうを見れば、なんとなくわが豊太郎の君とは見えず」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5596241cb99b4f793833108ff937816d3da4b8b50bba0832ee45f514dad016f4.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "5a8322e88d5f1b57391d6a148eb76d77eecc8d1db3609cd667217abc2bd8200a",
+        "candidateIds": [
+          "vb1Qcc4twneTN6whwu9S5p_pnM-SAzP1na_zqFcI6ds"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5a8322e88d5f1b57391d6a148eb76d77eecc8d1db3609cd667217abc2bd8200a.json",
+        "status": "miss",
+        "text": "「いな、心になかけそ。おん身も名を知る相沢が、大臣とともにここに来てわれを呼ぶなり。急ぐといえば今よりこそ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5a8322e88d5f1b57391d6a148eb76d77eecc8d1db3609cd667217abc2bd8200a.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "6b44c2c16b80fea0ce9e8fea168fd75890ece0028e1db6c135abe20543d7bc57",
+        "candidateIds": [
+          "Olctwuy8QBblwuT5xm58speVvdLjuPz3ahMXPIwmndU"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6b44c2c16b80fea0ce9e8fea168fd75890ece0028e1db6c135abe20543d7bc57.json",
+        "status": "miss",
+        "text": "「故郷よりのふみなりや。悪しきたよりにてはよも」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6b44c2c16b80fea0ce9e8fea168fd75890ece0028e1db6c135abe20543d7bc57.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "820a18be06362734a647084714633e25b67972a9f1ac6718074ac1c0d3d964d4",
+        "candidateIds": [
+          "wzsO_oMxwvgv1AnCMY_zcb_wJ4Fb96uBIdezVOkHKPk"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/820a18be06362734a647084714633e25b67972a9f1ac6718074ac1c0d3d964d4.json",
+        "status": "miss",
+        "text": "「いかにかしたまいし。おん身の姿は」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/820a18be06362734a647084714633e25b67972a9f1ac6718074ac1c0d3d964d4.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "85db03fd63e784d8258587d970902f7373bfb00e6b5808810e9d133c4cf2a215",
+        "candidateIds": [
+          "2Y7DHQuzGVYTD_PCOqZUcmp_osfg6iOcrqvvVGPLmGA"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/85db03fd63e784d8258587d970902f7373bfb00e6b5808810e9d133c4cf2a215.json",
+        "status": "miss",
+        "text": "「わが豊太郎ぬし、かくまでにわれをば欺きたまいしか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/85db03fd63e784d8258587d970902f7373bfb00e6b5808810e9d133c4cf2a215.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "977164b2b0830669801479910a2dac4b331dbb3af7f012ad2946825116e7549d",
+        "candidateIds": [
+          "tCtMEcnY8SN0OiADlxssTm2QTym4cHcwueGK7RrGzYs"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/977164b2b0830669801479910a2dac4b331dbb3af7f012ad2946825116e7549d.json",
+        "status": "miss",
+        "text": "「よくぞ帰り来たまいし。帰り来たまわずばわが命は絶えなんを」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/977164b2b0830669801479910a2dac4b331dbb3af7f012ad2946825116e7549d.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "ab3129ef51f2b2d8619e972b42bd36e40cc3ab88b03d4eeb938f0af720ff0455",
+        "candidateIds": [
+          "rTAt6-8mmtW-Fpc4WRS2OBX3RufhtkRDAwzXuMHD1vc"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab3129ef51f2b2d8619e972b42bd36e40cc3ab88b03d4eeb938f0af720ff0455.json",
+        "status": "miss",
+        "text": "「承りハベリ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ab3129ef51f2b2d8619e972b42bd36e40cc3ab88b03d4eeb938f0af720ff0455.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "b0e06a99a57a2f0dd791c95e7972f81774d31a50da389dd8d3ab3bbf6fc2486f",
+        "candidateIds": [
+          "pEkAJxr1a4qA5TM7wgnIXv-Hxe1tMszwWupjiGvDKIY"
+        ],
+        "estimatedBytes": 708524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b0e06a99a57a2f0dd791c95e7972f81774d31a50da389dd8d3ab3bbf6fc2486f.json",
+        "status": "miss",
+        "text": "「われを救いたまえ、君。わがはじなき人とならんを。母はわが彼の言葉に従わねばとて、われを打ちき。父は死にたり。あすは葬らではかなわぬに、家に一銭のたくわえだになし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b0e06a99a57a2f0dd791c95e7972f81774d31a50da389dd8d3ab3bbf6fc2486f.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "cae74ef7ad65a3ebb674bad3439a218d3765a8dd1b2b0650bf72367908d3a41d",
+        "candidateIds": [
+          "cZKvoer33gkfEXO1VpZtCVL3t6Ub0DZykQrgWqEKdm4"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cae74ef7ad65a3ebb674bad3439a218d3765a8dd1b2b0650bf72367908d3a41d.json",
+        "status": "miss",
+        "text": "「余はあす、ロシヤに向かいて出発すべし。したがいてくべきか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cae74ef7ad65a3ebb674bad3439a218d3765a8dd1b2b0650bf72367908d3a41d.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "dc1e1616a60ec0cd40f3e037b8b3e835a7d98908359c02fa1ed0f74be310e831",
+        "candidateIds": [
+          "ydSe_mp5ghfrFtZKjmsNO3yP56NvRt7PKy88vh7L6ns"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc1e1616a60ec0cd40f3e037b8b3e835a7d98908359c02fa1ed0f74be310e831.json",
+        "status": "miss",
+        "text": "「幾階か持ちて行くべき」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc1e1616a60ec0cd40f3e037b8b3e835a7d98908359c02fa1ed0f74be310e831.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "e052689f486e170c92d6670c1a7856ba52f87e5b00f1c9ac75bce6111655cd9a",
+        "candidateIds": [
+          "KYPRj54XnpOp5np7QwrzxKYbFeGjIiOrLRfTN_uqd9c"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e052689f486e170c92d6670c1a7856ba52f87e5b00f1c9ac75bce6111655cd9a.json",
+        "status": "miss",
+        "text": "「薬を、薬を」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e052689f486e170c92d6670c1a7856ba52f87e5b00f1c9ac75bce6111655cd9a.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "e4d7e2c99d8ed6d7a372c1d6bd59cd549c4cdafefdeae71b4847197adf0edaf8",
+        "candidateIds": [
+          "wZedK-xHFCvgHcy6xTQ2IqFnyK8F6q9nd0IrJwxYP4Y"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4d7e2c99d8ed6d7a372c1d6bd59cd549c4cdafefdeae71b4847197adf0edaf8.json",
+        "status": "miss",
+        "text": "「たぞ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4d7e2c99d8ed6d7a372c1d6bd59cd549c4cdafefdeae71b4847197adf0edaf8.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "f7d4dc6098f73d8b5760c7834386ee422ef2510d19519bc4408b2858f81fb332",
+        "candidateIds": [
+          "wdA9jf_w2_Uv8_5kcABcWgenovms0N9BZFewfcnoEoQ"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7d4dc6098f73d8b5760c7834386ee422ef2510d19519bc4408b2858f81fb332.json",
+        "status": "miss",
+        "text": "「よしやふうきになりたもう日はありとも、われをばみすてたまわじ。わが病は母ののたもうごとくならずとも」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f7d4dc6098f73d8b5760c7834386ee422ef2510d19519bc4408b2858f81fb332.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "f9b55844019164e4ffd28ad7a1977f77bced35d28cd258d08ac0750202d756eb",
+        "candidateIds": [
+          "IJtBEHabJ3cLPILoXnE30NcrpKw5hoaweuLTL4ObT7Y"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f9b55844019164e4ffd28ad7a1977f77bced35d28cd258d08ac0750202d756eb.json",
+        "status": "miss",
+        "text": "「おさなしと笑いたまわんが、寺に入らん日はいかにうれしからまし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f9b55844019164e4ffd28ad7a1977f77bced35d28cd258d08ac0750202d756eb.wav",
+        "workIds": [
+          "058126"
+        ]
+      },
+      {
+        "audioId": "fbd3826c795dddeb4e77ff8b6fecaa409adeb718c5dbcf1724c5abe0e75dbba6",
+        "candidateIds": [
+          "X4LVhpTZxolEkNin3TSlileCp_QT1RnJGa7hXhtAXt8"
+        ],
+        "estimatedBytes": 25964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fbd3826c795dddeb4e77ff8b6fecaa409adeb718c5dbcf1724c5abe0e75dbba6.json",
+        "status": "miss",
+        "text": "「あ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fbd3826c795dddeb4e77ff8b6fecaa409adeb718c5dbcf1724c5abe0e75dbba6.wav",
+        "workIds": [
+          "058126"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 9444664,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "2a90e3a1576ff0304944b502accbdfc8585ba50f5ec9fb6a4599e02d8aa44885",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 26,
+    "planDigest": "d59186bf3cbaa85aff4f0594b33e7ae68c1d188b6b81b03c9ce18d9f5bbe3e5f",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 26,
+    "workId": "058126"
+  },
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "schemaVersion": "1.0.0",
+  "workId": "058126"
+}

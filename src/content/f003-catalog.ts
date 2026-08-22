@@ -265,11 +265,68 @@ export async function loadPublishedF005CatalogFragment(
   return { authors, works, audioAssets, candidateCounts, publicFiles };
 }
 
+/**
+ * 固定v0.6.0 baseline Catalogと追跡済みF006 manifestから、公開済みF006 fragmentを復元する。
+ * loadPublishedF005CatalogFragmentと同型（新規作者・自作artwork導入）。
+ * 実装時点でcontent/batches/F006/batch.jsonのstatusは'accepted'のまま
+ * （F006 v0.6.0公開commitもrecordPublishedBatchによるper-batch status更新を
+ * 伴わなかった、F005と同型の既知事象）。release自体はdocs/evidence/release/
+ * RELEASE-F006.md・F006-approval.json・F006-deployment.jsonで確定済みであり、
+ * f007-baseline.tsのloadPublishedV060Baselineがそれらのhashを直接検証する。
+ * @des DES-F007-010 @fun FUN-F007-011
+ */
+export async function loadPublishedF006CatalogFragment(
+  workspace: string,
+  catalog: CatalogV2,
+): Promise<BatchCatalogFragment> {
+  const authors = catalog.authors.filter((item) => item.introducedByBatchId === 'F006');
+  const works = catalog.works.filter((item) => item.batchId === 'F006');
+  const audioAssets = catalog.audioAssets
+    .filter((item) => item.batchId === 'F006')
+    .map((item) => ({ ...item }));
+  const manifest = await readJson<BatchManifest>(join(workspace, 'content', 'batches', 'F006', 'batch.json'));
+  const checked = validateBatchManifest(manifest);
+  if (!checked.ok || !['accepted', 'published'].includes(checked.value.status)) {
+    throw new Error('F006 published manifestが不正です');
+  }
+  for (const source of checked.value.workProgress.flatMap((work) => work.acceptedAudioSources ?? [])) {
+    const audioId = basename(source.path, '.wav');
+    if (audioAssets.some((asset) => asset.audioId === audioId)) continue;
+    const canonical = audioAssets.find((asset) =>
+      asset.sha256 === source.sha256 && asset.bytes === source.bytes && asset.configHash === source.configHash);
+    if (!canonical) throw new Error(`F006 accepted audioのaliasを復元できません: ${audioId}`);
+    audioAssets.push({ ...canonical, audioId, path: `audio/F006/${audioId}.wav` });
+  }
+  const publicFiles: NonNullable<BatchCatalogFragment['publicFiles']>[number][] = [];
+  for (const item of [
+    ...authors.map((author) => ({
+      source: 'content/batches/F006/public-files/artwork/nakajima-zundamon.png',
+      publicPath: author.artwork.path,
+    })),
+    ...works.map((work) => ({
+      source: `content/batches/F006/public-files/provenance/${work.workId}.json`,
+      publicPath: work.source.provenancePath,
+    })),
+  ]) {
+    const bytes = await readFile(join(workspace, ...item.source.split('/')));
+    publicFiles.push({
+      source: item.source as WorkspaceRelativePath,
+      publicPath: item.publicPath as WorkspaceRelativePath,
+      sha256: sha256(bytes),
+      bytes: bytes.byteLength,
+    });
+  }
+  const candidateCounts = catalog.candidateCounts.byBatch.F006;
+  if (!candidateCounts) throw new Error('固定v0.6.0 CatalogにF006 candidate countsがありません');
+  return { authors, works, audioAssets, candidateCounts, publicFiles };
+}
+
 const KNOWN_PUBLISHED_CATALOG_LOADERS: Readonly<
   Record<string, (workspace: string, catalog: CatalogV2) => Promise<BatchCatalogFragment>>
 > = {
   F004: loadPublishedF004CatalogFragment,
   F005: loadPublishedF005CatalogFragment,
+  F006: loadPublishedF006CatalogFragment,
 };
 
 /**
