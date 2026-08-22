@@ -1834,3 +1834,45 @@ entries:
     側の担当のため)。content/baselines/F00N-v0.X.0.json相当の新規baseline
     記述子はF005先例(次フィーチャー着手時に作成)に倣い今回は作成していない。
     push・PR作成・タグpush・PAGES_DEPLOY変数設定・実デプロイは行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-156 F006リリース後CI(pages.yml)red対応(f006-acceptance.test.ts修正・他3件調査)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 70000
+  note: >-
+    v0.6.0候補push後のGitHub Actions `pages.yml`(run `32554802155`、
+    ubuntu-latest)が4件のテスト失敗で赤くなったため調査・対応した。
+    `src/content/f006-acceptance.test.ts`の「永続化済みcanonical artifactから
+    prepareし、accepted workをbrandedに再検証できる」ケースが、gitignore
+    対象の`.cache/batch-accept/F006/001738/`配下(work-preview staging
+    965ファイル・約294MB、CHG-F006-006既報)をローカル開発機の残存物として
+    直接参照しており、CIのフレッシュcheckoutでENOENTになる新規バグと確認
+    した。`f004-acceptance.test.ts`の`fixture()`/`normalizePreviewFixture()`
+    パターン(一時workspaceへ実git管理canonical artifactを複製し、gitignore
+    対象キャッシュだけを小さなfixture treeとして再構築)を踏襲して修正した。
+    `.cache/batch-accept/F006/001738/`配下4ファイルは1ファイルだけの
+    fixture treeでbuildSha256を再計算し、`capacity-actual/001738.json`と
+    `batch.json`のcapacity-actual stage record inputHashesへ伝播させて
+    tuple一致検証を満たした。`.cache/transactions/accepted-audio/
+    F006-001738.json`(idempotent再検証journal)は実journalの`evidence`
+    (実accepted-audio treeに対するpostTreeDigest等)をそのまま複製しつつ
+    `nextManifestSha256`だけ複製先の実manifest hashへ再計算した。残り3件
+    (`batch-catalog.test.ts`・`f005-run-work.test.ts`・
+    `published-baseline.test.ts`)は`git log a6566e9..5324a51`でF006関連
+    commitが一切触れていないことを確認し、いずれもF006と無関係の既存事象
+    (F005 published fragment gap=CHG-F006-006既報、F005実manifest進行に
+    テストの巻き戻しロジックが追随できていない既存の脆さ、Windows並列/CI
+    共有ランナーのresource contention timeout)と判断し修正しなかった。
+    `npx vitest run src/content/f006-acceptance.test.ts`は5件全PASS(修正前
+    1件失敗)。`npm run lint`/`npm run typecheck`はPASS(差分0)。`npm test`
+    フルスイート1375件は35 failedで、`f006-acceptance.test.ts`は個別再実行
+    で全PASSを確認し、残り34件は上記3ファイルとF006と無関係の既知事象
+    (Windows専用native guard binary未ビルド、Linux CIでは対象外の
+    `it.runIf(win32)`ゲート付き、frozen historical commit fixtureの
+    非canonical、Windows並列resource contention)であることを確認した。
+    Linux環境相当での実行はDocker等未使用のため未実施、gitignoreとCI
+    checkout実態のコード上の根拠で原因を説明した。`docs/changes/
+    CHG-F006-007.md`を新規作成、`STATUS.md`・本entryを更新した。
+    `public/`・`content/baselines/*.json`は変更していない。
+    push・PR作成は行っていない(メインセッション側でCI再確認後にpush予定)。
