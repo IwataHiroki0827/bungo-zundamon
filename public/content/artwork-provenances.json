@@ -54,6 +54,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F006.json",
       "provenanceSha256": "7a051ed602cdcc839ca9e7b534b0fbb45be14a8e133fa3dc7a7db1f71aa3e15b"
+    },
+    {
+      "authorId": "000129",
+      "batchId": "F007",
+      "manifestId": "artwork-F007-000129-v1",
+      "output": {
+        "path": "artwork/mori-ogai-zundamon.png",
+        "sha256": "05497a8c663d96c8152e4e815a38e16d4934b027ae0f5252acab2efd7f7ef0b8"
+      },
+      "provenanceRef": "content/artwork-provenance/F007.json",
+      "provenanceSha256": "a0460228b503cf9be7778954f9749d4a11e3697379793599968cd037a9bfa53a"
     }
   ],
   "schemaVersion": "1.0.0"

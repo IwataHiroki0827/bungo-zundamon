@@ -1,0 +1,20 @@
+{
+  "baseEdition": "山椒大夫・高瀬舟他四篇",
+  "bibliography": {
+    "archiveBytes": 2092746,
+    "archiveSha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "csvBytes": 17161785,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-08-22T07:50:56.034Z",
+  "inputter": "kompass",
+  "proofreader": "土屋隆",
+  "sourceSha256": "20b6db066b5589d7c218733cbc992896213188de1c6affd6a69651416df158a1",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000129/files/45245_22007.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000129/card45245.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成"
+}
