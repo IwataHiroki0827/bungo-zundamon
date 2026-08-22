@@ -1,0 +1,99 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F008.md",
+    "release": "docs/evidence/release/F008-approval.json",
+    "requirements": "docs/srs/SRS-F008.md",
+    "testspec": "docs/tests/ut/UT-F008.md"
+  },
+  "artworkProvenanceRef": "content/batches/F008/artwork-provenance.json",
+  "author": {
+    "authorId": "001779",
+    "identitySha256": "a15a84c89958f7b2bdd08fb839bd8aba488fd71a2d55a6055a3c2ddd7c5cd0cd",
+    "name": "えどがわらんぽ",
+    "originalName": "江戸川乱歩",
+    "slug": "edogawa-ranpo"
+  },
+  "batchId": "F008",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "056648"
+      ],
+      "preferredWorkId": "056648",
+      "reason": "承認済み代表作",
+      "title": "人間椅子"
+    },
+    {
+      "allowedWorkIds": [
+        "056650"
+      ],
+      "preferredWorkId": "056650",
+      "reason": "承認済み代表作",
+      "title": "Ｄ坂の殺人事件"
+    },
+    {
+      "allowedWorkIds": [
+        "057193"
+      ],
+      "preferredWorkId": "057193",
+      "reason": "承認済み代表作",
+      "title": "一人二役"
+    }
+  ],
+  "feature": "F008",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F008/voice-config.json",
+  "workIds": [
+    "056648",
+    "056650",
+    "057193"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-23T02:10:00.000Z",
+          "count": 11,
+          "inputHashes": [
+            "e49b03565119bae0b19cf11f25528eac1e3428b849c99b9c6c4eccb89becb61b"
+          ],
+          "outputHashes": [
+            "ddebf97f3e1f8d66bd6eddd5007475f4f5625cab942ace998603bffd831b8a7d"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f008-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-23T02:10:00.000Z",
+          "count": 11,
+          "inputHashes": [
+            "ffbc89cf22870a12f28098b90e8c6535bc3cf7f908214740bce08d7071f0c3bc",
+            "ddebf97f3e1f8d66bd6eddd5007475f4f5625cab942ace998603bffd831b8a7d"
+          ],
+          "outputHashes": [
+            "a259d9514722c797faa2f204252ec2cf25ec4c67135015ef3a4fe8da2a0c9ff9"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f008-prepare-editorial-v1"
+        }
+      ],
+      "status": "reviewed",
+      "workId": "056648"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "056650"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "057193"
+    }
+  ]
+}

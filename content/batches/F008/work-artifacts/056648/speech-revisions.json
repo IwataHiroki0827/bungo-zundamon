@@ -1,0 +1,46 @@
+{
+  "batchId": "F008",
+  "kind": "f008-speech-revision-result",
+  "reconciliationDigest": "4fb1dd67433b689c62dc9c4afecb7025cf5ba6c1fb47819793c9c701bf5673b9",
+  "revisions": [],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "cFMcwdkZ6sRxfsu30ASPmJmBlMTvRa19bWXKqGSNoyA",
+      "displayText": "「こんな、うじ虫の様な生活を、続けて行く位なら、いっそのこと、死んで了った方が増しだ」",
+      "revisionCount": 0,
+      "speechSha256": "49a738e6d259e4c67d68067bc5104ce3381374bacba42559c50fe9e0fc5b0050",
+      "speechText": "「こんな、うじ虫の様な生活を、続けて行く位なら、いっそのこと、死んで了った方が増しだ」"
+    },
+    {
+      "candidateId": "gX1fE5YvsQSRj9iHDPeubSwM73W1YloOMo2u5aFkY18",
+      "displayText": "「だが、待てよ、死んで了う位なら、それ程の決心が出来るなら、もっと外に、方法がないものであろうか。例えば……」",
+      "revisionCount": 0,
+      "speechSha256": "c288cc8b511ef27d69858e37d35e5ece935ad968b777f6b94d34b774dcd5bf66",
+      "speechText": "「だが、待てよ、死んで了う位なら、それ程の決心が出来るなら、もっと外に、方法がないものであろうか。例えば……」"
+    },
+    {
+      "candidateId": "T5eQQ6OOEMhIj8y43mqWaKRCMDQHbvbhdbuh8vLKYI4",
+      "displayText": "「こいつは馬鹿に重いぞ」",
+      "revisionCount": 0,
+      "speechSha256": "2c79a66a02a6e37f6475efa95d01ff5bfa8c6857c31e528a8ce1a7fd9010debb",
+      "speechText": "「こいつは馬鹿に重いぞ」"
+    },
+    {
+      "candidateId": "lubTbKsagB-L2EM25uh3jYjDdOoMh6I6BP3QdXO4AD4",
+      "displayText": "「オオ、気味の悪い」",
+      "revisionCount": 0,
+      "speechSha256": "3a00215a92bfb5efe43c2a8eed7f23b099fdc44dc626ffa1f749da307ff834ad",
+      "speechText": "「オオ、気味の悪い」"
+    },
+    {
+      "candidateId": "BD3cb4TEi4XxdEcn_eM-c6KrpZsgs7zXhIWki7cHz3E",
+      "displayText": "「奥様、お手紙でございます」",
+      "revisionCount": 0,
+      "speechSha256": "922319f2766720660714bbce21751b6c0b98fbcf2048433eb7bdfb59cde97123",
+      "speechText": "「奥様、お手紙でございます」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "056648"
+}
