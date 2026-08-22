@@ -4139,7 +4139,7 @@ tasks:
   title: F007リリース前総点検・GitHub Pages段階公開・公開9 routeスモーク
   feature: F007
   phase: release
-  state: todo
+  state: done
   depends:
   - T-166
   tags:
@@ -4150,3 +4150,17 @@ tasks:
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
   model: *model_f007
+  progress: >-
+    メインセッション側で実施した。CI(commit ab3db17、run 32576610868)の
+    build job green確認後、`PAGES_DEPLOY_COMMIT`をrelease commitへ、
+    `PAGES_DEPLOY_ENABLED`をtrueへ設定してrerunし、build・deploy両job
+    成功(artifact digest 94cc707a...、dist SHA-256 fa70c69e...)。
+    公開後スモークとして公開URL index HTTP200、公開catalog.json実データ
+    (6作者・21作品・1099台詞、森鴎外=舞姫/高瀬舟/山椒大夫)、森鴎外
+    artwork・artwork-provenance・音声ファイルHTTP200を確認した。
+    `docs/evidence/release/{RELEASE-F007.md,F007-approval.json,
+    F007-deployment.json,F007-smoke.json}`を実データで作成。
+    `PAGES_DEPLOY_ENABLED`をfalseへ戻し、tag `v0.7.0`をrelease commitへ
+    push済み。F007完了・v0.7.0公開済み(7作者/目標10作者)。次のアクション:
+    「10人になるまで進めて」directiveに従いF008(次点候補: 江戸川乱歩)の
+    要求分析を開始する。

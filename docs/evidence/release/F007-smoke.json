@@ -1,0 +1,42 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "94cc707a5e8a443983bb2644664c561e8eb8bcdaec6dde7d74a04a3eb6283173",
+  "checkedAt": "2026-08-22T13:53:00Z",
+  "distSha256": "fa70c69e779ffc97fd0ec634ce7e67ad3b1ace24ebe9b6718b306f7aa6312cc6",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F007",
+  "releaseCandidateBatchId": "F007",
+  "releaseCommit": "ab3db17bace7994df3ffccbbfd022a3662480149",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 6,
+    "workCount": 21,
+    "dialogueCount": 1099,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true,
+    "audioHttp200": true
+  },
+  "note": "F007追加分の実データ(catalog.json実取得・6作者21作品1099台詞・森鴎外artwork/artwork-provenance/audio HTTP200)に加え、tests/e2e/f007-mori-ogai-author.spec.ts(4 tests、実ブラウザPlaywright)でauthor route描画・舞姫の公式表現注意3配置表示・初期全閉/単一再生/route切替停止contractを実ブラウザ操作で検証済み(フルe2eスイート205 passed・5 skipped・失敗0)。"
+}
