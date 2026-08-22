@@ -1909,3 +1909,27 @@ entries:
     `trace_check.py --feature F006`実行(対応漏れなし)。F006完了・
     v0.6.0公開済み。次: 「10人になるまで進めて」directiveに従いF007
     (次点候補: 森鴎外)の要求分析を開始する。
+- date: '2026-08-22'
+  phase: requirements
+  task: F007(森鴎外3作品追加)要求分析(ドメイン調査・SRS・QA・QT、承認ゲート①)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 55000
+  note: >-
+    「10人になるまで進めて」directiveに従いF006(v0.6.0)公開完了後、F007の要求分析を実施した。
+    作者選定はDOMAIN-F006.md(2026-08-21確定)のランキングを再利用し、次点の森鴎外(人物ID000129、
+    score 262,489)を採用した(再計算なし、変更なしを確認)。代表3作品は青空文庫公式card/XHTMLを
+    実際にダウンロードし(舞姫058126・高瀬舟045245・山椒大夫000689、いずれも新字新仮名)、
+    かぎ括弧候補・発話文字数を実測(合計187件・12,912文字)、拡充CSVで作品/人物著作権フラグ
+    なしを確認した。舞姫の図書カード備考欄にF005「趣味の遺伝」相当の公式表現注意を発見し、
+    既存作品固有注記UI(FUN-F005-014)の再利用方針を確定した。容量予測(20%余裕後127.9MiB追加、
+    予測公開432.6MiB)はGitHub Pages 1GiB上限に対し611MiBの余裕を確認した。ローカルディスク
+    空き容量が29GiB(3%)まで逼迫していることを検出し(`.cache/`6.3GiB、再取得可能)、
+    CLAUDE.mdディスクガード基準抵触としてSRS/QA/STATUS.mdへ明記した。
+    `docs/domain/DOMAIN-F007.md`・`docs/srs/SRS-F007.md`(REQ 18件)・`docs/qa/QA-F007.md`
+    (9問、既存4回のQA回答パターンに従い全て推奨案で自動回答)・`docs/tests/qt/QT-F007.md`
+    (QT 18件)を作成した。自己レビュー(整合性・実現性)で指摘0件のため承認ゲート①を
+    `queue.yaml`Q-062へ自動承認(`承認（自動）`)として記録し、SRS/QTを`status: Approved`へ
+    更新した。`docs/features.yaml`へF007(state: setup)を追加した。`STATUS.md`を更新、
+    `trace_check.py --feature F007`実行。次: pf-setup(F007タスク分解)。ディスク整理を
+    先に行うか、pf-setup着手前にユーザーへ確認することを推奨する。

@@ -1975,3 +1975,41 @@ items:
       UT-F006.md/IT-F006.mdをApprovedへ更新した。SRS-F006/FD-F006/DD-F006/UT-F006/IT-F006/QT-F006が
       全てApprovedとなり実装開始(pf-implement)の前提条件を満たした。T-148を完了し、次フェーズ
       pf-implement（T-149）へ進める。
+  - id: Q-062
+    type: approval
+    status: closed
+    title: F007（森鴎外3作品追加）要求仕様の承認（ゲート①）
+    body: >-
+      「10人になるまで進めて」directiveに基づき、F006(v0.6.0)公開完了を受けてF007の要求分析を実施した。
+      作者選定はDOMAIN-F006.md（2026-08-21確定）のランキングを再利用し、次点の森鴎外（人物ID000129、
+      score 262,489）を採用した。代表3作品（舞姫058126・高瀬舟045245・山椒大夫000689、いずれも新字
+      新仮名）はDOMAIN-F007.mdで2022年XHTMLアクセスランキング・拡充CSV実データにより裏取りした
+      （2026-08-22実取得）。docs/domain/DOMAIN-F007.md・docs/srs/SRS-F007.md（REQ 18件）・
+      docs/qa/QA-F007.md（9問、全て推奨案採用で自動回答）・docs/tests/qt/QT-F007.md（QT 18件）を作成した。
+      舞姫の図書カード備考欄に公式表現注意（F005「趣味の遺伝」相当）を発見し、既存作品固有注記UI
+      （FUN-F005-014）の再利用方針をQA No.4で確定した。ローカルディスク空き容量逼迫（29 GiB/3%、
+      CLAUDE.mdディスクガード基準の10%基準に抵触）をDOMAIN-F007.md §4・SRS §4・QA No.9で明記し、
+      実装フェーズ着手前の`.cache/`整理（再取得可能データ6.3 GiB）を推奨事項として記録した。
+      自己レビュー2観点（整合性: REQ→DOMAIN根拠の対応・既存4回のQA回答パターンとの整合、実現性:
+      容量予測がGitHub Pages 1 GiB上限に対し十分な余裕があること）で指摘0件。
+    target: docs/srs/SRS-F007.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T15:35:00+09:00'
+    source: pf-requirements
+    resume:
+      task: F007-requirements
+      next: pf-setup
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。QAシート回答完了（未回答0件）・レビュー指摘ゼロ化の
+      品質条件を満たすため、承認ゲート①（要求仕様確定）を自動承認として記録する。
+    approved_at: '2026-08-22T15:35:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T15:35:00+09:00'
+    processed_note: >-
+      SRS-F007.md・QT-F007.mdをApprovedへ更新した。docs/features.yamlへF007エントリ（state: setup）を
+      追加した。次フェーズpf-setupへ進める。
