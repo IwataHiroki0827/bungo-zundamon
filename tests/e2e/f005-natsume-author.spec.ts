@@ -14,7 +14,8 @@ test.beforeEach(async ({ page }) => {
 // @req REQ-F005-003 @req REQ-F005-014 @qt QT-F005-010
 test('トップに4人目の夏目漱石カードがデータ駆動で追加され、既存3作者と共存する', async ({ page }) => {
   await page.goto('#/');
-  await expect(page.locator('.author-card')).toHaveCount(4);
+  // F006以降トップの作者総数は5人（中島敦追加）になるため、総数ではなく夏目漱石が
+  // 個別に1件存在し所属・件数が不変であることだけを検査する（F006固有の検証はf006 specへ分離）。
   const natsume = page.locator('.author-card').filter({ hasText: 'なつめそうせき' });
   await expect(natsume).toHaveCount(1);
   await expect(natsume).toContainText('原著者: 夏目漱石');
@@ -88,6 +89,7 @@ test('夏目漱石routeでも初期全閉・単一再生・route切替停止のc
   await page.getByRole('link', { name: 'トップ', exact: true }).click();
   await waitForRouteReady(page);
   expect(await page.evaluate(() => window.__audioInstances[0]!.paused)).toBe(true);
-  await expect(page.locator('.author-card')).toHaveCount(4);
+  // F006以降トップの作者総数は5人になるため、総数ではなく夏目漱石カードの存在だけ確認する。
+  await expect(page.locator('.author-card').filter({ hasText: 'なつめそうせき' })).toHaveCount(1);
   await assertNoHorizontalOverflow(page);
 });

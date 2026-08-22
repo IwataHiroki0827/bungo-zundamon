@@ -7130,6 +7130,48 @@
         "FUN-F006-002"
       ]
     },
+    "IMPL:scripts/f006-final-integration.ts#64:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "DES-F006-002"
+      ]
+    },
+    "IMPL:scripts/f006-final-integration.ts#64:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "FUN-F006-002"
+      ]
+    },
+    "IMPL:scripts/f006-final-integration.ts#133:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "DES-F006-002"
+      ]
+    },
+    "IMPL:scripts/f006-final-integration.ts#133:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "FUN-F006-002"
+      ]
+    },
+    "IMPL:scripts/f006-final-integration.ts#257:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "DES-F006-002"
+      ]
+    },
+    "IMPL:scripts/f006-final-integration.ts#257:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f006-final-integration.ts",
+      "refs": [
+        "FUN-F006-002"
+      ]
+    },
     "IMPL:scripts/f006-prepare-editorial.ts#64:des": {
       "type": "IMPL",
       "defined_in": "scripts/f006-prepare-editorial.ts",
@@ -7144,14 +7186,14 @@
         "FUN-F006-007"
       ]
     },
-    "IMPL:scripts/f006-prepare-editorial.ts#254:des": {
+    "IMPL:scripts/f006-prepare-editorial.ts#487:des": {
       "type": "IMPL",
       "defined_in": "scripts/f006-prepare-editorial.ts",
       "refs": [
         "DES-F006-006"
       ]
     },
-    "IMPL:scripts/f006-prepare-editorial.ts#254:fun": {
+    "IMPL:scripts/f006-prepare-editorial.ts#487:fun": {
       "type": "IMPL",
       "defined_in": "scripts/f006-prepare-editorial.ts",
       "refs": [
@@ -12319,14 +12361,14 @@
         "FUN-F005-019"
       ]
     },
-    "IMPL:src/content/f006-acceptance.test.ts#21:des": {
+    "IMPL:src/content/f006-acceptance.test.ts#23:des": {
       "type": "IMPL",
       "defined_in": "src/content/f006-acceptance.test.ts",
       "refs": [
         "DES-F006-009"
       ]
     },
-    "IMPL:src/content/f006-acceptance.test.ts#21:fun": {
+    "IMPL:src/content/f006-acceptance.test.ts#23:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f006-acceptance.test.ts",
       "refs": [
