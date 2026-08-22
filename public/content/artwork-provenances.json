@@ -43,6 +43,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F005.json",
       "provenanceSha256": "5550d5e135b7bb6471f761cdf8f74d1d85fee7e551ee85588e114758bb3bee27"
+    },
+    {
+      "authorId": "000119",
+      "batchId": "F006",
+      "manifestId": "artwork-F006-000119-v1",
+      "output": {
+        "path": "artwork/nakajima-zundamon.png",
+        "sha256": "9686d567837c60baaa611aa1779cb1052d3a37e046160c8cce77f26cc5328e4a"
+      },
+      "provenanceRef": "content/artwork-provenance/F006.json",
+      "provenanceSha256": "7a051ed602cdcc839ca9e7b534b0fbb45be14a8e133fa3dc7a7db1f71aa3e15b"
     }
   ],
   "schemaVersion": "1.0.0"
