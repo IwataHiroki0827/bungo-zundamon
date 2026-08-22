@@ -4164,3 +4164,181 @@ tasks:
     push済み。F007完了・v0.7.0公開済み(7作者/目標10作者)。次のアクション:
     「10人になるまで進めて」directiveに従いF008(次点候補: 江戸川乱歩)の
     要求分析を開始する。
+- id: T-168
+  title: 機能設計書(FD-F008)を作成しREQ全19件を江戸川乱歩追加設計へ展開
+  feature: F008
+  phase: design
+  state: done
+  depends:
+  - T-167
+  tags: &id008
+  - REQ-F008-001
+  - REQ-F008-002
+  - REQ-F008-003
+  - REQ-F008-004
+  - REQ-F008-005
+  - REQ-F008-006
+  - REQ-F008-007
+  - REQ-F008-008
+  - REQ-F008-009
+  - REQ-F008-010
+  - REQ-F008-011
+  - REQ-F008-012
+  - REQ-F008-013
+  - REQ-F008-014
+  - REQ-F008-015
+  - REQ-F008-016
+  - REQ-F008-017
+  - REQ-F008-018
+  - REQ-F008-019
+  mode: advisor
+  mode_reason: 固定v0.7.0 baselineと汎用batchパイプライン再利用範囲・F008固有差分(人間椅子・Ｄ坂の殺人事件2作品同時の作品固有注記UI再適用、長大候補分割手法の再利用を含む)を単一FDで一貫させる逐次設計のため
+  model: &model_f008
+    lead: opus
+    workers: sonnet
+  result: FD-F008.mdを作成しREQ 19件全件をDES 15件へ展開。F005 ETW/native guard機構は不採用、F006/F007と同型の新規作者追加構造と汎用release経路を継承する設計方針を確定。人間椅子・Ｄ坂の殺人事件2作品への公式表現注意対応方針(既存work-notices.tsのTRUSTED_REGISTRY_BINDINGSへのデータentry追加、3作品中2件officialContentWarning=trueという同一バッチ内混在の初のケース)、およびREQ-F008-019(F007由来の長大候補分割手法の再利用)をDES-F008-015として確定した。
+- id: T-169
+  title: 関数設計書(DD-F008)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F008
+  phase: design
+  state: done
+  depends:
+  - T-168
+  tags: *id008
+  mode: advisor
+  mode_reason: FDの汎用pipeline再利用境界とF008固有入力(新規作者・2作品同時注記UI再適用・独立二重判定・長大候補分割)を関数単位で確定するため
+  model: *model_f008
+  result: DD-F008.mdを作成しDES 15件をFUN 17件へ展開。既存関数の直接再利用9件、新規実装8件(baseline pin×2・author/work registry・source/entity抽出+長大候補分割・薄い受入ラッパー・catalog統合×2・artwork provenance×2)。2作品同時notice結線はTRUSTED_REGISTRY_BINDINGSへのデータ追加のみで新規application source分岐0件と確定。F006→F007統合時に発生した`existingArtwork.length !== N`のexact一致バグ(commit cd5ecc8で下限判定へ緩和修正済み)を踏まえ、F008のartwork provenance実装は最初から`existingArtwork.length < 6`の下限判定で設計した。trace_check REQ→DES→FUN対応漏れ0を確認予定(pf-setup/pf-design fork内で実行)。
+- id: T-170
+  title: UT-F008・IT-F008を作成しQT-F008との網羅性を確認
+  feature: F008
+  phase: testspec
+  state: todo
+  depends:
+  - T-169
+  tags: *id008
+  mode: orchestration
+  mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・2作品同時注記UI・長大候補分割・セキュリティの独立試験領域を並列設計できるため
+  model: *model_f008
+- id: T-171
+  title: 候補manifest・固定v0.7.0 baseline・作者identity・権利原典を整備
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-170
+  tags: *id008
+  mode: advisor
+  mode_reason: baseline pin・candidate registry・author identityは相互依存が強く逐次確定が必要なため
+  model: *model_f008
+- id: T-172
+  title: Catalog統合基盤・江戸川乱歩作者画像・2作品分の注記registryを整備
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-171
+  tags:
+  - REQ-F008-009
+  - REQ-F008-010
+  - REQ-F008-014
+  - REQ-F008-016
+  mode: advisor
+  mode_reason: f008-catalog.ts/f008-artwork.ts/work-notices.ts entry追加は単一成果物の逐次実装のため
+  model: *model_f008
+- id: T-173
+  title: 人間椅子を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-172
+  tags:
+  - REQ-F008-007
+  - REQ-F008-008
+  - REQ-F008-009
+  - REQ-F008-010
+  - REQ-F008-011
+  - REQ-F008-012
+  - REQ-F008-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、既存注記UI機構をデータ駆動で再適用するため
+  model: *model_f008
+- id: T-174
+  title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-173
+  tags:
+  - REQ-F008-007
+  - REQ-F008-008
+  - REQ-F008-009
+  - REQ-F008-010
+  - REQ-F008-011
+  - REQ-F008-012
+  - REQ-F008-013
+  - REQ-F008-019
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、DOMAIN-F008.md §5が指摘する長大候補(発話文字概算10,962文字/82候補、既存3作品中最大)の実測分割要否確認を要するため
+  model: *model_f008
+- id: T-175
+  title: 一人二役を抽出・二重レビュー・音声化・atomic受入
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-174
+  tags:
+  - REQ-F008-007
+  - REQ-F008-008
+  - REQ-F008-009
+  - REQ-F008-011
+  - REQ-F008-012
+  - REQ-F008-013
+  mode: orchestration
+  mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
+  model: *model_f008
+- id: T-176
+  title: F008最終Catalog統合・固定v0.7.0回帰・公開tree候補を作成
+  feature: F008
+  phase: implement
+  state: todo
+  depends:
+  - T-173
+  - T-174
+  - T-175
+  tags:
+  - REQ-F008-001
+  - REQ-F008-014
+  - REQ-F008-018
+  mode: advisor
+  mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
+  model: *model_f008
+- id: T-177
+  title: F008 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
+  feature: F008
+  phase: test
+  state: todo
+  depends:
+  - T-176
+  tags: *id008
+  mode: orchestration
+  mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。F007で専用author route e2e specの欠落が事後発見された反省を踏まえ、本タスクで最初からtests/e2e/f008-edogawa-author.spec.tsを作成する
+  model: *model_f008
+- id: T-178
+  title: F008リリース前総点検・GitHub Pages段階公開・公開10 routeスモーク
+  feature: F008
+  phase: release
+  state: todo
+  depends:
+  - T-177
+  tags:
+  - REQ-F008-016
+  - REQ-F008-017
+  - REQ-F008-018
+  - REQ-F008-019
+  mode: advisor
+  mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f008

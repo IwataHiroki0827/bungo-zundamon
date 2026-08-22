@@ -2060,3 +2060,32 @@ entries:
     pf-setup/pf-design未着手段階として想定通り。STATUS.md更新。
     次のアクション: docs/features.yamlへF008エントリ追加後、/pf-setup
     (WBS作成)へ進む。git commit/pushは未実施(メインセッション側で実施)。
+- date: '2026-08-22'
+  phase: design
+  task: T-168〜T-169 FD-F008/DD-F008作成・WBS(T-168〜T-178)整備
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    F008(江戸川乱歩「人間椅子」「Ｄ坂の殺人事件」「一人二役」3作品追加)の
+    /pf-setup・/pf-designを実施した。tasks.yamlへT-168〜T-178(WBS 11タスク、
+    F007のT-157〜T-167と同構成)を追加。docs/design/FD-F008.md(REQ 19件→
+    DES 15件)・DD-F008.md(DES 15件→FUN 17件)を作成した。新規実装8件
+    (f008-baseline.ts×2関数・author/work registry・f008-source.ts
+    (entity抽出+長大候補分割)・f008-acceptance.ts・f008-catalog.ts×2関数・
+    f008-artwork.ts×2関数)、既存関数の直接再利用9件。人間椅子・Ｄ坂の殺人事件
+    2作品同時の公式表現注意対応(work-notices.tsのTRUSTED_REGISTRY_BINDINGSへ
+    sourceFacts 3件中2件officialContentWarning=trueの新規entry追加、F005/F007
+    の1件のみtrueと異なる初のパターン)をDES-F008-010/FUN-F008-011で確定した。
+    F007実装で実際に発生したexistingArtwork.length exact一致バグ(commit
+    cd5ecc8で下限判定へ緩和修正済み)を踏まえ、F008のartwork provenanceは
+    最初から`existingArtwork.length < 6`の下限判定で設計した。REQ-F008-019
+    (長大候補分割)はDES-F008-015/FUN-F008-006として、F007のsplitOverlong
+    F007Candidatesと同一閾値600文字・同一アルゴリズムをf008-source.tsへ
+    複製する設計とした。F007で発見されたF007固有e2e specの事後追加という
+    反省を踏まえ、T-177へ専用e2e spec(tests/e2e/f008-edogawa-author.spec.ts)
+    の作成を最初からWBSへ明記した。trace_check.py --feature F008は
+    REQ→DES・DES→FUN対応漏れ0を確認(DES→UT/IT 15件は未対応=testspec
+    未着手のため想定通り)。docs/features.yamlのF008をstate: designへ更新。
+    tsc/lint clean(設計文書のみでコード変更なし)。承認ゲート②を自動承認
+    方針に従い処理。次のアクション: /pf-testspec(T-170)を開始する。
