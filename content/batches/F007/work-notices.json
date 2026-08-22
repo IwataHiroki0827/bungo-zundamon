@@ -1,0 +1,62 @@
+{
+  "authorId": "000129",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card58126.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "舞姫",
+      "workId": "058126"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card45245.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "高瀬舟",
+      "workId": "045245"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000129/card689.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "山椒大夫",
+      "workId": "000689"
+    }
+  ]
+}

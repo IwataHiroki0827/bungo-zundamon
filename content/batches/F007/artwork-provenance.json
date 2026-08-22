@@ -1,0 +1,36 @@
+{
+  "credit": "森鴎外ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-22T08:04:29.276Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 1397153,
+    "originalImageSha256": "05497a8c663d96c8152e4e815a38e16d4934b027ae0f5252acab2efd7f7ef0b8",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a dignified, cosmopolitan Meiji-era Japanese novelist-physician in a formal Western military-style uniform, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. IMPORTANT: the image must contain absolutely no text, no writing, no letters, no characters, no calligraphy, no seals, no stamps, no logos, no medals, no insignia, no symbols of any kind anywhere in the scene, on clothing, on objects, on the ground, or in the background -- every surface must be plain and unmarked. Scene: a quiet Meiji-era Western-style study at dusk, tall arched window with soft amber lamplight, a single potted plant, warm wood-paneled walls, gentle atmospheric haze. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a composed dignified gaze, standing with both hands calmly clasped behind the back, plain dark navy high-collared formal coat with smooth unmarked fabric, no buttons row detail, no epaulettes, no pattern, no embroidery, no writing. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality. Composition: centered square, character slightly right of center, generous edge padding, plain unmarked background throughout. Lighting: warm lamplight with cool dusk ambient, refined and contemplative. Palette: deep navy, warm amber, ivory, leaf green, soft brown wood tones. Constraints: entirely original generated image, zero input or reference images, no depiction of any real person, no third-party artwork, absolutely no readable text or symbols anywhere, no signature, no watermark, no seal, no medal.",
+    "promptSha256": "9b5458ceaeed3d26def9dedaab0787594ba0a69cd305746db5854956d32f457d",
+    "seed": 208070129,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=208070129) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "000129",
+    "batchId": "F007",
+    "outputPath": "artwork/mori-ogai-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F007-000129-v1",
+  "output": {
+    "bytes": 1397153,
+    "dHash64": "d6ccc76e73bbd27a",
+    "mediaType": "image/png",
+    "publicPath": "artwork/mori-ogai-zundamon.png",
+    "sha256": "05497a8c663d96c8152e4e815a38e16d4934b027ae0f5252acab2efd7f7ef0b8",
+    "sourcePath": "content/batches/F007/public-files/artwork/mori-ogai-zundamon.png"
+  },
+  "provenanceSha256": "ac8105675234e043a6f2c671a243c4a6dc7a7096518dc7975f2ebe9331e72888",
+  "schemaVersion": "1.0.0"
+}

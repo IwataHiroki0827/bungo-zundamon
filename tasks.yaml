@@ -3742,7 +3742,7 @@ tasks:
   title: 森鴎外作者identity・独自作者画像・Catalog新規author統合基盤を実装
   feature: F007
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-160
   tags:
@@ -3753,6 +3753,57 @@ tasks:
   mode: orchestration
   mode_reason: 新規author identity、独自作者画像provenance、Catalog/routeのデータ駆動拡張を独立実装して統合できるため
   model: *model_f007
+  progress: >-
+    完了した(2026-08-22)。verifyF007AuthorIdentity/F007VerifiedAuthorは
+    T-160のf007-source.tsで実装済みだったため、本タスクでは残る3系統
+    (作者画像・舞姫notice結線・Catalog統合/route導出)を実装した。
+
+    (1) 作者画像: ローカルComfyUI(http://127.0.0.1:59008、FLUX.1 schnell、
+    model flux1-schnell-fp8.safetensors、steps=4/cfg=1.0/euler/simple、
+    1024x1024、seed=208070129)へ実際にpromptを投げ生成した
+    (寡黙で品格のある明治期の洋装文豪医師イメージ、F006と衣装・場面・配色を
+    明確に差別化)。生成画像をcontent/batches/F007/public-files/artwork/
+    mori-ogai-zundamon.png(1,397,153 bytes)として永続化し、新規
+    src/content/f007-artwork.ts(f006-artwork.tsと同型のF006_ARTWORK系を
+    F007向けにパラメータ化、sealF007ArtworkProvenance/
+    verifyF007ArtworkAgainstCatalog)で実sha256
+    (05497a8c663d96c8152e4e815a38e16d4934b027ae0f5252acab2efd7f7ef0b8)・
+    実dHash64(d6ccc76e73bbd27a)を計算し、既存5作者画像との実比較で
+    minimumHammingDistance=24(全比較24〜37、閾値8を大きく上回る)を確認、
+    content/batches/F007/artwork-provenance.jsonへ確定provenanceを永続化
+    した。src/content/f007-artwork.test.ts(F006precedentの13ケースを
+    パラメータ化、existingArtwork件数チェックを4→5へ、IT-F007-008は実artifact
+    ファイルを読み込む形で実装)で全13件PASS。
+
+    (2) 舞姫notice結線(QA-F007 No.4、新規application分岐なし):
+    content/batches/F007/work-notices.json(舞姫=official-content-warning+
+    dialogue-excerpt-scope、高瀬舟・山椒大夫=dialogue-excerpt-scope、
+    実SHA-256 231bf96587915d78cfc0a0a873312c5c995a65e414c4684ad3b34b24fb166f02)
+    を新規作成し、src/notices/work-notices.tsのTRUSTED_REGISTRY_BINDINGSへ
+    authorId 000129のbinding(1件、既存F003 entry・関数シグネチャは無変更)を
+    データとして追加した。src/notices/f007-work-notices-registration.test.ts
+    (新規1ケース)で実データのloadAndValidateWorkNotices(workspace,'000129')が
+    passし舞姫だけofficial-content-warningを持つことを確認した。
+
+    (3) Catalog統合: 新規src/content/f007-catalog.ts
+    (mergeNewAuthorCatalog007/deriveF007RouteSet、f006-catalog.tsと同型だが
+    F006と異なりfragment.works[].notices/.completionStatusを実際に保持・
+    検証する設計、baseline5作者18作品→6作者21作品、exact 9 route導出)を
+    実装した。src/content/f007-catalog.test.ts(11ケース、舞姫のnotice欠落を
+    F007_CATALOG_MERGE_CONFLICTとして拒否するケース含む)で全PASS。
+
+    検証: tsc --noEmit・lint(該当7ファイル)ともにdiff 0でPASS。
+    touched領域のvitest(f007-catalog/f007-artwork/f007-work-notices-
+    registration/work-notices/f006-catalog/f006-artwork/f003-catalog)
+    7ファイル56件全PASS(既存F003/F006回帰なし)。
+    trace_check.py --feature F007は対応漏れなし。
+
+    ディスク容量: 開始時Cドライブ空き約58.6GB/999GB(5.87%、20GB基準は
+    満たすが10%基準はわずかに下回る)。生成物の実消費は画像1件約1.4MBに
+    留まり、本タスク中に逼迫は発生しなかった。次タスク(T-162音声生成)着手前に
+    再点検を推奨。
+
+    次のアクション: T-162(舞姫の抽出・独立二重判定・音声化・atomic受入)。
 - id: T-162
   title: 舞姫を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F007
