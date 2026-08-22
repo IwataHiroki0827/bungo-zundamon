@@ -29,7 +29,7 @@ import { validateCatalogV2 } from '../src/ui/catalog-loader.ts';
 const execFileAsync = promisify(execFile);
 
 /**
- * F006（中島敦3作品追加）山月記(000624)の容量actual測定＋atomic受入前橋渡しscript。
+ * F006（中島敦3作品追加）work単位の容量actual測定＋atomic受入前橋渡しscript。
  * DD-F006.md FUN-F006-009（既存forecastCapacity/measureGitRepository/verifyActualCapacity
  * を直接呼ぶ）とFUN-F006-010の方式訂正（間接ハッシュ規約からpromoteVerifiedWorkArtifacts
  * が要求する直接evidence値を再導出する）を実装する。
@@ -47,11 +47,17 @@ const execFileAsync = promisify(execFile);
  *   3) その結果を直接ハッシュで参照するcapacity-actual stage recordを追記する
  * ことで、以降src/content/f006-acceptance.tsがpromoteVerifiedWorkArtifactsを直接呼べる
  * 状態を作る。既存batch-acceptance.ts/batch-production.ts/voice/budget.tsは変更しない。
+ *
+ * T-152（名人伝）着手時にwork ID固定を解消しCLI引数化した（T-153弟子でも再利用するため）。
  * @des DES-F006-008 DES-F006-009 @fun FUN-F006-009 FUN-F006-010
  */
 
 const BATCH_ID = 'F006';
-const WORK_ID = '000624' as WorkId;
+const workIdArgument = process.argv[2];
+if (!workIdArgument || !/^[0-9]{6}$/u.test(workIdArgument)) {
+  throw new Error('6桁のwork IDを引数で指定してください（例: node --experimental-transform-types scripts/f006-capacity-actual.ts 000621）');
+}
+const WORK_ID = workIdArgument as WorkId;
 const MANIFEST_PATH = `content/batches/${BATCH_ID}/batch.json`;
 const VOICE_EVIDENCE_PATH = `content/batches/${BATCH_ID}/voice-evidence/${WORK_ID}.json`;
 const GENERATION_PATH = `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/voice-generation.json`;

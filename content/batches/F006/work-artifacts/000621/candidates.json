@@ -1,0 +1,41 @@
+{
+  "batchId": "F006",
+  "candidates": [
+    {
+      "candidateId": "Pxfj4RPQm3Si8k4FWPoOwT743zGopkrlfiYNhF_ARbE",
+      "displayText": "「出かしたぞ」",
+      "order": 0,
+      "sha256": "1dfaae7a5af0889a6fdfb1dc039c420061568c2330f88205707e264fb30958c5",
+      "sourceAnchor": ".main_text:1259-1266",
+      "speechText": "「出かしたぞ」"
+    },
+    {
+      "candidateId": "f5NOdmtBFTNMUoch2hd62VShp29dvwbiWDrZH5285x4",
+      "displayText": "「善し！」",
+      "order": 1,
+      "sha256": "7a43629debd9e0206be1b070141294779bd1fe6882e0f8eb0a649e43146d1d96",
+      "sourceAnchor": ".main_text:1647-1652",
+      "speechText": "「善し！」"
+    },
+    {
+      "candidateId": "1E8mg8R7TUaDWpfmC6bMVmBbqkonLr4NgRhBHQBAaaw",
+      "displayText": "「既に、我と彼との別、是と非との分を知らぬ。眼は耳のごとく、耳は鼻のごとく、鼻は口のごとく思われる。」",
+      "order": 2,
+      "sha256": "719d24f18ae6c6ab40355bbbd7393b198ec4e5e78142eeaa811b5c1c827905e2",
+      "sourceAnchor": ".main_text:4835-4886",
+      "speechText": "「既に、我と彼との別、是と非との分を知らぬ。眼は耳のごとく、耳は鼻のごとく、鼻は口のごとく思われる。」"
+    },
+    {
+      "candidateId": "yKiFB05uFcESq6FX1zmAAfZfCLZypcmbldtQ46L8usk",
+      "displayText": "「ああ、夫子が、――古今無双の射の名人たる夫子が、弓を忘れ果てられたとや？　ああ、弓という名も、その使い途も！」",
+      "order": 3,
+      "sha256": "ed28bf65addde347a4d55c86bb1bb95c90791d7d27f4103d92021119f1554f1f",
+      "sourceAnchor": ".main_text:5505-5557",
+      "speechText": "「ああ、ふうしが、――ここんむそうの射の名人たる夫子が、弓を忘れ果てられたとや？ ああ、弓という名も、その使いみちも！」"
+    }
+  ],
+  "extractorVersion": "1.0.0",
+  "kind": "f006-extracted-candidates",
+  "schemaVersion": "1.0.0",
+  "workId": "000621"
+}

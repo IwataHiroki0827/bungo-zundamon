@@ -44,22 +44,34 @@ import { bridgeEditorialResolutionSetToReviewRecords } from '../src/content/f003
 import { EXTRACTOR_VERSION } from '../src/content/processing.ts';
 import {
   extractF006DialogueCandidates,
+  F006_WORKS,
   normalizeF006AozoraXhtmlEntities,
   parseF006SourceRecord,
   rehydrateF006SelectionSnapshot,
+  type F006WorkId,
 } from '../src/content/f006-source.ts';
 
 /**
- * F006（中島敦3作品追加）山月記(000624)の独立二重判定・読み補正thin script。
+ * F006（中島敦3作品追加）work単位の独立二重判定・読み補正thin script。
  * DD-F006.md記載のとおりFUN-F006-007/008は「新規コードなし」の既存汎用関数
  * （editorial-independent.ts・f003-reuse.ts）をそのまま呼び出すだけであり、
  * F006専用の新規wrapperモジュールは作らない。抽出だけはF006固有の
  * f006-source.tsを既存exportのまま呼ぶ。
+ *
+ * T-152（名人伝）着手時にwork ID固定を解消しCLI引数化した（T-153弟子でも
+ * 再利用するため）。speaker判定・読み補正はwork固有のcontentであるため
+ * WORK_CONFIGSへ集約し、山月記(000624)分は既存確定内容をbyte互換で維持した。
  * @des DES-F006-006 DES-F006-007 @fun FUN-F006-007 FUN-F006-008
  */
 
 const BATCH_ID = 'F006';
-const WORK_ID = '000624';
+const workIdArgument = process.argv[2];
+if (!workIdArgument || !F006_WORKS.some((work) => work.workId === workIdArgument)) {
+  throw new Error(
+    `F006_WORKSに定義済みのwork IDを引数で指定してください（例: node --experimental-transform-types scripts/f006-prepare-editorial.ts 000621）: ${String(workIdArgument)}`,
+  );
+}
+const WORK_ID: F006WorkId = workIdArgument as F006WorkId;
 const MANIFEST_PATH = `content/batches/${BATCH_ID}/batch.json`;
 const FSM_TOOL_VERSION = 'f006-prepare-editorial-v1';
 const POLICY_PATH = 'docs/srs/SRS-F006.md';
@@ -72,25 +84,66 @@ interface SpeakerJudgment {
   readonly speaker: string;
 }
 
-// VOICEVOX 0.25.2 speaker 3（ノーマル）のaudio_query実測により、
-// 「李徴」を訓読み「しるし」等で誤読することを確認済みのspeechText補正。
-// displayTextは変更しない（DD-F006.md FUN-F006-008）。
-const SPEECH_CORRECTIONS: Readonly<Record<string, { readonly find: string; readonly to: string; readonly reason: string }>> = {
-  // order 1: 「その声は、我が友、李徴子ではないか？」
-  '.main_text:899-919': {
-    find: '李徴子',
-    to: 'リチョウシ',
-    reason:
-      'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴子」が「りいちょうこ」（徴子を誤ってちょうこと読む）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょうし」を強制する。',
+interface SpeechCorrection {
+  readonly find: string;
+  readonly to: string;
+  readonly reason: string;
+}
+
+/**
+ * work単位のspeaker判定・読み補正定義。displayTextは変更しない
+ * （DD-F006.md FUN-F006-008）。候補は抽出順（order昇順）で対応させる。
+ */
+interface WorkEditorialConfig {
+  readonly speakersByOrder: readonly string[];
+  readonly speechCorrections: Readonly<Record<string, SpeechCorrection>>;
+}
+
+const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
+  // 山月記(000624)。T-151で確定した内容をbyte互換で維持。
+  '000624': {
+    speakersByOrder: ['李徴', '袁傪', '李徴'],
+    speechCorrections: {
+      // order 1: 「その声は、我が友、李徴子ではないか？」
+      '.main_text:899-919': {
+        find: '李徴子',
+        to: 'リチョウシ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴子」が「りいちょうこ」（徴子を誤ってちょうこと読む）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょうし」を強制する。',
+      },
+      // order 2: 「如何にも自分は隴西の李徴である」
+      '.main_text:1054-1071': {
+        find: '李徴',
+        to: 'リチョウ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴」が「りいしるし」（徴を訓読み「しるし」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょう」を強制する。隴西は「ろうせい」で正しく読まれるため補正不要。',
+      },
+    },
   },
-  // order 2: 「如何にも自分は隴西の李徴である」
-  '.main_text:1054-1071': {
-    find: '李徴',
-    to: 'リチョウ',
-    reason:
-      'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「李徴」が「りいしるし」（徴を訓読み「しるし」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「りちょう」を強制する。隴西は「ろうせい」で正しく読まれるため補正不要。',
+  // 名人伝(000621)。VOICEVOX 0.25.2 speaker 3のaudio_query実測に基づく。
+  '000621': {
+    // order0: 「出かしたぞ」→師の飛衛が紀昌を褒める。
+    // order1: 「善し！」→傍で見ていた師の飛衛。
+    // order2: 「既に、我と彼との別、…」→老名人晩年の述懐＝紀昌自身の言葉。
+    // order3: 「ああ、夫子が、――…」→紀昌を訪ねた知人の家の主人（無名、"主人"表記）。
+    speakersByOrder: ['飛衛', '飛衛', '紀昌', '主人'],
+    speechCorrections: {
+      // order 0: 「出かしたぞ」
+      '.main_text:1259-1266': {
+        find: '出かしたぞ',
+        to: 'デカシタゾ',
+        reason:
+          'VOICEVOX 0.25.2 speaker 3のaudio_query実測で「出かしたぞ」が「しゅっかしたぞ」（出を音読み「しゅっ」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「でかしたぞ」を強制する。',
+      },
+    },
   },
 };
+
+function editorialConfigFor(workId: string): WorkEditorialConfig {
+  const config = WORK_EDITORIAL_CONFIGS[workId];
+  if (!config) throw new Error(`work ${workId}のeditorial設定が未定義です`);
+  return config;
+}
 
 function sha256(value: string | Uint8Array): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
@@ -277,18 +330,18 @@ async function main(): Promise<void> {
   if (candidates.length === 0) throw new Error('台詞候補が0件です');
 
   const reviewCandidates = Object.freeze(candidates.map(reviewCandidate));
+  const editorialConfig = editorialConfigFor(WORK_ID);
 
   // 2) 独立二重判定（既存editorial-independent.ts）。
-  //    山月記の3候補はいずれも「」で囲まれた明確な発話であり、文脈（誰が発したか）も
+  //    各候補はいずれも「」で囲まれた明確な発話であり、文脈（誰が発したか）も
   //    一意に確定できるため、primary/secondaryは独立に同一結論（承認・同一speaker）へ至る。
-  const speakers: readonly SpeakerJudgment[] = [
-    { candidateId: candidates[0]!.candidateId, speaker: '李徴' }, // 「あぶないところだった」
-    { candidateId: candidates[1]!.candidateId, speaker: '袁傪' }, // 「その声は、我が友、李徴子ではないか？」
-    { candidateId: candidates[2]!.candidateId, speaker: '李徴' }, // 「如何にも自分は隴西の李徴である」
-  ];
-  if (speakers.length !== candidates.length) {
+  if (editorialConfig.speakersByOrder.length !== candidates.length) {
     throw new Error('speaker判定件数が候補件数と一致しません');
   }
+  const speakers: readonly SpeakerJudgment[] = candidates.map((candidate, index) => ({
+    candidateId: candidate.candidateId,
+    speaker: editorialConfig.speakersByOrder[index]!,
+  }));
   const judgmentsFor = (): EditorialJudgment[] =>
     candidates.map((candidate) => {
       const speaker = speakers.find((item) => item.candidateId === candidate.candidateId);
@@ -396,7 +449,7 @@ async function main(): Promise<void> {
   const revisionToolBytes = await readFile(resolve(workspace, ...REVISION_TOOL_PATH.split('/')));
   const revisions: SpeechRevisionV2[] = [];
   for (const candidate of candidates) {
-    const correction = SPEECH_CORRECTIONS[
+    const correction = editorialConfig.speechCorrections[
       `${candidate.sourceAnchor.bodySelector}:${candidate.sourceAnchor.startToken}-${candidate.sourceAnchor.endToken}`
     ];
     if (!correction) continue;

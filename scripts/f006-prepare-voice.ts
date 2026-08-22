@@ -36,7 +36,7 @@ import {
 const execFileAsync = promisify(execFile);
 
 /**
- * F006（中島敦3作品追加）山月記(000624)の差分音声生成・容量forecast thin script。
+ * F006（中島敦3作品追加）work単位の差分音声生成・容量forecast thin script。
  * DD-F006.md FUN-F006-009記載のとおり、既存の汎用モジュール
  * （src/voice/generation.ts の planVoiceDiff/authorizeVoiceDiffPlan/generateVoiceDiff/
  * verifyVoiceCompleteness、src/voice/budget.ts の forecastCapacity/measureGitRepository）
@@ -49,12 +49,18 @@ const execFileAsync = promisify(execFile);
  * （src/content/batch.ts assertStageGate / batch-runtime.ts executeCapacityActual参照）。
  *
  * 生成したWAVはaccepted-audio/への正式昇格（atomic受入）を待つ一時stagingとして
- * content/batches/F006/work-artifacts/000624/.voice-stage-000624/ に保持する。
+ * content/batches/F006/work-artifacts/<workId>/.voice-stage-<workId>/ に保持する。
+ *
+ * T-152（名人伝）着手時にwork ID固定を解消しCLI引数化した（T-153弟子でも再利用するため）。
  * @des DES-F006-008 @fun FUN-F006-009
  */
 
 const BATCH_ID = 'F006';
-const WORK_ID = '000624' as WorkId;
+const workIdArgument = process.argv[2];
+if (!workIdArgument || !/^[0-9]{6}$/u.test(workIdArgument)) {
+  throw new Error('6桁のwork IDを引数で指定してください（例: node --experimental-transform-types scripts/f006-prepare-voice.ts 000621）');
+}
+const WORK_ID = workIdArgument as WorkId;
 const MANIFEST_PATH = `content/batches/${BATCH_ID}/batch.json`;
 const SPEECH_REVISIONS_PATH = `content/batches/${BATCH_ID}/work-artifacts/${WORK_ID}/speech-revisions.json`;
 const SOURCE_CONFIG_PATH = 'content/batches/F002/voice-config.json';

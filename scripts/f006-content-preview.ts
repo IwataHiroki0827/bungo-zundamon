@@ -36,6 +36,7 @@ import { F006_ARTWORK_SHA256 } from '../src/content/f006-catalog.ts';
 import {
   buildF006SourceProvenance,
   defineF006AuthorAndWorkRegistry,
+  F006_WORKS,
   parseF006SourceRecord,
   rehydrateF006SelectionSnapshot,
   verifyF006AuthorIdentity,
@@ -46,23 +47,29 @@ import type { VoiceDiffGenerationResult } from '../src/voice/generation.ts';
 import type { ReviewRecord } from '../src/content/processing.ts';
 
 /**
- * F006（中島敦3作品追加）山月記(000624)のwork-preview content統合script。
+ * F006（中島敦3作品追加）work単位のwork-preview content統合script。
  * F003（f003-preview.ts）のsingle-author preview構築パターンを踏襲しつつ、
  * baselineをv0.5.0（F001〜F005公開済み）へ拡張したもの。
  * mergeNewAuthorCatalog006（FUN-F006-011）はF006 3作品全件が揃った最終統合
  * （T-154想定）専用であり、単一work previewでは使わない（fragment.works厳密3件
  * assertionと両立しないため）。ここではF003と同様、BatchCatalogFragmentを
  * 手動構築しbuildIntegratedPublicTreeのwork-previewモードへ渡す。
+ *
+ * T-152（名人伝）着手時にwork ID固定を解消しCLI引数化した（T-153弟子でも再利用するため）。
  * @des DES-F006-002 DES-F006-010 @fun FUN-F006-002 FUN-F006-011
  */
 
 const BATCH_ID = 'F006';
-const WORK_ID: F006WorkId = '000624';
+const workIdArgument = process.argv[2];
+if (!workIdArgument || !F006_WORKS.some((work) => work.workId === workIdArgument)) {
+  throw new Error(
+    `F006_WORKSに定義済みのwork IDを引数で指定してください（例: node --experimental-transform-types scripts/f006-content-preview.ts 000621）: ${String(workIdArgument)}`,
+  );
+}
+const WORK_ID: F006WorkId = workIdArgument as F006WorkId;
 const AUTHOR_ID = '000119';
 const ARTWORK_PUBLIC_PATH = 'artwork/nakajima-zundamon.png';
 const ARTWORK_SOURCE_PATH = `content/batches/${BATCH_ID}/public-files/artwork/nakajima-zundamon.png`;
-const PROVENANCE_PUBLIC_PATH = `content/provenance/${BATCH_ID}/${WORK_ID}.json`;
-const PROVENANCE_SOURCE_PATH = `content/batches/${BATCH_ID}/public-files/provenance/${WORK_ID}.json`;
 
 function sha256(value: Uint8Array | string): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;
@@ -119,6 +126,7 @@ async function assertV050Invariant(
   build: IntegratedBuild,
   baseline: Awaited<ReturnType<typeof loadPublishedV050Baseline>>,
   workspace: string,
+  accumulatedWorkCount: number,
 ): Promise<void> {
   if (!isMintedPublishedV050Baseline(baseline)) {
     throw new Error('mint済みv0.5.0 baselineが必要です');
@@ -146,7 +154,7 @@ async function assertV050Invariant(
   if (
     catalog.authors.length !== baselineCatalog.authors.length + 1 ||
     canonicalJson(catalog.authors.slice(0, baselineCatalog.authors.length)) !== canonicalJson(baselineCatalog.authors) ||
-    catalog.works.length !== baselineCatalog.works.length + 1 ||
+    catalog.works.length !== baselineCatalog.works.length + accumulatedWorkCount ||
     canonicalJson(catalog.works.slice(0, baselineCatalog.works.length)) !== canonicalJson(baselineCatalog.works) ||
     canonicalJson(catalog.audioAssets.slice(0, baselineCatalog.audioAssets.length)) !== canonicalJson(baselineCatalog.audioAssets) ||
     canonicalJson(catalog.batches.slice(0, baselineCatalog.batches.length)) !== canonicalJson(baselineCatalog.batches)
@@ -179,54 +187,55 @@ async function assertV050Invariant(
   }
 }
 
-async function main(): Promise<void> {
-  const workspace = resolve(process.cwd());
-  const manifestPath = join(workspace, 'content', 'batches', BATCH_ID, 'batch.json');
-  const checked = validateBatchManifest(await readJson<unknown>(manifestPath));
-  if (!checked.ok) throw new Error(`F006 manifestが不正です: ${checked.error.code}`);
-  const manifest = checked.value;
-  const workIndex = manifest.workIds.indexOf(WORK_ID as WorkId);
-  const workProgress = manifest.workProgress[workIndex];
-  if (workProgress?.status !== 'voiced') throw new Error(`previewにはvoiced workが必要です: ${workProgress?.status}`);
+interface WorkFragmentPiece {
+  readonly work: BatchCatalogFragment['works'][number];
+  readonly audioAssets: BatchCatalogFragment['audioAssets'];
+  readonly candidateTotal: number;
+  readonly publishedTotal: number;
+  readonly provenancePublicFile: NonNullable<BatchCatalogFragment['publicFiles']>[number];
+  readonly generationAssets: VoiceDiffGenerationResult['assets'];
+}
 
-  const context = await loadAndVerifyBatchCandidate(
-    workspace,
-    BATCH_DEFINITION_REFS.F006.ref,
-    BATCH_DEFINITION_REFS.F006.sha256,
-    APPROVAL_POLICY_REFS.F006.ref,
-    APPROVAL_POLICY_REFS.F006.sha256,
-  );
-  const v050 = await loadPublishedV050Baseline(workspace);
-  const registry = defineF006AuthorAndWorkRegistry();
-  const verifiedAuthor = verifyF006AuthorIdentity(registry, v050.catalog);
-
-  const snapshot = await rehydrateF006SelectionSnapshot(workspace, context);
-  const workSnapshot = snapshot.works.find((work) => work.workId === WORK_ID);
-  if (!workSnapshot) throw new Error(`selection snapshotにwork ${WORK_ID}がありません`);
-  const source = parseF006SourceRecord(workSnapshot, WORK_ID);
+/**
+ * work単位のcatalog fragment片（work entry・audioAssets・provenance public file・
+ * ステージ対象audio asset一覧）を構築する。manifest累積範囲（先行accepted work分＋
+ * 現在work分）を1件ずつこの関数で組み立て、呼び出し側で連結する
+ * （src/content/batch-public.tsのbuildIntegratedPublicTreeがactive fragment.works
+ * ／catalogBatch.workIdsへ累積work ID全件を要求するため）。
+ * @des DES-F006-002 DES-F006-010 @fun FUN-F006-002 FUN-F006-011
+ */
+async function buildWorkFragmentPiece(
+  workspace: string,
+  workId: F006WorkId,
+  snapshot: Awaited<ReturnType<typeof rehydrateF006SelectionSnapshot>>,
+  registry: ReturnType<typeof defineF006AuthorAndWorkRegistry>,
+): Promise<WorkFragmentPiece> {
+  const workSnapshot = snapshot.works.find((work) => work.workId === workId);
+  if (!workSnapshot) throw new Error(`selection snapshotにwork ${workId}がありません`);
+  const source = parseF006SourceRecord(workSnapshot, workId);
   const provenanceValue = buildF006SourceProvenance(source, snapshot);
+  const provenanceSourcePath = `content/batches/${BATCH_ID}/public-files/provenance/${workId}.json`;
+  const provenancePublicPath = `content/provenance/${BATCH_ID}/${workId}.json`;
   const provenanceBytes = await writeCanonicalAtomic(
     workspace,
-    join(workspace, ...PROVENANCE_SOURCE_PATH.split('/')),
+    join(workspace, ...provenanceSourcePath.split('/')),
     provenanceValue,
   );
 
-  const [candidatesArtifact, speechArtifact, reviews, generationRaw, artworkBytes] = await Promise.all([
+  const [candidatesArtifact, speechArtifact, reviews, generationRaw] = await Promise.all([
     readJson<{ readonly candidates: readonly CandidateRecord[] }>(
-      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', WORK_ID, 'candidates.json'),
+      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId, 'candidates.json'),
     ),
     readJson<{ readonly speech: readonly SpeechRecord[] }>(
-      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', WORK_ID, 'speech-revisions.json'),
+      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId, 'speech-revisions.json'),
     ),
-    readJson<readonly ReviewRecord[]>(join(workspace, 'content', 'batches', BATCH_ID, 'reviews', `${WORK_ID}.json`)),
+    readJson<readonly ReviewRecord[]>(join(workspace, 'content', 'batches', BATCH_ID, 'reviews', `${workId}.json`)),
     readJson<VoiceDiffGenerationResult>(
-      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', WORK_ID, 'voice-generation.json'),
+      join(workspace, 'content', 'batches', BATCH_ID, 'work-artifacts', workId, 'voice-generation.json'),
     ),
-    readFile(join(workspace, ...ARTWORK_SOURCE_PATH.split('/'))),
   ]);
-  if (sha256(artworkBytes) !== F006_ARTWORK_SHA256) throw new Error('中島敦作者画像SHAが固定値と一致しません');
   const generation = resolveVoiceGenerationPaths(workspace, generationRaw);
-  if (generation.batchId !== BATCH_ID || generation.workId !== WORK_ID) throw new Error('voice generation tupleが不正です');
+  if (generation.batchId !== BATCH_ID || generation.workId !== workId) throw new Error('voice generation tupleが不正です');
 
   const candidatesById = new Map(candidatesArtifact.candidates.map((item) => [item.candidateId, item]));
   const reviewsById = new Map(reviews.map((item) => [item.candidateId, item]));
@@ -244,7 +253,7 @@ async function main(): Promise<void> {
       }
       return {
         dialogueId: speech.candidateId,
-        workId: WORK_ID,
+        workId,
         order: candidate.order,
         displayText: speech.displayText,
         speechText: speech.speechText,
@@ -269,21 +278,12 @@ async function main(): Promise<void> {
     candidateIds: [...asset.candidateIds],
   }));
 
-  const workEntry = registry.works.find((item) => item.workId === WORK_ID);
+  const workEntry = registry.works.find((item) => item.workId === workId);
   if (!workEntry) throw new Error('registryにworkがありません');
 
-  const currentFragment: BatchCatalogFragment = {
-    authors: [{
-      authorId: verifiedAuthor.authorId,
-      name: verifiedAuthor.name,
-      originalName: verifiedAuthor.originalName,
-      slug: verifiedAuthor.slug,
-      artwork: { path: ARTWORK_PUBLIC_PATH, alt: '中島敦をイメージしたずんだもん', sha256: sha256(artworkBytes) },
-      introducedByBatchId: BATCH_ID,
-      identitySha256: verifiedAuthor.identitySha256,
-    }],
-    works: [{
-      workId: WORK_ID,
+  return {
+    work: {
+      workId,
       title: workEntry.title,
       cardLink: source.cardUrl,
       authorId: AUTHOR_ID,
@@ -298,7 +298,7 @@ async function main(): Promise<void> {
         fetchedAt: source.fetchedAt,
         transformation: String(provenanceValue.transformation),
         sourceSha256: source.raw.sha256,
-        provenancePath: PROVENANCE_PUBLIC_PATH,
+        provenancePath: provenancePublicPath,
         provenanceSha256: sha256(provenanceBytes),
       },
       dialogues,
@@ -310,11 +310,69 @@ async function main(): Promise<void> {
       notices: [
         { textKey: 'dialogue-excerpt-scope', placements: ['work-list', 'work-detail', 'credits'] },
       ],
-    }],
+    },
     audioAssets,
+    candidateTotal: candidatesArtifact.candidates.length,
+    publishedTotal: dialogues.length,
+    provenancePublicFile: {
+      source: asWorkspacePath(provenanceSourcePath),
+      publicPath: asWorkspacePath(provenancePublicPath),
+      sha256: asSha256(sha256(provenanceBytes)),
+      bytes: provenanceBytes.byteLength,
+    },
+    generationAssets: generation.assets,
+  };
+}
+
+async function main(): Promise<void> {
+  const workspace = resolve(process.cwd());
+  const manifestPath = join(workspace, 'content', 'batches', BATCH_ID, 'batch.json');
+  const checked = validateBatchManifest(await readJson<unknown>(manifestPath));
+  if (!checked.ok) throw new Error(`F006 manifestが不正です: ${checked.error.code}`);
+  const manifest = checked.value;
+  const workIndex = manifest.workIds.indexOf(WORK_ID as WorkId);
+  const workProgress = manifest.workProgress[workIndex];
+  if (workProgress?.status !== 'voiced') throw new Error(`previewにはvoiced workが必要です: ${workProgress?.status}`);
+
+  const context = await loadAndVerifyBatchCandidate(
+    workspace,
+    BATCH_DEFINITION_REFS.F006.ref,
+    BATCH_DEFINITION_REFS.F006.sha256,
+    APPROVAL_POLICY_REFS.F006.ref,
+    APPROVAL_POLICY_REFS.F006.sha256,
+  );
+  const v050 = await loadPublishedV050Baseline(workspace);
+  const registry = defineF006AuthorAndWorkRegistry();
+  const verifiedAuthor = verifyF006AuthorIdentity(registry, v050.catalog);
+
+  const snapshot = await rehydrateF006SelectionSnapshot(workspace, context);
+  const artworkBytes = await readFile(join(workspace, ...ARTWORK_SOURCE_PATH.split('/')));
+  if (sha256(artworkBytes) !== F006_ARTWORK_SHA256) throw new Error('中島敦作者画像SHAが固定値と一致しません');
+
+  // buildIntegratedPublicTreeは累積work ID全件（先行accepted work＋現在work）を
+  // active fragment.works／catalogBatch.workIdsへ要求するため、manifest.workIds
+  // のうち現在workまでの範囲を1件ずつ組み立てて連結する。
+  const accumulatedWorkIds = manifest.workIds.slice(0, workIndex + 1) as readonly F006WorkId[];
+  const pieces: WorkFragmentPiece[] = [];
+  for (const workId of accumulatedWorkIds) {
+    pieces.push(await buildWorkFragmentPiece(workspace, workId, snapshot, registry));
+  }
+
+  const currentFragment: BatchCatalogFragment = {
+    authors: [{
+      authorId: verifiedAuthor.authorId,
+      name: verifiedAuthor.name,
+      originalName: verifiedAuthor.originalName,
+      slug: verifiedAuthor.slug,
+      artwork: { path: ARTWORK_PUBLIC_PATH, alt: '中島敦をイメージしたずんだもん', sha256: sha256(artworkBytes) },
+      introducedByBatchId: BATCH_ID,
+      identitySha256: verifiedAuthor.identitySha256,
+    }],
+    works: pieces.map((piece) => piece.work),
+    audioAssets: pieces.flatMap((piece) => piece.audioAssets),
     candidateCounts: {
-      total: candidatesArtifact.candidates.length,
-      published: dialogues.length,
+      total: pieces.reduce((sum, piece) => sum + piece.candidateTotal, 0),
+      published: pieces.reduce((sum, piece) => sum + piece.publishedTotal, 0),
       editorialExcluded: 0,
       audioExcluded: 0,
       editorialReasons: {},
@@ -327,12 +385,7 @@ async function main(): Promise<void> {
         sha256: asSha256(sha256(artworkBytes)),
         bytes: artworkBytes.byteLength,
       },
-      {
-        source: asWorkspacePath(PROVENANCE_SOURCE_PATH),
-        publicPath: asWorkspacePath(PROVENANCE_PUBLIC_PATH),
-        sha256: asSha256(sha256(provenanceBytes)),
-        bytes: provenanceBytes.byteLength,
-      },
+      ...pieces.map((piece) => piece.provenancePublicFile),
     ],
   };
 
@@ -340,7 +393,15 @@ async function main(): Promise<void> {
   const previewStage = join(workspace, '.cache', `.f006-preview-${randomUUID()}`);
   await Promise.all([mkdir(activeStage, { recursive: false }), mkdir(previewStage, { recursive: false })]);
   const stagedFiles: ActiveBatchPreview['stagedFiles'][number][] = [];
-  for (const asset of generation.assets) {
+  // 先行accepted work分の音声はbuildIntegratedPublicTree自体がmanifestの
+  // acceptedAudioSourcesから直接staging済みcontent/batches/F006/accepted-audio/
+  // を根拠にcopyする（src/content/batch-public.ts activePriorSources）ため、
+  // ここでstageするのは現在work（pieces末尾＝WORK_ID）分の音声だけでよい。
+  // 先行分まで二重stageするとexpectedFiles（先行audioAssetsを除外した集合）と
+  // 不一致になりPUBLIC_ACCEPTED_AUDIO_HASH_MISMATCHで拒否される。
+  const activePiece = pieces.at(-1);
+  if (!activePiece || activePiece.work.workId !== WORK_ID) throw new Error('累積piecesの末尾が現在workと一致しません');
+  for (const asset of activePiece.generationAssets) {
     const target = join(activeStage, 'audio', `${asset.audioId}.wav`);
     await mkdir(dirname(target), { recursive: true });
     await copyFile(asset.sourcePath, target);
@@ -388,7 +449,7 @@ async function main(): Promise<void> {
       feature: BATCH_ID,
       status: 'accepted',
       authorId: AUTHOR_ID,
-      workIds: [WORK_ID],
+      workIds: [...accumulatedWorkIds],
       acceptedAt: workProgress.stageRecords.findLast((item) => item.stage === 'voiced')!.completedAt,
       evidenceSha256: hashBatchManifest(manifest),
     },
@@ -407,7 +468,7 @@ async function main(): Promise<void> {
     },
     active,
   );
-  await assertV050Invariant(build, v050, workspace);
+  await assertV050Invariant(build, v050, workspace, accumulatedWorkIds.length);
 
   await writeJsonArtifactAtomic(
     workspace,

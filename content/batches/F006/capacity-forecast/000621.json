@@ -1,0 +1,203 @@
+{
+  "batchId": "F006",
+  "configPath": "content/batches/F006/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "48f752df9719079efc8e2fb418282b550c4780f7ccd369432bae253e024d45e0",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 1466996,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F006",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "48f752df9719079efc8e2fb418282b550c4780f7ccd369432bae253e024d45e0",
+    "minimumFreeBytesAfterWrite": 636758348,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 568182488,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "4e460f181bef2bdabccbcbcbaf4e522757f78f733f063265f9779ff0bfd1067e",
+    "preTreeDigest": "cdc2930255043b6e0491f58c47a8ce2d451d15c53827a47b72989bb78dc4842f",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104453500,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "a8bcaad12342f94a36066eb5b319eb15c8bd314a",
+        "d6365fb6e152d1fab59c8ccd85077e09a579601b"
+      ],
+      "includedPaths": [
+        "content/batches/F006/batch.json",
+        "content/batches/F006/reviews/000621.json",
+        "content/batches/F006/work-artifacts/000621/candidates.json",
+        "content/batches/F006/work-artifacts/000621/review-reconciliation.json",
+        "content/batches/F006/work-artifacts/000621/reviews/primary.json",
+        "content/batches/F006/work-artifacts/000621/reviews/secondary.json",
+        "content/batches/F006/work-artifacts/000621/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f006-capacity-actual.ts",
+        "scripts/f006-content-preview.ts",
+        "scripts/f006-prepare-editorial.ts",
+        "scripts/f006-prepare-voice.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "a8bcaad12342f94a36066eb5b319eb15c8bd314a",
+        "d6365fb6e152d1fab59c8ccd85077e09a579601b"
+      ],
+      "includedPaths": [
+        "content/batches/F006/batch.json",
+        "content/batches/F006/reviews/000621.json",
+        "content/batches/F006/work-artifacts/000621/candidates.json",
+        "content/batches/F006/work-artifacts/000621/review-reconciliation.json",
+        "content/batches/F006/work-artifacts/000621/reviews/primary.json",
+        "content/batches/F006/work-artifacts/000621/reviews/secondary.json",
+        "content/batches/F006/work-artifacts/000621/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f006-capacity-actual.ts",
+        "scripts/f006-content-preview.ts",
+        "scripts/f006-prepare-editorial.ts",
+        "scripts/f006-prepare-voice.ts"
+      ],
+      "measuredBytes": 263898160,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 39905333248,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 636758348
+    },
+    "workId": "000621"
+  },
+  "kind": "f006-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 404100,
+    "acceptedAudioFiles": 3,
+    "currentPagesBytes": 284091244,
+    "currentPagesFiles": 898,
+    "freeBytes": 39905333248,
+    "liveWriteUpperBounds": 285154140,
+    "plannedPagesBytes": 284091244,
+    "repositoryNonObjectBytes": 1033440,
+    "rollbackBackupBytes": 284495344
+  },
+  "plan": {
+    "batchId": "F006",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 4,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "7a3014f4f80ffae89cfe8ddd7d0c8a49940b67491d005a69ca55190c0c756ffb",
+        "candidateIds": [
+          "Pxfj4RPQm3Si8k4FWPoOwT743zGopkrlfiYNhF_ARbE"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a3014f4f80ffae89cfe8ddd7d0c8a49940b67491d005a69ca55190c0c756ffb.json",
+        "status": "miss",
+        "text": "「デカシタゾ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a3014f4f80ffae89cfe8ddd7d0c8a49940b67491d005a69ca55190c0c756ffb.wav",
+        "workIds": [
+          "000621"
+        ]
+      },
+      {
+        "audioId": "8f6f6f4f4f29686f5d88131f57dbe1cbccc4161f65e218099cf287d4d316e1a4",
+        "candidateIds": [
+          "f5NOdmtBFTNMUoch2hd62VShp29dvwbiWDrZH5285x4"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f6f6f4f4f29686f5d88131f57dbe1cbccc4161f65e218099cf287d4d316e1a4.json",
+        "status": "miss",
+        "text": "「善し！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f6f6f4f4f29686f5d88131f57dbe1cbccc4161f65e218099cf287d4d316e1a4.wav",
+        "workIds": [
+          "000621"
+        ]
+      },
+      {
+        "audioId": "dcfb0dd02c6e63a7f3b02c7888eda734a42374328eb2fba15b52bcbff6a11db4",
+        "candidateIds": [
+          "yKiFB05uFcESq6FX1zmAAfZfCLZypcmbldtQ46L8usk"
+        ],
+        "estimatedBytes": 518444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dcfb0dd02c6e63a7f3b02c7888eda734a42374328eb2fba15b52bcbff6a11db4.json",
+        "status": "miss",
+        "text": "「ああ、ふうしが、――ここんむそうの射の名人たる夫子が、弓を忘れ果てられたとや？ ああ、弓という名も、その使いみちも！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dcfb0dd02c6e63a7f3b02c7888eda734a42374328eb2fba15b52bcbff6a11db4.wav",
+        "workIds": [
+          "000621"
+        ]
+      },
+      {
+        "audioId": "eb1ce1fc47d01e98121ddd33f86263fe7173f05c583cc6b1d401f7962b90cf97",
+        "candidateIds": [
+          "1E8mg8R7TUaDWpfmC6bMVmBbqkonLr4NgRhBHQBAaaw"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/eb1ce1fc47d01e98121ddd33f86263fe7173f05c583cc6b1d401f7962b90cf97.json",
+        "status": "miss",
+        "text": "「既に、我と彼との別、是と非との分を知らぬ。眼は耳のごとく、耳は鼻のごとく、鼻は口のごとく思われる。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/eb1ce1fc47d01e98121ddd33f86263fe7173f05c583cc6b1d401f7962b90cf97.wav",
+        "workIds": [
+          "000621"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 1062896,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "48f752df9719079efc8e2fb418282b550c4780f7ccd369432bae253e024d45e0",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 4,
+    "planDigest": "4e460f181bef2bdabccbcbcbaf4e522757f78f733f063265f9779ff0bfd1067e",
+    "preTreeDigest": "cdc2930255043b6e0491f58c47a8ce2d451d15c53827a47b72989bb78dc4842f",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 4,
+    "workId": "000621"
+  },
+  "preTreeDigest": "cdc2930255043b6e0491f58c47a8ce2d451d15c53827a47b72989bb78dc4842f",
+  "schemaVersion": "1.0.0",
+  "workId": "000621"
+}

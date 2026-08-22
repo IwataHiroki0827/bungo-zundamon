@@ -1,0 +1,48 @@
+{
+  "header": {
+    "artifactSha256": "9ba61bd02605c5d6d987b2e932040cab5c8ca2a1c72e34255a03781a8f4efda4",
+    "authorizationId": "f006-000621-primary",
+    "candidateSetSha256": "474e60bca8743a4a3cf14350c85be655717c061830865f661abaac44f97df8de",
+    "policySha256": "54829ace28b704340492fa0d1f177acf86c220f56e105d3570cdf085fa1089ff",
+    "promptSha256": "7ac9e87997ffea9cbc23686e008301518f997b11e518ffb061224ad278961142",
+    "role": "primary",
+    "runId": "f006-000621-primary-run",
+    "sealedAt": "2026-08-22T00:15:00.000Z",
+    "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+  },
+  "judgments": [
+    {
+      "candidateId": "Pxfj4RPQm3Si8k4FWPoOwT743zGopkrlfiYNhF_ARbE",
+      "decision": "approved",
+      "inputSha256": "1dfaae7a5af0889a6fdfb1dc039c420061568c2330f88205707e264fb30958c5",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1259-1266",
+      "speaker": "飛衛"
+    },
+    {
+      "candidateId": "f5NOdmtBFTNMUoch2hd62VShp29dvwbiWDrZH5285x4",
+      "decision": "approved",
+      "inputSha256": "7a43629debd9e0206be1b070141294779bd1fe6882e0f8eb0a649e43146d1d96",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1647-1652",
+      "speaker": "飛衛"
+    },
+    {
+      "candidateId": "1E8mg8R7TUaDWpfmC6bMVmBbqkonLr4NgRhBHQBAaaw",
+      "decision": "approved",
+      "inputSha256": "719d24f18ae6c6ab40355bbbd7393b198ec4e5e78142eeaa811b5c1c827905e2",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:4835-4886",
+      "speaker": "紀昌"
+    },
+    {
+      "candidateId": "yKiFB05uFcESq6FX1zmAAfZfCLZypcmbldtQ46L8usk",
+      "decision": "approved",
+      "inputSha256": "ed28bf65addde347a4d55c86bb1bb95c90791d7d27f4103d92021119f1554f1f",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:5505-5557",
+      "speaker": "主人"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

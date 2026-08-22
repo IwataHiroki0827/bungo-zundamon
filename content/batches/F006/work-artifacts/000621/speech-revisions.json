@@ -1,0 +1,49 @@
+{
+  "batchId": "F006",
+  "kind": "f006-speech-revision-result",
+  "reconciliationDigest": "b135f448cd6d1148abaca0641893a73a576c8dc1e21807eb5f080a558e111c54",
+  "revisions": [
+    {
+      "after": "「デカシタゾ」",
+      "before": "「出かしたぞ」",
+      "candidateId": "Pxfj4RPQm3Si8k4FWPoOwT743zGopkrlfiYNhF_ARbE",
+      "inputSha256": "b0c70f496b80b98a34b8aa84d212a2e7b05ba0af244fd1bbd66e8753c99f9501",
+      "outputSha256": "30fa2b9de20e72249b916133a45d0e3ba760ca1778926223c74b26d76a009aa1",
+      "reason": "VOICEVOX 0.25.2 speaker 3のaudio_query実測で「出かしたぞ」が「しゅっかしたぞ」（出を音読み「しゅっ」に誤読）に誤読されることを確認。displayTextを変えずカタカナで正しい読み「でかしたぞ」を強制する。",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "Pxfj4RPQm3Si8k4FWPoOwT743zGopkrlfiYNhF_ARbE",
+      "displayText": "「出かしたぞ」",
+      "revisionCount": 1,
+      "speechSha256": "30fa2b9de20e72249b916133a45d0e3ba760ca1778926223c74b26d76a009aa1",
+      "speechText": "「デカシタゾ」"
+    },
+    {
+      "candidateId": "f5NOdmtBFTNMUoch2hd62VShp29dvwbiWDrZH5285x4",
+      "displayText": "「善し！」",
+      "revisionCount": 0,
+      "speechSha256": "3099fee9f98db43738850f7ae290e977be6a0af36c36cb229b4b94c6c3d9d055",
+      "speechText": "「善し！」"
+    },
+    {
+      "candidateId": "1E8mg8R7TUaDWpfmC6bMVmBbqkonLr4NgRhBHQBAaaw",
+      "displayText": "「既に、我と彼との別、是と非との分を知らぬ。眼は耳のごとく、耳は鼻のごとく、鼻は口のごとく思われる。」",
+      "revisionCount": 0,
+      "speechSha256": "94ef1ffe6d4a636d74e080b2a3bf8ef41524bcf8b1f29c081cff12d1acb3fa35",
+      "speechText": "「既に、我と彼との別、是と非との分を知らぬ。眼は耳のごとく、耳は鼻のごとく、鼻は口のごとく思われる。」"
+    },
+    {
+      "candidateId": "yKiFB05uFcESq6FX1zmAAfZfCLZypcmbldtQ46L8usk",
+      "displayText": "「ああ、夫子が、――古今無双の射の名人たる夫子が、弓を忘れ果てられたとや？　ああ、弓という名も、その使い途も！」",
+      "revisionCount": 0,
+      "speechSha256": "87137b8122edcca632a650b2e50c170759f6eabb3d633764fe6d16a628f488f6",
+      "speechText": "「ああ、ふうしが、――ここんむそうの射の名人たる夫子が、弓を忘れ果てられたとや？ ああ、弓という名も、その使いみちも！」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000621"
+}
