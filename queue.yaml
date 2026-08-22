@@ -2099,3 +2099,121 @@ items:
       UT-F007.md・IT-F007.mdをApprovedへ更新した。これによりSRS/FD/DD/UT/IT/QT-F007が全てApproved
       となり、pf-implementのゲートチェックを通過できる状態になった。次フェーズはpf-implement（T-160
       以降）だが、本タスクの指示によりここで停止する。
+  - id: Q-065
+    type: approval
+    status: closed
+    title: F008（江戸川乱歩3作品追加）要求仕様の承認（ゲート①）
+    body: >-
+      「10人になるまで進めて」directiveに基づき、F007(v0.7.0)公開完了を受けてF008の要求分析を実施した。
+      作者選定はDOMAIN-F006.md（2026-08-21確定）のランキングを再利用し、次点の江戸川乱歩（人物ID001779、
+      score 226,526）を採用した。代表3作品（人間椅子056648・Ｄ坂の殺人事件056650・一人二役057193）は
+      DOMAIN-F008.mdで2022年XHTMLアクセスランキング・拡充CSV実データにより裏取りした
+      （2026-08-22実取得）。docs/domain/DOMAIN-F008.md・docs/srs/SRS-F008.md（REQ 19件）・
+      docs/qa/QA-F008.md（11問、全て推奨案採用で自動回答）・docs/tests/qt/QT-F008.md（QT 19件）を作成した。
+      人間椅子・Ｄ坂の殺人事件の両方の図書カードに公式表現注意を発見し、1バッチ内2作品同時の作品固有
+      注記UI適用が初めて必要になることをREQ-F008-009/010・QA No.4で明記した。REQ-F008-019として、
+      F007実装で発見したVOICEVOX synthesis長大候補（約1,335文字超）HTTP 500エラーとF007ローカル
+      分割対応（600文字閾値、句点分割）の再利用を非機能要件として明記した。
+      自己レビュー2観点（整合性: REQ→DOMAIN根拠の対応・既存6回のQA回答パターンとの整合、実現性:
+      Ｄ坂の殺人事件の長大候補分割方針がF007実測境界に対し十分な安全マージンを持つこと）で指摘0件。
+    target: docs/srs/SRS-F008.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T22:55:00+09:00'
+    source: pf-requirements
+    resume:
+      task: F008-requirements
+      next: pf-setup
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。QAシート回答完了（未回答0件）・レビュー指摘ゼロ化の
+      品質条件を満たすため、承認ゲート①（要求仕様確定）を自動承認として記録する。
+    approved_at: '2026-08-22T23:06:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T23:06:00+09:00'
+    processed_note: >-
+      SRS-F008.md・QT-F008.mdをApprovedへ更新した。docs/features.yamlへF008エントリ（state: setup）を
+      追加した。次フェーズpf-setupへ進める。
+  - id: Q-066
+    type: approval
+    status: closed
+    title: F008（江戸川乱歩3作品追加）機能設計・関数設計の承認（ゲート②）
+    body: >-
+      T-168〜T-178のWBS作成（F007のT-157〜T-167と同構成、11タスク）に続き、docs/design/FD-F008.md
+      （DES 15件、REQ-F008全19件を網羅）・docs/design/DD-F008.md（FUN 17件、既存関数の直接再利用9件・
+      新規実装8件: f008-baseline.ts・author/work registry・f008-source.ts(entity抽出+長大候補分割)・
+      f008-acceptance.ts・f008-catalog.ts・f008-artwork.ts）を作成した。
+      主な設計判断: (1) 人間椅子・Ｄ坂の殺人事件2作品同時の公式表現注意対応をwork-notices.tsの
+      TRUSTED_REGISTRY_BINDINGSへのデータ追加のみ（新規application分岐なし）で実現する設計とした。
+      F005/F007は1作品のみだったため、同一バッチ内2作品混在は初のケース。(2) F007で発見した
+      artwork existingArtwork件数チェックのexact一致バグ(commit cd5ecc8で下限判定へ修正)を教訓とし、
+      f008-artwork.tsは実装当初から`existingArtwork.length < 6`の下限判定で設計した。(3) F007で
+      事後追加が必要になった専用e2e spec（f00N-*-author.spec.ts）を、実装フェーズの一部として最初から
+      作成するタスク（T-177）を設計に組み込んだ。
+      自己レビュー2観点（整合性: REQ19件→DES15件の対応漏れなし・タグ検証、実現性: F006/F007確立パターン
+      の再利用範囲の妥当性）で指摘0件。trace_check.py --feature F008でREQ→DES→FUN対応漏れ0件を確認した。
+    target: docs/design/DD-F008.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T23:10:00+09:00'
+    source: pf-design
+    resume:
+      task: T-168/T-169
+      next: pf-testspec
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビューパネル指摘ゼロ化・trace_check REQ→DES→FUN
+      対応漏れ0の品質条件を満たすため、承認ゲート②を自動承認として記録する。
+    approved_at: '2026-08-22T23:15:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T23:15:00+09:00'
+    processed_note: >-
+      FD-F008.md・DD-F008.mdをApprovedへ更新した。次フェーズpf-testspec（UT-F008・IT-F008作成）へ
+      進める。
+  - id: Q-067
+    type: approval
+    status: closed
+    title: F008（江戸川乱歩3作品追加）UT/IT仕様の承認（ゲート③・テストファーストゲート）
+    body: >-
+      docs/tests/ut/UT-F008.md（UT 17件、DD-F008.md FUN-F008-001〜017の全件を1件ずつ網羅）・
+      docs/tests/it/IT-F008.md（IT 11件、DES-F008-001〜015全件を網羅）を作成した。UT-F007.md/
+      IT-F007.mdを構造の参考にし、DD-F008.mdの各FUN本文を実際に精査したうえで、「新規コードなし」と
+      明記された7件(FUN-F008-001/007/008/009/013/016/017)は既存UT-F002〜F007が汎用入力で既に網羅
+      しているため新規UTケースを追加せず引用に留め、残る10件(FUN-F008-002/003/004/005/006/010/011/
+      012/014/015、新規モジュールf008-baseline.ts・f008-source.ts・f008-acceptance.ts・
+      f008-catalog.ts・f008-artwork.ts)にF008固有の正常・境界・異常系ケースを新規作成した。ITは
+      F008固有結合シナリオ(3作品の順次atomic受入、v0.7.0固定baselineへのCatalog統合、既存6作者21作品
+      との共存、人間椅子・Ｄ坂の殺人事件2作品同時の作品固有注記(official-content-warning)のUI結合、
+      Ｄ坂の殺人事件の長大候補分割)に絞って詳細化した。UT-F008-006ではF007実測境界(1335文字)を根拠
+      とした600/601文字の同値境界ケースを新規追加した。
+      自己レビュー2観点(網羅性: DD-F008.mdのDES15件・FUN17件全件へのUT/IT対応漏れがないことを本書の
+      DES・FUN網羅表とtrace_check.pyで確認、テスト設計妥当性: 新規実装10件は正常・境界同値・異常系を
+      各ケースに含み、再利用7件は既存テストファイルを具体的に引用し重複を作らない設計)で指摘0件。
+    target: docs/tests/ut/UT-F008.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T23:30:00+09:00'
+    source: pf-testspec
+    resume:
+      task: T-170
+      next: pf-implement
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビュー指摘ゼロ化・trace_check DES→FUN→UT/IT
+      対応漏れ0の品質条件を満たすため、承認ゲート③（テストファーストゲート）を自動承認として記録する。
+    approved_at: '2026-08-22T23:30:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T23:30:00+09:00'
+    processed_note: >-
+      UT-F008.md・IT-F008.mdをApprovedへ更新した。これによりSRS/FD/DD/UT/IT/QT-F008が全てApproved
+      となり、pf-implementのゲートチェックを通過できる状態になった。次フェーズはpf-implement（T-171
+      以降）だが、本タスクの指示によりここで停止する。

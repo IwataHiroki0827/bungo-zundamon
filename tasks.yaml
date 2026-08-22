@@ -4213,13 +4213,25 @@ tasks:
   title: UT-F008・IT-F008を作成しQT-F008との網羅性を確認
   feature: F008
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-169
   tags: *id008
   mode: orchestration
   mode_reason: 権利・原典entity検出・独立二重判定・音声・容量・Catalog・2作品同時注記UI・長大候補分割・セキュリティの独立試験領域を並列設計できるため
   model: *model_f008
+  progress: >-
+    docs/tests/ut/UT-F008.md(UT 17件、DD-F008.md FUN-F008-001〜017の全件を
+    1件ずつ網羅)・docs/tests/it/IT-F008.md(IT 11件、DES-F008-001〜015全件を
+    網羅)を作成した。UT-F007.md/IT-F007.mdを構造の参考にし、「新規コード
+    なし」と明記された7件(FUN-F008-001/007/008/009/013/016/017)は既存
+    UT-F002〜F007を引用に留め、残る10件(新規モジュールf008-baseline.ts・
+    f008-source.ts・f008-acceptance.ts・f008-catalog.ts・f008-artwork.ts)
+    にF008固有の正常・境界・異常系ケースを新規作成した。UT-F008-006では
+    F007実測境界(1335文字)を根拠とした600/601文字の同値境界ケースを追加。
+    trace_check.py --feature F008は対応漏れなし。承認ゲート③自動承認
+    (queue.yaml Q-067)、SRS/FD/DD/UT/IT/QT-F008が全てApproved。
+    次のアクションはpf-implement(T-171以降)。
 - id: T-171
   title: 候補manifest・固定v0.7.0 baseline・作者identity・権利原典を整備
   feature: F008

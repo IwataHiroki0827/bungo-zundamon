@@ -2089,3 +2089,24 @@ entries:
     未着手のため想定通り)。docs/features.yamlのF008をstate: designへ更新。
     tsc/lint clean(設計文書のみでコード変更なし)。承認ゲート②を自動承認
     方針に従い処理。次のアクション: /pf-testspec(T-170)を開始する。
+- date: '2026-08-22'
+  phase: testspec
+  task: T-170 UT-F008・IT-F008作成、承認ゲート③自動承認、queue.yaml遡及登録
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 45000
+  note: >-
+    F008(江戸川乱歩3作品追加)のテスト設計フェーズをメインセッション側で
+    実施した。1回目のforkがtool_uses=0で実質未着手のまま終了する異常が
+    発生したため([[feedback-verify-fork-completion]]既報のパターン)、
+    自ら直接DD-F008.md・UT-F007.md/IT-F007.mdを読み込みUT-F008.md(17件)・
+    IT-F008.md(11件)を作成した。DD-F008.mdの各FUNを精査し「新規コードなし」
+    7件は既存テストを引用、残る10件にF008固有の正常・境界・異常系ケース
+    (UT-F008-006の600/601文字分割境界を含む)を新規作成した。
+    trace_check.py --feature F008は対応漏れなし。
+    また、先行2つのfork(要求分析・設計フェーズ)がqueue.yamlへのgate①②
+    登録を行っていなかった規約逸脱を発見し、Q-065(gate①)・Q-066(gate②)・
+    Q-067(gate③、本タスク分)を遡及登録し自動承認方針で処理した(pf-resume等
+    のツールがqueue.yaml履歴に依存するため、監査証跡の一貫性を保つ目的)。
+    tasks.yaml T-170をdoneへ、docs/features.yamlをtestspecへ更新。
+    SRS/FD/DD/UT/IT/QT-F008が全てApproved。次: /pf-implement(T-171以降)。
