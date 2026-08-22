@@ -4236,7 +4236,7 @@ tasks:
   title: 候補manifest・固定v0.7.0 baseline・作者identity・権利原典を整備
   feature: F008
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-170
   tags: *id008
@@ -4244,19 +4244,40 @@ tasks:
   mode_reason: baseline pin・candidate registry・author identityは相互依存が強く逐次確定が必要なため
   model: *model_f008
   progress: >-
-    FUN-F008-002/003(v0.7.0固定baseline pin)のみ完了。src/content/f008-baseline.ts・
-    f008-baseline.test.ts・content/baselines/F008-v0.7.0.jsonを新規作成し、F007公開証跡
-    (RELEASE-F007.md/F007-approval.json/F007-deployment.json、release commit ab3db17.../
-    control commit 42ffab9...)から実git objectでpublicTreeOid・catalogSha256・
-    trackedPublic(1129 files/405332183 bytes)・counts(6作者21作品1099台詞1082音声7batch)を
-    実測し、descriptor SHA-256(32525a22...)を計算して埋め込んだ。vitest 10件全PASS、
-    tsc --noEmit エラー0を確認済み。
-    未着手: FUN-F008-001(候補registry・batch-definitions/F008.json・approval-policies/F008.json・
-    batch-candidates.json追記)、FUN-F008-004(author/work registry・verifyF008AuthorIdentity)、
-    FUN-F008-005/006(f008-source.ts本体、実HTTPS取得による3作品XHTML snapshot・
-    未定義entity再検証・決定的抽出・長大候補分割)。F007実績(f007-source.ts単体1929行)を
-    踏まえると本タスク残りだけで大規模実装が必要。次回セッションでf008-source.ts実装から
-    再開すること。
+    FUN-F008-001/002/003/004/005/006が完了。前回セッション完了分(FUN-F008-002/003、
+    f008-baseline.ts)に続き、本セッションで以下を実施した。
+    (1) FUN-F008-001: content/batch-definitions/F008.json・content/approval-policies/F008.json
+    を新規作成(F007版を参考にauthorId 001779・3作品URLへパラメータ化、実際にAozora Bunko
+    へHTTPS接続してcard/xhtml URLの実在を確認済み)。docs/evidence/requirements/
+    F008-approval-binding.json(queue.yaml Q-065のcanonical projection SHA256を実計算して
+    構築)を新規作成。src/content/batch-candidate.tsへAPPROVAL_POLICIES.F008・
+    BATCH_DEFINITION_REFS.F008・APPROVAL_POLICY_REFS.F008を登録。content/batch-candidates.json
+    へF008 candidate entry(author identitySha256実計算値含む)を追記。全JSON がcanonicalJson
+    と完全一致することをvitest経由で検証済み。loadAndVerifyBatchCandidate(F008)がE2Eで成功
+    することを確認済み。
+    (2) FUN-F008-004: defineF008AuthorAndWorkRegistry/verifyF008AuthorIdentityを
+    f008-source.ts内に実装(F007の同型関数を複製、authorId 001779・えどがわらんぽ・
+    edogawa-ranpo・3作品順へパラメータ化)。
+    (3) FUN-F008-005/006: src/content/f008-source.ts(f007-source.ts 1929行を忠実に複製・
+    パラメータ化、約1650行)を新規作成。実HTTPS取得の結果、人間椅子(056648)・
+    Ｄ坂の殺人事件(056650)・一人二役(057193)の3作品XHTMLとも未定義named entity0件
+    (F007の舞姫のような&nbsp;特別contextは無し)であることを実測確認し、
+    normalizeF008AozoraXhtmlEntitiesはpassthroughのみを許容する簡素な実装とした。
+    splitOverlongF008Candidates(600文字閾値・句点分割)を実装当初から組み込み、
+    Ｄ坂の殺人事件で実際に発動することを実測確認した(生抽出82候補中4候補が閾値超過
+    [実測最大1,429文字]、87候補へ自動分割)。scripts/f008-collect-source.ts
+    (f007-collect-source.ts複製)を新規作成し実行、実データを
+    content/batches/F008/source-snapshots/selection.json・
+    data/batches/F008/source-snapshots/selection/配下(bibliography.zip・author-page.html・
+    3規約・3作品のcard/xhtml)へ永続化した。
+    src/content/f008-source.test.ts(12件、f007-source.test.ts構成を踏襲)を新規作成し
+    全PASS。tsc --noEmit・eslint(f008-source.ts/f008-source.test.ts/f008-collect-source.ts)
+    ともにエラー0。batch-candidate.test.ts・f007-source.test.ts・f008-baseline.test.ts
+    含む関連スイートに regression なし。
+    未着手: content/batches/F008/batch.json draft materialize
+    (createBatchManifestFromApprovedContextの実呼出し。F007実績を見る限りT-172
+    [Catalog統合基盤]側で行うのが自然な区切りと判断し、本タスクでは見送った)。
+    次タスクT-172(Catalog統合基盤・作者画像・work-notices registry)から再開すること。
 - id: T-172
   title: Catalog統合基盤・江戸川乱歩作者画像・2作品分の注記registryを整備
   feature: F008

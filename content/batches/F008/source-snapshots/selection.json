@@ -1,0 +1,436 @@
+{
+  "authorId": "001779",
+  "authorPage": {
+    "byteLength": 19940,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-08-22T14:41:31.103Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F008/source-snapshots/selection/author-page.html",
+    "sha256": "1beea4e4d093bca63ade9ee4f27fc9c2d271ced7e5bd25b1b7e0b78aa581db09",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/person1779.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "batchId": "F008",
+  "bibliographyArchive": {
+    "byteLength": 2092746,
+    "charset": null,
+    "fetchedAt": "2026-08-22T14:41:30.679Z",
+    "mediaType": "application/zip",
+    "path": "data/batches/F008/source-snapshots/selection/bibliography.zip",
+    "sha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "bibliographyCsv": {
+    "byteLength": 17161785,
+    "charset": "UTF-8",
+    "derivedFromSha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "fetchedAt": "2026-08-22T14:41:30.679Z",
+    "mediaType": "text/csv",
+    "path": "data/batches/F008/source-snapshots/selection/bibliography.zip",
+    "sha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "derived",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "kind": "f008-source-selection-snapshot",
+  "observedAt": "2026-08-22T14:41:29.993Z",
+  "phase": "selection",
+  "policies": [
+    {
+      "artifact": {
+        "byteLength": 28598,
+        "charset": null,
+        "fetchedAt": "2026-08-22T14:41:31.387Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/policies/voicevox-terms.raw",
+        "sha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "sourceUrl": "https://voicevox.hiroshiba.jp/term/",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "185.199.109.153",
+          "dnsAddresses": [
+            "185.199.109.153",
+            "185.199.110.153",
+            "185.199.108.153",
+            "185.199.111.153"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F008PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "voicevox-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "decision": "allow",
+        "policyId": "voicevox-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "voicevox-terms",
+      "versionOrLabel": "VOICEVOX 利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 8174,
+        "charset": null,
+        "fetchedAt": "2026-08-22T14:41:31.458Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/policies/zundamon-audio-terms.raw",
+        "sha256": "902ac82a53c40ac8a5c39111b9f28cf1b1cb6d20e52e37e5264d0d2f271a6a98",
+        "sourceUrl": "https://zunko.jp/con_ongen_kiyaku.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F008PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "audio-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "902ac82a53c40ac8a5c39111b9f28cf1b1cb6d20e52e37e5264d0d2f271a6a98",
+        "decision": "allow",
+        "policyId": "zundamon-audio-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-audio-terms",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト 音源利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 47558,
+        "charset": null,
+        "fetchedAt": "2026-08-22T14:41:31.523Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/policies/zundamon-character-guideline.raw",
+        "sha256": "d6309b88430273d39fcb10b7149ec0eb8b8a0cbd8aa10d6d0fc0705b22c4d947",
+        "sourceUrl": "https://zunko.jp/guideline.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F008PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "character-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-unofficial",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "d6309b88430273d39fcb10b7149ec0eb8b8a0cbd8aa10d6d0fc0705b22c4d947",
+        "decision": "allow",
+        "policyId": "zundamon-character-guideline",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-character-guideline",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト キャラクター利用ガイドライン"
+    }
+  ],
+  "rights": {
+    "decision": "allow",
+    "observedAt": "2026-08-22T14:41:29.993Z",
+    "phase": "selection",
+    "reasons": []
+  },
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "bibliography": {
+        "baseEdition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56648.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "inputter": "砂場清隆",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "001779",
+        "proofreader": "湖山ルル",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/56648_58207.html",
+        "status": "公開中",
+        "title": "人間椅子",
+        "workId": "056648"
+      },
+      "card": {
+        "byteLength": 9296,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-22T14:41:31.573Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/056648/card.html",
+        "sha256": "99bec077dda7d3e4419b0771dbbc41aaee04bbf3ec5cee6cfcb25108fb241c04",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/card56648.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "人間椅子",
+      "workId": "056648",
+      "xhtml": {
+        "byteLength": 47306,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-22T14:41:31.640Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/056648/source.raw",
+        "sha256": "754a6926e37964886be4dab8e5d6e489017cd09d8c651d00167abb4d0edc1020",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/56648_58207.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56650.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "inputter": "砂場清隆",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "001779",
+        "proofreader": "湖山ルル",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/56650_58209.html",
+        "status": "公開中",
+        "title": "Ｄ坂の殺人事件",
+        "workId": "056650"
+      },
+      "card": {
+        "byteLength": 9299,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-22T14:41:31.688Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/056650/card.html",
+        "sha256": "84a134708c22fd8363bdc9d8293ce17293982dce326893e67e5cc3f71f6f236b",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/card56650.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "Ｄ坂の殺人事件",
+      "workId": "056650",
+      "xhtml": {
+        "byteLength": 56141,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-22T14:41:31.753Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/056650/source.raw",
+        "sha256": "dd3d93d1926708845b8c63e565bb86bac10e9001b990cf37b77a4b4c128b9fc6",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/56650_58209.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "cardUrl": "https://www.aozora.gr.jp/cards/001779/card57193.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+        "inputter": "門田裕志",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "001779",
+        "proofreader": "A.K.",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/57193_59571.html",
+        "status": "公開中",
+        "title": "一人二役",
+        "workId": "057193"
+      },
+      "card": {
+        "byteLength": 8622,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-22T14:41:31.796Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/057193/card.html",
+        "sha256": "89e485c155249af600331323b534c541153a6d048cf748d00751fc2261840a4d",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/card57193.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "一人二役",
+      "workId": "057193",
+      "xhtml": {
+        "byteLength": 22755,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-22T14:41:31.853Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F008/source-snapshots/selection/works/057193/source.raw",
+        "sha256": "1dbd10aa421d45df483355ed4ab80b17b7d89408d37e60bd2b85a375f5359a13",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/57193_59571.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    }
+  ]
+}

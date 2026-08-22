@@ -275,6 +275,56 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/689_23257.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "ec86ed10150708f06c7509bef0f4c1a51d2307c128ab53382f92b1949d0e4460",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F008.md",
+            "sha256": "c26b45895c2c205a635fb29e002e71723882dadef482ce49ca223592b6c64d3b"
+          },
+          {
+            "path": "docs/tests/qt/QT-F008.md",
+            "sha256": "4f7861683a7324fe836be56442ce0783dd3c3b3d0d3d354f03d08caa245f069a"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F008-approval-binding.json",
+        "evidenceSha256": "d93683c3589e27bd5b700229deb916fad705fc85f52cfef54507ee27601590f1",
+        "queueId": "Q-065"
+      },
+      "author": {
+        "authorId": "001779",
+        "identitySha256": "a15a84c89958f7b2bdd08fb839bd8aba488fd71a2d55a6055a3c2ddd7c5cd0cd",
+        "name": "えどがわらんぽ",
+        "originalName": "江戸川乱歩",
+        "slug": "edogawa-ranpo"
+      },
+      "batchId": "F008",
+      "feature": "F008",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56648.html",
+          "order": 1,
+          "title": "人間椅子",
+          "workId": "056648",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/001779/files/56648_58207.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/001779/card56650.html",
+          "order": 2,
+          "title": "Ｄ坂の殺人事件",
+          "workId": "056650",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/001779/files/56650_58209.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/001779/card57193.html",
+          "order": 3,
+          "title": "一人二役",
+          "workId": "057193",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/001779/files/57193_59571.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"
