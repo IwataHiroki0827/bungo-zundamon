@@ -3525,7 +3525,7 @@ tasks:
   title: F006リリース前総点検・GitHub Pages段階公開・公開8 routeスモーク
   feature: F006
   phase: release
-  state: todo
+  state: doing
   depends:
   - T-155
   tags:
@@ -3536,3 +3536,40 @@ tasks:
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
   model: *model_f006
+  progress: >-
+    F005 v0.5.0リリース前例(T-075)の3commit構成((1)release: vX.Y.0候補を
+    確定、(2)release: F00N公開treeを昇格、(3)release: F00N vX.Y.0公開を
+    確定=メインセッション側担当)のうち(1)(2)相当を実施した。
+    `scripts/f006-final-integration.ts --retain`を再実行しsourceCommitが
+    最新(6e5bb3c)であることを確認、authors=5・works=18・dialogues=939・
+    audioAssets=923・treeFiles=965・distFileCount=968が期待値と完全一致
+    することを確認した。`package.json`/`package-lock.json`のversionを
+    0.5.0→0.6.0へ更新、`CHANGELOG.md`へ[0.6.0]セクション(中島敦「山月記」
+    「名人伝」「弟子」、5作者18作品939台詞923音声、既存4作者15作品877台詞
+    861音声のbaseline不変)を追記した。`public/`のartwork・audio・content・
+    dataを候補tree(.cache/f006-final-integration-*/tree)の内容へ丸ごと
+    置換し、`git status`で既存898件が不変・新規67件追加(F006新規artwork
+    1件・audio 55件・provenance 3件・artwork-provenance 1件、既存分の
+    差分はcontent/catalog.json・content/artwork-provenances.jsonの2件のみ)
+    であることを確認した(F005先例と同型パターン)。`npm run build`→
+    `npm run verify:build`はPASS(968 files/304706117 bytes)。`npm run lint`/
+    `npm run typecheck`は差分0でPASS。`npm test`フルスイート(1375件)は
+    34 failedで、個別再実行によりf006-editorial.integration.test.ts
+    (5件)・batch-catalog.test.ts(該当1件除く)は単体実行で全PASSし、残りは
+    T-151〜T-154で既に確認済みの既知事象(F005 native guard exe欠落
+    `.cache/dotnet-f005/publish/f005-guard.exe`不在、frozen historical
+    commit fixtureの非canonical、F004時代batch-catalog.test.tsのF005
+    published fragment gap、offline-build.integration.test.tsのVite plugin
+    stderr混入、Windows並列resource contention)と同型であり、本タスクの
+    `public/`置換による新規failureではないことを確認した。
+    `npm run test:e2e`(Playwright 6 project: chromium/firefox/webkit/
+    Android相当/Chrome stable/Edge stable)は181 passed・5 skipped
+    (production build全asset照合をchromiumで一度だけ実行する既存設計どおり、
+    F005リリース時と同型)・失敗0で全PASSを確認した。`docs/features.yaml`
+    のF006を`state: closed`へ更新した。`docs/cost.yaml`・`STATUS.md`を
+    更新した。`content/baselines/F00N-v0.X.0.json`相当の新規baseline記述子
+    はF005先例(次フィーチャー着手時に作成)に倣い今回は作成していない。
+    本タスクの指示によりpush・PR作成・タグpush・PAGES_DEPLOY変数設定・
+    実デプロイ・release evidence作成は行っていない。stateは`doing`のまま
+    維持する(実デプロイ確認後にメインセッション側が(3)相当のcommitで
+    closeする想定)。

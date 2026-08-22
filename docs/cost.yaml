@@ -1801,3 +1801,36 @@ entries:
     resource contention)と確認した。docs/changes/CHG-F006-006.mdを新規
     作成、tasks.yaml T-154をdoneへ更新、STATUS.mdを更新した。public/・
     content/baselines/*.jsonは変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: release
+  task: T-156 F006リリース前総点検(version bump・CHANGELOG・public/差替え・検証)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 90000
+  note: >-
+    F005 v0.5.0昇格時と同じ2段構成のうち前半(候補確定・public/昇格)を実施
+    した。scripts/f006-final-integration.ts --retainを再実行し
+    sourceCommitが最新(6e5bb3c)であることを確認、authors=5・works=18・
+    dialogues=939・audioAssets=923・treeFiles=965を再確認した。
+    package.json/package-lock.jsonのversionを0.5.0→0.6.0へ更新、
+    CHANGELOG.mdへ[0.6.0](中島敦「山月記」「名人伝」「弟子」、5作者18作品
+    939台詞923音声)を追記した。public/artwork・audio・content・dataを
+    候補treeの内容へ丸ごと置換し(既存898件は不変、新規67件追加、差分は
+    F005先例と同型でcontent/catalog.json・content/artwork-provenances.json
+    の更新+artwork/audio/provenance新規ファイルのみ)、`npm run build`→
+    `npm run verify:build`はPASS(968 files/304706117 bytes)。`npm run lint`/
+    `npm run typecheck`は差分0でPASS。`npm test`フルスイート(1375件)は
+    34 failedで、個別再実行によりf006-editorial.integration.test.ts・
+    batch-catalog.test.tsはいずれも単体実行で全PASSし、既知のWindows並列
+    resource contentionおよびF005公開時から潜在するF005 native guard exe
+    欠落・frozen historical commit fixture等の既知事象(T-151〜T-154で
+    reported済みの36 failedパターンと同種)であり本タスクによる新規failure
+    ではないことを確認した。`npm run test:e2e`(Playwright 6 project)は
+    181 passed・5 skipped(production build全asset照合をchromiumで一度だけ
+    実行する既存設計どおり)・失敗0で全PASS。docs/features.yamlのF006を
+    stateをclosedへ更新、docs/cost.yaml(本entry)・STATUS.mdを更新した。
+    tasks.yaml T-156のprogressに完了内容を記載しstateはdoingのまま維持
+    (実push・デプロイ・タグ付け・release evidence作成はメインセッション
+    側の担当のため)。content/baselines/F00N-v0.X.0.json相当の新規baseline
+    記述子はF005先例(次フィーチャー着手時に作成)に倣い今回は作成していない。
+    push・PR作成・タグpush・PAGES_DEPLOY変数設定・実デプロイは行っていない。
