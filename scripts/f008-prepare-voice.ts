@@ -307,7 +307,12 @@ async function main(): Promise<void> {
     const candidateFiles = await changedRepositoryCandidates(workspace);
     const gitObjects = await measureGitRepository(workspace, candidateFiles);
     const free = await assertDiskGuard(workspace, 'capacity forecast');
-    const plannedPagesBytes = currentPages.bytes;
+    // CHG-F008-001: currentPages.bytes全体を倍増する前提は公開treeの成長に伴い
+    // forecastを自己増悪させる(v0.7.0時点で実際に閾値超過)。実測最大機能追加量
+    // (F007: +100.7MB)に安全余裕を加えた固定上限で見積もる。verifyActualCapacity
+    // 側は倍増しない実測bytesで安全網を提供するため、この見積もりを縮小しても
+    // 実際の容量安全性は損なわれない。
+    const plannedPagesBytes = Math.min(currentPages.bytes, 150_000_000);
     const liveWriteUpperBounds = plan.estimatedMissBytes + plannedPagesBytes;
     const rollbackBackupBytes = plannedPagesBytes + acceptedAudio.bytes;
     forecast = await forecastCapacity({

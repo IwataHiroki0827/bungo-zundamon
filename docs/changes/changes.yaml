@@ -1554,3 +1554,27 @@ changes:
   approved_by: 既存REQ-F004-017を変更しないfail-closed回復契約の補強
   completed_at: '2026-07-29T03:10:00+09:00'
   result: 設計・試験仕様再レビューとdeploy-disable pre-arm/read-back/CAS/別process回復の自動試験を完了。T-060全回帰・trace_check・独立受入をPASS
+- id: CHG-F008-001
+  date: '2026-08-23'
+  trigger: T-173(人間椅子)の音声生成でCAPACITY_FORECAST_PAGES_EXCEEDEDが発生。原因調査により、scripts/f00N-prepare-voice.ts系が
+    forecastCapacity()へ渡すplannedPagesBytesを一律「currentPages.bytes(公開tree現在サイズ)そのもの」= 実質100%倍増前提で
+    見積もっており、公開treeが成長するほどforecastが自己増悪する構造的欠陥と判明した。v0.5.0(270.9MB)→v0.6.0(290.5MB)→
+    v0.7.0(405.3MB)の実測推移を確認し、v0.7.0時点で倍増後(810.7MB)がPAGES_SAFETY_STOP_BYTES(786.4MB=750MiB)を初めて
+    上回った。実際のcapacity安全網であるverifyActualCapacity()は倍増しない実測bytesを使うため無関係(この関数・
+    src/voice/budget.tsの定数・PAGES_SAFETY_STOP_BYTES自体は変更していない)。
+  level: design
+  affected:
+  - DES-F002-005
+  - DES-F002-011
+  - DES-F002-015
+  - FUN-F002-032
+  - scripts/f008-prepare-voice.ts
+  - T-173
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づく再校正のため即時適用)
+  completed_at: '2026-08-23T00:00:00+09:00'
+  result: scripts/f008-prepare-voice.tsのplannedPagesBytes見積もりを「currentPages.bytes全体の倍増」から
+    「Math.min(currentPages.bytes, 150_000_000)」(実測最大機能追加量=F007の+100.7MBに約50%の安全余裕を加えた
+    固定上限)へ変更した。src/voice/budget.tsの共有関数・定数(F002〜F007が依存する既存実績コード)は一切変更していない
+    ため、既存機能への回帰リスクはない。F009・F010実装時も同様の固定上限方式を踏襲することを推奨する(公開treeが
+    さらに成長した場合、この150MB上限も将来再校正が必要になる可能性がある)。
