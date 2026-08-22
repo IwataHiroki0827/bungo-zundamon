@@ -3358,7 +3358,7 @@ tasks:
   title: 名人伝を抽出・二重レビュー・音声化・atomic受入
   feature: F006
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-151
   tags:
@@ -3372,6 +3372,35 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f006
+  progress: >-
+    完結（詳細はdocs/changes/CHG-F006-004.md）。scripts/f006-{prepare-editorial,
+    prepare-voice,content-preview,capacity-actual}.tsのwork ID固定を
+    CLI引数化し、T-153でも再利用できるようにした。f006-prepare-editorial.ts
+    はspeaker判定・speech補正をWORK_EDITORIAL_CONFIGSへ切り出し、山月記
+    (000624)分をbyte互換で維持。名人伝(000621)は4候補（飛衛/飛衛/紀昌/主人）
+    を独立二重判定でpending 0まで完結し、VOICEVOX 0.25.2実測で「出かしたぞ」
+    の誤読（しゅっかしたぞ）を確認、カタカナ読み補正（デカシタゾ）を適用。
+    音声生成（WAV 4件、計1,111,728 bytes、miss 4/hit 0）・容量forecast
+    （pass_with_warning）を実施しvoicedへ到達。f006-content-preview.tsは
+    buildIntegratedPublicTreeがwork-previewで「manifest累積範囲（先行
+    accepted work分＋現在work分）」をactive fragmentへ要求することが2work目
+    で初めて判明したため、buildWorkFragmentPiece関数へper-work処理を切り出し
+    manifest.workIds.slice(0, workIndex+1)の全workを連結する設計へ変更した
+    （先行work分の音声二重stageを避けるため、activeStageへの音声stageは
+    現在work分だけに限定）。assertV050Invariantのcatalog.works成長数
+    チェックも固定+1から+accumulatedWorkCountへ一般化した。容量actual
+    （result: pass、freeBytes約41.1GB）→atomic受入を実行し、work status
+    をvoiced→acceptedへ遷移、生成WAV 4件をaccepted-audio/000621/へ正式
+    昇格した。src/content/f006-acceptance.test.tsをACCEPTED_WORK_ID=000621・
+    PENDING_WORK_ID=001738へ更新し既存5ケース全PASS。lint/typecheck全体
+    PASS。対象テスト9ファイル111件全PASS。npm testフルスイートは1375件中
+    36 failed、全て本タスク非関連（F005 native guard exe欠落・offline-build
+    stderr混入・published-baseline並列timeout・batch-catalog.test.tsの
+    セッション開始前から存在するF005 fixture gap、個別実行で確認済み既知）。
+    T-153（弟子, 001738）は本タスクで確立したCLI引数化script4本・累積
+    fragment対応のcontent-preview.tsをそのままwork ID引数だけ変えて
+    呼び出せる見込み（3work目のためaccumulatedWorkIdsが3件になるが
+    assertV050Invariantの一般化により追加変更不要）。
 - id: T-153
   title: 弟子を抽出・二重レビュー・音声化・atomic受入
   feature: F006
