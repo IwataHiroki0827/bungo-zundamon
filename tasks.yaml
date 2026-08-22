@@ -3525,7 +3525,7 @@ tasks:
   title: F006リリース前総点検・GitHub Pages段階公開・公開8 routeスモーク
   feature: F006
   phase: release
-  state: doing
+  state: done
   depends:
   - T-155
   tags:
@@ -3573,3 +3573,23 @@ tasks:
     実デプロイ・release evidence作成は行っていない。stateは`doing`のまま
     維持する(実デプロイ確認後にメインセッション側が(3)相当のcommitで
     closeする想定)。
+
+    メインセッション側で(3)相当を実施し完了させた。push後のCI(commit
+    b2c18d2)でCI回帰2件(f005-run-work.test.ts・batch-catalog.ts+
+    f003-catalog.ts)を検出、原因を追跡し修正・再検証・push。2回目のCIで
+    残り2件(f006-acceptance.test.tsのgitignore対象journal依存・
+    published-baseline.test.tsのdefault timeout超過)を検出し修正・
+    push(commit 1665561)、build job green確認。`PAGES_DEPLOY_COMMIT`を
+    release commit(166556111de642770916c6397931ca4b61c786d9)へ、
+    `PAGES_DEPLOY_ENABLED`をtrueへ設定しrerun、build・deploy両job成功
+    (workflow run 32556527623、artifact digest
+    327e392a6d0a2e62bd9e29f7a7dabd769d8f5678c5f57a8052709d8dae57a8d5、
+    dist SHA-256 de440fbf1f6dccaa79ce369e470d8fe9ce322e68912ac9968d9f97e336ef14e9)。
+    公開後スモークとして公開URLのindex HTTP200、公開catalog.json実データ
+    (5作者・18作品・939台詞、中島敦=山月記/名人伝/弟子)、中島敦artwork・
+    artwork-provenance HTTP200を確認した(claude-in-chrome拡張が未接続の
+    ためKB-0008推奨の実ブラウザroute確認は未実施、HTTPレベル確認で代替)。
+    `docs/evidence/release/{RELEASE-F006.md,F006-approval.json,
+    F006-deployment.json,F006-smoke.json}`を実データで作成。
+    `PAGES_DEPLOY_ENABLED`をfalseへ戻し、tag `v0.6.0`をrelease commitへ
+    push済み。state: done。

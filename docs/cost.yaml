@@ -1876,3 +1876,36 @@ entries:
     CHG-F006-007.md`を新規作成、`STATUS.md`・本entryを更新した。
     `public/`・`content/baselines/*.json`は変更していない。
     push・PR作成は行っていない(メインセッション側でCI再確認後にpush予定)。
+- date: '2026-08-22'
+  phase: release
+  task: T-156 F006 v0.6.0リリース完了(CI残り2件解消・deploy・タグ・evidence)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 90000
+  note: >-
+    委譲側修正(commit b2c18d2)push後のCI(run 32556263801)で残り2件が赤の
+    ままだった。`f006-acceptance.test.ts`はローカルaccept-work実行機にだけ
+    残るgitignore対象journal(`.cache/transactions/accepted-audio/
+    F006-001738.json`)へ依存しておりフレッシュcheckoutでthrowしていた。
+    既存コメントが「複製元が無ければskipし理由を明示する」と述べていた
+    にもかかわらず実装がthrowのままだった不整合と特定し、
+    `JournalFixtureMissingError`を新設してvitest test context `skip()`で
+    明示的にskipするよう修正(ローカルではjournal実在のためフル経路のまま
+    5件PASS、journal退避でフレッシュcheckoutを模擬すると4 passed/1
+    skippedを確認)。`published-baseline.test.ts`の画像provenance集約testは
+    `public/`全体cpがF006分の増加でdefault 5000ms timeoutを超過していた
+    ため、同ファイル内の既存の重いtestと同じ30,000ms timeoutを追加。
+    2件をcommit(1665561)しpush、build job green確認。`PAGES_DEPLOY_COMMIT`
+    をrelease commit(166556111de642770916c6397931ca4b61c786d9)へ、
+    `PAGES_DEPLOY_ENABLED`をtrueへ設定してworkflow rerunし、build・deploy
+    両job成功(run 32556527623、artifact digest
+    327e392a6d0a2e62b...、dist SHA-256 de440fbf1f6d...)。公開後スモークは
+    claude-in-chrome拡張が未接続だったためHTTPレベル(index/catalog/
+    artwork/artwork-provenance)と公開catalog.json実データ(5作者・18作品・
+    939台詞)で代替確認した。`docs/evidence/release/{RELEASE-F006.md,
+    F006-approval.json,F006-deployment.json,F006-smoke.json}`を実データで
+    作成。`PAGES_DEPLOY_ENABLED`をfalseへ戻し、tag `v0.6.0`をrelease
+    commitへpush。`tasks.yaml`T-156を`state: done`へ、`STATUS.md`を更新、
+    `trace_check.py --feature F006`実行(対応漏れなし)。F006完了・
+    v0.6.0公開済み。次: 「10人になるまで進めて」directiveに従いF007
+    (次点候補: 森鴎外)の要求分析を開始する。

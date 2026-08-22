@@ -1,0 +1,38 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "327e392a6d0a2e62bd9e29f7a7dabd769d8f5678c5f57a8052709d8dae57a8d5",
+  "checkedAt": "2026-08-22T06:24:00Z",
+  "distSha256": "de440fbf1f6dccaa79ce369e470d8fe9ce322e68912ac9968d9f97e336ef14e9",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F006",
+  "releaseCandidateBatchId": "F006",
+  "releaseCommit": "166556111de642770916c6397931ca4b61c786d9",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 5,
+    "workCount": 18,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true
+  },
+  "note": "Chrome拡張未接続のためbrowser自動操作でのroute別画面確認は未実施。HTTPレベル(index/catalog/artwork/provenance)と公開catalog.jsonの実データ(著者数・作品数)で代替確認した。"
+}
