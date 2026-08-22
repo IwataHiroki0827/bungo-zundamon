@@ -1,0 +1,1821 @@
+{
+  "batchId": "F007",
+  "configPath": "content/batches/F007/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "61a0a4ec41edd872ec5987d4ac23b802d9f66d397750c696ae3803b685472ec5",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 103743636,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F007",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "61a0a4ec41edd872ec5987d4ac23b802d9f66d397750c696ae3803b685472ec5",
+    "minimumFreeBytesAfterWrite": 784271660,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 609230600,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "8a40dc732d78d95cf707f1401cb5398f696a633257c1ec9fc65cf90d99032627",
+    "preTreeDigest": "55ed79b83d1110c0ce5696dc79e1f8a35b5ee7d8416aedbc999dfbcb18bf8570",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 66463564,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "6505d2ca114acc0958ea0819d0061d0c70443f15",
+        "e8f17766325fe565cb45d6219e7c6d964da86dfd"
+      ],
+      "includedPaths": [
+        "content/batches/F007/batch.json",
+        "content/batches/F007/reviews/000689.json",
+        "content/batches/F007/work-artifacts/000689/candidates.json",
+        "content/batches/F007/work-artifacts/000689/review-reconciliation.json",
+        "content/batches/F007/work-artifacts/000689/reviews/primary.json",
+        "content/batches/F007/work-artifacts/000689/reviews/secondary.json",
+        "content/batches/F007/work-artifacts/000689/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f007-prepare-editorial.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "6505d2ca114acc0958ea0819d0061d0c70443f15",
+        "e8f17766325fe565cb45d6219e7c6d964da86dfd"
+      ],
+      "includedPaths": [
+        "content/batches/F007/batch.json",
+        "content/batches/F007/reviews/000689.json",
+        "content/batches/F007/work-artifacts/000689/candidates.json",
+        "content/batches/F007/work-artifacts/000689/review-reconciliation.json",
+        "content/batches/F007/work-artifacts/000689/reviews/primary.json",
+        "content/batches/F007/work-artifacts/000689/reviews/secondary.json",
+        "content/batches/F007/work-artifacts/000689/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f007-prepare-editorial.ts"
+      ],
+      "measuredBytes": 317545884,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 98099326976,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 784271660
+    },
+    "workId": "000689"
+  },
+  "kind": "f007-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 38394036,
+    "acceptedAudioFiles": 39,
+    "currentPagesBytes": 304615300,
+    "currentPagesFiles": 965,
+    "freeBytes": 98099326976,
+    "liveWriteUpperBounds": 369964900,
+    "plannedPagesBytes": 304615300,
+    "repositoryNonObjectBytes": 1128521,
+    "rollbackBackupBytes": 343009336
+  },
+  "plan": {
+    "batchId": "F007",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 120,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "00609c5338bc998c8e3d04006c4cf1c448572258250ea65d9ef2a08b681b5a78",
+        "candidateIds": [
+          "sUQqotxfUq7wNl9gbes1Xd4DU3zojDKFInWj4ivduo0"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/00609c5338bc998c8e3d04006c4cf1c448572258250ea65d9ef2a08b681b5a78.json",
+        "status": "miss",
+        "text": "「たわけた話じゃ。奴は奴の組へ引きずって往け。婢は婢の組へ引きずって往け」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/00609c5338bc998c8e3d04006c4cf1c448572258250ea65d9ef2a08b681b5a78.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "03541997238211378710be926a35f63d5e7f232972e993b5e3bf6d725efd2c49",
+        "candidateIds": [
+          "ZyyrYy_JbF9AYK_V2YhQXfFWkoZFLeoT6L0SK2B8yS4"
+        ],
+        "estimatedBytes": 561644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/03541997238211378710be926a35f63d5e7f232972e993b5e3bf6d725efd2c49.json",
+        "status": "miss",
+        "text": "「父母は恋しゅうても佐渡は遠い。筑紫はそれよりまた遠い。子供の往かれる所ではない。父母に逢いたいなら、大きゅうなる日を待つがよい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/03541997238211378710be926a35f63d5e7f232972e993b5e3bf6d725efd2c49.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "060b6771de42aa1b40ee0938ceaefcd7293cf6a5b78ea66c26625940a3973dd8",
+        "candidateIds": [
+          "wckYCVTvEmWmp-k2gCWv0PocISyHKefJn_sk1mCLpeU"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/060b6771de42aa1b40ee0938ceaefcd7293cf6a5b78ea66c26625940a3973dd8.json",
+        "status": "miss",
+        "text": "「日に三荷苅るはずの柴を、まだ少しも苅りませぬ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/060b6771de42aa1b40ee0938ceaefcd7293cf6a5b78ea66c26625940a3973dd8.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "06c3a3c735b70505481e19f2ca3d6562b7fdeb66d6fe3871af6176c9a5525f55",
+        "candidateIds": [
+          "eU5g8oyPzCclKmWOzlWFXGvoDEZcW9GlbZlFDAaIdXk"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/06c3a3c735b70505481e19f2ca3d6562b7fdeb66d6fe3871af6176c9a5525f55.json",
+        "status": "miss",
+        "text": "「それは困りますね。子供衆もおいでなさるし、もうそう遠くまでは行かれません。どうにかしようはありますまいか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/06c3a3c735b70505481e19f2ca3d6562b7fdeb66d6fe3871af6176c9a5525f55.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "07f55eec4157c990174d03cf659b89e494a77c432902e562ac5818bdb5059576",
+        "candidateIds": [
+          "J78eninVtI2PEzIkg-k-ffsxX5B7L1el0wpCWRJqDYQ"
+        ],
+        "estimatedBytes": 682604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/07f55eec4157c990174d03cf659b89e494a77c432902e562ac5818bdb5059576.json",
+        "status": "miss",
+        "text": "「どうぞ少しお待ち下さいませ。わたくしども三人がお世話になるさえ心苦しゅうございますのに、こんなことを申すのはいかがと存じますが、実は今一人連れがございます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/07f55eec4157c990174d03cf659b89e494a77c432902e562ac5818bdb5059576.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "0984f080b9d0ca7e95ef783c2718698df72bcd1a944e63bf7d9407d1a446b220",
+        "candidateIds": [
+          "nrIrlnh8u6-K2uhtCLtApo9cOTzlPjvuqh_ZSY6Dnik"
+        ],
+        "estimatedBytes": 648044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0984f080b9d0ca7e95ef783c2718698df72bcd1a944e63bf7d9407d1a446b220.json",
+        "status": "miss",
+        "text": "「もうしかたがない。これが別れだよ。あんじゅは守本尊の地蔵様を大切におし。ずしおうはお父うさまの下さった護り刀を大切におし。どうぞ二人が離れぬように」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0984f080b9d0ca7e95ef783c2718698df72bcd1a944e63bf7d9407d1a446b220.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "0aeaf61bba753cee691e21e29e12b1c74d58121bfc75bb6bbde8d814c49cb09e",
+        "candidateIds": [
+          "cPGhrcJBHDtB4enygYPRF4zZWHMMuAJw1Kuviyk7Go8"
+        ],
+        "estimatedBytes": 570284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0aeaf61bba753cee691e21e29e12b1c74d58121bfc75bb6bbde8d814c49cb09e.json",
+        "status": "miss",
+        "text": "「こら。おぬしたちは逃げる談合をしておるな。逃亡の企てをしたものにはやきいんをする。それがこの邸の掟じゃ。赤うなった鉄は熱いぞよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0aeaf61bba753cee691e21e29e12b1c74d58121bfc75bb6bbde8d814c49cb09e.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "0e8dff8206856472e3fece8dd9ade851b0ab5239338d8f2ecd5972bc0301ca66",
+        "candidateIds": [
+          "5AoNlwkYNAukFijSFKck0k4FqsFn0aawwSvDoRZraz0"
+        ],
+        "estimatedBytes": 553004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0e8dff8206856472e3fece8dd9ade851b0ab5239338d8f2ecd5972bc0301ca66.json",
+        "status": "miss",
+        "text": "「あわてるな。どっちもからてではかえさぬ。お客さまがご窮屈でないように、お二人ずつ分けて進ぜる。賃銭はあとでつけた値段の割じゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0e8dff8206856472e3fece8dd9ade851b0ab5239338d8f2ecd5972bc0301ca66.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "0fea8ae4f4c5e83e15eba1f994e4d303805b4e683775175c1fc774a371baad78",
+        "candidateIds": [
+          "nf24wy4S-PoRGNhtJLGJTcjn76GVfviidoRgqV11wLM"
+        ],
+        "estimatedBytes": 1926764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0fea8ae4f4c5e83e15eba1f994e4d303805b4e683775175c1fc774a371baad78.json",
+        "status": "miss",
+        "text": "「これはかねて聞きおよんだ、尊いほうこうおうじぞうぼさつのこんぞうじゃ。くだらのくにから渡ったのを、高見王が持仏にしておいでなされた。これを持ち伝えておるからは、お前の家柄にまぎれはない。せんとうがまだみくらいにおらせられたえいほうの初めに、国守のいきゃくに連座して、筑紫へ左遷せられたたいらのまさうじが嫡子に相違あるまい。もしげんぞくの望みがあるなら、追ってはずりょうの御沙汰もあろう。まず当分はおれの家の客にする。おれと一しょにやかたへ来い」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0fea8ae4f4c5e83e15eba1f994e4d303805b4e683775175c1fc774a371baad78.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "0ff5fee92a11f860bb924e6e314b087243b8bfba4b381b9a03a1fef1d8525445",
+        "candidateIds": [
+          "MCc20OV741nbtXM-JGWhLRi3Bur0b3XDomDzJGdI2Pc"
+        ],
+        "estimatedBytes": 457964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ff5fee92a11f860bb924e6e314b087243b8bfba4b381b9a03a1fef1d8525445.json",
+        "status": "miss",
+        "text": "「ふん。ならでもいい。お主たちが一しょにおって、なんの話をするということを、おれがたしかに聞いておいたぞ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ff5fee92a11f860bb924e6e314b087243b8bfba4b381b9a03a1fef1d8525445.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "1168024d79ccbd2c864bfd1e18c66ffbc79b1626ea68370ad24b5bfaf9c2bd02",
+        "candidateIds": [
+          "IyOJOXPcPklpog8q8fi3TkJhGsSb247Mkp56Ds1GZkQ"
+        ],
+        "estimatedBytes": 1892204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1168024d79ccbd2c864bfd1e18c66ffbc79b1626ea68370ad24b5bfaf9c2bd02.json",
+        "status": "miss",
+        "text": "「いいえ。わたしよりはあぶない目に逢うお前にお守を預けます。晩にお前が帰らないと、きっとうってがかかります。お前がいくら急いでも、あたり前に逃げて行っては、追いつかれるにきまっています。さっき見た川のかみてをわえという所まで往って、首尾よく人に見つけられずに、向う河岸へ越してしまえば、中山までもう近い。そこへ往ったら、あの塔の見えていたお寺にはいって隠しておもらい。しばらくあそこに隠れていて、討手が帰って来たあとで、寺を逃げておいで」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1168024d79ccbd2c864bfd1e18c66ffbc79b1626ea68370ad24b5bfaf9c2bd02.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "148ca326c420bdd0c6919faec85edca4417f8e1a43efe49c57b697806da5d1c2",
+        "candidateIds": [
+          "MCeya9VikfeJFsMo-jPmsgpAamAfF97JwAcDCIhxHr8"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/148ca326c420bdd0c6919faec85edca4417f8e1a43efe49c57b697806da5d1c2.json",
+        "status": "miss",
+        "text": "「あの、あるじにお預けなされたふくろは」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/148ca326c420bdd0c6919faec85edca4417f8e1a43efe49c57b697806da5d1c2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "1ba42dff1efa256f7de70be7395675a41073cc1cf6f63344c36b83296b2fab8f",
+        "candidateIds": [
+          "JkGUP5WT9CKGfberrt3Pq7zeQMdJKKVwsxeWwXGTJ_Y"
+        ],
+        "estimatedBytes": 639404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1ba42dff1efa256f7de70be7395675a41073cc1cf6f63344c36b83296b2fab8f.json",
+        "status": "miss",
+        "text": "「子供たちの世話をさせに連れて出た女中でございます。湯をもらうと申して、街道を三四町あとへ引き返してまいりました。もうほどなく帰ってまいりましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1ba42dff1efa256f7de70be7395675a41073cc1cf6f63344c36b83296b2fab8f.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "1f0954e808152bb091d2d63a6b60c47c3edbd7e54d4475cb4246bea6a62ef8f0",
+        "candidateIds": [
+          "ETRdWcQFpDzAZyvgGuG-u7FOaV-rxfJo_t6qcCR0H_U"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1f0954e808152bb091d2d63a6b60c47c3edbd7e54d4475cb4246bea6a62ef8f0.json",
+        "status": "miss",
+        "text": "「日に三荷の柴ならば、ひるまでに二荷苅るがいい。柴はこうして苅るものじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1f0954e808152bb091d2d63a6b60c47c3edbd7e54d4475cb4246bea6a62ef8f0.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "226974695d2d95d0b7664d861ef5128122c654798a2e9a07a5e4443e0017ea23",
+        "candidateIds": [
+          "k1fJJ9C2lXeuBWiIqpsXGYJQ_bCyTiu-2PJArvFfQ-E"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/226974695d2d95d0b7664d861ef5128122c654798a2e9a07a5e4443e0017ea23.json",
+        "status": "miss",
+        "text": "「こら」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/226974695d2d95d0b7664d861ef5128122c654798a2e9a07a5e4443e0017ea23.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "241ff7f3724d198319eb856c9d9a7b7100424c90d9b8eca3240389810fb8c999",
+        "candidateIds": [
+          "iuUtb8nGa7XJFVO1EL4qdBKGrY8XYI1Kd4xfAgxCjLE"
+        ],
+        "estimatedBytes": 69164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/241ff7f3724d198319eb856c9d9a7b7100424c90d9b8eca3240389810fb8c999.json",
+        "status": "miss",
+        "text": "「うばたけかい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/241ff7f3724d198319eb856c9d9a7b7100424c90d9b8eca3240389810fb8c999.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "25d001f2c6cf08752a2faa395891a1bb3a7ebd6bcbddb598f336c96044953698",
+        "candidateIds": [
+          "q-mOx6AIqKatWOGGJ5TK23dJM5yVnIwD45g5Bni2PBU"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/25d001f2c6cf08752a2faa395891a1bb3a7ebd6bcbddb598f336c96044953698.json",
+        "status": "miss",
+        "text": "「同じ道を漕いで行って、同じ港に着くのでございましょうね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/25d001f2c6cf08752a2faa395891a1bb3a7ebd6bcbddb598f336c96044953698.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "2656b4e7a73b2180f80ef2057b894f61f3e2353f3a03f7f7d03292f2d248b9cb",
+        "candidateIds": [
+          "NRhjwWVgcRiUhET-rkduccQW9oRw0y8Q0nI9gl2xjwE"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2656b4e7a73b2180f80ef2057b894f61f3e2353f3a03f7f7d03292f2d248b9cb.json",
+        "status": "miss",
+        "text": "「ほかにない、ただ一つのお願いでございます、どうぞ山へおやりなすって」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2656b4e7a73b2180f80ef2057b894f61f3e2353f3a03f7f7d03292f2d248b9cb.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "29b77a5cd007cd4f53bbf76cc793869acb95e91ba1ff8b467d7b41b740b9b05d",
+        "candidateIds": [
+          "WEGQVRetFj2RASmx-xvJC9jMiO0VsuCtRqot6oZ_GVg"
+        ],
+        "estimatedBytes": 2859884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/29b77a5cd007cd4f53bbf76cc793869acb95e91ba1ff8b467d7b41b740b9b05d.json",
+        "status": "miss",
+        "text": "「逃げたげにんを捜しに来られたのじゃな。当山では住持のわしに言わずに人は留めぬ。わしが知らぬから、そのものは当山にいぬ。それはそれとして、夜陰にけんげきをとって、多人数押し寄せて参られ、三門を開けと言われた。さては国に大乱でも起ったか、おおやけのはんぎやくにんでも出来たかと思うて、三門をあけさせた。それになんじゃ。おんみが家の下人のせんぎか。当山は勅願の寺院で、三門には勅額をかけ、七重の塔にはしんかんこんじの経文がおさめてある。ここでろうぜきを働かれると、くにのかみはけんぎょうの責めを問われるのじゃ。また総本山東大寺に訴えたら、都からどのようなごさたがあろうも知れぬ。そこをよう思うてみて、早う引き取られたがよかろう。悪いことは言わぬ。お身たちのためじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/29b77a5cd007cd4f53bbf76cc793869acb95e91ba1ff8b467d7b41b740b9b05d.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "2a8f2b1b62fa35611d0c9ac9b54b774b6cc1d29d85f89e01023953310de3f050",
+        "candidateIds": [
+          "b1mzZ9iqdHteurvbbLXx_NtLZ4l-fY_I-1-ksInWbuE"
+        ],
+        "estimatedBytes": 1270124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a8f2b1b62fa35611d0c9ac9b54b774b6cc1d29d85f89e01023953310de3f050.json",
+        "status": "miss",
+        "text": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様がだゆう様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。だゆう様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2a8f2b1b62fa35611d0c9ac9b54b774b6cc1d29d85f89e01023953310de3f050.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "2f8c01341a14f952cf042e7b53901fd1eaee4501ba30f5d8fc8f0b8abeb4a72a",
+        "candidateIds": [
+          "InqZnUw7neY6AtFVW1dWHskiOLOImz_1K6ZmCGFOpSk"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2f8c01341a14f952cf042e7b53901fd1eaee4501ba30f5d8fc8f0b8abeb4a72a.json",
+        "status": "miss",
+        "text": "「それじゃ。半日に童の行く道は知れたものじゃ。続け」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2f8c01341a14f952cf042e7b53901fd1eaee4501ba30f5d8fc8f0b8abeb4a72a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "3072013fc8dae9a5df9608632cc7cb7f1fd6ba046badbe2d6209ea409689cd72",
+        "candidateIds": [
+          "ZSDgTNUGQi9nLxvkJDE6lYq3mjFY2oA0yu0ITkyev58"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3072013fc8dae9a5df9608632cc7cb7f1fd6ba046badbe2d6209ea409689cd72.json",
+        "status": "miss",
+        "text": "「あれあれ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3072013fc8dae9a5df9608632cc7cb7f1fd6ba046badbe2d6209ea409689cd72.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "393b9f7a637aa847f4a8bfe647a583470e151629499288f26cb4d36cdf135eae",
+        "candidateIds": [
+          "6ncVuE54c91ZcFTnE5bn7QVOMQ1fNnlIiOlmERL9-2A"
+        ],
+        "estimatedBytes": 2540204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/393b9f7a637aa847f4a8bfe647a583470e151629499288f26cb4d36cdf135eae.json",
+        "status": "miss",
+        "text": "「そうですね。わたしの通う塩浜のあるあたりまで、あなた方がおいでなさると、夜になってしまいましょう。どうもそこらでいい所を見つけて、野宿をなさるよりほか、しかたがありますまい。わたしの思案では、あそこの橋の下にお休みなさるがいいでしょう。岸の石垣にぴったり寄せて、河原に大きい材木がたくさん立ててあります。荒川のかみから流して来た材木です。昼間はその下で子供が遊んでいますが、奥の方には日もささず、暗くなっている所があります。そこなら風も通しますまい。わたしはこうして毎日通う塩浜の持ち主のところにいます。ついそこのははその森の中です。夜になったら、わらやこもを持って往ってあげましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/393b9f7a637aa847f4a8bfe647a583470e151629499288f26cb4d36cdf135eae.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "396e1c0ce8291a924b2d2c481ecf8296be47afe56a8fd220b1b8d0d2668f0f27",
+        "candidateIds": [
+          "M6Oee3u-B1na0CTnKJ4613VsdynQUJ49yBl6Gsy8BmQ"
+        ],
+        "estimatedBytes": 941804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/396e1c0ce8291a924b2d2c481ecf8296be47afe56a8fd220b1b8d0d2668f0f27.json",
+        "status": "miss",
+        "text": "「あれはうそでございます。弟が一人で逃げたって、まあ、どこまで往かれましょう。あまり親に逢いたいので、あんなことを申しました。こないだも弟と一しょに、鳥になって飛んで往こうと申したこともございます。出放題でございます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/396e1c0ce8291a924b2d2c481ecf8296be47afe56a8fd220b1b8d0d2668f0f27.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "3eb3f2f792b69514e3b8c827e07c76bf9b61d9a535c197afd89a03abe2768414",
+        "candidateIds": [
+          "jifljJOUM7x5z1gxq9hWD4RO2DY-LkpfhmQarKJKvx0"
+        ],
+        "estimatedBytes": 829484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3eb3f2f792b69514e3b8c827e07c76bf9b61d9a535c197afd89a03abe2768414.json",
+        "status": "miss",
+        "text": "「これへ参ったのは、石浦の山椒だゆうがうからのものじゃ。だゆうが使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3eb3f2f792b69514e3b8c827e07c76bf9b61d9a535c197afd89a03abe2768414.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "3f2217b4d0383c618415931624b5ce5717a0884f131e1769831877c3f1ef1186",
+        "candidateIds": [
+          "PXcZ5kfNYlx2kh7z6M4Ga3ztN-b1AvyC8rrX0xRYOok"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f2217b4d0383c618415931624b5ce5717a0884f131e1769831877c3f1ef1186.json",
+        "status": "miss",
+        "text": "「もし船頭さん、もしもし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f2217b4d0383c618415931624b5ce5717a0884f131e1769831877c3f1ef1186.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "4189a92fbbd32225a48a101a8aa1cbd87e4615239ca3b7c7e6da4e574b3f52e0",
+        "candidateIds": [
+          "Sso3EzALq2cJmiNFaKtVJAARriGrjgAZlYHUtE_vZok"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4189a92fbbd32225a48a101a8aa1cbd87e4615239ca3b7c7e6da4e574b3f52e0.json",
+        "status": "miss",
+        "text": "「さあ、それがうんだめしだよ。開ける運なら坊さんがお前を隠してくれましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4189a92fbbd32225a48a101a8aa1cbd87e4615239ca3b7c7e6da4e574b3f52e0.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "41d3e30308d6f70c6755dd61d5a4840c22c116a85f84a513647b0f2c37067f80",
+        "candidateIds": [
+          "rYg29eC46_FHyM1l8yP095VJK8bkLL7fVVyBpMdEUvA"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/41d3e30308d6f70c6755dd61d5a4840c22c116a85f84a513647b0f2c37067f80.json",
+        "status": "miss",
+        "text": "「どうもしないの、大丈夫よ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/41d3e30308d6f70c6755dd61d5a4840c22c116a85f84a513647b0f2c37067f80.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "4206325e868527cb336fed48f0b0e245872b2c3270ec73b63781ae4e2fed570c",
+        "candidateIds": [
+          "mVU3bCYzT4xwMGcyzNcWKQGiJM2LEBMtlaOeboJ44UA"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4206325e868527cb336fed48f0b0e245872b2c3270ec73b63781ae4e2fed570c.json",
+        "status": "miss",
+        "text": "「気張るぞ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4206325e868527cb336fed48f0b0e245872b2c3270ec73b63781ae4e2fed570c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "44aa149f59bad9c61aae5c1bdb1209c2f50f0946c73963816f8b9fb1cd463480",
+        "candidateIds": [
+          "fIdecPYg_HXsiDtwEvMXm_B1l6n4vq7pr10hAoOLz9c"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/44aa149f59bad9c61aae5c1bdb1209c2f50f0946c73963816f8b9fb1cd463480.json",
+        "status": "miss",
+        "text": "「これは粗末な物でございますが、お世話になったお礼に差し上げます。わたくしはもうこれでお暇を申します」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/44aa149f59bad9c61aae5c1bdb1209c2f50f0946c73963816f8b9fb1cd463480.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "46c58588bc4a7e213460a585d73a57607fb2cdc6ed27ca9c1d98f99f048e8d1c",
+        "candidateIds": [
+          "H4dGQOY7hdP2Bts-lQV0SJMRtE05ez3P6EFtveM-OCc"
+        ],
+        "estimatedBytes": 1296044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/46c58588bc4a7e213460a585d73a57607fb2cdc6ed27ca9c1d98f99f048e8d1c.json",
+        "status": "miss",
+        "text": "「この邸ではぬひのなにがしになんの為事をさせるということは、重いことにしてあって、父がみずからきめる。しかししのぶぐさ、お前の願いはよくよく思い込んでのことと見える。わしが受け合って取りなして、きっと山へ往かれるようにしてやる。安心しているがいい。まあ、二人のおさないものが無事に冬を過してよかった」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/46c58588bc4a7e213460a585d73a57607fb2cdc6ed27ca9c1d98f99f048e8d1c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "474ae75b34cbf55c58b228a2ffe3ae9d486a9444fe27434360e3a5d5bb03b6de",
+        "candidateIds": [
+          "rcmgSidq3GvsA5d0Z2pprreAktCdF9O1MbrhGF9uH-s"
+        ],
+        "estimatedBytes": 457964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/474ae75b34cbf55c58b228a2ffe3ae9d486a9444fe27434360e3a5d5bb03b6de.json",
+        "status": "miss",
+        "text": "「ありがとうございます。汲みようが、あなたのお蔭で、わかったようでございます。自分で少し汲んでみましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/474ae75b34cbf55c58b228a2ffe3ae9d486a9444fe27434360e3a5d5bb03b6de.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "48f0c9f0d6542d07a6280b2fb3fc548c3037195a6de396981700dcc235e7166a",
+        "candidateIds": [
+          "DmrT8oAh6Cn0EKtIC_lq0gT7O-EoEP78bCU-JyJxA24"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/48f0c9f0d6542d07a6280b2fb3fc548c3037195a6de396981700dcc235e7166a.json",
+        "status": "miss",
+        "text": "「これはどうもおてかずでございました」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/48f0c9f0d6542d07a6280b2fb3fc548c3037195a6de396981700dcc235e7166a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "4cb96a4a72e4090bf41ce0e11e01fcd32322eb022783d4afe40c56664e17fbb2",
+        "candidateIds": [
+          "iZdsnQfLRXzNpQe5cS-RImrGNq4YVDSfBUxf2a3dr7w"
+        ],
+        "estimatedBytes": 907244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4cb96a4a72e4090bf41ce0e11e01fcd32322eb022783d4afe40c56664e17fbb2.json",
+        "status": "miss",
+        "text": "「愚か者と見える。名はわしがつけてやる。姉はいたつきをしのぶぐさ、弟は我が名をわすれぐさじゃ。垣衣は浜へ往って、日に三がの潮を汲め。萱草は山へ往って日に三荷の柴を刈れ。弱々しい体に免じて、荷は軽うして取らせる」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4cb96a4a72e4090bf41ce0e11e01fcd32322eb022783d4afe40c56664e17fbb2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "4d37bc86e4d5fa70a0722e949f2944f43567558c8fb07635c9dcec41f3527f4c",
+        "candidateIds": [
+          "8yaKbsIM2wtdLmN1SMlmI96M6Q2vHf5Z-uGcKlDAuhc"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4d37bc86e4d5fa70a0722e949f2944f43567558c8fb07635c9dcec41f3527f4c.json",
+        "status": "miss",
+        "text": "「まああの美しいもみじをごらん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4d37bc86e4d5fa70a0722e949f2944f43567558c8fb07635c9dcec41f3527f4c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "51c5fb3c7792a0593f5b1dd584932c193f515c40a132f413386a2c4b1944a0c2",
+        "candidateIds": [
+          "50u2uWXg9KMnAkDXXscD5e7gPM6HVPLMKW21eB8Pga8"
+        ],
+        "estimatedBytes": 492524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51c5fb3c7792a0593f5b1dd584932c193f515c40a132f413386a2c4b1944a0c2.json",
+        "status": "miss",
+        "text": "「水の底のいろくずには聞えても、あのおなごには聞えぬ。女子どもは佐渡へ渡ってあわの鳥でもおわせられることじゃろう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51c5fb3c7792a0593f5b1dd584932c193f515c40a132f413386a2c4b1944a0c2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "55b007684b2ccb8b51e45f30b78aaf3e4edd0bccbe270b59cd788d0d58e2570e",
+        "candidateIds": [
+          "yavNag92XnRZnMNRMztoNo79z5G6Hq_NKu0Nszf2kNY"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/55b007684b2ccb8b51e45f30b78aaf3e4edd0bccbe270b59cd788d0d58e2570e.json",
+        "status": "miss",
+        "text": "「守本尊を大切にして往け。父母の消息はきっと知れる」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/55b007684b2ccb8b51e45f30b78aaf3e4edd0bccbe270b59cd788d0d58e2570e.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "565e7d2fc031e406a1ff09c67920d371d0b1db8dda24c8bda2baa88b255cd782",
+        "candidateIds": [
+          "OaB1DMHEf63fxSgwcqzy1LQJ9vT_fgQWfUVqJGlk-wE"
+        ],
+        "estimatedBytes": 449324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/565e7d2fc031e406a1ff09c67920d371d0b1db8dda24c8bda2baa88b255cd782.json",
+        "status": "miss",
+        "text": "「さあ、お二人ずつあの舟へお乗りなされ。どれも西国への便船じゃ。舟足というものは、重過ぎては走りが悪い」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/565e7d2fc031e406a1ff09c67920d371d0b1db8dda24c8bda2baa88b255cd782.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "58019f9b7a83c6f1bd7f8e675f53b537482e4768b82ee9d6e9260ac69ffa76d9",
+        "candidateIds": [
+          "EDVynPNLbDwyx-GfAeLMSOfxsxZhVnw3XiVLxOw0DOo"
+        ],
+        "estimatedBytes": 3559724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58019f9b7a83c6f1bd7f8e675f53b537482e4768b82ee9d6e9260ac69ffa76d9.json",
+        "status": "miss",
+        "text": "「わたしが久しい前から考えごとをしていて、お前ともいつものように話をしないのを、変だと思っていたでしょうね。もうきょうは柴なんぞは苅らなくてもいいから、わたしの言うことをよくお聞き。小萩は伊勢から売られて来たので、故郷からこの土地までの道を、わたしに話して聞かせたがね、あの中山を越して往けば、都がもう近いのだよ。筑紫へ往くのはむずかしいし、引き返して佐渡へ渡るのも、たやすいことではないけれど、都へはきっと往かれます。お母あさまとご一しょに岩代を出てから、わたしどもは恐ろしい人にばかり出逢ったが、人の運が開けるものなら、よい人に出逢わぬにも限りません。お前はこれから思いきって、この土地を逃げ延びて、どうぞ都へ登っておくれ。かみほとけのお導きで、よい人にさえ出逢ったら、筑紫へお下りになったお父うさまのお身の上も知れよう。佐渡へお母あさまのお迎えに往くことも出来よう。籠や鎌は棄てておいて、かれいけだけ持って往くのだよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/58019f9b7a83c6f1bd7f8e675f53b537482e4768b82ee9d6e9260ac69ffa76d9.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "585f937e67727fb7df0cb8dcd195a21676c3289c7f04d0109eb244643765b5bf",
+        "candidateIds": [
+          "TW4htDDMEniScasSvuFKv3Losa8B7eiWqSuqknTlr0E"
+        ],
+        "estimatedBytes": 587564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/585f937e67727fb7df0cb8dcd195a21676c3289c7f04d0109eb244643765b5bf.json",
+        "status": "miss",
+        "text": "「そのわっぱはな、わしがひるごろ鐘楼から見ておると、ついじの外を通って南へ急いだ。かよわい代りには身が軽い。もう大分の道を行ったじゃろ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/585f937e67727fb7df0cb8dcd195a21676c3289c7f04d0109eb244643765b5bf.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "5d14d8899f69712235dde6062849f0d85e0084c757a0711592cb510b4ff41cfb",
+        "candidateIds": [
+          "5foD25GSKtSn1v2sHAYBy1cOQrgsUCJDZMAkt9AfYVc"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d14d8899f69712235dde6062849f0d85e0084c757a0711592cb510b4ff41cfb.json",
+        "status": "miss",
+        "text": "「和尚さん、どうしたのだ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5d14d8899f69712235dde6062849f0d85e0084c757a0711592cb510b4ff41cfb.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "6458bbf0d7252256794e23848d09cee625ce194d1972a102a7806dbf1ea8e851",
+        "candidateIds": [
+          "TfCfmHvtqdxV0YtV8KXwbWMcxHbTxuUvAEm4u9ec4gE"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6458bbf0d7252256794e23848d09cee625ce194d1972a102a7806dbf1ea8e851.json",
+        "status": "miss",
+        "text": "「いいえ。信者が多くて人気のいい土地ですが、くにのかみのおきてだからしかたがありません。もうあそこに」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6458bbf0d7252256794e23848d09cee625ce194d1972a102a7806dbf1ea8e851.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "6b17821f47fcb81f8818b0d0d650e143fda7db95a5657f0f084e4115bf25fa25",
+        "candidateIds": [
+          "9olQFCTpopmQc3dXXg3cfS6OH38YrJLAs4YONU8rZ7Q"
+        ],
+        "estimatedBytes": 889964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6b17821f47fcb81f8818b0d0d650e143fda7db95a5657f0f084e4115bf25fa25.json",
+        "status": "miss",
+        "text": "「ここではたきびをいたすことは出来ません。もし悪い人に見つけられてはならぬからでございます。あの塩浜の持ち主とやらの家まで往って、お湯をもらってまいりましょう。そしてわらやこものことも頼んでまいりましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6b17821f47fcb81f8818b0d0d650e143fda7db95a5657f0f084e4115bf25fa25.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "6d0f11880260b6856d5fa68417877cbcf7653bac2d7f3c5a182784e08544b87a",
+        "candidateIds": [
+          "nqfqKSez2IgTW4oG9OBaNwZsP_DJ1-AZbS_iwMbQHIU"
+        ],
+        "estimatedBytes": 665324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6d0f11880260b6856d5fa68417877cbcf7653bac2d7f3c5a182784e08544b87a.json",
+        "status": "miss",
+        "text": "「そうですね。姉えさんのきょうおっしゃることは、まるで神様か仏様がおっしゃるようです。わたしは考えをきめました。なんでも姉えさんのおっしゃる通りにします」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6d0f11880260b6856d5fa68417877cbcf7653bac2d7f3c5a182784e08544b87a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "6dafacf5fc6a7d385d4dd5123a3dd0153d2dba74e0d12060672e75c0fd157439",
+        "candidateIds": [
+          "vHq0-oWkKnnpVLL67nz9ypACpn52ZyYYWb4rc30uPKY"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6dafacf5fc6a7d385d4dd5123a3dd0153d2dba74e0d12060672e75c0fd157439.json",
+        "status": "miss",
+        "text": "「乗る舟はぐぜいの舟、着くは同じかのきしと、れんげぶじのおしょうが言うたげな」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6dafacf5fc6a7d385d4dd5123a3dd0153d2dba74e0d12060672e75c0fd157439.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "6e555c5a316f097ab603329413f0dd746edd254864f64b1f341547a36ba392c6",
+        "candidateIds": [
+          "tmaXrCQUYbiNxyfwMk1klwcJs99RI_ZP-buF8b3KDcY"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6e555c5a316f097ab603329413f0dd746edd254864f64b1f341547a36ba392c6.json",
+        "status": "miss",
+        "text": "「もうじきにお宿にお着きなさいます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6e555c5a316f097ab603329413f0dd746edd254864f64b1f341547a36ba392c6.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "7061d89aa890aeeafbd287b009d19a747bc8b147c06c0d54a0ac374dcb459de1",
+        "candidateIds": [
+          "WR-I2S5n43xQ19VNkKS4DIOPEl2-c0rz4bNAgQ2L5Ko"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7061d89aa890aeeafbd287b009d19a747bc8b147c06c0d54a0ac374dcb459de1.json",
+        "status": "miss",
+        "text": "「お母あさまお母あさま」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7061d89aa890aeeafbd287b009d19a747bc8b147c06c0d54a0ac374dcb459de1.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "74a5a228e51e62e846a61670279fb7c3b24e3d42ce8e97226013101fdc6e31d5",
+        "candidateIds": [
+          "lLoLTOKNx6d0eIoX1TJVKFL08EDh709mrCynDyA6Z2s"
+        ],
+        "estimatedBytes": 648044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/74a5a228e51e62e846a61670279fb7c3b24e3d42ce8e97226013101fdc6e31d5.json",
+        "status": "miss",
+        "text": "「どうしてお母あさまの行くえが知れないのだろう、もし役人なんぞに任せて調べさせて、自分が捜し歩かぬのを神仏が憎んで逢わせて下さらないのではあるまいか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/74a5a228e51e62e846a61670279fb7c3b24e3d42ce8e97226013101fdc6e31d5.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "755d687bb85d62499c682f4b672ab6a333094a7c784c9cd74e10a85d202df2c0",
+        "candidateIds": [
+          "IBBxYzJk7CEeW3-sufszKaWTyPycier7iKNlH52cdEc"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/755d687bb85d62499c682f4b672ab6a333094a7c784c9cd74e10a85d202df2c0.json",
+        "status": "miss",
+        "text": "「お母あさま、お母あさま」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/755d687bb85d62499c682f4b672ab6a333094a7c784c9cd74e10a85d202df2c0.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "775c770ef8c844235cd5d82c7b513b72cf62534e15aa3dc30c1bd1ed3306d829",
+        "candidateIds": [
+          "tlY3u9mimPc6kGXX1lXmocqnwbTF5IzEBEeieqRNfYk"
+        ],
+        "estimatedBytes": 328364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/775c770ef8c844235cd5d82c7b513b72cf62534e15aa3dc30c1bd1ed3306d829.json",
+        "status": "miss",
+        "text": "「過分のいたわりようじゃ。こりゃ、奴頭。早く連れて下がって道具を渡してやれ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/775c770ef8c844235cd5d82c7b513b72cf62534e15aa3dc30c1bd1ed3306d829.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "7815d339187ba62734fe26554b1b21191c5c2b66417f70e4ae2f0a7d80d1d7b0",
+        "candidateIds": [
+          "HVe3HeTDdUZQvRNHB3EKa08DoYceU8mEIOeq-E9kkLU"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7815d339187ba62734fe26554b1b21191c5c2b66417f70e4ae2f0a7d80d1d7b0.json",
+        "status": "miss",
+        "text": "「ごらん。もう春になるのね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7815d339187ba62734fe26554b1b21191c5c2b66417f70e4ae2f0a7d80d1d7b0.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "7d6da598c2b91580c5993c7c5c0ca89284cac1d8abf3a474ce7e6622f4d3832d",
+        "candidateIds": [
+          "nJ6QMH9nmolh-vnSX6FwC3yDp99tYMV-y3JThR8X1pw"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7d6da598c2b91580c5993c7c5c0ca89284cac1d8abf3a474ce7e6622f4d3832d.json",
+        "status": "miss",
+        "text": "「ええ。これまでじゃ。奥さま、ご免下さいまし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7d6da598c2b91580c5993c7c5c0ca89284cac1d8abf3a474ce7e6622f4d3832d.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "7dbb89e9b31c03069f655e8c48210cb1d49d5d3880e07bc19ab5ef52d22bc753",
+        "candidateIds": [
+          "A24dq9DWu5ybbpJL26yC8ruUF0VsTasBYdNBlwk0D0I"
+        ],
+        "estimatedBytes": 941804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7dbb89e9b31c03069f655e8c48210cb1d49d5d3880e07bc19ab5ef52d22bc753.json",
+        "status": "miss",
+        "text": "「いやお父っさん。さっきから見ていれば、辞儀をせいと言われても辞儀もせぬ。ほかの奴のように名のりもせぬ。弱々しゅう見えてもしぶとい者どもじゃ。奉公初めは男がしばかり、女がしおくみときまっている。その通りにさせなされい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7dbb89e9b31c03069f655e8c48210cb1d49d5d3880e07bc19ab5ef52d22bc753.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "83e54b5762b027f5d934ce1b3702ec9e8304aba192a79ceffdd9947dce5ef66f",
+        "candidateIds": [
+          "TdkCh4fpAQWR1hGe4DdDuLj7XDIaK6XasQEu06b2Tw0"
+        ],
+        "estimatedBytes": 388844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/83e54b5762b027f5d934ce1b3702ec9e8304aba192a79ceffdd9947dce5ef66f.json",
+        "status": "miss",
+        "text": "「木の葉があんなに染まるのでございますから、朝晩お寒くなりましたのも無理はございませんね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/83e54b5762b027f5d934ce1b3702ec9e8304aba192a79ceffdd9947dce5ef66f.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "8440813b4e380ac29b2a7bb797977a8659940dd628d1589665d3bff38569e1e9",
+        "candidateIds": [
+          "aSLVf1J22NW_MZWTvYpEq5xzI8oIuDIbDHR5OEXESWA"
+        ],
+        "estimatedBytes": 1641644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8440813b4e380ac29b2a7bb797977a8659940dd628d1589665d3bff38569e1e9.json",
+        "status": "miss",
+        "text": "「大きくなってからでなくては、遠い旅が出来ないというのは、それは当り前のことよ。わたしたちはその出来ないことがしたいのだわ。だがわたしよく思ってみると、どうしても二人一しょにここを逃げ出しては駄目なの。わたしには構わないで、お前一人で逃げなくては。そしてさきへ筑紫の方へ往って、お父うさまにお目にかかって、どうしたらいいか伺うのだね。それから佐渡へお母さまのお迎えに往くがいいわ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8440813b4e380ac29b2a7bb797977a8659940dd628d1589665d3bff38569e1e9.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "84dd467980e0609f243acd924fd25fe9d64e3b624cd545335bddaafb010c764c",
+        "candidateIds": [
+          "EYlcPUssqvNJ4H29IntMdQSwGKmACExhJXb0LmWhYSY"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/84dd467980e0609f243acd924fd25fe9d64e3b624cd545335bddaafb010c764c.json",
+        "status": "miss",
+        "text": "「その逃げたというのは十二三の小わっぱじゃろう。それならわしが知っておる」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/84dd467980e0609f243acd924fd25fe9d64e3b624cd545335bddaafb010c764c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "866e97af2ef2f556be7f1030200af2fa83653a0d812eba1fa71560f736c6e0be",
+        "candidateIds": [
+          "MdSG_VKa8lEYUDjBWcyfNvYgpdBC9TtIIzyDCXZ6YS4"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/866e97af2ef2f556be7f1030200af2fa83653a0d812eba1fa71560f736c6e0be.json",
+        "status": "miss",
+        "text": "「もう呼ぶな」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/866e97af2ef2f556be7f1030200af2fa83653a0d812eba1fa71560f736c6e0be.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "87b88e53f488d841ef1bde7d081c406bb1cadd472b1f6f2555bc03e2a470331c",
+        "candidateIds": [
+          "UZxv6FG5Jhlz27YNNhet9TrczonuEByKTeAbxmAgaD8"
+        ],
+        "estimatedBytes": 1080044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/87b88e53f488d841ef1bde7d081c406bb1cadd472b1f6f2555bc03e2a470331c.json",
+        "status": "miss",
+        "text": "「もうあそこに見えていますが、あの橋までおいでなさるとたかふだが立っています。それにくわしく書いてあるそうですが、近ごろ悪い人買いがこの辺を立ち廻ります。それで旅人に宿を貸して足を留めさせたものにはおとがめがあります。あたり七軒巻添えになるそうです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/87b88e53f488d841ef1bde7d081c406bb1cadd472b1f6f2555bc03e2a470331c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "902479175c36d0344c4051395c7941a5b36da70d9e09a9da7c93fc76301579ac",
+        "candidateIds": [
+          "P5yKtbMwotB3xLPdr_x8r_Q9aOEWzvRE57r6uNHBwAM"
+        ],
+        "estimatedBytes": 794924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/902479175c36d0344c4051395c7941a5b36da70d9e09a9da7c93fc76301579ac.json",
+        "status": "miss",
+        "text": "「わたしのことは構わないで、お前一人ですることを、わたしと一しょにするつもりでしておくれ。お父うさまにもお目にかかり、お母あさまをも島からお連れ申した上で、わたしをたすけに来ておくれ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/902479175c36d0344c4051395c7941a5b36da70d9e09a9da7c93fc76301579ac.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "90aec2638fa143c0992a659ca8e1aec6fe4d856a89cfbd96eba8fea29b0f96b2",
+        "candidateIds": [
+          "3f2Ah7C2pg3EFefmTlLkRU-J0DI-uFH3ZzoSFqfxwOw"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/90aec2638fa143c0992a659ca8e1aec6fe4d856a89cfbd96eba8fea29b0f96b2.json",
+        "status": "miss",
+        "text": "「お前もだゆうのところの奴か、柴は日に何荷苅るのか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/90aec2638fa143c0992a659ca8e1aec6fe4d856a89cfbd96eba8fea29b0f96b2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9166c10e848d0219f3ec81b39c3fc492a8d46129be390498a7f4981de865e3cb",
+        "candidateIds": [
+          "hzoyj7_BuyP-zOUzNHZTtWizo1Nd7R4KeuV_LTvDW1U"
+        ],
+        "estimatedBytes": 561644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9166c10e848d0219f3ec81b39c3fc492a8d46129be390498a7f4981de865e3cb.json",
+        "status": "miss",
+        "text": "「これは大事なお守だが、こんど逢うまでお前に預けます。この地蔵様をわたしだと思って、護り刀と一しょにして、大事に持っていておくれ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9166c10e848d0219f3ec81b39c3fc492a8d46129be390498a7f4981de865e3cb.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9205d6b1d7458e9d6be6ec52ac14fd17343039cf19c1b4b31f05866e2b8eb1d3",
+        "candidateIds": [
+          "66-8ehIJovgCU8h_VyyZ9BZho70DtqyRWJ2BhDJLgj0"
+        ],
+        "estimatedBytes": 2099564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9205d6b1d7458e9d6be6ec52ac14fd17343039cf19c1b4b31f05866e2b8eb1d3.json",
+        "status": "miss",
+        "text": "「わたくしはむつのじょうまさうじというものの子でございます。父は十二年前に筑紫の安楽寺へ往ったきり、帰らぬそうでございます。母はその年に生まれたわたくしと、三つになる姉とを連れて、岩代のしのぶごおりに住むことになりました。そのうちわたくしが大ぶ大きくなったので、姉とわたくしとを連れて、父を尋ねに旅立ちました。越後まで出ますと、恐ろしい人買いに取られて、母は佐渡へ、姉とわたくしとは丹後の由良へ売られました。姉は由良で亡くなりました。わたくしの持っている守本尊はこの地蔵様でございます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9205d6b1d7458e9d6be6ec52ac14fd17343039cf19c1b4b31f05866e2b8eb1d3.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "94b26eb521606b709ec2806d496ed48fdbc10fd0025c16134015494a3c6a3a08",
+        "candidateIds": [
+          "ApCX8pG-s0_uq4HML1tUcIWrZe-HfF2TluasNJTioXs"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/94b26eb521606b709ec2806d496ed48fdbc10fd0025c16134015494a3c6a3a08.json",
+        "status": "miss",
+        "text": "「お女中かな。そんなら待って進ぜましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/94b26eb521606b709ec2806d496ed48fdbc10fd0025c16134015494a3c6a3a08.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9545868a25106acf43ddffe1e6b7d3d0e9a7855822f583ce47efd737711e70b3",
+        "candidateIds": [
+          "kvL-CJho06FWtPxAbBli15Cq5aLdc-UYX7ICaWGDa7g"
+        ],
+        "estimatedBytes": 1598444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9545868a25106acf43ddffe1e6b7d3d0e9a7855822f583ce47efd737711e70b3.json",
+        "status": "miss",
+        "text": "「それはいじめるかも知れないがね、わたしは我慢して見せます。金で買ったはしためをあの人たちは殺しはしません。多分お前がいなくなったら、わたしを二人前働かせようとするでしょう。お前の教えてくれた木立ちの所で、わたしは柴をたくさん苅ります。六荷までは苅れないでも、四荷でも五荷でも苅りましょう。さあ、あそこまで降りて行って、籠や鎌をあそこに置いて、お前を麓へ送って上げよう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9545868a25106acf43ddffe1e6b7d3d0e9a7855822f583ce47efd737711e70b3.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9625d0b0fb191fda04874219ffcc0869aa2d7f67127b961922b8f452a4c37d10",
+        "candidateIds": [
+          "4JLClI8w54h3BVFTv-tSCLDjjZ91jOkqc3M68uQzRIM"
+        ],
+        "estimatedBytes": 915884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9625d0b0fb191fda04874219ffcc0869aa2d7f67127b961922b8f452a4c37d10.json",
+        "status": "miss",
+        "text": "「買うて来た子供はそれか。いつも買うやっこと違うて、何に使うてよいかわからぬ、珍らしい子供じゃというから、わざわざ連れて来させてみれば、色のあおざめた、か細いわらわどもじゃ。何に使うてよいかは、わしにもわからぬ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9625d0b0fb191fda04874219ffcc0869aa2d7f67127b961922b8f452a4c37d10.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9707b266ad1758cf7c85d1223cd26eb2d26672f668121d351f710417727ac514",
+        "candidateIds": [
+          "GBBsknxo_5lWlB7gRSllT9SuM32EdqHdxhFm5z0-FBA"
+        ],
+        "estimatedBytes": 1166444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9707b266ad1758cf7c85d1223cd26eb2d26672f668121d351f710417727ac514.json",
+        "status": "miss",
+        "text": "「承われば殊勝なお心がけと存じます。貸すなという掟のある宿を借りて、ひょっとやどぬしに難儀をかけようかと、それが気がかりでございますが、わたくしはともかくも、子供らにぬくいおかゆでも食べさせて、屋根の下に休ませることが出来ましたら、そのご恩はのちの世までも忘れますまい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9707b266ad1758cf7c85d1223cd26eb2d26672f668121d351f710417727ac514.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9a3939861867f79cf472fca8e8da1da962fabf7f1f74b36b0cbc05aadc3133f3",
+        "candidateIds": [
+          "fp3qfxmmCGsIV5FqCGaJDjszFSIS5FEMEr5sXgxzr_A"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a3939861867f79cf472fca8e8da1da962fabf7f1f74b36b0cbc05aadc3133f3.json",
+        "status": "miss",
+        "text": "「おう、よく聴いておくれだ。坊さんはよい人で、きっとお前を隠してくれます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9a3939861867f79cf472fca8e8da1da962fabf7f1f74b36b0cbc05aadc3133f3.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "9ad73e44b1bc97a23fef7def3441d75972b013f2c9d37c0af722460198a23022",
+        "candidateIds": [
+          "D0J-lke-XyRgw4hrbhv2JoexHbxseWcrYuzOeEyy6oc"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9ad73e44b1bc97a23fef7def3441d75972b013f2c9d37c0af722460198a23022.json",
+        "status": "miss",
+        "text": "「厨子王や」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9ad73e44b1bc97a23fef7def3441d75972b013f2c9d37c0af722460198a23022.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a17ac75b2d4a1e49d15e9d8665da60db8bb35d2e7d145c251ebe8c1c3261cf8d",
+        "candidateIds": [
+          "wJOJ6JfW3_jo-Lq5d9S6FnkmGgoMPiS8fuv0MT9Xx4E"
+        ],
+        "estimatedBytes": 2522924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a17ac75b2d4a1e49d15e9d8665da60db8bb35d2e7d145c251ebe8c1c3261cf8d.json",
+        "status": "miss",
+        "text": "「わしは山岡だゆうという船乗りじゃ。このごろこの土地を人買いが立ち廻るというので、国守が旅人に宿を貸すことを差し止めた。人買いをつかまえることは、国守の手に合わぬと見える。気の毒なは旅人じゃ。そこでわしは旅人を救うてやろうと思い立った。さいわいわしが家はかいどうを離れているので、こっそり人を留めても、誰に遠慮もいらぬ。わしは人の野宿をしそうな森の中や橋の下を尋ね廻って、これまで大勢の人を連れて帰った。見れば子供衆が菓子を食べていなさるが、そんな物は腹の足しにはならいで、歯にさわる。わしがところではさしたるもてなしはせぬが、いもがゆでも進ぜましょう。どうぞ遠慮せずに来て下されい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a17ac75b2d4a1e49d15e9d8665da60db8bb35d2e7d145c251ebe8c1c3261cf8d.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a2b2a61920998d93701e05636c8c0eaa9885bc48169bbf6f520ac8bdc6556284",
+        "candidateIds": [
+          "TSK5bPPufCImRXksmmi0p_e43p6WSg_ICxYGmP22uek"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2b2a61920998d93701e05636c8c0eaa9885bc48169bbf6f520ac8bdc6556284.json",
+        "status": "miss",
+        "text": "「もしもし。この辺に旅の宿をする家はありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2b2a61920998d93701e05636c8c0eaa9885bc48169bbf6f520ac8bdc6556284.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a35b8efc227bf968d5907f0f6e2e62c4397bbdc9f5cf0973400ac177aacd24cb",
+        "candidateIds": [
+          "yfg9fXhfcbdhnX2dkIec0HbM0B_tZmacao5n56CB2jc"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a35b8efc227bf968d5907f0f6e2e62c4397bbdc9f5cf0973400ac177aacd24cb.json",
+        "status": "miss",
+        "text": "「うるさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a35b8efc227bf968d5907f0f6e2e62c4397bbdc9f5cf0973400ac177aacd24cb.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a52d8098cc1f5b8290fcb50e643ef347d84c41dd773f68277c927f38c0cb87d0",
+        "candidateIds": [
+          "nw4Q4oznm0CAK62mMm3EjF-nonsARBEHqy4AiT5ydow"
+        ],
+        "estimatedBytes": 613484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a52d8098cc1f5b8290fcb50e643ef347d84c41dd773f68277c927f38c0cb87d0.json",
+        "status": "miss",
+        "text": "「姉えさん。どうしたのです。それはあなたが一しょに山へ来て下さるのは、わたしも嬉しいが、なぜ出し抜けに頼んだのです。なぜわたしに相談しません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a52d8098cc1f5b8290fcb50e643ef347d84c41dd773f68277c927f38c0cb87d0.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a8a679b0ad66a9cc842695a534ac41d64133c12901da878c97712ad6eceb8e98",
+        "candidateIds": [
+          "4gA3NCiILsd-h_bZQfl_-oN10mM9I4axLwunGSND3dA"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a8a679b0ad66a9cc842695a534ac41d64133c12901da878c97712ad6eceb8e98.json",
+        "status": "miss",
+        "text": "「姉えさん、早くおいでなさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a8a679b0ad66a9cc842695a534ac41d64133c12901da878c97712ad6eceb8e98.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a911b21bbe4400b9066564bb5a02d8f3f09d02a484eed92db8da348aff78bd98",
+        "candidateIds": [
+          "_JBTQP2dMmbAecLpxVNd_KzcyfllaYfoYDQwfvgssHg"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a911b21bbe4400b9066564bb5a02d8f3f09d02a484eed92db8da348aff78bd98.json",
+        "status": "miss",
+        "text": "「姉えさん。まだなかなかいかれはしないよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a911b21bbe4400b9066564bb5a02d8f3f09d02a484eed92db8da348aff78bd98.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "a9cb897ef9f24453315ab29a0d7fae2c03dea7f26ef5306353c33f4c96b02881",
+        "candidateIds": [
+          "VNg_zfLcxN0_jbvMvaSnwlaigvLaAqqxkIup1Ectb_E"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9cb897ef9f24453315ab29a0d7fae2c03dea7f26ef5306353c33f4c96b02881.json",
+        "status": "miss",
+        "text": "「それは本当ですか。どうしてそんなにじんきが悪いのでしょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9cb897ef9f24453315ab29a0d7fae2c03dea7f26ef5306353c33f4c96b02881.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ac97e45730eaad5731727e4f74393fed08389387c81a8608d3c594c04da50199",
+        "candidateIds": [
+          "p15GdoPVHOhYsWKSNDfOw-VXo23Bub5PYaFoZEZw7uY"
+        ],
+        "estimatedBytes": 812204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac97e45730eaad5731727e4f74393fed08389387c81a8608d3c594c04da50199.json",
+        "status": "miss",
+        "text": "「よい方にであいましたのは、わたしどものしあわせでございます。そこへ往って休みましょう。どうぞ藁や薦をお借り申しとうございます。せめて子供たちにでも敷かせたりきせたりいたしとうございます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac97e45730eaad5731727e4f74393fed08389387c81a8608d3c594c04da50199.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b114a9a83cff88e58cc915aaf70a8df7653fdeef56862ff01ae09b7e5b9d1509",
+        "candidateIds": [
+          "jJUZHcFb78OX-ZfHUoKjo38jphy0zbodKqZurPA1BDk"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b114a9a83cff88e58cc915aaf70a8df7653fdeef56862ff01ae09b7e5b9d1509.json",
+        "status": "miss",
+        "text": "「ご免なさいご免なさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b114a9a83cff88e58cc915aaf70a8df7653fdeef56862ff01ae09b7e5b9d1509.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b1b8cb9b34aeea9dd11fc7b3a68a9d6e285a15150ced2fe0c31aa51a9cab1e71",
+        "candidateIds": [
+          "etf8XWic4yhXYTLXainJOdzagktI_bwjH1vU8N7h9vY"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1b8cb9b34aeea9dd11fc7b3a68a9d6e285a15150ced2fe0c31aa51a9cab1e71.json",
+        "status": "miss",
+        "text": "「たわけが」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1b8cb9b34aeea9dd11fc7b3a68a9d6e285a15150ced2fe0c31aa51a9cab1e71.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b37b11a179b3f7e51238959c504fa3ae95146fd5415a5c5f4328690759be4cb4",
+        "candidateIds": [
+          "fhihOScrFbm7_pF16VNL2i4VhnieQowLR9DGaFAdo7k"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b37b11a179b3f7e51238959c504fa3ae95146fd5415a5c5f4328690759be4cb4.json",
+        "status": "miss",
+        "text": "「おっしゃるとおり、名はわたくしにも申しませぬ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b37b11a179b3f7e51238959c504fa3ae95146fd5415a5c5f4328690759be4cb4.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b6d49e749b7644355db4cd4b11d622e4b931640bb2887b560799d269e9239308",
+        "candidateIds": [
+          "Bj3loPfGArOU7uzZPXXKvwBr0VYPCKLZ6u3-BX7ucI4"
+        ],
+        "estimatedBytes": 1166444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b6d49e749b7644355db4cd4b11d622e4b931640bb2887b560799d269e9239308.json",
+        "status": "miss",
+        "text": "「おっしゃる通りにわらべどもを引き分けさせてもよろしゅうございますが、童どもは死んでも別れぬと申すそうでございます。愚かなものゆえ、死ぬるかも知れません。苅る柴はわずかでも、汲む潮はいささかでも、人手をへらすのは損でございます。わたくしがいいように計らってやりましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b6d49e749b7644355db4cd4b11d622e4b931640bb2887b560799d269e9239308.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b7429b923bfc4f2ee7976d9a3e1518de6c038e3355c8a23ccc24c796369ef95b",
+        "candidateIds": [
+          "-xxfk4Ts4uZv4UVp27MwKQPzK7wjcOehP6tCpRhbcBY"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7429b923bfc4f2ee7976d9a3e1518de6c038e3355c8a23ccc24c796369ef95b.json",
+        "status": "miss",
+        "text": "「ねえさん。ここらで苅るのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7429b923bfc4f2ee7976d9a3e1518de6c038e3355c8a23ccc24c796369ef95b.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b961c58010904f4b05589c2ff01a0c942ee8b48457cd5ebf497c6c5e8c3b62c2",
+        "candidateIds": [
+          "wAhiEH2y7239ZbbJdE5w5NvSa3WwDcm72aT9OEm64uk"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b961c58010904f4b05589c2ff01a0c942ee8b48457cd5ebf497c6c5e8c3b62c2.json",
+        "status": "miss",
+        "text": "「でも早く往きたいのですもの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b961c58010904f4b05589c2ff01a0c942ee8b48457cd5ebf497c6c5e8c3b62c2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "b9c05812fdcf481a2579683267f9c23034d95fa293c54cb55be96e4737c5056b",
+        "candidateIds": [
+          "ouKz3NzQzlF3BR2MV-npQ-9wclS3jVFMeNaRktFauGs"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b9c05812fdcf481a2579683267f9c23034d95fa293c54cb55be96e4737c5056b.json",
+        "status": "miss",
+        "text": "「でも姉えさんにお守がなくては」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b9c05812fdcf481a2579683267f9c23034d95fa293c54cb55be96e4737c5056b.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bad813f13f9798da01e967be010ef161d243872875f2c48e5d169129ba2c7f27",
+        "candidateIds": [
+          "p9dnE4YPSQA7IkLJpUibR2YUdFm2qcdrLihW59TLap4"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bad813f13f9798da01e967be010ef161d243872875f2c48e5d169129ba2c7f27.json",
+        "status": "miss",
+        "text": "「まあ、お待ち遊ばせ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bad813f13f9798da01e967be010ef161d243872875f2c48e5d169129ba2c7f27.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bae5e6cccd7a56249000e1bfd93837379d844f3abfdca3bb6472ea15ef6fe43f",
+        "candidateIds": [
+          "UEEmw-ZJ16Rxp4u0xQQJVQkk6zwV6LfkVxluDJDR-IM"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bae5e6cccd7a56249000e1bfd93837379d844f3abfdca3bb6472ea15ef6fe43f.json",
+        "status": "miss",
+        "text": "「出し抜こうとしたのはおぬしじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bae5e6cccd7a56249000e1bfd93837379d844f3abfdca3bb6472ea15ef6fe43f.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bb65dc989e666d224ef250f93e537fd15d12a6cfec5e7dcc277795896f2789a8",
+        "candidateIds": [
+          "wB78gGoz3eip8H9I-SMgtLfcEnP05WtybJb7sTKfhw4"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bb65dc989e666d224ef250f93e537fd15d12a6cfec5e7dcc277795896f2789a8.json",
+        "status": "miss",
+        "text": "「でもわたしがいなくなったら、あなたをひどい目に逢わせましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bb65dc989e666d224ef250f93e537fd15d12a6cfec5e7dcc277795896f2789a8.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bbed91e678e5752feb8698796b8d0619366efa0f0525ec746d44d06413c18139",
+        "candidateIds": [
+          "85aCAv-_lq9-pPjTCbCBZZrFre_bqMaDhGAxRb1kiq4"
+        ],
+        "estimatedBytes": 457964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bbed91e678e5752feb8698796b8d0619366efa0f0525ec746d44d06413c18139.json",
+        "status": "miss",
+        "text": "「汐はそれでは汲まれません。どれ汲みようを教えて上げよう。めての杓でこう汲んで、ゆんでのおけでこう受ける」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bbed91e678e5752feb8698796b8d0619366efa0f0525ec746d44d06413c18139.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bc81195b8b1fd325125631a20ae63a84737059c38c147a2814fc8a988e43e0f2",
+        "candidateIds": [
+          "o2GFTqVvB7RA1QrBPkJSAC_OJ0FJcAy8s7LuLtq4F5o"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc81195b8b1fd325125631a20ae63a84737059c38c147a2814fc8a988e43e0f2.json",
+        "status": "miss",
+        "text": "「姉えさんどうしたのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc81195b8b1fd325125631a20ae63a84737059c38c147a2814fc8a988e43e0f2.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bc99a8fb053a4e3b796b6c0f281ac31766fb8d61944affbbcd6e9f9d944f396a",
+        "candidateIds": [
+          "xMGhpfgQuXT_e2PQXQnzZ799WHZIRKObYKRD9RywXOs"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc99a8fb053a4e3b796b6c0f281ac31766fb8d61944affbbcd6e9f9d944f396a.json",
+        "status": "miss",
+        "text": "「厨子王」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bc99a8fb053a4e3b796b6c0f281ac31766fb8d61944affbbcd6e9f9d944f396a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bdc5795e6dab793d9da4ba016998ee15239710d39077d46a4d40da3b010e8a97",
+        "candidateIds": [
+          "pe8u8mwAHQU-VNxnsiYGrZ9H9_7vOGAz3e7ISgdTfMI"
+        ],
+        "estimatedBytes": 198764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bdc5795e6dab793d9da4ba016998ee15239710d39077d46a4d40da3b010e8a97.json",
+        "status": "miss",
+        "text": "「やれやれ、がきどもを片づけて身が軽うなった」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bdc5795e6dab793d9da4ba016998ee15239710d39077d46a4d40da3b010e8a97.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "bf021a54867c794a8c1da6b5fac7cacf4652cecfd36a4154ec5427728d1210f6",
+        "candidateIds": [
+          "O59-PLcTs597JQRx2gpFj7D1Q3SlU6h2i8HALGZUIdU"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf021a54867c794a8c1da6b5fac7cacf4652cecfd36a4154ec5427728d1210f6.json",
+        "status": "miss",
+        "text": "「ほんにそうお思いのはもっともだが、わたしだってあの人の顔を見るまで、頼もうとは思っていなかったの。ふいと思いついたのだもの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf021a54867c794a8c1da6b5fac7cacf4652cecfd36a4154ec5427728d1210f6.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "c0ddc1fe0bca34076668241ae3512d673b4207c02b635358a95d59759cd26233",
+        "candidateIds": [
+          "36yzJK9aAeP9yolfSlMKYZacdYRDbBD5bhd_CxEjw-8"
+        ],
+        "estimatedBytes": 449324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c0ddc1fe0bca34076668241ae3512d673b4207c02b635358a95d59759cd26233.json",
+        "status": "miss",
+        "text": "「わしはこれでおいとまをする。たしかな手からたしかな手へ渡すまでがわしの役じゃ。ご機嫌ようお越しなされ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c0ddc1fe0bca34076668241ae3512d673b4207c02b635358a95d59759cd26233.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "c19fd65a723a0aea34633e2d82582c6a3f7d24e15686788909628205f6d46249",
+        "candidateIds": [
+          "ZBoEKsUhiTV2O0oyyiLEKWbSCp_UuFZrmjNu9gdeV9A"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c19fd65a723a0aea34633e2d82582c6a3f7d24e15686788909628205f6d46249.json",
+        "status": "miss",
+        "text": "「そんなら姉えさん、ご機嫌よう。きっと人に見つからずに、中山まで参ります」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c19fd65a723a0aea34633e2d82582c6a3f7d24e15686788909628205f6d46249.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "c62262dd7714598131d19905857150551dea2b79079bd0bc1f8635ed0b079b3e",
+        "candidateIds": [
+          "Ee80QqJUm15l_NWTKklfvq_5cmAYJ8hS_fl44EXZ11Q"
+        ],
+        "estimatedBytes": 1417004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c62262dd7714598131d19905857150551dea2b79079bd0bc1f8635ed0b079b3e.json",
+        "status": "miss",
+        "text": "「姉えさん。わたしはこうして久しぶりで一しょに歩くのだから、嬉しがらなくてはならないのですが、どうも悲しくてなりません。わたしはこうして手を引いていながら、あなたの方へ向いて、そのかぶろになったおつむりを見ることが出来ません。姉えさん。あなたはわたしに隠して、何か考えていますね。なぜそれをわたしに言って聞かせてくれないのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c62262dd7714598131d19905857150551dea2b79079bd0bc1f8635ed0b079b3e.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "c70fed0d5f0c3a98da1aee03e1b28de3d5db396bbf926507f7a88d8b9677411a",
+        "candidateIds": [
+          "ChpXjTscc_Qvs3HmwPsYHJ7_xVaEcbSWVn1LtVHdSNQ"
+        ],
+        "estimatedBytes": 673964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c70fed0d5f0c3a98da1aee03e1b28de3d5db396bbf926507f7a88d8b9677411a.json",
+        "status": "miss",
+        "text": "「どうじゃな。あす為事に出られるかな。大勢の人のうちには病気でおるものもある。奴頭の話を聞いたばかりではわからぬから、きょうは小屋小屋を皆見て廻ったのじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c70fed0d5f0c3a98da1aee03e1b28de3d5db396bbf926507f7a88d8b9677411a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "c9ff1ce742b66d968cc68e3f45c53e55c061944287341c76a0e83c3c5dcbfd60",
+        "candidateIds": [
+          "WWXpt5nPQ1OWerElnBFY-1wOUFl5548oqlQWgG_egZo"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c9ff1ce742b66d968cc68e3f45c53e55c061944287341c76a0e83c3c5dcbfd60.json",
+        "status": "miss",
+        "text": "「まあ、もっと高い所へ登ってみましょうね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c9ff1ce742b66d968cc68e3f45c53e55c061944287341c76a0e83c3c5dcbfd60.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ce245ca117a878494d8071a7ae66854e76da5b32ea0d6325e2492d0a461e09b1",
+        "candidateIds": [
+          "lmzBCEY1MLH-znt1dmhWHw1-t_G1oCE_BQkCNmvgXPE"
+        ],
+        "estimatedBytes": 501164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce245ca117a878494d8071a7ae66854e76da5b32ea0d6325e2492d0a461e09b1.json",
+        "status": "miss",
+        "text": "「姉えさんの言う通りです。いつでも二人で今のような、出来ないことばかし言って、父母の恋しいのをまぎらしているのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce245ca117a878494d8071a7ae66854e76da5b32ea0d6325e2492d0a461e09b1.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ce5cf9fefcb93e20d58905668587ecab05b467d568d5be03e3f49f79db7aafb6",
+        "candidateIds": [
+          "eWNl7Qy8X6gx6tJFclZtNDOe-yHRxXTz_iBlG_8TzKU"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce5cf9fefcb93e20d58905668587ecab05b467d568d5be03e3f49f79db7aafb6.json",
+        "status": "miss",
+        "text": "「しのぶぐささん。お前に汐汲みをよさせて、柴を苅りにやるのだそうで、わしは道具を持って来た。代りに桶とひさごをもらって往こう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce5cf9fefcb93e20d58905668587ecab05b467d568d5be03e3f49f79db7aafb6.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ce65947b62e9bbc7482c78bffe4c9753fdd0fd363d308200e29f912335ed54d7",
+        "candidateIds": [
+          "oeSA30bIcKLhsrLbqzn3laB2Hq1DsiwbXpgWzRi1yg8"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce65947b62e9bbc7482c78bffe4c9753fdd0fd363d308200e29f912335ed54d7.json",
+        "status": "miss",
+        "text": "「姉えさん、早くお地蔵様を」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce65947b62e9bbc7482c78bffe4c9753fdd0fd363d308200e29f912335ed54d7.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ce81e58c1ba5896a3dfcfa1e086a24da1494564bae96c6b8816e61727ceb2db3",
+        "candidateIds": [
+          "_hTBajmWchq2yN-nS4AXqCfMiTC2eMufiXx7pyA4Dxw"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce81e58c1ba5896a3dfcfa1e086a24da1494564bae96c6b8816e61727ceb2db3.json",
+        "status": "miss",
+        "text": "「早くお父うさまのいらっしゃるところへゆきたいわね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce81e58c1ba5896a3dfcfa1e086a24da1494564bae96c6b8816e61727ceb2db3.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "d57479d429f34dd653b40c4ddd34352de669efacafc7045f0af390057cda8bf4",
+        "candidateIds": [
+          "osTtT1TlOwTMFYVpe8gOmHPFKinETLxHyBWPvXTWeKs"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d57479d429f34dd653b40c4ddd34352de669efacafc7045f0af390057cda8bf4.json",
+        "status": "miss",
+        "text": "「どうじゃ。あるか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d57479d429f34dd653b40c4ddd34352de669efacafc7045f0af390057cda8bf4.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "d6ebb3972b40af537494ef0646da67406e5c530a8927775950bccdc423f08e7c",
+        "candidateIds": [
+          "mAPLbBEuj43RBOM38io4ljfVgu9_nV35u8ny80DUtjQ"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d6ebb3972b40af537494ef0646da67406e5c530a8927775950bccdc423f08e7c.json",
+        "status": "miss",
+        "text": "「さてさてよう物のわかるご婦人じゃ。そんならすぐに案内をして進ぜましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d6ebb3972b40af537494ef0646da67406e5c530a8927775950bccdc423f08e7c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "d87f45540bea3f4b71d861eb1a08945efc9a03dcee625bd15a98ade3e17c7ea5",
+        "candidateIds": [
+          "2_Z0epmHXBCZTVlbR1fp1mMYST-4kBKy0BQ4HwKYmPA"
+        ],
+        "estimatedBytes": 622124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d87f45540bea3f4b71d861eb1a08945efc9a03dcee625bd15a98ade3e17c7ea5.json",
+        "status": "miss",
+        "text": "「そうです。わたしにもそうらしく思われて来ました。逃げて都へも往かれます。お父うさまやお母あさまにも逢われます。姉えさんのお迎えにも来られます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d87f45540bea3f4b71d861eb1a08945efc9a03dcee625bd15a98ade3e17c7ea5.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "d9e2437f10490942d699c8024ad079efa8f23cef263a10cf85b40ede934a6a26",
+        "candidateIds": [
+          "KcEqL807AvgAZQoYGOG1w5TmVdwh2OUWCpNgJDO9l88"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d9e2437f10490942d699c8024ad079efa8f23cef263a10cf85b40ede934a6a26.json",
+        "status": "miss",
+        "text": "「これがお前のかどでを祝うお酒だよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d9e2437f10490942d699c8024ad079efa8f23cef263a10cf85b40ede934a6a26.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "dae6261a90c5b4a4fcee4ff46f23f7a9df913d8ad338eabfc73d0551b9e2201d",
+        "candidateIds": [
+          "hn_3vVjS5jdkcy6m8cQqUZc9rtUtfd2VAb6GVeGkHCU"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dae6261a90c5b4a4fcee4ff46f23f7a9df913d8ad338eabfc73d0551b9e2201d.json",
+        "status": "miss",
+        "text": "「そして、姉えさん、あなたはどうしようというのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dae6261a90c5b4a4fcee4ff46f23f7a9df913d8ad338eabfc73d0551b9e2201d.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "dd0cc865607746409a8d58aaaa54d39fe742d678ccc05b63560254b26d5f8c17",
+        "candidateIds": [
+          "d2cpylJQZLn_29FG0AAfDl9UadbZTOIMLk7gXA8LM34"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd0cc865607746409a8d58aaaa54d39fe742d678ccc05b63560254b26d5f8c17.json",
+        "status": "miss",
+        "text": "「さあ、麓まで一しょに行くから、早くおいで」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd0cc865607746409a8d58aaaa54d39fe742d678ccc05b63560254b26d5f8c17.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "df23e089d7e7e0cbf30572514ea3642d472387a6822d51506e90f68e529c6899",
+        "candidateIds": [
+          "MaNveRvswuQlTLErJwqkWabBRjiHSqpvDhiXqeNrChE"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df23e089d7e7e0cbf30572514ea3642d472387a6822d51506e90f68e529c6899.json",
+        "status": "miss",
+        "text": "「いつまでも泣くか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df23e089d7e7e0cbf30572514ea3642d472387a6822d51506e90f68e529c6899.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "dffb953f698249eb9aa2973e0a7bad93bfee9623e5c12d26d085247adaf811a7",
+        "candidateIds": [
+          "w75sY-tTN-Z00Zvt7KCKtU88RfDTnJ4oEyhs4vmvPQg"
+        ],
+        "estimatedBytes": 630764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dffb953f698249eb9aa2973e0a7bad93bfee9623e5c12d26d085247adaf811a7.json",
+        "status": "miss",
+        "text": "「そうですとも。今まで越して来たような山をたくさん越して、河や海をお船でたびたび渡らなくては往かれないのだよ。毎日精出しておとなしく歩かなくては」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dffb953f698249eb9aa2973e0a7bad93bfee9623e5c12d26d085247adaf811a7.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e37ebf85e81ce543f25e8826f33c1747996fa51aede19bc0a6a2229cfe0e4965",
+        "candidateIds": [
+          "mt07galQTWTEgxT9gCI6dkwdjI9Yx9GtOSL8r4ioWXQ"
+        ],
+        "estimatedBytes": 1581164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e37ebf85e81ce543f25e8826f33c1747996fa51aede19bc0a6a2229cfe0e4965.json",
+        "status": "miss",
+        "text": "「お前は誰の子じゃ。何か大切な物を持っているなら、どうぞおれに見せてくれい。おれは娘の病気のへいゆを祈るために、ゆうべここにさんろうした。すると夢にお告げがあった。左のこうしに寝ているわらわがよい守本尊を持っている。それを借りて拝ませいということじゃ。けさ左の格子に来てみれば、お前がいる。どうぞおれに身の上を明かして、守本尊を貸してくれい。おれは関白もろざねじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e37ebf85e81ce543f25e8826f33c1747996fa51aede19bc0a6a2229cfe0e4965.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e3c3e9dcad657076b8f56fe83cb4ff1830c77f0f1f8bb8a878223421dbcdb52a",
+        "candidateIds": [
+          "DjtsO1qEZxUrhlxIkjJvhiQS0dqQT4Bp0UqDYN6V8vY"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3c3e9dcad657076b8f56fe83cb4ff1830c77f0f1f8bb8a878223421dbcdb52a.json",
+        "status": "miss",
+        "text": "「そうですか。変ですなあ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3c3e9dcad657076b8f56fe83cb4ff1830c77f0f1f8bb8a878223421dbcdb52a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e47f0dcb84142cbf2d71902838339467de5a86ca90ad37d30b9f8f1bde433c4c",
+        "candidateIds": [
+          "tkjHGDamv3a-OgpoFIp8ZmgqwAnocuR4nYlZSFkWvuQ"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e47f0dcb84142cbf2d71902838339467de5a86ca90ad37d30b9f8f1bde433c4c.json",
+        "status": "miss",
+        "text": "「おうちゃくものめ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e47f0dcb84142cbf2d71902838339467de5a86ca90ad37d30b9f8f1bde433c4c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e4a38590e437b3335e90b5757819c9f590f24956547d447173c6ccb2ae141423",
+        "candidateIds": [
+          "LRyk2kIfAaYLwsypDsOKPMm-9HVn7EsWAoMX8rFcH-4"
+        ],
+        "estimatedBytes": 665324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4a38590e437b3335e90b5757819c9f590f24956547d447173c6ccb2ae141423.json",
+        "status": "miss",
+        "text": "「それについてお願いがございます。わたくしは弟と同じ所で為事がいたしとうございます。どうか一しょに山へやって下さるように、お取り計らいなすって下さいまし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e4a38590e437b3335e90b5757819c9f590f24956547d447173c6ccb2ae141423.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e5297f22f9cc71a70c181fc764b4a4d215fbd678b939a1cd211d5f59a08bbe1c",
+        "candidateIds": [
+          "1hW-gwnZ9xqTedvjrrk6lkBKh8vJ5ecgMqWissaLg78"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5297f22f9cc71a70c181fc764b4a4d215fbd678b939a1cd211d5f59a08bbe1c.json",
+        "status": "miss",
+        "text": "「でもお寺の坊さんが隠しておいてくれるでしょうか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5297f22f9cc71a70c181fc764b4a4d215fbd678b939a1cd211d5f59a08bbe1c.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e5e27671c7b97a04e37db2acd7a9ea56fb53b7d12cae46a13a632ee03fa5634a",
+        "candidateIds": [
+          "vflqtiRVL3xMojv8qYUQ96MaPDfgar6-16iEElh5_p0"
+        ],
+        "estimatedBytes": 311084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5e27671c7b97a04e37db2acd7a9ea56fb53b7d12cae46a13a632ee03fa5634a.json",
+        "status": "miss",
+        "text": "「それもそうか。損になることはわしも嫌いじゃ。どうにでも勝手にしておけ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e5e27671c7b97a04e37db2acd7a9ea56fb53b7d12cae46a13a632ee03fa5634a.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "e828dad85760ea91df09d780d6a8a5c486c70ef99670a994850b20f79918d338",
+        "candidateIds": [
+          "xK0jE1Z_hvPqalKQ9_UjQMhg2EhI3h8znb_GfCF4ygM"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e828dad85760ea91df09d780d6a8a5c486c70ef99670a994850b20f79918d338.json",
+        "status": "miss",
+        "text": "「さあ、出してもらおう、出してもらおう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e828dad85760ea91df09d780d6a8a5c486c70ef99670a994850b20f79918d338.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "ed31afe6ad52aac81594125b66c583100f4b0c13bf8ab6ebb1d42e2e93f68013",
+        "candidateIds": [
+          "bD_NOshhLdgdNGunoX3uyBVekBZh9gQJxKST20ZmFMs"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed31afe6ad52aac81594125b66c583100f4b0c13bf8ab6ebb1d42e2e93f68013.json",
+        "status": "miss",
+        "text": "「連れがおありなさる。それは男かおなごか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed31afe6ad52aac81594125b66c583100f4b0c13bf8ab6ebb1d42e2e93f68013.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "f0727e81065e219c92789afae85b1de43bb15707d05c9a1b4333059aad37dc70",
+        "candidateIds": [
+          "aC2FBqiU9fDcK5L70aAZjnGzZyOxdESLbQpi44j7jwM"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0727e81065e219c92789afae85b1de43bb15707d05c9a1b4333059aad37dc70.json",
+        "status": "miss",
+        "text": "「ほんにそうじゃ。柴苅りに往くからは、わたしも男じゃ。どうぞこの鎌で切って下さいまし」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f0727e81065e219c92789afae85b1de43bb15707d05c9a1b4333059aad37dc70.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "f2be0ae4478a2be3451bf280c9ccc37ccc00a48b9e0559f7578bcbc4af3be593",
+        "candidateIds": [
+          "hRBVhdrut-8L1ZAiQpLZbdbXk-8ivF_AqMmZGwL4VSI"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f2be0ae4478a2be3451bf280c9ccc37ccc00a48b9e0559f7578bcbc4af3be593.json",
+        "status": "miss",
+        "text": "「うぬまで死なせてなるものか。大事なしろものじゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f2be0ae4478a2be3451bf280c9ccc37ccc00a48b9e0559f7578bcbc4af3be593.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "f3248904229026a2aef464a7832842abd21ac55372c9e780f4a125b573858503",
+        "candidateIds": [
+          "jF6N_kUxrqy8jo9H6ZxpZoLtLJxJP7xPoihrIUMm8Yw"
+        ],
+        "estimatedBytes": 1036844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f3248904229026a2aef464a7832842abd21ac55372c9e780f4a125b573858503.json",
+        "status": "miss",
+        "text": "「船頭さん。これはどうしたことでございます。あのお嬢さま、若さまに別れて、生きてどこへ往かれましょう。奥さまも同じことでございます。これから何をたよりにお暮らしなさいましょう。どうぞあの舟の往く方へ漕いで行って下さいまし。後生でございます」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f3248904229026a2aef464a7832842abd21ac55372c9e780f4a125b573858503.wav",
+        "workIds": [
+          "000689"
+        ]
+      },
+      {
+        "audioId": "fd6ca23d04839207d033c286b00eb853ef67c65fe2ce94231d4fd8194ca97d2d",
+        "candidateIds": [
+          "SGj3-boeAPzRC_QOFQ49DsRtzJH-Ah4daMIwfNAcW_g"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fd6ca23d04839207d033c286b00eb853ef67c65fe2ce94231d4fd8194ca97d2d.json",
+        "status": "miss",
+        "text": "「まあ、お気の毒な。あいにくなところで日が暮れますね。この土地には旅の人を留めて上げる所は一軒もありません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fd6ca23d04839207d033c286b00eb853ef67c65fe2ce94231d4fd8194ca97d2d.wav",
+        "workIds": [
+          "000689"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 65349600,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "61a0a4ec41edd872ec5987d4ac23b802d9f66d397750c696ae3803b685472ec5",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 120,
+    "planDigest": "8a40dc732d78d95cf707f1401cb5398f696a633257c1ec9fc65cf90d99032627",
+    "preTreeDigest": "55ed79b83d1110c0ce5696dc79e1f8a35b5ee7d8416aedbc999dfbcb18bf8570",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 120,
+    "workId": "000689"
+  },
+  "preTreeDigest": "55ed79b83d1110c0ce5696dc79e1f8a35b5ee7d8416aedbc999dfbcb18bf8570",
+  "schemaVersion": "1.0.0",
+  "workId": "000689"
+}

@@ -303,6 +303,185 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       }],
     },
   },
+  // 山椒大夫(000689)。青空文庫本文（689_23257.html正規化済みテキスト、
+  // 実際の物語進行順に対応する120候補全件）を通読し話者を確定した。
+  // 舞姫と異なり外来語・術語の強調用例は無く、全候補が実際の発話（一部は
+  // 「」内の心内語=正道の独白、厨子王の別名）である。安寿・厨子王・母・
+  // 姥竹（守女中）・山岡大夫（人買いの船頭）・佐渡の二郎/宮崎の三郎（人買いの
+  // 船頭、大夫の息子の二郎/三郎と同名だが別人のため区別して表記）・
+  // 山椒大夫とその息子二郎/三郎（父の役を継ぐ長男格）・奴頭・樵・小萩・
+  // 曇猛律師・鐘楼守・関白師実（もろざね）が実際に発話する。複数人が同時に
+  // 呼びかわす箇所（order36・38・47・71）は物語上「親子主従」「姉と弟」の
+  // 連呼であり、speaker欄には該当する複数名を連結して記録する（audio生成は
+  // 単一のずんだもん声のため、speakerは表示上の帰属メタデータであり音声
+  // 選択には影響しない）。討手の群衆台詞（order108・109）も同様。
+  '000689': {
+    judgmentsByOrder: [
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order0 「もうじきにお宿にお着きなさいます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order1 「まああの美しいもみじをごらん」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order2 「木の葉があんなに染まるのでございますから」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order3 「早くお父うさまのいらっしゃるところへゆきたいわね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order4 「姉えさん。まだなかなかいかれはしないよ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order5 「そうですとも。今まで越して来たような山を」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order6 「でも早く往きたいのですもの」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order7 「もしもし。この辺に旅の宿をする家はありませんか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '潮汲み女' }, // order8 「まあ、お気の毒な」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order9 「それは本当ですか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '潮汲み女' }, // order10 「いいえ。信者が多くて人気のいい土地ですが」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '潮汲み女' }, // order11 「もうあそこに見えていますが」（order10続き）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order12 「それは困りますね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '潮汲み女' }, // order13 「そうですね。わたしの通う塩浜のあるあたりまで」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order14 「よい方に出逢いましたのは」（子供らの母が潮汲み女に）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order15 「姉えさん、早くおいでなさい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order16 「まあ、お待ち遊ばせ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order17 「ここでは焚火をいたすことは出来ません」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order18 「姥竹かい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order19 「わしは山岡大夫という船乗りじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order20 「承われば殊勝なお心がけと存じます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order21 「さてさてよう物のわかるご婦人じゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order22 「どうぞ少しお待ち下さいませ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order23 「連れがおありなさる。それは男か女子か」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order24 「子供たちの世話をさせに連れて出た女中でございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order25 「お女中かな。そんなら待って進ぜましょう」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order26 「どうじゃ。あるか」（待機していた船頭の呼びかけ）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order27 「気張るぞ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order28 「横着者奴」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order29 「出し抜こうとしたのはおぬしじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order30 「あわてるな。どっちも空手では還さぬ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order31 「さあ、お二人ずつあの舟へお乗りなされ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order32 「あの、主人にお預けなされた嚢は」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山岡大夫' }, // order33 「わしはこれでお暇をする」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order34 「同じ道を漕いで行って、同じ港に着くのでございましょうね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order35 「乗る舟は弘誓の舟、着くは同じ彼岸と」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '一同(母・安寿・厨子王・姥竹)' }, // order36 「あれあれ」（親子主従が呼びかわす）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order37 「もうしかたがない。これが別れだよ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿・厨子王' }, // order38 「お母あさま、お母あさま」（子供二人）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order39 「もし船頭さん、もしもし」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order40 「船頭さん。これはどうしたことでございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order41 「うるさい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姥竹' }, // order42 「ええ。これまでじゃ。奥さま、ご免下さいまし」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order43 「こら」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order44 「これは粗末な物でございますが」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order45 「たわけが」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '佐渡の二郎' }, // order46 「うぬまで死なせてなるものか。大事な貨じゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿・厨子王' }, // order47 「お母あさまお母あさま」（宮崎の舟で姉弟が）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order48 「もう呼ぶな」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order49 「水の底の鱗介には聞えても」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order50 「いつまでも泣くか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '宮崎の三郎' }, // order51 「やれやれ、餓鬼どもを片づけて身が軽うなった」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山椒大夫' }, // order52 「買うて来た子供はそれか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order53 「いやお父っさん。さっきから見ていれば」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '奴頭' }, // order54 「おっしゃるとおり、名はわたくしにも申しませぬ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山椒大夫' }, // order55 「愚か者と見える。名はわしがつけてやる」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order56 「過分のいたわりようじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '樵' }, // order57 「お前も大夫のところの奴か、柴は日に何荷苅るのか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order58 「日に三荷苅るはずの柴を、まだ少しも苅りませぬ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '樵' }, // order59 「日に三荷の柴ならば、午までに二荷苅るがいい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '小萩' }, // order60 「汐はそれでは汲まれません」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order61 「ありがとうございます。汲みようが」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山椒大夫' }, // order62 「たわけた話じゃ。奴は奴の組へ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '二郎(大夫の子)' }, // order63 「おっしゃる通りに童どもを引き分けさせても」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '山椒大夫' }, // order64 「それもそうか。損になることはわしも嫌いじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '二郎(大夫の子)' }, // order65 「父母は恋しゅうても佐渡は遠い」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order66 「大きくなってからでなくては、遠い旅が出来ないというのは」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order67 「こら。おぬしたちは逃げる談合をしておるな」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order68 「あれはうそでございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order69 「姉えさんの言う通りです」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order70 「ふん。ならでもいい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿・厨子王' }, // order71 「ご免なさいご免なさい」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order72 「姉えさん、早くお地蔵様を」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order73 「姉えさんどうしたのです」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order74 「どうもしないの、大丈夫よ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '二郎(大夫の子)' }, // order75 「どうじゃな。あす為事に出られるかな」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order76 「それについてお願いがございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order77 「ほかにない、ただ一つのお願いでございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '二郎(大夫の子)' }, // order78 「この邸では奴婢のなにがしになんの為事をさせるということは」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order79 「姉えさん。どうしたのです」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order80 「ほんにそうお思いのはもっともだが」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order81 「そうですか。変ですなあ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '奴頭' }, // order82 「垣衣さん。お前に汐汲みをよさせて」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order83 「これはどうもお手数でございました」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '奴頭' }, // order84 「さて今一つ用事があるて」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order85 「ほんにそうじゃ。柴苅りに往くからは」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order86 「姉えさん。わたしはこうして久しぶりで一しょに歩くのだから」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order87 「ごらん。もう春になるのね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order88 「ねえさん。ここらで苅るのです」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order89 「まあ、もっと高い所へ登ってみましょうね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order90 「厨子王や」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order91 「わたしが久しい前から考えごとをしていて」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order92 「そして、姉えさん、あなたはどうしようというのです」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order93 「わたしのことは構わないで」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order94 「でもわたしがいなくなったら」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order95 「それはいじめるかも知れないがね」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order96 「これは大事なお守だが、こんど逢うまでお前に預けます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order97 「でも姉えさんにお守がなくては」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order98 「いいえ。わたしよりはあぶない目に逢うお前に」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order99 「でもお寺の坊さんが隠しておいてくれるでしょうか」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order100 「さあ、それが運験しだよ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order101 「そうですね。姉えさんのきょうおっしゃることは」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order102 「おう、よく聴いておくれだ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order103 「そうです。わたしにもそうらしく思われて来ました」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order104 「さあ、麓まで一しょに行くから、早くおいで」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '安寿' }, // order105 「これがお前の門出を祝うお酒だよ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order106 「そんなら姉えさん、ご機嫌よう」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order107 「これへ参ったのは、石浦の山椒大夫が族のものじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '討手一同' }, // order108 「さあ、出してもらおう、出してもらおう」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '討手の一人' }, // order109 「和尚さん、どうしたのだ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '曇猛律師' }, // order110 「逃げた下人を捜しに来られたのじゃな」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '鐘楼守' }, // order111 「その逃げたというのは十二三の小わっぱじゃろう」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '鐘楼守' }, // order112 「そのわっぱはな、わしが午ごろ鐘楼から見ておると」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '三郎(大夫の子)' }, // order113 「それじゃ。半日に童の行く道は知れたものじゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '曇猛律師' }, // order114 「守本尊を大切にして往け」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '師実(もろざね)' }, // order115 「お前は誰の子じゃ。何か大切な物を持っているなら」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order116 「わたくしは陸奥掾正氏というものの子でございます」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '師実(もろざね)' }, // order117 「これはかねて聞きおよんだ、尊い放光王地蔵菩薩の金像じゃ」
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '厨子王' }, // order118 心内語「どうしてお母あさまの行くえが知れないのだろう」（正道の独白）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '母' }, // order119 「厨子王」（盲目の母が声を聞き分けて叫ぶ、物語の結び）
+    ],
+    // VOICEVOX 0.25.2 speaker 3のaudio_query実測で、「大夫」（山岡大夫・
+    // 山椒大夫双方に使われる、原文でルビの無い箇所）が「たいふ」（律令官位の
+    // 読み）に誤読されることを確認した。物語内での実際の読みは「だゆう」
+    // （老舗の主人・頭領を指す古い呼称）であり、正しい読みへ強制する。
+    // 該当4候補・計6箇所（うち2候補は同一候補内に「大夫」が2回出現するため
+    // 前後の語で一意な部分文字列に区切って個別に補正する）。
+    speechCorrections: {
+      '.main_text:2960-3241': [{
+        find: '山岡大夫',
+        to: '山岡だゆう',
+        reason:
+          '「大夫」が原文でルビ無しのまま残り、VOICEVOXが律令官位の読み「たいふ」に誤読することを実測（正しくは「だゆう」）。displayTextを変えずカタカナ・ひらがな混在で読みを強制する。',
+      }],
+      '.main_text:9499-9524': [{
+        find: '大夫のところ',
+        to: 'だゆうのところ',
+        reason: '同一の「大夫」誤読パターン（正しくは「だゆう」）。',
+      }],
+      '.main_text:15094-15233': [
+        {
+          find: '大夫様に',
+          to: 'だゆう様に',
+          reason: '同一の「大夫」誤読パターン。1候補内に「大夫様」が2回出現するため前後の語で個別に補正する（1回目）。',
+        },
+        {
+          find: '大夫様は',
+          to: 'だゆう様は',
+          reason: '同一の「大夫」誤読パターン。1候補内に「大夫様」が2回出現するため前後の語で個別に補正する（2回目）。',
+        },
+      ],
+      '.main_text:18555-18645': [
+        {
+          find: '山椒大夫が',
+          to: '山椒だゆうが',
+          reason: '同一の「大夫」誤読パターン。1候補内に「大夫」が2回出現するため前後の語で個別に補正する（1回目、「山椒大夫が」）。',
+        },
+        {
+          find: '大夫が使う',
+          to: 'だゆうが使う',
+          reason: '同一の「大夫」誤読パターン。1候補内に「大夫」が2回出現するため前後の語で個別に補正する（2回目、「大夫が使う」）。',
+        },
+      ],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {

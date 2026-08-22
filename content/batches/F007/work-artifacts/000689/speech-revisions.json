@@ -1,0 +1,906 @@
+{
+  "batchId": "F007",
+  "kind": "f007-speech-revision-result",
+  "reconciliationDigest": "ecb2d16ad4b6559ce35d6afb50e0049d9577efed6d2fc8aaa7fcc115dc087455",
+  "revisions": [
+    {
+      "after": "「わしは山岡だゆうという船乗りじゃ。このごろこの土地を人買いが立ち廻るというので、国守が旅人に宿を貸すことを差し止めた。人買いをつかまえることは、国守の手に合わぬと見える。気の毒なは旅人じゃ。そこでわしは旅人を救うてやろうと思い立った。さいわいわしが家はかいどうを離れているので、こっそり人を留めても、誰に遠慮もいらぬ。わしは人の野宿をしそうな森の中や橋の下を尋ね廻って、これまで大勢の人を連れて帰った。見れば子供衆が菓子を食べていなさるが、そんな物は腹の足しにはならいで、歯にさわる。わしがところではさしたるもてなしはせぬが、いもがゆでも進ぜましょう。どうぞ遠慮せずに来て下されい」",
+      "before": "「わしは山岡大夫という船乗りじゃ。このごろこの土地を人買いが立ち廻るというので、国守が旅人に宿を貸すことを差し止めた。人買いをつかまえることは、国守の手に合わぬと見える。気の毒なは旅人じゃ。そこでわしは旅人を救うてやろうと思い立った。さいわいわしが家はかいどうを離れているので、こっそり人を留めても、誰に遠慮もいらぬ。わしは人の野宿をしそうな森の中や橋の下を尋ね廻って、これまで大勢の人を連れて帰った。見れば子供衆が菓子を食べていなさるが、そんな物は腹の足しにはならいで、歯にさわる。わしがところではさしたるもてなしはせぬが、いもがゆでも進ぜましょう。どうぞ遠慮せずに来て下されい」",
+      "candidateId": "wJOJ6JfW3_jo-Lq5d9S6FnkmGgoMPiS8fuv0MT9Xx4E",
+      "inputSha256": "c9f56a9d60beed9b5917984f9d81b7f2023361e647d729881c45866a0bec3019",
+      "outputSha256": "cbd51bb6175fad91ad12da8ac97bd85c1d01ead2805f2cdd2ff12ce0f668a871",
+      "reason": "「大夫」が原文でルビ無しのまま残り、VOICEVOXが律令官位の読み「たいふ」に誤読することを実測（正しくは「だゆう」）。displayTextを変えずカタカナ・ひらがな混在で読みを強制する。",
+      "revision": 1
+    },
+    {
+      "after": "「お前もだゆうのところの奴か、柴は日に何荷苅るのか」",
+      "before": "「お前も大夫のところの奴か、柴は日に何荷苅るのか」",
+      "candidateId": "3f2Ah7C2pg3EFefmTlLkRU-J0DI-uFH3ZzoSFqfxwOw",
+      "inputSha256": "1b0032b09a6d46ab6c662146c03eea0d5aaf7d2a43eced502880d3e0227adbf4",
+      "outputSha256": "66a564f59ed1662ae1c543de540fc335e90a65b994a45200b4841d230c163959",
+      "reason": "同一の「大夫」誤読パターン（正しくは「だゆう」）。",
+      "revision": 1
+    },
+    {
+      "after": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様がだゆう様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。大夫様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+      "before": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様が大夫様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。大夫様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+      "candidateId": "b1mzZ9iqdHteurvbbLXx_NtLZ4l-fY_I-1-ksInWbuE",
+      "inputSha256": "1b9a992f22bfd833c9fb81cd42fdc40028766f846accf012fc41dd62d8cb751a",
+      "outputSha256": "6b04bee3fdedd86525cbabbaee94d4b1d5d030e540be471ac9cb43fe56ed7f0f",
+      "reason": "同一の「大夫」誤読パターン。1候補内に「大夫様」が2回出現するため前後の語で個別に補正する（1回目）。",
+      "revision": 1
+    },
+    {
+      "after": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様がだゆう様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。だゆう様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+      "before": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様がだゆう様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。大夫様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+      "candidateId": "b1mzZ9iqdHteurvbbLXx_NtLZ4l-fY_I-1-ksInWbuE",
+      "inputSha256": "6b04bee3fdedd86525cbabbaee94d4b1d5d030e540be471ac9cb43fe56ed7f0f",
+      "outputSha256": "0f62773bf1ea4ae7d5e28eef8650189de02fc1fd55716b889b340717fb3deb8f",
+      "reason": "同一の「大夫」誤読パターン。1候補内に「大夫様」が2回出現するため前後の語で個別に補正する（2回目）。",
+      "revision": 2
+    },
+    {
+      "after": "「これへ参ったのは、石浦の山椒だゆうがうからのものじゃ。大夫が使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+      "before": "「これへ参ったのは、石浦の山椒大夫がうからのものじゃ。大夫が使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+      "candidateId": "jifljJOUM7x5z1gxq9hWD4RO2DY-LkpfhmQarKJKvx0",
+      "inputSha256": "8894edb1a0fffd34a4689dc711a89cb11d80d45f9e40f3b7cc299114ac08b59a",
+      "outputSha256": "c94a9ef44360480c2e5baa5d017dd3b4097e49534e557091fc4d28bd10f4995f",
+      "reason": "同一の「大夫」誤読パターン。1候補内に「大夫」が2回出現するため前後の語で個別に補正する（1回目、「山椒大夫が」）。",
+      "revision": 1
+    },
+    {
+      "after": "「これへ参ったのは、石浦の山椒だゆうがうからのものじゃ。だゆうが使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+      "before": "「これへ参ったのは、石浦の山椒だゆうがうからのものじゃ。大夫が使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+      "candidateId": "jifljJOUM7x5z1gxq9hWD4RO2DY-LkpfhmQarKJKvx0",
+      "inputSha256": "c94a9ef44360480c2e5baa5d017dd3b4097e49534e557091fc4d28bd10f4995f",
+      "outputSha256": "666c2164ee91f91d84eae9d02aa6995e9526cb2db45c61cf957e3abb3cc09c64",
+      "reason": "同一の「大夫」誤読パターン。1候補内に「大夫」が2回出現するため前後の語で個別に補正する（2回目、「大夫が使う」）。",
+      "revision": 2
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "tmaXrCQUYbiNxyfwMk1klwcJs99RI_ZP-buF8b3KDcY",
+      "displayText": "「もうじきにお宿にお着きなさいます」",
+      "revisionCount": 0,
+      "speechSha256": "bc78075f1ea0b70f240feb51c3959a7fdf941952b7829e65a893cd1c67d2ae47",
+      "speechText": "「もうじきにお宿にお着きなさいます」"
+    },
+    {
+      "candidateId": "8yaKbsIM2wtdLmN1SMlmI96M6Q2vHf5Z-uGcKlDAuhc",
+      "displayText": "「まああの美しい紅葉をごらん」",
+      "revisionCount": 0,
+      "speechSha256": "b8e6b367a1a5484f4de6ae046256e70b2118f53ead043323a04cc79b645e9321",
+      "speechText": "「まああの美しいもみじをごらん」"
+    },
+    {
+      "candidateId": "TdkCh4fpAQWR1hGe4DdDuLj7XDIaK6XasQEu06b2Tw0",
+      "displayText": "「木の葉があんなに染まるのでございますから、朝晩お寒くなりましたのも無理はございませんね」",
+      "revisionCount": 0,
+      "speechSha256": "5cf051cc98f4d75e88106783ff8cc3b1fab1e8ad88139a702ae240a589cc2da1",
+      "speechText": "「木の葉があんなに染まるのでございますから、朝晩お寒くなりましたのも無理はございませんね」"
+    },
+    {
+      "candidateId": "_hTBajmWchq2yN-nS4AXqCfMiTC2eMufiXx7pyA4Dxw",
+      "displayText": "「早くお父うさまのいらっしゃるところへ往きたいわね」",
+      "revisionCount": 0,
+      "speechSha256": "c5c6f537f839515f998bb7901b8d3fd914a17d5057ccd7a0b3759dc80f676326",
+      "speechText": "「早くお父うさまのいらっしゃるところへゆきたいわね」"
+    },
+    {
+      "candidateId": "_JBTQP2dMmbAecLpxVNd_KzcyfllaYfoYDQwfvgssHg",
+      "displayText": "「姉えさん。まだなかなか往かれはしないよ」",
+      "revisionCount": 0,
+      "speechSha256": "b254d69055be53cfc14c1d988de1dcad4150e8ff82b36b4ffe9e4107bd7d95e7",
+      "speechText": "「姉えさん。まだなかなかいかれはしないよ」"
+    },
+    {
+      "candidateId": "w75sY-tTN-Z00Zvt7KCKtU88RfDTnJ4oEyhs4vmvPQg",
+      "displayText": "「そうですとも。今まで越して来たような山をたくさん越して、河や海をお船でたびたび渡らなくては往かれないのだよ。毎日精出しておとなしく歩かなくては」",
+      "revisionCount": 0,
+      "speechSha256": "0492fdeeb605b01a409a150140b64d5c2dc0ecf6a58443d1d6b2524b5a37b601",
+      "speechText": "「そうですとも。今まで越して来たような山をたくさん越して、河や海をお船でたびたび渡らなくては往かれないのだよ。毎日精出しておとなしく歩かなくては」"
+    },
+    {
+      "candidateId": "wAhiEH2y7239ZbbJdE5w5NvSa3WwDcm72aT9OEm64uk",
+      "displayText": "「でも早く往きたいのですもの」",
+      "revisionCount": 0,
+      "speechSha256": "a53d016da1e50c2e5e1c3908d874664e98b45c01dc6246647cdfdca898544908",
+      "speechText": "「でも早く往きたいのですもの」"
+    },
+    {
+      "candidateId": "TSK5bPPufCImRXksmmi0p_e43p6WSg_ICxYGmP22uek",
+      "displayText": "「もしもし。この辺に旅の宿をする家はありませんか」",
+      "revisionCount": 0,
+      "speechSha256": "4e27ae947b74bb2fb96d61fff51795010a307b59039d22e4d0c929685252a3aa",
+      "speechText": "「もしもし。この辺に旅の宿をする家はありませんか」"
+    },
+    {
+      "candidateId": "SGj3-boeAPzRC_QOFQ49DsRtzJH-Ah4daMIwfNAcW_g",
+      "displayText": "「まあ、お気の毒な。あいにくなところで日が暮れますね。この土地には旅の人を留めて上げる所は一軒もありません」",
+      "revisionCount": 0,
+      "speechSha256": "d351891d13b07297676fa7b5e12351e1fe5f693113ad097697448cf68f943f3d",
+      "speechText": "「まあ、お気の毒な。あいにくなところで日が暮れますね。この土地には旅の人を留めて上げる所は一軒もありません」"
+    },
+    {
+      "candidateId": "VNg_zfLcxN0_jbvMvaSnwlaigvLaAqqxkIup1Ectb_E",
+      "displayText": "「それは本当ですか。どうしてそんなに人気が悪いのでしょう」",
+      "revisionCount": 0,
+      "speechSha256": "c8c00d197e14906c1599be98291df62ea8f8c7346ca03834f4d7cfb75919ae1a",
+      "speechText": "「それは本当ですか。どうしてそんなにじんきが悪いのでしょう」"
+    },
+    {
+      "candidateId": "TfCfmHvtqdxV0YtV8KXwbWMcxHbTxuUvAEm4u9ec4gE",
+      "displayText": "「いいえ。信者が多くて人気のいい土地ですが、国守の掟だからしかたがありません。もうあそこに」",
+      "revisionCount": 0,
+      "speechSha256": "872bda7a37b4858f47ddf6a353417f05d91f154ef44d3b267df2d44585624611",
+      "speechText": "「いいえ。信者が多くて人気のいい土地ですが、くにのかみのおきてだからしかたがありません。もうあそこに」"
+    },
+    {
+      "candidateId": "UZxv6FG5Jhlz27YNNhet9TrczonuEByKTeAbxmAgaD8",
+      "displayText": "「もうあそこに見えていますが、あの橋までおいでなさると高札が立っています。それにくわしく書いてあるそうですが、近ごろ悪い人買いがこの辺を立ち廻ります。それで旅人に宿を貸して足を留めさせたものにはお咎めがあります。あたり七軒巻添えになるそうです」",
+      "revisionCount": 0,
+      "speechSha256": "0b90c4fb47c2e441301d4e6f6da7e527d70ed383a07660ae71f5c197e1b779ef",
+      "speechText": "「もうあそこに見えていますが、あの橋までおいでなさるとたかふだが立っています。それにくわしく書いてあるそうですが、近ごろ悪い人買いがこの辺を立ち廻ります。それで旅人に宿を貸して足を留めさせたものにはおとがめがあります。あたり七軒巻添えになるそうです」"
+    },
+    {
+      "candidateId": "eU5g8oyPzCclKmWOzlWFXGvoDEZcW9GlbZlFDAaIdXk",
+      "displayText": "「それは困りますね。子供衆もおいでなさるし、もうそう遠くまでは行かれません。どうにかしようはありますまいか」",
+      "revisionCount": 0,
+      "speechSha256": "e18e86ff3fe3b54a1575de04c4b29fc6145823c6434c51b6f3e036b88d636ef0",
+      "speechText": "「それは困りますね。子供衆もおいでなさるし、もうそう遠くまでは行かれません。どうにかしようはありますまいか」"
+    },
+    {
+      "candidateId": "6ncVuE54c91ZcFTnE5bn7QVOMQ1fNnlIiOlmERL9-2A",
+      "displayText": "「そうですね。わたしの通う塩浜のあるあたりまで、あなた方がおいでなさると、夜になってしまいましょう。どうもそこらでいい所を見つけて、野宿をなさるよりほか、しかたがありますまい。わたしの思案では、あそこの橋の下にお休みなさるがいいでしょう。岸の石垣にぴったり寄せて、河原に大きい材木がたくさん立ててあります。荒川の上から流して来た材木です。昼間はその下で子供が遊んでいますが、奥の方には日もささず、暗くなっている所があります。そこなら風も通しますまい。わたしはこうして毎日通う塩浜の持ち主のところにいます。ついそこの柞の森の中です。夜になったら、藁や薦を持って往ってあげましょう」",
+      "revisionCount": 0,
+      "speechSha256": "8ba8afb45c31ae7f4cdf82e53db413eeac7aa7ed49b600148cf48325abc0a633",
+      "speechText": "「そうですね。わたしの通う塩浜のあるあたりまで、あなた方がおいでなさると、夜になってしまいましょう。どうもそこらでいい所を見つけて、野宿をなさるよりほか、しかたがありますまい。わたしの思案では、あそこの橋の下にお休みなさるがいいでしょう。岸の石垣にぴったり寄せて、河原に大きい材木がたくさん立ててあります。荒川のかみから流して来た材木です。昼間はその下で子供が遊んでいますが、奥の方には日もささず、暗くなっている所があります。そこなら風も通しますまい。わたしはこうして毎日通う塩浜の持ち主のところにいます。ついそこのははその森の中です。夜になったら、わらやこもを持って往ってあげましょう」"
+    },
+    {
+      "candidateId": "p15GdoPVHOhYsWKSNDfOw-VXo23Bub5PYaFoZEZw7uY",
+      "displayText": "「よい方に出逢いましたのは、わたしどもの為合せでございます。そこへ往って休みましょう。どうぞ藁や薦をお借り申しとうございます。せめて子供たちにでも敷かせたりきせたりいたしとうございます」",
+      "revisionCount": 0,
+      "speechSha256": "3b40e4343535331c2017dc027e0018ab96a78d9215c4bbc1db0465aaea0203b2",
+      "speechText": "「よい方にであいましたのは、わたしどものしあわせでございます。そこへ往って休みましょう。どうぞ藁や薦をお借り申しとうございます。せめて子供たちにでも敷かせたりきせたりいたしとうございます」"
+    },
+    {
+      "candidateId": "4gA3NCiILsd-h_bZQfl_-oN10mM9I4axLwunGSND3dA",
+      "displayText": "「姉えさん、早くおいでなさい」",
+      "revisionCount": 0,
+      "speechSha256": "c87c90030db1925be146dc2a153dc5c71fa36bde42a3034256b82a9dddc41318",
+      "speechText": "「姉えさん、早くおいでなさい」"
+    },
+    {
+      "candidateId": "p9dnE4YPSQA7IkLJpUibR2YUdFm2qcdrLihW59TLap4",
+      "displayText": "「まあ、お待ち遊ばせ」",
+      "revisionCount": 0,
+      "speechSha256": "84afb435acf1721b217f15b57312718198ea824a6ab748e5efe5da5ad6587728",
+      "speechText": "「まあ、お待ち遊ばせ」"
+    },
+    {
+      "candidateId": "9olQFCTpopmQc3dXXg3cfS6OH38YrJLAs4YONU8rZ7Q",
+      "displayText": "「ここでは焚火をいたすことは出来ません。もし悪い人に見つけられてはならぬからでございます。あの塩浜の持ち主とやらの家まで往って、お湯をもらってまいりましょう。そして藁や薦のことも頼んでまいりましょう」",
+      "revisionCount": 0,
+      "speechSha256": "c0776f3b28345f0b1fa50d166ac4108e028d9e04f7ad12b8f46ba2d0e538192c",
+      "speechText": "「ここではたきびをいたすことは出来ません。もし悪い人に見つけられてはならぬからでございます。あの塩浜の持ち主とやらの家まで往って、お湯をもらってまいりましょう。そしてわらやこものことも頼んでまいりましょう」"
+    },
+    {
+      "candidateId": "iuUtb8nGa7XJFVO1EL4qdBKGrY8XYI1Kd4xfAgxCjLE",
+      "displayText": "「姥竹かい」",
+      "revisionCount": 0,
+      "speechSha256": "7085dcbcccc351e14a41c4e09968bb3f3e37cb99d7607d759345f1a142355052",
+      "speechText": "「うばたけかい」"
+    },
+    {
+      "candidateId": "wJOJ6JfW3_jo-Lq5d9S6FnkmGgoMPiS8fuv0MT9Xx4E",
+      "displayText": "「わしは山岡大夫という船乗りじゃ。このごろこの土地を人買いが立ち廻るというので、国守が旅人に宿を貸すことを差し止めた。人買いをつかまえることは、国守の手に合わぬと見える。気の毒なは旅人じゃ。そこでわしは旅人を救うてやろうと思い立った。さいわいわしが家は街道を離れているので、こっそり人を留めても、誰に遠慮もいらぬ。わしは人の野宿をしそうな森の中や橋の下を尋ね廻って、これまで大勢の人を連れて帰った。見れば子供衆が菓子を食べていなさるが、そんな物は腹の足しにはならいで、歯に障る。わしがところではさしたる饗応はせぬが、芋粥でも進ぜましょう。どうぞ遠慮せずに来て下されい」",
+      "revisionCount": 1,
+      "speechSha256": "cbd51bb6175fad91ad12da8ac97bd85c1d01ead2805f2cdd2ff12ce0f668a871",
+      "speechText": "「わしは山岡だゆうという船乗りじゃ。このごろこの土地を人買いが立ち廻るというので、国守が旅人に宿を貸すことを差し止めた。人買いをつかまえることは、国守の手に合わぬと見える。気の毒なは旅人じゃ。そこでわしは旅人を救うてやろうと思い立った。さいわいわしが家はかいどうを離れているので、こっそり人を留めても、誰に遠慮もいらぬ。わしは人の野宿をしそうな森の中や橋の下を尋ね廻って、これまで大勢の人を連れて帰った。見れば子供衆が菓子を食べていなさるが、そんな物は腹の足しにはならいで、歯にさわる。わしがところではさしたるもてなしはせぬが、いもがゆでも進ぜましょう。どうぞ遠慮せずに来て下されい」"
+    },
+    {
+      "candidateId": "GBBsknxo_5lWlB7gRSllT9SuM32EdqHdxhFm5z0-FBA",
+      "displayText": "「承われば殊勝なお心がけと存じます。貸すなという掟のある宿を借りて、ひょっと宿主に難儀をかけようかと、それが気がかりでございますが、わたくしはともかくも、子供らに温いお粥でも食べさせて、屋根の下に休ませることが出来ましたら、そのご恩はのちの世までも忘れますまい」",
+      "revisionCount": 0,
+      "speechSha256": "f71a632a69519d6044af34389d0bc0c77c96c1ae8a779486da996972d2eadd40",
+      "speechText": "「承われば殊勝なお心がけと存じます。貸すなという掟のある宿を借りて、ひょっとやどぬしに難儀をかけようかと、それが気がかりでございますが、わたくしはともかくも、子供らにぬくいおかゆでも食べさせて、屋根の下に休ませることが出来ましたら、そのご恩はのちの世までも忘れますまい」"
+    },
+    {
+      "candidateId": "mAPLbBEuj43RBOM38io4ljfVgu9_nV35u8ny80DUtjQ",
+      "displayText": "「さてさてよう物のわかるご婦人じゃ。そんならすぐに案内をして進ぜましょう」",
+      "revisionCount": 0,
+      "speechSha256": "c03488ad0549fc4d997bd6869b7908febbb9daa93284d7d300c2897265d5362c",
+      "speechText": "「さてさてよう物のわかるご婦人じゃ。そんならすぐに案内をして進ぜましょう」"
+    },
+    {
+      "candidateId": "J78eninVtI2PEzIkg-k-ffsxX5B7L1el0wpCWRJqDYQ",
+      "displayText": "「どうぞ少しお待ち下さいませ。わたくしども三人がお世話になるさえ心苦しゅうございますのに、こんなことを申すのはいかがと存じますが、実は今一人連れがございます」",
+      "revisionCount": 0,
+      "speechSha256": "98a4a286401cd1addce58566369a6ce15d94024d05dfcf8113ab4cd997139d81",
+      "speechText": "「どうぞ少しお待ち下さいませ。わたくしども三人がお世話になるさえ心苦しゅうございますのに、こんなことを申すのはいかがと存じますが、実は今一人連れがございます」"
+    },
+    {
+      "candidateId": "bD_NOshhLdgdNGunoX3uyBVekBZh9gQJxKST20ZmFMs",
+      "displayText": "「連れがおありなさる。それは男か女子か」",
+      "revisionCount": 0,
+      "speechSha256": "abd99f2f0128e973d30b82f4d5ffc295226ba9ff4bba42309346c44e4a8be5eb",
+      "speechText": "「連れがおありなさる。それは男かおなごか」"
+    },
+    {
+      "candidateId": "JkGUP5WT9CKGfberrt3Pq7zeQMdJKKVwsxeWwXGTJ_Y",
+      "displayText": "「子供たちの世話をさせに連れて出た女中でございます。湯をもらうと申して、街道を三四町あとへ引き返してまいりました。もうほどなく帰ってまいりましょう」",
+      "revisionCount": 0,
+      "speechSha256": "0012bbbf44c88442068105740eb7c7340d2dae3d7b1faa7da622b44e656c5ea6",
+      "speechText": "「子供たちの世話をさせに連れて出た女中でございます。湯をもらうと申して、街道を三四町あとへ引き返してまいりました。もうほどなく帰ってまいりましょう」"
+    },
+    {
+      "candidateId": "ApCX8pG-s0_uq4HML1tUcIWrZe-HfF2TluasNJTioXs",
+      "displayText": "「お女中かな。そんなら待って進ぜましょう」",
+      "revisionCount": 0,
+      "speechSha256": "a1e433488dbaab3d7fbaa2c9c53e7cccffe8119b5068b8f0d7c1c3dc3071f132",
+      "speechText": "「お女中かな。そんなら待って進ぜましょう」"
+    },
+    {
+      "candidateId": "osTtT1TlOwTMFYVpe8gOmHPFKinETLxHyBWPvXTWeKs",
+      "displayText": "「どうじゃ。あるか」",
+      "revisionCount": 0,
+      "speechSha256": "fe12cdfeea2cd7d1aef43577ca9123bf93dc593dc8b01f727dd78bdbf8da32f9",
+      "speechText": "「どうじゃ。あるか」"
+    },
+    {
+      "candidateId": "mVU3bCYzT4xwMGcyzNcWKQGiJM2LEBMtlaOeboJ44UA",
+      "displayText": "「気張るぞ」",
+      "revisionCount": 0,
+      "speechSha256": "60c27ee7035ac4a144e80e68bfa024f2d89b540c0000c6c7d3d37846ed6d87d0",
+      "speechText": "「気張るぞ」"
+    },
+    {
+      "candidateId": "tkjHGDamv3a-OgpoFIp8ZmgqwAnocuR4nYlZSFkWvuQ",
+      "displayText": "「横着者奴」",
+      "revisionCount": 0,
+      "speechSha256": "5a95ab64421a49b410deab62099a2f762e4d73a2e24f0c6678d9de1439869208",
+      "speechText": "「おうちゃくものめ」"
+    },
+    {
+      "candidateId": "UEEmw-ZJ16Rxp4u0xQQJVQkk6zwV6LfkVxluDJDR-IM",
+      "displayText": "「出し抜こうとしたのはおぬしじゃ」",
+      "revisionCount": 0,
+      "speechSha256": "3ee30608d8ebd3da2cbf53c6971658991d3533acf4feb66aa906371014474555",
+      "speechText": "「出し抜こうとしたのはおぬしじゃ」"
+    },
+    {
+      "candidateId": "5AoNlwkYNAukFijSFKck0k4FqsFn0aawwSvDoRZraz0",
+      "displayText": "「あわてるな。どっちも空手では還さぬ。お客さまがご窮屈でないように、お二人ずつ分けて進ぜる。賃銭はあとでつけた値段の割じゃ」",
+      "revisionCount": 0,
+      "speechSha256": "736e8530a2a29e2281bb58b570fe5b01a00893e472f955fc070119335a03b06e",
+      "speechText": "「あわてるな。どっちもからてではかえさぬ。お客さまがご窮屈でないように、お二人ずつ分けて進ぜる。賃銭はあとでつけた値段の割じゃ」"
+    },
+    {
+      "candidateId": "OaB1DMHEf63fxSgwcqzy1LQJ9vT_fgQWfUVqJGlk-wE",
+      "displayText": "「さあ、お二人ずつあの舟へお乗りなされ。どれも西国への便船じゃ。舟足というものは、重過ぎては走りが悪い」",
+      "revisionCount": 0,
+      "speechSha256": "dd18bc316def5d9652e4b36c23a1c44e39b3dc86ac5c871242c68f9ac908fa22",
+      "speechText": "「さあ、お二人ずつあの舟へお乗りなされ。どれも西国への便船じゃ。舟足というものは、重過ぎては走りが悪い」"
+    },
+    {
+      "candidateId": "MCeya9VikfeJFsMo-jPmsgpAamAfF97JwAcDCIhxHr8",
+      "displayText": "「あの、主人にお預けなされた嚢は」",
+      "revisionCount": 0,
+      "speechSha256": "8e15a49b2a5a21f622245429d59303c53b6075884529e460aff7ce513b6ee6ab",
+      "speechText": "「あの、あるじにお預けなされたふくろは」"
+    },
+    {
+      "candidateId": "36yzJK9aAeP9yolfSlMKYZacdYRDbBD5bhd_CxEjw-8",
+      "displayText": "「わしはこれでお暇をする。たしかな手からたしかな手へ渡すまでがわしの役じゃ。ご機嫌ようお越しなされ」",
+      "revisionCount": 0,
+      "speechSha256": "91317ef7238f1592ccea5d0b98b848a54f0eca8dd2aba54a8524c3ededacce0c",
+      "speechText": "「わしはこれでおいとまをする。たしかな手からたしかな手へ渡すまでがわしの役じゃ。ご機嫌ようお越しなされ」"
+    },
+    {
+      "candidateId": "q-mOx6AIqKatWOGGJ5TK23dJM5yVnIwD45g5Bni2PBU",
+      "displayText": "「同じ道を漕いで行って、同じ港に着くのでございましょうね」",
+      "revisionCount": 0,
+      "speechSha256": "ad7265fa1d11da0bbda6854e002822f5c97bb859074ba9e152ef7a6d98716f1e",
+      "speechText": "「同じ道を漕いで行って、同じ港に着くのでございましょうね」"
+    },
+    {
+      "candidateId": "vHq0-oWkKnnpVLL67nz9ypACpn52ZyYYWb4rc30uPKY",
+      "displayText": "「乗る舟は弘誓の舟、着くは同じ彼岸と、蓮華峰寺の和尚が言うたげな」",
+      "revisionCount": 0,
+      "speechSha256": "55093e491d5921b3697659ed8a288d8c7acb11164be805eef2c5c281e678034e",
+      "speechText": "「乗る舟はぐぜいの舟、着くは同じかのきしと、れんげぶじのおしょうが言うたげな」"
+    },
+    {
+      "candidateId": "ZSDgTNUGQi9nLxvkJDE6lYq3mjFY2oA0yu0ITkyev58",
+      "displayText": "「あれあれ」",
+      "revisionCount": 0,
+      "speechSha256": "f0d9b7cd59bb63c63387b6ccf424be51fee880725522a2f7c9847686b7f02132",
+      "speechText": "「あれあれ」"
+    },
+    {
+      "candidateId": "nrIrlnh8u6-K2uhtCLtApo9cOTzlPjvuqh_ZSY6Dnik",
+      "displayText": "「もうしかたがない。これが別れだよ。安寿は守本尊の地蔵様を大切におし。厨子王はお父うさまの下さった護り刀を大切におし。どうぞ二人が離れぬように」",
+      "revisionCount": 0,
+      "speechSha256": "0ae39e6b6979abe3d6ae1bf110fc0feab63b741ddf39507825227e8b6877f6e1",
+      "speechText": "「もうしかたがない。これが別れだよ。あんじゅは守本尊の地蔵様を大切におし。ずしおうはお父うさまの下さった護り刀を大切におし。どうぞ二人が離れぬように」"
+    },
+    {
+      "candidateId": "IBBxYzJk7CEeW3-sufszKaWTyPycier7iKNlH52cdEc",
+      "displayText": "「お母あさま、お母あさま」",
+      "revisionCount": 0,
+      "speechSha256": "f4644dab076b049677260ddb7a727ce4018777e998f09dbf1bed64935fef231c",
+      "speechText": "「お母あさま、お母あさま」"
+    },
+    {
+      "candidateId": "PXcZ5kfNYlx2kh7z6M4Ga3ztN-b1AvyC8rrX0xRYOok",
+      "displayText": "「もし船頭さん、もしもし」",
+      "revisionCount": 0,
+      "speechSha256": "339c33232a4b97b827d2e45bf1e6a725238a5ab2cf93212875b350036e46f82b",
+      "speechText": "「もし船頭さん、もしもし」"
+    },
+    {
+      "candidateId": "jF6N_kUxrqy8jo9H6ZxpZoLtLJxJP7xPoihrIUMm8Yw",
+      "displayText": "「船頭さん。これはどうしたことでございます。あのお嬢さま、若さまに別れて、生きてどこへ往かれましょう。奥さまも同じことでございます。これから何をたよりにお暮らしなさいましょう。どうぞあの舟の往く方へ漕いで行って下さいまし。後生でございます」",
+      "revisionCount": 0,
+      "speechSha256": "748b6191bcb583fa9760e475d88d00fcbee9a039871a44c6a587afc05304289c",
+      "speechText": "「船頭さん。これはどうしたことでございます。あのお嬢さま、若さまに別れて、生きてどこへ往かれましょう。奥さまも同じことでございます。これから何をたよりにお暮らしなさいましょう。どうぞあの舟の往く方へ漕いで行って下さいまし。後生でございます」"
+    },
+    {
+      "candidateId": "yfg9fXhfcbdhnX2dkIec0HbM0B_tZmacao5n56CB2jc",
+      "displayText": "「うるさい」",
+      "revisionCount": 0,
+      "speechSha256": "b54355af5ea5548986e121533dfe44f3f68f2f5d6bbc23bd2ecef9bd818fcaca",
+      "speechText": "「うるさい」"
+    },
+    {
+      "candidateId": "nJ6QMH9nmolh-vnSX6FwC3yDp99tYMV-y3JThR8X1pw",
+      "displayText": "「ええ。これまでじゃ。奥さま、ご免下さいまし」",
+      "revisionCount": 0,
+      "speechSha256": "6563a6b0e2544181ef81b8bf3548593fe54f48088b14a194ab80c0900b1a8a6c",
+      "speechText": "「ええ。これまでじゃ。奥さま、ご免下さいまし」"
+    },
+    {
+      "candidateId": "k1fJJ9C2lXeuBWiIqpsXGYJQ_bCyTiu-2PJArvFfQ-E",
+      "displayText": "「こら」",
+      "revisionCount": 0,
+      "speechSha256": "0232ab47a18947a0c21f7c45218df98086e02ce455e763b4d60e5284526783e7",
+      "speechText": "「こら」"
+    },
+    {
+      "candidateId": "fIdecPYg_HXsiDtwEvMXm_B1l6n4vq7pr10hAoOLz9c",
+      "displayText": "「これは粗末な物でございますが、お世話になったお礼に差し上げます。わたくしはもうこれでお暇を申します」",
+      "revisionCount": 0,
+      "speechSha256": "10e544869f48be17babd4c396fa5ab8d513212cad3dc40c0c4d4918ff9e0af9a",
+      "speechText": "「これは粗末な物でございますが、お世話になったお礼に差し上げます。わたくしはもうこれでお暇を申します」"
+    },
+    {
+      "candidateId": "etf8XWic4yhXYTLXainJOdzagktI_bwjH1vU8N7h9vY",
+      "displayText": "「たわけが」",
+      "revisionCount": 0,
+      "speechSha256": "61e4c2043e794b7f4a858a739bac9042d12438987623c6c62252062c83aa23ae",
+      "speechText": "「たわけが」"
+    },
+    {
+      "candidateId": "hRBVhdrut-8L1ZAiQpLZbdbXk-8ivF_AqMmZGwL4VSI",
+      "displayText": "「うぬまで死なせてなるものか。大事な貨じゃ」",
+      "revisionCount": 0,
+      "speechSha256": "4c6286f28c28d8a7bbea4e6d099bbc42029476ad2cf37afb9cdf62ef26dd34ff",
+      "speechText": "「うぬまで死なせてなるものか。大事なしろものじゃ」"
+    },
+    {
+      "candidateId": "WR-I2S5n43xQ19VNkKS4DIOPEl2-c0rz4bNAgQ2L5Ko",
+      "displayText": "「お母あさまお母あさま」",
+      "revisionCount": 0,
+      "speechSha256": "c9ad70203ae781961c0cd05c41aa58135539e03428dda194784d74f78b2e34f4",
+      "speechText": "「お母あさまお母あさま」"
+    },
+    {
+      "candidateId": "MdSG_VKa8lEYUDjBWcyfNvYgpdBC9TtIIzyDCXZ6YS4",
+      "displayText": "「もう呼ぶな」",
+      "revisionCount": 0,
+      "speechSha256": "882941813b5dc3687e42756adfbcafcd6fe4ff3e6863dd9482cd39997646bb7b",
+      "speechText": "「もう呼ぶな」"
+    },
+    {
+      "candidateId": "50u2uWXg9KMnAkDXXscD5e7gPM6HVPLMKW21eB8Pga8",
+      "displayText": "「水の底の鱗介には聞えても、あの女子には聞えぬ。女子どもは佐渡へ渡って粟の鳥でも逐わせられることじゃろう」",
+      "revisionCount": 0,
+      "speechSha256": "62d60ed08b4b2eebd2b5094298d2ca07972f300abc3bbe4dcadecd07592835c9",
+      "speechText": "「水の底のいろくずには聞えても、あのおなごには聞えぬ。女子どもは佐渡へ渡ってあわの鳥でもおわせられることじゃろう」"
+    },
+    {
+      "candidateId": "MaNveRvswuQlTLErJwqkWabBRjiHSqpvDhiXqeNrChE",
+      "displayText": "「いつまでも泣くか」",
+      "revisionCount": 0,
+      "speechSha256": "7caad2024dd8fbd426fb91991db9379f8a83c8b3078c6d47b3a6b7f45807a1ad",
+      "speechText": "「いつまでも泣くか」"
+    },
+    {
+      "candidateId": "pe8u8mwAHQU-VNxnsiYGrZ9H9_7vOGAz3e7ISgdTfMI",
+      "displayText": "「やれやれ、餓鬼どもを片づけて身が軽うなった」",
+      "revisionCount": 0,
+      "speechSha256": "ba5ad67eb3e4cb5091fc132fd57b9d8357f42c0f2486ecc34ca2c6d41332f49e",
+      "speechText": "「やれやれ、がきどもを片づけて身が軽うなった」"
+    },
+    {
+      "candidateId": "4JLClI8w54h3BVFTv-tSCLDjjZ91jOkqc3M68uQzRIM",
+      "displayText": "「買うて来た子供はそれか。いつも買う奴と違うて、何に使うてよいかわからぬ、珍らしい子供じゃというから、わざわざ連れて来させてみれば、色の蒼ざめた、か細い童どもじゃ。何に使うてよいかは、わしにもわからぬ」",
+      "revisionCount": 0,
+      "speechSha256": "564f1906062924e544e7b0cf951f6169c365a720086c4a9b53cab9efc082ddff",
+      "speechText": "「買うて来た子供はそれか。いつも買うやっこと違うて、何に使うてよいかわからぬ、珍らしい子供じゃというから、わざわざ連れて来させてみれば、色のあおざめた、か細いわらわどもじゃ。何に使うてよいかは、わしにもわからぬ」"
+    },
+    {
+      "candidateId": "A24dq9DWu5ybbpJL26yC8ruUF0VsTasBYdNBlwk0D0I",
+      "displayText": "「いやお父っさん。さっきから見ていれば、辞儀をせいと言われても辞儀もせぬ。ほかの奴のように名のりもせぬ。弱々しゅう見えてもしぶとい者どもじゃ。奉公初めは男が柴苅り、女が汐汲みときまっている。その通りにさせなされい」",
+      "revisionCount": 0,
+      "speechSha256": "1b9ba55fc6d69107f50e24e3d50b04211ba66e79953c94d8cf17b595dc7fde7a",
+      "speechText": "「いやお父っさん。さっきから見ていれば、辞儀をせいと言われても辞儀もせぬ。ほかの奴のように名のりもせぬ。弱々しゅう見えてもしぶとい者どもじゃ。奉公初めは男がしばかり、女がしおくみときまっている。その通りにさせなされい」"
+    },
+    {
+      "candidateId": "fhihOScrFbm7_pF16VNL2i4VhnieQowLR9DGaFAdo7k",
+      "displayText": "「おっしゃるとおり、名はわたくしにも申しませぬ」",
+      "revisionCount": 0,
+      "speechSha256": "83c0bb0771f1f3e5ebdddacebd97713651d9c2743acb6c14b23f1b22ca7d56b4",
+      "speechText": "「おっしゃるとおり、名はわたくしにも申しませぬ」"
+    },
+    {
+      "candidateId": "iZdsnQfLRXzNpQe5cS-RImrGNq4YVDSfBUxf2a3dr7w",
+      "displayText": "「愚か者と見える。名はわしがつけてやる。姉はいたつきを垣衣、弟は我が名を萱草じゃ。垣衣は浜へ往って、日に三荷の潮を汲め。萱草は山へ往って日に三荷の柴を刈れ。弱々しい体に免じて、荷は軽うして取らせる」",
+      "revisionCount": 0,
+      "speechSha256": "e083bc574c63b179cefab83dcb5ca8c10bd17c4d2b342c366dfa3f21718e01b4",
+      "speechText": "「愚か者と見える。名はわしがつけてやる。姉はいたつきをしのぶぐさ、弟は我が名をわすれぐさじゃ。垣衣は浜へ往って、日に三がの潮を汲め。萱草は山へ往って日に三荷の柴を刈れ。弱々しい体に免じて、荷は軽うして取らせる」"
+    },
+    {
+      "candidateId": "tlY3u9mimPc6kGXX1lXmocqnwbTF5IzEBEeieqRNfYk",
+      "displayText": "「過分のいたわりようじゃ。こりゃ、奴頭。早く連れて下がって道具を渡してやれ」",
+      "revisionCount": 0,
+      "speechSha256": "8e92d60d2d6ad6f365d50dda76e81efecf63c1d5fd18a33abdabefc915e941e7",
+      "speechText": "「過分のいたわりようじゃ。こりゃ、奴頭。早く連れて下がって道具を渡してやれ」"
+    },
+    {
+      "candidateId": "3f2Ah7C2pg3EFefmTlLkRU-J0DI-uFH3ZzoSFqfxwOw",
+      "displayText": "「お前も大夫のところの奴か、柴は日に何荷苅るのか」",
+      "revisionCount": 1,
+      "speechSha256": "66a564f59ed1662ae1c543de540fc335e90a65b994a45200b4841d230c163959",
+      "speechText": "「お前もだゆうのところの奴か、柴は日に何荷苅るのか」"
+    },
+    {
+      "candidateId": "wckYCVTvEmWmp-k2gCWv0PocISyHKefJn_sk1mCLpeU",
+      "displayText": "「日に三荷苅るはずの柴を、まだ少しも苅りませぬ」",
+      "revisionCount": 0,
+      "speechSha256": "e72673484210fda2edf16288f361fcb9f60ebbf29d1c21c668a38584a9aa664e",
+      "speechText": "「日に三荷苅るはずの柴を、まだ少しも苅りませぬ」"
+    },
+    {
+      "candidateId": "ETRdWcQFpDzAZyvgGuG-u7FOaV-rxfJo_t6qcCR0H_U",
+      "displayText": "「日に三荷の柴ならば、午までに二荷苅るがいい。柴はこうして苅るものじゃ」",
+      "revisionCount": 0,
+      "speechSha256": "ecda65d99d32fa63817dc1fee17746e39180be34da84fded027e7957e540d644",
+      "speechText": "「日に三荷の柴ならば、ひるまでに二荷苅るがいい。柴はこうして苅るものじゃ」"
+    },
+    {
+      "candidateId": "85aCAv-_lq9-pPjTCbCBZZrFre_bqMaDhGAxRb1kiq4",
+      "displayText": "「汐はそれでは汲まれません。どれ汲みようを教えて上げよう。右手の杓でこう汲んで、左手の桶でこう受ける」",
+      "revisionCount": 0,
+      "speechSha256": "2e595520792a365fab154cfb74e4ae8cf0b7e5d902c9ca111a9180d86e20831b",
+      "speechText": "「汐はそれでは汲まれません。どれ汲みようを教えて上げよう。めての杓でこう汲んで、ゆんでのおけでこう受ける」"
+    },
+    {
+      "candidateId": "rcmgSidq3GvsA5d0Z2pprreAktCdF9O1MbrhGF9uH-s",
+      "displayText": "「ありがとうございます。汲みようが、あなたのお蔭で、わかったようでございます。自分で少し汲んでみましょう」",
+      "revisionCount": 0,
+      "speechSha256": "210f05bff740435f2ef5d9678701d0a498d36fb64c9d5d156fc154681579bc58",
+      "speechText": "「ありがとうございます。汲みようが、あなたのお蔭で、わかったようでございます。自分で少し汲んでみましょう」"
+    },
+    {
+      "candidateId": "sUQqotxfUq7wNl9gbes1Xd4DU3zojDKFInWj4ivduo0",
+      "displayText": "「たわけた話じゃ。奴は奴の組へ引きずって往け。婢は婢の組へ引きずって往け」",
+      "revisionCount": 0,
+      "speechSha256": "6f72a46fc9e07bc0fbe138331afd87493466a90cd670fc0974267a24f5a87f0c",
+      "speechText": "「たわけた話じゃ。奴は奴の組へ引きずって往け。婢は婢の組へ引きずって往け」"
+    },
+    {
+      "candidateId": "Bj3loPfGArOU7uzZPXXKvwBr0VYPCKLZ6u3-BX7ucI4",
+      "displayText": "「おっしゃる通りに童どもを引き分けさせてもよろしゅうございますが、童どもは死んでも別れぬと申すそうでございます。愚かなものゆえ、死ぬるかも知れません。苅る柴はわずかでも、汲む潮はいささかでも、人手を耗らすのは損でございます。わたくしがいいように計らってやりましょう」",
+      "revisionCount": 0,
+      "speechSha256": "a13856745588c57e33ebd3c39250994c8b1d8b456fd8fd602410a3de01a7c08f",
+      "speechText": "「おっしゃる通りにわらべどもを引き分けさせてもよろしゅうございますが、童どもは死んでも別れぬと申すそうでございます。愚かなものゆえ、死ぬるかも知れません。苅る柴はわずかでも、汲む潮はいささかでも、人手をへらすのは損でございます。わたくしがいいように計らってやりましょう」"
+    },
+    {
+      "candidateId": "vflqtiRVL3xMojv8qYUQ96MaPDfgar6-16iEElh5_p0",
+      "displayText": "「それもそうか。損になることはわしも嫌いじゃ。どうにでも勝手にしておけ」",
+      "revisionCount": 0,
+      "speechSha256": "458a27e4233c3de4e9054f3197a680f233ec15551741efaf325157dda87fa9bf",
+      "speechText": "「それもそうか。損になることはわしも嫌いじゃ。どうにでも勝手にしておけ」"
+    },
+    {
+      "candidateId": "ZyyrYy_JbF9AYK_V2YhQXfFWkoZFLeoT6L0SK2B8yS4",
+      "displayText": "「父母は恋しゅうても佐渡は遠い。筑紫はそれよりまた遠い。子供の往かれる所ではない。父母に逢いたいなら、大きゅうなる日を待つがよい」",
+      "revisionCount": 0,
+      "speechSha256": "58bf1545eed1d8a20ee3cc162b64962053cf05e74bab28c5e658b652acb1c318",
+      "speechText": "「父母は恋しゅうても佐渡は遠い。筑紫はそれよりまた遠い。子供の往かれる所ではない。父母に逢いたいなら、大きゅうなる日を待つがよい」"
+    },
+    {
+      "candidateId": "aSLVf1J22NW_MZWTvYpEq5xzI8oIuDIbDHR5OEXESWA",
+      "displayText": "「大きくなってからでなくては、遠い旅が出来ないというのは、それは当り前のことよ。わたしたちはその出来ないことがしたいのだわ。だがわたしよく思ってみると、どうしても二人一しょにここを逃げ出しては駄目なの。わたしには構わないで、お前一人で逃げなくては。そしてさきへ筑紫の方へ往って、お父うさまにお目にかかって、どうしたらいいか伺うのだね。それから佐渡へお母さまのお迎えに往くがいいわ」",
+      "revisionCount": 0,
+      "speechSha256": "0eea3c78b381b51e58d9ad98450e502beb8606cabc4a37e2b72846d2cb520324",
+      "speechText": "「大きくなってからでなくては、遠い旅が出来ないというのは、それは当り前のことよ。わたしたちはその出来ないことがしたいのだわ。だがわたしよく思ってみると、どうしても二人一しょにここを逃げ出しては駄目なの。わたしには構わないで、お前一人で逃げなくては。そしてさきへ筑紫の方へ往って、お父うさまにお目にかかって、どうしたらいいか伺うのだね。それから佐渡へお母さまのお迎えに往くがいいわ」"
+    },
+    {
+      "candidateId": "cPGhrcJBHDtB4enygYPRF4zZWHMMuAJw1Kuviyk7Go8",
+      "displayText": "「こら。お主たちは逃げる談合をしておるな。逃亡の企てをしたものには烙印をする。それがこの邸の掟じゃ。赤うなった鉄は熱いぞよ。」",
+      "revisionCount": 0,
+      "speechSha256": "ae05a3d9edecb6e3eb8939ed1a40fe9ce2d9763cf58a4ed62484f30acd9eebca",
+      "speechText": "「こら。おぬしたちは逃げる談合をしておるな。逃亡の企てをしたものにはやきいんをする。それがこの邸の掟じゃ。赤うなった鉄は熱いぞよ。」"
+    },
+    {
+      "candidateId": "M6Oee3u-B1na0CTnKJ4613VsdynQUJ49yBl6Gsy8BmQ",
+      "displayText": "「あれは（）でございます。弟が一人で逃げたって、まあ、どこまで往かれましょう。あまり親に逢いたいので、あんなことを申しました。こないだも弟と一しょに、鳥になって飛んで往こうと申したこともございます。出放題でございます」",
+      "revisionCount": 0,
+      "speechSha256": "2e56855ec5a255eb59b3d1f55259d5dee8c04edcf177db2099eebc15abbec8ef",
+      "speechText": "「あれはうそでございます。弟が一人で逃げたって、まあ、どこまで往かれましょう。あまり親に逢いたいので、あんなことを申しました。こないだも弟と一しょに、鳥になって飛んで往こうと申したこともございます。出放題でございます」"
+    },
+    {
+      "candidateId": "lmzBCEY1MLH-znt1dmhWHw1-t_G1oCE_BQkCNmvgXPE",
+      "displayText": "「姉えさんの言う通りです。いつでも二人で今のような、出来ないことばかし言って、父母の恋しいのを紛らしているのです」",
+      "revisionCount": 0,
+      "speechSha256": "2dad896ac3dab045b196a2eb33b01dbb5a5ce06b616423f23c220dd5d141efec",
+      "speechText": "「姉えさんの言う通りです。いつでも二人で今のような、出来ないことばかし言って、父母の恋しいのをまぎらしているのです」"
+    },
+    {
+      "candidateId": "MCc20OV741nbtXM-JGWhLRi3Bur0b3XDomDzJGdI2Pc",
+      "displayText": "「ふん。ならでもいい。お主たちが一しょにおって、なんの話をするということを、おれがたしかに聞いておいたぞ」",
+      "revisionCount": 0,
+      "speechSha256": "ccc0629b3dd59bc50261d8bbd7cf73d88ba3672bcdbfdf4632b41a58632bae07",
+      "speechText": "「ふん。ならでもいい。お主たちが一しょにおって、なんの話をするということを、おれがたしかに聞いておいたぞ」"
+    },
+    {
+      "candidateId": "jJUZHcFb78OX-ZfHUoKjo38jphy0zbodKqZurPA1BDk",
+      "displayText": "「ご免なさいご免なさい」",
+      "revisionCount": 0,
+      "speechSha256": "c60bd24f46533c55e9dcdb5d4b802ea97d778870559d749a883d7d314a697a69",
+      "speechText": "「ご免なさいご免なさい」"
+    },
+    {
+      "candidateId": "oeSA30bIcKLhsrLbqzn3laB2Hq1DsiwbXpgWzRi1yg8",
+      "displayText": "「姉えさん、早くお地蔵様を」",
+      "revisionCount": 0,
+      "speechSha256": "186cfab078dd9abeb4f391e566b0fdbe7b784d559e587f05e9fea30fa444f2b8",
+      "speechText": "「姉えさん、早くお地蔵様を」"
+    },
+    {
+      "candidateId": "o2GFTqVvB7RA1QrBPkJSAC_OJ0FJcAy8s7LuLtq4F5o",
+      "displayText": "「姉えさんどうしたのです」",
+      "revisionCount": 0,
+      "speechSha256": "b63a754552521fea905ec710ebff2976114b8320068c095a1f979a2a480a35c0",
+      "speechText": "「姉えさんどうしたのです」"
+    },
+    {
+      "candidateId": "rYg29eC46_FHyM1l8yP095VJK8bkLL7fVVyBpMdEUvA",
+      "displayText": "「どうもしないの、大丈夫よ」",
+      "revisionCount": 0,
+      "speechSha256": "1214276b5368c3fe92a7dbef57f8561cfa8c1557566e0a541a493ec6aa002c99",
+      "speechText": "「どうもしないの、大丈夫よ」"
+    },
+    {
+      "candidateId": "ChpXjTscc_Qvs3HmwPsYHJ7_xVaEcbSWVn1LtVHdSNQ",
+      "displayText": "「どうじゃな。あす為事に出られるかな。大勢の人のうちには病気でおるものもある。奴頭の話を聞いたばかりではわからぬから、きょうは小屋小屋を皆見て廻ったのじゃ」",
+      "revisionCount": 0,
+      "speechSha256": "b8731e8b1dfd52632ccba5e707700f27d5ff4e397176d3d32a2423466cef6681",
+      "speechText": "「どうじゃな。あす為事に出られるかな。大勢の人のうちには病気でおるものもある。奴頭の話を聞いたばかりではわからぬから、きょうは小屋小屋を皆見て廻ったのじゃ」"
+    },
+    {
+      "candidateId": "LRyk2kIfAaYLwsypDsOKPMm-9HVn7EsWAoMX8rFcH-4",
+      "displayText": "「それについてお願いがございます。わたくしは弟と同じ所で為事がいたしとうございます。どうか一しょに山へやって下さるように、お取り計らいなすって下さいまし」",
+      "revisionCount": 0,
+      "speechSha256": "f54c4b79f001b87e416630e707893167f2b1a9276644222845bf428570bccd8b",
+      "speechText": "「それについてお願いがございます。わたくしは弟と同じ所で為事がいたしとうございます。どうか一しょに山へやって下さるように、お取り計らいなすって下さいまし」"
+    },
+    {
+      "candidateId": "NRhjwWVgcRiUhET-rkduccQW9oRw0y8Q0nI9gl2xjwE",
+      "displayText": "「ほかにない、ただ一つのお願いでございます、どうぞ山へおやりなすって」",
+      "revisionCount": 0,
+      "speechSha256": "f91a5f7218d8c0d1784c6db4661b14a63ee28c3be6ff4290299429cb9b70bc37",
+      "speechText": "「ほかにない、ただ一つのお願いでございます、どうぞ山へおやりなすって」"
+    },
+    {
+      "candidateId": "H4dGQOY7hdP2Bts-lQV0SJMRtE05ez3P6EFtveM-OCc",
+      "displayText": "「この邸では奴婢のなにがしになんの為事をさせるということは、重いことにしてあって、父がみずからきめる。しかし垣衣、お前の願いはよくよく思い込んでのことと見える。わしが受け合って取りなして、きっと山へ往かれるようにしてやる。安心しているがいい。まあ、二人のおさないものが無事に冬を過してよかった」",
+      "revisionCount": 0,
+      "speechSha256": "8e75deaee12e66a7dbe0545b2607860f1ebadda7455c7934eb428b45475ddfbc",
+      "speechText": "「この邸ではぬひのなにがしになんの為事をさせるということは、重いことにしてあって、父がみずからきめる。しかししのぶぐさ、お前の願いはよくよく思い込んでのことと見える。わしが受け合って取りなして、きっと山へ往かれるようにしてやる。安心しているがいい。まあ、二人のおさないものが無事に冬を過してよかった」"
+    },
+    {
+      "candidateId": "nw4Q4oznm0CAK62mMm3EjF-nonsARBEHqy4AiT5ydow",
+      "displayText": "「姉えさん。どうしたのです。それはあなたが一しょに山へ来て下さるのは、わたしも嬉しいが、なぜ出し抜けに頼んだのです。なぜわたしに相談しません」",
+      "revisionCount": 0,
+      "speechSha256": "44b0b6e870093b9a1466a2185637aaf135eb19a648e19d4b41dc6ae14bf4fa04",
+      "speechText": "「姉えさん。どうしたのです。それはあなたが一しょに山へ来て下さるのは、わたしも嬉しいが、なぜ出し抜けに頼んだのです。なぜわたしに相談しません」"
+    },
+    {
+      "candidateId": "O59-PLcTs597JQRx2gpFj7D1Q3SlU6h2i8HALGZUIdU",
+      "displayText": "「ほんにそうお思いのはもっともだが、わたしだってあの人の顔を見るまで、頼もうとは思っていなかったの。ふいと思いついたのだもの」",
+      "revisionCount": 0,
+      "speechSha256": "38e42bcd2c546508bba486a455cbcb26c63251637616f8060373fe711057ffac",
+      "speechText": "「ほんにそうお思いのはもっともだが、わたしだってあの人の顔を見るまで、頼もうとは思っていなかったの。ふいと思いついたのだもの」"
+    },
+    {
+      "candidateId": "DjtsO1qEZxUrhlxIkjJvhiQS0dqQT4Bp0UqDYN6V8vY",
+      "displayText": "「そうですか。変ですなあ」",
+      "revisionCount": 0,
+      "speechSha256": "21fee386744685f94ce18ab5630e62841f89f48c9103a5c38afdaf91827cbbb3",
+      "speechText": "「そうですか。変ですなあ」"
+    },
+    {
+      "candidateId": "eWNl7Qy8X6gx6tJFclZtNDOe-yHRxXTz_iBlG_8TzKU",
+      "displayText": "「垣衣さん。お前に汐汲みをよさせて、柴を苅りにやるのだそうで、わしは道具を持って来た。代りに桶と杓をもらって往こう」",
+      "revisionCount": 0,
+      "speechSha256": "7e89c40f45803ed294701064d95dd46238f548759fe1533ab0f13138d366d78e",
+      "speechText": "「しのぶぐささん。お前に汐汲みをよさせて、柴を苅りにやるのだそうで、わしは道具を持って来た。代りに桶とひさごをもらって往こう」"
+    },
+    {
+      "candidateId": "DmrT8oAh6Cn0EKtIC_lq0gT7O-EoEP78bCU-JyJxA24",
+      "displayText": "「これはどうもお手数でございました」",
+      "revisionCount": 0,
+      "speechSha256": "d2fec0e54dcad6f2b53d315e29e96b1290561cf7ab1dde192de2a708709d94b3",
+      "speechText": "「これはどうもおてかずでございました」"
+    },
+    {
+      "candidateId": "b1mzZ9iqdHteurvbbLXx_NtLZ4l-fY_I-1-ksInWbuE",
+      "displayText": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様が大夫様に申し上げて拵えなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣を大童にして山へやれとおっしゃった。大夫様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」",
+      "revisionCount": 2,
+      "speechSha256": "0f62773bf1ea4ae7d5e28eef8650189de02fc1fd55716b889b340717fb3deb8f",
+      "speechText": "「さて今一つ用事があるて。実はお前さんを柴苅りにやることは、二郎様がだゆう様に申し上げてこしらえなさったのじゃ。するとその座に三郎様がおられて、そんなら垣衣をおおわらわにして山へやれとおっしゃった。だゆう様は、よい思いつきじゃとお笑いなされた。そこでわしはお前さんの髪をもろうて往かねばならぬ」"
+    },
+    {
+      "candidateId": "aC2FBqiU9fDcK5L70aAZjnGzZyOxdESLbQpi44j7jwM",
+      "displayText": "「ほんにそうじゃ。柴苅りに往くからは、わたしも男じゃ。どうぞこの鎌で切って下さいまし」",
+      "revisionCount": 0,
+      "speechSha256": "1a3c8337cd59d3c8a22b835da75149393b14d3d6880ba2dcaa6396631a0593ba",
+      "speechText": "「ほんにそうじゃ。柴苅りに往くからは、わたしも男じゃ。どうぞこの鎌で切って下さいまし」"
+    },
+    {
+      "candidateId": "Ee80QqJUm15l_NWTKklfvq_5cmAYJ8hS_fl44EXZ11Q",
+      "displayText": "「姉えさん。わたしはこうして久しぶりで一しょに歩くのだから、嬉しがらなくてはならないのですが、どうも悲しくてなりません。わたしはこうして手を引いていながら、あなたの方へ向いて、その禿になったお頭を見ることが出来ません。姉えさん。あなたはわたしに隠して、何か考えていますね。なぜそれをわたしに言って聞かせてくれないのです」",
+      "revisionCount": 0,
+      "speechSha256": "c8b5182d20e1a83dc85a550d03b7423b11990753cc97a990bda9ddfc60d4728a",
+      "speechText": "「姉えさん。わたしはこうして久しぶりで一しょに歩くのだから、嬉しがらなくてはならないのですが、どうも悲しくてなりません。わたしはこうして手を引いていながら、あなたの方へ向いて、そのかぶろになったおつむりを見ることが出来ません。姉えさん。あなたはわたしに隠して、何か考えていますね。なぜそれをわたしに言って聞かせてくれないのです」"
+    },
+    {
+      "candidateId": "HVe3HeTDdUZQvRNHB3EKa08DoYceU8mEIOeq-E9kkLU",
+      "displayText": "「ごらん。もう春になるのね」",
+      "revisionCount": 0,
+      "speechSha256": "6b5fc30d5de90c5c0dd5e21e37f4cc7b5713063ea7134be24e5dc0c5e30f7f14",
+      "speechText": "「ごらん。もう春になるのね」"
+    },
+    {
+      "candidateId": "-xxfk4Ts4uZv4UVp27MwKQPzK7wjcOehP6tCpRhbcBY",
+      "displayText": "「ねえさん。ここらで苅るのです」",
+      "revisionCount": 0,
+      "speechSha256": "023898f55fa16c0c4727b347899f11c9e74a320ad5dd6841f69c38f312e0b9c6",
+      "speechText": "「ねえさん。ここらで苅るのです」"
+    },
+    {
+      "candidateId": "WWXpt5nPQ1OWerElnBFY-1wOUFl5548oqlQWgG_egZo",
+      "displayText": "「まあ、もっと高い所へ登ってみましょうね」",
+      "revisionCount": 0,
+      "speechSha256": "0d0fcf8e174f22d444efce11574caf71834f40178a9ea0ced8a7e799018e7925",
+      "speechText": "「まあ、もっと高い所へ登ってみましょうね」"
+    },
+    {
+      "candidateId": "D0J-lke-XyRgw4hrbhv2JoexHbxseWcrYuzOeEyy6oc",
+      "displayText": "「厨子王や」",
+      "revisionCount": 0,
+      "speechSha256": "6ffb8e3f1541448acb934712fcf8e27b1ae0f7f37cc55a0efa0d40e4107a799e",
+      "speechText": "「厨子王や」"
+    },
+    {
+      "candidateId": "EDVynPNLbDwyx-GfAeLMSOfxsxZhVnw3XiVLxOw0DOo",
+      "displayText": "「わたしが久しい前から考えごとをしていて、お前ともいつものように話をしないのを、変だと思っていたでしょうね。もうきょうは柴なんぞは苅らなくてもいいから、わたしの言うことをよくお聞き。小萩は伊勢から売られて来たので、故郷からこの土地までの道を、わたしに話して聞かせたがね、あの中山を越して往けば、都がもう近いのだよ。筑紫へ往くのはむずかしいし、引き返して佐渡へ渡るのも、たやすいことではないけれど、都へはきっと往かれます。お母あさまとご一しょに岩代を出てから、わたしどもは恐ろしい人にばかり出逢ったが、人の運が開けるものなら、よい人に出逢わぬにも限りません。お前はこれから思いきって、この土地を逃げ延びて、どうぞ都へ登っておくれ。神仏のお導きで、よい人にさえ出逢ったら、筑紫へお下りになったお父うさまのお身の上も知れよう。佐渡へお母あさまのお迎えに往くことも出来よう。籠や鎌は棄てておいて、子だけ持って往くのだよ」",
+      "revisionCount": 0,
+      "speechSha256": "088ccc6a250d1f3df24e6ce0490746136925533a623c0b38d8a5cf8a266ebf02",
+      "speechText": "「わたしが久しい前から考えごとをしていて、お前ともいつものように話をしないのを、変だと思っていたでしょうね。もうきょうは柴なんぞは苅らなくてもいいから、わたしの言うことをよくお聞き。小萩は伊勢から売られて来たので、故郷からこの土地までの道を、わたしに話して聞かせたがね、あの中山を越して往けば、都がもう近いのだよ。筑紫へ往くのはむずかしいし、引き返して佐渡へ渡るのも、たやすいことではないけれど、都へはきっと往かれます。お母あさまとご一しょに岩代を出てから、わたしどもは恐ろしい人にばかり出逢ったが、人の運が開けるものなら、よい人に出逢わぬにも限りません。お前はこれから思いきって、この土地を逃げ延びて、どうぞ都へ登っておくれ。かみほとけのお導きで、よい人にさえ出逢ったら、筑紫へお下りになったお父うさまのお身の上も知れよう。佐渡へお母あさまのお迎えに往くことも出来よう。籠や鎌は棄てておいて、かれいけだけ持って往くのだよ」"
+    },
+    {
+      "candidateId": "hn_3vVjS5jdkcy6m8cQqUZc9rtUtfd2VAb6GVeGkHCU",
+      "displayText": "「そして、姉えさん、あなたはどうしようというのです」",
+      "revisionCount": 0,
+      "speechSha256": "9f797eaa20751b176931da3bd904f89735f5debfb1a0cb342bdf44fb7175da8a",
+      "speechText": "「そして、姉えさん、あなたはどうしようというのです」"
+    },
+    {
+      "candidateId": "P5yKtbMwotB3xLPdr_x8r_Q9aOEWzvRE57r6uNHBwAM",
+      "displayText": "「わたしのことは構わないで、お前一人ですることを、わたしと一しょにするつもりでしておくれ。お父うさまにもお目にかかり、お母あさまをも島からお連れ申した上で、わたしをたすけに来ておくれ」",
+      "revisionCount": 0,
+      "speechSha256": "e39be80771b75dcaf60170574ff33cce82b8dced2373d7344a4d6416af2a633d",
+      "speechText": "「わたしのことは構わないで、お前一人ですることを、わたしと一しょにするつもりでしておくれ。お父うさまにもお目にかかり、お母あさまをも島からお連れ申した上で、わたしをたすけに来ておくれ」"
+    },
+    {
+      "candidateId": "wB78gGoz3eip8H9I-SMgtLfcEnP05WtybJb7sTKfhw4",
+      "displayText": "「でもわたしがいなくなったら、あなたをひどい目に逢わせましょう」",
+      "revisionCount": 0,
+      "speechSha256": "46ff810d432c5f47150954c5567f538705dc4be572573bd8874e28a680eb8cc4",
+      "speechText": "「でもわたしがいなくなったら、あなたをひどい目に逢わせましょう」"
+    },
+    {
+      "candidateId": "kvL-CJho06FWtPxAbBli15Cq5aLdc-UYX7ICaWGDa7g",
+      "displayText": "「それはいじめるかも知れないがね、わたしは我慢して見せます。金で買った婢をあの人たちは殺しはしません。多分お前がいなくなったら、わたしを二人前働かせようとするでしょう。お前の教えてくれた木立ちの所で、わたしは柴をたくさん苅ります。六荷までは苅れないでも、四荷でも五荷でも苅りましょう。さあ、あそこまで降りて行って、籠や鎌をあそこに置いて、お前を麓へ送って上げよう」",
+      "revisionCount": 0,
+      "speechSha256": "fa72d0f4f42ae6931e6ee741f35e0b2a52c390b3ca080edc93925d1f97277ed8",
+      "speechText": "「それはいじめるかも知れないがね、わたしは我慢して見せます。金で買ったはしためをあの人たちは殺しはしません。多分お前がいなくなったら、わたしを二人前働かせようとするでしょう。お前の教えてくれた木立ちの所で、わたしは柴をたくさん苅ります。六荷までは苅れないでも、四荷でも五荷でも苅りましょう。さあ、あそこまで降りて行って、籠や鎌をあそこに置いて、お前を麓へ送って上げよう」"
+    },
+    {
+      "candidateId": "hzoyj7_BuyP-zOUzNHZTtWizo1Nd7R4KeuV_LTvDW1U",
+      "displayText": "「これは大事なお守だが、こんど逢うまでお前に預けます。この地蔵様をわたしだと思って、護り刀と一しょにして、大事に持っていておくれ」",
+      "revisionCount": 0,
+      "speechSha256": "984953b975bb9cc581d13499d597f9e1bc344147aebb78f4c387b547ae58088c",
+      "speechText": "「これは大事なお守だが、こんど逢うまでお前に預けます。この地蔵様をわたしだと思って、護り刀と一しょにして、大事に持っていておくれ」"
+    },
+    {
+      "candidateId": "ouKz3NzQzlF3BR2MV-npQ-9wclS3jVFMeNaRktFauGs",
+      "displayText": "「でも姉えさんにお守がなくては」",
+      "revisionCount": 0,
+      "speechSha256": "6081eb03c1a370ddd94a146db345aad7ad30dfa2996cabf44bf31539828bc660",
+      "speechText": "「でも姉えさんにお守がなくては」"
+    },
+    {
+      "candidateId": "IyOJOXPcPklpog8q8fi3TkJhGsSb247Mkp56Ds1GZkQ",
+      "displayText": "「いいえ。わたしよりはあぶない目に逢うお前にお守を預けます。晩にお前が帰らないと、きっと討手がかかります。お前がいくら急いでも、あたり前に逃げて行っては、追いつかれるにきまっています。さっき見た川の上手を和江という所まで往って、首尾よく人に見つけられずに、向う河岸へ越してしまえば、中山までもう近い。そこへ往ったら、あの塔の見えていたお寺にはいって隠しておもらい。しばらくあそこに隠れていて、討手が帰って来たあとで、寺を逃げておいで」",
+      "revisionCount": 0,
+      "speechSha256": "74f27fb3eb92cb0988a1657d024ae719ecb3906415a8fe16d5a3a30bf9edb44d",
+      "speechText": "「いいえ。わたしよりはあぶない目に逢うお前にお守を預けます。晩にお前が帰らないと、きっとうってがかかります。お前がいくら急いでも、あたり前に逃げて行っては、追いつかれるにきまっています。さっき見た川のかみてをわえという所まで往って、首尾よく人に見つけられずに、向う河岸へ越してしまえば、中山までもう近い。そこへ往ったら、あの塔の見えていたお寺にはいって隠しておもらい。しばらくあそこに隠れていて、討手が帰って来たあとで、寺を逃げておいで」"
+    },
+    {
+      "candidateId": "1hW-gwnZ9xqTedvjrrk6lkBKh8vJ5ecgMqWissaLg78",
+      "displayText": "「でもお寺の坊さんが隠しておいてくれるでしょうか」",
+      "revisionCount": 0,
+      "speechSha256": "7c686e1cb7900e3e8b56a5c418b4f856598d94590e6cd249cf0de1beae212afe",
+      "speechText": "「でもお寺の坊さんが隠しておいてくれるでしょうか」"
+    },
+    {
+      "candidateId": "Sso3EzALq2cJmiNFaKtVJAARriGrjgAZlYHUtE_vZok",
+      "displayText": "「さあ、それが運験しだよ。開ける運なら坊さんがお前を隠してくれましょう」",
+      "revisionCount": 0,
+      "speechSha256": "5a0f4384b82126f6dda5e7a990482ecebcc6b1873bb0e990ea07728378c9348f",
+      "speechText": "「さあ、それがうんだめしだよ。開ける運なら坊さんがお前を隠してくれましょう」"
+    },
+    {
+      "candidateId": "nqfqKSez2IgTW4oG9OBaNwZsP_DJ1-AZbS_iwMbQHIU",
+      "displayText": "「そうですね。姉えさんのきょうおっしゃることは、まるで神様か仏様がおっしゃるようです。わたしは考えをきめました。なんでも姉えさんのおっしゃる通りにします」",
+      "revisionCount": 0,
+      "speechSha256": "f1c6a4ce18590a735fcb621e25923cc37f41200c45d00f5f95d4462b63bd55d5",
+      "speechText": "「そうですね。姉えさんのきょうおっしゃることは、まるで神様か仏様がおっしゃるようです。わたしは考えをきめました。なんでも姉えさんのおっしゃる通りにします」"
+    },
+    {
+      "candidateId": "fp3qfxmmCGsIV5FqCGaJDjszFSIS5FEMEr5sXgxzr_A",
+      "displayText": "「おう、よく聴いておくれだ。坊さんはよい人で、きっとお前を隠してくれます」",
+      "revisionCount": 0,
+      "speechSha256": "4ddd3d2c2c6be0d6dc0912d7ec285c0f5c0cf5dfece1b4f294bfbf886418cb53",
+      "speechText": "「おう、よく聴いておくれだ。坊さんはよい人で、きっとお前を隠してくれます」"
+    },
+    {
+      "candidateId": "2_Z0epmHXBCZTVlbR1fp1mMYST-4kBKy0BQ4HwKYmPA",
+      "displayText": "「そうです。わたしにもそうらしく思われて来ました。逃げて都へも往かれます。お父うさまやお母あさまにも逢われます。姉えさんのお迎えにも来られます」",
+      "revisionCount": 0,
+      "speechSha256": "d1f831e9231a5134506cab5ce7e2f5dd67382059586fd16923d27d1bf8259c7e",
+      "speechText": "「そうです。わたしにもそうらしく思われて来ました。逃げて都へも往かれます。お父うさまやお母あさまにも逢われます。姉えさんのお迎えにも来られます」"
+    },
+    {
+      "candidateId": "d2cpylJQZLn_29FG0AAfDl9UadbZTOIMLk7gXA8LM34",
+      "displayText": "「さあ、麓まで一しょに行くから、早くおいで」",
+      "revisionCount": 0,
+      "speechSha256": "530f7047892161129bda4e88340727d77d481fbb3ae07741176ce7932e014544",
+      "speechText": "「さあ、麓まで一しょに行くから、早くおいで」"
+    },
+    {
+      "candidateId": "KcEqL807AvgAZQoYGOG1w5TmVdwh2OUWCpNgJDO9l88",
+      "displayText": "「これがお前の門出を祝うお酒だよ」",
+      "revisionCount": 0,
+      "speechSha256": "2f943e0aba77be3669263b4d5a523c17f133e29b86cf87ff6490ba2aa1be95b0",
+      "speechText": "「これがお前のかどでを祝うお酒だよ」"
+    },
+    {
+      "candidateId": "ZBoEKsUhiTV2O0oyyiLEKWbSCp_UuFZrmjNu9gdeV9A",
+      "displayText": "「そんなら姉えさん、ご機嫌よう。きっと人に見つからずに、中山まで参ります」",
+      "revisionCount": 0,
+      "speechSha256": "154658cfb5d9f084aa3feb236995582354e61c72061a6ba8ce90c236acf89b1e",
+      "speechText": "「そんなら姉えさん、ご機嫌よう。きっと人に見つからずに、中山まで参ります」"
+    },
+    {
+      "candidateId": "jifljJOUM7x5z1gxq9hWD4RO2DY-LkpfhmQarKJKvx0",
+      "displayText": "「これへ参ったのは、石浦の山椒大夫が族のものじゃ。大夫が使う奴の一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」",
+      "revisionCount": 2,
+      "speechSha256": "666c2164ee91f91d84eae9d02aa6995e9526cb2db45c61cf957e3abb3cc09c64",
+      "speechText": "「これへ参ったのは、石浦の山椒だゆうがうからのものじゃ。だゆうが使うやっこの一人が、この山に逃げ込んだのを、たしかに認めたものがある。隠れ場は寺内よりほかにはない。すぐにここへ出してもらおう」"
+    },
+    {
+      "candidateId": "xK0jE1Z_hvPqalKQ9_UjQMhg2EhI3h8znb_GfCF4ygM",
+      "displayText": "「さあ、出してもらおう、出してもらおう」",
+      "revisionCount": 0,
+      "speechSha256": "7c9f3de3f2c1638a74ffeb5f4ba1043203d0092b28b65a6281bfdc05e9b739cb",
+      "speechText": "「さあ、出してもらおう、出してもらおう」"
+    },
+    {
+      "candidateId": "5foD25GSKtSn1v2sHAYBy1cOQrgsUCJDZMAkt9AfYVc",
+      "displayText": "「和尚さん、どうしたのだ」",
+      "revisionCount": 0,
+      "speechSha256": "93e1f4e0784958194265f31f2d24256db4f3569ae2cb3afdadc767dbd00a58da",
+      "speechText": "「和尚さん、どうしたのだ」"
+    },
+    {
+      "candidateId": "WEGQVRetFj2RASmx-xvJC9jMiO0VsuCtRqot6oZ_GVg",
+      "displayText": "「逃げた下人を捜しに来られたのじゃな。当山では住持のわしに言わずに人は留めぬ。わしが知らぬから、そのものは当山にいぬ。それはそれとして、夜陰に剣戟を執って、多人数押し寄せて参られ、三門を開けと言われた。さては国に大乱でも起ったか、公の叛逆人でも出来たかと思うて、三門をあけさせた。それになんじゃ。御身が家の下人の詮議か。当山は勅願の寺院で、三門には勅額をかけ、七重の塔には宸翰金字の経文が蔵めてある。ここで狼藉を働かれると、国守は検校の責めを問われるのじゃ。また総本山東大寺に訴えたら、都からどのような御沙汰があろうも知れぬ。そこをよう思うてみて、早う引き取られたがよかろう。悪いことは言わぬ。お身たちのためじゃ」",
+      "revisionCount": 0,
+      "speechSha256": "54fea45b2b547d015e15d02999720485919f68e3d9fe5fc730971f5d36a1a92d",
+      "speechText": "「逃げたげにんを捜しに来られたのじゃな。当山では住持のわしに言わずに人は留めぬ。わしが知らぬから、そのものは当山にいぬ。それはそれとして、夜陰にけんげきをとって、多人数押し寄せて参られ、三門を開けと言われた。さては国に大乱でも起ったか、おおやけのはんぎやくにんでも出来たかと思うて、三門をあけさせた。それになんじゃ。おんみが家の下人のせんぎか。当山は勅願の寺院で、三門には勅額をかけ、七重の塔にはしんかんこんじの経文がおさめてある。ここでろうぜきを働かれると、くにのかみはけんぎょうの責めを問われるのじゃ。また総本山東大寺に訴えたら、都からどのようなごさたがあろうも知れぬ。そこをよう思うてみて、早う引き取られたがよかろう。悪いことは言わぬ。お身たちのためじゃ」"
+    },
+    {
+      "candidateId": "EYlcPUssqvNJ4H29IntMdQSwGKmACExhJXb0LmWhYSY",
+      "displayText": "「その逃げたというのは十二三の小わっぱじゃろう。それならわしが知っておる」",
+      "revisionCount": 0,
+      "speechSha256": "75204a5ab1ab25b9b92b4c32e2a62198c4a6a52b94b05729d182d805f0a8f7af",
+      "speechText": "「その逃げたというのは十二三の小わっぱじゃろう。それならわしが知っておる」"
+    },
+    {
+      "candidateId": "TW4htDDMEniScasSvuFKv3Losa8B7eiWqSuqknTlr0E",
+      "displayText": "「そのわっぱはな、わしが午ごろ鐘楼から見ておると、築泥の外を通って南へ急いだ。かよわい代りには身が軽い。もう大分の道を行ったじゃろ」",
+      "revisionCount": 0,
+      "speechSha256": "246495265768843c9b82c8e1dc8feb79d7de46d340f1e8e555e4e57e2bd7ec2d",
+      "speechText": "「そのわっぱはな、わしがひるごろ鐘楼から見ておると、ついじの外を通って南へ急いだ。かよわい代りには身が軽い。もう大分の道を行ったじゃろ」"
+    },
+    {
+      "candidateId": "InqZnUw7neY6AtFVW1dWHskiOLOImz_1K6ZmCGFOpSk",
+      "displayText": "「それじゃ。半日に童の行く道は知れたものじゃ。続け」",
+      "revisionCount": 0,
+      "speechSha256": "e8c148088bad6aec691a6c92b75107c80cc1812c09fd49695fab9134931b22e4",
+      "speechText": "「それじゃ。半日に童の行く道は知れたものじゃ。続け」"
+    },
+    {
+      "candidateId": "yavNag92XnRZnMNRMztoNo79z5G6Hq_NKu0Nszf2kNY",
+      "displayText": "「守本尊を大切にして往け。父母の消息はきっと知れる」",
+      "revisionCount": 0,
+      "speechSha256": "fe26bfc639b2958bccc6e796840d528f40b21703b49460c3e49d6d38d1ddfdf1",
+      "speechText": "「守本尊を大切にして往け。父母の消息はきっと知れる」"
+    },
+    {
+      "candidateId": "mt07galQTWTEgxT9gCI6dkwdjI9Yx9GtOSL8r4ioWXQ",
+      "displayText": "「お前は誰の子じゃ。何か大切な物を持っているなら、どうぞおれに見せてくれい。おれは娘の病気の平癒を祈るために、ゆうべここに参籠した。すると夢にお告げがあった。左の格子に寝ている童がよい守本尊を持っている。それを借りて拝ませいということじゃ。けさ左の格子に来てみれば、お前がいる。どうぞおれに身の上を明かして、守本尊を貸してくれい。おれは関白師実じゃ」",
+      "revisionCount": 0,
+      "speechSha256": "4f9acb95db97ccf5c825b35ea92ae90151605339c5057694efb4624a5612fb43",
+      "speechText": "「お前は誰の子じゃ。何か大切な物を持っているなら、どうぞおれに見せてくれい。おれは娘の病気のへいゆを祈るために、ゆうべここにさんろうした。すると夢にお告げがあった。左のこうしに寝ているわらわがよい守本尊を持っている。それを借りて拝ませいということじゃ。けさ左の格子に来てみれば、お前がいる。どうぞおれに身の上を明かして、守本尊を貸してくれい。おれは関白もろざねじゃ」"
+    },
+    {
+      "candidateId": "66-8ehIJovgCU8h_VyyZ9BZho70DtqyRWJ2BhDJLgj0",
+      "displayText": "「わたくしは陸奥掾正氏というものの子でございます。父は十二年前に筑紫の安楽寺へ往ったきり、帰らぬそうでございます。母はその年に生まれたわたくしと、三つになる姉とを連れて、岩代の信夫郡に住むことになりました。そのうちわたくしが大ぶ大きくなったので、姉とわたくしとを連れて、父を尋ねに旅立ちました。越後まで出ますと、恐ろしい人買いに取られて、母は佐渡へ、姉とわたくしとは丹後の由良へ売られました。姉は由良で亡くなりました。わたくしの持っている守本尊はこの地蔵様でございます」",
+      "revisionCount": 0,
+      "speechSha256": "53a6e07e19fdad4c2606136c66af849db7003c301dc4ba204a54fc3ad6201716",
+      "speechText": "「わたくしはむつのじょうまさうじというものの子でございます。父は十二年前に筑紫の安楽寺へ往ったきり、帰らぬそうでございます。母はその年に生まれたわたくしと、三つになる姉とを連れて、岩代のしのぶごおりに住むことになりました。そのうちわたくしが大ぶ大きくなったので、姉とわたくしとを連れて、父を尋ねに旅立ちました。越後まで出ますと、恐ろしい人買いに取られて、母は佐渡へ、姉とわたくしとは丹後の由良へ売られました。姉は由良で亡くなりました。わたくしの持っている守本尊はこの地蔵様でございます」"
+    },
+    {
+      "candidateId": "nf24wy4S-PoRGNhtJLGJTcjn76GVfviidoRgqV11wLM",
+      "displayText": "「これはかねて聞きおよんだ、尊い放光王地蔵菩薩の金像じゃ。百済国から渡ったのを、高見王が持仏にしておいでなされた。これを持ち伝えておるからは、お前の家柄に紛れはない。仙洞がまだ御位におらせられた永保の初めに、国守の違格に連座して、筑紫へ左遷せられた平正氏が嫡子に相違あるまい。もし還俗の望みがあるなら、追っては受領の御沙汰もあろう。まず当分はおれの家の客にする。おれと一しょに館へ来い」",
+      "revisionCount": 0,
+      "speechSha256": "0db0b5825203dad9c14e8de9c4d06368a2b8d554e5ded12ba48b8dac822c2dd4",
+      "speechText": "「これはかねて聞きおよんだ、尊いほうこうおうじぞうぼさつのこんぞうじゃ。くだらのくにから渡ったのを、高見王が持仏にしておいでなされた。これを持ち伝えておるからは、お前の家柄にまぎれはない。せんとうがまだみくらいにおらせられたえいほうの初めに、国守のいきゃくに連座して、筑紫へ左遷せられたたいらのまさうじが嫡子に相違あるまい。もしげんぞくの望みがあるなら、追ってはずりょうの御沙汰もあろう。まず当分はおれの家の客にする。おれと一しょにやかたへ来い」"
+    },
+    {
+      "candidateId": "lLoLTOKNx6d0eIoX1TJVKFL08EDh709mrCynDyA6Z2s",
+      "displayText": "「どうしてお母あさまの行くえが知れないのだろう、もし役人なんぞに任せて調べさせて、自分が捜し歩かぬのを神仏が憎んで逢わせて下さらないのではあるまいか」",
+      "revisionCount": 0,
+      "speechSha256": "b592b94f9020129797ac87953c288e92ba80b8fd004de8fec03625a99dc99433",
+      "speechText": "「どうしてお母あさまの行くえが知れないのだろう、もし役人なんぞに任せて調べさせて、自分が捜し歩かぬのを神仏が憎んで逢わせて下さらないのではあるまいか」"
+    },
+    {
+      "candidateId": "xMGhpfgQuXT_e2PQXQnzZ799WHZIRKObYKRD9RywXOs",
+      "displayText": "「厨子王」",
+      "revisionCount": 0,
+      "speechSha256": "e0cf5437e1a78cbd76ee831c9cff3a1c29299b04ac3e6e033087a7a54709c0ea",
+      "speechText": "「厨子王」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000689"
+}
