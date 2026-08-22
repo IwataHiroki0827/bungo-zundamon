@@ -3667,7 +3667,7 @@ tasks:
   title: F007候補manifest・固定v0.6.0 baseline・権利原典を整備
   feature: F007
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-159
   tags:
@@ -3702,14 +3702,39 @@ tasks:
     batch-candidate.test.ts全7件、既存f006-source/f006-catalog/
     f004-approved-context test 30件)は全PASSで既存機能への回帰なし。
 
-    未着手: content/batch-candidates.jsonへのF007 candidate
-    entry追加(森鴎外author定義・3 work記述)とdraft manifest
-    materialize(FUN-F007-001後半)、FUN-F007-004(f007-source.ts内
-    defineF007AuthorAndWorkRegistry/verifyF007AuthorIdentity)、
-    FUN-F007-005/006(f007-source.ts本体、Aozora実データ取得・
-    entity正規化・決定的抽出、f006-source.tsが同等規模のため
-    大きな実装量が見込まれる)。ここで一旦区切り、続きはT-160の
-    残作業として次セッションで継続する。
+    残作業を完了した(2026-08-22)。`src/content/f007-source.ts`
+    (f006-source.tsのパラメータ化clone、defineF007AuthorAndWorkRegistry/
+    verifyF007AuthorIdentity/collectF007SourceSnapshot/
+    normalizeF007AozoraXhtmlEntities/extractF007DialogueCandidates等)を
+    新規実装した。`content/batch-candidates.json`へF007 candidate entry
+    (森鴎外author定義・3 work記述、identitySha256実計算値)を追加、
+    `content/batches/F007/batch.json`(draft manifest、F006の実precedent
+    commit形式を踏襲)・`voice-config.json`(F002/F004/F006とbyte-identical)
+    を新規作成した。
+
+    新規`scripts/f007-collect-source.ts`で実HTTPS取得(aozora.gr.jp、
+    ローカルネット疎通済み)を実行し、書誌・作家ページ・3作品図書カード/
+    XHTML・VOICEVOX/ずんだもん3規約を`content/batches/F007/
+    source-snapshots/selection.json`・`data/batches/F007/
+    source-snapshots/selection/`へ実際に永続化した(rights decision: allow)。
+
+    **実装時に発見・訂正した設計不整合**: DOMAIN-F007.mdは「3作品とも
+    未定義entity0件」と記載していたが、実HTTPS取得の結果、舞姫(058126)の
+    本文外gaiji_list注記表内に固定context`<td>&nbsp;&nbsp;</td>`で
+    `&nbsp;`が2件存在することが判明した(高瀬舟045245・山椒大夫000689は
+    記載どおり0件)。F005が趣味の遺伝(001104)向けに実装済みの等長置換方式
+    (`&nbsp;`→`&#160;`)を`normalizeF007AozoraXhtmlEntities`内へ複製して
+    対応し(舞姫だけ`variant: 'entity'`)、DD-F007.md FUN-F007-006・
+    DOMAIN-F007.md §3/§5を訂正記載した(level: design、非requirement変更の
+    ためpf-change承認ゲート不要)。3作品とも決定的抽出を確認した
+    (候補数: 舞姫48・高瀬舟13・山椒大夫120)。
+
+    新規`src/content/f007-source.test.ts`(12ケース、f006-source.test.tsの
+    パラメータ化clone、entity variant/passthrough双方をカバー)を作成し
+    全PASSを確認した。`tsc --noEmit`・`lint`・関連test(f007-baseline.test.ts
+    10件・f007-source.test.ts 12件・batch-candidate.test.ts 7件・
+    f006-source/f006-catalog/f004-approved-context test 30件、計59件)は
+    全PASSで既存機能への回帰なし。T-160完了。
   mode: orchestration
   mode_reason: baseline固定、書誌・規約二重確認、entity正規化検出を独立実装・検査して統合できるため
   model: *model_f007

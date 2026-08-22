@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F007.md",
+    "release": "docs/evidence/release/F007-approval.json",
+    "requirements": "docs/srs/SRS-F007.md",
+    "testspec": "docs/tests/ut/UT-F007.md"
+  },
+  "artworkProvenanceRef": "content/batches/F007/artwork-provenance.json",
+  "author": {
+    "authorId": "000129",
+    "identitySha256": "b03a1a0562137451f6fd7a0ad26a0461dad800a2d3935bae337cee6798b3894b",
+    "name": "もりおうがい",
+    "originalName": "森鴎外",
+    "slug": "mori-ogai"
+  },
+  "batchId": "F007",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "058126"
+      ],
+      "preferredWorkId": "058126",
+      "reason": "承認済み代表作",
+      "title": "舞姫"
+    },
+    {
+      "allowedWorkIds": [
+        "045245"
+      ],
+      "preferredWorkId": "045245",
+      "reason": "承認済み代表作",
+      "title": "高瀬舟"
+    },
+    {
+      "allowedWorkIds": [
+        "000689"
+      ],
+      "preferredWorkId": "000689",
+      "reason": "承認済み代表作",
+      "title": "山椒大夫"
+    }
+  ],
+  "feature": "F007",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F007/voice-config.json",
+  "workIds": [
+    "058126",
+    "045245",
+    "000689"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "058126"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "045245"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000689"
+    }
+  ]
+}

@@ -225,6 +225,56 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/000119/files/1738_16623.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "8f4f31cb2e87470aaf8c649ae5d4821fe6f7ff66b141f8653b8bf867608cc3bc",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F007.md",
+            "sha256": "ef1b47d2a841db2e98dccb03b988caaebe9f7f814f8145ffe6a069cb6c3542ea"
+          },
+          {
+            "path": "docs/tests/qt/QT-F007.md",
+            "sha256": "1826b48f5da03a60ae6c271b1f2733eed45f59ca0cc0a2f52de1b365d2af4b3e"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F007-approval-binding.json",
+        "evidenceSha256": "15e7b6fd0ed4407492563a9f75a812f88a1970a94711ca1d32448466abe688c4",
+        "queueId": "Q-062"
+      },
+      "author": {
+        "authorId": "000129",
+        "identitySha256": "b03a1a0562137451f6fd7a0ad26a0461dad800a2d3935bae337cee6798b3894b",
+        "name": "もりおうがい",
+        "originalName": "森鴎外",
+        "slug": "mori-ogai"
+      },
+      "batchId": "F007",
+      "feature": "F007",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000129/card58126.html",
+          "order": 1,
+          "title": "舞姫",
+          "workId": "058126",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/58126_73682.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000129/card45245.html",
+          "order": 2,
+          "title": "高瀬舟",
+          "workId": "045245",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/45245_22007.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000129/card689.html",
+          "order": 3,
+          "title": "山椒大夫",
+          "workId": "000689",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000129/files/689_23257.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"
