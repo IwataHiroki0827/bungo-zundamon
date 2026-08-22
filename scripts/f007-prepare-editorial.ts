@@ -234,7 +234,7 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     },
   },
   // 高瀬舟(045245)。青空文庫本文（45245_22007.html正規化済みテキスト）を実際に
-  // 通読し13候補全件の話者を確定した。庄兵衛（護送の同心）と喜助（罪人）の
+  // 通読し全候補の話者を確定した。庄兵衛（護送の同心）と喜助（罪人）の
   // 対話のみで構成される会話劇であり、typographicな外来語強調は存在しない。
   // order7・order9は「「喜助さん」と呼びかけた。今度は「さん」と言ったが」
   // 「「はい」と答えた喜助も、「さん」と呼ばれたのを不審に思うらしく」の
@@ -242,6 +242,15 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
   // 言及しているだけで新規の発話ではないため、舞姫の外来語強調と同じ
   // NON_SPEECH扱いとする。VOICEVOX 0.25.2 speaker 3のaudio_query実測に
   // 基づき読み誤りを補正した。
+  //
+  // order12は元は喜助の弟殺害の述懐（2408文字の単一「」候補、原文でも改行
+  // なしの一続きの引用）だったが、VOICEVOX synthesisが単一candidateの
+  // speechText約1330〜1340文字超でHTTP 500を返す実測済みengine制約（二分探索
+  // で確定）のため、f007-source.tsのsplitOverlongF007Candidates（句点「。」の
+  // 文境界での安全分割、閾値600文字）によりorder12〜15の4pieceへ自動分割
+  // される。分割後の4pieceは全て同一sourceAnchorを共有し（分割元の引用範囲
+  // 全体を指す）、同一話者（喜助）の連続する述懐の一部であるため全てapproved・
+  // 同一speakerとする。
   '045245': {
     judgmentsByOrder: [
       { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order0 「喜助。お前何を思っているのか。」
@@ -256,7 +265,10 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null }, // order9 「さん」（同上、地の文のメタ言及）
       { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '庄兵衛' }, // order10 「いろいろの事を聞くようだが...」
       { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order11 「かしこまりました」
-      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order12 「どうも飛んだ心得違いで...」(order11に続く喜助の長い述懐)
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order12 「どうも飛んだ心得違いで...」(自動分割piece1/4)
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order13 「すると弟はまっさおな顔の...」(自動分割piece2/4)
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order14 「えがやっと二寸ばかり傷口から...」(自動分割piece3/4)
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '喜助' }, // order15 「わたくしはかみそりの柄を...」(自動分割piece4/4)
     ],
     speechCorrections: {
       // order3: 「...それからこん度島へおやりくださるにつきまして、...」
@@ -312,6 +324,20 @@ function reviewCandidate(candidate: CandidateWithRevisions): EditorialCandidate 
   });
 }
 
+/**
+ * 045245（高瀬舟）はorder12がVOICEVOX synthesis上限(実測約1330〜1340文字)を
+ * 超えるためsplitOverlongF007Candidates導入後に候補件数が13→16へ変わった。
+ * 旧13候補構成でのauthorization(f007-045245-{primary,secondary})は
+ * content/editorial/authorization-transaction/へ既にcommit・seal済み
+ * （commit eb0c141、append-only store）のため、同一IDでの再登録は内容不一致で
+ * 拒否される。append-only方針に従い、削除・上書きはせず新しいrevision識別子
+ * (-r2)で新規登録することで、旧sealを歴史として残したまま訂正後の候補構成で
+ * 独立二重判定をやり直す。
+ */
+function authorizationRevisionSuffix(workId: string): string {
+  return workId === '045245' ? '-r2' : '';
+}
+
 function authorization(
   role: ReviewRunAuthorization['role'],
   candidates: readonly EditorialCandidate[],
@@ -324,17 +350,18 @@ function authorization(
   },
   issuedAt: string,
 ): ReviewRunAuthorization {
+  const revision = authorizationRevisionSuffix(WORK_ID);
   return Object.freeze({
-    authorizationId: `f007-${WORK_ID}-${role}`,
+    authorizationId: `f007-${WORK_ID}-${role}${revision}`,
     role,
-    producerTaskPath: `/root/f007-editorial/${WORK_ID}/${role}`,
+    producerTaskPath: `/root/f007-editorial/${WORK_ID}/${role}${revision}`,
     judgeRole: role,
-    runId: `f007-${WORK_ID}-${role}-run`,
+    runId: `f007-${WORK_ID}-${role}${revision}-run`,
     candidateSetSha256: common.candidateSetSha256,
     policySha256: common.policySha256,
     promptSha256: common.promptSha256,
     toolSha256: common.toolSha256,
-    nonce: `f007-${WORK_ID}-${role}-nonce`,
+    nonce: `f007-${WORK_ID}-${role}${revision}-nonce`,
     issuedAt,
     inputRefs: common.inputRefs,
     candidates,
@@ -597,20 +624,27 @@ async function main(): Promise<void> {
   }));
   const revisionToolBytes = await readFile(resolve(workspace, ...REVISION_TOOL_PATH.split('/')));
   const revisions: SpeechRevisionV2[] = [];
+  // splitOverlongF007Candidates(f007-source.ts)により、1件の長大candidateが
+  // 同一sourceAnchor(引用範囲全体)を共有する複数candidateへ分割されている
+  // 場合がある。speechCorrectionsはsourceAnchor単位で定義されるため、
+  // 該当する全candidateへ照合を試み、find文字列を含むpieceにだけ適用する
+  // （分割前は1 sourceAnchor = 1 candidateだったため常に1回だけ適用されていた
+  // 挙動を、分割後も「1補正=1回だけ適用」という不変条件で維持する）。
+  const correctionAppliedCounts = new Map<string, number>();
   for (const candidate of approvedCandidates) {
-    const corrections = editorialConfig.speechCorrections[
-      `${candidate.sourceAnchor.bodySelector}:${candidate.sourceAnchor.startToken}-${candidate.sourceAnchor.endToken}`
-    ];
+    const sourceAnchorKey =
+      `${candidate.sourceAnchor.bodySelector}:${candidate.sourceAnchor.startToken}-${candidate.sourceAnchor.endToken}`;
+    const corrections = editorialConfig.speechCorrections[sourceAnchorKey];
     if (!corrections) continue;
     let before = candidate.speechText;
-    corrections.forEach((correction, index) => {
-      if (!before.includes(correction.find)) {
-        throw new Error(`補正対象文字列が見つかりません: ${candidate.candidateId} (${correction.find})`);
-      }
+    let appliedCount = 0;
+    corrections.forEach((correction, correctionIndex) => {
+      if (!before.includes(correction.find)) return;
+      appliedCount += 1;
       const after = before.split(correction.find).join(correction.to);
       revisions.push({
         candidateId: candidate.candidateId,
-        revision: index + 1,
+        revision: appliedCount,
         before,
         after,
         reason: correction.reason,
@@ -618,6 +652,18 @@ async function main(): Promise<void> {
         outputSha256: sha256(after),
       });
       before = after;
+      const trackKey = `${sourceAnchorKey}#${correctionIndex}`;
+      correctionAppliedCounts.set(trackKey, (correctionAppliedCounts.get(trackKey) ?? 0) + 1);
+    });
+  }
+  for (const [sourceAnchorKey, corrections] of Object.entries(editorialConfig.speechCorrections)) {
+    corrections.forEach((correction, correctionIndex) => {
+      const count = correctionAppliedCounts.get(`${sourceAnchorKey}#${correctionIndex}`) ?? 0;
+      if (count !== 1) {
+        throw new Error(
+          `補正が期待通り1件だけ適用されませんでした(${count}件): ${sourceAnchorKey} "${correction.find}"`,
+        );
+      }
     });
   }
   const revised = applySpeechRevisions(approvedForSpeech, revisions);

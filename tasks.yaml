@@ -3905,6 +3905,57 @@ tasks:
     work-artifacts/045245/・editorial authorization-transaction seals×2)
     は実データとして永続化済み、tsc/lint clean。コミット予定
     (メインセッション側)。
+
+    メインセッション側でVOICEVOXへ直接二分探索し根本原因を確定した:
+    純粋な文字数上限ではなく、prefix 1334文字は成功・1335文字はtimeout・
+    1354文字以降はHTTP 500即時失敗という実在のengine制約(境界1330〜1340
+    文字付近)。設計選択肢(2)(抽出層での安全分割)を採用し、
+    src/content/f007-source.tsへsplitOverlongF007Candidates
+    (閾値600文字、句点「。」の文境界でのみ分割、実測失敗境界に対し2倍以上の
+    安全マージン)を新規実装した。src/voice/generation.ts・
+    src/voice/client.ts・src/content/processing.ts・
+    src/content/batch-production.ts(F001〜F006共有の汎用モジュール)は
+    一切変更していない。分割はextractF007DialogueCandidates内で
+    決定性検証(二重実行比較)の後に適用し、分割処理自体の決定性も別途
+    二重実行で検証する。
+
+    scripts/f007-prepare-editorial.tsのspeechCorrections適用ロジックを、
+    分割後に複数candidateが同一sourceAnchorを共有するケースに対応させた
+    (findできたpieceにだけ適用し、declaration毎に「合計1回だけ適用」を
+    検証する不変条件を維持)。WORK_EDITORIAL_CONFIGS['045245']の
+    judgmentsByOrderを13→16件へ更新(分割後のorder12〜15は全て喜助の
+    述懐の続きとしてapproved/同一speaker)。
+
+    045245は訂正前の誤った候補構成でstatus=budget-approvedまで進行済み
+    だったため、transitionWorkState/advanceF007WorkStateの巻き戻し禁止
+    (WORK_STATE_REWIND)により訂正後の候補構成でのやり直しができない
+    状態だった。新規scripts/f007-reset-work.ts(writeJsonArtifactAtomicに
+    よる汎用atomic write、F006 published是正commit 801352eと同型の手法)で
+    045245のworkProgressを000689と同一の最小pending形状へ直接リセットし、
+    訂正後の候補構成で段階Aを最初からやり直した。旧13候補構成での
+    authorization(f007-045245-{primary,secondary})はcontent/editorial/
+    authorization-transaction/へ既にcommit・seal済み(commit eb0c141)の
+    append-only storeのため、削除・上書きはせず新しいrevision識別子(-r2)
+    で新規登録した(authorizationRevisionSuffix関数)。
+
+    再実行結果: approved=14・rejected=2・pending=0・speechRevisions=3
+    (「度島へ」×2+「織場へ」×1、分割後も各1回だけ正しく適用されることを
+    確認)、workStatus=reviewed。src/content/f007-source.test.tsの
+    045245期待候補数を13→16へ更新。tsc/lint clean。
+    src/content/{f007-source,f007-baseline,f007-catalog,f007-artwork,
+    f007-work-notices-registration,f007-acceptance,batch,batch-production,
+    editorial-independent}.test.ts 149件全PASS確認。000689(山椒大夫)の
+    期待候補数(120)は分割の影響を受けず変化しないことも同テストで確認
+    (000689に600文字超の単一候補は現時点で無い)。
+
+    ディスク容量が本fork開始時51.8GB→7.4GBへ急落したことを検知した
+    (原因調査の結果、プロジェクト内消費は数MBに留まり、ComfyUI/AppData
+    配下の450GB超がこのマシン上の他の並行作業によるものと推定。
+    プロジェクト自体の原因ではない)。ディスクガード方針(20GB未満で警告)
+    に従い、音声生成(段階B1)を開始せずここで区切ってcommit・pushする。
+    次のfork/セッションは、ディスク空き容量を再確認したうえで段階B1
+    (voice-config・音声diff実生成・容量forecast・voiced遷移)から
+    再開すること。
 - id: T-164
   title: 山椒大夫を抽出・二重レビュー・音声化・atomic受入
   feature: F007

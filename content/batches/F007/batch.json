@@ -352,48 +352,34 @@
       "workId": "058126"
     },
     {
-      "forecastRef": "content/batches/F007/capacity-forecast/045245.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-22T08:20:00.000Z",
-          "count": 13,
+          "count": 16,
           "inputHashes": [
             "b643de3182302ca4b052781f33fa486862230593db1ed9371bd0892af7442f9b"
           ],
           "outputHashes": [
-            "c4191e52317ba0a7071a29bf8684ca7548cc50cb22671db894cffcfda7eef278"
+            "99de99647fa2db255836bc35faae5a2f02c569e7de6a3a6e11d9976e660e89ff"
           ],
           "stage": "extracted",
           "toolVersion": "f007-prepare-editorial-v1"
         },
         {
           "completedAt": "2026-08-22T08:20:00.000Z",
-          "count": 13,
+          "count": 16,
           "inputHashes": [
-            "4448f689bed64265393ad49feec0d6bad274ef9f4df1558977ae7ea3b088516b",
-            "c4191e52317ba0a7071a29bf8684ca7548cc50cb22671db894cffcfda7eef278"
+            "7dddc725214f91282d01b8e2bf5a8c5897ce7a826811d4af3da7202594728138",
+            "99de99647fa2db255836bc35faae5a2f02c569e7de6a3a6e11d9976e660e89ff"
           ],
           "outputHashes": [
-            "7d8b0d45f1e048b7fd1f747a0da5952c8088c144a217761ae93bef4acb1824f8"
+            "909903d10eeb1bc1625e2516ef917e0a4c2d3c149f50b52f31e04b45519fcdbf"
           ],
           "stage": "reviewed",
           "toolVersion": "f007-prepare-editorial-v1"
-        },
-        {
-          "completedAt": "2026-08-22T09:00:56.189Z",
-          "count": 11,
-          "inputHashes": [
-            "9cd2c09525f3149b128bc0e967700b48ded0d49822ec9b3be99924a423548a1b",
-            "7d8b0d45f1e048b7fd1f747a0da5952c8088c144a217761ae93bef4acb1824f8"
-          ],
-          "outputHashes": [
-            "b1e3c88fada7699bd10d852befe151a3967e2baf8bbcee80a13cd87c8157fb15"
-          ],
-          "stage": "budget-approved",
-          "toolVersion": "f007-prepare-voice-forecast-v1"
         }
       ],
-      "status": "budget-approved",
+      "status": "reviewed",
       "workId": "045245"
     },
     {

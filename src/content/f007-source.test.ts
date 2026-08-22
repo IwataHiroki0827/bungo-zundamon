@@ -302,7 +302,11 @@ describe('F007原典・書誌・権利判定（f007-source.ts）', () => {
 
     const expected2: Record<string, { variant: 'passthrough' | 'entity'; replacements: number; candidates: number }> = {
       '058126': { variant: 'entity', replacements: 2, candidates: 48 },
-      '045245': { variant: 'passthrough', replacements: 0, candidates: 13 },
+      // order12（喜助の弟殺害の述懐、2408文字の単一「」候補）がVOICEVOX
+      // synthesis上限（実測約1330〜1340文字）を超えるため、
+      // splitOverlongF007Candidatesにより4pieceへ自動分割される
+      // （13→16、うち原order12分は+3）。
+      '045245': { variant: 'passthrough', replacements: 0, candidates: 16 },
       '000689': { variant: 'passthrough', replacements: 0, candidates: 120 },
     };
     for (const expected of F007_WORKS) {

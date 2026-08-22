@@ -11,9 +11,14 @@ import type { WorkspaceRelativePath } from './batch.ts';
 import { writeF005TemporaryFile } from './f005-postcondition-write.ts';
 import {
   EXTRACTOR_VERSION,
+  SUPPORTED_SPEECH_RULE_VERSION,
   extractDialogueCandidates,
+  normalizeSpeechText,
   type DecodedSource,
   type ExtractionResult,
+  type RawCandidate,
+  type SpeechRules,
+  type TextToken,
 } from './processing.ts';
 import {
   AOZORA_BIBLIOGRAPHY_URL,
@@ -1286,6 +1291,88 @@ function preflightF007Xhtml(text: string): void {
 }
 
 /**
+ * VOICEVOX(0.25.2)実測により、単一candidateのspeechTextが約1330〜1340文字を
+ * 超えるとsynthesis呼出しがHTTP 500（engine内部エラー）を返すことを確認した
+ * （F001〜F006の最長候補も含め、この規模に達した候補は一度も無く前例が無い）。
+ * 純粋な文字数上限ではなく特定の長大テキストで発生する実在のengine制約と
+ * 二分探索で確定した（境界: prefix 1334文字は成功、1335文字はtimeout、
+ * 1354文字以降はHTTP 500即時失敗）。他フィーチャー（F001〜F006）が依存する
+ * 共有汎用モジュール（src/voice/generation.ts・src/voice/client.ts・
+ * src/content/processing.ts・src/content/batch-production.ts）は変更せず、
+ * F007ローカルの抽出層だけで、閾値を超える候補を句点「。」の文境界で複数の
+ * 連続candidateへ安全に分割する。実測失敗境界(1335文字)に対し2倍以上の
+ * 安全マージンを確保した600文字を閾値とする。
+ *
+ * 分割後は各pieceが独立したRawCandidateとなり、抽出済み全candidateへ
+ * order 0..N-1を再採番する（sourceAnchor/rawTokenRange/rawSourceSha256は
+ * 分割元と同一を維持し、分割元の引用範囲全体を指し続ける。candidateIdは
+ * displayText/speechTextのhashから導出されるため分割後の各pieceで自動的に
+ * ユニークになる）。contextBefore/contextAfterは分割元のまま維持するため、
+ * 2piece目以降のcontextBeforeは厳密な直前文脈ではない（表示補助用途のみで
+ * 正確性を要求されないため許容する）。
+ *
+ * 分割は必ず句点直後で行い、文の途中では絶対に切らない。1文だけで閾値を
+ * 超える場合（実際の日本語散文では極めて稀）は分割できないため単独piece
+ * として通す（この場合でもVOICEVOX側で失敗する可能性は残るが、少なくとも
+ * 決定的な分割ロジック自体が壊れることはない）。
+ * @des DES-F007-005 @fun FUN-F007-006
+ */
+const F007_SPLIT_LENGTH_THRESHOLD = 600;
+
+const F007_SPLIT_MEASUREMENT_RULES: SpeechRules = Object.freeze({
+  version: SUPPORTED_SPEECH_RULE_VERSION,
+  gaiji: Object.freeze({}),
+  lineBreak: 'space',
+  collapseWhitespace: true,
+});
+
+function explodeTextTokenAtSentenceBoundaries(token: TextToken): TextToken[] {
+  if (token.type !== 'text' || !token.value.includes('。')) return [token];
+  const pieces: TextToken[] = [];
+  let rest = token.value;
+  while (rest.includes('。')) {
+    const cut = rest.indexOf('。') + 1;
+    pieces.push({ type: 'text', value: rest.slice(0, cut) });
+    rest = rest.slice(cut);
+  }
+  if (rest.length > 0) pieces.push({ type: 'text', value: rest });
+  return pieces;
+}
+
+function endsAtSentenceBoundary(group: readonly TextToken[]): boolean {
+  const last = group[group.length - 1];
+  return last !== undefined && last.type === 'text' && last.value.endsWith('。');
+}
+
+function groupTokensByThreshold(tokens: readonly TextToken[], threshold: number): TextToken[][] {
+  const atomicPieces = tokens.flatMap((token) => explodeTextTokenAtSentenceBoundaries(token));
+  const groups: TextToken[][] = [];
+  let current: TextToken[] = [];
+  for (const piece of atomicPieces) {
+    const prospective = [...current, piece];
+    const prospectiveLength = normalizeSpeechText(prospective, F007_SPLIT_MEASUREMENT_RULES).length;
+    if (current.length > 0 && prospectiveLength > threshold && endsAtSentenceBoundary(current)) {
+      groups.push(current);
+      current = [piece];
+    } else {
+      current = prospective;
+    }
+  }
+  if (current.length > 0) groups.push(current);
+  return groups.length > 0 ? groups : [[...atomicPieces]];
+}
+
+function splitOverlongF007Candidates(candidates: readonly RawCandidate[]): RawCandidate[] {
+  const expanded = candidates.flatMap((raw) => {
+    const speechLength = normalizeSpeechText(raw.tokens, F007_SPLIT_MEASUREMENT_RULES).length;
+    if (speechLength <= F007_SPLIT_LENGTH_THRESHOLD) return [raw];
+    const groups = groupTokensByThreshold(raw.tokens, F007_SPLIT_LENGTH_THRESHOLD);
+    return groups.map((tokens) => ({ ...raw, tokens }));
+  });
+  return expanded.map((raw, index) => ({ ...raw, order: index }));
+}
+
+/**
  * resource preflight後だけ既存inert DOM抽出器へ渡し、二重実行で決定性を確認する。
  * @des DES-F007-005 @fun FUN-F007-006 @ut UT-F007-006
  */
@@ -1331,12 +1418,21 @@ export function extractF007DialogueCandidates(
   if (JSON.stringify(first) !== JSON.stringify(second) || !first.ok) {
     throw new F007SourceError('F007_EXTRACTION_FAILED', '台詞抽出が失敗または非決定的です');
   }
+  // 決定性検証(DOM抽出器の素の出力同士の比較)が終わった後だけ分割する。
+  // splitOverlongF007Candidates自体は入力に対し決定的なため、この順序でも
+  // 「二重実行して一致を確認する」という決定性保証の意味は保たれる。
+  const splitCandidates = splitOverlongF007Candidates(first.candidates);
+  const resplit = splitOverlongF007Candidates(second.candidates);
+  if (JSON.stringify(splitCandidates) !== JSON.stringify(resplit)) {
+    throw new F007SourceError('F007_EXTRACTION_FAILED', '長大候補の分割処理が非決定的です');
+  }
+  const result: ExtractionResult = { ok: true, success: true, candidates: splitCandidates, diagnostics: first.diagnostics };
   return deepFreeze({
     schemaVersion: '1.0.0',
     workId: source.workId,
     sourceSha256: normalization.processedSha256,
     extractorVersion: EXTRACTOR_VERSION,
-    result: first,
+    result,
   });
 }
 
