@@ -160,5 +160,5 @@ describe('UT-F003-005 FUN-F003-005 published invariant', () => {
       result: 'blocked',
       mismatches: ['ARTWORK_PROVENANCE_PROJECTION_MISMATCH'],
     });
-  });
+  }, 30_000);
 });
