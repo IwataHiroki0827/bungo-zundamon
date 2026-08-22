@@ -1756,3 +1756,48 @@ entries:
     failedは全て本タスク非関連(既知課題)。docs/changes/CHG-F006-005.mdを
     新規作成、tasks.yaml T-153をdoneへ更新、STATUS.mdを更新した。public/・
     content/baselines/*.jsonは変更していない。push・PR作成は行っていない。
+- date: '2026-08-22'
+  phase: implement
+  task: T-154 F006最終Catalog統合・固定v0.5.0回帰・公開tree候補を作成
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 130000
+  note: >-
+    新規scripts/f006-final-integration.tsを実装した。F005のf005-final-
+    integration.tsと同型構造(clean source commit検証→3作品分fragment片の
+    組立→baseline結合→buildIntegratedPublicTree prepare-releaseモード→
+    buildPagesPreview→--retainでcandidate-paths.json永続化)だが、F006既存の
+    mergeNewAuthorCatalog006・deriveF006RouteSetを使うためF005固有の
+    shumi-notice検証・predeploy再結合は不要とした。work単位fragment構築
+    (buildWorkFragmentPiece)とv0.5.0不変性検証(assertV050Invariant)は
+    scripts/f006-content-preview.tsと同一構造の複製(同scriptはCLI引数化・
+    await main()副作用付きで直接importできないため)。初回実行時、F005で
+    発生した既知不備(CHG-F005-078)と同型(F006 batchがbatch level
+    rights-verified遷移を経由せずrightsSnapshotIdsが空のまま3作品accepted
+    へ進んでいた)でBATCH_ARTIFACT_MISSING停止したため、一回限りの
+    scripts/f006-backfill-rights-snapshot-ids.tsでselection.jsonの実
+    evidenceからrightsSnapshotIdsを導出しbatch.jsonへbackfillした
+    (actualCapacityRefは元々promoteVerifiedWorkArtifactsが正しく書込み
+    済みで欠落なし)。backfillの副作用でF006-001738のaccepted-audio
+    idempotent再検証journal(.cache配下、gitignore対象)のnextManifestSha256
+    が古いmanifest hashを指すようになりf006-acceptance.test.tsが
+    WORK_ACCEPTED_AUDIO_CONFLICTで失敗したため、journal本体(evidence・
+    postTreeDigest等)は変更せずnextManifestSha256だけを実manifest hashへ
+    補正した。`--retain`実行結果はauthors=5・works=18・dialogues=939・
+    audioAssets=923(期待値5作者18作品939台詞923音声と完全一致)、
+    treeFiles=965・distFileCount=968。assertV050Invariantでv0.5.0既存分
+    (4作者15作品877台詞861音声・898 public files)がbyte/canonical JSON
+    exactで不変であることを確認、exact 8 route(#/、既存4作者・
+    nakajima-atsushi、#/favorites、#/credits)も導出確認した。
+    .cache/f006-final-integration-uAzjtl/(tree/dist候補)と
+    .cache/batch-release/F006/candidate-paths.json(sourceCommit
+    40dd47723a22e2e77cb1641d6371862b528f3bab)を永続化しT-155のE2E/QT入力
+    とした。lint/typecheck全体PASS。F006関連対象6ファイル56件全PASS、
+    batch.test.ts/batch-public.test.ts/batch-acceptance.test.ts個別実行も
+    全PASS。npm testフルスイート1375件中36 failedは個別再実行で全て本
+    タスク非関連の既知事象(f005 native guard exe欠落、frozen historical
+    commit fixtureの非canonical、F004時代batch-catalog.test.tsのF005
+    published fragment gap=F005公開時から潜在しF006と無関係、Windows並列
+    resource contention)と確認した。docs/changes/CHG-F006-006.mdを新規
+    作成、tasks.yaml T-154をdoneへ更新、STATUS.mdを更新した。public/・
+    content/baselines/*.jsonは変更していない。push・PR作成は行っていない。

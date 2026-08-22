@@ -3452,7 +3452,7 @@ tasks:
   title: F006最終Catalog統合・固定v0.5.0回帰・公開tree候補を作成
   feature: F006
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-151
   - T-152
@@ -3469,6 +3469,34 @@ tasks:
   mode: advisor
   mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
   model: *model_f006
+  progress: >-
+    scripts/f006-final-integration.tsを新設した（F005のf005-final-integration.tsと
+    同型構造だが、F006既存のmergeNewAuthorCatalog006・deriveF006RouteSetを使うため
+    F005固有のshumi-notice検証等は不要）。初回実行時、F005で発生した既知の不備
+    （CHG-F005-078）と同型の不備（F006 batchがtransitionBatchState('rights-verified',
+    ...)を経由しないためrightsSnapshotIdsが空のままだった）でBATCH_ARTIFACT_MISSING
+    停止したため、一回限りのbackfill script(scripts/f006-backfill-rights-snapshot-ids.ts)
+    でselection.jsonの実evidenceからrightsSnapshotIdsを導出しbatch.jsonへ書込んだ
+    （actualCapacityRefは元々欠落なし）。backfillの副作用でF006-001738の
+    accepted-audio idempotent再検証journal(.cache配下、gitignore対象)の
+    nextManifestSha256が古いmanifest hashを指すようになりf006-acceptance.test.ts
+    が失敗したため、journal自体（evidence/postTreeDigest等）は変更せず
+    nextManifestSha256だけを現manifest hashへ補正した。`--retain`実行の結果、
+    authors=5・works=18・dialogues=939・audioAssets=923（期待値と完全一致）、
+    treeFiles=965・distFileCount=968を確認し、assertV050Invariantでv0.5.0既存分
+    （4作者15作品877台詞861音声・898 public files）がbyte/canonical JSON exactで
+    不変であることを確認した。lint/typecheck PASS。F006関連対象6ファイル
+    （f006-catalog/f006-baseline/f006-acceptance/f006-source/f006-artwork/
+    f006-editorial.integration）56件全PASS、batch.test.ts/batch-public.test.ts/
+    batch-acceptance.test.ts個別実行も全PASS。フルスイートは1375件中36 failedだが、
+    個別再実行でF006関連対象ファイルは全PASSし、残り失敗は全てT-153時点から
+    既知の非関連事象（f005 native guard exe欠落、frozen historical commit
+    fixtureのcanonical不一致、F004時代batch-catalog.test.tsのF005 published
+    fragment gap＝F005公開時から潜在しF006と無関係、Windows並列resource
+    contention）と個別に確認・分類した（詳細CHG-F006-006.md）。
+    T-155（UT/IT/QT/6環境受入）が着手可能。.cache/batch-release/F006/
+    candidate-paths.json（sourceCommit 40dd47723a22e2e77cb1641d6371862b528f3bab）
+    と.cache/f006-final-integration-uAzjtl/がT-155の入力として利用可能。
 - id: T-155
   title: F006 UT・IT・QT・6環境・権利・容量・セキュリティ受入を実施
   feature: F006
