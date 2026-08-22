@@ -2013,3 +2013,48 @@ items:
     processed_note: >-
       SRS-F007.md・QT-F007.mdをApprovedへ更新した。docs/features.yamlへF007エントリ（state: setup）を
       追加した。次フェーズpf-setupへ進める。
+  - id: Q-063
+    type: approval
+    status: closed
+    title: F007（森鴎外3作品追加）機能設計・関数設計の承認（ゲート②）
+    body: >-
+      T-157(FD-F007作成)・T-158(DD-F007作成)を実施した。docs/design/FD-F007.md(DES 14件、REQ-F007
+      全18件を網羅)・docs/design/DD-F007.md(FUN 17件、既存関数の直接再利用10件・新規実装7件)を作成した。
+      F006の設計(FD-F006.md/DD-F006.md)を構造の参考にし、F005固有のETW/native guard機構は使わず、
+      既存の共有受理pipeline(batch-runtime.ts・batch-acceptance.ts・batch.ts)をそのまま再利用する設計
+      とした。F006で確立したパターン(F004型静的descriptor経路・CLIパラメータ化script群・F003型の薄い
+      受入ラッパー・汎用dispatch関数)をf007-*.ts命名で踏襲する。
+
+      舞姫の作品固有注記UI(QA-F007 No.4)については、既存の2系統の注記機構(work-notices.ts=F003専用
+      binding、f005-source.tsのextractVerifiedShumiNotice=趣味の遺伝専用)を実際に読み、いずれも
+      「型・テキスト定数は汎用だがバインディング/検証ロジックがexact 1feature/1workへ凍結されている」
+      ことを確認した。work-notices.tsのloadAndValidateWorkNotices自体はauthorIdパラメータ化済みの
+      設計であることを踏まえ、TRUSTED_REGISTRY_BINDINGS(同ファイル内frozen object)へauthorId000129の
+      新規entryを1件データとして追加するだけで、既存ロジック・F003 entry・関数シグネチャを一切変更せず
+      舞姫の注記表示を実現できる設計としてDD-F007.md FUN-F007-011に記載した(新規application source
+      分岐は追加しない、QA-F007 No.4の要求を満たす)。
+
+      自己レビュー3観点(整合性: REQ→DES→FUN対応漏れ0をtrace_check.pyで確認、実現性: F006実装実績
+      パターンの直接適用可否をコードリーディングで検証済み、セキュリティ: 既存security checker/CSP/
+      route allowlistを無変更で踏襲)で指摘0件。
+    target: docs/design/DD-F007.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-22T16:10:00+09:00'
+    source: pf-design
+    resume:
+      task: T-157/T-158
+      next: pf-testspec
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。レビュー指摘ゼロ化・trace_check REQ→DES→FUN
+      対応漏れ0の品質条件を満たすため、承認ゲート②を自動承認として記録する。
+    approved_at: '2026-08-22T16:10:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-22T16:10:00+09:00'
+    processed_note: >-
+      FD-F007.md・DD-F007.mdをApprovedへ更新した。次フェーズpf-testspec（T-159: UT-F007・IT-F007
+      作成）へ進める。

@@ -3597,7 +3597,7 @@ tasks:
   title: 機能設計書(FD-F007)を作成しREQ全18件を森鴎外追加設計へ展開
   feature: F007
   phase: design
-  state: todo
+  state: done
   depends:
   - T-156
   tags: &id007
@@ -3624,17 +3624,21 @@ tasks:
   model: &model_f007
     lead: opus
     workers: sonnet
+  completed_at: '2026-08-22T16:00:00+09:00'
+  result: FD-F007.mdを作成しREQ 18件全件をDES 14件へ展開。F005 ETW/native guard機構は不採用、F006と同型の新規作者追加構造と汎用release経路を継承する設計方針を確定。舞姫の公式表現注意への対応方針(既存work-notices.tsのTRUSTED_REGISTRY_BINDINGSへのデータentry追加)をコードリーディングで検証したうえで確定した
 - id: T-158
   title: 関数設計書(DD-F007)を作成しデータ・関数・状態遷移契約へ展開
   feature: F007
   phase: design
-  state: todo
+  state: done
   depends:
   - T-157
   tags: *id007
   mode: advisor
   mode_reason: FDの汎用pipeline再利用境界とF007固有入力(新規作者・舞姫注記UI再適用・独立二重判定)を関数単位で確定するため
   model: *model_f007
+  completed_at: '2026-08-22T16:10:00+09:00'
+  result: DD-F007.mdを作成しDES 14件をFUN 17件へ展開。既存関数の直接再利用10件、新規実装7件(baseline pin×2・author/work registry・source/entity抽出×2・独立二重判定=既存流用・薄い受入ラッパー・catalog統合×2・artwork provenance×2)。舞姫notice結線はTRUSTED_REGISTRY_BINDINGSへのデータ追加のみで新規application source分岐0件と確定。trace_check REQ→DES→FUN対応漏れ0を確認
 - id: T-159
   title: UT-F007・IT-F007を作成しQT-F007との網羅性を確認
   feature: F007

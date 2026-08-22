@@ -1953,3 +1953,27 @@ entries:
     記述(`f007-*.ts`命名継承)を追加した。プロジェクト固有スキル・新規MCP追加は不要と判断
     (F006と同じ既存ツールチェーンで足りる)。`STATUS.md`更新、`trace_check.py`実行。次:
     pf-design(T-157: FD-F007作成)。
+- date: '2026-08-22'
+  phase: design
+  task: F007(森鴎外3作品追加)設計フェーズ(FD-F007・DD-F007作成、承認ゲート②)
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 70000
+  note: >-
+    T-157(FD-F007作成)・T-158(DD-F007作成)を実施した。`docs/design/FD-F006.md`・`DD-F006.md`を
+    構造の参考にし、F005固有のETW/native guard機構は不採用、F006確立パターン(F004型静的descriptor
+    経路・CLIパラメータ化script群f007-*.ts・F003型の薄い受入ラッパー)を踏襲する設計とした。
+    `docs/design/FD-F007.md`(DES 14件、REQ全18件網羅)・`docs/design/DD-F007.md`(FUN 17件、既存
+    関数の直接再利用10件・新規実装7件: baseline pin×2・author/work registry・source/entity抽出×2・
+    薄い受入ラッパー・catalog統合×2・artwork provenance×2)を作成した。舞姫の公式表現注意(QA-F007
+    No.4)への対応方針を確定するため、既存の2系統の注記機構(`src/notices/work-notices.ts`のF003専用
+    `TRUSTED_REGISTRY_BINDINGS`、`f005-source.ts`の趣味の遺伝専用`extractVerifiedShumiNotice`)を
+    実際にコードリーディングして検証し、`work-notices.ts`の`loadAndValidateWorkNotices`関数自体は
+    既にauthorIdパラメータ化された設計であることを確認した。既存ロジック・F003 entry・関数シグネチャ
+    を一切変更せず、`TRUSTED_REGISTRY_BINDINGS`へauthorId`000129`の新規entryをデータとして1件追加
+    するだけで舞姫の注記表示を実現できる設計としてDD-F007.md FUN-F007-011へ記載した(QA-F007 No.4の
+    「新規application source分岐を追加しない」要求を満たす)。自己レビュー3観点(整合性・実現性・
+    セキュリティ)で指摘0件、`trace_check.py --feature F007`実行でREQ→DES→FUN対応漏れ0を確認した
+    ため、承認ゲート②を`queue.yaml`Q-063へ自動承認として記録し、FD/DDを`status: Approved`へ更新
+    した。`tasks.yaml`T-157/T-158を`state: done`へ、`STATUS.md`を更新。次: pf-testspec
+    (T-159: UT-F007・IT-F007作成)。
