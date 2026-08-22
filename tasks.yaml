@@ -3808,7 +3808,7 @@ tasks:
   title: 舞姫を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F007
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-161
   tags:
@@ -3827,20 +3827,32 @@ tasks:
     音声diff実生成・verifyVoiceCompleteness PASS・容量forecast・voiced遷移)
     まで完了した(commit 3de6eb1)。段階B2(work-preview構築・容量actual・
     atomic受入)の準備中に、F006 batch.jsonがrecordPublishedBatch未実行の
-    ままstatus: 'accepted'に残っていた既知事象(F005と同型)を発見した。
-    F007のwork-preview構築(loadAcceptedBatches)は先行batchがstatus
-    'published'であることを要求するため、F006が未発見となり森鴎外作者
-    画像provenance完全検証が既存5作者要求を満たせず失敗していた。
-    汎用recordPublishedBatchはPUBLIC_ROUTES_BY_FEATURE(F002/F003/F004のみ
-    登録)にF006が未登録のためPUBLISH_SMOKE_FAILEDで使えない(F005是正時
-    と同じ制約)。実evidence(docs/evidence/release/F006-{deployment,
-    smoke}.json、T-156で実データ作成済み)を根拠にdeploymentEvidenceRef/
-    publishedAt/releaseVersion/smokeEvidenceRef/statusをcanonical JSONで
-    追記・更新するscripts/f006-mark-published.tsを新規実装し実行した
-    (status: accepted→published)。tsc/lint clean、touched testsを
-    再実行し全PASS(batch-catalog.test.ts等、f006-record-published.ts削除に
-    伴うtracked file不整合を修正後)。メインセッション側でcommit・push予定。
-    段階B2(work-preview構築・容量actual・atomic受入)は次のforkへ継続。
+    ままstatus: 'accepted'に残っていた既知事象(F005と同型)を発見・是正した
+    (commit 801352e、詳細は同commitのcost.yaml/コミットメッセージ参照)。
+
+    続けてメインセッション側でT-162段階B2を完結させた。まず
+    scripts/f007-content-preview.ts実行時にF006の作者画像provenance
+    再検証(verifyF006ArtworkAgainstCatalog)がexistingArtwork.length !== 4の
+    exact一致を要求しており、F007自身の作者を含む現在catalogでは5件と
+    なり失敗する新規バグを発見した。F005-artwork.tsは2026-08-22に同型の
+    問題(!== 3)を「最低3以上」(< 3)へ緩和済みだったがf006-artwork.tsには
+    未適用だったため、同じ緩和(< 4)を適用し、将来F008が同じ壁にぶつから
+    ないようf007-artwork.tsの!== 5も同様に(< 5)へ緩和した(commit cd5ecc8、
+    f006-artwork.test.ts/f007-artwork.test.ts 26件全PASS確認済み)。
+
+    その後、scripts/f007-content-preview.ts 058126実行で work-preview
+    994 files構築に成功。scripts/f006-capacity-actual.ts/f006-accept-work.ts
+    をF007向けにパラメータ化複製したscripts/f007-capacity-actual.ts・
+    scripts/f007-accept-work.tsと、src/content/f006-acceptance.tsを
+    複製したsrc/content/f007-acceptance.tsを新規実装。舞姫(058126)の
+    容量actual(result: pass, freeBytes約55.3GB)→atomic受入を実行し、
+    voiced→acceptedへ遷移、WAV 26件(計8.9MB)をaccepted-audio/058126/へ
+    正式昇格した。src/content/f007-acceptance.test.ts(f006-acceptance.test.ts
+    と同型のfixture()/skip()パターン、ACCEPTED_WORK_ID=058126)を新規作成し
+    5件全PASS。tsc/lint clean。F007関連regression(f007-catalog/artwork/
+    source/baseline/work-notices-registration.test.ts・batch-catalog.test.ts・
+    batch-public.test.ts、計75件)全PASS確認済み。次のアクション:
+    T-163(高瀬舟045245)を同一パターンで実施する。
 - id: T-163
   title: 高瀬舟を抽出・二重レビュー・音声化・atomic受入
   feature: F007
