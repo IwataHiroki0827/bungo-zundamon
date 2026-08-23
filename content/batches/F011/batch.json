@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F011.md",
+    "release": "docs/evidence/release/F011-approval.json",
+    "requirements": "docs/srs/SRS-F011.md",
+    "testspec": "docs/tests/ut/UT-F011.md"
+  },
+  "artworkProvenanceRef": "content/batches/F011/artwork-provenance.json",
+  "author": {
+    "authorId": "000121",
+    "identitySha256": "70f672bc06fc65219763fd1ae01d2f3fa92e73fbff7a19deca33d14644e89638",
+    "name": "にいみなんきち",
+    "originalName": "新美南吉",
+    "slug": "niimi-nankichi"
+  },
+  "batchId": "F011",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "000637"
+      ],
+      "preferredWorkId": "000637",
+      "reason": "承認済み代表作",
+      "title": "手袋を買いに"
+    },
+    {
+      "allowedWorkIds": [
+        "000628"
+      ],
+      "preferredWorkId": "000628",
+      "reason": "承認済み代表作",
+      "title": "ごん狐"
+    },
+    {
+      "allowedWorkIds": [
+        "004718"
+      ],
+      "preferredWorkId": "004718",
+      "reason": "承認済み代表作",
+      "title": "二ひきの蛙"
+    }
+  ],
+  "feature": "F011",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F011/voice-config.json",
+  "workIds": [
+    "000637",
+    "000628",
+    "004718"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000637"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000628"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "004718"
+    }
+  ]
+}
