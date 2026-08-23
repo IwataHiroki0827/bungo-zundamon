@@ -1,0 +1,46 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "c7ec3229764bcb3e1c9ea221b96efcababb7ead44b62666771b27b37c0877c04",
+  "checkedAt": "2026-08-23T15:30:00Z",
+  "distSha256": "842042cfc8683fa7aa1d7e4aa3e38034b6d90360b093b7d4a536f75afbafc330",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F008",
+  "releaseCandidateBatchId": "F008",
+  "releaseCommit": "bddf37c7d25ff57fb6ecde9d6bc8a1f06139f197",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 7,
+    "workCount": 24,
+    "dialogueCount": 1199,
+    "audioAssetCount": 1182,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true,
+    "audioHttp200": true,
+    "provenanceHttp200": true
+  },
+  "note": "F008追加分の実データ(catalog.json実取得・7作者24作品1199台詞1182音声・candidateCounts.byBatch.F008にaudioExcluded=1/AUDIO_ID_COLLISION1件を確認・江戸川乱歩artwork/artwork-provenance/audio/provenance HTTP200)に加え、tests/e2e/f008-edogawa-author.spec.ts(4 tests、実ブラウザPlaywright)でauthor route描画・人間椅子/Ｄ坂の殺人事件の公式表現注意3配置表示(一人二役には非表示)・初期全閉/単一再生/route切替停止contractを実ブラウザ操作で検証済み(フルe2eスイート229 passed・5 skipped・失敗0)。一人二役の候補1件(「へええ」)はF005/001104と偶然audioId衝突したため音声段階除外(CHG-F008-004)、公開100台詞には含まれない(内容上の却下ではない)。"
+}
