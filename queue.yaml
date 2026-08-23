@@ -2315,3 +2315,51 @@ items:
       SRS-F010.md・QT-F010.mdをApprovedへ更新した。docs/features.yamlへF010エントリ
       （branch: feature/F010, state: setup, merge_after: [F009]）を追加済み。次フェーズはpf-setup
       （WBS作成）。
+  - id: Q-070
+    type: approval
+    status: closed
+    title: F011（新美南吉3作品追加、10人目・最終目標）要求仕様確定の承認（ゲート①）
+    body: >-
+      docs/domain/DOMAIN-F011.md（作者選定はDOMAIN-F006.md確定順位を再利用、対象3作品は実データ調査）・
+      docs/srs/SRS-F011.md（REQ-F011-001〜019、19件）・docs/qa/QA-F011.md（16問、全て自動承認方針で
+      回答済み）・docs/tests/qt/QT-F011.md（QT-F011-001〜019）を作成した。
+      対象作者は新美南吉（人物ID000121、score201,724、DOMAIN-F006.mdランキングで既存9作者の次点として
+      確定済み）。本feature完了により「10人になるまで進めて」directiveのtargetAdditionalAuthors=7に
+      到達し10作者目標を達成する、10人目・最終の作者追加feature。2022年XHTMLアクセスランキング実取得
+      （raw SHA-256 4bf79009...、155,635 bytes）で新美南吉該当12行を確認し、閲覧数合計201,724が
+      DOMAIN-F006.md確定スコアと完全一致することを確認した。代表3作品は手袋を買いに（637、24位/
+      57,385閲覧）・ごん狐（628、28位/47,659閲覧）・二ひきの蛙（4718、119位/15,453閲覧）を実データ
+      （2022年XHTMLアクセスランキング・拡充CSV著作権フラグ・図書カード備考欄・本文XHTML実取得による
+      かぎ括弧候補抽出）で選定した。下位9作品（おじいさんのランプ132位〜狐464位）は単純に順位で
+      見送った。
+      要求分析での確認事項: (1) 3作品いずれも図書カード備考欄に公式表現注意の該当なし（F010に続き
+      2例目の0/3ケース）。(2) 3作品とも外字（class="gaiji"）・未定義entity0件（全文書スキャンで確認）。
+      (3) 実測最大候補長228文字（手袋を買いに）でF007〜F010確立の600文字閾値・約1,335文字VOICEVOX
+      失敗境界を大きく下回るため、長大候補分割ロジックの発動は見込まれない。児童文学「ごん狐」は
+      当初ナレーション過多を懸念したが、実データでは3作品中最多の34候補（兵十・加助の実質的対話含む）
+      を検出し懸念は杞憂と判明した。
+      自己レビュー2観点（整合性: REQ19件のタグ・受入基準の整合、実現性: F005〜F010確立パターンの
+      再利用範囲の妥当性）で指摘0件を確認した。
+    target: docs/srs/SRS-F011.md
+    target_mode: document
+    options:
+      - 承認（自動）
+      - 修正指示
+    allow_freeform: true
+    created: '2026-08-24T06:45:00+09:00'
+    source: pf-requirements
+    resume:
+      task: F011要求分析
+      next: pf-setup
+    answer: 承認（自動）
+    answer_note: >-
+      2026-08-20制定の自動承認方針に基づく自動承認。曖昧点は全てQA-F011.mdで実データ根拠付きの推奨案
+      により確定済み（未回答0件）、自己レビュー指摘0件の品質条件を満たすため、承認ゲート①を自動承認
+      として記録する。
+    approved_at: '2026-08-24T06:45:00+09:00'
+    approval_answer_normalized: 承認
+    processed_at: '2026-08-24T06:45:00+09:00'
+    processed_note: >-
+      SRS-F011.md・QT-F011.mdをApprovedへ更新した。docs/features.yamlへF011エントリ
+      （branch: feature/F011, state: setup, merge_after: [F010]）を追加済み。次フェーズはpf-setup
+      （WBS作成）。F011は「10人になるまで進めて」directiveの最終featureとして扱う。

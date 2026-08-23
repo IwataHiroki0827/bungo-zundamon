@@ -58,3 +58,9 @@ features:
   state: closed
   merge_after:
   - F009
+- id: F011
+  title: 新美南吉「手袋を買いに」「ごん狐」「二ひきの蛙」3作品追加
+  branch: feature/F011
+  state: setup
+  merge_after:
+  - F010
