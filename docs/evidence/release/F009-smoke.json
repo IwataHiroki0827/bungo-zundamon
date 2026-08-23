@@ -1,0 +1,48 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "66cb15e4579007bb44488fb8cbbc7e51f1ad93cb3503254f5ada54cee41ee4ee",
+  "checkedAt": "2026-08-23T19:05:00Z",
+  "distSha256": "6f5a826bf7b95b9908c26f8a58739b0f3817ab6419013c9e452b5dfe3128ea93",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/authors/yumeno-kyusaku",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F009",
+  "releaseCandidateBatchId": "F009",
+  "releaseCommit": "5327f12767d02a0da44856018ada5b6c63db6adc",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/authors/yumeno-kyusaku",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 8,
+    "workCount": 27,
+    "dialogueCount": 1226,
+    "audioAssetCount": 1209,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true,
+    "audioHttp200": true,
+    "provenanceHttp200": true
+  },
+  "note": "F009追加分の実データ(catalog.json実取得・8作者27作品1226台詞1209音声・candidateCounts.byBatch.F009にpublished=27/editorialExcluded=14(NON_SPEECH)/audioExcluded=0を確認・夢野久作artwork/artwork-provenance/audio/provenance HTTP200)に加え、tests/e2e/f009-yumeno-author.spec.ts(4 tests、実ブラウザPlaywright、public/昇格後に実行しローカルで4/4 PASS確認済み)でauthor route描画・瓶詰地獄/死後の恋の公式表現注意3配置表示(きのこ会議には非表示)・初期全閉/単一再生/route切替停止contractを実ブラウザ操作で検証済み(フルe2eスイート253 passed・5 skipped・失敗0)。死後の恋の長大候補分割(REQ-F009-019)がF007/F008で未発動だった中F009で初めて実end-to-end発動し、分割後3piece(632/628/344文字)を独立二重判定・独立音声合成した。瓶詰地獄・死後の恋の外字(class=\"gaiji\")検出はF008と異なり無効化せず常時有効のまま適用し、候補内0件を確認した。"
+}
