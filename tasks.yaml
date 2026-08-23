@@ -4363,7 +4363,7 @@ tasks:
   title: 人間椅子を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-172
   tags:
@@ -4471,6 +4471,30 @@ tasks:
     確認したため、`git checkout`で即座に revert し、artwork欠如による
     ENOENT失敗（content-preview.json未生成）のみを確認した。
     実際のaccept・release操作は本セッションでは一切実行していない。
+
+    後続セッション(2026-08-23)で完了。T-172(作者画像実生成)完了後、
+    scripts/f008-content-preview.ts 056648を実行したところ「既存6作者以上の
+    画像が必要です」で失敗し調査した結果、content/batches/F007/batch.jsonが
+    F007公開commit(v0.7.0)時点でstatus: 'accepted'のまま
+    recordPublishedBatch相当の更新が行われていなかった既知パターン
+    (F004→F005・F005→F006で確認済み、commit 801352eがF006を同型で是正した
+    先例)がF007にも残っていたことが根本原因と判明した(loadAcceptedBatchesが
+    status==='published'を要求するためF007がcatalog統合から欠落し、実際は
+    6作者[F001-F003,F005-F007]+F008のはずが5作者+F008しか見えなかった)。
+    scripts/f007-mark-published.ts(f006版の複製)を新規実装し、実evidence
+    (docs/evidence/release/F007-{deployment,smoke}.json、実際のGitHub
+    Actions run 32576610868)を根拠にF007 batch.jsonのstatusをpublishedへ
+    是正した(commit 11d3294、台詞・候補等のコンテンツ本体は無変更)。
+
+    是正後、scripts/f008-content-preview.ts 056648(1137 files生成)→
+    scripts/f008-capacity-actual.ts 056648(pass、freeBytes=86.2GB。実行前に
+    .cache/transactions/batch-manifest/F008.jsonの前回セッションが残した
+    stale journal[expectedSha256が現状のbatch.jsonと一致することを確認して
+    から削除]をクリーンアップした)→scripts/f008-accept-work.ts 056648
+    (status=accepted)を順に実行し完結させた。accepted-audio 5件(1.2MB)・
+    capacity-actual実測(104KB)を実データとして生成した(commit b2f2cf4)。
+    tsc/lintプロジェクト全体PASS。人間椅子の作品固有notice(公式「不適切な
+    表現」注意)はT-172で登録済みのwork-notices.jsonがそのまま適用された。
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
