@@ -4585,7 +4585,7 @@ tasks:
   title: 一人二役を抽出・二重レビュー・音声化・atomic受入
   feature: F008
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-174
   tags:
@@ -4615,6 +4615,31 @@ tasks:
     T-174のprogressを参照。次のアクション: T-172（作者画像実生成）→
     T-173段階B2（人間椅子accept）→T-174段階B2（Ｄ坂accept）が完了して
     初めて057193のreviewed以降が着手可能になる。
+
+    T-174完了後、メインセッション側でscripts/f008-prepare-editorial.ts
+    057193を実行しreviewed遷移(approved=11・rejected=0・pending=0)、続けて
+    scripts/f008-prepare-voice.ts 057193をVOICEVOX実接続で実行し11件の
+    音声diffを一度の実行で完結(staged 6,046,692バイト、長大候補プールでは
+    ないため中断なしに完了)、verifyVoiceCompleteness PASS、voiced遷移
+    (commit 8c4eaa0)。
+
+    続けてscripts/f008-content-preview.ts 057193の実行で新規の実バグを
+    発見した(CHG-F008-004): 一人二役の候補「へええ」のspeechTextがF005
+    (001104)の既存台詞とbyte-identicalで、audioId(text+config内容hash)も
+    完全一致していた。audioIdはcatalog全体で一意である必要がある
+    (src/content/batch-public.ts、共有・変更禁止)ため、F001〜F008累積
+    939件超の実データで初めて発生したエッジケースだった。audioIdは内容
+    hashのため既存(v070)の同一内容ファイル(audio/F005/{audioId}.wav)を
+    再利用すれば再生に一切影響しないと判断し、scripts/f008-content-preview.ts
+    (F008ローカル)へ重複ID除外ロジックを2箇所(catalog audioAssets構築時・
+    物理file staging時)追加して解消した(commit 0ee897d)。
+
+    是正後、scripts/f008-content-preview.ts 057193(1234 files生成)→
+    scripts/f008-capacity-actual.ts 057193(result: pass、freeBytes=83.4GB)→
+    scripts/f008-accept-work.ts 057193(status: accepted)を実行し完結させた。
+    accepted-audio 11件(実VOICEVOX生成)を正式昇格した(commit b9e62eb)。
+    これでF008の3作品(人間椅子・Ｄ坂の殺人事件・一人二役)全てがaccepted
+    済みとなった。tsc/lintプロジェクト全体PASS。
 - id: T-176
   title: F008最終Catalog統合・固定v0.7.0回帰・公開tree候補を作成
   feature: F008
