@@ -132,6 +132,144 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     ],
     speechCorrections: {},
   },
+  // Ｄ坂の殺人事件(056650)。青空文庫本文（56650_58209.html正規化済みテキスト）を
+  // 実際に通読し、実extractor抽出87候補（長大候補分割込み）全件の話者・decisionを
+  // 地の文の話者タグ（「と私。」「と明智。」「〜と云った」等）と会話の交互構造から
+  // 確定した。登場人物: 私＝匿名の語り手（学校を出たばかりの青年）、明智＝明智小五郎
+  // （素人探偵、最終的に事件を解決する）、司法主任・警察医・刑事（後に小林刑事と
+  // 判明する現場臨検の一団）・検事（二人の学生を尋問する）、時計屋の主人・アイス
+  // クリーム屋・古本屋の主人（いずれも現場周辺の証人）、二人の学生（工業学校の
+  // 生徒、格子の隙間から見た犯人の着物の色についてくいちがう証言をする）、
+  // 煙草屋のお上さん（明智の下宿先）、そしてカフェの女給二人（冒頭、古本屋・蕎麦屋
+  // 双方の細君の生傷について噂話をする、実際に交わされた立ち聞き会話としてapproved）。
+  // order51「モルグ街の殺人」・order52「スペックルド・バンド」は、語り手が読者に
+  // 想起させるために挙げるポオ／ドイルの作品タイトルの引用のみであり、実際の発話
+  // ではないためNON_SPEECHとする（人間椅子の語そのものへの言及と同型）。
+  // order11「アッ」は地の文「私達は同時に『アッ』と声を立てた」の通り私と明智が
+  // 同時に発した叫びのため、speakerは「私と明智」とする。order64-70・order81-85は
+  // それぞれ私の告発の長広舌・明智の種明かしの長広舌が複数段落にまたがる長大候補
+  // （600文字閾値による自動分割）であり、地の文による話者の切替がないため全段落
+  // 同一話者として確定した。
+  '056650': {
+    judgmentsByOrder: [
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'カフェの女給' }, // order0 古本屋の細君の生傷についての噂話（前半、ウエトレス達の立ち聞き会話）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '別の女給' }, // order1 「すると別の女がそれを受けて喋るのだ」に続く発話
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order2 「と明智。」（絶対に発見されない犯罪について）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order3 「と私。」（探偵の出来ない犯罪はないという反論）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order4 「と私が囁くと、彼は即座に答えた」の私の発話（古本屋の異変に気づく）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order5 私の発話に即座に答えた明智の発話（本泥棒を疑う）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order6 交互対話、私が明智の来訪前からの監視を説明
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order7 交互対話、明智が家人の外出可能性を問う
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order8 交互対話、私が障子の様子から異変を説明し様子を見に行こうと誘う
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order9 交互対話、明智が同意する
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order10 古本屋の奥へ上がろうと誘う（続けて明智の手でスイッチがひねられる）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私と明智' }, // order11 「私達は同時に『アッ』と声を立てた」（死骸発見時の同時の叫び）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order12 「やっと私が云った」（ここの細君ですね）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order13 私の発話の続き（首を絞められている様ではありませんか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order14 「明智は側へ寄って死体を検べていたが」に続く発話
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order15 自動電話から「明智が息を切って帰って来た」直後の発話
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order16 「私は何だか口を利くのも大儀になっていた」に続く気の抜けた相槌
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order17 「私はこう附加えた」（明智がカフェに入った時刻からの推定）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '警察医' }, // order18 「警察医は…私達の言葉のとぎれるのを待って云った」（絞殺の所見）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '司法主任' }, // order19 「司法主任が考え考え云った」（上から押えつけたのですね）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '警察医' }, // order20 抵抗の様子がないことを補足する所見（警察医の検診に基づく続きの発話）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '司法主任' }, // order21 「司法主任と時計屋の問答」冒頭（主人はどこへ行ったのか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '時計屋の主人' }, // order22 時計屋の主人の応答（夜店に出ている）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '司法主任' }, // order23 交互問答（どこへ夜店を出すのか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '時計屋の主人' }, // order24 交互問答（上野の広小路）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '司法主任' }, // order25 交互問答（物音を聞かなかったか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '時計屋の主人' }, // order26 交互問答（物音と申しますと）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '司法主任' }, // order27 交互問答（叫び声や格闘の音のことだと説明）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '時計屋の主人' }, // order28 交互問答（物音は聞かなかったと否定）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order29 新たに到着した私服の男（後の記述と併せ刑事）の第一声（表の戸を閉めましょう）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order30 「検事の方を見て云った」死体検分の所見（指の痕に特徴なし）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order31 「刑事が云った」電燈のスイッチに指紋がある旨の発見
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order32 刑事の発話の続き（電燈をつけたのは誰かと問う）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order33 明智が自分だと答えた後の刑事の指示（指紋を採らせてほしい）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order34 「刑事が報告した」（足跡はまるで駄目）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order35 刑事の報告の続き（裏口のぬかるみの様子、連れて来た男の紹介へ）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order36 刑事がアイスクリーム屋を紹介し尋問を始める
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order37 「アイスクリーム屋と刑事の問答」冒頭（路地を出入りした者はないか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'アイスクリーム屋' }, // order38 アイスクリーム屋の応答（誰も通らなかった）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'アイスクリーム屋' }, // order39 「アイスクリーム屋は却々要領よく答える」に続く発話の続き
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '刑事' }, // order40 交互問答（客で路地に入った者はないか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'アイスクリーム屋' }, // order41 交互問答（それもない、間違いない）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第一の学生' }, // order42 「検事の質問に対して、彼等は大体左の様に答えた」一人目の学生の証言（黒い着物）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '検事' }, // order43 検事の追及（背恰好や柄について）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第一の学生' }, // order44 第一の学生の応答の続き（黒無地に見えた）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第二の学生' }, // order45 「ともう一方の学生」の発話（僕もこの友達と一緒に本を見ていた）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第二の学生' }, // order46 第二の学生の証言の続き（白い着物に見えた）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '検事' }, // order47 検事が食い違いを指摘する
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第一の学生' }, // order48 第一の学生が食い違いを否定する
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '第二の学生' }, // order49 第二の学生も嘘ではないと重ねて主張する
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '古本屋の主人' }, // order50 「彼は…といって泣くのだ」（帰宅した古本屋の主人の発話）
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null }, // order51 「モルグ街の殺人」（読者への想起のための作品名引用、実際の発話ではない）
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null }, // order52 「スペックルド・バンド」（同上、作品名引用）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order53 「と明智。」（事件当夜の帰り道、Rose Delacourt事件を想起する発話）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order54 明智の発話に続く私の相槌（実に不思議ですねという発話）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '煙草屋のお上さん' }, // order55 明智の下宿先の煙草屋のお上さんの応答（いらっしゃいます）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order56 呼ばれた明智の返事（オー）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order57 私を発見した明智の発話（ヤー、御上りなさい）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order58 明智の部屋での発話（狭くて座蒲団がない旨の詫び）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order59 「いつか彼が…といったことがある」（明智の人柄を語る回想の発話）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order60 「明智は…ジロジロ私の顔を眺めて云う」（Ｄ坂の事件はどうかと問う）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order61 私の応答（今日はそのことで話がある）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order62 「私はどういう風に切り出したものかと迷いながら始めた」（種々考えて一つの結論に達したと切り出す）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order63 明智の相槌（ホウ、そいつはすてきですね）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order64 私の告発の長広舌（前半、着物の縞柄の推理と硯を貸してほしいという申出）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order65 order64の続き（長大候補分割、同一段落の続き）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order66 私の告発の続き（指紋の実験、犯人像の推理）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order67 order66の続き（長大候補分割、同一段落の続き）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order68 私の告発の続き（犯人の逃走経路の推理、旭屋への着目）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order69 私の告発の続き（旭屋で便所を借りた男の聞き込み）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order70 私の告発の締め括り（明智への直接の弁明要求）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order71 「明智は弁解する様に云った」（笑ってしまったことへの詫び）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order72 明智の反論の続き（君の推理は外面的で物質的すぎるという指摘）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order73 私の問い返し（では指紋のことはどう考えるのか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order74 明智の説明（電球の線が切れていただけという種明かし）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order75 明智の発話の続き（ミュンスターベルヒの著書を示す）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order76 明智の発話の続き（証人の記憶の章を示す）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order77 「と明智は始めた」（ミュンスターベルヒが説破した通り）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order78 明智の発話の続き（学生達の見誤りの説明と便所の男は存在しなかったという結論）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' }, // order79 「私は彼が何を考えているのか少しも分らなかった」に続く私の問い（犯人の見当はついているのか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order80 「彼は頭をモジャモジャやりながら答えた」（ついていますよ）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order81 明智の種明かしの長広舌（心理的探偵法についての導入）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order82 order81の続き（長大候補分割、聯想診断法の説明）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order83 明智の種明かしの続き（犯人を見つけたこと、しかし物質的証拠はないこと）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order84 明智の種明かしの続き（犯人は旭屋の主人だという結論）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order85 order84の続き（長大候補分割、真相の全容）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '明智' }, // order86 「明智はこれを受取って…そっと溜息をついて云った」（旭屋の主人が自首した旨の新聞記事を見て）
+    ],
+    speechCorrections: {},
+  },
+  // 一人二役(057193)。青空文庫本文（57193_59571.html正規化済みテキスト）を実際に
+  // 通読し11候補全件の話者・decisionを確定した。本作は、語り手「僕」がＴという
+  // 知人男性の奇行（自分に付け髭で変装し、別人を装って自宅に忍び込み、細君の
+  // 貞操を試すいたずらを繰返すうち、変装した自分自身に対する細君の恋心に嫉妬し、
+  // 遂に別人へなり変って了う）を聞かせる枠物語であり、候補は全て枠内の登場人物
+  // （Ｔ・細君）の実際の会話・独白の引用であって語そのものへの言及は含まれない
+  // ため、全件approvedとした。order0はＴの付け髭に驚いた細君の悲鳴、order1〜order6
+  // は煙草入れを巡るＴと細君の一問一答（同一発話が「」境界で分割されている箇所は
+  // 同一話者として確定）、order7はＴが細君を脅す体で自問自答的に一人で演じた
+  // 一続きの発話（地の文「お前そんなことを云って…脅しつけて見たり」がＴの発話と
+  // 明記）、order8は変装したＴに対して細君が別人と信じて囁いた睦言、order9・
+  // order10は物語終盤の再会場面でのＴの発話（種明かし）である。
+  '057193': {
+    judgmentsByOrder: [
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '細君' }, // order0 付け髭の感触に驚いた細君の悲鳴（アラ、…………）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '細君' }, // order1 「細君がおずおずしながら聞くんだね」煙草入れについての問い
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order2 「Ｔがとぼけて見せると」の発話（いいえ、それ、どうかしたのかい）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '細君' }, // order3 細君の発話（だって、と少しあまえて）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '細君' }, // order4 order3に続く細君の発話（ゆうべ、あなたがもってお帰りなすったのじゃありませんか）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order5 「Ｔが更にとぼけて」の発話（へええ）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order6 order5に続くＴの発話（だが、僕のはちゃんと…）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order7 Ｔが細君を「脅しつけて見たり」した一続きの自問自答的な発話
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '細君' }, // order8 変装したＴに対して細君が別人と信じて囁いた睦言
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order9 「快活な声でＴが云った」（再会場面、いや、その御配慮には及びませんよ）
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｔ' }, // order10 order9に続くＴの発話（種明かし、女なんて魔物ですね）
+    ],
+    speechCorrections: {},
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {
