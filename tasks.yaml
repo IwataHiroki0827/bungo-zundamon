@@ -4420,7 +4420,7 @@ tasks:
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-173
   tags:
@@ -4435,11 +4435,44 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、DOMAIN-F008.md §5が指摘する長大候補(発話文字概算10,962文字/82候補、既存3作品中最大)の実測分割要否確認を要するため
   model: *model_f008
+  progress: >-
+    scripts/f008-prepare-editorial.ts(f007版クローン、人間椅子と共用)へ
+    Ｄ坂の殺人事件(056650)向けWORK_EDITORIAL_CONFIGSを追加し、青空文庫本文
+    （56650_58209.html正規化済みテキスト）を実際に通読して実extractor抽出
+    87候補（DOMAIN-F008.md §5が指摘した長大候補は600文字閾値で自動分割済み、
+    生抽出は82件想定に対し実測87件）全件の話者・decisionを文脈から確定した。
+    登場人物は私（語り手）・明智（明智小五郎）・司法主任・警察医・刑事（後の
+    小林刑事）・検事・時計屋の主人・アイスクリーム屋・古本屋の主人・二人の学生
+    （黒い着物／白い着物の食い違う証言）・煙草屋のお上さん・カフェの女給二名。
+    order51「モルグ街の殺人」・order52「スペックルド・バンド」は語り手が読者に
+    想起させるためのポオ／ドイル作品タイトル引用のみでNON_SPEECHとしrejected、
+    残り85件はいずれも実際の発話としてapproved（pending=0、
+    content/batches/F008/work-artifacts/056650/review-reconciliation.jsonで
+    approved=85・rejected=2・pending=0を確認）。tsc/eslint clean。
+
+    独立二重判定（primary/secondary seal・reconciliation）・話者付与・
+    speech-revisions.json（読み補正なし）まではすべて完結し実artifactとして
+    書き出したが、manifestのwork状態遷移で構造的なblockerが判明した。
+    src/content/batch.ts の transitionWorkState は
+    `nextRank >= workRank('reviewed') && index > 0 &&
+    manifest.workProgress[index - 1]?.status !== 'accepted'` の場合
+    WORK_ORDER_BLOCKED例外を投げる、すなわちbatch内のwork(work index>0)は
+    直前work(056648)がaccepted状態にならない限りreviewed以降へ進めない
+    仕様である（feature非依存の共有FSM、F002〜F007共通）。056648は現在
+    voiced止まり（作者画像未生成のためaccept未達、T-173参照）であるため、
+    056650のwork状態はextracted止まりとなり、reviewed・budget-approved・
+    voicedへ進めない（scripts/f008-prepare-voice.tsはworkProgress.statusが
+    reviewed以降であることを要求するため、音声生成も同じ理由で着手不能）。
+    これは「accept以外はvoicedまで進める」という今回のdirectiveの前提
+    （各workを独立に音声化まで進められる）を覆す発見であり、本タスクの
+    バグでも判定ミスでもない。次のアクション: T-172（作者画像実生成、
+    ComfyUI要）→T-173段階B2（人間椅子のaccept）を完了させない限り、
+    T-174・T-175とも音声生成段階へ進めない。commit: (このコミットで反映)。
 - id: T-175
   title: 一人二役を抽出・二重レビュー・音声化・atomic受入
   feature: F008
   phase: implement
-  state: todo
+  state: doing
   depends:
   - T-174
   tags:
@@ -4452,6 +4485,23 @@ tasks:
   mode: orchestration
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復できるため
   model: *model_f008
+  progress: >-
+    同じくscripts/f008-prepare-editorial.tsへ一人二役(057193)向け
+    WORK_EDITORIAL_CONFIGSを追加し、青空文庫本文（57193_59571.html正規化済み
+    テキスト）を実際に通読して実extractor抽出11候補全件の話者・decisionを
+    確定した。本作は語り手「僕」が知人Ｔの奇行（付け髭で変装し別人を装って
+    細君の貞操を試すいたずらの果てに、変装した自分自身へ嫉妬し遂に別人へ
+    なり変る）を聞かせる枠物語で、候補は全てＴ・細君の実際の会話・独白の
+    引用であり語そのものへの言及は含まれないため11件全件approved（pending=0、
+    content/batches/F008/work-artifacts/057193/review-reconciliation.json
+    で確認）。tsc/eslint clean。
+
+    T-174と同じくmanifestのWORK_ORDER_BLOCKEDにより057193のwork状態も
+    extracted止まりで、直前work（056650、これもextracted止まり）が
+    acceptedになるまでreviewed以降（音声生成含む）へ進めない。詳細な原因は
+    T-174のprogressを参照。次のアクション: T-172（作者画像実生成）→
+    T-173段階B2（人間椅子accept）→T-174段階B2（Ｄ坂accept）が完了して
+    初めて057193のreviewed以降が着手可能になる。
 - id: T-176
   title: F008最終Catalog統合・固定v0.7.0回帰・公開tree候補を作成
   feature: F008
