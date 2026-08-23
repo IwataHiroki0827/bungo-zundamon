@@ -1,0 +1,39 @@
+{
+  "batchId": "F010",
+  "kind": "f010-speech-revision-result",
+  "reconciliationDigest": "f9c0e8a18e73aeb93597256c28762563c3616131eeb7941ba3f2553491b5818a",
+  "revisions": [],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "6CfKs_RpX8yOPeWgGGI_FS7UlA11WriU6z1kTegDRgw",
+      "displayText": "「それなんです？　顔をコスっているもの？」",
+      "revisionCount": 0,
+      "speechSha256": "fd575a89e621382cc36b066020d83a963caf90dce01eebd0a981e163acf5bcbb",
+      "speechText": "「それなんです？ 顔をコスっているもの？」"
+    },
+    {
+      "candidateId": "U8PfOVrB5_GwW1hAM_KCoE-qZsQqIeiLXDQPgZdmMG8",
+      "displayText": "「これ？」",
+      "revisionCount": 0,
+      "speechSha256": "31ee205097d82a572c04eb1c64920bbad7757101f8161e619ead3f40b40538ed",
+      "speechText": "「これ？」"
+    },
+    {
+      "candidateId": "fBJ1A9ErWVrV4IGhOqNb3N0AAT71ffEOWkalqy_SmuQ",
+      "displayText": "「いったい、これ、どうしたの！」",
+      "revisionCount": 0,
+      "speechSha256": "1ef8b9a5a7d804b40ad07c0f6f9974929a7ca3779d7608cabc63adb8cc470e4b",
+      "speechText": "「いったい、これ、どうしたの！」"
+    },
+    {
+      "candidateId": "Syj6OxG78ATbHv_Yy6UO3QymjDOZ7DK_D3NJJAlvyVk",
+      "displayText": "「わかっているじゃないの。これはミュルの前足よ」",
+      "revisionCount": 0,
+      "speechSha256": "d15ed0d1d576a54d30d09537edbe8e2187e3b0cd3e6712a2e2385b1ecf5a56b2",
+      "speechText": "「わかっているじゃないの。これはミュルの前足よ」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000411"
+}

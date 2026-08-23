@@ -255,6 +255,54 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       ],
     },
   },
+  // 愛撫(000411)。青空文庫本文（411_19633.html正規化済みテキスト）を実際に通読し
+  // 9候補全件の話者・decisionを確定した。本作は猫の耳・爪をめぐる語り手「私」の
+  // 感覚的な内省が大半を占める点で檸檬に近く、実際の対話は終盤の夢の場面
+  // （「私」と夢のなかの女性「彼女」／「夫人」との4往復の会話）に集中している。
+  // DOMAIN-F010.mdの事前仮説（9候補中4件が実際の発話）と、実際の通読による
+  // 判定が一致した。
+  '000411': {
+    judgmentsByOrder: [
+      // order0 「切符切り」。「私は子供のときから、猫の耳というと、一度
+      // 「切符切り」でパチンとやってみたくて堪らなかった」に現れる、地の文が
+      // 名指す道具・遊戯の名称への言及。実際に誰かが発した言葉ではない。
+      // 檸檬order1「売柑者之言」・人間椅子order「奥様」と同型の語そのものへの
+      // 言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order1 「切符切り」。「「切符切り」でパチンとやるというような、児戯に
+      // 類した空想も」に現れる、同一の道具・遊戯名への再言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order2 「切符切り」。「猫の耳は不死身のような疑いを受け、ひいては
+      // 「切符切り」の危険にも曝されるのであるが」に現れる、同一の道具・遊戯名
+      // への三度目の言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order3 「高さ」。「もはや自分がある「高さ」にいるということにさえ
+      // ブルブル慄えずにはいられない」に現れる、抽象概念を強調するための
+      // 引用符括り（発話ではない修辞的強調引用）。檸檬order0の仮定的例示表現と
+      // 同型のNON_SPEECH。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order4 「落下」。「「落下」から常に自分を守ってくれていた爪が
+      // もはやないからである」に現れる、order3と同一文脈内の抽象概念強調引用
+      // （NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order5 「それなんです？　顔をコスっているもの？」。夢のなかの場面で
+      // 「私はうしろから尋ねずにはいられなかった」に直接導かれる、「私」から
+      // 夢のなかの女性（彼女／夫人）への実際の問いかけ。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order6 「これ？」。order5の問いへの応答として、直後「夫人は微笑と
+      // ともに振り向いた」で実際に発話し振り向いたことが明示される、夢のなかの
+      // 女性（夫人）からの実際の返答。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '夫人' },
+      // order7 「いったい、これ、どうしたの！」。「訊きながら私は」（＝
+      // 尋ねながら私は、の意）で実際の発話と明示される「私」の問いかけ。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order8 「わかっているじゃないの。これはミュルの前足よ」。直前
+      // 「彼女の答えは平然としていた」で実際の応答と明示される、夢のなかの
+      // 女性（彼女）からの実際の返答（order6と同一人物）。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '彼女' },
+    ],
+    speechCorrections: {},
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {
