@@ -18,16 +18,10 @@ import {
  * UT-F008-010: F008 work単位atomic受入。src/content/f007-acceptance.test.tsの
  * F008向けパラメータ化複製（skip()付きfixtureパターンを踏襲）。
  *
- * 本セッション時点ではF008の3作品はいずれもacceptedへ到達していない
- * （人間椅子=056648はvoiced止まり、Ｄ坂の殺人事件・一人二役はextracted止まり。
- * T-172の作者画像実生成[ComfyUI要]が未完了であるため、work-preview構築
- * [scripts/f008-content-preview.ts]・容量actual[scripts/f008-capacity-actual.ts]
- * のいずれも実行できていない）。そのため「永続化済みcanonical artifactから
- * prepareし、accepted workをbrandedに再検証できる」ケースは、必要な
- * capacity-actual/content-previewの永続artifactが存在しないため実行時に
- * ENOENTとなる。これを`ArtifactsMissingError`で捕捉し、原因を明示して
- * `skip()`する（アーティファクトが揃い次第、このskipは自動的に解消する
- * 設計であり、テストコード自体は変更不要）。
+ * F008の3作品（人間椅子056648・Ｄ坂の殺人事件056650・一人二役057193）は
+ * 全てaccepted済みである。assertOrderは対象workIdより後続のworkがaccepted
+ * であることを許さないため、manifest末尾（最後にaccept遷移した）work IDの
+ * みが再検証対象になり得る（F006/F007と同型の制約）。
  *
  * mint保護・work順・path allowlist・workId形式の4ケースは、accepted work
  * artifactを必要とせず実workspace（content/batches/F008/batch.json、
@@ -38,10 +32,9 @@ import {
 
 const workspace = resolve(process.cwd());
 const MANIFEST_PATH = 'content/batches/F008/batch.json';
-// 本セッション時点でF008 3作品はいずれもaccepted未達（人間椅子=056648が
-// 先頭work、voiced止まり）。fixture()はcapacity-actual等の永続artifactが
-// 揃った時点で自動的に成立する設計にしてある。
-const TARGET_WORK_ID = '056648' as WorkId;
+// F008の3作品は全てaccepted済みのため、work順違反(F008_WORK_ORDER)なく
+// 再検証できるのはmanifest末尾（最後にaccept遷移した）work IDのみ。
+const TARGET_WORK_ID = '057193' as WorkId;
 // manifestに存在しないwork IDでのwork順違反（F008_WORK_ORDER）は、
 // accepted work artifactを必要とせず常に再現できる。
 const UNKNOWN_WORK_ID = '999999' as WorkId;

@@ -7,23 +7,15 @@ import {
 } from './fixtures';
 
 /**
- * F008（江戸川乱歩3作品追加）専用のauthor route e2e spec雛形。
+ * F008（江戸川乱歩3作品追加）専用のauthor route e2e spec。
  *
  * F007（T-166〜T-169相当）でtests/e2e/f007-mori-ogai-author.spec.tsが後付けで
- * 発見・追加された反省を踏まえ、T-177着手前の本タスクで最初から用意する。
- * データはsrc/content/f008-source.tsの`defineF008AuthorAndWorkRegistry`から
- * 取得できるexact固定値（authorId=001779、name=えどがわらんぽ、
- * slug=edogawa-ranpo、works=人間椅子(056648,order1)/Ｄ坂の殺人事件
- * (056650,order2)/一人二役(057193,order3)）と、content/batches/F008/
- * work-notices.json（人間椅子・Ｄ坂の殺人事件にofficial-content-warning、
- * 一人二役にはなし）を反映した。
- *
- * 本セッション時点でF008はaccept未完了（T-172作者画像実生成待ち）のため
- * public/へは一切反映されておらず、本specは実行するとすべて失敗する
- * （#/authors/edogawa-ranpo routeが存在しない）。台詞数・作者総数（トップの
- * .author-cardの総数は「7人」になる想定だが、F008公開前の現状は6人）は
- * T-176（最終Catalog統合）完了後の実データに合わせて調整すること
- * （TODO: 台詞数プレースホルダを実測値へ差し替える）。
+ * 発見・追加された反省を踏まえ、T-177着手前に雛形を用意し、T-176（最終
+ * Catalog統合）完了後の実データ（authorId=001779、name=えどがわらんぽ、
+ * slug=edogawa-ranpo、works=人間椅子(056648)/Ｄ坂の殺人事件(056650)/
+ * 一人二役(057193)、合計100台詞＝5+85+10）で確定させた。一人二役の候補
+ * 「へええ」はF005/001104とaudioIdが偶然一致し実体(WAV)が異なるため
+ * 音声段階除外(CHG-F008-004)、公開100台詞には含まれない。
  * @des DES-F008-010 @fun FUN-F008-011 FUN-F008-012
  */
 
@@ -40,9 +32,9 @@ test('トップに7人目の江戸川乱歩カードがデータ駆動で追加�
   const edogawa = page.locator('.author-card').filter({ hasText: 'えどがわらんぽ' });
   await expect(edogawa).toHaveCount(1);
   await expect(edogawa).toContainText('原著者: 江戸川乱歩');
-  // TODO(T-176完了後): 実際の合計台詞数（人間椅子approved5＋Ｄ坂approved85＋
-  // 一人二役approved11＝暫定101件、長大候補分割等の最終確定値で差し替える）。
-  await expect(edogawa).toContainText('3作品');
+  // 実測: 人間椅子5・Ｄ坂の殺人事件85・一人二役10（「へええ」1件はCHG-F008-004
+  // により音声段階除外）＝合計100台詞。
+  await expect(edogawa).toContainText('3作品・100台詞');
 });
 
 // @req REQ-F008-014 @req REQ-F008-015 @qt QT-F008-010 @qt QT-F008-011
