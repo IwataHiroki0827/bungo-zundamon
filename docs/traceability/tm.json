@@ -11402,6 +11402,34 @@
         "FUN-F010-009"
       ]
     },
+    "IMPL:scripts/f011-collect-source.ts#24:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-collect-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:scripts/f011-collect-source.ts#24:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-collect-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:scripts/f011-init-batch.ts#18:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-init-batch.ts",
+      "refs": [
+        "DES-F011-001"
+      ]
+    },
+    "IMPL:scripts/f011-init-batch.ts#18:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-init-batch.ts",
+      "refs": [
+        "FUN-F011-001"
+      ]
+    },
     "IMPL:scripts/network-deny.mjs#1:des": {
       "type": "IMPL",
       "defined_in": "scripts/network-deny.mjs",
@@ -11849,49 +11877,63 @@
         "FUN-F010-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#719:des": {
+    "IMPL:src/content/batch-candidate.ts#526:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/batch-candidate.ts",
+      "refs": [
+        "DES-F011-001"
+      ]
+    },
+    "IMPL:src/content/batch-candidate.ts#526:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/batch-candidate.ts",
+      "refs": [
+        "FUN-F011-001"
+      ]
+    },
+    "IMPL:src/content/batch-candidate.ts#756:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#719:fun": {
+    "IMPL:src/content/batch-candidate.ts#756:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#760:des": {
+    "IMPL:src/content/batch-candidate.ts#797:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#760:fun": {
+    "IMPL:src/content/batch-candidate.ts#797:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#906:des": {
+    "IMPL:src/content/batch-candidate.ts#943:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#906:fun": {
+    "IMPL:src/content/batch-candidate.ts#943:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F003-002"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#907:des": {
+    "IMPL:src/content/batch-candidate.ts#944:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -11899,35 +11941,35 @@
         "DES-F004-011"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#907:fun": {
+    "IMPL:src/content/batch-candidate.ts#944:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F004-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1045:des": {
+    "IMPL:src/content/batch-candidate.ts#1082:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F003-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1045:fun": {
+    "IMPL:src/content/batch-candidate.ts#1082:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F003-003"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1046:des": {
+    "IMPL:src/content/batch-candidate.ts#1083:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F004-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1046:fun": {
+    "IMPL:src/content/batch-candidate.ts#1083:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -11935,7 +11977,7 @@
         "FUN-F004-005"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1151:des": {
+    "IMPL:src/content/batch-candidate.ts#1188:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -11943,14 +11985,14 @@
         "DES-F004-011"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1151:fun": {
+    "IMPL:src/content/batch-candidate.ts#1188:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F004-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1259:des": {
+    "IMPL:src/content/batch-candidate.ts#1296:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -11959,7 +12001,7 @@
         "DES-F005-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1260:fun": {
+    "IMPL:src/content/batch-candidate.ts#1297:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -11968,35 +12010,35 @@
         "FUN-F005-048"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1307:des": {
+    "IMPL:src/content/batch-candidate.ts#1344:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F004-001"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1307:fun": {
+    "IMPL:src/content/batch-candidate.ts#1344:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F004-005"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1341:des": {
+    "IMPL:src/content/batch-candidate.ts#1378:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "DES-F004-011"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1341:fun": {
+    "IMPL:src/content/batch-candidate.ts#1378:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
         "FUN-F004-021"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1349:des": {
+    "IMPL:src/content/batch-candidate.ts#1386:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -12004,7 +12046,7 @@
         "DES-F004-007"
       ]
     },
-    "IMPL:src/content/batch-candidate.ts#1349:fun": {
+    "IMPL:src/content/batch-candidate.ts#1386:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-candidate.ts",
       "refs": [
@@ -12654,42 +12696,42 @@
         "FUN-F004-022"
       ]
     },
-    "IMPL:src/content/batch-public.ts#728:des": {
+    "IMPL:src/content/batch-public.ts#776:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F004-007"
       ]
     },
-    "IMPL:src/content/batch-public.ts#728:fun": {
+    "IMPL:src/content/batch-public.ts#776:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "FUN-F004-022"
       ]
     },
-    "IMPL:src/content/batch-public.ts#949:des": {
+    "IMPL:src/content/batch-public.ts#997:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F002-001"
       ]
     },
-    "IMPL:src/content/batch-public.ts#949:fun": {
+    "IMPL:src/content/batch-public.ts#997:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "FUN-F002-018"
       ]
     },
-    "IMPL:src/content/batch-public.ts#1484:des": {
+    "IMPL:src/content/batch-public.ts#1532:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F002-006"
       ]
     },
-    "IMPL:src/content/batch-public.ts#1484:fun": {
+    "IMPL:src/content/batch-public.ts#1532:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
@@ -21486,6 +21528,983 @@
       "defined_in": "src/content/f010-source.ts",
       "refs": [
         "FUN-F010-005"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.test.ts#116:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.test.ts",
+      "refs": [
+        "DES-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.test.ts#116:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.test.ts",
+      "refs": [
+        "FUN-F011-014"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.test.ts#242:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.test.ts",
+      "refs": [
+        "DES-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.test.ts#242:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.test.ts",
+      "refs": [
+        "FUN-F011-015"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#28:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "DES-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#28:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "FUN-F011-014"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#225:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "DES-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#225:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "FUN-F011-014"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#379:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "DES-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-artwork.ts#379:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-artwork.ts",
+      "refs": [
+        "FUN-F011-015"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#16:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#16:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#31:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#31:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#45:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#45:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#60:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#60:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#81:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#81:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#89:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.test.ts#89:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.test.ts",
+      "refs": [
+        "FUN-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#19:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#19:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#267:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#267:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#371:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:src/content/f011-baseline.ts#371:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-baseline.ts",
+      "refs": [
+        "FUN-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#164:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#164:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#191:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#191:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#199:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#199:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#207:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#207:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#221:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#221:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#234:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#234:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#244:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#244:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#262:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#262:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#270:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#270:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#285:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#285:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#309:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#309:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#316:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#316:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#324:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#324:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#336:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#336:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#381:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.test.ts#381:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.test.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#46:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#46:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#215:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#215:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#324:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#324:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#332:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#332:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "FUN-F011-012"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#388:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-catalog.ts#388:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-catalog.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#188:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#188:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#216:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#216:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#259:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#259:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#295:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#295:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#334:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#334:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#358:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005",
+        "DES-F011-015"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#358:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006",
+        "FUN-F011-018"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#406:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#406:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#422:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#422:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#440:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#440:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#451:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#451:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#474:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#474:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#519:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-005",
+        "DES-F011-015"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#519:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-006",
+        "FUN-F011-018"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#581:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#581:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#597:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#597:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#606:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#606:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#612:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#612:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#628:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.test.ts#628:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.test.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#93:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#363:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#363:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#405:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#405:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#441:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-003"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#441:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#448:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#448:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#558:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#558:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#760:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#760:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#964:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#964:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1046:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1046:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1137:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1137:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1188:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1188:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1224:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1224:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1331:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-015"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1331:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-018"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1346:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1346:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1430:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1430:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1470:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1470:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-006"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1660:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1660:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1974:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1974:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1999:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "DES-F011-004"
+      ]
+    },
+    "IMPL:src/content/f011-source.ts#1999:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-source.ts",
+      "refs": [
+        "FUN-F011-005"
       ]
     },
     "IMPL:src/content/offline-build.integration.test.ts#86:des": {

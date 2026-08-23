@@ -1,0 +1,54 @@
+{
+  "authorId": "000121",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card637.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "手袋を買いに",
+      "workId": "000637"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card628.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "ごん狐",
+      "workId": "000628"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card4718.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "二ひきの蛙",
+      "workId": "004718"
+    }
+  ]
+}
