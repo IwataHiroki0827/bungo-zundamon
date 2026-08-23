@@ -1,0 +1,257 @@
+{
+  "batchId": "F009",
+  "configPath": "content/batches/F009/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "474b4ec6b16aa36ae6531443af2d29dafbdc22de8420f5bb40d199d6c609801d",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 28200996,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F009",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "474b4ec6b16aa36ae6531443af2d29dafbdc22de8420f5bb40d199d6c609801d",
+    "minimumFreeBytesAfterWrite": 395309860,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 656613803,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "568f14be74d3f7f00eedd56fe86bf25429735ef19ceb12ceccdb9ec0b677bd92",
+    "preTreeDigest": "6484c2c387fb2bc9a794e6ff932a17231f07306234fed8e5d78df6123679f1d5",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 93401276,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "9114a40b88cdad599d36342f1973bb12536653c0",
+        "a1a6ce6fdf0c059d48fc0a102a7101fe2398de46"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/002380.json",
+        "content/batches/F009/work-artifacts/002380/candidates.json",
+        "content/batches/F009/work-artifacts/002380/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/002380/reviews/primary.json",
+        "content/batches/F009/work-artifacts/002380/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/002380/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f009-prepare-editorial.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "9114a40b88cdad599d36342f1973bb12536653c0",
+        "a1a6ce6fdf0c059d48fc0a102a7101fe2398de46"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/002380.json",
+        "content/batches/F009/work-artifacts/002380/candidates.json",
+        "content/batches/F009/work-artifacts/002380/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/002380/reviews/primary.json",
+        "content/batches/F009/work-artifacts/002380/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/002380/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f009-prepare-editorial.ts"
+      ],
+      "measuredBytes": 464566830,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 120054169600,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 395309860
+    },
+    "workId": "002380"
+  },
+  "kind": "f009-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 11456324,
+    "acceptedAudioFiles": 19,
+    "currentPagesBytes": 506613803,
+    "currentPagesFiles": 1234,
+    "freeBytes": 120054169600,
+    "liveWriteUpperBounds": 166744672,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1310176,
+    "rollbackBackupBytes": 161456324
+  },
+  "plan": {
+    "batchId": "F009",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 8,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "08bf2af82ebeb64411bcc729aeb4cbd03a6850f06a210acc3465cda48b4b323e",
+        "candidateIds": [
+          "knG4w4e2JWYJlbP_wDbB2xCXwBmQmdBhvvVCj3G1iS0"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/08bf2af82ebeb64411bcc729aeb4cbd03a6850f06a210acc3465cda48b4b323e.json",
+        "status": "miss",
+        "text": "「私の運命をきめて下さい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/08bf2af82ebeb64411bcc729aeb4cbd03a6850f06a210acc3465cda48b4b323e.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "1c82b48fe933813852b6abad15cdd100e6b4e1074455196e0ce7a7a0edf5b6ac",
+        "candidateIds": [
+          "mf4sE6BA3TCf05cyKIPq_H9rKU8OUIeLybNv8zf0C_c"
+        ],
+        "estimatedBytes": 1857644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1c82b48fe933813852b6abad15cdd100e6b4e1074455196e0ce7a7a0edf5b6ac.json",
+        "status": "miss",
+        "text": "「そんなものは無暗にひとに見せるものではないよ。僕だからいいけれども、ほかの人間には絶対に気付かれないようにしていないと、元も子もない眼に会わされるかも知れないよ。しかし君の一身上に就いては、将来共に及ばずながら力になって上げるから、あまり力を落さない方がいいだろう。そんな身分のある人々の虐殺や処刑に関する風説は大抵二、三度宛伝わっているのだからね。たとえばアレキサンドロウィチ、ミハイル、ゲオルグ、ウラジミルなぞいう名前はネ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1c82b48fe933813852b6abad15cdd100e6b4e1074455196e0ce7a7a0edf5b6ac.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "1c8c68ea7f984d04a649be9af0ec44e1070f58c9c6a367a4c11644c993e758f8",
+        "candidateIds": [
+          "dQ3wcR7PCqWAQhZI4GqRMXW9ztuvpylp8rkI0Ic7fWg"
+        ],
+        "estimatedBytes": 5477804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1c8c68ea7f984d04a649be9af0ec44e1070f58c9c6a367a4c11644c993e758f8.json",
+        "status": "miss",
+        "text": "……と云うのです。僕はそれから、すぐに貧乏な大学生の姿に変装をして、モスコーへ来て、小さな家を借りて音楽の先生を始めました。僕は死ぬ程音楽が好きだったのですからね。そうしておりを見てベルリンかパリーへ出て、どこかのよせか劇場の楽手になりおおせる計画だったのですが……しかしその計画はスッカリ失敗に帰してしまったのです。その頃のモスコーはとても音楽どころか、明けても暮れてもピストルと爆弾の即興交響楽で、楽譜なぞを相手にする人は一人もありませぬ。おまけに僕は間もなくぼっこうした赤軍の強制募集に引っかかって無理やりに鉄砲を担がせられることになったのです。 ……僕が音楽を思い切ってしまったのはそれからの事でした。なぜ思い切ったかっていうと、僕の習っていた楽譜はみんなクラシカルな王朝文化式のものばかりで、今の民衆の下等な趣味には全く合いません。そればかりでなく、ウッカリ赤軍の中で、そんなものをやっていると身分がばれるおそれがありますからね。……ですから一生懸命にすきを見つけて、白軍の方へ逃げ込んで来たのですが、それでもどこに赤軍のかんちょうが居るかわかりませんからスッカリ要心をして、口笛や鼻唄にも出しませんでしたが、その苦しさといったらありませんでした。上手なバラライカやこきゅうのねを聞くたんびに耳を押えてウンウン云っていたのですが……そうして一日も早く両親の処へ帰りたい……上等のグランドピアノを思い切って弾いてみたいと、そればかり考え続けていたのですが……。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1c8c68ea7f984d04a649be9af0ec44e1070f58c9c6a367a4c11644c993e758f8.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "1f4efda88b067435b27573d96ae911338e1c29e3b5a4b4db2d69227107678b0e",
+        "candidateIds": [
+          "m_uAEBCoX--ykbCCNCWUxjiK0xI5rrlJEqmOmYYBaO4"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1f4efda88b067435b27573d96ae911338e1c29e3b5a4b4db2d69227107678b0e.json",
+        "status": "miss",
+        "text": "「傷はももだ。いのちに別状は無い」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1f4efda88b067435b27573d96ae911338e1c29e3b5a4b4db2d69227107678b0e.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "65b2aeae57fe8ba7f887aaeaaa7d17ab0e317036e0be4406755ed418e1151a70",
+        "candidateIds": [
+          "2wtcSyN9Tg1F-ucbpsqhRnl5a4jD6Di6YFNSN2TlN_o"
+        ],
+        "estimatedBytes": 3024044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/65b2aeae57fe8ba7f887aaeaaa7d17ab0e317036e0be4406755ed418e1151a70.json",
+        "status": "miss",
+        "text": "……ところが、ちょうど昨夜のことです。分隊の仲間がいつになくまじめになって、何かヒソヒソと話をし合っているようですから、何事かと思って、耳を引っ立ててみますと、それは僕の両親やきょうだいたちが、過激派のために銃殺されたといううわさだったのです。……僕はビックリして声を立てるところでした。けれども、ここがかんじんのところだと思いましたから、わざと暗い処に引っ込んで、よくよく様子を聞いてみますと、僕の両親が、何も云わずに、落ち付いて殺された事や、僕を一番すいていた弟が銃口の前で僕の名を呼んで、救けを求めたことまでわかっていて、どうしても、ほんとうとしか思えないのです。……ですから、僕はもう……何の望みも無くなって……あなたにお話ししようと思っても、あいにく勤務に行って……いらっしゃらないし……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/65b2aeae57fe8ba7f887aaeaaa7d17ab0e317036e0be4406755ed418e1151a70.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "74e01f0b24ee63f0be8d941724adfbaa746fc0be750529425f5470d260be1cad",
+        "candidateIds": [
+          "9WDb-3UomLSUcf027Vx1ON4CPtMW4prYI-txyhHWrDY"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/74e01f0b24ee63f0be8d941724adfbaa746fc0be750529425f5470d260be1cad.json",
+        "status": "miss",
+        "text": "「今一度真偽をたしかめてから発表する。決して動揺してはならぬ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/74e01f0b24ee63f0be8d941724adfbaa746fc0be750529425f5470d260be1cad.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "a13ed7c0c2d5248f12a9f8ea6a31b6c3b13399179509b86caa3d878952e5eef5",
+        "candidateIds": [
+          "esJrI3bONYZieQlH0IgetPdEPdCNHiOmpq8Qqi_nGXk"
+        ],
+        "estimatedBytes": 293804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a13ed7c0c2d5248f12a9f8ea6a31b6c3b13399179509b86caa3d878952e5eef5.json",
+        "status": "miss",
+        "text": "「もしかすると今度のせっこう旅行で、リヤトニコフが戦死しはしまいか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a13ed7c0c2d5248f12a9f8ea6a31b6c3b13399179509b86caa3d878952e5eef5.wav",
+        "workIds": [
+          "002380"
+        ]
+      },
+      {
+        "audioId": "db3091c911ada7794703b70ca6cd52d42936815278ab0f3414acf33a376932b0",
+        "candidateIds": [
+          "mKWTeOHBVbyCAuWt_LsnxhCavs1DBW0QYI63CTcTRZ0"
+        ],
+        "estimatedBytes": 5564204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/db3091c911ada7794703b70ca6cd52d42936815278ab0f3414acf33a376932b0.json",
+        "status": "miss",
+        "text": "「これは今まで誰にも見せたことのない、僕の両親の形見なんです。過激派の主義から見ればコンナものは、まるで麦の中のどろつぶと同様なものかも知れませんけれども……ペトログラードでは、ダイヤや真珠がどぶどろの中に棄ててあるということですけれども……僕にとってはいのちにも換えられない大切なものなのです。……僕の両親は革命の起る三箇月前……去年の暮のクリスマスの晩に、これを僕にくれたのですが、その時に、こんな事を云って聞かせられたのです。 ……このロシアには近いうちに革命が起って、私たちの運命をほうむるようなことに成るかも知れぬ。だからこの家の血統を絶やさない、万一の用心のために、誰でも意外に思うであろうお前にこの宝石を譲ってコッソリとこの家からおい出してしまうのだ。お前はもしかすると、そんな処置を取る私たちの無慈悲さをうらむかもしれないけれども、よく考えてみると私たちの前途と、お前の行く末とは、どちらが幸福かわからないのだ。お前は活溌な生れ付きで、きしょうもしっかりしているから、きっと、あらゆるかんなんしんくにたえて、身分を隠しおおせるだろうと思う。そうして今一度私たちの時代が帰って来るのを待つことが出来るであろうと思う。 ……しかし、もしその時代が、なかなか来そうになかったならば、お前はその宝石の一部を結婚の費用にして、家の血統を絶やさぬようにして、時節を見ているがよい。そうして世の中がもとにかえったならば、残っている宝石でお前の身分を証明して、この家を再興するがよい……。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/db3091c911ada7794703b70ca6cd52d42936815278ab0f3414acf33a376932b0.wav",
+        "workIds": [
+          "002380"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 16744672,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "474b4ec6b16aa36ae6531443af2d29dafbdc22de8420f5bb40d199d6c609801d",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 8,
+    "planDigest": "568f14be74d3f7f00eedd56fe86bf25429735ef19ceb12ceccdb9ec0b677bd92",
+    "preTreeDigest": "6484c2c387fb2bc9a794e6ff932a17231f07306234fed8e5d78df6123679f1d5",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 8,
+    "workId": "002380"
+  },
+  "preTreeDigest": "6484c2c387fb2bc9a794e6ff932a17231f07306234fed8e5d78df6123679f1d5",
+  "schemaVersion": "1.0.0",
+  "workId": "002380"
+}

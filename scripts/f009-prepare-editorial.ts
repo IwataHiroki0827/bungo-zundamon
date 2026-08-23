@@ -226,6 +226,109 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       ],
     },
   },
+  // 死後の恋(002380)。青空文庫本文（2380_13349.html正規化済みテキスト、raw HTML内の
+  // "死後の恋"全13箇所を実際に照合）を実際に通読し、実extractorが抽出した22候補
+  // （うち3件は同一sourceAnchor .main_text:5002-6586 を共有する分割piece。DD-F009.md
+  // FUN-F009-006が予告した長大候補分割が実データで初めて発動し、正規化前約1,748文字の
+  // 単一候補がリヤトニコフの独白（632/628/344文字）へ3分割された）全件の話者・decisionを
+  // 確定した。
+  // 本作は浦塩（ウラジオストク）のレストランで、老人（乞食に身をやつした元貴族の
+  // 青年）が日本の将校（貴下）に自らの数奇な半生を語り聞かせる一人称の枠物語であり、
+  // 地の文で終始「あなたに」「貴下に」語りかける体裁を取る。地の文中に10回出現する
+  // 「死後の恋」は、いずれも老人が自らの体験に付けた呼び名・題名としての言及
+  // （「という不可思議な神秘作用」「というものが」「の話を肯定して」「の遺品を」
+  // 「に絡まる私の運命」「の神秘力」「とはこの事をいうのです」「を冷笑する」
+  // 「の存在はヤッパリ真実でした」）であって、誰かが実際にその一語を発話した引用では
+  // ない。人間椅子の「奥様」「人間椅子」と同型の語そのものへの言及（NON_SPEECH）と
+  // 判定した（order1,2,3,4,5,6,7,19,20,21の10件）。同様にorder8「お別れ」（「お別れを
+  // 云いに司令部から帰って来ますと」＝「別れの挨拶をしに」という慣用句的な目的語で
+  // あり、その一語自体が発話されたわけではない）、order13「身分を証明するほどの宝石」
+  // （「それは、斯様な…の存在によっても容易に証明される」という地の文の記述的な
+  // 名詞句・ラベルであり引用発話ではない）、order18「強制的の結婚」（「その肉体は
+  // 明らかに…によって蹂躙されている」という地の文の婉曲的な名詞句・ラベルであり
+  // 引用発話ではない）も同型のNON_SPEECHと判定した。order14「何故その宝石を僕に
+  // 見せたんですか」は「なぞと質問をするのは、…危険な運命の方へ一歩を踏み出すことに
+  // なりそうな予感がします」という文脈から、実際にした質問ではなく「そのような類の
+  // 質問をすること」を例示する仮定的表現（「なぞと」）であり、老人が実際に問うた・
+  // 思った特定の一回の発話ではないためNON_SPEECHと判定した。
+  // 一方、order0「私の運命を決定て下さい」は地の文「こんなレストランへ引っぱり込んで、
+  // ダシヌケに、…などと、お願いするのですから」に導入される老人自身の実際の発話。
+  // order9/10/11（分割piece、いずれもリヤトニコフの発話）は地の文「こんな説明をして
+  // きかせました」に導入される実際の引用発話（piece内にネストされた両親の遺言引用も
+  // 含め、地の文で導入された一連の発話として瓶詰地獄order2/3の入れ子引用precedentと
+  // 同型に扱う）。order12「今一度真偽をたしかめてから発表する。決して動揺しては
+  // ならぬ」は「白軍の司令部でも…という通牒を各部隊に出すように手筈をしていた」に
+  // 導入される実際に発せられた通牒の逐語引用。order15は地の文「鷹揚にうなずきながら
+  // 二ツ三ツ咳払いをしました」「と云い云い相手の顔色を窺っておりました」に挟まれた
+  // 老人の実際の発話。order16「もしかすると今度の斥候旅行で、リヤトニコフが戦死
+  // しはしまいか」は「という…予感から」に導かれる老人が実際に抱いた一回性の予感で
+  // あり、瓶詰地獄order2/3・人間椅子order2/3と同型の「」内心内語としてapprovedとする。
+  // order17「傷は股だ。生命に別状は無い」は「それと同時に…と気が付きました」に導かれる
+  // 老人の実際の気付き（内心の発話）でapprovedとする。
+  // 以上8件approved・14件rejectedと判定した。
+  '002380': {
+    judgmentsByOrder: [
+      // order0 「私の運命を決定て下さい」。老人が日本の将校をレストランへ引っぱり
+      // 込み「などと、お願いする」実際の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私（老人）' },
+      // order1〜order7・order19〜order21 「死後の恋」。地の文中で老人が自分の体験に
+      // 付けた呼び名・題名としての言及であり、語そのものへの言及（人間椅子の「奥様」
+      // 「人間椅子」と同型のNON_SPEECH）。実際に誰かが発話した引用ではない。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order8 「お別れ」。「お別れを云いに司令部から帰って来ますと」という慣用句的な
+      // 目的語であり、その一語自体が発話された引用ではない。NON_SPEECH。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order9〜order11（分割piece、正規化前約1,748文字の単一候補が600文字閾値で3分割）。
+      // 「リヤトニコフは…こんな説明をしてきかせました」に導入されるリヤトニコフの
+      // 実際の発話（両親の遺言の引用を含む一連の発話として継続）。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'リヤトニコフ' },
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'リヤトニコフ' },
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'リヤトニコフ' },
+      // order12 「今一度真偽をたしかめてから発表する。決して動揺してはならぬ」。
+      // 「白軍の司令部でも…という通牒を各部隊に出す」に導入される実際に発せられた
+      // 通牒の逐語引用。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '白軍司令部（通牒）' },
+      // order13 「身分を証明するほどの宝石」。「それは、斯様な…の存在によっても容易に
+      // 証明される」という地の文の記述的な名詞句・ラベルであり引用発話ではない。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order14 「何故その宝石を僕に見せたんですか」。「なぞと質問をするのは…予感が
+      // します」という仮定的な例示表現であり、実際にした・思った特定の一回の発話では
+      // ない。NON_SPEECH。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order15 「そんなものは無暗に他人に見せるものではないよ…」。「鷹揚にうなずき
+      // ながら二ツ三ツ咳払いをしました」「と云い云い相手の顔色を窺っておりました」に
+      // 挟まれた老人の実際の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私（老人）' },
+      // order16 「もしかすると今度の斥候旅行で、リヤトニコフが戦死しはしまいか」。
+      // 「という…予感から」に導かれる老人が実際に抱いた一回性の予感。瓶詰地獄
+      // order2/3・人間椅子order2/3と同型の「」内心内語としてapprovedとする。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私（老人）' },
+      // order17 「傷は股だ。生命に別状は無い」。「それと同時に…と気が付きました」に
+      // 導かれる老人の実際の気付き（内心の発話）。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私（老人）' },
+      // order18 「強制的の結婚」。「その肉体は明らかに…によって蹂躙されている」という
+      // 地の文の婉曲的な名詞句・ラベルであり引用発話ではない。NON_SPEECH。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+    ],
+    speechCorrections: {
+      // order9 (.main_text:5002-6586、分割piece1件目)。VOICEVOX実合成で確認：
+      // 「艱難辛苦に堪えて」の「堪えて」が既定合成で「コタエテ」（応えて相当の誤読）
+      // となり、文脈上意図する「たえて」（耐える）と異なる。平仮名表記へ補正し、
+      // 実合成で「タエテ」と正しく発音されることを確認済み。
+      '.main_text:5002-6586': [
+        { find: 'かんなんしんくに堪えて', to: 'かんなんしんくにたえて', reason: '「堪えて」の既定合成「コタエテ」を文脈上の読み「たえて」へ補正（VOICEVOX実合成で確認）' },
+      ],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {

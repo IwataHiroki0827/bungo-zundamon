@@ -13025,6 +13025,302 @@
       "sealSha256": "f9374338236ed2e3ca2c38b5420c520da19a74c5db6e7ebfcc9078392961ae7b",
       "status": "used",
       "usedAt": "2026-08-24T02:05:01.000Z"
+    },
+    {
+      "authorization": {
+        "authorizationId": "f009-002380-primary",
+        "candidates": [
+          {
+            "candidateId": "knG4w4e2JWYJlbP_wDbB2xCXwBmQmdBhvvVCj3G1iS0",
+            "inputSha256": "3e5e7ec2e1d58e40585cd14e40fd7b4be247dc2f0c2a7a08945eb3eca30740ae",
+            "sourceAnchor": ".main_text:260-272"
+          },
+          {
+            "candidateId": "tMVZlPc3eRqGl2g6cKu3mYlI99PwFqpbcW6cZNDMCuA",
+            "inputSha256": "04bb05e6a5bba91f49233d9e27bc59108f2318f6164bfb7510c82515a3f0aa84",
+            "sourceAnchor": ".main_text:461-467"
+          },
+          {
+            "candidateId": "l-PECH61YbbNl4dFoJeV-NXOn4f-cOPNwVLu_VXMikQ",
+            "inputSha256": "3a87a7f50072874d9a63aa100e794c3ea63e4e814ba321605cabe6a5938f8530",
+            "sourceAnchor": ".main_text:1358-1364"
+          },
+          {
+            "candidateId": "djsIDljOH4kdhB4k1NMJPUCGAHd7MjZGRTr4wM9UVPo",
+            "inputSha256": "4b4a30671228bbacaec49263600a7e8872b3058d4f8b6444e3e5083fea307d36",
+            "sourceAnchor": ".main_text:1562-1568"
+          },
+          {
+            "candidateId": "IRdC_k-eh2fZXwU5h_kx1cOmPzfD5LTLPp4SmQYWUMI",
+            "inputSha256": "ee3b0f8b8b8cf0743e53cd03f37c637fe790334f18679c1b228dcc7d475526d4",
+            "sourceAnchor": ".main_text:2066-2072"
+          },
+          {
+            "candidateId": "HcFt8PDOhGYzwgze1F-22Ff0Bo2bFSOMsv2iXrHa38U",
+            "inputSha256": "8a27820958a6da0e0a2d287505dbe98d448d5376d1e1d1f2a22be02a78aa03c3",
+            "sourceAnchor": ".main_text:2129-2135"
+          },
+          {
+            "candidateId": "3psbWR02hKdYa3lY2jgmnvj3rV7eQABXFXGER694HTQ",
+            "inputSha256": "be0aa63e5de19bae5377ad8fcf9b6a55f9aa54751719ef6bc56769dfca858379",
+            "sourceAnchor": ".main_text:2206-2212"
+          },
+          {
+            "candidateId": "DTh7XqIPQH4CaugeYONDO4opI7z1-_o_yFSuVDC4qKA",
+            "inputSha256": "632c85c922fd281b864ebec5a26dfc9af888aa7878c56e9f66be6d80964fb4cf",
+            "sourceAnchor": ".main_text:2787-2793"
+          },
+          {
+            "candidateId": "0dIUw-7O-dQo3TeMZTLiwNo0q3PgjM7R5mqZNe9hZ9Q",
+            "inputSha256": "38cb230b3602d57dd15dba87012c37e32a3c00a102c7e3796aa49a546fa2be83",
+            "sourceAnchor": ".main_text:4212-4217"
+          },
+          {
+            "candidateId": "mKWTeOHBVbyCAuWt_LsnxhCavs1DBW0QYI63CTcTRZ0",
+            "inputSha256": "d15a85b7987d1e21c06cf8535aff80e23a34908b2c00a2bd6bbd5eb759f4cd6e",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "dQ3wcR7PCqWAQhZI4GqRMXW9ztuvpylp8rkI0Ic7fWg",
+            "inputSha256": "cf4d8f1c02fc0407602cd07f027f31a520e19b3abffeba4930877fc7bf1930ce",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "2wtcSyN9Tg1F-ucbpsqhRnl5a4jD6Di6YFNSN2TlN_o",
+            "inputSha256": "5c31bf37e03eb39a4ef081ee3efefb0626aa9ee35230dbe4b6f391f5a9f04d3a",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "9WDb-3UomLSUcf027Vx1ON4CPtMW4prYI-txyhHWrDY",
+            "inputSha256": "f1977fd645d1ecbe65d62852a17d936b362ae3ca1796e4cf161280d7048cf6b3",
+            "sourceAnchor": ".main_text:7067-7098"
+          },
+          {
+            "candidateId": "WhwjrePkBh24r4qCSjpNoLBzYX9dlb8ZZ5nTgniZ3P4",
+            "inputSha256": "d0d64be49fbdf147b3d9f3fa927dfd45c245f3447b9d1899108fbe09e6a2d49b",
+            "sourceAnchor": ".main_text:8133-8147"
+          },
+          {
+            "candidateId": "p1MmDx6Inn1sWboblci5RD1KPV5Mbh40tVYnICxlzww",
+            "inputSha256": "3638764ba31b4f2784caaecc22ebbbc54d9d6adcd31bd0511a6b3dcaba9e1a5e",
+            "sourceAnchor": ".main_text:8994-9011"
+          },
+          {
+            "candidateId": "mf4sE6BA3TCf05cyKIPq_H9rKU8OUIeLybNv8zf0C_c",
+            "inputSha256": "22cc4ba89b4ff9aee5a9bca0853b25d76a08c9fbb88e97b57ceac7c2f5070836",
+            "sourceAnchor": ".main_text:9292-9506"
+          },
+          {
+            "candidateId": "esJrI3bONYZieQlH0IgetPdEPdCNHiOmpq8Qqi_nGXk",
+            "inputSha256": "67197762264889ebc7414e4f2c61d77873d53fc0cb675f820c8d8423841db355",
+            "sourceAnchor": ".main_text:9877-9908"
+          },
+          {
+            "candidateId": "m_uAEBCoX--ykbCCNCWUxjiK0xI5rrlJEqmOmYYBaO4",
+            "inputSha256": "039f64a655423f31f891eb6d4a713509625e209529933f8607a03845ecd1e380",
+            "sourceAnchor": ".main_text:11057-11071"
+          },
+          {
+            "candidateId": "PgCZ1ZOOn66q6T3nKLYT4gQU4gxW_TcaJsPKyKM9IPc",
+            "inputSha256": "cbc7b7237f17695003fbe9e38761cd2260376c1fd0c0278fe88faaa47c14f267",
+            "sourceAnchor": ".main_text:16899-16907"
+          },
+          {
+            "candidateId": "I7YtdSHuOyTtba7vYGzjb8Z1Jarr5d7qodUDeiS2wF8",
+            "inputSha256": "23dcb7c75a10474521b0a27a277ca128b8e200c98289d572564672c9587c86f6",
+            "sourceAnchor": ".main_text:17177-17183"
+          },
+          {
+            "candidateId": "omy5fAfvx37i5C6_yJzCzn2AnUnhqYkHjCuqjALIIMs",
+            "inputSha256": "36676ae4b856ede8bb49bc4b26a92e7235ab8e9fcd822bee08805a9792e04786",
+            "sourceAnchor": ".main_text:17688-17694"
+          },
+          {
+            "candidateId": "16JdmXSTWrNoYWdJ5Q2C4HMOSqeEB5Spr364FiRHCYc",
+            "inputSha256": "57a96198b73d70c78652760e110421af2d7dfd803ccf64e48685c38326d338a9",
+            "sourceAnchor": ".main_text:17794-17800"
+          }
+        ],
+        "candidateSetSha256": "99eb95912a20a4bc1305bf92087cbc77c99d9954bc84a13115509846d036a280",
+        "inputRefs": [
+          {
+            "kind": "policy",
+            "path": "docs/srs/SRS-F009.md",
+            "sha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61"
+          },
+          {
+            "kind": "prompt",
+            "path": "docs/tests/ut/UT-F009.md",
+            "sha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55"
+          },
+          {
+            "kind": "tool",
+            "path": "src/content/editorial-independent.ts",
+            "sha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+          }
+        ],
+        "issuedAt": "2026-08-24T02:00:00.000Z",
+        "judgeRole": "primary",
+        "nonce": "f009-002380-primary-nonce",
+        "policySha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61",
+        "producerTaskPath": "/root/f009-editorial/002380/primary",
+        "promptSha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55",
+        "role": "primary",
+        "runId": "f009-002380-primary-run",
+        "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+      },
+      "sealPath": "seals/f009-002380-primary.json",
+      "sealSha256": "068c8ca7fa09af34c69ab84aedc2feee2bae6841fadb133b2cc73835b9255c33",
+      "status": "used",
+      "usedAt": "2026-08-24T02:05:00.000Z"
+    },
+    {
+      "authorization": {
+        "authorizationId": "f009-002380-secondary",
+        "candidates": [
+          {
+            "candidateId": "knG4w4e2JWYJlbP_wDbB2xCXwBmQmdBhvvVCj3G1iS0",
+            "inputSha256": "3e5e7ec2e1d58e40585cd14e40fd7b4be247dc2f0c2a7a08945eb3eca30740ae",
+            "sourceAnchor": ".main_text:260-272"
+          },
+          {
+            "candidateId": "tMVZlPc3eRqGl2g6cKu3mYlI99PwFqpbcW6cZNDMCuA",
+            "inputSha256": "04bb05e6a5bba91f49233d9e27bc59108f2318f6164bfb7510c82515a3f0aa84",
+            "sourceAnchor": ".main_text:461-467"
+          },
+          {
+            "candidateId": "l-PECH61YbbNl4dFoJeV-NXOn4f-cOPNwVLu_VXMikQ",
+            "inputSha256": "3a87a7f50072874d9a63aa100e794c3ea63e4e814ba321605cabe6a5938f8530",
+            "sourceAnchor": ".main_text:1358-1364"
+          },
+          {
+            "candidateId": "djsIDljOH4kdhB4k1NMJPUCGAHd7MjZGRTr4wM9UVPo",
+            "inputSha256": "4b4a30671228bbacaec49263600a7e8872b3058d4f8b6444e3e5083fea307d36",
+            "sourceAnchor": ".main_text:1562-1568"
+          },
+          {
+            "candidateId": "IRdC_k-eh2fZXwU5h_kx1cOmPzfD5LTLPp4SmQYWUMI",
+            "inputSha256": "ee3b0f8b8b8cf0743e53cd03f37c637fe790334f18679c1b228dcc7d475526d4",
+            "sourceAnchor": ".main_text:2066-2072"
+          },
+          {
+            "candidateId": "HcFt8PDOhGYzwgze1F-22Ff0Bo2bFSOMsv2iXrHa38U",
+            "inputSha256": "8a27820958a6da0e0a2d287505dbe98d448d5376d1e1d1f2a22be02a78aa03c3",
+            "sourceAnchor": ".main_text:2129-2135"
+          },
+          {
+            "candidateId": "3psbWR02hKdYa3lY2jgmnvj3rV7eQABXFXGER694HTQ",
+            "inputSha256": "be0aa63e5de19bae5377ad8fcf9b6a55f9aa54751719ef6bc56769dfca858379",
+            "sourceAnchor": ".main_text:2206-2212"
+          },
+          {
+            "candidateId": "DTh7XqIPQH4CaugeYONDO4opI7z1-_o_yFSuVDC4qKA",
+            "inputSha256": "632c85c922fd281b864ebec5a26dfc9af888aa7878c56e9f66be6d80964fb4cf",
+            "sourceAnchor": ".main_text:2787-2793"
+          },
+          {
+            "candidateId": "0dIUw-7O-dQo3TeMZTLiwNo0q3PgjM7R5mqZNe9hZ9Q",
+            "inputSha256": "38cb230b3602d57dd15dba87012c37e32a3c00a102c7e3796aa49a546fa2be83",
+            "sourceAnchor": ".main_text:4212-4217"
+          },
+          {
+            "candidateId": "mKWTeOHBVbyCAuWt_LsnxhCavs1DBW0QYI63CTcTRZ0",
+            "inputSha256": "d15a85b7987d1e21c06cf8535aff80e23a34908b2c00a2bd6bbd5eb759f4cd6e",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "dQ3wcR7PCqWAQhZI4GqRMXW9ztuvpylp8rkI0Ic7fWg",
+            "inputSha256": "cf4d8f1c02fc0407602cd07f027f31a520e19b3abffeba4930877fc7bf1930ce",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "2wtcSyN9Tg1F-ucbpsqhRnl5a4jD6Di6YFNSN2TlN_o",
+            "inputSha256": "5c31bf37e03eb39a4ef081ee3efefb0626aa9ee35230dbe4b6f391f5a9f04d3a",
+            "sourceAnchor": ".main_text:5002-6586"
+          },
+          {
+            "candidateId": "9WDb-3UomLSUcf027Vx1ON4CPtMW4prYI-txyhHWrDY",
+            "inputSha256": "f1977fd645d1ecbe65d62852a17d936b362ae3ca1796e4cf161280d7048cf6b3",
+            "sourceAnchor": ".main_text:7067-7098"
+          },
+          {
+            "candidateId": "WhwjrePkBh24r4qCSjpNoLBzYX9dlb8ZZ5nTgniZ3P4",
+            "inputSha256": "d0d64be49fbdf147b3d9f3fa927dfd45c245f3447b9d1899108fbe09e6a2d49b",
+            "sourceAnchor": ".main_text:8133-8147"
+          },
+          {
+            "candidateId": "p1MmDx6Inn1sWboblci5RD1KPV5Mbh40tVYnICxlzww",
+            "inputSha256": "3638764ba31b4f2784caaecc22ebbbc54d9d6adcd31bd0511a6b3dcaba9e1a5e",
+            "sourceAnchor": ".main_text:8994-9011"
+          },
+          {
+            "candidateId": "mf4sE6BA3TCf05cyKIPq_H9rKU8OUIeLybNv8zf0C_c",
+            "inputSha256": "22cc4ba89b4ff9aee5a9bca0853b25d76a08c9fbb88e97b57ceac7c2f5070836",
+            "sourceAnchor": ".main_text:9292-9506"
+          },
+          {
+            "candidateId": "esJrI3bONYZieQlH0IgetPdEPdCNHiOmpq8Qqi_nGXk",
+            "inputSha256": "67197762264889ebc7414e4f2c61d77873d53fc0cb675f820c8d8423841db355",
+            "sourceAnchor": ".main_text:9877-9908"
+          },
+          {
+            "candidateId": "m_uAEBCoX--ykbCCNCWUxjiK0xI5rrlJEqmOmYYBaO4",
+            "inputSha256": "039f64a655423f31f891eb6d4a713509625e209529933f8607a03845ecd1e380",
+            "sourceAnchor": ".main_text:11057-11071"
+          },
+          {
+            "candidateId": "PgCZ1ZOOn66q6T3nKLYT4gQU4gxW_TcaJsPKyKM9IPc",
+            "inputSha256": "cbc7b7237f17695003fbe9e38761cd2260376c1fd0c0278fe88faaa47c14f267",
+            "sourceAnchor": ".main_text:16899-16907"
+          },
+          {
+            "candidateId": "I7YtdSHuOyTtba7vYGzjb8Z1Jarr5d7qodUDeiS2wF8",
+            "inputSha256": "23dcb7c75a10474521b0a27a277ca128b8e200c98289d572564672c9587c86f6",
+            "sourceAnchor": ".main_text:17177-17183"
+          },
+          {
+            "candidateId": "omy5fAfvx37i5C6_yJzCzn2AnUnhqYkHjCuqjALIIMs",
+            "inputSha256": "36676ae4b856ede8bb49bc4b26a92e7235ab8e9fcd822bee08805a9792e04786",
+            "sourceAnchor": ".main_text:17688-17694"
+          },
+          {
+            "candidateId": "16JdmXSTWrNoYWdJ5Q2C4HMOSqeEB5Spr364FiRHCYc",
+            "inputSha256": "57a96198b73d70c78652760e110421af2d7dfd803ccf64e48685c38326d338a9",
+            "sourceAnchor": ".main_text:17794-17800"
+          }
+        ],
+        "candidateSetSha256": "99eb95912a20a4bc1305bf92087cbc77c99d9954bc84a13115509846d036a280",
+        "inputRefs": [
+          {
+            "kind": "policy",
+            "path": "docs/srs/SRS-F009.md",
+            "sha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61"
+          },
+          {
+            "kind": "prompt",
+            "path": "docs/tests/ut/UT-F009.md",
+            "sha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55"
+          },
+          {
+            "kind": "tool",
+            "path": "src/content/editorial-independent.ts",
+            "sha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+          }
+        ],
+        "issuedAt": "2026-08-24T02:00:01.000Z",
+        "judgeRole": "secondary",
+        "nonce": "f009-002380-secondary-nonce",
+        "policySha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61",
+        "producerTaskPath": "/root/f009-editorial/002380/secondary",
+        "promptSha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55",
+        "role": "secondary",
+        "runId": "f009-002380-secondary-run",
+        "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+      },
+      "sealPath": "seals/f009-002380-secondary.json",
+      "sealSha256": "20b9c392cb8f8dff87f00a23b2d5c644fccd56b644280a24cc5bfa2a73b0dcc0",
+      "status": "used",
+      "usedAt": "2026-08-24T02:05:01.000Z"
     }
   ],
   "schemaVersion": "1.0.0"
