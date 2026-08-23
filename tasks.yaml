@@ -4416,7 +4416,35 @@ tasks:
     T-174(Ｄ坂の殺人事件)の独立二重判定は、82〜87候補(長大候補分割見込み)
     全件の話者・decisionを実際の本文通読から確定する必要があり本セッションの
     残り時間では着手しなかった。
-- id: T-174
+
+    後続セッション: artwork生成待ちの間に着手可能な範囲として、
+    scripts/f008-content-preview.ts・scripts/f008-capacity-actual.ts・
+    scripts/f008-accept-work.ts・src/content/f008-acceptance.ts
+    （いずれもf007版の複製・F008向けパラメータ化）と
+    src/content/f008-acceptance.test.ts（実行可能な単体test、mint保護・
+    work順違反・path allowlist外・workId形式不正の4ケースは実workspaceで
+    実際にPASS確認済み。accepted work前提のhappy pathケースは
+    capacity-actual/content-preview等の永続artifactが未生成のため
+    ArtifactsMissingErrorでskip、T-172完了後に自動解消する設計）を
+    新規実装した。tsc/lint（プロジェクト全体）はPASS。
+    scripts/f008-content-preview.tsを実行確認したところ、manifest検証・
+    batch candidate検証・v0.7.0 baseline検証・registry検証・selection
+    snapshot rehydrationまで正常に通過し、想定どおりARTWORK_SOURCE_PATH
+    （content/batches/F008/public-files/artwork/edogawa-ranpo-zundamon.png、
+    未生成）読み込みのENOENTで停止した（artwork欠如以外の実装バグは
+    検出されなかった）。ARTWORK_SHA256は現時点で64桁0埋めのTODOプレース
+    ホルダのため、artwork実生成後は実測sha256（content/batches/F008/
+    artwork-provenance.jsonのoriginalImageSha256）へ差し替えが必要。
+    なお副次的に、src/content/f003-catalog.tsへ
+    `loadPublishedF007CatalogFragment`（F001〜F006既存loaderと同型、
+    F007公開済みfragmentの復元用）を新規追加した（既存F001〜F007の
+    loaderは一切変更していない）。F008のcontent-preview/final-integration
+    がF001〜F007累積分のbatchCatalogsを組み立てる際に必須のため。
+    scripts/f008-capacity-actual.tsの試行実行で一時的にcontent/batches/
+    F008/batch.jsonへ直接ハッシュvoiced stage recordが追記される副作用を
+    確認したため、`git checkout`で即座に revert し、artwork欠如による
+    ENOENT失敗（content-preview.json未生成）のみを確認した。
+    実際のaccept・release操作は本セッションでは一切実行していない。
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
@@ -4518,6 +4546,17 @@ tasks:
   mode: advisor
   mode_reason: accepted 3作品と固定baselineを単一候補へ順序付きで統合しexact差分を判定するため
   model: *model_f008
+  progress: >-
+    コード実装済み、artwork生成待ち。T-173前倒しセッションで
+    scripts/f008-final-integration.ts（f007版の複製・F008向けパラメータ化、
+    mergeNewAuthorCatalog008/deriveF008RouteSet[src/content/f008-catalog.ts、
+    既存実装済み]を使用）を新規作成した。tsc/lintはPASS。実行確認したところ、
+    F008 3作品がいずれもaccepted未達（T-172作者画像実生成待ち）のため、
+    manifest status !== 'accepted'判定で早期に停止することを確認した
+    （exact clean source commit要件でも停止することを確認済み、作業中の
+    未commit差分があったため）。ARTWORK_SHA256は64桁0埋めのTODO
+    プレースホルダのため、T-172完了後に実測sha256へ差し替えが必要。
+    実際の統合実行・commitは行っていない。
 - id: T-177
   title: F008 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F008
@@ -4529,6 +4568,19 @@ tasks:
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。F007で専用author route e2e specの欠落が事後発見された反省を踏まえ、本タスクで最初からtests/e2e/f008-edogawa-author.spec.tsを作成する
   model: *model_f008
+  progress: >-
+    コード実装済み、artwork生成待ち。T-173前倒しセッションで
+    tests/e2e/f008-edogawa-author.spec.ts（雛形、f007版
+    tests/e2e/f007-mori-ogai-author.spec.tsを参考に、src/content/
+    f008-source.tsのdefineF008AuthorAndWorkRegistry固定値・content/batches/
+    F008/work-notices.json実データ[人間椅子・Ｄ坂の殺人事件にofficial-
+    content-warning、一人二役にはなし]を反映）を新規作成した。tsc/lintは
+    PASS。F008はaccept未完了でpublic/へ未反映のため、本specは現時点で
+    実行するとedogawa-ranpo routeが存在せず全件失敗する前提の雛形であり、
+    実際のPlaywright実行はT-176完了・公開tree候補確定後に行うこと
+    （台詞数プレースホルダ等、実データに合わせた調整が必要な旨をコード内
+    コメントに明記済み）。UT/IT/QT本体の作成・実行、spec-coverage機械照合
+    ファイルの整備は本タスクの範囲外として未着手。
 - id: T-178
   title: F008リリース前総点検・GitHub Pages段階公開・公開10 routeスモーク
   feature: F008
