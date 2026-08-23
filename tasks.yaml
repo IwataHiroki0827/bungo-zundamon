@@ -5005,7 +5005,7 @@ tasks:
   title: 機能設計書(FD-F010)を作成しREQ全19件を梶井基次郎追加設計へ展開
   feature: F010
   phase: design
-  state: todo
+  state: done
   depends:
   - T-189
   tags: &id010
@@ -5033,17 +5033,19 @@ tasks:
   model: &model_f010
     lead: opus
     workers: sonnet
+  result: FD-F010.mdを作成しREQ 19件全件をDES 15件へ展開。F009と同型の新規作者追加構造・汎用release経路を継承。3作品(檸檬→Ｋの昇天→愛撫)いずれも公式表現注意対象外(初のケース)だが、work-notices.jsonのdialogue-excerpt-scope基本notice登録は全作品で継続する設計とした。長大候補分割ヘルパーは実測最大候補長133文字のため非実装(non-functional REQ-F010-019として明記)。artwork provenanceのexistingArtwork.length<8下限判定、authorId 000074・slug kajii-motojiro・route 12件(既存8作者route+kajii-motojiro+favorites+credits)を確定した。
 - id: T-191
   title: 関数設計書(DD-F010)を作成しデータ・関数・状態遷移契約へ展開
   feature: F010
   phase: design
-  state: todo
+  state: done
   depends:
   - T-190
   tags: *id010
   mode: advisor
   mode_reason: FDの汎用pipeline再利用境界とF010固有入力(新規作者・注記UI適用対象0件・独立二重判定)を関数単位で確定するため
   model: *model_f010
+  result: DD-F010.mdを作成しDES 15件をFUN 18件へ展開。既存関数の直接再利用7件、新規実装10件(src/content/f010-{baseline,source,acceptance,catalog,artwork}.tsの5ファイルに限定)、非実装1件(長大候補分割は設計上wiring済みだが非機能要件のため実装なしと明記)。baseline pinはv0.9.0(release commit 5327f12767d02a0da44856018ada5b6c63db6adc、8作者27作品1226台詞1209音声)を固定。trace_check.py REQ→DES・DES→FUN対応漏れ0を確認(DES→UT/IT 15件はtestspec未着手のため想定通り)。
 - id: T-192
   title: UT-F010・IT-F010を作成しQT-F010との網羅性を確認
   feature: F010
