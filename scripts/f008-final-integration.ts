@@ -424,6 +424,12 @@ async function main(): Promise<void> {
     evidenceSha256: hashBatchManifest(manifest),
   };
 
+  for (const asset of fragment.audioAssets) {
+    const clash = v070.catalog.audioAssets.find((existing) => existing.audioId === asset.audioId);
+    if (clash) {
+      console.error('DEBUG clash', JSON.stringify({ added: asset, existing: clash }, null, 2));
+    }
+  }
   const finalCatalog = mergeNewAuthorCatalog008(v070.catalog, fragment, verifiedAuthor);
   const routeSet = deriveF008RouteSet(finalCatalog, STATIC_ROUTES);
   if (routeSet.routes.length !== 10) throw new Error('F008公開routeがexact 10件ではありません');
