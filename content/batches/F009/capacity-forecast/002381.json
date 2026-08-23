@@ -1,0 +1,203 @@
+{
+  "batchId": "F009",
+  "configPath": "content/batches/F009/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "15afa84a4fd4ce64c650ed865646dc1a34d489ff12da47b7040c3978742c3bd5",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 4475696,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F009",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "15afa84a4fd4ce64c650ed865646dc1a34d489ff12da47b7040c3978742c3bd5",
+    "minimumFreeBytesAfterWrite": 371584560,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 656613803,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "d1274c592b77e8b19a871dcf0a0df3891aebd065e0e0908b56706556037d39ff",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104857600,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "3271b2ff4f06851644af944b8a22db5bb379dde2",
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae",
+        "ef441a913ab15df18ba2bf4e25b202c8c5941474"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/002381.json",
+        "content/batches/F009/work-artifacts/002381/candidates.json",
+        "content/batches/F009/work-artifacts/002381/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/002381/reviews/primary.json",
+        "content/batches/F009/work-artifacts/002381/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/002381/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f009-prepare-editorial.ts",
+        "scripts/f009-prepare-voice.ts",
+        "src/content/f003-catalog.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "3271b2ff4f06851644af944b8a22db5bb379dde2",
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae",
+        "ef441a913ab15df18ba2bf4e25b202c8c5941474"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/002381.json",
+        "content/batches/F009/work-artifacts/002381/candidates.json",
+        "content/batches/F009/work-artifacts/002381/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/002381/reviews/primary.json",
+        "content/batches/F009/work-artifacts/002381/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/002381/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f009-prepare-editorial.ts",
+        "scripts/f009-prepare-voice.ts",
+        "src/content/f003-catalog.ts"
+      ],
+      "measuredBytes": 453892371,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 122718994432,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 371584560
+    },
+    "workId": "002381"
+  },
+  "kind": "f009-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 0,
+    "acceptedAudioFiles": 0,
+    "currentPagesBytes": 506613803,
+    "currentPagesFiles": 1234,
+    "freeBytes": 122718994432,
+    "liveWriteUpperBounds": 154475696,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1293841,
+    "rollbackBackupBytes": 150000000
+  },
+  "plan": {
+    "batchId": "F009",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 4,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "15675b70a53834f33c33c008df476e1b9b55454a3621681cacdd7f9a6a63a016",
+        "candidateIds": [
+          "2eDdPcO6iQD5W7i_8xOEzkR_U8xSi7tC47bwsmZYdHc"
+        ],
+        "estimatedBytes": 3637484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/15675b70a53834f33c33c008df476e1b9b55454a3621681cacdd7f9a6a63a016.json",
+        "status": "miss",
+        "text": "「ああ。天にまします神様よ。 アヤ子は何も知りませぬ。ですから、あんな事を私に云ったのです。どうぞ、あのむすめを罰しないで下さい。そうして、いつまでもいつまでもきよらかにお守り下さいませ。そうして私も…………。 ああ。けれども…………けれども…………。 ああ神様よ。私はどうしたら、いいのでしょう。どうしたらこのなやみから救われるのでしょう。私が生きておりますのはアヤ子のためにこの上もないつみです。けれども私が死にましたならば、なおさら深い、悲しみと、苦しみをアヤ子に与えることになります、ああ、どうしたらいいでしょう私は…………。 おお神様よ…………。 私のかみのけは砂にまみれ、私の腹は岩に押しつけられております。もし私の死にたいお願いがみこころにかないましたならば、只今すぐに私のいのちを、燃ゆるいなずまにおわたし下さいませ。 ああ。かくれたるにみたまう神様よ。どうぞどうぞみなをあがめさせ給え。みしるしを地上にあらわし給え…………」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/15675b70a53834f33c33c008df476e1b9b55454a3621681cacdd7f9a6a63a016.wav",
+        "workIds": [
+          "002381"
+        ]
+      },
+      {
+        "audioId": "7144968df9ec4b98e516573479f6b6d3624da0e632f39a03cc97369ab64912c3",
+        "candidateIds": [
+          "u398X9sgf36nxVU63yVXqrd85cug6CnMLjIRl8YKWvo"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7144968df9ec4b98e516573479f6b6d3624da0e632f39a03cc97369ab64912c3.json",
+        "status": "miss",
+        "text": "「お兄さま…………」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7144968df9ec4b98e516573479f6b6d3624da0e632f39a03cc97369ab64912c3.wav",
+        "workIds": [
+          "002381"
+        ]
+      },
+      {
+        "audioId": "7ed3e38c49857d1970114f97c61be2640c648e1b97c2c46c90ed593ce88580c0",
+        "candidateIds": [
+          "p0gDJ-rZuAcaEYXOAzb6T8Qs49_kToMDdnHvoWHdmI4"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7ed3e38c49857d1970114f97c61be2640c648e1b97c2c46c90ed593ce88580c0.json",
+        "status": "miss",
+        "text": "「もう大丈夫だ。こうしておけば、救いの船が来ても通り過ぎて行くだろう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7ed3e38c49857d1970114f97c61be2640c648e1b97c2c46c90ed593ce88580c0.wav",
+        "workIds": [
+          "002381"
+        ]
+      },
+      {
+        "audioId": "a322036e7e5192b6c2c9f1a2893cc17f3e66c707fc8ccaed0ea63673088343e3",
+        "candidateIds": [
+          "NvbOKA7NZErFZzwHhJxiAPAtfrBomJifEMzae8ZecjM"
+        ],
+        "estimatedBytes": 449324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a322036e7e5192b6c2c9f1a2893cc17f3e66c707fc8ccaed0ea63673088343e3.json",
+        "status": "miss",
+        "text": "「ネエ。お兄様。あたし達二人のうち一人が、もし病気になって死んだら、あとは、どうしたらいいでしょうネエ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a322036e7e5192b6c2c9f1a2893cc17f3e66c707fc8ccaed0ea63673088343e3.wav",
+        "workIds": [
+          "002381"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 4475696,
+    "existingUniqueAudioCount": 85,
+    "existingUniqueBytes": 92918940,
+    "expectedManifestSha": "15afa84a4fd4ce64c650ed865646dc1a34d489ff12da47b7040c3978742c3bd5",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 4,
+    "planDigest": "d1274c592b77e8b19a871dcf0a0df3891aebd065e0e0908b56706556037d39ff",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 4,
+    "workId": "002381"
+  },
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "schemaVersion": "1.0.0",
+  "workId": "002381"
+}

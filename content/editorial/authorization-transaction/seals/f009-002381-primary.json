@@ -1,0 +1,48 @@
+{
+  "header": {
+    "artifactSha256": "4759d66fc15bc26005c9201816dd662665a88189217d7215499a1d77443ac9fe",
+    "authorizationId": "f009-002381-primary",
+    "candidateSetSha256": "f79df64ac44634a1162c31f81d6d3914b39da90cc82abe0c7e5c5f1010531482",
+    "policySha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61",
+    "promptSha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55",
+    "role": "primary",
+    "runId": "f009-002381-primary-run",
+    "sealedAt": "2026-08-24T02:05:00.000Z",
+    "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+  },
+  "judgments": [
+    {
+      "candidateId": "u398X9sgf36nxVU63yVXqrd85cug6CnMLjIRl8YKWvo",
+      "decision": "approved",
+      "inputSha256": "b5e4750ef041eb39783c6d716108c075ed73cf8dae8a88b3b286505e1c9633f7",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:3263-3273",
+      "speaker": "アヤ子"
+    },
+    {
+      "candidateId": "NvbOKA7NZErFZzwHhJxiAPAtfrBomJifEMzae8ZecjM",
+      "decision": "approved",
+      "inputSha256": "7162c8653549c43d25bf833d270b5dc190886b55ae6718bb41a064e504bed832",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:4018-4070",
+      "speaker": "アヤ子"
+    },
+    {
+      "candidateId": "2eDdPcO6iQD5W7i_8xOEzkR_U8xSi7tC47bwsmZYdHc",
+      "decision": "approved",
+      "inputSha256": "089fdca085dd286b7f7f906fdafe4d3aeb4493dbd21c171ef50fbfcf11478c84",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:4286-4689",
+      "speaker": "私（太郎）"
+    },
+    {
+      "candidateId": "p0gDJ-rZuAcaEYXOAzb6T8Qs49_kToMDdnHvoWHdmI4",
+      "decision": "approved",
+      "inputSha256": "d8b2b87b4f516b84cd305a3abf055c184cc383096c790ee1de9a9d8b76831831",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:5030-5065",
+      "speaker": "私（太郎）"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

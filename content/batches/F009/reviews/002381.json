@@ -1,0 +1,50 @@
+[
+  {
+    "candidateId": "u398X9sgf36nxVU63yVXqrd85cug6CnMLjIRl8YKWvo",
+    "note": "{\n  \"inputSha256\": \"b5e4750ef041eb39783c6d716108c075ed73cf8dae8a88b3b286505e1c9633f7\",\n  \"reconciliationDigest\": \"ec31c0c92ec7ae4ca9ac3cf1a4eae41ee6474fa38450f2e2e8813df724bfaa70\",\n  \"resolutionSource\": \"agreement\",\n  \"sourceAnchor\": \".main_text:3263-3273\",\n  \"speaker\": \"アヤ子\"\n}\n",
+    "policyCheckedAt": "2026-08-24T02:05:01.000Z",
+    "policyDecision": "allowed",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "reviewedAt": "2026-08-24T02:05:01.000Z",
+    "reviewer": "editorial-independent:f009-002381-primary+f009-002381-secondary",
+    "revision": 1,
+    "status": "approved",
+    "workId": "002381"
+  },
+  {
+    "candidateId": "NvbOKA7NZErFZzwHhJxiAPAtfrBomJifEMzae8ZecjM",
+    "note": "{\n  \"inputSha256\": \"7162c8653549c43d25bf833d270b5dc190886b55ae6718bb41a064e504bed832\",\n  \"reconciliationDigest\": \"ec31c0c92ec7ae4ca9ac3cf1a4eae41ee6474fa38450f2e2e8813df724bfaa70\",\n  \"resolutionSource\": \"agreement\",\n  \"sourceAnchor\": \".main_text:4018-4070\",\n  \"speaker\": \"アヤ子\"\n}\n",
+    "policyCheckedAt": "2026-08-24T02:05:01.000Z",
+    "policyDecision": "allowed",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "reviewedAt": "2026-08-24T02:05:01.000Z",
+    "reviewer": "editorial-independent:f009-002381-primary+f009-002381-secondary",
+    "revision": 1,
+    "status": "approved",
+    "workId": "002381"
+  },
+  {
+    "candidateId": "2eDdPcO6iQD5W7i_8xOEzkR_U8xSi7tC47bwsmZYdHc",
+    "note": "{\n  \"inputSha256\": \"089fdca085dd286b7f7f906fdafe4d3aeb4493dbd21c171ef50fbfcf11478c84\",\n  \"reconciliationDigest\": \"ec31c0c92ec7ae4ca9ac3cf1a4eae41ee6474fa38450f2e2e8813df724bfaa70\",\n  \"resolutionSource\": \"agreement\",\n  \"sourceAnchor\": \".main_text:4286-4689\",\n  \"speaker\": \"私（太郎）\"\n}\n",
+    "policyCheckedAt": "2026-08-24T02:05:01.000Z",
+    "policyDecision": "allowed",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "reviewedAt": "2026-08-24T02:05:01.000Z",
+    "reviewer": "editorial-independent:f009-002381-primary+f009-002381-secondary",
+    "revision": 1,
+    "status": "approved",
+    "workId": "002381"
+  },
+  {
+    "candidateId": "p0gDJ-rZuAcaEYXOAzb6T8Qs49_kToMDdnHvoWHdmI4",
+    "note": "{\n  \"inputSha256\": \"d8b2b87b4f516b84cd305a3abf055c184cc383096c790ee1de9a9d8b76831831\",\n  \"reconciliationDigest\": \"ec31c0c92ec7ae4ca9ac3cf1a4eae41ee6474fa38450f2e2e8813df724bfaa70\",\n  \"resolutionSource\": \"agreement\",\n  \"sourceAnchor\": \".main_text:5030-5065\",\n  \"speaker\": \"私（太郎）\"\n}\n",
+    "policyCheckedAt": "2026-08-24T02:05:01.000Z",
+    "policyDecision": "allowed",
+    "reasonCode": "SPOKEN_DIALOGUE",
+    "reviewedAt": "2026-08-24T02:05:01.000Z",
+    "reviewer": "editorial-independent:f009-002381-primary+f009-002381-secondary",
+    "revision": 1,
+    "status": "approved",
+    "workId": "002381"
+  }
+]
