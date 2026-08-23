@@ -1672,3 +1672,19 @@ changes:
     除外ロジックは撤回し元の実装(各batchが自分のaudioAssetsをそのまま
     登録)へ戻した。batch-public.test.ts(19件)・f008-catalog.test.ts
     (12件)・f003-catalog.test.ts等関連5ファイル(35件)にregressionなし。
+
+    【再訂正・最終方式】上記の「path相違+実体一致」条件も、実データでの
+    再現テストにより不十分と判明した。debug printで実際の衝突entryを
+    確認したところ、F008側(sha256=c1d1c9d8...)とF005側(sha256=c8efe370...)
+    でWAV実体のsha256が異なっていた(bytes=34860・durationMs=725・
+    configHashは完全一致)。audioId(createVoiceCacheKeyV2、src/voice/cache.ts)
+    はtext+config"入力"のhashであり出力音声自体のhashではないため、
+    異なるセッションで独立に生成したVOICEVOX合成は同一入力でも実体
+    (sha256)が一致するとは限らないと実測で判明した(想定と異なる新知見)。
+    実体一致を条件にする方式では本件を弾いてしまうため、最終的に
+    「path(batchId scopedで既に一意な名前空間)の衝突だけを実エラーとして
+    拒否し、audioId(入力hashに過ぎない)の一致自体は許容する」方式へ
+    再修正した。対象は同じ2ファイル(src/content/batch-public.ts・
+    src/content/f008-catalog.ts)。再検証: batch-public.test.ts・
+    f008-catalog.test.ts・f003-catalog.test.ts等関連7ファイル(66件)に
+    regressionなし、tsc/lint clean。

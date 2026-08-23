@@ -226,18 +226,15 @@ export function mergeNewAuthorCatalog008(
     baselineCatalog.works.some((work) =>
       work.authorId === verifiedAuthor.authorId ||
       fragment.works.some((added) => added.workId === work.workId)) ||
-    // CHG-F008-004: audioIdはtext+configの内容hashのため、既存の公開済み台詞と
-    // 偶然byte-identicalな短い発話が起こり得る(実例: 一人二役057193の
-    // 「へええ」がF005/001104と完全一致)。path(batchId scoped)が異なり、
-    // かつ実体(sha256/bytes/durationMs/configHash)が完全一致する場合だけは
-    // 正当な独立entryとして許容する。path衝突や、audioId一致にもかかわらず
-    // 実体が異なる場合(hash衝突等)は引き続き拒否する。
+    // CHG-F008-004: audioId(createVoiceCacheKeyV2)はtext+config"入力"のhashで
+    // あり出力音声自体のhashではないため、既存の公開済み台詞と偶然同一入力の
+    // 短い発話が起こり得る(実例: 一人二役057193の「へええ」がF005/001104と
+    // audioId一致)。実測ではWAV実体(sha256)が別セッション生成のため一致しない
+    // ことも確認済みであり、実体一致を条件にすると本件を弾いてしまう。
+    // path(batchId scoped)は既に一意な名前空間のため、path自体の衝突だけを
+    // 実エラーとして拒否する。
     baselineCatalog.audioAssets.some((asset) =>
-      fragment.audioAssets.some((added) =>
-        added.path === asset.path ||
-        (added.audioId === asset.audioId &&
-          (added.sha256 !== asset.sha256 || added.bytes !== asset.bytes ||
-            added.durationMs !== asset.durationMs || added.configHash !== asset.configHash)))) ||
+      fragment.audioAssets.some((added) => added.path === asset.path)) ||
     baselineCatalog.batches.some((batch) => batch.batchId === 'F008')
   ) {
     throw new F008CatalogError('F008_CATALOG_MERGE_CONFLICT', 'baseline joinまたは作者/作品/asset IDが競合しています');

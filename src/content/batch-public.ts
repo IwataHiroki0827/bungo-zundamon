@@ -813,7 +813,6 @@ function catalogFor(
   };
   const authorIds = new Set<string>();
   const workIds = new Set<string>();
-  const audioIds = new Set<string>();
   for (const author of catalog.authors) {
     if (authorIds.has(author.authorId)) throw new PublicIntegrationError('PUBLIC_AUTHOR_IDENTITY_CONFLICT', `author IDが重複しています: ${author.authorId}`);
     authorIds.add(author.authorId);
@@ -823,25 +822,19 @@ function catalogFor(
     if (!safeRelativePath(work.source.provenancePath)) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenancePathが不正です: ${work.workId}`);
     workIds.add(work.workId);
   }
-  const audioById = new Map<string, CatalogV2['audioAssets'][number]>();
+  const audioByPath = new Map<string, CatalogV2['audioAssets'][number]>();
   for (const audio of catalog.audioAssets) {
-    const seen = audioById.get(audio.audioId);
-    if (seen) {
-      // audioIdはtext+configの内容hashのため、異なるbatch/authorの発話が
-      // 偶然byte-identicalになり得る(実例: F008/一人二役の「へええ」が
-      // F005の既存台詞と完全一致)。path(batch scoped)が異なり実体
-      // (sha256/bytes/durationMs/configHash)が完全一致する場合だけは
-      // 正当な独立entry(物理的にはそれぞれのbatch配下へ複製された同一内容
-      // ファイル)として許容する。path衝突や実体不一致(hash衝突等)は
-      // 引き続き拒否する。
-      if (seen.path === audio.path || seen.sha256 !== audio.sha256 || seen.bytes !== audio.bytes ||
-        seen.durationMs !== audio.durationMs || seen.configHash !== audio.configHash) {
-        throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `audio IDが重複しています: ${audio.audioId}`);
-      }
-    } else {
-      audioById.set(audio.audioId, audio);
+    // audioId(createVoiceCacheKeyV2)はtext+config"入力"のhashであり出力音声
+    // 自体のhashではないため、異なるbatch/authorが独立に生成した同一発話
+    // (実例: F008/一人二役の「へええ」とF005の既存台詞)がaudioIdだけ
+    // 偶然一致し、実際のWAV実体(sha256)は別セッション生成のため一致しない
+    // ことがあり得る(実測確認済み)。path(batch scoped)は既にbatchIdで
+    // 名前空間化され一意なため、path自体の衝突だけを実エラーとして拒否し、
+    // audioId(入力hash)の一致は許容する。
+    if (audioByPath.has(audio.path)) {
+      throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `audio pathが重複しています: ${audio.path}`);
     }
-    audioIds.add(audio.audioId);
+    audioByPath.set(audio.path, audio);
   }
   for (const batch of batches) {
     if (hash(canonicalJson(batch.manifest)) !== batch.manifestSha256) {
