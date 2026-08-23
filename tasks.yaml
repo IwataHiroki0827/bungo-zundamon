@@ -4921,13 +4921,31 @@ tasks:
   title: F009最終Catalog統合・固定v0.8.0回帰・公開tree候補を作成
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-186
   tags: *id009
   mode: advisor
   mode_reason: 3作品累積結合・既存8作者不変確認・公開tree候補生成を単一の逐次exact差分判定として扱うため
   model: *model_f009
+  progress: >-
+    完了。scripts/f009-final-integration.ts(f008版の複製・パラメータ化)で
+    瓶詰地獄→きのこ会議→死後の恋を累積結合し、最終Catalog(8作者・27作品・
+    1226台詞・1209音声、期待値と完全一致)・exact 11 route(#/・既存7作者
+    route・#/authors/yumeno-kyusaku・#/favorites・#/credits)・公開tree候補
+    (1266 files)を生成した。v0.8.0固定baseline(既存7作者24作品1199台詞
+    1182音声)がbyte-exact不変であることをassertV080Invariantで確認。
+    audioId衝突は0件(27件の新規audioIdを既存1182件と事前突合、CHG-F008-004
+    型除外機構は不要だった)。瓶詰地獄・死後の恋のofficial-content-warning
+    注記、きのこ会議のdialogue-excerpt-scopeのみが正しく投影された。
+    実行前、F005〜F008と同型の既知パターン(batch level rights-verified
+    遷移未経由でrightsSnapshotIds空)がF009にも残っていたため、scripts/
+    f009-backfill-rights-snapshot-ids.ts(f008版の複製)で実evidence
+    (source-snapshots/selection.json)から是正した。--retainで候補dist/tree
+    を.cache/f009-final-integration-5aJXoB/・.cache/batch-release/F009/
+    candidate-paths.json(sourceCommit 86efc696)へ永続化。tsc/eslint全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-188(UT/IT/QT/6環境・
+    権利・容量・セキュリティ受入)。
 - id: T-188
   title: F009 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F009
