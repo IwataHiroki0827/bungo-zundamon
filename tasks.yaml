@@ -4763,13 +4763,22 @@ tasks:
   title: UT-F009・IT-F009を作成しQT-F009との網羅性を確認
   feature: F009
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-180
   tags: *id009
   mode: orchestration
   mode_reason: 権利・原典entity/外字検出・独立二重判定・音声・容量・Catalog・2作品同時注記UI・長大候補分割・セキュリティの独立試験領域を並列設計できるため
   model: *model_f009
+  progress: >-
+    docs/tests/ut/UT-F009.md(UT 17件、DD-F009.md FUN-F009-001〜017全件を
+    網羅、7件は既存F00N testを引用のみ・10件を新規作成)・docs/tests/it/
+    IT-F009.md(IT 11件、DES-F009-001〜015全件を網羅)を作成した。新規性の
+    高い2試験面(gaiji検出=瓶詰地獄4件・死後の恋2件の実データで初検証、
+    長大候補分割=死後の恋1,748文字候補による初の実end-to-endトリガー)を
+    実fixtureベースで追加した。trace_check.py対応漏れなし。承認ゲート③
+    自動承認、SRS/FD/DD/UT/IT/QT-F009が全てApproved。次のアクションは
+    pf-implement(T-182以降)。
 - id: T-182
   title: 候補manifest・固定v0.8.0 baseline・作者identity・権利原典を整備
   feature: F009

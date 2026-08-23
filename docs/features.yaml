@@ -49,6 +49,6 @@ features:
 - id: F009
   title: 夢野久作「瓶詰地獄」「きのこ会議」「死後の恋」3作品追加
   branch: feature/F009
-  state: design
+  state: testspec
   merge_after:
   - F008

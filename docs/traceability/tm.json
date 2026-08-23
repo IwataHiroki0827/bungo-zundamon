@@ -6050,6 +6050,146 @@
         "FUN-F008-017"
       ]
     },
+    "UT-F009-006": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-005",
+        "DES-F009-007",
+        "DES-F009-015",
+        "FUN-F009-006",
+        "FUN-F009-008"
+      ]
+    },
+    "UT-F009-001": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-001",
+        "FUN-F009-001"
+      ]
+    },
+    "UT-F009-002": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-002",
+        "FUN-F009-002",
+        "FUN-F009-003"
+      ]
+    },
+    "UT-F009-003": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-002",
+        "FUN-F009-003"
+      ]
+    },
+    "UT-F009-004": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-003",
+        "FUN-F009-004"
+      ]
+    },
+    "UT-F009-005": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-004",
+        "FUN-F009-005"
+      ]
+    },
+    "UT-F009-007": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-006",
+        "FUN-F009-007"
+      ]
+    },
+    "UT-F009-008": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-007",
+        "FUN-F009-008"
+      ]
+    },
+    "UT-F009-009": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-008",
+        "FUN-F009-009"
+      ]
+    },
+    "UT-F009-010": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-009",
+        "FUN-F009-010"
+      ]
+    },
+    "UT-F009-011": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-010",
+        "FUN-F009-011"
+      ]
+    },
+    "UT-F009-012": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-010",
+        "FUN-F009-012"
+      ]
+    },
+    "UT-F009-013": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-011",
+        "FUN-F009-013"
+      ]
+    },
+    "UT-F009-014": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-012",
+        "FUN-F009-014"
+      ]
+    },
+    "UT-F009-015": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-012",
+        "FUN-F009-015"
+      ]
+    },
+    "UT-F009-016": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-013",
+        "FUN-F009-016"
+      ]
+    },
+    "UT-F009-017": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F009.md",
+      "refs": [
+        "DES-F009-014",
+        "FUN-F009-017"
+      ]
+    },
     "IT-F001-001": {
       "type": "IT",
       "defined_in": "docs/tests/it/IT-F001.md",
@@ -7053,6 +7193,89 @@
       "refs": [
         "DES-F008-001",
         "DES-F008-015"
+      ]
+    },
+    "IT-F009-001": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-001"
+      ]
+    },
+    "IT-F009-002": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-002"
+      ]
+    },
+    "IT-F009-003": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-004",
+        "DES-F009-005",
+        "DES-F009-015"
+      ]
+    },
+    "IT-F009-004": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-006",
+        "DES-F009-007"
+      ]
+    },
+    "IT-F009-005": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-008"
+      ]
+    },
+    "IT-F009-006": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-009",
+        "DES-F009-010",
+        "DES-F009-011"
+      ]
+    },
+    "IT-F009-007": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-013"
+      ]
+    },
+    "IT-F009-008": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IT-F009-009": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-013"
+      ]
+    },
+    "IT-F009-010": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-014"
+      ]
+    },
+    "IT-F009-011": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F009.md",
+      "refs": [
+        "DES-F009-001",
+        "DES-F009-015"
       ]
     },
     "QT-F001-001": {
@@ -19772,82 +19995,6 @@
       ]
     }
   },
-  "gaps": [
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-001",
-      "detail": "DES-F009-001 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-002",
-      "detail": "DES-F009-002 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-003",
-      "detail": "DES-F009-003 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-004",
-      "detail": "DES-F009-004 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-005",
-      "detail": "DES-F009-005 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-006",
-      "detail": "DES-F009-006 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-007",
-      "detail": "DES-F009-007 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-008",
-      "detail": "DES-F009-008 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-009",
-      "detail": "DES-F009-009 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-010",
-      "detail": "DES-F009-010 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-011",
-      "detail": "DES-F009-011 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-012",
-      "detail": "DES-F009-012 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-013",
-      "detail": "DES-F009-013 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-014",
-      "detail": "DES-F009-014 に対応するUTまたはITがありません"
-    },
-    {
-      "rule": "DES→UT/IT",
-      "tag": "DES-F009-015",
-      "detail": "DES-F009-015 に対応するUTまたはITがありません"
-    }
-  ],
-  "coverage_percent": 99.5
+  "gaps": [],
+  "coverage_percent": 100.0
 }
