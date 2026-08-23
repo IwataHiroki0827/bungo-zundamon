@@ -5374,13 +5374,34 @@ tasks:
   title: 候補manifest・固定v0.10.0 baseline・作者identity・権利原典を整備
   feature: F011
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-203
   tags: *id011
   mode: advisor
   mode_reason: baseline pin・candidate manifest・権利原典取得を単一の逐次integrity chainとして扱うため
   model: *model_f011
+  progress: >-
+    完了。src/content/f011-baseline.ts(+test 10件、F010公開証跡から実測
+    転記したv0.10.0固定pins、DD-F011.md命名規則のV0100表記を採用)、
+    content/batch-definitions・approval-policies/F011.json、
+    batch-candidate.tsへのF011 registry追加、src/content/f011-source.ts
+    (defineF011AuthorAndWorkRegistry・collectF011SourceSnapshot・
+    normalizeF011AozoraXhtmlEntities・extractF011DialogueCandidates・
+    detectF011GaijiElements・evaluateF011RightsAndUsage・
+    persistF011SourceSnapshot・parseProofreaderNames、+test 15件)を実装
+    し、scripts/f011-collect-source.tsで手袋を買いに・ごん狐・二ひきの蛙
+    の原典・書誌・VOICEVOX/ずんだもん規約を実HTTPS取得(rights.decision:
+    allow確認)。実測候補数73件(手袋を買いに28・ごん狐34・二ひきの蛙11)、
+    gaiji検出3作品とも0件(F001〜F011で初の全作品該当なし)、長大候補分割
+    ロジックは非実装(実測最大候補長200文字)。二ひきの蛙の校正者2名併記
+    (もりみつじゅんじ・鈴木厚司)に対応するproofreader複数値schemaを実装
+    (実データの区切り文字がDOMAIN-F011.md記載の「・」ではなく実際は
+    「、」だったため、正規表現で両方許容する実装とした)。content/
+    batch-candidates.jsonへF011 candidate登録、docs/evidence/requirements/
+    F011-approval-binding.jsonをmint、scripts/f011-init-batch.tsでdraft
+    content/batches/F011/batch.json(status: draft)を生成した。tsc/eslint
+    全PASS、vitest 25件全PASS、trace_check.py対応漏れなし。
 - id: T-205
   title: Catalog統合基盤・新美南吉作者画像を整備
   feature: F011
