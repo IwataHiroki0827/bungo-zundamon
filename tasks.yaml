@@ -4892,13 +4892,31 @@ tasks:
   title: 死後の恋を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-185
   tags: *id009
   mode: orchestration
   mode_reason: 抽出・独立二重判定・長大候補分割(REQ-F009-019実適用)・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f009
+  progress: >-
+    完了。死後の恋(002380)の実candidate 22件(長大候補分割後、実測1,748文字
+    のリヤトニコフ遺言独白がorder9〜11の3片に分割、632/628/344文字、
+    F007/F008では未発動だった長大候補分割の初の実end-to-end発動を確認)を
+    実extraction・実テキスト精読で独立二重判定し、8件承認(SPOKEN_DIALOGUE、
+    語り手の実発話・内心思考、リヤトニコフの発話3片、白軍布告文)・14件却下
+    (NON_SPEECH、うち10件は「死後の恋」という語り手の自己命名フレーズの
+    語そのものへの言及=人間椅子「奥様」precedentと同型、他はお別れ等の
+    慣用句・記述的名詞句・仮定的未発問exemplar)。VOICEVOX実測で「堪えて」の
+    誤読(コタエテ→たえて)を1件補正。実VOICEVOX(speaker 3)で8/8音声合成
+    成功(約15.0MB)、容量forecast pass_with_warning、容量actual
+    pass_with_warning(CAPACITY_ACTUAL_PAGES_WARNING、他2作品と同型)。
+    atomic受入でWAV8件をaccepted-audio/002380/へ正式昇格、manifest
+    workProgress[002380].status: accepted。F009全3作品(瓶詰地獄4・きのこ
+    会議15・死後の恋8=計27候補承認)がaccepted、F008 published状態への
+    regressionなしを確認。tsc/eslint(該当ファイル)全PASS、vitest 66件
+    全PASS、trace_check.py対応漏れなし。次のアクションはT-187(最終Catalog
+    統合)。
 - id: T-187
   title: F009最終Catalog統合・固定v0.8.0回帰・公開tree候補を作成
   feature: F009
