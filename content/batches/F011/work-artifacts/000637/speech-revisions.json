@@ -1,0 +1,210 @@
+{
+  "batchId": "F011",
+  "kind": "f011-speech-revision-result",
+  "reconciliationDigest": "9c066451f7018e2e9a285b72f9eb33aeec4248c6feec87080a605771305c11a3",
+  "revisions": [
+    {
+      "after": "「人間はね、相手が狐だとわかると、手袋を売ってくれないんだよ、それどころか、つかまえておりの中へ入れちゃうんだよ、人間ってほんとにこわいものなんだよ」",
+      "before": "「人間はね、相手が狐だと解ると、手袋を売ってくれないんだよ、それどころか、つかまえておりの中へ入れちゃうんだよ、人間ってほんとにこわいものなんだよ」",
+      "candidateId": "ftDJusyIrnRLEVyUrIt3n9PpfeKuUnlcR4OO9jfUk-I",
+      "inputSha256": "fd42998f68afceaa29fe30deddd741559939f8a6906278172db1ab751c33e8c3",
+      "outputSha256": "c50fc3a3ebd6a5bd0282ac50d91822e9a3ab4ccf6c19c426507e442e316c958e",
+      "reason": "「解る」の多義誤読（ほどける→わかる）をVOICEVOX実合成で確認したための読み補正",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE",
+      "displayText": "「あっ」",
+      "revisionCount": 0,
+      "speechSha256": "bfc2bb6d84a85ab82f94fb82e8c788fbf3ee8660763cb5bb1b49fa3ddbc988a3",
+      "speechText": "「あっ」"
+    },
+    {
+      "candidateId": "mw21-LAn3K4a6VBRuBqkNYTqJXP4X9JOIFhL4EixZdc",
+      "displayText": "「母ちゃん、眼に何か刺さった、ぬいて頂戴早く早く」",
+      "revisionCount": 0,
+      "speechSha256": "02ec3c281b6c3477b132dab22f65250a275903ce3964e56b6b3837768daeefe6",
+      "speechText": "「母ちゃん、眼に何か刺さった、ぬいてちょうだい早く早く」"
+    },
+    {
+      "candidateId": "vR9HjYqh2A845czDsPxG5Kmj65OJP-RcZotgVl76k-4",
+      "displayText": "「お母ちゃん、お手々が冷たい、お手々がちんちんする」",
+      "revisionCount": 0,
+      "speechSha256": "378c756d64b6823fc3df4604275da2b4fa56810470be5bfc915f1e4046011da7",
+      "speechText": "「お母ちゃん、お手々が冷たい、お手々がちんちんする」"
+    },
+    {
+      "candidateId": "40vNeQxLfEe959N8Hb9Pbvdz4nBkXT2LV9EauXsacpM",
+      "displayText": "「もうすぐ暖くなるよ、雪をさわると、すぐ暖くなるもんだよ」",
+      "revisionCount": 0,
+      "speechSha256": "d00b7fd35edff4c7f3b22bff2162f6281a736c4f24143039edff06d30c614e1b",
+      "speechText": "「もうすぐあたたかくなるよ、雪をさわると、すぐ暖くなるもんだよ」"
+    },
+    {
+      "candidateId": "n3wTc_cJ1UkRTdZ4RI_puQ2zyeTMSqrjBW5bpoh-KrY",
+      "displayText": "「母ちゃん、お星さまは、あんな低いところにも落ちてるのねえ」",
+      "revisionCount": 0,
+      "speechSha256": "494765dd81dbba69dfff229ba2f2073fb8976b298b661951a976a17d4d981038",
+      "speechText": "「母ちゃん、お星さまは、あんな低いところにも落ちてるのねえ」"
+    },
+    {
+      "candidateId": "ZykH9kFpJ5XimBkcjJtM293ahdpkQ8rfi2BJjkr7Qgs",
+      "displayText": "「あれはお星さまじゃないのよ」",
+      "revisionCount": 0,
+      "speechSha256": "c38d286870345a78e3f2fa917e2f833b8e7b6af7d0646cfecf427eca7835187f",
+      "speechText": "「あれはお星さまじゃないのよ」"
+    },
+    {
+      "candidateId": "RgQxKXDTOtppZSOkKhwUJ9NqKreh8VZqgoluWvWStkQ",
+      "displayText": "「あれは町の灯なんだよ」",
+      "revisionCount": 0,
+      "speechSha256": "9e352710c683ee7ba5da0e4343cf8acf7ec62743512b114a942d6210372da571",
+      "speechText": "「あれは町のひなんだよ」"
+    },
+    {
+      "candidateId": "zaS8-dJtytASpCx5Dwi4RaQidNI7ParaFQmHWkQnGhQ",
+      "displayText": "「母ちゃん何してんの、早く行こうよ」",
+      "revisionCount": 0,
+      "speechSha256": "6578bba17df7b25d1bfdd172df2d5ce2a227f307142c9cf2aa448c68652f5631",
+      "speechText": "「母ちゃん何してんの、早く行こうよ」"
+    },
+    {
+      "candidateId": "li1UyhpnV1mxmnzhd1sLzlXU2aRU-mTgGXkP-9VZNWc",
+      "displayText": "「坊やお手々を片方お出し」",
+      "revisionCount": 0,
+      "speechSha256": "23ab7e9ca8ad3c71361fbfc192a923b34296689bed7f6739c7cecf1d7a2b1f42",
+      "speechText": "「坊やお手々を片方お出し」"
+    },
+    {
+      "candidateId": "TkTqmO1kwnBmteMaRYvpGgLRhqII_vJmZuQbxDNeikI",
+      "displayText": "「何だか変だな母ちゃん、これなあに？」",
+      "revisionCount": 0,
+      "speechSha256": "05ad50c95f526d82790f7a54e365b8aa726babbe3db1e703aa98f7eddf56feca",
+      "speechText": "「何だか変だな母ちゃん、これなあに？」"
+    },
+    {
+      "candidateId": "7EOBXy17IzuaIsABBs_hJwjwe0Af2O1w1XMusTHSbT8",
+      "displayText": "「それは人間の手よ。いいかい坊や、町へ行ったらね、たくさん人間の家があるからね、まず表に円いシャッポの看板のかかっている家を探すんだよ。それが見つかったらね、トントンと戸を叩いて、今晩はって言うんだよ。そうするとね、中から人間が、すこうし戸をあけるからね、その戸の隙間から、こっちの手、ほらこの人間の手をさし入れてね、この手にちょうどいい手袋頂戴って言うんだよ、わかったね、決して、こっちのお手々を出しちゃ駄目よ」",
+      "revisionCount": 0,
+      "speechSha256": "a345e2f49a414fd45ac67c3e6f7e1e4c0d258366349e83eb687b0e3d965c8779",
+      "speechText": "「それは人間の手よ。いいかい坊や、町へ行ったらね、たくさん人間の家があるからね、まず表にまるいシャッポの看板のかかっている家をさがすんだよ。それが見つかったらね、トントンと戸をたたいて、今晩はって言うんだよ。そうするとね、中から人間が、すこうし戸をあけるからね、その戸のすきまから、こっちの手、ほらこの人間の手をさし入れてね、この手にちょうどいい手袋頂戴って言うんだよ、わかったね、決して、こっちのお手々を出しちゃだめよ」"
+    },
+    {
+      "candidateId": "HAFV8JlBRL-U5dfdAgHZRZvYq7BaTC310iz8ix8yTxA",
+      "displayText": "「どうして？」",
+      "revisionCount": 0,
+      "speechSha256": "9caf5a323cbb60b8e748ff9828b5d5d9ae734d5b3f9f68357319a46d1003247a",
+      "speechText": "「どうして？」"
+    },
+    {
+      "candidateId": "ftDJusyIrnRLEVyUrIt3n9PpfeKuUnlcR4OO9jfUk-I",
+      "displayText": "「人間はね、相手が狐だと解ると、手袋を売ってくれないんだよ、それどころか、掴まえて檻の中へ入れちゃうんだよ、人間ってほんとに恐いものなんだよ」",
+      "revisionCount": 1,
+      "speechSha256": "c50fc3a3ebd6a5bd0282ac50d91822e9a3ab4ccf6c19c426507e442e316c958e",
+      "speechText": "「人間はね、相手が狐だとわかると、手袋を売ってくれないんだよ、それどころか、つかまえておりの中へ入れちゃうんだよ、人間ってほんとにこわいものなんだよ」"
+    },
+    {
+      "candidateId": "-AKPJG_qJ_hpRcVq8Dj6FYJpNpJGWHHoLPYVSM2SJkg",
+      "displayText": "「ふーん」",
+      "revisionCount": 0,
+      "speechSha256": "2dac65157d8b2f6be0ee63d1ed49f517b87d3c8c9533eb4def1bcaf8d7fe8e21",
+      "speechText": "「ふーん」"
+    },
+    {
+      "candidateId": "ow6ymTB3ZHo6U5NDMDBYErpj3ffO_B2JoaBrPfx3wkk",
+      "displayText": "「決して、こっちの手を出しちゃいけないよ、こっちの方、ほら人間の手の方をさしだすんだよ」",
+      "revisionCount": 0,
+      "speechSha256": "676acd1a15e5a3075a07b040f5d65ea13f6cda5b97bedfc0e52050628bbbc844",
+      "speechText": "「決して、こっちの手を出しちゃいけないよ、こっちの方、ほら人間の手の方をさしだすんだよ」"
+    },
+    {
+      "candidateId": "B_zQKKzsnPyqnGrj45U2I6euoyc8nQ6XdnNWkix_lio",
+      "displayText": "「今晩は」",
+      "revisionCount": 0,
+      "speechSha256": "061eae8019458b12d430378c49c20707b1a77da7e467ef943c3d54cf09ee0333",
+      "speechText": "「今晩は」"
+    },
+    {
+      "candidateId": "TrFZz-2MnvJTHgMJYkHabDA1Cfz0BCt_Tf-oE_4aDfQ",
+      "displayText": "「このお手々にちょうどいい手袋下さい」",
+      "revisionCount": 0,
+      "speechSha256": "a8660ed841840e00886e9e04cc7449f9591c394487b38853bcafed504d38ca25",
+      "speechText": "「このお手々にちょうどいい手袋下さい」"
+    },
+    {
+      "candidateId": "0ewXFAqfLg1ataLXbzEylQhfmcUUYyr5OkA9wAMmEm0",
+      "displayText": "「先にお金を下さい」",
+      "revisionCount": 0,
+      "speechSha256": "bf238697df44ee66d18d1ff44afcb138294962c4ac0e6217c7d77a6d299d9af7",
+      "speechText": "「先にお金を下さい」"
+    },
+    {
+      "candidateId": "Nsfd_GrB7hZam_okVU1nj26_0_iGbMIEek1mVfkbhOM",
+      "displayText": "「お母さんは、人間は恐ろしいものだって仰有ったがちっとも恐ろしくないや。だって僕の手を見てもどうもしなかったもの」",
+      "revisionCount": 0,
+      "speechSha256": "3510c00247e932bcd2eeea73ddbae1b1c9e4632555cb75772febd2ab65efa2da",
+      "speechText": "「お母さんは、人間は恐ろしいものだっておっしゃったがちっとも恐ろしくないや。だって僕の手を見てもどうもしなかったもの」"
+    },
+    {
+      "candidateId": "EhWpjtcEx9-6yXLK_Nfa4JN5nf-53Pa8nG0V7dAdnoU",
+      "displayText": "「ねむれ　ねむれ\n\n母の胸に、\n\nねむれ　ねむれ\n\n母の手に――」",
+      "revisionCount": 0,
+      "speechSha256": "ada311d3f5876df6d83ef63dd438b50f5efa2885a8093bc8c7bdcc43cd367f39",
+      "speechText": "「ねむれ ねむれ 母の胸に、 ねむれ ねむれ 母の手に――」"
+    },
+    {
+      "candidateId": "s2VM09gSkgIKBDvBq8afYVAfeX-rdgy2cGBFnlWkN54",
+      "displayText": "「母ちゃん、こんな寒い夜は、森の子狐は寒い寒いって啼いてるでしょうね」",
+      "revisionCount": 0,
+      "speechSha256": "a9afeefd64ff54347d83cda573949a65421a99ef8f9fb500bb53da8aeb0f7e33",
+      "speechText": "「母ちゃん、こんな寒い夜は、森の子狐は寒い寒いってないてるでしょうね」"
+    },
+    {
+      "candidateId": "uxtq6pEQASXLjqzjJkD9FAi7a2fl0vbIB3w2PuvZ2dc",
+      "displayText": "「森の子狐もお母さん狐のお唄をきいて、洞穴の中で眠ろうとしているでしょうね。さあ坊やも早くねんねしなさい。森の子狐と坊やとどっちが早くねんねするか、きっと坊やの方が早くねんねしますよ」",
+      "revisionCount": 0,
+      "speechSha256": "3a83b531d777203714fc70c2085cba9418384ee3582ba20aab19e3d602c866db",
+      "speechText": "「森の子狐もお母さん狐のお唄をきいて、ほらあなの中で眠ろうとしているでしょうね。さあ坊やも早くねんねしなさい。森の子狐と坊やとどっちが早くねんねするか、きっと坊やの方が早くねんねしますよ」"
+    },
+    {
+      "candidateId": "Cb8hfmqwmKYHReOnFcMEuCAxiyvmelIuzyB601zaHU4",
+      "displayText": "「母ちゃん、人間ってちっとも恐かないや」",
+      "revisionCount": 0,
+      "speechSha256": "3b326b14a8488b4aebb9ec8f69446d4956698c641b985e722bd7e4009e5cb7af",
+      "speechText": "「母ちゃん、人間ってちっともこわかないや」"
+    },
+    {
+      "candidateId": "g181jNLOhawOgDYAG3HKedtSKxkmwnt4QQXYcrVGC5w",
+      "displayText": "「どうして？」",
+      "revisionCount": 0,
+      "speechSha256": "9caf5a323cbb60b8e748ff9828b5d5d9ae734d5b3f9f68357319a46d1003247a",
+      "speechText": "「どうして？」"
+    },
+    {
+      "candidateId": "_8fMou8DkAZMHLZA38LQJmXjpk5og6y3-oqooes5HEo",
+      "displayText": "「坊、間違えてほんとうのお手々出しちゃったの。でも帽子屋さん、掴まえやしなかったもの。ちゃんとこんないい暖い手袋くれたもの」",
+      "revisionCount": 0,
+      "speechSha256": "9b4746192b58998921c6f9bf8dab99b4ca756a3a462b9438a3623f86c44bdc9c",
+      "speechText": "「坊、間違えてほんとうのお手々出しちゃったの。でも帽子屋さん、つかまえやしなかったもの。ちゃんとこんないい暖い手袋くれたもの」"
+    },
+    {
+      "candidateId": "F52jZlq_4AdRBetVFiosua6cvF4X7IDE9IEeex3_NFA",
+      "displayText": "「まあ！」",
+      "revisionCount": 0,
+      "speechSha256": "284beaf6a1b839275b833b4a200a7b5cda0e23599dbbe285e3234cbf3d2d687c",
+      "speechText": "「まあ！」"
+    },
+    {
+      "candidateId": "mVjlRRzVBSGqNGf2DiMtTaxqyoKThIMwn0eesdF5dwo",
+      "displayText": "「ほんとうに人間はいいものかしら。ほんとうに人間はいいものかしら」",
+      "revisionCount": 0,
+      "speechSha256": "5c69d2490e935b14dc9b6f5abca642356ecc0c986840633580338f78796fec9a",
+      "speechText": "「ほんとうに人間はいいものかしら。ほんとうに人間はいいものかしら」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000637"
+}

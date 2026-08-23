@@ -1,0 +1,510 @@
+{
+  "batchId": "F011",
+  "configPath": "content/batches/F011/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 7889464,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F011",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de",
+    "minimumFreeBytesAfterWrite": 374998328,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 691697049,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "d8f449464815f5bf54d2b85353e36db1fd535e3be75f601e7d6033ff19401a50",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104857600,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "23593080a7d0b1471e72a2d3fe7fe6f5959332d2",
+        "32c95e1e1e09383df946c4a4af86a4f084cb8516",
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae"
+      ],
+      "includedPaths": [
+        "content/batches/F011/batch.json",
+        "content/batches/F011/reviews/000637.json",
+        "content/batches/F011/work-artifacts/000637/candidates.json",
+        "content/batches/F011/work-artifacts/000637/review-reconciliation.json",
+        "content/batches/F011/work-artifacts/000637/reviews/primary.json",
+        "content/batches/F011/work-artifacts/000637/reviews/secondary.json",
+        "content/batches/F011/work-artifacts/000637/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f011-prepare-editorial.ts",
+        "scripts/f011-prepare-voice.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "23593080a7d0b1471e72a2d3fe7fe6f5959332d2",
+        "32c95e1e1e09383df946c4a4af86a4f084cb8516",
+        "bf7f8f7d93e241874c48f75b8c0ab400972d94ae"
+      ],
+      "includedPaths": [
+        "content/batches/F011/batch.json",
+        "content/batches/F011/reviews/000637.json",
+        "content/batches/F011/work-artifacts/000637/candidates.json",
+        "content/batches/F011/work-artifacts/000637/review-reconciliation.json",
+        "content/batches/F011/work-artifacts/000637/reviews/primary.json",
+        "content/batches/F011/work-artifacts/000637/reviews/secondary.json",
+        "content/batches/F011/work-artifacts/000637/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f011-prepare-editorial.ts",
+        "scripts/f011-prepare-voice.ts"
+      ],
+      "measuredBytes": 487507709,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 70954143744,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 374998328
+    },
+    "workId": "000637"
+  },
+  "kind": "f011-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 0,
+    "acceptedAudioFiles": 0,
+    "currentPagesBytes": 541697049,
+    "currentPagesFiles": 1292,
+    "freeBytes": 70954143744,
+    "liveWriteUpperBounds": 157889464,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1378527,
+    "rollbackBackupBytes": 150000000
+  },
+  "plan": {
+    "batchId": "F011",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 27,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "02868b68fee31f3d0827cbd972d8c791ee591840af04bc2b038020988149575a",
+        "candidateIds": [
+          "Cb8hfmqwmKYHReOnFcMEuCAxiyvmelIuzyB601zaHU4"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02868b68fee31f3d0827cbd972d8c791ee591840af04bc2b038020988149575a.json",
+        "status": "miss",
+        "text": "「母ちゃん、人間ってちっともこわかないや」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02868b68fee31f3d0827cbd972d8c791ee591840af04bc2b038020988149575a.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "21bf3dc5f5e57d4ea0e9579887ab441e0cb582c2f69d03fddb734e97f31ebe19",
+        "candidateIds": [
+          "mVjlRRzVBSGqNGf2DiMtTaxqyoKThIMwn0eesdF5dwo"
+        ],
+        "estimatedBytes": 285164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/21bf3dc5f5e57d4ea0e9579887ab441e0cb582c2f69d03fddb734e97f31ebe19.json",
+        "status": "miss",
+        "text": "「ほんとうに人間はいいものかしら。ほんとうに人間はいいものかしら」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/21bf3dc5f5e57d4ea0e9579887ab441e0cb582c2f69d03fddb734e97f31ebe19.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "2eb08020e7300692ef1605586ec8609a1d4576235d31e1e39b50354926b1ecd2",
+        "candidateIds": [
+          "ow6ymTB3ZHo6U5NDMDBYErpj3ffO_B2JoaBrPfx3wkk"
+        ],
+        "estimatedBytes": 380204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2eb08020e7300692ef1605586ec8609a1d4576235d31e1e39b50354926b1ecd2.json",
+        "status": "miss",
+        "text": "「決して、こっちの手を出しちゃいけないよ、こっちの方、ほら人間の手の方をさしだすんだよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2eb08020e7300692ef1605586ec8609a1d4576235d31e1e39b50354926b1ecd2.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "3fe17e45ecab19a0686e65dbffdd039ad734817a0be84b13b929bf663783d763",
+        "candidateIds": [
+          "mw21-LAn3K4a6VBRuBqkNYTqJXP4X9JOIFhL4EixZdc"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3fe17e45ecab19a0686e65dbffdd039ad734817a0be84b13b929bf663783d763.json",
+        "status": "miss",
+        "text": "「母ちゃん、眼に何か刺さった、ぬいてちょうだい早く早く」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3fe17e45ecab19a0686e65dbffdd039ad734817a0be84b13b929bf663783d763.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "459292870e0c39410895e417cab0332ae9d0afae5cd42df961dfa43a76e9535c",
+        "candidateIds": [
+          "ftDJusyIrnRLEVyUrIt3n9PpfeKuUnlcR4OO9jfUk-I"
+        ],
+        "estimatedBytes": 648044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/459292870e0c39410895e417cab0332ae9d0afae5cd42df961dfa43a76e9535c.json",
+        "status": "miss",
+        "text": "「人間はね、相手が狐だとわかると、手袋を売ってくれないんだよ、それどころか、つかまえておりの中へ入れちゃうんだよ、人間ってほんとにこわいものなんだよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/459292870e0c39410895e417cab0332ae9d0afae5cd42df961dfa43a76e9535c.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "4d8a840d3ac98076d98a66cfe53019b99baa75865f326e65ebb9dfaeb3b47fd5",
+        "candidateIds": [
+          "EhWpjtcEx9-6yXLK_Nfa4JN5nf-53Pa8nG0V7dAdnoU"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4d8a840d3ac98076d98a66cfe53019b99baa75865f326e65ebb9dfaeb3b47fd5.json",
+        "status": "miss",
+        "text": "「ねむれ ねむれ 母の胸に、 ねむれ ねむれ 母の手に――」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4d8a840d3ac98076d98a66cfe53019b99baa75865f326e65ebb9dfaeb3b47fd5.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "64fa5e86a3cb5bda6ce8a309cef9a1ffbbf44660b11c0b504ccd3c29aaaf952e",
+        "candidateIds": [
+          "-AKPJG_qJ_hpRcVq8Dj6FYJpNpJGWHHoLPYVSM2SJkg"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64fa5e86a3cb5bda6ce8a309cef9a1ffbbf44660b11c0b504ccd3c29aaaf952e.json",
+        "status": "miss",
+        "text": "「ふーん」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/64fa5e86a3cb5bda6ce8a309cef9a1ffbbf44660b11c0b504ccd3c29aaaf952e.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "747d91753d204681385049b42fc3b3f6b04b048d95c209e22dc1b5b27b33bb2a",
+        "candidateIds": [
+          "B_zQKKzsnPyqnGrj45U2I6euoyc8nQ6XdnNWkix_lio"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/747d91753d204681385049b42fc3b3f6b04b048d95c209e22dc1b5b27b33bb2a.json",
+        "status": "miss",
+        "text": "「今晩は」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/747d91753d204681385049b42fc3b3f6b04b048d95c209e22dc1b5b27b33bb2a.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "7f89d6e3de7c36bf64e9c02dfa4c596ab784aa8eb9190bf323ee54160179c96e",
+        "candidateIds": [
+          "HAFV8JlBRL-U5dfdAgHZRZvYq7BaTC310iz8ix8yTxA",
+          "g181jNLOhawOgDYAG3HKedtSKxkmwnt4QQXYcrVGC5w"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f89d6e3de7c36bf64e9c02dfa4c596ab784aa8eb9190bf323ee54160179c96e.json",
+        "status": "miss",
+        "text": "「どうして？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7f89d6e3de7c36bf64e9c02dfa4c596ab784aa8eb9190bf323ee54160179c96e.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "8321e4e51ca21ba22f1513879b69a000cbf610e4000423278c8cd0972b8ae410",
+        "candidateIds": [
+          "0ewXFAqfLg1ataLXbzEylQhfmcUUYyr5OkA9wAMmEm0"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8321e4e51ca21ba22f1513879b69a000cbf610e4000423278c8cd0972b8ae410.json",
+        "status": "miss",
+        "text": "「先にお金を下さい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8321e4e51ca21ba22f1513879b69a000cbf610e4000423278c8cd0972b8ae410.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "8dc784bf5c0026e88a427c43ac527574a8f281d7c5a5e5ae7ad1af7b09e36d52",
+        "candidateIds": [
+          "zaS8-dJtytASpCx5Dwi4RaQidNI7ParaFQmHWkQnGhQ"
+        ],
+        "estimatedBytes": 155564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8dc784bf5c0026e88a427c43ac527574a8f281d7c5a5e5ae7ad1af7b09e36d52.json",
+        "status": "miss",
+        "text": "「母ちゃん何してんの、早く行こうよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8dc784bf5c0026e88a427c43ac527574a8f281d7c5a5e5ae7ad1af7b09e36d52.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "994e45e964dd306b2015a40adf2d52180dec1b1a60b5748e0a2b5fd53004d347",
+        "candidateIds": [
+          "_8fMou8DkAZMHLZA38LQJmXjpk5og6y3-oqooes5HEo"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/994e45e964dd306b2015a40adf2d52180dec1b1a60b5748e0a2b5fd53004d347.json",
+        "status": "miss",
+        "text": "「坊、間違えてほんとうのお手々出しちゃったの。でも帽子屋さん、つかまえやしなかったもの。ちゃんとこんないい暖い手袋くれたもの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/994e45e964dd306b2015a40adf2d52180dec1b1a60b5748e0a2b5fd53004d347.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "a2866e1bb727b00760f2eb3aed40b05b7d3f40d21b106ce1978097d3bbb68040",
+        "candidateIds": [
+          "TkTqmO1kwnBmteMaRYvpGgLRhqII_vJmZuQbxDNeikI"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2866e1bb727b00760f2eb3aed40b05b7d3f40d21b106ce1978097d3bbb68040.json",
+        "status": "miss",
+        "text": "「何だか変だな母ちゃん、これなあに？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a2866e1bb727b00760f2eb3aed40b05b7d3f40d21b106ce1978097d3bbb68040.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "b449aa8aef9ac131bb9f9f5a38020e044a200fcb6698464a1e80344a4f6d072f",
+        "candidateIds": [
+          "F52jZlq_4AdRBetVFiosua6cvF4X7IDE9IEeex3_NFA"
+        ],
+        "estimatedBytes": 43244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b449aa8aef9ac131bb9f9f5a38020e044a200fcb6698464a1e80344a4f6d072f.json",
+        "status": "miss",
+        "text": "「まあ！」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b449aa8aef9ac131bb9f9f5a38020e044a200fcb6698464a1e80344a4f6d072f.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "b477949e9ffb65cfb717f659379b07fc6ca52bf9afae0ab3aa351a28919bb17b",
+        "candidateIds": [
+          "uxtq6pEQASXLjqzjJkD9FAi7a2fl0vbIB3w2PuvZ2dc"
+        ],
+        "estimatedBytes": 812204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b477949e9ffb65cfb717f659379b07fc6ca52bf9afae0ab3aa351a28919bb17b.json",
+        "status": "miss",
+        "text": "「森の子狐もお母さん狐のお唄をきいて、ほらあなの中で眠ろうとしているでしょうね。さあ坊やも早くねんねしなさい。森の子狐と坊やとどっちが早くねんねするか、きっと坊やの方が早くねんねしますよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b477949e9ffb65cfb717f659379b07fc6ca52bf9afae0ab3aa351a28919bb17b.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "b7bb7dec704759efd6e978473fbdf1b1f532514f6b4966e06362b07de33a94b3",
+        "candidateIds": [
+          "40vNeQxLfEe959N8Hb9Pbvdz4nBkXT2LV9EauXsacpM"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7bb7dec704759efd6e978473fbdf1b1f532514f6b4966e06362b07de33a94b3.json",
+        "status": "miss",
+        "text": "「もうすぐあたたかくなるよ、雪をさわると、すぐ暖くなるもんだよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b7bb7dec704759efd6e978473fbdf1b1f532514f6b4966e06362b07de33a94b3.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "c59522b78a4feef99c4f4bbb2db7088f0b154d5d83beb5ad2c578d232f5cf4d0",
+        "candidateIds": [
+          "vR9HjYqh2A845czDsPxG5Kmj65OJP-RcZotgVl76k-4"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c59522b78a4feef99c4f4bbb2db7088f0b154d5d83beb5ad2c578d232f5cf4d0.json",
+        "status": "miss",
+        "text": "「お母ちゃん、お手々が冷たい、お手々がちんちんする」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c59522b78a4feef99c4f4bbb2db7088f0b154d5d83beb5ad2c578d232f5cf4d0.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "c5d34a19495c7852ab6694e6dc51ff89e0cf6c1dec087004fdb114632136196c",
+        "candidateIds": [
+          "ZykH9kFpJ5XimBkcjJtM293ahdpkQ8rfi2BJjkr7Qgs"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c5d34a19495c7852ab6694e6dc51ff89e0cf6c1dec087004fdb114632136196c.json",
+        "status": "miss",
+        "text": "「あれはお星さまじゃないのよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c5d34a19495c7852ab6694e6dc51ff89e0cf6c1dec087004fdb114632136196c.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "c6c8a56f6e888001bd87254344ea5343bbb73948a9d93a038b8448bb29030798",
+        "candidateIds": [
+          "RgQxKXDTOtppZSOkKhwUJ9NqKreh8VZqgoluWvWStkQ"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c6c8a56f6e888001bd87254344ea5343bbb73948a9d93a038b8448bb29030798.json",
+        "status": "miss",
+        "text": "「あれは町のひなんだよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c6c8a56f6e888001bd87254344ea5343bbb73948a9d93a038b8448bb29030798.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192",
+        "candidateIds": [
+          "PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.json",
+        "status": "miss",
+        "text": "「あっ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "d8d74b89afdbf199b06481f1a9dd13622ffabd1ed6615ea519ecafb4a014f400",
+        "candidateIds": [
+          "s2VM09gSkgIKBDvBq8afYVAfeX-rdgy2cGBFnlWkN54"
+        ],
+        "estimatedBytes": 302444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d8d74b89afdbf199b06481f1a9dd13622ffabd1ed6615ea519ecafb4a014f400.json",
+        "status": "miss",
+        "text": "「母ちゃん、こんな寒い夜は、森の子狐は寒い寒いってないてるでしょうね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d8d74b89afdbf199b06481f1a9dd13622ffabd1ed6615ea519ecafb4a014f400.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "dc0ed9adcb9c143358e44844678b7479ee7d675be3d49b8565ddbc59101dd30a",
+        "candidateIds": [
+          "Nsfd_GrB7hZam_okVU1nj26_0_iGbMIEek1mVfkbhOM"
+        ],
+        "estimatedBytes": 509804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc0ed9adcb9c143358e44844678b7479ee7d675be3d49b8565ddbc59101dd30a.json",
+        "status": "miss",
+        "text": "「お母さんは、人間は恐ろしいものだっておっしゃったがちっとも恐ろしくないや。だって僕の手を見てもどうもしなかったもの」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dc0ed9adcb9c143358e44844678b7479ee7d675be3d49b8565ddbc59101dd30a.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "e3946fa936747ff96827ada64f4f7ebb1f7e24058980bb041dd14ff47fc63468",
+        "candidateIds": [
+          "li1UyhpnV1mxmnzhd1sLzlXU2aRU-mTgGXkP-9VZNWc"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3946fa936747ff96827ada64f4f7ebb1f7e24058980bb041dd14ff47fc63468.json",
+        "status": "miss",
+        "text": "「坊やお手々を片方お出し」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3946fa936747ff96827ada64f4f7ebb1f7e24058980bb041dd14ff47fc63468.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "e75fc92c7559b3e33e4a18e8c768a071c817ae2ec8e18e7c0acc83f9c0022762",
+        "candidateIds": [
+          "TrFZz-2MnvJTHgMJYkHabDA1Cfz0BCt_Tf-oE_4aDfQ"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e75fc92c7559b3e33e4a18e8c768a071c817ae2ec8e18e7c0acc83f9c0022762.json",
+        "status": "miss",
+        "text": "「このお手々にちょうどいい手袋下さい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e75fc92c7559b3e33e4a18e8c768a071c817ae2ec8e18e7c0acc83f9c0022762.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "ed0f4f24bacea09effd47964069eac67617e0beb196b6d7523c5c709ff6ff586",
+        "candidateIds": [
+          "7EOBXy17IzuaIsABBs_hJwjwe0Af2O1w1XMusTHSbT8"
+        ],
+        "estimatedBytes": 1823084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed0f4f24bacea09effd47964069eac67617e0beb196b6d7523c5c709ff6ff586.json",
+        "status": "miss",
+        "text": "「それは人間の手よ。いいかい坊や、町へ行ったらね、たくさん人間の家があるからね、まず表にまるいシャッポの看板のかかっている家をさがすんだよ。それが見つかったらね、トントンと戸をたたいて、今晩はって言うんだよ。そうするとね、中から人間が、すこうし戸をあけるからね、その戸のすきまから、こっちの手、ほらこの人間の手をさし入れてね、この手にちょうどいい手袋頂戴って言うんだよ、わかったね、決して、こっちのお手々を出しちゃだめよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed0f4f24bacea09effd47964069eac67617e0beb196b6d7523c5c709ff6ff586.wav",
+        "workIds": [
+          "000637"
+        ]
+      },
+      {
+        "audioId": "ed94c351f6f13b77dc8719a62a6bcbbf9d62ad42914ea3d104278517f6cbe9c6",
+        "candidateIds": [
+          "n3wTc_cJ1UkRTdZ4RI_puQ2zyeTMSqrjBW5bpoh-KrY"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed94c351f6f13b77dc8719a62a6bcbbf9d62ad42914ea3d104278517f6cbe9c6.json",
+        "status": "miss",
+        "text": "「母ちゃん、お星さまは、あんな低いところにも落ちてるのねえ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ed94c351f6f13b77dc8719a62a6bcbbf9d62ad42914ea3d104278517f6cbe9c6.wav",
+        "workIds": [
+          "000637"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 7889464,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 26,
+    "planDigest": "d8f449464815f5bf54d2b85353e36db1fd535e3be75f601e7d6033ff19401a50",
+    "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 26,
+    "workId": "000637"
+  },
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "schemaVersion": "1.0.0",
+  "workId": "000637"
+}
