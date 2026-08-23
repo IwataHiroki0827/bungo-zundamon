@@ -5074,13 +5074,32 @@ tasks:
   title: 候補manifest・固定v0.9.0 baseline・作者identity・権利原典を整備
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-192
   tags: *id010
   mode: advisor
   mode_reason: baseline pin・candidate manifest・権利原典取得を単一の逐次integrity chainとして扱うため
   model: *model_f010
+  progress: >-
+    完了。src/content/f010-baseline.ts(+test 10件、F009公開証跡から実測
+    転記したv0.9.0固定pins)、content/batch-definitions・approval-policies/
+    F010.json、batch-candidate.tsへのF010 registry追加、src/content/
+    f010-source.ts(defineF010AuthorAndWorkRegistry・collectF010SourceSnapshot・
+    normalizeF010AozoraXhtmlEntities・extractF010DialogueCandidates・
+    detectF010GaijiElements・evaluateF010RightsAndUsage・
+    persistF010SourceSnapshot、+test 15件)を実装し、scripts/
+    f010-collect-source.tsで檸檬・Ｋの昇天・愛撫の原典・書誌・VOICEVOX/
+    ずんだもん規約を実HTTPS取得(rights.decision: allow確認、raw XHTML
+    SHA-256がDOMAIN-F010.md期待値と完全一致)。実測候補数38件(檸檬8・
+    Ｋの昇天21・愛撫9)、未定義entity0件、gaiji検出は檸檬1件(候補外)・他
+    0件でDOMAIN-F010.md期待値と完全一致。DD-F010.mdの明示指示どおり長大
+    候補分割関数は複製せず(実測最大候補長135文字、合成601文字fixtureでも
+    非分割を回帰確認)。content/batch-candidates.jsonへF010 candidate登録、
+    docs/evidence/requirements/F010-approval-binding.jsonをmint、scripts/
+    f010-init-batch.tsでdraft content/batches/F010/batch.json(status:
+    draft)を生成した。tsc/eslint全PASS、vitest 25件全PASS、trace_check.py
+    対応漏れなし。
 - id: T-194
   title: Catalog統合基盤・梶井基次郎作者画像を整備
   feature: F010
