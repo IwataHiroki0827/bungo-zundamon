@@ -4714,3 +4714,149 @@ tasks:
     docs/evidence/release/{RELEASE-F008.md,F008-approval.json,
     F008-deployment.json,F008-smoke.json}を実データで作成。
     PAGES_DEPLOY_ENABLEDをfalseへ復帰、tag v0.8.0をrelease commitへpush済み。
+- id: T-179
+  title: 機能設計書(FD-F009)を作成しREQ全19件を夢野久作追加設計へ展開
+  feature: F009
+  phase: design
+  state: todo
+  depends:
+  - T-178
+  tags: &id009
+  - REQ-F009-001
+  - REQ-F009-002
+  - REQ-F009-003
+  - REQ-F009-004
+  - REQ-F009-005
+  - REQ-F009-006
+  - REQ-F009-007
+  - REQ-F009-008
+  - REQ-F009-009
+  - REQ-F009-010
+  - REQ-F009-011
+  - REQ-F009-012
+  - REQ-F009-013
+  - REQ-F009-014
+  - REQ-F009-015
+  - REQ-F009-016
+  - REQ-F009-017
+  - REQ-F009-018
+  - REQ-F009-019
+  mode: advisor
+  mode_reason: 固定v0.8.0 baselineと汎用batchパイプライン再利用範囲・F009固有差分(瓶詰地獄・死後の恋2作品同時の作品固有注記UI再適用、死後の恋の長大候補分割の実適用、外字検出を無効化せず常時有効のまま維持する方針)を単一FDで一貫させる逐次設計のため
+  model: &model_f009
+    lead: opus
+    workers: sonnet
+- id: T-180
+  title: 関数設計書(DD-F009)を作成しデータ・関数・状態遷移契約へ展開
+  feature: F009
+  phase: design
+  state: todo
+  depends:
+  - T-179
+  tags: *id009
+  mode: advisor
+  mode_reason: FDの汎用pipeline再利用境界とF009固有入力(新規作者・2作品同時注記UI再適用・独立二重判定・長大候補分割の実適用・外字検出常時有効)を関数単位で確定するため
+  model: *model_f009
+- id: T-181
+  title: UT-F009・IT-F009を作成しQT-F009との網羅性を確認
+  feature: F009
+  phase: testspec
+  state: todo
+  depends:
+  - T-180
+  tags: *id009
+  mode: orchestration
+  mode_reason: 権利・原典entity/外字検出・独立二重判定・音声・容量・Catalog・2作品同時注記UI・長大候補分割・セキュリティの独立試験領域を並列設計できるため
+  model: *model_f009
+- id: T-182
+  title: 候補manifest・固定v0.8.0 baseline・作者identity・権利原典を整備
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-181
+  tags: *id009
+  mode: advisor
+  mode_reason: baseline pin・candidate manifest・権利原典取得を単一の逐次integrity chainとして扱うため
+  model: *model_f009
+- id: T-183
+  title: Catalog統合基盤・夢野久作作者画像・2作品分の注記registry・長大候補分割ヘルパーを整備
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-182
+  tags: *id009
+  mode: advisor
+  mode_reason: 作者画像生成(ComfyUI、queue空き確認後に実行)・Catalog統合・注記registry・分割ヘルパーが相互に参照する単一基盤整備のため
+  model: *model_f009
+- id: T-184
+  title: 瓶詰地獄を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-183
+  tags: *id009
+  mode: orchestration
+  mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
+  model: *model_f009
+- id: T-185
+  title: きのこ会議を抽出・二重レビュー・音声化・atomic受入
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-184
+  tags: *id009
+  mode: orchestration
+  mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため(作品固有注記UI対象外のため最小構成)
+  model: *model_f009
+- id: T-186
+  title: 死後の恋を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-185
+  tags: *id009
+  mode: orchestration
+  mode_reason: 抽出・独立二重判定・長大候補分割(REQ-F009-019実適用)・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
+  model: *model_f009
+- id: T-187
+  title: F009最終Catalog統合・固定v0.8.0回帰・公開tree候補を作成
+  feature: F009
+  phase: implement
+  state: todo
+  depends:
+  - T-186
+  tags: *id009
+  mode: advisor
+  mode_reason: 3作品累積結合・既存8作者不変確認・公開tree候補生成を単一の逐次exact差分判定として扱うため
+  model: *model_f009
+- id: T-188
+  title: F009 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
+  feature: F009
+  phase: test
+  state: todo
+  depends:
+  - T-187
+  tags: *id009
+  mode: orchestration
+  mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。F007で専用author route e2e specの欠落が事後発見された反省を踏まえ、本タスクで最初からtests/e2e/f009-yumeno-author.spec.tsを作成する
+  model: *model_f009
+- id: T-189
+  title: F009リリース前総点検・GitHub Pages段階公開・公開スモーク
+  feature: F009
+  phase: release
+  state: todo
+  depends:
+  - T-188
+  tags:
+  - REQ-F009-016
+  - REQ-F009-017
+  - REQ-F009-018
+  - REQ-F009-019
+  mode: advisor
+  mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f009
