@@ -5348,13 +5348,28 @@ tasks:
   title: UT-F011・IT-F011を作成しQT-F011との網羅性を確認
   feature: F011
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-202
   tags: *id011
   mode: orchestration
   mode_reason: 権利・原典entity/外字検出・独立二重判定・音声・容量・Catalog・セキュリティの独立試験領域を並列設計できるため
   model: *model_f011
+  progress: >-
+    完了。docs/tests/ut/UT-F011.md(UT 18件、DD-F011.md FUN全18件を網羅、
+    8件は既存F00N testを引用のみ・10件を新規作成)・docs/tests/it/
+    IT-F011.md(IT 11件、DES-F011-001〜015全件を網羅)を作成した。F011
+    固有の実データを反映した3点: (1)公式表現注意の不在確認(F010に続き
+    2例目のnegativeケース)、(2)長大候補分割ロジック自体が存在しない
+    ことのモジュール構造レベル確認(実測228文字・合成600文字超fixture
+    双方で非分割を確認、加えてsplit関数自体が存在しないことも確認)、
+    (3)二ひきの蛙の校正者2名併記に対応するproofreader複数値schema
+    (単一値・複数値を同一schemaで扱う)の新規テストケース。gaiji検出は
+    3作品とも0件(初の全作品該当なしケース)の回帰確認、artwork
+    lower-bound<9、route13件・v0.10.0 baseline pinsの実値反映も確認。
+    trace_check.py(feature指定なし全件)は対応漏れなし。承認ゲート③
+    自動承認、SRS/FD/DD/UT/IT/QT-F011が全てApproved。次のアクションは
+    pf-implement(T-204以降)。
 - id: T-204
   title: 候補manifest・固定v0.10.0 baseline・作者identity・権利原典を整備
   feature: F011
