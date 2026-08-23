@@ -1,0 +1,104 @@
+{
+  "header": {
+    "artifactSha256": "6b6b17586a4e392906eeeef3e6bd2d3bb2072c8d1b42cdb16c3b85d3a1b81dd5",
+    "authorizationId": "f008-057193-secondary",
+    "candidateSetSha256": "6fe1d6c9193f8380081c628e79d8bcf83d06795af77a01098f64d90f40b30292",
+    "policySha256": "c26b45895c2c205a635fb29e002e71723882dadef482ce49ca223592b6c64d3b",
+    "promptSha256": "7192872c2563cf8c86714517efa5317594a8144eca1c192ec812d67c090eaa20",
+    "role": "secondary",
+    "runId": "f008-057193-secondary-run",
+    "sealedAt": "2026-08-23T02:05:01.000Z",
+    "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+  },
+  "judgments": [
+    {
+      "candidateId": "3j7wXvV7lzpyGuHePV7j8KCOJVFr55FqbEOEGZrk6gM",
+      "decision": "approved",
+      "inputSha256": "853be3e27376027063e2782db9d66fb67fc56801ec7a07f357e4a1ae5f7a98b1",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1194-1203",
+      "speaker": "細君"
+    },
+    {
+      "candidateId": "kpQC08KuNbBPxXcndbaUyaP7tqyHqJcuHg7v4QAT3Ks",
+      "decision": "approved",
+      "inputSha256": "3cd9bb12efd567dcba3af1f4404a6f89538ae9863176a6bc65113d8c4804755b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2122-2153",
+      "speaker": "細君"
+    },
+    {
+      "candidateId": "3q0tyW0xcFg94rbdSsplTWvz4vzXQdrfbYfsy44PJQg",
+      "decision": "approved",
+      "inputSha256": "e963d7806d8116aded097c7a0f96d3884170c561d14dc11b50f80775fe5702a1",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2181-2198",
+      "speaker": "Ｔ"
+    },
+    {
+      "candidateId": "wWGbmaSUkCgtrDnXLVLJFpLbtMNoKoNM1MVV8Om9ulI",
+      "decision": "approved",
+      "inputSha256": "1a8dfd0072ceb6a620ad728e8b14a02126cfc9c13e64ca0776937b2f8b733127",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2216-2221",
+      "speaker": "細君"
+    },
+    {
+      "candidateId": "0714WrTG7AU6IDjB3zHS3eFtrj3LC8Im4KPniV2TRTs",
+      "decision": "approved",
+      "inputSha256": "d3d4a85a2690c2ae7dec3e591917449da544137291dbe94c54f80f080bdc8fbd",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2229-2258",
+      "speaker": "細君"
+    },
+    {
+      "candidateId": "6U_FZHeFuXXDsFhoZR_tL-rGzSiPDAqsLMdxMK0hCLA",
+      "decision": "approved",
+      "inputSha256": "6aaa67971a0f56953a6f176d58e91599286737ffb3f72ac0d5577f59c9707c3d",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2260-2265",
+      "speaker": "Ｔ"
+    },
+    {
+      "candidateId": "bQpDaxLFVNJxk7UjqC9KV_fSM6UZQdeU_yKOs2tI3OU",
+      "decision": "approved",
+      "inputSha256": "3598f7bc8e561320ac525f830a1c044babc08bd29bfdfa2d468b108d14d5bab4",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2272-2315",
+      "speaker": "Ｔ"
+    },
+    {
+      "candidateId": "dh_cz7quAFXfzZQf4WDTTZLxmluOvnC9wSqF7Cfsnz4",
+      "decision": "approved",
+      "inputSha256": "3a71d6e97f25609cfe490850d9dbc278da68bab0b442df1667522b12835bb3d3",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:2598-2803",
+      "speaker": "Ｔ"
+    },
+    {
+      "candidateId": "xYk4DKZXQpC8MwpoCaAgJl_y9M-UUcvb2tjljyFUS6w",
+      "decision": "approved",
+      "inputSha256": "5d68486b0fc1a06f5f72007ca9dd4d40e48a7db01a7bde75351118c36db7abe1",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:3685-3820",
+      "speaker": "細君"
+    },
+    {
+      "candidateId": "p33GqkZ4mMBSK0SLPfYT_te8nR7hUsfHlRvybSHCX3Y",
+      "decision": "approved",
+      "inputSha256": "2398b8b697b688e5648593dbcda0bec7cee381eb50be0044432a147c4d253c96",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:6307-6325",
+      "speaker": "Ｔ"
+    },
+    {
+      "candidateId": "HaUYLyGbVj4tVKFbqYM483LIVG3ggGKR795RYnWUc_A",
+      "decision": "approved",
+      "inputSha256": "d0ab406200229106f842e69968a610f90791e72c8cbd85ff289b455f0baeb5d3",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:6378-6584",
+      "speaker": "Ｔ"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

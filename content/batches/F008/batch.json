@@ -46,7 +46,7 @@
   "rightsSnapshotIds": [],
   "schemaVersion": "1.0.0",
   "stageRecords": [],
-  "status": "draft",
+  "status": "extracted",
   "voiceConfigRef": "content/batches/F008/voice-config.json",
   "workIds": [
     "056648",
@@ -114,13 +114,39 @@
       "workId": "056648"
     },
     {
-      "stageRecords": [],
-      "status": "pending",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-23T02:10:00.000Z",
+          "count": 87,
+          "inputHashes": [
+            "184a3b4516ee0f716fbadfe96474240acc36b263109d07c2b22b95947f84ea0e"
+          ],
+          "outputHashes": [
+            "abf9cb6d0ec68f8503b2ea5be42b3e75a7114b3f048fe3f570f455c43e4e41f4"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f008-prepare-editorial-v1"
+        }
+      ],
+      "status": "extracted",
       "workId": "056650"
     },
     {
-      "stageRecords": [],
-      "status": "pending",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-23T02:10:00.000Z",
+          "count": 11,
+          "inputHashes": [
+            "eab5d4210341dde5cb4f8612e80cd203ca01a400d297b24b5544711c99f315af"
+          ],
+          "outputHashes": [
+            "23f1fe68c8df3ade1f52854f6c70e59fe818fae1cb3cd3a17669df8970a4fea3"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f008-prepare-editorial-v1"
+        }
+      ],
+      "status": "extracted",
       "workId": "057193"
     }
   ]
