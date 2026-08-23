@@ -285,7 +285,7 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       // もはやないからである」に現れる、order3と同一文脈内の抽象概念強調引用
       // （NON_SPEECH）。
       { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
-      // order5 「それなんです？　顔をコスっているもの？」。夢のなかの場面で
+      // order5 「それなんです？ 顔をコスっているもの？」。夢のなかの場面で
       // 「私はうしろから尋ねずにはいられなかった」に直接導かれる、「私」から
       // 夢のなかの女性（彼女／夫人）への実際の問いかけ。
       { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
