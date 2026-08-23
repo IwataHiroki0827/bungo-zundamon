@@ -87,6 +87,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F009.json",
       "provenanceSha256": "2499a213dfb45271ab7f4eaffaaf06f2caf1bb968f405d33e7b9e673c1923cc8"
+    },
+    {
+      "authorId": "000074",
+      "batchId": "F010",
+      "manifestId": "artwork-F010-000074-v1",
+      "output": {
+        "path": "artwork/kajii-motojiro-zundamon.png",
+        "sha256": "6349575c681aac06f7a946fe4974e32dd2a9b9e15db43d7348a1b270698e94df"
+      },
+      "provenanceRef": "content/artwork-provenance/F010.json",
+      "provenanceSha256": "ef25075f4ff4207b4ee63b247a8bda9f81d7455eef9fdbda136c9eba1060f415"
     }
   ],
   "schemaVersion": "1.0.0"
