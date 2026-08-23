@@ -55,6 +55,41 @@
   ],
   "workProgress": [
     {
+      "acceptedAt": "2026-08-23T20:12:27.390Z",
+      "acceptedAudioSources": [
+        {
+          "bytes": 134188,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F010/accepted-audio/000424/1e41736e933c9f5ee30483ab06a1c15b30017831bedce92336fcaa88a6ca0f41.wav",
+          "sha256": "66899093f7d454ddba17f0240bfc0ce290e7936e00789453ae9bab55e04fca2a"
+        },
+        {
+          "bytes": 92716,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F010/accepted-audio/000424/7685e6ba4e93a8fa7ca479ba7be0c72691b0d8fff3e292b1d15af469bdf58cd3.wav",
+          "sha256": "5d30e12b0244ed881b272f8684acaaa6ec22ecae5a5898ee49e813ef0108b8db"
+        },
+        {
+          "bytes": 36908,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F010/accepted-audio/000424/95e2484c583f412f4237591e4a3f49bdf15e6b9fd7acb751b5c10567b8a0842e.wav",
+          "sha256": "ad31e6c93476039bca6e4721729b211fa2a9707f5ac42a8e36bf972724e6f486"
+        },
+        {
+          "bytes": 108588,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F010/accepted-audio/000424/ce6097aa62c6b5814cbf32512053fbd2c5621d601c1f2c3291b51206cd5dd6e9.wav",
+          "sha256": "0f703874070c97929ad208b6d9101f0f276b56b21976df22b099068a72ad0ab5"
+        },
+        {
+          "bytes": 178732,
+          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+          "path": "content/batches/F010/accepted-audio/000424/f15b7a6264ec268eed7019c5eb3e59164a264db429bc24d78f489651fd2ace07.wav",
+          "sha256": "516afee6f0b2fb01eec16eefc8d35b0087eef5bbc8d9671de57d8769d12810a8"
+        }
+      ],
+      "acceptedBy": "content-acceptance-transaction",
+      "actualCapacityRef": "content/batches/F010/capacity-actual/000424.json",
       "forecastRef": "content/batches/F010/capacity-forecast/000424.json",
       "stageRecords": [
         {
@@ -107,9 +142,65 @@
           ],
           "stage": "voiced",
           "toolVersion": "f009-prepare-voice-generate-v1"
+        },
+        {
+          "completedAt": "2026-08-23T20:12:11.473Z",
+          "count": 5,
+          "inputHashes": [
+            "09bd6b962b0d3f491180df1123bd42202a0d65b9f6ceb32fbe16181f82c0f4e7",
+            "03cb249942e5a534f3acfb9bfe9c6a27728e9da09adb4e7a5497395ccde5479d"
+          ],
+          "outputHashes": [
+            "47c35f833effd98208a864084be2522337d05c25887292df71e6c1acd923b187",
+            "893431e617399fde8a8b814f7df9390a7d01b288e26a65252c6d2ff1183cd34a"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f010-capacity-actual-voiced-direct-v1"
+        },
+        {
+          "completedAt": "2026-08-23T20:12:23.453Z",
+          "count": 5,
+          "inputHashes": [
+            "eca38ef7113eedf120958efd8c095a8d9fdb7c57fe6a9b4f43e032c0b38c3d83",
+            "47c35f833effd98208a864084be2522337d05c25887292df71e6c1acd923b187",
+            "893431e617399fde8a8b814f7df9390a7d01b288e26a65252c6d2ff1183cd34a",
+            "1d437cc09535ed0b252f2329442062b4850ff171667bae1daa13ee13d3aa0127"
+          ],
+          "outputHashes": [
+            "1269efa205e0994d512c021b49aaef3d013f9a2c14223556e7253bc797fb2513",
+            "401729e744cb0750b217a488ec5a5f4e41532ef4f8eff11c2e0f85196e114c75",
+            "7c05dae0e4a92e4e19a3788453c942fc8c13d5a627e0e60ada1ea09853ec38ca",
+            "280d787b3b3dd12520d7baf6b443e681b2d40cb3a25b7621ca1a2ff6c3612991"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "f010-capacity-actual-v1"
+        },
+        {
+          "completedAt": "2026-08-23T20:12:27.390Z",
+          "count": 5,
+          "inputHashes": [
+            "7b3f9c8a02b47885695a49c83424c2d43e1c775b06635bba82f29539afd08e36",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "1d437cc09535ed0b252f2329442062b4850ff171667bae1daa13ee13d3aa0127",
+            "1d437cc09535ed0b252f2329442062b4850ff171667bae1daa13ee13d3aa0127",
+            "401729e744cb0750b217a488ec5a5f4e41532ef4f8eff11c2e0f85196e114c75",
+            "1269efa205e0994d512c021b49aaef3d013f9a2c14223556e7253bc797fb2513",
+            "7c05dae0e4a92e4e19a3788453c942fc8c13d5a627e0e60ada1ea09853ec38ca",
+            "280d787b3b3dd12520d7baf6b443e681b2d40cb3a25b7621ca1a2ff6c3612991"
+          ],
+          "outputHashes": [
+            "c7ed4db91333e03e6e4d1054742f93d6faacf326f870db9a04cf86e921e3f7e4",
+            "66899093f7d454ddba17f0240bfc0ce290e7936e00789453ae9bab55e04fca2a",
+            "5d30e12b0244ed881b272f8684acaaa6ec22ecae5a5898ee49e813ef0108b8db",
+            "ad31e6c93476039bca6e4721729b211fa2a9707f5ac42a8e36bf972724e6f486",
+            "0f703874070c97929ad208b6d9101f0f276b56b21976df22b099068a72ad0ab5",
+            "516afee6f0b2fb01eec16eefc8d35b0087eef5bbc8d9671de57d8769d12810a8"
+          ],
+          "stage": "accepted",
+          "toolVersion": "accepted-audio-transaction-v1"
         }
       ],
-      "status": "voiced",
+      "status": "accepted",
       "voiceEvidenceRef": "content/batches/F010/voice-evidence/000424.json",
       "workId": "000424"
     },
