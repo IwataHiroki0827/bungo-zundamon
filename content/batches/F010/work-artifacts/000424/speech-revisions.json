@@ -1,0 +1,46 @@
+{
+  "batchId": "F010",
+  "kind": "f010-speech-revision-result",
+  "reconciliationDigest": "8cb338d4138178afc9ea8e49fc1e8ba0896aac13c3411de669f0c9763484e2d7",
+  "revisions": [],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "V8UzXeXanPs7y8Gjhbtmrkv77RwC8Vqed7EERXnRcgQ",
+      "displayText": "「今日は一つ入ってみてやろう」",
+      "revisionCount": 0,
+      "speechSha256": "5bd08c0a4762f991be0fb76ffd45a6db89b7f5dd0dfe89bc2ef9808a3bb764dc",
+      "speechText": "「今日はひとつ入ってみてやろう」"
+    },
+    {
+      "candidateId": "jmZEXgyRrbk9ISzMt2CxKM_xTTz2-MMEb-QCowZvV1Y",
+      "displayText": "「あ、そうだそうだ」",
+      "revisionCount": 0,
+      "speechSha256": "d3f218283e42baafa39b591a422d8b82fec248f9ef674da7540a41ef9050b5c9",
+      "speechText": "「あ、そうだそうだ」"
+    },
+    {
+      "candidateId": "cAsRmfx8LOd7Vtn66CkiclT_FlkHymYR40r4vQwaYr0",
+      "displayText": "「そうだ」",
+      "revisionCount": 0,
+      "speechSha256": "b9bc66cf3ca431504c7ae66d5933a40343cc9097cdd39e5d19f735c94d8e7eb6",
+      "speechText": "「そうだ」"
+    },
+    {
+      "candidateId": "GZVDctrOlMx0ucuAL_2IhgE8-4Z2APWQEZu0Nf0fvBA",
+      "displayText": "「出て行こうかなあ。そうだ出て行こう」",
+      "revisionCount": 0,
+      "speechSha256": "61b66729b39cecdf0b6bf1c1065bff6ea8b0c278eca32b7b271d53eb331089b4",
+      "speechText": "「出て行こうかなあ。そうだ出て行こう」"
+    },
+    {
+      "candidateId": "nirB_8CYqxRLXCPIrGB3v7OWrtTKb2vbO4mGcUHHXnE",
+      "displayText": "「そうしたらあの気詰まりな丸善も粉葉みじんだろう」",
+      "revisionCount": 0,
+      "speechSha256": "2fa579f62c99dcaefc9202baefd9d93644ca9b40cacf94d0ee8a15078b026f61",
+      "speechText": "「そうしたらあの気詰まりな丸善もこっぱみじんだろう」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000424"
+}

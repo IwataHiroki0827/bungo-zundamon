@@ -1,0 +1,20 @@
+{
+  "approvedCount": 5,
+  "authorizationDigest": "eaae84bb35d575629e197700cbd046db9faa1e41d6ef1f9d9de253ea81c75554",
+  "batchId": "F010",
+  "candidateAudio": {
+    "cAsRmfx8LOd7Vtn66CkiclT_FlkHymYR40r4vQwaYr0": "95e2484c583f412f4237591e4a3f49bdf15e6b9fd7acb751b5c10567b8a0842e",
+    "GZVDctrOlMx0ucuAL_2IhgE8-4Z2APWQEZu0Nf0fvBA": "1e41736e933c9f5ee30483ab06a1c15b30017831bedce92336fcaa88a6ca0f41",
+    "jmZEXgyRrbk9ISzMt2CxKM_xTTz2-MMEb-QCowZvV1Y": "7685e6ba4e93a8fa7ca479ba7be0c72691b0d8fff3e292b1d15af469bdf58cd3",
+    "nirB_8CYqxRLXCPIrGB3v7OWrtTKb2vbO4mGcUHHXnE": "f15b7a6264ec268eed7019c5eb3e59164a264db429bc24d78f489651fd2ace07",
+    "V8UzXeXanPs7y8Gjhbtmrkv77RwC8Vqed7EERXnRcgQ": "ce6097aa62c6b5814cbf32512053fbd2c5621d601c1f2c3291b51206cd5dd6e9"
+  },
+  "completenessDigest": "893431e617399fde8a8b814f7df9390a7d01b288e26a65252c6d2ff1183cd34a",
+  "expectedManifestSha": "03cb249942e5a534f3acfb9bfe9c6a27728e9da09adb4e7a5497395ccde5479d",
+  "generationDigest": "47c35f833effd98208a864084be2522337d05c25887292df71e6c1acd923b187",
+  "planDigest": "054695923ebe8b233ea44d5c5ddfe1333df5e5f98f40278a440dbf6ef04dc3ec",
+  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result": "pass",
+  "uniqueAudioCount": 5,
+  "workId": "000424"
+}

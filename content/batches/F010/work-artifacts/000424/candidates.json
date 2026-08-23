@@ -1,0 +1,73 @@
+{
+  "batchId": "F010",
+  "candidates": [
+    {
+      "candidateId": "cuns5GZQiEy4oJAToAxlnbIyKopb0_gVpqXmmN7fqEs",
+      "displayText": "「おや、あそこの店は帽子の廂をやけに下げているぞ」",
+      "order": 0,
+      "sha256": "a30882757425438d2b1fd25a2b984a880112ade35e2c9b78872f991629991e34",
+      "sourceAnchor": ".main_text:2346-2371",
+      "speechText": "「おや、あそこの店は帽子の廂をやけに下げているぞ」"
+    },
+    {
+      "candidateId": "Skb04DF_X5xHPcJ_YRiGNziGCVmaSoVZ39dm0lxTMvE",
+      "displayText": "「売柑者之言」",
+      "order": 1,
+      "sha256": "6b0a1af0c88f3961181df5fdb9594f3703f2aa5db758e990ac650b4fb1de45e8",
+      "sourceAnchor": ".main_text:3160-3167",
+      "speechText": "「売柑者之言」"
+    },
+    {
+      "candidateId": "XX_--8m6XJO_RiZV_Gx38q0Y3xK9mBlC-jr5ZwHn8WU",
+      "displayText": "「鼻を撲つ」",
+      "order": 2,
+      "sha256": "be0ad9386fc4e4e6d0d510712cd46fbba9a9fb24f0c590b0f806f1de84eabb29",
+      "sourceAnchor": ".main_text:3176-3182",
+      "speechText": "「鼻をうつ」"
+    },
+    {
+      "candidateId": "V8UzXeXanPs7y8Gjhbtmrkv77RwC8Vqed7EERXnRcgQ",
+      "displayText": "「今日は一つ入ってみてやろう」",
+      "order": 3,
+      "sha256": "a1102423a63f2dd804d74d9f8c418f74b552fd0c2b65dea16148329b9ff96c6f",
+      "sourceAnchor": ".main_text:3702-3717",
+      "speechText": "「今日はひとつ入ってみてやろう」"
+    },
+    {
+      "candidateId": "jmZEXgyRrbk9ISzMt2CxKM_xTTz2-MMEb-QCowZvV1Y",
+      "displayText": "「あ、そうだそうだ」",
+      "order": 4,
+      "sha256": "0f11f8b72d25987cbc1b399a6c301409f08d0d8d4b9ef5e760d477e049a2a453",
+      "sourceAnchor": ".main_text:4276-4286",
+      "speechText": "「あ、そうだそうだ」"
+    },
+    {
+      "candidateId": "cAsRmfx8LOd7Vtn66CkiclT_FlkHymYR40r4vQwaYr0",
+      "displayText": "「そうだ」",
+      "order": 5,
+      "sha256": "378f880dead80968cc083590cfc6d5261d3eeeaefe34118207ada0b5570535a9",
+      "sourceAnchor": ".main_text:4335-4340",
+      "speechText": "「そうだ」"
+    },
+    {
+      "candidateId": "GZVDctrOlMx0ucuAL_2IhgE8-4Z2APWQEZu0Nf0fvBA",
+      "displayText": "「出て行こうかなあ。そうだ出て行こう」",
+      "order": 6,
+      "sha256": "7f2c9c5ba6244b5986bb73d406f3230600ebfa1ace29fc5f2c6d109f32e0c43f",
+      "sourceAnchor": ".main_text:4738-4757",
+      "speechText": "「出て行こうかなあ。そうだ出て行こう」"
+    },
+    {
+      "candidateId": "nirB_8CYqxRLXCPIrGB3v7OWrtTKb2vbO4mGcUHHXnE",
+      "displayText": "「そうしたらあの気詰まりな丸善も粉葉みじんだろう」",
+      "order": 7,
+      "sha256": "d37d5d718d3a8389b89ee495cbeac0197925df7ac73d1c9a0e6d82b9c4bc68f0",
+      "sourceAnchor": ".main_text:4894-4918",
+      "speechText": "「そうしたらあの気詰まりな丸善もこっぱみじんだろう」"
+    }
+  ],
+  "extractorVersion": "1.0.0",
+  "kind": "f010-extracted-candidates",
+  "schemaVersion": "1.0.0",
+  "workId": "000424"
+}

@@ -55,8 +55,62 @@
   ],
   "workProgress": [
     {
-      "stageRecords": [],
-      "status": "pending",
+      "forecastRef": "content/batches/F010/capacity-forecast/000424.json",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-24T03:10:00.000Z",
+          "count": 8,
+          "inputHashes": [
+            "9250503482be731ad81ce95d58e56054375f8ed45b85a693a87c85c8277070f2"
+          ],
+          "outputHashes": [
+            "fd76ef68b40dbb613f6968f22505c631bf1fa3e69383a1bb287375ef3d78adc4"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f010-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-24T03:10:00.000Z",
+          "count": 8,
+          "inputHashes": [
+            "36fa58b69a634c17794fae970e0fe979c5ee9457175d8cf4d5cebcd95b2d68ff",
+            "fd76ef68b40dbb613f6968f22505c631bf1fa3e69383a1bb287375ef3d78adc4"
+          ],
+          "outputHashes": [
+            "93016c7e068537a8a1f903c3208f1010c39c20598f798d599be22e202a96c1dc"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f010-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-23T20:06:07.829Z",
+          "count": 5,
+          "inputHashes": [
+            "03cb249942e5a534f3acfb9bfe9c6a27728e9da09adb4e7a5497395ccde5479d",
+            "93016c7e068537a8a1f903c3208f1010c39c20598f798d599be22e202a96c1dc"
+          ],
+          "outputHashes": [
+            "98bbd31ebc5bbf5f8013b565ea3e8708c7e047aa5221485a92fce4496ec7f577"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f009-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-23T20:06:14.586Z",
+          "count": 5,
+          "inputHashes": [
+            "99780889b32079025c6175bb95a5738a80b449bc3fd3361238fb649977491747",
+            "98bbd31ebc5bbf5f8013b565ea3e8708c7e047aa5221485a92fce4496ec7f577"
+          ],
+          "outputHashes": [
+            "09bd6b962b0d3f491180df1123bd42202a0d65b9f6ceb32fbe16181f82c0f4e7"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f009-prepare-voice-generate-v1"
+        }
+      ],
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F010/voice-evidence/000424.json",
       "workId": "000424"
     },
     {
