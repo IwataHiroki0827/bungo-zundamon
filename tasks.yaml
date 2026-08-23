@@ -5162,13 +5162,29 @@ tasks:
   title: Ｋの昇天を抽出・二重レビュー・音声化・atomic受入
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-195
   tags: *id010
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f010
+  progress: >-
+    完了。Ｋの昇天(000419)の実candidate21件を実extraction・実テキスト
+    精読で独立二重判定し、12件承認(SPOKEN_DIALOGUE、語り手とＫ君の実質
+    的なQ&A・Ｋ君の長台詞複数)・9件却下(NON_SPEECH、曲名/用語の引用・
+    未発声の予定台詞・意識に上らない一瞬の印象等)。檸檬(5/8)より会話文
+    密度が高く、DOMAIN-F010.mdが「梶井作品中最も豊富な複数人対話」と
+    評した特徴を実データで確認。VOICEVOX実測で「逆光線」の促音欠落誤読
+    (ギャクコオセン→ぎゃっこうせん)を1件補正、他は許容範囲内(Ｋ君→
+    ケイクンは決定論的仕様、ヴィヴィッド→ビビッドはengine音素制約で
+    text訂正不可)と判断。実VOICEVOX(speaker 3)で12/12音声合成成功
+    (4,319,248 bytes)、容量forecast pass_with_warning、容量actual
+    pass_with_warning(CAPACITY_ACTUAL_PAGES_WARNING、檸檬と同型)。
+    atomic受入でWAV12件をaccepted-audio/000419/へ正式昇格、manifest
+    workProgress[000419].status: accepted。F009 published状態への
+    regressionなしを確認。tsc/eslint(該当ファイル)全PASS、vitest 62件
+    全PASS、trace_check.py対応漏れなし。次のアクションはT-197(愛撫)。
 - id: T-197
   title: 愛撫を抽出・二重レビュー・音声化・atomic受入
   feature: F010
