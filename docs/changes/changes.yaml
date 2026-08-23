@@ -1600,3 +1600,30 @@ changes:
     再利用するよう修正した。修正後、実際に056650の再開実行で28→65件まで音声生成が進行し
     (中断前は常に即時失敗していた)、修正が機能することを実データで確認した。
     src/voice/generation.ts/src/voice/budget.ts(共有汎用モジュール)は変更していない。
+- id: CHG-F008-003
+  date: '2026-08-23'
+  trigger: CHG-F008-002是正後も、実行環境の制約(長時間バックグラウンドプロセスが繰り返し
+    外部要因で中断される)により、scripts/f008-prepare-voice.ts 056650(85候補)を
+    1回の継続実行で完了させることができなかった。generateVoiceDiff(共有・変更禁止)は
+    stagingをmkdir(recursive:false)で毎回新規作成する設計のため、中断のたびに
+    staging済みWAVがpersistent cacheへ昇格されないまま失われ、次回起動時に全件が
+    再度missとして扱われる非効率があった。
+  level: design
+  affected:
+  - scripts/f008-prepare-voice.ts
+  - T-174
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づく運用改善のため即時適用)
+  completed_at: '2026-08-23T00:00:00+09:00'
+  result: F008専用の一時script2本(scripts/f008-promote-voice-stage-cache.ts・
+    scripts/f008-reset-work.ts)を新規作成し、共有モジュール(src/voice/generation.ts・
+    src/voice/budget.ts)は一切変更せずに解決した。promote scriptは既にVOICEVOXから
+    実生成済みの正当なWAVをplanVoiceDiffが期待するpersistent cache format
+    (.cache/voice/{configHash}/{audioId}.wav+.json)へ複製する(新規生成なし)。
+    reset scriptはbudget-approved stageRecordを取り除きreviewedへ戻し、
+    次回実行時にcache-primedなplanから forecast を再計算させる(あわせて
+    writeBatchManifestAtomicが経由しないため残るstale transaction journalも削除する)。
+    この反復により85候補全件が実際にVOICEVOXから生成され(最終実行はcache全hitで
+    stagedBytes:0・succeeded:85・failed:0)、verifyVoiceCompleteness PASS・voiced
+    遷移まで完結した。F009・F010でも同様の長大候補プールがある場合、この2 script
+    パターンをそのまま複製・パラメータ化して再利用することを推奨する。
