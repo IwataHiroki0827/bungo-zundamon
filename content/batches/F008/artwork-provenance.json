@@ -1,0 +1,36 @@
+{
+  "credit": "江戸川乱歩ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-23T13:13:31.135Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 931263,
+    "originalImageSha256": "7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a mysterious, eccentric early-Showa-era Japanese mystery novelist, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. Every surface in this image is completely blank and plain with smooth solid colors only: plain blank clothing fabric with zero decoration, plain blank walls, plain blank floor, plain blank furniture surfaces, plain blank book covers showing only flat solid color with no title markings, plain blank picture frame with no reflection detail inside it. Scene: a dim antique study at midnight lit by a single green-shaded desk lamp, soft fog, an old wooden chair, eerie yet elegant mystery-novel atmosphere. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a sharp curious detective gaze, one hand raised thoughtfully near the chin, plain dark charcoal-grey traditional kimono with a plain black haori jacket, smooth solid unmarked fabric with no decoration of any kind. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality. Composition: centered square, character slightly right of center, generous edge padding, plain unmarked background throughout, nothing drawn in the corners of the image. Lighting: eerie green desk-lamp glow with deep cool shadows, mysterious and contemplative. Palette: deep charcoal, emerald green, ivory, leaf green, muted violet shadow tones. Final image contains only the character and simple blank props, rendered as clean flat illustration with smooth solid unmarked surfaces everywhere, resembling a minimalist vector-style poster with no fine detail markings anywhere.",
+    "promptSha256": "fc09311945944f5786d5eb395f7894d67d3913eb3a97a94aa9e30a56d3e1639a",
+    "seed": 582910337,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=582910337) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "001779",
+    "batchId": "F008",
+    "outputPath": "artwork/edogawa-ranpo-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F008-001779-v1",
+  "output": {
+    "bytes": 931263,
+    "dHash64": "00211f0b45e5ba3c",
+    "mediaType": "image/png",
+    "publicPath": "artwork/edogawa-ranpo-zundamon.png",
+    "sha256": "7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7",
+    "sourcePath": "content/batches/F008/public-files/artwork/edogawa-ranpo-zundamon.png"
+  },
+  "provenanceSha256": "de4098101818e5781dc95d2e9f778f4d5da56a2b6b5f8639f4de5d3a42e1c30c",
+  "schemaVersion": "1.0.0"
+}

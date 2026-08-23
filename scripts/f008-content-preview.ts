@@ -53,12 +53,10 @@ import type { ReviewRecord } from '../src/content/processing.ts';
  * F007の`scripts/f007-content-preview.ts`をF008向けにパラメータ化した複製。
  * baselineをv0.7.0（F001〜F007公開済み、6作者21作品）へ拡張する。
  *
- * 本セッション時点ではT-172（作者画像実生成、ComfyUI要）が未完了のため、
- * ARTWORK_SOURCE_PATH（content/batches/F008/public-files/artwork/
- * edogawa-ranpo-zundamon.png）は実体が存在せず、本scriptの実行は
- * ファイル読み込み段階で失敗する想定である。tsc/lint通過とコード構造の
- * 事前準備のみを目的として作成した。ARTWORK_SHA256はComfyUI実生成後、
- * 実測sha256へ差し替えること（TODO）。
+ * T-172（作者画像実生成、ComfyUI要）は完了済み。ARTWORK_SOURCE_PATH
+ * （content/batches/F008/public-files/artwork/edogawa-ranpo-zundamon.png）
+ * は実体が存在し、ARTWORK_SHA256はcontent/batches/F008/artwork-provenance.json
+ * のoriginalImageSha256（実測）と一致する固定値である。
  * @des DES-F008-002 DES-F008-010 @fun FUN-F008-002 FUN-F008-011
  */
 
@@ -73,9 +71,8 @@ const WORK_ID: F008WorkId = workIdArgument as F008WorkId;
 const AUTHOR_ID = '001779';
 const ARTWORK_PUBLIC_PATH = 'artwork/edogawa-ranpo-zundamon.png';
 const ARTWORK_SOURCE_PATH = `content/batches/${BATCH_ID}/public-files/artwork/edogawa-ranpo-zundamon.png`;
-// TODO(artwork生成後): ComfyUIで江戸川乱歩作者画像を実生成した後、
-// content/batches/F008/artwork-provenance.jsonのoriginalImageSha256へ差し替える。
-const ARTWORK_SHA256 = '0'.repeat(64) as Sha256;
+// content/batches/F008/artwork-provenance.jsonのoriginalImageSha256（実測）と一致する固定値。
+const ARTWORK_SHA256 = '7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7' as Sha256;
 
 function sha256(value: Uint8Array | string): Sha256 {
   return createHash('sha256').update(value).digest('hex') as Sha256;

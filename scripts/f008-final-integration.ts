@@ -76,9 +76,8 @@ const BATCH_ID = 'F008';
 const AUTHOR_ID = '001779';
 const ARTWORK_PUBLIC_PATH = 'artwork/edogawa-ranpo-zundamon.png';
 const ARTWORK_SOURCE_PATH = `content/batches/${BATCH_ID}/public-files/artwork/edogawa-ranpo-zundamon.png`;
-// TODO(artwork生成後): T-172（江戸川乱歩作者画像実生成、ComfyUI/FLUX.1 schnell）で
-// sealされたoriginalImageSha256（content/batches/F008/artwork-provenance.json記録値）へ差し替える。
-const F008_ARTWORK_SHA256 = '0'.repeat(64) as Sha256;
+// content/batches/F008/artwork-provenance.jsonのoriginalImageSha256（実測）と一致する固定値。
+const F008_ARTWORK_SHA256 = '7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7' as Sha256;
 const STATIC_ROUTES = ['#/', '#/favorites', '#/credits'] as const;
 
 function sha256(value: string | Uint8Array): Sha256 {

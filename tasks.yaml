@@ -4282,7 +4282,7 @@ tasks:
   title: Catalog統合基盤・江戸川乱歩作者画像・2作品分の注記registryを整備
   feature: F008
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-171
   tags:
@@ -4333,6 +4333,32 @@ tasks:
     batch-public.test.ts）はいずれも全PASS。次セッションはComfyUI起動後に
     江戸川乱歩画像を実生成し、f008-artwork.tsの実データ結線・IT相当テスト
     追加・T-172のdone化を行うこと。
+
+    後続セッション(2026-08-23)で完了。ComfyUIキュー(queue_running/pending共に空)を
+    確認したうえでFLUX.1 schnell(flux1-schnell-fp8.safetensors、steps=4,cfg=1.0,
+    euler/simple)で江戸川乱歩の作者画像を実生成した。1回目(seed=317729441)は
+    着物に赤い漢字風の意匠と右下に署名風の記号が出現したため破棄し、
+    プロンプトを「plain blank」を多用する表現へ強化し2回目(seed=582910337)で
+    文字・記号・署名・ウォーターマークが一切ないクリーンな画像を取得した
+    (931,263バイト、content/batches/F008/public-files/artwork/
+    edogawa-ranpo-zundamon.png)。既存6作者(F001芥川000879・F002宮沢000081・
+    F003太宰000035・F005夏目000148・F006中島000119・F007森鴎外000129)の
+    public/artwork/配下実画像とdHash64(f005-artwork.tsのcomputeDHash64V1と
+    同一アルゴリズムを再実装したNode検証スクリプトで計算)を比較し、
+    Hamming距離27〜34(閾値>8を満たす、最小27)で非近似重複を確認した。
+    content/content/batches/F008/artwork-provenance.jsonは実データ
+    (sealF008ArtworkProvenance経由、originalImageSha256=
+    7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7)で
+    生成し、verifyF008ArtworkAgainstCatalogもPASS(result=pass)を確認した
+    (使い捨て検証用test fileで実行、commit対象には含めていない)。
+    scripts/f008-content-preview.ts・scripts/f008-final-integration.tsの
+    ARTWORK_SHA256/F008_ARTWORK_SHA256プレースホルダ(64桁0埋め)を実測sha256へ
+    差し替えた。src/content/batch-public.tsのintegrateArtworkProvenancesの
+    F008分岐(introducedByBatchId === 'F008')は既存実装のまま動作を確認した
+    (parseAndRehydrateF008ArtworkProvenance/verifyF008ArtworkAgainstCatalogを
+    実データで問題なく通過)。f008-artwork.test.ts(10件)・f008-catalog.test.ts
+    (11件)・work-notices.test.ts全件、計32件PASS。tsc/lint(プロジェクト全体)
+    PASS。ディスク空き容量は開始時88.9GB(健全)。
 - id: T-173
   title: 人間椅子を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F008
