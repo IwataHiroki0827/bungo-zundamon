@@ -1,0 +1,36 @@
+{
+  "credit": "梶井基次郎ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-23T19:48:40.006Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 1141632,
+    "originalImageSha256": "6349575c681aac06f7a946fe4974e32dd2a9b9e15db43d7348a1b270698e94df",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a frail, melancholic early-Showa-era Japanese writer known for quiet sensory lyricism and a famous tale about a lemon left in a bookstore, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. Every surface in this image is completely blank and plain with smooth solid colors only: plain blank clothing fabric with zero decoration, plain blank walls, plain blank floor, plain blank shelves, plain blank book covers showing only flat solid color with no title markings, plain blank fruit shape with no label or sticker. Scene: a quiet used-bookstore corner in soft afternoon light, dust motes drifting, plain wooden shelves stacked with plain blank books, a single smooth pale-yellow lemon-shaped fruit resting on a stack of books, gentle wistful atmosphere. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a quiet dreamy melancholic gaze, one hand gently resting near the chin as if lost in thought, a plain pale cream-colored high-collar student-style haori jacket over a plain blank kimono, smooth solid unmarked fabric with no decoration of any kind. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality. Composition: centered square, character slightly right of center, generous edge padding, plain unmarked background throughout, nothing drawn in the corners of the image. Lighting: soft warm afternoon window light with gentle golden-yellow highlights and pale cool shadows, quiet and wistful. Palette: pale lemon yellow, soft cream, emerald green, warm ivory, muted brown-grey shadow tones. Final image contains only the character and simple blank props, rendered as clean flat illustration with smooth solid unmarked surfaces everywhere, resembling a minimalist vector-style poster with no fine detail markings anywhere.",
+    "promptSha256": "40602d8b967e60e145ad20ab15406f6553b23cbeb6472e62cf04c38ca138a669",
+    "seed": 738201546,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=738201546) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "000074",
+    "batchId": "F010",
+    "outputPath": "artwork/kajii-motojiro-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F010-000074-v1",
+  "output": {
+    "bytes": 1141632,
+    "dHash64": "5c4d4465425baa00",
+    "mediaType": "image/png",
+    "publicPath": "artwork/kajii-motojiro-zundamon.png",
+    "sha256": "6349575c681aac06f7a946fe4974e32dd2a9b9e15db43d7348a1b270698e94df",
+    "sourcePath": "content/batches/F010/public-files/artwork/kajii-motojiro-zundamon.png"
+  },
+  "provenanceSha256": "1774f1c15875695127d2e496490cf3c25e756d7c9a0a5b3a71e336f07d2fa484",
+  "schemaVersion": "1.0.0"
+}

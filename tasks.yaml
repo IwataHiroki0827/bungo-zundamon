@@ -5104,13 +5104,33 @@ tasks:
   title: Catalog統合基盤・梶井基次郎作者画像を整備
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-193
   tags: *id010
   mode: advisor
   mode_reason: 作者画像生成(ComfyUI、queue空き確認後に実行)・Catalog統合が相互に参照する単一基盤整備のため。3作品いずれも公式表現注意対象外のため注記registry整備は不要
   model: *model_f010
+  progress: >-
+    完了。ComfyUI queue空き確認(GET /queue、running/pending双方空)後、
+    梶井基次郎の作者画像をローカルComfyUI(FLUX.1 schnell、seed 738201546、
+    檸檬モチーフ)で実生成し、既存8作者とのdHash64比較で最小Hamming距離25
+    (閾値8以下を大幅に上回る)を確認した。src/content/f010-artwork.ts
+    (+test 13件)でsealF010ArtworkProvenance/verifyF010ArtworkAgainstCatalog
+    (existingArtwork.length<8下限判定)を実装し、content/batches/F010/
+    artwork-provenance.json(result: pass)を生成。content/batches/F010/
+    work-notices.json(3作品ともdialogue-excerpt-scopeのみ、official-
+    content-warningは0件)を作成した。DD-F010.md設計どおりTRUSTED_REGISTRY_
+    BINDINGSへauthorId 000074のentryは追加せず(3作品ともwarning対象外の
+    ため不要と設計時点で確定済み)、代わりにf010-catalog.ts内に
+    loadF010WorkNotices(workspace)を新規実装しwork-notices.jsonを直接
+    読み込む経路とした(新規application source分岐は追加せず)。src/content/
+    f010-catalog.ts(+test 15件、mergeNewAuthorCatalog010・
+    deriveF010RouteSet、baseline v0.9.0 8作者27作品→9作者30作品・exact
+    12 route)を実装。src/content/batch-public.tsのintegrateArtwork
+    ProvenancesへF010分岐を追加(F001〜F009の既存分岐は無変更)。tsc/
+    eslint全PASS、vitest 6ファイル80件全PASS(F009既存test含めregression
+    0件)。trace_check.py対応漏れなし。
 - id: T-195
   title: 檸檬を抽出・二重レビュー・音声化・atomic受入
   feature: F010

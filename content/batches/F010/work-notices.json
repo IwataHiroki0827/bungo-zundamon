@@ -1,0 +1,54 @@
+{
+  "authorId": "000074",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000074/card424.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "檸檬",
+      "workId": "000424"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000074/card419.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "Ｋの昇天",
+      "workId": "000419"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000074/card411.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "愛撫",
+      "workId": "000411"
+    }
+  ]
+}
