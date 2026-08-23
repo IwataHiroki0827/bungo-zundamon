@@ -5215,13 +5215,31 @@ tasks:
   title: F010最終Catalog統合・固定v0.9.0回帰・公開tree候補を作成
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-197
   tags: *id010
   mode: advisor
   mode_reason: 3作品累積結合・既存8作者不変確認・公開tree候補生成を単一の逐次exact差分判定として扱うため
   model: *model_f010
+  progress: >-
+    完了。scripts/f010-final-integration.ts(f009版の複製・パラメータ化、
+    loadAndValidateWorkNoticesの代わりにloadF010WorkNoticesを使用)で
+    檸檬→Ｋの昇天→愛撫を累積結合し、最終Catalog(9作者・30作品・1247台詞・
+    1230音声、期待値と完全一致)・exact 12 route(#/・既存8作者route・
+    #/authors/kajii-motojiro・#/favorites・#/credits)・公開tree候補
+    (1292 files)を生成した。v0.9.0固定baseline(既存8作者27作品1226台詞
+    1209音声)がbyte-exact不変であることをassertV090Invariantで確認。
+    authorId 000074のofficial-content-warning件数0件を明示的にプログラム
+    で確認(F010は3作品ともwarning対象外という初のケース)。audioId衝突は
+    0件。実行前、F005〜F009と同型の既知パターン(rightsSnapshotIds空欄)が
+    F010にも残っていたため、scripts/f010-backfill-rights-snapshot-ids.ts
+    (新規、F009時点ではまだ存在しなかったため今回新規作成)で実evidence
+    (source-snapshots/selection.json)から是正した。--retainで候補dist/tree
+    を.cache/f010-final-integration-GL47gm/・.cache/batch-release/F010/
+    candidate-paths.json(sourceCommit f39f5e71)へ永続化。tsc/eslint全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-199(UT/IT/QT/6環境・
+    権利・容量・セキュリティ受入)。
 - id: T-199
   title: F010 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F010
