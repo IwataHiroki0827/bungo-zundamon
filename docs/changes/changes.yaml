@@ -1578,3 +1578,25 @@ changes:
     固定上限)へ変更した。src/voice/budget.tsの共有関数・定数(F002〜F007が依存する既存実績コード)は一切変更していない
     ため、既存機能への回帰リスクはない。F009・F010実装時も同様の固定上限方式を踏襲することを推奨する(公開treeが
     さらに成長した場合、この150MB上限も将来再校正が必要になる可能性がある)。
+- id: CHG-F008-002
+  date: '2026-08-23'
+  trigger: scripts/f008-prepare-voice.ts 056650を複数回に分けて再実行(長大候補プールのため1回の実行では
+    完了せずセッションを跨いで再開する必要があった)したところ、workProgress.statusが既に
+    budget-approvedの状態からの再実行が毎回「既存capacity forecastが現在のplanと一致しません」で
+    例外になり、生成済み音声を一切再利用できず必ず失敗することが判明した。
+  level: design
+  affected:
+  - scripts/f008-prepare-voice.ts
+  - T-174
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づくバグ修正のため即時適用)
+  completed_at: '2026-08-23T00:00:00+09:00'
+  result: 原因は、reviewed→budget-approved遷移がmanifestへstageRecordを追記するため
+    hashBatchManifest(manifest)の値が変化する一方、resume時(budget-approved以降の再実行)は
+    毎回現在のmanifestからexpectedManifestShaを再計算していたため、最初の実行時に確定・保存した
+    forecast.planDigestと必ず不一致になる構造的バグだった(F007以前は候補数が少なく1回の実行で
+    完了していたため未発覮)。resume時は最初の実行で確定・永続化済みのcapacity-forecast
+    artifact(content/batches/F008/capacity-forecast/{workId}.json)のexpectedManifestShaを
+    再利用するよう修正した。修正後、実際に056650の再開実行で28→65件まで音声生成が進行し
+    (中断前は常に即時失敗していた)、修正が機能することを実データで確認した。
+    src/voice/generation.ts/src/voice/budget.ts(共有汎用モジュール)は変更していない。

@@ -282,7 +282,13 @@ async function main(): Promise<void> {
   }
 
   const acceptedAudio = await measureTree(join(workspace, 'content', 'batches', BATCH_ID, 'accepted-audio'), true);
-  const preManifestSha = hashBatchManifest(manifest);
+  // reviewed→budget-approved遷移はmanifestへstageRecordを追記するためhashBatchManifest(manifest)が
+  // 変化する。budget-approved以降の再実行でここを都度再計算すると、既に確定したforecast.planDigestと
+  // 一致しなくなり再実行が常に失敗する（CHG-F008-002）。resume時は最初の実行で確定した
+  // expectedManifestSha（forecast artifactに保存済み）をそのまま再利用する。
+  const preManifestSha = workProgress.status === 'reviewed'
+    ? hashBatchManifest(manifest)
+    : (await canonicalArtifact<{ forecast: CapacityForecast }>(workspace, FORECAST_PATH)).value.forecast.expectedManifestSha as Sha256;
   const binding = {
     batchId: BATCH_ID,
     workId: WORK_ID,
