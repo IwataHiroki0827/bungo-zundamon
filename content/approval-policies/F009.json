@@ -1,0 +1,41 @@
+{
+  "approvals": [
+    {
+      "queueId": "Q-068",
+      "target": "docs/srs/SRS-F009.md",
+      "targetMode": "document"
+    }
+  ],
+  "changes": [],
+  "documents": [
+    {
+      "frontmatter": {
+        "feature": "F009",
+        "status": "Approved"
+      },
+      "path": "docs/srs/SRS-F009.md"
+    },
+    {
+      "frontmatter": {
+        "feature": "F009",
+        "status": "Approved"
+      },
+      "path": "docs/tests/qt/QT-F009.md"
+    }
+  ],
+  "evidencePath": "docs/evidence/requirements/F009-approval-binding.json",
+  "evidenceSchemaVersion": "1.0.0",
+  "existingFeatureIds": [
+    "F001",
+    "F002",
+    "F003",
+    "F004",
+    "F005",
+    "F006",
+    "F007",
+    "F008"
+  ],
+  "feature": "F009",
+  "queuePath": "queue.yaml",
+  "schemaVersion": "1.0.0"
+}
