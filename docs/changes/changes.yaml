@@ -1627,3 +1627,30 @@ changes:
     stagedBytes:0・succeeded:85・failed:0)、verifyVoiceCompleteness PASS・voiced
     遷移まで完結した。F009・F010でも同様の長大候補プールがある場合、この2 script
     パターンをそのまま複製・パラメータ化して再利用することを推奨する。
+- id: CHG-F008-004
+  date: '2026-08-23'
+  trigger: scripts/f008-content-preview.ts 057193の実行が
+    PUBLIC_ID_COLLISION(audio IDが重複しています)で失敗した。原因調査の結果、
+    一人二役の1候補「へええ」のspeechTextがF005(001104)の既存台詞と偶然
+    byte-identicalで、audioId(text+config内容hash)も完全一致していた。
+    audioIdはcatalog全体で一意である必要がある(src/content/batch-public.ts、
+    共有・変更禁止)ため、F001〜F008累積939件超の実データで初めて発生した
+    エッジケース。
+  level: design
+  affected:
+  - scripts/f008-content-preview.ts
+  - T-175
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づく設計対応のため即時適用)
+  completed_at: '2026-08-23T00:00:00+09:00'
+  result: audioIdは内容hashのため、既存(v070まで)audioAssetsと重複するIDは
+    provably同一内容(同一sha256/bytes/durationMs)であり、既存の公開済み
+    ファイル(audio/F005/{audioId}.wav)を再利用すれば再生に一切影響しない。
+    scripts/f008-content-preview.ts(F008ローカル、共有モジュール無変更)へ、
+    (1) currentFragment.audioAssetsの構築時にv070.catalog.audioAssetsへ
+    既存のIDをfilterで除外、(2) 物理file staging(activeStage配下への
+    copyFile)でも同じIDを同じ条件でskip、の2箇所を修正した。除外された
+    dialogueのaudioId参照自体は変更せず、既存(F005)の同一内容ファイルを
+    そのまま指す。F009・F010でも同様の偶然一致が起こり得るため、
+    f00N-content-preview.tsを複製する際はこの重複排除ロジックを踏襲する
+    ことを推奨する。

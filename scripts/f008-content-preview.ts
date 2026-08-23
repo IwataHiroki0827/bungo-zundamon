@@ -389,7 +389,14 @@ async function main(): Promise<void> {
       identitySha256: verifiedAuthor.identitySha256,
     }],
     works: pieces.map((piece) => piece.work),
-    audioAssets: pieces.flatMap((piece) => piece.audioAssets),
+    // audioIdはtext+configの内容hashのため、既存の公開済みaudioAssets(v070まで)と
+    // 偶然byte-identicalな短い発話(実例: 一人二役057193の「へええ」がF005/001104と
+    // 完全一致)が起こり得る。catalog全体でaudioIdは一意である必要があるため
+    // (src/content/batch-public.tsのcatalogFor、共有・変更禁止)、既に登録済みの
+    // IDはこのfragmentへ重複登録しない。dialogue側はaudioIdをそのまま参照し続け、
+    // 既存(v070)の同一内容ファイルを指すため再生には影響しない。
+    audioAssets: pieces.flatMap((piece) => piece.audioAssets)
+      .filter((asset) => !v070.catalog.audioAssets.some((existing) => existing.audioId === asset.audioId)),
     candidateCounts: {
       total: pieces.reduce((sum, piece) => sum + piece.candidateTotal, 0),
       published: pieces.reduce((sum, piece) => sum + piece.publishedTotal, 0),
@@ -415,7 +422,12 @@ async function main(): Promise<void> {
   const stagedFiles: ActiveBatchPreview['stagedFiles'][number][] = [];
   const activePiece = pieces.at(-1);
   if (!activePiece || activePiece.work.workId !== WORK_ID) throw new Error('累積piecesの末尾が現在workと一致しません');
+  // currentFragment.audioAssetsから既存(v070)重複IDを除外したのと同じ理由・同じ
+  // 条件で、既にv070側に同一audioIdの物理fileが存在するassetはこのbatch配下へ
+  // 二重に配置しない(配置してもcatalog上どこからも参照されずPUBLIC_ID_COLLISION
+  // [preview pathが未参照]になる)。
   for (const asset of activePiece.generationAssets) {
+    if (v070.catalog.audioAssets.some((existing) => existing.audioId === asset.audioId)) continue;
     const target = join(activeStage, 'audio', `${asset.audioId}.wav`);
     await mkdir(dirname(target), { recursive: true });
     await copyFile(asset.sourcePath, target);
