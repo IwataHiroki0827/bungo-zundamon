@@ -1,0 +1,70 @@
+{
+  "authorId": "000096",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000096/card2381.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        }
+      ],
+      "title": "瓶詰地獄",
+      "workId": "002381"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000096/card46694.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        }
+      ],
+      "title": "きのこ会議",
+      "workId": "046694"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000096/card2380.html",
+      "completionStatus": "complete",
+      "notices": [
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "dialogue-excerpt-scope"
+        },
+        {
+          "placements": [
+            "work-list",
+            "work-detail",
+            "credits"
+          ],
+          "textKey": "official-content-warning"
+        }
+      ],
+      "title": "死後の恋",
+      "workId": "002380"
+    }
+  ]
+}

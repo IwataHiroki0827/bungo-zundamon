@@ -158,4 +158,28 @@ describe('UT-F003-023 未完・公式注意・抜粋scope・credits [DES-F003-00
       authorId: '001779',
     });
   });
+
+  /** @des DES-F009-010 @fun FUN-F009-011 @ut UT-F009-011 */
+  it('committed F009 notice registryが公式source facts（瓶詰地獄・死後の恋2件のofficial-content-warning）と一致する', async () => {
+    const value = JSON.parse(await readFile(
+      join(process.cwd(), 'content', 'batches', 'F009', 'work-notices.json'),
+      'utf8',
+    )) as WorkNoticeRegistry;
+    const report = validateWorkNoticesAndCredits(value);
+    expect(report).toMatchObject({ result: 'pass', authorId: '000096' });
+    const binzumeJigoku = report.works.find((work) => work.workId === '002381');
+    expect(binzumeJigoku?.notices.map((notice) => notice.textKey)).toEqual(
+      expect.arrayContaining(['official-content-warning', 'dialogue-excerpt-scope']),
+    );
+    const kinokoKaigi = report.works.find((work) => work.workId === '046694');
+    expect(kinokoKaigi?.notices.map((notice) => notice.textKey)).toEqual(['dialogue-excerpt-scope']);
+    const shigoNoKoi = report.works.find((work) => work.workId === '002380');
+    expect(shigoNoKoi?.notices.map((notice) => notice.textKey)).toEqual(
+      expect.arrayContaining(['official-content-warning', 'dialogue-excerpt-scope']),
+    );
+    await expect(loadAndValidateWorkNotices(process.cwd(), '000096')).resolves.toMatchObject({
+      result: 'pass',
+      authorId: '000096',
+    });
+  });
 });

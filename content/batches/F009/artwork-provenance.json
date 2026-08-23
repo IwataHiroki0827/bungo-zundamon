@@ -1,0 +1,36 @@
+{
+  "credit": "夢野久作ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-23T17:05:32.236Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 1444041,
+    "originalImageSha256": "25c47c982523cd03b25596a02ad17b5b071389a4ce7e2b1b76a95ffb04851d83",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a bizarre, dreamlike early-Showa-era Japanese horror-mystery novelist known for surreal, hallucinatory tales, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. Every surface in this image is completely blank and plain with smooth solid colors only: plain blank clothing fabric with zero decoration, plain blank walls, plain blank floor, plain blank furniture surfaces, plain blank book covers showing only flat solid color with no title markings, plain blank picture frame with no reflection detail inside it. Scene: a surreal dim asylum-study at midnight lit by a single swaying violet-shaded lamp, drifting fog, a spiral motif suggested only by soft lighting swirl (never as literal text or symbol), a plain wooden chair, an unsettling yet whimsical dreamlike mystery atmosphere. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a dazed, dreamy detective gaze, one hand raised near the temple as if recalling a fading dream, plain dark indigo traditional kimono with a plain black haori jacket, smooth solid unmarked fabric with no decoration of any kind. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality. Composition: centered square, character slightly right of center, generous edge padding, plain unmarked background throughout, nothing drawn in the corners of the image. Lighting: eerie violet lamp glow with deep cool shadows and soft fog haze, mysterious and dreamlike. Palette: deep indigo, violet, emerald green, ivory, pale fog-grey shadow tones. Final image contains only the character and simple blank props, rendered as clean flat illustration with smooth solid unmarked surfaces everywhere, resembling a minimalist vector-style poster with no fine detail markings anywhere.",
+    "promptSha256": "c4bf71c152120917a1a37fe5ac8a5d246650d1484af2b0287a7753c66afb2320",
+    "seed": 419283651,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=419283651) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "000096",
+    "batchId": "F009",
+    "outputPath": "artwork/yumeno-kyusaku-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F009-000096-v1",
+  "output": {
+    "bytes": 1444041,
+    "dHash64": "61744d4d72d19991",
+    "mediaType": "image/png",
+    "publicPath": "artwork/yumeno-kyusaku-zundamon.png",
+    "sha256": "25c47c982523cd03b25596a02ad17b5b071389a4ce7e2b1b76a95ffb04851d83",
+    "sourcePath": "content/batches/F009/public-files/artwork/yumeno-kyusaku-zundamon.png"
+  },
+  "provenanceSha256": "2f8ade3b50885649d62440a2a2d5ebf4d8770340978c4fd779930adff3727ef9",
+  "schemaVersion": "1.0.0"
+}

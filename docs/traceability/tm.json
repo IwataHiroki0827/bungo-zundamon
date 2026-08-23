@@ -10854,42 +10854,42 @@
         "FUN-F004-022"
       ]
     },
-    "IMPL:src/content/batch-public.ts#633:des": {
+    "IMPL:src/content/batch-public.ts#681:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F004-007"
       ]
     },
-    "IMPL:src/content/batch-public.ts#633:fun": {
+    "IMPL:src/content/batch-public.ts#681:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "FUN-F004-022"
       ]
     },
-    "IMPL:src/content/batch-public.ts#854:des": {
+    "IMPL:src/content/batch-public.ts#902:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F002-001"
       ]
     },
-    "IMPL:src/content/batch-public.ts#854:fun": {
+    "IMPL:src/content/batch-public.ts#902:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "FUN-F002-018"
       ]
     },
-    "IMPL:src/content/batch-public.ts#1389:des": {
+    "IMPL:src/content/batch-public.ts#1437:des": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
         "DES-F002-006"
       ]
     },
-    "IMPL:src/content/batch-public.ts#1389:fun": {
+    "IMPL:src/content/batch-public.ts#1437:fun": {
       "type": "IMPL",
       "defined_in": "src/content/batch-public.ts",
       "refs": [
@@ -17570,6 +17570,76 @@
         "FUN-F008-005"
       ]
     },
+    "IMPL:src/content/f009-artwork.test.ts#116:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.test.ts",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.test.ts#116:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.test.ts",
+      "refs": [
+        "FUN-F009-014"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.test.ts#242:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.test.ts",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.test.ts#242:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.test.ts",
+      "refs": [
+        "FUN-F009-015"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#28:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#28:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "FUN-F009-014"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#225:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#225:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "FUN-F009-014"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#379:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "DES-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-artwork.ts#379:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-artwork.ts",
+      "refs": [
+        "FUN-F009-015"
+      ]
+    },
     "IMPL:src/content/f009-baseline.test.ts#16:des": {
       "type": "IMPL",
       "defined_in": "src/content/f009-baseline.test.ts",
@@ -17694,6 +17764,230 @@
       "defined_in": "src/content/f009-baseline.ts",
       "refs": [
         "FUN-F009-003"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#168:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#168:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#201:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#201:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#209:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#209:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#217:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#217:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#231:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#231:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#244:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#244:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#256:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#256:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#268:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#268:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#276:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#276:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#291:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#291:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#313:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#313:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#320:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.test.ts#320:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.test.ts",
+      "refs": [
+        "FUN-F009-012"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#32:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#32:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#195:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#195:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#304:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#304:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#312:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/content/f009-catalog.ts#312:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f009-catalog.ts",
+      "refs": [
+        "FUN-F009-012"
       ]
     },
     "IMPL:src/content/f009-source.test.ts#188:des": {
@@ -19381,28 +19675,42 @@
         "FUN-F008-011"
       ]
     },
-    "IMPL:src/notices/work-notices.ts#192:des": {
+    "IMPL:src/notices/work-notices.test.ts#162:des": {
+      "type": "IMPL",
+      "defined_in": "src/notices/work-notices.test.ts",
+      "refs": [
+        "DES-F009-010"
+      ]
+    },
+    "IMPL:src/notices/work-notices.test.ts#162:fun": {
+      "type": "IMPL",
+      "defined_in": "src/notices/work-notices.test.ts",
+      "refs": [
+        "FUN-F009-011"
+      ]
+    },
+    "IMPL:src/notices/work-notices.ts#222:des": {
       "type": "IMPL",
       "defined_in": "src/notices/work-notices.ts",
       "refs": [
         "DES-F003-009"
       ]
     },
-    "IMPL:src/notices/work-notices.ts#192:fun": {
+    "IMPL:src/notices/work-notices.ts#222:fun": {
       "type": "IMPL",
       "defined_in": "src/notices/work-notices.ts",
       "refs": [
         "FUN-F003-023"
       ]
     },
-    "IMPL:src/notices/work-notices.ts#269:des": {
+    "IMPL:src/notices/work-notices.ts#299:des": {
       "type": "IMPL",
       "defined_in": "src/notices/work-notices.ts",
       "refs": [
         "DES-F003-009"
       ]
     },
-    "IMPL:src/notices/work-notices.ts#269:fun": {
+    "IMPL:src/notices/work-notices.ts#299:fun": {
       "type": "IMPL",
       "defined_in": "src/notices/work-notices.ts",
       "refs": [

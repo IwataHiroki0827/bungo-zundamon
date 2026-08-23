@@ -45,6 +45,10 @@ import {
   parseAndRehydrateF008ArtworkProvenance,
   verifyF008ArtworkAgainstCatalog,
 } from './f008-artwork.ts';
+import {
+  parseAndRehydrateF009ArtworkProvenance,
+  verifyF009ArtworkAgainstCatalog,
+} from './f009-artwork.ts';
 
 const execFile = promisify(execFileCallback);
 
@@ -221,7 +225,8 @@ async function integrateArtworkProvenances(
     if (
       author.introducedByBatchId !== 'F002' && author.introducedByBatchId !== 'F003' &&
       author.introducedByBatchId !== 'F005' && author.introducedByBatchId !== 'F006' &&
-      author.introducedByBatchId !== 'F007' && author.introducedByBatchId !== 'F008'
+      author.introducedByBatchId !== 'F007' && author.introducedByBatchId !== 'F008' &&
+      author.introducedByBatchId !== 'F009'
     ) {
       throw new PublicIntegrationError(
         'PUBLIC_REFERENCE_MISSING',
@@ -229,7 +234,50 @@ async function integrateArtworkProvenances(
       );
     }
     try {
-      if (author.introducedByBatchId === 'F008') {
+      if (author.introducedByBatchId === 'F009') {
+        const generationRaw = isRecord(raw.generation) ? raw.generation : undefined;
+        if (!generationRaw) throw new Error('f009-generation-missing');
+        const imageBytes = new Uint8Array(await readFile(join(staging, ...author.artwork.path.split('/'))));
+        const provenance = parseAndRehydrateF009ArtworkProvenance(
+          new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+          {
+            generator: 'ComfyUI (local)',
+            generatorVersion: generationRaw.generatorVersion as string,
+            model: generationRaw.model as string,
+            workflow: generationRaw.workflow as string,
+            prompt: generationRaw.prompt as string,
+            negativePrompt: generationRaw.negativePrompt as string,
+            seed: generationRaw.seed as number,
+            generatedAt: generationRaw.generatedAt as string,
+            originalImageBytes: imageBytes,
+          },
+          { referenceInputs: [] },
+          {
+            sourcePath: 'content/batches/F009/public-files/artwork/yumeno-kyusaku-zundamon.png',
+            publicPath: 'artwork/yumeno-kyusaku-zundamon.png',
+            credit: typeof raw.credit === 'string' ? raw.credit : '',
+            bytes: imageBytes,
+          },
+        );
+        const existingArtwork = await Promise.all(
+          catalog.authors
+            .filter((item) => item.authorId !== author.authorId)
+            .map(async (item) => {
+              const existingBytes = new Uint8Array(await readFile(join(staging, ...item.artwork.path.split('/'))));
+              return {
+                authorId: item.authorId,
+                path: item.artwork.path,
+                bytes: existingBytes,
+                sha256: item.artwork.sha256,
+                dHash64: computeDHash64V1(existingBytes),
+              };
+            }),
+        );
+        const acceptance = verifyF009ArtworkAgainstCatalog(provenance, imageBytes, existingArtwork);
+        if (acceptance.path !== author.artwork.path || acceptance.sha256 !== author.artwork.sha256) {
+          throw new Error('f009-artwork-catalog-mismatch');
+        }
+      } else if (author.introducedByBatchId === 'F008') {
         const generationRaw = isRecord(raw.generation) ? raw.generation : undefined;
         if (!generationRaw) throw new Error('f008-generation-missing');
         const imageBytes = new Uint8Array(await readFile(join(staging, ...author.artwork.path.split('/'))));

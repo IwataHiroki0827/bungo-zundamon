@@ -4783,24 +4783,62 @@ tasks:
   title: 候補manifest・固定v0.8.0 baseline・作者identity・権利原典を整備
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-181
   tags: *id009
   mode: advisor
   mode_reason: baseline pin・candidate manifest・権利原典取得を単一の逐次integrity chainとして扱うため
   model: *model_f009
+  progress: >-
+    完了。src/content/f009-baseline.ts(+test 10件、F008公開証跡から実測
+    転記したv0.8.0固定pins)、content/batch-definitions・approval-policies/
+    F009.json、batch-candidate.tsへのF009 registry追加、src/content/
+    f009-source.ts(defineF009AuthorAndWorkRegistry・collectF009SourceSnapshot・
+    normalizeF009AozoraXhtmlEntities・extractF009DialogueCandidates・
+    splitOverlongF009Candidates・evaluateF009RightsAndUsage・
+    persistF009SourceSnapshot、+test 17件)を実装し、scripts/
+    f009-collect-source.tsで瓶詰地獄・きのこ会議・死後の恋の原典・書誌・
+    VOICEVOX/ずんだもん規約を実HTTPS取得(rights.decision: allow確認)。
+    実測候補数41件(瓶詰地獄4・きのこ会議15・死後の恋22分割後)、gaiji検出
+    瓶詰地獄8件・死後の恋2件(候補内0件)、死後の恋で長大候補分割20→22が
+    実際に発動(F007/F008では未発動だった初のケース)。content/
+    batch-candidates.jsonへF009 candidate登録、docs/evidence/requirements/
+    F009-approval-binding.jsonをmint、scripts/f009-init-batch.tsでdraft
+    content/batches/F009/batch.json(status: draft)を生成した。tsc/eslint
+    全PASS、vitest 24件全PASS、trace_check.py対応漏れなし。
 - id: T-183
   title: Catalog統合基盤・夢野久作作者画像・2作品分の注記registry・長大候補分割ヘルパーを整備
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-182
   tags: *id009
   mode: advisor
   mode_reason: 作者画像生成(ComfyUI、queue空き確認後に実行)・Catalog統合・注記registry・分割ヘルパーが相互に参照する単一基盤整備のため
   model: *model_f009
+  progress: >-
+    完了。長大候補分割ヘルパー(splitOverlongF009Candidates)はT-182の
+    f009-source.tsに実装済み(死後の恋で20→22候補への分割が実際に発動)。
+    ComfyUI queue空き確認(GET /queue、queue_running/queue_pending双方空)後、
+    夢野久作の作者画像をローカルComfyUI(FLUX.1 schnell、seed 419283651)で
+    実生成し、既存7作者とのdHash64比較で最小Hamming距離29(閾値8以下を
+    大幅に上回る、byte一致0件)を確認した。src/content/f009-artwork.ts
+    (+test)でsealF009ArtworkProvenance/verifyF009ArtworkAgainstCatalog
+    (existingArtwork.length<7下限判定、F009設計時点から採用)を実装し、
+    content/batches/F009/artwork-provenance.json(result: pass)を生成。
+    content/batches/F009/work-notices.json(瓶詰地獄・死後の恋に
+    dialogue-excerpt-scope+official-content-warning、きのこ会議は
+    dialogue-excerpt-scopeのみ、DOMAIN-F009.md §5/QA-F009.md No.4で確認済み)
+    を作成し、src/notices/work-notices.tsへauthorId 000096のTRUSTED_
+    REGISTRY_BINDINGS entryを追加登録(F001〜F008の既存entryは無変更)。
+    src/content/f009-catalog.ts(+test、mergeNewAuthorCatalog009・
+    deriveF009RouteSet、baseline v0.8.0 7作者24作品→8作者27作品・
+    exact 11 route)を実装。src/content/batch-public.tsのintegrate
+    ArtworkProvenancesへF009分岐を追加(F001〜F008の既存分岐は無変更)。
+    tsc/eslint全PASS、vitest 6ファイル77件全PASS(F008既存test含め
+    regression 0件)。trace_check.py対応漏れなし。
 - id: T-184
   title: 瓶詰地獄を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F009
