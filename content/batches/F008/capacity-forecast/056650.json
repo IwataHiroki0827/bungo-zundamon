@@ -1,0 +1,1309 @@
+{
+  "batchId": "F008",
+  "configPath": "content/batches/F008/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "14b5c65ee06398833d2e3678030392bd060e60f9af1b4096062f8bd2e6a6a585",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 93838328,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F008",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "14b5c65ee06398833d2e3678030392bd060e60f9af1b4096062f8bd2e6a6a585",
+    "minimumFreeBytesAfterWrite": 460947192,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 555332183,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "abc365c1abf2416299e6cfb22370218d84e218304796bdb5874b82116cc9d86b",
+    "preTreeDigest": "35ec60025e3edac70303fda8dd7d1890528479f17232bb00779fd7b8dcc3679e",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 103695652,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [],
+      "includedPaths": [
+        "content/batches/F008/batch.json"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [],
+      "includedPaths": [
+        "content/batches/F008/batch.json"
+      ],
+      "measuredBytes": 370596271,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 86646718464,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 460947192
+    },
+    "workId": "056650"
+  },
+  "kind": "f007-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 1161948,
+    "acceptedAudioFiles": 5,
+    "currentPagesBytes": 405332183,
+    "currentPagesFiles": 1129,
+    "freeBytes": 86646718464,
+    "liveWriteUpperBounds": 242676380,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1232088,
+    "rollbackBackupBytes": 151161948
+  },
+  "plan": {
+    "batchId": "F008",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 85,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "02e898178c6ddc574487d55059798181a865ac7cd633c19b163f51da4beadef0",
+        "candidateIds": [
+          "MBKS2t4LizY9ULSFYArVScQqr8bHUP7_F3qgkgsx-Rg"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02e898178c6ddc574487d55059798181a865ac7cd633c19b163f51da4beadef0.json",
+        "status": "miss",
+        "text": "「エエ、いらっしゃいます。一寸御待ち下さい、今お呼びしますから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/02e898178c6ddc574487d55059798181a865ac7cd633c19b163f51da4beadef0.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "043bebc466d6173da206f8279e163828ec8e6bb6c06dc8ea1d45900970879c38",
+        "candidateIds": [
+          "fX2WTfYclZ7pSARLYqCzMfhfIGIjIFPmncx5Pv02dwA"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/043bebc466d6173da206f8279e163828ec8e6bb6c06dc8ea1d45900970879c38.json",
+        "status": "miss",
+        "text": "「オー」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/043bebc466d6173da206f8279e163828ec8e6bb6c06dc8ea1d45900970879c38.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "06dbf3507987d0ddb91c0fa38d33650ffddc96036a41ff94019dc4e21ddd4990",
+        "candidateIds": [
+          "PTXYyIBCNdGl6OJ0XIahPNRwtD5oZxBrmttXZXo7k-o"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/06dbf3507987d0ddb91c0fa38d33650ffddc96036a41ff94019dc4e21ddd4990.json",
+        "status": "miss",
+        "text": "「実は僕、今日はそのことで少し話があって来たんですがね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/06dbf3507987d0ddb91c0fa38d33650ffddc96036a41ff94019dc4e21ddd4990.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "0ba85d905abf3fb731e6d5cf2a748c12a0b8503a24b88e37e8afb3894c97acc5",
+        "candidateIds": [
+          "kYuoSfz5BeyxEj2cDG7OMl_-Gxa5AKELhKAau56vV7E"
+        ],
+        "estimatedBytes": 829484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ba85d905abf3fb731e6d5cf2a748c12a0b8503a24b88e37e8afb3894c97acc5.json",
+        "status": "miss",
+        "text": "「とてもそせいの見込はありませんよ。早く警察へ知らせなきゃ。僕、自動電話まで行って来ましょう。君、番をしてて下さい。近所へはまだ知らせない方がいいでしょう。手掛りを消して了ってはいけないから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0ba85d905abf3fb731e6d5cf2a748c12a0b8503a24b88e37e8afb3894c97acc5.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "0fb67cacd86b4d7b824124f96414d928297eaec75f4bdfd90e8a74112c4f04a6",
+        "candidateIds": [
+          "lTe9QYLNTCGLUKfNvasPDmIUqnu33KTM1R3oMcDfLo0"
+        ],
+        "estimatedBytes": 371564,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0fb67cacd86b4d7b824124f96414d928297eaec75f4bdfd90e8a74112c4f04a6.json",
+        "status": "miss",
+        "text": "「いや失敬失敬、決して笑うつもりではなかったのですけれど、君は余り真面目だもんだから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/0fb67cacd86b4d7b824124f96414d928297eaec75f4bdfd90e8a74112c4f04a6.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "105d349cbceb90066c803710b1618ccf37d86d4d65397338f3ba1863a3190288",
+        "candidateIds": [
+          "b-4x_vxz54bE5fhvQeN97t_HlUhnyrN_PSaCq6kwcp0"
+        ],
+        "estimatedBytes": 5244524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/105d349cbceb90066c803710b1618ccf37d86d4d65397338f3ba1863a3190288.json",
+        "status": "miss",
+        "text": "併し、あれは必ずしも、心理学者の云う様に、犬だとか家だとか川だとか、簡単な刺戟語には限らないし、そして又、常にクロノスコープの助けを借りる必要もないと、僕は思いますよ。聯想診断のこつを悟ったものにとっては、その様な形式は大した必要ではないのです。それが証拠に、昔のめいはんがんとか名探偵とかいわれる人は心理学が今日の様に発達しない以前から、唯彼等のてんびんによって、知らずしらずの間に、この心理的方法を実行していたではありませんか。おおおかえちぜんのかみなども確かにその一人ですよ。小説で云えば、ポオの『ル・モルグ』の始めに、デュパンが友達の身体の動き方一つによって、その心に思っていることを云い当てる所がありますね。ドイルもそれを真似て、『レジデント・ペーシェント』の中で、ホームズに同じ様な推理をやらせますが、これらは皆、ある意味の聯想診断ですからね。心理学者の種々の機械的方法は、唯こうした天稟の洞察力を持たぬ凡人の為に作られたものに過ぎませんよ。話がわきみちに入りましたが、僕はそういう意味で、蕎麦屋の主人に対して、一種の聯想診断をやったのです。僕は彼に色々の話をしかけました。それも極くつまらない世間話をね。そして、彼の心理的反応を研究したのです。併し、これは非常にデリケートな心持の問題で、それに可成複雑してますから、詳しいことはいずれゆっくり話すとして、兎も角その結果、僕は一つの確信に到達しました。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/105d349cbceb90066c803710b1618ccf37d86d4d65397338f3ba1863a3190288.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "10f007dd8f4aac0ed5ae110dea24ff55cba04a9f674560fad884c8fa02c4a67e",
+        "candidateIds": [
+          "ZS3kMVQvxQHsa1waORXfXzaexdq92deketZxjU-DZMU"
+        ],
+        "estimatedBytes": 475244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/10f007dd8f4aac0ed5ae110dea24ff55cba04a9f674560fad884c8fa02c4a67e.json",
+        "status": "miss",
+        "text": "「この指の痕には別に特徴がありません。つまり普通の人間が、右手で押えつけたという以外に何の手掛りもありません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/10f007dd8f4aac0ed5ae110dea24ff55cba04a9f674560fad884c8fa02c4a67e.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "1421653581ff97fa00c9f219643d280b04405dc2e474b6afc05fb15306b45eec",
+        "candidateIds": [
+          "ohDteFPKO8ggpKWdLVadeeGQEQ2z5juVuHJrn7gdZZ8"
+        ],
+        "estimatedBytes": 760364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1421653581ff97fa00c9f219643d280b04405dc2e474b6afc05fb15306b45eec.json",
+        "status": "miss",
+        "text": "「イヤ、僕はそうは思いませんよ。実際問題としてなら兎も角、理論的にいって、探偵の出来ない犯罪なんてありませんよ。唯、現在の警察に『途上』に出て来る様な偉い探偵がいない丈ですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1421653581ff97fa00c9f219643d280b04405dc2e474b6afc05fb15306b45eec.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "15bbaa2ae95004ca4b255c15cf4a505eade28358aad849fdf219c01ec098249c",
+        "candidateIds": [
+          "0WsWy8kK7E821A2NGvdzZSVQLMsqxdTzpgSizDhRBKU"
+        ],
+        "estimatedBytes": 2825324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/15bbaa2ae95004ca4b255c15cf4a505eade28358aad849fdf219c01ec098249c.json",
+        "status": "miss",
+        "text": "「君の考えはなかなか面白いですよ。僕は君の様な友達を見つけたことを嬉しく思いますよ。併し、惜しいことには、君の推理は余りに外面的で、そして物質的ですよ。例えばですね。僕とあの女との関係についても、君は、僕達がどんな風な幼馴染だったかということを、内面的に心理的に調べて見ましたか。僕が以前あの女と恋愛関係があったかどうか。又現に彼女をうらんでいるかどうか。君にはそれ位のことが推察出来なかったのですか。あの晩、なぜ彼女を知っていることを云わなかったか、その訳は簡単ですよ。僕は何も参考になる様な事柄を知らなかったのです。僕は、まだ小学校へも入らぬ時分に彼女と分れた切りなのですからね。尤も、最近偶然そのことが分って、二三度話し合ったことはありますけれど」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/15bbaa2ae95004ca4b255c15cf4a505eade28358aad849fdf219c01ec098249c.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "198af02a1e98e36a6700f0452e5f5bfb0ebf5f58f5d4f490172d99aea4f18974",
+        "candidateIds": [
+          "RfeEv_Cc60I5MY6lWb80P_sY8USP_4g-ymhRtRaaYTY"
+        ],
+        "estimatedBytes": 337004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/198af02a1e98e36a6700f0452e5f5bfb0ebf5f58f5d4f490172d99aea4f18974.json",
+        "status": "miss",
+        "text": "「そうですね。家の中に別状ないとしても、外で何かあったのかも知れませんからね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/198af02a1e98e36a6700f0452e5f5bfb0ebf5f58f5d4f490172d99aea4f18974.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "1e924a3e414016b5712a039cfd8008d27623d4490dfd7430df2f214a22360ee7",
+        "candidateIds": [
+          "pWP4YnbQW5zymgOALmeeCXOdPgJ2I5Xq4tHt2YPorhY"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1e924a3e414016b5712a039cfd8008d27623d4490dfd7430df2f214a22360ee7.json",
+        "status": "miss",
+        "text": "「僕もこの友達と一緒に本を見ていたんです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/1e924a3e414016b5712a039cfd8008d27623d4490dfd7430df2f214a22360ee7.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "24ee16f4504c932ea489106cd4728b94ae198e3533dc20b7c16dd68c8dced5db",
+        "candidateIds": [
+          "QgggvBC-AvCsuDS4eOEQ8GntT7pAcL--MOBWMsNs8-4"
+        ],
+        "estimatedBytes": 475244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/24ee16f4504c932ea489106cd4728b94ae198e3533dc20b7c16dd68c8dced5db.json",
+        "status": "miss",
+        "text": "「前後の事情から考えて、電燈を消したのは犯人に相違ありません。併しこれをつけたのはあなた方のうちどちらですか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/24ee16f4504c932ea489106cd4728b94ae198e3533dc20b7c16dd68c8dced5db.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "27a6570bb598e5d96e097409fd0a630f0dbbddc405a586fbb4b15eeeb65cafbc",
+        "candidateIds": [
+          "UUrsOtiixv2PR9l14EHj69i7LFY8V40juaB3qKkc16Y"
+        ],
+        "estimatedBytes": 1330604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/27a6570bb598e5d96e097409fd0a630f0dbbddc405a586fbb4b15eeeb65cafbc.json",
+        "status": "miss",
+        "text": "「絞殺ですね。手でやられたのです。これ御覧なさい。この紫色になっているのが指のあとです。それから、この出血しているのは爪が当った箇所ですよ。おやゆびの痕がくびの右側についているのを見ると、右手でやったものですね。そうですね。恐らく死後一時間以上はたっていないでしょう。併し、無論もうそせいの見込はありません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/27a6570bb598e5d96e097409fd0a630f0dbbddc405a586fbb4b15eeeb65cafbc.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "29c6f36d3964749624399b38067ef80849dc04e37a22a40aa2a2e67620bcdb0f",
+        "candidateIds": [
+          "I7dPmnpes0sQMIe8vAv1PgoeyXSSa8FJLpKW91qprFg"
+        ],
+        "estimatedBytes": 5754284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/29c6f36d3964749624399b38067ef80849dc04e37a22a40aa2a2e67620bcdb0f.json",
+        "status": "miss",
+        "text": "「で、僕のかんがえを云いますとね、殺人者は旭屋の主人なのです。彼は罪跡をくらます為にあんな便所を借りた男のことを云ったのですよ。いや、併しそれは何も彼の創案でも何でもない。我々が悪いのです。君にしろ僕にしろ、そういう男がなかったかと、こちらから問を構えて、彼をきょうさした様なものですからね。それに、彼は僕達を刑事かなんかと思違えていたのです。では、彼は何故に殺人罪を犯したか。……僕はこの事件によって、うわべは極めて何気なさ相な、この人世の裏面に、どんなに意外な、陰惨な秘密が隠されているかということを、まざまざと見せつけられた様な気がします。それは、実に、あの悪夢の世界でしか見出すことの出来ない様な種類のものだったのです。 旭屋の主人というのは、サードきょうの流れをくんだ、ひどい惨虐色情者で、何という運命のいたずらでしょう、一軒置いて隣に、女のマゾッホを発見したのです。古本屋の細君は彼に劣らぬ被虐色情者だったのです。そして、彼等は、そういう病者に特有の巧みさを以て、誰にも見つけられずに、姦通していたのです。……君、僕が合意の殺人だといった意味が分るでしょう。……彼等は、最近までは、各々、正当の夫や妻によって、その病的な慾望を、かろうじてみたしていました。古本屋の細君にも、旭屋の細君にも、同じ様な生傷のあったのは其証拠です。併し、彼等がそれに満足しなかったのは云うまでもありません。ですから目と鼻の近所に、お互の探し求めている人間を発見した時、彼等の間に非常に敏速な了解の成立したことは想像に難くないではありませんか。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/29c6f36d3964749624399b38067ef80849dc04e37a22a40aa2a2e67620bcdb0f.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "2cad9b502b2645d5f67e8488380b089f20310cca28a44005f7e1009215c7361a",
+        "candidateIds": [
+          "WhIVZvd7CKU4DoyTE_fWcAs6kachwJP-EmGFx0AV8Xo"
+        ],
+        "estimatedBytes": 5201324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2cad9b502b2645d5f67e8488380b089f20310cca28a44005f7e1009215c7361a.json",
+        "status": "miss",
+        "text": "「警察では、君の指紋が犯人の指紋の上に重って、それを消して了ったのだと解釈しているのですが、併しそれは今の実験でも分る通り不可能なんですよ。いくら強く押した所で、指紋というものが線で出来ている以上、線と線との間に、前の指紋の跡が残る筈です。もし前後の指紋が全く同じもので、捺し方も寸分違わなかったとすれば、指紋の各線が一致しますから、或は後の指紋が先の指紋を隠して了うことも出来るでしょうが、そういうことは先ずあり得ませんし、仮令そうだとしても、この場合結論は変らないのです。 併し、あの電燈を消したのが犯人だとすれば、スイッチにその指紋が残っていなければなりません。僕は若しや警察では君の指紋の線と線との間に残っている先の指紋を見落しているのではないかと思って、自分で検べて見たのですが、少しもそんな痕跡がないのです。つまり、あのスイッチには、後にも先にも、君の指紋が捺されているだけなのです。――どうして古本屋の人達の指紋が残っていなかったのか、それはよく分りませんが、多分、あの部屋の電燈はつけっぱなしで、一度も消したことがないのでしょう。 君、以上の事柄は一体何を語っているでしょう。僕はこういう風に考えるのですよ。一人の荒い棒縞の着物を着た男が、――その男は多分死んだ女の幼馴染で、失恋という理由なんかも考えられますね――古本屋の主人が夜店を出すことを知っていてその留守の間に女を襲うたのです。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2cad9b502b2645d5f67e8488380b089f20310cca28a44005f7e1009215c7361a.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "2d5c4d3c90190b43bdd274826a2cee73a4d0d0019f8fd7803c3727baa19680a4",
+        "candidateIds": [
+          "co5XAaePBqnw6cVoomZfZ9jkKGGyWQeeuvdtdQBaqC8"
+        ],
+        "estimatedBytes": 423404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d5c4d3c90190b43bdd274826a2cee73a4d0d0019f8fd7803c3727baa19680a4.json",
+        "status": "miss",
+        "text": "「ここの主人は、毎晩古本の夜店を出しに参りますんで、いつも十二時頃でなきゃ帰って参りません。ヘイ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d5c4d3c90190b43bdd274826a2cee73a4d0d0019f8fd7803c3727baa19680a4.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "2ffe545017a2f84e63ce5bc18e875baa89cf5a11f126863b6d17ad22e9c04fac",
+        "candidateIds": [
+          "zFCgdxCt8mVKzBE5PSmvqaULaSqIi3F9iDwewGtIpfg"
+        ],
+        "estimatedBytes": 5296364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2ffe545017a2f84e63ce5bc18e875baa89cf5a11f126863b6d17ad22e9c04fac.json",
+        "status": "miss",
+        "text": "「僕のやり方は、君とは少し違うのです。物質的な証拠なんてものは、解釈の仕方でどうでもなるものですよ。一番いい探偵法は、心理的に人の心の奥底を見抜くことです。だが、これは探偵者自身の能力の問題ですがね。兎も角、僕は今度はそういう方面に重きを置いてやって見ましたよ。 最初僕の注意を惹いたのは、古本屋の細君の身体中にある生傷のあったことです。それから間もなく、僕は蕎麦屋の細君の身体にも同じ様な生傷があることを聞込みました。これは君も知っているでしょう。併し、彼女等の夫は、そんな乱暴者でもなさそうです。古本屋にしても蕎麦屋にしても、おとなし相な、物分りのいい男なんですからね。僕は何となく、そこにある秘密が伏在しているのではないかと疑わないではいられなかったのです。で、僕は先ず古本屋の主人を捉えて、彼の口からその秘密を探り出そうとしました。僕が死んだ細君の知合だというので、彼もいくらか気を許していましたから、それは比較的楽に行きました。そして、ある変な事実を聞出すことが出来たのです。ところが、今度は蕎麦屋の主人ですが、彼は、ああ見えても却々しっかりした男ですから、探り出すのにかなり骨が折れましたよ。でも、僕はある方法によって、うまく成功したのです。 君は、心理学上の聯想診断法が、犯罪捜査の方面にも利用され始めたのを知っているでしょう。沢山の簡単な刺戟語を与えて、それに対する嫌疑者の観念聯合の遅速を計る、あの方法です。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2ffe545017a2f84e63ce5bc18e875baa89cf5a11f126863b6d17ad22e9c04fac.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "337a92700344086bbbe3093b4b4f3215768352ca5e52a7e7cfa2b890ad31ba4c",
+        "candidateIds": [
+          "7uDnhwnqj9_6c5qtTaWIxTUyTmsiaETrJiFMBOs5zQw"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/337a92700344086bbbe3093b4b4f3215768352ca5e52a7e7cfa2b890ad31ba4c.json",
+        "status": "miss",
+        "text": "「構わない、上って見ようじゃありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/337a92700344086bbbe3093b4b4f3215768352ca5e52a7e7cfa2b890ad31ba4c.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "34a5648c31e17210b1d99aed884748940d0f4d295d4b9c9d96a574b9b32268a1",
+        "candidateIds": [
+          "vYWBSMVLzOqTx1UGZKGqfxG5Ejglpu5khbJ30j7wQKs"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/34a5648c31e17210b1d99aed884748940d0f4d295d4b9c9d96a574b9b32268a1.json",
+        "status": "miss",
+        "text": "「足跡はまるで駄目です」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/34a5648c31e17210b1d99aed884748940d0f4d295d4b9c9d96a574b9b32268a1.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "36129e90cdc907c20ff89b81c15a34b84af9d0cb7f2151d367ae3d4348e014f0",
+        "candidateIds": [
+          "k99QQqCIFclxD7_-2x_h7dZrtQB4AlU4ulf8kFABfNw"
+        ],
+        "estimatedBytes": 267884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/36129e90cdc907c20ff89b81c15a34b84af9d0cb7f2151d367ae3d4348e014f0.json",
+        "status": "miss",
+        "text": "「では、例えば指紋のことはどういう風に考えたらいいのですか？」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/36129e90cdc907c20ff89b81c15a34b84af9d0cb7f2151d367ae3d4348e014f0.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "39cab525776aafb4c0102a4dd89d43e95d81498f866206fc7ec8ad4a74f140a0",
+        "candidateIds": [
+          "5f_uR67cUurX8-rc66XAuwlID9saF-LIE6EAXUMss08"
+        ],
+        "estimatedBytes": 457964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/39cab525776aafb4c0102a4dd89d43e95d81498f866206fc7ec8ad4a74f140a0.json",
+        "status": "miss",
+        "text": "「よくうえののひろこうじへ参ります様ですが。今晩はどこへ出ましたか、どうも手前には分り兼ねますんで。ヘイ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/39cab525776aafb4c0102a4dd89d43e95d81498f866206fc7ec8ad4a74f140a0.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "3a30f531c7c2a1948fa71fc014165e5e89c1175d1301b2ee34f5f9a85921443a",
+        "candidateIds": [
+          "CJf5oSNmYmqdg92uD8B9qHQ_xw7G9peXGHH1-3-A5z4"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3a30f531c7c2a1948fa71fc014165e5e89c1175d1301b2ee34f5f9a85921443a.json",
+        "status": "miss",
+        "text": "「上から押えつけたのですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3a30f531c7c2a1948fa71fc014165e5e89c1175d1301b2ee34f5f9a85921443a.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "3bf98fad42e19f2a1530edfab751135b16075effca199e0e9e0e2b0a1558c8f8",
+        "candidateIds": [
+          "JF_OHu9NuIr6PLgosScbxDxZOXzzW-6xyg8CctWNbqE"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3bf98fad42e19f2a1530edfab751135b16075effca199e0e9e0e2b0a1558c8f8.json",
+        "status": "miss",
+        "text": "「一時間ばかり前に、何か物音を聞かなかったかね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3bf98fad42e19f2a1530edfab751135b16075effca199e0e9e0e2b0a1558c8f8.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "3c4a2842c22ea87b0c6fce2474068d2ed6d863c88d6bb4b76c76d0a76f9dfd76",
+        "candidateIds": [
+          "f7_J07BrJBU4LCOIm2ZxGu2vsEzuAs-d3jCUIUl1Oy0"
+        ],
+        "estimatedBytes": 4181804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3c4a2842c22ea87b0c6fce2474068d2ed6d863c88d6bb4b76c76d0a76f9dfd76.json",
+        "status": "miss",
+        "text": "「君は、僕があれから何もしないでいたと思うのですか。僕もこれで却々やったのですよ。Ｄ坂は毎日の様にうろついていましたよ。殊に古本屋へはよく行きました。そして主人をつかまえて色々探ったのです。――細君を知っていたことはその時打明けたのですが、それがかえって便宜になりましたよ――君が新聞記者を通じて警察の模様を知った様に、僕はあの古本屋の主人から、それを聞出していたんです。今の指紋のことも、じきに分りましたから、僕も妙に思ってしらべて見たのですが、ハハ……、笑い話ですよ。電球の線が切れていたのです。誰も消しやしなかったのですよ。僕がスイッチをひねった為にひがついたと思ったのは間違で、あの時、慌てて電燈を動かしたので、一度切れたタングステンが、つながったのですよ。スイッチに僕の指紋丈けしかなかったのは、当りまえなのです。あの晩、君は障子のすき間から電燈のついているのを見たと云いましたね。とすれば、電球の切れたのは、その後ですよ。古い電球は、どうもしないでも、独りでに切れることがありますからね。それから、犯人の着物の色のことですが、これは僕が説明するよりも……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3c4a2842c22ea87b0c6fce2474068d2ed6d863c88d6bb4b76c76d0a76f9dfd76.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "3c8346d8f2deded59a6309499950773d76054fed4b810387be2b6f24e2c044da",
+        "candidateIds": [
+          "IIMg5Rfdmhz8Ag8xMtSDA8CF-43htRTpMl9HQGT-Pv0"
+        ],
+        "estimatedBytes": 553004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3c8346d8f2deded59a6309499950773d76054fed4b810387be2b6f24e2c044da.json",
+        "status": "miss",
+        "text": "「アア、とうとう耐え切れなくなったと見えて、自首しましたよ。妙な偶然ですね。丁度その事を話していた時に、こんな報導に接しるとは」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3c8346d8f2deded59a6309499950773d76054fed4b810387be2b6f24e2c044da.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "3f97e9c1753bac1273e29f9f98acb583c3bd049f4ce8ad928765c8170a13592e",
+        "candidateIds": [
+          "WVJ1JpH7AoFZoS-QSU7u6izork9zkyYesrFQgr7U9lY"
+        ],
+        "estimatedBytes": 414764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f97e9c1753bac1273e29f9f98acb583c3bd049f4ce8ad928765c8170a13592e.json",
+        "status": "miss",
+        "text": "「併し、それにしては、抵抗した様子がないが……恐らく非常に急激にやったのでしょうね。ひどい力で」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f97e9c1753bac1273e29f9f98acb583c3bd049f4ce8ad928765c8170a13592e.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "43ea9bbc417be72b56e7bc322a061eedfdb3acb3162b9cd0ae1dd37c67cdf685",
+        "candidateIds": [
+          "U4L1cjIVBZQWuXGcIx7sx6M5rSEk3ic8DnIzP5mUyiQ"
+        ],
+        "estimatedBytes": 1218284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/43ea9bbc417be72b56e7bc322a061eedfdb3acb3162b9cd0ae1dd37c67cdf685.json",
+        "status": "miss",
+        "text": "「そうですね。実に不思議ですね。よく、日本の建築では、外国の探偵小説にある様な深刻な犯罪は起らないなんて云いますが、僕は決してそうじゃないと思いますよ。現にこうした事件もあるのですからね。僕は何だか、出来るか出来ないか分りませんけれど、一つこの事件を探偵して見たい様な気がしますよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/43ea9bbc417be72b56e7bc322a061eedfdb3acb3162b9cd0ae1dd37c67cdf685.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "4876783906de5fab32f4e580bb5c060ab5c251484e3f30e5d54d07774502b46c",
+        "candidateIds": [
+          "_4Rnz20zhShtoutHPmKPJo2jPC9N6Z4DuxenYsktzT4"
+        ],
+        "estimatedBytes": 311084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4876783906de5fab32f4e580bb5c060ab5c251484e3f30e5d54d07774502b46c.json",
+        "status": "miss",
+        "text": "「一人もありませんので、日が暮れてからこっち、猫の子一匹通りませんので」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4876783906de5fab32f4e580bb5c060ab5c251484e3f30e5d54d07774502b46c.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "491093190c8de7e2016f86cf4ce56de97e40572769f5593511876464459319c2",
+        "candidateIds": [
+          "DtXQaS7NMbr7b-hUlYyA2BenGC0ol9H9P3alyihG72Y"
+        ],
+        "estimatedBytes": 259244,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/491093190c8de7e2016f86cf4ce56de97e40572769f5593511876464459319c2.json",
+        "status": "miss",
+        "text": "「これに限って、人様に怨みを受ける様なものではございません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/491093190c8de7e2016f86cf4ce56de97e40572769f5593511876464459319c2.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "4a2b72ea129b2d82715d7c30888d6aac489bf85ce9ece7d3e25c2cce818df499",
+        "candidateIds": [
+          "nW4UAkiaIp2We8BdMgBDji1_0xmlR_4f_3Zc8CcUHHs"
+        ],
+        "estimatedBytes": 5261804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4a2b72ea129b2d82715d7c30888d6aac489bf85ce9ece7d3e25c2cce818df499.json",
+        "status": "miss",
+        "text": "「僕の友達に一人の新聞記者がありましてね、それが、例の事件の係りの小林刑事というのと懇意なのです。で、僕はその新聞記者を通じて、警察の模様を詳しく知ることが出来ましたが、警察ではどうも捜査方針が立たないらしいのです。無論いろいろ活動はしているのですが、これという見込がつかぬのです。あの、例の電燈のスイッチですね。あれも駄目なんです。あすこには、君の指紋丈けっきゃついていないことが分ったのです。警察の考えでは、多分君の指紋が犯人の指紋を隠して了ったのだというのですよ。そういう訳で、警察が困っていることを知ったものですから、僕は一層熱心に調べて見る気になりました。そこで、僕が到達した結論というのは、どんなものだと思います、そして、それを警察へ訴える前に、君の所へ話しに来たのは何の為だと思います。 それは兎も角、僕はあの事件のあった日から、あることを気づいていたのですよ。君は覚えているでしょう。二人の学生が犯人らしい男の着物の色について、まるで違った申立てをしたことをね。一人は黒だといい、一人は白だと云うのです。いくら人間の目が不確だといって、正反対の黒と白とを間違えるのは変じゃないですか。警察ではあれをどんな風に解釈したか知りませんが、僕は二人の陳述は両方とも間違でないと思うのですよ。君、分りますか。あれはね、犯人が白と黒とのだんだらの着物を着ていたんですよ。……つまり、太い黒の棒縞の浴衣なんかですね。",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4a2b72ea129b2d82715d7c30888d6aac489bf85ce9ece7d3e25c2cce818df499.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "4b82bfe2a522591e5805ab4a3a3e41ed0f86d86555952cffafdc75878e19df8f",
+        "candidateIds": [
+          "HhjMsPN4BOTbzZr8oTpIb4uGaB_ZWQ2BUFjUbNWA6bU"
+        ],
+        "estimatedBytes": 3948524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b82bfe2a522591e5805ab4a3a3e41ed0f86d86555952cffafdc75878e19df8f.json",
+        "status": "miss",
+        "text": "「僕はあすこへ行って、事件の当夜八時頃に、便所を借りて行った男はないかと聞いて見たのです。あの旭屋は君も知っているでしょうが、店から土間続きで、裏木戸まで行ける様になっていて、その裏木戸のすぐ側に便所があるのですから、便所を借りる様に見せかけて、裏口から出て行って、又入って来るのは訳はありませんからね。――例のアイスクリーム屋は路地を出た角に店を出していたのですから、見つかる筈はありません――それに、相手が蕎麦屋ですから、便所を借りるということが極めて自然なんです。聞けば、あの晩はお上さんは不在で、主人丈が店の間にいた相ですから、おあつらえ向きなんです。君、なんとすてきな、おもいつきではありませんか。 そして、案の定、丁度その時分に便所を借りた客があったのです。ただ、残念なことには、旭屋の主人は、その男の顔形とか着物の縞柄なぞを少しも覚えていないのですがね。――僕は早速この事を例の友達を通じて、小林刑事に知らせてやりましたよ。刑事は自分でも蕎麦屋を調べた様でしたが、それ以上何も分らなかったのです――」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b82bfe2a522591e5805ab4a3a3e41ed0f86d86555952cffafdc75878e19df8f.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "506d520e300f774adefdfbb1ddde08faeed0e067c9194d4d8ffe159e85a33b8d",
+        "candidateIds": [
+          "6S8QMUUEiRxzdK1Jtab6LAkb7XDRx2YRsQuIeY7Zh7M"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/506d520e300f774adefdfbb1ddde08faeed0e067c9194d4d8ffe159e85a33b8d.json",
+        "status": "miss",
+        "text": "「あ、そう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/506d520e300f774adefdfbb1ddde08faeed0e067c9194d4d8ffe159e85a33b8d.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "52ccb685ba9ae7e57a8fd519f568ad80141e8733574563d7347a7759950bc38b",
+        "candidateIds": [
+          "XJ3h9hnGY99T3g2iTbU44KuT3TJRnAbT4Xg0Ao2dLdo"
+        ],
+        "estimatedBytes": 881324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/52ccb685ba9ae7e57a8fd519f568ad80141e8733574563d7347a7759950bc38b.json",
+        "status": "miss",
+        "text": "「これは、この裏の路地を出た所の角に店を出していたアイスクリーム屋ですが、若し犯人が裏口から逃げたとすれば、路地は一方口なんですから、必ずこの男の目についた筈です。君、もう一度私の尋ねることに答えて御覧」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/52ccb685ba9ae7e57a8fd519f568ad80141e8733574563d7347a7759950bc38b.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "549bd633588c32b735ed7d3953148775a4c82ca8da6b06fc1b522f82764b2bc9",
+        "candidateIds": [
+          "skOOvzPEH2kSMlVlbO7CCVjeTwGAhOB1461bgbcY0EE"
+        ],
+        "estimatedBytes": 1805804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/549bd633588c32b735ed7d3953148775a4c82ca8da6b06fc1b522f82764b2bc9.json",
+        "status": "miss",
+        "text": "つまり犯人を見つけたのです。 併し物質的の証拠というものは一つもないのです。だから、警察に訴える訳にも行きません。よし訴えても、恐らく取上げて呉れないでしょう。それに、僕が犯人を知りながら、手をつかねて見ているもう一つの理由は、この犯罪には少しも悪意がなかったという点です。変な云い方ですが、この殺人事件は、犯人と被害者と同意の上で行われたのです。いや、ひょっとしたら被害者自身の希望によって行われたのかも知れません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/549bd633588c32b735ed7d3953148775a4c82ca8da6b06fc1b522f82764b2bc9.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "6225bc2db4026b2db09d9b0c4012c4faa1b168d047541ef8dbdaa489bcc242ac",
+        "candidateIds": [
+          "fRhJx0FM1OH0PL6zadm0KMVDRXdRwltUszTyj9Z2TNY"
+        ],
+        "estimatedBytes": 544364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6225bc2db4026b2db09d9b0c4012c4faa1b168d047541ef8dbdaa489bcc242ac.json",
+        "status": "miss",
+        "text": "「それも御座いません。皆さん私の目の前でアイスクリームを食べて、すぐ元の方へ御帰りになりました。それはもう間違いはありません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6225bc2db4026b2db09d9b0c4012c4faa1b168d047541ef8dbdaa489bcc242ac.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "63ad436c70c783899b9d4fbb88c1b7af8762ec91adc3989fec5c18cdbc3d32c8",
+        "candidateIds": [
+          "6sKfTosm295zgEx2oHwWGBcsy7Ignj3Cy2fgJCvNK9A"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/63ad436c70c783899b9d4fbb88c1b7af8762ec91adc3989fec5c18cdbc3d32c8.json",
+        "status": "miss",
+        "text": "「で、君は犯人の見当がついているのですか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/63ad436c70c783899b9d4fbb88c1b7af8762ec91adc3989fec5c18cdbc3d32c8.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "6618d19d8afc911fe0067b7550ea1a635482bb689b044d09d8e5dc39a1a27b8a",
+        "candidateIds": [
+          "doXRlxn_ShKl20GwSrI5TlYjd6MqR9oyBsRCI--_k9I"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6618d19d8afc911fe0067b7550ea1a635482bb689b044d09d8e5dc39a1a27b8a.json",
+        "status": "miss",
+        "text": "「物音と申しますと」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6618d19d8afc911fe0067b7550ea1a635482bb689b044d09d8e5dc39a1a27b8a.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "66d670320e8401c14c660ed8a7df50bf7b876e8584e000bee95ea60d1926f664",
+        "candidateIds": [
+          "R1HbeLgyRq8alhX5IiA6C21EZc7gohMQCxzV4VvqWIQ"
+        ],
+        "estimatedBytes": 276524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/66d670320e8401c14c660ed8a7df50bf7b876e8584e000bee95ea60d1926f664.json",
+        "status": "miss",
+        "text": "「それは変ではありませんか。君達の内どちらかが間違いでなけりゃ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/66d670320e8401c14c660ed8a7df50bf7b876e8584e000bee95ea60d1926f664.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "69b6b607aa663aac6c8c5345835f0dee82c8ee45f60ff761ae468e099f610b41",
+        "candidateIds": [
+          "-NIfa6ek6G4gm7I7IBcV6fqkD1g-IWgXlO34QFGljkA"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/69b6b607aa663aac6c8c5345835f0dee82c8ee45f60ff761ae468e099f610b41.json",
+        "status": "miss",
+        "text": "「ここの細君ですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/69b6b607aa663aac6c8c5345835f0dee82c8ee45f60ff761ae468e099f610b41.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "6a4a9f15a41eb53dedb58a18988406481b85062539fa65e9516b5c846db3de28",
+        "candidateIds": [
+          "jdzVtQXMGe0ysONr0WyjTP7R-F-F5BcJjtwcoZKhoc0"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6a4a9f15a41eb53dedb58a18988406481b85062539fa65e9516b5c846db3de28.json",
+        "status": "miss",
+        "text": "「僕も嘘は云いません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6a4a9f15a41eb53dedb58a18988406481b85062539fa65e9516b5c846db3de28.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "6d57db7551bebc9fe5389599ae8b04c5c582e36bee8c4dfd960f12c4e317f3ef",
+        "candidateIds": [
+          "V070AP7ku2cDg0sH9JKHTqzt0wifCoYuO5xeT0lnrxg"
+        ],
+        "estimatedBytes": 1261484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6d57db7551bebc9fe5389599ae8b04c5c582e36bee8c4dfd960f12c4e317f3ef.json",
+        "status": "miss",
+        "text": "「絶対に発見されない犯罪というのは不可能でしょうか。僕は随分可能性があると思うのですがね。例えば、谷崎潤一郎の『途上』ですね。ああした犯罪は先ず発見されることはありませんよ。もっとも、あの小説では、探偵が発見したことになってますけれど、あれは作者のすばらしい想像力が作り出したことですからね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6d57db7551bebc9fe5389599ae8b04c5c582e36bee8c4dfd960f12c4e317f3ef.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "6f390796a61f3a57812a10a91a392242e3f18f9498d7716f363e384d153641aa",
+        "candidateIds": [
+          "_k-Ks4XLzmjrumdpC169sseiPwZevc3g86PoLfEUrY8"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6f390796a61f3a57812a10a91a392242e3f18f9498d7716f363e384d153641aa.json",
+        "status": "miss",
+        "text": "「どこへ夜店を出すんだね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/6f390796a61f3a57812a10a91a392242e3f18f9498d7716f363e384d153641aa.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "7233e3ee27dd71fb8666ad7799ed2654d9faf1cf38d2ad72197dd69014b7322b",
+        "candidateIds": [
+          "d_L3_GUNlBQO71bhhBfnv5nx0FXX4pCoYGeEwDPo4U4"
+        ],
+        "estimatedBytes": 751724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7233e3ee27dd71fb8666ad7799ed2654d9faf1cf38d2ad72197dd69014b7322b.json",
+        "status": "miss",
+        "text": "「古本屋のお神さんは、あんなきれいな人だけれど、はだかになると、身体中傷だらけだ、叩かれたりつねられたりしたあとに違いないわ。別に夫婦仲が悪くもない様だのに、おかしいわねえ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7233e3ee27dd71fb8666ad7799ed2654d9faf1cf38d2ad72197dd69014b7322b.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "731c1487111a78c245173dc99b208b4b65bae6bc10d2f3925d640fa713609624",
+        "candidateIds": [
+          "U61RMySW-_88udxx0_jUhX9J8w6YSUWtCqO2Ule3yEI"
+        ],
+        "estimatedBytes": 725804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/731c1487111a78c245173dc99b208b4b65bae6bc10d2f3925d640fa713609624.json",
+        "status": "miss",
+        "text": "「見えたのは腰から下ですから、背恰好は一寸分りませんが、着物は黒いものでした。ひょっとしたら、細い縞かかすりであったかも知れませんけれど。私の目には黒無地に見えました」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/731c1487111a78c245173dc99b208b4b65bae6bc10d2f3925d640fa713609624.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "7439e65f1c087f87b6e8dbfaeef8b107a8c86e6141428ffd8ec5714cb9a11f66",
+        "candidateIds": [
+          "cSqBfq-KMlEHX8wLYyo6Zmejh-jC9uig-aTkcuVJK0E"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7439e65f1c087f87b6e8dbfaeef8b107a8c86e6141428ffd8ec5714cb9a11f66.json",
+        "status": "miss",
+        "text": "「ホウ。そいつはすてきですね。詳しく聞き度いものですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7439e65f1c087f87b6e8dbfaeef8b107a8c86e6141428ffd8ec5714cb9a11f66.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "7a7a8f67e8ca51b3c2f07aff06a9f67854d64b56cae2315f055b89d3e9b76821",
+        "candidateIds": [
+          "Dof8DsCzRmYKo2VhEuKybFV3TQ0DWyNuLltaLUUx1i8"
+        ],
+        "estimatedBytes": 34604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a7a8f67e8ca51b3c2f07aff06a9f67854d64b56cae2315f055b89d3e9b76821.json",
+        "status": "miss",
+        "text": "「アッ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a7a8f67e8ca51b3c2f07aff06a9f67854d64b56cae2315f055b89d3e9b76821.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "7cca3a7d0653ed78be7928b7f0905f1ddfa1e936f6b02cf5d758790f40ce3867",
+        "candidateIds": [
+          "sFNC7p2rOcYtZRiSdjHUvAw1oE7l8vC-hjrCLgIjxd0"
+        ],
+        "estimatedBytes": 734444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7cca3a7d0653ed78be7928b7f0905f1ddfa1e936f6b02cf5d758790f40ce3867.json",
+        "status": "miss",
+        "text": "「それが、あの障子は一度も開かなかったのですよ。出て行ったとすれば裏口からでしょうが、……三十分も人がいないなんて確かに変ですよ。どうです。行って見ようじゃありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7cca3a7d0653ed78be7928b7f0905f1ddfa1e936f6b02cf5d758790f40ce3867.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "84c418224571ca6cbb4a0a2e8e0e9e4a2939a999c05a96f83874eca0179eb53a",
+        "candidateIds": [
+          "Sz9x4RX2TMogntEsYHkaQdS6JB22b_pEZuHge7TOBKw"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/84c418224571ca6cbb4a0a2e8e0e9e4a2939a999c05a96f83874eca0179eb53a.json",
+        "status": "miss",
+        "text": "「首を絞められている様ではありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/84c418224571ca6cbb4a0a2e8e0e9e4a2939a999c05a96f83874eca0179eb53a.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "85db186b9c5a5228d0098f216507eef807a0a8889afdc80da67d80388d6fe196",
+        "candidateIds": [
+          "ru_HozBiyoNwh8x4y1zn0XBhVslMHihSePtFYNnlk38"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/85db186b9c5a5228d0098f216507eef807a0a8889afdc80da67d80388d6fe196.json",
+        "status": "miss",
+        "text": "「主人はどこへ行ったのかね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/85db186b9c5a5228d0098f216507eef807a0a8889afdc80da67d80388d6fe196.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "8f4c1d04462b4e410021b662ecac76b886bded5f951190ba9a12dfcf4dca9223",
+        "candidateIds": [
+          "_l759fqwa_M1uEUHz1aKV8GCGXnr5Z_kFGwTSTCa6iQ"
+        ],
+        "estimatedBytes": 976364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f4c1d04462b4e410021b662ecac76b886bded5f951190ba9a12dfcf4dca9223.json",
+        "status": "miss",
+        "text": "ところがその結果は、運命のいたずらが過ぎたのです。彼等の、パッシヴとアクティヴの力の合成によって、狂態がぜんじ倍加されて行きました。そして、遂にあの夜、この、彼等とても決して願わなかった事件をひきおこして了った訳なのです……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8f4c1d04462b4e410021b662ecac76b886bded5f951190ba9a12dfcf4dca9223.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "91deb9665f8a415d5826b1951639a2f727513c4e032c0b187e1f795b373b1900",
+        "candidateIds": [
+          "oQcSoYy_JCrB56zNdskV7XePCqaoV0ZUaVL5060uDhQ"
+        ],
+        "estimatedBytes": 4803884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/91deb9665f8a415d5826b1951639a2f727513c4e032c0b187e1f795b373b1900.json",
+        "status": "miss",
+        "text": "「君はきっと、それじゃ、その犯人はどこから入って、どこから逃げたかと反問するでしょう。確に、その点が明かにならなければ、他の凡てのことが分っても何の甲斐もないのですからね。だが、いかんながら、それも僕が探り出したのですよ。あの晩の捜査の結果では、全然犯人の出て行った形跡がない様に見えました。併し、殺人があった以上、犯人が出入しなかった筈はないのですから、刑事の捜索にどこか抜目があったと考える外はありません。警察でもそれには随分苦心した様子ですが、不幸にして、彼等は、僕という一介の書生に及ばなかったのですよ。 ナアニ、実は下らぬ事なんですがね、僕はこう思ったのです。これ程警察が取調べているのだから、近所の人達に疑うべき点は先ずあるまい。もしそうだとすれば、犯人は、何か、人の目にふれても、それが犯人だとは気づかれぬ様な方法で通ったのじゃないだろうか、そして、それを目撃した人はあっても、まるで問題にしなかったのではなかろうか、とね。つまり、人間の注意力の盲点――我々の目に盲点があると同じ様に、注意力にもそれがありますよ――を利用して、手品使が見物の目の前で、大きな品物を訳もなく隠す様に、自分自身を隠したのかも知れませんからね。そこで、僕が目をつけたのは、あの古本屋の一軒置いて隣の旭屋という蕎麦屋です」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/91deb9665f8a415d5826b1951639a2f727513c4e032c0b187e1f795b373b1900.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "93760185dfe8cc49f127cc446b8a212a094543637317406f642a4e315915471b",
+        "candidateIds": [
+          "R0BqqEpFJs6RWRVLJYEJrFk3yV7YtDYHrtWTKbG0C04"
+        ],
+        "estimatedBytes": 466604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93760185dfe8cc49f127cc446b8a212a094543637317406f642a4e315915471b.json",
+        "status": "miss",
+        "text": "「どうも狭くっていけませんが、それに、ざぶとんがないのです。済みませんが、柔か相な本の上へでも坐って下さい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/93760185dfe8cc49f127cc446b8a212a094543637317406f642a4e315915471b.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "9879b5902e93cd39a19006deb9799e4e573c40a84e4442fc28d1e95a4651453d",
+        "candidateIds": [
+          "3qTppAfjP6sY-skOFipm4phMe87WX_VpWnDS2DeltCs"
+        ],
+        "estimatedBytes": 933164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9879b5902e93cd39a19006deb9799e4e573c40a84e4442fc28d1e95a4651453d.json",
+        "status": "miss",
+        "text": "「これは実際あったことですが、今度は、この『証人の記憶』という章があるでしょう。その中程の所に、あらかじめ計画して実験した話があるのですよ。丁度着物の色のことが出てますから、面倒でしょうが、まあ一寸読んで御覧なさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9879b5902e93cd39a19006deb9799e4e573c40a84e4442fc28d1e95a4651453d.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "9c3b66f9807a0339acb34dca0d60034d7e3aeede80cb30f12226ea13fedef152",
+        "candidateIds": [
+          "i5pGOcvsuiomYmxPokrmJsWZiKoX_xOckfuSUvUs0j8"
+        ],
+        "estimatedBytes": 1900844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c3b66f9807a0339acb34dca0d60034d7e3aeede80cb30f12226ea13fedef152.json",
+        "status": "miss",
+        "text": "「僕は丁度八時頃に、この古本屋の前に立って、そこの台にある雑誌を開いて見ていたのです。すると、奥の方で何だか物音がしたもんですから、ふと目を上げてこの障子の方を見ますと、障子は閉まっていましたけれど、この格子の様になった所が開いてましたので、そのすき間に一人の男の立っているのが見えました。しかし、私が目を上げるのと、その男が、この格子を閉めるのと殆ど同時でしたから、詳しいことは無論分りませんが、でも、帯のぐあいで男だったことは確かです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c3b66f9807a0339acb34dca0d60034d7e3aeede80cb30f12226ea13fedef152.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "9ce917bab7e7f03f2ddc0b35c6c0966666b2edf0a776de03eee05057a59fc6e0",
+        "candidateIds": [
+          "CYQevYrNuJqzlfzul7zTbKYUMEwaFhCnV7-zkSVC77A"
+        ],
+        "estimatedBytes": 622124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9ce917bab7e7f03f2ddc0b35c6c0966666b2edf0a776de03eee05057a59fc6e0.json",
+        "status": "miss",
+        "text": "「君、これを読んだことがありますか、ミュンスターベルヒの『心理学と犯罪』という本ですが、この『錯覚』という章の冒頭を十行ばかり読んで御覧なさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9ce917bab7e7f03f2ddc0b35c6c0966666b2edf0a776de03eee05057a59fc6e0.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "9deb98bbe86dbfe46e04ed586902ff06b1962f6fca657ee1c84c3a38b036b87e",
+        "candidateIds": [
+          "VES7AG2sD3ZkaaoFF926TYwV8io4rgP0OjY7owZaEcg"
+        ],
+        "estimatedBytes": 5166764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9deb98bbe86dbfe46e04ed586902ff06b1962f6fca657ee1c84c3a38b036b87e.json",
+        "status": "miss",
+        "text": "「君、明智君、僕のいう意味が分るでしょう。動かぬ証拠が君を指さしているのですよ。白状すると、僕はまだ心の底では、どうしても君を疑う気になれないのですが、こういう風に証拠が揃っていては、どうも仕方がありません。……僕は、もしやあの長屋の内に、太い棒縞の浴衣を持っている人がないかと思って、随分骨を折って調べて見ましたが、一人もありません。それももっともですよ。同じ棒縞の浴衣でも、あの格子に一致する様な派手なのを着る人は珍らしいのですからね。それに、指紋のトリックにしても、便所を借りるというトリックにしても、実に巧妙で、君の様な犯罪学者でなければ、一寸真似の出来ない芸当ですよ。それから、第一おかしいのは、君はあの死人の細君と幼馴染だといっていながら、あの晩、細君の身許調べなんかあった時に、側で聞いていて、少しもそれを申立てなかったではありませんか。 さて、そうなると唯一の頼みは Alibi の有無です。ところが、それも駄目なんです。君は覚えていますか、あの晩帰り途で、白梅軒へ来るまで君がどこにいたかということを、僕は聞きましたね。君は一時間程、その辺を散歩していたと答えたでしょう。仮令、君の散歩姿を見た人があったとしても、散歩の途中で、蕎麦屋の便所を借りるなどはあり勝ちのことですからね。明智君、僕のいうことが間違っていますか。どうです。もし出来るなら君の弁明を聞こうじゃありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9deb98bbe86dbfe46e04ed586902ff06b1962f6fca657ee1c84c3a38b036b87e.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "a0d7b7706a2bbd1eff00703db3a2a7f0ff72db1f91110eb6860cfb4328f0ce7d",
+        "candidateIds": [
+          "qiwVuEP1aH6BgsUwjagJ8Yo2lHYw4R6W_12JsrqtTYU"
+        ],
+        "estimatedBytes": 1114604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a0d7b7706a2bbd1eff00703db3a2a7f0ff72db1f91110eb6860cfb4328f0ce7d.json",
+        "status": "miss",
+        "text": "「この明智君がカフェへ入って来た時、偶然時計を見たのですが、丁度八時半頃でしたから、この障子の格子が閉ったのは、恐らく八時頃だったと思います。その時は確か中には電燈がついてました。ですから、少くとも八時頃には、誰れか生きた人間がこの部屋にいたことは明かです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a0d7b7706a2bbd1eff00703db3a2a7f0ff72db1f91110eb6860cfb4328f0ce7d.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "a282c0f261222f1417e7b54a16138de41934c818a6591ea05371800de345a63c",
+        "candidateIds": [
+          "fC4AtI56UpQpsY1oeLxwrdBJRzCdqSsNvhlFXD4Ka_k"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a282c0f261222f1417e7b54a16138de41934c818a6591ea05371800de345a63c.json",
+        "status": "miss",
+        "text": "「表の戸を閉めましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a282c0f261222f1417e7b54a16138de41934c818a6591ea05371800de345a63c.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "a7ffbfb05a9478550ae5de91d0d4b48b8e0b6626d13851d9ac8ed228c7f7de94",
+        "candidateIds": [
+          "Y3XV-_4ND4ld0aA0rKQQbNMKISWk4_7bpCQ6DVQNnjM"
+        ],
+        "estimatedBytes": 501164,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a7ffbfb05a9478550ae5de91d0d4b48b8e0b6626d13851d9ac8ed228c7f7de94.json",
+        "status": "miss",
+        "text": "「そうですか。あとであなたの指紋をとらせて下さい。この電燈は触らない様にして、このまま取はずして持って行きましょう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a7ffbfb05a9478550ae5de91d0d4b48b8e0b6626d13851d9ac8ed228c7f7de94.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "a85a71b12f449ec7a6083387c26c59ab7eb752ed024b637a2764957bb1fb9711",
+        "candidateIds": [
+          "15Q_MtCNoJ9qeFyAsf784hdwz2pWDpY6971fxLguglA"
+        ],
+        "estimatedBytes": 570284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a85a71b12f449ec7a6083387c26c59ab7eb752ed024b637a2764957bb1fb9711.json",
+        "status": "miss",
+        "text": "「よく訪ねて呉れましたね。その後暫く逢いませんが、例のＤ坂の事件はどうです。警察の方では一向犯人の見込がつかぬようではありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a85a71b12f449ec7a6083387c26c59ab7eb752ed024b637a2764957bb1fb9711.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "a85fdace13d35965df79addadad328b63259fa699a7a697675177d980fe11bf9",
+        "candidateIds": [
+          "x_1DsEkjEVZqSiIWI19vsErxI9X6etGv16gysxEC-eQ"
+        ],
+        "estimatedBytes": 613484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a85fdace13d35965df79addadad328b63259fa699a7a697675177d980fe11bf9.json",
+        "status": "miss",
+        "text": "「そして、同じ様に物音に気づいて同じ様に格子の閉るのを見ました。ですが、その男は確かに白い着物を着ていました。縞も模様もない、真白な着物です」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a85fdace13d35965df79addadad328b63259fa699a7a697675177d980fe11bf9.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "aa025479571131a269809d3a1227ff41cccc552e5ca6fc1d5f526b30da0476ad",
+        "candidateIds": [
+          "A2m7nrQnIJ34GkHiky01sbldcEqwI-hFzsqJ421rv74"
+        ],
+        "estimatedBytes": 224684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aa025479571131a269809d3a1227ff41cccc552e5ca6fc1d5f526b30da0476ad.json",
+        "status": "miss",
+        "text": "「別段これという物音を聞きません様でございましたが」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aa025479571131a269809d3a1227ff41cccc552e5ca6fc1d5f526b30da0476ad.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "aa3bd184b19a3c56a00081f78850ae111255a433b17f4f9215902fc10d068e35",
+        "candidateIds": [
+          "OEvnwjNNXQ_930GAXW9uXfX5-w0W_pUtxqHz4C65298"
+        ],
+        "estimatedBytes": 1062764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aa3bd184b19a3c56a00081f78850ae111255a433b17f4f9215902fc10d068e35.json",
+        "status": "miss",
+        "text": "「君が来てからまだ三十分にもなりませんが、三十分に四人も、少しおかしいですね。僕は君の来る前からあすこを見ていたんですよ。一時間程前にね、あの障子があるでしょう。あれの格子の様になった所が、閉るのを見たんですが、それからずっと注意していたのです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aa3bd184b19a3c56a00081f78850ae111255a433b17f4f9215902fc10d068e35.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "adf50c9f98648767f7a7cb4dfa0629e3addb71364cd014eb1ca1a6cebc87267d",
+        "candidateIds": [
+          "rrOlgRnxVkvJOL1NpZ-Wqbe9UQzqFFtJujtEo9fZYAE"
+        ],
+        "estimatedBytes": 233324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/adf50c9f98648767f7a7cb4dfa0629e3addb71364cd014eb1ca1a6cebc87267d.json",
+        "status": "miss",
+        "text": "「今晩八時前後に、この路地をでいりしたものはないかね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/adf50c9f98648767f7a7cb4dfa0629e3addb71364cd014eb1ca1a6cebc87267d.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "aff58c9ed2dc44cf2d905ba6fd42db11de5c6d25909e992d7c7b0153efd5572f",
+        "candidateIds": [
+          "dH-S43pST8WxyWMo-ez1qczoIXTV6EGOBo8oNZZ3rh8"
+        ],
+        "estimatedBytes": 4406444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aff58c9ed2dc44cf2d905ba6fd42db11de5c6d25909e992d7c7b0153efd5572f.json",
+        "status": "miss",
+        "text": "声を立てたり抵抗したりした形跡がないのですから、女はその男をよく知っていたに相違ありません。で、まんまと目的を果した男は、死骸の発見を後らす為に、電燈を消して立去ったのです。併し、この男のいちごの不覚は、障子の格子のあいているのを知らなかったこと、そして、驚いてそれを閉めた時に、偶然店先にいた二人の学生に姿を見られたことでした。それから、男は一旦外へ出ましたが、ふと気がついたのは、電燈を消した時、スイッチに指紋が残ったに相違ないということです。これはどうしても消して了わねばなりません。然しもう一度同じ方法で部屋の中へ忍込むのは危険です。そこで、男は一つの妙案を思いつきました。それは、自から殺人事件の発見者になることです。そうすれば、少しも不自然もなく、自分の手で電燈をつけて、以前の指紋に対する疑をなくして了うことが出来るばかりでなく、まさか、発見者が犯人だろうとは誰しも考えませんからね、二重の利益があるのです。こうして、彼は何食わぬ顔で警察のやり方を見ていたのです。大胆にも証言さえしました。しかも、その結果は彼の思う壺だったのですよ。五日たっても十日たっても、誰も彼を捕えに来るものはなかったのですからね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/aff58c9ed2dc44cf2d905ba6fd42db11de5c6d25909e992d7c7b0153efd5572f.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "b5433a07200ff9bded99865f1b63794bef8e9f2043ec60afbd617544e139ba41",
+        "candidateIds": [
+          "tLZymCIbRP8eYW5muMzkPmMjhW3TqP2o2wvdqDOFrtM"
+        ],
+        "estimatedBytes": 3438764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b5433a07200ff9bded99865f1b63794bef8e9f2043ec60afbd617544e139ba41.json",
+        "status": "miss",
+        "text": "「人間の観察や人間の記憶なんて、実にたよりないものですよ。この例にある様な学者達でさえ、服の色の見分がつかなかったのです。私が、あの晩の学生達は着物の色を見違えたと考えるのが無理でしょうか。彼等は何者かを見たかも知れません。併しその者は棒縞の着物なんか着ていなかった筈です。無論僕ではなかったのです。格子のすき間から、棒縞の浴衣を思付いた君の着眼は、却々面白いには面白いですが、あまりおあつらえむきすぎるじゃありませんか。少くとも、そんな偶然の符合を信ずるよりは、君は、僕の潔白を信じて呉れる訳には行かぬでしょうか。さて最後に、蕎麦屋の便所を借りた男のことですがね。この点は僕も君と同じ考だったのです。どうも、あの旭屋の外に犯人の通路はないと思ったのですよ。で僕もあすこへ行って調べて見ましたが、その結果は、残念ながら、君と正反対の結論に達したのです。実際は便所を借りた男なんてなかったのですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b5433a07200ff9bded99865f1b63794bef8e9f2043ec60afbd617544e139ba41.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "b75448e8851f91f3444a6b1ce87a007a4cf4f0d3bdb86e4a31c3cf126db97ac8",
+        "candidateIds": [
+          "Isjqc4nLEL7mlftQ7p9eX6Ugn8Bp1l6Roqz10D7R73E"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b75448e8851f91f3444a6b1ce87a007a4cf4f0d3bdb86e4a31c3cf126db97ac8.json",
+        "status": "miss",
+        "text": "「僕は人間を研究しているんですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b75448e8851f91f3444a6b1ce87a007a4cf4f0d3bdb86e4a31c3cf126db97ac8.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "b76ea5e28c33b50d82f606322e97a2549e5931c2dd27ee7a0a0abb41fe80f7ae",
+        "candidateIds": [
+          "vTq3UJ--ORNfJjcc6E_u8x4CHZWzeMJaz3u9uwNqhMo"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b76ea5e28c33b50d82f606322e97a2549e5931c2dd27ee7a0a0abb41fe80f7ae.json",
+        "status": "miss",
+        "text": "「ヤー、御上りなさい」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b76ea5e28c33b50d82f606322e97a2549e5931c2dd27ee7a0a0abb41fe80f7ae.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "bac9946944e8847f953f2dbb6c6e12b8e85647e8d6e1897fa8e4a214e7c2dcac",
+        "candidateIds": [
+          "TpgrUoveXMghxm9HvRIS-anuavgFv1WsNTi2R6WLYq0"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bac9946944e8847f953f2dbb6c6e12b8e85647e8d6e1897fa8e4a214e7c2dcac.json",
+        "status": "miss",
+        "text": "「ついていますよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bac9946944e8847f953f2dbb6c6e12b8e85647e8d6e1897fa8e4a214e7c2dcac.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "bd2d2a00965ef222a6e808a892db64140ccd3716db00c8d3435f97a863c3047f",
+        "candidateIds": [
+          "b5UpacsbmHTr3SdU7M8HyuNP6M8L4UA9pMuzXk8O3Ps"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bd2d2a00965ef222a6e808a892db64140ccd3716db00c8d3435f97a863c3047f.json",
+        "status": "miss",
+        "text": "「君も気づいている様ですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bd2d2a00965ef222a6e808a892db64140ccd3716db00c8d3435f97a863c3047f.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "bf0b40f3cab810414587f59f7eee240075b45c732e7561cd4390dd079782d3ee",
+        "candidateIds": [
+          "nDvfn2lb8SUZhJhlXZIpMv-jkmkS18GJe243F0T0zoo"
+        ],
+        "estimatedBytes": 1382444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf0b40f3cab810414587f59f7eee240075b45c732e7561cd4390dd079782d3ee.json",
+        "status": "miss",
+        "text": "「君はポオの『ル・モルグ』やルルーの『黄色の部屋』などの材料になった、あのパリーの Rose Delacourt 事件を知っているでしょう。百年以上たった今日でも、まだ謎として残っているあの不思議な殺人事件を。僕はあれを思出したのですよ。今夜の事件も犯人の立去った跡のない所は、どうやら、あれに似ているではありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/bf0b40f3cab810414587f59f7eee240075b45c732e7561cd4390dd079782d3ee.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "c37fb8d1c1b3a07bcdf212c6c2a1ca3eed3d66cc16cfac21727c85b70a4a80a6",
+        "candidateIds": [
+          "kiitBu2ae1faXGgwv1RN_XvUQRuik9zRvwLW_rxpPgw"
+        ],
+        "estimatedBytes": 622124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c37fb8d1c1b3a07bcdf212c6c2a1ca3eed3d66cc16cfac21727c85b70a4a80a6.json",
+        "status": "miss",
+        "text": "「この裏口の辺は、日当りが悪いせいかひどいぬかるみで、下駄の跡が滅多無性についているんだから、とても分りっこありません。ところで、この男ですが」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c37fb8d1c1b3a07bcdf212c6c2a1ca3eed3d66cc16cfac21727c85b70a4a80a6.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "c747eb4d01e5540bc2a082b812659542735eac0506065a32ec10ffc6c5ff3453",
+        "candidateIds": [
+          "mbVPZRj4IEI4vUyN2bA6Sh3NXjfWjKvn7Y1aQ_7HcnA"
+        ],
+        "estimatedBytes": 129644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c747eb4d01e5540bc2a082b812659542735eac0506065a32ec10ffc6c5ff3453.json",
+        "status": "miss",
+        "text": "「決して間違いではありません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/c747eb4d01e5540bc2a082b812659542735eac0506065a32ec10ffc6c5ff3453.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "d8bf357df0acbb6cdf4effedb80de803a4c0509485a8ffd5b0faf3ff5f5513db",
+        "candidateIds": [
+          "iJdT5dZDUJ-P7h3a_SB8X-RTM9U5VEmIcbwXWhLZ-Xo"
+        ],
+        "estimatedBytes": 3481964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d8bf357df0acbb6cdf4effedb80de803a4c0509485a8ffd5b0faf3ff5f5513db.json",
+        "status": "miss",
+        "text": "よく宿屋の貸浴衣にある様な……では何故それが一人に真白に見え、もう一人には真黒に見えたかといいますと、彼等は障子の格子のすき間から見たのですから、丁度その瞬間、一人の目が格子のすき間と着物の白地の部分と一致して見える位置にあり、もう一人の目が黒地の部分と一致して見える位置にあったんです。これは珍らしい偶然かも知れませんが、決して不可能ではないのです。そして、この場合こう考えるより外に方法がないのです。 さて、犯人の着物の縞柄は分りましたが、これでは単に捜査範囲が縮小されたという迄で、まだ確定的のものではありません。第二の論拠は、あの電燈のスイッチの指紋なんです。僕は、さっき話した新聞記者の友達のつてで、小林刑事に頼んでその指紋を――君の指紋ですよ――よく検べさせて貰ったのです。その結果いよいよ僕の考えてることが間違っていないのを確めました。ところで、君、すずりがあったら、一寸貸して呉れませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d8bf357df0acbb6cdf4effedb80de803a4c0509485a8ffd5b0faf3ff5f5513db.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "da482d9238fcfb9596d2e3bd5c34d210346c2f2c528456eddecf8bb1d8cb655e",
+        "candidateIds": [
+          "WjpKoahOKTY0nzJmRO2UHuCTt4lb9SI0HEAImzNxb3w"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/da482d9238fcfb9596d2e3bd5c34d210346c2f2c528456eddecf8bb1d8cb655e.json",
+        "status": "miss",
+        "text": "「君の店のお客で路地の中へ入ったものはないかね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/da482d9238fcfb9596d2e3bd5c34d210346c2f2c528456eddecf8bb1d8cb655e.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "df3de08ae65217b26f8c8c58def439af440e0ab3d6a99fee990917ba9b29b6b0",
+        "candidateIds": [
+          "LlK--AQlQUwLf-1c4yPs2G29qQ9nkmVxwy6g0kl7p2Y"
+        ],
+        "estimatedBytes": 319724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df3de08ae65217b26f8c8c58def439af440e0ab3d6a99fee990917ba9b29b6b0.json",
+        "status": "miss",
+        "text": "「極っているじゃないか。この女が殺される時の叫び声とか、格闘の音とか……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df3de08ae65217b26f8c8c58def439af440e0ab3d6a99fee990917ba9b29b6b0.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "df56afc971228cc69769cc1d426826bbf50cd4a86619ae652a7920b2497d99c2",
+        "candidateIds": [
+          "1bAF04MJJNOTUsg0Wj-7QqVhrVwytBKQrR-FPlNXbtU"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df56afc971228cc69769cc1d426826bbf50cd4a86619ae652a7920b2497d99c2.json",
+        "status": "miss",
+        "text": "「で、男だったという外に何か気附いた点はありませんか、背恰好とか、着物の柄とか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/df56afc971228cc69769cc1d426826bbf50cd4a86619ae652a7920b2497d99c2.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "e3830aed6752aec46a78570ee6914553727e0f5f35ec2712b17e261d4d1d2749",
+        "candidateIds": [
+          "wDFXDvFYNp9Jvr7-RspbXDd2jLNH9KycY4o0Yus30HI"
+        ],
+        "estimatedBytes": 432044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3830aed6752aec46a78570ee6914553727e0f5f35ec2712b17e261d4d1d2749.json",
+        "status": "miss",
+        "text": "「本泥坊でしょう。どうも変ですね。僕もここへ入って来た時から、見ていたんですよ。これで四人目ですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e3830aed6752aec46a78570ee6914553727e0f5f35ec2712b17e261d4d1d2749.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "e645d1a1a2bc786a07db2afb1d2d53829ae7fe91e6a36c92f3c3777b5ebfca04",
+        "candidateIds": [
+          "pkmVKfJs9VI1zCGkd7fFppt9rm4UD75VxwlpfnoZMKg"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e645d1a1a2bc786a07db2afb1d2d53829ae7fe91e6a36c92f3c3777b5ebfca04.json",
+        "status": "miss",
+        "text": "「電燈のスイッチに指紋があります」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e645d1a1a2bc786a07db2afb1d2d53829ae7fe91e6a36c92f3c3777b5ebfca04.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "eb310f5ffc050dad8603b16566084eb7bb98e85e5d3399d94a34cdb0d3d32915",
+        "candidateIds": [
+          "X3DpL2J1-tT78KSq3DM9RnQCRPQDB5l5hfRjAPpiC3Q"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/eb310f5ffc050dad8603b16566084eb7bb98e85e5d3399d94a34cdb0d3d32915.json",
+        "status": "miss",
+        "text": "「家の人が出て行ったのじゃないのですか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/eb310f5ffc050dad8603b16566084eb7bb98e85e5d3399d94a34cdb0d3d32915.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "efe9c4812f800c566432c46b6884e379a3f32a7839b940df70f4b4ae210d99a7",
+        "candidateIds": [
+          "rG4gpExHEYgQg2isPKZTOHO3r4ZDRv4Dho4nRXPWwFI"
+        ],
+        "estimatedBytes": 181484,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/efe9c4812f800c566432c46b6884e379a3f32a7839b940df70f4b4ae210d99a7.json",
+        "status": "miss",
+        "text": "「ミュンスターベルヒが賢くも説破した通り」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/efe9c4812f800c566432c46b6884e379a3f32a7839b940df70f4b4ae210d99a7.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "f05b7059849efff325463561e9c5f1fd0a1873c278f7c5b7ad7731fbd0d72c3a",
+        "candidateIds": [
+          "U3IpHf1zOiDe_CC3pGiuUAokTbs9_xFlb3cTKn1nhnw"
+        ],
+        "estimatedBytes": 86444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f05b7059849efff325463561e9c5f1fd0a1873c278f7c5b7ad7731fbd0d72c3a.json",
+        "status": "miss",
+        "text": "「すぐ来る相ですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f05b7059849efff325463561e9c5f1fd0a1873c278f7c5b7ad7731fbd0d72c3a.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "f78099d87d1ddfc046bd758b1acb5d2225284b875295f382fb5297c563faed27",
+        "candidateIds": [
+          "uoi0Gy-Qon4IgwUBIiDExRdZJo0CRbgc3t8Ij-98xO0"
+        ],
+        "estimatedBytes": 440684,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f78099d87d1ddfc046bd758b1acb5d2225284b875295f382fb5297c563faed27.json",
+        "status": "miss",
+        "text": "「あの並びのそばやのあさひやのお神さんだって、よく傷をしているわ。あれもどうも叩かれた傷に違いないわ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f78099d87d1ddfc046bd758b1acb5d2225284b875295f382fb5297c563faed27.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "fc63130df55ed118470c87f9cc277bd8c77a4f38146ab7c60cd7c9ed5c5d77d7",
+        "candidateIds": [
+          "fwvIx0RZhKpLYA0YHTtHNr9QAe_rViFdq7j5oV3F9SY"
+        ],
+        "estimatedBytes": 751724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fc63130df55ed118470c87f9cc277bd8c77a4f38146ab7c60cd7c9ed5c5d77d7.json",
+        "status": "miss",
+        "text": "「僕はあれから、種々考えて見たんですよ。考えたばかりでなく、探偵の様に実地の取調べもやったのですよ。そして、実は一つの結論に達したのです。それを君に御報告しようと思って……」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fc63130df55ed118470c87f9cc277bd8c77a4f38146ab7c60cd7c9ed5c5d77d7.wav",
+        "workIds": [
+          "056650"
+        ]
+      },
+      {
+        "audioId": "fd02f0e157751494d152bbcefcff1e1c6f581c55de3a211907ecc9c87dff7410",
+        "candidateIds": [
+          "6zwc2RES18RvOBIWOGU_0d4AoBHNFP2EmlGdc1tlfP4"
+        ],
+        "estimatedBytes": 682604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fd02f0e157751494d152bbcefcff1e1c6f581c55de3a211907ecc9c87dff7410.json",
+        "status": "miss",
+        "text": "「私は長らくここへ店を出させて貰ってますが、あすこは、この長屋のお上さん達も、夜分は滅多に通りませんので、何分あの足場の悪い所へ持って来て、真暗なんですから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fd02f0e157751494d152bbcefcff1e1c6f581c55de3a211907ecc9c87dff7410.wav",
+        "workIds": [
+          "056650"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 92676380,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "14b5c65ee06398833d2e3678030392bd060e60f9af1b4096062f8bd2e6a6a585",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 85,
+    "planDigest": "abc365c1abf2416299e6cfb22370218d84e218304796bdb5874b82116cc9d86b",
+    "preTreeDigest": "35ec60025e3edac70303fda8dd7d1890528479f17232bb00779fd7b8dcc3679e",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 85,
+    "workId": "056650"
+  },
+  "preTreeDigest": "35ec60025e3edac70303fda8dd7d1890528479f17232bb00779fd7b8dcc3679e",
+  "schemaVersion": "1.0.0",
+  "workId": "056650"
+}

@@ -205,6 +205,7 @@
       "workId": "056648"
     },
     {
+      "forecastRef": "content/batches/F008/capacity-forecast/056650.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-23T02:10:00.000Z",
@@ -217,9 +218,35 @@
           ],
           "stage": "extracted",
           "toolVersion": "f008-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-23T02:10:00.000Z",
+          "count": 87,
+          "inputHashes": [
+            "8cfc4f4d896c0271fdf292066c42bc2aa20e78b44c5b59bcee3025e747a2b9d3",
+            "abf9cb6d0ec68f8503b2ea5be42b3e75a7114b3f048fe3f570f455c43e4e41f4"
+          ],
+          "outputHashes": [
+            "4fc65c777d642536a4dff22ebcada864213fda993eeb4cb7425914881245fc18"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f008-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-23T13:25:42.355Z",
+          "count": 85,
+          "inputHashes": [
+            "14b5c65ee06398833d2e3678030392bd060e60f9af1b4096062f8bd2e6a6a585",
+            "4fc65c777d642536a4dff22ebcada864213fda993eeb4cb7425914881245fc18"
+          ],
+          "outputHashes": [
+            "4feb8842c51e4512eaea840b21980b813065ffe06f8c8499101e7cdbbd0acffe"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f008-prepare-voice-forecast-v1"
         }
       ],
-      "status": "extracted",
+      "status": "budget-approved",
       "workId": "056650"
     },
     {
