@@ -5244,13 +5244,29 @@ tasks:
   title: F010 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F010
   phase: test
-  state: todo
+  state: done
   depends:
   - T-198
   tags: *id010
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。最初からtests/e2e/f010-kajii-author.spec.tsを作成する
   model: *model_f010
+  progress: >-
+    完了。src/content/f010-acceptance.test.ts(TARGET_WORK_ID=000411、
+    全3作品accepted後の末尾work)を新規作成し5/5 PASS確認。tests/e2e/
+    f010-kajii-author.spec.ts(4 tests、実測データ: authorId=000074・
+    3作品合計21台詞・3作品ともofficial-content-warning注記の「非存在」を
+    明示的に確認するnegativeケース、F009までの存在確認specとは逆)を
+    .cache/f010-final-integration-GL47gm/の実catalog.jsonから実測して
+    新規作成。npm testフルスイート(1599件中36 failed、既知のWindows
+    local限定フレークのみ、f010-acceptance.test.ts単体再実行で5/5 PASS
+    確認済み)。npm run test:e2eフルスイートはF010固有4 spec×6ブラウザ
+    =24件が予想通り失敗(F010はT-200でpublic/昇格するまでauthor routeが
+    存在しないため想定内動作)、他に1件(webkit f002 1440x900)が失敗した
+    が個別再実行でPASSしF010と無関係の既知フレークと確認、それ以外は
+    252 passed・5 skipped・regressionなし。tsc/eslint(該当ファイル)全
+    PASS、trace_check.py対応漏れなし。次のアクションはT-200(リリース前
+    総点検・公開・実e2e実行によるF010 spec最終PASS確認)。
 - id: T-200
   title: F010リリース前総点検・GitHub Pages段階公開・公開スモーク
   feature: F010
