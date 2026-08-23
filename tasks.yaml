@@ -5050,13 +5050,26 @@ tasks:
   title: UT-F010・IT-F010を作成しQT-F010との網羅性を確認
   feature: F010
   phase: testspec
-  state: todo
+  state: done
   depends:
   - T-191
   tags: *id010
   mode: orchestration
   mode_reason: 権利・原典entity/外字検出・独立二重判定・音声・容量・Catalog・セキュリティの独立試験領域を並列設計できるため
   model: *model_f010
+  progress: >-
+    完了。docs/tests/ut/UT-F010.md(UT 17件、DD-F010.md FUN全18件を網羅、
+    7件は既存F00N testを引用のみ・10件を新規作成)・docs/tests/it/
+    IT-F010.md(IT 11件、DES-F010-001〜015全件を網羅)を作成した。F009の
+    盲目的複製を避けF010固有の実データを反映: (1)公式表現注意の不在確認
+    (F009は存在確認だったが、F010は3作品とも初のnotices=dialogue-excerpt-
+    scopeのみ・official-content-warning皆無を確認するnegativeケース)、
+    (2)長大候補分割のno-op確認(実測最大候補長133文字のため分割が発動
+    しないことを確認するケース、F009の発動確認とは逆)、(3)檸檬の実gaiji
+    1件(候補外)・他2作品0件の回帰ケース、(4)artwork lower-bound<8の
+    厳密確認、(5)12 route・v0.9.0 baseline pinsの実値反映。trace_check.py
+    (feature指定なし全件)は対応漏れなし。承認ゲート③自動承認、SRS/FD/DD/
+    UT/IT/QT-F010が全てApproved。次のアクションはpf-implement(T-193以降)。
 - id: T-193
   title: 候補manifest・固定v0.9.0 baseline・作者identity・権利原典を整備
   feature: F010
