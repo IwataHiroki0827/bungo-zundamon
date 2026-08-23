@@ -4495,10 +4495,11 @@ tasks:
     capacity-actual実測(104KB)を実データとして生成した(commit b2f2cf4)。
     tsc/lintプロジェクト全体PASS。人間椅子の作品固有notice(公式「不適切な
     表現」注意)はT-172で登録済みのwork-notices.jsonがそのまま適用された。
+- id: T-174
   title: Ｄ坂の殺人事件を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F008
   phase: implement
-  state: doing
+  state: done
   depends:
   - T-173
   tags:
@@ -4514,6 +4515,11 @@ tasks:
   mode_reason: 全候補の独立二重判定と音声生成を分離して反復でき、DOMAIN-F008.md §5が指摘する長大候補(発話文字概算10,962文字/82候補、既存3作品中最大)の実測分割要否確認を要するため
   model: *model_f008
   progress: >-
+    (このtaskの記録は前回セッションでT-173の項目へ`- id: T-174`の区切りなしに
+    誤って追記されており、YAMLとしてはT-173の同名key群を上書きする形の破損に
+    なっていた。メインセッション側でtasks.yaml構造を修正し、T-173・T-174を
+    それぞれ正しい別entryへ分離した。内容自体の欠落はない。)
+
     scripts/f008-prepare-editorial.ts(f007版クローン、人間椅子と共用)へ
     Ｄ坂の殺人事件(056650)向けWORK_EDITORIAL_CONFIGSを追加し、青空文庫本文
     （56650_58209.html正規化済みテキスト）を実際に通読して実extractor抽出
@@ -4546,6 +4552,35 @@ tasks:
     バグでも判定ミスでもない。次のアクション: T-172（作者画像実生成、
     ComfyUI要）→T-173段階B2（人間椅子のaccept）を完了させない限り、
     T-174・T-175とも音声生成段階へ進めない。commit: (このコミットで反映)。
+
+    T-172・T-173完了後、メインセッション側で音声生成を再開した。長大候補
+    プール(85候補)は、この実行環境がバックグラウンドプロセスを繰り返し
+    外部要因で中断する制約下では1回の継続実行で完了できなかった
+    (CHG-F008-003)。generateVoiceDiff(共有・変更禁止)がstaging directoryを
+    mkdir(recursive:false)で毎回新規作成する設計のため、中断のたびに
+    staging済みWAVが失われ次回起動時に全件miss扱いに戻る非効率があった。
+    F008専用の一時script2本(scripts/f008-promote-voice-stage-cache.ts・
+    scripts/f008-reset-work.ts、共有モジュール無変更)を新規作成し、
+    「既存WAVをpersistent cache(.cache/voice/)へ複製→budget-approved
+    stageを取り消しreviewedへ戻す→再実行」を反復することで、中断のたびに
+    実際にVOICEVOXから生成済みの音声を失わずに済むようにした。この反復に
+    より85候補全件が実際にVOICEVOXから生成され(最終実行はcache全hitで
+    stagedBytes:0・succeeded:85・failed:0)、verifyVoiceCompleteness PASS・
+    voiced遷移まで完結した(commit de54f49・273900b)。
+
+    続けてscripts/f008-content-preview.ts 056650を実行したところ、
+    buildWorkFragmentPieceが新規provenanceファイル(content/batches/F008/
+    public-files/provenance/056650.json)をuntrackedで書き出した直後に
+    integrateArtworkProvenances内のcleanHead検証(f005-context-internal.ts)
+    がgit working treeの完全cleanを要求し失敗した。F007の同型precedent
+    (commit 3c2d30d)と同じ理由・同じ対処: 生成された中間生成物を一度commit
+    してから再実行し(commit 81da48e)、work-preview構築(1223 files)に
+    成功した。続けてscripts/f008-capacity-actual.ts 056650(result: pass、
+    freeBytes=84.1GB)→scripts/f008-accept-work.ts 056650(status: accepted)
+    を実行し完結させた。accepted-audio 85件(実VOICEVOX生成、捏造なし)を
+    正式昇格した(commit 38bf44b)。tsc/lintプロジェクト全体PASS。
+    docs/changes/changes.yamlへCHG-F008-002(容量forecast resume不一致)・
+    CHG-F008-003(音声生成の環境制約対応script)として起票済み。
 - id: T-175
   title: 一人二役を抽出・二重レビュー・音声化・atomic受入
   feature: F008
