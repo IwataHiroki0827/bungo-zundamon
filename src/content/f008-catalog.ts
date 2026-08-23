@@ -125,7 +125,7 @@ const EXPECTED_NOTICE_KEYS: Readonly<Record<F008WorkId, readonly string[]>> = Ob
   '057193': Object.freeze(['dialogue-excerpt-scope']),
 });
 
-function assertFragmentWorks(fragment: F008CatalogFragment): void {
+function assertFragmentWorks(fragment: F008CatalogFragment, knownAudioIds: ReadonlySet<string>): void {
   if (fragment.works.length !== F008_WORKS.length) {
     throw new F008CatalogError('F008_CATALOG_MERGE_CONFLICT', 'fragment worksがexact 3件ではありません');
   }
@@ -163,7 +163,13 @@ function assertFragmentWorks(fragment: F008CatalogFragment): void {
     throw new F008CatalogError('F008_CATALOG_MERGE_CONFLICT', 'fragment内audio IDが重複しています');
   }
   for (const audioId of referencedAudioIds) {
-    if (!audioIds.includes(audioId)) {
+    // CHG-F008-004: audioIdは内容hashのため、既存(baseline)公開済み台詞と
+    // byte-identicalな短い発話は既存assetを再利用しfragment.audioAssetsへ
+    // 重複登録しない設計(scripts/f008-content-preview.ts・
+    // scripts/f008-final-integration.ts参照)。そのためdialogueの参照先は
+    // fragment自身のaudioAssetsだけでなく、既にbaseline側に存在するIDも
+    // 正当な参照先として許容する。
+    if (!audioIds.includes(audioId) && !knownAudioIds.has(audioId)) {
       throw new F008CatalogError('F008_CATALOG_MERGE_CONFLICT', `参照audio assetが不足しています: ${audioId}`);
     }
   }
@@ -213,7 +219,11 @@ export function mergeNewAuthorCatalog008(
     throw new F008CatalogError('F008_CATALOG_MERGE_CONFLICT', 'fragment/検証済み作者identityが不正です');
   }
   assertArtwork(fragment.authorArtwork);
-  assertFragmentWorks(fragment);
+  assertFragmentWorks(fragment, new Set(
+    isRecord(baselineCatalog) && Array.isArray(baselineCatalog.audioAssets)
+      ? baselineCatalog.audioAssets.map((asset) => asset.audioId)
+      : [],
+  ));
   if (
     !isRecord(baselineCatalog) ||
     !Array.isArray(baselineCatalog.authors) || baselineCatalog.authors.length !== 6 ||
