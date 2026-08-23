@@ -4843,13 +4843,28 @@ tasks:
   title: 瓶詰地獄を抽出・二重レビュー・音声化・作品固有注記UI適用・atomic受入
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-183
   tags: *id009
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f009
+  progress: >-
+    完了。瓶詰地獄(002381)の実candidate 4件を実extraction・実テキスト精読で
+    独立二重判定し、4件全てSPOKEN_DIALOGUE承認(アヤ子の叫び・太郎の祈り/
+    独白、山椒大夫order118心内語と同型precedent)、rejected 0件。ルビ変換済み
+    speechTextは既存で正しく、追加の読み補正0件。実VOICEVOX(speaker 3)で
+    4/4音声合成成功(4,115,120 bytes)、verifyVoiceCompleteness PASS。容量
+    forecast pass_with_warning(CHG-F008-001の150MB固定上限修正を継承)、
+    容量actual pass(freeBytes約120.8GB)。atomic受入でWAV4件をaccepted-audio/
+    002381/へ正式昇格、manifest workProgress[002381].status: accepted。
+    副次的にF008 batch.jsonがF005〜F007と同型の未published既知パターン
+    (recordPublishedBatch相当欠落)のままだったことを発見し、scripts/
+    f008-mark-published.tsで実evidence(F008-deployment/smoke.json、
+    workflow run 32647228172)を根拠に是正した(コンテンツ本体は無変更)。
+    tsc/eslint(該当ファイル)全PASS、vitest 66件全PASS(regression 0件)、
+    trace_check.py対応漏れなし。次のアクションはT-185(きのこ会議)。
 - id: T-185
   title: きのこ会議を抽出・二重レビュー・音声化・atomic受入
   feature: F009
