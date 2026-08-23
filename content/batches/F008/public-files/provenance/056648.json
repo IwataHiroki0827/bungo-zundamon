@@ -1,0 +1,20 @@
+{
+  "baseEdition": "江戸川乱歩全集　第1巻　屋根裏の散歩者",
+  "bibliography": {
+    "archiveBytes": 2092746,
+    "archiveSha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "csvBytes": 17161785,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-08-22T14:41:31.640Z",
+  "inputter": "砂場清隆",
+  "proofreader": "湖山ルル",
+  "sourceSha256": "754a6926e37964886be4dab8e5d6e489017cd09d8c651d00167abb4d0edc1020",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/001779/files/56648_58207.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/001779/card56648.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成"
+}
