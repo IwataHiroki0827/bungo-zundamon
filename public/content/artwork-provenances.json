@@ -76,6 +76,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F008.json",
       "provenanceSha256": "aa5e54fdac3c087045726007993baf0cf3f74f6de59af66a468d2944f3e6910e"
+    },
+    {
+      "authorId": "000096",
+      "batchId": "F009",
+      "manifestId": "artwork-F009-000096-v1",
+      "output": {
+        "path": "artwork/yumeno-kyusaku-zundamon.png",
+        "sha256": "25c47c982523cd03b25596a02ad17b5b071389a4ce7e2b1b76a95ffb04851d83"
+      },
+      "provenanceRef": "content/artwork-provenance/F009.json",
+      "provenanceSha256": "2499a213dfb45271ab7f4eaffaaf06f2caf1bb968f405d33e7b9e673c1923cc8"
     }
   ],
   "schemaVersion": "1.0.0"
