@@ -1,0 +1,171 @@
+{
+  "batchId": "F009",
+  "kind": "f009-speech-revision-result",
+  "reconciliationDigest": "9d5d81930669106c10e109dd82f1d31d217dd3395363bea7e600c28b446c9f5f",
+  "revisions": [
+    {
+      "after": "「皆さん、私は椎茸というものです。この頃人間は私を大変に重宝がって、わざわざ木を腐らして私共の畑を作ってくれますから、私共はだんだん大きな立派な子孫が殖えて行くばかりです。今にどんなきのこでも人間が畠を作ってくれるようになって貰いたいと思います」",
+      "before": "「皆さん、私は椎茸というものです。この頃人間は私を大変に重宝がって、わざわざ木を腐らして私共の畑を作ってくれますから、私共はだんだん大きな立派な子孫が殖えて行くばかりです。今にどんな茸でも人間が畠を作ってくれるようになって貰いたいと思います」",
+      "candidateId": "lyUa8vKXSgABjMBwBLRVE1qLsFJMufPzhdneDDZHvJU",
+      "inputSha256": "74273c22eb06f357c36dd27e0fadac5629a20bf38b929370ca39a3c2570c6ecc",
+      "outputSha256": "a9b2193155f2bd5610d4e44f7ee13820a3458051200f1044979dae9eed09604b",
+      "reason": "単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）",
+      "revision": 1
+    },
+    {
+      "after": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらいきのこは人間さえも毎年毎年殺している位だ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+      "before": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらい茸は人間さえも毎年毎年殺している位だ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+      "candidateId": "ZvjFMvoVufH6JgRsY6wgb2KzXc-NtHHN62rHKcyDvTE",
+      "inputSha256": "ac49d3d321a50397c564c953fb93f93f56d3c84d6d7f5d24958e7e9b5b7b472c",
+      "outputSha256": "1528a89378efd16b696ac9a6fd3488c69a9014aa8b17d3f4c73697503549ba4d",
+      "reason": "単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）",
+      "revision": 1
+    },
+    {
+      "after": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらいきのこは人間さえも毎年毎年殺しているくらいだ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+      "before": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらいきのこは人間さえも毎年毎年殺している位だ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+      "candidateId": "ZvjFMvoVufH6JgRsY6wgb2KzXc-NtHHN62rHKcyDvTE",
+      "inputSha256": "1528a89378efd16b696ac9a6fd3488c69a9014aa8b17d3f4c73697503549ba4d",
+      "outputSha256": "9e2b8fd2d811848ea946b9b54b1ee50a9e970bdfe4e8ba1ac70f122fc46dd59c",
+      "reason": "「位」の既定合成で「くら」音節が脱落する問題を平仮名表記で補正（VOICEVOX実合成で確認）",
+      "revision": 2
+    },
+    {
+      "after": "「もはやこんなにきのこはあるまいと思っていたが、いろいろの茸がずいぶん沢山ある」",
+      "before": "「もはやこんなに茸はあるまいと思っていたが、いろいろの茸がずいぶん沢山ある」",
+      "candidateId": "K8jFveD8TXdWfJazbl6LqnnTaNSToDWnyCNY6nNdXdU",
+      "inputSha256": "538b024731997b87a92e1d5a76f19727eae7fa9f4852ed2755bc5086138c477c",
+      "outputSha256": "6e329a32b25634f992a5d13047c3c5b76cc4798273115d8e906414f4afd4019e",
+      "reason": "単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）",
+      "revision": 1
+    },
+    {
+      "after": "「もはやこんなにきのこはあるまいと思っていたが、いろいろのきのこがずいぶん沢山ある」",
+      "before": "「もはやこんなにきのこはあるまいと思っていたが、いろいろの茸がずいぶん沢山ある」",
+      "candidateId": "K8jFveD8TXdWfJazbl6LqnnTaNSToDWnyCNY6nNdXdU",
+      "inputSha256": "6e329a32b25634f992a5d13047c3c5b76cc4798273115d8e906414f4afd4019e",
+      "outputSha256": "4a8ee5607b036bbb75ed6cbaeda4f7b74af2066c593c7ac3187baf0af929facb",
+      "reason": "単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）",
+      "revision": 2
+    },
+    {
+      "after": "「小さなきのこは残してお置きよ。かわいそうだから」",
+      "before": "「小さな茸は残してお置きよ。かわいそうだから」",
+      "candidateId": "O6gXd5FjoStysLcW0h40s47qvOHGjQ8Nei7HLZ_BOHc",
+      "inputSha256": "a587bf35f17be17c537f53d580ba1bfc5a3fd720fa8fb23f808f6eccc33d75a5",
+      "outputSha256": "1454a36133d7ad21c6cbdbfaa18cbfde5bb071e4971da3fc47ae8b8af8126fd1",
+      "reason": "単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "pKE-5aLJ5rh5WKfKdfUHTDsw1B1ulmdNnMK-PUaKtIc",
+      "displayText": "「皆さん。この頃はだんだん寒くなりましたので、そろそろ私共は土の中へ引き込まねばならぬようになりました。今夜はお別れの宴会ですから、皆さんは何でも思う存分に演説をして下さい。私が書いて新聞に出しますから」",
+      "revisionCount": 0,
+      "speechSha256": "a8803dd8091c3bb984fbe4be11852cd8a10fa88d87e3eefe4668e980b5e2dba5",
+      "speechText": "「皆さん。この頃はだんだん寒くなりましたので、そろそろ私共は土の中へ引き込まねばならぬようになりました。今夜はお別れの宴会ですから、皆さんは何でも思う存分に演説をして下さい。私が書いて新聞に出しますから」"
+    },
+    {
+      "candidateId": "lyUa8vKXSgABjMBwBLRVE1qLsFJMufPzhdneDDZHvJU",
+      "displayText": "「皆さん、私は椎茸というものです。この頃人間は私を大変に重宝がって、わざわざ木を腐らして私共の畑を作ってくれますから、私共はだんだん大きな立派な子孫が殖えて行くばかりです。今にどんな茸でも人間が畠を作ってくれるようになって貰いたいと思います」",
+      "revisionCount": 1,
+      "speechSha256": "a9b2193155f2bd5610d4e44f7ee13820a3458051200f1044979dae9eed09604b",
+      "speechText": "「皆さん、私は椎茸というものです。この頃人間は私を大変に重宝がって、わざわざ木を腐らして私共の畑を作ってくれますから、私共はだんだん大きな立派な子孫が殖えて行くばかりです。今にどんなきのこでも人間が畠を作ってくれるようになって貰いたいと思います」"
+    },
+    {
+      "candidateId": "nVvZThlJxm8SEqa8tAizmSvf1gmJPPtqu5kz-PmeAcE",
+      "displayText": "「皆さん、私共のつとめは、第一に傘をひろげて種子を撒き散らして子孫を殖やすこと、その次は人間に食べられることですが、人間は何故だか私共がまだ傘を開かないうちを喜んで持って行ってしまいます。そのくせ椎茸さんのような畠も作ってくれません。こんな風だと今に私共は種子を撒く事が出来ず、子孫を根絶やしにされねばなりません。人間は何故この理屈がわからないかと思うと、残念でたまりません」",
+      "revisionCount": 0,
+      "speechSha256": "773c2ff0b9e9dc70858667cda655a4b0f2ba66dd58d66b3adce7b2dff8089644",
+      "speechText": "「皆さん、私共のつとめは、第一に傘をひろげてたねを撒き散らして子孫を殖やすこと、その次は人間に食べられることですが、人間は何故だか私共がまだ傘を開かないうちを喜んで持って行ってしまいます。そのくせ椎茸さんのような畠も作ってくれません。こんな風だと今に私共は種子を撒く事が出来ず、子孫を根絶やしにされねばなりません。人間は何故この理屈がわからないかと思うと、残念でたまりません」"
+    },
+    {
+      "candidateId": "mmBtldcsNrS-_uRA37PkxuVSFYIKDgfn1NZPdfzLeVE",
+      "displayText": "「そうだ、そうだ」",
+      "revisionCount": 0,
+      "speechSha256": "2fe2e3855dff17031b6447289bc85592700a7603048813017e99c4ace687b9fe",
+      "speechText": "「そうだ、そうだ」"
+    },
+    {
+      "candidateId": "ZvjFMvoVufH6JgRsY6wgb2KzXc-NtHHN62rHKcyDvTE",
+      "displayText": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらい茸は人間さえも毎年毎年殺している位だ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+      "revisionCount": 2,
+      "speechSha256": "9e2b8fd2d811848ea946b9b54b1ee50a9e970bdfe4e8ba1ac70f122fc46dd59c",
+      "speechText": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらいきのこは人間さえも毎年毎年殺しているくらいだ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」"
+    },
+    {
+      "candidateId": "sR8ulM2PZJcGQ-jGLDMP76KPYLmMKCtxzMHPcOWR0Ls",
+      "displayText": "「成る程、毒にさえなればこわい事はない」",
+      "revisionCount": 0,
+      "speechSha256": "801e3ec6ec73a6d561616c01c41a9a3019f2e8eb3fc34dde905f5f67db14b9e5",
+      "speechText": "「成る程、毒にさえなればこわい事はない」"
+    },
+    {
+      "candidateId": "K8jFveD8TXdWfJazbl6LqnnTaNSToDWnyCNY6nNdXdU",
+      "displayText": "「もはやこんなに茸はあるまいと思っていたが、いろいろの茸がずいぶん沢山ある」",
+      "revisionCount": 2,
+      "speechSha256": "4a8ee5607b036bbb75ed6cbaeda4f7b74af2066c593c7ac3187baf0af929facb",
+      "speechText": "「もはやこんなにきのこはあるまいと思っていたが、いろいろのきのこがずいぶん沢山ある」"
+    },
+    {
+      "candidateId": "ZvWSRFN1qedQyGIXheBAPOyQyCgJzcN5PZ_Q3Ey0Tc4",
+      "displayText": "「あれ、お前のようにむやみに取っては駄目よ。こわさないように大切に取らなくては」",
+      "revisionCount": 0,
+      "speechSha256": "0be3a39de7b3a857888f21225c46814fb51d22e10801e2fce9b9f89a7ca4d172",
+      "speechText": "「あれ、お前のようにむやみに取っては駄目よ。こわさないように大切に取らなくては」"
+    },
+    {
+      "candidateId": "O6gXd5FjoStysLcW0h40s47qvOHGjQ8Nei7HLZ_BOHc",
+      "displayText": "「小さな茸は残してお置きよ。かわいそうだから」",
+      "revisionCount": 1,
+      "speechSha256": "1454a36133d7ad21c6cbdbfaa18cbfde5bb071e4971da3fc47ae8b8af8126fd1",
+      "speechText": "「小さなきのこは残してお置きよ。かわいそうだから」"
+    },
+    {
+      "candidateId": "TcMctzQVh9BF0lutu5bLPAB8MKJhxfhLfQcuzZOxTTg",
+      "displayText": "「ヤアあすこにも。ホラここにも」",
+      "revisionCount": 0,
+      "speechSha256": "2ce20e591e18dbb9641506b25c903f69800c82a4655131b126221b629ad5e783",
+      "speechText": "「ヤアあすこにも。ホラここにも」"
+    },
+    {
+      "candidateId": "Nfivqu27OazvfO6RfpT9EfNhraI8MPfauxOsqy_KzEI",
+      "displayText": "「オイオイみんな気を付けろ。ここに毒茸が固まって生えているぞ。よくおぼえておけ。こんなのはみんな毒茸だ。取って食べたら死んでしまうぞ」",
+      "revisionCount": 0,
+      "speechSha256": "aa765b649a78989e04cdbc176516c0001d1bf9d2d04d1ea4c36314015e02f504",
+      "speechText": "「オイオイみんな気を付けろ。ここに毒茸が固まって生えているぞ。よくおぼえておけ。こんなのはみんな毒茸だ。取って食べたら死んでしまうぞ」"
+    },
+    {
+      "candidateId": "4M6Eac5cvJu-u1Zf5C754PeZdR_hcL-LQWPq4X5eaLs",
+      "displayText": "「それ見ろ」",
+      "revisionCount": 0,
+      "speechSha256": "d590526c02a05b06a2760463c78dd3fe289a2e753b9294bfb69ee6a1eaa4d8e8",
+      "speechText": "「それ見ろ」"
+    },
+    {
+      "candidateId": "7WP6lKHphF8dn5QUrZ_wQj-H9gfP202RCkPgaDHoIyU",
+      "displayText": "「さあ行こう」",
+      "revisionCount": 0,
+      "speechSha256": "4dec0187fe7c94532a83225d01cc501c0cb2454b6eede127f85a0dfba8916a66",
+      "speechText": "「さあ行こう」"
+    },
+    {
+      "candidateId": "i4aD_F6KmNIDUR1wp7rDw3aIYsOMG8ErZCqDh31g4dk",
+      "displayText": "「まあ、毒茸はみんな憎らしい恰好をしている事ねえ」",
+      "revisionCount": 0,
+      "speechSha256": "b6650bf93dad5a79079cae882b8d25bba847041198ba6adda5248c578cbfe8f8",
+      "speechText": "「まあ、毒茸はみんな憎らしい恰好をしている事ねえ」"
+    },
+    {
+      "candidateId": "-ewcmp1SNvSmz2ZkIsLxMw2APukadW1W-k9YmHgqhMg",
+      "displayText": "「ウン、僕が征伐してやろう」",
+      "revisionCount": 0,
+      "speechSha256": "d769718333496a6e9a7377a2a78d41c10b0a378c3d329d4d78c7f7354c966787",
+      "speechText": "「ウン、僕が征伐してやろう」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "046694"
+}

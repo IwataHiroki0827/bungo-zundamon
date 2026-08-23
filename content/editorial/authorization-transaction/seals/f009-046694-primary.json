@@ -1,0 +1,136 @@
+{
+  "header": {
+    "artifactSha256": "34fc5bbfaf0929c3a1434d1dfb3c94b8906448a3fce4470a7a2742c9566be28a",
+    "authorizationId": "f009-046694-primary",
+    "candidateSetSha256": "cac2a2c372b46d0fca381cc5a4b71fa2df6103b3a5ba0ed91a65befe5dfd79ac",
+    "policySha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61",
+    "promptSha256": "070bfac7f39b99a07b225730d24f1e0e5555c35e8de9813fec21fbf92dc36f55",
+    "role": "primary",
+    "runId": "f009-046694-primary-run",
+    "sealedAt": "2026-08-24T02:05:00.000Z",
+    "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+  },
+  "judgments": [
+    {
+      "candidateId": "pKE-5aLJ5rh5WKfKdfUHTDsw1B1ulmdNnMK-PUaKtIc",
+      "decision": "approved",
+      "inputSha256": "7005aace917e8b1159721f9eeb2f0c8fad12fe2a868b24e28202647fe667cdfc",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:109-211",
+      "speaker": "初茸"
+    },
+    {
+      "candidateId": "lyUa8vKXSgABjMBwBLRVE1qLsFJMufPzhdneDDZHvJU",
+      "decision": "approved",
+      "inputSha256": "9ae80eea0cf53cb1d971d1910b938e88810b155766b9b10ab2e401b790bad71b",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:244-365",
+      "speaker": "椎茸"
+    },
+    {
+      "candidateId": "nVvZThlJxm8SEqa8tAizmSvf1gmJPPtqu5kz-PmeAcE",
+      "decision": "approved",
+      "inputSha256": "b557f2e12f6764f60c1813e5f65ca21d331f80d78c21f7602685d71581fa94cd",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:410-597",
+      "speaker": "松茸"
+    },
+    {
+      "candidateId": "mmBtldcsNrS-_uRA37PkxuVSFYIKDgfn1NZPdfzLeVE",
+      "decision": "approved",
+      "inputSha256": "753ed3f4b27153fd7901f75ef33b00ba28b794cd15797ed6e3249a92cf6d135a",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:620-629",
+      "speaker": "茸たち（食用茸一同）"
+    },
+    {
+      "candidateId": "ZvjFMvoVufH6JgRsY6wgb2KzXc-NtHHN62rHKcyDvTE",
+      "decision": "approved",
+      "inputSha256": "2906f7b781389d3884644984e40754757c4284e77481f0d07c70c158d38fb8ca",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:756-950",
+      "speaker": "蠅取り茸"
+    },
+    {
+      "candidateId": "sR8ulM2PZJcGQ-jGLDMP76KPYLmMKCtxzMHPcOWR0Ls",
+      "decision": "approved",
+      "inputSha256": "14585834385824ae7ed9d986eeb6dcb0e3fa54e33f01e27c5b3b3df28cacea82",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:987-1007",
+      "speaker": "他の茸（一部の連中）"
+    },
+    {
+      "candidateId": "K8jFveD8TXdWfJazbl6LqnnTaNSToDWnyCNY6nNdXdU",
+      "decision": "approved",
+      "inputSha256": "36d433d64751395f9bb3a1fc122ea137cca615e4844403a40ffd5500e338e15d",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1145-1183",
+      "speaker": "お父さん"
+    },
+    {
+      "candidateId": "ZvWSRFN1qedQyGIXheBAPOyQyCgJzcN5PZ_Q3Ey0Tc4",
+      "decision": "approved",
+      "inputSha256": "abb9d1363a7239a1f8f1c74f49910dbcc385156296155fb530cd05afb59b8b24",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1185-1225",
+      "speaker": "お母さん"
+    },
+    {
+      "candidateId": "O6gXd5FjoStysLcW0h40s47qvOHGjQ8Nei7HLZ_BOHc",
+      "decision": "approved",
+      "inputSha256": "d4cd7add88bd58c5db0be775f6113d14517bd9a91f6622516ac36cff2ce4a573",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1227-1250",
+      "speaker": "姉さん"
+    },
+    {
+      "candidateId": "TcMctzQVh9BF0lutu5bLPAB8MKJhxfhLfQcuzZOxTTg",
+      "decision": "approved",
+      "inputSha256": "8284d8af9c9bce321adf8c23d88ef42ba185fd176b648b4e925b3f8920900e39",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1252-1268",
+      "speaker": "坊ちゃん"
+    },
+    {
+      "candidateId": "Nfivqu27OazvfO6RfpT9EfNhraI8MPfauxOsqy_KzEI",
+      "decision": "approved",
+      "inputSha256": "722aa401560a70f00ed6759c21c5a450cd531e81bc62883b533e44689489c1eb",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1301-1368",
+      "speaker": "お父さん"
+    },
+    {
+      "candidateId": "4M6Eac5cvJu-u1Zf5C754PeZdR_hcL-LQWPq4X5eaLs",
+      "decision": "approved",
+      "inputSha256": "8e49c729572bb201e904d396015f0bb4bdfd2c8b6b4bda57345cd357bcc0bb90",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1407-1413",
+      "speaker": "毒茸（一同）"
+    },
+    {
+      "candidateId": "7WP6lKHphF8dn5QUrZ_wQj-H9gfP202RCkPgaDHoIyU",
+      "decision": "approved",
+      "inputSha256": "4cbac1a60d45743d31540fb531fa6cc3627ecd41c3c144d3005b4d8d5f11d7fa",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1451-1458",
+      "speaker": "お父さん"
+    },
+    {
+      "candidateId": "i4aD_F6KmNIDUR1wp7rDw3aIYsOMG8ErZCqDh31g4dk",
+      "decision": "approved",
+      "inputSha256": "6b173bc4f7bf125dabb00a393c3bd9fe0a833a326de2cd7939e9b3f2fe11a0f0",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1487-1512",
+      "speaker": "姉さん"
+    },
+    {
+      "candidateId": "-ewcmp1SNvSmz2ZkIsLxMw2APukadW1W-k9YmHgqhMg",
+      "decision": "approved",
+      "inputSha256": "398fabbff1e51c5d0b5861e128d9ba059a6a3f9f7354b64a8b0e4bd19600c782",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "sourceAnchor": ".main_text:1514-1528",
+      "speaker": "坊ちゃん"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

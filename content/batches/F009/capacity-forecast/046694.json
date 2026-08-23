@@ -1,0 +1,355 @@
+{
+  "batchId": "F009",
+  "configPath": "content/batches/F009/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "b9ad0d06d83a3e63663c030e35c91c43dc847a457b224d5ab6380bf1a1cab6f6",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 11736260,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F009",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "b9ad0d06d83a3e63663c030e35c91c43dc847a457b224d5ab6380bf1a1cab6f6",
+    "minimumFreeBytesAfterWrite": 378845124,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 656613803,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "e4ff67f7f390f069aa209821f4140efe2f2bc0b41a6b7b133951a12b34f34ee6",
+    "preTreeDigest": "4588cf35b5810b09d34acf1925f60d97f91065bd19ee4379a6c3db781c589388",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 100742480,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "36f4dbd9a15c0d47943813de3ca0fc01d5ccbd48",
+        "f57d4c901197521885afd0b62be1266a690c3b5f"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/046694.json",
+        "content/batches/F009/work-artifacts/046694/candidates.json",
+        "content/batches/F009/work-artifacts/046694/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/046694/reviews/primary.json",
+        "content/batches/F009/work-artifacts/046694/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/046694/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f009-prepare-editorial.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "36f4dbd9a15c0d47943813de3ca0fc01d5ccbd48",
+        "f57d4c901197521885afd0b62be1266a690c3b5f"
+      ],
+      "includedPaths": [
+        "content/batches/F009/batch.json",
+        "content/batches/F009/reviews/046694.json",
+        "content/batches/F009/work-artifacts/046694/candidates.json",
+        "content/batches/F009/work-artifacts/046694/review-reconciliation.json",
+        "content/batches/F009/work-artifacts/046694/reviews/primary.json",
+        "content/batches/F009/work-artifacts/046694/reviews/secondary.json",
+        "content/batches/F009/work-artifacts/046694/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f009-prepare-editorial.ts"
+      ],
+      "measuredBytes": 458191805,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 121146191872,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 378845124
+    },
+    "workId": "046694"
+  },
+  "kind": "f009-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 4115120,
+    "acceptedAudioFiles": 4,
+    "currentPagesBytes": 506613803,
+    "currentPagesFiles": 1234,
+    "freeBytes": 121146191872,
+    "liveWriteUpperBounds": 157621140,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1300239,
+    "rollbackBackupBytes": 154115120
+  },
+  "plan": {
+    "batchId": "F009",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 15,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "18970592a7afa6a1d7c36777d9e5cf83993b226638f8436b90710d1c4dcad80f",
+        "candidateIds": [
+          "4M6Eac5cvJu-u1Zf5C754PeZdR_hcL-LQWPq4X5eaLs"
+        ],
+        "estimatedBytes": 51884,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/18970592a7afa6a1d7c36777d9e5cf83993b226638f8436b90710d1c4dcad80f.json",
+        "status": "miss",
+        "text": "「それ見ろ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/18970592a7afa6a1d7c36777d9e5cf83993b226638f8436b90710d1c4dcad80f.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "2ef0ea857972fdc211e56c8a39515236e52a8b56091b1df2cfaf61099541e01a",
+        "candidateIds": [
+          "7WP6lKHphF8dn5QUrZ_wQj-H9gfP202RCkPgaDHoIyU"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2ef0ea857972fdc211e56c8a39515236e52a8b56091b1df2cfaf61099541e01a.json",
+        "status": "miss",
+        "text": "「さあ行こう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2ef0ea857972fdc211e56c8a39515236e52a8b56091b1df2cfaf61099541e01a.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "31060fa495bb52807c3fab306b0839e0cc25b8b75efbeb4342aa834f2a9685ac",
+        "candidateIds": [
+          "pKE-5aLJ5rh5WKfKdfUHTDsw1B1ulmdNnMK-PUaKtIc"
+        ],
+        "estimatedBytes": 881324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/31060fa495bb52807c3fab306b0839e0cc25b8b75efbeb4342aa834f2a9685ac.json",
+        "status": "miss",
+        "text": "「皆さん。この頃はだんだん寒くなりましたので、そろそろ私共は土の中へ引き込まねばならぬようになりました。今夜はお別れの宴会ですから、皆さんは何でも思う存分に演説をして下さい。私が書いて新聞に出しますから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/31060fa495bb52807c3fab306b0839e0cc25b8b75efbeb4342aa834f2a9685ac.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "4b2ba44064fa439fb835533553c3b37b37f92720dcc00d14b649261a1c9a31d5",
+        "candidateIds": [
+          "mmBtldcsNrS-_uRA37PkxuVSFYIKDgfn1NZPdfzLeVE"
+        ],
+        "estimatedBytes": 77804,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b2ba44064fa439fb835533553c3b37b37f92720dcc00d14b649261a1c9a31d5.json",
+        "status": "miss",
+        "text": "「そうだ、そうだ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4b2ba44064fa439fb835533553c3b37b37f92720dcc00d14b649261a1c9a31d5.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "80f2baa0a3b58c1f594ed7c07bd6f4b46a4f3fa0881ad11a3f43d412373ed98b",
+        "candidateIds": [
+          "lyUa8vKXSgABjMBwBLRVE1qLsFJMufPzhdneDDZHvJU"
+        ],
+        "estimatedBytes": 1062764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80f2baa0a3b58c1f594ed7c07bd6f4b46a4f3fa0881ad11a3f43d412373ed98b.json",
+        "status": "miss",
+        "text": "「皆さん、私は椎茸というものです。この頃人間は私を大変に重宝がって、わざわざ木を腐らして私共の畑を作ってくれますから、私共はだんだん大きな立派な子孫が殖えて行くばかりです。今にどんなきのこでも人間が畠を作ってくれるようになって貰いたいと思います」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/80f2baa0a3b58c1f594ed7c07bd6f4b46a4f3fa0881ad11a3f43d412373ed98b.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "8511ff25b482a8c60b70f5d7724b601fbdde086b059a10cf37c1c5f2afb06269",
+        "candidateIds": [
+          "K8jFveD8TXdWfJazbl6LqnnTaNSToDWnyCNY6nNdXdU"
+        ],
+        "estimatedBytes": 362924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8511ff25b482a8c60b70f5d7724b601fbdde086b059a10cf37c1c5f2afb06269.json",
+        "status": "miss",
+        "text": "「もはやこんなにきのこはあるまいと思っていたが、いろいろのきのこがずいぶん沢山ある」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8511ff25b482a8c60b70f5d7724b601fbdde086b059a10cf37c1c5f2afb06269.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "881e9cbc97971de999d25d71db06825f48754b5d90251e0c704e10594f9a1df8",
+        "candidateIds": [
+          "sR8ulM2PZJcGQ-jGLDMP76KPYLmMKCtxzMHPcOWR0Ls"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/881e9cbc97971de999d25d71db06825f48754b5d90251e0c704e10594f9a1df8.json",
+        "status": "miss",
+        "text": "「成る程、毒にさえなればこわい事はない」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/881e9cbc97971de999d25d71db06825f48754b5d90251e0c704e10594f9a1df8.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "88d928497e36c7393b4e479059db65629abac42800a06aa09e4f600bbd08f562",
+        "candidateIds": [
+          "nVvZThlJxm8SEqa8tAizmSvf1gmJPPtqu5kz-PmeAcE"
+        ],
+        "estimatedBytes": 1624364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/88d928497e36c7393b4e479059db65629abac42800a06aa09e4f600bbd08f562.json",
+        "status": "miss",
+        "text": "「皆さん、私共のつとめは、第一に傘をひろげてたねを撒き散らして子孫を殖やすこと、その次は人間に食べられることですが、人間は何故だか私共がまだ傘を開かないうちを喜んで持って行ってしまいます。そのくせ椎茸さんのような畠も作ってくれません。こんな風だと今に私共は種子を撒く事が出来ず、子孫を根絶やしにされねばなりません。人間は何故この理屈がわからないかと思うと、残念でたまりません」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/88d928497e36c7393b4e479059db65629abac42800a06aa09e4f600bbd08f562.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "8daf7ec3a6c682bb417da445468ae83827377a30a2b53398eab83c9e6f426b06",
+        "candidateIds": [
+          "TcMctzQVh9BF0lutu5bLPAB8MKJhxfhLfQcuzZOxTTg"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8daf7ec3a6c682bb417da445468ae83827377a30a2b53398eab83c9e6f426b06.json",
+        "status": "miss",
+        "text": "「ヤアあすこにも。ホラここにも」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8daf7ec3a6c682bb417da445468ae83827377a30a2b53398eab83c9e6f426b06.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "9c93e9abcd41fbbee74834bb2110496e3ced3641883cc4ca6310498383875b35",
+        "candidateIds": [
+          "ZvWSRFN1qedQyGIXheBAPOyQyCgJzcN5PZ_Q3Ey0Tc4"
+        ],
+        "estimatedBytes": 345644,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c93e9abcd41fbbee74834bb2110496e3ced3641883cc4ca6310498383875b35.json",
+        "status": "miss",
+        "text": "「あれ、お前のようにむやみに取っては駄目よ。こわさないように大切に取らなくては」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9c93e9abcd41fbbee74834bb2110496e3ced3641883cc4ca6310498383875b35.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "a9661db18b294e7acffff780895d14d80bb48a048612a9650e72646d26fab04e",
+        "candidateIds": [
+          "Nfivqu27OazvfO6RfpT9EfNhraI8MPfauxOsqy_KzEI"
+        ],
+        "estimatedBytes": 578924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9661db18b294e7acffff780895d14d80bb48a048612a9650e72646d26fab04e.json",
+        "status": "miss",
+        "text": "「オイオイみんな気を付けろ。ここに毒茸が固まって生えているぞ。よくおぼえておけ。こんなのはみんな毒茸だ。取って食べたら死んでしまうぞ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/a9661db18b294e7acffff780895d14d80bb48a048612a9650e72646d26fab04e.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "b915c7f61d4211623c962d422c99f191a8fb8c5c70bd15c3dcde0faccab2da2e",
+        "candidateIds": [
+          "i4aD_F6KmNIDUR1wp7rDw3aIYsOMG8ErZCqDh31g4dk"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b915c7f61d4211623c962d422c99f191a8fb8c5c70bd15c3dcde0faccab2da2e.json",
+        "status": "miss",
+        "text": "「まあ、毒茸はみんな憎らしい恰好をしている事ねえ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b915c7f61d4211623c962d422c99f191a8fb8c5c70bd15c3dcde0faccab2da2e.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "ce7ee6314ad585b1fa9124c67ae57baea13095cdc5d76e17550bb14c24709ed5",
+        "candidateIds": [
+          "ZvjFMvoVufH6JgRsY6wgb2KzXc-NtHHN62rHKcyDvTE"
+        ],
+        "estimatedBytes": 1710764,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce7ee6314ad585b1fa9124c67ae57baea13095cdc5d76e17550bb14c24709ed5.json",
+        "status": "miss",
+        "text": "「お前達は皆馬鹿だ。世の中の役に立つからそんなに取られてしまうのだ。役にさえ立たなければいじめられはしないのだ。自分の仲間だけ繁昌すればそれでいいではないか。俺達を見ろ。役に立つ処でなく世間の毒になるのだ。蠅でも何でも片っぱしから殺してしまう。えらいきのこは人間さえも毎年毎年殺しているくらいだ。だからすこしも世の中の御厄介にならずに、繁昌して行くのだ。お前達も早く人間の毒になるように勉強しろ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ce7ee6314ad585b1fa9124c67ae57baea13095cdc5d76e17550bb14c24709ed5.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "dd25dfdd7bf3d76f2698cd6126a3d0defb66d749d564b04c05277d31487a15bb",
+        "candidateIds": [
+          "O6gXd5FjoStysLcW0h40s47qvOHGjQ8Nei7HLZ_BOHc"
+        ],
+        "estimatedBytes": 216044,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd25dfdd7bf3d76f2698cd6126a3d0defb66d749d564b04c05277d31487a15bb.json",
+        "status": "miss",
+        "text": "「小さなきのこは残してお置きよ。かわいそうだから」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dd25dfdd7bf3d76f2698cd6126a3d0defb66d749d564b04c05277d31487a15bb.wav",
+        "workIds": [
+          "046694"
+        ]
+      },
+      {
+        "audioId": "ff93346aa840bad4216209d20c4172f90b4b887ae88865a035ada914bac3c859",
+        "candidateIds": [
+          "-ewcmp1SNvSmz2ZkIsLxMw2APukadW1W-k9YmHgqhMg"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ff93346aa840bad4216209d20c4172f90b4b887ae88865a035ada914bac3c859.json",
+        "status": "miss",
+        "text": "「ウン、僕が征伐してやろう」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ff93346aa840bad4216209d20c4172f90b4b887ae88865a035ada914bac3c859.wav",
+        "workIds": [
+          "046694"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 7621140,
+    "existingUniqueAudioCount": 85,
+    "existingUniqueBytes": 92918940,
+    "expectedManifestSha": "b9ad0d06d83a3e63663c030e35c91c43dc847a457b224d5ab6380bf1a1cab6f6",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 15,
+    "planDigest": "e4ff67f7f390f069aa209821f4140efe2f2bc0b41a6b7b133951a12b34f34ee6",
+    "preTreeDigest": "4588cf35b5810b09d34acf1925f60d97f91065bd19ee4379a6c3db781c589388",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 15,
+    "workId": "046694"
+  },
+  "preTreeDigest": "4588cf35b5810b09d34acf1925f60d97f91065bd19ee4379a6c3db781c589388",
+  "schemaVersion": "1.0.0",
+  "workId": "046694"
+}

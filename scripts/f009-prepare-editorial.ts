@@ -138,6 +138,94 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     ],
     speechCorrections: {},
   },
+  // きのこ会議(046694)。青空文庫本文（46694_27682.html正規化済みテキスト）を実際に
+  // 通読し15候補全件の話者・decisionを確定した。本作は食用茸・毒茸・茸狩りの家族間の
+  // 実際の会話で構成される寓話であり、地の文がすべて「立ち上って挨拶をしました」
+  // 「口々に、」「大喜びで、」「とおっしゃいました」等の発話・思考動詞で明示的に
+  // 導入する実際の発話・引用思考であって、語そのものへの言及（人間椅子の
+  // 「奥様」「人間椅子」等と同型のNON_SPEECHパターン）は本作には出現しない。
+  // 15候補すべてSPOKEN_DIALOGUEとしてapprovedとする。
+  '046694': {
+    judgmentsByOrder: [
+      // order0 「皆さん。この頃は…」。「一番初めに、初茸が立ち上って挨拶をしました」
+      // に続く初茸の実際の演説。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '初茸' },
+      // order1 「皆さん、私は椎茸というものです…」。「お次に椎茸が立ち上りました」
+      // に続く椎茸の実際の演説。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '椎茸' },
+      // order2 「皆さん、私共のつとめは…」。「松茸がエヘンと咳払いをして演説を
+      // しました」に続く松茸の実際の演説。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '松茸' },
+      // order3 「そうだ、そうだ」。「皆も口々に、」に続く食用茸一同の実際の同調の声。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '茸たち（食用茸一同）' },
+      // order4 「お前達は皆馬鹿だ…」。「一番大きい蠅取り茸は大勢の真中に立ち上って、」
+      // に続く蠅取り茸の実際の大声のわめき。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '蠅取り茸' },
+      // order5 「成る程、毒にさえなればこわい事はない」。「これを聞いた他の連中は皆
+      // 理屈に負けて…と思う者さえありました」に続く引用思考。瓶詰地獄order2/3・
+      // 人間椅子order2/3と同型の「」内引用思考としてapprovedとする。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '他の茸（一部の連中）' },
+      // order6 「もはやこんなに茸はあるまい…」。茸狩りに来た「お父さんとお母さんと
+      // 姉さんと坊ちゃん」のうち、続くorder10でお父さんが単独発話者として明示される
+      // ことと合わせ、4件連続する家族の発話は紹介順（お父さん→お母さん→姉さん→
+      // 坊ちゃん）に対応させた。中立的な感想表現で家長の第一声として自然。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'お父さん' },
+      // order7 「あれ、お前のようにむやみに取っては駄目よ…」。「駄目よ」という
+      // 女性的な文末表現で子を注意する内容から母親の発話と判定。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'お母さん' },
+      // order8 「小さな茸は残してお置きよ…」。「お置きよ」という女性的・慈愛的な
+      // 文末表現から、母親に続く年長の子（姉さん）の発話と判定。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姉さん' },
+      // order9 「ヤアあすこにも。ホラここにも」。感嘆的な短い発話であり、後段
+      // order14で「僕」と自称する坊ちゃんの子供らしい発話と判定。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '坊ちゃん' },
+      // order10 「オイオイみんな気を付けろ…」。「そのうちにお父さんは気が付いて、」
+      // に続くお父さんの明示された発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'お父さん' },
+      // order11 「それ見ろ」。「毒茸も「それ見ろ」と威張っておりました」に続く
+      // 毒茸一同の実際の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '毒茸（一同）' },
+      // order12 「さあ行こう」。「お父さんが、…と言われますと」に続く明示された発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'お父さん' },
+      // order13 「まあ、毒茸はみんな憎らしい恰好をしている事ねえ」。「姉さんと
+      // 坊ちゃんが立ち止まって、」に続く2件のうち、「ねえ」という女性的文末
+      // 表現から姉さんの発話と判定。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '姉さん' },
+      // order14 「ウン、僕が征伐してやろう」。「僕」という一人称から坊ちゃんの
+      // 発話と確定。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '坊ちゃん' },
+    ],
+    speechCorrections: {
+      // order1 (.main_text:244-365)。VOICEVOX実合成で確認：形容詞「どんな」に続く
+      // 単独の「茸」は既定発音「タケ」となり、本作の題名表記「きのこ会議」
+      // （ひらがな）と同型の総称「きのこ」としての意図と乖離する。「どんなきのこ
+      // でも」に補正し、実合成でキノコと正しく発音されることを確認済み。
+      '.main_text:244-365': [
+        { find: 'どんな茸でも', to: 'どんなきのこでも', reason: '単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）' },
+      ],
+      // order4 (.main_text:756-950)。VOICEVOX実合成で確認：形容詞「えらい」に続く
+      // 単独の「茸」が「タケ」と発音される問題を「きのこ」へ補正。さらに「殺して
+      // いる位だ」の「位」（くらい、程度の意）がVOICEVOX既定合成で「イダ」と
+      // なり「くら」の音節が脱落する問題を確認したため「くらいだ」へ補正。
+      // いずれも実合成でキノコ／クライダと正しく発音されることを確認済み。
+      '.main_text:756-950': [
+        { find: 'えらい茸は', to: 'えらいきのこは', reason: '単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）' },
+        { find: '殺している位だ', to: '殺しているくらいだ', reason: '「位」の既定合成で「くら」音節が脱落する問題を平仮名表記で補正（VOICEVOX実合成で確認）' },
+      ],
+      // order6 (.main_text:1145-1183)。VOICEVOX実合成で確認：「こんなに茸は」
+      // 「いろいろの茸が」いずれも単独の「茸」が「タケ」と発音される問題を
+      // 「きのこ」へ補正。実合成でキノコと正しく発音されることを確認済み。
+      '.main_text:1145-1183': [
+        { find: 'こんなに茸はあるまい', to: 'こんなにきのこはあるまい', reason: '単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）' },
+        { find: 'いろいろの茸が', to: 'いろいろのきのこが', reason: '単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）' },
+      ],
+      // order8 (.main_text:1227-1250)。VOICEVOX実合成で確認：「小さな茸は」の
+      // 単独の「茸」が「タケ」と発音される問題を「きのこ」へ補正。
+      '.main_text:1227-1250': [
+        { find: '小さな茸は', to: '小さなきのこは', reason: '単独の「茸」の既定発音「タケ」を総称の「きのこ」へ補正（VOICEVOX実合成で確認）' },
+      ],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {
