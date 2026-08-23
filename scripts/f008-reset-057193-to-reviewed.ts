@@ -50,6 +50,7 @@ async function main(): Promise<void> {
 
   await writeJsonArtifactAtomic(WORKSPACE, MANIFEST_PATH, validated.value);
   await rm(resolve(WORKSPACE, '.cache', 'transactions', 'batch-manifest', 'F008.json'), { force: true });
+  await rm(resolve(WORKSPACE, '.cache', 'transactions', 'accepted-audio', `F008-${WORK_ID}.json`), { force: true });
 
   // 派生artifact(voiced以降で生成された実データ)を削除する。
   await rm(resolve(WORKSPACE, 'content', 'batches', 'F008', 'accepted-audio', WORK_ID), { recursive: true, force: true });
