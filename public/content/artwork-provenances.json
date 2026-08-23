@@ -65,6 +65,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F007.json",
       "provenanceSha256": "a0460228b503cf9be7778954f9749d4a11e3697379793599968cd037a9bfa53a"
+    },
+    {
+      "authorId": "001779",
+      "batchId": "F008",
+      "manifestId": "artwork-F008-001779-v1",
+      "output": {
+        "path": "artwork/edogawa-ranpo-zundamon.png",
+        "sha256": "7b1d4abfa07fe7d210c05c4e0fbc7249917696bfc0df70618a1c2041c97c29e7"
+      },
+      "provenanceRef": "content/artwork-provenance/F008.json",
+      "provenanceSha256": "aa5e54fdac3c087045726007993baf0cf3f74f6de59af66a468d2944f3e6910e"
     }
   ],
   "schemaVersion": "1.0.0"
