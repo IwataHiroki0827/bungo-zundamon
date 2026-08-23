@@ -2110,3 +2110,22 @@ entries:
     のツールがqueue.yaml履歴に依存するため、監査証跡の一貫性を保つ目的)。
     tasks.yaml T-170をdoneへ、docs/features.yamlをtestspecへ更新。
     SRS/FD/DD/UT/IT/QT-F008が全てApproved。次: /pf-implement(T-171以降)。
+- date: '2026-08-23'
+  phase: requirements
+  task: pf-requirements F009
+  model: Claude Sonnet 5
+  agents: 1
+  est_tokens: 60000
+  note: >-
+    夢野久作(人物ID000096、DOMAIN-F006.mdランキング次点)の要求分析。
+    DOMAIN-F009.md(Tier小〜中、瓶詰地獄/きのこ会議/死後の恋を実データ
+    (2022年XHTMLランキング・拡充CSV・図書カード備考欄・XHTML本文実取得)
+    で選定、ドグラ・マグラ/少女地獄/猟奇歌は見送り)・SRS-F009.md
+    (REQ-F009-001〜019)・QA-F009.md(12問全自動承認)・QT-F009.md
+    (QT-F009-001〜019)を作成した。新規発見2件: 死後の恋の1候補が実測
+    1,748文字でF007実測VOICEVOX失敗境界(1,335文字)を超過(長大候補分割
+    が実際に発動する初のケース)、瓶詰地獄/死後の恋の地の文に外字
+    (class="gaiji")が実在(候補内0件、検出手順は常時有効を維持)。
+    F008実装が別セッションで並行進行中のためF008関連ファイルには
+    一切触れず、queue.yaml Q-068で承認ゲート①を自動承認した。
+    docs/features.yamlへF009(state: setup, merge_after: [F008])を追加。
