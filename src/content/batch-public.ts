@@ -823,8 +823,24 @@ function catalogFor(
     if (!safeRelativePath(work.source.provenancePath)) throw new PublicIntegrationError('PUBLIC_REFERENCE_MISSING', `provenancePathが不正です: ${work.workId}`);
     workIds.add(work.workId);
   }
+  const audioById = new Map<string, CatalogV2['audioAssets'][number]>();
   for (const audio of catalog.audioAssets) {
-    if (audioIds.has(audio.audioId)) throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `audio IDが重複しています: ${audio.audioId}`);
+    const seen = audioById.get(audio.audioId);
+    if (seen) {
+      // audioIdはtext+configの内容hashのため、異なるbatch/authorの発話が
+      // 偶然byte-identicalになり得る(実例: F008/一人二役の「へええ」が
+      // F005の既存台詞と完全一致)。path(batch scoped)が異なり実体
+      // (sha256/bytes/durationMs/configHash)が完全一致する場合だけは
+      // 正当な独立entry(物理的にはそれぞれのbatch配下へ複製された同一内容
+      // ファイル)として許容する。path衝突や実体不一致(hash衝突等)は
+      // 引き続き拒否する。
+      if (seen.path === audio.path || seen.sha256 !== audio.sha256 || seen.bytes !== audio.bytes ||
+        seen.durationMs !== audio.durationMs || seen.configHash !== audio.configHash) {
+        throw new PublicIntegrationError('PUBLIC_ID_COLLISION', `audio IDが重複しています: ${audio.audioId}`);
+      }
+    } else {
+      audioById.set(audio.audioId, audio);
+    }
     audioIds.add(audio.audioId);
   }
   for (const batch of batches) {

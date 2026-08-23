@@ -1654,3 +1654,21 @@ changes:
     そのまま指す。F009・F010でも同様の偶然一致が起こり得るため、
     f00N-content-preview.tsを複製する際はこの重複排除ロジックを踏襲する
     ことを推奨する。
+
+    【訂正・最終方式】上記のfragment側除外方式は、その後のfinal-integration
+    実行でPUBLIC_REFERENCE_MISSING（accepted-audioの実ファイルがcatalogから
+    参照されない）を新たに引き起こすことが判明し撤回した。各batchの
+    accepted-audio配下の実ファイルは必ずそのbatch自身のcatalog audioAssets
+    entryから参照される必要がある（src/content/batch-public.ts、共有・
+    要件として維持）という既存不変条件と、audioId(内容hash)のcatalog全体
+    一意性という別の既存チェックが、真の内容衝突ケースでは両立し得ない
+    設計だったため、後者(グローバル一意性チェック)側を「path(batch scoped)
+    が異なり実体(sha256/bytes/durationMs/configHash)が完全一致する場合は
+    正当な独立entryとして許容し、path衝突や実体不一致(hash衝突等)のみ
+    引き続き拒否する」形へ緩和する方式に変更した。対象:
+    src/content/batch-public.ts(catalogFor、共有)・
+    src/content/f008-catalog.ts(mergeNewAuthorCatalog008、F008ローカル)。
+    scripts/f008-content-preview.ts・scripts/f008-final-integration.tsの
+    除外ロジックは撤回し元の実装(各batchが自分のaudioAssetsをそのまま
+    登録)へ戻した。batch-public.test.ts(19件)・f008-catalog.test.ts
+    (12件)・f003-catalog.test.ts等関連5ファイル(35件)にregressionなし。

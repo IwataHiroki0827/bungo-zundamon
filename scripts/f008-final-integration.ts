@@ -406,15 +406,7 @@ async function main(): Promise<void> {
       sha256: sha256(artworkBytes),
     },
     works: pieces.map((piece) => piece.work) as F008CatalogFragment['works'],
-    // CHG-F008-004: audioIdはtext+configの内容hashのため、既存の公開済み
-    // audioAssets(v070まで)と偶然byte-identicalな短い発話が起こり得る
-    // (実例: 一人二役057193の「へええ」がF005/001104と完全一致)。
-    // mergeNewAuthorCatalog008(src/content/f008-catalog.ts)がaudioId重複を
-    // 拒否するため、既に登録済みのIDはこのfragmentへ重複登録しない。
-    // dialogue側はaudioIdをそのまま参照し続け、既存(v070)の同一内容ファイルを
-    // 指すため再生には影響しない(scripts/f008-content-preview.tsと同じ対処)。
-    audioAssets: pieces.flatMap((piece) => piece.audioAssets)
-      .filter((asset) => !v070.catalog.audioAssets.some((existing) => existing.audioId === asset.audioId)),
+    audioAssets: pieces.flatMap((piece) => piece.audioAssets),
     candidateCounts: {
       total: pieces.reduce((sum, piece) => sum + piece.candidateTotal, 0),
       published: pieces.reduce((sum, piece) => sum + piece.publishedTotal, 0),
