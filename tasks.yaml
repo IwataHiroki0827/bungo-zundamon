@@ -4869,13 +4869,25 @@ tasks:
   title: きのこ会議を抽出・二重レビュー・音声化・atomic受入
   feature: F009
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-184
   tags: *id009
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため(作品固有注記UI対象外のため最小構成)
   model: *model_f009
+  progress: >-
+    完了。きのこ会議(046694)の実candidate 15件を実extraction・実テキスト
+    精読で独立二重判定し、15件全てSPOKEN_DIALOGUE承認(茸の会議・茸狩り
+    家族の会話、全て明示的な発話/思考動詞で導入)、rejected 0件。VOICEVOX
+    実測で6件の読み補正(裸の「茸」がタケと誤読されるためキノコへ4候補、
+    「位だ」のクラ音欠落を「くらいだ」表記へ)を/audio_query kana出力の
+    前後比較で確認・適用。実VOICEVOX(speaker 3)で15/15音声合成成功
+    (7,341,204 bytes)、容量forecast pass_with_warning、容量actual pass。
+    atomic受入でWAV15件をaccepted-audio/046694/へ正式昇格、manifest
+    workProgress[046694].status: accepted。F008 published状態への regression
+    なしを確認。tsc/eslint(該当ファイル)全PASS、vitest 66件全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-186(死後の恋)。
 - id: T-186
   title: 死後の恋を抽出・二重レビュー・長大候補分割実測確認・音声化・作品固有注記UI適用・atomic受入
   feature: F009
