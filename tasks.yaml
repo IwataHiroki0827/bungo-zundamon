@@ -4718,7 +4718,7 @@ tasks:
   title: 機能設計書(FD-F009)を作成しREQ全19件を夢野久作追加設計へ展開
   feature: F009
   phase: design
-  state: todo
+  state: done
   depends:
   - T-178
   tags: &id009
@@ -4746,17 +4746,19 @@ tasks:
   model: &model_f009
     lead: opus
     workers: sonnet
+  result: FD-F009.mdを作成しREQ 19件全件をDES 15件へ展開。F008と同型の新規作者追加構造・汎用release経路を継承しつつ、F009固有の3点(瓶詰地獄・死後の恋の外字要素実在によりREQ-F009-007の外字/entity検出を無効化せず常時有効のまま設計、死後の恋の1,748文字候補に対する長大候補分割手法の初の実トリガー、artwork provenanceのexistingArtwork.length<7下限判定をF008の教訓を踏まえ最初から設計)を確定した。trace_check.py REQ→DES対応漏れ0を確認。
 - id: T-180
   title: 関数設計書(DD-F009)を作成しデータ・関数・状態遷移契約へ展開
   feature: F009
   phase: design
-  state: todo
+  state: done
   depends:
   - T-179
   tags: *id009
   mode: advisor
   mode_reason: FDの汎用pipeline再利用境界とF009固有入力(新規作者・2作品同時注記UI再適用・独立二重判定・長大候補分割の実適用・外字検出常時有効)を関数単位で確定するため
   model: *model_f009
+  result: DD-F009.mdを作成しDES 15件をFUN 17件へ展開。既存関数の直接再利用7件(FUN-F009-001/007/008/009/013/016/017)、新規実装10件(002〜006・010〜012・014〜015、いずれもsrc/content/f009-{baseline,source,acceptance,catalog,artwork}.tsの5ファイルに限定、共有汎用モジュールは無変更)。F009で初めて実データに現れるgaiji検出(detectF009GaijiElements/verifyNoGaijiWithinCandidates、選定時・公開直前の両snapshotで常時有効)と、死後の恋の長大候補分割の初の実トリガー(分割後piece候補は独立二重判定・VOICEVOX合成を個別に要すること、f009-source.test.tsは実XHTML由来fixtureが必要な旨)を明記した。trace_check.py REQ→DES・DES→FUN対応漏れ0を確認(DES→UT/IT 15件はtestspec未着手のため想定通り)。
 - id: T-181
   title: UT-F009・IT-F009を作成しQT-F009との網羅性を確認
   feature: F009
