@@ -5303,7 +5303,7 @@ tasks:
   title: 機能設計書(FD-F011)を作成しREQ全19件を新美南吉追加設計へ展開
   feature: F011
   phase: design
-  state: todo
+  state: done
   depends:
   - T-200
   tags: &id011
@@ -5331,17 +5331,19 @@ tasks:
   model: &model_f011
     lead: opus
     workers: sonnet
+  result: FD-F011.mdを作成しREQ 19件全件をDES 15件へ展開。F010と同型の新規作者追加構造・汎用release経路を継承。3作品(手袋を買いに→ごん狐→二ひきの蛙)いずれも公式表現注意対象外(F010に続く2例目)、長大候補分割は実測最大候補長228文字のため非実装、gaiji/entity検出は3作品とも0件だが検出関数自体は常時有効のまま実装する設計とした。二ひきの蛙の校正者2名併記(もりみつじゅんじ・鈴木厚司)に対応するproofreader複数値schemaを新規設計。route 13件(既存9作者route+niimi-nankichi+favorites+credits)、artwork lower-bound<9、baseline v0.10.0(release commit 88317b3102...)を確定した。
 - id: T-202
   title: 関数設計書(DD-F011)を作成しデータ・関数・状態遷移契約へ展開
   feature: F011
   phase: design
-  state: todo
+  state: done
   depends:
   - T-201
   tags: *id011
   mode: advisor
   mode_reason: FDの汎用pipeline再利用境界とF011固有入力(新規作者・注記UI適用対象0件・独立二重判定)を関数単位で確定するため
   model: *model_f011
+  result: DD-F011.mdを作成しDES 15件をFUN 18件へ展開。既存関数の直接再利用8件、新規実装10件(src/content/f011-{baseline,source,acceptance,catalog,artwork}.tsの5ファイルに限定)、長大候補分割は明示的に非実装(FUN-F011-006/018)。trace_check.py REQ→DES・DES→FUN対応漏れ0を確認(DES→UT/IT 15件はtestspec未着手のため想定通り)。
 - id: T-203
   title: UT-F011・IT-F011を作成しQT-F011との網羅性を確認
   feature: F011
