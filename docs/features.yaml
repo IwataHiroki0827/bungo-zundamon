@@ -55,6 +55,6 @@ features:
 - id: F010
   title: 梶井基次郎「檸檬」「Ｋの昇天」「愛撫」3作品追加
   branch: feature/F010
-  state: setup
+  state: design
   merge_after:
   - F009
