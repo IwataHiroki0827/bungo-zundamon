@@ -5135,13 +5135,29 @@ tasks:
   title: 檸檬を抽出・二重レビュー・音声化・atomic受入
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-194
   tags: *id010
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f010
+  progress: >-
+    完了。檸檬(000424)の実candidate8件を実extraction・実テキスト精読で
+    独立二重判定し、5件承認(SPOKEN_DIALOGUE、「私」の内心独白・決断・
+    爆弾幻想、瓶詰地獄/人間椅子/死後の恋の内心独白precedentと同型)・
+    3件却下(NON_SPEECH、仮定的修辞的感嘆・「売柑者之言」という作品名
+    言及・「鼻を撲つ」という語句言及)。VOICEVOX実測でaudio_query検査を
+    行い誤読0件(今日は/気詰まり/丸善/こっぱみじん全て正しい読み)を確認。
+    実VOICEVOX(speaker 3)で5/5音声合成成功(551,132 bytes)、容量forecast
+    pass_with_warning、容量actual pass_with_warning(CAPACITY_ACTUAL_
+    PAGES_WARNING、freeBytes約82.9GB)。atomic受入でWAV5件をaccepted-audio/
+    000424/へ正式昇格、manifest workProgress[000424].status: accepted。
+    副次的にF009 batch.jsonがF005〜F009系列と同型の未published既知パターン
+    のままだったことを発見し、scripts/f009-mark-published.tsで実evidence
+    (F009-deployment/smoke.json、workflow run 32659045364)を根拠に是正
+    した(コンテンツ本体は無変更)。tsc/eslint全PASS、vitest 62件全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-196(Ｋの昇天)。
 - id: T-196
   title: Ｋの昇天を抽出・二重レビュー・音声化・atomic受入
   feature: F010
