@@ -1,0 +1,313 @@
+{
+  "batchId": "F010",
+  "configPath": "content/batches/F010/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "02650510284c8f1d704546d2d4c1183ecefec493770bbad8238d6a106c7ff493",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 5191340,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F010",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "02650510284c8f1d704546d2d4c1183ecefec493770bbad8238d6a106c7ff493",
+    "minimumFreeBytesAfterWrite": 372300204,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 685134024,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "251f279544913b9797ff2dff3ae0bf73ef8639d9f6a1f4966bb7ae05f3b2be17",
+    "preTreeDigest": "c7ed4db91333e03e6e4d1054742f93d6faacf326f870db9a04cf86e921e3f7e4",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 104306468,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "3ad19edacf8243852be85de0d3c3e8fba82d060b",
+        "e501cba57d9403506ed88b48cf5ae9541b9d8677"
+      ],
+      "includedPaths": [
+        "content/batches/F010/batch.json",
+        "content/batches/F010/reviews/000419.json",
+        "content/batches/F010/work-artifacts/000419/candidates.json",
+        "content/batches/F010/work-artifacts/000419/review-reconciliation.json",
+        "content/batches/F010/work-artifacts/000419/reviews/primary.json",
+        "content/batches/F010/work-artifacts/000419/reviews/secondary.json",
+        "content/batches/F010/work-artifacts/000419/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f010-prepare-editorial.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "3ad19edacf8243852be85de0d3c3e8fba82d060b",
+        "e501cba57d9403506ed88b48cf5ae9541b9d8677"
+      ],
+      "includedPaths": [
+        "content/batches/F010/batch.json",
+        "content/batches/F010/reviews/000419.json",
+        "content/batches/F010/work-artifacts/000419/candidates.json",
+        "content/batches/F010/work-artifacts/000419/review-reconciliation.json",
+        "content/batches/F010/work-artifacts/000419/reviews/primary.json",
+        "content/batches/F010/work-artifacts/000419/reviews/secondary.json",
+        "content/batches/F010/work-artifacts/000419/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "docs/traceability/TM-ALL.md",
+        "docs/traceability/tm.json",
+        "scripts/f010-prepare-editorial.ts"
+      ],
+      "measuredBytes": 481522759,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 83397836800,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 372300204
+    },
+    "workId": "000419"
+  },
+  "kind": "f009-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 551132,
+    "acceptedAudioFiles": 5,
+    "currentPagesBytes": 535134024,
+    "currentPagesFiles": 1266,
+    "freeBytes": 83397836800,
+    "liveWriteUpperBounds": 154640208,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1343135,
+    "rollbackBackupBytes": 150551132
+  },
+  "plan": {
+    "batchId": "F010",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 12,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "2d3a15b6fb22c67ad35570488c0d96abc9053f828dba09b7858f4a09df172479",
+        "candidateIds": [
+          "xS-aZ355SEBWrQs9I3EJZ6XJq6wvYfkMq4nMx_3Ojl8"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d3a15b6fb22c67ad35570488c0d96abc9053f828dba09b7858f4a09df172479.json",
+        "status": "miss",
+        "text": "「ほんとうにいったい何をしていたんです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/2d3a15b6fb22c67ad35570488c0d96abc9053f828dba09b7858f4a09df172479.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "65acd9aaeec0979b3152e1761414e17c234e1c111d51c437e6d9cbb8606d5c01",
+        "candidateIds": [
+          "dT_VFD1yplfaa0qQdzqT5qFPHY9SR52qbYSFMuIz2n0"
+        ],
+        "estimatedBytes": 60524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/65acd9aaeec0979b3152e1761414e17c234e1c111d51c437e6d9cbb8606d5c01.json",
+        "status": "miss",
+        "text": "「熱心ですね」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/65acd9aaeec0979b3152e1761414e17c234e1c111d51c437e6d9cbb8606d5c01.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "7a0b301620dd80b1e2b34b21a3f71c6cc8d92bb10a4dc4bd557385c2ddb89b25",
+        "candidateIds": [
+          "Bi7nW3g5An2G-m5n4gvuVZBBrSKcqeMXZIvqK5wu-2M"
+        ],
+        "estimatedBytes": 1166444,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a0b301620dd80b1e2b34b21a3f71c6cc8d92bb10a4dc4bd557385c2ddb89b25.json",
+        "status": "miss",
+        "text": "「私が高等学校の寄宿舎にいたとき、よその部屋でしたが、一人美少年がいましてね、それが机に向かっている姿を誰が描いたのか、部屋の壁へ、電燈で写したシルウェットですね。その上を墨でなすって描いてあるのです。それがとてもヴィヴィッドでしてね、私はよくその部屋へ行ったものです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7a0b301620dd80b1e2b34b21a3f71c6cc8d92bb10a4dc4bd557385c2ddb89b25.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "7cfee77d2639a07d5762f69620ccc48f93f96433cba9a4d4682c07baf79a275b",
+        "candidateIds": [
+          "quQeGqCaFSSpJ9NaNBdO8nAKBiyvkwTqgrC6xfSQZ9g"
+        ],
+        "estimatedBytes": 233324,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7cfee77d2639a07d5762f69620ccc48f93f96433cba9a4d4682c07baf79a275b.json",
+        "status": "miss",
+        "text": "「あのぎゃっこうせんの船は完全に影絵じゃありませんか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/7cfee77d2639a07d5762f69620ccc48f93f96433cba9a4d4682c07baf79a275b.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "8a0c9b760bbe98beeaf589804471d0f7ed4f2c58838d20bf924ea89b3806c264",
+        "candidateIds": [
+          "lLAVG87985qFPhNXEEPS3fNnC5c3S-vWAIZXirDUCdg"
+        ],
+        "estimatedBytes": 112364,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a0c9b760bbe98beeaf589804471d0f7ed4f2c58838d20bf924ea89b3806c264.json",
+        "status": "miss",
+        "text": "「ええ。吹いていましたよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8a0c9b760bbe98beeaf589804471d0f7ed4f2c58838d20bf924ea89b3806c264.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "94c7b88d2faaef567880a92e86a51352ae000251b996ca64aa6fe3126c906705",
+        "candidateIds": [
+          "RYv4coPhzP6TZvOmN3DLP-w9jWeH5a95ltk9UmWNVSk"
+        ],
+        "estimatedBytes": 1105964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/94c7b88d2faaef567880a92e86a51352ae000251b996ca64aa6fe3126c906705.json",
+        "status": "miss",
+        "text": "「影と『ドッペルゲンゲル』。私はこの二つに、月夜になれば憑かれるんですよ。この世のものでないというような、そんなものを見たときの感じ。――その感じになじんでいると、現実の世界が全く身に合わなく思われて来るのです。だから昼間は阿片喫煙者のようにけんたいです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/94c7b88d2faaef567880a92e86a51352ae000251b996ca64aa6fe3126c906705.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "ac51b49afb493cafc9deaaf5d8217cd1ca2368e1dd5dd41d425f35d59ce1a7e5",
+        "candidateIds": [
+          "9NoKB6Sz5BRsFtiLnLIWIe4E3qCwCrMqi2Pyeb4rjnI"
+        ],
+        "estimatedBytes": 924524,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac51b49afb493cafc9deaaf5d8217cd1ca2368e1dd5dd41d425f35d59ce1a7e5.json",
+        "status": "miss",
+        "text": "「シラノが月へ行く方法を並べたてるところがありますね。これはその今一つの方法ですよ。でも、ジュール・ラフォルグの詩にあるように 哀れなるかな、イカルスが幾人も来ては落っこちる。 私も何遍やってもおっこちるんですよ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/ac51b49afb493cafc9deaaf5d8217cd1ca2368e1dd5dd41d425f35d59ce1a7e5.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "b1d39519f8ce5fcf7490691256c914ce5dbf6b2a9ecaed92cee2fe38b149ba58",
+        "candidateIds": [
+          "fERSrtQgsY-Vxdla9CKQx65G0WzzkxTChfweOx9DNcg"
+        ],
+        "estimatedBytes": 354284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1d39519f8ce5fcf7490691256c914ce5dbf6b2a9ecaed92cee2fe38b149ba58.json",
+        "status": "miss",
+        "text": "「先刻あなたはシューベルトの『ドッペルゲンゲル』を口笛で吹いてはいなかったですか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/b1d39519f8ce5fcf7490691256c914ce5dbf6b2a9ecaed92cee2fe38b149ba58.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "cfd7cdfd047ce3404d307dacf4fbcca20ff10f2a31a36ef7e64bd41972fed541",
+        "candidateIds": [
+          "5Q9flbg6ovvGVWNWQ09eHHBEfGxEhzGEd4FBshbGvzY"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cfd7cdfd047ce3404d307dacf4fbcca20ff10f2a31a36ef7e64bd41972fed541.json",
+        "status": "miss",
+        "text": "「Ｋ君はとうとう月世界へ行った」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/cfd7cdfd047ce3404d307dacf4fbcca20ff10f2a31a36ef7e64bd41972fed541.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "dfe0f4a9d4d0208fda919fd7efdacd3945ba442e941fbe788ebbad8c31f23d3f",
+        "candidateIds": [
+          "2MNxaQeMAdnSfPvPfYabOPgPD1yBCZGHqSyVGsyo0xs"
+        ],
+        "estimatedBytes": 95084,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dfe0f4a9d4d0208fda919fd7efdacd3945ba442e941fbe788ebbad8c31f23d3f.json",
+        "status": "miss",
+        "text": "「なんでもないんです」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dfe0f4a9d4d0208fda919fd7efdacd3945ba442e941fbe788ebbad8c31f23d3f.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "f090091da5c558771e1f01c49d6861219e9b42653c40d23a51dcd9e75420d0d5",
+        "candidateIds": [
+          "WDhL7wKIWoYcQmoZeliCbiaG9aFEf0Xql38Ov5cx7zI"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f090091da5c558771e1f01c49d6861219e9b42653c40d23a51dcd9e75420d0d5.json",
+        "status": "miss",
+        "text": "「Ｋ君は月へ登ってしまったのだ」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f090091da5c558771e1f01c49d6861219e9b42653c40d23a51dcd9e75420d0d5.wav",
+        "workIds": [
+          "000419"
+        ]
+      },
+      {
+        "audioId": "fb175ab62adc0138dc8f7b309e28154d0904c93327ca4cafe06d905c13f38304",
+        "candidateIds": [
+          "-KO-mgr-J3EH1_OKupC-nS2qZv4wX_YwXuvYxgS2AE0"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fb175ab62adc0138dc8f7b309e28154d0904c93327ca4cafe06d905c13f38304.json",
+        "status": "miss",
+        "text": "「何か落し物をなさったのですか」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/fb175ab62adc0138dc8f7b309e28154d0904c93327ca4cafe06d905c13f38304.wav",
+        "workIds": [
+          "000419"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 4640208,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "02650510284c8f1d704546d2d4c1183ecefec493770bbad8238d6a106c7ff493",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 12,
+    "planDigest": "251f279544913b9797ff2dff3ae0bf73ef8639d9f6a1f4966bb7ae05f3b2be17",
+    "preTreeDigest": "c7ed4db91333e03e6e4d1054742f93d6faacf326f870db9a04cf86e921e3f7e4",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 12,
+    "workId": "000419"
+  },
+  "preTreeDigest": "c7ed4db91333e03e6e4d1054742f93d6faacf326f870db9a04cf86e921e3f7e4",
+  "schemaVersion": "1.0.0",
+  "workId": "000419"
+}

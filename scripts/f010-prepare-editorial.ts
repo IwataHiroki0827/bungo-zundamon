@@ -161,6 +161,100 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
     ],
     speechCorrections: {},
   },
+  // Ｋの昇天(000419)。青空文庫本文（419_19702.html正規化済みテキスト）を実際に通読し
+  // 21候補全件の話者・decisionを確定した。DOMAIN-F010.mdが指摘するとおり、本作は
+  // 「私」（語り手）とＫ君との実際の対話・会話が複数往復する、梶井作品中もっとも
+  // 濃い多人数対話であり、檸檬（8候補中5件approved）より多い21候補中12件approved
+  // となった。
+  '000419': {
+    judgmentsByOrder: [
+      // order0 「Ｋ君はとうとう月世界へ行った」。「と同時に…と思ったのです」に
+      // 導かれる「私」の実際の驚きの独白。檸檬order3-7・瓶詰地獄order2/3・
+      // 人間椅子order2/3と同型の「」内心内語としてapprovedとする。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order1 「海辺にて」。「私ははじめシューベルトの…を吹きました」に導かれる
+      // 楽曲の題名への言及。売柑者之言（檸檬order1）と同型の語そのものへの
+      // 言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order2 「ドッペルゲンゲル」。「それからやはりハイネの詩の…」に導かれる
+      // 楽曲の題名への言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order3 「二重人格」。「これは…というのでしょうか」に導かれる、語り手が
+      // 題名の意味を自問する語そのものへの言及（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order4 「何か落し物をなさったのですか」。「とかなり大きい声で呼びかけて
+      // みました」で実際の発話と明示される、「私」からＫ君への呼びかけ。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order5 「落し物でしたら燐寸がありますよ」。「次にはそう言うつもりだった
+      // のです」（次に言うつもりだった、の意）と明示され、直後「最初の言葉で
+      // その人は私の方を振り向きました」（＝order4の発話の時点で振り向いた）と
+      // 続く。つまり実際に声に出す前に相手が反応しており、この二番目の台詞は
+      // 実際には発話されなかった意図・想定段階の言葉。檸檬order0の仮定的例示と
+      // 同型のNON_SPEECHと判定した。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order6 「のっぺらぽー」。「そんなことを不知不識の間に思っていました」
+      // （知らず知らずのうちに、の意）に導かれる、語り手が自覚しないまま
+      // 脳裡をよぎった無意識の連想であり、order0/order18のような明確な決意・
+      // 気づきの独白とは異なる（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order7 「なんでもないんです」。「澄んだ声でした」で実際の発話と明示
+      // されるＫ君の返答。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order8 「ほんとうにいったい何をしていたんです」。「そして、『…』という
+      // ようなことから、Ｋ君はぼつぼつそのことを説き明かしてくれました」と、
+      // Ｋ君の説明を引き出した「私」の実際の問いかけとして地の文に組み込まれて
+      // いる。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order9 「気配」。「…の域を越えて『見えるもの』の領分へ入って来るのです。
+      // ――こうＫ君は申しました」という、外側を「」で括らない間接的な語りの
+      // 中でＫ君の用語だけが「」で強調引用されたもの。語そのものへの言及
+      // （NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order10 「見えるもの」。order9と同一文中の同型の用語引用（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order11 「先刻あなたはシューベルトの『ドッペルゲンゲル』を口笛で吹いては
+      // いなかったですか」。直後「『ええ。吹いていましたよ』と私は答えました」
+      // との応答が続く、Ｋ君からの実際の質問。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order12 「ええ。吹いていましたよ」。「と私は答えました」で実際の発話と
+      // 明示される「私」の返答。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order13 「影と『ドッペルゲンゲル』。…阿片喫煙者のように倦怠です」。
+      // 「とＫ君は言いました」で実際の発話と明示される。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order14 「シラノが月へ行く方法を…おっこちるんですよ」（詩の引用を含む）。
+      // 「そう言ってＫ君は笑いました」で実際の発話と明示される。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order15 「あの逆光線の船は完全に影絵じゃありませんか」。「と突然私に
+      // 反問しました」で実際の発話と明示されるＫ君の問い。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order16 「熱心ですね」。「と私が言ったら、Ｋ君は笑っていました」で実際の
+      // 発話と明示される「私」の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order17 「私が高等学校の寄宿舎にいたとき…行ったものです」。「Ｋ君は…
+      // そしてこんなことを話しました」で実際の発話と明示される（引用内の
+      // 「私」はＫ君自身を指す一人称）。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'Ｋ君' },
+      // order18 「Ｋ君は月へ登ってしまったのだ」。「そして私はすぐ、…と感じ
+      // ました」に導かれる「私」の実際の実感の独白。order0と同型。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '私' },
+      // order19 「見えるもの」。物語終盤、語り手が自らの推測（Ｋ君の死の夜の
+      // 想像的再構成）の中でＫ君の用語を再び引用したもの。語そのものへの言及
+      // （NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order20 「気配」。order19と同一文脈の同型の用語引用（NON_SPEECH）。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+    ],
+    speechCorrections: {
+      // order15「あの逆光線の船は完全に影絵じゃありませんか」。VOICEVOX実合成
+      // （speaker 3）で「逆光線」が促音を落とした「ぎゃくこうせん」と誤読される
+      // ことを確認した（正しくは「ぎゃっこうせん」）。displayTextは変更せず、
+      // speechTextのみかな読みへ置換する。
+      '.main_text:3849-3872': [
+        { find: '逆光線', to: 'ぎゃっこうせん', reason: '「逆光線」の促音欠落誤読（ぎゃくこうせん→ぎゃっこうせん）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {

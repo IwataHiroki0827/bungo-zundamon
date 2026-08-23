@@ -1,0 +1,105 @@
+{
+  "batchId": "F010",
+  "kind": "f010-speech-revision-result",
+  "reconciliationDigest": "ba4d3826883ddea17995eeb90f330f5b9db2b23d5be1b5ca02832bf3edd51e37",
+  "revisions": [
+    {
+      "after": "「あのぎゃっこうせんの船は完全に影絵じゃありませんか」",
+      "before": "「あの逆光線の船は完全に影絵じゃありませんか」",
+      "candidateId": "quQeGqCaFSSpJ9NaNBdO8nAKBiyvkwTqgrC6xfSQZ9g",
+      "inputSha256": "b16d0e3053949f9fdfddbda1d59dc9be7d67c023ba4774d1afcc78273c0f1acf",
+      "outputSha256": "0f1e0e1b61c756d2e3f86cae462cf8010b668a5319ea6f36af74dd08d99adfdb",
+      "reason": "「逆光線」の促音欠落誤読（ぎゃくこうせん→ぎゃっこうせん）をVOICEVOX実合成で確認したための読み補正",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "5Q9flbg6ovvGVWNWQ09eHHBEfGxEhzGEd4FBshbGvzY",
+      "displayText": "「Ｋ君はとうとう月世界へ行った」",
+      "revisionCount": 0,
+      "speechSha256": "fe1e7b104246316ce6c22462ee9cfb7aba81761df745507b8f371f3cdc1040ba",
+      "speechText": "「Ｋ君はとうとう月世界へ行った」"
+    },
+    {
+      "candidateId": "-KO-mgr-J3EH1_OKupC-nS2qZv4wX_YwXuvYxgS2AE0",
+      "displayText": "「何か落し物をなさったのですか」",
+      "revisionCount": 0,
+      "speechSha256": "8a563424682f737dec3ea4731be20e6d665daaf07ace3b8cc0b53238ea6c3ae1",
+      "speechText": "「何か落し物をなさったのですか」"
+    },
+    {
+      "candidateId": "2MNxaQeMAdnSfPvPfYabOPgPD1yBCZGHqSyVGsyo0xs",
+      "displayText": "「なんでもないんです」",
+      "revisionCount": 0,
+      "speechSha256": "68d92dab7bcc3d470bfe2f344f81dacd1ad00280c1101d9c7aec23f14dfd8dcb",
+      "speechText": "「なんでもないんです」"
+    },
+    {
+      "candidateId": "xS-aZ355SEBWrQs9I3EJZ6XJq6wvYfkMq4nMx_3Ojl8",
+      "displayText": "「ほんとうにいったい何をしていたんです」",
+      "revisionCount": 0,
+      "speechSha256": "3a6137656effd584727633bc04907a7cd0e7757977d5d27cd692c0c6ee14c9be",
+      "speechText": "「ほんとうにいったい何をしていたんです」"
+    },
+    {
+      "candidateId": "fERSrtQgsY-Vxdla9CKQx65G0WzzkxTChfweOx9DNcg",
+      "displayText": "「先刻あなたはシューベルトの『ドッペルゲンゲル』を口笛で吹いてはいなかったですか」",
+      "revisionCount": 0,
+      "speechSha256": "d9b6e43c9a437c952e531f1eaef663ae02a6ac7d306eee728f0d806953990b85",
+      "speechText": "「先刻あなたはシューベルトの『ドッペルゲンゲル』を口笛で吹いてはいなかったですか」"
+    },
+    {
+      "candidateId": "lLAVG87985qFPhNXEEPS3fNnC5c3S-vWAIZXirDUCdg",
+      "displayText": "「ええ。吹いていましたよ」",
+      "revisionCount": 0,
+      "speechSha256": "ee5e9e0e1683554b8b478b82249381fd19a2acf0b9c79a869928868dc314a55b",
+      "speechText": "「ええ。吹いていましたよ」"
+    },
+    {
+      "candidateId": "RYv4coPhzP6TZvOmN3DLP-w9jWeH5a95ltk9UmWNVSk",
+      "displayText": "「影と『ドッペルゲンゲル』。私はこの二つに、月夜になれば憑かれるんですよ。この世のものでないというような、そんなものを見たときの感じ。――その感じになじんでいると、現実の世界が全く身に合わなく思われて来るのです。だから昼間は阿片喫煙者のように倦怠です」",
+      "revisionCount": 0,
+      "speechSha256": "71f2ca74ce824d06c31a6b78ec6ac6182be78f74a3e80809d575da3e72edcf6f",
+      "speechText": "「影と『ドッペルゲンゲル』。私はこの二つに、月夜になれば憑かれるんですよ。この世のものでないというような、そんなものを見たときの感じ。――その感じになじんでいると、現実の世界が全く身に合わなく思われて来るのです。だから昼間は阿片喫煙者のようにけんたいです」"
+    },
+    {
+      "candidateId": "9NoKB6Sz5BRsFtiLnLIWIe4E3qCwCrMqi2Pyeb4rjnI",
+      "displayText": "「シラノが月へ行く方法を並べたてるところがありますね。これはその今一つの方法ですよ。でも、ジュール・ラフォルグの詩にあるように\n\n\n\n哀れなるかな、イカルスが幾人も来ては落っこちる。\n\n\n\n　私も何遍やってもおっこちるんですよ」",
+      "revisionCount": 0,
+      "speechSha256": "1d7d47729b76dcc922ad208fbdce30cf9b0e2a6c0acc074a97ba034061a3a65f",
+      "speechText": "「シラノが月へ行く方法を並べたてるところがありますね。これはその今一つの方法ですよ。でも、ジュール・ラフォルグの詩にあるように 哀れなるかな、イカルスが幾人も来ては落っこちる。 私も何遍やってもおっこちるんですよ」"
+    },
+    {
+      "candidateId": "quQeGqCaFSSpJ9NaNBdO8nAKBiyvkwTqgrC6xfSQZ9g",
+      "displayText": "「あの逆光線の船は完全に影絵じゃありませんか」",
+      "revisionCount": 1,
+      "speechSha256": "0f1e0e1b61c756d2e3f86cae462cf8010b668a5319ea6f36af74dd08d99adfdb",
+      "speechText": "「あのぎゃっこうせんの船は完全に影絵じゃありませんか」"
+    },
+    {
+      "candidateId": "dT_VFD1yplfaa0qQdzqT5qFPHY9SR52qbYSFMuIz2n0",
+      "displayText": "「熱心ですね」",
+      "revisionCount": 0,
+      "speechSha256": "cb8ed62c8856dc2c50edc11c0b795a7ef85cfb7730417cb1aea3ee89e7101394",
+      "speechText": "「熱心ですね」"
+    },
+    {
+      "candidateId": "Bi7nW3g5An2G-m5n4gvuVZBBrSKcqeMXZIvqK5wu-2M",
+      "displayText": "「私が高等学校の寄宿舎にいたとき、よその部屋でしたが、一人美少年がいましてね、それが机に向かっている姿を誰が描いたのか、部屋の壁へ、電燈で写したシルウェットですね。その上を墨でなすって描いてあるのです。それがとてもヴィヴィッドでしてね、私はよくその部屋へ行ったものです」",
+      "revisionCount": 0,
+      "speechSha256": "cbb5245622eaba93758f017b711c5d1086044a668f134f920fd7bed35c50ed10",
+      "speechText": "「私が高等学校の寄宿舎にいたとき、よその部屋でしたが、一人美少年がいましてね、それが机に向かっている姿を誰が描いたのか、部屋の壁へ、電燈で写したシルウェットですね。その上を墨でなすって描いてあるのです。それがとてもヴィヴィッドでしてね、私はよくその部屋へ行ったものです」"
+    },
+    {
+      "candidateId": "WDhL7wKIWoYcQmoZeliCbiaG9aFEf0Xql38Ov5cx7zI",
+      "displayText": "「Ｋ君は月へ登ってしまったのだ」",
+      "revisionCount": 0,
+      "speechSha256": "211c985eadf9edc622d29a3dbf5e70fd4f4979624d1f116c593194b7e64e06bb",
+      "speechText": "「Ｋ君は月へ登ってしまったのだ」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "000419"
+}

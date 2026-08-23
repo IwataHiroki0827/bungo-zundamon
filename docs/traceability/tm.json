@@ -10491,6 +10491,34 @@
         "FUN-F009-009"
       ]
     },
+    "IMPL:scripts/f010-accept-work.ts#12:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-accept-work.ts",
+      "refs": [
+        "DES-F010-009"
+      ]
+    },
+    "IMPL:scripts/f010-accept-work.ts#12:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-accept-work.ts",
+      "refs": [
+        "FUN-F010-010"
+      ]
+    },
+    "IMPL:scripts/f010-capacity-actual.ts#38:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-capacity-actual.ts",
+      "refs": [
+        "DES-F010-008"
+      ]
+    },
+    "IMPL:scripts/f010-capacity-actual.ts#38:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-capacity-actual.ts",
+      "refs": [
+        "FUN-F010-009"
+      ]
+    },
     "IMPL:scripts/f010-collect-source.ts#24:des": {
       "type": "IMPL",
       "defined_in": "scripts/f010-collect-source.ts",
@@ -10505,6 +10533,62 @@
         "FUN-F010-005"
       ]
     },
+    "IMPL:scripts/f010-content-preview.ts#72:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "DES-F010-002"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#72:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "FUN-F010-002"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#139:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "DES-F010-002"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#139:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "FUN-F010-002"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#225:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "DES-F010-010"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#225:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "FUN-F010-011"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#251:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "DES-F010-002"
+      ]
+    },
+    "IMPL:scripts/f010-content-preview.ts#251:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-content-preview.ts",
+      "refs": [
+        "FUN-F010-002"
+      ]
+    },
     "IMPL:scripts/f010-init-batch.ts#18:des": {
       "type": "IMPL",
       "defined_in": "scripts/f010-init-batch.ts",
@@ -10517,6 +10601,48 @@
       "defined_in": "scripts/f010-init-batch.ts",
       "refs": [
         "FUN-F010-001"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-editorial.ts#83:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-editorial.ts",
+      "refs": [
+        "DES-F010-006"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-editorial.ts#83:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-editorial.ts",
+      "refs": [
+        "FUN-F010-007"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-editorial.ts#272:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-editorial.ts",
+      "refs": [
+        "DES-F010-006"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-editorial.ts#272:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-editorial.ts",
+      "refs": [
+        "FUN-F010-007"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-voice.ts#44:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-voice.ts",
+      "refs": [
+        "DES-F010-008"
+      ]
+    },
+    "IMPL:scripts/f010-prepare-voice.ts#44:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f010-prepare-voice.ts",
+      "refs": [
+        "FUN-F010-009"
       ]
     },
     "IMPL:scripts/network-deny.mjs#1:des": {
@@ -12797,14 +12923,28 @@
         "FUN-F009-002"
       ]
     },
-    "IMPL:src/content/f003-catalog.ts#467:des": {
+    "IMPL:src/content/f003-catalog.ts#438:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f003-catalog.ts",
+      "refs": [
+        "DES-F010-002"
+      ]
+    },
+    "IMPL:src/content/f003-catalog.ts#438:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f003-catalog.ts",
+      "refs": [
+        "FUN-F010-002"
+      ]
+    },
+    "IMPL:src/content/f003-catalog.ts#522:des": {
       "type": "IMPL",
       "defined_in": "src/content/f003-catalog.ts",
       "refs": [
         "DES-F003-009"
       ]
     },
-    "IMPL:src/content/f003-catalog.ts#467:fun": {
+    "IMPL:src/content/f003-catalog.ts#522:fun": {
       "type": "IMPL",
       "defined_in": "src/content/f003-catalog.ts",
       "refs": [
@@ -19514,6 +19654,62 @@
       "defined_in": "src/content/f009-source.ts",
       "refs": [
         "FUN-F009-005"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#41:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "DES-F010-009"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#41:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "FUN-F010-010"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#163:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "DES-F010-009"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#163:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "FUN-F010-010"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#289:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "DES-F010-009"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#289:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "FUN-F010-010"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#303:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "DES-F010-009"
+      ]
+    },
+    "IMPL:src/content/f010-acceptance.ts#303:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f010-acceptance.ts",
+      "refs": [
+        "FUN-F010-010"
       ]
     },
     "IMPL:src/content/f010-artwork.test.ts#116:des": {
