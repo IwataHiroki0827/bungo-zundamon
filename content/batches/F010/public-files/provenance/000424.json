@@ -1,0 +1,20 @@
+{
+  "baseEdition": "檸檬・ある心の風景　他二十編",
+  "bibliography": {
+    "archiveBytes": 2092746,
+    "archiveSha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "csvBytes": 17161785,
+    "csvEntry": "list_person_all_extended_utf8.csv",
+    "csvSha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip"
+  },
+  "changeNotice": "原文抽出・台詞選定・ずんだもん音声化を実施。加工部分はCC BY 4.0。",
+  "fetchedAt": "2026-08-23T19:43:01.538Z",
+  "inputter": "j.utiyama",
+  "proofreader": "野口英司",
+  "sourceSha256": "5e3e8a10842d7bea38106c953e30c353c295af9b0126abbf3f933b06f4b62a17",
+  "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/424_19826.html",
+  "stableCardUrl": "https://www.aozora.gr.jp/cards/000074/card424.html",
+  "toolVersion": "bungo-zundamon-source-v1",
+  "transformation": "公式XHTMLの実体参照正規化・本文抽出・台詞候補抽出・独立2名レビュー・音声合成"
+}
