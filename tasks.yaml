@@ -5189,13 +5189,28 @@ tasks:
   title: 愛撫を抽出・二重レビュー・音声化・atomic受入
   feature: F010
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-196
   tags: *id010
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f010
+  progress: >-
+    完了。愛撫(000411)の実candidate9件を実extraction・実テキスト精読で
+    独立二重判定し、4件承認(SPOKEN_DIALOGUE、夢の場面での私と夫人の
+    実質的な会話往復)・5件却下(NON_SPEECH、「切符切り」という玩具名の
+    反復言及・「高さ」「落下」という強調引用の抽象概念語)、要求分析時の
+    仮説(実対話4件)と完全一致を実データで確認。VOICEVOX実測で誤読0件を
+    確認、speech補正0件。実VOICEVOX(speaker 3)で4/4音声合成成功
+    (500,400 bytes)、容量forecast pass_with_warning、容量actual
+    pass_with_warning(CAPACITY_ACTUAL_PAGES_WARNING、他2作品と同型)。
+    atomic受入でWAV4件をaccepted-audio/000411/へ正式昇格、manifest
+    workProgress[000411].status: accepted。F010全3作品(檸檬5・Ｋの昇天
+    12・愛撫4=計21候補承認)がaccepted、F009 published状態への
+    regressionなしを確認。tsc/eslint(該当ファイル)全PASS、vitest 62件
+    全PASS、trace_check.py対応漏れなし。次のアクションはT-198(最終
+    Catalog統合)。
 - id: T-198
   title: F010最終Catalog統合・固定v0.9.0回帰・公開tree候補を作成
   feature: F010
