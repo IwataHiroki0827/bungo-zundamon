@@ -198,6 +198,7 @@
       "workId": "002381"
     },
     {
+      "actualCapacityRef": "content/batches/F009/capacity-actual/046694.json",
       "forecastRef": "content/batches/F009/capacity-forecast/046694.json",
       "stageRecords": [
         {
@@ -250,6 +251,38 @@
           ],
           "stage": "voiced",
           "toolVersion": "f009-prepare-voice-generate-v1"
+        },
+        {
+          "completedAt": "2026-08-23T17:46:59.496Z",
+          "count": 15,
+          "inputHashes": [
+            "1fad3ccb931509466e6ee906be163378c6f7ca6a3274e4bc11a3a49c75909b4e",
+            "b9ad0d06d83a3e63663c030e35c91c43dc847a457b224d5ab6380bf1a1cab6f6"
+          ],
+          "outputHashes": [
+            "7c2227b51084cf1bbd07052f7c5009924b4b4b42b05bc98ff1101b4b3f591fa9",
+            "2faff079618d1c12952abce32db68723c89e3d85aa94f1a389701ae9c50114c1"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f009-capacity-actual-voiced-direct-v1"
+        },
+        {
+          "completedAt": "2026-08-23T17:47:10.341Z",
+          "count": 19,
+          "inputHashes": [
+            "009a5a6ed6d5dc5e2946185cfdbe7ebc84ad4fa506a0677f675541fb10152c13",
+            "7c2227b51084cf1bbd07052f7c5009924b4b4b42b05bc98ff1101b4b3f591fa9",
+            "2faff079618d1c12952abce32db68723c89e3d85aa94f1a389701ae9c50114c1",
+            "e301eb8226df2243af10f8e2b0d2ed4eb10828d3f1060cf3f1bcca64e8f2b5f6"
+          ],
+          "outputHashes": [
+            "76e6d93fddc40ce9a13800f80973e881784f284910b71ba51b840606e0d07448",
+            "8ebbbaa7cef724768d529060b34707a852f8a65ab69c4a076b518d074198f5de",
+            "3f42aa634a9c3dbb359f0ea9281eab1c36d55371be28942f6be192f2f365bc77",
+            "5e6e79a31274fbacc932d52ecdf9dbb503c797a7ffa51bfa50ebff6e14cc00a0"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "f009-capacity-actual-v1"
         }
       ],
       "status": "voiced",
