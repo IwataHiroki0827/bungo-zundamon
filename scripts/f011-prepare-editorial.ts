@@ -108,8 +108,8 @@ interface SpeechCorrection {
 /**
  * work単位の候補判定（approved時のみspeaker必須）・読み補正定義。
  * displayTextは変更しない。候補は抽出順（order昇順）で対応させる。
- * ごん狐(000628)・二ひきの蛙(004718)分は後続タスクで追加する（本タスクは
- * 手袋を買いに(000637)のみ担当）。
+ * 二ひきの蛙(004718)分は後続タスクで追加する（本タスクは
+ * 手袋を買いに(000637)・ごん狐(000628)を担当）。
  */
 interface WorkEditorialConfig {
   readonly judgmentsByOrder: readonly Omit<CandidateJudgment, 'candidateId'>[];
@@ -223,6 +223,173 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       // かな読みへ置換する。
       '.main_text:1742-1813': [
         { find: '解ると', to: 'わかると', reason: '「解る」の多義誤読（ほどける→わかる）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+    },
+  },
+  // ごん狐(000628)。青空文庫本文（628_14895.html正規化済みテキスト、Shift_JIS
+  // デコード済み全文）を実際に通読し34候補全件の話者・decisionを確定した。
+  // order0「「ごん狐」」は「その中山から、少しはなれた山の中に、「ごん狐」という
+  // 狐がいました」という地の文内の呼び名の紹介であり、実際の発話ではない
+  // NON_SPEECH（Ｋの昇天order1/2の楽曲題名言及と同型）。order2「「とぼん」」は
+  // 「どの魚も、「とぼん」と音を立てながら」に導かれる、ごんが川に投げこんだ
+  // 魚が水に落ちる音を表すオノマトペであり、実際に誰かが発した言葉ではない
+  // （手袋を買いにorder2「どたどた、ざーっ」・Ｋの昇天order6「のっぺらぽー」と
+  // 同型のNON_SPEECH）。以上2件rejected。
+  // 残り32件はすべて実際の発話または実際の内心独白としてapprovedとした。
+  // order1・4-10・24は「と、ごんは思いました」「そう思いながら」「穴の中で
+  // 考えました」等の地の文に導かれる、ごん自身が実際に胸中で発した言葉であり、
+  // 手袋を買いにorder19・檸檬order3-7・Ｋの昇天order0/18と同型の「」内心内語
+  // としてSPOKEN_DIALOGUEと判定した（speaker: ごん）。order11はいわし売りが
+  // 実際に街頭で発した売り声（「どこかで、いわしを売る声がします」に導かれる、
+  // その場で実際に発声された呼び込み）。order12は弥助のおかみさんの実際の発話
+  // （「と言いました」で明示）。order13は兵十のひとりごと（「兵十がひとりごとを
+  // いいました」「と、ぶつぶつ言っています」で実際に声に出されたと明示される
+  // 独り言）であり、実際の発話としてSPOKEN_DIALOGUEと判定した。order14以降の
+  // 兵十・加助の対話（order14-23、order25-30、order32-33）はすべて「と、兵十が
+  // いいました」「加助が言い出しました」等の地の文、または直前の発話への直接の
+  // 応答関係から話者交替が明確な実際の会話であり、SPOKEN_DIALOGUEと判定した。
+  // order31「「ようし。」」は、直前の「こないだうなぎをぬすみやがったあのごん
+  // 狐めが、またいたずらをしに来たな。」という鍵括弧なしの地の文（兵十の心内を
+  // 語る間接話法）とは異なり、「」で明示的に括られた上で火縄銃を取りに立ち
+  // あがる行動へ直結する決意の発声（掛け声・気合い）であり、鍵括弧付きの引用が
+  // 実際の発声を示す本作内の一貫した表記慣習（他の全approved候補も同様に「」で
+  // 実際の発話・内心独白を示す）に従い、SPOKEN_DIALOGUEと判定した（speaker: 兵十）。
+  // 以上、32件approved・2件rejectedと判定した。speechTextはVOICEVOX実合成
+  // （speaker 3、http://127.0.0.1:50021/audio_query）でapproved32件全件のかな
+  // 読みを確認した。ruby未付与のまま抽出器の対象外となった「兵十」（order7・8・
+  // 9・10のkanji素の「兵十」表記）は「へえじゅう」と誤読されることを確認し、
+  // 「ひょうじゅう」へ読み補正した（order1・14等ruby付き「兵十」は正しく
+  // 「ひょうじゅう」と読まれることを確認済み）。同様にruby未付与の「おっ母」
+  // （order9・18）は「おっはは」と誤読されることを確認し、「おっかあ」へ読み
+  // 補正した（order8のruby付き「おっ母」は正しく「おっかあ」と読まれることを
+  // 確認済み）。「一たい」（order13）は「いちたい」と誤読されることを確認し、
+  // 「いったい」へ読み補正した。「はりきり網」（order9）は複合語として「網」が
+  // 「もう」と誤読される（単独の「網を」は正しく「あみを」と読まれる）ことを
+  // VOICEVOX実合成で確認し、「はりきりあみ」へ読み補正した。
+  '000628': {
+    judgmentsByOrder: [
+      // order0 「ごん狐」。地の文内の呼び名の紹介（「という狐がいました」）で
+      // あり、実際の発話ではない。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order1 「兵十だな」。「と、ごんは思いました」で実際の内心独白と明示。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order2 「とぼん」。「どの魚も、「とぼん」と音を立てながら」に導かれる、
+      // 魚が水に落ちる音のオノマトペであり、実際に誰かが発した言葉ではない。
+      { decision: 'rejected', reasonCode: 'NON_SPEECH', speaker: null },
+      // order3 「うわアぬすと狐め」。「と、どなりたてました」で実際の発話と
+      // 明示される兵十の叫び。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order4 「ふふん、村に何かあるんだな」。「と、思いました」で実際の
+      // 内心独白と明示されるごんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order5 「何だろう、秋祭かな。……」。order4の内心独白に直接続く同一
+      // 場面のごんの思考。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order6 「ああ、葬式だ」。「と、ごんは思いました」で実際の内心独白と
+      // 明示されるごんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order7 「兵十の家のだれが死んだんだろう」。order6の内心独白に直接
+      // 続く同一場面のごんの思考。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order8 「ははん、死んだのは兵十のおっ母だ」。「ごんはそう思いながら」
+      // で実際の内心独白と明示されるごんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order9 「兵十のおっ母は……」。「ごんは、穴の中で考えました。」に導か
+      // れる、ごんの実際の長い内心独白。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order10 「おれと同じ一人ぼっちの兵十か」。「見ていたごんは、そう
+      // 思いました」で実際の内心独白と明示されるごんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order11 「いわしのやすうりだアい。いきのいいいわしだアい」。「どこかで、
+      // いわしを売る声がします」に導かれる、いわし売りが実際にその場で発した
+      // 街頭の売り声。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'いわし売り' },
+      // order12 「いわしをおくれ。」。「と言いました」で実際の発話と明示される
+      // 弥助のおかみさんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '弥助のおかみさん' },
+      // order13 「一たいだれが……」。「兵十がひとりごとをいいました」「と、
+      // ぶつぶつ言っています」で実際に声に出されたと明示される兵十のひとりごと。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order14 「そうそう、なあ加助」。「と、兵十がいいました」で実際の発話と
+      // 明示される兵十の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order15 「ああん？」。order14で名指しされた加助の応答。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order16 「おれあ、このごろ、とてもふしぎなことがあるんだ」。兵十の
+      // 発話が続く。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order17 「何が？」。加助の問い返し。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order18 「おっ母が死んでからは……」。order17の問いに答える兵十の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order19 「ふうん、だれが？」。加助の問い返し。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order20 「それがわからんのだよ。……」。加助の問いに答える兵十の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order21 「ほんとかい？」。加助の問い返し。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order22 「ほんとだとも。……」。order21の問いに答える兵十の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order23 「へえ、へんなこともあるもんだなア」。加助の相槌。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order24 「おねんぶつがあるんだな」。「と思いながら」で実際の内心独白と
+      // 明示されるごんの言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: 'ごん' },
+      // order25 「さっきの話は、きっと、そりゃあ、神さまのしわざだぞ」。「加助が
+      // 言い出しました」で実際の発話と明示される加助の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order26 「えっ？」。「と、兵十はびっくりして」で実際の発話と明示される
+      // 兵十の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order27 「おれは、あれからずっと考えていたが……」。order26に続く加助の
+      // 発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order28 「そうかなあ」。兵十の相槌。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order29 「そうだとも。……」。加助の念押し。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '加助' },
+      // order30 「うん」。兵十の相槌。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order31 「ようし。」。鍵括弧で明示的に括られた、火縄銃を取りに立ちあがる
+      // 行動へ直結する兵十の実際の決意の発声（掛け声）。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order32 「おや」。「と兵十は、びっくりして」で実際の発話と明示される
+      // 兵十の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+      // order33 「ごん、お前だったのか。いつも栗をくれたのは」。order32に直接
+      // 続く兵十の発話。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '兵十' },
+    ],
+    speechCorrections: {
+      // order7「兵十の家のだれが死んだんだろう」。ruby未付与の「兵十」がVOICEVOX
+      // 実合成で「へえじゅう」と誤読されることを確認した。
+      '.main_text:1910-1927': [
+        { find: '兵十', to: 'ひょうじゅう', reason: 'ruby未付与「兵十」の誤読（へえじゅう→ひょうじゅう）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+      // order8「ははん、死んだのは兵十のおっ母だ」。同上の「兵十」誤読。
+      '.main_text:2237-2255': [
+        { find: '兵十', to: 'ひょうじゅう', reason: 'ruby未付与「兵十」の誤読（へえじゅう→ひょうじゅう）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+      // order9「兵十のおっ母は……」。「兵十」（3箇所）・「おっ母」（3箇所）が
+      // ruby未付与で誤読され、複合語「はりきり網」も「網」が「もう」と誤読
+      // されることをVOICEVOX実合成で確認した。
+      '.main_text:2302-2499': [
+        { find: '兵十', to: 'ひょうじゅう', reason: 'ruby未付与「兵十」の誤読（へえじゅう→ひょうじゅう）をVOICEVOX実合成で確認したための読み補正' },
+        { find: 'おっ母', to: 'おっかあ', reason: 'ruby未付与「おっ母」の誤読（おっはは→おっかあ）をVOICEVOX実合成で確認したための読み補正' },
+        { find: 'はりきり網', to: 'はりきりあみ', reason: '複合語「はりきり網」内の「網」の誤読（もう→あみ）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+      // order10「おれと同じ一人ぼっちの兵十か」。同上の「兵十」誤読。
+      '.main_text:2592-2608': [
+        { find: '兵十', to: 'ひょうじゅう', reason: 'ruby未付与「兵十」の誤読（へえじゅう→ひょうじゅう）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+      // order13「一たいだれが……」。「一たい」がVOICEVOX実合成で「いちたい」と
+      // 誤読されることを確認した（正しくは「いったい」）。
+      '.main_text:3170-3239': [
+        { find: '一たい', to: 'いったい', reason: '「一たい」の誤読（いちたい→いったい）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+      // order18「おっ母が死んでからは……」。同上の「おっ母」誤読。
+      '.main_text:3672-3722': [
+        { find: 'おっ母', to: 'おっかあ', reason: 'ruby未付与「おっ母」の誤読（おっはは→おっかあ）をVOICEVOX実合成で確認したための読み補正' },
       ],
     },
   },

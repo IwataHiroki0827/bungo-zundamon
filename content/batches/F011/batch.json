@@ -114,8 +114,21 @@
       "workId": "000637"
     },
     {
-      "stageRecords": [],
-      "status": "pending",
+      "stageRecords": [
+        {
+          "completedAt": "2026-08-24T05:10:00.000Z",
+          "count": 34,
+          "inputHashes": [
+            "f1600149f4214ed368b040d350f818527031421c9fdf086a435e34eb41f4ac5b"
+          ],
+          "outputHashes": [
+            "3359ebbf5e366388304ba5b8d5503eec2007c04451d903e122abcaec257668a6"
+          ],
+          "stage": "extracted",
+          "toolVersion": "f011-prepare-editorial-v1"
+        }
+      ],
+      "status": "extracted",
       "workId": "000628"
     },
     {

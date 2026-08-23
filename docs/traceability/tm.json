@@ -11430,6 +11430,48 @@
         "FUN-F011-001"
       ]
     },
+    "IMPL:scripts/f011-prepare-editorial.ts#77:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-editorial.ts",
+      "refs": [
+        "DES-F011-006"
+      ]
+    },
+    "IMPL:scripts/f011-prepare-editorial.ts#77:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-editorial.ts",
+      "refs": [
+        "FUN-F011-007"
+      ]
+    },
+    "IMPL:scripts/f011-prepare-editorial.ts#337:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-editorial.ts",
+      "refs": [
+        "DES-F011-006"
+      ]
+    },
+    "IMPL:scripts/f011-prepare-editorial.ts#337:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-editorial.ts",
+      "refs": [
+        "FUN-F011-007"
+      ]
+    },
+    "IMPL:scripts/f011-prepare-voice.ts#42:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-voice.ts",
+      "refs": [
+        "DES-F011-008"
+      ]
+    },
+    "IMPL:scripts/f011-prepare-voice.ts#42:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-prepare-voice.ts",
+      "refs": [
+        "FUN-F011-009"
+      ]
+    },
     "IMPL:scripts/network-deny.mjs#1:des": {
       "type": "IMPL",
       "defined_in": "scripts/network-deny.mjs",
