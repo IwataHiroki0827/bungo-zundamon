@@ -5271,7 +5271,7 @@ tasks:
   title: F010リリース前総点検・GitHub Pages段階公開・公開スモーク
   feature: F010
   phase: release
-  state: todo
+  state: done
   depends:
   - T-199
   tags:
@@ -5281,4 +5281,21 @@ tasks:
   - REQ-F010-019
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため
+  model: *model_f010
+  progress: >-
+    完了。release commit 88317b3(v0.10.0候補確定a147038→公開tree昇格
+    88317b3)でCI(build+deploy)green確認(初回buildはoffline-build
+    stderr混入の既知フレークで2回失敗、3回目再実行でgreen)。
+    PAGES_DEPLOY_COMMIT/PAGES_DEPLOY_ENABLED=trueでworkflow再実行し
+    build・deploy両job success(run 32667081141)。public/昇格後にtests/
+    e2e/f010-kajii-author.spec.tsをローカルで実行し4/4 PASS確認、フル
+    e2eスイート276 passed・5 skipped・失敗1(f009-yumeno-author.spec.ts
+    の既知フレーク、個別再実行でPASS、F010と無関係)。公開後スモーク
+    (index HTTP200、catalog.json実取得で9作者30作品1247台詞1230音声、
+    candidateCounts.byBatch.F010.published=21確認、梶井基次郎artwork/
+    artwork-provenance/audio/provenance HTTP200)全PASS。docs/evidence/
+    release/{RELEASE-F010.md,F010-approval.json,F010-deployment.json,
+    F010-smoke.json}を実データで作成。PAGES_DEPLOY_ENABLEDをfalseへ
+    復帰、tag v0.10.0をrelease commitへpush済み。F010(梶井基次郎)完了・
+    v0.10.0公開済み(9作者/目標10作者)。
   model: *model_f010
