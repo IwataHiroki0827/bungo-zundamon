@@ -1,0 +1,30 @@
+{
+  "authorExpectation": "introduce",
+  "batchId": "F011",
+  "candidateRegistryPath": "content/batch-candidates.json",
+  "feature": "F011",
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card637.html",
+      "order": 1,
+      "title": "手袋を買いに",
+      "workId": "000637",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000121/files/637_13341.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card628.html",
+      "order": 2,
+      "title": "ごん狐",
+      "workId": "000628",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000121/files/628_14895.html"
+    },
+    {
+      "cardUrl": "https://www.aozora.gr.jp/cards/000121/card4718.html",
+      "order": 3,
+      "title": "二ひきの蛙",
+      "workId": "004718",
+      "xhtmlUrl": "https://www.aozora.gr.jp/cards/000121/files/4718_13223.html"
+    }
+  ]
+}
