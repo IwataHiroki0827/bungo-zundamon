@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F009.md",
+    "release": "docs/evidence/release/F009-approval.json",
+    "requirements": "docs/srs/SRS-F009.md",
+    "testspec": "docs/tests/ut/UT-F009.md"
+  },
+  "artworkProvenanceRef": "content/batches/F009/artwork-provenance.json",
+  "author": {
+    "authorId": "000096",
+    "identitySha256": "6e56d960b43c02ce50db0b10b684a21ca422d96f03a423b9e52210ae7bc0923f",
+    "name": "ゆめのきゅうさく",
+    "originalName": "夢野久作",
+    "slug": "yumeno-kyusaku"
+  },
+  "batchId": "F009",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "002381"
+      ],
+      "preferredWorkId": "002381",
+      "reason": "承認済み代表作",
+      "title": "瓶詰地獄"
+    },
+    {
+      "allowedWorkIds": [
+        "046694"
+      ],
+      "preferredWorkId": "046694",
+      "reason": "承認済み代表作",
+      "title": "きのこ会議"
+    },
+    {
+      "allowedWorkIds": [
+        "002380"
+      ],
+      "preferredWorkId": "002380",
+      "reason": "承認済み代表作",
+      "title": "死後の恋"
+    }
+  ],
+  "feature": "F009",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F009/voice-config.json",
+  "workIds": [
+    "002381",
+    "046694",
+    "002380"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "002381"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "046694"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "002380"
+    }
+  ]
+}

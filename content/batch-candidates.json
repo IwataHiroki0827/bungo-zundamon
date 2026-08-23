@@ -325,6 +325,56 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/001779/files/57193_59571.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "c004735fdc0b1d85aa0b6f3053cc1a6afe0ca3e4dcab8096e1cca5a90d8dab34",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F009.md",
+            "sha256": "0985144854af0eb32e7eb0590e567dfeccbc5138b3b90985c08ccff96b08fa61"
+          },
+          {
+            "path": "docs/tests/qt/QT-F009.md",
+            "sha256": "c61204e9b05c19b4d656e45cb2b0d627e834effa041c98f9cf5b10297c2c7b66"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F009-approval-binding.json",
+        "evidenceSha256": "489b76044256e215f050687bbafdfa4e7cca74abccd081bfb96f234a743baa98",
+        "queueId": "Q-068"
+      },
+      "author": {
+        "authorId": "000096",
+        "identitySha256": "6e56d960b43c02ce50db0b10b684a21ca422d96f03a423b9e52210ae7bc0923f",
+        "name": "ゆめのきゅうさく",
+        "originalName": "夢野久作",
+        "slug": "yumeno-kyusaku"
+      },
+      "batchId": "F009",
+      "feature": "F009",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000096/card2381.html",
+          "order": 1,
+          "title": "瓶詰地獄",
+          "workId": "002381",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000096/files/2381_13352.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000096/card46694.html",
+          "order": 2,
+          "title": "きのこ会議",
+          "workId": "046694",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000096/files/46694_27682.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000096/card2380.html",
+          "order": 3,
+          "title": "死後の恋",
+          "workId": "002380",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000096/files/2380_13349.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"
