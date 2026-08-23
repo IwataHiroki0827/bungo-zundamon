@@ -1,0 +1,436 @@
+{
+  "authorId": "000074",
+  "authorPage": {
+    "byteLength": 10678,
+    "charset": "UTF-8",
+    "fetchedAt": "2026-08-23T19:43:01.051Z",
+    "mediaType": "text/html",
+    "path": "data/batches/F010/source-snapshots/selection/author-page.html",
+    "sha256": "74624b03acddc3a86f2912f7d03ecf165e6fd7366598df739748060f2ec9ba39",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/person74.html",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "batchId": "F010",
+  "bibliographyArchive": {
+    "byteLength": 2092746,
+    "charset": null,
+    "fetchedAt": "2026-08-23T19:43:00.650Z",
+    "mediaType": "application/zip",
+    "path": "data/batches/F010/source-snapshots/selection/bibliography.zip",
+    "sha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "sealed",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "bibliographyCsv": {
+    "byteLength": 17161785,
+    "charset": "UTF-8",
+    "derivedFromSha256": "a615fa6ddb6ef3e0ad598337f5d08f1570c3d2aa51cc5d43a62998ca904905be",
+    "fetchedAt": "2026-08-23T19:43:00.650Z",
+    "mediaType": "text/csv",
+    "path": "data/batches/F010/source-snapshots/selection/bibliography.zip",
+    "sha256": "753987275d2d168d654b1ff4385fcaed14063e21575f9db279c8beff41e9cf4d",
+    "sourceUrl": "https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip",
+    "storage": "derived",
+    "transport": {
+      "attempts": 1,
+      "connectedAddress": "59.106.13.115",
+      "dnsAddresses": [
+        "59.106.13.115"
+      ],
+      "hostHeader": "www.aozora.gr.jp",
+      "hostnameVerified": true,
+      "proxyUsed": false,
+      "redirectsFollowed": 0,
+      "serverName": "www.aozora.gr.jp",
+      "tlsAuthorized": true
+    }
+  },
+  "kind": "f010-source-selection-snapshot",
+  "observedAt": "2026-08-23T19:43:00.225Z",
+  "phase": "selection",
+  "policies": [
+    {
+      "artifact": {
+        "byteLength": 28598,
+        "charset": null,
+        "fetchedAt": "2026-08-23T19:43:01.287Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/policies/voicevox-terms.raw",
+        "sha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "sourceUrl": "https://voicevox.hiroshiba.jp/term/",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "185.199.109.153",
+          "dnsAddresses": [
+            "185.199.109.153",
+            "185.199.111.153",
+            "185.199.110.153",
+            "185.199.108.153"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F010PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "voicevox-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "voicevox-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
+        "decision": "allow",
+        "policyId": "voicevox-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "voicevox-terms",
+      "versionOrLabel": "VOICEVOX 利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 8174,
+        "charset": null,
+        "fetchedAt": "2026-08-23T19:43:01.368Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/policies/zundamon-audio-terms.raw",
+        "sha256": "902ac82a53c40ac8a5c39111b9f28cf1b1cb6d20e52e37e5264d0d2f271a6a98",
+        "sourceUrl": "https://zunko.jp/con_ongen_kiyaku.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F010PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "audio-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-credit",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "audio-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "902ac82a53c40ac8a5c39111b9f28cf1b1cb6d20e52e37e5264d0d2f271a6a98",
+        "decision": "allow",
+        "policyId": "zundamon-audio-terms",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-audio-terms",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト 音源利用規約"
+    },
+    {
+      "artifact": {
+        "byteLength": 47558,
+        "charset": null,
+        "fetchedAt": "2026-08-23T19:43:01.433Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/policies/zundamon-character-guideline.raw",
+        "sha256": "d6309b88430273d39fcb10b7149ec0eb8b8a0cbd8aa10d6d0fc0705b22c4d947",
+        "sourceUrl": "https://zunko.jp/guideline.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "118.27.99.27",
+          "dnsAddresses": [
+            "118.27.99.27"
+          ],
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "tlsAuthorized": true
+        }
+      },
+      "decision": {
+        "__brand": "F010PolicyClauseDecision",
+        "classification": "free-no-ads-no-payments-no-sponsorship-unofficial",
+        "clauses": [
+          {
+            "clauseId": "character-document",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-unofficial",
+            "status": "satisfied"
+          },
+          {
+            "clauseId": "character-use",
+            "status": "satisfied"
+          }
+        ],
+        "contentSha256": "d6309b88430273d39fcb10b7149ec0eb8b8a0cbd8aa10d6d0fc0705b22c4d947",
+        "decision": "allow",
+        "policyId": "zundamon-character-guideline",
+        "requiredCredit": "VOICEVOX:ずんだもん"
+      },
+      "policyId": "zundamon-character-guideline",
+      "versionOrLabel": "東北ずん子・ずんだもんプロジェクト キャラクター利用ガイドライン"
+    }
+  ],
+  "rights": {
+    "decision": "allow",
+    "observedAt": "2026-08-23T19:43:00.225Z",
+    "phase": "selection",
+    "reasons": []
+  },
+  "schemaVersion": "1.0.0",
+  "works": [
+    {
+      "bibliography": {
+        "baseEdition": "檸檬・ある心の風景　他二十編",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000074/card424.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "檸檬・ある心の風景　他二十編",
+        "inputter": "j.utiyama",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000074",
+        "proofreader": "野口英司",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/424_19826.html",
+        "status": "公開中",
+        "title": "檸檬",
+        "workId": "000424"
+      },
+      "card": {
+        "byteLength": 9472,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-23T19:43:01.482Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000424/card.html",
+        "sha256": "2b7e5e0c3828881b93fb974a289b3a82923f926e4122ea1bd2f0d7ade75ae7ad",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/card424.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "檸檬",
+      "workId": "000424",
+      "xhtml": {
+        "byteLength": 18187,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-23T19:43:01.538Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000424/source.raw",
+        "sha256": "5e3e8a10842d7bea38106c953e30c353c295af9b0126abbf3f933b06f4b62a17",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/424_19826.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "檸檬・ある心の風景　他二十編",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000074/card419.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "檸檬・ある心の風景　他二十編",
+        "inputter": "j.utiyama",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000074",
+        "proofreader": "野口英司",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/419_19702.html",
+        "status": "公開中",
+        "title": "Ｋの昇天",
+        "workId": "000419"
+      },
+      "card": {
+        "byteLength": 9090,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-23T19:43:01.583Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000419/card.html",
+        "sha256": "3bedda05fa3c8b6c7b9ea808647b66321495ab6e78f11c1f82fab1605fbbfdc7",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/card419.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "Ｋの昇天",
+      "workId": "000419",
+      "xhtml": {
+        "byteLength": 16795,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-23T19:43:01.628Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000419/source.raw",
+        "sha256": "acb638b4448f94973c5f92c8bcdd7c0bf035cf8547d71446fd8e63e525509233",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/419_19702.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    },
+    {
+      "bibliography": {
+        "baseEdition": "檸檬・ある心の風景　他二十編",
+        "cardUrl": "https://www.aozora.gr.jp/cards/000074/card411.html",
+        "charset": "ShiftJIS",
+        "copyright": "なし",
+        "edition": "檸檬・ある心の風景　他二十編",
+        "inputter": "j.utiyama",
+        "language": "日本語原著",
+        "orthography": "新字新仮名",
+        "personCopyright": "なし",
+        "personId": "000074",
+        "proofreader": "高橋美奈子",
+        "role": "著者",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/411_19633.html",
+        "status": "公開中",
+        "title": "愛撫",
+        "workId": "000411"
+      },
+      "card": {
+        "byteLength": 8957,
+        "charset": "UTF-8",
+        "fetchedAt": "2026-08-23T19:43:01.673Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000411/card.html",
+        "sha256": "2b0c5bf1a4948b1c0d5300c66dd619dd3e4eb214ae80e91a1a75b8500329fe03",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/card411.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      },
+      "title": "愛撫",
+      "workId": "000411",
+      "xhtml": {
+        "byteLength": 10400,
+        "charset": "Shift_JIS",
+        "fetchedAt": "2026-08-23T19:43:01.715Z",
+        "mediaType": "text/html",
+        "path": "data/batches/F010/source-snapshots/selection/works/000411/source.raw",
+        "sha256": "f9425cae78bf2bda7b0eed75079a37fd19b2962ca35d06e34ccc5d305043eccc",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000074/files/411_19633.html",
+        "storage": "sealed",
+        "transport": {
+          "attempts": 1,
+          "connectedAddress": "59.106.13.115",
+          "dnsAddresses": [
+            "59.106.13.115"
+          ],
+          "hostHeader": "www.aozora.gr.jp",
+          "hostnameVerified": true,
+          "proxyUsed": false,
+          "redirectsFollowed": 0,
+          "serverName": "www.aozora.gr.jp",
+          "tlsAuthorized": true
+        }
+      }
+    }
+  ]
+}

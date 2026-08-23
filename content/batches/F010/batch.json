@@ -1,0 +1,73 @@
+{
+  "approvalGateRefs": {
+    "design": "docs/design/DD-F010.md",
+    "release": "docs/evidence/release/F010-approval.json",
+    "requirements": "docs/srs/SRS-F010.md",
+    "testspec": "docs/tests/ut/UT-F010.md"
+  },
+  "artworkProvenanceRef": "content/batches/F010/artwork-provenance.json",
+  "author": {
+    "authorId": "000074",
+    "identitySha256": "95357655511ca22058234bc90262d6eb4c9936d3341cda865b43cab11b2919db",
+    "name": "かじいもとじろう",
+    "originalName": "梶井基次郎",
+    "slug": "kajii-motojiro"
+  },
+  "batchId": "F010",
+  "editionRules": [
+    {
+      "allowedWorkIds": [
+        "000424"
+      ],
+      "preferredWorkId": "000424",
+      "reason": "承認済み代表作",
+      "title": "檸檬"
+    },
+    {
+      "allowedWorkIds": [
+        "000419"
+      ],
+      "preferredWorkId": "000419",
+      "reason": "承認済み代表作",
+      "title": "Ｋの昇天"
+    },
+    {
+      "allowedWorkIds": [
+        "000411"
+      ],
+      "preferredWorkId": "000411",
+      "reason": "承認済み代表作",
+      "title": "愛撫"
+    }
+  ],
+  "feature": "F010",
+  "inputPaths": [],
+  "outputPaths": [],
+  "rightsSnapshotIds": [],
+  "schemaVersion": "1.0.0",
+  "stageRecords": [],
+  "status": "draft",
+  "voiceConfigRef": "content/batches/F010/voice-config.json",
+  "workIds": [
+    "000424",
+    "000419",
+    "000411"
+  ],
+  "workProgress": [
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000424"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000419"
+    },
+    {
+      "stageRecords": [],
+      "status": "pending",
+      "workId": "000411"
+    }
+  ]
+}

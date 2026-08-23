@@ -375,6 +375,56 @@
           "xhtmlUrl": "https://www.aozora.gr.jp/cards/000096/files/2380_13349.html"
         }
       ]
+    },
+    {
+      "approvalBinding": {
+        "approvalItemSha256": "54c8ca785efb868e3e3f0b1dec48972d9225412dc41ab2ab4038048466ff42cf",
+        "documents": [
+          {
+            "path": "docs/srs/SRS-F010.md",
+            "sha256": "a1bd3605151b1ed4339cac982606f671c8f134c36dee5c43b3827f9f295d3d6b"
+          },
+          {
+            "path": "docs/tests/qt/QT-F010.md",
+            "sha256": "482f9761156446a397aaef22f6cb71470ff34e71f0f4e971e0775d047c39a906"
+          }
+        ],
+        "evidenceRef": "docs/evidence/requirements/F010-approval-binding.json",
+        "evidenceSha256": "21ef26406b208c359187f4df38ef11a72dd015d5c9c7d68cf8ef209125e3f286",
+        "queueId": "Q-069"
+      },
+      "author": {
+        "authorId": "000074",
+        "identitySha256": "95357655511ca22058234bc90262d6eb4c9936d3341cda865b43cab11b2919db",
+        "name": "かじいもとじろう",
+        "originalName": "梶井基次郎",
+        "slug": "kajii-motojiro"
+      },
+      "batchId": "F010",
+      "feature": "F010",
+      "works": [
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000074/card424.html",
+          "order": 1,
+          "title": "檸檬",
+          "workId": "000424",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000074/files/424_19826.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000074/card419.html",
+          "order": 2,
+          "title": "Ｋの昇天",
+          "workId": "000419",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000074/files/419_19702.html"
+        },
+        {
+          "cardUrl": "https://www.aozora.gr.jp/cards/000074/card411.html",
+          "order": 3,
+          "title": "愛撫",
+          "workId": "000411",
+          "xhtmlUrl": "https://www.aozora.gr.jp/cards/000074/files/411_19633.html"
+        }
+      ]
     }
   ],
   "schemaVersion": "1.0.0"
