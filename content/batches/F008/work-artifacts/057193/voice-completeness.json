@@ -1,12 +1,11 @@
 {
-  "approvedCount": 11,
-  "authorizationDigest": "e2f061920b32b546b0d9bfce9a1d34bc12b6772b458040e06e3cbbf24f56d167",
+  "approvedCount": 10,
+  "authorizationDigest": "78ad04c65704d38641d026d0d31e733307361355322b0523aa1a478d63a72272",
   "batchId": "F008",
   "candidateAudio": {
     "0714WrTG7AU6IDjB3zHS3eFtrj3LC8Im4KPniV2TRTs": "73142335678e3188e7f2383a73a8065af0b50abac471e5000a62e4a6c76ac4a5",
     "3j7wXvV7lzpyGuHePV7j8KCOJVFr55FqbEOEGZrk6gM": "ce8f513c339b7d5fe50677413b5eb5ea44126897f07558b50e484c5127f62af1",
     "3q0tyW0xcFg94rbdSsplTWvz4vzXQdrfbYfsy44PJQg": "79f24a7cd47f9cdf363ead0d54d99db648f9955f923ff1c22306bdddcdb6dd53",
-    "6U_FZHeFuXXDsFhoZR_tL-rGzSiPDAqsLMdxMK0hCLA": "d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30",
     "bQpDaxLFVNJxk7UjqC9KV_fSM6UZQdeU_yKOs2tI3OU": "48e4fef49b3e08e97e6f15f7811f913e00cacb0695002b3775e53732b1592be8",
     "dh_cz7quAFXfzZQf4WDTTZLxmluOvnC9wSqF7Cfsnz4": "239d2be8eda0e77fee1cfe579a249be10638b13ea49e98e468673888508c413b",
     "HaUYLyGbVj4tVKFbqYM483LIVG3ggGKR795RYnWUc_A": "0694b8967c31a9417ae0ad45ee0304728ce6900c2e7c6c1853a70fbdf5d9f860",
@@ -15,12 +14,12 @@
     "wWGbmaSUkCgtrDnXLVLJFpLbtMNoKoNM1MVV8Om9ulI": "e37a9aeda7abe21702a5982d2f9e69bf2eeba4667061e7e4b80f2ef143457f80",
     "xYk4DKZXQpC8MwpoCaAgJl_y9M-UUcvb2tjljyFUS6w": "c1b153806f6604de654c20612c1054bea6c994a141b1fec777b87b8a48aeae75"
   },
-  "completenessDigest": "de34f3d0fa2561e2ef7bc50e5be0c38f65156e290c13d774c1003e439c86bf7e",
-  "expectedManifestSha": "47b34fbb500ee26310e4bd65e8b655eb72f6ed06b7924dddd765a43e74678bfa",
-  "generationDigest": "9a58a51dfabdf318f6becfe0db739abe90483b22197ced39dbd224914550f6e0",
-  "planDigest": "3bb29c1eb0f464f2611cae258582d0616c467e02823aeea00c7d93714ef3547c",
+  "completenessDigest": "196874cfaf1f2c954587224cc1572051379207a104ce158ed7adaa0e73f6349f",
+  "expectedManifestSha": "871936935c70e71ec83d4dfa72e3c6273c80304a173d523e7e8e0e2b5fc202ff",
+  "generationDigest": "183664930df3be33240c8291b063a75bda590c94e14d65a0227a95db9ede77ec",
+  "planDigest": "3c00ba62f28f287fc0b0ba4e465dc1d012d95e808faf432fd7f3608cf472c825",
   "preTreeDigest": "58a6f90c8efb1b8c04d5dc1c14b44eb613a12008bc78014ff2c570a37ef3b081",
   "result": "pass",
-  "uniqueAudioCount": 11,
+  "uniqueAudioCount": 10,
   "workId": "057193"
 }

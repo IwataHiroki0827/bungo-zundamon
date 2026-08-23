@@ -1688,3 +1688,43 @@ changes:
     src/content/f008-catalog.ts)。再検証: batch-public.test.ts・
     f008-catalog.test.ts・f003-catalog.test.ts等関連7ファイル(66件)に
     regressionなし、tsc/lint clean。
+
+    【最終決定】build-time検証の緩和による解決を全面撤回し、根本原因を
+    再調査した結果、src/ui/render.ts(実際のUI描画ロジック、共有)が
+    「1 audioIdにつきasset厳密に1件、かつそのbatchIdがwork.batchIdと
+    一致すること」というハード不変条件(assets?.length !== 1 ||
+    assets[0].batchId !== work.batchIdでUIRenderErrorを投げる)を持つ
+    ことを発見した。これはbuild-time側を何層緩和してもrender時に
+    確実にクラッシュする、緩和不可能な設計制約だった。また既存の
+    audioAliases機構(src/content/batch-public.tsのnormalizeBatchAudio)は
+    同一batch内でのsha256一致dedupのみを想定しており、batch跨ぎの
+    audioId一致には使えない設計であることも確認した。
+
+    正しい解決は、この1候補(一人二役057193「へええ」、candidateId
+    6U_FZHeFuXXDsFhoZR_tL-rGzSiPDAqsLMdxMK0hCLA)をF008の公開対象から
+    除外することとした。編集レビューでは実際に発話として承認済み
+    (SPOKEN_DIALOGUE)であり内容上の却下ではないため、既存schemaの
+    candidateCounts.audioExcluded/audioFailureReasons(F002〜F007では
+    常に0/{}のまま未実使用だった、まさにこのユースケース向けと見られる
+    フィールド)を実際に使用する初のケースとした:
+    - scripts/f008-reset-057193-to-reviewed.ts(新規): work状態遷移は
+      forward-onlyのため、057193をaccepted→reviewedへ直接書き換えで
+      巻き戻し、voiced以降の派生artifact(accepted-audio・capacity-actual・
+      voice-evidence・voice-generation/completeness・staging)を削除する。
+    - content/batches/F008/work-artifacts/057193/speech-revisions.json:
+      該当candidateを除外(11→10件)。candidates.json・reviews/057193.json・
+      review-reconciliation.json(編集レビューの実記録)は変更していない
+      (この候補は編集上approvedのまま、音声段階でのみ除外するため)。
+    - scripts/f008-content-preview.ts・scripts/f008-final-integration.ts:
+      computeExclusionCounts()を新設し、reviews[].status!=='approved'
+      (編集却下)とapproved-but-not-in-speech-revisions(音声段階除外)を
+      正しく区別してcandidateCounts.editorialExcluded/editorialReasonsと
+      audioExcluded/audioFailureReasons(reason: AUDIO_ID_COLLISION)へ
+      分離するよう修正した(従来はeditorialExcluded一本化・NON_SPEECH
+      決め打ちだった)。
+
+    再実行: scripts/f008-prepare-voice.ts 057193は10/10候補で成功
+    (該当候補以外は全てVOICEVOX cacheヒットのため再合成なし)。
+    src/content/batch-public.ts・src/content/f008-catalog.tsは
+    CHG-F008-004以前の状態(strict audioId一意性)へ完全に戻したまま
+    (revert commit 31c0defのとおり、以降変更していない)。

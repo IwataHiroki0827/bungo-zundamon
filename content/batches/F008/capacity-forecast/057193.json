@@ -2,13 +2,13 @@
   "batchId": "F008",
   "configPath": "content/batches/F008/voice-config.json",
   "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
-  "expectedManifestSha": "47b34fbb500ee26310e4bd65e8b655eb72f6ed06b7924dddd765a43e74678bfa",
+  "expectedManifestSha": "871936935c70e71ec83d4dfa72e3c6273c80304a173d523e7e8e0e2b5fc202ff",
   "forecast": {
     "actualCapacitySatisfied": false,
     "additionalAudio": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 100293532,
+      "measuredBytes": 100250288,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 104857600
@@ -16,8 +16,8 @@
     "batchId": "F008",
     "canGenerate": true,
     "evidenceKind": "forecast",
-    "expectedManifestSha": "47b34fbb500ee26310e4bd65e8b655eb72f6ed06b7924dddd765a43e74678bfa",
-    "minimumFreeBytesAfterWrite": 467402396,
+    "expectedManifestSha": "871936935c70e71ec83d4dfa72e3c6273c80304a173d523e7e8e0e2b5fc202ff",
+    "minimumFreeBytesAfterWrite": 467359152,
     "pagesArtifact": {
       "deduplicatedHashes": [],
       "includedPaths": [],
@@ -29,7 +29,7 @@
       "thresholdBytes": 786432000,
       "warningThresholdBytes": 524288000
     },
-    "planDigest": "3bb29c1eb0f464f2611cae258582d0616c467e02823aeea00c7d93714ef3547c",
+    "planDigest": "3c00ba62f28f287fc0b0ba4e465dc1d012d95e808faf432fd7f3608cf472c825",
     "preTreeDigest": "58a6f90c8efb1b8c04d5dc1c14b44eb613a12008bc78014ff2c570a37ef3b081",
     "reasons": [
       "CAPACITY_FORECAST_PAGES_WARNING"
@@ -39,7 +39,9 @@
     "singleGitObjects": {
       "deduplicatedHashes": [],
       "includedPaths": [
-        "content/batches/F008/batch.json"
+        "content/batches/F008/batch.json",
+        "content/batches/F008/work-artifacts/057193/speech-revisions.json",
+        "scripts/f008-reset-057193-to-reviewed.ts"
       ],
       "measuredBytes": 17156699,
       "reasons": [],
@@ -49,9 +51,11 @@
     "sourceRepository": {
       "deduplicatedHashes": [],
       "includedPaths": [
-        "content/batches/F008/batch.json"
+        "content/batches/F008/batch.json",
+        "content/batches/F008/work-artifacts/057193/speech-revisions.json",
+        "scripts/f008-reset-057193-to-reviewed.ts"
       ],
-      "measuredBytes": 444972474,
+      "measuredBytes": 450087086,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 1000000000,
@@ -60,10 +64,10 @@
     "workDrive": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 84465606656,
+      "measuredBytes": 134669619200,
       "reasons": [],
       "status": "pass",
-      "thresholdBytes": 467402396
+      "thresholdBytes": 467359152
     },
     "workId": "057193"
   },
@@ -73,16 +77,16 @@
     "acceptedAudioFiles": 90,
     "currentPagesBytes": 405332183,
     "currentPagesFiles": 1129,
-    "freeBytes": 84465606656,
-    "liveWriteUpperBounds": 156212644,
+    "freeBytes": 134669619200,
+    "liveWriteUpperBounds": 156169400,
     "plannedPagesBytes": 150000000,
-    "repositoryNonObjectBytes": 1253636,
+    "repositoryNonObjectBytes": 1266489,
     "rollbackBackupBytes": 244080888
   },
   "plan": {
     "batchId": "F008",
     "cacheRoot": ".cache/voice",
-    "candidateCount": 11,
+    "candidateCount": 10,
     "config": {
       "cacheSchemaVersion": "2",
       "engineVersion": "0.25.2",
@@ -226,20 +230,6 @@
         ]
       },
       {
-        "audioId": "d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30",
-        "candidateIds": [
-          "6U_FZHeFuXXDsFhoZR_tL-rGzSiPDAqsLMdxMK0hCLA"
-        ],
-        "estimatedBytes": 43244,
-        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30.json",
-        "status": "miss",
-        "text": "「へええ」",
-        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30.wav",
-        "workIds": [
-          "057193"
-        ]
-      },
-      {
         "audioId": "e37a9aeda7abe21702a5982d2f9e69bf2eeba4667061e7e4b80f2ef143457f80",
         "candidateIds": [
           "wWGbmaSUkCgtrDnXLVLJFpLbtMNoKoNM1MVV8Om9ulI"
@@ -254,17 +244,17 @@
         ]
       }
     ],
-    "estimatedMissBytes": 6212644,
+    "estimatedMissBytes": 6169400,
     "existingUniqueAudioCount": 85,
     "existingUniqueBytes": 92918940,
-    "expectedManifestSha": "47b34fbb500ee26310e4bd65e8b655eb72f6ed06b7924dddd765a43e74678bfa",
+    "expectedManifestSha": "871936935c70e71ec83d4dfa72e3c6273c80304a173d523e7e8e0e2b5fc202ff",
     "hitCount": 0,
     "invalidCount": 0,
-    "missCount": 11,
-    "planDigest": "3bb29c1eb0f464f2611cae258582d0616c467e02823aeea00c7d93714ef3547c",
+    "missCount": 10,
+    "planDigest": "3c00ba62f28f287fc0b0ba4e465dc1d012d95e808faf432fd7f3608cf472c825",
     "preTreeDigest": "58a6f90c8efb1b8c04d5dc1c14b44eb613a12008bc78014ff2c570a37ef3b081",
     "schemaVersion": "2",
-    "uniqueAudioCount": 11,
+    "uniqueAudioCount": 10,
     "workId": "057193"
   },
   "preTreeDigest": "58a6f90c8efb1b8c04d5dc1c14b44eb613a12008bc78014ff2c570a37ef3b081",

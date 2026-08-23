@@ -145,22 +145,6 @@
       ]
     },
     {
-      "audioId": "d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30",
-      "bytes": 34860,
-      "candidateIds": [
-        "6U_FZHeFuXXDsFhoZR_tL-rGzSiPDAqsLMdxMK0hCLA"
-      ],
-      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-      "durationMs": 725,
-      "path": "audio/F008/d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30.wav",
-      "sha256": "c1d1c9d8d67e1e9ed4f406cdd974606a53eef798e1873c2fbefae1fd7205f8c0",
-      "source": "staging",
-      "sourcePath": "content/batches/F008/work-artifacts/057193/.voice-stage-057193/d897236fb2ae1896901e1edfd46596fd28cb00eddee11f795493302a60d4ee30.wav",
-      "workIds": [
-        "057193"
-      ]
-    },
-    {
       "audioId": "e37a9aeda7abe21702a5982d2f9e69bf2eeba4667061e7e4b80f2ef143457f80",
       "bytes": 37932,
       "candidateIds": [
@@ -177,19 +161,19 @@
       ]
     }
   ],
-  "attempted": 11,
-  "authorizationDigest": "e2f061920b32b546b0d9bfce9a1d34bc12b6772b458040e06e3cbbf24f56d167",
+  "attempted": 10,
+  "authorizationDigest": "78ad04c65704d38641d026d0d31e733307361355322b0523aa1a478d63a72272",
   "batchId": "F008",
   "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-  "expectedManifestSha": "47b34fbb500ee26310e4bd65e8b655eb72f6ed06b7924dddd765a43e74678bfa",
+  "expectedManifestSha": "871936935c70e71ec83d4dfa72e3c6273c80304a173d523e7e8e0e2b5fc202ff",
   "failed": 0,
   "failures": [],
-  "generationDigest": "9a58a51dfabdf318f6becfe0db739abe90483b22197ced39dbd224914550f6e0",
-  "planDigest": "3bb29c1eb0f464f2611cae258582d0616c467e02823aeea00c7d93714ef3547c",
+  "generationDigest": "183664930df3be33240c8291b063a75bda590c94e14d65a0227a95db9ede77ec",
+  "planDigest": "3c00ba62f28f287fc0b0ba4e465dc1d012d95e808faf432fd7f3608cf472c825",
   "preTreeDigest": "58a6f90c8efb1b8c04d5dc1c14b44eb613a12008bc78014ff2c570a37ef3b081",
   "schemaVersion": "2",
-  "stagedBytes": 6046692,
+  "stagedBytes": 6011832,
   "stagingRoot": "content/batches/F008/work-artifacts/057193/.voice-stage-057193",
-  "succeeded": 11,
+  "succeeded": 10,
   "workId": "057193"
 }

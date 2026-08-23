@@ -194,8 +194,41 @@ interface WorkFragmentPiece {
   readonly audioAssets: BatchCatalogFragment['audioAssets'];
   readonly candidateTotal: number;
   readonly publishedTotal: number;
+  readonly editorialExcluded: number;
+  readonly editorialReasons: Readonly<Record<string, number>>;
+  readonly audioExcluded: number;
+  readonly audioFailureReasons: Readonly<Record<string, number>>;
   readonly provenancePublicFile: NonNullable<BatchCatalogFragment['publicFiles']>[number];
   readonly generationAssets: VoiceDiffGenerationResult['assets'];
+}
+
+/**
+ * 候補の除外理由を「編集レビューで却下(NON_SPEECH等、reviews[].status!=='approved')」と
+ * 「レビュー承認済みだが音声段階で除外(speech-revisions.jsonに不在、candidateCounts.
+ * audioExcluded/audioFailureReasons)」へ正しく分離する。CHG-F008-004（一人二役の
+ * 「へええ」がF005/001104とaudioId偶然一致、src/ui/render.tsの1 audioId=1 asset
+ * 不変条件のため公開不能と判明し除外）が実際にこの区分を要する最初のケース。
+ * @des DES-F008-010 @fun FUN-F008-011
+ */
+function computeExclusionCounts(
+  reviews: readonly ReviewRecord[],
+  speech: readonly SpeechRecord[],
+): Pick<WorkFragmentPiece, 'editorialExcluded' | 'editorialReasons' | 'audioExcluded' | 'audioFailureReasons'> {
+  const speechIds = new Set(speech.map((item) => item.candidateId));
+  const editorialReasons: Record<string, number> = {};
+  const audioFailureReasons: Record<string, number> = {};
+  let editorialExcluded = 0;
+  let audioExcluded = 0;
+  for (const review of reviews) {
+    if (review.status !== 'approved') {
+      editorialExcluded++;
+      editorialReasons[review.reasonCode] = (editorialReasons[review.reasonCode] ?? 0) + 1;
+    } else if (!speechIds.has(review.candidateId)) {
+      audioExcluded++;
+      audioFailureReasons.AUDIO_ID_COLLISION = (audioFailureReasons.AUDIO_ID_COLLISION ?? 0) + 1;
+    }
+  }
+  return { editorialExcluded, editorialReasons, audioExcluded, audioFailureReasons };
 }
 
 /**
@@ -328,6 +361,7 @@ async function buildWorkFragmentPiece(
     audioAssets,
     candidateTotal: candidatesArtifact.candidates.length,
     publishedTotal: dialogues.length,
+    ...computeExclusionCounts(reviews, speechArtifact.speech),
     provenancePublicFile: {
       source: asWorkspacePath(provenanceSourcePath),
       publicPath: asWorkspacePath(provenancePublicPath),
@@ -393,10 +427,16 @@ async function main(): Promise<void> {
     candidateCounts: {
       total: pieces.reduce((sum, piece) => sum + piece.candidateTotal, 0),
       published: pieces.reduce((sum, piece) => sum + piece.publishedTotal, 0),
-      editorialExcluded: pieces.reduce((sum, piece) => sum + (piece.candidateTotal - piece.publishedTotal), 0),
-      audioExcluded: 0,
-      editorialReasons: { NON_SPEECH: pieces.reduce((sum, piece) => sum + (piece.candidateTotal - piece.publishedTotal), 0) },
-      audioFailureReasons: {},
+      editorialExcluded: pieces.reduce((sum, piece) => sum + piece.editorialExcluded, 0),
+      audioExcluded: pieces.reduce((sum, piece) => sum + piece.audioExcluded, 0),
+      editorialReasons: pieces.reduce<Record<string, number>>((acc, piece) => {
+        for (const [reason, count] of Object.entries(piece.editorialReasons)) acc[reason] = (acc[reason] ?? 0) + count;
+        return acc;
+      }, {}),
+      audioFailureReasons: pieces.reduce<Record<string, number>>((acc, piece) => {
+        for (const [reason, count] of Object.entries(piece.audioFailureReasons)) acc[reason] = (acc[reason] ?? 0) + count;
+        return acc;
+      }, {}),
     },
     publicFiles: [
       {
