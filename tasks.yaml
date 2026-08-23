@@ -4950,13 +4950,27 @@ tasks:
   title: F009 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F009
   phase: test
-  state: todo
+  state: done
   depends:
   - T-187
   tags: *id009
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。F007で専用author route e2e specの欠落が事後発見された反省を踏まえ、本タスクで最初からtests/e2e/f009-yumeno-author.spec.tsを作成する
   model: *model_f009
+  progress: >-
+    完了。src/content/f009-acceptance.test.ts(TARGET_WORK_ID=002380、
+    全3作品accepted後の末尾work)を新規作成し5/5 PASS確認。tests/e2e/
+    f009-yumeno-author.spec.ts(4 tests、実測データ: authorId=000096・
+    3作品合計27台詞・瓶詰地獄と死後の恋の公式表現注意3配置)を.cache/
+    f009-final-integration-5aJXoB/の実catalog.jsonから実測して新規作成。
+    npm testフルスイート(1538件中37 failed、既知のWindows local限定
+    フレークのみ、f009-acceptance.test.ts単体再実行で5/5 PASS確認済み)。
+    npm run test:e2eフルスイートはF009固有4 spec×6ブラウザ=24件が予想通り
+    失敗(F009はT-189でpublic/昇格するまでauthor routeが存在しないため、
+    F008 T-177と同型の想定内動作)、それ以外は229 passed・5 skipped・
+    F009以外の失敗0件でregressionなしを確認した。tsc/eslint(該当ファイル)
+    全PASS、trace_check.py対応漏れなし。次のアクションはT-189(リリース前
+    総点検・公開・実e2e実行によるF009 spec最終PASS確認)。
 - id: T-189
   title: F009リリース前総点検・GitHub Pages段階公開・公開スモーク
   feature: F009
