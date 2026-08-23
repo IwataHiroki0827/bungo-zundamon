@@ -233,20 +233,34 @@
           "toolVersion": "f008-prepare-editorial-v1"
         },
         {
-          "completedAt": "2026-08-23T13:33:45.971Z",
+          "completedAt": "2026-08-23T14:04:54.339Z",
           "count": 85,
           "inputHashes": [
             "14b5c65ee06398833d2e3678030392bd060e60f9af1b4096062f8bd2e6a6a585",
             "4fc65c777d642536a4dff22ebcada864213fda993eeb4cb7425914881245fc18"
           ],
           "outputHashes": [
-            "04c2281444678119d714641a4fe8eb4221d5fed7fae7109fd25a274bc49dd327"
+            "3460b24223b0d1432d77d3cc21e588a659eb9738cdf006c7a7739c2a038f6d0a"
           ],
           "stage": "budget-approved",
           "toolVersion": "f008-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-23T14:04:54.798Z",
+          "count": 85,
+          "inputHashes": [
+            "9fa585f8428c050ffaa89689f258757caa30528f60a11a5137d714b4cac01b83",
+            "3460b24223b0d1432d77d3cc21e588a659eb9738cdf006c7a7739c2a038f6d0a"
+          ],
+          "outputHashes": [
+            "be5cd65f57143784811c42b08d8a783f9ad8d115d0160430050d4d5cc9f1710b"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f008-prepare-voice-generate-v1"
         }
       ],
-      "status": "budget-approved",
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F008/voice-evidence/056650.json",
       "workId": "056650"
     },
     {
