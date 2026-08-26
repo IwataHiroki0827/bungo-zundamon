@@ -5562,7 +5562,7 @@ tasks:
   title: F011リリース前総点検・GitHub Pages段階公開・公開スモーク(10人目・最終目標達成)
   feature: F011
   phase: release
-  state: todo
+  state: done
   depends:
   - T-210
   tags:
@@ -5572,4 +5572,26 @@ tasks:
   - REQ-F011-019
   mode: advisor
   mode_reason: ゲート④・exact deploy・rollback・公開後判定を逐次管理するため。10作者目標達成を確定するリリース
+  progress: >-
+    完了。リリース前ローカル検証でscripts/release-checks.mjsのverifyAssetBudgetが
+    DUPLICATE_AUDIO_HASHを検出(手袋を買いに000637の候補「あっ」がF008既公開音声と
+    byte内容偶然一致、audioIdは異なる新規root cause)。CHG-F011-001(ごん狐の
+    AUDIO_ID_COLLISION)と区別しCHG-F011-002として新規AUDIO_CONTENT_DUPLICATE
+    理由コードで既存audioExcluded機構により解消(000637を26台詞、F011合計を
+    68→67台詞へ訂正)。tests/e2e/f011-niimi-author.spec.tsの期待値も追随更新。
+    release commit 06a7066(v1.0.0候補確定a50aeb8→byte重複修正16コミット→
+    e2e期待値修正)でCI(build+deploy)green確認(1〜2回目はbaseline.test.ts/
+    batch-runtime.test.tsタイムアウト・offline-build stderr混入の既知フレークで
+    失敗、3回目再実行でgreen)。PAGES_DEPLOY_COMMIT/PAGES_DEPLOY_ENABLED=trueで
+    workflow再実行しbuild・deploy両job success(run 32926144352)。public/昇格後に
+    tests/e2e/f011-niimi-author.spec.ts/f010-kajii-author.spec.tsをローカルで
+    実行し6ブラウザ×8=48/48 PASS確認、フルe2eスイート301 passed・5 skipped・
+    失敗0。公開後スモーク(index HTTP200、catalog.json実取得で10作者33作品
+    1314台詞1296音声、candidateCounts.byBatch.F011.audioExcluded=3確認、
+    新美南吉artwork/artwork-provenance/audio/provenance HTTP200)全PASS。
+    docs/evidence/release/{RELEASE-F011.md,F011-approval.json,
+    F011-deployment.json,F011-smoke.json}を実データで作成。
+    PAGES_DEPLOY_ENABLEDをfalseへ復帰、tag v1.0.0をrelease commitへpush済み。
+    F011(新美南吉)完了・v1.0.0公開済み。「10人になるまで進めて」directiveが
+    定める作者拡充目標(合計10作者)を達成。
   model: *model_f011
