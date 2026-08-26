@@ -5406,13 +5406,24 @@ tasks:
   title: Catalog統合基盤・新美南吉作者画像を整備
   feature: F011
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-204
   tags: *id011
   mode: advisor
   mode_reason: 作者画像生成(ComfyUI、queue空き確認後に実行)・Catalog統合が相互に参照する単一基盤整備のため。3作品いずれも公式表現注意対象外のため注記registry整備は不要
   model: *model_f011
+  progress: >-
+    完了。前半(work-notices.json・f011-catalog.ts・f011-artwork.ts
+    schema・batch-public.ts分岐)は先行完了済み。ComfyUIが別プロジェクト
+    (youtube-automation)の動画生成ジョブで断続的に使用中だったため
+    queue空き確認を複数回試行し、空き確認後に新美南吉の作者画像を実生成
+    (FLUX.1 schnell、seed 519402873、狐と紅葉モチーフ)した。既存9作者
+    とのdHash64比較で最小Hamming距離28(閾値8以下を大幅に上回る)を確認。
+    sealF011ArtworkProvenance/verifyF011ArtworkAgainstCatalog
+    (existingArtwork.length<9下限判定)でcontent/batches/F011/
+    artwork-provenance.json(result: pass)を生成した。tsc/eslint全PASS、
+    vitest f011-artwork.test.ts 13件全PASS、trace_check.py対応漏れなし。
 - id: T-206
   title: 手袋を買いにを抽出・二重レビュー・音声化・atomic受入
   feature: F011

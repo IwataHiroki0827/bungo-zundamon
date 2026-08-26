@@ -1,0 +1,36 @@
+{
+  "credit": "新美南吉ずんだもん：ローカルComfyUI(FLUX.1 schnell)による独自生成（入力・参照画像なし）",
+  "generation": {
+    "generatedAt": "2026-08-26T00:57:04.667Z",
+    "generator": "ComfyUI (local)",
+    "generatorVersion": "0.19.3",
+    "model": "flux1-schnell-fp8.safetensors",
+    "negativePrompt": "",
+    "negativePromptSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalImageBytes": 1498976,
+    "originalImageSha256": "c5076c088534c560e063bb1f28243075a066123d8beca4b24eba4df5c8bb526f",
+    "prompt": "Use case: illustration-story. Asset type: square author card illustration for a Japanese literature web app. Primary request: an entirely original chibi anime illustration of a green bean-themed fictional mascot reimagined as a gentle early-Showa-era Japanese children's-story writer known for warm rural fables about foxes and small animals, without copying any real photograph, identifiable face, existing character artwork, pose, or costume. Every surface in this image is completely blank and plain with smooth solid colors only: plain blank clothing fabric with zero decoration, plain blank ground, plain blank grass texture kept as flat color, plain blank wicker basket with no pattern or label, plain blank tree trunk with no carved marks. Scene: a soft golden countryside afternoon at a rural forest edge, gentle sunbeams through autumn leaves, a small plain wicker basket of chestnuts resting near the character's feet, one shy little orange-brown fox-shaped silhouette (a simple rounded chibi fox, no face detail beyond two dot eyes) peeking from behind a plain tree trunk in the background, warm nostalgic storybook atmosphere. Subject: one fictional mascot character only, vivid leaf-green bobbed hair with two rounded bean-pod buns and a small leaf sprout, large amber-green eyes with a warm gentle kind gaze, one hand reaching down gently toward the little fox as if offering a chestnut, plain soft brown kasuri-style (but unmarked, solid-color) kimono with a plain rust-orange obi sash, smooth solid unmarked fabric with no decoration of any kind. Style: polished hand-drawn anime chibi illustration, watercolor and ink-wash texture, clean expressive outlines, literary book-cover quality, storybook warmth. Composition: centered square, character slightly right of center, generous edge padding, plain unmarked background throughout, nothing drawn in the corners of the image. Lighting: warm golden autumn afternoon glow with soft amber highlights and gentle cool-toned shadows, nostalgic and heartwarming. Palette: warm amber, soft rust orange, emerald green, ivory, muted golden-brown shadow tones. Final image contains only the character, the small fox silhouette, and simple blank props, rendered as clean flat illustration with smooth solid unmarked surfaces everywhere, resembling a minimalist vector-style poster with no fine detail markings anywhere.",
+    "promptSha256": "c836b65aaebe5c64b575c092fe41d0cda4dac8477a21a73c72e6041593fd7ccd",
+    "seed": 519402873,
+    "workflow": "UNETLoader -> DualCLIPLoader(clip_l.safetensors + t5xxl_fp8_e4m3fn.safetensors) -> VAELoader(flux_ae.safetensors) -> CLIPTextEncode -> EmptySD3LatentImage(1024x1024) -> KSampler(steps=4, cfg=1.0, sampler=euler, scheduler=simple, seed=519402873) -> VAEDecode -> SaveImage"
+  },
+  "identity": {
+    "authorId": "000121",
+    "batchId": "F011",
+    "outputPath": "artwork/niimi-nankichi-zundamon.png"
+  },
+  "inputs": {
+    "referenceInputs": []
+  },
+  "manifestId": "artwork-F011-000121-v1",
+  "output": {
+    "bytes": 1498976,
+    "dHash64": "97376b6ea6329809",
+    "mediaType": "image/png",
+    "publicPath": "artwork/niimi-nankichi-zundamon.png",
+    "sha256": "c5076c088534c560e063bb1f28243075a066123d8beca4b24eba4df5c8bb526f",
+    "sourcePath": "content/batches/F011/public-files/artwork/niimi-nankichi-zundamon.png"
+  },
+  "provenanceSha256": "c3bc58b76fcb0543a782be75fa309d844aeb6c71f0f7fdbaf3dba23f139132e0",
+  "schemaVersion": "1.0.0"
+}
