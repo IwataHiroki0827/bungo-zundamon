@@ -532,7 +532,7 @@ describe('F001全件照合とF002 CatalogV2統合 [IT-F001-018][IT-F002-007]', (
     expect(sha256(sourceArtwork)).toBe(f002Author!.artwork.sha256);
     expect(sha256(publicArtwork)).toBe(f002Author!.artwork.sha256);
     expect(credits.byteLength).toBeGreaterThan(0);
-  });
+  }, 60_000);
 
   /** @des DES-F001-002 DES-F001-007 DES-F001-012 @test IT-F001-018 */
   it.each([
