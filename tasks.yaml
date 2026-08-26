@@ -5428,13 +5428,26 @@ tasks:
   title: 手袋を買いにを抽出・二重レビュー・音声化・atomic受入
   feature: F011
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-205
   tags: *id011
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f011
+  progress: >-
+    完了。手袋を買いに(000637)の実candidate28件を実extraction・実テキスト
+    精読で独立二重判定し、27件承認(SPOKEN_DIALOGUE)・1件却下(NON_SPEECH、
+    雪が滑り落ちる音の擬音)。VOICEVOX実測で誤読1件補正(解ると→わかると)。
+    実VOICEVOX(speaker 3)で26件のユニークWAV生成(重複1件dedup)、容量
+    forecast pass_with_warning。作者画像生成待ちで一時voicedに留まったが
+    (T-205完了で解消)、content-preview実行時にF010 batch.jsonの未published
+    既知パターンを発見しscripts/f010-mark-published.tsで是正、容量actual
+    pass_with_warning、atomic受入でWAV26件をaccepted-audio/000637/へ正式
+    昇格、manifest workProgress[000637].status: accepted。WORK_ORDER_BLOCKED
+    制約により停止していたごん狐(000628)が解消されreviewed遷移可能になった。
+    tsc/eslint全PASS、vitest 57件全PASS、trace_check.py対応漏れなし。
+    次のアクションはT-207(ごん狐のvoiced→accepted完結)。
 - id: T-207
   title: ごん狐を抽出・二重レビュー・音声化・atomic受入
   feature: F011
