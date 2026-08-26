@@ -1,0 +1,143 @@
+{
+  "adjudicationArtifactSha256": null,
+  "candidateSetSha256": "220155de0a028d612b85a23c3e356e7b52ef9bd9093f67ad5a459d46282f3f9c",
+  "pendingIds": [],
+  "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+  "reconciliationDigest": "45f6b97fba4f6cb116d25133c6a6396624b240909d0b4050f831e012b0fdcb45",
+  "resolutions": [
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "GC6-b2pmj-29krnXBwA1hVpQ9SbkONeirj5POmM6p5c",
+      "finalDecision": "approved",
+      "inputSha256": "d637af81f4d92d83f539b1932d57302e1deab76474f2a449e9e0d225365be1af",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:41-61",
+      "speaker": "緑の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "FFUC7fmiO9W1PvNXr0z_9tyS9r2Mf2DhICmcB4xoAfc",
+      "finalDecision": "approved",
+      "inputSha256": "ac79800158a86bb0e8cabb1482fefba0d16a962a03f4f779f43bf23a182861dc",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:76-105",
+      "speaker": "黄色の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "86KWYENjL-fR3OLWkmkYWYxz9LZjl9epuZlCw_k_pq4",
+      "finalDecision": "approved",
+      "inputSha256": "944a7c8d3f221cf1646510a2b7c5f87eff087c7c8203e9dc7fd96c778bdbc264",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:354-375",
+      "speaker": "緑の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "nrWaNpcNRiqW5ujJithU59k3LC6ldaw__w769AC91tA",
+      "finalDecision": "approved",
+      "inputSha256": "53fd7d0de34709cfd9c87001114523cfeb444b4cce23ff9111b7b33c2b06789b",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:397-413",
+      "speaker": "黄色の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "p43L-wUNnPYiBvnJYr7CClXcbC4Dq-lq5McYwyhHpRk",
+      "finalDecision": "approved",
+      "inputSha256": "2b097fefa9e75a40d3f819f9390843d83e7f625a01d59f619ffa0c45a81363f8",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:606-625",
+      "speaker": "緑の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "aO1GJchqFZro07W-Ag0L-DHvk6213UJkjMAknKotPXE",
+      "finalDecision": "approved",
+      "inputSha256": "e48f7a8a0f91f21e26477c3914f568f20143a7c0140d1dda98a0e7b3928bc5e5",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:657-671",
+      "speaker": "黄色の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "Ulp__WEzOmH5vOGSHbbI0RJauiDfM6EhqiJ9v5gRVvU",
+      "finalDecision": "approved",
+      "inputSha256": "94295d0686ee68429bd802e4b78cb1177bbf9b0165d0efe92eb20aac2c9c871b",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:690-704",
+      "speaker": "緑の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "AppOqa_ER7HgkP-kTRQ_RxrFa9oRQvKGRjurT_pNUSQ",
+      "finalDecision": "approved",
+      "inputSha256": "d3037661ce29b93eec565164d4977239388c335c747de96bd804aed95c777b03",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:719-747",
+      "speaker": "黄色の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4",
+      "finalDecision": "approved",
+      "inputSha256": "862152ba02045e841bdeb9deb69cdc671c2b8bb9ddf8a99345f96e453e52a991",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:896-911",
+      "speaker": "緑の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "9FYhlPpTvgWaYLw-OF63XWCgDMUAIhd8V2ApYA9ZOfY",
+      "finalDecision": "approved",
+      "inputSha256": "3effa4b3ad90e81f179332999c19ac245a9bbde97c5403d9c5169c8eceeb119d",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:922-944",
+      "speaker": "黄色の蛙"
+    },
+    {
+      "adjudicationArtifactSha256": null,
+      "candidateId": "8yi7lsAd5RIatFO2eyymoQZyl6IpTXkmdx-C1xfpt6Q",
+      "finalDecision": "approved",
+      "inputSha256": "a488f1d6c8133d75633824ffce9e727b8d893fe63087b06e1dfd38e94f778e8e",
+      "primaryArtifactSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "reasonCode": "SPOKEN_DIALOGUE",
+      "resolutionSource": "agreement",
+      "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "sourceAnchor": ".main_text:973-985",
+      "speaker": "二ひきの蛙"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "secondaryArtifactSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d"
+}

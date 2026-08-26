@@ -393,6 +393,75 @@ const WORK_EDITORIAL_CONFIGS: Readonly<Record<string, WorkEditorialConfig>> = {
       ],
     },
   },
+  // 二ひきの蛙(004718)。青空文庫本文（4718_13223.html、Shift_JIS正規化済みテキスト）を
+  // 実際に通読し11候補全件の話者・decisionを確定した。本作は緑の蛙と黄色の蛙という
+  // 2匹の対話のみで構成される短い寓話であり、全候補が「と緑の蛙がいいました」
+  // 「と黄色の蛙がいいました」「といって」等の地の文で実際の発話と明示される
+  // SPOKEN_DIALOGUEである（rejected該当なし）。話者は本文の直前直後の地の文から
+  // 一意に確定できる: order0は「と緑の蛙がいいました」（本文明記）、order1は
+  // 「と黄色の蛙がいいました」（本文明記）、order2は「といって、緑の蛙は土にもぐり
+  // ました」、order3は「といって、黄色の蛙ももぐりこみました」、order4は
+  // 「さいしょに、緑の蛙が目をさましました。……と土の中にむかってよびました」、
+  // order5は「すると、黄色の蛙が、……といって、土から出てきました」、order6は
+  // 「と緑の蛙がいいました」（本文明記）、order7は「と黄色の蛙がいいました」
+  // （本文明記）、order8は「からだをあらってから緑の蛙が目をぱちくりさせて、
+  // ……といいました」、order9は「と黄色の蛙がいいました」（本文明記）、order10は
+  // 「そこで二ひきの蛙は、……といいあいました」で緑・黄色両方の蛙が声を揃えて
+  // 言った台詞（speaker: 二ひきの蛙）。以上、11件全件approvedと判定した。
+  // speechTextはVOICEVOX実合成（speaker 3、http://127.0.0.1:50021/audio_query）で
+  // approved11件全件のかな読みを確認した。order8「きみの黄色は美しい。」は
+  // 「黄色」が名詞用法（「黄色は」の形）でVOICEVOXにより「おうしょく」と誤読
+  // されることを確認した（同じ「黄色」でも形容動詞用法「黄色だ」「黄色い」や
+  // order0の「きみは黄色だね」は正しく「きいろ」と読まれることを個別に確認済み、
+  // 「黄色は」の名詞句のみが辞書上の別読みを引く）ため、「きいろ」へ読み補正した。
+  '004718': {
+    judgmentsByOrder: [
+      // order0 「やあ、きみは黄色だね。きたない色だ。」。「と緑の蛙がいいました」
+      // で実際の発話と明示される緑の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '緑の蛙' },
+      // order1 「きみは緑だね。きみはじぶんを美しいと思っているのかね。」。
+      // 「と黄色の蛙がいいました」で実際の発話と明示される黄色の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '黄色の蛙' },
+      // order2 「春になったら、このけんかの勝負をつける。」。「といって、緑の蛙は
+      // 土にもぐりました」で実際の発話と明示される緑の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '緑の蛙' },
+      // order3 「いまいったことをわすれるな。」。「といって、黄色の蛙ももぐり
+      // こみました」で実際の発話と明示される黄色の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '黄色の蛙' },
+      // order4 「おいおい、おきたまえ。もう春だぞ。」。「さいしょに、緑の蛙が
+      // 目をさましました。……と土の中にむかってよびました」で実際の発話と明示
+      // される緑の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '緑の蛙' },
+      // order5 「やれやれ、春になったか。」。「すると、黄色の蛙が、……といって、
+      // 土から出てきました」で実際の発話と明示される黄色の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '黄色の蛙' },
+      // order6 「去年のけんか、わすれたか。」。「と緑の蛙がいいました」で実際の
+      // 発話と明示される緑の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '緑の蛙' },
+      // order7 「待て待て。からだの土をあらいおとしてからにしようぜ。」。
+      // 「と黄色の蛙がいいました」で実際の発話と明示される黄色の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '黄色の蛙' },
+      // order8 「やあ、きみの黄色は美しい。」。「からだをあらってから緑の蛙が
+      // 目をぱちくりさせて、……といいました」で実際の発話と明示される緑の蛙の
+      // 言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '緑の蛙' },
+      // order9 「そういえば、きみの緑だってすばらしいよ。」。「と黄色の蛙が
+      // いいました」で実際の発話と明示される黄色の蛙の言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '黄色の蛙' },
+      // order10 「もうけんかはよそう。」。「そこで二ひきの蛙は、……といいあい
+      // ました」で実際の発話と明示される、緑・黄色両方の蛙が声を揃えて言った
+      // 言葉。
+      { decision: 'approved', reasonCode: 'SPOKEN_DIALOGUE', speaker: '二ひきの蛙' },
+    ],
+    speechCorrections: {
+      // order8「やあ、きみの黄色は美しい。」。「黄色」が名詞用法（「黄色は」）で
+      // VOICEVOX実合成により「おうしょく」と誤読されることを確認した
+      // （正しくは「きいろ」）。
+      '.main_text:896-911': [
+        { find: '黄色', to: 'きいろ', reason: '名詞用法「黄色は」の誤読（おうしょく→きいろ）をVOICEVOX実合成で確認したための読み補正' },
+      ],
+    },
+  },
 };
 
 function editorialConfigFor(workId: string): WorkEditorialConfig {

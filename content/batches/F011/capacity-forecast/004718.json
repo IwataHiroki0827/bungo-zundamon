@@ -1,0 +1,295 @@
+{
+  "batchId": "F011",
+  "configPath": "content/batches/F011/voice-config.json",
+  "configSha256": "dd0e45e4a57e2bcd5b3901ac43112f42c0ce8fcf67af5da8b3f2177ddd88ca1e",
+  "expectedManifestSha": "7909d641b751a2f8509985a5b4847c36f84113603f92f18305db65fd5d674030",
+  "forecast": {
+    "actualCapacitySatisfied": false,
+    "additionalAudio": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 16058692,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "batchId": "F011",
+    "canGenerate": true,
+    "evidenceKind": "forecast",
+    "expectedManifestSha": "7909d641b751a2f8509985a5b4847c36f84113603f92f18305db65fd5d674030",
+    "minimumFreeBytesAfterWrite": 383167556,
+    "pagesArtifact": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 691697049,
+      "reasons": [
+        "CAPACITY_FORECAST_PAGES_WARNING"
+      ],
+      "status": "warning",
+      "thresholdBytes": 786432000,
+      "warningThresholdBytes": 524288000
+    },
+    "planDigest": "5f18686159a40b2d4b521585fad5f5a219558764a470e35c9bdc8358e44063dc",
+    "preTreeDigest": "1c1b694cf49649b0f3d1d3327101941ecc166ddfa3cdede61acb79616d873f7a",
+    "reasons": [
+      "CAPACITY_FORECAST_PAGES_WARNING"
+    ],
+    "remainingResponseBytes": 90674272,
+    "result": "pass_with_warning",
+    "singleGitObjects": {
+      "deduplicatedHashes": [
+        "362605b49251cec3c99f7d8af34b2af10310aa5a",
+        "d65ca0cec966d02bca004ebaede1fdaf36bf8027"
+      ],
+      "includedPaths": [
+        "content/batches/F011/batch.json",
+        "content/batches/F011/reviews/004718.json",
+        "content/batches/F011/work-artifacts/004718/candidates.json",
+        "content/batches/F011/work-artifacts/004718/review-reconciliation.json",
+        "content/batches/F011/work-artifacts/004718/reviews/primary.json",
+        "content/batches/F011/work-artifacts/004718/reviews/secondary.json",
+        "content/batches/F011/work-artifacts/004718/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f011-prepare-editorial.ts"
+      ],
+      "measuredBytes": 17156699,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 104857600
+    },
+    "sourceRepository": {
+      "deduplicatedHashes": [
+        "362605b49251cec3c99f7d8af34b2af10310aa5a",
+        "d65ca0cec966d02bca004ebaede1fdaf36bf8027"
+      ],
+      "includedPaths": [
+        "content/batches/F011/batch.json",
+        "content/batches/F011/reviews/004718.json",
+        "content/batches/F011/work-artifacts/004718/candidates.json",
+        "content/batches/F011/work-artifacts/004718/review-reconciliation.json",
+        "content/batches/F011/work-artifacts/004718/reviews/primary.json",
+        "content/batches/F011/work-artifacts/004718/reviews/secondary.json",
+        "content/batches/F011/work-artifacts/004718/speech-revisions.json",
+        "content/editorial/authorization-transaction/store.json",
+        "scripts/f011-prepare-editorial.ts"
+      ],
+      "measuredBytes": 501433301,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 1000000000,
+      "warningThresholdBytes": 750000000
+    },
+    "workDrive": {
+      "deduplicatedHashes": [],
+      "includedPaths": [],
+      "measuredBytes": 67121881088,
+      "reasons": [],
+      "status": "pass",
+      "thresholdBytes": 383167556
+    },
+    "workId": "004718"
+  },
+  "kind": "f011-voice-capacity-forecast",
+  "measurements": {
+    "acceptedAudioBytes": 14183328,
+    "acceptedAudioFiles": 56,
+    "currentPagesBytes": 541697049,
+    "currentPagesFiles": 1292,
+    "freeBytes": 67121881088,
+    "liveWriteUpperBounds": 151875364,
+    "plannedPagesBytes": 150000000,
+    "repositoryNonObjectBytes": 1412001,
+    "rollbackBackupBytes": 164183328
+  },
+  "plan": {
+    "batchId": "F011",
+    "cacheRoot": ".cache/voice",
+    "candidateCount": 11,
+    "config": {
+      "cacheSchemaVersion": "2",
+      "engineVersion": "0.25.2",
+      "intonationScale": 1,
+      "outputSamplingRate": 24000,
+      "pitchScale": 0,
+      "presetVersion": "1.0.0",
+      "speakerName": "ずんだもん",
+      "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "speedScale": 1,
+      "styleId": 3,
+      "styleName": "ノーマル",
+      "volumeScale": 1
+    },
+    "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
+    "entries": [
+      {
+        "audioId": "30f4e327f3405f366050efa26108c8700097286b5ef83bd20bb66876cdd338c8",
+        "candidateIds": [
+          "Ulp__WEzOmH5vOGSHbbI0RJauiDfM6EhqiJ9v5gRVvU"
+        ],
+        "estimatedBytes": 146924,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/30f4e327f3405f366050efa26108c8700097286b5ef83bd20bb66876cdd338c8.json",
+        "status": "miss",
+        "text": "「きょねんのけんか、わすれたか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/30f4e327f3405f366050efa26108c8700097286b5ef83bd20bb66876cdd338c8.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "3f2c3b1b5cbe6881e54f4dbe01ea1a62414c76aefba93489c16f86e56eb6eeb6",
+        "candidateIds": [
+          "9FYhlPpTvgWaYLw-OF63XWCgDMUAIhd8V2ApYA9ZOfY"
+        ],
+        "estimatedBytes": 190124,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f2c3b1b5cbe6881e54f4dbe01ea1a62414c76aefba93489c16f86e56eb6eeb6.json",
+        "status": "miss",
+        "text": "「そういえば、きみの緑だってすばらしいよ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/3f2c3b1b5cbe6881e54f4dbe01ea1a62414c76aefba93489c16f86e56eb6eeb6.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "683f6b8596d7e94b2dd3d2541d5b41b787b433a60f6d66cf03aa8793403d8fb1",
+        "candidateIds": [
+          "86KWYENjL-fR3OLWkmkYWYxz9LZjl9epuZlCw_k_pq4"
+        ],
+        "estimatedBytes": 207404,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/683f6b8596d7e94b2dd3d2541d5b41b787b433a60f6d66cf03aa8793403d8fb1.json",
+        "status": "miss",
+        "text": "「春になったら、このけんかのしょうぶをつける。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/683f6b8596d7e94b2dd3d2541d5b41b787b433a60f6d66cf03aa8793403d8fb1.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "8168ad170f0ca2cb1329382fef7eb22d98cb6249a243dd323689ef40b57b67f3",
+        "candidateIds": [
+          "nrWaNpcNRiqW5ujJithU59k3LC6ldaw__w769AC91tA"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8168ad170f0ca2cb1329382fef7eb22d98cb6249a243dd323689ef40b57b67f3.json",
+        "status": "miss",
+        "text": "「いまいったことをわすれるな。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/8168ad170f0ca2cb1329382fef7eb22d98cb6249a243dd323689ef40b57b67f3.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "861be38f5ee313a43989a5e34ccef261846eeb50214ab1c07bbd514789cbaaaa",
+        "candidateIds": [
+          "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4"
+        ],
+        "estimatedBytes": 138284,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/861be38f5ee313a43989a5e34ccef261846eeb50214ab1c07bbd514789cbaaaa.json",
+        "status": "miss",
+        "text": "「やあ、きみのきいろは美しい。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/861be38f5ee313a43989a5e34ccef261846eeb50214ab1c07bbd514789cbaaaa.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "9350108dfb5f85ab5ee91eba3bf03c9119c29a8d0946fcde9ff0e8a4df57061f",
+        "candidateIds": [
+          "aO1GJchqFZro07W-Ag0L-DHvk6213UJkjMAknKotPXE"
+        ],
+        "estimatedBytes": 121004,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9350108dfb5f85ab5ee91eba3bf03c9119c29a8d0946fcde9ff0e8a4df57061f.json",
+        "status": "miss",
+        "text": "「やれやれ、春になったか。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/9350108dfb5f85ab5ee91eba3bf03c9119c29a8d0946fcde9ff0e8a4df57061f.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "be11ce4c3cd831fa03b1c512f8f467bece3be49f8182b6409257d3a20c0f40d9",
+        "candidateIds": [
+          "GC6-b2pmj-29krnXBwA1hVpQ9SbkONeirj5POmM6p5c"
+        ],
+        "estimatedBytes": 172844,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/be11ce4c3cd831fa03b1c512f8f467bece3be49f8182b6409257d3a20c0f40d9.json",
+        "status": "miss",
+        "text": "「やあ、きみは黄色だね。きたない色だ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/be11ce4c3cd831fa03b1c512f8f467bece3be49f8182b6409257d3a20c0f40d9.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "d2339796bcc571e80ef7c3beaae69ae2ac0b8edc0c5a1e3d36f6eaff89fdf9da",
+        "candidateIds": [
+          "p43L-wUNnPYiBvnJYr7CClXcbC4Dq-lq5McYwyhHpRk"
+        ],
+        "estimatedBytes": 164204,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2339796bcc571e80ef7c3beaae69ae2ac0b8edc0c5a1e3d36f6eaff89fdf9da.json",
+        "status": "miss",
+        "text": "「おいおい、おきたまえ。もう春だぞ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/d2339796bcc571e80ef7c3beaae69ae2ac0b8edc0c5a1e3d36f6eaff89fdf9da.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "dfcd0f91b8b47e0a0b24ef50d846eebd708a5c19ed673a81392e25470c7937ca",
+        "candidateIds": [
+          "FFUC7fmiO9W1PvNXr0z_9tyS9r2Mf2DhICmcB4xoAfc"
+        ],
+        "estimatedBytes": 250604,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dfcd0f91b8b47e0a0b24ef50d846eebd708a5c19ed673a81392e25470c7937ca.json",
+        "status": "miss",
+        "text": "「きみは緑だね。きみはじぶんを美しいと思っているのかね。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/dfcd0f91b8b47e0a0b24ef50d846eebd708a5c19ed673a81392e25470c7937ca.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "e2326ea6b6991a473b25b524b4967d63b861ff7fc8d683573d98f70f57ddf262",
+        "candidateIds": [
+          "8yi7lsAd5RIatFO2eyymoQZyl6IpTXkmdx-C1xfpt6Q"
+        ],
+        "estimatedBytes": 103724,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e2326ea6b6991a473b25b524b4967d63b861ff7fc8d683573d98f70f57ddf262.json",
+        "status": "miss",
+        "text": "「もうけんかはよそう。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/e2326ea6b6991a473b25b524b4967d63b861ff7fc8d683573d98f70f57ddf262.wav",
+        "workIds": [
+          "004718"
+        ]
+      },
+      {
+        "audioId": "f8aedbcac2d6289a403a8ea6c38237dff2f7dc739035c615fa32966d3f64099c",
+        "candidateIds": [
+          "AppOqa_ER7HgkP-kTRQ_RxrFa9oRQvKGRjurT_pNUSQ"
+        ],
+        "estimatedBytes": 241964,
+        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8aedbcac2d6289a403a8ea6c38237dff2f7dc739035c615fa32966d3f64099c.json",
+        "status": "miss",
+        "text": "「待て待て。からだの土をあらいおとしてからにしようぜ。」",
+        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/f8aedbcac2d6289a403a8ea6c38237dff2f7dc739035c615fa32966d3f64099c.wav",
+        "workIds": [
+          "004718"
+        ]
+      }
+    ],
+    "estimatedMissBytes": 1875364,
+    "existingUniqueAudioCount": 0,
+    "existingUniqueBytes": 0,
+    "expectedManifestSha": "7909d641b751a2f8509985a5b4847c36f84113603f92f18305db65fd5d674030",
+    "hitCount": 0,
+    "invalidCount": 0,
+    "missCount": 11,
+    "planDigest": "5f18686159a40b2d4b521585fad5f5a219558764a470e35c9bdc8358e44063dc",
+    "preTreeDigest": "1c1b694cf49649b0f3d1d3327101941ecc166ddfa3cdede61acb79616d873f7a",
+    "schemaVersion": "2",
+    "uniqueAudioCount": 11,
+    "workId": "004718"
+  },
+  "preTreeDigest": "1c1b694cf49649b0f3d1d3327101941ecc166ddfa3cdede61acb79616d873f7a",
+  "schemaVersion": "1.0.0",
+  "workId": "004718"
+}

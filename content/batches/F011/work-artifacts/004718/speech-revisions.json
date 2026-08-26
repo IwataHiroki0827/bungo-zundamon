@@ -1,0 +1,98 @@
+{
+  "batchId": "F011",
+  "kind": "f011-speech-revision-result",
+  "reconciliationDigest": "45f6b97fba4f6cb116d25133c6a6396624b240909d0b4050f831e012b0fdcb45",
+  "revisions": [
+    {
+      "after": "「やあ、きみのきいろは美しい。」",
+      "before": "「やあ、きみの黄色は美しい。」",
+      "candidateId": "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4",
+      "inputSha256": "e3e38efd98a8a9b1ad9f442ee003aa102d881fca73bdb9b3fc9bcfc49687ea31",
+      "outputSha256": "8e2138493af4f7e637a2fc66dfe086e7d75673147e3ccb481c982822c931c781",
+      "reason": "名詞用法「黄色は」の誤読（おうしょく→きいろ）をVOICEVOX実合成で確認したための読み補正",
+      "revision": 1
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "speech": [
+    {
+      "candidateId": "GC6-b2pmj-29krnXBwA1hVpQ9SbkONeirj5POmM6p5c",
+      "displayText": "「やあ、きみは黄色だね。きたない色だ。」",
+      "revisionCount": 0,
+      "speechSha256": "ba98d5df0bd240f6430f73910c4cd4746eabb38d6c8d61615fda1815c396f469",
+      "speechText": "「やあ、きみは黄色だね。きたない色だ。」"
+    },
+    {
+      "candidateId": "FFUC7fmiO9W1PvNXr0z_9tyS9r2Mf2DhICmcB4xoAfc",
+      "displayText": "「きみは緑だね。きみはじぶんを美しいと思っているのかね。」",
+      "revisionCount": 0,
+      "speechSha256": "e60a765b4a8795c623398d8dbdccd913030dacf3e5608f89ecf3271fe4d68a23",
+      "speechText": "「きみは緑だね。きみはじぶんを美しいと思っているのかね。」"
+    },
+    {
+      "candidateId": "86KWYENjL-fR3OLWkmkYWYxz9LZjl9epuZlCw_k_pq4",
+      "displayText": "「春になったら、このけんかの勝負をつける。」",
+      "revisionCount": 0,
+      "speechSha256": "871e194db63f8b9b1ee4981e952dd9401913efba95ab07fb5b7e90f9a731d431",
+      "speechText": "「春になったら、このけんかのしょうぶをつける。」"
+    },
+    {
+      "candidateId": "nrWaNpcNRiqW5ujJithU59k3LC6ldaw__w769AC91tA",
+      "displayText": "「いまいったことをわすれるな。」",
+      "revisionCount": 0,
+      "speechSha256": "de0e4538faf068eeb1bf64fd7d14af3e6d266523cfecf824678f463cb9a0738d",
+      "speechText": "「いまいったことをわすれるな。」"
+    },
+    {
+      "candidateId": "p43L-wUNnPYiBvnJYr7CClXcbC4Dq-lq5McYwyhHpRk",
+      "displayText": "「おいおい、おきたまえ。もう春だぞ。」",
+      "revisionCount": 0,
+      "speechSha256": "4f57f5bdf74041f623a8ecee55b8e841858de8a75ec38385aa69dc95f08f601e",
+      "speechText": "「おいおい、おきたまえ。もう春だぞ。」"
+    },
+    {
+      "candidateId": "aO1GJchqFZro07W-Ag0L-DHvk6213UJkjMAknKotPXE",
+      "displayText": "「やれやれ、春になったか。」",
+      "revisionCount": 0,
+      "speechSha256": "471131092d21da3e69df76e45c3109e3b1006095bed2316fff5ef7e0e69adaad",
+      "speechText": "「やれやれ、春になったか。」"
+    },
+    {
+      "candidateId": "Ulp__WEzOmH5vOGSHbbI0RJauiDfM6EhqiJ9v5gRVvU",
+      "displayText": "「去年のけんか、わすれたか。」",
+      "revisionCount": 0,
+      "speechSha256": "713a2a4b57889bc980a579966b70fc426dcc631373effb520c5eae9e1917a1da",
+      "speechText": "「きょねんのけんか、わすれたか。」"
+    },
+    {
+      "candidateId": "AppOqa_ER7HgkP-kTRQ_RxrFa9oRQvKGRjurT_pNUSQ",
+      "displayText": "「待て待て。からだの土をあらいおとしてからにしようぜ。」",
+      "revisionCount": 0,
+      "speechSha256": "73fb3579f7a8a50047199121ab71b590522907ad98280f52ef391fffef8b8507",
+      "speechText": "「待て待て。からだの土をあらいおとしてからにしようぜ。」"
+    },
+    {
+      "candidateId": "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4",
+      "displayText": "「やあ、きみの黄色は美しい。」",
+      "revisionCount": 1,
+      "speechSha256": "8e2138493af4f7e637a2fc66dfe086e7d75673147e3ccb481c982822c931c781",
+      "speechText": "「やあ、きみのきいろは美しい。」"
+    },
+    {
+      "candidateId": "9FYhlPpTvgWaYLw-OF63XWCgDMUAIhd8V2ApYA9ZOfY",
+      "displayText": "「そういえば、きみの緑だってすばらしいよ。」",
+      "revisionCount": 0,
+      "speechSha256": "a8ece457395e62769c84cef417a492690b4b49dcd63e825902dd3bdd21ed6295",
+      "speechText": "「そういえば、きみの緑だってすばらしいよ。」"
+    },
+    {
+      "candidateId": "8yi7lsAd5RIatFO2eyymoQZyl6IpTXkmdx-C1xfpt6Q",
+      "displayText": "「もうけんかはよそう。」",
+      "revisionCount": 0,
+      "speechSha256": "67245b9b0268fafdedd2c65af7aeab7514420d188a1ac741e9162ba34923c705",
+      "speechText": "「もうけんかはよそう。」"
+    }
+  ],
+  "toolSha256": "5235a04374f4784845dc998171aa1ed4fea8e080ffcef67e5f0205081bf2ba86",
+  "workId": "004718"
+}

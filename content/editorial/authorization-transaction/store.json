@@ -14701,6 +14701,192 @@
       "sealSha256": "6c286822c9c192ea4cbaeeab66e542c9067f963c8e6df74725e3ab8206db5c1a",
       "status": "used",
       "usedAt": "2026-08-24T05:05:01.000Z"
+    },
+    {
+      "authorization": {
+        "authorizationId": "f011-004718-primary",
+        "candidates": [
+          {
+            "candidateId": "GC6-b2pmj-29krnXBwA1hVpQ9SbkONeirj5POmM6p5c",
+            "inputSha256": "d637af81f4d92d83f539b1932d57302e1deab76474f2a449e9e0d225365be1af",
+            "sourceAnchor": ".main_text:41-61"
+          },
+          {
+            "candidateId": "FFUC7fmiO9W1PvNXr0z_9tyS9r2Mf2DhICmcB4xoAfc",
+            "inputSha256": "ac79800158a86bb0e8cabb1482fefba0d16a962a03f4f779f43bf23a182861dc",
+            "sourceAnchor": ".main_text:76-105"
+          },
+          {
+            "candidateId": "86KWYENjL-fR3OLWkmkYWYxz9LZjl9epuZlCw_k_pq4",
+            "inputSha256": "944a7c8d3f221cf1646510a2b7c5f87eff087c7c8203e9dc7fd96c778bdbc264",
+            "sourceAnchor": ".main_text:354-375"
+          },
+          {
+            "candidateId": "nrWaNpcNRiqW5ujJithU59k3LC6ldaw__w769AC91tA",
+            "inputSha256": "53fd7d0de34709cfd9c87001114523cfeb444b4cce23ff9111b7b33c2b06789b",
+            "sourceAnchor": ".main_text:397-413"
+          },
+          {
+            "candidateId": "p43L-wUNnPYiBvnJYr7CClXcbC4Dq-lq5McYwyhHpRk",
+            "inputSha256": "2b097fefa9e75a40d3f819f9390843d83e7f625a01d59f619ffa0c45a81363f8",
+            "sourceAnchor": ".main_text:606-625"
+          },
+          {
+            "candidateId": "aO1GJchqFZro07W-Ag0L-DHvk6213UJkjMAknKotPXE",
+            "inputSha256": "e48f7a8a0f91f21e26477c3914f568f20143a7c0140d1dda98a0e7b3928bc5e5",
+            "sourceAnchor": ".main_text:657-671"
+          },
+          {
+            "candidateId": "Ulp__WEzOmH5vOGSHbbI0RJauiDfM6EhqiJ9v5gRVvU",
+            "inputSha256": "94295d0686ee68429bd802e4b78cb1177bbf9b0165d0efe92eb20aac2c9c871b",
+            "sourceAnchor": ".main_text:690-704"
+          },
+          {
+            "candidateId": "AppOqa_ER7HgkP-kTRQ_RxrFa9oRQvKGRjurT_pNUSQ",
+            "inputSha256": "d3037661ce29b93eec565164d4977239388c335c747de96bd804aed95c777b03",
+            "sourceAnchor": ".main_text:719-747"
+          },
+          {
+            "candidateId": "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4",
+            "inputSha256": "862152ba02045e841bdeb9deb69cdc671c2b8bb9ddf8a99345f96e453e52a991",
+            "sourceAnchor": ".main_text:896-911"
+          },
+          {
+            "candidateId": "9FYhlPpTvgWaYLw-OF63XWCgDMUAIhd8V2ApYA9ZOfY",
+            "inputSha256": "3effa4b3ad90e81f179332999c19ac245a9bbde97c5403d9c5169c8eceeb119d",
+            "sourceAnchor": ".main_text:922-944"
+          },
+          {
+            "candidateId": "8yi7lsAd5RIatFO2eyymoQZyl6IpTXkmdx-C1xfpt6Q",
+            "inputSha256": "a488f1d6c8133d75633824ffce9e727b8d893fe63087b06e1dfd38e94f778e8e",
+            "sourceAnchor": ".main_text:973-985"
+          }
+        ],
+        "candidateSetSha256": "220155de0a028d612b85a23c3e356e7b52ef9bd9093f67ad5a459d46282f3f9c",
+        "inputRefs": [
+          {
+            "kind": "policy",
+            "path": "docs/srs/SRS-F011.md",
+            "sha256": "9ede05a04dfd9062474d5d6384b2a4212b7499bcb5bbf90d047a3344d15d9e5e"
+          },
+          {
+            "kind": "prompt",
+            "path": "docs/tests/ut/UT-F011.md",
+            "sha256": "6e1d6f23f426335c2e8d8df08f4b29e9f2d95db19e3070693f51f1def2c6fc67"
+          },
+          {
+            "kind": "tool",
+            "path": "src/content/editorial-independent.ts",
+            "sha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+          }
+        ],
+        "issuedAt": "2026-08-24T05:00:00.000Z",
+        "judgeRole": "primary",
+        "nonce": "f011-004718-primary-nonce",
+        "policySha256": "9ede05a04dfd9062474d5d6384b2a4212b7499bcb5bbf90d047a3344d15d9e5e",
+        "producerTaskPath": "/root/f011-editorial/004718/primary",
+        "promptSha256": "6e1d6f23f426335c2e8d8df08f4b29e9f2d95db19e3070693f51f1def2c6fc67",
+        "role": "primary",
+        "runId": "f011-004718-primary-run",
+        "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+      },
+      "sealPath": "seals/f011-004718-primary.json",
+      "sealSha256": "e948ca1cc860db4da316cc21fdd67ed1e44eeb7b3d034facd9804e97365c1560",
+      "status": "used",
+      "usedAt": "2026-08-24T05:05:00.000Z"
+    },
+    {
+      "authorization": {
+        "authorizationId": "f011-004718-secondary",
+        "candidates": [
+          {
+            "candidateId": "GC6-b2pmj-29krnXBwA1hVpQ9SbkONeirj5POmM6p5c",
+            "inputSha256": "d637af81f4d92d83f539b1932d57302e1deab76474f2a449e9e0d225365be1af",
+            "sourceAnchor": ".main_text:41-61"
+          },
+          {
+            "candidateId": "FFUC7fmiO9W1PvNXr0z_9tyS9r2Mf2DhICmcB4xoAfc",
+            "inputSha256": "ac79800158a86bb0e8cabb1482fefba0d16a962a03f4f779f43bf23a182861dc",
+            "sourceAnchor": ".main_text:76-105"
+          },
+          {
+            "candidateId": "86KWYENjL-fR3OLWkmkYWYxz9LZjl9epuZlCw_k_pq4",
+            "inputSha256": "944a7c8d3f221cf1646510a2b7c5f87eff087c7c8203e9dc7fd96c778bdbc264",
+            "sourceAnchor": ".main_text:354-375"
+          },
+          {
+            "candidateId": "nrWaNpcNRiqW5ujJithU59k3LC6ldaw__w769AC91tA",
+            "inputSha256": "53fd7d0de34709cfd9c87001114523cfeb444b4cce23ff9111b7b33c2b06789b",
+            "sourceAnchor": ".main_text:397-413"
+          },
+          {
+            "candidateId": "p43L-wUNnPYiBvnJYr7CClXcbC4Dq-lq5McYwyhHpRk",
+            "inputSha256": "2b097fefa9e75a40d3f819f9390843d83e7f625a01d59f619ffa0c45a81363f8",
+            "sourceAnchor": ".main_text:606-625"
+          },
+          {
+            "candidateId": "aO1GJchqFZro07W-Ag0L-DHvk6213UJkjMAknKotPXE",
+            "inputSha256": "e48f7a8a0f91f21e26477c3914f568f20143a7c0140d1dda98a0e7b3928bc5e5",
+            "sourceAnchor": ".main_text:657-671"
+          },
+          {
+            "candidateId": "Ulp__WEzOmH5vOGSHbbI0RJauiDfM6EhqiJ9v5gRVvU",
+            "inputSha256": "94295d0686ee68429bd802e4b78cb1177bbf9b0165d0efe92eb20aac2c9c871b",
+            "sourceAnchor": ".main_text:690-704"
+          },
+          {
+            "candidateId": "AppOqa_ER7HgkP-kTRQ_RxrFa9oRQvKGRjurT_pNUSQ",
+            "inputSha256": "d3037661ce29b93eec565164d4977239388c335c747de96bd804aed95c777b03",
+            "sourceAnchor": ".main_text:719-747"
+          },
+          {
+            "candidateId": "78pW1iVQIWOq9A98LGlE9Yo5k6cmRdyscQhBhdXQDf4",
+            "inputSha256": "862152ba02045e841bdeb9deb69cdc671c2b8bb9ddf8a99345f96e453e52a991",
+            "sourceAnchor": ".main_text:896-911"
+          },
+          {
+            "candidateId": "9FYhlPpTvgWaYLw-OF63XWCgDMUAIhd8V2ApYA9ZOfY",
+            "inputSha256": "3effa4b3ad90e81f179332999c19ac245a9bbde97c5403d9c5169c8eceeb119d",
+            "sourceAnchor": ".main_text:922-944"
+          },
+          {
+            "candidateId": "8yi7lsAd5RIatFO2eyymoQZyl6IpTXkmdx-C1xfpt6Q",
+            "inputSha256": "a488f1d6c8133d75633824ffce9e727b8d893fe63087b06e1dfd38e94f778e8e",
+            "sourceAnchor": ".main_text:973-985"
+          }
+        ],
+        "candidateSetSha256": "220155de0a028d612b85a23c3e356e7b52ef9bd9093f67ad5a459d46282f3f9c",
+        "inputRefs": [
+          {
+            "kind": "policy",
+            "path": "docs/srs/SRS-F011.md",
+            "sha256": "9ede05a04dfd9062474d5d6384b2a4212b7499bcb5bbf90d047a3344d15d9e5e"
+          },
+          {
+            "kind": "prompt",
+            "path": "docs/tests/ut/UT-F011.md",
+            "sha256": "6e1d6f23f426335c2e8d8df08f4b29e9f2d95db19e3070693f51f1def2c6fc67"
+          },
+          {
+            "kind": "tool",
+            "path": "src/content/editorial-independent.ts",
+            "sha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+          }
+        ],
+        "issuedAt": "2026-08-24T05:00:01.000Z",
+        "judgeRole": "secondary",
+        "nonce": "f011-004718-secondary-nonce",
+        "policySha256": "9ede05a04dfd9062474d5d6384b2a4212b7499bcb5bbf90d047a3344d15d9e5e",
+        "producerTaskPath": "/root/f011-editorial/004718/secondary",
+        "promptSha256": "6e1d6f23f426335c2e8d8df08f4b29e9f2d95db19e3070693f51f1def2c6fc67",
+        "role": "secondary",
+        "runId": "f011-004718-secondary-run",
+        "toolSha256": "6d2d55204c69ac2abe9ae8a14e5a61e2620309d77be902a661bba24c518d8be3"
+      },
+      "sealPath": "seals/f011-004718-secondary.json",
+      "sealSha256": "92eb2d6bc294d27e3e2f349ae56b298052aace1bf849a77549ae7147dd498b9d",
+      "status": "used",
+      "usedAt": "2026-08-24T05:05:01.000Z"
     }
   ],
   "schemaVersion": "1.0.0"
