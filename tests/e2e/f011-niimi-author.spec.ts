@@ -14,8 +14,9 @@ import {
  * （scripts/f011-final-integration.ts、`.cache/f011-final-integration-PHFSi1/`）
  * の実データ（authorId=000121、name=にいみなんきち、slug=niimi-nankichi、
  * works=手袋を買いに(000637)/ごん狐(000628)/二ひきの蛙(004718)、
- * 合計68台詞＝27+30+11。ごん狐は既にAUDIO_ID_COLLISIONによる2件のaudio除外が
- * 反映された後の実測値）で確定させた。
+ * 合計67台詞＝26+30+11。ごん狐は既にAUDIO_ID_COLLISIONによる2件のaudio除外
+ * （CHG-F011-001）、手袋を買いにはAUDIO_CONTENT_DUPLICATEによる1件のaudio除外
+ * （CHG-F011-002、F008既存音声とのbyte内容偶然一致）が反映された後の実測値）で確定させた。
  *
  * F011の3作品はいずれもofficial-content-warning注記を持たない
  * （notices全て`dialogue-excerpt-scope`のみ、`.cache/f011-final-integration-PHFSi1/
@@ -44,11 +45,12 @@ test('トップに10人目の新美南吉カードがデータ駆動で追加さ
   const niimi = page.locator('.author-card').filter({ hasText: 'にいみなんきち' });
   await expect(niimi).toHaveCount(1);
   await expect(niimi).toContainText('原著者: 新美南吉');
-  // 実測: 手袋を買いに27・ごん狐30・二ひきの蛙11＝合計68台詞
-  // （.cache/f011-final-integration-PHFSi1/tree/content/catalog.jsonのauthorId=000121
-  // works.dialogues.lengthを実測して確認済み。ごん狐のAUDIO_ID_COLLISIONによる
-  // 2件除外を既に反映した後の公開台詞数）。
-  await expect(niimi).toContainText('3作品・68台詞');
+  // 実測: 手袋を買いに26・ごん狐30・二ひきの蛙11＝合計67台詞
+  // （.cache/f011-final-integration-ITX5fV/tree/content/catalog.jsonのauthorId=000121
+  // works.dialogues.lengthを実測して確認済み。ごん狐のAUDIO_ID_COLLISION 2件除外
+  // (CHG-F011-001)・手袋を買いにのAUDIO_CONTENT_DUPLICATE 1件除外(CHG-F011-002)を
+  // 既に反映した後の公開台詞数）。
+  await expect(niimi).toContainText('3作品・67台詞');
 });
 
 // @req REQ-F011-014 @req REQ-F011-015 @qt QT-F011-010 @qt QT-F011-011
