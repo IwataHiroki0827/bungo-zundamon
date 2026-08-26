@@ -19,6 +19,7 @@ import {
   type F005NativeGuardBuildEvidence,
   type SafeFileHandle,
 } from './f005-source.ts';
+import { assertGuardExecutableAvailable } from './f005-test-support.ts';
 
 const PROJECT_ROOT = resolve('.');
 const NATIVE_ROOT = join(PROJECT_ROOT, 'native', 'f005-guard');
@@ -85,7 +86,7 @@ async function temporaryRoot(prefix: string): Promise<string> {
 }
 
 beforeAll(async () => {
-  await expect(readFile(GUARD_EXE)).resolves.not.toHaveLength(0);
+  await assertGuardExecutableAvailable();
 });
 
 afterAll(async () => {

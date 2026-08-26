@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 
 import { canonicalJson } from './artifacts.ts';
 import {
@@ -36,10 +36,15 @@ import {
   validateF005CapacityJournalV3,
 } from './f005-native-guard.ts';
 import { F005_NATIVE_GUARD_PINS } from './f005-source.ts';
+import { assertGuardExecutableAvailable } from './f005-test-support.ts';
 import { createF005NativeCapacityJournalReader } from './f005-voice.ts';
 
 const PROJECT_ROOT = resolve('.');
 const GUARD_EXE = resolve('.cache/dotnet-f005/publish/f005-guard.exe');
+
+beforeAll(async () => {
+  await assertGuardExecutableAvailable();
+});
 const SHA = '1'.repeat(64);
 const PRODUCER_SHA = F005_NATIVE_GUARD_PINS.outputBinarySha256;
 const temporaryRoots: string[] = [];

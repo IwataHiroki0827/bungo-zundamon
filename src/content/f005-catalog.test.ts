@@ -72,10 +72,13 @@ let temporaryRoot: string | undefined;
 beforeAll(async () => {
   temporaryRoot = await mkdtemp(join(tmpdir(), 'f005-catalog-'));
   const cleanWorkspace = join(temporaryRoot, 'checkout');
+  // `-c core.autocrlf=false`はcloneプロセス限りで新repoに残らず、後続の別プロセス
+  // `git checkout`にsystem/globalのautocrlf=trueが効いてCRLF化する(canonical JSON検査が
+  // 決定論的に失敗)。`clone --config`は新repoの.git/configへ永続化され全checkoutに効く。
   await execFile('git', [
-    '-c',
-    'core.autocrlf=false',
     'clone',
+    '--config',
+    'core.autocrlf=false',
     '--shared',
     workspace,
     cleanWorkspace,

@@ -32,6 +32,14 @@ export default {
   return root;
 }
 
+// Viteは遅い環境で計測ログ`[PLUGIN_TIMINGS]`をstderrへ出すことがある(CIフレークの原因)。
+// 無害な計測行と空行だけを除外し、実エラー行はそのまま残して検証する。
+function filterBenignStderr(stderr: string): string[] {
+  return stderr
+    .split(/\r?\n/)
+    .filter((line) => line.trim() !== '' && !/\[PLUGIN_TIMINGS\]/.test(line));
+}
+
 function runOfflineProductionBuild(root: string, outDir: string): void {
   const preload = pathToFileURL(join(projectRoot, 'scripts/network-deny.mjs')).href;
   const inherited = process.env.NODE_OPTIONS?.trim();
@@ -53,10 +61,14 @@ function runOfflineProductionBuild(root: string, outDir: string): void {
       npm_config_fund: 'false',
     },
   });
-  expect({ status: result.status, signal: result.signal, stderr: result.stderr }).toMatchObject({
+  expect({
+    status: result.status,
+    signal: result.signal,
+    stderrLines: filterBenignStderr(result.stderr),
+  }).toEqual({
     status: 0,
     signal: null,
-    stderr: '',
+    stderrLines: [],
   });
 }
 

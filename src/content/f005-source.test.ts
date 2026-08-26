@@ -4,10 +4,17 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { deflateRawSync } from 'node:zlib';
 
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { canonicalJson } from './artifacts.ts';
 import { writeF005SourceArtifactOnce } from '../../scripts/f005-collect-source.ts';
+import { assertGuardExecutableAvailable } from './f005-test-support.ts';
+
+// SafeWorkspaceFile系APIは実native guard exeをspawnするため、欠損時は明示エラーで停止する。
+beforeAll(async () => {
+  await assertGuardExecutableAvailable();
+});
+
 const mintedTestContexts = vi.hoisted(() => new WeakSet<object>());
 
 vi.mock('./f005-context.ts', async (importOriginal) => {

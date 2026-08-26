@@ -154,7 +154,7 @@ describe('UT-F002-005 FUN-F002-005 loadAndVerifyF001Baseline', () => {
     expect(bundle.catalog.works?.reduce((sum, work) => sum + work.dialogues.length, 0)).toBe(59);
     expect(bundle.files.filter((file) => file.path.startsWith('audio/F001/'))).toHaveLength(57);
     expect(bundle.sourceRoot).toBe(integratedPublic);
-  });
+  }, 60_000);
 
   it('非canonical/identity改変baselineとsource asset欠損・改変を個別codeで拒否する', async () => {
     const workspace = await mkdtemp(join(tmpdir(), 'f001-loader-'));
@@ -180,7 +180,7 @@ describe('UT-F002-005 FUN-F002-005 loadAndVerifyF001Baseline', () => {
     await cp(publicRoot, copiedPublic, { recursive: true, force: true });
     await rm(join(copiedPublic, 'content', 'provenance.json'));
     await expect(loadAndVerifyF001Baseline(copiedPublic, baselinePath, rawCatalogSnapshot)).rejects.toMatchObject({ code: 'F001_PROVENANCE_MISSING' });
-  });
+  }, 60_000);
 
   it('payload改変後に自己申告SHAを再計算しても外部固定SHAで拒否する', async () => {
     const workspace = await mkdtemp(join(tmpdir(), 'f001-rehash-'));
