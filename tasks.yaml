@@ -5506,13 +5506,33 @@ tasks:
   title: F011最終Catalog統合・固定v0.10.0回帰・公開tree候補を作成
   feature: F011
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-208
   tags: *id011
   mode: advisor
   mode_reason: 3作品累積結合・既存9作者不変確認・公開tree候補生成を単一の逐次exact差分判定として扱うため
   model: *model_f011
+  progress: >-
+    完了。scripts/f011-final-integration.ts(f010版の複製・パラメータ化、
+    loadF011WorkNotices使用・f011-content-preview.tsのcomputeExclusion
+    Countsを再利用)で手袋を買いに→ごん狐→二ひきの蛙を累積結合し、最終
+    Catalog(**10作者・33作品・1315台詞・1297音声、「10人になるまで進めて」
+    directive達成**)・exact 13 route(#/・既存9作者route・
+    #/authors/niimi-nankichi・#/favorites・#/credits)・公開tree候補
+    (1364 files)を生成した。v0.10.0固定baseline(既存9作者30作品1247台詞
+    1230音声)がbyte-exact不変であることをassertV0100Invariantで確認。
+    candidateCounts.byBatch.F011はpublished=68・editorialExcluded=3
+    (NON_SPEECH)・audioExcluded=2(AUDIO_ID_COLLISION、CHG-F011-001)を
+    正しく反映。F011内部で1件のaudioId重複(68台詞→67ユニーク音声、
+    既存normalizeBatchAudioの単一batch内dedup機構、cross-batch衝突とは
+    別)を確認、v0.10.0公開分1230件との衝突は0件を独立検証した。実行前、
+    F005〜F010と同型の既知パターン(rightsSnapshotIds空欄)がF011にも
+    残っていたため、scripts/f011-backfill-rights-snapshot-ids.tsで実
+    evidenceから是正した。--retainで候補dist/treeを.cache/
+    f011-final-integration-PHFSi1/へ永続化。tsc/eslint全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-210(UT/IT/QT/6環境・
+    権利・容量・セキュリティ受入)。
 - id: T-210
   title: F011 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F011
