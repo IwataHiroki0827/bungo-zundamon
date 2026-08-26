@@ -16,6 +16,7 @@
     "slug": "kajii-motojiro"
   },
   "batchId": "F010",
+  "deploymentEvidenceRef": "docs/evidence/release/F010-deployment.json",
   "editionRules": [
     {
       "allowedWorkIds": [
@@ -45,14 +46,17 @@
   "feature": "F010",
   "inputPaths": [],
   "outputPaths": [],
+  "publishedAt": "2026-08-23T21:35:47Z",
+  "releaseVersion": "0.10.0",
   "rightsSnapshotIds": [
     "voicevox-terms:10dbc1bafcbe612378b998e96882809970f1591194ab2851669e11805feff40b",
     "zundamon-audio-terms:902ac82a53c40ac8a5c39111b9f28cf1b1cb6d20e52e37e5264d0d2f271a6a98",
     "zundamon-character-guideline:d6309b88430273d39fcb10b7149ec0eb8b8a0cbd8aa10d6d0fc0705b22c4d947"
   ],
   "schemaVersion": "1.0.0",
+  "smokeEvidenceRef": "docs/evidence/release/F010-smoke.json",
   "stageRecords": [],
-  "status": "accepted",
+  "status": "published",
   "voiceConfigRef": "content/batches/F010/voice-config.json",
   "workIds": [
     "000424",
