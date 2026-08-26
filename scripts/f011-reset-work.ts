@@ -41,8 +41,8 @@ async function main(): Promise<void> {
   const manifest = checked.value;
   const index = manifest.workIds.indexOf(WORK_ID as never);
   const work = manifest.workProgress[index];
-  if (!work || work.status !== 'accepted') {
-    throw new Error(`work ${WORK_ID}はaccepted状態ではありません: ${String(work?.status)}`);
+  if (!work || (work.status !== 'accepted' && work.status !== 'voiced')) {
+    throw new Error(`work ${WORK_ID}はaccepted/voiced状態ではありません: ${String(work?.status)}`);
   }
   const stageRecords = work.stageRecords.filter((record) => record.stage === 'extracted' || record.stage === 'reviewed');
   if (stageRecords.length !== 2) throw new Error('extracted/reviewed stageRecordsが想定と異なります');
