@@ -59,8 +59,6 @@
   ],
   "workProgress": [
     {
-      "actualCapacityRef": "content/batches/F011/capacity-actual/000637.json",
-      "forecastRef": "content/batches/F011/capacity-forecast/000637.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-24T05:10:00.000Z",
@@ -126,28 +124,9 @@
           ],
           "stage": "voiced",
           "toolVersion": "f011-capacity-actual-voiced-direct-v1"
-        },
-        {
-          "completedAt": "2026-08-26T02:08:24.516Z",
-          "count": 66,
-          "inputHashes": [
-            "7ee7568822f80c341bbc1c8de309a3f49143d9a0f14ed9b40424d937343cd428",
-            "54bb23229afe2fd820c925afacf34b734fed55eefa443bbab4ffeea7964dde81",
-            "e6388afcb96aadbb6046363e67632629efae432f9d7a4af4323a6861067c6557",
-            "36def3e45facb6a3caa35589c03ae2881389ba7dda5ec16b5d196fd612307700"
-          ],
-          "outputHashes": [
-            "dd002ddeb55b1dc0b6bd4ea1d03faf648f10697076ca42a9419f867153160950",
-            "ad938dc11d94764b78f7f5f4a2602d54112cd893c92d6b109bac4b2a99e30c6c",
-            "5e0de97271031d91ecb7f0640f3672821643fa95787fbed9b0c334845cd837ee",
-            "1a4d4a01a5a1fbf211d7f0c76c2165f024abe489a548f6c4aa3f06d42dd652bb"
-          ],
-          "stage": "capacity-actual",
-          "toolVersion": "f011-capacity-actual-v1"
         }
       ],
       "status": "voiced",
-      "voiceEvidenceRef": "content/batches/F011/voice-evidence/000637.json",
       "workId": "000637"
     },
     {
