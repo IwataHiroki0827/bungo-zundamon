@@ -352,6 +352,7 @@
       "workId": "000637"
     },
     {
+      "forecastRef": "content/batches/F011/capacity-forecast/000628.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-24T05:10:00.000Z",
@@ -364,9 +365,49 @@
           ],
           "stage": "extracted",
           "toolVersion": "f011-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-24T05:10:00.000Z",
+          "count": 34,
+          "inputHashes": [
+            "57ac38e8d3f386a1b0b36fdcf4395c5cd62b6243d2771ddeecfd75d2270d9870",
+            "3359ebbf5e366388304ba5b8d5503eec2007c04451d903e122abcaec257668a6"
+          ],
+          "outputHashes": [
+            "f7d2cdfda4c0265684c7c49d334893286d3c5a43790368c4b95ad3160b775fb4"
+          ],
+          "stage": "reviewed",
+          "toolVersion": "f011-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-26T01:10:17.484Z",
+          "count": 32,
+          "inputHashes": [
+            "e10059c23c4eaab894d0ed1054aca845fe02c07d6a70908ca378ed377ef69687",
+            "f7d2cdfda4c0265684c7c49d334893286d3c5a43790368c4b95ad3160b775fb4"
+          ],
+          "outputHashes": [
+            "7ead619265ffbf53f47c72d071f24d38f6b3546878500846b8b96e1993d9781e"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f011-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-26T01:11:15.548Z",
+          "count": 32,
+          "inputHashes": [
+            "58e3e7e8d1a93bfe208d15e6b15b7e09503c196c350e50b56da7e07b05e79d5a",
+            "7ead619265ffbf53f47c72d071f24d38f6b3546878500846b8b96e1993d9781e"
+          ],
+          "outputHashes": [
+            "7f1fa027a22c4fa7164a87b23b879cd581baeff2768c40c04077c4263d3a187f"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f011-prepare-voice-generate-v1"
         }
       ],
-      "status": "extracted",
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F011/voice-evidence/000628.json",
       "workId": "000628"
     },
     {
