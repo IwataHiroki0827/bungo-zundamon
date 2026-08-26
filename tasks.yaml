@@ -5481,13 +5481,27 @@ tasks:
   title: 二ひきの蛙を抽出・二重レビュー・音声化・atomic受入
   feature: F011
   phase: implement
-  state: todo
+  state: done
   depends:
   - T-207
   tags: *id011
   mode: orchestration
   mode_reason: 抽出・独立二重判定・音声化・容量検証・atomic受入の各段階を独立実行し統合判定できるため
   model: *model_f011
+  progress: >-
+    完了。二ひきの蛙(004718)の実candidate11件を実extraction・実テキスト
+    精読で独立二重判定し、11件全てSPOKEN_DIALOGUE承認(緑の蛙・黄色の蛙の
+    実質的対話往復)、rejected 0件。VOICEVOX実測で誤読1件補正(黄色→
+    おうしょく、きいろへ)。000628(CHG-F011-001)で確立したaudioId衝突の
+    事前チェックを実施し、v0.10.0公開分および000637・000628との衝突0件を
+    確認(是正不要だった)。実VOICEVOX(speaker 3)で11/11音声合成成功
+    (1,638,372 bytes)、容量forecast/actualともpass_with_warning。atomic
+    受入でWAV11件をaccepted-audio/004718/へ正式昇格、manifest
+    workProgress[004718].status: accepted。F011全3作品(手袋を買いに26・
+    ごん狐30・二ひきの蛙11=計67候補承認)がaccepted、67件全てでv0.10.0
+    公開分とのaudioId衝突0件を独立確認済み。tsc/eslint全PASS、
+    trace_check.py対応漏れなし。次のアクションはT-209(最終Catalog統合、
+    10作者目標達成)。
 - id: T-209
   title: F011最終Catalog統合・固定v0.10.0回帰・公開tree候補を作成
   feature: F011
