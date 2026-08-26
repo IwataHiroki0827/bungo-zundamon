@@ -56,6 +56,19 @@ npm run test:e2e
 - `.env` の値(`PASS_WORD` 等)をログ・コミットメッセージ・ドキュメントに転記しない(DES-039)
 - 1フィーチャー = 1ブランチ(`feature/{id}`)で開発する(DES-012)
 
+## 公開後更新チェックリスト(pf-conventions §9 / KB-0015)
+
+リリース(GitHub Pagesデプロイ成功)のたびに、evidence 4点セット作成後・tag push前後に必ず消化する。
+F005〜F011で毎回漏れて次フィーチャーの実装中に発覚し続けた台帳書戻しの恒久チェックリスト:
+
+1. **batch manifestのpublished化**: `node --experimental-transform-types scripts/mark-published.ts <batchId>` を実行し、
+   当該リリースのbatch(例: F011)の `content/batches/{batchId}/batch.json` を `accepted→published` へ遷移させる
+   (publishedAt/releaseVersionはevidenceから自動導出、冪等)。commitに含める
+2. **rightsSnapshotIdsの充足確認**: 同batch.jsonの `rightsSnapshotIds` が空でないことを確認する
+   (空なら `scripts/f0NN-backfill-rights-snapshot-ids.ts` 型の是正が必要 = 受入経路の不備なので原因も直す)
+3. **PAGES_DEPLOY_ENABLED=false復帰**の確認(`gh variable list`)
+4. **次フィーチャーの実装ゲートチェック**でも本チェックリストの完結を再確認する(二重防御)
+
 ## ディレクトリ構成(主要なもの)
 
 ```
