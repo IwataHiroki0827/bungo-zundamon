@@ -50,7 +50,7 @@
   ],
   "schemaVersion": "1.0.0",
   "stageRecords": [],
-  "status": "reviewed",
+  "status": "voiced",
   "voiceConfigRef": "content/batches/F011/voice-config.json",
   "workIds": [
     "000637",
@@ -674,6 +674,7 @@
       "workId": "000628"
     },
     {
+      "forecastRef": "content/batches/F011/capacity-forecast/004718.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-24T05:10:00.000Z",
@@ -699,9 +700,36 @@
           ],
           "stage": "reviewed",
           "toolVersion": "f011-prepare-editorial-v1"
+        },
+        {
+          "completedAt": "2026-08-26T02:21:14.195Z",
+          "count": 11,
+          "inputHashes": [
+            "357625a0b4b130aca9cd70b5e2efcb77e28f02bfe08da436c4c7037e83f2cc5e",
+            "1090690abbfa03b009b1bf57116d68e49672c256f9d38f8c7cbeaa7c8a090794"
+          ],
+          "outputHashes": [
+            "55e32c5bac4ad48da8fd8fe30a3566a05e3930b1994d444449fa2a78bf09f5a3"
+          ],
+          "stage": "budget-approved",
+          "toolVersion": "f011-prepare-voice-forecast-v1"
+        },
+        {
+          "completedAt": "2026-08-26T02:21:30.329Z",
+          "count": 11,
+          "inputHashes": [
+            "08fd3665572e6effa7a17e903929c90221f4afb92afc61f93bb8b0de5cdf0727",
+            "55e32c5bac4ad48da8fd8fe30a3566a05e3930b1994d444449fa2a78bf09f5a3"
+          ],
+          "outputHashes": [
+            "cc3b6a47651da74817bb91d0de963e89a9617086303695f82b1255a8862e6f7b"
+          ],
+          "stage": "voiced",
+          "toolVersion": "f011-prepare-voice-generate-v1"
         }
       ],
-      "status": "reviewed",
+      "status": "voiced",
+      "voiceEvidenceRef": "content/batches/F011/voice-evidence/004718.json",
       "workId": "004718"
     }
   ]
