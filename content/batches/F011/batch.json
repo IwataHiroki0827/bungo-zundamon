@@ -59,6 +59,7 @@
   ],
   "workProgress": [
     {
+      "actualCapacityRef": "content/batches/F011/capacity-actual/000637.json",
       "stageRecords": [
         {
           "completedAt": "2026-08-24T05:10:00.000Z",
@@ -124,6 +125,24 @@
           ],
           "stage": "voiced",
           "toolVersion": "f011-capacity-actual-voiced-direct-v1"
+        },
+        {
+          "completedAt": "2026-08-26T02:12:52.325Z",
+          "count": 25,
+          "inputHashes": [
+            "6423a1785d0a57d325dac26f9328123051162d6e0309801ef14d6923eefecc3e",
+            "54bb23229afe2fd820c925afacf34b734fed55eefa443bbab4ffeea7964dde81",
+            "e6388afcb96aadbb6046363e67632629efae432f9d7a4af4323a6861067c6557",
+            "3e2593b70fdd67556aa9f1f594ac194385ee915427d878e38c8455e2b31e7f8d"
+          ],
+          "outputHashes": [
+            "10a11ef18d447c6db6b6238ca0867eb2b08b013e08db93602842a46c9a4ee684",
+            "62ce64809e234dd4415594ed26e30ee409e810aae754aeba8e69eefcd83897e2",
+            "e58f735d6c949c82529f9b77bc15dc18edb4d9be4d1faf183cdb64277de490bd",
+            "28e9e5275ebaa42ca7159686207cfd748771c2c292db72e3395db4de2c83479a"
+          ],
+          "stage": "capacity-actual",
+          "toolVersion": "f011-capacity-actual-v1"
         }
       ],
       "status": "voiced",
