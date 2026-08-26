@@ -14,8 +14,14 @@ export const F005_GUARD_EXECUTABLE_PATH = join(
  * F005 native guard exeの存在をテスト実行前に確認する。
  * .cacheごと削除されるとF005系テストが大量ENOENTで崩壊するため、
  * サイレントskipせず再構築手順付きで明示的にthrowする。
+ * guard exeはWindows専用で、これを要するテストは全て
+ * `runIf(process.platform === 'win32')`でskipされるため、
+ * 非win32(CIのubuntu-latest等)ではチェック自体を行わない。
  */
 export async function assertGuardExecutableAvailable(): Promise<void> {
+  if (process.platform !== 'win32') {
+    return;
+  }
   let size: number;
   try {
     size = (await stat(F005_GUARD_EXECUTABLE_PATH)).size;
