@@ -8,7 +8,7 @@
     "additionalAudio": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 15099448,
+      "measuredBytes": 15021600,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 104857600
@@ -17,7 +17,7 @@
     "canGenerate": true,
     "evidenceKind": "forecast",
     "expectedManifestSha": "e10059c23c4eaab894d0ed1054aca845fe02c07d6a70908ca378ed377ef69687",
-    "minimumFreeBytesAfterWrite": 382208312,
+    "minimumFreeBytesAfterWrite": 382130464,
     "pagesArtifact": {
       "deduplicatedHashes": [],
       "includedPaths": [],
@@ -29,7 +29,7 @@
       "thresholdBytes": 786432000,
       "warningThresholdBytes": 524288000
     },
-    "planDigest": "9ab26d1c6119261ce15e44be819b4e1abdfc814d157291b633f24fe0ea8db1dd",
+    "planDigest": "c96a9e7207c66b4ca7e89fee71c1790c183ead35d8aac25340092014a2c06fca",
     "preTreeDigest": "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",
     "reasons": [
       "CAPACITY_FORECAST_PAGES_WARNING"
@@ -37,11 +37,14 @@
     "remainingResponseBytes": 97423240,
     "result": "pass_with_warning",
     "singleGitObjects": {
-      "deduplicatedHashes": [],
+      "deduplicatedHashes": [
+        "05584bc4e09a91afd92a65fcf09550c16dac35ec"
+      ],
       "includedPaths": [
         "content/batches/F011/batch.json",
-        "docs/traceability/TM-ALL.md",
-        "docs/traceability/tm.json"
+        "content/batches/F011/work-artifacts/000628/speech-revisions.json",
+        "scripts/f011-exclude-000628-collisions.ts",
+        "scripts/f011-reset-work.ts"
       ],
       "measuredBytes": 17156699,
       "reasons": [],
@@ -49,13 +52,16 @@
       "thresholdBytes": 104857600
     },
     "sourceRepository": {
-      "deduplicatedHashes": [],
+      "deduplicatedHashes": [
+        "05584bc4e09a91afd92a65fcf09550c16dac35ec"
+      ],
       "includedPaths": [
         "content/batches/F011/batch.json",
-        "docs/traceability/TM-ALL.md",
-        "docs/traceability/tm.json"
+        "content/batches/F011/work-artifacts/000628/speech-revisions.json",
+        "scripts/f011-exclude-000628-collisions.ts",
+        "scripts/f011-reset-work.ts"
       ],
-      "measuredBytes": 495729999,
+      "measuredBytes": 500411796,
       "reasons": [],
       "status": "pass",
       "thresholdBytes": 1000000000,
@@ -64,10 +70,10 @@
     "workDrive": {
       "deduplicatedHashes": [],
       "includedPaths": [],
-      "measuredBytes": 71480791040,
+      "measuredBytes": 68295540736,
       "reasons": [],
       "status": "pass",
-      "thresholdBytes": 382208312
+      "thresholdBytes": 382130464
     },
     "workId": "000628"
   },
@@ -77,16 +83,16 @@
     "acceptedAudioFiles": 26,
     "currentPagesBytes": 541697049,
     "currentPagesFiles": 1292,
-    "freeBytes": 71480791040,
-    "liveWriteUpperBounds": 157665088,
+    "freeBytes": 68295540736,
+    "liveWriteUpperBounds": 157587240,
     "plannedPagesBytes": 150000000,
-    "repositoryNonObjectBytes": 1396042,
+    "repositoryNonObjectBytes": 1411393,
     "rollbackBackupBytes": 157434360
   },
   "plan": {
     "batchId": "F011",
     "cacheRoot": ".cache/voice",
-    "candidateCount": 32,
+    "candidateCount": 30,
     "config": {
       "cacheSchemaVersion": "2",
       "engineVersion": "0.25.2",
@@ -253,34 +259,6 @@
         "status": "miss",
         "text": "「ほんとかい？」",
         "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/4a6be0c903be1c48a68c95c963a6b8c093976ee8f1006c5cccd319314462c9d9.wav",
-        "workIds": [
-          "000628"
-        ]
-      },
-      {
-        "audioId": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
-        "candidateIds": [
-          "IYovdjGtidDGIWvhWi-C4JXJ0V6O0DECy4hNqUURksk"
-        ],
-        "estimatedBytes": 34604,
-        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.json",
-        "status": "miss",
-        "text": "「うん」",
-        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
-        "workIds": [
-          "000628"
-        ]
-      },
-      {
-        "audioId": "51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087",
-        "candidateIds": [
-          "FG3i_rrQnSDmNhuVmH1X2iVqIbbF5NldebR3V6_eb8I"
-        ],
-        "estimatedBytes": 43244,
-        "metadataPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.json",
-        "status": "miss",
-        "text": "「何が？」",
-        "wavPath": ".cache/voice/0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.wav",
         "workIds": [
           "000628"
         ]
@@ -552,17 +530,17 @@
         ]
       }
     ],
-    "estimatedMissBytes": 7665088,
+    "estimatedMissBytes": 7587240,
     "existingUniqueAudioCount": 0,
     "existingUniqueBytes": 0,
     "expectedManifestSha": "e10059c23c4eaab894d0ed1054aca845fe02c07d6a70908ca378ed377ef69687",
     "hitCount": 0,
     "invalidCount": 0,
-    "missCount": 32,
-    "planDigest": "9ab26d1c6119261ce15e44be819b4e1abdfc814d157291b633f24fe0ea8db1dd",
+    "missCount": 30,
+    "planDigest": "c96a9e7207c66b4ca7e89fee71c1790c183ead35d8aac25340092014a2c06fca",
     "preTreeDigest": "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",
     "schemaVersion": "2",
-    "uniqueAudioCount": 32,
+    "uniqueAudioCount": 30,
     "workId": "000628"
   },
   "preTreeDigest": "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",

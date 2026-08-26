@@ -313,7 +313,6 @@ async function buildWorkFragmentPiece(
   snapshot: Awaited<ReturnType<typeof rehydrateF011SelectionSnapshot>>,
   registry: ReturnType<typeof defineF011AuthorAndWorkRegistry>,
   noticesByWorkId: ReadonlyMap<string, { readonly completionStatus: 'complete' | 'unfinished'; readonly notices: readonly { readonly textKey: WorkNoticeTextKey; readonly placements: readonly WorkNoticePlacement[] }[] }>,
-  publishedAudioShaSet: ReadonlySet<string>,
 ): Promise<WorkFragmentPiece> {
   const workSnapshot = snapshot.works.find((work) => work.workId === workId);
   if (!workSnapshot) throw new Error(`selection snapshotにwork ${workId}がありません`);
@@ -380,24 +379,7 @@ async function buildWorkFragmentPiece(
     throw new Error('dialogue/speech/audio件数が一致しません');
   }
 
-  // VOICEVOX合成はtext+config決定論のため、既公開batch（F002〜F010、v0.10.0固定
-  // baseline）に既に同一WAV（同一sha256）が存在するcandidateが稀に発生しうる
-  // （短い相槌等、実データで初めて確認: 000628の1件がF003 000275の音声と完全一致）。
-  // その場合、新規audioIdは既公開分と文字列として同一になるため（audioIdはtext+config
-  // のcontent-addressableハッシュ、cache.ts createVoiceCacheKey）、自fragmentへ重複
-  // entryを追加するとbatch-public.tsのcatalog全体audioId一意性検証
-  // （PUBLIC_ID_COLLISION）に抵触する。既公開分と重複するassetはfragment側に含めず
-  // （物理audioは既公開batch側から既に配信される）、dialogueのaudioIdはcontent-address
-  // 一致により自動的に既公開分と同一文字列を指すため変更不要。
-  const externalDuplicateGenerationAssets = generation.assets.filter((asset) => publishedAudioShaSet.has(asset.sha256));
-  const publishableGenerationAssets = generation.assets.filter((asset) => !publishedAudioShaSet.has(asset.sha256));
-  if (externalDuplicateGenerationAssets.length > 0) {
-    process.stderr.write(
-      `F011/${workId}: 既公開batchと同一WAVのcandidateを${externalDuplicateGenerationAssets.length}件検出、` +
-      `重複entryを追加せず既公開分を再利用します（audioId: ${externalDuplicateGenerationAssets.map((asset) => asset.audioId).join(', ')}）\n`,
-    );
-  }
-  const audioAssets = publishableGenerationAssets.map((asset) => ({
+  const audioAssets = generation.assets.map((asset) => ({
     audioId: asset.audioId,
     batchId: BATCH_ID,
     path: `audio/${BATCH_ID}/${asset.audioId}.wav`,
@@ -451,9 +433,7 @@ async function buildWorkFragmentPiece(
       sha256: asSha256(sha256(provenanceBytes)),
       bytes: provenanceBytes.byteLength,
     },
-    // stagingは公開catalogのaudioAssets集合と1:1で一致させる必要があるため、既公開分と
-    // 重複するassetはaudioAssets同様ここでも除外する（既公開batch側から既に配信される）。
-    generationAssets: publishableGenerationAssets,
+    generationAssets: generation.assets,
   };
 }
 
@@ -491,21 +471,10 @@ async function main(): Promise<void> {
     },
   ]));
 
-  // 既公開（v0.10.0固定baseline、F001〜F010）audio sha256集合。VOICEVOX合成は
-  // text+config決定論のため、既公開分と完全一致するcandidateのaudioは
-  // buildWorkFragmentPiece側で自fragmentへ二重登録しない（PUBLIC_ID_COLLISION回避）。
-  // ただし既にacceptedへ到達した先行work（例: 000637）はaudioAssetsのpathが
-  // manifest.workProgress[].acceptedAudioSourcesへ`audio/F011/<audioId>.wav`として
-  // 固定済みのため、ここで遡って除外するとbatch-public.tsの先行accepted audio突合
-  // （PUBLIC_REFERENCE_MISSING）を壊す。除外は現在work（未accepted、これから
-  // 新規にfragmentへ加わる分）に限定する。
-  const publishedAudioShaSet = new Set(v0100.catalog.audioAssets.map((asset) => asset.sha256));
-
   const accumulatedWorkIds = manifest.workIds.slice(0, workIndex + 1) as readonly F011WorkId[];
   const pieces: WorkFragmentPiece[] = [];
   for (const workId of accumulatedWorkIds) {
-    const shaSetForWork = workId === WORK_ID ? publishedAudioShaSet : new Set<string>();
-    pieces.push(await buildWorkFragmentPiece(workspace, workId, snapshot, registry, noticesByWorkId, shaSetForWork));
+    pieces.push(await buildWorkFragmentPiece(workspace, workId, snapshot, registry, noticesByWorkId));
   }
 
   const currentFragment: BatchCatalogFragment = {

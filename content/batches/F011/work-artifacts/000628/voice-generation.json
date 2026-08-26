@@ -177,38 +177,6 @@
       ]
     },
     {
-      "audioId": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
-      "bytes": 27180,
-      "candidateIds": [
-        "IYovdjGtidDGIWvhWi-C4JXJ0V6O0DECy4hNqUURksk"
-      ],
-      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-      "durationMs": 565,
-      "path": "audio/F011/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
-      "sha256": "bde748264d64bfb1c1fa529a8d3b02334975dccf5478651910e92af33a3ffa71",
-      "source": "staging",
-      "sourcePath": "content/batches/F011/work-artifacts/000628/.voice-stage-000628/5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668.wav",
-      "workIds": [
-        "000628"
-      ]
-    },
-    {
-      "audioId": "51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087",
-      "bytes": 44076,
-      "candidateIds": [
-        "FG3i_rrQnSDmNhuVmH1X2iVqIbbF5NldebR3V6_eb8I"
-      ],
-      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-      "durationMs": 917,
-      "path": "audio/F011/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.wav",
-      "sha256": "782e0957e0dc47b221a0b791760e7d7ee54b7cb2a44e30aa4fb9e7087fee5d76",
-      "source": "staging",
-      "sourcePath": "content/batches/F011/work-artifacts/000628/.voice-stage-000628/51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087.wav",
-      "workIds": [
-        "000628"
-      ]
-    },
-    {
       "audioId": "5d8c69f1231e04ba0e2f513cc11c718f4d90eaf477be5ed3b2f1060c14b80834",
       "bytes": 180780,
       "candidateIds": [
@@ -513,19 +481,19 @@
       ]
     }
   ],
-  "attempted": 32,
-  "authorizationDigest": "9ff8c1f88bcc069caa0a652082a0add443e040db08e66fad4d04145ba331bec8",
+  "attempted": 30,
+  "authorizationDigest": "1ad120d7c25666e35dedae7a09fb119ca77922dd5dfffb3ba66d17474b73cbab",
   "batchId": "F011",
   "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
   "expectedManifestSha": "e10059c23c4eaab894d0ed1054aca845fe02c07d6a70908ca378ed377ef69687",
   "failed": 0,
   "failures": [],
-  "generationDigest": "c8c9928e29d0363630e1982502e0591fa3dbf7235162599fff763e8adc8c946b",
-  "planDigest": "9ab26d1c6119261ce15e44be819b4e1abdfc814d157291b633f24fe0ea8db1dd",
+  "generationDigest": "b9786ccdbd882df29a5b091a8491471bdb24f215ce63e6bfc5450a741ce21ef6",
+  "planDigest": "c96a9e7207c66b4ca7e89fee71c1790c183ead35d8aac25340092014a2c06fca",
   "preTreeDigest": "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",
   "schemaVersion": "2",
-  "stagedBytes": 6820224,
+  "stagedBytes": 6748968,
   "stagingRoot": "content/batches/F011/work-artifacts/000628/.voice-stage-000628",
-  "succeeded": 32,
+  "succeeded": 30,
   "workId": "000628"
 }

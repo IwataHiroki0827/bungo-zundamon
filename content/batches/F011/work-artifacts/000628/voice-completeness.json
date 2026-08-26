@@ -1,6 +1,6 @@
 {
-  "approvedCount": 32,
-  "authorizationDigest": "9ff8c1f88bcc069caa0a652082a0add443e040db08e66fad4d04145ba331bec8",
+  "approvedCount": 30,
+  "authorizationDigest": "1ad120d7c25666e35dedae7a09fb119ca77922dd5dfffb3ba66d17474b73cbab",
   "batchId": "F011",
   "candidateAudio": {
     "_VMzUY64pyQIB31rTGmh9WTcMlV-O86T6jnwAccmF2w": "c6e9dac53bc3987fcb5d8518920eeb1338e347566ef596cf5b1adac0928fe469",
@@ -15,11 +15,9 @@
     "Auj44irWLYl6dNFTAoqSC8uyJQzl6Iz1PmBs1nPELv8": "dd4ff5932507e4ee69d19d7a962fe862de2439be8c0bc4b8b9d0ce115ff39aa2",
     "BmDt1qrpqRb5IpwEp98GJWEdcoCHR8ThLZvhXGFF9xY": "78169926c11bd41a38faeed79a1da3811708aa6f3ba1fc2fa78440b9fd3d4ef7",
     "fFVW3Xu2bSxlgFMeigbi7UWdFykXRoIZjyHbir7vI_4": "e95e55d5a2d222e9f79515f50da7dd61db9bd8d2394b0292bedcca49489db2c6",
-    "FG3i_rrQnSDmNhuVmH1X2iVqIbbF5NldebR3V6_eb8I": "51dd4bfe2507c417615e069993304088e5a943cd1bec2ea42cf9a9016e60b087",
     "g0DhvRGgIfSXQGHLXbuZrLHC3FRpqf6ObL4tIM351VU": "1cd608f8fead507db36a3e41539bb0af1905eec6bb8fcfe0eb14bb69dd6acaab",
     "g5MBAQ6djVj4cSNvJhzUwOubVWqYMHya7tF-EW4kQWM": "4a6be0c903be1c48a68c95c963a6b8c093976ee8f1006c5cccd319314462c9d9",
     "h6SSPln24UQTNqHBNlAuPTr88M6bjlRXXOvkqUDEuVE": "23491925bb8edd83afd598b80cfa23dafd3065868fb4946daa9ed3c415d3c53d",
-    "IYovdjGtidDGIWvhWi-C4JXJ0V6O0DECy4hNqUURksk": "5050fc0c6970a561343ab7d373433ad19c8b5a7a3dc1fa5d9884003f8eb28668",
     "JmalAZQ7vkFtB9I3W2bAPvbhlQ1Vw3jeFMULW2UafuY": "edba18f4017659db2dd0b73f3b4503b85d773c31afad8004cd716e900975ff69",
     "jw_ricYwv1-yLbxfZiu0PJNC2GS6K2pJP5rq_w_SG1c": "7ebfdaabf61a58a15d1eedff1114276d33096efeb63b9d8f07a7815b6566388e",
     "L0jutWcewi0f8AHAVw6G01TbULcDB7-1L_HS-sj88QM": "dcb1be52533a5fb07853858e90a7e9a17f65a4e1cd08fede5342b2718ebfe4c6",
@@ -36,12 +34,12 @@
     "vV8rvIgsvSs1wG-RePBJtux4y3H3K9nI8cCgHmOV8iI": "13e38c999fe2688ee29932cc539568113b7ce27615a1a1d150adb41d82bee1cc",
     "vvKm_ao9kJ1bRoA8BnEQ9jsX9gMxV7HqfcpVrtzWiPg": "9c4069c77917d9617494d3d7d5311d1c335113f6dadb02062b2dbd2b29ecfad9"
   },
-  "completenessDigest": "5c74bb780e10e4d60ad269cf33c203272e6858c50137ab8650e38a4d2f1658db",
+  "completenessDigest": "75a14b8339471450c228d137d88106997989e2dc04fb681ce2f619134a9682e6",
   "expectedManifestSha": "e10059c23c4eaab894d0ed1054aca845fe02c07d6a70908ca378ed377ef69687",
-  "generationDigest": "c8c9928e29d0363630e1982502e0591fa3dbf7235162599fff763e8adc8c946b",
-  "planDigest": "9ab26d1c6119261ce15e44be819b4e1abdfc814d157291b633f24fe0ea8db1dd",
+  "generationDigest": "b9786ccdbd882df29a5b091a8491471bdb24f215ce63e6bfc5450a741ce21ef6",
+  "planDigest": "c96a9e7207c66b4ca7e89fee71c1790c183ead35d8aac25340092014a2c06fca",
   "preTreeDigest": "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",
   "result": "pass",
-  "uniqueAudioCount": 32,
+  "uniqueAudioCount": 30,
   "workId": "000628"
 }
