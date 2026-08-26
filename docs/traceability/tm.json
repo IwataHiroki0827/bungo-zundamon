@@ -11514,6 +11514,76 @@
         "FUN-F011-002"
       ]
     },
+    "IMPL:scripts/f011-final-integration.ts#80:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#80:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#156:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#156:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#209:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#209:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "FUN-F011-011"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#236:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#236:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#379:des": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "DES-F011-002"
+      ]
+    },
+    "IMPL:scripts/f011-final-integration.ts#379:fun": {
+      "type": "IMPL",
+      "defined_in": "scripts/f011-final-integration.ts",
+      "refs": [
+        "FUN-F011-002"
+      ]
+    },
     "IMPL:scripts/f011-init-batch.ts#18:des": {
       "type": "IMPL",
       "defined_in": "scripts/f011-init-batch.ts",
@@ -21670,6 +21740,48 @@
         "FUN-F010-005"
       ]
     },
+    "IMPL:src/content/f011-acceptance.test.ts#30:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "DES-F011-009"
+      ]
+    },
+    "IMPL:src/content/f011-acceptance.test.ts#30:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "FUN-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-acceptance.test.ts#73:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "DES-F011-009"
+      ]
+    },
+    "IMPL:src/content/f011-acceptance.test.ts#73:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "FUN-F011-010"
+      ]
+    },
+    "IMPL:src/content/f011-acceptance.test.ts#174:des": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "DES-F011-009"
+      ]
+    },
+    "IMPL:src/content/f011-acceptance.test.ts#174:fun": {
+      "type": "IMPL",
+      "defined_in": "src/content/f011-acceptance.test.ts",
+      "refs": [
+        "FUN-F011-010"
+      ]
+    },
     "IMPL:src/content/f011-acceptance.ts#41:des": {
       "type": "IMPL",
       "defined_in": "src/content/f011-acceptance.ts",
@@ -25181,6 +25293,20 @@
       "defined_in": "tests/e2e/f010-kajii-author.spec.ts",
       "refs": [
         "FUN-F010-011"
+      ]
+    },
+    "IMPL:tests/e2e/f011-niimi-author.spec.ts#31:des": {
+      "type": "IMPL",
+      "defined_in": "tests/e2e/f011-niimi-author.spec.ts",
+      "refs": [
+        "DES-F011-010"
+      ]
+    },
+    "IMPL:tests/e2e/f011-niimi-author.spec.ts#31:fun": {
+      "type": "IMPL",
+      "defined_in": "tests/e2e/f011-niimi-author.spec.ts",
+      "refs": [
+        "FUN-F011-011"
       ]
     },
     "IMPL:vite.config.ts#3:des": {

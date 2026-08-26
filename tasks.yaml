@@ -5537,13 +5537,27 @@ tasks:
   title: F011 UT・IT・QT・6環境・権利・容量・セキュリティ受入(専用e2e spec新規作成含む)を実施
   feature: F011
   phase: test
-  state: todo
+  state: done
   depends:
   - T-209
   tags: *id011
   mode: orchestration
   mode_reason: UT/IT/QT/6ブラウザ/権利/容量/セキュリティを独立実行して統合判定できるため。最初からtests/e2e/f011-niimi-author.spec.tsを作成する
   model: *model_f011
+  progress: >-
+    完了。src/content/f011-acceptance.test.ts(TARGET_WORK_ID=004718、
+    全3作品accepted後の末尾work、5/5 PASS)を新規作成。tests/e2e/
+    f011-niimi-author.spec.ts(4 tests、実測データ: authorId=000121・
+    3作品合計68台詞[ごん狐のAUDIO_ID_COLLISION2件除外後]・3作品とも
+    official-content-warning「非存在」を明示確認するnegativeケース)を
+    .cache/f011-final-integration-PHFSi1/の実catalog.jsonから実測して
+    新規作成。npm testフルスイート(1660件中35 failed、既知のWindows
+    local限定フレークのみ、f011-acceptance.test.ts単体再実行で5/5 PASS
+    確認済み)。npm run test:e2eはT-211でpublic/昇格するまでF011固有specが
+    実行できないため(F009/F010と同型の既知制約)、リリース段階で実行する。
+    tsc/eslint全PASS、trace_check.py対応漏れなし。次のアクションは
+    T-211(リリース前総点検・GitHub Pages公開・「10人になるまで進めて」
+    directive達成)。
 - id: T-211
   title: F011リリース前総点検・GitHub Pages段階公開・公開スモーク(10人目・最終目標達成)
   feature: F011
