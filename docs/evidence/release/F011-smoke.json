@@ -1,0 +1,52 @@
+{
+  "allRoutesCovered": true,
+  "artifactDigest": "65aa6e90ee7f2327ba805a5c19eeea0c606768d98952cd753fae7c4958f0d7f0",
+  "checkedAt": "2026-08-26T03:45:00Z",
+  "distSha256": "6ea42fc9261ffc9c59c712f83b1af4e11ecf34eb8827518f9941942dda032e67",
+  "expectedRoutes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/authors/yumeno-kyusaku",
+    "#/authors/kajii-motojiro",
+    "#/authors/niimi-nankichi",
+    "#/favorites",
+    "#/credits"
+  ],
+  "feature": "F011",
+  "releaseCandidateBatchId": "F011",
+  "releaseCommit": "06a7066d5d0ac08f81be1febac4e2dcebd5d3b2b",
+  "result": "pass",
+  "routes": [
+    "#/",
+    "#/authors/akutagawa-zunnosuke",
+    "#/authors/miyazawa-zunji",
+    "#/authors/dazai-osamu",
+    "#/authors/natsume-soseki",
+    "#/authors/nakajima-atsushi",
+    "#/authors/mori-ogai",
+    "#/authors/edogawa-ranpo",
+    "#/authors/yumeno-kyusaku",
+    "#/authors/kajii-motojiro",
+    "#/authors/niimi-nankichi",
+    "#/favorites",
+    "#/credits"
+  ],
+  "checks": {
+    "indexHttp200": true,
+    "authorCount": 10,
+    "workCount": 33,
+    "dialogueCount": 1314,
+    "audioAssetCount": 1296,
+    "artworkHttp200": true,
+    "artworkProvenanceHttp200": true,
+    "audioHttp200": true,
+    "provenanceHttp200": true
+  },
+  "note": "F011追加分の実データ(catalog.json実取得・10作者33作品1314台詞1296音声・niimi-nankichi(authorId=000121)存在確認)に加え、新美南吉route固有資産(artwork/artwork-provenance/audio/provenance の3作品分)HTTP200を実取得で確認。tests/e2e/f011-niimi-author.spec.ts(4 tests、実ブラウザPlaywright、public/昇格後にローカル実行して6ブラウザ×4=24/24 PASS確認済み)でauthor route描画・3作品いずれもofficial-content-warning注記が「非存在」であることの明示確認・初期全閉/単一再生/route切替停止contractを実ブラウザ操作で検証済み。フルe2eスイート301 passed・5 skipped・失敗0。実装過程で発見した2種類の音声重複問題(CHG-F011-001: ごん狐のAUDIO_ID_COLLISION 2件、CHG-F011-002: 手袋を買いにのAUDIO_CONTENT_DUPLICATE 1件、いずれも既存audioExcluded機構で解消)を反映した後の最終値。合計台詞数は当初想定の68から67(26+30+11)へ変化。「10人になるまで進めて」directiveが定める作者拡充目標(合計10作者)を本リリースで達成。"
+}
