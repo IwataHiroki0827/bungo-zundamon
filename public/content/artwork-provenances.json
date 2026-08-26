@@ -98,6 +98,17 @@
       },
       "provenanceRef": "content/artwork-provenance/F010.json",
       "provenanceSha256": "ef25075f4ff4207b4ee63b247a8bda9f81d7455eef9fdbda136c9eba1060f415"
+    },
+    {
+      "authorId": "000121",
+      "batchId": "F011",
+      "manifestId": "artwork-F011-000121-v1",
+      "output": {
+        "path": "artwork/niimi-nankichi-zundamon.png",
+        "sha256": "c5076c088534c560e063bb1f28243075a066123d8beca4b24eba4df5c8bb526f"
+      },
+      "provenanceRef": "content/artwork-provenance/F011.json",
+      "provenanceSha256": "1735df8aae75194ec6cb43199e8dd4bb98c1dc04aa4328f96a05b788cdb19ad1"
     }
   ],
   "schemaVersion": "1.0.0"

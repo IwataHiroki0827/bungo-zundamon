@@ -1788,3 +1788,75 @@ changes:
     accepted状態へ正しく到達した。npm run typecheck・
     npx eslint scripts/f011-content-preview.ts scripts/f011-prepare-voice.ts
     --max-warnings 0はいずれもclean。
+
+- id: CHG-F011-002
+  date: '2026-08-26'
+  trigger: npm run build（scripts/build-offline.mjs → scripts/verify-project.mjs →
+    scripts/release-checks.mjsのverifyAssetBudget、共有/凍結）が
+    DUPLICATE_AUDIO_HASH:audio/F011/
+    d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.wavで
+    失敗した。手袋を買いに(000637)のcandidateId
+    PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE（text「あっ」）のVOICEVOX
+    合成結果WAVが、F008公開済み音声(dist/audio/F008/
+    7a7a8f67e8ca51b3c2f07aff06a9f67854d64b56cae2315f055b89d3e9b76821.wav)と
+    byte単位で完全一致(sha256
+    652c7d4e89f8e0616043d7d5220eb88560812a0cc448dffc6b809d892c6a5470)して
+    いた。CHG-F011-001/CHG-F008-004（audioId=text+config内容hashの文字列
+    衝突、createVoiceCacheKey）とは根本原因が異なる: 本件はaudioId自体は
+    衝突しておらず、VOICEVOX合成結果のWAVバイト列がたまたま一致した
+    （短い間投詞「あっ」に典型的な事象）。verifyAssetBudgetは正しく機能
+    しており、このcandidateを公開対象から除外する必要があった。
+  level: design
+  affected:
+  - scripts/f011-content-preview.ts
+  - scripts/f011-final-integration.ts
+  - scripts/f011-reset-work.ts
+  - scripts/f011-exclude-000637-duplicate.ts
+  - content/batches/F011/work-artifacts/000637/speech-revisions.json
+  - T-207
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づく設計対応のため即時適用)
+  completed_at: '2026-08-26T00:00:00+09:00'
+  result: CHG-F011-001と同じ「音声段階除外」機構(candidateCounts.
+    audioExcluded、既存schema)を再利用しつつ、根本原因の違いを区別できる
+    よう理由コードの割当てを汎用化した:
+    - scripts/f011-content-preview.ts・scripts/f011-final-integration.ts
+      （同型の複製）双方のcomputeExclusionCounts()に
+      AUDIO_FAILURE_REASON_OVERRIDES(candidateId→理由コードのMap、この
+      1候補のみAUDIO_CONTENT_DUPLICATEを明示指定)を追加し、既定値
+      AUDIO_ID_COLLISIONはそのまま維持した。audioFailureReasonsは元々
+      Record<string, number>の汎用schemaのため、新規理由コード追加は
+      schema変更を伴わない。AUDIO_ID_COLLISIONへ寄せて一本化する案も
+      検討したが、根本原因(audioId文字列衝突 vs 音声byte内容の偶然一致)
+      が異なり将来の傾向分析(どちらが多いか)を妨げるため、新規コードを
+      採用した。
+    - scripts/f011-reset-work.ts: 対象workId引数化に加え、batch全体が
+      既にaccepted状態でも対象workを巻き戻せるよう、workProgress巻き戻し
+      後の最低状態にbatch.status/acceptedAt/acceptedByを合わせて整合させる
+      よう拡張。対象状態にvoiced（reviewedへの巻き戻し前段）も許容するよう
+      一般化（promoteVerifiedWorkArtifactsのpreTreeDigest検証がbatch全体の
+      accepted-audio木を対象にするため、巻き戻し順序を誤ると
+      WORK_PROMOTION_INPUT_STALEになり、正しい順序でのやり直しが必要に
+      なることが判明したため）。
+    - scripts/f011-exclude-000637-duplicate.ts(新規、1回限りの運用script、
+      scripts/f011-exclude-000628-collisions.tsの複製): speech-revisions.json
+      から該当1候補を除外(27→26件)。candidates.json・reviews/000637.json・
+      review-reconciliation.jsonは変更しない。
+
+    再実行: 000637を巻き戻し・除外・再合成。000637の再accept時、manifest
+    workIds順で「先行work全accepted・後続work非accepted」を要求する
+    forward-only制約(assertOrder、src/content/f011-acceptance.ts、変更
+    禁止)に抵触したため、既にaccepted済みだった000628・004718を一時的に
+    reviewedへ巻き戻し、prepare-voice→content-preview→capacity-actual→
+    accept-workを000637→000628→004718の順で再実行して復帰させた。事前に
+    000628(30 WAV)・004718(11 WAV)のaccepted-audioがdist/audio/F001〜F010
+    (baseline)とbyte内容で1件も衝突していないことをsha256全数比較で確認
+    済み(このCHG-F011-002の対象は000637のみ、他2作品は無関係)。
+
+    scripts/f011-final-integration.ts --retainで再統合した結果、F011の
+    candidateCounts.byBatch.F011はaudioExcluded: 3・audioFailureReasons
+    {AUDIO_CONTENT_DUPLICATE: 1, AUDIO_ID_COLLISION: 2}を正しく報告、
+    catalog全体はdialogues: 1314・audioAssets: 1296・works: 33(修正前は
+    1315/1297)。robocopy /MIRでpublic/を再統合結果へ再昇格し、npm run build
+    はDUPLICATE_AUDIO_HASHなしで成功(build verification passed: 1366 files
+    / 559220590 bytes)。npm run typecheckはclean。
