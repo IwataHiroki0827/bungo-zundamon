@@ -1728,3 +1728,63 @@ changes:
     src/content/batch-public.ts・src/content/f008-catalog.tsは
     CHG-F008-004以前の状態(strict audioId一意性)へ完全に戻したまま
     (revert commit 31c0defのとおり、以降変更していない)。
+
+- id: CHG-F011-001
+  date: '2026-08-26'
+  trigger: F011ごん狐(000628)の32承認候補中2件(candidateId
+    IYovdjGtidDGIWvhWi-C4JXJ0V6O0DECy4hNqUURksk /
+    FG3i_rrQnSDmNhuVmH1X2iVqIbbF5NldebR3V6_eb8I)が、v0.10.0固定baseline
+    (F001〜F010公開済み)の既存音声とaudioId(text+config内容hash、
+    createVoiceCacheKey、src/voice/cache.ts)が偶然一致していた。前回対応
+    (commit 56eda3e)はF011自身のcatalog fragmentのaudioAssetsからのみ
+    この2件を除外し、dialoguesはそのまま残す方式を取ったが、これは誤りで
+    あることが本セッションで判明した: dialogueのaudioId参照はcatalog全体
+    構築時に他batch(F003等)のaudioAsset(batchId!==F011)へ解決されるため、
+    src/ui/render.ts(共有、変更禁止)のハード不変条件(1 audioIdにつき
+    asset厳密に1件、かつそのbatchIdがwork.batchIdと一致すること、
+    assets?.length !== 1 || assets[0].batchId !== work.batchIdで
+    UIRenderErrorを投げる)に違反した状態のままだった。CHG-F008-004
+    (F009でも再利用済み)で確立済みの正しい修正パターンをF011へ未適用
+    だったことが根本原因。
+  level: design
+  affected:
+  - scripts/f011-content-preview.ts
+  - content/batches/F011/work-artifacts/000628/speech-revisions.json
+  - T-207
+  status: done
+  approved_by: 2026-08-20制定の自動承認方針(design levelは承認ゲート対象外、実データに基づく設計対応のため即時適用)
+  completed_at: '2026-08-26T00:00:00+09:00'
+  result: CHG-F008-004の確立済み方式(音声段階除外、既存schemaの
+    candidateCounts.audioExcluded/audioFailureReasons.AUDIO_ID_COLLISION)を
+    F011へ正しく適用した:
+    - scripts/f011-reset-work.ts(新規、f008-reset-057193-to-reviewed.tsの
+      複製): work状態遷移はforward-onlyのため、000628をaccepted→reviewedへ
+      直接書き換えで巻き戻し、voiced以降の派生artifact(accepted-audio・
+      capacity-actual/forecast・voice-evidence・
+      voice-generation/completeness・staging・public-files/provenance)を
+      削除する。
+    - scripts/f011-exclude-000628-collisions.ts(新規、1回限りの運用
+      script): content/batches/F011/work-artifacts/000628/
+      speech-revisions.jsonから該当2候補を除外(32→30件)。candidates.json・
+      reviews/000628.json・review-reconciliation.json(編集レビューの実記録)
+      は変更していない(この2候補は編集上approvedのまま、音声段階でのみ
+      除外するため)。
+    - scripts/f011-content-preview.ts: commit 56eda3eで追加した誤った
+      publishedAudioShaSet filter(audioAssets/generationAssetsのみ除外し
+      dialoguesは残す方式)を撤回した。F011には既にF009/F010と同一の
+      computeExclusionCounts()関数が実装済みだったため(未活用のまま
+      放置されていた)、buildWorkFragmentPieceを通常どおりgeneration.assets
+      全件をaudioAssetsへ登録する形へ戻すだけで、除外は音声合成前の
+      speech-revisions.json編集で完結するようになった。
+
+    再実行: scripts/f011-prepare-voice.ts 000628は30/30候補で成功。
+    scripts/f011-content-preview.ts 000628は成功し、catalog全体の
+    candidateCounts.byBatch.F011がaudioExcluded: 2・
+    audioFailureReasons.AUDIO_ID_COLLISION: 2を正しく報告することを確認、
+    000628のdialogues/audioAssetsは共に30件でbatchId=F011一致を確認、
+    v0.10.0固定baselineとのaudioId重複が0件であることを確認。
+    scripts/f011-capacity-actual.ts 000628・scripts/f011-accept-work.ts
+    000628を再実行し、000628は30 WAV(accepted-audio/000628配下)で
+    accepted状態へ正しく到達した。npm run typecheck・
+    npx eslint scripts/f011-content-preview.ts scripts/f011-prepare-voice.ts
+    --max-warnings 0はいずれもclean。
