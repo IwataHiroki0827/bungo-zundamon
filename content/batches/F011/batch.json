@@ -1,6 +1,4 @@
 {
-  "acceptedAt": "2026-08-26T01:37:20.527Z",
-  "acceptedBy": "content-acceptance-transaction",
   "approvalGateRefs": {
     "design": "docs/design/DD-F011.md",
     "release": "docs/evidence/release/F011-approval.json",
@@ -52,7 +50,7 @@
   ],
   "schemaVersion": "1.0.0",
   "stageRecords": [],
-  "status": "accepted",
+  "status": "voiced",
   "voiceConfigRef": "content/batches/F011/voice-config.json",
   "workIds": [
     "000637",
@@ -61,167 +59,6 @@
   ],
   "workProgress": [
     {
-      "acceptedAt": "2026-08-26T01:07:03.948Z",
-      "acceptedAudioSources": [
-        {
-          "bytes": 166956,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/02868b68fee31f3d0827cbd972d8c791ee591840af04bc2b038020988149575a.wav",
-          "sha256": "9483a3bd06691e3967d8231ab9f9da5a9a155346b1f9128a702964127d5d52ff"
-        },
-        {
-          "bytes": 247340,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/21bf3dc5f5e57d4ea0e9579887ab441e0cb582c2f69d03fddb734e97f31ebe19.wav",
-          "sha256": "136e1a7baecef9760fe2bfbd5a5e19bc06165c4cc1436c13e9f512eeed103683"
-        },
-        {
-          "bytes": 348204,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/2eb08020e7300692ef1605586ec8609a1d4576235d31e1e39b50354926b1ecd2.wav",
-          "sha256": "34e4a2e0b9ab2b201b1e400052c5242a5a40051a690a162977fc49638de11c70"
-        },
-        {
-          "bytes": 235052,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/3fe17e45ecab19a0686e65dbffdd039ad734817a0be84b13b929bf663783d763.wav",
-          "sha256": "50720955f6399e146df2f28f3a3afc9aebf9c59ee2916eaf76d0a3bd765408d1"
-        },
-        {
-          "bytes": 611884,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/459292870e0c39410895e417cab0332ae9d0afae5cd42df961dfa43a76e9535c.wav",
-          "sha256": "b5477ece314849fe924e636aa365991aaf6b8533f56968dbdecc8b3ebb9ed305"
-        },
-        {
-          "bytes": 285740,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/4d8a840d3ac98076d98a66cfe53019b99baa75865f326e65ebb9dfaeb3b47fd5.wav",
-          "sha256": "3c5c46c94f9c3bb912ebb2a4b5c748fa3f4151f99c4c8628d11725642083ca1c"
-        },
-        {
-          "bytes": 39980,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/64fa5e86a3cb5bda6ce8a309cef9a1ffbbf44660b11c0b504ccd3c29aaaf952e.wav",
-          "sha256": "78713a496f858cdb37ef3f0d5926dbe4cb2f9a2bcaacdb10a2dc847df79ff264"
-        },
-        {
-          "bytes": 47660,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/747d91753d204681385049b42fc3b3f6b04b048d95c209e22dc1b5b27b33bb2a.wav",
-          "sha256": "9df7e4c359e2d8af0c0a04bff6f2c1682f2dca4998a7698cff2986e98f925994"
-        },
-        {
-          "bytes": 47148,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/7f89d6e3de7c36bf64e9c02dfa4c596ab784aa8eb9190bf323ee54160179c96e.wav",
-          "sha256": "cc50b64d9fb0a19a5656ecbae700298998278dc87c4baa0edb2f238a09281bf8"
-        },
-        {
-          "bytes": 90668,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/8321e4e51ca21ba22f1513879b69a000cbf610e4000423278c8cd0972b8ae410.wav",
-          "sha256": "c48c37042d8d51668a91e77b3faf5c449755d0017aad185b9cb9d8678a6fa5c8"
-        },
-        {
-          "bytes": 148012,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/8dc784bf5c0026e88a427c43ac527574a8f281d7c5a5e5ae7ad1af7b09e36d52.wav",
-          "sha256": "8e7be629644f8ea99fd3d759b47d99fd7b466d0c67f3878d6849aacddb893507"
-        },
-        {
-          "bytes": 525356,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/994e45e964dd306b2015a40adf2d52180dec1b1a60b5748e0a2b5fd53004d347.wav",
-          "sha256": "db7ae41896be51a66ee1c8896ea0648a44e3ab381b424a3485998613d58e6eb2"
-        },
-        {
-          "bytes": 152108,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/a2866e1bb727b00760f2eb3aed40b05b7d3f40d21b106ce1978097d3bbb68040.wav",
-          "sha256": "b7ceeb66f4d2c8faff1e064e4138168698e97abd6e5c0ad9071f1a67ae6b1234"
-        },
-        {
-          "bytes": 31276,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/b449aa8aef9ac131bb9f9f5a38020e044a200fcb6698464a1e80344a4f6d072f.wav",
-          "sha256": "36f89583c9cc36662a9829d5ac072e9fc9123574a5bf7102b8140c4fbcf47608"
-        },
-        {
-          "bytes": 778284,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/b477949e9ffb65cfb717f659379b07fc6ca52bf9afae0ab3aa351a28919bb17b.wav",
-          "sha256": "21dd519b8d4228c56a6e37e69685c435a4135a9e189050585537e974b689a189"
-        },
-        {
-          "bytes": 273964,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/b7bb7dec704759efd6e978473fbdf1b1f532514f6b4966e06362b07de33a94b3.wav",
-          "sha256": "ee074fe441f0d167a57c4371808e777347b4a00c0e2ce1847c8cb7015b22f356"
-        },
-        {
-          "bytes": 255020,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/c59522b78a4feef99c4f4bbb2db7088f0b154d5d83beb5ad2c578d232f5cf4d0.wav",
-          "sha256": "87cda2ef66fce731f31cf0395a56848cecada9a3cbd8d15bbb3091443304eed1"
-        },
-        {
-          "bytes": 104492,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/c5d34a19495c7852ab6694e6dc51ff89e0cf6c1dec087004fdb114632136196c.wav",
-          "sha256": "07b54e5163d1a1b42f55640a0cf20af4f505d7ef051702b5e618122df8412931"
-        },
-        {
-          "bytes": 91692,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/c6c8a56f6e888001bd87254344ea5343bbb73948a9d93a038b8448bb29030798.wav",
-          "sha256": "275cebdea006cbf479d554887a0f08c70febaecf91f91ad8a8f36c5e0c217ddd"
-        },
-        {
-          "bytes": 28204,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.wav",
-          "sha256": "652c7d4e89f8e0616043d7d5220eb88560812a0cc448dffc6b809d892c6a5470"
-        },
-        {
-          "bytes": 295468,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/d8d74b89afdbf199b06481f1a9dd13622ffabd1ed6615ea519ecafb4a014f400.wav",
-          "sha256": "191679941eac8ab615a394916be099bc4ad006fe2e995f53a7ea4e783ba3c7e8"
-        },
-        {
-          "bytes": 443948,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/dc0ed9adcb9c143358e44844678b7479ee7d675be3d49b8565ddbc59101dd30a.wav",
-          "sha256": "0001871fa568f63f45e41e24d9eddf7fedae624390840a0f032a1b08e2ba5ce6"
-        },
-        {
-          "bytes": 105004,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/e3946fa936747ff96827ada64f4f7ebb1f7e24058980bb041dd14ff47fc63468.wav",
-          "sha256": "be89603f0f817138aae731bbf2378a0e8bd0735c1f419831cc58da944a5c2bc6"
-        },
-        {
-          "bytes": 132652,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/e75fc92c7559b3e33e4a18e8c768a071c817ae2ec8e18e7c0acc83f9c0022762.wav",
-          "sha256": "e2dac79258851eac2e8734f22890cb1d273c277ebcbe2acdfd78dc4b9cdb87d4"
-        },
-        {
-          "bytes": 1707564,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/ed0f4f24bacea09effd47964069eac67617e0beb196b6d7523c5c709ff6ff586.wav",
-          "sha256": "af59666ffa86a2bb54a3c8ad708523bf7927c7ad3d53c9b64f7b2bbe1e3500e1"
-        },
-        {
-          "bytes": 240684,
-          "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-          "path": "content/batches/F011/accepted-audio/000637/ed94c351f6f13b77dc8719a62a6bcbbf9d62ad42914ea3d104278517f6cbe9c6.wav",
-          "sha256": "c82fe00f500192aaa3f0ba355dc085d09aecba791c344341c361d8db57f58e96"
-        }
-      ],
-      "acceptedBy": "content-acceptance-transaction",
-      "actualCapacityRef": "content/batches/F011/capacity-actual/000637.json",
       "forecastRef": "content/batches/F011/capacity-forecast/000637.json",
       "stageRecords": [
         {
@@ -250,110 +87,33 @@
           "toolVersion": "f011-prepare-editorial-v1"
         },
         {
-          "completedAt": "2026-08-23T22:50:41.851Z",
-          "count": 27,
+          "completedAt": "2026-08-26T02:05:02.682Z",
+          "count": 26,
           "inputHashes": [
-            "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de",
+            "ec9456530bcddf0d061529965e24891802877ba846e58fcf05a83ce1fd101b83",
             "7671394d5bbc8bed6d51fe7af6c8d3d0df9e3479ea277ddf2908a11defb7f156"
           ],
           "outputHashes": [
-            "f6d168a95d6626aafb89f361e81a191f9d35b0f543289767d13ea8d87a5ece95"
+            "6b983fcbb938da0a96128decc708de7af28545c13eee51aaee801089cac7b708"
           ],
           "stage": "budget-approved",
           "toolVersion": "f011-prepare-voice-forecast-v1"
         },
         {
-          "completedAt": "2026-08-23T22:51:39.534Z",
-          "count": 26,
+          "completedAt": "2026-08-26T02:05:59.078Z",
+          "count": 25,
           "inputHashes": [
-            "943f2b11c668f7328038621650ae67c5f4fcc7ec3f5330c088dc5b592dc158e0",
-            "f6d168a95d6626aafb89f361e81a191f9d35b0f543289767d13ea8d87a5ece95"
+            "ed43e80de437c8e20085fbe6f04c8977bf12e509f672a77126fc38b7b393e303",
+            "6b983fcbb938da0a96128decc708de7af28545c13eee51aaee801089cac7b708"
           ],
           "outputHashes": [
-            "8d1f5f294be0d8e10cf4215132b2a83f37572b53979cc8bdf0f16aa5fa24171b"
+            "d7d60a2122563dc387df36ec1d147587cfce2f053b54b5228bf8f891932483b6"
           ],
           "stage": "voiced",
           "toolVersion": "f011-prepare-voice-generate-v1"
-        },
-        {
-          "completedAt": "2026-08-26T01:06:46.092Z",
-          "count": 26,
-          "inputHashes": [
-            "8d1f5f294be0d8e10cf4215132b2a83f37572b53979cc8bdf0f16aa5fa24171b",
-            "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de"
-          ],
-          "outputHashes": [
-            "bfb062732e30c79bfd6df9bd63e49668de2fcacfeddced2492e86753b5be5c72",
-            "466eb6681d55d1389dfd9be8c99241917d5de66c229342fd815a7a32af31c09c"
-          ],
-          "stage": "voiced",
-          "toolVersion": "f011-capacity-actual-voiced-direct-v1"
-        },
-        {
-          "completedAt": "2026-08-26T01:06:59.484Z",
-          "count": 26,
-          "inputHashes": [
-            "5baa9e9eef2320f414ba03471943888d0edaf250694274bae17e1ba20c7e78d3",
-            "bfb062732e30c79bfd6df9bd63e49668de2fcacfeddced2492e86753b5be5c72",
-            "466eb6681d55d1389dfd9be8c99241917d5de66c229342fd815a7a32af31c09c",
-            "d79769350fa3104b35fc1f0fe4347ee1f33ca834d0eabd6bf5260acdf330a977"
-          ],
-          "outputHashes": [
-            "ff4f22a42ab8cb72b98ad3b5d0119f589edd0482432c425ee82134e58364ae6a",
-            "4a5833c4e3d29ebf6d79813f9aba56a97497eea6225aca15708c3a35a832ddb9",
-            "74d74807385e96bf1a30d0342b388adee6ba90f66ceedd1043aa4216c7bd08fc",
-            "3ae02cb974db7009266d7698da39a02f12aaf9695ac266fd22082cd2347ca34d"
-          ],
-          "stage": "capacity-actual",
-          "toolVersion": "f011-capacity-actual-v1"
-        },
-        {
-          "completedAt": "2026-08-26T01:07:03.948Z",
-          "count": 26,
-          "inputHashes": [
-            "dd25f61ed4bfd3336ab885f946e6aa5c0b7e2d07ca84ab280b22e50f99df2aac",
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "d79769350fa3104b35fc1f0fe4347ee1f33ca834d0eabd6bf5260acdf330a977",
-            "d79769350fa3104b35fc1f0fe4347ee1f33ca834d0eabd6bf5260acdf330a977",
-            "4a5833c4e3d29ebf6d79813f9aba56a97497eea6225aca15708c3a35a832ddb9",
-            "ff4f22a42ab8cb72b98ad3b5d0119f589edd0482432c425ee82134e58364ae6a",
-            "74d74807385e96bf1a30d0342b388adee6ba90f66ceedd1043aa4216c7bd08fc",
-            "3ae02cb974db7009266d7698da39a02f12aaf9695ac266fd22082cd2347ca34d"
-          ],
-          "outputHashes": [
-            "4e3b90465e744ed3d43947f17b5960aeabfb75cbc9e15d4b3603f2cee4a8691b",
-            "9483a3bd06691e3967d8231ab9f9da5a9a155346b1f9128a702964127d5d52ff",
-            "136e1a7baecef9760fe2bfbd5a5e19bc06165c4cc1436c13e9f512eeed103683",
-            "34e4a2e0b9ab2b201b1e400052c5242a5a40051a690a162977fc49638de11c70",
-            "50720955f6399e146df2f28f3a3afc9aebf9c59ee2916eaf76d0a3bd765408d1",
-            "b5477ece314849fe924e636aa365991aaf6b8533f56968dbdecc8b3ebb9ed305",
-            "3c5c46c94f9c3bb912ebb2a4b5c748fa3f4151f99c4c8628d11725642083ca1c",
-            "78713a496f858cdb37ef3f0d5926dbe4cb2f9a2bcaacdb10a2dc847df79ff264",
-            "9df7e4c359e2d8af0c0a04bff6f2c1682f2dca4998a7698cff2986e98f925994",
-            "cc50b64d9fb0a19a5656ecbae700298998278dc87c4baa0edb2f238a09281bf8",
-            "c48c37042d8d51668a91e77b3faf5c449755d0017aad185b9cb9d8678a6fa5c8",
-            "8e7be629644f8ea99fd3d759b47d99fd7b466d0c67f3878d6849aacddb893507",
-            "db7ae41896be51a66ee1c8896ea0648a44e3ab381b424a3485998613d58e6eb2",
-            "b7ceeb66f4d2c8faff1e064e4138168698e97abd6e5c0ad9071f1a67ae6b1234",
-            "36f89583c9cc36662a9829d5ac072e9fc9123574a5bf7102b8140c4fbcf47608",
-            "21dd519b8d4228c56a6e37e69685c435a4135a9e189050585537e974b689a189",
-            "ee074fe441f0d167a57c4371808e777347b4a00c0e2ce1847c8cb7015b22f356",
-            "87cda2ef66fce731f31cf0395a56848cecada9a3cbd8d15bbb3091443304eed1",
-            "07b54e5163d1a1b42f55640a0cf20af4f505d7ef051702b5e618122df8412931",
-            "275cebdea006cbf479d554887a0f08c70febaecf91f91ad8a8f36c5e0c217ddd",
-            "652c7d4e89f8e0616043d7d5220eb88560812a0cc448dffc6b809d892c6a5470",
-            "191679941eac8ab615a394916be099bc4ad006fe2e995f53a7ea4e783ba3c7e8",
-            "0001871fa568f63f45e41e24d9eddf7fedae624390840a0f032a1b08e2ba5ce6",
-            "be89603f0f817138aae731bbf2378a0e8bd0735c1f419831cc58da944a5c2bc6",
-            "e2dac79258851eac2e8734f22890cb1d273c277ebcbe2acdfd78dc4b9cdb87d4",
-            "af59666ffa86a2bb54a3c8ad708523bf7927c7ad3d53c9b64f7b2bbe1e3500e1",
-            "c82fe00f500192aaa3f0ba355dc085d09aecba791c344341c361d8db57f58e96"
-          ],
-          "stage": "accepted",
-          "toolVersion": "accepted-audio-transaction-v1"
         }
       ],
-      "status": "accepted",
+      "status": "voiced",
       "voiceEvidenceRef": "content/batches/F011/voice-evidence/000637.json",
       "workId": "000637"
     },

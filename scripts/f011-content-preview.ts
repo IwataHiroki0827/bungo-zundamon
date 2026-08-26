@@ -80,6 +80,20 @@ import type { ReviewRecord } from '../src/content/processing.ts';
  */
 
 const BATCH_ID = 'F011';
+/**
+ * audioExcluded対象candidateのうち、音声段階除外の実根本原因がaudioId文字列衝突
+ * (AUDIO_ID_COLLISION、既定)ではないものを明示的に上書きするための対応表。
+ * CHG-F011-002: candidateId
+ * PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE（000637・手袋を買いに・「あっ」）は
+ * audioId自体はaudioId衝突していないが、VOICEVOX合成結果のWAVバイト内容が
+ * F008公開済み音声と偶然一致した（AUDIO_CONTENT_DUPLICATE）。区別する理由は
+ * docs/changes/changes.yaml CHG-F011-002参照。汎用schema
+ * (candidateCounts.audioFailureReasons: Record<string, number>)を維持したまま、
+ * このscript内のデータテーブルで理由コードだけを差し替える。
+ */
+const AUDIO_FAILURE_REASON_OVERRIDES = new Map<string, string>([
+  ['PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE', 'AUDIO_CONTENT_DUPLICATE'],
+]);
 const workIdArgument = process.argv[2];
 if (!workIdArgument || !F011_WORKS.some((work) => work.workId === workIdArgument)) {
   throw new Error(
@@ -284,6 +298,7 @@ interface WorkFragmentPiece {
 function computeExclusionCounts(
   reviews: readonly ReviewRecord[],
   speech: readonly SpeechRecord[],
+  resolveAudioFailureReason: (candidateId: string) => string = () => 'AUDIO_ID_COLLISION',
 ): Pick<WorkFragmentPiece, 'editorialExcluded' | 'editorialReasons' | 'audioExcluded' | 'audioFailureReasons'> {
   const speechIds = new Set(speech.map((item) => item.candidateId));
   const editorialReasons: Record<string, number> = {};
@@ -296,7 +311,8 @@ function computeExclusionCounts(
       editorialReasons[review.reasonCode] = (editorialReasons[review.reasonCode] ?? 0) + 1;
     } else if (!speechIds.has(review.candidateId)) {
       audioExcluded++;
-      audioFailureReasons.AUDIO_ID_COLLISION = (audioFailureReasons.AUDIO_ID_COLLISION ?? 0) + 1;
+      const reasonCode = resolveAudioFailureReason(review.candidateId);
+      audioFailureReasons[reasonCode] = (audioFailureReasons[reasonCode] ?? 0) + 1;
     }
   }
   return { editorialExcluded, editorialReasons, audioExcluded, audioFailureReasons };
@@ -426,7 +442,11 @@ async function buildWorkFragmentPiece(
     audioAssets,
     candidateTotal: candidatesArtifact.candidates.length,
     publishedTotal: dialogues.length,
-    ...computeExclusionCounts(reviews, speechArtifact.speech),
+    ...computeExclusionCounts(
+      reviews,
+      speechArtifact.speech,
+      (candidateId) => AUDIO_FAILURE_REASON_OVERRIDES.get(candidateId) ?? 'AUDIO_ID_COLLISION',
+    ),
     provenancePublicFile: {
       source: asWorkspacePath(provenanceSourcePath),
       publicPath: asWorkspacePath(provenancePublicPath),

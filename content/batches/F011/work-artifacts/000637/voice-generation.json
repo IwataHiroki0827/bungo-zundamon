@@ -306,22 +306,6 @@
       ]
     },
     {
-      "audioId": "d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192",
-      "bytes": 28204,
-      "candidateIds": [
-        "PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE"
-      ],
-      "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-      "durationMs": 587,
-      "path": "audio/F011/d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.wav",
-      "sha256": "652c7d4e89f8e0616043d7d5220eb88560812a0cc448dffc6b809d892c6a5470",
-      "source": "staging",
-      "sourcePath": "content/batches/F011/work-artifacts/000637/.voice-stage-000637/d23e55a705c26306b4f476176b36a98df2fb72e4519a329b4c589865cb15f192.wav",
-      "workIds": [
-        "000637"
-      ]
-    },
-    {
       "audioId": "d8d74b89afdbf199b06481f1a9dd13622ffabd1ed6615ea519ecafb4a014f400",
       "bytes": 295468,
       "candidateIds": [
@@ -418,19 +402,19 @@
       ]
     }
   ],
-  "attempted": 26,
-  "authorizationDigest": "ca3c85f7e11503d6c9c46d6108730098222d7bb9a5be75df74cc4b9b3316d356",
+  "attempted": 25,
+  "authorizationDigest": "1cea9164ede73eaab867d208c7308295997ce8ef600507c921861b8cc5fe782a",
   "batchId": "F011",
   "configHash": "0c42dc249190ce75ad6f7dee06aeae099abcef4bbd7c23411c966c9389d14691",
-  "expectedManifestSha": "0eaeea33965eb8405003264579567fef7447b5aee8bb18299dd18f6c51f889de",
+  "expectedManifestSha": "ec9456530bcddf0d061529965e24891802877ba846e58fcf05a83ce1fd101b83",
   "failed": 0,
   "failures": [],
-  "generationDigest": "bfb062732e30c79bfd6df9bd63e49668de2fcacfeddced2492e86753b5be5c72",
-  "planDigest": "d8f449464815f5bf54d2b85353e36db1fd535e3be75f601e7d6033ff19401a50",
-  "preTreeDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "generationDigest": "54bb23229afe2fd820c925afacf34b734fed55eefa443bbab4ffeea7964dde81",
+  "planDigest": "a94edb5daa71f922d46f4e096f0016b61764571b1e52a0df651895f1be35db48",
+  "preTreeDigest": "0b6f21b584b30b2f90ccd0871a848499e5ef203280beea43ec528afcc8f2c86f",
   "schemaVersion": "2",
-  "stagedBytes": 7434360,
+  "stagedBytes": 7406156,
   "stagingRoot": "content/batches/F011/work-artifacts/000637/.voice-stage-000637",
-  "succeeded": 26,
+  "succeeded": 25,
   "workId": "000637"
 }
