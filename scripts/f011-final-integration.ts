@@ -202,10 +202,23 @@ async function loadPublishedF010CatalogFragment(
 }
 
 /**
+ * audioExcluded対象candidateのうち、音声段階除外の実根本原因がaudioId文字列衝突
+ * (AUDIO_ID_COLLISION、既定)ではないものを明示的に上書きするための対応表。
+ * `scripts/f011-content-preview.ts`と同一の対応表(CHG-F011-002)。candidateId
+ * PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE（000637・手袋を買いに・「あっ」）は
+ * audioId自体はaudioId衝突していないが、VOICEVOX合成結果のWAVバイト内容が
+ * F008公開済み音声と偶然一致した（AUDIO_CONTENT_DUPLICATE）。詳細は
+ * docs/changes/changes.yaml CHG-F011-002参照。
+ */
+const AUDIO_FAILURE_REASON_OVERRIDES = new Map<string, string>([
+  ['PZmXbdvjp3qGWT0xGU3bSIXS1SevkBxRog70My_3brE', 'AUDIO_CONTENT_DUPLICATE'],
+]);
+
+/**
  * 候補の除外理由を「編集レビューで却下(reviews[].status!=='approved')」と
  * 「レビュー承認済みだが音声段階で除外(speech-revisions.jsonに不在、candidateCounts.
  * audioExcluded/audioFailureReasons)」へ正しく分離する。`scripts/f011-content-preview.ts`の
- * `computeExclusionCounts`と同一ロジック（CHG-F011-001で是正済み）。
+ * `computeExclusionCounts`と同一ロジック（CHG-F011-001/CHG-F011-002で是正済み）。
  * @des DES-F011-010 @fun FUN-F011-011
  */
 function computeExclusionCounts(
@@ -223,7 +236,8 @@ function computeExclusionCounts(
       editorialReasons[review.reasonCode] = (editorialReasons[review.reasonCode] ?? 0) + 1;
     } else if (!speechIds.has(review.candidateId)) {
       audioExcluded++;
-      audioFailureReasons.AUDIO_ID_COLLISION = (audioFailureReasons.AUDIO_ID_COLLISION ?? 0) + 1;
+      const reasonCode = AUDIO_FAILURE_REASON_OVERRIDES.get(review.candidateId) ?? 'AUDIO_ID_COLLISION';
+      audioFailureReasons[reasonCode] = (audioFailureReasons[reasonCode] ?? 0) + 1;
     }
   }
   return { editorialExcluded, editorialReasons, audioExcluded, audioFailureReasons };
