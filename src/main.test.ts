@@ -308,7 +308,9 @@ describe('文豪ずんだもんの画面', () => {
     expect(root.querySelector('blockquote p')?.textContent).toBe('「羅生門の台詞」');
     expect(root.querySelector('blockquote p')?.textContent).not.toContain('「「');
     expect(root.querySelector('.play-button')?.getAttribute('aria-label')).toContain('再生：');
-    expect(root.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]')).toHaveLength(6);
+    // F012(UT-F012-018): 作品ごとに「本文を青空文庫で読む」外部linkが1件増える(3作品 × 3 link)。
+    expect(root.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]')).toHaveLength(9);
+    expect(root.querySelectorAll('.source-text-link')).toHaveLength(3);
     expect(root.querySelectorAll('.dialogue-source-link')).toHaveLength(3);
   });
 

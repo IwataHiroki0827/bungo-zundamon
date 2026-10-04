@@ -15,6 +15,9 @@ import {
   type StorageLike,
 } from './ui/favorites';
 import type { AudioFactory, MotionChoice, Route, UICatalog, UICatalogV2 } from './ui/types';
+import { parseFavoriteShareParam, withoutFavoriteShareParam } from './ui/favorites-transfer';
+import { OfflineAudioManager, registerAppServiceWorker } from './ui/offline';
+import type { ShareOffer } from './ui/render-f012';
 
 export type ApplicationCatalog = UICatalog | UICatalogV2;
 
@@ -25,6 +28,10 @@ export interface ApplicationOptions {
   readonly creditsRenderer?: (catalog: ApplicationCatalog) => HTMLElement;
   readonly mediaQuery?: Pick<MediaQueryList, 'matches'>;
   readonly storageProvider?: () => StorageLike;
+  /** F012: 今日の一台詞の基準時刻。 */
+  readonly now?: () => Date;
+  /** F012: お気に入り音声のオフライン保存(nullで無効)。 */
+  readonly offlineAudio?: OfflineAudioManager | null;
 }
 
 export interface ApplicationHandle {
@@ -119,6 +126,33 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
   let sessionChoice: MotionChoice | undefined;
   let disposed = false;
   let initialPaint = true;
+  // @des DES-F012-002 @fun FUN-F012-004 共有リンク(?fav=)は起動時に1回だけ読み、履歴からは取り除く。
+  let shareOffer: ShareOffer | null = null;
+  const shareResult = parseFavoriteShareParam(location.search, options.catalog);
+  if (shareResult) {
+    shareOffer = { result: shareResult };
+    try {
+      history.replaceState(history.state, '', withoutFavoriteShareParam(location.href));
+    } catch {
+      // 履歴を書き換えられない環境でも取り込み確認は表示する。
+    }
+  }
+  // @des DES-F012-006 @fun FUN-F012-016 有効化済みのときだけ、お気に入りの増減に保存音声を追従させる。
+  const offlineAudio = options.offlineAudio === undefined
+    ? new OfflineAudioManager(options.catalog, baseUrl)
+    : options.offlineAudio ?? undefined;
+  let offlineReady = false;
+  const unsubscribeOffline = offlineAudio
+    ? favoriteController.subscribe((snapshot) => {
+      if (offlineReady && offlineAudio.lastStatus.enabled) void offlineAudio.sync(snapshot.dialogueIds);
+    })
+    : () => undefined;
+  if (offlineAudio?.supported) {
+    void offlineAudio.status().then((status) => {
+      offlineReady = true;
+      if (!disposed && status.enabled) void offlineAudio.sync(favoriteController.snapshot.dialogueIds);
+    });
+  }
 
   root.classList.add('app-root');
   const paint = (routeChanged: boolean): void => {
@@ -134,6 +168,12 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
         motion,
         motionLockedByOs: media.matches,
         creditsRenderer: options.creditsRenderer,
+        now: options.now,
+        offlineAudio,
+        shareOffer,
+        onShareOfferResolved: () => {
+          shareOffer = null;
+        },
         onMotionToggle: () => {
           sessionChoice = motion === 'reduced' ? 'full' : 'reduced';
           paint(false);
@@ -165,6 +205,7 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
       window.removeEventListener('hashchange', onHashChange);
       window.removeEventListener('storage', onStorage);
       cleanupRenderedTree(root);
+      unsubscribeOffline();
       favoriteController.dispose();
       favoriteNavigation.clear();
       controller.dispose();
@@ -251,6 +292,8 @@ export async function startBungoZundamon(
       },
     };
     state.handle = handle;
+    // @des DES-F012-006 @fun FUN-F012-015 production buildだけでservice workerを登録する。
+    if (import.meta.env.PROD) void registerAppServiceWorker(baseUrl);
     return handle;
   } catch {
     if (STARTUPS.get(root) !== state || abort.signal.aborted) return null;

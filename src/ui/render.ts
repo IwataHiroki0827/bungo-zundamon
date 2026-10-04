@@ -8,6 +8,18 @@ import {
   type FavoriteSnapshot,
 } from './favorites';
 import { observeAudioLazyLoading } from './lazy-loading';
+import type { OfflineAudioManager } from './offline';
+import {
+  renderDailyDialogue,
+  renderDialogueSearch,
+  renderFavoriteTransfer,
+  renderOfflineAudioPanel,
+  renderPlaybackSettings,
+  renderSequenceControl,
+  renderShareOffer,
+  renderWorkBibliography,
+  type ShareOffer,
+} from './render-f012';
 import { hasUnsafeTextControl } from './text-safety';
 import { formatDisplayProofreader } from './types';
 import type {
@@ -47,6 +59,13 @@ interface RenderChromeContext {
   readonly motion: MotionMode;
   readonly motionLockedByOs: boolean;
   readonly onMotionToggle: () => void;
+  /** F012: 今日の一台詞の基準時刻(試験で固定できるよう注入可能)。 */
+  readonly now?: () => Date;
+  /** F012: お気に入り音声のオフライン保存。 */
+  readonly offlineAudio?: OfflineAudioManager;
+  /** F012: 共有リンクから開いた場合の取り込み確認。 */
+  readonly shareOffer?: ShareOffer | null;
+  readonly onShareOfferResolved?: () => void;
 }
 
 export interface RenderContext<CatalogType extends UICatalog | UICatalogV2 = UICatalogV2> extends RenderChromeContext {
@@ -249,12 +268,26 @@ function authorCardV2(author: DisplayAuthorV2, works: readonly DisplayWorkV2[], 
 }
 
 /** @des DES-F002-007 DES-F002-013 @fun FUN-F002-022 */
-export function renderAuthorIndex(catalog: UICatalogV2, baseUrl = new URL(document.baseURI)): HTMLElement {
+export function renderAuthorIndex(
+  catalog: UICatalogV2,
+  baseUrl = new URL(document.baseURI),
+  features?: Pick<RenderChromeContext, 'controller' | 'favoriteController' | 'now'>,
+): HTMLElement {
   assertAuthorRelations(catalog, 'UI_AUTHOR_REFERENCE_INVALID');
   const page = document.createElement('article');
   page.className = 'home-page page';
   page.dataset.page = 'home';
   page.append(textElement('h1', '文豪ずんだもん'));
+  if (features) {
+    // @des DES-F012-005 DES-F012-003 @fun FUN-F012-012 FUN-F012-008
+    const daily = renderDailyDialogue(
+      catalog,
+      features.controller,
+      features.favoriteController,
+      features.now?.() ?? new Date(),
+    );
+    if (daily) page.append(daily);
+  }
 
   const section = document.createElement('section');
   section.className = 'authors-section';
@@ -270,6 +303,7 @@ export function renderAuthorIndex(catalog: UICatalogV2, baseUrl = new URL(docume
   }
   section.append(title, list);
   page.append(section);
+  if (features) page.append(renderDialogueSearch(catalog, features.controller, features.favoriteController));
   return page;
 }
 
@@ -471,6 +505,7 @@ function renderWork(
   controller: AudioController,
   authorId?: string,
   favoriteController?: FavoriteController,
+  author?: { readonly name: string; readonly originalName?: string },
 ): HTMLElement {
   const details = document.createElement('details');
   details.className = 'work-panel paper-card';
@@ -509,7 +544,10 @@ function renderWork(
       ),
     );
   }
-  intro.append(source);
+  // @des DES-F012-007 @fun FUN-F012-018 既存書誌だけの作品データと本文への外部link。
+  const bibliography = renderWorkBibliography(work, author, authorId);
+  bibliography.querySelector('.work-bibliography-links')?.prepend(source);
+  intro.append(bibliography);
   const detailNotices = notices.filter((notice) => notice.placements.includes('work-detail'));
   if (detailNotices.length > 0) {
     const noticeList = document.createElement('ul');
@@ -531,8 +569,16 @@ function renderWork(
     item.append(renderDialogueCard(dialogue, controller, dialogueSource, favoriteController));
     list.append(item);
   }
-  details.append(summary, intro, list);
-  CLEANUP.set(details, () => cleanupRenderedTree(list));
+  // @des DES-F012-001 @fun FUN-F012-002 作品内の台詞を順に再生する明示操作。
+  const workActions = document.createElement('div');
+  workActions.className = 'work-actions';
+  const sequence = renderSequenceControl(controller, work.workId, work.title, work.dialogues);
+  workActions.append(sequence);
+  details.append(summary, intro, workActions, list);
+  CLEANUP.set(details, () => {
+    cleanupRenderedTree(workActions);
+    cleanupRenderedTree(list);
+  });
   return details;
 }
 
@@ -568,7 +614,7 @@ export function renderAuthorPage(
   title.id = 'works-title';
   const workList = document.createElement('div');
   workList.className = 'work-list';
-  works.forEach((work) => workList.append(renderWork(work, controller, undefined, favoriteController)));
+  works.forEach((work) => workList.append(renderWork(work, controller, undefined, favoriteController, author)));
   const lazyPlan = observeAudioLazyLoading(Array.from(workList.querySelectorAll<HTMLElement>('.dialogue-card')));
   worksSection.append(title, workList);
   page.append(header, worksSection);
@@ -619,6 +665,7 @@ export function renderAuthorPageV2(
     textElement('h1', author.name),
     textElement('p', `原著者: ${author.originalName}`, 'original-author'),
     textElement('p', '作品名をひらき、気になる台詞の再生ボタンを押してください。', 'author-intro'),
+    renderPlaybackSettings(controller),
   );
   header.append(copy);
 
@@ -646,7 +693,7 @@ export function renderAuthorPageV2(
     dialogues: ReadonlyMap<string, HTMLElement>;
   }>();
   works.forEach((work) => {
-    const panel = renderWork(work, controller, authorId, favoriteController) as HTMLDetailsElement;
+    const panel = renderWork(work, controller, authorId, favoriteController, author) as HTMLDetailsElement;
     const dialogueCards = Array.from(panel.querySelectorAll<HTMLElement>('.dialogue-card'));
     workReferences.set(work.workId, {
       panel,
@@ -687,6 +734,7 @@ export function renderFavoritesRoute(
   controller: AudioController,
   favoriteController: FavoriteController,
   navigation: FavoriteNavigation,
+  extras?: Pick<RenderChromeContext, 'baseUrl' | 'offlineAudio' | 'shareOffer' | 'onShareOfferResolved'>,
 ): HTMLElement {
   const page = document.createElement('article');
   page.className = 'favorites-page page narrow-page';
@@ -700,7 +748,18 @@ export function renderFavoritesRoute(
   const content = document.createElement('section');
   content.className = 'favorite-results';
   content.setAttribute('aria-live', 'polite');
-  page.append(persistence, content);
+  page.append(persistence);
+  if (extras?.shareOffer) {
+    // @des DES-F012-002 @fun FUN-F012-006
+    page.append(renderShareOffer(extras.shareOffer, favoriteController, extras.onShareOfferResolved ?? (() => undefined)));
+  }
+  if (extras) page.append(renderPlaybackSettings(controller));
+  page.append(content);
+  if (extras) {
+    // @des DES-F012-002 DES-F012-006 @fun FUN-F012-006 FUN-F012-017
+    page.append(renderFavoriteTransfer(catalog, favoriteController, extras.baseUrl));
+    if (extras.offlineAudio) page.append(renderOfflineAudioPanel(extras.offlineAudio, favoriteController));
+  }
 
   let focusIndex: number | null = null;
   const paint = (snapshot: FavoriteSnapshot): void => {
@@ -780,7 +839,7 @@ export function renderFavoritesRoute(
     }
   };
   const unsubscribe = favoriteController.subscribe(paint);
-  CLEANUP.set(page, () => {
+  registerCleanup(page, () => {
     unsubscribe();
     cleanupRenderedTree(content);
   });
@@ -927,7 +986,7 @@ export function renderRoute(
   let page: HTMLElement;
   try {
     if (v2) {
-      if (route.kind === 'home') page = renderAuthorIndex(catalog, context.baseUrl);
+      if (route.kind === 'home') page = renderAuthorIndex(catalog, context.baseUrl, context);
       else if (route.kind === 'author') {
         if (!('authorId' in route) || typeof route.authorId !== 'string') {
           throw new UIRenderError('UI_AUTHOR_NOT_FOUND', 'author routeが解決済みではありません');
@@ -946,6 +1005,7 @@ export function renderRoute(
           context.controller,
           context.favoriteController,
           context.favoriteNavigation,
+          context,
         );
       } else if (route.kind === 'credits') {
         page = (context as RenderContext<UICatalogV2>).creditsRenderer?.(catalog) ?? renderCreditsFallback();
@@ -965,6 +1025,7 @@ export function renderRoute(
         context.controller,
         context.favoriteController,
         context.favoriteNavigation,
+        context,
       );
     }
     else if (route.kind === 'credits') {
@@ -996,6 +1057,23 @@ export function renderRoute(
     cleanupRenderedTree(page);
     cleanupRenderedTree(root.querySelector('.site-header'));
   });
+}
+
+/**
+ * 既存のcleanupを上書きせず、nodeの後始末へ処理を追加する(F012部品用)。
+ * @des DES-F001-010 @fun FUN-F001-024
+ */
+export function registerCleanup(node: Node, cleanup: () => void): void {
+  const previous = CLEANUP.get(node);
+  CLEANUP.set(node, previous ? () => {
+    previous();
+    cleanup();
+  } : cleanup);
+}
+
+/** authorIdがあればV2(作者別canonical範囲)、なければ従来の検査で青空文庫linkを作る。 */
+export function sourceLinkFor(label: string, href: string, authorId: string | undefined): HTMLAnchorElement {
+  return authorId ? aozoraLinkV2(label, href, authorId) : aozoraLink(label, href);
 }
 
 export function cleanupRenderedTree(root: Node | null): void {

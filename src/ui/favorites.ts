@@ -73,11 +73,20 @@ export interface FavoriteSnapshot extends FavoriteStoreV1 {
 
 export type FavoriteListener = (snapshot: FavoriteSnapshot) => void;
 
+export interface FavoriteMergeResult {
+  readonly snapshot: FavoriteSnapshot;
+  readonly added: number;
+  readonly alreadySaved: number;
+  readonly ignored: number;
+}
+
 export interface FavoriteController {
   readonly snapshot: FavoriteSnapshot;
   toggle(dialogueId: string): FavoriteSnapshot;
   /** 他タブ等で保存値が変わった時に再読込し、変化があれば購読者へ通知する。 */
   refresh(): FavoriteSnapshot;
+  /** F012: 取り込んだIDを既存のお気に入りへCatalog順で追加する。 */
+  merge(dialogueIds: readonly string[]): FavoriteMergeResult;
   subscribe(listener: FavoriteListener): () => void;
   dispose(): void;
 }
@@ -407,6 +416,33 @@ export function createFavoriteController(
       current = snapshot(transition.store, mode);
       for (const listener of [...listeners]) listener(current);
       return current;
+    },
+    /** @des DES-F012-002 @fun FUN-F012-005 */
+    merge(dialogueIds: readonly string[]): FavoriteMergeResult {
+      const requested = [...new Set(dialogueIds.filter(isFavoriteDialogueId))];
+      if (disposed) {
+        return Object.freeze({ snapshot: current, added: 0, alreadySaved: 0, ignored: dialogueIds.length });
+      }
+      const base = persistence.reload() ?? current;
+      const known = new Set(catalogEntries(catalog).map((entry) => entry.dialogue.dialogueId));
+      const existing = new Set(base.dialogueIds);
+      const additions = requested.filter((id) => known.has(id) && !existing.has(id));
+      const alreadySaved = requested.filter((id) => existing.has(id)).length;
+      const room = Math.max(0, FAVORITE_MAX_IDS - base.dialogueIds.length);
+      const accepted = additions.slice(0, room);
+      const ignored = dialogueIds.length - accepted.length - alreadySaved;
+      if (accepted.length === 0) {
+        if (base !== current) {
+          current = snapshot(base, persistence.mode);
+          for (const listener of [...listeners]) listener(current);
+        }
+        return Object.freeze({ snapshot: current, added: 0, alreadySaved, ignored });
+      }
+      const store = freezeStore(normalizeIds([...base.dialogueIds, ...accepted], catalog));
+      const mode = persistence.save(store);
+      current = snapshot(store, mode);
+      for (const listener of [...listeners]) listener(current);
+      return Object.freeze({ snapshot: current, added: accepted.length, alreadySaved, ignored });
     },
     refresh(): FavoriteSnapshot {
       if (disposed) return current;
