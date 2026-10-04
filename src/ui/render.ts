@@ -731,6 +731,12 @@ export function renderFavoritesRoute(
         setSafeText(openOriginal, '元の作品へ移動');
         const onRemove = (): void => {
           focusIndex = index;
+          // 再生中の台詞を削除するとカードごと操作手段が消えるため、先に停止する。
+          const playerState = controller.state as PlayerState | undefined;
+          if (playerState?.dialogueId === view.dialogue.dialogueId &&
+            ['playing', 'loading', 'paused'].includes(playerState.status)) {
+            controller.control('stop', view.dialogue.dialogueId);
+          }
           favoriteController.toggle(view.dialogue.dialogueId);
         };
         const onOpenOriginal = (event: MouseEvent): void => {
@@ -896,7 +902,12 @@ export function renderRoute(
     ? authorRouteLink('本文へ移動', route.slug)
     : routeLink('本文へ移動', '#/');
   skip.className = 'skip-link';
-  skip.addEventListener('click', () => root.querySelector<HTMLElement>('.page h1')?.focus());
+  // hrefは非JS時の退避先として残すが、favorites/credits等ではhrefが現在routeと異なり
+  // hash遷移で別ページへ飛んでしまうため、既定動作を止めて本文見出しへfocusだけを移す。
+  skip.addEventListener('click', (event) => {
+    event.preventDefault();
+    root.querySelector<HTMLElement>('.page h1')?.focus();
+  });
 
   let page: HTMLElement;
   try {

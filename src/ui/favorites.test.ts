@@ -378,6 +378,27 @@ describe('UT-F004-029 favorites route and one-shot navigation', () => {
     expect(document.activeElement).toBe(page.querySelector('.favorite-empty-title'));
   });
 
+  it('再生中の台詞をお気に入りから削除すると、操作手段が消える前に音声を停止する', () => {
+    const catalog = catalogFixture();
+    const favoriteController = createFavoriteController(() => new MemoryStorage(), catalog);
+    favoriteController.toggle('dialogue-c');
+    const playing: PlayerState = { status: 'playing', dialogueId: 'dialogue-c', message: '読み上げています。' };
+    const control = vi.fn(() => playing);
+    const controller = {
+      state: playing,
+      play: vi.fn(async () => playing),
+      control,
+      subscribe(listener: (next: PlayerState) => void) {
+        listener(playing);
+        return () => undefined;
+      },
+    } as unknown as AudioController;
+    const page = renderFavoritesRoute(catalog, controller, favoriteController, createFavoriteNavigation(catalog, vi.fn()));
+    document.body.replaceChildren(page);
+    page.querySelector<HTMLButtonElement>('.favorite-item .favorite-route-actions .favorite-button')!.click();
+    expect(control).toHaveBeenCalledWith('stop', 'dialogue-c');
+  });
+
   it('Catalog順一覧・解除focus・空状態・元作品への一回だけの展開をtext nodeで描画する', () => {
     const catalog = catalogFixture();
     const favoriteController = createFavoriteController(() => new MemoryStorage(), catalog);
@@ -456,6 +477,25 @@ describe('UT-F004-030 FavoriteController lifecycle', () => {
 
     const remounted = createFavoriteController(() => storage, catalog);
     expect(remounted.snapshot.dialogueIds).toEqual(['dialogue-a']);
+  });
+
+  it('別タブで保存された内容を古いsnapshotで上書きせず、利用者の意図だけを適用する', () => {
+    const storage = new MemoryStorage();
+    const catalog = catalogFixture();
+    const tabA = createFavoriteController(() => storage, catalog);
+    const tabB = createFavoriteController(() => storage, catalog);
+    tabA.toggle('dialogue-a');
+    tabB.toggle('dialogue-c');
+    expect(JSON.parse(storage.values.get(FAVORITE_STORAGE_KEY)!).dialogueIds)
+      .toEqual(['dialogue-a', 'dialogue-c']);
+    expect(tabB.snapshot.dialogueIds).toEqual(['dialogue-a', 'dialogue-c']);
+
+    // 別タブで既に追加済みの台詞を追加しようとしても、削除へ反転しない。
+    const tabC = createFavoriteController(() => storage, catalog);
+    tabA.toggle('dialogue-b');
+    tabC.toggle('dialogue-b');
+    expect(tabC.snapshot.dialogueIds).toContain('dialogue-b');
+    expect(JSON.parse(storage.values.get(FAVORITE_STORAGE_KEY)!).dialogueIds).toContain('dialogue-b');
   });
 
   it('Catalog join済みone-shot intentだけを生成・消費する', () => {

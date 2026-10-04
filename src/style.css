@@ -665,8 +665,14 @@ p {
 }
 
 .favorite-author {
-  color: var(--muted);
+  color: #485043;
   font-size: 1rem;
+}
+
+/* 紙面カード上では既定の明るいリンク色(#a7eb6f)が背景とほぼ同化するため濃色へ置換する。 */
+.paper-card a:not(.route-link),
+.favorite-item .favorite-original-link {
+  color: #2b5c31;
 }
 
 .favorite-route-actions {

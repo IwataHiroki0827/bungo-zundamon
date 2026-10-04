@@ -470,6 +470,28 @@ describe('文豪ずんだもんの画面', () => {
     expect(reduced.textContent).toContain('演出：控えめ');
     expect(reduced.textContent).toContain('ページ切替と再生アイコンの動きを停止中');
     expect(reduced.getAttribute('aria-label')).toBe('演出を標準に戻す');
+    expect(document.activeElement).toBe(reduced);
+  });
+
+  it('hash変更で再描画した後は新ページのh1へfocusを移し、skip linkはrouteを変えない', () => {
+    location.hash = '#/favorites';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+    });
+    const skip = root.querySelector<HTMLAnchorElement>('.skip-link')!;
+    skip.click();
+    expect(location.hash).toBe('#/favorites');
+    expect(document.activeElement).toBe(root.querySelector('.page h1'));
+
+    (document.activeElement as HTMLElement).blur();
+    location.hash = '#/credits';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    expect(root.querySelector('[data-page="credits"]')).not.toBeNull();
+    expect(document.activeElement).toBe(root.querySelector('.page h1'));
   });
 
   it('catalogと検証済みnoticeを同じsignalで読み、実クレジットへ結合する', async () => {

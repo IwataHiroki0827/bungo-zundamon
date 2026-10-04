@@ -83,6 +83,22 @@ export function renderAfterRouteChange(
   render();
 }
 
+/**
+ * 再描画でfocus中の要素が置換された場合、focusがbodyへ落ちて
+ * keyboard・支援技術の利用者が現在位置を失わないよう復元する。
+ * route変更時は新ページのh1へ、演出切替などの同一route再描画時は演出ボタンへ戻す。
+ * 描画側(お気に入りからの遷移など)が既にroot内へfocusを置いた場合は尊重する。
+ * @des DES-F001-001 DES-F001-010 @fun FUN-F001-002
+ */
+export function restoreFocusAfterRepaint(root: HTMLElement, routeChanged: boolean): void {
+  const active = root.ownerDocument.activeElement;
+  if (active && active !== root.ownerDocument.body && root.contains(active)) return;
+  const target = routeChanged
+    ? root.querySelector<HTMLElement>('.page h1')
+    : root.querySelector<HTMLElement>('.motion-toggle:not(:disabled)');
+  target?.focus();
+}
+
 /** @des DES-F001-001 DES-F001-009 DES-F001-010 @fun FUN-F001-002 */
 export function mountBungoZundamon(root: HTMLElement, options: ApplicationOptions): ApplicationHandle {
   const baseUrl = options.baseUrl ?? defaultBaseUrl();
@@ -101,6 +117,7 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
   );
   let sessionChoice: MotionChoice | undefined;
   let disposed = false;
+  let initialPaint = true;
 
   root.classList.add('app-root');
   const paint = (routeChanged: boolean): void => {
@@ -126,6 +143,8 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
     };
     if (routeChanged) renderAfterRouteChange(controller as unknown as RouteLifecycleController, route, render);
     else render();
+    if (!initialPaint) restoreFocusAfterRepaint(root, routeChanged);
+    initialPaint = false;
   };
   const onHashChange = (): void => paint(true);
   window.addEventListener('hashchange', onHashChange);

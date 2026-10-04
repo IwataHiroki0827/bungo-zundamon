@@ -52,6 +52,8 @@ export interface FavoritePersistence {
   readonly initial: FavoriteLoadResult;
   readonly mode: FavoritePersistenceMode;
   save(store: FavoriteStoreV1): FavoritePersistenceMode;
+  /** 他タブ等による更新を取り込むため現在のstorage値を再読込する。読めない場合はnull。 */
+  reload(): FavoriteStoreV1 | null;
 }
 
 export interface FavoriteTransition {
@@ -252,10 +254,15 @@ export function createFavoritePersistence(
   let storage: StorageLike | null = null;
   let mode: FavoritePersistenceMode = 'local-storage';
   let initial: FavoriteLoadResult;
+  // storage契約の静的検査(scanFavoriteStorageContract)はgetItem呼出し箇所を1つに限定するため、
+  // 初回読込と再読込はこの関数を共有する。
+  const read = (storage: StorageLike): FavoriteLoadResult => parseFavoriteStore(
+    storage.getItem(FAVORITE_STORAGE_KEY),
+    catalog,
+  );
   try {
     storage = storageProvider();
-    const raw = storage.getItem(FAVORITE_STORAGE_KEY);
-    initial = parseFavoriteStore(raw, catalog);
+    initial = read(storage);
   } catch {
     storage = null;
     mode = 'memory';
@@ -274,6 +281,19 @@ export function createFavoritePersistence(
     }
   };
 
+  const reload = (): FavoriteStoreV1 | null => {
+    if (!storage || mode === 'memory') return null;
+    try {
+      const result = read(storage);
+      // 破損値は上書き保存時に正規化されるため、ここでは有効値だけを取り込む。
+      return result.reason === 'valid' || result.reason === 'normalized' || result.reason === 'empty'
+        ? result.store
+        : null;
+    } catch {
+      return null;
+    }
+  };
+
   if (initial.rewriteRequired) mode = save(initial.store);
   return {
     get initial() {
@@ -283,6 +303,7 @@ export function createFavoritePersistence(
       return mode;
     },
     save,
+    reload,
   };
 }
 
@@ -367,7 +388,18 @@ export function createFavoriteController(
     },
     toggle(dialogueId: string): FavoriteSnapshot {
       if (disposed) return current;
-      const transition = toggleFavorite(current, dialogueId, catalog);
+      // 別タブで保存された内容を古いsnapshotで上書きして失わないよう、
+      // 保存直前にstorageを再読込し、その上へ利用者の意図(追加/削除)を適用する。
+      const latest = persistence.reload();
+      const wantsActive = !current.dialogueIds.includes(dialogueId);
+      if (latest && latest.dialogueIds.includes(dialogueId) === wantsActive) {
+        if (!isFavoriteDialogueId(dialogueId) ||
+          !catalogEntries(catalog).some((entry) => entry.dialogue.dialogueId === dialogueId)) return current;
+        current = snapshot(latest, persistence.mode);
+        for (const listener of [...listeners]) listener(current);
+        return current;
+      }
+      const transition = toggleFavorite(latest ?? current, dialogueId, catalog);
       if (!transition.changed) return current;
       const mode = persistence.save(transition.store);
       current = snapshot(transition.store, mode);
