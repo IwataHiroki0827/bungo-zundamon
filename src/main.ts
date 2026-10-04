@@ -10,6 +10,7 @@ import {
   browserFavoriteStorageProvider,
   createFavoriteController,
   createFavoriteNavigation,
+  FAVORITE_STORAGE_KEY,
   type FavoriteController,
   type StorageLike,
 } from './ui/favorites';
@@ -147,7 +148,12 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
     initialPaint = false;
   };
   const onHashChange = (): void => paint(true);
+  // 別タブでお気に入りが変わったら表示中の状態も追従させる(古い表示のまま操作させない)。
+  const onStorage = (event: StorageEvent): void => {
+    if (event.key === null || event.key === FAVORITE_STORAGE_KEY) favoriteController.refresh();
+  };
   window.addEventListener('hashchange', onHashChange);
+  window.addEventListener('storage', onStorage);
   paint(true);
 
   return {
@@ -157,6 +163,7 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
       if (disposed) return;
       disposed = true;
       window.removeEventListener('hashchange', onHashChange);
+      window.removeEventListener('storage', onStorage);
       cleanupRenderedTree(root);
       favoriteController.dispose();
       favoriteNavigation.clear();
@@ -174,7 +181,15 @@ function renderLoading(root: HTMLElement): void {
   const message = document.createElement('p');
   setSafeText(message, '作品を準備しています…');
   panel.append(title, message);
-  root.replaceChildren(panel);
+  root.replaceChildren(mainLandmark(panel));
+}
+
+/** 起動中・起動失敗画面も本文をmain landmarkへ入れる。 @des DES-F001-001 @fun FUN-F001-003 */
+function mainLandmark(content: HTMLElement): HTMLElement {
+  const main = document.createElement('main');
+  main.className = 'site-main';
+  main.append(content);
+  return main;
 }
 
 function renderLoadError(root: HTMLElement, retry: () => void): void {
@@ -191,7 +206,7 @@ function renderLoadError(root: HTMLElement, retry: () => void): void {
   setSafeText(button, 'もう一度読み込む');
   button.addEventListener('click', retry, { once: true });
   panel.append(title, message, button);
-  root.replaceChildren(panel);
+  root.replaceChildren(mainLandmark(panel));
 }
 
 /** @des DES-F001-001 DES-F001-002 DES-F001-019 @fun FUN-F001-003 */

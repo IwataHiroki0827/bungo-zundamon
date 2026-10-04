@@ -76,6 +76,8 @@ export type FavoriteListener = (snapshot: FavoriteSnapshot) => void;
 export interface FavoriteController {
   readonly snapshot: FavoriteSnapshot;
   toggle(dialogueId: string): FavoriteSnapshot;
+  /** 他タブ等で保存値が変わった時に再読込し、変化があれば購読者へ通知する。 */
+  refresh(): FavoriteSnapshot;
   subscribe(listener: FavoriteListener): () => void;
   dispose(): void;
 }
@@ -403,6 +405,14 @@ export function createFavoriteController(
       if (!transition.changed) return current;
       const mode = persistence.save(transition.store);
       current = snapshot(transition.store, mode);
+      for (const listener of [...listeners]) listener(current);
+      return current;
+    },
+    refresh(): FavoriteSnapshot {
+      if (disposed) return current;
+      const latest = persistence.reload();
+      if (!latest || latest.dialogueIds.join('\0') === current.dialogueIds.join('\0')) return current;
+      current = snapshot(latest, persistence.mode);
       for (const listener of [...listeners]) listener(current);
       return current;
     },

@@ -420,7 +420,7 @@ describe('UT-F004-029 favorites route and one-shot navigation', () => {
 
     page.querySelector<HTMLAnchorElement>('.favorite-original-link')!.click();
     expect(navigate).toHaveBeenCalledWith('#/authors/author-two');
-    const root = document.createElement('main');
+    const root = document.createElement('div');
     document.body.replaceChildren(root);
     const context = {
       controller,
@@ -496,6 +496,33 @@ describe('UT-F004-030 FavoriteController lifecycle', () => {
     tabC.toggle('dialogue-b');
     expect(tabC.snapshot.dialogueIds).toContain('dialogue-b');
     expect(JSON.parse(storage.values.get(FAVORITE_STORAGE_KEY)!).dialogueIds).toContain('dialogue-b');
+  });
+
+  it('別タブで削除された台詞を古いタブの操作で復活させず、refreshで表示を追従させる', () => {
+    const storage = new MemoryStorage();
+    const catalog = catalogFixture();
+    const tabA = createFavoriteController(() => storage, catalog);
+    tabA.toggle('dialogue-a');
+    const tabB = createFavoriteController(() => storage, catalog);
+    expect(tabB.snapshot.dialogueIds).toEqual(['dialogue-a']);
+    tabA.toggle('dialogue-a');
+    // 古い表示のtabBで別の台詞を追加しても、削除済みのdialogue-aは戻らない。
+    tabB.toggle('dialogue-b');
+    expect(JSON.parse(storage.values.get(FAVORITE_STORAGE_KEY)!).dialogueIds).toEqual(['dialogue-b']);
+    // 古い表示のtabAで削除済みの台詞を「削除」しても状態は変わらない。
+    const tabC = createFavoriteController(() => storage, catalog);
+    tabB.toggle('dialogue-b');
+    tabC.toggle('dialogue-b');
+    expect(storage.values.has(FAVORITE_STORAGE_KEY)).toBe(false);
+
+    const listener = vi.fn();
+    tabA.subscribe(listener);
+    listener.mockClear();
+    storage.values.set(FAVORITE_STORAGE_KEY, '{"version":1,"dialogueIds":["dialogue-c"]}');
+    expect(tabA.refresh().dialogueIds).toEqual(['dialogue-c']);
+    expect(listener).toHaveBeenCalledTimes(1);
+    tabA.refresh();
+    expect(listener).toHaveBeenCalledTimes(1);
   });
 
   it('Catalog join済みone-shot intentだけを生成・消費する', () => {

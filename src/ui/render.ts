@@ -985,7 +985,11 @@ export function renderRoute(
   if (!page.classList.contains('page')) page.classList.add('page', 'narrow-page');
   const heading = page.querySelector<HTMLElement>('h1');
   if (heading) heading.tabIndex = -1;
-  root.replaceChildren(skip, siteHeader(route, context, fallbackAuthorSlug), page, siteFooter());
+  // header/footerをmain landmarkの外に置き、支援技術のlandmark移動で本文だけへ到達できるようにする。
+  const main = document.createElement('main');
+  main.className = 'site-main';
+  main.append(page);
+  root.replaceChildren(skip, siteHeader(route, context, fallbackAuthorSlug), main, siteFooter());
   AFTER_MOUNT.get(page)?.();
   AFTER_MOUNT.delete(page);
   CLEANUP.set(root, () => {

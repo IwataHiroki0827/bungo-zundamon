@@ -261,7 +261,7 @@ describe('文豪ずんだもんの画面', () => {
 
   beforeEach(() => {
     vi.stubEnv('BASE_URL', '/bungo-zundamon/');
-    document.body.replaceChildren(Object.assign(document.createElement('main'), { id: 'app' }));
+    document.body.replaceChildren(Object.assign(document.createElement('div'), { id: 'app' }));
     location.hash = '#/';
   });
 
@@ -400,7 +400,7 @@ describe('文豪ずんだもんの画面', () => {
 
   it('CatalogV2でもbase URLの空hashをhomeとして描画する', () => {
     history.replaceState(null, '', `${location.pathname}${location.search}`);
-    const root = document.createElement('main');
+    const root = document.createElement('div');
     const handle = mountBungoZundamon(root, {
       catalog: fixtureCatalogV2(),
       baseUrl: new URL('https://example.test/bungo-zundamon/'),
@@ -492,6 +492,32 @@ describe('文豪ずんだもんの画面', () => {
     window.dispatchEvent(new HashChangeEvent('hashchange'));
     expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
     expect(document.activeElement).toBe(root.querySelector('.page h1'));
+  });
+
+  it('header/footerをmain landmarkの外に置き、storage eventでお気に入り表示を追従させる', () => {
+    location.hash = '#/favorites';
+    const values = new Map<string, string>();
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+      storageProvider: () => ({
+        getItem: (key: string) => values.get(key) ?? null,
+        setItem: (key: string, value: string) => { values.set(key, value); },
+        removeItem: (key: string) => { values.delete(key); },
+      }),
+    });
+    expect(root.querySelectorAll('main')).toHaveLength(1);
+    expect(root.querySelector('main .site-header, main .site-footer')).toBeNull();
+    expect(root.querySelector('main [data-page="favorites"]')).not.toBeNull();
+    expect(root.querySelectorAll('.favorite-item')).toHaveLength(0);
+
+    const dialogueId = fixtureCatalog().works[0]!.dialogues[0]!.dialogueId;
+    values.set('bungo-zundamon:favorites:v1', JSON.stringify({ version: 1, dialogueIds: [dialogueId] }));
+    window.dispatchEvent(new StorageEvent('storage', { key: 'bungo-zundamon:favorites:v1' }));
+    expect(root.querySelectorAll('.favorite-item')).toHaveLength(1);
   });
 
   it('.pageを持たないクレジット描画結果にも本文幅とfocus先の共通classを補う', () => {

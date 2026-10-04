@@ -89,8 +89,14 @@ a:hover {
 }
 
 .app-root {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
+}
+
+.site-main {
+  flex: 1 0 auto;
 }
 
 .skip-link {
@@ -187,6 +193,12 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
   transition: transform 180ms var(--bounce), background-color 180ms ease, border-color 180ms ease;
+}
+
+/* 狭い画面でラベルが「トッ/プ」のように折り返さないよう、navは横スクロールへ逃がす。 */
+.site-header nav a {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .site-header nav a:hover {
@@ -758,6 +770,16 @@ p {
 
 /* ---------- 台詞カード ---------- */
 
+/*
+ * observeAudioLazyLoading(FUN-F001-029)が付けるdata-lazy-textを使い、
+ * 画面外で未表示(pending)の台詞カードは描画を後回しにする。
+ * 近づくとobserverがvisibleへ切り替え、通常描画へ戻る。
+ */
+.dialogue-card[data-lazy-text="pending"] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 14rem;
+}
+
 .dialogue-list {
   display: grid;
   gap: 1rem;
@@ -930,9 +952,12 @@ p {
 }
 
 .stop-button:disabled {
+  border-style: dashed;
+  border-color: #6b7a66;
+  color: #4d5d47;
+  background: #eef2ea;
+  box-shadow: none;
   cursor: not-allowed;
-  box-shadow: 0 2px 0 rgb(20 41 15 / 40%);
-  opacity: 0.45;
 }
 
 .favorite-button {
