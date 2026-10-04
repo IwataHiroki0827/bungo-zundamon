@@ -351,6 +351,17 @@ function playerIcon(dialogue: CatalogDialogue, state: PlayerState): string {
     : '▶';
 }
 
+/**
+ * 押下ごとに一回限りの演出(きらめき)を再生するためclassを付け直す。
+ * 動きの抑制はCSS側(prefers-reduced-motion・演出：控えめ)で行う。
+ * @des DES-F001-010 @fun FUN-F001-024
+ */
+function replayBurst(element: HTMLElement): void {
+  element.classList.remove('is-bursting');
+  void element.offsetWidth;
+  element.classList.add('is-bursting');
+}
+
 /** @des DES-F001-009 DES-F001-010 @fun FUN-F001-024 */
 export function renderDialogueCard(
   dialogue: CatalogDialogue,
@@ -397,12 +408,16 @@ export function renderDialogueCard(
     };
     onFavorite = () => {
       favoriteController.toggle(dialogue.dialogueId);
+      if (favorite.classList.contains('is-favorite')) replayBurst(favorite);
     };
+    const onBurstEnd = (): void => favorite.classList.remove('is-bursting');
     favorite.addEventListener('click', onFavorite);
+    favorite.addEventListener('animationend', onBurstEnd);
     unsubscribeFavorite = favoriteController.subscribe(updateFavorite);
     actions.append(play, stop, favorite);
     CLEANUP.set(favorite, () => {
       favorite.removeEventListener('click', onFavorite);
+      favorite.removeEventListener('animationend', onBurstEnd);
       unsubscribeFavorite();
     });
   } else {
