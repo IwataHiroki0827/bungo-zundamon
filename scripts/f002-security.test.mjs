@@ -7,7 +7,7 @@ import {
   scanFavoriteStorageContract,
 } from './f002-security.mjs';
 
-const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'";
+const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'self'";
 const workflowPath = path.resolve(import.meta.dirname, '..', '.github', 'workflows', 'pages.yml');
 
 async function fixture() {
@@ -137,10 +137,23 @@ describe('FUN-F002-029 security集約 [DES-F002-012][DES-F002-016][UT-F002-029][
 
   it.each(Object.keys({
     'default-src': 1, 'script-src': 1, 'style-src': 1, 'img-src': 1, 'media-src': 1,
-    'connect-src': 1, 'object-src': 1, 'base-uri': 1, 'form-action': 1, 'frame-src': 1,
+    'connect-src': 1, 'object-src': 1, 'base-uri': 1, 'form-action': 1, 'frame-src': 1, 'worker-src': 1,
   }))('CSP必須directive %s の欠落を拒否する', async (directive) => {
     const context = await fixture();
     context.distRoutes[0].csp = CSP.split('; ').filter((item) => !item.startsWith(directive)).join('; ');
+    const result = await runF002SecurityChecks(context);
+    expect(result).toMatchObject({ status: 'blocked', codes: expect.arrayContaining(['SECURITY_CSP_VIOLATION']) });
+  });
+
+  // @des DES-F012-008 @fun FUN-F012-019 @ut UT-F012-019
+  it.each([
+    ["worker-src 'none'"],
+    ["worker-src 'self' blob:"],
+    ["worker-src 'self' https://evil.example"],
+    ['worker-src *'],
+  ])('F012: service worker用のworker-srcは同一originだけを許可し %s を拒否する', async (directive) => {
+    const context = await fixture();
+    context.distRoutes[0].csp = CSP.replace("worker-src 'self'", directive);
     const result = await runF002SecurityChecks(context);
     expect(result).toMatchObject({ status: 'blocked', codes: expect.arrayContaining(['SECURITY_CSP_VIOLATION']) });
   });

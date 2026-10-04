@@ -15,6 +15,21 @@ export default tseslint.config(
     ],
   },
   {
+    // @des DES-F012-006 @fun FUN-F012-013 classic scriptとして配信するservice worker。
+    files: ['src/sw/**/*.js'],
+    languageOptions: {
+      sourceType: 'script',
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        fetch: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
+        URL: 'readonly',
+      },
+    },
+  },
+  {
     files: ['scripts/**/*.mjs'],
     languageOptions: {
       globals: {

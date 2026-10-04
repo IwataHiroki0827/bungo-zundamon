@@ -28,6 +28,9 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    // F012: 既存specはpage.routeで通信を検査するため、service workerを止めて従来どおりの経路で実行する。
+    // service worker・offline受入はtests/e2e/f012-offline.spec.tsだけがallowへ切り替えて検証する。
+    serviceWorkers: 'block',
   },
   projects: [
     // QT-F001-020: 承認済みの自動4範囲を、独立したproject結果として記録する。

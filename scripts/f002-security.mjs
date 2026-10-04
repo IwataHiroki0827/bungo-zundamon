@@ -11,6 +11,9 @@ const REQUIRED_CSP = Object.freeze({
   'base-uri': ["'none'"],
   'form-action': ["'none'"],
   'frame-src': ["'none'"],
+  // F012(CHG-F012-001): service worker導入に伴い、worker-srcは同一originだけを明示的に許可する。
+  // 'none'から緩和するが、外部origin・blob:・data:は引き続き拒否する。@des DES-F012-008 @fun FUN-F012-019
+  'worker-src': ["'self'"],
 });
 const SHA40 = /^[a-f0-9]{40}$/;
 const REMOTE_ACTION = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_./-]+)?$/;

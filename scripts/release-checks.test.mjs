@@ -20,7 +20,7 @@ import {
 
 const projectRoot = path.resolve(import.meta.dirname, '..');
 const temporaryDirectories = [];
-const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'";
+const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'self'";
 const SHA = 'a'.repeat(40);
 const HASH = 'b'.repeat(64);
 
