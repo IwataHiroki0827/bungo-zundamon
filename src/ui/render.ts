@@ -965,6 +965,9 @@ export function renderRoute(
     );
   }
 
+  // creditsRendererが返す実クレジットページは.pageを持たず、本文幅・skip link・
+  // route遷移後のfocus先(.page h1)が効かなかったため、route境界で共通classを補う。
+  if (!page.classList.contains('page')) page.classList.add('page', 'narrow-page');
   const heading = page.querySelector<HTMLElement>('h1');
   if (heading) heading.tabIndex = -1;
   root.replaceChildren(skip, siteHeader(route, context, fallbackAuthorSlug), page, siteFooter());

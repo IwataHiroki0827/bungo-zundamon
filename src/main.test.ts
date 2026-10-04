@@ -488,10 +488,31 @@ describe('文豪ずんだもんの画面', () => {
     expect(document.activeElement).toBe(root.querySelector('.page h1'));
 
     (document.activeElement as HTMLElement).blur();
-    location.hash = '#/credits';
+    location.hash = '#/missing';
     window.dispatchEvent(new HashChangeEvent('hashchange'));
-    expect(root.querySelector('[data-page="credits"]')).not.toBeNull();
+    expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
     expect(document.activeElement).toBe(root.querySelector('.page h1'));
+  });
+
+  it('.pageを持たないクレジット描画結果にも本文幅とfocus先の共通classを補う', () => {
+    location.hash = '#/credits';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+      creditsRenderer: () => {
+        const article = document.createElement('article');
+        article.className = 'credits-page';
+        article.append(Object.assign(document.createElement('h1'), { textContent: 'クレジット' }));
+        return article;
+      },
+    });
+    const page = root.querySelector<HTMLElement>('.credits-page')!;
+    expect(page.classList.contains('page')).toBe(true);
+    root.querySelector<HTMLAnchorElement>('.skip-link')!.click();
+    expect(document.activeElement).toBe(page.querySelector('h1'));
   });
 
   it('catalogと検証済みnoticeを同じsignalで読み、実クレジットへ結合する', async () => {
