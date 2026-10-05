@@ -272,7 +272,7 @@ describe('renderRoute CatalogV2 integration', () => {
       catalog,
     );
     const favoriteNavigation = createFavoriteNavigation(catalog, vi.fn());
-    const root = document.createElement('main');
+    const root = document.createElement('div');
     const creditsRenderer = vi.fn(() => {
       const page = document.createElement('article');
       page.dataset.page = 'credits-v2';

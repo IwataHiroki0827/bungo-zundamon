@@ -1,4 +1,6 @@
+import { fileURLToPath } from 'node:url';
 import { configDefaults, defineConfig } from 'vitest/config';
+import { serviceWorkerPlugin } from './scripts/service-worker-build.mjs';
 
 // @des DES-F001-015 @fun FUN-F001-030
 export const PAGES_BASE = '/bungo-zundamon/' as const;
@@ -15,6 +17,8 @@ const SERIAL_TESTS = [
 
 export default defineConfig({
   base: PAGES_BASE,
+  // @des DES-F012-006 @fun FUN-F012-014 production buildだけでdist/sw.js・dist/manifest.jsonを出力する。
+  plugins: [serviceWorkerPlugin({ projectRoot: fileURLToPath(new URL('.', import.meta.url)) })],
   build: {
     outDir: outputRoot,
     emptyOutDir: true,

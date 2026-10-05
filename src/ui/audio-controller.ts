@@ -11,6 +11,27 @@ import type {
 
 type StateListener = (state: PlayerState) => void;
 
+/** F012: 選択可能な再生速度。session限りで保持し、端末へ保存しない。 */
+export const PLAYBACK_RATES = Object.freeze([0.75, 1, 1.25, 1.5] as const);
+export type PlaybackRate = typeof PLAYBACK_RATES[number];
+
+export interface PlaybackSettings {
+  readonly rate: PlaybackRate;
+  readonly volume: number;
+}
+
+export interface SequenceProgress {
+  readonly key: string;
+  readonly index: number;
+  readonly total: number;
+}
+
+interface SequenceState {
+  readonly key: string;
+  readonly items: readonly CatalogDialogue[];
+  index: number;
+}
+
 const INITIAL_STATE: PlayerState = Object.freeze({
   status: 'idle',
   dialogueId: null,
@@ -57,6 +78,9 @@ export class AudioController {
   #disposed = false;
   #routeTransitioning = false;
   #lastDiagnosticCode: 'AUDIO_ROUTE_STOP_FAILED' | null = null;
+  #sequence: SequenceState | null = null;
+  #advancing = false;
+  #settings: PlaybackSettings = Object.freeze({ rate: 1 as PlaybackRate, volume: 1 });
 
   readonly #handleEnded = (): void => {
     if (
@@ -65,6 +89,22 @@ export class AudioController {
       this.#routeTransitioning ||
       !['loading', 'playing'].includes(this.#state.status)
     ) return;
+    const sequence = this.#sequence;
+    if (sequence && sequence.items[sequence.index]?.dialogueId === this.#state.dialogueId) {
+      const next = sequence.items[sequence.index + 1];
+      if (next) {
+        sequence.index += 1;
+        void this.#playSequenceItem(next);
+        return;
+      }
+      this.#sequence = null;
+      this.#publish({
+        status: 'ended',
+        dialogueId: this.#state.dialogueId,
+        message: '連続再生が終わりました。',
+      });
+      return;
+    }
     this.#publish({
       status: 'ended',
       dialogueId: this.#state.dialogueId,
@@ -79,6 +119,7 @@ export class AudioController {
       this.#routeTransitioning ||
       !['loading', 'playing'].includes(this.#state.status)
     ) return;
+    this.#sequence = null;
     presentAudioError(this.#state.dialogueId, new Error('media-error'), (state) => this.#publish(state));
   };
 
@@ -102,6 +143,86 @@ export class AudioController {
     return this.#lastDiagnosticCode;
   }
 
+  /** @des DES-F012-001 @fun FUN-F012-001 */
+  get sequence(): SequenceProgress | null {
+    const sequence = this.#sequence;
+    return sequence
+      ? Object.freeze({ key: sequence.key, index: sequence.index, total: sequence.items.length })
+      : null;
+  }
+
+  /** @des DES-F012-004 @fun FUN-F012-009 */
+  get playbackSettings(): PlaybackSettings {
+    return this.#settings;
+  }
+
+  /**
+   * 作品内の台詞を先頭から順に自動再生する。明示操作(ボタン押下)を起点とし、
+   * 別台詞の再生・停止・route切替・エラーで連続再生を解除する。
+   * @des DES-F012-001 @fun FUN-F012-001
+   */
+  async playSequence(key: string, items: readonly CatalogDialogue[]): Promise<PlayerState> {
+    if (this.#disposed || key.length === 0) return this.#state;
+    const playable = items.filter((item) => this.#dialogueById.has(item.dialogueId));
+    if (playable.length === 0 || playable.length !== items.length) return this.#state;
+    this.#sequence = { key, items: Object.freeze([...playable]), index: 0 };
+    return this.#playSequenceItem(playable[0]!);
+  }
+
+  /** 連続再生を解除して現在の音声を停止する。 @des DES-F012-001 @fun FUN-F012-001 */
+  stopSequence(): PlayerState {
+    if (!this.#sequence) return this.#state;
+    this.#sequence = null;
+    return this.control('stop');
+  }
+
+  /** @des DES-F012-004 @fun FUN-F012-009 */
+  setPlaybackRate(rate: number): PlaybackSettings {
+    if (this.#disposed || !(PLAYBACK_RATES as readonly number[]).includes(rate)) return this.#settings;
+    this.#settings = Object.freeze({ ...this.#settings, rate: rate as PlaybackRate });
+    this.#applySettings();
+    return this.#settings;
+  }
+
+  /** @des DES-F012-004 @fun FUN-F012-009 */
+  setVolume(volume: number): PlaybackSettings {
+    if (this.#disposed || !Number.isFinite(volume)) return this.#settings;
+    const clamped = Math.round(Math.min(1, Math.max(0, volume)) * 100) / 100;
+    this.#settings = Object.freeze({ ...this.#settings, volume: clamped });
+    this.#applySettings();
+    return this.#settings;
+  }
+
+  #applySettings(): void {
+    try {
+      this.#audio.defaultPlaybackRate = this.#settings.rate;
+      this.#audio.playbackRate = this.#settings.rate;
+      this.#audio.volume = this.#settings.volume;
+    } catch {
+      // 速度・音量に未対応の環境でも再生自体は継続する。
+    }
+  }
+
+  async #playSequenceItem(item: CatalogDialogue): Promise<PlayerState> {
+    const trigger = document.createElement('button');
+    trigger.dataset.dialogueId = item.dialogueId;
+    this.#advancing = true;
+    try {
+      // 同じ台詞が連続した場合も先頭から読み直すため、一度停止状態へ戻す。
+      if (this.#state.dialogueId === item.dialogueId) {
+        this.#state = Object.freeze({ ...this.#state, status: 'stopped' });
+      }
+      return await this.play(item, trigger);
+    } finally {
+      this.#advancing = false;
+    }
+  }
+
+  #sequenceMessage(base: string): string {
+    const sequence = this.#sequence;
+    return sequence ? `${base}（連続再生 ${sequence.index + 1}/${sequence.items.length}）` : base;
+  }
+
   subscribe(listener: StateListener): () => void {
     this.#listeners.add(listener);
     listener(this.#state);
@@ -120,6 +241,15 @@ export class AudioController {
     }
 
     if (
+      !this.#advancing &&
+      this.#sequence &&
+      this.#sequence.items[this.#sequence.index]?.dialogueId !== item.dialogueId
+    ) {
+      // 連続再生中に別の台詞を明示再生した場合は、連続再生を解除する。
+      this.#sequence = null;
+    }
+
+    if (
       this.#state.dialogueId === item.dialogueId &&
       (this.#state.status === 'playing' || this.#state.status === 'loading')
     ) {
@@ -134,12 +264,16 @@ export class AudioController {
       this.#audio.currentTime = 0;
       const asset = this.#assetById.get(item.audioId);
       if (!asset) {
+        this.#sequence = null;
         return presentAudioError(item.dialogueId, new Error('asset-missing'), (state) => this.#publish(state));
       }
       try {
         this.#audio.src = resolvePublicAssetV2(this.#baseUrl, asset.path).href;
         this.#audio.load();
+        // load()はplaybackRateをdefaultPlaybackRateへ戻すため、選択中の設定を再適用する。
+        this.#applySettings();
       } catch (error) {
+        this.#sequence = null;
         return presentAudioError(item.dialogueId, error, (state) => this.#publish(state));
       }
     }
@@ -147,7 +281,7 @@ export class AudioController {
     this.#publish({
       status: 'loading',
       dialogueId: item.dialogueId,
-      message: isResume ? '読み上げを再開しています。' : '音声を読み込んでいます。',
+      message: this.#sequenceMessage(isResume ? '読み上げを再開しています。' : '音声を読み込んでいます。'),
     });
 
     try {
@@ -156,10 +290,11 @@ export class AudioController {
       return this.#publish({
         status: 'playing',
         dialogueId: item.dialogueId,
-        message: '読み上げています。',
+        message: this.#sequenceMessage('読み上げています。'),
       });
     } catch (error) {
       if (this.#disposed || requestVersion !== this.#requestVersion) return this.#state;
+      this.#sequence = null;
       return presentAudioError(item.dialogueId, error, (state) => this.#publish(state));
     }
   }
@@ -172,6 +307,7 @@ export class AudioController {
     if (!this.#state.dialogueId) return this.#state;
 
     if (action === 'stop') {
+      this.#sequence = null;
       this.#requestVersion += 1;
       this.#audio.pause();
       this.#audio.currentTime = 0;
@@ -216,6 +352,7 @@ export class AudioController {
 
   dispose(): void {
     if (this.#disposed) return;
+    this.#sequence = null;
     this.#requestVersion += 1;
     this.#audio.pause();
     this.#audio.currentTime = 0;
@@ -233,6 +370,7 @@ export class AudioController {
 
   #stopForRouteChange(): PlayerState {
     if (this.#disposed) return this.#state;
+    this.#sequence = null;
     this.#requestVersion += 1;
     this.#routeTransitioning = true;
     this.#lastDiagnosticCode = null;

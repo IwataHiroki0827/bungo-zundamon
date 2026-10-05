@@ -91,6 +91,10 @@ export interface AudioPort {
   src: string;
   currentTime: number;
   preload: string;
+  /** F012: 再生速度・音量(未対応のtest adapterでは省略可)。 */
+  playbackRate?: number;
+  defaultPlaybackRate?: number;
+  volume?: number;
   removeAttribute?(name: 'src'): void;
   play(): Promise<void>;
   pause(): void;

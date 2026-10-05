@@ -64,3 +64,9 @@ features:
   state: closed
   merge_after:
   - F010
+- id: F012
+  title: 聴く体験の拡充(連続再生・検索・今日の一台詞・再生設定・お気に入り移行・オフライン・作品データ)
+  branch: claude/legacy-program-review-tl4jv6
+  state: release
+  merge_after:
+  - F011

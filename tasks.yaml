@@ -5595,3 +5595,60 @@ tasks:
     F011(新美南吉)完了・v1.0.0公開済み。「10人になるまで進めて」directiveが
     定める作者拡充目標(合計10作者)を達成。
   model: *model_f011
+- id: T-212
+  title: F012要求・機能/関数設計・試験仕様(連続再生・検索・今日の一台詞・再生設定・お気に入り移行・オフライン・作品データ)
+  feature: F012
+  phase: testspec
+  state: done
+  depends:
+  - T-211
+  tags:
+  - REQ-F012-001
+  - REQ-F012-002
+  - REQ-F012-003
+  - REQ-F012-004
+  - REQ-F012-005
+  - REQ-F012-006
+  - REQ-F012-007
+  - REQ-F012-008
+  mode: auto
+  mode_reason: オーナー指示(2026-10-04)に基づく機能提案7件の全件実装
+  progress: >-
+    完了。SRS-F012(REQ 8件)・QA-F012・FD-F012(DES 8件、セキュリティレビュー含む)・
+    DD-F012(FUN 19件)・UT-F012(19件)・IT-F012(5件)・QT-F012(8件)・TM-F012を作成。
+- id: T-213
+  title: F012実装・単体/結合/適格性試験
+  feature: F012
+  phase: implement
+  state: done
+  depends:
+  - T-212
+  tags:
+  - REQ-F012-001
+  - REQ-F012-002
+  - REQ-F012-003
+  - REQ-F012-004
+  - REQ-F012-005
+  - REQ-F012-006
+  - REQ-F012-007
+  - REQ-F012-008
+  mode: auto
+  mode_reason: runtime UIとbuild補助に限定し、content pipeline・公開treeを変更しないため
+  progress: >-
+    完了。src/ui/{favorites-transfer,search,daily,offline,render-f012}.ts、src/sw/service-worker.js、
+    scripts/service-worker-build.mjsを新設し、AudioController・FavoriteController・render・mainへ統合。
+    CSP worker-src 'self'(CHG-F012-001)。結果はRELEASE-F012-precheck.md。
+- id: T-214
+  title: F012 v1.1.0リリース(merge・deploy・公開後スモーク・tag)
+  feature: F012
+  phase: release
+  state: todo
+  depends:
+  - T-213
+  tags:
+  - REQ-F012-008
+  mode: advisor
+  mode_reason: repository variables(PAGES_DEPLOY_ENABLED/PAGES_DEPLOY_COMMIT)の設定とdeployはオーナー操作が必要なため
+  progress: >-
+    未着手。手順はdocs/evidence/release/RELEASE-F012-precheck.md。F012はcontent batchを持たないため
+    mark-publishedは対象外。

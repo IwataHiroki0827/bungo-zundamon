@@ -261,7 +261,7 @@ describe('文豪ずんだもんの画面', () => {
 
   beforeEach(() => {
     vi.stubEnv('BASE_URL', '/bungo-zundamon/');
-    document.body.replaceChildren(Object.assign(document.createElement('main'), { id: 'app' }));
+    document.body.replaceChildren(Object.assign(document.createElement('div'), { id: 'app' }));
     location.hash = '#/';
   });
 
@@ -308,7 +308,9 @@ describe('文豪ずんだもんの画面', () => {
     expect(root.querySelector('blockquote p')?.textContent).toBe('「羅生門の台詞」');
     expect(root.querySelector('blockquote p')?.textContent).not.toContain('「「');
     expect(root.querySelector('.play-button')?.getAttribute('aria-label')).toContain('再生：');
-    expect(root.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]')).toHaveLength(6);
+    // F012(UT-F012-018): 作品ごとに「本文を青空文庫で読む」外部linkが1件増える(3作品 × 3 link)。
+    expect(root.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]')).toHaveLength(9);
+    expect(root.querySelectorAll('.source-text-link')).toHaveLength(3);
     expect(root.querySelectorAll('.dialogue-source-link')).toHaveLength(3);
   });
 
@@ -400,7 +402,7 @@ describe('文豪ずんだもんの画面', () => {
 
   it('CatalogV2でもbase URLの空hashをhomeとして描画する', () => {
     history.replaceState(null, '', `${location.pathname}${location.search}`);
-    const root = document.createElement('main');
+    const root = document.createElement('div');
     const handle = mountBungoZundamon(root, {
       catalog: fixtureCatalogV2(),
       baseUrl: new URL('https://example.test/bungo-zundamon/'),
@@ -470,6 +472,75 @@ describe('文豪ずんだもんの画面', () => {
     expect(reduced.textContent).toContain('演出：控えめ');
     expect(reduced.textContent).toContain('ページ切替と再生アイコンの動きを停止中');
     expect(reduced.getAttribute('aria-label')).toBe('演出を標準に戻す');
+    expect(document.activeElement).toBe(reduced);
+  });
+
+  it('hash変更で再描画した後は新ページのh1へfocusを移し、skip linkはrouteを変えない', () => {
+    location.hash = '#/favorites';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+    });
+    const skip = root.querySelector<HTMLAnchorElement>('.skip-link')!;
+    skip.click();
+    expect(location.hash).toBe('#/favorites');
+    expect(document.activeElement).toBe(root.querySelector('.page h1'));
+
+    (document.activeElement as HTMLElement).blur();
+    location.hash = '#/missing';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    expect(root.querySelector('[data-page="not-found"]')).not.toBeNull();
+    expect(document.activeElement).toBe(root.querySelector('.page h1'));
+  });
+
+  it('header/footerをmain landmarkの外に置き、storage eventでお気に入り表示を追従させる', () => {
+    location.hash = '#/favorites';
+    const values = new Map<string, string>();
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+      storageProvider: () => ({
+        getItem: (key: string) => values.get(key) ?? null,
+        setItem: (key: string, value: string) => { values.set(key, value); },
+        removeItem: (key: string) => { values.delete(key); },
+      }),
+    });
+    expect(root.querySelectorAll('main')).toHaveLength(1);
+    expect(root.querySelector('main .site-header, main .site-footer')).toBeNull();
+    expect(root.querySelector('main [data-page="favorites"]')).not.toBeNull();
+    expect(root.querySelectorAll('.favorite-item')).toHaveLength(0);
+
+    const dialogueId = fixtureCatalog().works[0]!.dialogues[0]!.dialogueId;
+    values.set('bungo-zundamon:favorites:v1', JSON.stringify({ version: 1, dialogueIds: [dialogueId] }));
+    window.dispatchEvent(new StorageEvent('storage', { key: 'bungo-zundamon:favorites:v1' }));
+    expect(root.querySelectorAll('.favorite-item')).toHaveLength(1);
+  });
+
+  it('.pageを持たないクレジット描画結果にも本文幅とfocus先の共通classを補う', () => {
+    location.hash = '#/credits';
+    const root = document.querySelector<HTMLElement>('#app')!;
+    handle = mountBungoZundamon(root, {
+      catalog: fixtureCatalog(),
+      baseUrl: new URL('http://localhost/bungo-zundamon/'),
+      audioFactory: () => new QuietAudio(),
+      mediaQuery: { matches: false },
+      creditsRenderer: () => {
+        const article = document.createElement('article');
+        article.className = 'credits-page';
+        article.append(Object.assign(document.createElement('h1'), { textContent: 'クレジット' }));
+        return article;
+      },
+    });
+    const page = root.querySelector<HTMLElement>('.credits-page')!;
+    expect(page.classList.contains('page')).toBe(true);
+    root.querySelector<HTMLAnchorElement>('.skip-link')!.click();
+    expect(document.activeElement).toBe(page.querySelector('h1'));
   });
 
   it('catalogと検証済みnoticeを同じsignalで読み、実クレジットへ結合する', async () => {

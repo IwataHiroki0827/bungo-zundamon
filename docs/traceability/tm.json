@@ -25322,6 +25322,480 @@
       "refs": [
         "FUN-F001-030"
       ]
+    },
+    "REQ-F012-001": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-002": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-003": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-004": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-005": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-006": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-007": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "REQ-F012-008": {
+      "type": "REQ",
+      "defined_in": "docs/srs/SRS-F012.md",
+      "refs": []
+    },
+    "DES-F012-001": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-001"
+      ]
+    },
+    "DES-F012-002": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-002"
+      ]
+    },
+    "DES-F012-003": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-003"
+      ]
+    },
+    "DES-F012-004": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-004"
+      ]
+    },
+    "DES-F012-005": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-005"
+      ]
+    },
+    "DES-F012-006": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-006"
+      ]
+    },
+    "DES-F012-007": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-007"
+      ]
+    },
+    "DES-F012-008": {
+      "type": "DES",
+      "defined_in": "docs/design/FD-F012.md",
+      "refs": [
+        "REQ-F012-008"
+      ]
+    },
+    "FUN-F012-001": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-001"
+      ]
+    },
+    "UT-F012-001": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-001",
+        "FUN-F012-001"
+      ]
+    },
+    "FUN-F012-002": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-001"
+      ]
+    },
+    "UT-F012-002": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-001",
+        "FUN-F012-002"
+      ]
+    },
+    "FUN-F012-003": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-002"
+      ]
+    },
+    "UT-F012-003": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-002",
+        "FUN-F012-003"
+      ]
+    },
+    "FUN-F012-004": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-002"
+      ]
+    },
+    "UT-F012-004": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-002",
+        "FUN-F012-004"
+      ]
+    },
+    "FUN-F012-005": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-002"
+      ]
+    },
+    "UT-F012-005": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-002",
+        "FUN-F012-005"
+      ]
+    },
+    "FUN-F012-006": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-002"
+      ]
+    },
+    "UT-F012-006": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-002",
+        "FUN-F012-006"
+      ]
+    },
+    "FUN-F012-007": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-003"
+      ]
+    },
+    "UT-F012-007": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-003",
+        "FUN-F012-007"
+      ]
+    },
+    "FUN-F012-008": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-003"
+      ]
+    },
+    "UT-F012-008": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-003",
+        "FUN-F012-008"
+      ]
+    },
+    "FUN-F012-009": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-004"
+      ]
+    },
+    "UT-F012-009": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-004",
+        "FUN-F012-009"
+      ]
+    },
+    "FUN-F012-010": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-004"
+      ]
+    },
+    "UT-F012-010": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-004",
+        "FUN-F012-010"
+      ]
+    },
+    "FUN-F012-011": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-005"
+      ]
+    },
+    "UT-F012-011": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-005",
+        "FUN-F012-011"
+      ]
+    },
+    "FUN-F012-012": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-005"
+      ]
+    },
+    "UT-F012-012": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-005",
+        "FUN-F012-012"
+      ]
+    },
+    "FUN-F012-013": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "UT-F012-013": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-006",
+        "FUN-F012-013"
+      ]
+    },
+    "FUN-F012-014": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "UT-F012-014": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-006",
+        "FUN-F012-014"
+      ]
+    },
+    "FUN-F012-015": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "UT-F012-015": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-006",
+        "FUN-F012-015"
+      ]
+    },
+    "FUN-F012-016": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "UT-F012-016": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-006",
+        "FUN-F012-016"
+      ]
+    },
+    "FUN-F012-017": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "UT-F012-017": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-006",
+        "FUN-F012-017"
+      ]
+    },
+    "FUN-F012-018": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-007"
+      ]
+    },
+    "UT-F012-018": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-007",
+        "FUN-F012-018"
+      ]
+    },
+    "FUN-F012-019": {
+      "type": "FUN",
+      "defined_in": "docs/design/DD-F012.md",
+      "refs": [
+        "DES-F012-008"
+      ]
+    },
+    "UT-F012-019": {
+      "type": "UT",
+      "defined_in": "docs/tests/ut/UT-F012.md",
+      "refs": [
+        "DES-F012-008",
+        "FUN-F012-019"
+      ]
+    },
+    "IT-F012-001": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F012.md",
+      "refs": [
+        "DES-F012-001",
+        "DES-F012-004"
+      ]
+    },
+    "IT-F012-002": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F012.md",
+      "refs": [
+        "DES-F012-002"
+      ]
+    },
+    "IT-F012-003": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F012.md",
+      "refs": [
+        "DES-F012-003",
+        "DES-F012-005"
+      ]
+    },
+    "IT-F012-004": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F012.md",
+      "refs": [
+        "DES-F012-006"
+      ]
+    },
+    "IT-F012-005": {
+      "type": "IT",
+      "defined_in": "docs/tests/it/IT-F012.md",
+      "refs": [
+        "DES-F012-008"
+      ]
+    },
+    "QT-F012-001": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-001"
+      ]
+    },
+    "QT-F012-002": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-002"
+      ]
+    },
+    "QT-F012-003": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-003"
+      ]
+    },
+    "QT-F012-004": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-004"
+      ]
+    },
+    "QT-F012-005": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-005"
+      ]
+    },
+    "QT-F012-006": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-006"
+      ]
+    },
+    "QT-F012-007": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-007"
+      ]
+    },
+    "QT-F012-008": {
+      "type": "QT",
+      "defined_in": "docs/tests/qt/QT-F012.md",
+      "refs": [
+        "REQ-F012-008"
+      ]
     }
   },
   "gaps": [],

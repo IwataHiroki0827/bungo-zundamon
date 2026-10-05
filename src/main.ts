@@ -10,10 +10,14 @@ import {
   browserFavoriteStorageProvider,
   createFavoriteController,
   createFavoriteNavigation,
+  FAVORITE_STORAGE_KEY,
   type FavoriteController,
   type StorageLike,
 } from './ui/favorites';
 import type { AudioFactory, MotionChoice, Route, UICatalog, UICatalogV2 } from './ui/types';
+import { parseFavoriteShareParam, withoutFavoriteShareParam } from './ui/favorites-transfer';
+import { OfflineAudioManager, registerAppServiceWorker } from './ui/offline';
+import type { ShareOffer } from './ui/render-f012';
 
 export type ApplicationCatalog = UICatalog | UICatalogV2;
 
@@ -24,6 +28,10 @@ export interface ApplicationOptions {
   readonly creditsRenderer?: (catalog: ApplicationCatalog) => HTMLElement;
   readonly mediaQuery?: Pick<MediaQueryList, 'matches'>;
   readonly storageProvider?: () => StorageLike;
+  /** F012: 今日の一台詞の基準時刻。 */
+  readonly now?: () => Date;
+  /** F012: お気に入り音声のオフライン保存(nullで無効)。 */
+  readonly offlineAudio?: OfflineAudioManager | null;
 }
 
 export interface ApplicationHandle {
@@ -83,6 +91,22 @@ export function renderAfterRouteChange(
   render();
 }
 
+/**
+ * 再描画でfocus中の要素が置換された場合、focusがbodyへ落ちて
+ * keyboard・支援技術の利用者が現在位置を失わないよう復元する。
+ * route変更時は新ページのh1へ、演出切替などの同一route再描画時は演出ボタンへ戻す。
+ * 描画側(お気に入りからの遷移など)が既にroot内へfocusを置いた場合は尊重する。
+ * @des DES-F001-001 DES-F001-010 @fun FUN-F001-002
+ */
+export function restoreFocusAfterRepaint(root: HTMLElement, routeChanged: boolean): void {
+  const active = root.ownerDocument.activeElement;
+  if (active && active !== root.ownerDocument.body && root.contains(active)) return;
+  const target = routeChanged
+    ? root.querySelector<HTMLElement>('.page h1')
+    : root.querySelector<HTMLElement>('.motion-toggle:not(:disabled)');
+  target?.focus();
+}
+
 /** @des DES-F001-001 DES-F001-009 DES-F001-010 @fun FUN-F001-002 */
 export function mountBungoZundamon(root: HTMLElement, options: ApplicationOptions): ApplicationHandle {
   const baseUrl = options.baseUrl ?? defaultBaseUrl();
@@ -101,6 +125,34 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
   );
   let sessionChoice: MotionChoice | undefined;
   let disposed = false;
+  let initialPaint = true;
+  // @des DES-F012-002 @fun FUN-F012-004 共有リンク(?fav=)は起動時に1回だけ読み、履歴からは取り除く。
+  let shareOffer: ShareOffer | null = null;
+  const shareResult = parseFavoriteShareParam(location.search, options.catalog);
+  if (shareResult) {
+    shareOffer = { result: shareResult };
+    try {
+      history.replaceState(history.state, '', withoutFavoriteShareParam(location.href));
+    } catch {
+      // 履歴を書き換えられない環境でも取り込み確認は表示する。
+    }
+  }
+  // @des DES-F012-006 @fun FUN-F012-016 有効化済みのときだけ、お気に入りの増減に保存音声を追従させる。
+  const offlineAudio = options.offlineAudio === undefined
+    ? new OfflineAudioManager(options.catalog, baseUrl)
+    : options.offlineAudio ?? undefined;
+  let offlineReady = false;
+  const unsubscribeOffline = offlineAudio
+    ? favoriteController.subscribe((snapshot) => {
+      if (offlineReady && offlineAudio.lastStatus.enabled) void offlineAudio.sync(snapshot.dialogueIds);
+    })
+    : () => undefined;
+  if (offlineAudio?.supported) {
+    void offlineAudio.status().then((status) => {
+      offlineReady = true;
+      if (!disposed && status.enabled) void offlineAudio.sync(favoriteController.snapshot.dialogueIds);
+    });
+  }
 
   root.classList.add('app-root');
   const paint = (routeChanged: boolean): void => {
@@ -116,6 +168,12 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
         motion,
         motionLockedByOs: media.matches,
         creditsRenderer: options.creditsRenderer,
+        now: options.now,
+        offlineAudio,
+        shareOffer,
+        onShareOfferResolved: () => {
+          shareOffer = null;
+        },
         onMotionToggle: () => {
           sessionChoice = motion === 'reduced' ? 'full' : 'reduced';
           paint(false);
@@ -126,9 +184,16 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
     };
     if (routeChanged) renderAfterRouteChange(controller as unknown as RouteLifecycleController, route, render);
     else render();
+    if (!initialPaint) restoreFocusAfterRepaint(root, routeChanged);
+    initialPaint = false;
   };
   const onHashChange = (): void => paint(true);
+  // 別タブでお気に入りが変わったら表示中の状態も追従させる(古い表示のまま操作させない)。
+  const onStorage = (event: StorageEvent): void => {
+    if (event.key === null || event.key === FAVORITE_STORAGE_KEY) favoriteController.refresh();
+  };
   window.addEventListener('hashchange', onHashChange);
+  window.addEventListener('storage', onStorage);
   paint(true);
 
   return {
@@ -138,7 +203,9 @@ export function mountBungoZundamon(root: HTMLElement, options: ApplicationOption
       if (disposed) return;
       disposed = true;
       window.removeEventListener('hashchange', onHashChange);
+      window.removeEventListener('storage', onStorage);
       cleanupRenderedTree(root);
+      unsubscribeOffline();
       favoriteController.dispose();
       favoriteNavigation.clear();
       controller.dispose();
@@ -155,7 +222,15 @@ function renderLoading(root: HTMLElement): void {
   const message = document.createElement('p');
   setSafeText(message, '作品を準備しています…');
   panel.append(title, message);
-  root.replaceChildren(panel);
+  root.replaceChildren(mainLandmark(panel));
+}
+
+/** 起動中・起動失敗画面も本文をmain landmarkへ入れる。 @des DES-F001-001 @fun FUN-F001-003 */
+function mainLandmark(content: HTMLElement): HTMLElement {
+  const main = document.createElement('main');
+  main.className = 'site-main';
+  main.append(content);
+  return main;
 }
 
 function renderLoadError(root: HTMLElement, retry: () => void): void {
@@ -172,7 +247,7 @@ function renderLoadError(root: HTMLElement, retry: () => void): void {
   setSafeText(button, 'もう一度読み込む');
   button.addEventListener('click', retry, { once: true });
   panel.append(title, message, button);
-  root.replaceChildren(panel);
+  root.replaceChildren(mainLandmark(panel));
 }
 
 /** @des DES-F001-001 DES-F001-002 DES-F001-019 @fun FUN-F001-003 */
@@ -217,6 +292,8 @@ export async function startBungoZundamon(
       },
     };
     state.handle = handle;
+    // @des DES-F012-006 @fun FUN-F012-015 production buildだけでservice workerを登録する。
+    if (import.meta.env.PROD) void registerAppServiceWorker(baseUrl);
     return handle;
   } catch {
     if (STARTUPS.get(root) !== state || abort.signal.aborted) return null;

@@ -1860,3 +1860,24 @@ changes:
     1315/1297)。robocopy /MIRでpublic/を再統合結果へ再昇格し、npm run build
     はDUPLICATE_AUDIO_HASHなしで成功(build verification passed: 1366 files
     / 559220590 bytes)。npm run typecheckはclean。
+- id: CHG-F012-001
+  date: '2026-10-04'
+  trigger: F012(REQ-F012-006)でservice workerによるオフライン対応を導入するため、F001/F002で`worker-src 'none'`を前提としていた公開CSPと静的security検査(scripts/release-checks.mjs・scripts/f002-security.mjs)を意図的に変更する必要が生じた
+  level: design
+  affected:
+  - index.html
+  - scripts/release-checks.mjs
+  - scripts/f002-security.mjs
+  - scripts/release-checks.test.mjs
+  - scripts/f002-security.test.mjs
+  - playwright.config.ts
+  status: done
+  approved_by: オーナー指示(2026-10-04、F012全機能実装とCSP worker-src 'self'への意図的変更・security試験更新を明示)
+  completed_at: '2026-10-04T00:00:00+09:00'
+  result: >-
+    CSPの変更をworker-src 'none'→'self'だけに限定し、両静的検査の必須directiveへ
+    'worker-src' ['self']を追加した(blob:・data:・外部origin・*は従来どおり拒否)。
+    F002 security試験へworker-src欠落/'none'/'self' blob:/外部origin/*の拒否caseを追加、
+    release-checks試験のCSP fixtureを更新した。既存Playwright specはserviceWorkers: 'block'
+    で従来経路のまま実行し、service worker受入はtests/e2e/f012-offline.spec.tsだけで行う。
+    セキュリティレビューはFD-F012.md §3(詳細CHG-F012-001.md)。
