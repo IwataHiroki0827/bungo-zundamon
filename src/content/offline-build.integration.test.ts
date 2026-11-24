@@ -32,12 +32,25 @@ export default {
   return root;
 }
 
-// Viteは遅い環境で計測ログ`[PLUGIN_TIMINGS]`をstderrへ出すことがある(CIフレークの原因)。
-// 無害な計測行と空行だけを除外し、実エラー行はそのまま残して検証する。
+// Vite(rolldown)は遅い環境で計測ログ`[PLUGIN_TIMINGS]`をstderrへ出すことがある(CIフレークの原因)。
+// rolldown 1.x以降は見出し行に続けて複数行の本文(最遅callback一覧・説明URL)と色リセットだけの行を出す。
+// 無害な計測行・色コードだけの行・空行を除外し、実エラー行はそのまま残して検証する。
+const ANSI_ESCAPE = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'gu');
+const BENIGN_TIMING_LINES = [
+  /\[PLUGIN_TIMINGS\]/u,
+  /^The slowest callbacks, timed inside each callback\b/u,
+  /^\s+- plugin \S+ \S+ \(\d+%, [\d.]+m?s, \d+ calls?\)$/u,
+  /^Additional callback time came from callbacks under\b/u,
+  /^See https:\/\/rolldown\.rs\/reference\/InputOptions\.checks#\w+ for more details\.$/u,
+] as const;
+
 function filterBenignStderr(stderr: string): string[] {
   return stderr
     .split(/\r?\n/)
-    .filter((line) => line.trim() !== '' && !/\[PLUGIN_TIMINGS\]/.test(line));
+    .filter((line) => {
+      const plain = line.replace(ANSI_ESCAPE, '');
+      return plain.trim() !== '' && !BENIGN_TIMING_LINES.some((pattern) => pattern.test(plain));
+    });
 }
 
 function runOfflineProductionBuild(root: string, outDir: string): void {
